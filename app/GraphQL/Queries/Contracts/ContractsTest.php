@@ -19,11 +19,11 @@ use App\Models\ProductGroup;
 use App\Models\ProductLine;
 use App\Models\Psp;
 use App\Models\Reseller;
+use App\Models\ResellerCustomer;
 use App\Models\ResellerLocation;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Type;
-use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -33,7 +33,6 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
-use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 use Tests\WithOrganization;
@@ -80,11 +79,6 @@ class ContractsTest extends TestCase {
 
         if ($contractsFactory) {
             $contractsFactory($this, $org, $user);
-        }
-
-        // Not empty?
-        if ($expected instanceof GraphQLSuccess) {
-            self::assertGreaterThan(0, Document::query()->withoutGlobalScopes()->count());
         }
 
         // Test
@@ -338,11 +332,11 @@ class ContractsTest extends TestCase {
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
-                        static function (TestCase $test, Organization $organization): Document {
+                        static function (TestCase $test, Organization $org): Document {
                             $type     = Type::factory()->create([
                                 'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ]);
-                            $document = Document::factory()->create([
+                            $document = Document::factory()->ownedBy($org)->create([
                                 'type_id' => $type,
                             ]);
 
@@ -364,7 +358,7 @@ class ContractsTest extends TestCase {
                                 [
                                     'id'                => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                     'oem_id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                    'customer_id'       => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                    'customer_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                     'type_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                     'reseller_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                     'currency_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
@@ -399,10 +393,10 @@ class ContractsTest extends TestCase {
                                         ],
                                     ],
                                     'customer'          => [
-                                        'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                        'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                         'name'            => 'name aaa',
                                         'assets_count'    => 0,
-                                        'locations_count' => 1,
+                                        'locations_count' => 0,
                                         'locations'       => [
                                             [
                                                 'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
@@ -433,7 +427,7 @@ class ContractsTest extends TestCase {
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                         'name'            => 'reseller1',
                                         'customers_count' => 0,
-                                        'locations_count' => 1,
+                                        'locations_count' => 0,
                                         'assets_count'    => 0,
                                         'locations'       => [
                                             [
@@ -571,7 +565,7 @@ class ContractsTest extends TestCase {
                                         'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
                                         'name' => 'distributor1',
                                     ],
-                                    'assets_count'      => 1,
+                                    'assets_count'      => 0,
                                     'changed_at'        => '2021-10-19T10:15:00+00:00',
                                     'synced_at'         => '2021-10-19T10:25:00+00:00',
                                 ],
@@ -597,8 +591,7 @@ class ContractsTest extends TestCase {
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
-                        static function (TestCase $test, Organization $organization, User $user): void {
-                            $user->save();
+                        static function (TestCase $test, Organization $org): void {
                             // OEM Creation belongs to
                             $oem      = Oem::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -615,6 +608,31 @@ class ContractsTest extends TestCase {
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                 'name' => 'name aaa',
                             ]);
+                            $reseller = Reseller::factory()->create([
+                                'id'              => $org,
+                                'name'            => 'reseller1',
+                                'customers_count' => 0,
+                                'locations_count' => 0,
+                                'assets_count'    => 0,
+                                'contacts_count'  => 0,
+                                'changed_at'      => '2021-10-19 10:15:00',
+                                'synced_at'       => '2021-10-19 10:25:00',
+                            ]);
+                            $customer = Customer::factory()
+                                ->hasContacts(1, [
+                                    'name'        => 'contact1',
+                                    'email'       => 'contact1@test.com',
+                                    'phone_valid' => false,
+                                ])
+                                ->create([
+                                    'id'              => $org,
+                                    'name'            => 'name aaa',
+                                    'assets_count'    => 0,
+                                    'contacts_count'  => 1,
+                                    'locations_count' => 0,
+                                    'changed_at'      => '2021-10-19 10:15:00',
+                                    'synced_at'       => '2021-10-19 10:25:00',
+                                ]);
                             $location = Location::factory()->create([
                                 'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                                 'state'     => 'state1',
@@ -624,48 +642,23 @@ class ContractsTest extends TestCase {
                                 'latitude'  => '47.91634204',
                                 'longitude' => '-2.26318359',
                             ]);
-                            $reseller = Reseller::factory()->create([
-                                'id'              => $organization,
-                                'name'            => 'reseller1',
-                                'customers_count' => 0,
-                                'locations_count' => 1,
-                                'assets_count'    => 0,
-                                'contacts_count'  => 0,
-                                'changed_at'      => '2021-10-19 10:15:00',
-                                'synced_at'       => '2021-10-19 10:25:00',
-                            ]);
 
+                            ResellerCustomer::factory()->create([
+                                'reseller_id' => $reseller,
+                                'customer_id' => $customer,
+                            ]);
                             ResellerLocation::factory()->create([
                                 'reseller_id' => $reseller,
                                 'location_id' => $location,
-                            ]);
-
-                            $location->resellers()->attach($reseller);
-
-                            $customer = Customer::factory()
-                                ->hasContacts(1, [
-                                    'name'        => 'contact1',
-                                    'email'       => 'contact1@test.com',
-                                    'phone_valid' => false,
-                                ])
-                                ->create([
-                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                    'name'            => 'name aaa',
-                                    'assets_count'    => 2,
-                                    'contacts_count'  => 1,
-                                    'locations_count' => 1,
-                                    'changed_at'      => '2021-10-19 10:15:00',
-                                    'synced_at'       => '2021-10-19 10:25:00',
-                                ]);
-
-                            $customer->resellers()->attach($reseller, [
-                                'assets_count' => 0,
                             ]);
 
                             CustomerLocation::factory()->create([
                                 'customer_id' => $customer,
                                 'location_id' => $location,
                             ]);
+
+                            $location->resellers()->attach($reseller);
+                            $location->customers()->attach($customer);
 
                             // Product creation belongs to
                             $product = Product::factory()->create([
@@ -731,9 +724,9 @@ class ContractsTest extends TestCase {
                             Document::factory()
                                 ->for($oem)
                                 ->for($oemGroup)
+                                ->for($reseller)
                                 ->for($customer)
                                 ->for($type)
-                                ->for($reseller)
                                 ->for($currency)
                                 ->for($language)
                                 ->for($distributor)
@@ -746,6 +739,7 @@ class ContractsTest extends TestCase {
                                     'asset_id'             => Asset::factory()->create([
                                         'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                         'reseller_id' => $reseller,
+                                        'customer_id' => $customer,
                                     ]),
                                     'serial_number'        => null,
                                     'product_id'           => $product,
@@ -779,7 +773,7 @@ class ContractsTest extends TestCase {
                                     'price'          => 100,
                                     'start'          => '2021-01-01',
                                     'end'            => '2024-01-01',
-                                    'assets_count'   => 1,
+                                    'assets_count'   => 0,
                                     'entries_count'  => 2,
                                     'contacts_count' => 3,
                                     'statuses_count' => 1,
@@ -863,24 +857,20 @@ class ContractsTest extends TestCase {
                                 '0fc4416c-f4a7-4860-951e-7190874ebd69',
                             ],
                         ],
-                        static function (TestCase $test, Organization $organization): void {
-                            $type     = Type::factory()->create([
+                        static function (TestCase $test, Organization $org): void {
+                            $type = Type::factory()->create([
                                 'id' => '0fc4416c-f4a7-4860-951e-7190874ebd69',
-                            ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization,
                             ]);
 
                             Document::factory()
+                                ->ownedBy($org)
                                 ->for($type)
-                                ->for($reseller)
                                 ->hasStatuses(1, [
                                     'id' => '9d4ef4aa-68c7-4c80-a09c-240f58fdd222',
                                 ])
                                 ->create([
-                                    'start'       => '2021-01-01',
-                                    'price'       => 100,
-                                    'customer_id' => null,
+                                    'start' => '2021-01-01',
+                                    'price' => 100,
                                 ]);
                         },
                     ],

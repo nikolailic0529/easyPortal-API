@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Export;
 
 use App\Models\Asset;
 use App\Models\Organization;
-use App\Models\Reseller;
 use App\Models\User;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Closure;
@@ -650,13 +649,8 @@ class ExportControllerTest extends TestCase {
                 ],
                 'without pagination'      => [
                     new Ok(),
-                    static function (self $test, Organization $organization): int {
-                        $reseller = Reseller::factory()->create([
-                            'id' => $organization->getKey(),
-                        ]);
-                        $assets   = Asset::factory()->count(5)->create([
-                            'reseller_id' => $reseller,
-                        ]);
+                    static function (self $test, Organization $org): int {
+                        $assets = Asset::factory()->ownedBy($org)->count(5)->create();
 
                         return count($assets);
                     },
@@ -667,13 +661,8 @@ class ExportControllerTest extends TestCase {
                 ],
                 'with pagination'         => [
                     new Ok(),
-                    static function (self $test, Organization $organization): int {
-                        $reseller = Reseller::factory()->create([
-                            'id' => $organization->getKey(),
-                        ]);
-                        $assets   = Asset::factory()->count(5)->create([
-                            'reseller_id' => $reseller,
-                        ]);
+                    static function (self $test, Organization $org): int {
+                        $assets = Asset::factory()->ownedBy($org)->count(5)->create();
 
                         return count($assets);
                     },
@@ -702,13 +691,8 @@ class ExportControllerTest extends TestCase {
                 ],
                 'with limit'              => [
                     new Ok(),
-                    static function (self $test, Organization $organization): int {
-                        $reseller = Reseller::factory()->create([
-                            'id' => $organization->getKey(),
-                        ]);
-                        Asset::factory()->count(5)->create([
-                            'reseller_id' => $reseller,
-                        ]);
+                    static function (self $test, Organization $org): int {
+                        Asset::factory()->ownedBy($org)->count(5)->create();
 
                         return 2;
                     },
@@ -730,13 +714,8 @@ class ExportControllerTest extends TestCase {
                 ],
                 'with chunked pagination' => [
                     new Ok(),
-                    static function (self $test, Organization $organization): int {
-                        $reseller = Reseller::factory()->create([
-                            'id' => $organization->getKey(),
-                        ]);
-                        $assets   = Asset::factory()->count(5)->create([
-                            'reseller_id' => $reseller,
-                        ]);
+                    static function (self $test, Organization $org): int {
+                        $assets = Asset::factory()->ownedBy($org)->count(5)->create();
 
                         return count($assets);
                     },

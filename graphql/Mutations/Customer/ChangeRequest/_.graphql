@@ -1,6 +1,6 @@
 extend type CustomerMutation {
     changeRequest: CustomerChangeRequestMutation
-    @authOrg
+    @authOrgReseller
     @authMe
     @mutation(
         relation: "changeRequests"

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Mail;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AuthOrgResellerDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
@@ -133,7 +133,7 @@ class CreateTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new AuthOrgDataProvider('customer'),
+            new AuthOrgResellerDataProvider('customer'),
             new OrgUserDataProvider(
                 'customer',
                 [

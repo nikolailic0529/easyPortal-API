@@ -15,6 +15,7 @@ use App\Models\Organization;
 use App\Models\Product;
 use App\Models\QuoteRequest;
 use App\Models\Reseller;
+use App\Models\ResellerCustomer;
 use App\Models\ResellerLocation;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
@@ -62,16 +63,13 @@ class AssetTest extends TestCase {
         Closure $assetsFactory = null,
     ): void {
         // Prepare
-        $org  = $this->setOrganization($orgFactory);
-        $user = $this->setUser($userFactory, $org);
+        $org     = $this->setOrganization($orgFactory);
+        $user    = $this->setUser($userFactory, $org);
+        $assetId = $assetsFactory
+            ? $assetsFactory($this, $org, $user)->getKey()
+            : $this->faker->uuid();
 
         $this->setSettings($settingsFactory);
-
-        $assetId = 'wrong';
-
-        if ($assetsFactory) {
-            $assetId = $assetsFactory($this, $org, $user)->getKey();
-        }
 
         // Test
         $this
@@ -108,6 +106,38 @@ class AssetTest extends TestCase {
                         type {
                             id
                             name
+                        }
+                        reseller_id
+                        reseller {
+                            id
+                            name
+                            customers_count
+                            locations_count
+                            assets_count
+                            locations {
+                                location_id
+                                location {
+                                    id
+                                    state
+                                    postcode
+                                    line_one
+                                    line_two
+                                    latitude
+                                    longitude
+                                }
+                                types {
+                                    id
+                                    name
+                                }
+                            }
+                            contacts_count
+                            contacts {
+                                name
+                                email
+                                phone_valid
+                            }
+                            changed_at
+                            synced_at
                         }
                         customer {
                             id
@@ -358,8 +388,8 @@ class AssetTest extends TestCase {
                     'ok' => [
                         new GraphQLSuccess('asset'),
                         [],
-                        static function (TestCase $test, Organization $organization): Asset {
-                            return Asset::factory()->create();
+                        static function (TestCase $test, Organization $org): Asset {
+                            return Asset::factory()->ownedBy($org)->create();
                         },
                     ],
                 ]),
@@ -381,7 +411,7 @@ class AssetTest extends TestCase {
                             'product_id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                             'location_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
                             'type_id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            'customer_id'         => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                            'customer_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                             'serial_number'       => '#PRODUCT_SERIAL_323',
                             'nickname'            => 'nickname123',
                             'contacts_count'      => 1,
@@ -417,11 +447,13 @@ class AssetTest extends TestCase {
                                 'latitude'  => 47.91634204,
                                 'longitude' => -2.26318359,
                             ],
-                            'customer'            => [
-                                'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                'name'            => 'name aaa',
+                            'reseller_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                            'reseller'            => [
+                                'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'name'            => 'reseller1',
+                                'customers_count' => 0,
+                                'locations_count' => 0,
                                 'assets_count'    => 0,
-                                'locations_count' => 1,
                                 'locations'       => [
                                     [
                                         'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
@@ -437,7 +469,32 @@ class AssetTest extends TestCase {
                                         'types'       => [],
                                     ],
                                 ],
-                                'contacts_count'  => 1,
+                                'contacts_count'  => 0,
+                                'contacts'        => [],
+                                'changed_at'      => '2021-10-19T10:15:00+00:00',
+                                'synced_at'       => '2021-10-19T10:25:00+00:00',
+                            ],
+                            'customer'            => [
+                                'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'name'            => 'name aaa',
+                                'assets_count'    => 0,
+                                'locations_count' => 0,
+                                'locations'       => [
+                                    [
+                                        'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                        'location'    => [
+                                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                            'state'     => 'state1',
+                                            'postcode'  => '19911',
+                                            'line_one'  => 'line_one_data',
+                                            'line_two'  => 'line_two_data',
+                                            'latitude'  => 47.91634204,
+                                            'longitude' => -2.26318359,
+                                        ],
+                                        'types'       => [],
+                                    ],
+                                ],
+                                'contacts_count'  => 0,
                                 'contacts'        => [
                                     [
                                         'name'        => 'contact1',
@@ -467,13 +524,13 @@ class AssetTest extends TestCase {
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                         'name'            => 'reseller1',
                                         'customers_count' => 0,
-                                        'locations_count' => 1,
+                                        'locations_count' => 0,
                                         'assets_count'    => 0,
                                         'locations'       => [
                                             [
-                                                'location_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                                'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                                                 'location'    => [
-                                                    'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                                                     'state'     => 'state1',
                                                     'postcode'  => '19911',
                                                     'line_one'  => 'line_one_data',
@@ -498,7 +555,7 @@ class AssetTest extends TestCase {
                                 [
                                     'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                     'reseller_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                    'customer_id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                    'customer_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                     'document_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                     'start'         => '2021-01-01',
                                     'end'           => '2022-01-01',
@@ -519,10 +576,10 @@ class AssetTest extends TestCase {
                                         'sku'    => 'SKU#123',
                                     ],
                                     'customer'      => [
-                                        'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                        'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                         'name'            => 'name aaa',
                                         'assets_count'    => 0,
-                                        'locations_count' => 1,
+                                        'locations_count' => 0,
                                         'locations'       => [
                                             [
                                                 'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
@@ -538,7 +595,7 @@ class AssetTest extends TestCase {
                                                 'types'       => [],
                                             ],
                                         ],
-                                        'contacts_count'  => 1,
+                                        'contacts_count'  => 0,
                                         'contacts'        => [
                                             [
                                                 'name'        => 'contact1',
@@ -553,13 +610,13 @@ class AssetTest extends TestCase {
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                         'name'            => 'reseller1',
                                         'customers_count' => 0,
-                                        'locations_count' => 1,
+                                        'locations_count' => 0,
                                         'assets_count'    => 0,
                                         'locations'       => [
                                             [
-                                                'location_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                                'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                                                 'location'    => [
-                                                    'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                                                     'state'     => 'state1',
                                                     'postcode'  => '19911',
                                                     'line_one'  => 'line_one_data',
@@ -623,13 +680,13 @@ class AssetTest extends TestCase {
                                     'key'  => 'key',
                                     'name' => 'oem1',
                                 ],
-                                'customer_id'     => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                'customer_id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                 'customer_custom' => null,
                                 'customer'        => [
-                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                    'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                     'name'            => 'name aaa',
                                     'assets_count'    => 0,
-                                    'locations_count' => 1,
+                                    'locations_count' => 0,
                                     'locations'       => [
                                         [
                                             'location_id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
@@ -645,7 +702,7 @@ class AssetTest extends TestCase {
                                             'types'       => [],
                                         ],
                                     ],
-                                    'contacts_count'  => 1,
+                                    'contacts_count'  => 0,
                                     'contacts'        => [
                                         [
                                             'name'        => 'contact1',
@@ -692,7 +749,7 @@ class AssetTest extends TestCase {
                                 'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
                             ],
                         ],
-                        static function (TestCase $test, Organization $organization, User $user): Asset {
+                        static function (TestCase $test, Organization $org, User $user): Asset {
                             // OEM Creation belongs to
                             $oem = Oem::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -714,6 +771,29 @@ class AssetTest extends TestCase {
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                 'name' => 'name aaa',
                             ]);
+                            $reseller = Reseller::factory()->create([
+                                'id'              => $org,
+                                'name'            => 'reseller1',
+                                'customers_count' => 0,
+                                'locations_count' => 0,
+                                'assets_count'    => 0,
+                                'contacts_count'  => 0,
+                                'changed_at'      => '2021-10-19 10:15:00',
+                                'synced_at'       => '2021-10-19 10:25:00',
+                            ]);
+                            $customer = Customer::factory()
+                                ->hasContacts(1, [
+                                    'name'        => 'contact1',
+                                    'email'       => 'contact1@test.com',
+                                    'phone_valid' => false,
+                                ])
+                                ->create([
+                                    'id'             => $org,
+                                    'name'           => 'name aaa',
+                                    'contacts_count' => 0,
+                                    'changed_at'     => '2021-10-19 10:15:00',
+                                    'synced_at'      => '2021-10-19 10:25:00',
+                                ]);
                             $location = Location::factory()->create([
                                 'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                                 'state'     => 'state1',
@@ -723,38 +803,16 @@ class AssetTest extends TestCase {
                                 'latitude'  => '47.91634204',
                                 'longitude' => '-2.26318359',
                             ]);
-                            $reseller = Reseller::factory()->create([
-                                'id'              => $organization,
-                                'name'            => 'reseller1',
-                                'customers_count' => 0,
-                                'locations_count' => 1,
-                                'assets_count'    => 0,
-                                'contacts_count'  => 0,
-                                'changed_at'      => '2021-10-19 10:15:00',
-                                'synced_at'       => '2021-10-19 10:25:00',
+
+                            ResellerCustomer::factory()->create([
+                                'reseller_id' => $reseller,
+                                'customer_id' => $customer,
                             ]);
 
-                            $location->resellers()->attach($reseller);
-
-                            $customer = Customer::factory()
-                                ->hasContacts(1, [
-                                    'name'        => 'contact1',
-                                    'email'       => 'contact1@test.com',
-                                    'phone_valid' => false,
-                                ])
-                                ->create([
-                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                    'name'            => 'name aaa',
-                                    'contacts_count'  => 1,
-                                    'locations_count' => 1,
-                                    'changed_at'      => '2021-10-19 10:15:00',
-                                    'synced_at'       => '2021-10-19 10:25:00',
-                                ]);
-
-                            $customer->resellers()->attach($reseller, [
-                                'assets_count'    => 0,
+                            ResellerLocation::factory()->create([
+                                'reseller_id' => $reseller,
+                                'location_id' => $location,
                             ]);
-
                             CustomerLocation::factory()->create([
                                 'customer_id' => $customer,
                                 'location_id' => $location,
@@ -771,12 +829,8 @@ class AssetTest extends TestCase {
                                 'longitude' => '-2.26318359',
                             ]);
 
-                            ResellerLocation::factory()->create([
-                                'reseller_id' => $reseller,
-                                'location_id' => $assetLocation,
-                            ]);
-
                             $assetLocation->resellers()->attach($reseller);
+                            $assetLocation->customers()->attach($customer);
 
                             // Service
                             $serviceGroup = ServiceGroup::factory()->create([
@@ -798,7 +852,7 @@ class AssetTest extends TestCase {
                             $documentType = Type::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
                             ]);
-                            $document     = Document::factory()->create([
+                            $document     = Document::factory()->ownedBy($org)->create([
                                 'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                 'type_id'     => $documentType,
                                 'reseller_id' => $reseller,
@@ -909,15 +963,16 @@ class AssetTest extends TestCase {
                                 ]);
                             // Quote Requests
                             QuoteRequest::factory()
+                                ->ownedBy($org)
                                 ->hasAssets(1, [
                                     'asset_id' => $asset->getKey(),
                                 ])
                                 ->create([
-                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20951',
-                                    'organization_id' => $organization->getKey(),
-                                    'created_at'      => Date::now()->subHour(),
+                                    'id'         => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20951',
+                                    'created_at' => Date::now()->subHour(),
                                 ]);
                             QuoteRequest::factory()
+                                ->ownedBy($org)
                                 ->for($oem)
                                 ->for(Type::factory()->create([
                                     'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20953',
@@ -932,38 +987,37 @@ class AssetTest extends TestCase {
                                     'phone_valid' => false,
                                 ])
                                 ->create([
-                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20952',
-                                    'message'         => null,
-                                    'organization_id' => $organization->getKey(),
-                                    'created_at'      => Date::now(),
+                                    'id'         => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20952',
+                                    'message'    => null,
+                                    'created_at' => Date::now(),
                                 ]);
                             // Change Requests
                             ChangeRequest::factory()
+                                ->ownedBy($org)
                                 ->for($user)
                                 ->create([
-                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20973',
-                                    'organization_id' => $organization->getKey(),
-                                    'object_id'       => $asset->getKey(),
-                                    'object_type'     => $asset->getMorphClass(),
-                                    'created_at'      => Date::now()->subHour(),
+                                    'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20973',
+                                    'object_id'   => $asset->getKey(),
+                                    'object_type' => $asset->getMorphClass(),
+                                    'created_at'  => Date::now()->subHour(),
                                 ]);
                             ChangeRequest::factory()
+                                ->ownedBy($org)
                                 ->hasFiles(1, [
                                     'name' => 'documents.csv',
                                 ])
                                 ->for($user)
                                 ->create([
-                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20963',
-                                    'organization_id' => $organization->getKey(),
-                                    'object_id'       => $asset->getKey(),
-                                    'object_type'     => $asset->getMorphClass(),
-                                    'message'         => 'change request',
-                                    'subject'         => 'subject',
-                                    'from'            => 'user@example.com',
-                                    'to'              => ['test@example.com'],
-                                    'cc'              => ['cc@example.com'],
-                                    'bcc'             => ['bcc@example.com'],
-                                    'created_at'      => Date::now(),
+                                    'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20963',
+                                    'object_id'   => $asset->getKey(),
+                                    'object_type' => $asset->getMorphClass(),
+                                    'message'     => 'change request',
+                                    'subject'     => 'subject',
+                                    'from'        => 'user@example.com',
+                                    'to'          => ['test@example.com'],
+                                    'cc'          => ['cc@example.com'],
+                                    'bcc'         => ['bcc@example.com'],
+                                    'created_at'  => Date::now(),
                                 ]);
 
                             return $asset;

@@ -4,7 +4,6 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\Document;
 use App\Models\Organization;
-use App\Models\Reseller;
 use App\Models\Type;
 use App\Models\User;
 use Closure;
@@ -77,16 +76,12 @@ class CreateQuoteNoteTest extends TestCase {
                 ]);
             }
 
-            $type     = Type::factory()->create([
+            $type = Type::factory()->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
             ]);
-            $reseller = Reseller::factory()->create([
-                'id' => $org ? $org->getKey() : $this->faker->uuid(),
-            ]);
-            Document::factory()->create([
-                'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                'type_id'     => $type->getKey(),
-                'reseller_id' => $reseller->getKey(),
+            Document::factory()->ownedBy($org)->create([
+                'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                'type_id' => $type->getKey(),
             ]);
         }
 
@@ -125,11 +120,12 @@ class CreateQuoteNoteTest extends TestCase {
                     }
                 }
             }';
-        $input      = $input ?: [
-            'quote_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-            'note'     => 'note',
-            'files'    => null,
-        ];
+        $input      = $input
+            ?: [
+                'quote_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                'note'     => 'note',
+                'files'    => null,
+            ];
         $operations = [
             'operationName' => 'createQuoteNote',
             'query'         => $query,
@@ -159,20 +155,16 @@ class CreateQuoteNoteTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $prepare  = static function (TestCase $test, ?Organization $organization, User $user): void {
+        $prepare  = static function (TestCase $test, ?Organization $org, ?User $user): void {
             if ($user) {
                 $user->save();
             }
-            $type     = Type::factory()->create([
+            $type = Type::factory()->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
             ]);
-            $reseller = Reseller::factory()->create([
-                'id' => $organization->getKey(),
-            ]);
-            Document::factory()->create([
-                'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                'type_id'     => $type->getKey(),
-                'reseller_id' => $reseller->getKey(),
+            Document::factory()->ownedBy($org)->create([
+                'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                'type_id' => $type->getKey(),
             ]);
         };
         $input    = [

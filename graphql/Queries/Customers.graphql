@@ -10,7 +10,7 @@ extend type Query {
 
     "List of all possible customer location types."
     customerLocationTypes(where: CustomerLocationTypesQuery @searchBy): [Type!]!
-    @authOrg
+    @authOrgReseller
     @authMe(permissions: ["customers-view"])
     @all(
         builder: "App\\GraphQL\\Queries\\Customers\\CustomerLocationTypes"

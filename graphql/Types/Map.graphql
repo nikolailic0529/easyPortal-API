@@ -1,6 +1,6 @@
 type Map {
     customers: [MapPoint!]!
-    @authOrg
+    @authOrgReseller
     @authMe(permissions: ["customers-view"])
     @field(resolver: "App\\GraphQL\\Queries\\Map\\Customers")
     @cached(mode: Threshold)

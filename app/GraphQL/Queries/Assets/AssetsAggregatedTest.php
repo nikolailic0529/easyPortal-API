@@ -4,7 +4,6 @@ namespace App\GraphQL\Queries\Assets;
 
 use App\Models\Asset;
 use App\Models\Organization;
-use App\Models\Reseller;
 use App\Models\Type;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -36,7 +35,7 @@ class AssetsAggregatedTest extends TestCase {
      * @covers ::types
      *
      * @dataProvider dataProviderQuery
-
+     *
      * @param OrganizationFactory $orgFactory
      * @param UserFactory         $userFactory
      * @param array<mixed>        $params
@@ -115,12 +114,8 @@ class AssetsAggregatedTest extends TestCase {
                 ],
             ],
         ];
-        $factory = static function (TestCase $test, Organization $organization): void {
-            // Reseller
-            $reseller = Reseller::factory()->create([
-                'id' => $organization->getKey(),
-            ]);
-            // Type
+        $factory = static function (TestCase $test, ?Organization $org): void {
+            // Types
             $type  = Type::factory()->create([
                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                 'name' => 'name1',
@@ -129,28 +124,26 @@ class AssetsAggregatedTest extends TestCase {
             $type2 = Type::factory()->create([
                 'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
             ]);
+
             // Assets
             Asset::factory()
+                ->ownedBy($org)
                 ->hasCoverages(1, [
                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                     'name' => 'name2',
                     'key'  => 'key2',
                 ])
                 ->create([
-                    'type_id'     => $type,
-                    'reseller_id' => $reseller,
+                    'type_id' => $type,
                 ]);
-            Asset::factory()->create([
-                'type_id'     => $type,
-                'reseller_id' => $reseller,
+            Asset::factory()->ownedBy($org)->create([
+                'type_id' => $type,
             ]);
-            Asset::factory()->create([
-                'type_id'     => $type2,
-                'reseller_id' => $reseller,
+            Asset::factory()->ownedBy($org)->create([
+                'type_id' => $type2,
             ]);
-            Asset::factory()->create([
-                'type_id'     => null,
-                'reseller_id' => $reseller,
+            Asset::factory()->ownedBy($org)->create([
+                'type_id' => null,
             ]);
         };
 

@@ -6,7 +6,6 @@ use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Asset;
 use App\Models\Document;
 use App\Models\Organization;
-use App\Models\Reseller;
 use App\Models\Type;
 use App\Models\User;
 use App\Services\DataLoader\Jobs\DocumentSync;
@@ -59,19 +58,16 @@ class SyncTest extends TestCase {
         mixed $settingsFactory = null,
         Closure $prepare = null,
     ): void {
-        $organization = $this->setOrganization($orgFactory);
-        $user         = $this->setUser($userFactory, $organization);
-        $id           = $this->faker->uuid();
+        $org  = $this->setOrganization($orgFactory);
+        $user = $this->setUser($userFactory, $org);
+        $id   = $this->faker->uuid();
 
         $this->setSettings($settingsFactory);
 
         if ($prepare) {
-            $id = $prepare($this, $organization, $user);
-        } elseif ($organization) {
-            $type     = Type::factory()->create();
-            $reseller = Reseller::factory()->create([
-                'id' => $organization->getKey(),
-            ]);
+            $id = $prepare($this, $org, $user);
+        } elseif ($org) {
+            $type = Type::factory()->create();
 
             if (!$settingsFactory) {
                 $this->setSettings([
@@ -79,10 +75,9 @@ class SyncTest extends TestCase {
                 ]);
             }
 
-            Document::factory()->create([
-                'id'          => $id,
-                'type_id'     => $type,
-                'reseller_id' => $reseller,
+            Document::factory()->ownedBy($org)->create([
+                'id'      => $id,
+                'type_id' => $type,
             ]);
         } else {
             // empty
@@ -116,19 +111,16 @@ class SyncTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         $type    = '9ddfa0cb-307a-476b-b859-32ab4e0ad5b5';
-        $factory = static function (TestCase $test, Organization $organization) use ($type): string {
+        $factory = static function (TestCase $test, ?Organization $org) use ($type): string {
             $type     = Type::factory()->create(['id' => $type]);
-            $asset    = Asset::factory()->create();
-            $reseller = Reseller::factory()->create([
-                'id' => $organization->getKey(),
-            ]);
+            $asset    = Asset::factory()->ownedBy($org)->create();
             $document = Document::factory()
+                ->ownedBy($org)
                 ->hasEntries(1, [
                     'asset_id' => $asset,
                 ])
                 ->create([
-                    'type_id'     => $type,
-                    'reseller_id' => $reseller,
+                    'type_id' => $type,
                 ]);
 
             $test->override(
@@ -191,15 +183,8 @@ class SyncTest extends TestCase {
                             'ep.document_statuses_hidden' => [],
                             'ep.contract_types'           => ['90398f16-036f-4e6b-af90-06e19614c57c'],
                         ],
-                        static function (self $test, Organization $organization): string {
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization->getKey(),
-                            ]);
-                            $document = Document::factory()->create([
-                                'reseller_id' => $reseller,
-                            ]);
-
-                            return $document->getKey();
+                        static function (self $test, Organization $org): string {
+                            return Document::factory()->ownedBy($org)->create()->getKey();
                         },
                     ],
                     'not found'    => [
@@ -251,15 +236,8 @@ class SyncTest extends TestCase {
                             'ep.document_statuses_hidden' => [],
                             'ep.quote_types'              => ['0a0354b5-16e8-4173-acb3-69ef10304681'],
                         ],
-                        static function (self $test, Organization $organization): string {
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization->getKey(),
-                            ]);
-                            $document = Document::factory()->create([
-                                'reseller_id' => $reseller,
-                            ]);
-
-                            return $document->getKey();
+                        static function (self $test, Organization $org): string {
+                            return Document::factory()->ownedBy($org)->create()->getKey();
                         },
                     ],
                     'not found'    => [

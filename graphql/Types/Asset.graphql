@@ -17,6 +17,7 @@ type Asset {
     type: Type @relation
     warranties: [AssetWarranty!]! @relation(relation: "contractWarranties")
     reseller: Reseller @relation
+    status_id: ID
     status: Status @relation
     contacts(
         where: ContactsQuery @searchBy

@@ -5,7 +5,6 @@ namespace App\GraphQL\Mutations\Asset;
 use App\GraphQL\Directives\Directives\Mutation\Exceptions\ObjectNotFound;
 use App\Models\Asset;
 use App\Models\Organization;
-use App\Models\Reseller;
 use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -59,11 +58,8 @@ class SetNicknameTest extends TestCase {
         if ($prepare) {
             $assetId = $prepare($this, $org, $user)->getKey();
         } elseif ($org) {
-            Asset::factory()->create([
-                'id'          => $assetId,
-                'reseller_id' => Reseller::factory()->create([
-                    'id' => $org->getKey(),
-                ]),
+            Asset::factory()->ownedBy($org)->create([
+                'id' => $assetId,
             ]);
         } else {
             // empty
@@ -116,15 +112,8 @@ class SetNicknameTest extends TestCase {
                             ],
                         ]),
                     ),
-                    static function (self $test, Organization $organization): Asset {
-                        $reseller = Reseller::factory()->create([
-                            'id' => $organization->getKey(),
-                        ]);
-                        $asset    = Asset::factory()->create([
-                            'reseller_id' => $reseller,
-                        ]);
-
-                        return $asset;
+                    static function (self $test, Organization $org): Asset {
+                        return Asset::factory()->ownedBy($org)->create();
                     },
                     [
                         'nickname' => 'new nickname',
@@ -140,15 +129,8 @@ class SetNicknameTest extends TestCase {
                             ],
                         ]),
                     ),
-                    static function (self $test, Organization $organization): Asset {
-                        $reseller = Reseller::factory()->create([
-                            'id' => $organization->getKey(),
-                        ]);
-                        $asset    = Asset::factory()->create([
-                            'reseller_id' => $reseller,
-                        ]);
-
-                        return $asset;
+                    static function (self $test, Organization $org): Asset {
+                        return Asset::factory()->ownedBy($org)->create();
                     },
                     [
                         'nickname' => null,
@@ -156,15 +138,8 @@ class SetNicknameTest extends TestCase {
                 ],
                 'empty nickname'           => [
                     new GraphQLValidationError('asset'),
-                    static function (self $test, Organization $organization): Asset {
-                        $reseller = Reseller::factory()->create([
-                            'id' => $organization->getKey(),
-                        ]);
-                        $asset    = Asset::factory()->create([
-                            'reseller_id' => $reseller,
-                        ]);
-
-                        return $asset;
+                    static function (self $test, Organization $org): Asset {
+                        return Asset::factory()->ownedBy($org)->create();
                     },
                     [
                         'nickname' => '',
@@ -172,15 +147,8 @@ class SetNicknameTest extends TestCase {
                 ],
                 'whitespace only nickname' => [
                     new GraphQLValidationError('asset'),
-                    static function (self $test, Organization $organization): Asset {
-                        $reseller = Reseller::factory()->create([
-                            'id' => $organization->getKey(),
-                        ]);
-                        $asset    = Asset::factory()->create([
-                            'reseller_id' => $reseller,
-                        ]);
-
-                        return $asset;
+                    static function (self $test, Organization $org): Asset {
+                        return Asset::factory()->ownedBy($org)->create();
                     },
                     [
                         'nickname' => '    ',

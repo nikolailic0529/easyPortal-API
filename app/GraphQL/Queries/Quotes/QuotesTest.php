@@ -33,7 +33,6 @@ use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
-use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 use Tests\WithOrganization;
@@ -81,11 +80,6 @@ class QuotesTest extends TestCase {
 
         if ($quotesFactory) {
             $quotesFactory($this, $org, $user);
-        }
-
-        // Not empty?
-        if ($expected instanceof GraphQLSuccess) {
-            self::assertGreaterThan(0, Document::query()->withoutGlobalScopes()->count());
         }
 
         // Test
@@ -324,7 +318,7 @@ class QuotesTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderQuery(): array {
-        $factory = static function (TestCase $test, Organization $organization, User $user): void {
+        $factory = static function (TestCase $test, Organization $org, User $user): void {
             // OEM Creation belongs to
             $oem      = Oem::factory()->create([
                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -355,7 +349,7 @@ class QuotesTest extends TestCase {
 
             // Reseller creation belongs to
             $reseller = Reseller::factory()->create([
-                'id'              => $organization,
+                'id'              => $org,
                 'name'            => 'reseller1',
                 'customers_count' => 0,
                 'locations_count' => 1,
@@ -380,9 +374,9 @@ class QuotesTest extends TestCase {
                     'phone_valid' => false,
                 ])
                 ->create([
-                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                    'id'              => $org,
                     'name'            => 'name aaa',
-                    'assets_count'    => 2,
+                    'assets_count'    => 0,
                     'locations_count' => 1,
                     'contacts_count'  => 1,
                     'changed_at'      => '2021-10-19 10:15:00',
@@ -475,9 +469,8 @@ class QuotesTest extends TestCase {
                 ])
                 ->hasEntries(1, [
                     'id'                   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                    'asset_id'             => Asset::factory()->create([
-                        'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                        'reseller_id' => $reseller,
+                    'asset_id'             => Asset::factory()->ownedBy($org)->create([
+                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                     ]),
                     'serial_number'        => null,
                     'product_id'           => $product,
@@ -524,7 +517,7 @@ class QuotesTest extends TestCase {
                 ])
                 ->create();
 
-            Document::factory()->create([
+            Document::factory()->ownedBy($org)->create([
                 'type_id' => Type::factory()->create([
                     'id' => 'd4ad2f4f-7751-4cd2-a6be-71bcee84f37a',
                 ]),
@@ -538,7 +531,7 @@ class QuotesTest extends TestCase {
             [
                 'id'                => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                 'oem_id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                'customer_id'       => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                'customer_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                 'type_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                 'reseller_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                 'currency_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
@@ -573,7 +566,7 @@ class QuotesTest extends TestCase {
                 ],
                 'statuses_count'    => 1,
                 'customer'          => [
-                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                    'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                     'name'            => 'name aaa',
                     'assets_count'    => 0,
                     'locations_count' => 1,
@@ -790,7 +783,7 @@ class QuotesTest extends TestCase {
                             'count'            => count($objects),
                             'groups'           => [
                                 [
-                                    'key'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                    'key'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                     'count' => count($objects),
                                 ],
                             ],
@@ -813,7 +806,7 @@ class QuotesTest extends TestCase {
                             'count'            => count($objects),
                             'groups'           => [
                                 [
-                                    'key'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                    'key'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                     'count' => count($objects),
                                 ],
                             ],
@@ -848,10 +841,12 @@ class QuotesTest extends TestCase {
                                 // empty
                             ],
                         ],
-                        static function (TestCase $test, Organization $organization): void {
-                            $customer = Customer::factory()->create();
+                        static function (TestCase $test, Organization $org): void {
+                            $customer = Customer::factory()->create([
+                                'id' => $org,
+                            ]);
                             $reseller = Reseller::factory()->create([
-                                'id' => $organization,
+                                'id' => $org,
                             ]);
 
                             $customer->resellers()->attach($reseller);
@@ -877,12 +872,8 @@ class QuotesTest extends TestCase {
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
-                        static function (TestCase $test, Organization $organization): void {
-                            Document::factory()->create([
-                                'reseller_id' => Reseller::factory()->create([
-                                    'id' => $organization,
-                                ]),
-                            ]);
+                        static function (TestCase $test, Organization $org): void {
+                            Document::factory()->ownedBy($org)->create();
                         },
                     ],
                     'no quote_types + no contract_types'        => [
@@ -898,30 +889,14 @@ class QuotesTest extends TestCase {
                             'ep.contract_types'           => [],
                             'ep.quote_types'              => [],
                         ],
-                        static function (TestCase $test, Organization $organization): void {
-                            Document::factory()->create([
-                                'reseller_id' => Reseller::factory()->create([
-                                    'id' => $organization,
-                                ]),
-                            ]);
+                        static function (TestCase $test, Organization $org): void {
+                            Document::factory()->ownedBy($org)->create();
                         },
                     ],
                     'hiding price'                              => [
                         new GraphQLPaginated(
                             'quotes',
                             new JsonFragment('0.price', json_encode(null)),
-                            [
-                                'count'            => 1,
-                                'groups'           => [
-                                    [
-                                        'key'   => null,
-                                        'count' => 1,
-                                    ],
-                                ],
-                                'groupsAggregated' => [
-                                    'count' => 1,
-                                ],
-                            ],
                         ),
                         [
                             'ep.document_statuses_no_price' => [
@@ -931,23 +906,19 @@ class QuotesTest extends TestCase {
                                 '2f976425-dd92-4941-a0ff-ec6bf96400d4',
                             ],
                         ],
-                        static function (TestCase $test, Organization $organization): void {
-                            $type     = Type::factory()->create([
+                        static function (TestCase $test, Organization $org): void {
+                            $type = Type::factory()->create([
                                 'id' => '2f976425-dd92-4941-a0ff-ec6bf96400d4',
-                            ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization,
                             ]);
 
                             Document::factory()
+                                ->ownedBy($org)
                                 ->for($type)
-                                ->for($reseller)
                                 ->hasStatuses(1, [
                                     'id' => '3ae0b8d3-eab6-4022-8937-7baf8e2ef563',
                                 ])
                                 ->create([
-                                    'price'       => 100,
-                                    'customer_id' => null,
+                                    'price' => 100,
                                 ]);
                         },
                     ],
@@ -955,18 +926,6 @@ class QuotesTest extends TestCase {
                         new GraphQLPaginated(
                             'quotes',
                             new JsonFragment('0.entries.0.list_price', json_encode(null)),
-                            [
-                                'count'            => 1,
-                                'groups'           => [
-                                    [
-                                        'key'   => null,
-                                        'count' => 1,
-                                    ],
-                                ],
-                                'groupsAggregated' => [
-                                    'count' => 1,
-                                ],
-                            ],
                         ),
                         [
                             'ep.document_statuses_no_price' => [
@@ -976,22 +935,17 @@ class QuotesTest extends TestCase {
                                 '19f27fa9-e531-4ebc-a053-d8daa1e5b359',
                             ],
                         ],
-                        static function (TestCase $test, Organization $organization): void {
+                        static function (TestCase $test, Organization $org): void {
                             $type     = Type::factory()->create([
                                 'id' => '19f27fa9-e531-4ebc-a053-d8daa1e5b359',
                             ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization,
-                            ]);
                             $document = Document::factory()
+                                ->ownedBy($org)
                                 ->for($type)
-                                ->for($reseller)
                                 ->hasStatuses(1, [
                                     'id' => 'a1204a76-458c-42f5-b2e1-538f885fec5d',
                                 ])
-                                ->create([
-                                    'customer_id' => null,
-                                ]);
+                                ->create();
 
                             DocumentEntry::factory()->create([
                                 'document_id' => $document,

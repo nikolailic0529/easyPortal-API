@@ -9,7 +9,6 @@ use App\Models\Document;
 use App\Models\Oem;
 use App\Models\Organization;
 use App\Models\QuoteRequestDuration;
-use App\Models\Reseller;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Type;
@@ -71,7 +70,7 @@ class CreateTest extends TestCase {
         } elseif ($org) {
             $input ??= [
                 'oem_id'        => Oem::factory()->create()->getKey(),
-                'customer_id'   => Customer::factory()->create()->getKey(),
+                'customer_id'   => Customer::factory()->ownedBy($org)->create()->getKey(),
                 'type_id'       => Type::factory()->create()->getKey(),
                 'contact_name'  => $this->faker->name(),
                 'contact_email' => $this->faker->email(),
@@ -205,21 +204,20 @@ class CreateTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         $type     = 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad';
-        $prepare  = static function (TestCase $test, ?Organization $organization, ?User $user) use ($type): void {
-            if ($user) {
-                $user->save();
-            }
-
-            $reseller = Reseller::factory()->create([
-                'id' => $organization->getKey(),
-            ]);
-            $oem      = Oem::factory()->create([
+        $prepare  = static function (TestCase $test, ?Organization $org, ?User $user) use ($type): void {
+            $oem  = Oem::factory()->create([
                 'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                 'key'  => 'key1',
                 'name' => 'oem1',
             ]);
-            $customer = Customer::factory()->create([
-                'id'              => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+            $type = Type::factory()->create([
+                'id'          => $type,
+                'name'        => 'new',
+                'object_type' => (new Document())->getMorphClass(),
+            ]);
+
+            Customer::factory()->ownedBy($org)->create([
+                'id'              => $org,
                 'name'            => 'customer1',
                 'assets_count'    => 0,
                 'contacts_count'  => 0,
@@ -227,20 +225,12 @@ class CreateTest extends TestCase {
                 'changed_at'      => '2021-10-19 10:15:00',
                 'synced_at'       => '2021-10-19 10:25:00',
             ]);
-            $customer->resellers()->attach($reseller);
-            $type = Type::factory()->create([
-                'id'          => $type,
-                'name'        => 'new',
-                'object_type' => (new Document())->getMorphClass(),
+            Document::factory()->ownedBy($org)->create([
+                'id'      => '047f06f5-e62f-464a-8df8-bd9834e21915',
+                'type_id' => $type,
             ]);
-            Document::factory()->create([
-                'id'          => '047f06f5-e62f-464a-8df8-bd9834e21915',
-                'type_id'     => $type,
-                'reseller_id' => $reseller,
-            ]);
-            Asset::factory()->create([
-                'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                'reseller_id' => $reseller,
+            Asset::factory()->ownedBy($org)->create([
+                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
             ]);
             QuoteRequestDuration::factory()->create([
                 'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
@@ -267,7 +257,7 @@ class CreateTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new AuthOrgDataProvider('quoteRequest'),
+            new AuthOrgDataProvider('quoteRequest', 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab'),
             new OrgUserDataProvider('quoteRequest', [
                 'requests-quote-add',
             ]),

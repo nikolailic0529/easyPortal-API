@@ -6,7 +6,6 @@ use App\Models\Document;
 use App\Models\File;
 use App\Models\Note;
 use App\Models\Organization;
-use App\Models\Reseller;
 use App\Models\Type;
 use App\Models\User;
 use Closure;
@@ -81,22 +80,20 @@ class UpdateQuoteNoteTest extends TestCase {
                 ]);
             }
 
-            $type     = Type::factory()->create([
+            $type = Type::factory()->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
             ]);
-            $reseller = Reseller::factory()->create([
-                'id' => $org ? $org->getKey() : $this->faker->uuid(),
-            ]);
-            $data     = ['id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa'];
-            if ($org) {
-                $data['organization_id'] = $org->getKey();
-            }
+            $data = [
+                'id'              => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                'organization_id' => $org->getKey(),
+            ];
+
             Document::factory()
+                ->ownedBy($org)
                 ->hasNotes(1, $data)
                 ->create([
-                    'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                    'type_id'     => $type->getKey(),
-                    'reseller_id' => $reseller->getKey(),
+                    'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                    'type_id' => $type->getKey(),
                 ]);
         }
 
@@ -182,20 +179,17 @@ class UpdateQuoteNoteTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $prepare  = static function (TestCase $test, ?Organization $organization, User $user): void {
+        $prepare  = static function (TestCase $test, ?Organization $org, User $user): void {
             if ($user) {
                 $user->save();
             }
             $type     = Type::factory()->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
             ]);
-            $reseller = Reseller::factory()->create([
-                'id' => $organization->getKey(),
-            ]);
             $document = Document::factory()
+                ->ownedBy($org)
                 ->create([
-                    'type_id'     => $type->getKey(),
-                    'reseller_id' => $reseller->getKey(),
+                    'type_id' => $type->getKey(),
                 ]);
             Note::factory()
                 ->hasFiles(1, [
@@ -239,20 +233,17 @@ class UpdateQuoteNoteTest extends TestCase {
                     'ok-Ids'              => [
                         new GraphQLSuccess('updateQuoteNote'),
                         $settings,
-                        static function (TestCase $test, ?Organization $organization, User $user): void {
+                        static function (TestCase $test, ?Organization $org, User $user): void {
                             if ($user) {
                                 $user->save();
                             }
                             $type     = Type::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                             ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization->getKey(),
-                            ]);
                             $document = Document::factory()
+                                ->ownedBy($org)
                                 ->create([
-                                    'type_id'     => $type->getKey(),
-                                    'reseller_id' => $reseller->getKey(),
+                                    'type_id' => $type->getKey(),
                                 ]);
                             $note     = Note::factory()
                                 ->hasFiles(1, [
@@ -313,19 +304,15 @@ class UpdateQuoteNoteTest extends TestCase {
                     'optional files'      => [
                         new GraphQLSuccess('updateQuoteNote'),
                         $settings,
-                        static function (TestCase $test, ?Organization $organization, User $user): void {
+                        static function (TestCase $test, ?Organization $org, User $user): void {
                             if ($user) {
                                 $user->save();
                             }
                             $type     = Type::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                             ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization->getKey(),
-                            ]);
-                            $document = Document::factory()->create([
-                                'type_id'     => $type->getKey(),
-                                'reseller_id' => $reseller->getKey(),
+                            $document = Document::factory()->ownedBy($org)->create([
+                                'type_id' => $type->getKey(),
                             ]);
                             // File should not be deleted if files is not updated
                             Note::factory()
@@ -443,17 +430,14 @@ class UpdateQuoteNoteTest extends TestCase {
                     'unauthorized'        => [
                         new GraphQLUnauthorized('updateQuoteNote'),
                         $settings,
-                        static function (TestCase $test, ?Organization $organization, User $user): void {
+                        static function (TestCase $test, ?Organization $org, User $user): void {
                             $type     = Type::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                             ]);
-                            $reseller = Reseller::factory()->create([
-                                'id' => $organization->getKey(),
-                            ]);
                             $document = Document::factory()
+                                ->ownedBy($org)
                                 ->create([
-                                    'type_id'     => $type->getKey(),
-                                    'reseller_id' => $reseller->getKey(),
+                                    'type_id' => $type->getKey(),
                                 ]);
                             $user2    = User::factory()->create();
                             $note     = Note::factory()

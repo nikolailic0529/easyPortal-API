@@ -871,17 +871,7 @@ parameters:
 			path: app/GraphQL/Mutations/CreateContractNote.php
 
 		-
-			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/CreateContractNoteTest.php
-
-		-
 			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\User\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/CreateContractNoteTest.php
-
-		-
-			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/CreateContractNoteTest.php
 
@@ -936,17 +926,7 @@ parameters:
 			path: app/GraphQL/Mutations/CreateQuoteNote.php
 
 		-
-			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/CreateQuoteNoteTest.php
-
-		-
 			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\User\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/CreateQuoteNoteTest.php
-
-		-
-			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/CreateQuoteNoteTest.php
 
@@ -1416,11 +1396,6 @@ parameters:
 			path: app/GraphQL/Mutations/QuoteRequest/Create.php
 
 		-
-			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 1
-			path: app/GraphQL/Mutations/QuoteRequest/CreateTest.php
-
-		-
 			message: "#^Method App\\\\GraphQL\\\\Mutations\\\\QuoteRequest\\\\CreateTest\\:\\:testInvoke\\(\\) has parameter \\$prepare with no signature specified for Closure\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/QuoteRequest/CreateTest.php
@@ -1536,11 +1511,6 @@ parameters:
 			path: app/GraphQL/Mutations/UpdateContractNoteTest.php
 
 		-
-			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 5
-			path: app/GraphQL/Mutations/UpdateContractNoteTest.php
-
-		-
 			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\User\\|null\\.$#"
 			count: 1
 			path: app/GraphQL/Mutations/UpdateContractNoteTest.php
@@ -1612,7 +1582,7 @@ parameters:
 
 		-
 			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 4
+			count: 1
 			path: app/GraphQL/Mutations/UpdateQuoteNoteTest.php
 
 		-
@@ -1914,6 +1884,16 @@ parameters:
 			message: "#^Unable to resolve the template type T in call to method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsSearchTest\\:\\:makeSearchable\\(\\)$#"
 			count: 1
 			path: app/GraphQL/Queries/Contracts/ContractsSearchTest.php
+
+		-
+			message: "#^Parameter \\#3 \\$ of closure expects App\\\\GraphQL\\\\Queries\\\\Contracts\\\\User\\|null, App\\\\Models\\\\User\\|null given\\.$#"
+			count: 1
+			path: app/GraphQL/Queries/Contracts/ContractsTest.php
+
+		-
+			message: "#^Parameter \\$contractsFactory of method App\\\\GraphQL\\\\Queries\\\\Contracts\\\\ContractsTest\\:\\:testQuery\\(\\) has invalid type App\\\\GraphQL\\\\Queries\\\\Contracts\\\\User\\.$#"
+			count: 1
+			path: app/GraphQL/Queries/Contracts/ContractsTest.php
 
 		-
 			message: "#^Method App\\\\GraphQL\\\\Queries\\\\Customers\\\\CustomerStatuses\\:\\:__invoke\\(\\) return type with generic class Illuminate\\\\Database\\\\Eloquent\\\\Builder does not specify its types\\: TModelClass$#"
@@ -2282,7 +2262,7 @@ parameters:
 
 		-
 			message: "#^Cannot call method getKey\\(\\) on App\\\\Models\\\\Organization\\|null\\.$#"
-			count: 2
+			count: 1
 			path: app/Http/Controllers/FilesControllerTest.php
 
 		-
@@ -7506,7 +7486,17 @@ parameters:
 			path: app/Utils/Eloquent/SmartSave/BatchSave.php
 
 		-
+			message: "#^Call to an undefined static method App\\\\Models\\\\Enums\\\\OrganizationType\\:\\:customer\\(\\)\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/Testing/Database/Factory.php
+
+		-
 			message: "#^Call to an undefined static method T of Illuminate\\\\Database\\\\Eloquent\\\\Model\\:\\:factory\\(\\)\\.$#"
+			count: 1
+			path: app/Utils/Eloquent/Testing/Database/Factory.php
+
+		-
+			message: "#^Class App\\\\Services\\\\Organization\\\\Eloquent\\\\OwnedByCustomer not found\\.$#"
 			count: 1
 			path: app/Utils/Eloquent/Testing/Database/Factory.php
 

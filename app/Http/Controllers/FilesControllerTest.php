@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Document;
 use App\Models\Note;
 use App\Models\Organization;
-use App\Models\Reseller;
 use App\Models\Type;
 use App\Models\User;
 use App\Services\Filesystem\ModelDiskFactory;
@@ -78,20 +77,16 @@ class FilesControllerTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $prepare = static function (TestCase $test, ?Organization $organization, User $user): string {
+        $prepare = static function (TestCase $test, ?Organization $org, User $user): string {
             $type     = Type::factory()->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
             ]);
-            $reseller = Reseller::factory()->create([
-                'id' => $organization->getKey(),
-            ]);
-            $document = Document::factory()->create([
-                'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                'type_id'     => $type->getKey(),
-                'reseller_id' => $reseller->getKey(),
+            $document = Document::factory()->ownedBy($org)->create([
+                'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                'type_id' => $type->getKey(),
             ]);
             $note     = Note::factory()->create([
-                'organization_id' => $organization->getKey(),
+                'organization_id' => $org->getKey(),
                 'document_id'     => $document->getKey(),
                 'user_id'         => $user->getKey(),
             ]);
@@ -124,7 +119,6 @@ class FilesControllerTest extends TestCase {
                         static function (
                             TestCase $test,
                             ?Organization $organization,
-                            ?User $user,
                         ) use ($prepare): string {
                             $user2 = User::factory()->create();
 

@@ -9,16 +9,20 @@ use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\Status;
 use App\Models\Type;
+use App\Models\User;
 use Closure;
 use Illuminate\Database\Eloquent\Collection;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
+use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Tests\DataProviders\GraphQL\Organizations\AuthOrgDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrgRootDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrgUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
+use Tests\GraphQL\GraphQLUnauthorized;
+use Tests\Providers\Organizations\ResellerOrganizationProvider;
 use Tests\TestCase;
 use Tests\WithOrganization;
 use Tests\WithSearch;
@@ -116,12 +120,12 @@ class SearchTest extends TestCase {
                 '453a47d0-6607-4cf7-8d0a-bd57a962658a',
             ],
         ];
-        $factory  = static function (TestCase $test, Organization $organization): Collection {
+        $factory  = static function (TestCase $test, Organization $org): Collection {
             $status          = Status::factory()->create([
                 'id' => 'fb377814-592d-492c-aa05-e9e01afd4a11',
             ]);
             $reseller        = Reseller::factory()->create([
-                'id' => $organization,
+                'id' => $org,
             ]);
             $customerHidden  = Customer::factory()->create([
                 'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
@@ -226,7 +230,21 @@ class SearchTest extends TestCase {
         ];
 
         return (new MergeDataProvider([
-            'root'           => new CompositeDataProvider(
+            'null'                                    => new ArrayDataProvider([
+                'organization=null' => [
+                    new GraphQLUnauthorized('search'),
+                    static function (): ?Organization {
+                        return null;
+                    },
+                    static function (): User {
+                        return User::factory()->make();
+                    },
+                    null,
+                    null,
+                    null,
+                ],
+            ]),
+            'root'                                    => new CompositeDataProvider(
                 new OrgRootDataProvider('search'),
                 new OrgUserDataProvider('search', [
                     'customers-view', 'assets-view', 'quotes-view', 'contracts-view',
@@ -235,7 +253,7 @@ class SearchTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated('search'),
                         $settings,
-                        static function (TestCase $test, Organization $organization): Collection {
+                        static function (): Collection {
                             return new Collection([
                                 Customer::factory()->create(),
                                 Asset::factory()->create(),
@@ -250,8 +268,17 @@ class SearchTest extends TestCase {
                     ],
                 ]),
             ),
-            'organization'   => new CompositeDataProvider(
-                new AuthOrgDataProvider('search'),
+            'organization=reseller + all permissions' => new CompositeDataProvider(
+                new class() extends ArrayDataProvider {
+                    public function __construct() {
+                        parent::__construct([
+                            'is allowed' => [
+                                new UnknownValue(),
+                                new ResellerOrganizationProvider(),
+                            ],
+                        ]);
+                    }
+                },
                 new OrgUserDataProvider('search', [
                     'customers-view', 'assets-view', 'quotes-view', 'contracts-view',
                 ]),
@@ -298,8 +325,17 @@ class SearchTest extends TestCase {
                     ],
                 ]),
             ),
-            'customers-view' => new CompositeDataProvider(
-                new AuthOrgDataProvider('search'),
+            'organization=reseller + customers-view'  => new CompositeDataProvider(
+                new class() extends ArrayDataProvider {
+                    public function __construct() {
+                        parent::__construct([
+                            'is allowed' => [
+                                new UnknownValue(),
+                                new ResellerOrganizationProvider(),
+                            ],
+                        ]);
+                    }
+                },
                 new OrgUserDataProvider('search', [
                     'customers-view',
                 ]),
@@ -346,7 +382,7 @@ class SearchTest extends TestCase {
                     ],
                 ]),
             ),
-            'assets-view'    => new CompositeDataProvider(
+            'assets-view'                             => new CompositeDataProvider(
                 new AuthOrgDataProvider('search'),
                 new OrgUserDataProvider('search', [
                     'assets-view',
@@ -394,7 +430,7 @@ class SearchTest extends TestCase {
                     ],
                 ]),
             ),
-            'quotes-view'    => new CompositeDataProvider(
+            'quotes-view'                             => new CompositeDataProvider(
                 new AuthOrgDataProvider('search'),
                 new OrgUserDataProvider('search', [
                     'quotes-view',
@@ -442,7 +478,7 @@ class SearchTest extends TestCase {
                     ],
                 ]),
             ),
-            'contracts-view' => new CompositeDataProvider(
+            'contracts-view'                          => new CompositeDataProvider(
                 new AuthOrgDataProvider('search'),
                 new OrgUserDataProvider('search', [
                     'contracts-view',
