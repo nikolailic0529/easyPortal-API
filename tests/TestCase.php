@@ -2,9 +2,11 @@
 
 namespace Tests;
 
-use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use LastDragon_ru\LaraASP\Testing\Database\RefreshDatabaseIfEmpty;
+use LastDragon_ru\LaraASP\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
+    use RefreshDatabaseIfEmpty;
 }

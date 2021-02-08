@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="./vendor/phpunit/phpunit/phpunit.xsd"
+         cacheResultFile=".phpunit/result.cache"
          bootstrap="vendor/autoload.php"
          colors="true"
+         executionOrder="random"
 >
     <testsuites>
+        <testsuite name="App">
+            <directory suffix="Test.php">./app</directory>
+        </testsuite>
+        <testsuite name="Seeders">
+            <directory suffix="Test.php">./database/seeders</directory>
+        </testsuite>
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
@@ -12,17 +20,21 @@
             <directory suffix="Test.php">./tests/Feature</directory>
         </testsuite>
     </testsuites>
-    <coverage processUncoveredFiles="true">
+    <coverage processUncoveredFiles="true" cacheDirectory=".phpunit/code-coverage">
         <include>
             <directory suffix=".php">./app</directory>
+            <directory suffix=".php">./database/seeders</directory>
         </include>
+        <exclude>
+            <directory suffix="Test.php">./app</directory>
+            <directory suffix="Test.php">./database/seeders</directory>
+        </exclude>
     </coverage>
     <php>
         <server name="APP_ENV" value="testing"/>
         <server name="BCRYPT_ROUNDS" value="4"/>
         <server name="CACHE_DRIVER" value="array"/>
-        <!-- <server name="DB_CONNECTION" value="sqlite"/> -->
-        <!-- <server name="DB_DATABASE" value=":memory:"/> -->
+        <server name="DB_DATABASE" value="testing"/>
         <server name="MAIL_MAILER" value="array"/>
         <server name="QUEUE_CONNECTION" value="sync"/>
         <server name="SESSION_DRIVER" value="array"/>

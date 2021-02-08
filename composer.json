@@ -1,62 +1,117 @@
 {
-    "name": "laravel/laravel",
-    "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": [
-        "framework",
-        "laravel"
-    ],
-    "license": "MIT",
-    "require": {
-        "php": "^7.3|^8.0",
-        "fideloper/proxy": "^4.4",
-        "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^8.12",
-        "laravel/tinker": "^2.5"
-    },
-    "require-dev": {
-        "facade/ignition": "^2.5",
-        "fakerphp/faker": "^1.9.1",
-        "laravel/sail": "^1.0.1",
-        "mockery/mockery": "^1.4.2",
-        "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.3.3"
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true
-    },
-    "extra": {
-        "laravel": {
-            "dont-discover": []
-        }
-    },
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "scripts": {
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
-        ],
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
-        ]
+  "name": "fakharanwar/easyportal-api",
+  "type": "project",
+  "description": "The Laravel Framework.",
+  "keywords": [
+    "framework",
+    "laravel"
+  ],
+  "license": "proprietary",
+  "require": {
+    "php": "^8.0",
+    "ext-mbstring": "*",
+    "ext-json": "*",
+    "ext-mysql": "*",
+    "ext-redis": "*",
+    "fideloper/proxy": "^4.4",
+    "fruitcake/laravel-cors": "^2.0",
+    "guzzlehttp/guzzle": "^7.0.1",
+    "laravel/framework": "^8.12",
+    "laravel/tinker": "^2.5",
+    "lastdragon-ru/lara-asp-core": "dev-master",
+    "lastdragon-ru/lara-asp-eloquent": "dev-master",
+    "lastdragon-ru/lara-asp-formatter": "dev-master",
+    "lastdragon-ru/lara-asp-migrator": "dev-master",
+    "lastdragon-ru/lara-asp-queue": "dev-master",
+    "lastdragon-ru/lara-asp-spa": "dev-master"
+  },
+  "require-dev": {
+    "barryvdh/laravel-ide-helper": "^2.9",
+    "facade/ignition": "^2.5",
+    "fakerphp/faker": "^1.9.1",
+    "laravel/sail": "^1.0.1",
+    "lastdragon-ru/lara-asp-testing": "^0.3.0",
+    "mockery/mockery": "^1.4.2",
+    "nunomaduro/collision": "^5.0",
+    "phpunit/phpunit": "^9.3.3"
+  },
+  "suggest": {
+    "ext-fileinfo": "Required for league/flysystem",
+    "ext-intl": "Required for lastdragon-ru/lara-asp-formatter",
+    "ext-xml": "Required for lastdragon-ru/lara-asp-testing",
+    "ext-libxml": "Required for lastdragon-ru/lara-asp-testing",
+    "ext-dom": "Required for lastdragon-ru/lara-asp-testing",
+    "ext-xmlreader": "Required for lastdragon-ru/lara-asp-testing"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "dont-discover": []
     }
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Database\\Factories\\": "database/factories/",
+      "Database\\Seeders\\": "database/seeders/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "scripts": {
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+      "@php artisan package:discover --ansi"
+    ],
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "post-create-project-cmd": [
+      "@php artisan key:generate --ansi"
+    ],
+    "ide-helper": [
+      "@php artisan ide-helper:meta",
+      "@php artisan ide-helper:generate .phpstorm.helper.php",
+      "@php artisan ide-helper:models --write"
+    ]
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "git@github.com:LastDragon-ru/lara-asp-core.git"
+    },
+    {
+      "type": "git",
+      "url": "git@github.com:LastDragon-ru/lara-asp-eloquent.git"
+    },
+    {
+      "type": "git",
+      "url": "git@github.com:LastDragon-ru/lara-asp-migrator.git"
+    },
+    {
+      "type": "git",
+      "url": "git@github.com:LastDragon-ru/lara-asp-queue.git"
+    },
+    {
+      "type": "git",
+      "url": "git@github.com:LastDragon-ru/lara-asp-testing.git"
+    },
+    {
+      "type": "git",
+      "url": "git@github.com:LastDragon-ru/lara-asp-spa.git"
+    },
+    {
+      "type": "git",
+      "url": "git@github.com:LastDragon-ru/lara-asp-formatter.git"
+    }
+  ]
 }
