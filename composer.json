@@ -9,8 +9,8 @@
   "license": "proprietary",
   "require": {
     "php": "^8.0",
-    "ext-mbstring": "*",
     "ext-json": "*",
+    "ext-mbstring": "*",
     "ext-pdo_mysql": "*",
     "ext-redis": "*",
     "fideloper/proxy": "^4.4",
@@ -23,7 +23,8 @@
     "lastdragon-ru/lara-asp-formatter": "dev-master",
     "lastdragon-ru/lara-asp-migrator": "dev-master",
     "lastdragon-ru/lara-asp-queue": "dev-master",
-    "lastdragon-ru/lara-asp-spa": "dev-master"
+    "lastdragon-ru/lara-asp-spa": "dev-master",
+    "propaganistas/laravel-phone": "^4.2"
   },
   "require-dev": {
     "barryvdh/laravel-ide-helper": "^2.9",
