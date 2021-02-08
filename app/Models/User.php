@@ -15,7 +15,7 @@ use LogicException;
  * @property string                       $family_name
  * @property string                       $email
  * @property \Carbon\CarbonImmutable      $email_verified_at
- * @property string|null                  $phone
+ * @property string                       $phone
  * @property \Carbon\CarbonImmutable|null $phone_verified_at
  * @property string|null                  $photo
  * @property int|null                     $organization_id

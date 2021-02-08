@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `users` (
     `family_name`       VARCHAR(255)                                        NOT NULL,
     `email`             VARCHAR(255)                                        NOT NULL,
     `email_verified_at` TIMESTAMP                                           NOT NULL,
-    `phone`             VARCHAR(64)                                         NULL     DEFAULT NULL,
+    `phone`             VARCHAR(64)                                         NOT NULL,
     `phone_verified_at` TIMESTAMP                                           NULL     DEFAULT NULL,
     `photo`             VARCHAR(1024)                                       NULL     DEFAULT NULL,
     `organization_id`   INT(10) UNSIGNED                                    NULL     DEFAULT NULL,
