@@ -11,7 +11,7 @@
     "php": "^8.0",
     "ext-mbstring": "*",
     "ext-json": "*",
-    "ext-mysql": "*",
+    "ext-pdo_mysql": "*",
     "ext-redis": "*",
     "fideloper/proxy": "^4.4",
     "fruitcake/laravel-cors": "^2.0",
@@ -36,6 +36,7 @@
     "phpunit/phpunit": "^9.3.3"
   },
   "suggest": {
+    "ext-pdo": "Required for laravel/framework",
     "ext-fileinfo": "Required for league/flysystem",
     "ext-intl": "Required for lastdragon-ru/lara-asp-formatter",
     "ext-xml": "Required for lastdragon-ru/lara-asp-testing",
