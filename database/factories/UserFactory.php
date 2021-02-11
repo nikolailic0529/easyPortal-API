@@ -2,9 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Organization;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Date;
+use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory {
     /**
@@ -23,16 +24,16 @@ class UserFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'type'              => 'reseller',
+            'organization_id'   => function () {
+                return Organization::query()->first() ?: Organization::factory()->create();
+            },
             'given_name'        => $this->faker->firstName,
             'family_name'       => $this->faker->lastName,
             'email'             => $this->faker->unique()->safeEmail,
             'email_verified_at' => Date::now(),
-            'phone'             => null,
+            'phone'             => $this->faker->e164PhoneNumber,
             'phone_verified_at' => null,
             'photo'             => null,
-            'organization_id'   => null,
-            'customer_id'       => null,
             'created_at'        => Date::now(),
             'updated_at'        => Date::now(),
         ];

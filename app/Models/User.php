@@ -9,24 +9,21 @@ use LogicException;
 
 /**
  * @property int                          $id
+ * @property int                          $organization_id
  * @property string                       $sub Auth0 User ID
- * @property string                       $type
  * @property string                       $given_name
  * @property string                       $family_name
  * @property string                       $email
- * @property \Carbon\CarbonImmutable      $email_verified_at
+ * @property \Carbon\CarbonImmutable|null $email_verified_at
  * @property string                       $phone
  * @property \Carbon\CarbonImmutable|null $phone_verified_at
  * @property string|null                  $photo
- * @property int|null                     $organization_id
- * @property int|null                     $customer_id
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereCustomerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmailVerifiedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereFamilyName($value)
@@ -37,8 +34,8 @@ use LogicException;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhoneVerifiedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhoto($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereSub($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class User extends Authenticatable {
