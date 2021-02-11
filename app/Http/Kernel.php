@@ -4,8 +4,9 @@ namespace App\Http;
 
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\EncryptCookies;
+use App\Http\Middleware\Guest;
 use App\Http\Middleware\PreventRequestsDuringMaintenance;
-use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Middleware\Tenant;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\TrustProxies;
 use App\Http\Middleware\VerifyCsrfToken;
@@ -23,7 +24,6 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Routing\Middleware\ValidateSignature;
 use Illuminate\Session\Middleware\StartSession;
-use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class Kernel extends HttpKernel {
     /**
@@ -58,13 +58,15 @@ class Kernel extends HttpKernel {
             AddQueuedCookiesToResponse::class,
             StartSession::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
-            ShareErrorsFromSession::class,
+            // \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             VerifyCsrfToken::class,
+            Tenant::class,
             SubstituteBindings::class,
         ],
 
         'api' => [
             'throttle:api',
+            Tenant::class,
             SubstituteBindings::class,
         ],
     ];
@@ -83,7 +85,7 @@ class Kernel extends HttpKernel {
         'auth.basic'       => AuthenticateWithBasicAuth::class,
         'cache.headers'    => SetCacheHeaders::class,
         'can'              => Authorize::class,
-        'guest'            => RedirectIfAuthenticated::class,
+        'guest'            => Guest::class,
         'password.confirm' => RequirePassword::class,
         'signed'           => ValidateSignature::class,
         'throttle'         => ThrottleRequests::class,
