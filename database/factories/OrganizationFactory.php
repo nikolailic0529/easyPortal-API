@@ -27,6 +27,7 @@ class OrganizationFactory extends Factory {
             'name'       => $this->faker->company,
             'created_at' => Date::now(),
             'updated_at' => Date::now(),
+            'deleted_at' => null,
         ];
     }
 }
