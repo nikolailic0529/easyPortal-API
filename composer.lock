@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "adffee4f109b670d5e33658dc4a5600a",
+    "content-hash": "d82fa080458c0eefd73c094280113f5c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7505,17 +7505,18 @@
         },
         {
             "name": "lastdragon-ru/lara-asp-testing",
-            "version": "0.3.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "git@github.com:LastDragon-ru/lara-asp-testing.git",
-                "reference": "a0540e6557c4ce4664583dbd76c9cdc77df6c2bc"
+                "reference": "68ff3a4b50c25dc1ad06a93ede66227243554c9e"
             },
             "require": {
                 "doctrine/dbal": "^2.12.0|^3.0.0",
                 "ext-dom": "*",
                 "ext-json": "*",
                 "ext-libxml": "*",
+                "ext-mbstring": "*",
                 "ext-xml": "*",
                 "ext-xmlreader": "*",
                 "http-interop/http-factory-guzzle": "^1.0.0",
@@ -7538,6 +7539,7 @@
                 "ext-fileinfo": "Required for league/flysystem",
                 "orchestra/testbench": "For testing the packages which required Application."
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "files": [
@@ -7565,9 +7567,10 @@
             ],
             "support": {
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
-                "source": "https://github.com/LastDragon-ru/lara-asp"
+                "source": "https://github.com/LastDragon-ru/lara-asp",
+                "forum": "https://github.com/LastDragon-ru/lara-asp/discussions"
             },
-            "time": "2021-01-22T15:07:59+00:00"
+            "time": "2021-02-02T16:57:52+00:00"
         },
         {
             "name": "m1x0n/opis-json-schema-error-presenter",
@@ -9990,6 +9993,7 @@
         "lastdragon-ru/lara-asp-migrator": 20,
         "lastdragon-ru/lara-asp-queue": 20,
         "lastdragon-ru/lara-asp-spa": 20,
+        "lastdragon-ru/lara-asp-testing": 20,
         "slevomat/coding-standard": 20,
         "squizlabs/php_codesniffer": 20
     },
