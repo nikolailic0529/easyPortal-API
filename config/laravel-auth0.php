@@ -31,13 +31,23 @@ return [
 
     /*
         |--------------------------------------------------------------------------
+        |   Your API token
+        |--------------------------------------------------------------------------
+        |   As set in the auth0 administration page
+        |
+        | FIXME [!] REMOVE (required for tests)
+    */
+    'api_token'             => env('AUTH0_API_TOKEN'),
+
+    /*
+        |--------------------------------------------------------------------------
         |   The redirect URI
         |--------------------------------------------------------------------------
         |   Should be the same that the one configure in the route to handle the
         |   'Auth0\Login\Auth0Controller@callback'
         |
     */
-    'redirect_uri'          => env('APP_URL').'/auth0/callback',
+    'redirect_uri'          => env('APP_URL').'/api/auth/callback',
 
     /*
         |--------------------------------------------------------------------------
@@ -50,7 +60,7 @@ return [
         |
     */
     'persist_user'          => true,
-    'persist_access_token'  => false,
+    'persist_access_token'  => true,
     'persist_refresh_token' => false,
     'persist_id_token'      => false,
 
@@ -60,7 +70,8 @@ return [
         |--------------------------------------------------------------------------
         |
     */
-    // 'api_identifier'  => '',
+    'api_identifier'  => 'http://easyportal.test/',
+    'audience'        => 'http://easyportal.test/',
 
     /*
         |--------------------------------------------------------------------------
