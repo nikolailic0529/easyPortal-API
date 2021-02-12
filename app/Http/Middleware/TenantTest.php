@@ -185,10 +185,13 @@ class TenantTest extends TestCase {
     public function dataProviderIsWildcardDomain(): array {
         return [
             'nginx default domain _ (local)'                       => [true, 'local', '_'],
+            'nginx default domain _ (testing)'                     => [true, 'testing', '_'],
             'nginx default domain _ (production)'                  => [false, 'production', '_'],
             'nginx wildcard domain *.example.com (local)'          => [true, 'local', '*.example.com'],
+            'nginx wildcard domain *.example.com (testing)'        => [true, 'testing', '*.example.com'],
             'nginx wildcard domain *.example.com (production)'     => [true, 'production', '*.example.com'],
             'nginx wildcard domain *.sub.example.com (local)'      => [false, 'local', '*.sub.example.com'],
+            'nginx wildcard domain *.sub.example.com (testing)'    => [false, 'testing', '*.sub.example.com'],
             'nginx wildcard domain *.sub.example.com (production)' => [false, 'production', '*.sub.example.com'],
         ];
     }

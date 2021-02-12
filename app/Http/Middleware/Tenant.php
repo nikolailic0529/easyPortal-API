@@ -93,7 +93,7 @@ class Tenant {
 
     #[Pure]
     protected function isWildcardDomain(string $domain): bool {
-        return ($this->app->isLocal() && in_array($domain, ['_'], true))
+        return (($this->app->isLocal() || $this->app->runningUnitTests()) && in_array($domain, ['_'], true))
             || (str_starts_with($domain, '*.') && count(explode('.', $domain)) === 3);
     }
 }
