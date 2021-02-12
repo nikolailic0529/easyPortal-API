@@ -1,6 +1,5 @@
 # API Interaction
 
-
 ## Basics
 
 API is the REST-Based, and uses following methods:
@@ -23,7 +22,7 @@ Content-Type: application/json
 }
 ```
 
-will return filtered results. The main reasons for this
+will return filtered results. The main reasons why search uses `POST` are
 
 * Angular out the box doesn't support encoding query params in the PHP style (`q[]=1&q[]=2`)
 * Length of the URL is limited 
@@ -34,6 +33,7 @@ will return filtered results. The main reasons for this
 API is the strict typed, so for example if Request requires the `int` UI must pass integer value `123` not `'121'`. Same for Responses (if schema contains `bool` it must be `true` or `false` not `0`, `1`, etc). Date and datetime always must be in ISO 8601:
 
 | Type     | Format          |
+| -------- | --------------- |
 | Date     | `Y-m-d`         |
 | DateTime | `Y-m-d\TH:i:sP` | 
 
@@ -124,7 +124,48 @@ class SignupRequest extends Request {
 }
 ```
 
-and you can see all properties and their types, Laravel defines a lot of rules, you can find them in the [docs](https://laravel.com/docs/8.x/validation#available-validation-rules), plus API also uses own rules (not listed in the Laravel documentation), most of them is the classes, so you can navigate to it and read about (for example `StringRule` means that value must be a string, same thing for `IntRule`, `BoolRule`, etc). If you have any question what particular rule do - please don't hesitate to ask.
+and you can see all properties and their types. Laravel defines a lot of rules, you can find them in the [docs](https://laravel.com/docs/8.x/validation#available-validation-rules), plus API also uses its own rules (not listed in the Laravel documentation), most of them is the classes, so you can navigate into it and read about (for example `StringRule` means that value must be a string, same thing for `IntRule`, `BoolRule`, etc). If you have any questions about what particular rules do - please don't hesitate to ask.
 
-The final step is the resource that will be returned, but they are much easier to understand, because most of them have a [Json Schema](https://json-schema.org/), eg ....
+The final step is the resource that will be returned, but they are much easier to understand, because most of them have a [Json Schema](https://json-schema.org/), eg `SignupResource`
 
+```json
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "enum": [
+        true
+    ]
+}
+```
+
+or `ValidationErrorResponse`
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "message",
+    "errors"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "message": {
+      "type": "string"
+    },
+    "errors": {
+      "type": "object",
+      "minProperties": 1,
+      "patternProperties": {
+        ".*": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
+```
