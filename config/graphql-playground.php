@@ -12,9 +12,9 @@ return [
     */
 
     'route' => [
-        'uri'  => '/graphql-playground',
-        'name' => 'graphql-playground',
-        // 'middleware' => ['web']
+        'uri'        => '/graphql-playground',
+        'name'       => 'graphql-playground',
+        'middleware' => ['web']
         // 'prefix' => '',
         // 'domain' => 'graphql.' . env('APP_DOMAIN', 'localhost'),
     ],
@@ -57,5 +57,5 @@ return [
     |
     */
 
-    'enabled' => env('GRAPHQL_PLAYGROUND_ENABLED', true),
+    'enabled' => env('GRAPHQL_PLAYGROUND_ENABLED', false),
 ];

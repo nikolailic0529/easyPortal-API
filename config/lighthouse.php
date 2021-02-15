@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 return [
 
@@ -57,7 +57,7 @@ return [
     |
     */
 
-    'guard' => 'api',
+    'guard' => 'web',
 
     /*
     |--------------------------------------------------------------------------
@@ -118,7 +118,7 @@ return [
     */
 
     'namespaces' => [
-        'models'        => ['App', 'App\\Models'],
+        'models'        => ['App\\Models'],
         'queries'       => 'App\\GraphQL\\Queries',
         'mutations'     => 'App\\GraphQL\\Mutations',
         'subscriptions' => 'App\\GraphQL\\Subscriptions',
