@@ -26,6 +26,7 @@
     "lastdragon-ru/lara-asp-migrator": "dev-master",
     "lastdragon-ru/lara-asp-queue": "dev-master",
     "lastdragon-ru/lara-asp-spa": "dev-master",
+    "nuwave/lighthouse": "^5.2",
     "propaganistas/laravel-phone": "^4.2"
   },
   "require-dev": {
@@ -86,7 +87,8 @@
     "ide-helper": [
       "@php artisan ide-helper:meta",
       "@php artisan ide-helper:generate .phpstorm.helper.php",
-      "@php artisan ide-helper:models --write"
+      "@php artisan ide-helper:models --write",
+      "@php artisan lighthouse:ide-helper"
     ],
     "phpcs": [
       "@php ./vendor/bin/phpcs"
