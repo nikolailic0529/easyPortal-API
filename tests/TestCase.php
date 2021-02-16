@@ -13,5 +13,7 @@ abstract class TestCase extends BaseTestCase {
     use MakesGraphQLRequests;
     use WithTenant;
     use WithUser;
-    use WithFaker;
+    use WithFaker {
+        faker as public;
+    }
 }

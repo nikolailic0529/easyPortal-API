@@ -2,17 +2,13 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\Organization;
 use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use LastDragon_ru\LaraASP\Testing\Providers\DataProvider;
-use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
-use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
-use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\NotFoundResponse;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\OkResponse;
+use Tests\DataProviders\TenantDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -50,7 +46,7 @@ class MeTest extends TestCase {
      */
     public function dataProviderInfo(): array {
         return (new CompositeDataProvider(
-            $this->getTenantDataProvider(),
+            new TenantDataProvider(),
             new ArrayDataProvider([
                 'guest is allowed' => [
                     new OkResponse(new GraphQLSuccess('me', null)),
@@ -66,25 +62,6 @@ class MeTest extends TestCase {
                 ],
             ]),
         ))->getData();
-    }
-
-    protected function getTenantDataProvider(): DataProvider {
-        return new ArrayDataProvider([
-            'no tenant' => [
-                new ExpectedFinal(new NotFoundResponse()),
-                static function (): ?Organization {
-                    return null;
-                },
-            ],
-            'tenant'    => [
-                new Unknown(),
-                static function (self $test): ?Organization {
-                    return Organization::factory()->create([
-                        'subdomain' => $test->faker->word,
-                    ]);
-                },
-            ],
-        ]);
     }
     // </editor-fold>
 }
