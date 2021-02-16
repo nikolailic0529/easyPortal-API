@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory {
@@ -24,6 +25,7 @@ class UserFactory extends Factory {
      */
     public function definition(): array {
         return [
+            'id'                => Str::uuid()->toString(),
             'organization_id'   => static function (): Organization {
                 return Organization::query()->first() ?: Organization::factory()->create();
             },

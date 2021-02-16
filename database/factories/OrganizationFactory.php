@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Organization;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 class OrganizationFactory extends Factory {
@@ -23,6 +24,7 @@ class OrganizationFactory extends Factory {
      */
     public function definition(): array {
         return [
+            'id'         => Str::uuid()->toString(),
             'type'       => 'reseller',
             'subdomain'  => null,
             'abbr'       => $this->faker->word,
