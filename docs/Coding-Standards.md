@@ -2,6 +2,39 @@
 
 The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 
+* [General](#general)
+    + [Always strict is a MUST](#always-strict-is-a-must)
+    + [The `{` MUST be on the same line](#the-----must-be-on-the-same-line)
+    + [Compound namespaces MUST NOT be used](#compound-namespaces-must-not-be-used)
+    + [Multi-line calls, arguments, and arrays MUST have a comma on the last line](#multi-line-calls--arguments--and-arrays-must-have-a-comma-on-the-last-line)
+    + [Groups of constants, variables, class properties, and arrays MUST be aligned by `=` or `=>` respectively](#groups-of-constants--variables--class-properties--and-arrays-must-be-aligned-by-----or------respectively)
+    + [Every object SHOULD have a body](#every-object-should-have-a-body)
+    + [Each If-ElseIf-ElseIf SHOULD have `else` block](#each-if-elseif-elseif-should-have--else--block)
+    + [Each Switch-Case SHOULD have `default` block](#each-switch-case-should-have--default--block)
+    + [Default value SHOULD be placed before If-ElseIf-Else/Switch-Case block](#default-value-should-be-placed-before-if-elseif-else-switch-case-block)
+    + [Prefixes/Suffixes like `Trait`/`Interface`/`Abstract` SHOULD NOT be used.](#prefixes-suffixes-like--trait---interface---abstract--should-not-be-used)
+    + [You MAY use code-folding to group code by logic](#you-may-use-code-folding-to-group-code-by-logic)
+* [Laravel Best Practices](#laravel-best-practices)
+    + [Auto Complete MUST work](#auto-complete-must-work)
+    + [DI SHOULD be used where possible](#di-should-be-used-where-possible)
+    + [Models](#models)
+        - [Table name MUST be declared](#table-name-must-be-declared)
+        - [Class MUST have proper docblock](#class-must-have-proper-docblock)
+    + [Routes](#routes)
+        - [Actions SHOULD be defined via valid callback](#actions-should-be-defined-via-valid-callback)
+    + [GraphQL](#graphql)
+    + [Database Schema & Migrations](#database-schema---migrations)
+    + [See also](#see-also)
+* [Testing](#testing)
+    + [You SHOULD write the tests](#you-should-write-the-tests)
+    + [Test file SHOULD be placed in the same directory with class](#test-file-should-be-placed-in-the-same-directory-with-class)
+    + [Test data SHOULD be placed in the same directory with Test](#test-data-should-be-placed-in-the-same-directory-with-test)
+    + [Simple Mocks SHOULD use anonymous classes](#simple-mocks-should-use-anonymous-classes)
+    + [Each TestCase class MUST have proper docblock](#each-testcase-class-must-have-proper-docblock)
+* [Misc](#misc)
+    + [PHP CodeSniffer](#php-codesniffer)
+    + [Laravel Ide Helper](#laravel-ide-helper)
+
 
 ## General
 
