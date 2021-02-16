@@ -497,17 +497,17 @@ Except for trivial methods like getters/setters.
 
 ### Test data SHOULD be placed in the same directory with Test
 
-When the test needs a lot of data, move data into `/tests/data` directory with full path saving.
+When the test needs a lot of data, move data into `/tests/Data` directory with full path saving.
 
 ```text
 // Simple test
-/project/src/namespace/path
+/project/src/Namespace/Path
     ClassUtils.php      - Class
     ClassUtilsTest.php  - Tests for ClassUtils
     ClassUtilsTest.json - Data required for testing
 
 // Test with a lot of data
-/project/tests/data/namespace/path
+/project/tests/Data/Namespace/Path
     ClassUtilsData.php    - Data container
     ClassUtilsData.1.json - Data required for testing
     ClassUtilsData.2.json - Data required for testing
