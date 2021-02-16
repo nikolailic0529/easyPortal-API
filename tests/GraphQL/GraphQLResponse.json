@@ -9,7 +9,7 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
-                "${schema.root}"
+                "${graphql.root}"
             ],
             "properties": {
                 "${schema.path}": {

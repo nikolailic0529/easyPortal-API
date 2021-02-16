@@ -9,8 +9,7 @@
     ],
     "properties": {
         "id": {
-            "type": "string",
-            "format": "uuid"
+            "$ref": "../types.json#/definitions/ID"
         },
         "given_name": {
             "type": "string"

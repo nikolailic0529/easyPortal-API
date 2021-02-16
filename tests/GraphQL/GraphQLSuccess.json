@@ -12,10 +12,10 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
-                "${schema.root}"
+                "${graphql.root}"
             ],
             "properties": {
-                "${schema.root}": {
+                "${graphql.root}": {
                     "$ref": "${schema.path}"
                 }
             }

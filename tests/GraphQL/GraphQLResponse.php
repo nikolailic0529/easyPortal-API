@@ -20,7 +20,7 @@ class GraphQLResponse extends JsonSchemaWrapper {
     protected function getSchemaFor(string $schema): string {
         $schema = parent::getSchemaFor($schema);
         $schema = strtr($schema, [
-            '${schema.root}' => $this->root,
+            '${graphql.root}' => $this->root,
         ]);
 
         return $schema;
