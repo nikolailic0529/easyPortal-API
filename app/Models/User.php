@@ -15,7 +15,7 @@ class User extends Authenticatable {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array
+     * @var array<string>
      */
     protected $fillable = [
         'name',
@@ -28,7 +28,7 @@ class User extends Authenticatable {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array
+     * @var array<string>
      */
     protected $hidden = [
         'password',
@@ -40,7 +40,7 @@ class User extends Authenticatable {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array
+     * @var array<string>
      */
     protected $casts = [
         'email_verified_at' => 'datetime',

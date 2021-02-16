@@ -10,7 +10,7 @@ class VerifyCsrfToken extends Middleware {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array
+     * @var array<string>
      */
     protected $except = [
         // empty

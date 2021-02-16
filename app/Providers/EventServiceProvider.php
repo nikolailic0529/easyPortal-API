@@ -12,7 +12,7 @@ class EventServiceProvider extends ServiceProvider {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array
+     * @var array<array<string>>
      */
     protected $listen = [
         Registered::class => [

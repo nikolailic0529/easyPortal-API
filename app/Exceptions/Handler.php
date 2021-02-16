@@ -11,7 +11,7 @@ class Handler extends ExceptionHandler {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array
+     * @var array<string>
      */
     protected $dontReport = [];
 
@@ -20,7 +20,7 @@ class Handler extends ExceptionHandler {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array
+     * @var array<string>
      */
     protected $dontFlash = [
         'password',

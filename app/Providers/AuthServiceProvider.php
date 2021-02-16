@@ -10,7 +10,7 @@ class AuthServiceProvider extends ServiceProvider {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array
+     * @var array<string>
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',

@@ -33,7 +33,7 @@ class Kernel extends HttpKernel {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array
+     * @var array<string>
      */
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
@@ -50,7 +50,7 @@ class Kernel extends HttpKernel {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array
+     * @var array<array<string>>
      */
     protected $middlewareGroups = [
         'web' => [
@@ -76,7 +76,7 @@ class Kernel extends HttpKernel {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array
+     * @var array<string>
      */
     protected $routeMiddleware = [
         'auth'             => Authenticate::class,

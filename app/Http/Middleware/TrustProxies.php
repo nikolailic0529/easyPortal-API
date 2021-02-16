@@ -11,7 +11,7 @@ class TrustProxies extends Middleware {
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
-     * @var array|string|null
+     * @var array<string>|string|null
      */
     protected $proxies;
 
