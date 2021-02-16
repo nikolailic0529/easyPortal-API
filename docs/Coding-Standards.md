@@ -20,6 +20,7 @@ The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL 
     + [Models](#models)
         - [Table name MUST be declared](#table-name-must-be-declared)
         - [Class MUST have proper docblock](#class-must-have-proper-docblock)
+        - [Factories MUST define all properties](#factories-must-define-all-properties)
     + [Routes](#routes)
         - [Actions SHOULD be defined via valid callback](#actions-should-be-defined-via-valid-callback)
     + [GraphQL](#graphql)
@@ -67,7 +68,7 @@ class A {
 }
 ```
 
-If you extend external (from other packages) classes without proper type-hint, you should try to provide the best possible type-hint. In some cases CodeSniffer may show an error about missing types to avoid it you can use `@inheritdoc`:
+If you extend external (from other packages) classes without proper type-hint, you should try to provide the best possible type-hint. In some cases CodeSniffer may show an error about missing types to avoid it you can use `@inheritdoc` or `@phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint`:
 
 ```php
 <?php declare(strict_types = 1);
@@ -92,6 +93,23 @@ class IntRule implements Rule {
     public function message(){
         return 'message';
     }
+}
+```
+
+```php
+<?php declare(strict_types=1);
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Organization extends Model {
+    use HasFactory;
+
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     * @var string
+     */
+    protected $table = 'organizations';
 }
 ```
 
@@ -363,6 +381,7 @@ class Organization extends Model {
     use HasFactory;
 
     /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      * @var string
      */
     protected $table = 'organizations';
@@ -423,6 +442,11 @@ class User extends Authenticatable {
     // ...
 }
 ```
+
+
+#### Factories MUST define all properties
+
+This is required to be able to compare models while testing.
 
 
 ### Routes
