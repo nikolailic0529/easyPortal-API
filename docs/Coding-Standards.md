@@ -364,7 +364,7 @@ Use `ide-helper` (see below) and `/* @var \stdClass $a */` when necessary.
 not helpers and facades. There are few exceptions:
 
 - `Illuminate\\Support\\Facades\\Date` should be used to getting dates;
-- `Illuminate\\Support\\Facades\\Route` should be for top-level routes;
+- `Illuminate\\Support\\Facades\\Route` should be used for top-level routes;
 
 
 ### Models
