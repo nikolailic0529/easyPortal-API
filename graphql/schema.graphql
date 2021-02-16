@@ -1,14 +1,12 @@
 #import Scalars/*.graphql
 
 type Query {
-    users: [User!]! @paginate(defaultCount: 10)
-    user(id: ID @eq): User @find
+    "Current user, `null` for guests."
+    me: User
 }
 
 type User {
-    id: ID!
-    name: String!
-    email: String!
-    created_at: DateTime!
-    updated_at: DateTime!
+    id: ID! # FIXME [!] Do we really need it on frontend?
+    given_name: String!
+    family_name: String!
 }

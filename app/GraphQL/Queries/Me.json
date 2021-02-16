@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "id",
+        "given_name",
+        "family_name"
+    ],
+    "properties": {
+        "id": {
+            "type": "string",
+            "format": "uuid"
+        },
+        "given_name": {
+            "type": "string"
+        },
+        "family_name": {
+            "type": "string"
+        }
+    }
+}
