@@ -10,6 +10,8 @@ class OrganizationFactory extends Factory {
     /**
      * The name of the factory's corresponding model.
      *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
      * @var string
      */
     protected $model = Organization::class;
@@ -17,9 +19,9 @@ class OrganizationFactory extends Factory {
     /**
      * Define the model's default state.
      *
-     * @return array
+     * @return array<mixed>
      */
-    public function definition() {
+    public function definition(): array {
         return [
             'type'       => 'reseller',
             'subdomain'  => null,

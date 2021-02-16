@@ -3,7 +3,6 @@
 namespace App\Models\Concerns;
 
 use Illuminate\Database\Eloquent\Builder;
-
 use Illuminate\Support\Str;
 
 use function is_null;

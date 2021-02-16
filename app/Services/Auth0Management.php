@@ -4,7 +4,6 @@ namespace App\Services;
 
 use Auth0\SDK\API\Management;
 use Illuminate\Contracts\Config\Repository;
-use JetBrains\PhpStorm\ArrayShape;
 
 class Auth0Management {
     protected Management $management;
@@ -18,12 +17,11 @@ class Auth0Management {
 
     /**
      * @see \Auth0\SDK\API\Management\Users::create()
+     *
+     * @param array<mixed> $data
+     *
+     * @return array{user_id: string, picture: string}
      */
-    #[ArrayShape([
-        // TODO fill missing properties
-        'user_id' => 'string',
-        'picture' => 'string',
-    ])]
     public function createUser(array $data): array {
         // FIXME [auth0] Tenant probably required here
         return $this->management->users()->create($data);

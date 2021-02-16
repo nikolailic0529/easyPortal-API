@@ -1,5 +1,21 @@
 <?php declare(strict_types = 1);
 
+use GraphQL\Error\DebugFlag;
+use GraphQL\Validator\Rules\DisableIntrospection;
+use GraphQL\Validator\Rules\QueryComplexity;
+use GraphQL\Validator\Rules\QueryDepth;
+use Nuwave\Lighthouse\Execution\ExtensionErrorHandler;
+use Nuwave\Lighthouse\Execution\ReportingErrorHandler;
+use Nuwave\Lighthouse\Schema\Directives\RenameArgsDirective;
+use Nuwave\Lighthouse\Schema\Directives\SanitizeDirective;
+use Nuwave\Lighthouse\Schema\Directives\SpreadDirective;
+use Nuwave\Lighthouse\Schema\Directives\TransformArgsDirective;
+use Nuwave\Lighthouse\Schema\Directives\TrimDirective;
+use Nuwave\Lighthouse\Subscriptions\SubscriptionRouter;
+use Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson;
+use Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication;
+use Nuwave\Lighthouse\Validation\ValidateDirective;
+
 return [
 
     /*
@@ -13,7 +29,7 @@ return [
     |
     */
 
-    'route' => [
+    'route'                   => [
         /*
          * The URI the endpoint responds to, e.g. mydomain.com/graphql.
          */
@@ -31,11 +47,11 @@ return [
         'middleware' => [
             'web',
 
-            \Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson::class,
+            AcceptJson::class,
 
             // Logs in a user if they are authenticated. In contrast to Laravel's 'auth'
             // middleware, this delegates auth and permission checks to the field level.
-            \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class,
+            AttemptAuthentication::class,
 
             // Logs every incoming GraphQL query.
             // \Nuwave\Lighthouse\Support\Http\Middleware\LogGraphQLQueries::class,
@@ -59,7 +75,7 @@ return [
     |
     */
 
-    'guard' => 'web',
+    'guard'                   => 'web',
 
     /*
     |--------------------------------------------------------------------------
@@ -71,7 +87,7 @@ return [
     |
     */
 
-    'schema' => [
+    'schema'                  => [
         'register' => base_path('graphql/schema.graphql'),
     ],
 
@@ -86,7 +102,7 @@ return [
     |
     */
 
-    'cache' => [
+    'cache'                   => [
         /*
          * Setting to true enables schema caching.
          */
@@ -119,7 +135,7 @@ return [
     |
     */
 
-    'namespaces' => [
+    'namespaces'              => [
         'models'        => ['App\\Models'],
         'queries'       => 'App\\GraphQL\\Queries',
         'mutations'     => 'App\\GraphQL\\Mutations',
@@ -141,10 +157,10 @@ return [
     |
     */
 
-    'security' => [
-        'max_query_complexity'  => \GraphQL\Validator\Rules\QueryComplexity::DISABLED,
-        'max_query_depth'       => \GraphQL\Validator\Rules\QueryDepth::DISABLED,
-        'disable_introspection' => \GraphQL\Validator\Rules\DisableIntrospection::DISABLED,
+    'security'                => [
+        'max_query_complexity'  => QueryComplexity::DISABLED,
+        'max_query_depth'       => QueryDepth::DISABLED,
+        'disable_introspection' => DisableIntrospection::DISABLED,
     ],
 
     /*
@@ -157,7 +173,7 @@ return [
     |
     */
 
-    'pagination' => [
+    'pagination'              => [
         /*
          * Allow clients to query paginated lists without specifying the amount of items.
          * Setting this to `null` means clients have to explicitly ask for the count.
@@ -199,7 +215,7 @@ return [
     |
     */
 
-    'debug' => env('LIGHTHOUSE_DEBUG', \GraphQL\Error\DebugFlag::INCLUDE_DEBUG_MESSAGE | \GraphQL\Error\DebugFlag::INCLUDE_TRACE),
+    'debug'                   => env('LIGHTHOUSE_DEBUG', DebugFlag::INCLUDE_DEBUG_MESSAGE | DebugFlag::INCLUDE_TRACE),
 
     /*
     |--------------------------------------------------------------------------
@@ -212,9 +228,9 @@ return [
     |
     */
 
-    'error_handlers' => [
-        \Nuwave\Lighthouse\Execution\ExtensionErrorHandler::class,
-        \Nuwave\Lighthouse\Execution\ReportingErrorHandler::class,
+    'error_handlers'          => [
+        ExtensionErrorHandler::class,
+        ReportingErrorHandler::class,
     ],
 
     /*
@@ -228,13 +244,13 @@ return [
     |
     */
 
-    'field_middleware' => [
-        \Nuwave\Lighthouse\Schema\Directives\TrimDirective::class,
-        \Nuwave\Lighthouse\Schema\Directives\SanitizeDirective::class,
-        \Nuwave\Lighthouse\Validation\ValidateDirective::class,
-        \Nuwave\Lighthouse\Schema\Directives\TransformArgsDirective::class,
-        \Nuwave\Lighthouse\Schema\Directives\SpreadDirective::class,
-        \Nuwave\Lighthouse\Schema\Directives\RenameArgsDirective::class,
+    'field_middleware'        => [
+        TrimDirective::class,
+        SanitizeDirective::class,
+        ValidateDirective::class,
+        TransformArgsDirective::class,
+        SpreadDirective::class,
+        RenameArgsDirective::class,
     ],
 
     /*
@@ -247,7 +263,7 @@ return [
     |
     */
 
-    'global_id_field' => 'id',
+    'global_id_field'         => 'id',
 
     /*
     |--------------------------------------------------------------------------
@@ -259,7 +275,7 @@ return [
     |
     */
 
-    'batched_queries' => true,
+    'batched_queries'         => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -284,7 +300,7 @@ return [
     |
     */
 
-    'force_fill' => true,
+    'force_fill'              => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -296,7 +312,7 @@ return [
     |
     */
 
-    'batchload_relations' => true,
+    'batchload_relations'     => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -308,7 +324,7 @@ return [
     |
     */
 
-    'subscriptions' => [
+    'subscriptions'           => [
         /*
          * Determines if broadcasts should be queued by default.
          */
@@ -349,13 +365,13 @@ return [
             ],
             'pusher' => [
                 'driver'     => 'pusher',
-                'routes'     => \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@pusher',
+                'routes'     => SubscriptionRouter::class.'@pusher',
                 'connection' => 'pusher',
             ],
             'echo'   => [
                 'driver'     => 'echo',
                 'connection' => env('LIGHTHOUSE_SUBSCRIPTION_REDIS_CONNECTION', 'default'),
-                'routes'     => \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class.'@echoRoutes',
+                'routes'     => SubscriptionRouter::class.'@echoRoutes',
             ],
         ],
     ],
@@ -369,7 +385,7 @@ return [
     |
     */
 
-    'defer' => [
+    'defer'                   => [
         /*
          * Maximum number of nested fields that can be deferred in one query.
          * Once reached, remaining fields will be resolved synchronously.

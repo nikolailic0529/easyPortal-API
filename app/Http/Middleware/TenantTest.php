@@ -43,16 +43,21 @@ class TenantTest extends TestCase {
         $this->assertFalse($this->app->get(CurrentTenant::class)->has());
 
         // Within middleware it should be defined
-        $spy = Mockery::spy(function () use ($tenant) {
-            $current = $this->app->get(CurrentTenant::class);
+        $spy = Mockery::spy(
+            function () use ($tenant): void {
+                $current = $this->app->get(CurrentTenant::class);
 
-            $this->assertTrue($current->has());
-            $this->assertEquals($tenant, $current->get());
-        });
+                $this->assertTrue($current->has());
+                $this->assertEquals($tenant, $current->get());
+            },
+        );
 
-        $middleware->handle($request, function () use ($spy) {
-            return $spy();
-        });
+        $middleware->handle(
+            $request,
+            static function () use ($spy): mixed {
+                return $spy();
+            },
+        );
 
         $spy->shouldHaveBeenCalled()->once();
 
@@ -73,9 +78,12 @@ class TenantTest extends TestCase {
 
         $this->expectExceptionObject(new NotFoundHttpException());
 
-        $middleware->handle($request, function () {
-            return null;
-        });
+        $middleware->handle(
+            $request,
+            static function (): mixed {
+                return null;
+            },
+        );
     }
 
     /**
@@ -83,7 +91,12 @@ class TenantTest extends TestCase {
      *
      * @dataProvider dataProviderGetTenantFromRequest
      */
-    public function testGetTenantFromRequest(bool $expected, ?string $domain, ?string $host, Closure $organizationFactory): void {
+    public function testGetTenantFromRequest(
+        bool $expected,
+        ?string $domain,
+        ?string $host,
+        Closure $organizationFactory,
+    ): void {
         $organization = $organizationFactory();
         $middleware   = new class($this->app) extends Tenant {
             public function getTenantFromRequest(Request $request): ?Organization {
@@ -145,9 +158,12 @@ class TenantTest extends TestCase {
 
     // <editor-fold desc="DataProviders">
     // =========================================================================
+    /**
+     * @return array<string, array{bool, string|null, string|null, \Closure}>
+     */
     public function dataProviderGetTenantFromRequest(): array {
         $tenant  = 'tenant-test';
-        $factory = function () use ($tenant) {
+        $factory = static function () use ($tenant): Organization {
             return Organization::factory()->create([
                 'subdomain' => $tenant,
             ]);
@@ -165,14 +181,22 @@ class TenantTest extends TestCase {
             'sub domain + sub.example.com'         => [false, 'sub.example.com', "{$tenant}.example.com", $factory],
             'tenant domain + no host'              => [true, "{$tenant}.example.com", null, $factory],
             'tenant domain + example.com'          => [true, "{$tenant}.example.com", 'example.com', $factory],
-            'tenant domain + sub.example.com'      => [true, "{$tenant}.example.com", "{$tenant}.example.com", $factory],
-            'wildcard domain + no host'            => [false, "*.example.com", null, $factory],
-            'wildcard domain + example.com'        => [false, "*.example.com", 'example.com', $factory],
-            'wildcard domain + sub.example.com'    => [false, "*.example.com", "sub.example.com", $factory],
-            'wildcard domain + tenant.example.com' => [true, "*.example.com", "{$tenant}.example.com", $factory],
+            'tenant domain + sub.example.com'      => [
+                true,
+                "{$tenant}.example.com",
+                "{$tenant}.example.com",
+                $factory,
+            ],
+            'wildcard domain + no host'            => [false, '*.example.com', null, $factory],
+            'wildcard domain + example.com'        => [false, '*.example.com', 'example.com', $factory],
+            'wildcard domain + sub.example.com'    => [false, '*.example.com', 'sub.example.com', $factory],
+            'wildcard domain + tenant.example.com' => [true, '*.example.com', "{$tenant}.example.com", $factory],
         ];
     }
 
+    /**
+     * @return array<string, array{string|null, string}>
+     */
     public function dataProviderGetTenantNameFromDomain(): array {
         return [
             'example'             => [null, 'example'],
@@ -182,6 +206,9 @@ class TenantTest extends TestCase {
         ];
     }
 
+    /**
+     * @return array<string, array{bool, string, string}>
+     */
     public function dataProviderIsWildcardDomain(): array {
         return [
             'nginx default domain _ (local)'                       => [true, 'local', '_'],

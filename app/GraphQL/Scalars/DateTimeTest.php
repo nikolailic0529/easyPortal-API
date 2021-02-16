@@ -67,6 +67,9 @@ class DateTimeTest extends TestCase {
 
     // <editor-fold desc="DataProviders">
     // =========================================================================
+    /**
+     * @return array<string, array{string, string}>
+     */
     public function dataProviderSerialize(): array {
         return [
             'valid date'           => ['2102-12-01T00:00:00+00:00', '2102-12-01T00:00:00.000+00:00'],
@@ -77,6 +80,9 @@ class DateTimeTest extends TestCase {
         ];
     }
 
+    /**
+     * @return array<string, array{string|\GraphQL\Error\Error, string|null, string}>
+     */
     public function dataProviderParse(): array {
         return [
             'date'                          => [

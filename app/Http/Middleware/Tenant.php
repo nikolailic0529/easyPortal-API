@@ -40,7 +40,7 @@ class Tenant {
         }
 
         // Process
-        $this->app->bind(CurrentTenant::class, function () use ($tenant) {
+        $this->app->bind(CurrentTenant::class, static function () use ($tenant): CurrentTenant {
             return (new CurrentTenant())->set($tenant);
         });
 

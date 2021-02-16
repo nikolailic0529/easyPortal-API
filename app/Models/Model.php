@@ -15,10 +15,18 @@ abstract class Model extends LaraASPModel {
     /**
      * Primary Key always UUID.
      *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
      * @var string
      */
-    protected $keyType      = 'string';
-    public    $incrementing = false;
+    protected $keyType = 'string';
+
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var string
+     */
+    public $incrementing = false;
 
     /**
      * @inheritdoc

@@ -79,7 +79,7 @@ class AuthControllerTest extends TestCase {
             $auth0->shouldReceive($method)->never();
         }
 
-        $this->app->bind(Auth0Service::class, function () use ($auth0) {
+        $this->app->bind(Auth0Service::class, static function () use ($auth0): Auth0Service {
             return $auth0;
         });
 
@@ -132,35 +132,37 @@ class AuthControllerTest extends TestCase {
         $method  = 'createUser';
 
         if ($expected instanceof CreatedResponse) {
-            $service->shouldReceive($method)->once()->andReturnUsing(function (array $params) use ($tenant, $data, $auth0Id) {
-                // FIXME [auth0] Test connection after "Specify connection"
+            $service->shouldReceive($method)->once()->andReturnUsing(
+                function (array $params) use ($tenant, $data, $auth0Id) {
+                    // FIXME [auth0] Test connection after "Specify connection"
 
-                $this->assertTrue(Arr::has($params, 'app_metadata.uuid'));
-                $this->assertTrue(Arr::has($params, 'app_metadata.tenant'));
-                $this->assertEquals($tenant->getKey(), Arr::get($params, 'app_metadata.tenant'));
-                $this->assertEquals([
-                    'phone'    => $data['phone'],
-                    'company'  => $data['company'],
-                    'reseller' => $data['reseller'],
-                ], $params['user_metadata']);
+                    $this->assertTrue(Arr::has($params, 'app_metadata.uuid'));
+                    $this->assertTrue(Arr::has($params, 'app_metadata.tenant'));
+                    $this->assertEquals($tenant->getKey(), Arr::get($params, 'app_metadata.tenant'));
+                    $this->assertEquals([
+                        'phone'    => $data['phone'],
+                        'company'  => $data['company'],
+                        'reseller' => $data['reseller'],
+                    ], $params['user_metadata']);
 
-                return [
-                    'blocked'        => true,
-                    'email'          => $data['email'],
-                    'email_verified' => false,
-                    'family_name'    => $data['given_name'],
-                    'given_name'     => $data['family_name'],
-                    'picture'        => 'https://example.com/avatar.png',
-                    'created_at'     => '2021-02-09T08:00:59.054Z',
-                    'updated_at'     => '2021-02-09T08:00:59.054Z',
-                    'user_id'        => $auth0Id,
-                ];
-            });
+                    return [
+                        'blocked'        => true,
+                        'email'          => $data['email'],
+                        'email_verified' => false,
+                        'family_name'    => $data['given_name'],
+                        'given_name'     => $data['family_name'],
+                        'picture'        => 'https://example.com/avatar.png',
+                        'created_at'     => '2021-02-09T08:00:59.054Z',
+                        'updated_at'     => '2021-02-09T08:00:59.054Z',
+                        'user_id'        => $auth0Id,
+                    ];
+                },
+            );
         } else {
             $service->shouldReceive($method)->never();
         }
 
-        $this->app->bind(Auth0Management::class, function () use ($service) {
+        $this->app->bind(Auth0Management::class, static function () use ($service): Auth0Management {
             return $service;
         });
 
@@ -182,19 +184,22 @@ class AuthControllerTest extends TestCase {
 
     // <editor-fold desc="DataProviders">
     // =========================================================================
+    /**
+     * @return array<mixed>
+     */
     public function dataProviderInfo(): array {
         return (new CompositeDataProvider(
             $this->getTenantDataProvider(),
             new ArrayDataProvider([
                 'guest is allowed' => [
                     new OkResponse(NullResource::class),
-                    function (): ?User {
+                    static function (): ?User {
                         return null;
                     },
                 ],
                 'user is allowed'  => [
                     new OkResponse(UserResource::class),
-                    function (): ?User {
+                    static function (): ?User {
                         return User::factory()->make();
                     },
                 ],
@@ -202,6 +207,9 @@ class AuthControllerTest extends TestCase {
         ))->getData();
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function dataProviderSignin(): array {
         return (new CompositeDataProvider(
             $this->getTenantDataProvider(),
@@ -214,6 +222,9 @@ class AuthControllerTest extends TestCase {
         ))->getData();
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function dataProviderSignout(): array {
         return (new CompositeDataProvider(
             $this->getTenantDataProvider(),
@@ -226,8 +237,11 @@ class AuthControllerTest extends TestCase {
         ))->getData();
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function dataProviderSignup(): array {
-        $dataFactory = function (self $test): array {
+        $dataFactory = static function (self $test): array {
             return [
                 'given_name'  => $test->faker->firstName,
                 'family_name' => $test->faker->lastName,
@@ -244,7 +258,7 @@ class AuthControllerTest extends TestCase {
             new ArrayDataProvider([
                 'invalid request'                     => [
                     new ExpectedFinal(new ValidationErrorResponse()),
-                    function (self $test) use ($dataFactory): array {
+                    static function (self $test) use ($dataFactory): array {
                         $data = $dataFactory($test);
                         $key  = $test->faker->randomElement(array_keys($data));
 
@@ -257,9 +271,10 @@ class AuthControllerTest extends TestCase {
                     new ExpectedFinal(new ValidationErrorResponse([
                         'email' => null,
                     ])),
-                    function (self $test) use ($dataFactory): array {
+                    static function (self $test) use ($dataFactory): array {
                         $data = $dataFactory($test);
-                        $user = User::factory()->create([
+
+                        User::factory()->create([
                             'email'           => $data['email'],
                             'organization_id' => Organization::factory()->create(),
                         ]);
@@ -279,13 +294,13 @@ class AuthControllerTest extends TestCase {
         return new ArrayDataProvider([
             'guest is allowed'    => [
                 new Unknown(),
-                function (): ?User {
+                static function (): ?User {
                     return null;
                 },
             ],
             'user is not allowed' => [
                 new ExpectedFinal(new ForbiddenResponse()),
-                function (): ?User {
+                static function (): ?User {
                     return User::factory()->make();
                 },
             ],
@@ -296,13 +311,13 @@ class AuthControllerTest extends TestCase {
         return new ArrayDataProvider([
             'guest is not allowed' => [
                 new ExpectedFinal(new Unauthorized()),
-                function (): ?User {
+                static function (): ?User {
                     return null;
                 },
             ],
             'user is allowed'      => [
                 new Unknown(),
-                function (): ?User {
+                static function (): ?User {
                     return User::factory()->make();
                 },
             ],
@@ -313,13 +328,13 @@ class AuthControllerTest extends TestCase {
         return new ArrayDataProvider([
             'no tenant' => [
                 new ExpectedFinal(new NotFoundResponse()),
-                function (): ?Organization {
+                static function (): ?Organization {
                     return null;
                 },
             ],
             'tenant'    => [
                 new Unknown(),
-                function (self $test): ?Organization {
+                static function (self $test): ?Organization {
                     return Organization::factory()->create([
                         'subdomain' => $test->faker->word,
                     ]);

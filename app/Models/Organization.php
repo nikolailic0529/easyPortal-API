@@ -14,23 +14,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Carbon\CarbonImmutable $created_at
  * @property \Carbon\CarbonImmutable $updated_at
  * @property string|null             $deleted_at
- * @method static \Illuminate\Database\Eloquent\Builder|Organization newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Organization newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Organization query()
- * @method static \Illuminate\Database\Eloquent\Builder|Organization whereAbbr($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Organization whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Organization whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Organization whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Organization whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Organization whereSubdomain($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Organization whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Organization whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereAbbr($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereSubdomain($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Organization extends Model {
     use HasFactory;
 
     /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
      * @var string
      */
     protected $table = 'organizations';

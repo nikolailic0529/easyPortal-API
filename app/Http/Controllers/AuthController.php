@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\Spa\Http\Resources\Scalar\NullResource;
 
+use function sprintf;
+
 class AuthController extends Controller {
     /**
      * Return info about current user or `null` for guests.
@@ -53,7 +55,7 @@ class AuthController extends Controller {
             'https://%s/v2/logout?client_id=%s&returnTo=%s',
             $config->get('laravel-auth0.domain'),
             $config->get('laravel-auth0.client_id'),
-            $config->get('app.url')
+            $config->get('app.url'),
         );
 
         return new RedirectResource($logoutUrl);
