@@ -9,14 +9,16 @@ class Handler extends ExceptionHandler {
     /**
      * A list of the exception types that are not reported.
      *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
      * @var array
      */
-    protected $dontReport = [
-        //
-    ];
+    protected $dontReport = [];
 
     /**
      * A list of the inputs that are never flashed for validation exceptions.
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var array
      */
@@ -27,12 +29,9 @@ class Handler extends ExceptionHandler {
 
     /**
      * Register the exception handling callbacks for the application.
-     *
-     * @return void
      */
-    public function register() {
-        $this->reportable(function (Throwable $e) {
-            //
+    public function register(): void {
+        $this->reportable(static function (Throwable $e): void {
         });
     }
 }

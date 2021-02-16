@@ -6,9 +6,13 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
+use function now;
+
 class UserFactory extends Factory {
     /**
      * The name of the factory's corresponding model.
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
      */
@@ -16,10 +20,8 @@ class UserFactory extends Factory {
 
     /**
      * Define the model's default state.
-     *
-     * @return array
      */
-    public function definition() {
+    public function definition(): array {
         return [
             'name'              => $this->faker->name,
             'email'             => $this->faker->unique()->safeEmail,

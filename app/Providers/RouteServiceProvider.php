@@ -8,13 +8,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
+use function base_path;
+use function optional;
+
 class RouteServiceProvider extends ServiceProvider {
     /**
      * The path to the "home" route for your application.
      *
      * This is used by Laravel authentication to redirect users after login.
      *
-     * @var string
      */
     public const HOME = '/home';
 
@@ -29,13 +31,11 @@ class RouteServiceProvider extends ServiceProvider {
 
     /**
      * Define your route model bindings, pattern filters, etc.
-     *
-     * @return void
      */
-    public function boot() {
+    public function boot(): void {
         $this->configureRateLimiting();
 
-        $this->routes(function () {
+        $this->routes(function (): void {
             Route::prefix('api')
                 ->middleware('api')
                 ->namespace($this->namespace)
@@ -49,11 +49,9 @@ class RouteServiceProvider extends ServiceProvider {
 
     /**
      * Configure the rate limiters for the application.
-     *
-     * @return void
      */
-    protected function configureRateLimiting() {
-        RateLimiter::for('api', function (Request $request) {
+    protected function configureRateLimiting(): void {
+        RateLimiter::for('api', static function (Request $request) {
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
         });
     }

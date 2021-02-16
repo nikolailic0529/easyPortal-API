@@ -8,9 +8,9 @@ class PreventRequestsDuringMaintenance extends Middleware {
     /**
      * The URIs that should be reachable while maintenance mode is enabled.
      *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
      * @var array
      */
-    protected $except = [
-        //
-    ];
+    protected $except = [];
 }

@@ -33,7 +33,9 @@
     "lastdragon-ru/lara-asp-testing": "^0.3.0",
     "mockery/mockery": "^1.4.2",
     "nunomaduro/collision": "^5.0",
-    "phpunit/phpunit": "^9.3.3"
+    "phpunit/phpunit": "^9.3.3",
+    "slevomat/coding-standard": "dev-master",
+    "squizlabs/php_codesniffer": "dev-master"
   },
   "suggest": {
     "ext-pdo": "Required for laravel/framework",
@@ -83,6 +85,9 @@
       "@php artisan ide-helper:meta",
       "@php artisan ide-helper:generate .phpstorm.helper.php",
       "@php artisan ide-helper:models --write"
+    ],
+    "phpcs": [
+      "@php ./vendor/bin/phpcs"
     ]
   },
   "repositories": [

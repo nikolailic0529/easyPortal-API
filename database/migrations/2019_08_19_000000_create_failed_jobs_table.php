@@ -7,11 +7,9 @@ use Illuminate\Support\Facades\Schema;
 class CreateFailedJobsTable extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up() {
-        Schema::create('laravel_failed_jobs', function (Blueprint $table) {
+    public function up(): void {
+        Schema::create('laravel_failed_jobs', static function (Blueprint $table): void {
             $table->id();
             $table->string('uuid')->unique();
             $table->text('connection');
@@ -24,10 +22,8 @@ class CreateFailedJobsTable extends Migration {
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down() {
+    public function down(): void {
         Schema::dropIfExists('laravel_failed_jobs');
     }
 }

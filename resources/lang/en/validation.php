@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 return [
 
@@ -130,7 +130,7 @@ return [
     |
     */
 
-    'custom' => [
+    'custom'               => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
@@ -147,6 +147,6 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes'           => [],
 
 ];

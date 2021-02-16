@@ -8,9 +8,9 @@ class EncryptCookies extends Middleware {
     /**
      * The names of the cookies that should not be encrypted.
      *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
      * @var array
      */
-    protected $except = [
-        //
-    ];
+    protected $except = [];
 }

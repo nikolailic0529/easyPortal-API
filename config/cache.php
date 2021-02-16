@@ -31,25 +31,25 @@ return [
     |
     */
 
-    'stores' => [
+    'stores'  => [
 
-        'apc' => [
+        'apc'       => [
             'driver' => 'apc',
         ],
 
-        'array' => [
+        'array'     => [
             'driver'    => 'array',
             'serialize' => false,
         ],
 
-        'database' => [
+        'database'  => [
             'driver'          => 'database',
             'table'           => 'cache',
             'connection'      => null,
             'lock_connection' => null,
         ],
 
-        'file' => [
+        'file'      => [
             'driver' => 'file',
             'path'   => storage_path('framework/cache/data'),
         ],
@@ -73,13 +73,13 @@ return [
             ],
         ],
 
-        'redis' => [
+        'redis'     => [
             'driver'          => 'redis',
             'connection'      => 'cache',
             'lock_connection' => 'default',
         ],
 
-        'dynamodb' => [
+        'dynamodb'  => [
             'driver'   => 'dynamodb',
             'key'      => env('AWS_ACCESS_KEY_ID'),
             'secret'   => env('AWS_SECRET_ACCESS_KEY'),
@@ -101,6 +101,6 @@ return [
     |
     */
 
-    'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_cache'),
+    'prefix'  => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_cache'),
 
 ];
