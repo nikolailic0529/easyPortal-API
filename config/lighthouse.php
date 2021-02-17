@@ -13,7 +13,6 @@ use Nuwave\Lighthouse\Schema\Directives\TransformArgsDirective;
 use Nuwave\Lighthouse\Schema\Directives\TrimDirective;
 use Nuwave\Lighthouse\Subscriptions\SubscriptionRouter;
 use Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson;
-use Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication;
 use Nuwave\Lighthouse\Validation\ValidateDirective;
 
 return [
@@ -51,7 +50,7 @@ return [
 
             // Logs in a user if they are authenticated. In contrast to Laravel's 'auth'
             // middleware, this delegates auth and permission checks to the field level.
-            AttemptAuthentication::class,
+            // Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class,
 
             // Logs every incoming GraphQL query.
             // \Nuwave\Lighthouse\Support\Http\Middleware\LogGraphQLQueries::class,
