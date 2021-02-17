@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "81f38260613f6d61434b54b3583ce580",
+    "content-hash": "64a6690b2f0cafb37952230341d85e6b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7882,7 +7882,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:LastDragon-ru/lara-asp-testing.git",
-                "reference": "b0371857ad7cea03d89e25a4e2c7424b90b6c36d"
+                "reference": "2943a31e8284a718a15555aa766b762c980a7193"
             },
             "require": {
                 "doctrine/dbal": "^2.12.0|^3.0.0",
@@ -7943,7 +7943,7 @@
                 "source": "https://github.com/LastDragon-ru/lara-asp",
                 "forum": "https://github.com/LastDragon-ru/lara-asp/discussions"
             },
-            "time": "2021-02-14T12:40:19+00:00"
+            "time": "2021-02-17T07:45:34+00:00"
         },
         {
             "name": "m1x0n/opis-json-schema-error-presenter",

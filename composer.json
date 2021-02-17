@@ -89,7 +89,8 @@
       "@php artisan ide-helper:meta",
       "@php artisan ide-helper:generate .phpstorm.helper.php",
       "@php artisan ide-helper:models --write",
-      "@php artisan lighthouse:ide-helper"
+      "@php artisan lighthouse:ide-helper",
+      "@php -r 'file_put_contents(\"schema-directives.graphql\", str_replace(\"repeatable\", \"\", file_get_contents(\"schema-directives.graphql\")));'"
     ],
     "phpcs": [
       "@php ./vendor/bin/phpcs"

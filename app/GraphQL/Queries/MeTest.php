@@ -7,7 +7,6 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\OkResponse;
 use Tests\DataProviders\TenantDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -49,13 +48,13 @@ class MeTest extends TestCase {
             new TenantDataProvider(),
             new ArrayDataProvider([
                 'guest is allowed' => [
-                    new OkResponse(new GraphQLSuccess('me', null)),
+                    new GraphQLSuccess('me', null),
                     static function (): ?User {
                         return null;
                     },
                 ],
                 'user is allowed'  => [
-                    new OkResponse(new GraphQLSuccess('me', Me::class)),
+                    new GraphQLSuccess('me', Me::class),
                     static function (): ?User {
                         return User::factory()->make();
                     },
