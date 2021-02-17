@@ -20,7 +20,7 @@ class DateTest extends TestCase {
      * @covers ::serialize
      * @dataProvider dataProviderSerialize
      */
-    public function testSerialize(?string $expected, string $value): void {
+    public function testSerialize(string $expected, string $value): void {
         $value  = DateFacade::createFromFormat(DateTimeInterface::RFC3339_EXTENDED, $value);
         $scalar = new Date();
         $actual = $scalar->serialize($value);
