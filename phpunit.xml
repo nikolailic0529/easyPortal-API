@@ -13,12 +13,6 @@
         <testsuite name="Seeders">
             <directory suffix="Test.php">./database/seeders</directory>
         </testsuite>
-        <testsuite name="Unit">
-            <directory suffix="Test.php">./tests/Unit</directory>
-        </testsuite>
-        <testsuite name="Feature">
-            <directory suffix="Test.php">./tests/Feature</directory>
-        </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true" cacheDirectory=".phpunit/code-coverage">
         <include>
