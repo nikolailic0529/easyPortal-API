@@ -4,6 +4,7 @@ namespace App\Models\Concerns;
 
 use App\CurrentTenant;
 use App\Models\Contracts\BelongsToTenant as BelongsToTenantContract;
+use App\Models\Scopes\TenantScope;
 use Illuminate\Database\Eloquent\Builder;
 
 use function app;
@@ -28,5 +29,14 @@ trait BelongsToTenant {
 
     public function getTenantIdColumn(): string {
         return 'organization_id';
+    }
+
+
+    /**
+     * @inheritdoc
+     */
+    protected static function booted() {
+        parent::boot();
+        static::addGlobalScope(new TenantScope(app()));
     }
 }
