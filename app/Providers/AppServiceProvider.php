@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Auth0\UserRepository;
+use Auth0\Login\Contract\Auth0UserRepository;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\ServiceProvider;
@@ -12,6 +14,11 @@ class AppServiceProvider extends ServiceProvider {
      */
     public function register(): void {
         Date::use(CarbonImmutable::class);
+
+        $this->app->bind(
+            Auth0UserRepository::class,
+            UserRepository::class,
+        );
     }
 
     /**

@@ -16,7 +16,7 @@ use LogicException;
  * @property int                          $id
  * @property string                       $organization_id
  * @property string|null                  $sub Auth0 User ID
- * @property int                          $blocked
+ * @property bool                         $blocked
  * @property string                       $given_name
  * @property string                       $family_name
  * @property string                       $email
@@ -70,7 +70,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array<string>
      */
     protected $fillable = [
-        'sup',
+        'sub',
         'name',
         'email',
     ];
@@ -96,6 +96,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array<string>
      */
     protected $casts = [
+        'blocked'           => 'bool',
         'permissions'       => 'array',
         'email_verified_at' => 'datetime',
         'phone_verified_at' => 'datetime',
@@ -103,5 +104,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function sendEmailVerificationNotification(): void {
         throw new LogicException('Email verification should be done inside auth0.');
+    }
+
+    public function getAuthIdentifierName(): string {
+        return 'sub';
     }
 }

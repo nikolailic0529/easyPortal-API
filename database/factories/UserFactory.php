@@ -38,7 +38,9 @@ class UserFactory extends Factory {
             'photo'             => null,
             'created_at'        => Date::now(),
             'updated_at'        => Date::now(),
+            'deleted_at'        => null,
             'permissions'       => [],
+            'blocked'           => false,
         ];
     }
 }
