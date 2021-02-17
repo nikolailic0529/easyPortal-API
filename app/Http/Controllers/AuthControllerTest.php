@@ -38,21 +38,6 @@ use function array_keys;
 class AuthControllerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @covers ::info
-     * @dataProvider dataProviderInfo
-     */
-    public function testInfo(Response $expected, Closure $tenantFactory, Closure $userFactory = null): void {
-        $tenant = $tenantFactory($this);
-        $user   = $userFactory ? $userFactory($this) : null;
-        $url    = $this->getTenantUrl($tenant, '/auth/info');
-
-        if ($user) {
-            $this->actingAs($user);
-        }
-
-        $this->getJson($url)->assertThat($expected);
-    }
 
     /**
      * @covers ::signin
@@ -79,24 +64,6 @@ class AuthControllerTest extends TestCase {
         $this->app->bind(Auth0Service::class, static function () use ($auth0): Auth0Service {
             return $auth0;
         });
-
-        // Test
-        if ($user) {
-            $this->actingAs($user);
-        }
-
-        $this->getJson($url)->assertThat($expected);
-    }
-
-    /**
-     * @covers ::signin
-     * @dataProvider dataProviderSignout
-     */
-    public function testSignout(Response $expected, Closure $tenantFactory, Closure $userFactory = null): void {
-        // Prepare
-        $tenant = $tenantFactory($this);
-        $user   = $userFactory ? $userFactory($this) : null;
-        $url    = $this->getTenantUrl($tenant, '/auth/signout');
 
         // Test
         if ($user) {
@@ -184,29 +151,6 @@ class AuthControllerTest extends TestCase {
     /**
      * @return array<mixed>
      */
-    public function dataProviderInfo(): array {
-        return (new CompositeDataProvider(
-            $this->getTenantDataProvider(),
-            new ArrayDataProvider([
-                'guest is allowed' => [
-                    new OkResponse(NullResource::class),
-                    static function (): ?User {
-                        return null;
-                    },
-                ],
-                'user is allowed'  => [
-                    new OkResponse(UserResource::class),
-                    static function (): ?User {
-                        return User::factory()->make();
-                    },
-                ],
-            ]),
-        ))->getData();
-    }
-
-    /**
-     * @return array<mixed>
-     */
     public function dataProviderSignin(): array {
         return (new CompositeDataProvider(
             $this->getTenantDataProvider(),
@@ -219,20 +163,6 @@ class AuthControllerTest extends TestCase {
         ))->getData();
     }
 
-    /**
-     * @return array<mixed>
-     */
-    public function dataProviderSignout(): array {
-        return (new CompositeDataProvider(
-            $this->getTenantDataProvider(),
-            $this->getUserDataProvider(),
-            new ArrayDataProvider([
-                'redirect to logout' => [
-                    new OkResponse(RedirectResource::class),
-                ],
-            ]),
-        ))->getData();
-    }
 
     /**
      * @return array<mixed>

@@ -4,7 +4,7 @@ namespace App\GraphQL\Queries;
 
 use Auth0\Login\Auth0Service;
 
-class AuthSignInUrl {
+class AuthSignIn {
     protected Auth0Service $auth;
 
     public function __construct(Auth0Service $auth) {

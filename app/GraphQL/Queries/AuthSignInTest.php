@@ -17,9 +17,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\AuthSignInUrl
+ * @coversDefaultClass \App\GraphQL\Queries\AuthSignIn
  */
-class AuthSignInUrlTest extends TestCase {
+class AuthSignInTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -50,7 +50,7 @@ class AuthSignInUrlTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                authSignInUrl
+                authSignIn
             }')
             ->assertThat($expected);
     }
@@ -67,7 +67,7 @@ class AuthSignInUrlTest extends TestCase {
             new GuestDataProvider(),
             new ArrayDataProvider([
                 'redirect to login' => [
-                    new GraphQLSuccess('authSignInUrl', AuthSignInUrl::class),
+                    new GraphQLSuccess('authSignIn', AuthSignIn::class),
                 ],
             ]),
         ))->getData();

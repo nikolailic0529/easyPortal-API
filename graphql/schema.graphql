@@ -6,7 +6,7 @@ type Query {
     me: User
 
     "Link to perform Sign In, available only for guests."
-    authSignInUrl: String! @guest       # TODO [GraphQL] URL type needed
+    authSignIn: String! @guest          # TODO [GraphQL] URL type needed
 }
 
 type Mutation {
