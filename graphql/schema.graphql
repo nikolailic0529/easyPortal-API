@@ -1,12 +1,10 @@
 #import Scalars/*.graphql
+#import Types/*.graphql
 
 type Query {
     "Current user, `null` for guests."
     me: User
-}
 
-type User {
-    id: ID! # FIXME [!] Do we really need it on frontend?
-    given_name: String!
-    family_name: String!
+    "Link to perform Sign In, available only for guests."
+    authSignInUrl: String! @guest
 }

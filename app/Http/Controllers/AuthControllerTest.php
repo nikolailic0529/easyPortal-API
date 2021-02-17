@@ -10,7 +10,6 @@ use App\Models\User;
 use App\Services\Auth0Management;
 use Auth0\Login\Auth0Service;
 use Closure;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -37,8 +36,6 @@ use function array_keys;
  * @coversDefaultClass \App\Http\Controllers\AuthController
  */
 class AuthControllerTest extends TestCase {
-    use WithFaker;
-
     // <editor-fold desc="Tests">
     // =========================================================================
     /**

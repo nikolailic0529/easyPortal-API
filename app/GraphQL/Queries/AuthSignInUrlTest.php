@@ -2,20 +2,24 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\User;
+use Auth0\Login\Auth0Service;
 use Closure;
+use Illuminate\Http\RedirectResponse;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\OkResponse;
+use Mockery;
+use Tests\DataProviders\GraphQL\GuestDataProvider;
 use Tests\DataProviders\TenantDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Me
+ * @coversDefaultClass \App\GraphQL\Queries\AuthSignInUrl
  */
-class MeTest extends TestCase {
+class AuthSignInUrlTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -23,16 +27,30 @@ class MeTest extends TestCase {
      * @dataProvider dataProviderInvoke
      */
     public function testInvoke(Response $expected, Closure $tenantFactory, Closure $userFactory = null): void {
+        // Prepare
         $this->setTenant($tenantFactory);
         $this->setUser($userFactory);
 
+        // Mock
+        $auth0  = Mockery::mock(Auth0Service::class);
+        $method = 'login';
+
+        if ($expected instanceof OkResponse) {
+            $auth0->shouldReceive($method)->once()->andReturn(
+                new RedirectResponse('http://example.com/'),
+            );
+        } else {
+            $auth0->shouldReceive($method)->never();
+        }
+
+        $this->app->bind(Auth0Service::class, static function () use ($auth0): Auth0Service {
+            return $auth0;
+        });
+
+        // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                me {
-                    id,
-                    family_name,
-                    given_name
-                }
+                authSignInUrl
             }')
             ->assertThat($expected);
     }
@@ -46,18 +64,10 @@ class MeTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
+            new GuestDataProvider(),
             new ArrayDataProvider([
-                'guest is allowed' => [
-                    new GraphQLSuccess('me', null),
-                    static function (): ?User {
-                        return null;
-                    },
-                ],
-                'user is allowed'  => [
-                    new GraphQLSuccess('me', Me::class),
-                    static function (): ?User {
-                        return User::factory()->make();
-                    },
+                'redirect to login' => [
+                    new GraphQLSuccess('authSignInUrl', AuthSignInUrl::class),
                 ],
             ]),
         ))->getData();

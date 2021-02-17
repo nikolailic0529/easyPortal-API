@@ -4,6 +4,11 @@
         "ID": {
             "type": "string",
             "format": "uuid"
+        },
+        "url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^(https?)://"
         }
     }
 }
