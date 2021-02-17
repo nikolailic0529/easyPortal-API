@@ -7,10 +7,21 @@
         "errors"
     ],
     "properties": {
+        "data": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "${graphql.root}"
+            ],
+            "properties": {
+                "${graphql.root}": {
+                    "const": null
+                }
+            }
+        },
         "errors": {
             "type": "array",
             "items": {
-
                 "type": "object",
                 "additionalProperties": false,
                 "required": [
@@ -52,6 +63,11 @@
                         "type": "object"
                     },
                     "trace": {
+                        "description": "from https://github.com/nuwave/lighthouse",
+                        "type": "array"
+                    },
+                    "debugMessage": {
+                        "description": "from https://github.com/nuwave/lighthouse",
                         "type": "array"
                     }
                 }

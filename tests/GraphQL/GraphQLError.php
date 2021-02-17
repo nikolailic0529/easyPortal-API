@@ -16,12 +16,12 @@ class GraphQLError extends Response {
     /**
      * @param array<string>|null $errors
      */
-    public function __construct(array $errors = null) {
+    public function __construct(string $root, array $errors = null) {
         parent::__construct(
             new Ok(),
             new JsonContentType(),
             new JsonBody(...array_filter([
-                new JsonMatchesSchema(new SchemaWrapper($this::class, 'no root')),
+                new JsonMatchesSchema(new SchemaWrapper($this::class, $root)),
                 $errors
                     ? new JsonMatchesSchema(new JsonSchema($this->getErrorsSchema($errors)))
                     : null,
@@ -54,7 +54,7 @@ class GraphQLError extends Response {
         return [
             '$schema'              => 'http://json-schema.org/draft-07/schema#',
             'type'                 => 'object',
-            'additionalProperties' => false,
+            'additionalProperties' => true,
             'required'             => [
                 'errors',
             ],

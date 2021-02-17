@@ -44,7 +44,7 @@ class AuthSignOutTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            new UserDataProvider(),
+            new UserDataProvider('authSignOut'),
             new ArrayDataProvider([
                 'redirect to logout' => [
                     new GraphQLSuccess('authSignOut', AuthSignOut::class),

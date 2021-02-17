@@ -64,7 +64,7 @@ class AuthSignInTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            new GuestDataProvider(),
+            new GuestDataProvider('authSignIn'),
             new ArrayDataProvider([
                 'redirect to login' => [
                     new GraphQLSuccess('authSignIn', AuthSignIn::class),
