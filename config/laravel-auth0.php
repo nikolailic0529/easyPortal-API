@@ -31,16 +31,6 @@ return [
 
     /*
         |--------------------------------------------------------------------------
-        |   Your API token
-        |--------------------------------------------------------------------------
-        |   As set in the auth0 administration page
-        |
-        | FIXME [!] REMOVE (required for tests)
-    */
-    'api_token'             => env('AUTH0_API_TOKEN'),
-
-    /*
-        |--------------------------------------------------------------------------
         |   The redirect URI
         |--------------------------------------------------------------------------
         |   Should be the same that the one configure in the route to handle the
@@ -70,8 +60,8 @@ return [
         |--------------------------------------------------------------------------
         |
     */
-    'api_identifier'        => 'http://easyportal.test/',
-    'audience'              => 'http://easyportal.test/',
+    'api_identifier'        => env('AUTH0_API_AUDIENCE'),
+    'audience'              => env('AUTH0_AUDIENCE'),
 
     /*
         |--------------------------------------------------------------------------
@@ -99,4 +89,14 @@ return [
         |
     */
     // 'guzzle_options' => []
+
+    /*
+        |--------------------------------------------------------------------------
+        |   Your API App id & secret
+        |--------------------------------------------------------------------------
+        |   As set in the auth0 administration page
+        |
+    */
+    'api_client_id'         => env('AUTH0_API_CLIENT_ID'),
+    'api_client_secret'     => env('AUTH0_API_CLIENT_SECRET'),
 ];
