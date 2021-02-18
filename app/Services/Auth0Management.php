@@ -23,6 +23,9 @@ class Auth0Management {
      * @return array{user_id: string, picture: string}
      */
     public function createUser(array $data): array {
+        // FIXME [auth0] Specify connection
+        $data['connection'] ??= 'Username-Password-Authentication';
+
         // FIXME [auth0] Tenant probably required here
         return $this->management->users()->create($data);
     }

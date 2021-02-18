@@ -13,6 +13,16 @@ type Mutation {
     "Return the link where the user should be redirected to complete sign-out."
     authSignOut: String! @guard         # TODO [GraphQL] URL type needed
 
-    "Completes sign-in and returns current User if successful."
+    "Complete sign-in and returns current User if successful."
     authSignIn(code: String!, state: String!): User @guest
+
+    "Register new user"
+    authSignUp(
+        given_name: String!
+        family_name: String!
+        email: String!                  # TODO [GraphQL] Email type needed
+        phone: String!                  # TODO [GraphQL] Phone type needed
+        company: String!
+        reseller: String
+    ): Boolean! @guest @validator
 }
