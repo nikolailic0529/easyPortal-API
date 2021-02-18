@@ -10,15 +10,11 @@ use Illuminate\Contracts\Config\Repository as Config;
 class Management {
     protected Config $config;
     protected Cache  $cache;
-    protected Api    $management;
+    protected ?Api   $api = null;
 
     public function __construct(Config $config, Cache $cache) {
-        $this->config     = $config;
-        $this->cache      = $cache;
-        $token            = $this->getAccessToken();
-        $domain           = $this->config->get('laravel-auth0.domain');
-        $guzzleOptions    = $this->config->get('laravel-auth0.guzzle_options', []);
-        $this->management = new Api($token, $domain, $guzzleOptions);
+        $this->config = $config;
+        $this->cache  = $cache;
     }
 
     /**
@@ -33,7 +29,18 @@ class Management {
         $data['connection'] ??= 'Username-Password-Authentication';
 
         // FIXME [auth0] Tenant probably required here
-        return $this->management->users()->create($data);
+        return $this->getApi()->users()->create($data);
+    }
+
+    protected function getApi(): Api {
+        if (!$this->api) {
+            $token         = $this->getAccessToken();
+            $domain        = $this->config->get('laravel-auth0.domain');
+            $guzzleOptions = $this->config->get('laravel-auth0.guzzle_options', []);
+            $this->api     = new Api($token, $domain, $guzzleOptions);
+        }
+
+        return $this->api;
     }
 
     protected function getAccessToken(): string {
