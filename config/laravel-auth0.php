@@ -37,7 +37,7 @@ return [
         |   'Auth0\Login\Auth0Controller@callback'
         |
     */
-    'redirect_uri'          => env('APP_URL').'/api/auth/callback',
+    'redirect_uri'          => env('AUTH0_REDIRECT_URI'),
 
     /*
         |--------------------------------------------------------------------------
