@@ -4,14 +4,14 @@ namespace App\GraphQL\Mutations;
 
 use App\CurrentTenant;
 use App\Models\User;
-use App\Services\Auth0Management;
+use App\Services\Auth0\Management;
 use Illuminate\Support\Str;
 
 class AuthSignUp {
-    protected Auth0Management $service;
-    protected CurrentTenant   $tenant;
+    protected Management    $service;
+    protected CurrentTenant $tenant;
 
-    public function __construct(Auth0Management $service, CurrentTenant $tenant) {
+    public function __construct(Management $service, CurrentTenant $tenant) {
         $this->service = $service;
         $this->tenant  = $tenant;
     }

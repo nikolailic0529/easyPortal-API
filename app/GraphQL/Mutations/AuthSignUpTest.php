@@ -4,7 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\Organization;
 use App\Models\User;
-use App\Services\Auth0Management;
+use App\Services\Auth0\Management;
 use Closure;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -68,7 +68,7 @@ class AuthSignUpTest extends TestCase {
         }
 
         // Mock
-        $service = Mockery::mock(Auth0Management::class);
+        $service = Mockery::mock(Management::class);
         $method  = $service->shouldReceive('createUser');
 
         if ($expected instanceof GraphQLSuccess) {
@@ -102,7 +102,7 @@ class AuthSignUpTest extends TestCase {
             $method->never();
         }
 
-        $this->app->bind(Auth0Management::class, static function () use ($service): Auth0Management {
+        $this->app->bind(Management::class, static function () use ($service): Management {
             return $service;
         });
 

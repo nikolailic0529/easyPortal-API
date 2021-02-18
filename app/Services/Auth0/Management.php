@@ -1,18 +1,18 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services;
+namespace App\Services\Auth0;
 
-use Auth0\SDK\API\Management;
+use Auth0\SDK\API\Management as Api;
 use Illuminate\Contracts\Config\Repository;
 
-class Auth0Management {
-    protected Management $management;
+class Management {
+    protected Api $management;
 
     public function __construct(Repository $config) {
         $token            = $config->get('laravel-auth0.api_token');
         $domain           = $config->get('laravel-auth0.domain');
         $guzzleOptions    = $config->get('laravel-auth0.guzzle_options', []);
-        $this->management = new Management($token, $domain, $guzzleOptions);
+        $this->management = new Api($token, $domain, $guzzleOptions);
     }
 
     /**

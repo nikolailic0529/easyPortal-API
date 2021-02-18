@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Auth0;
+namespace App\Services\Auth0;
 
 use App\Models\User;
 use Closure;
@@ -12,7 +12,7 @@ use Tests\WithCurrentTenant;
 
 /**
  * @internal
- * @coversDefaultClass \App\Auth0\UserRepository
+ * @coversDefaultClass \App\Services\Auth0\UserRepository
  */
 class UserRepositoryTest extends TestCase {
     use WithCurrentTenant;

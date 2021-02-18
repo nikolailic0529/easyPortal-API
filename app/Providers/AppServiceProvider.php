@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Auth0\UserRepository;
+use App\Services\Auth0\UserRepository;
 use Auth0\Login\Contract\Auth0UserRepository;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Auth0;
+namespace App\Services\Auth0;
 
 use App\Models\User;
 use Auth0\Login\Auth0JWTUser;
