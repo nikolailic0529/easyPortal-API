@@ -1,5 +1,7 @@
 <?php declare(strict_types = 1);
 
+// @phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -7,11 +9,9 @@ use Illuminate\Support\Facades\Schema;
 class CreateLaravelJobBatchesTable extends Migration {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up() {
-        Schema::create('laravel_job_batches', function (Blueprint $table) {
+    public function up(): void {
+        Schema::create('laravel_job_batches', static function (Blueprint $table): void {
             $table->string('id')->primary();
             $table->string('name');
             $table->integer('total_jobs');
@@ -27,10 +27,8 @@ class CreateLaravelJobBatchesTable extends Migration {
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down() {
+    public function down(): void {
         Schema::dropIfExists('laravel_job_batches');
     }
 }

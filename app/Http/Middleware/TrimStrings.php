@@ -8,7 +8,9 @@ class TrimStrings extends Middleware {
     /**
      * The names of the attributes that should not be trimmed.
      *
-     * @var array
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<string>
      */
     protected $except = [
         'password',

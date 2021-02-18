@@ -2,9 +2,45 @@
 
 The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL” in this document are to be interpreted as described in [RFC 2119](http://tools.ietf.org/html/rfc2119).
 
+* [General](#general)
+    + [Always strict is a MUST](#always-strict-is-a-must)
+    + [The `{` MUST be on the same line](#the-----must-be-on-the-same-line)
+    + [Compound namespaces MUST NOT be used](#compound-namespaces-must-not-be-used)
+    + [Multi-line calls, arguments, and arrays MUST have a comma on the last line](#multi-line-calls--arguments--and-arrays-must-have-a-comma-on-the-last-line)
+    + [Groups of constants, variables, class properties, and arrays MUST be aligned by `=` or `=>` respectively](#groups-of-constants--variables--class-properties--and-arrays-must-be-aligned-by-----or------respectively)
+    + [Every object SHOULD have a body](#every-object-should-have-a-body)
+    + [Each If-ElseIf-ElseIf SHOULD have `else` block](#each-if-elseif-elseif-should-have--else--block)
+    + [Each Switch-Case SHOULD have `default` block](#each-switch-case-should-have--default--block)
+    + [Default value SHOULD be placed before If-ElseIf-Else/Switch-Case block](#default-value-should-be-placed-before-if-elseif-else-switch-case-block)
+    + [Prefixes/Suffixes like `Trait`/`Interface`/`Abstract` SHOULD NOT be used.](#prefixes-suffixes-like--trait---interface---abstract--should-not-be-used)
+    + [You MAY use code-folding to group code by logic](#you-may-use-code-folding-to-group-code-by-logic)
+* [Laravel Best Practices](#laravel-best-practices)
+    + [Auto Complete MUST work](#auto-complete-must-work)
+    + [DI SHOULD be used where possible](#di-should-be-used-where-possible)
+    + [Models](#models)
+        - [Table name MUST be declared](#table-name-must-be-declared)
+        - [Class MUST have proper docblock](#class-must-have-proper-docblock)
+        - [Factories MUST define all properties](#factories-must-define-all-properties)
+    + [Routes](#routes)
+        - [Actions SHOULD be defined via valid callback](#actions-should-be-defined-via-valid-callback)
+    + [GraphQL](#graphql)
+    + [Database Schema & Migrations](#database-schema---migrations)
+    + [See also](#see-also)
+* [Testing](#testing)
+    + [You SHOULD write the tests](#you-should-write-the-tests)
+    + [Test file SHOULD be placed in the same directory with class](#test-file-should-be-placed-in-the-same-directory-with-class)
+    + [Test data SHOULD be placed in the same directory with Test](#test-data-should-be-placed-in-the-same-directory-with-test)
+    + [Simple Mocks SHOULD use anonymous classes](#simple-mocks-should-use-anonymous-classes)
+    + [Each TestCase class MUST have proper docblock](#each-testcase-class-must-have-proper-docblock)
+* [Misc](#misc)
+    + [PHP CodeSniffer](#php-codesniffer)
+    + [Laravel Ide Helper](#laravel-ide-helper)
+
+
 ## General
 
 Code MUST follow all rules outlined in [PSR-12](https://www.php-fig.org/psr/psr-12/) with exceptions/addition declared below.
+
 
 ### Always strict is a MUST
 
@@ -32,7 +68,7 @@ class A {
 }
 ```
 
-If you extend external (from other packages) classes without proper type-hint, you should try to provide the best possible type-hint. In some cases CodeSniffer may show an error about missing types to avoid it you can use `@inheritdoc`:
+If you extend external (from other packages) classes without proper type-hint, you should try to provide the best possible type-hint. In some cases CodeSniffer may show an error about missing types to avoid it you can use `@inheritdoc` or `@phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint`:
 
 ```php
 <?php declare(strict_types = 1);
@@ -60,6 +96,24 @@ class IntRule implements Rule {
 }
 ```
 
+```php
+<?php declare(strict_types=1);
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Organization extends Model {
+    use HasFactory;
+
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     * @var string
+     */
+    protected $table = 'organizations';
+}
+```
+
+
 ### The `{` MUST be on the same line
 
 ```php
@@ -76,6 +130,7 @@ function f(): void {
 }
 ```
 
+
 ### Compound namespaces MUST NOT be used
 
 ```php
@@ -91,6 +146,7 @@ use function Vendor\Package\functionA;
 use function Vendor\Package\functionB;
 use function Vendor\Package\functionC;
 ```
+
 
 ### Multi-line calls, arguments, and arrays MUST have a comma on the last line
 
@@ -120,7 +176,8 @@ class ClassName {
 }
 ```
 
-### Groups of const, variables, class properties, and arrays MUST be aligned by `=` or `=>` respectively
+
+### Groups of constants, variables, class properties, and arrays MUST be aligned by `=` or `=>` respectively
 
 ```php
 <?php declare(strict_types=1);
@@ -146,6 +203,7 @@ class A {
 }
 ```
 
+
 ### Every object SHOULD have a body
 
 If they should be empty, you can mark it:
@@ -162,12 +220,21 @@ interface Me {
 }
 ```
 
+
 ### Each If-ElseIf-ElseIf SHOULD have `else` block
 
 even if `else` is empty
 
 ```php
 <?php declare(strict_types=1);
+
+if ('condition1') {
+    // ...
+} elseif ('condition2') {
+    // ...
+} else {
+    // empty
+}
 
 if ('condition1') {
     // ...
@@ -180,12 +247,34 @@ if ('condition1') {
 }
 ```
 
-### Default value SHOULD be placed before If-ElseIf-Else block
+
+### Each Switch-Case SHOULD have `default` block
+
+even if `default` is empty
 
 ```php
 <?php declare(strict_types=1);
 
-function test(): ?string {
+switch ('value') {
+    case 'condition1':
+        // ...
+        break;
+    case 'condition2':
+        // ...
+        break;
+    default:
+        // empty
+        break;
+}
+```
+
+
+### Default value SHOULD be placed before If-ElseIf-Else/Switch-Case block
+
+```php
+<?php declare(strict_types=1);
+
+function IfElseExample(): ?string {
     $value = null;
     
     if ('condition1') {
@@ -200,7 +289,68 @@ function test(): ?string {
     
     return $value;
 }
+
+function SwitchCaseExample(): ?string {
+    $value = null;
+    
+    switch ($value) {
+        case 'condition1':
+            // ...
+            break;
+        case 'condition2':
+            // ...
+            break;
+        default:
+            // empty
+            break;
+    }
+    
+    return $value;
+}
 ```
+
+
+### Prefixes/Suffixes like `Trait`/`Interface`/`Abstract` SHOULD NOT be used.
+
+Probably you just need to find a better name. On the other side there few well-known suffixes like `Controller` for Laravel's controllers, `Exception` for exceptions, please use it.
+
+
+### You MAY use code-folding to group code by logic
+
+This is especially recommended for tests.
+
+```php
+<?php declare(strict_types = 1);
+
+namespace App\Http\Controllers;
+
+use Tests\TestCase;
+
+/**
+ * @internal
+ * @coversDefaultClass \App\Http\Controllers\AuthController
+ */
+class AuthControllerTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
+    /**
+     * @covers ::info
+     * @dataProvider dataProviderInfo
+     */
+    public function testInfo(): void {
+        // ...
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="DataProviders">
+    // =========================================================================
+    public function dataProviderInfo(): array {
+        return [];
+    }
+    // </editor-fold>
+}
+```
+
 
 ## Laravel Best Practices
 
@@ -208,9 +358,13 @@ function test(): ?string {
 
 Use `ide-helper` (see below) and `/* @var \stdClass $a */` when necessary.
 
+
 ### DI SHOULD be used where possible
 
-not helpers and facades.
+not helpers and facades. There are few exceptions:
+
+- `Illuminate\\Support\\Facades\\Date` should be used to getting dates;
+- `Illuminate\\Support\\Facades\\Route` should be used for top-level routes;
 
 
 ### Models
@@ -227,6 +381,7 @@ class Organization extends Model {
     use HasFactory;
 
     /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      * @var string
      */
     protected $table = 'organizations';
@@ -234,9 +389,69 @@ class Organization extends Model {
 ```
 
 
+#### Class MUST have proper docblock
+
+It can be generated by ide-helper. If the schema was updated the recommended way to sync docblock is:
+
+1. Remove existing docblock
+2. Generate a new one
+
+```php
+<?php declare(strict_types = 1);
+
+namespace App\Models;
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+/**
+ * @property int                          $id
+ * @property string|null                  $sub Auth0 User ID
+ * @property int                          $blocked
+ * @property string                       $given_name
+ * @property string                       $family_name
+ * @property string                       $email
+ * @property \Carbon\CarbonImmutable|null $email_verified_at
+ * @property string                       $phone
+ * @property \Carbon\CarbonImmutable|null $phone_verified_at
+ * @property string|null                  $photo
+ * @property mixed                        $permissions
+ * @property \Carbon\CarbonImmutable      $created_at
+ * @property \Carbon\CarbonImmutable      $updated_at
+ * @property string|null                  $deleted_at
+ * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereBlocked($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereFamilyName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereGivenName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereOrganizationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePermissions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePhone($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePhoneVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePhoto($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereSub($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
+class User extends Authenticatable {
+    // ...
+}
+```
+
+
+#### Factories MUST define all properties
+
+This is required to be able to compare models while testing.
+
+
 ### Routes
 
-#### Actions MUST be defined via valid callback
+#### Actions SHOULD be defined via valid callback
 
 ```php
 <?php declare(strict_types=1); 
@@ -248,6 +463,11 @@ Route::get('/users', [UserController::class, 'index']);
 ### GraphQL
 
 _TODO_
+
+
+### Database Schema & Migrations
+
+The [`database.mwb`](./database.mwb) ([MySQL Workbench](https://www.mysql.com/products/workbench/) Schema) have the biggest priority. Thus the highly recommended way to create migration(s) is using the "Synchronize Model" feature and create a raw-sql migration(s).
 
 
 ### See also
@@ -263,7 +483,7 @@ _TODO review required_
 
 ### You SHOULD write the tests
 
-Except trivial methods like getters/setters.
+Except for trivial methods like getters/setters.
 
 
 ### Test file SHOULD be placed in the same directory with class
@@ -277,25 +497,65 @@ Except trivial methods like getters/setters.
 
 ### Test data SHOULD be placed in the same directory with Test
 
-When the test needs a lot of data, move data into `/tests` directory.
+When the test needs a lot of data, move data into `/tests/Data` directory with full path saving.
 
 ```text
-/project/path
+// Simple test
+/project/src/Namespace/Path
     ClassUtils.php      - Class
     ClassUtilsTest.php  - Tests for ClassUtils
     ClassUtilsTest.json - Data required for testing
+
+// Test with a lot of data
+/project/tests/Data/Namespace/Path
+    ClassUtilsData.php    - Data container
+    ClassUtilsData.1.json - Data required for testing
+    ClassUtilsData.2.json - Data required for testing
+    ClassUtilsData.3.json - Data required for testing
 ```
+
 
 ### Simple Mocks SHOULD use anonymous classes
 
 For big/difficult Mocks use [Mockery](https://github.com/mockery/mockery).
 
 
+### Each TestCase class MUST have proper docblock
+
+```php
+<?php declare(strict_types = 1);
+
+namespace App\Http\Controllers;
+
+use Tests\TestCase;
+
+/**
+ * @internal
+ * @coversDefaultClass \App\Http\Controllers\AuthController
+ */
+class AuthControllerTest extends TestCase {
+    /**
+     * @covers ::info
+     */
+    public function testInfo(): void {
+        // ...
+    }
+    
+    /**
+     * @coversNothing
+     */
+    public function testSomething(): void {
+        // ...
+    }
+}
+```
+
+
 ## Misc
 
 ### PHP CodeSniffer
 
-Most of all (maybe except class properties aligning) rules can be checked by [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer):
+Most of all (maybe except class properties aligning and empty `else`/`default`) rules can be checked by [PHP CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer):
 
 ```shell
 $ composer run-script phpcs
