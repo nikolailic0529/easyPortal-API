@@ -15,8 +15,6 @@ use Tests\DataProviders\TenantDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
-use const PHP_URL_HOST;
-
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\AuthSignIn
