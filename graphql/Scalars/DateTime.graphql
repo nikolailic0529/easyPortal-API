@@ -1,0 +1,2 @@
+"ISO 8601 Date Time string with format `Y-m-dTH:i:sP` (`2018-05-23T13:43:32+00:00`)."
+scalar DateTime @scalar(class: "App\\GraphQL\\Scalars\\DateTime")

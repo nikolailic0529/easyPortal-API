@@ -9,13 +9,15 @@
   "license": "proprietary",
   "require": {
     "php": "^8.0",
-    "ext-mbstring": "*",
     "ext-json": "*",
+    "ext-mbstring": "*",
     "ext-pdo_mysql": "*",
     "ext-redis": "*",
+    "auth0/login": "^6.2",
     "fideloper/proxy": "^4.4",
     "fruitcake/laravel-cors": "^2.0",
     "guzzlehttp/guzzle": "^7.0.1",
+    "jetbrains/phpstorm-attributes": "^1.0",
     "laravel/framework": "^8.12",
     "laravel/tinker": "^2.5",
     "lastdragon-ru/lara-asp-core": "dev-master",
@@ -23,14 +25,16 @@
     "lastdragon-ru/lara-asp-formatter": "dev-master",
     "lastdragon-ru/lara-asp-migrator": "dev-master",
     "lastdragon-ru/lara-asp-queue": "dev-master",
-    "lastdragon-ru/lara-asp-spa": "dev-master"
+    "lastdragon-ru/lara-asp-spa": "dev-master",
+    "nuwave/lighthouse": "^5.2",
+    "propaganistas/laravel-phone": "^4.2"
   },
   "require-dev": {
     "barryvdh/laravel-ide-helper": "^2.9",
     "facade/ignition": "^2.5",
     "fakerphp/faker": "^1.9.1",
-    "laravel/sail": "^1.0.1",
-    "lastdragon-ru/lara-asp-testing": "^0.3.0",
+    "lastdragon-ru/lara-asp-testing": "dev-master",
+    "mll-lab/laravel-graphql-playground": "^2.5",
     "mockery/mockery": "^1.4.2",
     "nunomaduro/collision": "^5.0",
     "phpunit/phpunit": "^9.3.3",
@@ -84,7 +88,9 @@
     "ide-helper": [
       "@php artisan ide-helper:meta",
       "@php artisan ide-helper:generate .phpstorm.helper.php",
-      "@php artisan ide-helper:models --write"
+      "@php artisan ide-helper:models --write",
+      "@php artisan lighthouse:ide-helper",
+      "@php -r 'file_put_contents(\"schema-directives.graphql\", str_replace(\"repeatable\", \"\", file_get_contents(\"schema-directives.graphql\")));'"
     ],
     "phpcs": [
       "@php ./vendor/bin/phpcs"

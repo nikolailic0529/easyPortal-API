@@ -13,12 +13,6 @@
         <testsuite name="Seeders">
             <directory suffix="Test.php">./database/seeders</directory>
         </testsuite>
-        <testsuite name="Unit">
-            <directory suffix="Test.php">./tests/Unit</directory>
-        </testsuite>
-        <testsuite name="Feature">
-            <directory suffix="Test.php">./tests/Feature</directory>
-        </testsuite>
     </testsuites>
     <coverage processUncoveredFiles="true" cacheDirectory=".phpunit/code-coverage">
         <include>
@@ -39,5 +33,8 @@
         <server name="QUEUE_CONNECTION" value="sync"/>
         <server name="SESSION_DRIVER" value="array"/>
         <server name="TELESCOPE_ENABLED" value="false"/>
+        <server name="AUTH0_DOMAIN" value="example.com"/>
+        <server name="AUTH0_CLIENT_ID" value="id"/>
+        <server name="AUTH0_REDIRECT_URI" value="http://example.com/"/>
     </php>
 </phpunit>

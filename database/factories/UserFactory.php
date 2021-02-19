@@ -2,11 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Organization;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
-
-use function now;
+use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory {
     /**
@@ -25,11 +25,22 @@ class UserFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'name'              => $this->faker->name,
+            'id'                => Str::uuid()->toString(),
+            'organization_id'   => static function (): Organization {
+                return Organization::query()->first() ?: Organization::factory()->create();
+            },
+            'given_name'        => $this->faker->firstName,
+            'family_name'       => $this->faker->lastName,
             'email'             => $this->faker->unique()->safeEmail,
-            'email_verified_at' => now(),
-            'password'          => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token'    => Str::random(10),
+            'email_verified_at' => Date::now(),
+            'phone'             => $this->faker->e164PhoneNumber,
+            'phone_verified_at' => null,
+            'photo'             => null,
+            'created_at'        => Date::now(),
+            'updated_at'        => Date::now(),
+            'deleted_at'        => null,
+            'permissions'       => [],
+            'blocked'           => false,
         ];
     }
 }
