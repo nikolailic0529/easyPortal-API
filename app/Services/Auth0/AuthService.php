@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth0;
 
+use App\Models\User;
 use Auth0\Login\Auth0Service;
 use Auth0\SDK\API\Authentication;
 use Auth0\SDK\Auth0;
@@ -51,6 +52,7 @@ class AuthService {
         // @phpcs:disable SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
         $_GET['code']                     = $code;
         $_GET[Auth0::TRANSIENT_STATE_KEY] = $state;
+
         // @phpcs:enable
 
         return $this->getService()->getUser();
@@ -62,6 +64,24 @@ class AuthService {
                 ['scope' => $this->getScope()],
             ])
             ->getTargetUrl();
+    }
+
+    public function resetPassword(string $username): bool {
+        // Possible?
+        $user = User::whereEmail($username)->first();
+
+        if (!$user || $user->blocked || !$user->hasVerifiedEmail()) {
+            return false;
+        }
+
+        // Make request
+        $this->getAuthentication()->dbconnections_change_password(
+            $username,
+            $this->container->make(Repository::class)->get('laravel-auth0.connection'),
+        );
+
+        // Return
+        return true;
     }
 
     public function getService(): Auth0Service {

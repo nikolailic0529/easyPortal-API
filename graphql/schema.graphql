@@ -31,4 +31,9 @@ type Mutation {
         company: String!
         reseller: String
     ): Boolean! @guest @validator
+
+    "Reset password"
+    authResetPassword(
+        username: String!               # TODO [GraphQL] Email type needed
+    ): Boolean! @guest
 }
