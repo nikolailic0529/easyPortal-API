@@ -34,14 +34,8 @@ class AuthSignIn {
      * @return array<mixed>|null
      */
     public function __invoke(mixed $_, array $args): ?array {
-        // Auth0 operates $_GET, so we need to set them
-        // @phpcs:disable SlevomatCodingStandard.Variables.DisallowSuperGlobalVariable.DisallowedSuperGlobalVariable
-        $_GET['code']                     = $args['code'];
-        $_GET[Auth0::TRANSIENT_STATE_KEY] = $args['state'];
-        // @phpcs:enable
-
         // Get token from Auth0 and sign-in
-        $info = $this->service->getUser();
+        $info = $this->service->signInByCode($args['code'], $args['state']);
 
         if ($info) {
             try {

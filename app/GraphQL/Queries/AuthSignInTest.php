@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Services\Auth0\AuthService;
+use Auth0\Login\Auth0Service;
 use Closure;
 use Illuminate\Http\RedirectResponse;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -32,19 +33,23 @@ class AuthSignInTest extends TestCase {
         $this->setUser($userFactory);
 
         // Mock
-        $auth0  = Mockery::mock(AuthService::class);
-        $method = 'login';
+        $service = Mockery::mock(AuthService::class);
+        $method  = 'getSignInLink';
+
+        $service->shouldReceive('getAuth')->andReturn(
+            Mockery::mock(Auth0Service::class),
+        );
 
         if ($expected instanceof OkResponse) {
-            $auth0->shouldReceive($method)->once()->andReturn(
-                new RedirectResponse('http://example.com/'),
+            $service->shouldReceive($method)->once()->andReturn(
+                'http://example.com/',
             );
         } else {
-            $auth0->shouldReceive($method)->never();
+            $service->shouldReceive($method)->never();
         }
 
-        $this->app->bind(AuthService::class, static function () use ($auth0): AuthService {
-            return $auth0;
+        $this->app->bind(AuthService::class, static function () use ($service): AuthService {
+            return $service;
         });
 
         // Test

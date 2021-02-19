@@ -6,8 +6,8 @@ use App\Services\Auth0\AuthService;
 use App\Services\Auth0\UserRepository;
 use Auth0\Login\Auth0Service;
 use Auth0\Login\Contract\Auth0UserRepository;
-use Auth0\SDK\Store\StoreInterface;
 use Carbon\CarbonImmutable;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,13 +29,12 @@ class AppServiceProvider extends ServiceProvider {
     }
 
     protected function registerAuth0(): void {
-        $this->app->singleton(Auth0Service::class, AuthService::class);
-        $this->app->singleton(AuthService::class, static function ($app): AuthService {
-            return new AuthService(
-                $app->make('config')->get('laravel-auth0'),
-                $app->make(StoreInterface::class),
-                $app->make('cache.store'),
-            );
+        $this->app->singleton(Auth0Service::class, static function (Application $app): Auth0Service {
+            return $app->make(AuthService::class)->getAuth();
+        });
+
+        $this->app->singleton(AuthService::class, static function (Application $app): AuthService {
+            return new AuthService($app);
         });
 
         $this->app->bind(

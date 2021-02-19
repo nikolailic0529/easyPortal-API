@@ -5,20 +5,16 @@ namespace App\GraphQL\Queries;
 use App\Services\Auth0\AuthService;
 
 class AuthSignIn {
-    protected AuthService $auth;
+    protected AuthService $service;
 
-    public function __construct(AuthService $auth) {
-        $this->auth = $auth;
+    public function __construct(AuthService $service) {
+        $this->service = $service;
     }
 
     /**
      * @param array<string, mixed> $args
      */
     public function __invoke(mixed $_, array $args): string {
-        return $this->auth
-            ->login(null, null, [
-                ['scope' => 'openid profile email'],
-            ])
-            ->getTargetUrl();
+        return $this->service->getSignInLink();
     }
 }

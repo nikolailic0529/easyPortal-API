@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations;
 use App\GraphQL\Queries\Me;
 use App\Models\User;
 use App\Services\Auth0\AuthService;
+use Auth0\Login\Auth0Service;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -43,15 +44,19 @@ class AuthSignInTest extends TestCase {
         // Mock
         $found        = $foundUserFactory ? $foundUserFactory($this) : null;
         $service      = Mockery::mock(AuthService::class);
-        $getUser      = $service->shouldReceive('getUser');
+        $signInByCode = $service->shouldReceive('signInByCode');
         $rememberUser = $service->shouldReceive('rememberUser');
+
+        $service->shouldReceive('getAuth')->andReturn(
+            Mockery::mock(Auth0Service::class),
+        );
 
         $this->app->bind(AuthService::class, static function () use ($service): AuthService {
             return $service;
         });
 
         if ($expected instanceof GraphQLSuccess) {
-            $getUser->once()->andReturn($userInfo);
+            $signInByCode->once()->andReturn($userInfo);
 
             if ($found) {
                 $rememberUser->once()->andReturnFalse();
@@ -59,7 +64,7 @@ class AuthSignInTest extends TestCase {
                 $rememberUser->never();
             }
         } else {
-            $getUser->never();
+            $signInByCode->never();
             $rememberUser->never();
         }
 
