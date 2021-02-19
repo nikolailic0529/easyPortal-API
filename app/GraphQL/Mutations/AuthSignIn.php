@@ -3,7 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\GraphQL\Queries\Me;
-use Auth0\Login\Auth0Service;
+use App\Services\Auth0\AuthService;
 use Auth0\Login\Contract\Auth0UserRepository;
 use Auth0\SDK\Auth0;
 use Illuminate\Auth\AuthManager;
@@ -12,14 +12,14 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class AuthSignIn {
     protected Container           $container;
-    protected Auth0Service        $service;
+    protected AuthService         $service;
     protected Auth0UserRepository $repository;
     protected AuthManager         $auth;
 
     public function __construct(
         Container $container,
         AuthManager $auth,
-        Auth0Service $service,
+        AuthService $service,
         Auth0UserRepository $repository,
     ) {
         $this->container  = $container;

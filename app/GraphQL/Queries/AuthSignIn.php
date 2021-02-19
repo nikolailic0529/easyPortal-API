@@ -2,12 +2,12 @@
 
 namespace App\GraphQL\Queries;
 
-use Auth0\Login\Auth0Service;
+use App\Services\Auth0\AuthService;
 
 class AuthSignIn {
-    protected Auth0Service $auth;
+    protected AuthService $auth;
 
-    public function __construct(Auth0Service $auth) {
+    public function __construct(AuthService $auth) {
         $this->auth = $auth;
     }
 
