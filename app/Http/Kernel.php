@@ -23,6 +23,7 @@ use Illuminate\Http\Middleware\SetCacheHeaders;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Routing\Middleware\ValidateSignature;
+use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 
 class Kernel extends HttpKernel {
@@ -56,11 +57,11 @@ class Kernel extends HttpKernel {
         'web' => [
             EncryptCookies::class,
             AddQueuedCookiesToResponse::class,
+            Tenant::class,
             StartSession::class,
-            // \Illuminate\Session\Middleware\AuthenticateSession::class,
+            AuthenticateSession::class,
             // \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             VerifyCsrfToken::class,
-            Tenant::class,
             SubstituteBindings::class,
         ],
 

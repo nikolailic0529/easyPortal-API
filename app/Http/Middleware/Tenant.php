@@ -21,7 +21,8 @@ use function str_starts_with;
  * possible.
  *
  * Important:
- * - must be added before {@link \Illuminate\Routing\Middleware\SubstituteBindings};
+ * - must be added before {@link \Illuminate\Session\Middleware\AuthenticateSession}
+ *   and {@link \Illuminate\Routing\Middleware\SubstituteBindings};
  * - must not be nested
  */
 class Tenant {
