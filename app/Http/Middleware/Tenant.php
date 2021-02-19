@@ -58,13 +58,18 @@ class Tenant {
 
         // Determine tenant name
         $server = (string) $request->server->get('SERVER_NAME');
-        $name   = $this->getTenantNameFromDomain($server);
 
-        if (!$name && $this->isWildcardDomain($server)) {
-            // Host header is not safe, so we use it only if domain specified as
-            // wildcard, eg `*.example.com`
-            $host = (string) $request->server->get('HTTP_HOST');
-            $name = $this->getTenantNameFromDomain($host);
+        if ($this->isRootDomain($server)) {
+            $name = '@root';
+        } else {
+            $name = $this->getTenantNameFromDomain($server);
+
+            if (!$name && $this->isWildcardDomain($server)) {
+                // Host header is not safe, so we use it only if domain specified as
+                // wildcard, eg `*.example.com`
+                $host = (string) $request->server->get('HTTP_HOST');
+                $name = $this->getTenantNameFromDomain($host);
+            }
         }
 
         // Search for model
@@ -83,10 +88,10 @@ class Tenant {
     protected function getTenantNameFromDomain(string $domain): ?string {
         $name = null;
         $subs = explode('.', $domain);
-        $last = reset($subs);
+        $sub  = reset($subs);
 
-        if (count($subs) === 3 && $last !== '*') {
-            $name = $last;
+        if (count($subs) === 3 && $sub !== '*' && $sub !== 'www') {
+            $name = $sub;
         }
 
         return $name;
@@ -96,5 +101,12 @@ class Tenant {
     protected function isWildcardDomain(string $domain): bool {
         return (($this->app->isLocal() || $this->app->runningUnitTests()) && in_array($domain, ['_'], true))
             || (str_starts_with($domain, '*.') && count(explode('.', $domain)) === 3);
+    }
+
+    #[Pure]
+    protected function isRootDomain(string $domain): bool {
+        return empty($domain)
+            || in_array($domain, ['_'], true)
+            || count(explode('.', $domain)) === 2;
     }
 }
