@@ -2,6 +2,8 @@
 
 namespace App\GraphQL\Validators\Mutation;
 
+use App\Models\User;
+use Closure;
 use Nuwave\Lighthouse\Validation\Validator;
 
 class AuthSignInByPasswordValidator extends Validator {
@@ -13,6 +15,28 @@ class AuthSignInByPasswordValidator extends Validator {
             'username' => [
                 'required',
                 'email',
+                static function (string $attribute, mixed $value, Closure $fail): void {
+                    // FIXME [!][Auth0] i18n
+                    $user = User::whereEmail($value)->first();
+
+                    if (!$user) {
+                        $fail('User not found.');
+
+                        return;
+                    }
+
+                    if ($user->blocked) {
+                        $fail('User blocked.');
+
+                        return;
+                    }
+
+                    if (!$user->hasVerifiedEmail()) {
+                        $fail('User not verified.');
+
+                        return;
+                    }
+                },
             ],
             'password' => [
                 'required',
