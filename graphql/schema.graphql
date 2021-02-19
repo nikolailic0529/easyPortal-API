@@ -14,7 +14,7 @@ type Mutation {
     authSignOut: String! @guard         # TODO [GraphQL] URL type needed
 
     "Complete sign-in and returns current User if successful."
-    authSignIn(code: String!, state: String!): User @guest
+    authSignInByCode(code: String!, state: String!): User @guest
 
     "Password based sing-in."
     authSignInByPassword(

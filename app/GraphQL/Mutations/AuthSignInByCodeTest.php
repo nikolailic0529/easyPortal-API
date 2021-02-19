@@ -18,9 +18,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\AuthSignIn
+ * @coversDefaultClass \App\GraphQL\Mutations\AuthSignInByCode
  */
-class AuthSignInTest extends TestCase {
+class AuthSignInByCodeTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -70,8 +70,8 @@ class AuthSignInTest extends TestCase {
 
         // Test
         $this
-            ->graphQL(/** @lang GraphQL */ 'mutation AuthSignIn($code: String!, $state: String!) {
-                authSignIn(code: $code, state: $state) {
+            ->graphQL(/** @lang GraphQL */ 'mutation AuthSignInByCode($code: String!, $state: String!) {
+                authSignInByCode(code: $code, state: $state) {
                     id,
                     family_name,
                     given_name
@@ -89,20 +89,20 @@ class AuthSignInTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            new GuestDataProvider('authSignIn'),
+            new GuestDataProvider('authSignInByCode'),
             new ArrayDataProvider([
                 'auth failed'                 => [
-                    new GraphQLSuccess('authSignIn', null),
+                    new GraphQLSuccess('authSignInByCode', null),
                     null,
                     null,
                 ],
                 'auth successful but no user' => [
-                    new GraphQLSuccess('authSignIn', null),
+                    new GraphQLSuccess('authSignInByCode', null),
                     ['profile' => ['sub' => '123']],
                     null,
                 ],
                 'auth successful'             => [
-                    new GraphQLSuccess('authSignIn', Me::class),
+                    new GraphQLSuccess('authSignInByCode', Me::class),
                     ['profile' => ['sub' => '123']],
                     static function (): User {
                         return User::factory()->create(['sub' => '123']);

@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-class AuthSignInByPassword extends AuthSignIn {
+class AuthSignInByPassword extends AuthSignInByCode {
     /**
      * @inheritdoc
      */
