@@ -36,7 +36,7 @@ class AuthSignInTest extends TestCase {
         $service = Mockery::mock(AuthService::class);
         $method  = 'getSignInLink';
 
-        $service->shouldReceive('getAuth')->andReturn(
+        $service->shouldReceive('getService')->andReturn(
             Mockery::mock(Auth0Service::class),
         );
 

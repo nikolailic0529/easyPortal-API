@@ -18,9 +18,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\AuthSignIn
+ * @coversDefaultClass \App\GraphQL\Mutations\AuthSignInByPassword
  */
-class AuthSignInTest extends TestCase {
+class AuthSignInByPasswordTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -41,10 +41,15 @@ class AuthSignInTest extends TestCase {
         $this->setTenant($tenantFactory);
         $this->setUser($userFactory);
 
+        $data = [
+            'username' => $this->faker->email,
+            'password' => $this->faker->password,
+        ];
+
         // Mock
         $found        = $foundUserFactory ? $foundUserFactory($this) : null;
         $service      = Mockery::mock(AuthService::class);
-        $signInByCode = $service->shouldReceive('signInByCode');
+        $signInByCode = $service->shouldReceive('signInByPassword');
         $rememberUser = $service->shouldReceive('rememberUser');
 
         $service->shouldReceive('getService')->andReturn(
@@ -70,14 +75,26 @@ class AuthSignInTest extends TestCase {
 
         // Test
         $this
-            ->graphQL(/** @lang GraphQL */ 'mutation AuthSignIn($code: String!, $state: String!) {
-                authSignIn(code: $code, state: $state) {
-                    id,
-                    family_name,
-                    given_name
+            ->graphQL(/** @lang GraphQL */ '
+                mutation AuthSignInByPassword(
+                    $username: String!
+                    $password: String!
+                ) {
+                    authSignInByPassword(
+                        username: $username
+                        password: $password
+                    ) {
+                        id
+                        family_name
+                        given_name
+                    }
                 }
-            }', ['code' => '123', 'state' => '123'])
+            ', $data)
             ->assertThat($expected);
+    }
+
+    public function testInvokeValidation(): void {
+        $this->markTestIncomplete('Not implemented.');
     }
     // </editor-fold>
 
@@ -89,20 +106,20 @@ class AuthSignInTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            new GuestDataProvider('authSignIn'),
+            new GuestDataProvider('authSignInByPassword'),
             new ArrayDataProvider([
                 'auth failed'                 => [
-                    new GraphQLSuccess('authSignIn', null),
+                    new GraphQLSuccess('authSignInByPassword', null),
                     null,
                     null,
                 ],
                 'auth successful but no user' => [
-                    new GraphQLSuccess('authSignIn', null),
+                    new GraphQLSuccess('authSignInByPassword', null),
                     ['profile' => ['sub' => '123']],
                     null,
                 ],
                 'auth successful'             => [
-                    new GraphQLSuccess('authSignIn', Me::class),
+                    new GraphQLSuccess('authSignInByPassword', Me::class),
                     ['profile' => ['sub' => '123']],
                     static function (): User {
                         return User::factory()->create(['sub' => '123']);

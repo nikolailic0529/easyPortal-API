@@ -30,7 +30,7 @@ class AppServiceProvider extends ServiceProvider {
 
     protected function registerAuth0(): void {
         $this->app->singleton(Auth0Service::class, static function (Application $app): Auth0Service {
-            return $app->make(AuthService::class)->getAuth();
+            return $app->make(AuthService::class)->getService();
         });
 
         $this->app->singleton(AuthService::class, static function (Application $app): AuthService {

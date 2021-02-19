@@ -35,7 +35,7 @@ class AuthSignIn {
      */
     public function __invoke(mixed $_, array $args): ?array {
         // Get token from Auth0 and sign-in
-        $info = $this->service->signInByCode($args['code'], $args['state']);
+        $info = $this->signIn($args);
 
         if ($info) {
             try {
@@ -55,5 +55,14 @@ class AuthSignIn {
         $me = $this->container->make(Me::class)(null, []);
 
         return $me;
+    }
+
+    /**
+     * @param array<string, array{code: string, state: string}> $args
+     *
+     * @return array{profile: array<string, mixed>, accessToken: string}|null
+     */
+    protected function signIn(array $args): ?array {
+        return $this->service->signInByCode($args['code'], $args['state']);
     }
 }
