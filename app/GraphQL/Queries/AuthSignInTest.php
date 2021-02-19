@@ -5,7 +5,6 @@ namespace App\GraphQL\Queries;
 use App\Services\Auth0\AuthService;
 use Auth0\Login\Auth0Service;
 use Closure;
-use Illuminate\Http\RedirectResponse;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;

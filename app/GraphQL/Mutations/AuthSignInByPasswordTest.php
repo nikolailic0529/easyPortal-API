@@ -48,6 +48,12 @@ class AuthSignInByPasswordTest extends TestCase {
             https://github.com/nuwave/lighthouse/issues/1709#issuecomment-781100041
             REASON);
 
+        // TODO [Auth0] Instead `AuthManager::login()` and `AuthManager::logout()`
+        //      probably will be better mock Auth0Service to check that data
+        //      really deleted.
+        //
+        //      Same for AuthSignInByCodeTest
+
         // Prepare
         $this->setTenant($tenantFactory);
         $this->setUser($userFactory);
