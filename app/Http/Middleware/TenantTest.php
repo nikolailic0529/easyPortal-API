@@ -154,6 +154,23 @@ class TenantTest extends TestCase {
 
         $this->assertEquals($expected, $actual);
     }
+
+    /**
+     * @covers ::isRootDomain
+     *
+     * @dataProvider dataProviderIsRootDomain
+     */
+    public function testIsRootDomain(bool $expected, string $env, string $domain): void {
+        $this->app['env'] = $env;
+        $middleware       = new class($this->app) extends Tenant {
+            public function isRootDomain(string $domain): bool {
+                return parent::isRootDomain($domain);
+            }
+        };
+        $actual           = $middleware->isRootDomain($domain);
+
+        $this->assertEquals($expected, $actual);
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -163,6 +180,11 @@ class TenantTest extends TestCase {
      */
     public function dataProviderGetTenantFromRequest(): array {
         $tenant  = 'tenant-test';
+        $root    = static function (): Organization {
+            return Organization::factory()->create([
+                'subdomain' => '@root',
+            ]);
+        };
         $factory = static function () use ($tenant): Organization {
             return Organization::factory()->create([
                 'subdomain' => $tenant,
@@ -170,11 +192,15 @@ class TenantTest extends TestCase {
         };
 
         return [
-            'no domain + no host'                  => [false, null, null, $factory],
-            'no domain + example.com'              => [false, null, 'example.com', $factory],
+            'no domain + no host'                  => [true, null, null, $root],
+            'no domain + example.com '             => [true, null, 'example.com', $root],
+            'domain + no host'                     => [true, 'example.com', null, $root],
+            'domain + example.com'                 => [true, 'example.com', 'example.com', $root],
+            'no domain + no host + no root'        => [false, null, null, $factory],
+            'no domain + example.com + no root'    => [false, null, 'example.com', $factory],
             'no domain + sub.example.com'          => [false, null, 'sub.example.com', $factory],
-            'domain + no host'                     => [false, 'example.com', null, $factory],
-            'domain + example.com'                 => [false, 'example.com', 'example.com', $factory],
+            'domain + no host  + no root'          => [false, 'example.com', null, $factory],
+            'domain + example.com + no root'       => [false, 'example.com', 'example.com', $factory],
             'domain + sub.example.com'             => [false, 'example.com', 'sub.example.com', $factory],
             'sub domain + no host'                 => [false, 'sub.example.com', null, $factory],
             'sub domain + example.com'             => [false, 'sub.example.com', 'example.com', $factory],
@@ -191,6 +217,16 @@ class TenantTest extends TestCase {
             'wildcard domain + example.com'        => [false, '*.example.com', 'example.com', $factory],
             'wildcard domain + sub.example.com'    => [false, '*.example.com', 'sub.example.com', $factory],
             'wildcard domain + tenant.example.com' => [true, '*.example.com', "{$tenant}.example.com", $factory],
+            'www'                                  => [
+                false,
+                'www.example.com',
+                'www.example.com',
+                static function (): Organization {
+                    return Organization::factory()->create([
+                        'subdomain' => 'www',
+                    ]);
+                },
+            ],
         ];
     }
 
@@ -217,6 +253,26 @@ class TenantTest extends TestCase {
             'nginx wildcard domain *.example.com (local)'          => [true, 'local', '*.example.com'],
             'nginx wildcard domain *.example.com (testing)'        => [true, 'testing', '*.example.com'],
             'nginx wildcard domain *.example.com (production)'     => [true, 'production', '*.example.com'],
+            'nginx wildcard domain *.sub.example.com (local)'      => [false, 'local', '*.sub.example.com'],
+            'nginx wildcard domain *.sub.example.com (testing)'    => [false, 'testing', '*.sub.example.com'],
+            'nginx wildcard domain *.sub.example.com (production)' => [false, 'production', '*.sub.example.com'],
+        ];
+    }
+
+    /**
+     * @return array<string, array{bool, string, string}>
+     */
+    public function dataProviderIsRootDomain(): array {
+        return [
+            'nginx default domain _ (local)'                       => [true, 'local', '_'],
+            'nginx default domain _ (testing)'                     => [true, 'testing', '_'],
+            'nginx default domain _ (production)'                  => [true, 'production', '_'],
+            'nginx wildcard domain example.com (local)'            => [true, 'local', 'example.com'],
+            'nginx wildcard domain example.com (testing)'          => [true, 'testing', 'example.com'],
+            'nginx wildcard domain example.com (production)'       => [true, 'production', 'example.com'],
+            'nginx wildcard domain *.example.com (local)'          => [false, 'local', '*.example.com'],
+            'nginx wildcard domain *.example.com (testing)'        => [false, 'testing', '*.example.com'],
+            'nginx wildcard domain *.example.com (production)'     => [false, 'production', '*.example.com'],
             'nginx wildcard domain *.sub.example.com (local)'      => [false, 'local', '*.sub.example.com'],
             'nginx wildcard domain *.sub.example.com (testing)'    => [false, 'testing', '*.sub.example.com'],
             'nginx wildcard domain *.sub.example.com (production)' => [false, 'production', '*.sub.example.com'],
