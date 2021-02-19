@@ -29,7 +29,7 @@ class AuthService {
         $token    = $auth->login([
             'username' => $username,
             'password' => $password,
-            'realm'    => 'Username-Password-Authentication',
+            'realm'    => $this->container->make(Repository::class)->get('laravel-auth0.connection'),
         ]);
         $userinfo = $auth->userinfo($token['access_token']);
 

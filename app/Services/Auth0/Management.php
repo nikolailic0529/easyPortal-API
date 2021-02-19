@@ -26,7 +26,7 @@ class Management {
      */
     public function createUser(array $data): array {
         // FIXME [auth0] Specify connection
-        $data['connection'] ??= 'Username-Password-Authentication';
+        $data['connection'] ??= $this->config->get('laravel-auth0.connection');
 
         // FIXME [auth0] Tenant probably required here
         return $this->getApi()->users()->create($data);

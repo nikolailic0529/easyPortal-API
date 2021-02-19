@@ -41,6 +41,15 @@ return [
 
     /*
         |--------------------------------------------------------------------------
+        |   Connection
+        |--------------------------------------------------------------------------
+        |   Should support passwords
+        |
+    */
+    'connection'            => env('AUTH0_CONNECTION', 'Username-Password-Authentication'),
+
+    /*
+        |--------------------------------------------------------------------------
         |   Persistence Configuration
         |--------------------------------------------------------------------------
         |   persist_user           (Boolean) Optional. Indicates if you want to persist the user info, default true
