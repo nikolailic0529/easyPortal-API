@@ -43,7 +43,7 @@ class AuthSignUp {
             'user_metadata' => [
                 'phone'    => $args['phone'],
                 'company'  => $args['company'],
-                'reseller' => $args['reseller'],
+                'reseller' => $args['reseller'] ?? null,
             ],
             'app_metadata'  => [
                 'uuid'   => $user->getKey(),
