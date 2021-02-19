@@ -27,10 +27,13 @@ class AuthService {
      */
     public function signInByPassword(string $username, string $password): ?array {
         $auth     = $this->getAuthentication();
+        $config   = $this->container->make(Repository::class);
         $token    = $auth->login([
             'username' => $username,
             'password' => $password,
-            'realm'    => $this->container->make(Repository::class)->get('laravel-auth0.connection'),
+            'audience' => $config->get('laravel-auth0.audience'),
+            'realm'    => $config->get('laravel-auth0.connection'),
+            'scope'    => $this->getScope(),
         ]);
         $userinfo = $auth->userinfo($token['access_token']);
 

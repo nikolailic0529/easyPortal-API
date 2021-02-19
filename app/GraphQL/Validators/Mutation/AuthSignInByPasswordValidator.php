@@ -24,18 +24,6 @@ class AuthSignInByPasswordValidator extends Validator {
 
                         return;
                     }
-
-                    if ($user->blocked) {
-                        $fail('User blocked.');
-
-                        return;
-                    }
-
-                    if (!$user->hasVerifiedEmail()) {
-                        $fail('User not verified.');
-
-                        return;
-                    }
                 },
             ],
             'password' => [

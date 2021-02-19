@@ -34,20 +34,47 @@ class AuthSignInByCode {
      */
     public function __invoke(mixed $_, array $args): ?array {
         // Get token from Auth0 and sign-in
-        $info = $this->signIn($args);
+        $info   = $this->signIn($args);
+        $signed = false;
 
         if ($info) {
             try {
+                // Get user
+                /** @var \App\Models\User $user */
                 $user = $this->repository->getUserByUserInfo($info);
-            } catch (ModelNotFoundException) {
-                $user = null;
-            }
 
-            if ($user) {
+                // Update user
+                // Blocked user cannon sign-in
+                if ($info['profile']['email_verified']) {
+                    $user->markEmailAsVerified();
+                } else {
+                    // FIXME [!][Auth0] i18n + Better error handling
+                    throw new ModelNotFoundException('User is unverified.');
+                }
+
+                $user->blocked     = false;
+                $user->given_name  = $info['profile']['given_name'];
+                $user->family_name = $info['profile']['family_name'];
+                $user->photo       = $info['profile']['picture'];
+
+                $user->save();
+
+                // Sign-In
                 $this->auth->login($user, $this->service->rememberUser());
+
+                // Mark
+                $signed = true;
+            } catch (ModelNotFoundException) {
+                // empty
             }
         } else {
             // TODO Should we throw error here?
+        }
+
+        // Auth0 may store the user inside the session (somewhere in \Auth0\SDK\Auth0)
+        // so we need to delete it if sign-in failed.
+        if (!$signed) {
+            $this->auth->logout();
         }
 
         // Get Current User
