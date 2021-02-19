@@ -45,7 +45,7 @@ class AuthSignInByCode {
 
                 // Update user
                 // Blocked user cannon sign-in
-                if ($info['profile']['email_verified']) {
+                if ($info['profile']['email_verified'] ?? false) {
                     $user->markEmailAsVerified();
                 } else {
                     // FIXME [!][Auth0] i18n + Better error handling

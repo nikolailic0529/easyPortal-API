@@ -43,6 +43,9 @@ class AuthSignInByCodeTest extends TestCase {
         $this->setUser($userFactory);
 
         // Mock
+        // TODO [Auth0] Instead `AuthManager::login()` and `AuthManager::logout()`
+        //      probably will be better mock Auth0Service to check that data
+        //      really deleted.
         $found        = $foundUserFactory ? $foundUserFactory($this) : null;
         $service      = Mockery::mock(AuthService::class);
         $signInByCode = $service->shouldReceive('signInByCode');
