@@ -12,9 +12,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use function count;
 use function explode;
+use function filter_var;
 use function in_array;
 use function reset;
 use function str_starts_with;
+
+use const FILTER_VALIDATE_IP;
 
 /**
  * Determine current tenant based on domain name and host, return `404` if not
@@ -106,6 +109,7 @@ class Tenant {
     #[Pure]
     protected function isRootDomain(string $domain): bool {
         return empty($domain)
+            || filter_var($domain, FILTER_VALIDATE_IP)
             || in_array($domain, ['_'], true)
             || count(explode('.', $domain)) === 2;
     }
