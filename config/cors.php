@@ -15,7 +15,9 @@ return [
     |
     */
 
-    'paths'                    => ['api/*', 'sanctum/csrf-cookie'],
+    'paths'                    => env('APP_ENV', 'production') === 'local'
+        ? ['/graphql']
+        : [],
 
     'allowed_methods'          => ['*'],
 
@@ -29,6 +31,6 @@ return [
 
     'max_age'                  => 0,
 
-    'supports_credentials'     => false,
+    'supports_credentials'     => true,
 
 ];
