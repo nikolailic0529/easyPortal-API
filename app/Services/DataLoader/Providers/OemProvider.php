@@ -27,6 +27,12 @@ class OemProvider {
 
         $oem->save();
 
+        return $this->add($oem);
+    }
+
+    protected function add(Oem $oem): Oem {
+        $this->getOems()->put($this->getKey($oem), $oem);
+
         return $oem;
     }
 
@@ -35,9 +41,15 @@ class OemProvider {
      */
     protected function getOems(): Collection {
         if (!$this->oems) {
-            $this->oems = Oem::query()->get()->keyBy('abbr');
+            $this->oems = Oem::query()->get()->keyBy(function (Oem $oem): string {
+                return $this->getKey($oem);
+            });
         }
 
         return $this->oems;
+    }
+
+    protected function getKey(Oem $oem): string {
+        return $oem->abbr;
     }
 }

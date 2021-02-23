@@ -50,5 +50,11 @@ class OemProviderTest extends TestCase {
         $this->assertEquals('unknown', $created->abbr);
         $this->assertEquals('unknown', $created->name);
         $this->assertCount(1, $this->getQueryLog());
+
+        $this->flushQueryLog();
+
+        // The created object should be in cache
+        $this->assertSame($created,  $provider->get('unknown'));
+        $this->assertCount(0, $this->getQueryLog());
     }
 }
