@@ -16,7 +16,8 @@ CREATE TABLE IF NOT EXISTS `oems` (
     `created_at` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `deleted_at` TIMESTAMP    NULL,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `unique__abbr`(`abbr` ASC) VISIBLE
 );
 
 
