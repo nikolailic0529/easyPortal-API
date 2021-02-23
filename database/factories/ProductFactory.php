@@ -6,7 +6,6 @@ use App\Models\Oem;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 class ProductFactory extends Factory {
@@ -26,7 +25,7 @@ class ProductFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'          => Str::uuid()->toString(),
+            'id'          => $this->faker->uuid,
             'oem_id'      => static function (): Oem {
                 return Oem::query()->first()
                     ?: Oem::factory()->create();

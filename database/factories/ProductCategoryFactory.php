@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\ProductCategory;
 use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 class ProductCategoryFactory extends Factory {
@@ -24,7 +23,7 @@ class ProductCategoryFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'         => Str::uuid()->toString(),
+            'id'         => $this->faker->uuid,
             'name'       => $this->faker->word,
             'created_at' => Date::now(),
             'updated_at' => Date::now(),

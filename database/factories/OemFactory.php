@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Oem;
 use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 class OemFactory extends Factory {
@@ -24,7 +23,7 @@ class OemFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'         => Str::uuid()->toString(),
+            'id'         => $this->faker->uuid,
             'abbr'       => $this->faker->word,
             'name'       => $this->faker->company,
             'created_at' => Date::now(),

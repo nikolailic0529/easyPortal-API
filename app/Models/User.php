@@ -13,6 +13,8 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use LogicException;
 
 /**
+ * User.
+ *
  * @property int                          $id
  * @property string                       $organization_id
  * @property string|null                  $sub Auth0 User ID
