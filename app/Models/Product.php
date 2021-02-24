@@ -8,16 +8,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * Product.
  *
- * @property string                           $id
- * @property string                           $oem_id
- * @property string                           $category_id
- * @property string                           $sku
- * @property string                           $name
- * @property \Carbon\CarbonImmutable          $created_at
- * @property \Carbon\CarbonImmutable          $updated_at
- * @property \Carbon\CarbonImmutable|null     $deleted_at
- * @property-read \App\Models\ProductCategory $category
- * @property-read \App\Models\Oem             $oem
+ * @property string                       $id
+ * @property string                       $oem_id
+ * @property string                       $category_id
+ * @property string                       $sku
+ * @property string                       $name
+ * @property \Carbon\CarbonImmutable      $created_at
+ * @property \Carbon\CarbonImmutable      $updated_at
+ * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property \App\Models\ProductCategory  $category
+ * @property \App\Models\Oem              $oem
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product query()
@@ -47,5 +47,13 @@ class Product extends Model {
 
     public function category(): BelongsTo {
         return $this->belongsTo(ProductCategory::class);
+    }
+
+    public function setOemAttribute(Oem $oem): void {
+        $this->oem()->associate($oem);
+    }
+
+    public function setCategoryAttribute(ProductCategory $category): void {
+        $this->category()->associate($category);
     }
 }

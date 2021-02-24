@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `products` (
     PRIMARY KEY (`id`),
     INDEX `fk_products_product_categories1_idx`(`category_id` ASC) VISIBLE,
     INDEX `fk_products_oems1_idx`(`oem_id` ASC) VISIBLE,
+    UNIQUE INDEX `unique__sku__oem_id` (`sku` ASC, `oem_id` ASC) VISIBLE,
     CONSTRAINT `fk_products_product_categories1`
         FOREIGN KEY (`category_id`)
             REFERENCES `product_categories`(`id`)
