@@ -7882,7 +7882,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:LastDragon-ru/lara-asp-testing.git",
-                "reference": "1c57ebac37cc16c87402cd7e692f87242a97ef18"
+                "reference": "1bb3396151655da1df68b2c53470a716520f46cc"
             },
             "require": {
                 "doctrine/dbal": "^2.12.0|^3.0.0",
@@ -7943,7 +7943,7 @@
                 "source": "https://github.com/LastDragon-ru/lara-asp",
                 "forum": "https://github.com/LastDragon-ru/lara-asp/discussions"
             },
-            "time": "2021-02-23T08:36:02+00:00"
+            "time": "2021-02-24T08:15:11+00:00"
         },
         {
             "name": "m1x0n/opis-json-schema-error-presenter",

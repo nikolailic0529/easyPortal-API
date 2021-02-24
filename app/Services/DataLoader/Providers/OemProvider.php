@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 class OemProvider extends Provider {
     public function get(string $abbr): Oem {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->resolve($abbr, function () use ($abbr): Oem {
+        return $this->resolve($abbr, function () use ($abbr): Model {
             return $this->create($abbr);
         });
     }
