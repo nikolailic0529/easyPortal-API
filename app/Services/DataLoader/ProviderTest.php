@@ -18,7 +18,8 @@ class ProviderTest extends TestCase {
      */
     public function testResolve(): void {
         // Prepare
-        $provider = new class() extends Provider {
+        $normalizer = $this->app->make(Normalizer::class);
+        $provider   = new class($normalizer) extends Provider {
             public function resolve(mixed $key, Closure ...$resolvers): ?Model {
                 return parent::resolve($key, ...$resolvers);
             }

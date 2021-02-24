@@ -12,9 +12,10 @@ use JetBrains\PhpStorm\Pure;
 
 abstract class Provider {
     protected Cache|null $cache = null;
+    protected Normalizer $normalizer;
 
-    public function __construct() {
-        // empty
+    public function __construct(Normalizer $normalizer) {
+        $this->normalizer = $normalizer;
     }
 
     protected function resolve(mixed $key, Closure ...$resolvers): ?Model {
