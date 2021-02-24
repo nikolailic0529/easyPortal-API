@@ -2,54 +2,46 @@
 
 namespace App\Services\DataLoader\Providers;
 
+use App\Models\Model;
 use App\Models\Oem;
-use Illuminate\Support\Collection;
+use App\Services\DataLoader\Cache\KeyRetriever;
+use App\Services\DataLoader\Provider;
+use Illuminate\Database\Eloquent\Builder;
 
-class OemProvider {
-    /**
-     * @var \Illuminate\Support\Collection<\App\Models\Oem>|null
-     */
-    protected Collection|null $oems = null;
-
-    public function __construct() {
-        // empty
-    }
-
+class OemProvider extends Provider {
     public function get(string $abbr): Oem {
-        return $this->getOems()->get($abbr)
-            ?: $this->create($abbr);
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return $this->resolve($abbr, function () use ($abbr): Oem {
+            return $this->create($abbr);
+        });
     }
 
     protected function create(string $abbr): Oem {
+        $abbr      = $this->normalizer->string($abbr);
         $oem       = new Oem();
         $oem->abbr = $abbr;
         $oem->name = $abbr;
 
         $oem->save();
 
-        return $this->add($oem);
-    }
-
-    protected function add(Oem $oem): Oem {
-        $this->getOems()->put($this->getKey($oem), $oem);
-
         return $oem;
     }
 
-    /**
-     * @return \Illuminate\Support\Collection<\App\Models\Oem>
-     */
-    protected function getOems(): Collection {
-        if (!$this->oems) {
-            $this->oems = Oem::query()->get()->keyBy(function (Oem $oem): string {
-                return $this->getKey($oem);
-            });
-        }
-
-        return $this->oems;
+    protected function getInitialQuery(): ?Builder {
+        return Oem::query();
     }
 
-    protected function getKey(Oem $oem): string {
-        return $oem->abbr;
+    /**
+     * @inheritdoc
+     */
+    protected function getKeyRetrievers(): array {
+        return [
+                'abbr' => new class() implements KeyRetriever {
+                    public function get(Model $model): string|int {
+                        /** @var \App\Models\Oem $model */
+                        return $model->abbr;
+                    }
+                },
+            ] + parent::getKeyRetrievers();
     }
 }
