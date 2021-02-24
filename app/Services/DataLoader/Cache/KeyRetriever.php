@@ -5,5 +5,5 @@ namespace App\Services\DataLoader\Cache;
 use App\Models\Model;
 
 interface KeyRetriever {
-    public function get(Model $model): string|int;
+    public function get(Model $model): mixed;
 }

@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Providers;
 
 use App\Models\Model;
 use App\Models\Oem;
-use App\Services\DataLoader\Cache\KeyRetriever;
+use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Provider;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -36,12 +36,9 @@ class OemProvider extends Provider {
      */
     protected function getKeyRetrievers(): array {
         return [
-                'abbr' => new class() implements KeyRetriever {
-                    public function get(Model $model): string|int {
-                        /** @var \App\Models\Oem $model */
-                        return $model->abbr;
-                    }
-                },
+                'abbr' => new ClosureKey(static function (Oem $oem): string {
+                    return $oem->abbr;
+                }),
             ] + parent::getKeyRetrievers();
     }
 }

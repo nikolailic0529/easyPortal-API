@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Providers;
 
 use App\Models\Model;
 use App\Models\ProductCategory;
-use App\Services\DataLoader\Cache\KeyRetriever;
+use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Provider;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -18,7 +18,7 @@ class ProductCategoryProvider extends Provider {
 
     protected function create(string $name): ProductCategory {
         $category       = new ProductCategory();
-        $category->name = $name;
+        $category->name = $this->normalizer->string($name);
 
         $category->save();
 
@@ -34,12 +34,9 @@ class ProductCategoryProvider extends Provider {
      */
     protected function getKeyRetrievers(): array {
         return [
-                'name' => new class() implements KeyRetriever {
-                    public function get(Model $model): string|int {
-                        /** @var \App\Models\ProductCategory $model */
-                        return $model->name;
-                    }
-                },
+                'name' => new ClosureKey(static function (ProductCategory $category): string {
+                    return $category->name;
+                }),
             ] + parent::getKeyRetrievers();
     }
 }

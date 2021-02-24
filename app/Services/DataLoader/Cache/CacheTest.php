@@ -25,12 +25,12 @@ class CacheTest extends TestCase {
         ]);
         $this->cache = new Cache($this->items, [
             'key'      => new class() implements KeyRetriever {
-                public function get(Model $model): string|int {
+                public function get(Model $model): mixed {
                     return $model->getKey();
                 }
             },
             'property' => new class() implements KeyRetriever {
-                public function get(Model $model): string|int {
+                public function get(Model $model): mixed {
                     return $model->property;
                 }
             },

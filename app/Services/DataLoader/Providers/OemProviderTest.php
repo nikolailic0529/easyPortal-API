@@ -44,7 +44,7 @@ class OemProviderTest extends TestCase {
         $this->assertCount(0, $this->getQueryLog());
 
         // If value not found the new object should be created
-        $created = $provider->get('unknown');
+        $created = $provider->get(' unknown ');
 
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
