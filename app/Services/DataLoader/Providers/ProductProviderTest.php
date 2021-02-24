@@ -60,8 +60,8 @@ class ProductProviderTest extends TestCase {
 
         // Second call should return same instance
         $this->assertSame($actual, $provider->get($oemA, 'a', $catA, $name));
-        $this->assertSame($actual, $provider->get($oemA, 'a', $catB, $name));
-        $this->assertSame($actual, $provider->get($oemA, 'a', $catB, 'any'));
+        $this->assertSame($actual, $provider->get($oemA, ' a ', $catB, $name));
+        $this->assertSame($actual, $provider->get($oemA, 'A', $catB, 'any'));
         $this->assertCount(0, $this->getQueryLog());
 
         $this->assertNotSame($actual, $provider->get($oemB, 'a', $catA, $name));
@@ -79,12 +79,12 @@ class ProductProviderTest extends TestCase {
         $this->flushQueryLog();
 
         // If not, the new object should be created
-        $created = $provider->get($oemB, ' unknown ', $catB, ' unknown ');
+        $created = $provider->get($oemB, ' unKnown ', $catB, ' unknoWn ');
 
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertEquals('unknown', $created->sku);
-        $this->assertEquals('unknown', $created->name);
+        $this->assertEquals('unKnown', $created->sku);
+        $this->assertEquals('unknoWn', $created->name);
         $this->assertEquals($oemB, $created->oem);
         $this->assertEquals($catB, $created->category);
         $this->assertCount(2, $this->getQueryLog());

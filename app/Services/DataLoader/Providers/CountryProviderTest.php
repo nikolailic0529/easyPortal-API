@@ -34,6 +34,8 @@ class CountryProviderTest extends TestCase {
 
         // Second call should return same instance
         $this->assertSame($actual, $provider->get('a', $this->faker->word));
+        $this->assertSame($actual, $provider->get(' a ', $this->faker->word));
+        $this->assertSame($actual, $provider->get('A', $this->faker->word));
         $this->assertCount(0, $this->getQueryLog());
 
         // All value should be loaded, so get() should not perform any queries
@@ -44,18 +46,18 @@ class CountryProviderTest extends TestCase {
         $this->assertCount(0, $this->getQueryLog());
 
         // If value not found the new object should be created
-        $created = $provider->get(' unk ', ' unknown  name ');
+        $created = $provider->get(' uNk ', ' unknown  name ');
 
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertEquals('unk', $created->code);
+        $this->assertEquals('UNK', $created->code);
         $this->assertEquals('unknown name', $created->name);
         $this->assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // The created object should be in cache
-        $this->assertSame($created, $provider->get('unk', 'any'));
+        $this->assertSame($created, $provider->get('Unk', 'any'));
         $this->assertCount(0, $this->getQueryLog());
     }
 }

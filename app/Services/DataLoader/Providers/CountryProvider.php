@@ -8,6 +8,8 @@ use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Provider;
 use Illuminate\Database\Eloquent\Builder;
 
+use function mb_strtoupper;
+
 class CountryProvider extends Provider {
     public function get(string $code, string $name): Country {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
@@ -18,7 +20,7 @@ class CountryProvider extends Provider {
 
     protected function create(string $code, string $name): Country {
         $country       = new Country();
-        $country->code = $this->normalizer->string($code);
+        $country->code = mb_strtoupper($this->normalizer->string($code));
         $country->name = $this->normalizer->string($name);
 
         $country->save();

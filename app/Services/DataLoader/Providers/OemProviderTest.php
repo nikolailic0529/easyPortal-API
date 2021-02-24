@@ -34,6 +34,8 @@ class OemProviderTest extends TestCase {
 
         // Second call should return same instance
         $this->assertSame($actual, $provider->get('a'));
+        $this->assertSame($actual, $provider->get(' a '));
+        $this->assertSame($actual, $provider->get('A'));
         $this->assertSame($actual, $provider->get($actual->getKey()));
 
         // All value should be loaded, so get() should not perform any queries
@@ -44,18 +46,18 @@ class OemProviderTest extends TestCase {
         $this->assertCount(0, $this->getQueryLog());
 
         // If value not found the new object should be created
-        $created = $provider->get(' unknown ');
+        $created = $provider->get(' unKnown ');
 
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertEquals('unknown', $created->abbr);
-        $this->assertEquals('unknown', $created->name);
+        $this->assertEquals('unKnown', $created->abbr);
+        $this->assertEquals('unKnown', $created->name);
         $this->assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // The created object should be in cache
-        $this->assertSame($created, $provider->get('unknown'));
+        $this->assertSame($created, $provider->get('unknoWn'));
         $this->assertCount(0, $this->getQueryLog());
     }
 }
