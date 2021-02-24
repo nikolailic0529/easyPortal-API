@@ -5,11 +5,9 @@ namespace App\Services\DataLoader\Normalizers;
 use Illuminate\Contracts\Queue\QueueableEntity;
 
 use function is_array;
-use function is_int;
 use function is_null;
 use function is_scalar;
 use function is_string;
-use function json_encode;
 use function ksort;
 use function mb_strtolower;
 
@@ -20,10 +18,8 @@ class KeyNormalizer implements Normalizer {
         $this->normalizer = new StringNormalizer();
     }
 
-    public function normalize(mixed $value): string {
+    public function normalize(mixed $value): mixed {
         $value = $this->prepare($value);
-        $value = (string) json_encode($value);
-        $value = mb_strtolower($value);
 
         return $value;
     }
@@ -45,6 +41,7 @@ class KeyNormalizer implements Normalizer {
             // no action
         } else {
             $value = $this->normalizer->normalize($value);
+            $value = mb_strtolower($value);
         }
 
         return $value;

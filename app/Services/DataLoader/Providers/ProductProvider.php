@@ -25,9 +25,12 @@ class ProductProvider extends Provider {
     }
 
     protected function find(Oem $oem, string $sku): ?Product {
+        $key = $this->getUniqueKey($oem, $sku);
+        $key = $this->normalizer->key($key);
+
         return Product::query()
-            ->where('oem_id', '=', $oem->getKey())
-            ->where('sku', '=', $sku)
+            ->where('oem_id', '=', $key['oem'])
+            ->where('sku', '=', $key['sku'])
             ->first();
     }
 
@@ -55,7 +58,7 @@ class ProductProvider extends Provider {
     }
 
     /**
-     * @return array<string>
+     * @return array{oem: string, sku: string}
      */
     #[Pure]
     protected function getUniqueKey(Oem|string $oem, string $sku): array {

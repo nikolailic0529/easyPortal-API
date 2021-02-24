@@ -6,5 +6,5 @@ use JetBrains\PhpStorm\Pure;
 
 interface Normalizer {
     #[Pure]
-    public function normalize(mixed $value): string;
+    public function normalize(mixed $value): mixed;
 }

@@ -2,16 +2,21 @@
 
 namespace App\Services\DataLoader;
 
+use App\Services\DataLoader\Normalizers\KeyNormalizer;
 use App\Services\DataLoader\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizers\UuidNormalizer;
 
 class Normalizer {
-    protected StringNormalizer $string;
-    protected UuidNormalizer   $uuid;
+    public function __construct(
+        protected KeyNormalizer $key,
+        protected UuidNormalizer $uuid,
+        protected StringNormalizer $string,
+    ) {
+        // empty
+    }
 
-    public function __construct(StringNormalizer $string, UuidNormalizer $uuid) {
-        $this->string = $string;
-        $this->uuid   = $uuid;
+    public function key(mixed $value): mixed {
+        return $this->key->normalize($value);
     }
 
     public function uuid(mixed $value): string {

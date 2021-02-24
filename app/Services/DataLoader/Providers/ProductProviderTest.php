@@ -25,7 +25,7 @@ class ProductProviderTest extends TestCase {
         $catA = ProductCategory::factory()->create();
         $catB = ProductCategory::factory()->create();
 
-        Product::factory()->create([
+        $a = Product::factory()->create([
             'oem_id'      => $oemA,
             'category_id' => $catA,
             'sku'         => 'a',
@@ -50,11 +50,13 @@ class ProductProviderTest extends TestCase {
 
         // Basic
         $this->assertNotNull($actual);
-        $this->assertTrue($actual->wasRecentlyCreated);
+        $this->assertFalse($actual->wasRecentlyCreated);
         $this->assertEquals('a', $actual->sku);
-        $this->assertEquals($name, $actual->name);
+        $this->assertEquals($a->name, $actual->name);
         $this->assertEquals($oemA, $actual->oem);
         $this->assertEquals($catA, $actual->category);
+
+        $this->flushQueryLog();
 
         // Second call should return same instance
         $this->assertSame($actual, $provider->get($oemA, 'a', $catA, $name));

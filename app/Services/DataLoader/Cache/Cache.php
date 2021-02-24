@@ -3,13 +3,12 @@
 namespace App\Services\DataLoader\Cache;
 
 use App\Models\Model;
-use App\Services\DataLoader\Normalizers\KeyNormalizer;
 use Illuminate\Support\Collection;
 
 class Cache {
     protected const NULL_RETRIEVER = self::class;
 
-    protected KeyNormalizer $normalizer;
+    protected Normalizer $normalizer;
     /**
      * @var array<\Illuminate\Support\Collection<\App\Models\Model>>
      */
@@ -24,7 +23,7 @@ class Cache {
      * @param array<\App\Services\DataLoader\Cache\KeyRetriever> $retrievers
      */
     public function __construct(Collection $items, array $retrievers) {
-        $this->normalizer = new KeyNormalizer();
+        $this->normalizer = new Normalizer();
         $this->retrievers = $retrievers;
         $this->items      = [
             static::NULL_RETRIEVER => new Collection(),

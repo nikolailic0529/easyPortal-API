@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Normalizers;
+namespace App\Services\DataLoader\Cache;
 
 use Illuminate\Contracts\Queue\QueueableEntity;
 use PHPUnit\Framework\TestCase;
@@ -11,9 +11,9 @@ use function strtolower;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Normalizers\KeyNormalizer
+ * @coversDefaultClass \App\Services\DataLoader\Cache\Normalizer
  */
-class KeyNormalizerTest extends TestCase {
+class NormalizerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -21,8 +21,8 @@ class KeyNormalizerTest extends TestCase {
      *
      * @dataProvider dataProviderNormalize
      */
-    public function testNormalize(mixed $expected, mixed $value): void {
-        $this->assertEquals($expected, (new KeyNormalizer())->normalize($value));
+    public function testNormalize(string $expected, mixed $value): void {
+        $this->assertEquals($expected, (new Normalizer())->normalize($value));
     }
     // </editor-fold>
 
@@ -33,23 +33,14 @@ class KeyNormalizerTest extends TestCase {
      */
     public function dataProviderNormalize(): array {
         return [
-            'string'                             => ['string', 'string'],
-            'null'                               => [null, null],
+            'string'                             => ['"string"', 'string'],
+            'null'                               => ['null', null],
             'array'                              => [
-                [1, 2, 3, [4, 3, 2.2], true, null],
+                '[1,2,3,[4,3,2.2],true,null]',
                 [1, 2, 3, [4, 3, 2.2], true, null],
             ],
             'assoc'                              => [
-                [
-                    'b'      => 123,
-                    'c'      => true,
-                    'a'      => 'a',
-                    'nested' => [
-                        'c' => true,
-                        'b' => 123,
-                        'a' => 'a',
-                    ],
-                ],
+                '{"a":"a","b":123,"c":true,"nested":{"a":"a","b":123,"c":true}}',
                 [
                     'b'      => 123,
                     'c'      => true,
@@ -62,27 +53,25 @@ class KeyNormalizerTest extends TestCase {
                 ],
             ],
             'QueueableEntity without connection' => [
+                sprintf(
+                    '{"a":["%s",null,456],"b":123,"c":true}',
+                    addslashes(NormalizerTest_QueueableEntity::class),
+                ),
                 [
-                    'a' => [KeyNormalizerTest_QueueableEntity::class, null, 456],
                     'b' => 123,
                     'c' => true,
-                ],
-                [
-                    'b' => 123,
-                    'c' => true,
-                    'a' => new KeyNormalizerTest_QueueableEntity(456),
+                    'a' => new NormalizerTest_QueueableEntity(456),
                 ],
             ],
             'QueueableEntity with connection'    => [
+                sprintf(
+                    '{"a":["%s","connection",789],"b":123,"c":true}',
+                    addslashes(NormalizerTest_QueueableEntity::class),
+                ),
                 [
-                    'a' => [KeyNormalizerTest_QueueableEntity::class, 'connection', 789],
                     'b' => 123,
                     'c' => true,
-                ],
-                [
-                    'b' => 123,
-                    'c' => true,
-                    'a' => new KeyNormalizerTest_QueueableEntity(789, 'connection'),
+                    'a' => new NormalizerTest_QueueableEntity(789, 'connection'),
                 ],
             ],
         ];
@@ -97,7 +86,7 @@ class KeyNormalizerTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class KeyNormalizerTest_QueueableEntity implements QueueableEntity {
+class NormalizerTest_QueueableEntity implements QueueableEntity {
     private mixed $id;
     /**
      * @var array<string>
