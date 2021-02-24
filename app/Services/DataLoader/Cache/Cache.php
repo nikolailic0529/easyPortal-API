@@ -7,6 +7,8 @@ use App\Services\DataLoader\Normalizers\KeyNormalizer;
 use Illuminate\Support\Collection;
 
 class Cache {
+    protected const NULL_RETRIEVER = self::class;
+
     protected KeyNormalizer $normalizer;
     /**
      * @var array<\Illuminate\Support\Collection<\App\Models\Model>>
@@ -24,7 +26,9 @@ class Cache {
     public function __construct(Collection $items, array $retrievers) {
         $this->normalizer = new KeyNormalizer();
         $this->retrievers = $retrievers;
-        $this->items      = [];
+        $this->items      = [
+            static::NULL_RETRIEVER => new Collection(),
+        ];
 
         foreach ($retrievers as $name => $retriever) {
             $this->items[$name] = $items->keyBy(function (Model $item) use ($retriever): string {
@@ -34,12 +38,14 @@ class Cache {
     }
 
     public function has(mixed $key): bool {
-        $value = false;
+        $value = $this->hasByRetriever(static::NULL_RETRIEVER, $key);
 
-        foreach ($this->retrievers as $name => $retriever) {
-            if ($this->hasByRetriever($name, $key)) {
-                $value = true;
-                break;
+        if (!$value) {
+            foreach ($this->retrievers as $name => $retriever) {
+                if ($this->hasByRetriever($name, $key)) {
+                    $value = true;
+                    break;
+                }
             }
         }
 
@@ -49,10 +55,12 @@ class Cache {
     public function get(mixed $key): ?Model {
         $value = null;
 
-        foreach ($this->retrievers as $name => $retriever) {
-            if ($this->hasByRetriever($name, $key)) {
-                $value = $this->getByRetriever($name, $key);
-                break;
+        if (!$this->hasByRetriever(static::NULL_RETRIEVER, $key)) {
+            foreach ($this->retrievers as $name => $retriever) {
+                if ($this->hasByRetriever($name, $key)) {
+                    $value = $this->getByRetriever($name, $key);
+                    break;
+                }
             }
         }
 
@@ -61,13 +69,20 @@ class Cache {
 
     public function put(Model $model): Model {
         foreach ($this->retrievers as $name => $retriever) {
-            $this->items[$name]->put(
-                $this->normalizer->normalize($retriever->get($model)),
-                $model,
-            );
+            $key = $this->normalizer->normalize($retriever->get($model));
+
+            $this->items[static::NULL_RETRIEVER]->forget([$key]);
+            $this->items[$name]->put($key, $model);
         }
 
         return $model;
+    }
+
+    public function putNull(mixed $key): void {
+        $this->items[static::NULL_RETRIEVER]->put(
+            $this->normalizer->normalize($key),
+            null,
+        );
     }
 
     public function hasByRetriever(string $retriever, mixed $key): bool {
