@@ -17,19 +17,32 @@ abstract class Provider {
         // empty
     }
 
-    protected function resolve(mixed $key, Closure $creator = null, Closure $resolver = null): Model {
+    protected function resolve(mixed $key, Closure ...$resolvers): ?Model {
         // Model already inside cache?
         if ($this->getCache()->has($key)) {
             return $this->getCache()->get($key);
         }
 
-        // Nope. Trying to find or create it
-        $model = ($resolver ? $resolver() : null) ?? ($creator ? $creator() : null);
+        // Nope. Trying to resolve
+        $cache = $this->getCache();
+        $model = null;
 
-        if ($model) {
-            $this->getCache()->put($model);
+        foreach ($resolvers as $resolver) {
+            $model = $resolver();
+
+            if ($model) {
+                break;
+            }
         }
 
+        // Put into cache
+        if ($model) {
+            $cache->put($model);
+        } else {
+            $cache->putNull($key);
+        }
+
+        // Return
         return $model;
     }
 
