@@ -15,7 +15,8 @@ CREATE TABLE IF NOT EXISTS `product_categories` (
     `created_at` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `deleted_at` TIMESTAMP    NULL     DEFAULT NULL,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE INDEX `unique__name` (`name` ASC) VISIBLE
 );
 
 CREATE TABLE IF NOT EXISTS `products` (
