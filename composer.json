@@ -86,11 +86,14 @@
       "@php artisan key:generate --ansi"
     ],
     "ide-helper": [
-      "@php artisan ide-helper:meta",
-      "@php artisan ide-helper:generate .phpstorm.helper.php",
+      "@php artisan ide-helper:meta --filename .phpstorm.meta.php/meta.php",
+      "@php artisan ide-helper:generate .phpstorm.meta.php/helper.php",
       "@php artisan ide-helper:models --write",
       "@php artisan lighthouse:ide-helper",
-      "@php -r 'file_put_contents(\"schema-directives.graphql\", str_replace(\"repeatable\", \"\", file_get_contents(\"schema-directives.graphql\")));'"
+      "@php -r 'file_put_contents(\"schema-directives.graphql\", str_replace(\"repeatable\", \"\", file_get_contents(\"schema-directives.graphql\")));'",
+      "@php -r 'rename(\"_lighthouse_ide_helper.php\", \".phpstorm.meta.php/lighthouse.php\");'",
+      "@php -r 'rename(\"programmatic-types.graphql\", \".phpstorm.meta.php/lighthouse-types.graphql\");'",
+      "@php -r 'rename(\"schema-directives.graphql\", \".phpstorm.meta.php/lighthouse-directives.graphql\");'"
     ],
     "phpcs": [
       "@php ./vendor/bin/phpcs"
