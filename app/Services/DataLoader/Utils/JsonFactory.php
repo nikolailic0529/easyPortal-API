@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Utils;
 
 use ReflectionClass;
 use ReflectionNamedType;
+use ReflectionProperty;
 
 use function array_map;
 use function is_null;
@@ -100,5 +101,14 @@ abstract class JsonFactory {
         }
 
         return static::$properties;
+    }
+
+    /**
+     * @return array<string>
+     */
+    public static function getPropertiesNames(): array {
+        return array_map(static function (ReflectionProperty $property): string {
+            return $property->getName();
+        }, (new ReflectionClass(static::class))->getProperties());
     }
 }
