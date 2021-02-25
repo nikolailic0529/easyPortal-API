@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\City;
 use App\Models\Country;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
@@ -14,7 +15,7 @@ class CityFactory extends Factory {
      *
      * @var string
      */
-    protected $model = Country::class;
+    protected $model = City::class;
 
     /**
      * Define the model's default state.
