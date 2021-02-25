@@ -6,6 +6,7 @@
 /vendor
 /tmp
 /.phpunit
+/.phpstorm.meta.php
 /.vagrant
 Homestead.json
 Homestead.yaml
@@ -35,8 +36,3 @@ Thumbs.db
 !.vscode/launch.json
 !.vscode/extensions.json
 .history/*
-
-# Project
-/_lighthouse_ide_helper.php
-/programmatic-types.graphql
-/schema-directives.graphql

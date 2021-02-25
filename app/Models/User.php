@@ -13,6 +13,8 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use LogicException;
 
 /**
+ * User.
+ *
  * @property int                          $id
  * @property string                       $organization_id
  * @property string|null                  $sub Auth0 User ID
@@ -27,7 +29,7 @@ use LogicException;
  * @property mixed                        $permissions
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
- * @property string|null                  $deleted_at
+ * @property \Carbon\CarbonImmutable|null $deleted_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User query()
@@ -54,6 +56,13 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     use Authorizable;
     use MustVerifyEmail;
     use BelongsToTenant;
+
+    protected const CASTS = [
+        'blocked'           => 'bool',
+        'permissions'       => 'array',
+        'email_verified_at' => 'datetime',
+        'phone_verified_at' => 'datetime',
+    ];
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -95,12 +104,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      *
      * @var array<string>
      */
-    protected $casts = [
-        'blocked'           => 'bool',
-        'permissions'       => 'array',
-        'email_verified_at' => 'datetime',
-        'phone_verified_at' => 'datetime',
-    ];
+    protected $casts = self::CASTS + parent::CASTS;
 
     public function sendEmailVerificationNotification(): void {
         throw new LogicException('Email verification should be done inside auth0.');

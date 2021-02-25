@@ -2,11 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Organization;
+use App\Models\City;
+use App\Models\Country;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
-class OrganizationFactory extends Factory {
+class CityFactory extends Factory {
     /**
      * The name of the factory's corresponding model.
      *
@@ -14,7 +15,7 @@ class OrganizationFactory extends Factory {
      *
      * @var string
      */
-    protected $model = Organization::class;
+    protected $model = City::class;
 
     /**
      * Define the model's default state.
@@ -24,10 +25,11 @@ class OrganizationFactory extends Factory {
     public function definition(): array {
         return [
             'id'         => $this->faker->uuid,
-            'type'       => 'reseller',
-            'subdomain'  => null,
-            'abbr'       => $this->faker->word,
-            'name'       => $this->faker->company,
+            'name'       => $this->faker->city,
+            'country_id' => static function (): Country {
+                return Country::query()->first()
+                    ?: Country::factory()->create();
+            },
             'created_at' => Date::now(),
             'updated_at' => Date::now(),
             'deleted_at' => null,

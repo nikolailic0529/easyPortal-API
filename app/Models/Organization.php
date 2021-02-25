@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-
 /**
+ * Organization.
+ *
  * @property string                  $id
  * @property string                  $type
  * @property string|null             $subdomain

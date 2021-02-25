@@ -8,6 +8,10 @@ use LastDragon_ru\LaraASP\Eloquent\Model as LaraASPModel;
 abstract class Model extends LaraASPModel {
     use UuidAsPrimaryKey;
 
+    protected const CASTS = [
+        'deleted_at' => 'datetime',
+    ];
+
     /**
      * Primary Key always UUID.
      *
@@ -23,4 +27,13 @@ abstract class Model extends LaraASPModel {
      * @var string
      */
     public $incrementing = false;
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<string>
+     */
+    protected $casts = self::CASTS;
 }
