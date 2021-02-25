@@ -10,6 +10,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Pure;
 
+/**
+ * The provider performs a search of the model with given properties in the
+ * database and returns it or creates a new one if it does not exist. It also
+ * implements advanced cache practices to reduce the number of database lookups.
+ */
 abstract class Provider {
     protected Cache|null $cache = null;
     protected Normalizer $normalizer;
