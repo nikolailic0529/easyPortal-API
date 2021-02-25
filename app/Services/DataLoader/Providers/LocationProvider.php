@@ -8,7 +8,7 @@ use App\Models\Location;
 use App\Models\Model;
 use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Provider;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use JetBrains\PhpStorm\Pure;
 
 class LocationProvider extends Provider {
@@ -22,7 +22,7 @@ class LocationProvider extends Provider {
     ): Location {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve(
-            $this->getUniqueKey($country, $city, $postcode, $state, $lineOne, $lineTwo),
+            $this->getUniqueKey($country, $city, $postcode, $lineOne, $lineTwo),
             function () use ($country, $city, $postcode, $state, $lineOne, $lineTwo) {
                 return $this->find($country, $city, $postcode, $state, $lineOne, $lineTwo);
             },
@@ -40,24 +40,18 @@ class LocationProvider extends Provider {
         string $lineOne,
         string $lineTwo,
     ): ?Location {
-        $key = $this->getUniqueKey($country, $city, $postcode, $state, $lineOne, $lineTwo);
+        $key = $this->getUniqueKey($country, $city, $postcode, $lineOne, $lineTwo);
         $key = $this->normalizer->key($key);
 
         return Location::query()
             ->where('country_id', '=', $key['country_id'])
             ->where('city_id', '=', $key['city_id'])
             ->where('postcode', '=', $key['postcode'])
-            ->where('state', '=', $key['state'])
-            ->where(static function (Builder $query) use ($key): void {
-                $query->orWhere(static function (Builder $query) use ($key): void {
-                    $query->where('line_one', '=', $key['line_one']);
-                    $query->where('line_two', '=', $key['line_two']);
-                });
-                $query->orWhere(static function (Builder $query) use ($key): void {
-                    $query->where('line_one', '=', "{$key['line_one']} {$key['line_two']}");
-                    $query->where('line_two', '=', '');
-                });
-            })
+            ->where(
+                DB::raw("CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), ''))"),
+                '=',
+                $key['line'],
+            )
             ->first();
     }
 
@@ -92,7 +86,6 @@ class LocationProvider extends Provider {
                         $location->country_id,
                         $location->city_id,
                         $location->postcode,
-                        $location->state,
                         $location->line_one,
                         $location->line_two,
                     );
@@ -101,14 +94,13 @@ class LocationProvider extends Provider {
     }
 
     /**
-     * @return array{country_id:string, city_id:string, postcode:string, state:string, line_one:string, line_two:string}
+     * @return array{country_id:string, city_id:string, postcode:string, line_one:string, line_two:string}
      */
     #[Pure]
     protected function getUniqueKey(
         Country|string $country,
         City|string $city,
         string $postcode,
-        string $state,
         string $lineOne,
         string $lineTwo,
     ): array {
@@ -116,9 +108,7 @@ class LocationProvider extends Provider {
             'country_id' => $country instanceof Model ? $country->getKey() : $country,
             'city_id'    => $city instanceof Model ? $city->getKey() : $city,
             'postcode'   => $postcode,
-            'state'      => $state,
-            'line_one'   => $lineOne,
-            'line_two'   => $lineTwo,
+            'line'       => "{$lineOne} {$lineTwo}",
         ];
     }
 }

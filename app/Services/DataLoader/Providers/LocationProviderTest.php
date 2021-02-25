@@ -100,12 +100,12 @@ class LocationProviderTest extends TestCase {
 
         // Should be found in DB
         $foundA = $provider->get($countryA, $cityA, 'postcode c', 'state c', 'line_one c  line_two c');
-        $foundB = $provider->get($countryA, $cityA, 'postcode c', 'state c', 'line_one c', 'line_two c');
+        $foundB = $provider->get($countryA, $cityA, 'postcode c', 'state any', 'line_one c', 'line_two c');
 
         $this->assertNotNull($foundA);
         $this->assertEquals($foundA, $foundB);
         $this->assertFalse($foundA->wasRecentlyCreated);
-        $this->assertCount(2, $this->getQueryLog());
+        $this->assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
