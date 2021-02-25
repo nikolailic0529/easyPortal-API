@@ -2435,7 +2435,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:LastDragon-ru/lara-asp-core.git",
-                "reference": "b5019e092564dd1b9b529c5c426fa3ee083e6aba"
+                "reference": "6aa1b23a51430d74affb24824605df50b6322117"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -2475,7 +2475,7 @@
                 "source": "https://github.com/LastDragon-ru/lara-asp",
                 "forum": "https://github.com/LastDragon-ru/lara-asp/discussions"
             },
-            "time": "2021-02-14T12:40:19+00:00"
+            "time": "2021-02-20T08:07:33+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-eloquent",
@@ -2483,7 +2483,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:LastDragon-ru/lara-asp-eloquent.git",
-                "reference": "9175718f6f83e17eabf46178eb4a0651b260392d"
+                "reference": "ceecba621adfa8946f5d7e469d6acde0f9bc7683"
             },
             "require": {
                 "laravel/framework": "^8.22.1",
@@ -2527,7 +2527,7 @@
                 "source": "https://github.com/LastDragon-ru/lara-asp",
                 "forum": "https://github.com/LastDragon-ru/lara-asp/discussions"
             },
-            "time": "2021-02-14T12:40:19+00:00"
+            "time": "2021-02-20T08:07:33+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-formatter",
@@ -2535,7 +2535,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:LastDragon-ru/lara-asp-formatter.git",
-                "reference": "0a79e562e32dd352a87d46f6238765869926a4a2"
+                "reference": "f1304872a6cebd2b7ca3d976749c9711bf37eaf7"
             },
             "require": {
                 "ext-intl": "*",
@@ -2586,7 +2586,7 @@
                 "source": "https://github.com/LastDragon-ru/lara-asp",
                 "forum": "https://github.com/LastDragon-ru/lara-asp/discussions"
             },
-            "time": "2021-02-14T12:40:19+00:00"
+            "time": "2021-02-20T08:07:33+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-migrator",
@@ -2594,7 +2594,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:LastDragon-ru/lara-asp-migrator.git",
-                "reference": "5d540a65ae1f99e9405d14953627bdc4c27db750"
+                "reference": "6b281345d6e40d08f6511c8df577919f32b3bcdd"
             },
             "require": {
                 "composer/composer": "^2.0.0",
@@ -2648,7 +2648,7 @@
                 "source": "https://github.com/LastDragon-ru/lara-asp",
                 "forum": "https://github.com/LastDragon-ru/lara-asp/discussions"
             },
-            "time": "2021-02-14T12:40:19+00:00"
+            "time": "2021-02-20T08:07:33+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-queue",
@@ -2656,7 +2656,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:LastDragon-ru/lara-asp-queue.git",
-                "reference": "d142db34d856d32f1f8b6c69141f8489c7289ad9"
+                "reference": "ea725d198b33ae51fdfd89a2afb83bbf7b6a08c0"
             },
             "require": {
                 "laravel/framework": "^8.22.1",
@@ -2699,7 +2699,7 @@
                 "source": "https://github.com/LastDragon-ru/lara-asp",
                 "forum": "https://github.com/LastDragon-ru/lara-asp/discussions"
             },
-            "time": "2021-02-14T12:40:19+00:00"
+            "time": "2021-02-20T08:07:33+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-spa",
@@ -2707,7 +2707,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:LastDragon-ru/lara-asp-spa.git",
-                "reference": "a6352a0a3b1462fd584e87f21202377a49640d08"
+                "reference": "888ae316427d56613b194a56b5c8fa517bd11acc"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -2760,7 +2760,7 @@
                 "source": "https://github.com/LastDragon-ru/lara-asp",
                 "forum": "https://github.com/LastDragon-ru/lara-asp/discussions"
             },
-            "time": "2021-02-14T12:40:19+00:00"
+            "time": "2021-02-20T08:07:33+00:00"
         },
         {
             "name": "league/commonmark",
@@ -7882,7 +7882,7 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:LastDragon-ru/lara-asp-testing.git",
-                "reference": "1bb3396151655da1df68b2c53470a716520f46cc"
+                "reference": "4dc71d778831f2eca75734cd64f6985977def2ff"
             },
             "require": {
                 "doctrine/dbal": "^2.12.0|^3.0.0",
@@ -7943,7 +7943,7 @@
                 "source": "https://github.com/LastDragon-ru/lara-asp",
                 "forum": "https://github.com/LastDragon-ru/lara-asp/discussions"
             },
-            "time": "2021-02-24T08:15:11+00:00"
+            "time": "2021-02-25T11:10:04+00:00"
         },
         {
             "name": "m1x0n/opis-json-schema-error-presenter",
