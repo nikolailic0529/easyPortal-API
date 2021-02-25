@@ -102,13 +102,4 @@ abstract class JsonFactory {
 
         return static::$properties;
     }
-
-    /**
-     * @return array<string>
-     */
-    public static function getPropertiesNames(): array {
-        return array_map(static function (ReflectionProperty $property): string {
-            return $property->getName();
-        }, (new ReflectionClass(static::class))->getProperties());
-    }
 }

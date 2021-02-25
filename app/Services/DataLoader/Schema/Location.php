@@ -2,9 +2,7 @@
 
 namespace App\Services\DataLoader\Schema;
 
-use App\Services\DataLoader\Utils\JsonFactory;
-
-class Location extends JsonFactory {
+class Location extends Type {
     public string $zip;
     public string $address;
     public string $city;
