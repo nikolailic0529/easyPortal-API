@@ -4,10 +4,8 @@ namespace App\Services\DataLoader\Utils;
 
 use ReflectionClass;
 use ReflectionNamedType;
-use ReflectionProperty;
 
 use function array_map;
-use function is_null;
 use function preg_match;
 use function str_contains;
 
@@ -22,9 +20,9 @@ abstract class JsonFactory {
      * Contains factories for properties that should be an instance of class or
      * an array of classes (this data extracted from type-hints and comments).
      *
-     * @var array<string, callable>|null
+     * @var array<string, array<string, callable>>|null
      */
-    private static array|null $properties = null;
+    private static array $properties = [];
 
     public function __construct() {
         // empty
@@ -35,7 +33,7 @@ abstract class JsonFactory {
      */
     public static function create(array $json): static {
         $object     = new static();
-        $properties = static::getProperties();
+        $properties = self::getProperties();
 
         foreach ($json as $property => $value) {
             $object->{$property} = isset($properties[$property])
@@ -50,11 +48,16 @@ abstract class JsonFactory {
      * @return array<string, callable>
      */
     private static function getProperties(): array {
-        if (is_null(static::$properties)) {
-            $properties         = (new ReflectionClass(static::class))->getProperties();
-            static::$properties = [];
+        if (!isset(self::$properties[static::class])) {
+            $properties                      = (new ReflectionClass(static::class))->getProperties();
+            self::$properties[static::class] = [];
 
             foreach ($properties as $property) {
+                // Static properties should be ignored
+                if ($property->isStatic()) {
+                    continue;
+                }
+
                 // Unions can not be processes
                 $type = $property->getType();
 
@@ -95,11 +98,11 @@ abstract class JsonFactory {
 
                 // Save
                 if ($factory) {
-                    static::$properties[$property->getName()] = $factory;
+                    self::$properties[static::class][$property->getName()] = $factory;
                 }
             }
         }
 
-        return static::$properties;
+        return self::$properties[static::class];
     }
 }
