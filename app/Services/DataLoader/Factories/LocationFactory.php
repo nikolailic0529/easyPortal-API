@@ -23,6 +23,7 @@ use function str_contains;
 
 class LocationFactory implements Factory {
     public function __construct(
+        protected Normalizer $normalizer,
         protected CountryProvider $countries,
         protected CityProvider $cities,
         protected LocationProvider $locations,
@@ -47,9 +48,7 @@ class LocationFactory implements Factory {
 
     protected function createFromLocation(Location $location): LocationModel {
         // Country is not yet available so we use Unknown
-        $country = $this->countries->get('??', function (?Country $country, Normalizer $normalizer): Country {
-            return $this->country($country, $normalizer, '??', 'Unknown Country');
-        });
+        $country = $this->country('??', 'Unknown Country');
 
         // City may contains State
         $city  = null;
@@ -64,74 +63,55 @@ class LocationFactory implements Factory {
         }
 
         // City
-        $city = $this->cities->get(
-            $country,
-            $city,
-            function (?City $model, Normalizer $normalizer) use ($country, $city): City {
-                return $this->city($model, $normalizer, $country, $city);
-            },
-        );
+        $city = $this->city($country, $city);
 
         // Location
-        $model = $this->locations->get(
+        $model = $this->location(
             $country,
             $city,
             $location->zip,
             $location->address,
             '',
-            function (
-                ?LocationModel $model,
-                Normalizer $normalizer,
-            ) use (
-                $country,
-                $city,
-                $location,
-                $state,
-            ): LocationModel {
-                return $this->location(
-                    $model,
-                    $normalizer,
-                    $country,
-                    $city,
-                    $location->zip,
-                    $location->address,
-                    '',
-                    $state,
-                );
-            },
+            $state,
         );
 
         // Return
         return $model;
     }
 
-    protected function country(?Country $country, Normalizer $normalizer, string $code, string $name): Country {
-        if (!$country) {
+    protected function country(string $code, string $name): Country {
+        $country = $this->countries->get('??', function () use ($code, $name): Country {
             $country       = new Country();
-            $country->code = mb_strtoupper($normalizer->string($code));
-            $country->name = $normalizer->string($name);
+            $country->code = mb_strtoupper($this->normalizer->string($code));
+            $country->name = $this->normalizer->string($name);
 
             $country->save();
-        }
+
+            return $country;
+        });
 
         return $country;
     }
 
-    protected function city(?City $city, Normalizer $normalizer, Country $country, string $name): City {
-        if (!$city) {
-            $city          = new City();
-            $city->name    = $normalizer->string($name);
-            $city->country = $country;
+    protected function city(Country $country, string $name): City {
+        $city = $this->cities->get(
+            $country,
+            $name,
+            function () use ($country, $name): City {
+                $city          = new City();
+                $city->name    = $this->normalizer->string($name);
+                $city->country = $country;
 
-            $city->save();
-        }
+                $city->save();
+
+                return $city;
+            },
+        );
 
         return $city;
     }
 
     protected function location(
-        ?LocationModel $location,
-        Normalizer $normalizer,
         Country $country,
         City $city,
         string $postcode,
@@ -139,20 +119,29 @@ class LocationFactory implements Factory {
         string $lineTwo,
         string $state,
     ): LocationModel {
-        if ($location) {
-            if ($location->state === '') {
-                $location->state = $normalizer->string($state);
+        $location = $this->locations->get(
+            $country,
+            $city,
+            $postcode,
+            $lineOne,
+            $lineTwo,
+            function () use ($country, $city, $postcode, $lineOne, $lineTwo, $state): LocationModel {
+                $location           = new LocationModel();
+                $location->country  = $country;
+                $location->city     = $city;
+                $location->postcode = $this->normalizer->string($postcode);
+                $location->state    = $this->normalizer->string($state);
+                $location->line_one = $this->normalizer->string($lineOne);
+                $location->line_two = $this->normalizer->string($lineTwo);
 
                 $location->save();
-            }
-        } else {
-            $location           = new LocationModel();
-            $location->country  = $country;
-            $location->city     = $city;
-            $location->postcode = $normalizer->string($postcode);
-            $location->state    = $normalizer->string($state);
-            $location->line_one = $normalizer->string($lineOne);
-            $location->line_two = $normalizer->string($lineTwo);
+
+                return $location;
+            },
+        );
+
+        if ($location->state === '') {
+            $location->state = $this->normalizer->string($state);
 
             $location->save();
         }
