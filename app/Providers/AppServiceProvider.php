@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Customer;
 use App\Services\Auth0\AuthService;
 use App\Services\Auth0\UserRepository;
 use Auth0\Login\Auth0Service;
 use Auth0\Login\Contract\Auth0UserRepository;
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\ServiceProvider;
@@ -25,7 +27,9 @@ class AppServiceProvider extends ServiceProvider {
      * Bootstrap any application services.
      */
     public function boot(): void {
-        // empty
+        Relation::morphMap([
+            'app/customer' => Customer::class,
+        ]);
     }
 
     protected function registerAuth0(): void {
