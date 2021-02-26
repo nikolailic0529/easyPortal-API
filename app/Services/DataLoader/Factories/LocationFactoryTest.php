@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Location as LocationModel;
-use App\Services\DataLoader\Cache\Cache;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Providers\CityProvider;
 use App\Services\DataLoader\Providers\CountryProvider;
@@ -13,7 +12,6 @@ use App\Services\DataLoader\Providers\LocationProvider;
 use App\Services\DataLoader\Schema\Type;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
-use Mockery;
 use Tests\TestCase;
 
 /**
@@ -43,17 +41,8 @@ class LocationFactoryTest extends TestCase {
     public function testCountry(): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
-        $country    = Country::factory()->make();
-        $cache      = Mockery::mock(Cache::class);
-        $provider   = Mockery::mock(CountryProvider::class, [$normalizer]);
-
-        $cache->shouldReceive('has')->times(2)->andReturn(true, false);
-        $cache->shouldReceive('get')->times(1)->andReturn($country);
-        $cache->shouldReceive('put')->times(1)->andReturns();
-
-        $provider->makePartial();
-        $provider->shouldAllowMockingProtectedMethods();
-        $provider->shouldReceive('getCache')->times(4)->andReturn($cache);
+        $provider   = $this->app->make(CountryProvider::class);
+        $country    = Country::factory()->create();
 
         $factory = new class($normalizer, $provider) extends LocationFactory {
             public function __construct(Normalizer $normalizer, CountryProvider $provider) {
@@ -69,8 +58,10 @@ class LocationFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // If model exists - no action required
-        $this->assertSame($country, $factory->country('', ''));
-        $this->assertCount(0, $this->getQueryLog());
+        $this->assertEquals($country, $factory->country($country->code, $country->name));
+        $this->assertCount(1, $this->getQueryLog());
+
+        $this->flushQueryLog();
 
         // If not - it should be created
         $created = $factory->country(' CD ', ' Country  Name ');
@@ -89,17 +80,8 @@ class LocationFactoryTest extends TestCase {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
         $country    = Country::factory()->create();
-        $city       = City::factory()->make();
-        $cache      = Mockery::mock(Cache::class);
-        $provider   = Mockery::mock(CityProvider::class, [$normalizer]);
-
-        $cache->shouldReceive('has')->times(2)->andReturn(true, false);
-        $cache->shouldReceive('get')->times(1)->andReturn($city);
-        $cache->shouldReceive('put')->times(1)->andReturns();
-
-        $provider->makePartial();
-        $provider->shouldAllowMockingProtectedMethods();
-        $provider->shouldReceive('getCache')->times(4)->andReturn($cache);
+        $city       = City::factory()->create();
+        $provider   = $this->app->make(CityProvider::class);
 
         $factory = new class($normalizer, $provider) extends LocationFactory {
             public function __construct(Normalizer $normalizer, CityProvider $provider) {
@@ -115,8 +97,10 @@ class LocationFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // If model exists - no action required
-        $this->assertSame($city, $factory->city($country, ''));
-        $this->assertCount(0, $this->getQueryLog());
+        $this->assertEquals($city, $factory->city($country, $city->name));
+        $this->assertCount(1, $this->getQueryLog());
+
+        $this->flushQueryLog();
 
         // If not - it should be created
         $created = $factory->city($country, ' City  Name ');
@@ -136,17 +120,8 @@ class LocationFactoryTest extends TestCase {
         $normalizer = $this->app->make(Normalizer::class);
         $country    = Country::factory()->create();
         $city       = City::factory()->create();
-        $location   = LocationModel::factory()->make();
-        $cache      = Mockery::mock(Cache::class);
-        $provider   = Mockery::mock(LocationProvider::class, [$normalizer]);
-
-        $cache->shouldReceive('has')->times(3)->andReturn(true, false, true);
-        $cache->shouldReceive('get')->times(2)->andReturn($location);
-        $cache->shouldReceive('put')->times(1)->andReturns();
-
-        $provider->makePartial();
-        $provider->shouldAllowMockingProtectedMethods();
-        $provider->shouldReceive('getCache')->times(6)->andReturn($cache);
+        $location   = LocationModel::factory()->create();
+        $provider   = $this->app->make(LocationProvider::class);
 
         $factory = new class($normalizer, $provider) extends LocationFactory {
             public function __construct(Normalizer $normalizer, LocationProvider $provider) {
@@ -176,9 +151,18 @@ class LocationFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // If model exists - no action required
-        $this->assertSame($location, $factory->location($country, $city, '', '', '', ''));
+        $this->assertEquals($location, $factory->location(
+            $country,
+            $city,
+            $location->postcode,
+            $location->line_one,
+            $location->line_two,
+            $location->state,
+        ));
         $this->assertNotEquals('', $location->state);
-        $this->assertCount(0, $this->getQueryLog());
+        $this->assertCount(1, $this->getQueryLog());
+
+        $this->flushQueryLog();
 
         // If not - it should be created
         $state    = " {$this->faker->state} ";
@@ -197,13 +181,23 @@ class LocationFactoryTest extends TestCase {
         $this->assertEquals($normalizer->string($lineTwo), $created->line_two);
         $this->assertCount(2, $this->getQueryLog());
 
+        $this->flushQueryLog();
+
         // If state empty it should be updated
-        $state           = $this->faker->state;
-        $location->state = '';
+        $state          = $this->faker->state;
+        $created->state = '';
+        $updated        = $factory->location(
+            $country,
+            $city,
+            $created->postcode,
+            $created->line_one,
+            $created->line_two,
+            $state,
+        );
 
-        $factory->location($country, $city, $location->postcode, $location->line_one, $location->line_two, $state);
-
-        $this->assertEquals($state, $location->state);
+        $this->assertSame($created, $updated);
+        $this->assertEquals($state, $updated->state);
+        $this->assertCount(1, $this->getQueryLog());
     }
     // </editor-fold>
 

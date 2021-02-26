@@ -80,7 +80,7 @@ class LocationFactory implements Factory {
     }
 
     protected function country(string $code, string $name): Country {
-        $country = $this->countries->get('??', function () use ($code, $name): Country {
+        $country = $this->countries->get($code, function () use ($code, $name): Country {
             $country       = new Country();
             $country->code = mb_strtoupper($this->normalizer->string($code));
             $country->name = $this->normalizer->string($name);
