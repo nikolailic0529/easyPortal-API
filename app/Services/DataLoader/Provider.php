@@ -32,7 +32,10 @@ abstract class Provider {
         // Nope. Trying to find or create
         $key   = $this->normalizer->key($key);
         $model = $this->getFindQuery($key)?->first();
-        $model = $factory ? $factory($model, $this->normalizer) : $model;
+
+        if (!$model) {
+            $model = $factory($this->normalizer);
+        }
 
         // Put into cache
         $cache = $this->getCache();
