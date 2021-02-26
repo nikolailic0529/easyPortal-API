@@ -30,18 +30,22 @@ abstract class Provider {
         }
 
         // Nope. Trying to resolve
-        $cache = $this->getCache();
-        $model = null;
+        $key   = $this->normalizer->key($key);
+        $model = $this->getFindQuery($key)?->first();
 
-        foreach ($resolvers as $resolver) {
-            $model = $resolver();
+        if (!$model) {
+            foreach ($resolvers as $resolver) {
+                $model = $resolver($key);
 
-            if ($model) {
-                break;
+                if ($model) {
+                    break;
+                }
             }
         }
 
         // Put into cache
+        $cache = $this->getCache();
+
         if ($model) {
             $cache->put($model);
         } else {
@@ -70,6 +74,11 @@ abstract class Provider {
         return [
             '_' => new ModelKey(),
         ];
+    }
+
+    #[Pure]
+    protected function getFindQuery(mixed $key): ?Builder {
+        return null;
     }
 
     #[Pure]

@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Provider;
+use Illuminate\Database\Eloquent\Builder;
 use JetBrains\PhpStorm\Pure;
 
 class ProductProvider extends Provider {
@@ -15,23 +16,16 @@ class ProductProvider extends Provider {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve(
             $this->getUniqueKey($oem, $sku),
-            function () use ($oem, $sku) {
-                return $this->find($oem, $sku);
-            },
             function () use ($oem, $sku, $category, $name): Model {
                 return $this->create($oem, $sku, $category, $name);
             },
         );
     }
 
-    protected function find(Oem $oem, string $sku): ?Product {
-        $key = $this->getUniqueKey($oem, $sku);
-        $key = $this->normalizer->key($key);
-
+    protected function getFindQuery(mixed $key): ?Builder {
         return Product::query()
             ->where('oem_id', '=', $key['oem'])
-            ->where('sku', '=', $key['sku'])
-            ->first();
+            ->where('sku', '=', $key['sku']);
     }
 
     protected function create(Oem $oem, string $sku, ProductCategory $category, string $name): Product {
