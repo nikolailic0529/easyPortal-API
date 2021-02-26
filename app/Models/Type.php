@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property string                       $id
  * @property string                       $object_type
- * @property string                       $type
+ * @property string                       $key
  * @property string                       $name
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at

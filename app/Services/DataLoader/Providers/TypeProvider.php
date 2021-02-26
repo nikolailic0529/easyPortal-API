@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Builder;
 use JetBrains\PhpStorm\Pure;
 
 class TypeProvider extends Provider {
-    public function get(Model $model, string $type, Closure $factory): Type {
+    public function get(Model $model, string $key, Closure $factory): Type {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->resolve($this->getUniqueKey($model, $type), $factory);
+        return $this->resolve($this->getUniqueKey($model, $key), $factory);
     }
 
     protected function getInitialQuery(): ?Builder {
@@ -26,7 +26,7 @@ class TypeProvider extends Provider {
     protected function getKeyRetrievers(): array {
         return [
                 'type' => new ClosureKey(function (Type $type): array {
-                    return $this->getUniqueKey($type->object_type, $type->type);
+                    return $this->getUniqueKey($type->object_type, $type->key);
                 }),
             ] + parent::getKeyRetrievers();
     }
@@ -35,10 +35,10 @@ class TypeProvider extends Provider {
      * @return array{model: string, type: string}
      */
     #[Pure]
-    protected function getUniqueKey(Model|string $model, string $type): array {
+    protected function getUniqueKey(Model|string $model, string $key): array {
         return [
             'object_type' => $model instanceof Model ? $model->getMorphClass() : $model,
-            'type'        => $type,
+            'key'         => $key,
         ];
     }
 }

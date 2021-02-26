@@ -10,9 +10,10 @@ SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 1;
 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 ALTER TABLE `customer_location_types`
-    ADD COLUMN `object_type` VARCHAR(255) NOT NULL AFTER `id`,
+    ADD COLUMN `object_type`   VARCHAR(255) NOT NULL AFTER `id`,
+    CHANGE COLUMN `type` `key` VARCHAR(64)  NOT NULL,
     DROP INDEX `unique__type`,
-    ADD UNIQUE INDEX `unique__object_type__type`(`object_type` ASC, `type` ASC) VISIBLE;
+    ADD UNIQUE INDEX `unique__object_type__key`(`object_type` ASC, `key` ASC) VISIBLE;
 
 ALTER TABLE `customer_location_types` RENAME TO `types`;
 

@@ -32,15 +32,15 @@ class TypeProviderTest extends TestCase {
 
         Type::factory()->create([
             'object_type' => $model->getMorphClass(),
-            'type'        => 'a',
+            'key'         => 'a',
         ]);
         Type::factory()->create([
             'object_type' => $model->getMorphClass(),
-            'type'        => 'b',
+            'key'         => 'b',
         ]);
         Type::factory()->create([
             'object_type' => $model->getMorphClass(),
-            'type'        => 'c',
+            'key'         => 'c',
         ]);
 
         // Run
@@ -51,7 +51,7 @@ class TypeProviderTest extends TestCase {
 
         // Basic
         $this->assertNotNull($actual);
-        $this->assertEquals('a', $actual->type);
+        $this->assertEquals('a', $actual->key);
 
         // Second call should return same instance
         $this->assertSame($actual, $provider->get($model, 'a', $factory));
@@ -69,7 +69,7 @@ class TypeProviderTest extends TestCase {
         $spy     = Mockery::spy(static function () use ($model): Type {
             return Type::factory()->create([
                 'object_type' => $model->getMorphClass(),
-                'type'        => 'unKnown',
+                'key'         => 'unKnown',
                 'name'        => 'unKnown',
             ]);
         });
@@ -78,7 +78,7 @@ class TypeProviderTest extends TestCase {
         $spy->shouldHaveBeenCalled();
 
         $this->assertNotNull($created);
-        $this->assertEquals('unKnown', $created->type);
+        $this->assertEquals('unKnown', $created->key);
         $this->assertEquals('unKnown', $created->name);
         $this->assertCount(1, $this->getQueryLog());
 

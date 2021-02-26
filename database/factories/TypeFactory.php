@@ -26,7 +26,7 @@ class TypeFactory extends Factory {
         return [
             'id'          => $this->faker->uuid,
             'object_type' => stdClass::class,
-            'type'        => $this->faker->word,
+            'key'         => $this->faker->word,
             'name'        => $this->faker->sentence,
             'created_at'  => Date::now(),
             'updated_at'  => Date::now(),
