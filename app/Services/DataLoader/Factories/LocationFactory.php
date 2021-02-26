@@ -55,7 +55,7 @@ class LocationFactory implements Factory {
         $state = '';
 
         if (str_contains($location->city, ',')) {
-            $parts = explode($location->city, ',', 2);
+            $parts = explode(',', $location->city, 2);
             $state = end($parts);
             $city  = reset($parts);
         } else {

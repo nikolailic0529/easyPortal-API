@@ -9,9 +9,11 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Providers\CityProvider;
 use App\Services\DataLoader\Providers\CountryProvider;
 use App\Services\DataLoader\Providers\LocationProvider;
+use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use Mockery;
 use Tests\TestCase;
 
 /**
@@ -25,14 +27,111 @@ class LocationFactoryTest extends TestCase {
     // =========================================================================
     /**
      * @covers ::create
+     *
+     * @dataProvider dataProviderCreate
      */
-    public function testCreateUnknownType(): void {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectErrorMessageMatches('/^The `\$type` must be instance of/');
+    public function testCreate(?string $expected, Type $type): void {
+        $factory = Mockery::mock(LocationFactory::class);
+        $factory->makePartial();
+        $factory->shouldAllowMockingProtectedMethods();
 
-        $this->app->make(LocationFactory::class)->create(new class() extends Type {
-            // empty
-        });
+        if ($expected) {
+            $factory->shouldReceive($expected)
+                ->once()
+                ->with($type)
+                ->andReturns();
+        } else {
+            $this->expectException(InvalidArgumentException::class);
+            $this->expectErrorMessageMatches('/^The `\$type` must be instance of/');
+        }
+
+        $factory->create($type);
+    }
+
+    /**
+     * @covers ::createFromLocation
+     */
+    public function testCreateFromLocation(): void {
+        $country  = Country::factory()->make();
+        $city     = City::factory()->make([
+            'country_id' => $country,
+        ]);
+        $location = Location::create([
+            'zip'     => $this->faker->postcode,
+            'address' => $this->faker->streetAddress,
+            'city'    => $this->faker->city,
+        ]);
+
+        $factory = Mockery::mock(LocationFactory::class);
+        $factory->makePartial();
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->shouldReceive('country')
+            ->once()
+            ->with('??', 'Unknown Country')
+            ->andReturn($country);
+        $factory
+            ->shouldReceive('city')
+            ->once()
+            ->with($country, $location->city)
+            ->andReturn($city);
+        $factory
+            ->shouldReceive('location')
+            ->once()
+            ->with(
+                $country,
+                $city,
+                $location->zip,
+                $location->address,
+                '',
+                '',
+            )
+            ->andReturns();
+
+        $factory->create($location);
+    }
+
+    /**
+     * @covers ::createFromLocation
+     */
+    public function testCreateFromLocationCityWithState(): void {
+        $country  = Country::factory()->make();
+        $city     = City::factory()->make([
+            'country_id' => $country,
+        ]);
+        $state    = $this->faker->state;
+        $cityName = $this->faker->city;
+        $location = Location::create([
+            'zip'     => $this->faker->postcode,
+            'address' => $this->faker->streetAddress,
+            'city'    => "{$cityName},  {$state}",
+        ]);
+
+        $factory = Mockery::mock(LocationFactory::class);
+        $factory->makePartial();
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->shouldReceive('country')
+            ->once()
+            ->with('??', 'Unknown Country')
+            ->andReturn($country);
+        $factory
+            ->shouldReceive('city')
+            ->once()
+            ->with($country, $cityName)
+            ->andReturn($city);
+        $factory
+            ->shouldReceive('location')
+            ->once()
+            ->with(
+                $country,
+                $city,
+                $location->zip,
+                $location->address,
+                '',
+                "  {$state}",
+            )
+            ->andReturns();
+
+        $factory->create($location);
     }
 
     /**
@@ -208,10 +307,13 @@ class LocationFactoryTest extends TestCase {
      */
     public function dataProviderCreate(): array {
         return [
-//            'location not exists + no state in city name' => [false, false],
-'location exists + no state in city name' => [true, false],
-//            'location not exists + state in city name'    => [false, true],
-//            'location exists + state in city name'        => [true, true],
+            Location::class => ['createFromLocation', new Location()],
+            'Unknown'       => [
+                null,
+                new class() extends Type {
+                    // empty
+                },
+            ],
         ];
     }
     // </editor-fold>
