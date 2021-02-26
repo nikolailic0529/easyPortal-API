@@ -23,9 +23,9 @@ class OemProvider extends Provider {
      */
     protected function getKeyRetrievers(): array {
         return [
-                'abbr' => new ClosureKey(static function (Oem $oem): string {
-                    return $oem->abbr;
-                }),
-            ] + parent::getKeyRetrievers();
+            'abbr' => new ClosureKey(static function (Oem $oem): string {
+                return $oem->abbr;
+            }),
+        ];
     }
 }

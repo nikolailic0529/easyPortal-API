@@ -25,10 +25,10 @@ class TypeProvider extends Provider {
      */
     protected function getKeyRetrievers(): array {
         return [
-                'type' => new ClosureKey(function (Type $type): array {
-                    return $this->getUniqueKey($type->object_type, $type->key);
-                }),
-            ] + parent::getKeyRetrievers();
+            'key' => new ClosureKey(function (Type $type): array {
+                return $this->getUniqueKey($type->object_type, $type->key);
+            }),
+        ];
     }
 
     /**

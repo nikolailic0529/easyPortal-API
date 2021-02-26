@@ -23,9 +23,9 @@ class CountryProvider extends Provider {
      */
     protected function getKeyRetrievers(): array {
         return [
-                'code' => new ClosureKey(static function (Country $Country): string {
-                    return $Country->code;
-                }),
-            ] + parent::getKeyRetrievers();
+            'code' => new ClosureKey(static function (Country $Country): string {
+                return $Country->code;
+            }),
+        ];
     }
 }

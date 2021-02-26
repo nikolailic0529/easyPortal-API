@@ -43,7 +43,6 @@ class OemProviderTest extends TestCase {
         $this->assertSame($actual, $provider->get('a', $factory));
         $this->assertSame($actual, $provider->get(' a ', $factory));
         $this->assertSame($actual, $provider->get('A', $factory));
-        $this->assertSame($actual, $provider->get($actual->getKey(), $factory));
 
         // All value should be loaded, so get() should not perform any queries
         $this->assertNotNull($provider->get('b', $factory));

@@ -28,10 +28,10 @@ class ProductProvider extends Provider {
      */
     protected function getKeyRetrievers(): array {
         return [
-                'unique' => new ClosureKey(function (Product $product): array {
-                    return $this->getUniqueKey($product->oem_id, $product->sku);
-                }),
-            ] + parent::getKeyRetrievers();
+            'unique' => new ClosureKey(function (Product $product): array {
+                return $this->getUniqueKey($product->oem_id, $product->sku);
+            }),
+        ];
     }
 
     /**

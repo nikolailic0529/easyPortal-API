@@ -26,10 +26,10 @@ class CityProvider extends Provider {
      */
     protected function getKeyRetrievers(): array {
         return [
-                'unique' => new ClosureKey(function (City $city): array {
-                    return $this->getUniqueKey($city->country_id, $city->name);
-                }),
-            ] + parent::getKeyRetrievers();
+            'unique' => new ClosureKey(function (City $city): array {
+                return $this->getUniqueKey($city->country_id, $city->name);
+            }),
+        ];
     }
 
     /**

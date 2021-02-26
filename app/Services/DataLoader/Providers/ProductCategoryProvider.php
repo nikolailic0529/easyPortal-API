@@ -23,9 +23,9 @@ class ProductCategoryProvider extends Provider {
      */
     protected function getKeyRetrievers(): array {
         return [
-                'name' => new ClosureKey(static function (ProductCategory $category): string {
-                    return $category->name;
-                }),
-            ] + parent::getKeyRetrievers();
+            'name' => new ClosureKey(static function (ProductCategory $category): string {
+                return $category->name;
+            }),
+        ];
     }
 }

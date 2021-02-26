@@ -46,16 +46,16 @@ class LocationProvider extends Provider {
      */
     protected function getKeyRetrievers(): array {
         return [
-                'unique' => new ClosureKey(function (Location $location): array {
-                    return $this->getUniqueKey(
-                        $location->country_id,
-                        $location->city_id,
-                        $location->postcode,
-                        $location->line_one,
-                        $location->line_two,
-                    );
-                }),
-            ] + parent::getKeyRetrievers();
+            'unique' => new ClosureKey(function (Location $location): array {
+                return $this->getUniqueKey(
+                    $location->country_id,
+                    $location->city_id,
+                    $location->postcode,
+                    $location->line_one,
+                    $location->line_two,
+                );
+            }),
+        ];
     }
 
     /**
