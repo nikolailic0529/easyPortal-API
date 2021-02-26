@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type whereObjectType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type whereKey($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type whereUpdatedAt($value)
  * @mixin \Eloquent
  */
