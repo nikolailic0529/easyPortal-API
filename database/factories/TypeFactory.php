@@ -2,11 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\CustomerLocationType;
+use App\Models\Type;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
+use stdClass;
 
-class CustomerLocationTypeFactory extends Factory {
+class TypeFactory extends Factory {
     /**
      * The name of the factory's corresponding model.
      *
@@ -14,7 +15,7 @@ class CustomerLocationTypeFactory extends Factory {
      *
      * @var string
      */
-    protected $model = CustomerLocationType::class;
+    protected $model = Type::class;
 
     /**
      * Define the model's default state.
@@ -23,12 +24,13 @@ class CustomerLocationTypeFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'         => $this->faker->uuid,
-            'type'       => $this->faker->word,
-            'name'       => $this->faker->sentence,
-            'created_at' => Date::now(),
-            'updated_at' => Date::now(),
-            'deleted_at' => null,
+            'id'          => $this->faker->uuid,
+            'object_type' => stdClass::class,
+            'type'        => $this->faker->word,
+            'name'        => $this->faker->sentence,
+            'created_at'  => Date::now(),
+            'updated_at'  => Date::now(),
+            'deleted_at'  => null,
         ];
     }
 }
