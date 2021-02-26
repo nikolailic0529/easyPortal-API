@@ -27,7 +27,7 @@ class ProductProviderTest extends TestCase {
         $oemB    = Oem::factory()->create();
         $catA    = ProductCategory::factory()->create();
         $catB    = ProductCategory::factory()->create();
-        $factory = static function (Normalizer $normalizer, Product $product): Product {
+        $factory = static function (Product $product): Product {
             return $product;
         };
 

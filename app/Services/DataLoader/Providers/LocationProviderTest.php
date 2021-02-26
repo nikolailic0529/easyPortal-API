@@ -27,7 +27,7 @@ class LocationProviderTest extends TestCase {
         $countryB = Country::factory()->create();
         $cityA    = City::factory()->create();
         $cityB    = City::factory()->create();
-        $factory  = static function (Normalizer $normalizer, Location $location): Location {
+        $factory  = static function (Location $location): Location {
             return $location;
         };
 
