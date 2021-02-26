@@ -21,8 +21,8 @@ class OemProviderTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (Normalizer $normalizer, Oem $oem): Oem {
-            return $oem;
+        $factory = static function (): Oem {
+            return Oem::factory()->make();
         };
 
         Oem::factory()->create(['abbr' => 'a']);

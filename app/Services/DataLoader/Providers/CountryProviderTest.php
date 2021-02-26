@@ -21,8 +21,8 @@ class CountryProviderTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (Normalizer $normalizer, Country $country): Country {
-            return $country;
+        $factory = static function (): Country {
+            return Country::factory()->make();
         };
 
         Country::factory()->create(['code' => 'a']);

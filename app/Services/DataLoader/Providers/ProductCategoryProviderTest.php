@@ -21,8 +21,8 @@ class ProductCategoryProviderTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (Normalizer $normalizer, ProductCategory $category): ProductCategory {
-            return $category;
+        $factory = static function (): ProductCategory {
+            return ProductCategory::factory()->make();
         };
 
         ProductCategory::factory()->create(['name' => 'a']);

@@ -24,8 +24,8 @@ class CityProviderTest extends TestCase {
         // Prepare
         $countryA = Country::factory()->create();
         $countryB = Country::factory()->create();
-        $factory  = static function (Normalizer $normalizer, City $city): City {
-            return $city;
+        $factory  = static function (): City {
+            return City::factory()->make();
         };
 
         City::factory()->create([
