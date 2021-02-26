@@ -2,29 +2,16 @@
 
 namespace App\Services\DataLoader\Providers;
 
-use App\Models\Model;
 use App\Models\Oem;
 use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Provider;
+use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
 class OemProvider extends Provider {
-    public function get(string $abbr): Oem {
+    public function get(string $abbr, Closure $factory): Oem {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->resolve($abbr, function () use ($abbr): Model {
-            return $this->create($abbr);
-        });
-    }
-
-    protected function create(string $abbr): Oem {
-        $abbr      = $this->normalizer->string($abbr);
-        $oem       = new Oem();
-        $oem->abbr = $abbr;
-        $oem->name = $abbr;
-
-        $oem->save();
-
-        return $oem;
+        return $this->resolve($abbr, $factory);
     }
 
     protected function getInitialQuery(): ?Builder {

@@ -8,6 +8,7 @@ use App\Models\Location;
 use App\Models\Model;
 use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Provider;
+use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use JetBrains\PhpStorm\Pure;
@@ -17,16 +18,14 @@ class LocationProvider extends Provider {
         Country $country,
         City $city,
         string $postcode,
-        string $state,
         string $lineOne,
-        string $lineTwo = '',
+        string $lineTwo,
+        Closure $factory,
     ): Location {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve(
             $this->getUniqueKey($country, $city, $postcode, $lineOne, $lineTwo),
-            function () use ($country, $city, $postcode, $state, $lineOne, $lineTwo): Model {
-                return $this->create($country, $city, $postcode, $state, $lineOne, $lineTwo);
-            },
+            $factory,
         );
     }
 
@@ -40,27 +39,6 @@ class LocationProvider extends Provider {
                 '=',
                 $key['line'],
             );
-    }
-
-    protected function create(
-        Country $country,
-        City $city,
-        string $postcode,
-        string $state,
-        string $lineOne,
-        string $lineTwo,
-    ): Location {
-        $location           = new Location();
-        $location->country  = $country;
-        $location->city     = $city;
-        $location->postcode = $this->normalizer->string($postcode);
-        $location->state    = $this->normalizer->string($state);
-        $location->line_one = $this->normalizer->string($lineOne);
-        $location->line_two = $this->normalizer->string($lineTwo);
-
-        $location->save();
-
-        return $location;
     }
 
     /**

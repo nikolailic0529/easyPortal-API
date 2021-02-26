@@ -2,27 +2,16 @@
 
 namespace App\Services\DataLoader\Providers;
 
-use App\Models\Model;
 use App\Models\ProductCategory;
 use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Provider;
+use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
 class ProductCategoryProvider extends Provider {
-    public function get(string $name): ProductCategory {
+    public function get(string $name, Closure $factory): ProductCategory {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->resolve($name, function () use ($name): Model {
-            return $this->create($name);
-        });
-    }
-
-    protected function create(string $name): ProductCategory {
-        $category       = new ProductCategory();
-        $category->name = $this->normalizer->string($name);
-
-        $category->save();
-
-        return $category;
+        return $this->resolve($name, $factory);
     }
 
     protected function getInitialQuery(): ?Builder {

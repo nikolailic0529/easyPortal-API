@@ -23,25 +23,16 @@ abstract class Provider {
         $this->normalizer = $normalizer;
     }
 
-    protected function resolve(mixed $key, Closure ...$resolvers): ?Model {
+    protected function resolve(mixed $key, Closure $factory): ?Model {
         // Model already inside cache?
         if ($this->getCache()->has($key)) {
             return $this->getCache()->get($key);
         }
 
-        // Nope. Trying to resolve
+        // Nope. Trying to find or create
         $key   = $this->normalizer->key($key);
         $model = $this->getFindQuery($key)?->first();
-
-        if (!$model) {
-            foreach ($resolvers as $resolver) {
-                $model = $resolver($key);
-
-                if ($model) {
-                    break;
-                }
-            }
-        }
+        $model = $factory ? $factory($this->normalizer, $model) : $model;
 
         // Put into cache
         $cache = $this->getCache();
