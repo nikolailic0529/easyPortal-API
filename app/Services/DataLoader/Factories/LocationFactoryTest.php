@@ -283,7 +283,7 @@ class LocationFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // If state empty it should be updated
-        $state          = $this->faker->state;
+        $state          = "{$state} 2";
         $created->state = '';
         $updated        = $factory->location(
             $country,
@@ -295,7 +295,7 @@ class LocationFactoryTest extends TestCase {
         );
 
         $this->assertSame($created, $updated);
-        $this->assertEquals($state, $updated->state);
+        $this->assertEquals($normalizer->string($state), $updated->state);
         $this->assertCount(1, $this->getQueryLog());
     }
     // </editor-fold>
