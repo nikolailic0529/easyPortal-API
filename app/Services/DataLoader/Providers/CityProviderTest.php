@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Providers;
 
 use App\Models\City;
 use App\Models\Country;
-use App\Services\DataLoader\Normalizer;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;

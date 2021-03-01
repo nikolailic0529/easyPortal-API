@@ -5,10 +5,6 @@ namespace App\Services\DataLoader\Normalizers;
 use Illuminate\Contracts\Queue\QueueableEntity;
 use PHPUnit\Framework\TestCase;
 
-use function addslashes;
-use function sprintf;
-use function strtolower;
-
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Normalizers\KeyNormalizer
