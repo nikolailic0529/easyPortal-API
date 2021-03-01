@@ -54,9 +54,9 @@ class Customer extends Model {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\CustomerLocation> $locations
+     * @param \Illuminate\Support\Collection|array<\App\Models\CustomerLocation> $locations
      */
-    public function setLocationsAttribute(Collection $locations): void {
+    public function setLocationsAttribute(Collection|array $locations): void {
         // Create/Update existing
         $existing = (clone $this->locations)->keyBy(static function (CustomerLocation $location): string {
             return $location->getKey();
@@ -85,5 +85,8 @@ class Customer extends Model {
         foreach ($existing as $location) {
             $location->delete();
         }
+
+        // Reset relation
+        unset($this->locations);
     }
 }
