@@ -9,16 +9,16 @@ use function json_encode;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Schema\Location
+ * @coversDefaultClass \App\Services\DataLoader\Schema\CompanyContactPerson
  */
-class LocationTest extends TestCase {
+class CompanyContactPersonTest extends TestCase {
     /**
      * @covers ::create
      */
     public function testCreate(): void {
         $json       = $this->getTestData()->json();
-        $actual     = Location::create($json);
-        $properties = Location::getPropertiesNames();
+        $actual     = CompanyContactPerson::create($json);
+        $properties = CompanyContactPerson::getPropertiesNames();
 
         $this->assertEquals(array_keys($json), $properties);
         $this->assertJsonStringEqualsJsonString(
