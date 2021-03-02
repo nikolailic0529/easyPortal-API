@@ -14,6 +14,8 @@ use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use InvalidArgumentException;
 
+use Psr\Log\LoggerInterface;
+
 use function end;
 use function explode;
 use function mb_strtoupper;
@@ -21,14 +23,15 @@ use function reset;
 use function sprintf;
 use function str_contains;
 
-class LocationFactory implements Factory {
+class LocationFactory extends Factory {
     public function __construct(
-        protected Normalizer $normalizer,
+        LoggerInterface $logger,
+        Normalizer $normalizer,
         protected CountryProvider $countries,
         protected CityProvider $cities,
         protected LocationProvider $locations,
     ) {
-        // empty
+        parent::__construct($logger, $normalizer);
     }
 
     public function create(Type $type): LocationModel {

@@ -31,16 +31,16 @@ use function sprintf;
 // TODO [DataLoader] Customer can be a CUSTOMER or RESELLER or any other type.
 //      If this is not true we need to update this factory and its tests.
 
-class CustomerFactory implements Factory {
+class CustomerFactory extends Factory {
     public function __construct(
-        protected LoggerInterface $logger,
-        protected Normalizer $normalizer,
+        LoggerInterface $logger,
+        Normalizer $normalizer,
         protected TypeProvider $types,
         protected StatusProvider $statuses,
         protected LocationFactory $locations,
         protected CustomerProvider $customers,
     ) {
-        // empty
+        parent::__construct($logger, $normalizer);
     }
 
     public function create(Type $type): Customer {
