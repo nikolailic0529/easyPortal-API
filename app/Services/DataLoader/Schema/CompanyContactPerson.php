@@ -6,8 +6,8 @@ namespace App\Services\DataLoader\Schema;
  * @internal
  */
 class CompanyContactPerson extends Type {
-    public string $phoneNumber;
+    public string|null $phoneNumber;
     public string $vendor;
-    public string $name;
+    public string|null $name;
     public string $type;
 }
