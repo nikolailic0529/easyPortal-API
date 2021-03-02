@@ -13,6 +13,9 @@ type Query {
     # Customers
     "List of all statuses"
     customerStatuses: [CustomerStatus!]!
+
+    "List of all types"
+    customerTypes: [CustomerType!]!
 }
 
 type Mutation {

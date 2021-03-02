@@ -24,6 +24,9 @@
                     "type": "string"
                 }
             }
+        },
+        "CustomerType": {
+            "$ref": "#/definitions/CustomerStatus"
         }
     }
 }
