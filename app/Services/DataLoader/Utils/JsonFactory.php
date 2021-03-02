@@ -15,6 +15,10 @@ use function str_contains;
  * a known structure when you 100% sure that it can be converted into an
  * object.
  *
+ * Features/Limitations (and TODOs)
+ * - Type unions not supported;
+ * - If the field is an array that `null` will be converted to an empty array.
+ *
  * @internal
  */
 abstract class JsonFactory {
@@ -92,8 +96,8 @@ abstract class JsonFactory {
                     };
 
                     if ($isArray) {
-                        $factory = static function (array $json) use ($factory): array {
-                            return array_map($factory, $json);
+                        $factory = static function (array|null $json) use ($factory): array {
+                            return array_map($factory, (array) $json);
                         };
                     }
                 }
