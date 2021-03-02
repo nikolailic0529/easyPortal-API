@@ -33,6 +33,7 @@
     "barryvdh/laravel-ide-helper": "^2.9",
     "facade/ignition": "^2.5",
     "fakerphp/faker": "^1.9.1",
+    "itsgoingd/clockwork": "^5.0",
     "lastdragon-ru/lara-asp-testing": "dev-master",
     "mll-lab/laravel-graphql-playground": "^2.5",
     "mockery/mockery": "^1.4.2",
