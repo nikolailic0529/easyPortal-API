@@ -14,6 +14,8 @@ use function str_contains;
  * property exists or not, is it initialized or not. Use it only for JSON with
  * a known structure when you 100% sure that it can be converted into an
  * object.
+ *
+ * @internal
  */
 abstract class JsonFactory {
     /**

@@ -5,6 +5,9 @@ namespace App\Services\DataLoader\Cache;
 use App\Models\Model;
 use Closure;
 
+/**
+ * @internal
+ */
 class ClosureKey implements KeyRetriever {
     protected Closure $closure;
 

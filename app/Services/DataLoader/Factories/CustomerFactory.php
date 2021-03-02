@@ -31,6 +31,9 @@ use function sprintf;
 // TODO [DataLoader] Customer can be a CUSTOMER or RESELLER or any other type.
 //      If this is not true we need to update this factory and its tests.
 
+/**
+ * @internal
+ */
 class CustomerFactory extends Factory {
     public function __construct(
         LoggerInterface $logger,

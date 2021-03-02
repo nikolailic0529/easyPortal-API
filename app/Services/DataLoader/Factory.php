@@ -12,6 +12,8 @@ use Psr\Log\LoggerInterface;
  *
  * Important notes:
  * - factories must not cache anything
+ *
+ * @internal
  */
 abstract class Factory {
     public function __construct(

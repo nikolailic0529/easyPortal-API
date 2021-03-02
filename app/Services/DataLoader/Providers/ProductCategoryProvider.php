@@ -8,6 +8,9 @@ use App\Services\DataLoader\Provider;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * @internal
+ */
 class ProductCategoryProvider extends Provider {
     public function get(string $name, Closure $factory): ProductCategory {
         /** @noinspection PhpIncompatibleReturnTypeInspection */

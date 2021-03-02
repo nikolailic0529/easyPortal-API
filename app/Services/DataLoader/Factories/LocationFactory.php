@@ -13,7 +13,6 @@ use App\Services\DataLoader\Providers\LocationProvider;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use InvalidArgumentException;
-
 use Psr\Log\LoggerInterface;
 
 use function end;
@@ -23,6 +22,9 @@ use function reset;
 use function sprintf;
 use function str_contains;
 
+/**
+ * @internal
+ */
 class LocationFactory extends Factory {
     public function __construct(
         LoggerInterface $logger,

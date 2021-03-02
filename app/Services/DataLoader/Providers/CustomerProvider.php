@@ -7,6 +7,9 @@ use App\Services\DataLoader\Provider;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * @internal
+ */
 class CustomerProvider extends Provider {
     public function get(string|int $id, Closure $factory): Customer {
         /** @noinspection PhpIncompatibleReturnTypeInspection */

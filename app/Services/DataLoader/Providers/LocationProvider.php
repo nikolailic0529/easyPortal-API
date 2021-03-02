@@ -13,6 +13,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use JetBrains\PhpStorm\Pure;
 
+/**
+ * @internal
+ */
 class LocationProvider extends Provider {
     public function get(
         Country $country,

@@ -10,6 +10,9 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use JetBrains\PhpStorm\Pure;
 
+/**
+ * @internal
+ */
 class StatusProvider extends Provider {
     public function get(Model $model, string $key, Closure $factory): Status {
         /** @noinspection PhpIncompatibleReturnTypeInspection */

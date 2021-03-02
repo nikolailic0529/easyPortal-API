@@ -10,6 +10,9 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use JetBrains\PhpStorm\Pure;
 
+/**
+ * @internal
+ */
 class TypeProvider extends Provider {
     public function get(Model $model, string $key, Closure $factory): Type {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
