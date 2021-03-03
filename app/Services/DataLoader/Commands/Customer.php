@@ -8,6 +8,8 @@ use Exception;
 use Illuminate\Console\Command;
 use Psr\Log\LoggerInterface;
 
+use Throwable;
+
 use function array_unique;
 use function count;
 
@@ -36,8 +38,10 @@ class Customer extends Command {
 
         foreach ($ids as $id) {
             try {
-                $loader->load($id);
-            } catch (Exception $exception) {
+                if (!$loader->load($id)) {
+                    $this->warn(" Not found #{$id}");
+                }
+            } catch (Throwable $exception) {
                 $this->warn(" Failed #{$id}: {$exception->getMessage()}");
 
                 $logger->warning(__METHOD__, [

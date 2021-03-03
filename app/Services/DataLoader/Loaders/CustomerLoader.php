@@ -23,7 +23,11 @@ class CustomerLoader extends Loader {
 
     public function load(string $id): bool {
         $company  = $this->client->getCompanyById($id);
-        $customer = $this->factory->create($company);
+        $customer = null;
+
+        if ($company) {
+            $customer = $this->factory->create($company);
+        }
 
         return (bool) $customer;
     }

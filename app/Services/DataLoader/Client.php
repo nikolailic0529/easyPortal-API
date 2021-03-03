@@ -6,7 +6,7 @@ use App\Services\DataLoader\Schema\Company;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Client\Factory;
 
-use function var_dump;
+use function reset;
 
 class Client {
     protected const CONFIG = 'data-loader';
@@ -50,7 +50,12 @@ class Client {
                 'id' => $id,
             ],
         );
-        $company = Company::create($json['data']['getCompanyById'][0]);
+        $results = $json['data']['getCompanyById'] ?? [];
+        $company = reset($results) ?: null;
+
+        if ($company) {
+            $company = Company::create($company);
+        }
 
         return $company;
     }
