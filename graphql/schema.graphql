@@ -16,6 +16,21 @@ type Query {
 
     "List of all types"
     customerTypes: [CustomerType!]!
+
+    "List of Customers"
+    customers (
+        where: _ @whereConditions(columnsEnum: CustomersWhereColumns)
+        order: _ @orderBy(columns: ["name"])
+    ): [Customer!]! @paginate
+
+    "Customer with given ID"
+    customer (id: ID! @eq): Customer @find
+}
+
+enum CustomersWhereColumns {
+    NAME @enum(value: "name")
+    TYPE @enum(value: "type_id")
+    STATUS @enum(value: "status_id")
 }
 
 type Mutation {

@@ -26,6 +26,7 @@
     "lastdragon-ru/lara-asp-migrator": "dev-master",
     "lastdragon-ru/lara-asp-queue": "dev-master",
     "lastdragon-ru/lara-asp-spa": "dev-master",
+    "mll-lab/graphql-php-scalars": "^4.0",
     "nuwave/lighthouse": "^5.2",
     "propaganistas/laravel-phone": "^4.2"
   },
