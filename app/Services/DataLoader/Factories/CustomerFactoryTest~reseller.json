@@ -29,6 +29,12 @@
             "address": "Maddison Path Suite 820 Apt. 898",
             "city": "Port Adanville",
             "locationType": "EQUIPMENT_LOCATION"
+        },
+        {
+            "zip": "70618",
+            "address": "Maddison Path Suite 820 Apt. 898",
+            "city": "Port Adanville",
+            "locationType": "HEADQUARTERS"
         }
     ]
 }

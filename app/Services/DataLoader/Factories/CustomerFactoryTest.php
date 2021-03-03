@@ -122,6 +122,7 @@ class CustomerFactoryTest extends TestCase {
         $this->assertEquals($company->id, $customer->getKey());
         $this->assertEquals($company->name, $customer->name);
         $this->assertEquals($getCompanyType($company), $customer->type->key);
+        $this->assertCount(2, $customer->locations);
         $this->assertEqualsCanonicalizing(
             $getCompanyLocations($company),
             $getCustomerLocations($customer),
@@ -137,6 +138,7 @@ class CustomerFactoryTest extends TestCase {
         $this->assertEquals($company->id, $updated->getKey());
         $this->assertEquals($company->name, $updated->name);
         $this->assertEquals($getCompanyType($company), $updated->type->key);
+        $this->assertCount(1, $updated->locations);
         $this->assertEqualsCanonicalizing(
             $getCompanyLocations($company),
             $getCustomerLocations($updated),
