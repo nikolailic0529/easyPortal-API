@@ -4,7 +4,9 @@ namespace App\Services\DataLoader\Providers;
 
 use App\Models\City;
 use App\Models\Country;
+use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use Mockery;
 use Tests\TestCase;
 
 /**
@@ -21,6 +23,9 @@ class CityProviderTest extends TestCase {
         // Prepare
         $countryA = Country::factory()->create();
         $countryB = Country::factory()->create();
+        $factory  = static function (): City {
+            return City::factory()->make();
+        };
 
         City::factory()->create([
             'country_id' => $countryA,
@@ -37,7 +42,7 @@ class CityProviderTest extends TestCase {
 
         // Run
         $provider = $this->app->make(CityProvider::class);
-        $actual   = $provider->get($countryA, 'a');
+        $actual   = $provider->get($countryA, 'a', $factory);
 
         $this->flushQueryLog();
 
@@ -50,35 +55,41 @@ class CityProviderTest extends TestCase {
         $this->flushQueryLog();
 
         // Second call should return same instance
-        $this->assertSame($actual, $provider->get($countryA, 'a'));
-        $this->assertSame($actual, $provider->get($countryA, ' a '));
-        $this->assertSame($actual, $provider->get($countryA, 'A'));
+        $this->assertSame($actual, $provider->get($countryA, 'a', $factory));
+        $this->assertSame($actual, $provider->get($countryA, ' a ', $factory));
+        $this->assertSame($actual, $provider->get($countryA, 'A', $factory));
         $this->assertCount(0, $this->getQueryLog());
 
-        $this->assertNotSame($actual, $provider->get($countryA, 'b'));
-        $this->assertNotSame($actual, $provider->get($countryB, 'a'));
+        $this->assertNotSame($actual, $provider->get($countryA, 'b', $factory));
 
         $this->flushQueryLog();
 
         // All value should be loaded, so get() should not perform any queries
-        $this->assertNotNull($provider->get($countryA, 'b'));
+        $this->assertNotNull($provider->get($countryA, 'b', $factory));
         $this->assertCount(0, $this->getQueryLog());
 
-        $this->assertNotNull($provider->get($countryA, 'c'));
+        $this->assertNotNull($provider->get($countryA, 'c', $factory));
         $this->assertCount(0, $this->getQueryLog());
 
         // If value not found the new object should be created
-        $created = $provider->get($countryB, ' unKnown ');
+        $spy     = Mockery::spy(static function () use ($countryB): City {
+            return City::factory()->create([
+                'name'       => 'unKnown',
+                'country_id' => $countryB,
+            ]);
+        });
+        $created = $provider->get($countryB, ' unKnown ', Closure::fromCallable($spy));
+
+        $spy->shouldHaveBeenCalled();
 
         $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
         $this->assertEquals('unKnown', $created->name);
         $this->assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // The created object should be in cache
-        $this->assertSame($created, $provider->get($countryB, 'unknoWn'));
+        $this->assertSame($created, $provider->get($countryB, 'unknoWn', $factory));
         $this->assertCount(0, $this->getQueryLog());
     }
 }

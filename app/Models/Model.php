@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\MorphMapRequired;
 use App\Models\Concerns\UuidAsPrimaryKey;
 use LastDragon_ru\LaraASP\Eloquent\Model as LaraASPModel;
 
 abstract class Model extends LaraASPModel {
     use UuidAsPrimaryKey;
+    use MorphMapRequired;
 
     protected const CASTS = [
         'deleted_at' => 'datetime',

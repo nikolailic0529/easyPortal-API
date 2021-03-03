@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Schema;
 use Tests\TestCase;
 
 use function array_keys;
+use function json_encode;
 
 /**
  * @internal
@@ -16,17 +17,13 @@ class LocationTest extends TestCase {
      */
     public function testCreate(): void {
         $json       = $this->getTestData()->json();
+        $actual     = Location::create($json);
         $properties = Location::getPropertiesNames();
 
         $this->assertEquals(array_keys($json), $properties);
-
-        $actual                 = Location::create($json);
-        $expected               = new Location();
-        $expected->zip          = $json['zip'];
-        $expected->city         = $json['city'];
-        $expected->address      = $json['address'];
-        $expected->locationType = $json['locationType'];
-
-        $this->assertEquals($expected, $actual);
+        $this->assertJsonStringEqualsJsonString(
+            json_encode($json),
+            json_encode($actual),
+        );
     }
 }

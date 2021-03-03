@@ -38,6 +38,8 @@ class LocationFactory extends Factory {
                 return City::query()->first()
                     ?: City::factory()->create();
             },
+            'lat'        => null,
+            'lng'        => null,
             'created_at' => Date::now(),
             'updated_at' => Date::now(),
             'deleted_at' => null,

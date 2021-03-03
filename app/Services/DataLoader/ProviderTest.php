@@ -7,7 +7,6 @@ use Closure;
 use Exception;
 use Tests\TestCase;
 
-
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Provider
@@ -20,8 +19,8 @@ class ProviderTest extends TestCase {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
         $provider   = new class($normalizer) extends Provider {
-            public function resolve(mixed $key, Closure ...$resolvers): ?Model {
-                return parent::resolve($key, ...$resolvers);
+            public function resolve(mixed $key, Closure $factory = null): ?Model {
+                return parent::resolve($key, $factory);
             }
         };
 
@@ -31,9 +30,6 @@ class ProviderTest extends TestCase {
         // The second call must return value from cache
         $this->assertNull($provider->resolve(
             123,
-            static function (): ?Model {
-                return null;
-            },
             static function (): ?Model {
                 throw new Exception();
             },
@@ -51,9 +47,6 @@ class ProviderTest extends TestCase {
 
         $this->assertSame($value, $provider->resolve(
             $uuid,
-            static function (): ?Model {
-                return null;
-            },
             static function () use ($value) {
                 return $value;
             },

@@ -5,7 +5,9 @@ namespace App\Services\DataLoader\Providers;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Location;
+use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use Mockery;
 use Tests\TestCase;
 
 /**
@@ -24,6 +26,9 @@ class LocationProviderTest extends TestCase {
         $countryB = Country::factory()->create();
         $cityA    = City::factory()->create();
         $cityB    = City::factory()->create();
+        $factory  = static function (): Location {
+            return Location::factory()->make();
+        };
 
         Location::factory()->create([
             'country_id' => $countryA,
@@ -52,7 +57,7 @@ class LocationProviderTest extends TestCase {
 
         // Run
         $provider = $this->app->make(LocationProvider::class);
-        $actual   = $provider->get($countryA, $cityA, 'postcode a', 'state a', 'line_one a', 'line_two a');
+        $actual   = $provider->get($countryA, $cityA, 'postcode a', 'line_one a', 'line_two a', $factory);
 
         $this->flushQueryLog();
 
@@ -73,17 +78,17 @@ class LocationProviderTest extends TestCase {
             $countryA,
             $cityA,
             ' postcode A ',
-            'state a',
             'linE_one a',
             'line_two  a',
+            $factory,
         ));
         $this->assertSame($actual, $provider->get(
             $countryA,
             $cityA,
             ' poSTCOde A ',
-            ' state a',
             'linE_one a',
             ' lIne_two  a',
+            $factory,
         ));
         $this->assertCount(0, $this->getQueryLog());
 
@@ -91,16 +96,24 @@ class LocationProviderTest extends TestCase {
             $countryA,
             $cityA,
             ' poSTCOde A ',
-            ' state a',
             'linE_one a',
             ' lIne_two  b',
+            static function () use ($countryA, $cityA): Location {
+                return Location::factory()->make([
+                    'country_id' => $countryA,
+                    'city_id'    => $cityA,
+                    'postcode'   => 'postcode a',
+                    'line_one'   => 'line_one a',
+                    'line_two'   => 'line_two b',
+                ]);
+            },
         ));
 
         $this->flushQueryLog();
 
         // Should be found in DB
-        $foundA = $provider->get($countryA, $cityA, 'postcode c', 'state c', 'line_one c  line_two c');
-        $foundB = $provider->get($countryA, $cityA, 'postcode c', 'state any', 'line_one c', 'line_two c');
+        $foundA = $provider->get($countryA, $cityA, 'postcode c', 'line_one c  line_two c', '', $factory);
+        $foundB = $provider->get($countryA, $cityA, 'postcode c', 'line_one c', 'line_two c', $factory);
 
         $this->assertNotNull($foundA);
         $this->assertEquals($foundA, $foundB);
@@ -110,22 +123,43 @@ class LocationProviderTest extends TestCase {
         $this->flushQueryLog();
 
         // If not, the new object should be created
-        $created = $provider->get($countryB, $cityB, 'Postcode', 'New', 'line_One a', 'Line_two a');
+        $spy     = Mockery::spy(static function () use ($countryB, $cityB): Location {
+            return Location::factory()->create([
+                'country_id' => $countryB,
+                'city_id'    => $cityB,
+                'postcode'   => 'Postcode',
+                'state'      => 'New',
+                'line_one'   => 'line_One a',
+                'line_two'   => 'Line_two a',
+            ]);
+        });
+        $created = $provider->get(
+            $countryB,
+            $cityB,
+            'Postcode',
+            'line_One a',
+            'Line_two a',
+            Closure::fromCallable($spy),
+        );
+
+        $spy->shouldHaveBeenCalled();
 
         $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
         $this->assertEquals('Postcode', $created->postcode);
         $this->assertEquals('New', $created->state);
         $this->assertEquals('line_One a', $created->line_one);
         $this->assertEquals('Line_two a', $created->line_two);
-        $this->assertEquals($countryB, $created->country);
-        $this->assertEquals($cityB, $created->city);
+        $this->assertEquals($countryB->getKey(), $created->country_id);
+        $this->assertEquals($cityB->getKey(), $created->city_id);
         $this->assertCount(2, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // The created object should be in cache
-        $this->assertSame($created, $provider->get($countryB, $cityB, 'Postcode', 'New', 'line_one  a', 'LINE_two a'));
+        $this->assertSame(
+            $created,
+            $provider->get($countryB, $cityB, 'Postcode', 'line_one  a', 'LINE_two a', $factory),
+        );
         $this->assertCount(0, $this->getQueryLog());
     }
 }

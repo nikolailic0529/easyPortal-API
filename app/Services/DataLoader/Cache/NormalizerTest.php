@@ -7,7 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 use function addslashes;
 use function sprintf;
-use function strtolower;
 
 /**
  * @internal

@@ -12,8 +12,13 @@ use JetBrains\PhpStorm\Pure;
 
 /**
  * The provider performs a search of the model with given properties in the
- * database and returns it or creates a new one if it does not exist. It also
+ * database and returns it or call the factory if it does not exist. It also
  * implements advanced cache practices to reduce the number of database lookups.
+ *
+ * Important notes:
+ * - providers must be independent of each other.
+ *
+ * @internal
  */
 abstract class Provider {
     protected Cache|null $cache = null;
@@ -23,25 +28,23 @@ abstract class Provider {
         $this->normalizer = $normalizer;
     }
 
-    protected function resolve(mixed $key, Closure ...$resolvers): ?Model {
+    protected function resolve(mixed $key, Closure $factory = null): ?Model {
         // Model already inside cache?
         if ($this->getCache()->has($key)) {
             return $this->getCache()->get($key);
         }
 
-        // Nope. Trying to resolve
-        $cache = $this->getCache();
-        $model = null;
+        // Nope. Trying to find or create
+        $key   = $this->normalizer->key($key);
+        $model = $this->getFindQuery($key)?->first();
 
-        foreach ($resolvers as $resolver) {
-            $model = $resolver();
-
-            if ($model) {
-                break;
-            }
+        if (!$model && $factory) {
+            $model = $factory($this->normalizer);
         }
 
         // Put into cache
+        $cache = $this->getCache();
+
         if ($model) {
             $cache->put($model);
         } else {
@@ -70,6 +73,11 @@ abstract class Provider {
         return [
             '_' => new ModelKey(),
         ];
+    }
+
+    #[Pure]
+    protected function getFindQuery(mixed $key): ?Builder {
+        return null;
     }
 
     #[Pure]

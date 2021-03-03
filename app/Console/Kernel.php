@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Services\DataLoader\Commands\Customer;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,7 +16,9 @@ class Kernel extends ConsoleKernel {
      *
      * @var array<string>
      */
-    protected $commands = [];
+    protected $commands = [
+        Customer::class,
+    ];
 
     /**
      * Define the application's command schedule.

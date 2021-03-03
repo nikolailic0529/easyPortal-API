@@ -20,6 +20,7 @@ class JsonFactoryTest extends TestCase {
             $parent->b        = true;
             $parent->f        = 1.2;
             $parent->s        = '123';
+            $parent->nullable = null;
             $parent->array    = [
                 'i' => 123,
                 'b' => true,
@@ -55,6 +56,7 @@ class JsonFactoryTest extends TestCase {
             'b'        => true,
             'f'        => 1.2,
             's'        => '123',
+            'nullable' => null,
             'array'    => [
                 'i' => 123,
                 'b' => true,
@@ -81,9 +83,7 @@ class JsonFactoryTest extends TestCase {
                     'b'        => true,
                     'f'        => 5.7,
                     's'        => '567',
-                    'children' => [
-                        // empty
-                    ],
+                    'children' => null,
                 ],
             ],
         ]);
@@ -114,6 +114,11 @@ class JsonFactoryTest_Parent extends JsonFactory {
      * @var array<\App\Services\DataLoader\Utils\JsonFactoryTest_Child>
      */
     public array $children;
+
+    /**
+     * @var array<mixed>|null
+     */
+    public array|null $nullable;
 }
 
 /**

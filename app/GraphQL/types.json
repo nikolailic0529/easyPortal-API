@@ -9,6 +9,24 @@
             "type": "string",
             "format": "uri",
             "pattern": "^(https?)://"
+        },
+        "CustomerStatus": {
+            "type": "object",
+            "required": [
+                "id",
+                "name"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "CustomerType": {
+            "$ref": "#/definitions/CustomerStatus"
         }
     }
 }

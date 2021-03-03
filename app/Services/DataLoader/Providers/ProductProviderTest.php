@@ -5,7 +5,9 @@ namespace App\Services\DataLoader\Providers;
 use App\Models\Oem;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use Mockery;
 use Tests\TestCase;
 
 /**
@@ -20,10 +22,13 @@ class ProductProviderTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $oemA = Oem::factory()->create();
-        $oemB = Oem::factory()->create();
-        $catA = ProductCategory::factory()->create();
-        $catB = ProductCategory::factory()->create();
+        $oemA    = Oem::factory()->create();
+        $oemB    = Oem::factory()->create();
+        $catA    = ProductCategory::factory()->create();
+        $catB    = ProductCategory::factory()->create();
+        $factory = static function (): Product {
+            return Product::factory()->make();
+        };
 
         $a = Product::factory()->create([
             'oem_id'      => $oemA,
@@ -42,9 +47,8 @@ class ProductProviderTest extends TestCase {
         ]);
 
         // Run
-        $name     = $this->faker->word;
         $provider = $this->app->make(ProductProvider::class);
-        $actual   = $provider->get($oemA, ' a ', $catA, " {$name} ");
+        $actual   = $provider->get($oemA, ' a ', $factory);
 
         $this->flushQueryLog();
 
@@ -59,18 +63,19 @@ class ProductProviderTest extends TestCase {
         $this->flushQueryLog();
 
         // Second call should return same instance
-        $this->assertSame($actual, $provider->get($oemA, 'a', $catA, $name));
-        $this->assertSame($actual, $provider->get($oemA, ' a ', $catB, $name));
-        $this->assertSame($actual, $provider->get($oemA, 'A', $catB, 'any'));
+        $this->assertSame($actual, $provider->get($oemA, 'a', $factory));
+        $this->assertSame($actual, $provider->get($oemA, ' a ', $factory));
+        $this->assertSame($actual, $provider->get($oemA, 'A', $factory));
         $this->assertCount(0, $this->getQueryLog());
 
-        $this->assertNotSame($actual, $provider->get($oemB, 'a', $catA, $name));
-        $this->assertNotSame($actual, $provider->get($oemA, 'b', $catA, $name));
+        $this->assertNotSame($actual, $provider->get($oemB, 'a', static function (): Product {
+            return Product::factory()->make();
+        }));
 
         $this->flushQueryLog();
 
         // Product should be found in DB
-        $found = $provider->get($oemA, 'c', $catA, $name);
+        $found = $provider->get($oemA, 'c', $factory);
 
         $this->assertNotNull($found);
         $this->assertFalse($found->wasRecentlyCreated);
@@ -79,20 +84,26 @@ class ProductProviderTest extends TestCase {
         $this->flushQueryLog();
 
         // If not, the new object should be created
-        $created = $provider->get($oemB, ' unKnown ', $catB, ' unknoWn ');
+        $spy     = Mockery::spy(static function () use ($oemB, $catB): Product {
+            return Product::factory()->create([
+                'oem_id'      => $oemB,
+                'category_id' => $catB,
+                'sku'         => 'unKnown',
+            ]);
+        });
+        $created = $provider->get($oemB, ' unKnown ', Closure::fromCallable($spy));
+
+        $spy->shouldHaveBeenCalled();
 
         $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
         $this->assertEquals('unKnown', $created->sku);
-        $this->assertEquals('unknoWn', $created->name);
-        $this->assertEquals($oemB, $created->oem);
-        $this->assertEquals($catB, $created->category);
+        $this->assertEquals($oemB->getKey(), $created->oem_id);
         $this->assertCount(2, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // The created object should be in cache
-        $this->assertSame($created, $provider->get($oemB, ' unknown ', $catB, ' unknown '));
+        $this->assertSame($created, $provider->get($oemB, ' unknown ', $factory));
         $this->assertCount(0, $this->getQueryLog());
     }
 }

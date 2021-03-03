@@ -12,7 +12,6 @@
     <file>./routes</file>
     <file>./tests</file>
     <rule ref="PSR12">
-        <exclude name="Generic.NamingConventions.UpperCaseConstantName.ClassConstantNotUpperCase"/>
         <exclude name="Squiz.WhiteSpace.ScopeKeywordSpacing"/>
         <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
         <exclude name="Squiz.WhiteSpace.OperatorSpacing.SpacingBefore"/>

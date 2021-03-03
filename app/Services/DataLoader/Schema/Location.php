@@ -2,6 +2,9 @@
 
 namespace App\Services\DataLoader\Schema;
 
+/**
+ * @internal
+ */
 class Location extends Type {
     public string $zip;
     public string $address;

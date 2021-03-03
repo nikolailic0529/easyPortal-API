@@ -7,28 +7,17 @@ use App\Models\Country;
 use App\Models\Model;
 use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Provider;
+use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use JetBrains\PhpStorm\Pure;
 
+/**
+ * @internal
+ */
 class CityProvider extends Provider {
-    public function get(Country $country, string $name): City {
+    public function get(Country $country, string $name, Closure $factory): City {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->resolve(
-            $this->getUniqueKey($country, $name),
-            function () use ($country, $name): Model {
-                return $this->create($country, $name);
-            },
-        );
-    }
-
-    protected function create(Country $country, string $name): City {
-        $city          = new City();
-        $city->name    = $this->normalizer->string($name);
-        $city->country = $country;
-
-        $city->save();
-
-        return $city;
+        return $this->resolve($this->getUniqueKey($country, $name), $factory);
     }
 
     protected function getInitialQuery(): ?Builder {
@@ -40,10 +29,10 @@ class CityProvider extends Provider {
      */
     protected function getKeyRetrievers(): array {
         return [
-                'unique' => new ClosureKey(function (City $city): array {
-                    return $this->getUniqueKey($city->country_id, $city->name);
-                }),
-            ] + parent::getKeyRetrievers();
+            'unique' => new ClosureKey(function (City $city): array {
+                return $this->getUniqueKey($city->country_id, $city->name);
+            }),
+        ];
     }
 
     /**

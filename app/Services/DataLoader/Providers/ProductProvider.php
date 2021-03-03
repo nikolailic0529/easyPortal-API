@@ -5,45 +5,25 @@ namespace App\Services\DataLoader\Providers;
 use App\Models\Model;
 use App\Models\Oem;
 use App\Models\Product;
-use App\Models\ProductCategory;
 use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Provider;
+use Closure;
+use Illuminate\Database\Eloquent\Builder;
 use JetBrains\PhpStorm\Pure;
 
+/**
+ * @internal
+ */
 class ProductProvider extends Provider {
-    public function get(Oem $oem, string $sku, ProductCategory $category, string $name): Product {
+    public function get(Oem $oem, string $sku, Closure $factory): Product {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->resolve(
-            $this->getUniqueKey($oem, $sku),
-            function () use ($oem, $sku) {
-                return $this->find($oem, $sku);
-            },
-            function () use ($oem, $sku, $category, $name): Model {
-                return $this->create($oem, $sku, $category, $name);
-            },
-        );
+        return $this->resolve($this->getUniqueKey($oem, $sku), $factory);
     }
 
-    protected function find(Oem $oem, string $sku): ?Product {
-        $key = $this->getUniqueKey($oem, $sku);
-        $key = $this->normalizer->key($key);
-
+    protected function getFindQuery(mixed $key): ?Builder {
         return Product::query()
             ->where('oem_id', '=', $key['oem'])
-            ->where('sku', '=', $key['sku'])
-            ->first();
-    }
-
-    protected function create(Oem $oem, string $sku, ProductCategory $category, string $name): Product {
-        $product           = new Product();
-        $product->oem      = $oem;
-        $product->sku      = $this->normalizer->string($sku);
-        $product->name     = $this->normalizer->string($name);
-        $product->category = $category;
-
-        $product->save();
-
-        return $product;
+            ->where('sku', '=', $key['sku']);
     }
 
     /**
@@ -51,10 +31,10 @@ class ProductProvider extends Provider {
      */
     protected function getKeyRetrievers(): array {
         return [
-                'unique' => new ClosureKey(function (Product $product): array {
-                    return $this->getUniqueKey($product->oem_id, $product->sku);
-                }),
-            ] + parent::getKeyRetrievers();
+            'unique' => new ClosureKey(function (Product $product): array {
+                return $this->getUniqueKey($product->oem_id, $product->sku);
+            }),
+        ];
     }
 
     /**

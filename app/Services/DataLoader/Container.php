@@ -1,0 +1,50 @@
+<?php declare(strict_types = 1);
+
+namespace App\Services\DataLoader;
+
+use Illuminate\Container\Container as IlluminateContainer;
+
+use function is_a;
+
+/**
+ * Special container to create Providers/Factories/Loaders.
+ *
+ * The main reasons why it created are
+ * - only one instance of each Provider must exist;
+ * - instances must be destroyed after data loading;
+ * - constructors may require a lot of arguments, this is really annoying to
+ *   pass them.
+ *
+ * The second reason prevents us to use standard singletons - Laravel will not
+ * destroy them after the job finished thus the memory will not be released.
+ *
+ * @internal
+ */
+class Container extends IlluminateContainer {
+    /**
+     * @inheritdoc
+     */
+    public function resolve($abstract, $parameters = [], $raiseEvents = true) {
+        $resolved = null;
+
+        if (is_a($abstract, Provider::class, true)) {
+            // All providers must be singletons (while data loading)
+            if (!$this->bound($abstract)) {
+                $this->singleton($abstract);
+            }
+
+            $resolved = parent::resolve($abstract, $parameters, $raiseEvents);
+        } elseif (is_a($abstract, Factory::class, true)) {
+            $resolved = parent::resolve($abstract, $parameters, $raiseEvents);
+        } else {
+            // For external objects, we use the standard container, but there
+            // is one potential pitfall: if the standard object injects our
+            // internal object it will receive a fresh instance.
+            //
+            // All our objects are @internal, why do you want to inject them?
+            $resolved = static::getInstance()->resolve($abstract, $parameters, $raiseEvents);
+        }
+
+        return $resolved;
+    }
+}
