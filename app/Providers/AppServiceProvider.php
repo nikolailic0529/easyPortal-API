@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\CustomerLocation;
 use App\Services\Auth0\AuthService;
@@ -31,6 +32,7 @@ class AppServiceProvider extends ServiceProvider {
         Relation::morphMap([
             'app/customer'          => Customer::class,
             'app/customer-location' => CustomerLocation::class,
+            'app/contact'           => Contact::class,
         ]);
     }
 

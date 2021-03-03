@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Contact;
-use App\Models\Type;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
@@ -23,16 +22,10 @@ class ContactFactory extends Factory {
      * @return array<mixed>
      */
     public function definition(): array {
-        $object = $this->newModel()->getMorphClass();
-
         return [
             'id'           => $this->faker->uuid,
             'object_id'    => $this->faker->uuid,
             'object_type'  => $this->faker->uuid,
-            'type_id'      => static function () use ($object): Type {
-                return Type::query()->where('object_type', '=', $object)->first()
-                    ?: Type::factory()->create(['object_type' => $object]);
-            },
             'name'         => $this->faker->name,
             'email'        => $this->faker->email,
             'phone_number' => $this->faker->e164PhoneNumber,
