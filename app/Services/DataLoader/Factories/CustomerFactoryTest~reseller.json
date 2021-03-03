@@ -13,6 +13,24 @@
             "vendor": "HPE",
             "name": "Franz Marks",
             "type": "SYSTEM_MANAGER"
+        },
+        {
+            "phoneNumber": null,
+            "vendor": "HPE",
+            "name": "Franz Marks Uncle",
+            "type": "SOFTWARE_CONTACT"
+        },
+        {
+            "phoneNumber": "+49 (592) 12345-54",
+            "vendor": "HPE",
+            "name": null,
+            "type": "SYSTEM_MANAGER"
+        },
+        {
+            "phoneNumber": null,
+            "vendor": "HPE",
+            "name": null,
+            "type": "SYSTEM_MANAGER"
         }
     ],
     "companyTypes": [

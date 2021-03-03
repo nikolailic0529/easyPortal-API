@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
 
 /**
  * Contact.
@@ -56,4 +58,17 @@ class Contact extends Model {
      * @var array<string>
      */
     protected $casts = self::CASTS + parent::CASTS;
+
+    public function types(): BelongsToMany {
+        return $this->belongsToMany(Type::class, 'contact_types')->withTimestamps();
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\Type>|array<\App\Models\Type> $types
+     */
+    public function setTypesAttribute(Collection|array $types): void {
+        $this->types()->sync((new Collection($types))->map(static function (Type $type): string {
+            return $type->getKey();
+        })->all());
+    }
 }
