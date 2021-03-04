@@ -4,14 +4,12 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\Contact;
 use App\Models\Customer;
-use App\Models\CustomerLocation;
 use App\Models\Location as LocationModel;
 use App\Models\Model;
 use App\Models\Status as StatusModel;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\DataLoaderException;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Providers\ContactProvider;
 use App\Services\DataLoader\Providers\StatusProvider;
 use App\Services\DataLoader\Providers\TypeProvider;
 use App\Services\DataLoader\Schema\Company;
@@ -23,14 +21,15 @@ use Closure;
 use Exception;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use libphonenumber\NumberParseException;
 use Mockery;
-use Propaganistas\LaravelPhone\Exceptions\NumberParseException;
 use Propaganistas\LaravelPhone\PhoneNumber;
 use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
 use function array_map;
 use function array_unique;
+use function array_values;
 use function is_null;
 use function reset;
 use function tap;
@@ -84,30 +83,41 @@ class CustomerFactoryTest extends TestCase {
             $locations = [];
 
             foreach ($company->locations as $location) {
-                $locations[] = [
-                    'type'     => $location->locationType,
-                    'postcode' => $location->zip,
-                    'state'    => '',
-                    'city'     => $location->city,
-                    'line_one' => $location->address,
-                    'line_two' => '',
-                ];
+                // Add to array
+                $key = "{$location->zip}/{$location->zip}/{$location->address}";
+
+                if (isset($locations[$key])) {
+                    $locations[$key]['types'][] = $location->locationType;
+                } else {
+                    $locations[$key] = [
+                        'types'    => [$location->locationType],
+                        'postcode' => $location->zip,
+                        'state'    => '',
+                        'city'     => $location->city,
+                        'line_one' => $location->address,
+                        'line_two' => '',
+                    ];
+                }
             }
 
-            return $locations;
+            return array_values($locations);
         };
         $getCustomerLocations = static function (Customer $customer): array {
             $locations = [];
 
             foreach ($customer->locations as $location) {
-                /** @var \App\Models\CustomerLocation $location */
+                /** @var \App\Models\Location $location */
                 $locations[] = [
-                    'type'     => $location->type->key,
-                    'postcode' => $location->location->postcode,
-                    'state'    => $location->location->state,
-                    'city'     => $location->location->city->name,
-                    'line_one' => $location->location->line_one,
-                    'line_two' => $location->location->line_two,
+                    'postcode' => $location->postcode,
+                    'state'    => $location->state,
+                    'city'     => $location->city->name,
+                    'line_one' => $location->line_one,
+                    'line_two' => $location->line_two,
+                    'types'    => $location->types
+                        ->map(static function (TypeModel $type): string {
+                            return $type->name;
+                        })
+                        ->all(),
                 ];
             }
 
@@ -179,7 +189,7 @@ class CustomerFactoryTest extends TestCase {
         $this->assertEquals($company->id, $customer->getKey());
         $this->assertEquals($company->name, $customer->name);
         $this->assertEquals($getCompanyType($company), $customer->type->key);
-        $this->assertCount(2, $customer->locations);
+        $this->assertCount(1, $customer->locations);
         $this->assertEqualsCanonicalizing(
             $getCompanyLocations($company),
             $getCustomerLocations($customer),
@@ -295,8 +305,9 @@ class CustomerFactoryTest extends TestCase {
     public function testCustomerLocations(): void {
         // Prepare
         $customer = Customer::factory()->make();
-        $existing = CustomerLocation::factory(2)->make([
-            'customer_id' => $customer,
+        $existing = LocationModel::factory(2)->make([
+            'object_type' => $customer->getMorphClass(),
+            'object_id'   => $customer,
         ]);
 
         $customer->setRelation('locations', $existing);
@@ -331,34 +342,31 @@ class CustomerFactoryTest extends TestCase {
         // Empty call should return empty array
         $this->assertEquals([], $factory->customerLocations($customer, []));
 
-        // Repeated locations should be missed
-        $locA = tap(new Location(), function (Location $location): void {
+        // Repeated objects should be missed
+        $ca = tap(new Location(), function (Location $location): void {
             $location->zip          = $this->faker->postcode;
             $location->city         = $this->faker->city;
             $location->address      = $this->faker->streetAddress;
             $location->locationType = $this->faker->word;
         });
 
-        $this->assertCount(1, $factory->customerLocations($customer, [$locA, $locA]));
+        $this->assertCount(1, $factory->customerLocations($customer, [$ca, $ca]));
 
-        // Customer's location must be saved
-        /** @var \App\Models\CustomerLocation $cl */
-        $cl     = $this->faker->randomElement($existing);
-        $locB   = tap(new Location(), static function (Location $location) use ($cl): void {
-            $location->zip          = $cl->location->postcode;
-            $location->city         = $cl->location->city->name;
-            $location->address      = "{$cl->location->line_one} {$cl->location->line_two}";
-            $location->locationType = $cl->type->key;
+        // Objects should be grouped by type
+        $cb     = tap(new Location(), function (Location $location) use ($ca): void {
+            $location->zip          = $ca->zip;
+            $location->city         = $ca->city;
+            $location->address      = $ca->address;
+            $location->locationType = $this->faker->word;
         });
-        $actual = $factory->customerLocations($customer, [$locA, $locB]);
+        $actual = $factory->customerLocations($customer, [$ca, $cb]);
+        $first  = reset($actual);
 
-        $this->assertCount(2, $actual);
-        $this->assertEquals(
-            [null, $cl->getKey()],
-            array_map(static function (CustomerLocation $location): ?string {
-                return $location->getKey();
-            }, $actual),
-        );
+        $this->assertCount(1, $actual);
+        $this->assertCount(2, $first->types);
+        $this->assertEquals($cb->zip, $first->postcode);
+        $this->assertEquals($cb->city, $first->city->name);
+        $this->assertEquals($cb->address, $first->line_one);
     }
 
     /**
@@ -366,11 +374,12 @@ class CustomerFactoryTest extends TestCase {
      */
     public function testLocation(): void {
         // Prepare
+        $customer = new Customer();
         $location = new Location();
         $factory  = Mockery::mock(LocationFactory::class);
         $factory
             ->shouldReceive('create')
-            ->with($location)
+            ->with($customer, $location)
             ->once()
             ->andReturns();
 
@@ -380,12 +389,12 @@ class CustomerFactoryTest extends TestCase {
                 $this->locations = $locations;
             }
 
-            public function location(Location $location): LocationModel {
-                return parent::location($location);
+            public function location(Customer $customer, Location $location): ?LocationModel {
+                return parent::location($customer, $location);
             }
         };
 
-        $factory->location($location);
+        $factory->location($customer, $location);
     }
 
     /**
@@ -490,14 +499,14 @@ class CustomerFactoryTest extends TestCase {
         $factory = new class(
             $this->app->make(LoggerInterface::class),
             $this->app->make(Normalizer::class),
-            $this->app->make(ContactProvider::class),
+            $this->app->make(ContactFactory::class),
             $this->app->make(TypeProvider::class),
         ) extends CustomerFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 LoggerInterface $logger,
                 Normalizer $normalizer,
-                ContactProvider $contacts,
+                ContactFactory $contacts,
                 TypeProvider $types,
             ) {
                 $this->logger     = $logger;
@@ -517,7 +526,7 @@ class CustomerFactoryTest extends TestCase {
         // Empty call should return empty array
         $this->assertEquals([], $factory->customerContacts($customer, []));
 
-        // Repeated locations should be missed
+        // Repeated objects should be missed
         $ca = tap(new CompanyContactPerson(), function (CompanyContactPerson $person): void {
             $person->name        = $this->faker->name;
             $person->type        = $this->faker->word;
@@ -526,7 +535,7 @@ class CustomerFactoryTest extends TestCase {
 
         $this->assertCount(1, $factory->customerContacts($customer, [$ca, $ca]));
 
-        // Locations should be grouped by type
+        // Objects should be grouped by type
         $cb     = tap(new CompanyContactPerson(), function (CompanyContactPerson $person) use ($ca): void {
             $person->name        = $ca->name;
             $person->type        = $this->faker->word;
@@ -546,46 +555,27 @@ class CustomerFactoryTest extends TestCase {
      */
     public function testContact(): void {
         // Prepare
-        $normalizer = $this->app->make(Normalizer::class);
-        $provider   = $this->app->make(ContactProvider::class);
-        $customer   = Customer::factory()->make();
-        $contact    = Contact::factory()->create([
-            'object_type' => $customer->getMorphClass(),
-            'object_id'   => $customer->getKey(),
-        ]);
+        $customer = new Customer();
+        $contact  = new CompanyContactPerson();
+        $factory  = Mockery::mock(ContactFactory::class);
+        $factory
+            ->shouldReceive('create')
+            ->with($customer, $contact)
+            ->once()
+            ->andReturns();
 
-        $factory = new class($normalizer, $provider) extends CustomerFactory {
+        $factory = new class($factory) extends CustomerFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, ContactProvider $provider) {
-                $this->normalizer = $normalizer;
-                $this->contacts   = $provider;
+            public function __construct(ContactFactory $contacts) {
+                $this->contacts = $contacts;
             }
 
-            public function contact(Customer $customer, ?string $name, ?string $phone, ?bool $valid): Contact {
-                return parent::contact($customer, $name, $phone, $valid);
+            public function contact(Customer $customer, CompanyContactPerson $person): ?Contact {
+                return parent::contact($customer, $person);
             }
         };
 
-        $this->flushQueryLog();
-
-        // If model exists - no action required
-        $this->assertEquals($contact, $factory->contact($customer, $contact->name, $contact->phone_number, true));
-        $this->assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
-
-        // If not - it should be created
-        $created = $factory->contact($customer, ' new  Name ', ' phone   number ', false);
-
-        $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertEquals($customer->getMorphClass(), $created->object_type);
-        $this->assertEquals($customer->getKey(), $created->object_id);
-        $this->assertEquals('new Name', $created->name);
-        $this->assertEquals('phone number', $created->phone_number);
-        $this->assertFalse($created->phone_valid);
-        $this->assertNull($created->email);
-        $this->assertCount(2, $this->getQueryLog());
+        $factory->contact($customer, $contact);
     }
     // </editor-fold>
 

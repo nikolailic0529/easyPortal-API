@@ -2,8 +2,6 @@
 
 namespace App\Services\DataLoader;
 
-use App\Models\Model;
-use App\Services\DataLoader\Schema\Type;
 use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
@@ -71,11 +69,5 @@ class ProviderContainerTest_Factory extends Factory {
         public ProviderContainerTest_Provider $provider,
     ) {
         parent::__construct($logger, $normalizer);
-    }
-
-    public function create(Type $type): Model {
-        return new class() extends Model {
-            // empty
-        };
     }
 }

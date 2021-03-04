@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
@@ -15,19 +14,19 @@ use function sprintf;
 /**
  * Customer.
  *
- * @property string                                                                 $id
- * @property string                                                                 $type_id
- * @property string                                                                 $status_id
- * @property string                                                                 $name
- * @property \Carbon\CarbonImmutable                                                $created_at
- * @property \Carbon\CarbonImmutable                                                $updated_at
- * @property \Carbon\CarbonImmutable|null                                           $deleted_at
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>          $contacts
- * @property-read int|null                                                          $contacts_count
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\CustomerLocation> $locations
- * @property-read int|null                                                          $locations_count
- * @property \App\Models\Status                                                     $status
- * @property \App\Models\Type                                                       $type
+ * @property string                                                         $id
+ * @property string                                                         $type_id
+ * @property string                                                         $status_id
+ * @property string                                                         $name
+ * @property \Carbon\CarbonImmutable                                        $created_at
+ * @property \Carbon\CarbonImmutable                                        $updated_at
+ * @property \Carbon\CarbonImmutable|null                                   $deleted_at
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>  $contacts
+ * @property-read int|null                                                  $contacts_count
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location> $locations
+ * @property-read int|null                                                  $locations_count
+ * @property \App\Models\Status                                             $status
+ * @property \App\Models\Type                                               $type
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer query()
@@ -52,45 +51,15 @@ class Customer extends Model {
      */
     protected $table = 'customers';
 
-    public function locations(): HasMany {
-        return $this->hasMany(CustomerLocation::class);
+    public function locations(): MorphMany {
+        return $this->morphMany(Location::class, 'object');
     }
 
     /**
-     * @param \Illuminate\Support\Collection|array<\App\Models\CustomerLocation> $locations
+     * @param \Illuminate\Support\Collection|array<\App\Models\Location> $locations
      */
     public function setLocationsAttribute(Collection|array $locations): void {
-        // Create/Update existing
-        $existing = (clone $this->locations)->keyBy(static function (CustomerLocation $location): string {
-            return $location->getKey();
-        });
-
-        foreach ($locations as $location) {
-            // We should not update the existing location if it is related to
-            // another customer. Probably this is an error.
-            if ($location->customer_id && $location->customer_id !== $this->getKey()) {
-                throw new InvalidArgumentException(sprintf(
-                    'Location related to Customer #%s, Customer #%s or `null` required.',
-                    $location->customer_id,
-                    $this->getKey(),
-                ));
-            }
-
-            // Save
-            $location->customer_id = $this->getKey();
-            $location->save();
-
-            // Mark as used
-            $existing->forget($location->getKey());
-        }
-
-        // Delete unused
-        foreach ($existing as $location) {
-            $location->delete();
-        }
-
-        // Reset relation
-        unset($this->locations);
+        $this->syncMorphMany('locations', $locations);
     }
 
     public function contacts(): MorphMany {
@@ -98,43 +67,80 @@ class Customer extends Model {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\Contact>|array<\App\Models\Contact> $contacts
+     * @param \Illuminate\Support\Collection|array<\App\Models\Contact> $contacts
      */
     public function setContactsAttribute(Collection|array $contacts): void {
+        $this->syncMorphMany('contacts', $contacts);
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection|array<\App\Models\PolymorphicModel> $objects
+     */
+    protected function syncMorphMany(string $relation, Collection|array $objects): void {
+        // TODO [refactor] Probably we need move it into MorphMany class
+
+        // Prepare
+        /** @var \Illuminate\Database\Eloquent\Relations\MorphMany $morph */
+        $morph = $this->{$relation}();
+        $model = $morph->make();
+        $class = $model::class;
+
+        if (!($morph instanceof MorphMany)) {
+            throw new InvalidArgumentException(sprintf(
+                'The `$relation` must be instance of `%s`.',
+                MorphMany::class,
+            ));
+        }
+
+        if (!($model instanceof PolymorphicModel)) {
+            throw new InvalidArgumentException(sprintf(
+                'Related model should be instance of `%s`.',
+                PolymorphicModel::class,
+            ));
+        }
+
         // Create/Update existing
-        $relation = $this->contacts();
-        $existing = (clone $this->contacts)->keyBy(static function (Contact $contact): string {
+        $existing = (clone $this->{$relation})->keyBy(static function (PolymorphicModel $contact): string {
             return $contact->getKey();
         });
 
-        foreach ($contacts as $contact) {
+        foreach ($objects as $object) {
+            // Object supported by relation?
+            if (!($object instanceof $class)) {
+                throw new InvalidArgumentException(sprintf(
+                    'Object should be instance of `%s`.',
+                    $class,
+                ));
+            }
+
             // We should not update the existing object if it is related to
             // another object type. Probably this is an error.
-
             if (
-                ($contact->object_type && $contact->object_type !== $this->getMorphClass())
-                || ($contact->object_id && $contact->object_id !== $this->getKey())
+                ($object->object_type && $object->object_type !== $this->getMorphClass())
+                || ($object->object_id && $object->object_id !== $this->getKey())
             ) {
                 throw new InvalidArgumentException(sprintf(
-                    'Location related to Customer #%s, Customer #%s or `null` required.',
-                    $contact->customer_id,
+                    'Object related to %s#%s, %s#%s or `null` required.',
+                    $object->object_type,
+                    $object->object_id,
+                    $this->getMorphClass(),
                     $this->getKey(),
                 ));
             }
 
             // Save
-            $relation->save($contact);
+            $morph->save($object);
 
             // Mark as used
-            $existing->forget($contact->getKey());
+            $existing->forget($object->getKey());
         }
 
         // Delete unused
-        foreach ($existing as $contact) {
-            $contact->delete();
+        foreach ($existing as $object) {
+            $object->delete();
         }
 
         // Reset relation
-        unset($this->contacts);
+        unset($this->{$relation});
     }
 }

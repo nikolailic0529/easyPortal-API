@@ -25,24 +25,26 @@ class LocationFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'         => $this->faker->uuid,
-            'postcode'   => $this->faker->postcode,
-            'state'      => $this->faker->state,
-            'line_one'   => $this->faker->streetAddress,
-            'line_two'   => $this->faker->secondaryAddress,
-            'country_id' => static function (): Country {
+            'id'          => $this->faker->uuid,
+            'object_id'   => $this->faker->uuid,
+            'object_type' => $this->faker->word,
+            'postcode'    => $this->faker->postcode,
+            'state'       => $this->faker->state,
+            'line_one'    => $this->faker->streetAddress,
+            'line_two'    => $this->faker->secondaryAddress,
+            'country_id'  => static function (): Country {
                 return Country::query()->first()
                     ?: Country::factory()->create();
             },
-            'city_id'    => static function (): City {
+            'city_id'     => static function (): City {
                 return City::query()->first()
                     ?: City::factory()->create();
             },
-            'lat'        => null,
-            'lng'        => null,
-            'created_at' => Date::now(),
-            'updated_at' => Date::now(),
-            'deleted_at' => null,
+            'lat'         => null,
+            'lng'         => null,
+            'created_at'  => Date::now(),
+            'updated_at'  => Date::now(),
+            'deleted_at'  => null,
         ];
     }
 }

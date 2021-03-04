@@ -1,13 +1,11 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\Services\DataLoader\Commands;
 
 use App\Services\DataLoader\DataLoaderService;
 use App\Services\DataLoader\Loaders\CustomerLoader;
-use Exception;
 use Illuminate\Console\Command;
 use Psr\Log\LoggerInterface;
-
 use Throwable;
 
 use function array_unique;

@@ -4,35 +4,30 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\Contact;
 use App\Models\Customer;
-use App\Models\CustomerLocation;
 use App\Models\Location as LocationModel;
 use App\Models\Model;
 use App\Models\Status as StatusModel;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\DataLoaderException;
-use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Providers\ContactProvider;
 use App\Services\DataLoader\Providers\CustomerProvider;
 use App\Services\DataLoader\Providers\StatusProvider;
 use App\Services\DataLoader\Providers\TypeProvider;
 use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
+use Closure;
 use InvalidArgumentException;
-use Propaganistas\LaravelPhone\Exceptions\NumberParseException;
-use Propaganistas\LaravelPhone\PhoneNumber;
 use Psr\Log\LoggerInterface;
 use SplObjectStorage;
 
 use function array_map;
 use function array_merge;
 use function array_unique;
-use function array_values;
 use function count;
 use function in_array;
-use function is_null;
 use function iterator_to_array;
 use function reset;
 use function sprintf;
@@ -43,7 +38,7 @@ use function sprintf;
 /**
  * @internal
  */
-class CustomerFactory extends Factory {
+class CustomerFactory extends ModelFactory {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
@@ -51,7 +46,7 @@ class CustomerFactory extends Factory {
         protected StatusProvider $statuses,
         protected LocationFactory $locations,
         protected CustomerProvider $customers,
-        protected ContactProvider $contacts,
+        protected ContactFactory $contacts,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -143,40 +138,19 @@ class CustomerFactory extends Factory {
     /**
      * @param array<\App\Services\DataLoader\Schema\Location> $locations
      *
-     * @return array<\App\Models\CustomerLocation>
+     * @return array<\App\Models\Location>
      */
     protected function customerLocations(Customer $customer, array $locations): array {
-        $models = [];
-        $object = new CustomerLocation();
-
-        foreach ($locations as $location) {
-            $loc   = $this->location($location);
-            $type  = $this->type($object, $location->locationType);
-            $key   = "{$loc->getKey()}/{$type->getKey()}";
-            $model = $customer->locations->first(
-                static function (CustomerLocation $location) use ($loc, $type): bool {
-                    return $location->location_id === $loc->getKey()
-                        && $location->type_id === $type->getKey();
-                },
-            );
-
-            if (!$model) {
-                $model           = new CustomerLocation();
-                $model->location = $loc;
-                $model->type     = $type;
-            }
-
-            if (isset($models[$key])) {
-                $this->logger->warning('Found customer with multiple locations with the same type.', [
-                    'customer' => $customer,
-                    'location' => $location,
-                ]);
-            } else {
-                $models[$key] = $model;
-            }
-        }
-
-        return array_values($models);
+        return $this->polymorphic(
+            $customer,
+            $locations,
+            static function (Location $location): string {
+                return $location->locationType;
+            },
+            function (Customer $customer, Location $location): ?LocationModel {
+                return $this->location($customer, $location);
+            },
+        );
     }
 
     /**
@@ -185,96 +159,24 @@ class CustomerFactory extends Factory {
      * @return array<\App\Models\Contact>
      */
     protected function customerContacts(Customer $customer, array $persons): array {
-        // First, we should convert CompanyContactPerson into the internal model
-        // and determine its types.
-        /** @var SplObjectStorage<\App\Models\Contact, array<\App\Models\Type>> $contacts */
-        $contacts = new SplObjectStorage();
-        $object   = new Contact();
-
-        foreach ($persons as $person) {
-            // CompanyContactPerson can be without name and phone
-            if (is_null($person->name) && is_null($person->phoneNumber)) {
-                continue;
-            }
-
-            // Phone can be in a local format we should convert it into e164 if
-            // this is not possible we save it as is and mark it as invalid.
-            $phone = $person->phoneNumber;
-            $valid = false;
-
-            if ($phone) {
-                try {
-                    $phone = PhoneNumber::make($phone)->formatE164();
-                    $valid = true;
-                } catch (NumberParseException) {
-                    $valid = false;
-                }
-            } else {
-                $phone = null;
-                $valid = null;
-            }
-
-            // Search contact and determine type
-            $type    = $this->type($object, $person->type);
-            $contact = $this->contact($customer, $person->name, $phone, $valid);
-
-            // Save
-            if ($contacts->contains($contact)) {
-                if (in_array($type, $contacts[$contact], true)) {
-                    $this->logger->warning('Found customer with multiple contacts with the same type.', [
-                        'customer' => $customer,
-                        'contact'  => $contact,
-                    ]);
-                } else {
-                    $contacts[$contact] = array_merge($contacts[$contact], [$type]);
-                }
-            } else {
-                $contacts[$contact] = [$type];
-            }
-        }
-
-        // Attach types into contacts
-        foreach ($contacts as $contact) {
-            $contact->types = $contacts[$contact];
-        }
-
-        // Return
-        return iterator_to_array($contacts);
-    }
-
-    protected function location(Location $location): LocationModel {
-        return $this->locations->create($location);
-    }
-
-    protected function contact(Customer $customer, ?string $name, ?string $phone, ?bool $valid): Contact {
-        $contact = $this->contacts->get(
+        return $this->polymorphic(
             $customer,
-            $name,
-            $phone,
-            function () use ($customer, $name, $phone, $valid): Contact {
-                $model = new Contact();
-
-                if (!is_null($name)) {
-                    $name = $this->normalizer->string($name);
-                }
-
-                if (!is_null($phone)) {
-                    $phone = $this->normalizer->string($phone);
-                }
-
-                $model->object_type  = $customer->getMorphClass();
-                $model->object_id    = $customer->getKey();
-                $model->name         = $name;
-                $model->phone_number = $phone;
-                $model->phone_valid  = $valid;
-
-                $model->save();
-
-                return $model;
+            $persons,
+            static function (CompanyContactPerson $person): string {
+                return $person->type;
+            },
+            function (Customer $customer, CompanyContactPerson $person): ?Contact {
+                return $this->contact($customer, $person);
             },
         );
+    }
 
-        return $contact;
+    protected function location(Customer $customer, Location $location): ?LocationModel {
+        return $this->locations->create($customer, $location);
+    }
+
+    protected function contact(Customer $customer, CompanyContactPerson $person): ?Contact {
+        return $this->contacts->create($customer, $person);
     }
 
     protected function type(Model $owner, string $type): TypeModel {
@@ -307,5 +209,56 @@ class CustomerFactory extends Factory {
         });
 
         return $status;
+    }
+
+    /**
+     * @param array<\App\Services\DataLoader\Schema\Type> $types
+     *
+     * @return array<mixed>
+     */
+    private function polymorphic(Customer $customer, array $types, Closure $getType, Closure $factory): array {
+        // First, we should convert type into the internal model and determine its types.
+        /** @var \SplObjectStorage<\App\Models\Contact|\App\Models\Location, array<\App\Models\Type>> $models */
+        $models = new SplObjectStorage();
+
+        foreach ($types as $object) {
+            // Search contact
+            $model = $factory($customer, $object);
+
+            if (!$model) {
+                $this->logger->warning('Found invalid contact.', [
+                    'customer' => $customer,
+                    'object'   => $object,
+                ]);
+
+                continue;
+            }
+
+            // Determine type
+            $type = $this->type($model, $getType($object));
+
+            if ($models->contains($model)) {
+                if (in_array($type, $models[$model], true)) {
+                    $this->logger->warning('Found customer with multiple models with the same type.', [
+                        'customer' => $customer,
+                        'object'   => $object,
+                        'model'    => $model,
+                        'type'     => $type,
+                    ]);
+                } else {
+                    $models[$model] = array_merge($models[$model], [$type]);
+                }
+            } else {
+                $models[$model] = [$type];
+            }
+        }
+
+        // Attach types into models
+        foreach ($models as $model) {
+            $model->types = $models[$model];
+        }
+
+        // Return
+        return iterator_to_array($models);
     }
 }

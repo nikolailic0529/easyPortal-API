@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Models\Contact;
 use App\Models\Customer;
-use App\Models\CustomerLocation;
+use App\Models\Location;
 use App\Services\Auth0\AuthService;
 use App\Services\Auth0\UserRepository;
 use Auth0\Login\Auth0Service;
@@ -30,9 +30,9 @@ class AppServiceProvider extends ServiceProvider {
      */
     public function boot(): void {
         Relation::morphMap([
-            'app/customer'          => Customer::class,
-            'app/customer-location' => CustomerLocation::class,
-            'app/contact'           => Contact::class,
+            'app/customer' => Customer::class,
+            'app/contact'  => Contact::class,
+            'app/location' => Location::class,
         ]);
     }
 
