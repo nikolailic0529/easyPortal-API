@@ -51,7 +51,7 @@ class CustomerFactory extends ModelFactory {
         parent::__construct($logger, $normalizer);
     }
 
-    public function create(Type $type): Customer {
+    public function create(Type $type): ?Customer {
         $model = null;
 
         if ($type instanceof Company) {
