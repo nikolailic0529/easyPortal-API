@@ -13,6 +13,24 @@
             "vendor": "HPE",
             "name": "Franz Marks",
             "type": "SYSTEM_MANAGER"
+        },
+        {
+            "phoneNumber": null,
+            "vendor": "HPE",
+            "name": "Franz Marks Uncle",
+            "type": "SOFTWARE_CONTACT"
+        },
+        {
+            "phoneNumber": "+49 (592) 12345-54",
+            "vendor": "HPE",
+            "name": null,
+            "type": "SYSTEM_MANAGER"
+        },
+        {
+            "phoneNumber": null,
+            "vendor": "HPE",
+            "name": null,
+            "type": "SYSTEM_MANAGER"
         }
     ],
     "companyTypes": [
@@ -29,6 +47,12 @@
             "address": "Maddison Path Suite 820 Apt. 898",
             "city": "Port Adanville",
             "locationType": "EQUIPMENT_LOCATION"
+        },
+        {
+            "zip": "70618",
+            "address": "Maddison Path Suite 820 Apt. 898",
+            "city": "Port Adanville",
+            "locationType": "HEADQUARTERS"
         }
     ]
 }

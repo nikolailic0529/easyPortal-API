@@ -6,6 +6,7 @@ use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
@@ -21,6 +22,8 @@ use function sprintf;
  * @property \Carbon\CarbonImmutable                                                $created_at
  * @property \Carbon\CarbonImmutable                                                $updated_at
  * @property \Carbon\CarbonImmutable|null                                           $deleted_at
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>          $contacts
+ * @property-read int|null                                                          $contacts_count
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\CustomerLocation> $locations
  * @property-read int|null                                                          $locations_count
  * @property \App\Models\Status                                                     $status
@@ -88,5 +91,50 @@ class Customer extends Model {
 
         // Reset relation
         unset($this->locations);
+    }
+
+    public function contacts(): MorphMany {
+        return $this->morphMany(Contact::class, 'object');
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\Contact>|array<\App\Models\Contact> $contacts
+     */
+    public function setContactsAttribute(Collection|array $contacts): void {
+        // Create/Update existing
+        $relation = $this->contacts();
+        $existing = (clone $this->contacts)->keyBy(static function (Contact $contact): string {
+            return $contact->getKey();
+        });
+
+        foreach ($contacts as $contact) {
+            // We should not update the existing object if it is related to
+            // another object type. Probably this is an error.
+
+            if (
+                ($contact->object_type && $contact->object_type !== $this->getMorphClass())
+                || ($contact->object_id && $contact->object_id !== $this->getKey())
+            ) {
+                throw new InvalidArgumentException(sprintf(
+                    'Location related to Customer #%s, Customer #%s or `null` required.',
+                    $contact->customer_id,
+                    $this->getKey(),
+                ));
+            }
+
+            // Save
+            $relation->save($contact);
+
+            // Mark as used
+            $existing->forget($contact->getKey());
+        }
+
+        // Delete unused
+        foreach ($existing as $contact) {
+            $contact->delete();
+        }
+
+        // Reset relation
+        unset($this->contacts);
     }
 }

@@ -24,7 +24,7 @@ class CountryFactory extends Factory {
     public function definition(): array {
         return [
             'id'         => $this->faker->uuid,
-            'code'       => $this->faker->countryISOAlpha3,
+            'code'       => $this->faker->countryCode,
             'name'       => $this->faker->country,
             'created_at' => Date::now(),
             'updated_at' => Date::now(),

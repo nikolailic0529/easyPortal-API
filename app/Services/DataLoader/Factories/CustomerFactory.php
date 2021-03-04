@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Factories;
 
+use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\CustomerLocation;
 use App\Models\Location as LocationModel;
@@ -11,6 +12,7 @@ use App\Models\Type as TypeModel;
 use App\Services\DataLoader\DataLoaderException;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Providers\ContactProvider;
 use App\Services\DataLoader\Providers\CustomerProvider;
 use App\Services\DataLoader\Providers\StatusProvider;
 use App\Services\DataLoader\Providers\TypeProvider;
@@ -19,12 +21,19 @@ use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use InvalidArgumentException;
+use Propaganistas\LaravelPhone\Exceptions\NumberParseException;
+use Propaganistas\LaravelPhone\PhoneNumber;
 use Psr\Log\LoggerInterface;
+use SplObjectStorage;
 
 use function array_map;
+use function array_merge;
 use function array_unique;
 use function array_values;
 use function count;
+use function in_array;
+use function is_null;
+use function iterator_to_array;
 use function reset;
 use function sprintf;
 
@@ -42,6 +51,7 @@ class CustomerFactory extends Factory {
         protected StatusProvider $statuses,
         protected LocationFactory $locations,
         protected CustomerProvider $customers,
+        protected ContactProvider $contacts,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -81,6 +91,7 @@ class CustomerFactory extends Factory {
         $customer->name      = $this->normalizer->string($company->name);
         $customer->type      = $type;
         $customer->status    = $status;
+        $customer->contacts  = $this->customerContacts($customer, $company->companyContactPersons);
         $customer->locations = $this->customerLocations($customer, $company->locations);
 
         $customer->save();
@@ -136,10 +147,11 @@ class CustomerFactory extends Factory {
      */
     protected function customerLocations(Customer $customer, array $locations): array {
         $models = [];
+        $object = new CustomerLocation();
 
         foreach ($locations as $location) {
             $loc   = $this->location($location);
-            $type  = $this->type(new CustomerLocation(), $location->locationType);
+            $type  = $this->type($object, $location->locationType);
             $key   = "{$loc->getKey()}/{$type->getKey()}";
             $model = $customer->locations->first(
                 static function (CustomerLocation $location) use ($loc, $type): bool {
@@ -156,6 +168,7 @@ class CustomerFactory extends Factory {
 
             if (isset($models[$key])) {
                 $this->logger->warning('Found customer with multiple locations with the same type.', [
+                    'customer' => $customer,
                     'location' => $location,
                 ]);
             } else {
@@ -166,8 +179,102 @@ class CustomerFactory extends Factory {
         return array_values($models);
     }
 
+    /**
+     * @param array<\App\Services\DataLoader\Schema\CompanyContactPerson> $persons
+     *
+     * @return array<\App\Models\Contact>
+     */
+    protected function customerContacts(Customer $customer, array $persons): array {
+        // First, we should convert CompanyContactPerson into the internal model
+        // and determine its types.
+        /** @var SplObjectStorage<\App\Models\Contact, array<\App\Models\Type>> $contacts */
+        $contacts = new SplObjectStorage();
+        $object   = new Contact();
+
+        foreach ($persons as $person) {
+            // CompanyContactPerson can be without name and phone
+            if (is_null($person->name) && is_null($person->phoneNumber)) {
+                continue;
+            }
+
+            // Phone can be in a local format we should convert it into e164 if
+            // this is not possible we save it as is and mark it as invalid.
+            $phone = $person->phoneNumber;
+            $valid = false;
+
+            if ($phone) {
+                try {
+                    $phone = PhoneNumber::make($phone)->formatE164();
+                    $valid = true;
+                } catch (NumberParseException) {
+                    $valid = false;
+                }
+            } else {
+                $phone = null;
+                $valid = null;
+            }
+
+            // Search contact and determine type
+            $type    = $this->type($object, $person->type);
+            $contact = $this->contact($customer, $person->name, $phone, $valid);
+
+            // Save
+            if ($contacts->contains($contact)) {
+                if (in_array($type, $contacts[$contact], true)) {
+                    $this->logger->warning('Found customer with multiple contacts with the same type.', [
+                        'customer' => $customer,
+                        'contact'  => $contact,
+                    ]);
+                } else {
+                    $contacts[$contact] = array_merge($contacts[$contact], [$type]);
+                }
+            } else {
+                $contacts[$contact] = [$type];
+            }
+        }
+
+        // Attach types into contacts
+        foreach ($contacts as $contact) {
+            $contact->types = $contacts[$contact];
+        }
+
+        // Return
+        return iterator_to_array($contacts);
+    }
+
     protected function location(Location $location): LocationModel {
         return $this->locations->create($location);
+    }
+
+    protected function contact(Customer $customer, ?string $name, ?string $phone, ?bool $valid): Contact {
+        $contact = $this->contacts->get(
+            $customer,
+            $name,
+            $phone,
+            function () use ($customer, $name, $phone, $valid): Contact {
+                $model = new Contact();
+
+                if (!is_null($name)) {
+                    $name = $this->normalizer->string($name);
+                }
+
+                if (!is_null($phone)) {
+                    $phone = $this->normalizer->string($phone);
+                }
+
+                $model->object_type  = $customer->getMorphClass();
+                $model->object_id    = $customer->getKey();
+                $model->name         = $name;
+                $model->phone_number = $phone;
+                $model->phone_valid  = $valid;
+
+                $model->save();
+
+                return $model;
+            },
+        );
+
+        return $contact;
     }
 
     protected function type(Model $owner, string $type): TypeModel {
