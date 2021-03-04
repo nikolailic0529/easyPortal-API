@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Location as LocationModel;
-use App\Services\DataLoader\Factory;
+use App\Models\Model;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Providers\CityProvider;
 use App\Services\DataLoader\Providers\CountryProvider;
@@ -25,7 +25,7 @@ use function str_contains;
 /**
  * @internal
  */
-class LocationFactory extends Factory {
+class LocationFactory extends PolymorphicFactory {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
@@ -36,11 +36,11 @@ class LocationFactory extends Factory {
         parent::__construct($logger, $normalizer);
     }
 
-    public function create(Type $type): LocationModel {
+    public function create(Model $object, Type $type): LocationModel {
         $model = null;
 
         if ($type instanceof Location) {
-            $model = $this->createFromLocation($type);
+            $model = $this->createFromLocation($object, $type);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
@@ -51,7 +51,7 @@ class LocationFactory extends Factory {
         return $model;
     }
 
-    protected function createFromLocation(Location $location): LocationModel {
+    protected function createFromLocation(Model $object, Location $location): LocationModel {
         // Country is not yet available so we use Unknown
         $country = $this->country('??', 'Unknown Country');
 
@@ -71,7 +71,8 @@ class LocationFactory extends Factory {
         $city = $this->city($country, $city);
 
         // Location
-        $model = $this->location(
+        $object = $this->location(
+            $object,
             $country,
             $city,
             $location->zip,
@@ -81,7 +82,7 @@ class LocationFactory extends Factory {
         );
 
         // Return
-        return $model;
+        return $object;
     }
 
     protected function country(string $code, string $name): Country {
@@ -117,6 +118,7 @@ class LocationFactory extends Factory {
     }
 
     protected function location(
+        Model $object,
         Country $country,
         City $city,
         string $postcode,
@@ -125,19 +127,22 @@ class LocationFactory extends Factory {
         string $state,
     ): LocationModel {
         $location = $this->locations->get(
+            $object,
             $country,
             $city,
             $postcode,
             $lineOne,
             $lineTwo,
-            function () use ($country, $city, $postcode, $lineOne, $lineTwo, $state): LocationModel {
-                $location           = new LocationModel();
-                $location->country  = $country;
-                $location->city     = $city;
-                $location->postcode = $this->normalizer->string($postcode);
-                $location->state    = $this->normalizer->string($state);
-                $location->line_one = $this->normalizer->string($lineOne);
-                $location->line_two = $this->normalizer->string($lineTwo);
+            function () use ($object, $country, $city, $postcode, $lineOne, $lineTwo, $state): LocationModel {
+                $location              = new LocationModel();
+                $location->object_type = $object->getMorphClass();
+                $location->object_id   = $object->getKey();
+                $location->country     = $country;
+                $location->city        = $city;
+                $location->postcode    = $this->normalizer->string($postcode);
+                $location->state       = $this->normalizer->string($state);
+                $location->line_one    = $this->normalizer->string($lineOne);
+                $location->line_two    = $this->normalizer->string($lineTwo);
 
                 $location->save();
 

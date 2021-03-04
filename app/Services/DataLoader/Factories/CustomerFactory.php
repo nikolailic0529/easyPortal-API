@@ -10,7 +10,6 @@ use App\Models\Model;
 use App\Models\Status as StatusModel;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\DataLoaderException;
-use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Providers\ContactProvider;
 use App\Services\DataLoader\Providers\CustomerProvider;
@@ -43,7 +42,7 @@ use function sprintf;
 /**
  * @internal
  */
-class CustomerFactory extends Factory {
+class CustomerFactory extends ModelFactory {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
@@ -150,7 +149,7 @@ class CustomerFactory extends Factory {
         $object = new CustomerLocation();
 
         foreach ($locations as $location) {
-            $loc   = $this->location($location);
+            $loc   = $this->location($customer, $location);
             $type  = $this->type($object, $location->locationType);
             $key   = "{$loc->getKey()}/{$type->getKey()}";
             $model = $customer->locations->first(
@@ -242,8 +241,8 @@ class CustomerFactory extends Factory {
         return iterator_to_array($contacts);
     }
 
-    protected function location(Location $location): LocationModel {
-        return $this->locations->create($location);
+    protected function location(Customer $customer, Location $location): LocationModel {
+        return $this->locations->create($customer, $location);
     }
 
     protected function contact(Customer $customer, ?string $name, ?string $phone, ?bool $valid): Contact {

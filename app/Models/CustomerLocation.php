@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\HasType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use JetBrains\PhpStorm\Deprecated;
 
 /**
  * CustomerLocation.
@@ -31,6 +32,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CustomerLocation whereUpdatedAt($value)
  * @mixin \Eloquent
  */
+#[Deprecated('Not used anymore')]
 class CustomerLocation extends Model {
     use HasFactory;
     use HasType;

@@ -366,11 +366,12 @@ class CustomerFactoryTest extends TestCase {
      */
     public function testLocation(): void {
         // Prepare
+        $customer = new Customer();
         $location = new Location();
         $factory  = Mockery::mock(LocationFactory::class);
         $factory
             ->shouldReceive('create')
-            ->with($location)
+            ->with($customer, $location)
             ->once()
             ->andReturns();
 
@@ -380,12 +381,12 @@ class CustomerFactoryTest extends TestCase {
                 $this->locations = $locations;
             }
 
-            public function location(Location $location): LocationModel {
-                return parent::location($location);
+            public function location(Customer $customer, Location $location): LocationModel {
+                return parent::location($customer, $location);
             }
         };
 
-        $factory->location($location);
+        $factory->location($customer, $location);
     }
 
     /**

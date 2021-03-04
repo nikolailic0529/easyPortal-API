@@ -18,6 +18,7 @@ use JetBrains\PhpStorm\Pure;
  */
 class LocationProvider extends Provider {
     public function get(
+        Model $model,
         Country $country,
         City $city,
         string $postcode,
@@ -27,13 +28,15 @@ class LocationProvider extends Provider {
     ): Location {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve(
-            $this->getUniqueKey($country, $city, $postcode, $lineOne, $lineTwo),
+            $this->getUniqueKey($model, $country, $city, $postcode, $lineOne, $lineTwo),
             $factory,
         );
     }
 
     protected function getFindQuery(mixed $key): ?Builder {
         return Location::query()
+            ->where('object_type', '=', $key['object_type'])
+            ->where('object_id', '=', $key['object_id'])
             ->where('country_id', '=', $key['country_id'])
             ->where('city_id', '=', $key['city_id'])
             ->where('postcode', '=', $key['postcode'])
@@ -51,6 +54,7 @@ class LocationProvider extends Provider {
         return [
             'unique' => new ClosureKey(function (Location $location): array {
                 return $this->getUniqueKey(
+                    $location,
                     $location->country_id,
                     $location->city_id,
                     $location->postcode,
@@ -66,17 +70,21 @@ class LocationProvider extends Provider {
      */
     #[Pure]
     protected function getUniqueKey(
+        Model|Location $model,
         Country|string $country,
         City|string $city,
         string $postcode,
         string $lineOne,
         string $lineTwo,
     ): array {
-        return [
-            'country_id' => $country instanceof Model ? $country->getKey() : $country,
-            'city_id'    => $city instanceof Model ? $city->getKey() : $city,
-            'postcode'   => $postcode,
-            'line'       => "{$lineOne} {$lineTwo}",
-        ];
+        return ($model instanceof Location
+                ? ['object_type' => $model->object_type, 'object_id' => $model->object_id]
+                : ['object_type' => $model->getMorphClass(), 'object_id' => $model->getKey()]
+            ) + [
+                'country_id' => $country instanceof Model ? $country->getKey() : $country,
+                'city_id'    => $city instanceof Model ? $city->getKey() : $city,
+                'postcode'   => $postcode,
+                'line'       => "{$lineOne} {$lineTwo}",
+            ];
     }
 }

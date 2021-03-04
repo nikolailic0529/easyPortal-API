@@ -4,7 +4,9 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\City;
 use App\Models\Country;
+use App\Models\Customer;
 use App\Models\Location as LocationModel;
+use App\Models\Model;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Providers\CityProvider;
 use App\Services\DataLoader\Providers\CountryProvider;
@@ -31,27 +33,29 @@ class LocationFactoryTest extends TestCase {
      * @dataProvider dataProviderCreate
      */
     public function testCreate(?string $expected, Type $type): void {
-        $factory = Mockery::mock(LocationFactory::class);
+        $customer = new Customer();
+        $factory  = Mockery::mock(LocationFactory::class);
         $factory->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
 
         if ($expected) {
             $factory->shouldReceive($expected)
                 ->once()
-                ->with($type)
+                ->with($customer, $type)
                 ->andReturns();
         } else {
             $this->expectException(InvalidArgumentException::class);
             $this->expectErrorMessageMatches('/^The `\$type` must be instance of/');
         }
 
-        $factory->create($type);
+        $factory->create($customer, $type);
     }
 
     /**
      * @covers ::createFromLocation
      */
     public function testCreateFromLocation(): void {
+        $customer = Customer::factory()->make();
         $country  = Country::factory()->make();
         $city     = City::factory()->make([
             'country_id' => $country,
@@ -78,6 +82,7 @@ class LocationFactoryTest extends TestCase {
             ->shouldReceive('location')
             ->once()
             ->with(
+                $customer,
                 $country,
                 $city,
                 $location->zip,
@@ -87,13 +92,14 @@ class LocationFactoryTest extends TestCase {
             )
             ->andReturns();
 
-        $factory->create($location);
+        $factory->create($customer, $location);
     }
 
     /**
      * @covers ::createFromLocation
      */
     public function testCreateFromLocationCityWithState(): void {
+        $customer = Customer::factory()->make();
         $country  = Country::factory()->make();
         $city     = City::factory()->make([
             'country_id' => $country,
@@ -122,6 +128,7 @@ class LocationFactoryTest extends TestCase {
             ->shouldReceive('location')
             ->once()
             ->with(
+                $customer,
                 $country,
                 $city,
                 $location->zip,
@@ -131,7 +138,7 @@ class LocationFactoryTest extends TestCase {
             )
             ->andReturns();
 
-        $factory->create($location);
+        $factory->create($customer, $location);
     }
 
     /**
@@ -144,6 +151,7 @@ class LocationFactoryTest extends TestCase {
         $country    = Country::factory()->create();
 
         $factory = new class($normalizer, $provider) extends LocationFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(Normalizer $normalizer, CountryProvider $provider) {
                 $this->normalizer = $normalizer;
                 $this->countries  = $provider;
@@ -183,6 +191,7 @@ class LocationFactoryTest extends TestCase {
         $provider   = $this->app->make(CityProvider::class);
 
         $factory = new class($normalizer, $provider) extends LocationFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(Normalizer $normalizer, CityProvider $provider) {
                 $this->normalizer = $normalizer;
                 $this->cities     = $provider;
@@ -217,18 +226,24 @@ class LocationFactoryTest extends TestCase {
     public function testLocation(): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
+        $customer   = Customer::factory()->create();
         $country    = Country::factory()->create();
         $city       = City::factory()->create();
-        $location   = LocationModel::factory()->create();
+        $location   = LocationModel::factory()->create([
+            'object_type' => $customer->getMorphClass(),
+            'object_id'   => $customer->getKey(),
+        ]);
         $provider   = $this->app->make(LocationProvider::class);
 
         $factory = new class($normalizer, $provider) extends LocationFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(Normalizer $normalizer, LocationProvider $provider) {
                 $this->normalizer = $normalizer;
                 $this->locations  = $provider;
             }
 
             public function location(
+                Model $object,
                 Country $country,
                 City $city,
                 string $postcode,
@@ -237,6 +252,7 @@ class LocationFactoryTest extends TestCase {
                 string $state,
             ): LocationModel {
                 return parent::location(
+                    $object,
                     $country,
                     $city,
                     $postcode,
@@ -251,6 +267,7 @@ class LocationFactoryTest extends TestCase {
 
         // If model exists - no action required
         $this->assertEquals($location, $factory->location(
+            $customer,
             $country,
             $city,
             $location->postcode,
@@ -268,10 +285,12 @@ class LocationFactoryTest extends TestCase {
         $postcode = " {$this->faker->postcode} ";
         $lineOne  = " {$this->faker->streetAddress} ";
         $lineTwo  = " {$this->faker->secondaryAddress} ";
-        $created  = $factory->location($country, $city, $postcode, $lineOne, $lineTwo, $state);
+        $created  = $factory->location($customer, $country, $city, $postcode, $lineOne, $lineTwo, $state);
 
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
+        $this->assertEquals($customer->getMorphClass(), $created->object_type);
+        $this->assertEquals($customer->getKey(), $created->object_id);
         $this->assertEquals($country->getKey(), $created->country_id);
         $this->assertEquals($city->getKey(), $created->city_id);
         $this->assertEquals($normalizer->string($postcode), $created->postcode);
@@ -286,6 +305,7 @@ class LocationFactoryTest extends TestCase {
         $state          = "{$state} 2";
         $created->state = '';
         $updated        = $factory->location(
+            $customer,
             $country,
             $city,
             $created->postcode,

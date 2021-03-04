@@ -2,8 +2,6 @@
 
 namespace App\Services\DataLoader;
 
-use App\Models\Model;
-use App\Services\DataLoader\Schema\Type;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -22,6 +20,4 @@ abstract class Factory {
     ) {
         // empty
     }
-
-    abstract public function create(Type $type): Model;
 }

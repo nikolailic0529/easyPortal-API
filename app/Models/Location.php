@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * Location.
  *
  * @property string                       $id
+ * @property string                       $object_id
+ * @property string                       $object_type
  * @property string                       $country_id
  * @property string                       $city_id
  * @property string                       $postcode
@@ -34,6 +36,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereLineOne($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereLineTwo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereLng($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereObjectId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereObjectType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location wherePostcode($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereState($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereUpdatedAt($value)
