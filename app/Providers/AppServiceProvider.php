@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\Location;
+use App\Models\Product;
 use App\Services\Auth0\AuthService;
 use App\Services\Auth0\UserRepository;
 use Auth0\Login\Auth0Service;
@@ -33,6 +34,7 @@ class AppServiceProvider extends ServiceProvider {
             'app/customer' => Customer::class,
             'app/contact'  => Contact::class,
             'app/location' => Location::class,
+            'app/product'  => Product::class,
         ]);
     }
 

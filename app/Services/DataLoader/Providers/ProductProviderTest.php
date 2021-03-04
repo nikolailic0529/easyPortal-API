@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Providers;
 
 use App\Models\Oem;
 use App\Models\Product;
+use App\Models\Type;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -23,21 +24,27 @@ class ProductProviderTest extends TestCase {
         // Prepare
         $oemA    = Oem::factory()->create();
         $oemB    = Oem::factory()->create();
+        $type    = Type::factory()->create([
+            'object_type' => (new Product())->getMorphClass(),
+        ]);
         $factory = static function (): Product {
             return Product::factory()->make();
         };
 
         $a = Product::factory()->create([
-            'oem_id' => $oemA,
-            'sku'    => 'a',
+            'oem_id'  => $oemA,
+            'type_id' => $type,
+            'sku'     => 'a',
         ]);
         Product::factory()->create([
-            'oem_id' => $oemA,
-            'sku'    => 'b',
+            'oem_id'  => $oemA,
+            'type_id' => $type,
+            'sku'     => 'b',
         ]);
         Product::factory()->create([
-            'oem_id' => $oemA,
-            'sku'    => 'c',
+            'oem_id'  => $oemA,
+            'type_id' => $type,
+            'sku'     => 'c',
         ]);
 
         // Run
@@ -77,10 +84,11 @@ class ProductProviderTest extends TestCase {
         $this->flushQueryLog();
 
         // If not, the new object should be created
-        $spy     = Mockery::spy(static function () use ($oemB): Product {
+        $spy     = Mockery::spy(static function () use ($oemB, $type): Product {
             return Product::factory()->create([
-                'oem_id' => $oemB,
-                'sku'    => 'unKnown',
+                'oem_id'  => $oemB,
+                'type_id' => $type,
+                'sku'     => 'unKnown',
             ]);
         });
         $created = $provider->get($oemB, ' unKnown ', Closure::fromCallable($spy));
