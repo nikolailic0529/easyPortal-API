@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\Contact;
 use App\Models\Customer;
-use App\Models\CustomerLocation;
 use App\Models\Location as LocationModel;
 use App\Models\Model;
 use App\Models\Status as StatusModel;
@@ -19,6 +18,7 @@ use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
+use Closure;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use SplObjectStorage;
@@ -26,7 +26,6 @@ use SplObjectStorage;
 use function array_map;
 use function array_merge;
 use function array_unique;
-use function array_values;
 use function count;
 use function in_array;
 use function iterator_to_array;
@@ -139,40 +138,19 @@ class CustomerFactory extends ModelFactory {
     /**
      * @param array<\App\Services\DataLoader\Schema\Location> $locations
      *
-     * @return array<\App\Models\CustomerLocation>
+     * @return array<\App\Models\Location>
      */
     protected function customerLocations(Customer $customer, array $locations): array {
-        $models = [];
-        $object = new CustomerLocation();
-
-        foreach ($locations as $location) {
-            $loc   = $this->location($customer, $location);
-            $type  = $this->type($object, $location->locationType);
-            $key   = "{$loc->getKey()}/{$type->getKey()}";
-            $model = $customer->locations->first(
-                static function (CustomerLocation $location) use ($loc, $type): bool {
-                    return $location->location_id === $loc->getKey()
-                        && $location->type_id === $type->getKey();
-                },
-            );
-
-            if (!$model) {
-                $model           = new CustomerLocation();
-                $model->location = $loc;
-                $model->type     = $type;
-            }
-
-            if (isset($models[$key])) {
-                $this->logger->warning('Found customer with multiple locations with the same type.', [
-                    'customer' => $customer,
-                    'location' => $location,
-                ]);
-            } else {
-                $models[$key] = $model;
-            }
-        }
-
-        return array_values($models);
+        return $this->polymorphic(
+            $customer,
+            $locations,
+            static function (Location $location): string {
+                return $location->locationType;
+            },
+            function (Customer $customer, Location $location): ?LocationModel {
+                return $this->location($customer, $location);
+            },
+        );
     }
 
     /**
@@ -181,51 +159,16 @@ class CustomerFactory extends ModelFactory {
      * @return array<\App\Models\Contact>
      */
     protected function customerContacts(Customer $customer, array $persons): array {
-        // First, we should convert CompanyContactPerson into the internal model
-        // and determine its types.
-        /** @var SplObjectStorage<\App\Models\Contact, array<\App\Models\Type>> $contacts */
-        $contacts = new SplObjectStorage();
-        $object   = new Contact();
-
-        foreach ($persons as $person) {
-            // Search contact
-            $contact = $this->contact($customer, $person);
-
-            if (!$contact) {
-                $this->logger->warning('Found invalid contact.', [
-                    'customer' => $customer,
-                    'person'   => $person,
-                ]);
-
-                continue;
-            }
-
-            // Determine type
-            $type = $this->type($object, $person->type);
-
-            if ($contacts->contains($contact)) {
-                if (in_array($type, $contacts[$contact], true)) {
-                    $this->logger->warning('Found customer with multiple contacts with the same type.', [
-                        'customer' => $customer,
-                        'person'   => $person,
-                        'contact'  => $contact,
-                        'type'     => $type,
-                    ]);
-                } else {
-                    $contacts[$contact] = array_merge($contacts[$contact], [$type]);
-                }
-            } else {
-                $contacts[$contact] = [$type];
-            }
-        }
-
-        // Attach types into contacts
-        foreach ($contacts as $contact) {
-            $contact->types = $contacts[$contact];
-        }
-
-        // Return
-        return iterator_to_array($contacts);
+        return $this->polymorphic(
+            $customer,
+            $persons,
+            static function (CompanyContactPerson $person): string {
+                return $person->type;
+            },
+            function (Customer $customer, CompanyContactPerson $person): ?Contact {
+                return $this->contact($customer, $person);
+            },
+        );
     }
 
     protected function location(Customer $customer, Location $location): ?LocationModel {
@@ -266,5 +209,56 @@ class CustomerFactory extends ModelFactory {
         });
 
         return $status;
+    }
+
+    /**
+     * @param array<\App\Services\DataLoader\Schema\Type> $types
+     *
+     * @return array<mixed>
+     */
+    private function polymorphic(Customer $customer, array $types, Closure $getType, Closure $factory): array {
+        // First, we should convert type into the internal model and determine its types.
+        /** @var SplObjectStorage<\App\Models\Contact|\App\Models\Location, array<\App\Models\Type>> $models */
+        $models = new SplObjectStorage();
+
+        foreach ($types as $object) {
+            // Search contact
+            $model = $factory($customer, $object);
+
+            if (!$model) {
+                $this->logger->warning('Found invalid contact.', [
+                    'customer' => $customer,
+                    'object'   => $object,
+                ]);
+
+                continue;
+            }
+
+            // Determine type
+            $type = $this->type($model, $getType($object));
+
+            if ($models->contains($model)) {
+                if (in_array($type, $models[$model], true)) {
+                    $this->logger->warning('Found customer with multiple models with the same type.', [
+                        'customer' => $customer,
+                        'object'   => $object,
+                        'model'    => $model,
+                        'type'     => $type,
+                    ]);
+                } else {
+                    $models[$model] = array_merge($models[$model], [$type]);
+                }
+            } else {
+                $models[$model] = [$type];
+            }
+        }
+
+        // Attach types into models
+        foreach ($models as $model) {
+            $model->types = $models[$model];
+        }
+
+        // Return
+        return iterator_to_array($models);
     }
 }

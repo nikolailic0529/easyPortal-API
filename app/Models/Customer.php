@@ -9,25 +9,24 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
-use function get_class;
 use function sprintf;
 
 /**
  * Customer.
  *
- * @property string                                                                 $id
- * @property string                                                                 $type_id
- * @property string                                                                 $status_id
- * @property string                                                                 $name
- * @property \Carbon\CarbonImmutable                                                $created_at
- * @property \Carbon\CarbonImmutable                                                $updated_at
- * @property \Carbon\CarbonImmutable|null                                           $deleted_at
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>          $contacts
- * @property-read int|null                                                          $contacts_count
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\CustomerLocation> $locations
- * @property-read int|null                                                          $locations_count
- * @property \App\Models\Status                                                     $status
- * @property \App\Models\Type                                                       $type
+ * @property string                                                         $id
+ * @property string                                                         $type_id
+ * @property string                                                         $status_id
+ * @property string                                                         $name
+ * @property \Carbon\CarbonImmutable                                        $created_at
+ * @property \Carbon\CarbonImmutable                                        $updated_at
+ * @property \Carbon\CarbonImmutable|null                                   $deleted_at
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>  $contacts
+ * @property-read int|null                                                  $contacts_count
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location> $locations
+ * @property-read int|null                                                  $locations_count
+ * @property \App\Models\Status                                             $status
+ * @property \App\Models\Type                                               $type
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer query()

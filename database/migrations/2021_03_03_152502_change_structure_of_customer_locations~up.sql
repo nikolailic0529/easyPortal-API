@@ -15,21 +15,21 @@ ALTER TABLE `locations`
     ADD INDEX `idx__object_id__object_type`(`object_id` ASC, `object_type` ASC) VISIBLE;
 
 CREATE TABLE IF NOT EXISTS `location_types` (
-    `locations_id` CHAR(36)  NOT NULL,
-    `types_id`     CHAR(36)  NOT NULL,
+    `location_id` CHAR(36)  NOT NULL,
+    `type_id`     CHAR(36)  NOT NULL,
     `created_at`   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at`   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `deleted_at`   TIMESTAMP NULL     DEFAULT NULL,
-    PRIMARY KEY (`locations_id`, `types_id`),
-    INDEX `fk_location_types_types1_idx`(`types_id` ASC) VISIBLE,
-    INDEX `fk_location_types_locations1_idx`(`locations_id` ASC) VISIBLE,
+    PRIMARY KEY (`location_id`, `type_id`),
+    INDEX `fk_location_types_types1_idx`(`type_id` ASC) VISIBLE,
+    INDEX `fk_location_types_locations1_idx`(`location_id` ASC) VISIBLE,
     CONSTRAINT `fk_locations_has_types_locations1`
-        FOREIGN KEY (`locations_id`)
+        FOREIGN KEY (`location_id`)
             REFERENCES `locations`(`id`)
             ON DELETE CASCADE
             ON UPDATE RESTRICT,
     CONSTRAINT `fk_locations_has_types_types1`
-        FOREIGN KEY (`types_id`)
+        FOREIGN KEY (`type_id`)
             REFERENCES `types`(`id`)
             ON DELETE CASCADE
             ON UPDATE RESTRICT

@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Type extends Model {
+class Type extends PolymorphicModel {
     use HasFactory;
 
     /**

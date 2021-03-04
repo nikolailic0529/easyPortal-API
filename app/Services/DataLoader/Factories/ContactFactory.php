@@ -10,7 +10,7 @@ use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use InvalidArgumentException;
-use Propaganistas\LaravelPhone\Exceptions\NumberParseException;
+use libphonenumber\NumberParseException;
 use Propaganistas\LaravelPhone\PhoneNumber;
 use Psr\Log\LoggerInterface;
 
