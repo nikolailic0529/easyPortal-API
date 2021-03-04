@@ -10,6 +10,7 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Providers\CityProvider;
 use App\Services\DataLoader\Providers\CountryProvider;
 use App\Services\DataLoader\Providers\LocationProvider;
+use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use InvalidArgumentException;
@@ -41,6 +42,8 @@ class LocationFactory extends PolymorphicFactory {
 
         if ($type instanceof Location) {
             $model = $this->createFromLocation($object, $type);
+        } elseif ($type instanceof Asset) {
+            $model = $this->createFromAsset($object, $type);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
@@ -83,6 +86,19 @@ class LocationFactory extends PolymorphicFactory {
 
         // Return
         return $object;
+    }
+
+    protected function createFromAsset(Model $object, Asset $asset): ?LocationModel {
+        // TODO [DataLoader] Today Asset::address2 is always equal `TODO` (I
+        //      guess because it the same as the customer's location that
+        //      doesn't have it), so we ignore it. We will need review this
+        //      method and tests when it will filled correctly.
+        $location          = new Location();
+        $location->zip     = $asset->zip;
+        $location->city    = $asset->city;
+        $location->address = $asset->address;
+
+        return $this->createFromLocation($object, $location);
     }
 
     protected function country(string $code, string $name): Country {

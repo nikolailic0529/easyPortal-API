@@ -11,6 +11,7 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Providers\CityProvider;
 use App\Services\DataLoader\Providers\CountryProvider;
 use App\Services\DataLoader\Providers\LocationProvider;
+use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use InvalidArgumentException;
@@ -139,6 +140,96 @@ class LocationFactoryTest extends TestCase {
             ->andReturns();
 
         $factory->create($customer, $location);
+    }
+
+    /**
+     * @covers ::createFromAsset
+     */
+    public function testCreateFromAsset(): void {
+        $customer = Customer::factory()->make();
+        $country  = Country::factory()->make();
+        $city     = City::factory()->make([
+            'country_id' => $country,
+        ]);
+        $assert   = Asset::create([
+            'zip'     => $this->faker->postcode,
+            'address' => $this->faker->streetAddress,
+            'city'    => $this->faker->city,
+        ]);
+
+        $factory = Mockery::mock(LocationFactory::class);
+        $factory->makePartial();
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->shouldReceive('country')
+            ->once()
+            ->with('??', 'Unknown Country')
+            ->andReturn($country);
+        $factory
+            ->shouldReceive('city')
+            ->once()
+            ->with($country, $assert->city)
+            ->andReturn($city);
+        $factory
+            ->shouldReceive('location')
+            ->once()
+            ->with(
+                $customer,
+                $country,
+                $city,
+                $assert->zip,
+                $assert->address,
+                '',
+                '',
+            )
+            ->andReturns();
+
+        $factory->create($customer, $assert);
+    }
+
+    /**
+     * @covers ::createFromAsset
+     */
+    public function testCreateFromAssetCityWithState(): void {
+        $customer = Customer::factory()->make();
+        $country  = Country::factory()->make();
+        $city     = City::factory()->make([
+            'country_id' => $country,
+        ]);
+        $state    = $this->faker->state;
+        $cityName = $this->faker->city;
+        $assert   = Asset::create([
+            'zip'     => $this->faker->postcode,
+            'address' => $this->faker->streetAddress,
+            'city'    => "{$cityName},  {$state}",
+        ]);
+
+        $factory = Mockery::mock(LocationFactory::class);
+        $factory->makePartial();
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->shouldReceive('country')
+            ->once()
+            ->with('??', 'Unknown Country')
+            ->andReturn($country);
+        $factory
+            ->shouldReceive('city')
+            ->once()
+            ->with($country, $cityName)
+            ->andReturn($city);
+        $factory
+            ->shouldReceive('location')
+            ->once()
+            ->with(
+                $customer,
+                $country,
+                $city,
+                $assert->zip,
+                $assert->address,
+                '',
+                "  {$state}",
+            )
+            ->andReturns();
+
+        $factory->create($customer, $assert);
     }
 
     /**
@@ -328,6 +419,7 @@ class LocationFactoryTest extends TestCase {
     public function dataProviderCreate(): array {
         return [
             Location::class => ['createFromLocation', new Location()],
+            Asset::class    => ['createFromAsset', new Asset()],
             'Unknown'       => [
                 null,
                 new class() extends Type {
