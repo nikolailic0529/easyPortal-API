@@ -16,12 +16,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property \App\Models\ProductCategory  $category
  * @property \App\Models\Oem              $oem
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereId($value)
@@ -45,15 +43,7 @@ class Product extends Model {
         return $this->belongsTo(Oem::class);
     }
 
-    public function category(): BelongsTo {
-        return $this->belongsTo(ProductCategory::class);
-    }
-
     public function setOemAttribute(Oem $oem): void {
         $this->oem()->associate($oem);
-    }
-
-    public function setCategoryAttribute(ProductCategory $category): void {
-        $this->category()->associate($category);
     }
 }
