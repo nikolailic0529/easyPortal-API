@@ -176,7 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         // For https://lighthouse-php.com/5.3/eloquent/complex-where-conditions.html
-        \Nuwave\Lighthouse\WhereConditions\WhereConditionsServiceProvider::class,
+        Nuwave\Lighthouse\WhereConditions\WhereConditionsServiceProvider::class,
     ],
 
     /*

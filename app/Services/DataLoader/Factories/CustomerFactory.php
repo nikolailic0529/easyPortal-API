@@ -218,7 +218,7 @@ class CustomerFactory extends ModelFactory {
      */
     private function polymorphic(Customer $customer, array $types, Closure $getType, Closure $factory): array {
         // First, we should convert type into the internal model and determine its types.
-        /** @var SplObjectStorage<\App\Models\Contact|\App\Models\Location, array<\App\Models\Type>> $models */
+        /** @var \SplObjectStorage<\App\Models\Contact|\App\Models\Location, array<\App\Models\Type>> $models */
         $models = new SplObjectStorage();
 
         foreach ($types as $object) {

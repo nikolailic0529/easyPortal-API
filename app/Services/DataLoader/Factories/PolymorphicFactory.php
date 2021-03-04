@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Factories;
 
 use App\Models\Model;
-use App\Models\PolymorphicModel;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Schema\Type;
 

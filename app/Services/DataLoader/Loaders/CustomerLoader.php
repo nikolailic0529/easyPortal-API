@@ -7,8 +7,6 @@ use App\Services\DataLoader\Factories\CustomerFactory;
 use App\Services\DataLoader\Loader;
 use Psr\Log\LoggerInterface;
 
-use function var_dump;
-
 /**
  * @internal
  */
