@@ -25,7 +25,7 @@ class ContactFactory extends Factory {
         return [
             'id'           => $this->faker->uuid,
             'object_id'    => $this->faker->uuid,
-            'object_type'  => $this->faker->uuid,
+            'object_type'  => $this->faker->word,
             'name'         => $this->faker->name,
             'email'        => $this->faker->email,
             'phone_number' => $this->faker->e164PhoneNumber,

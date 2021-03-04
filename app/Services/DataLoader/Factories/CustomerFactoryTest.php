@@ -491,14 +491,14 @@ class CustomerFactoryTest extends TestCase {
         $factory = new class(
             $this->app->make(LoggerInterface::class),
             $this->app->make(Normalizer::class),
-            $this->app->make(ContactProvider::class),
+            $this->app->make(ContactFactory::class),
             $this->app->make(TypeProvider::class),
         ) extends CustomerFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 LoggerInterface $logger,
                 Normalizer $normalizer,
-                ContactProvider $contacts,
+                ContactFactory $contacts,
                 TypeProvider $types,
             ) {
                 $this->logger     = $logger;
@@ -547,46 +547,27 @@ class CustomerFactoryTest extends TestCase {
      */
     public function testContact(): void {
         // Prepare
-        $normalizer = $this->app->make(Normalizer::class);
-        $provider   = $this->app->make(ContactProvider::class);
-        $customer   = Customer::factory()->make();
-        $contact    = Contact::factory()->create([
-            'object_type' => $customer->getMorphClass(),
-            'object_id'   => $customer->getKey(),
-        ]);
+        $customer = new Customer();
+        $contact  = new CompanyContactPerson();
+        $factory  = Mockery::mock(ContactFactory::class);
+        $factory
+            ->shouldReceive('create')
+            ->with($customer, $contact)
+            ->once()
+            ->andReturns();
 
-        $factory = new class($normalizer, $provider) extends CustomerFactory {
+        $factory = new class($factory) extends CustomerFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, ContactProvider $provider) {
-                $this->normalizer = $normalizer;
-                $this->contacts   = $provider;
+            public function __construct(ContactFactory $contacts) {
+                $this->contacts = $contacts;
             }
 
-            public function contact(Customer $customer, ?string $name, ?string $phone, ?bool $valid): Contact {
-                return parent::contact($customer, $name, $phone, $valid);
+            public function contact(Customer $customer, CompanyContactPerson $person): ?Contact {
+                return parent::contact($customer, $person);
             }
         };
 
-        $this->flushQueryLog();
-
-        // If model exists - no action required
-        $this->assertEquals($contact, $factory->contact($customer, $contact->name, $contact->phone_number, true));
-        $this->assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
-
-        // If not - it should be created
-        $created = $factory->contact($customer, ' new  Name ', ' phone   number ', false);
-
-        $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertEquals($customer->getMorphClass(), $created->object_type);
-        $this->assertEquals($customer->getKey(), $created->object_id);
-        $this->assertEquals('new Name', $created->name);
-        $this->assertEquals('phone number', $created->phone_number);
-        $this->assertFalse($created->phone_valid);
-        $this->assertNull($created->email);
-        $this->assertCount(2, $this->getQueryLog());
+        $factory->contact($customer, $contact);
     }
     // </editor-fold>
 

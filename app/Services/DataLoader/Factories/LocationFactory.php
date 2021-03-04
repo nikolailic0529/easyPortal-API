@@ -36,7 +36,7 @@ class LocationFactory extends PolymorphicFactory {
         parent::__construct($logger, $normalizer);
     }
 
-    public function create(Model $object, Type $type): LocationModel {
+    public function create(Model $object, Type $type): ?LocationModel {
         $model = null;
 
         if ($type instanceof Location) {
@@ -51,7 +51,7 @@ class LocationFactory extends PolymorphicFactory {
         return $model;
     }
 
-    protected function createFromLocation(Model $object, Location $location): LocationModel {
+    protected function createFromLocation(Model $object, Location $location): ?LocationModel {
         // Country is not yet available so we use Unknown
         $country = $this->country('??', 'Unknown Country');
 

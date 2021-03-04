@@ -8,5 +8,5 @@ use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Schema\Type;
 
 abstract class PolymorphicFactory extends Factory {
-    abstract public function create(Model $object, Type $type): Model;
+    abstract public function create(Model $object, Type $type): ?Model;
 }
