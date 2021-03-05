@@ -1,0 +1,11 @@
+type Location {
+    id: ID!
+    postcode: String!
+    state: String!
+    line_one: String!
+    line_two: String!
+    lat: String!
+    lng: String!
+    city: City!
+    country: Country!
+}

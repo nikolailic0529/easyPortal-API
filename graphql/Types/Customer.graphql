@@ -3,4 +3,6 @@ type Customer {
     name: String!
     type: CustomerType!
     status: CustomerStatus!
+    locations_count: Int
+    locations: [Location]! @morphMany
 }

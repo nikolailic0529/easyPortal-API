@@ -9,8 +9,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
+use Illuminate\Support\Facades\Schema;
 
 use function sprintf;
+use function count;
 
 /**
  * Customer.
@@ -152,7 +154,12 @@ class Customer extends Model {
         foreach ($existing as $object) {
             $object->delete();
         }
-
+        // Update count
+        $count_property = $relation."_count";
+        if(Schema::hasColumn($this->getTable() , $count_property)){
+            $this->{$count_property} = count($objects);
+        }
+        
         // Reset relation
         unset($this->{$relation});
     }
