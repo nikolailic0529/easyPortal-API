@@ -14,6 +14,7 @@ use function sprintf;
  * @property string                       $id
  * @property string                       $oem_id
  * @property string                       $product_id
+ * @property string                       $type_id
  * @property string|null                  $customer_id current
  * @property string|null                  $location_id current
  * @property string                       $serial_number
@@ -24,6 +25,7 @@ use function sprintf;
  * @property \App\Models\Location|null    $location
  * @property \App\Models\Oem              $oem
  * @property \App\Models\Product          $product
+ * @property \App\Models\Type             $type
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset query()
@@ -35,6 +37,7 @@ use function sprintf;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereOemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereProductId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereSerialNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereUpdatedAt($value)
  * @mixin \Eloquent
  */
