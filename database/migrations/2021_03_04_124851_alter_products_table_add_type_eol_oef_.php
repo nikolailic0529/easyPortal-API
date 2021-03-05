@@ -4,6 +4,6 @@
 
 use LastDragon_ru\LaraASP\Migrator\Migrations\RawMigration;
 
-class AlterProductsTableAddTypeEolOefDescription extends RawMigration {
+class AlterProductsTableAddTypeEolOef extends RawMigration {
     // Please see the associated SQL files
 }
