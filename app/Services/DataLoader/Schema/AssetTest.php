@@ -21,9 +21,17 @@ class AssetTest extends TestCase {
         $properties = Asset::getPropertiesNames();
 
         $this->assertEquals(array_keys($json), $properties);
+        $this->assertInstanceOf(Company::class, $actual->customer);
         $this->assertJsonStringEqualsJsonString(
             json_encode($json),
             json_encode($actual),
         );
+    }
+
+    public function testTT(): void {
+        $asset = Asset::create([]);
+
+
+        $this->assertNull($id);
     }
 }
