@@ -79,7 +79,7 @@ class ContactFactory extends DependentModelFactory {
             $object,
             $name,
             $phone,
-            function () use ($object, $name, $phone, $valid): Contact {
+            $this->factory(function () use ($object, $name, $phone, $valid): Contact {
                 $model = new Contact();
 
                 if (!is_null($name)) {
@@ -99,7 +99,7 @@ class ContactFactory extends DependentModelFactory {
                 $model->save();
 
                 return $model;
-            },
+            }),
         );
 
         return $contact;

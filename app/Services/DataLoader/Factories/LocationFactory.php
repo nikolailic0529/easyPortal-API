@@ -102,7 +102,7 @@ class LocationFactory extends DependentModelFactory {
     }
 
     protected function country(string $code, string $name): Country {
-        $country = $this->countries->get($code, function () use ($code, $name): Country {
+        $country = $this->countries->get($code, $this->factory(function () use ($code, $name): Country {
             $country       = new Country();
             $country->code = mb_strtoupper($this->normalizer->string($code));
             $country->name = $this->normalizer->string($name);
@@ -110,7 +110,7 @@ class LocationFactory extends DependentModelFactory {
             $country->save();
 
             return $country;
-        });
+        }));
 
         return $country;
     }
@@ -119,7 +119,7 @@ class LocationFactory extends DependentModelFactory {
         $city = $this->cities->get(
             $country,
             $name,
-            function () use ($country, $name): City {
+            $this->factory(function () use ($country, $name): City {
                 $city          = new City();
                 $city->name    = $this->normalizer->string($name);
                 $city->country = $country;
@@ -127,7 +127,7 @@ class LocationFactory extends DependentModelFactory {
                 $city->save();
 
                 return $city;
-            },
+            }),
         );
 
         return $city;
@@ -142,15 +142,18 @@ class LocationFactory extends DependentModelFactory {
         string $lineTwo,
         string $state,
     ): LocationModel {
-        $location = $this->locations->get(
-            $object,
-            $country,
-            $city,
-            $postcode,
-            $lineOne,
-            $lineTwo,
-            function () use ($object, $country, $city, $postcode, $lineOne, $lineTwo, $state): LocationModel {
-                $location              = new LocationModel();
+        $factory  = $this->factory(
+            function (
+                LocationModel $location,
+            ) use (
+                $object,
+                $country,
+                $city,
+                $postcode,
+                $lineOne,
+                $lineTwo,
+                $state,
+            ): LocationModel {
                 $location->object_type = $object->getMorphClass();
                 $location->object_id   = $object->getKey();
                 $location->country     = $country;
@@ -165,11 +168,20 @@ class LocationFactory extends DependentModelFactory {
                 return $location;
             },
         );
+        $location = $this->locations->get(
+            $object,
+            $country,
+            $city,
+            $postcode,
+            $lineOne,
+            $lineTwo,
+            static function () use ($factory): LocationModel {
+                return $factory(new LocationModel());
+            },
+        );
 
-        if ($location->state === '') {
-            $location->state = $this->normalizer->string($state);
-
-            $location->save();
+        if ($location && !$location->wasRecentlyCreated) {
+            $factory($location);
         }
 
         return $location;

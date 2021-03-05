@@ -11,7 +11,7 @@ use App\Models\Status;
  */
 trait WithStatus {
     protected function status(Model $owner, string $status): Status {
-        $status = $this->statuses->get($owner, $status, function () use ($owner, $status): Status {
+        $status = $this->statuses->get($owner, $status, $this->factory(function () use ($owner, $status): Status {
             $model = new Status();
 
             $model->object_type = $owner->getMorphClass();
@@ -21,7 +21,7 @@ trait WithStatus {
             $model->save();
 
             return $model;
-        });
+        }));
 
         return $status;
     }

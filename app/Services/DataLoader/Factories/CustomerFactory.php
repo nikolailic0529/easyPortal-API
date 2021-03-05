@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\Location as LocationModel;
-use App\Models\Model;
 use App\Models\Status as StatusModel;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\DataLoaderException;
@@ -46,6 +45,7 @@ class CustomerFactory extends ModelFactory {
 
     protected ?LocationFactory $locations = null;
     protected ?ContactFactory  $contacts  = null;
+    protected ?AssetFactory    $assets    = null;
 
     public function __construct(
         LoggerInterface $logger,
@@ -69,6 +69,24 @@ class CustomerFactory extends ModelFactory {
         $this->contacts = $factory;
 
         return $this;
+    }
+
+    public function setAssetsFactory(?AssetFactory $factory): static {
+        $this->assets = $factory;
+
+        return $this;
+    }
+
+    protected function shouldUpdateLocations(): bool {
+        return (bool) $this->locations;
+    }
+
+    protected function shouldUpdateContacts(): bool {
+        return (bool) $this->contacts;
+    }
+
+    protected function shouldUpdateAssets(): bool {
+        return (bool) $this->assets;
     }
 
     // </editor-fold>
@@ -97,32 +115,32 @@ class CustomerFactory extends ModelFactory {
         // Get/Create customer
         $type     = $this->customerType($company->companyTypes);
         $status   = $this->customerStatus($company->companyTypes);
-        $customer = $this->customers->get($company->id, function () use ($company, $type, $status): Customer {
-            $customer         = new Customer();
+        $factory  = $this->factory(function (Customer $customer) use ($company, $type, $status): Customer {
             $customer->id     = $company->id;
             $customer->name   = $this->normalizer->string($company->name);
             $customer->type   = $type;
             $customer->status = $status;
 
+            if ($this->shouldUpdateContacts()) {
+                $customer->contacts = $this->customerContacts($customer, $company->companyContactPersons);
+            }
+
+            if ($this->shouldUpdateLocations()) {
+                $customer->locations = $this->customerLocations($customer, $company->locations);
+            }
+
             $customer->save();
 
             return $customer;
         });
+        $customer = $this->customers->get($company->id, static function () use ($factory): Customer {
+            return $factory(new Customer());
+        });
 
         // Update
-        $customer->name   = $this->normalizer->string($company->name);
-        $customer->type   = $type;
-        $customer->status = $status;
-
-        if ($this->contacts) {
-            $customer->contacts = $this->customerContacts($customer, $company->companyContactPersons);
+        if (!$customer->wasRecentlyCreated) {
+            $factory($customer);
         }
-
-        if ($this->locations) {
-            $customer->locations = $this->customerLocations($customer, $company->locations);
-        }
-
-        $customer->save();
 
         // Return
         return $customer;

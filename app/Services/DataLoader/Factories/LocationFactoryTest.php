@@ -29,6 +29,25 @@ class LocationFactoryTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
+     * @covers ::find
+     */
+    public function testFind(): void {
+        $factory  = $this->app->make(LocationFactory::class);
+        $customer = Customer::factory()->make();
+        $location = Location::create([
+            'zip'     => $this->faker->postcode,
+            'address' => $this->faker->streetAddress,
+            'city'    => $this->faker->city,
+        ]);
+
+        $this->flushQueryLog();
+
+        $factory->find($customer, $location);
+
+        $this->assertCount(1, $this->getQueryLog());
+    }
+
+    /**
      * @covers ::create
      *
      * @dataProvider dataProviderCreate

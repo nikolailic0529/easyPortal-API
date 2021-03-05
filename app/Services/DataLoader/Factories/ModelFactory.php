@@ -8,4 +8,10 @@ use App\Services\DataLoader\Schema\Type;
 
 abstract class ModelFactory extends Factory {
     abstract public function create(Type $type): ?Model;
+
+    public function find(Type $type): ?Model {
+        return $this->inSearchMode(function () use ($type): ?Model {
+            return $this->create($type);
+        });
+    }
 }

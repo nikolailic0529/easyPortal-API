@@ -10,7 +10,6 @@ use App\Models\Status as StatusModel;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\DataLoaderException;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Providers\StatusProvider;
 use App\Services\DataLoader\Providers\TypeProvider;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
@@ -43,6 +42,24 @@ class CustomerFactoryTest extends TestCase {
 
     // <editor-fold desc="Tests">
     // =========================================================================
+    /**
+     * @covers ::find
+     */
+    public function testFind(): void {
+        $factory = $this->app
+            ->make(CustomerFactory::class)
+            ->setLocationFactory($this->app->make(LocationFactory::class))
+            ->setContactsFactory($this->app->make(ContactFactory::class));
+        $json    = $this->getTestData()->json('~customer.json');
+        $company = Company::create($json);
+
+        $this->flushQueryLog();
+
+        $factory->find($company);
+
+        $this->assertCount(1, $this->getQueryLog());
+    }
+
     /**
      * @covers ::create
      *
