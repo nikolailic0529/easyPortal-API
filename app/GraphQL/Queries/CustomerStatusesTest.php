@@ -29,8 +29,7 @@ class CustomerStatusesTest extends TestCase {
         Closure $statusesFactory = null,
     ): void {
         // Prepare
-        $this->setTenant($tenantFactory);
-        $this->setUser($userFactory);
+        $this->setUser($userFactory, $this->setTenant($tenantFactory));
 
         if ($statusesFactory) {
             $statusesFactory($this);

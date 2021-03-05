@@ -2,11 +2,13 @@
 
 namespace Tests\DataProviders\GraphQL;
 
+use App\Models\Organization;
 use App\Models\User;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
 use Tests\GraphQL\GraphQLError;
+use Tests\TestCase;
 
 class GuestDataProvider extends ArrayDataProvider {
     public function __construct(string $root) {
@@ -19,8 +21,10 @@ class GuestDataProvider extends ArrayDataProvider {
             ],
             'user is not allowed' => [
                 new ExpectedFinal(new GraphQLError($root, ['Unauthenticated.'])),
-                static function (): ?User {
-                    return User::factory()->make();
+                static function (TestCase $test, ?Organization $organization): ?User {
+                    return User::factory()->make([
+                        'organization_id' => $organization,
+                    ]);
                 },
             ],
         ]);

@@ -30,12 +30,10 @@ class CustomerFactory extends Factory {
             'id'         => $this->faker->uuid,
             'name'       => $this->faker->company,
             'type_id'    => static function () use ($object): Type {
-                return Type::query()->where('object_type', '=', $object)->first()
-                    ?: Type::factory()->create(['object_type' => $object]);
+                return Type::factory()->create(['object_type' => $object]);
             },
             'status_id'  => static function () use ($object): Status {
-                return Status::query()->where('object_type', '=', $object)->first()
-                    ?: Status::factory()->create(['object_type' => $object]);
+                return Status::factory()->create(['object_type' => $object]);
             },
             'created_at' => Date::now(),
             'updated_at' => Date::now(),

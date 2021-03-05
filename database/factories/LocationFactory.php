@@ -33,12 +33,10 @@ class LocationFactory extends Factory {
             'line_one'    => $this->faker->streetAddress,
             'line_two'    => $this->faker->secondaryAddress,
             'country_id'  => static function (): Country {
-                return Country::query()->first()
-                    ?: Country::factory()->create();
+                return Country::factory()->create();
             },
             'city_id'     => static function (): City {
-                return City::query()->first()
-                    ?: City::factory()->create();
+                return City::factory()->create();
             },
             'lat'         => null,
             'lng'         => null,

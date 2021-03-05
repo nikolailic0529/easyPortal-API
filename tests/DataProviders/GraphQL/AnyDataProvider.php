@@ -2,9 +2,11 @@
 
 namespace Tests\DataProviders\GraphQL;
 
+use App\Models\Organization;
 use App\Models\User;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
+use Tests\TestCase;
 
 class AnyDataProvider extends ArrayDataProvider {
     public function __construct() {
@@ -17,8 +19,10 @@ class AnyDataProvider extends ArrayDataProvider {
             ],
             'user is allowed'  => [
                 new Unknown(),
-                static function (): ?User {
-                    return User::factory()->make();
+                static function (TestCase $test, ?Organization $organization): ?User {
+                    return User::factory()->make([
+                        'organization_id' => $organization,
+                    ]);
                 },
             ],
         ]);

@@ -61,7 +61,7 @@ class AuthSignUpTest extends TestCase {
             'reseller'    => $this->faker->company,
         ];
 
-        $this->setUser($userFactory);
+        $this->setUser($userFactory, $tenant);
 
         if ($dataFactory) {
             $data = $dataFactory($this, $data);

@@ -278,7 +278,9 @@ class LocationFactoryTest extends TestCase {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
         $country    = Country::factory()->create();
-        $city       = City::factory()->create();
+        $city       = City::factory()->create([
+            'country_id' => $country,
+        ]);
         $provider   = $this->app->make(CityProvider::class);
 
         $factory = new class($normalizer, $provider) extends LocationFactory {
@@ -321,6 +323,8 @@ class LocationFactoryTest extends TestCase {
         $country    = Country::factory()->create();
         $city       = City::factory()->create();
         $location   = LocationModel::factory()->create([
+            'country_id'  => $country,
+            'city_id'     => $city,
             'object_type' => $customer->getMorphClass(),
             'object_id'   => $customer->getKey(),
         ]);

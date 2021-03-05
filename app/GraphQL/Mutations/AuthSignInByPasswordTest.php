@@ -55,8 +55,7 @@ class AuthSignInByPasswordTest extends TestCase {
         //      Same for AuthSignInByCodeTest
 
         // Prepare
-        $this->setTenant($tenantFactory);
-        $this->setUser($userFactory);
+        $this->setUser($userFactory, $this->setTenant($tenantFactory));
 
         $data = [
             'username' => $this->faker->email,

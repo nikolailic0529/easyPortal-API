@@ -26,8 +26,7 @@ class UserFactory extends Factory {
         return [
             'id'                => $this->faker->uuid,
             'organization_id'   => static function (): Organization {
-                return Organization::query()->first()
-                    ?: Organization::factory()->create();
+                return Organization::factory()->create();
             },
             'given_name'        => $this->faker->firstName,
             'family_name'       => $this->faker->lastName,

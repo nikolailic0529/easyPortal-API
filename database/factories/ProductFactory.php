@@ -29,12 +29,10 @@ class ProductFactory extends Factory {
         return [
             'id'         => $this->faker->uuid,
             'oem_id'     => static function (): Oem {
-                return Oem::query()->first()
-                    ?: Oem::factory()->create();
+                return Oem::factory()->create();
             },
             'type_id'    => static function () use ($object): Type {
-                return Type::query()->where('object_type', '=', $object)->first()
-                    ?: Type::factory()->create(['object_type' => $object]);
+                return Type::factory()->create(['object_type' => $object]);
             },
             'sku'        => $this->faker->uuid,
             'name'       => $this->faker->sentence,
