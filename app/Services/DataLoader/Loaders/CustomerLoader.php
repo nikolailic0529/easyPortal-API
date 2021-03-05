@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Loaders;
 
 use App\Services\DataLoader\Client;
+use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
 use App\Services\DataLoader\Factories\LocationFactory;
@@ -19,6 +20,7 @@ class CustomerLoader extends Loader {
         protected CustomerFactory $customers,
         protected LocationFactory $locations,
         protected ContactFactory $contacts,
+        protected AssetFactory $assets,
     ) {
         parent::__construct($logger, $client);
     }
@@ -42,6 +44,12 @@ class CustomerLoader extends Loader {
 
     public function withContacts(bool $with): static {
         $this->customers->setContactsFactory($with ? $this->contacts : null);
+
+        return $this;
+    }
+
+    public function withAssets(bool $with): static {
+        $this->customers->setAssetsFactory($with ? $this->assets : null);
 
         return $this;
     }
