@@ -37,14 +37,19 @@ abstract class Provider {
         // Nope. Trying to find or create
         $key   = $this->normalizer->key($key);
         $model = $this->getFindQuery($key)?->first();
+        $cache = $this->getCache();
 
         if (!$model && $factory) {
-            $model = $factory($this->normalizer);
+            try {
+                $model = $factory($this->normalizer);
+            } catch (FactoryObjectNotFoundException $exception) {
+                $cache->putNull($key);
+
+                throw $exception;
+            }
         }
 
         // Put into cache
-        $cache = $this->getCache();
-
         if ($model) {
             $cache->put($model);
         } else {

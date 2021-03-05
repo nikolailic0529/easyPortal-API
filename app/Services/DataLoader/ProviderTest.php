@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader;
 
 use App\Models\Model;
+use App\Services\DataLoader\Cache\Cache;
 use Closure;
 use Exception;
 use Tests\TestCase;
@@ -55,5 +56,33 @@ class ProviderTest extends TestCase {
         $this->assertSame($value, $provider->resolve($uuid, static function (): void {
             throw new Exception();
         }));
+    }
+    /**
+     * @covers ::resolve
+     */
+    public function testResolveFactoryObjectNotFoundException(): void {
+        $exception  = null;
+        $normalizer = $this->app->make(Normalizer::class);
+        $provider   = new class($normalizer) extends Provider {
+            public function resolve(mixed $key, Closure $factory = null): ?Model {
+                return parent::resolve($key, $factory);
+            }
+
+            public function getCache(): Cache {
+                return parent::getCache();
+            }
+        };
+
+        try {
+            $provider->resolve(123, static function (): void {
+                throw new FactoryObjectNotFoundException();
+            });
+        } catch (FactoryObjectNotFoundException $exception) {
+            // empty
+        }
+
+        $this->assertNotNull($exception);
+        $this->assertInstanceOf(FactoryObjectNotFoundException::class, $exception);
+        $this->assertTrue($provider->getCache()->has(123));
     }
 }
