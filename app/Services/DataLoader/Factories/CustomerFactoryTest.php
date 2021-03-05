@@ -176,7 +176,10 @@ class CustomerFactoryTest extends TestCase {
         };
 
         // Prepare
-        $factory = $this->app->make(CustomerFactory::class);
+        $factory = $this->app
+            ->make(CustomerFactory::class)
+            ->setLocationFactory($this->app->make(LocationFactory::class))
+            ->setContactsFactory($this->app->make(ContactFactory::class));
 
         // Test
         $file     = $this->faker->randomElement(['~customer.json', '~reseller.json']);
@@ -220,6 +223,25 @@ class CustomerFactoryTest extends TestCase {
             $getCompanyContacts($company),
             $getCustomerContacts($updated),
         );
+    }
+
+    /**
+     * @covers ::create
+     * @covers ::createFromCompany
+     */
+    public function testCreateFromCompanyCustomerOnly(): void {
+        // Prepare
+        $factory = $this->app->make(CustomerFactory::class);
+
+        // Test
+        $json     = $this->getTestData()->json('~customer-only.json');
+        $company  = Company::create($json);
+        $customer = $factory->create($company);
+
+        $this->assertNotNull($customer);
+        $this->assertTrue($customer->wasRecentlyCreated);
+        $this->assertEquals($company->id, $customer->getKey());
+        $this->assertEquals($company->name, $customer->name);
     }
 
     /**

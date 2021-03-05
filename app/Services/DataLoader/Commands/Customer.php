@@ -32,6 +32,9 @@ class Customer extends Command {
         $ids    = array_unique($this->argument('id'));
         $bar    = $this->output->createProgressBar(count($ids));
 
+        $loader->withLocations(true);
+        $loader->withContacts(true);
+
         $bar->start();
 
         foreach ($ids as $id) {

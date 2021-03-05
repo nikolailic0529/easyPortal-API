@@ -39,18 +39,37 @@ use function sprintf;
  * @internal
  */
 class CustomerFactory extends ModelFactory {
+    protected ?LocationFactory $locations = null;
+    protected ?ContactFactory  $contacts  = null;
+
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
         protected TypeProvider $types,
         protected StatusProvider $statuses,
-        protected LocationFactory $locations,
         protected CustomerProvider $customers,
-        protected ContactFactory $contacts,
     ) {
         parent::__construct($logger, $normalizer);
     }
 
+    // <editor-fold desc="Settings">
+    // =========================================================================
+    public function setLocationFactory(?LocationFactory $factory): static {
+        $this->locations = $factory;
+
+        return $this;
+    }
+
+    public function setContactsFactory(?ContactFactory $factory): static {
+        $this->contacts = $factory;
+
+        return $this;
+    }
+
+    // </editor-fold>
+
+    // <editor-fold desc="Factory">
+    // =========================================================================
     public function create(Type $type): ?Customer {
         $model = null;
 
@@ -65,7 +84,10 @@ class CustomerFactory extends ModelFactory {
 
         return $model;
     }
+    // </editor-fold>
 
+    // <editor-fold desc="Functions">
+    // =========================================================================
     protected function createFromCompany(Company $company): Customer {
         // Get/Create customer
         $type     = $this->customerType($company->companyTypes);
@@ -83,11 +105,17 @@ class CustomerFactory extends ModelFactory {
         });
 
         // Update
-        $customer->name      = $this->normalizer->string($company->name);
-        $customer->type      = $type;
-        $customer->status    = $status;
-        $customer->contacts  = $this->customerContacts($customer, $company->companyContactPersons);
-        $customer->locations = $this->customerLocations($customer, $company->locations);
+        $customer->name   = $this->normalizer->string($company->name);
+        $customer->type   = $type;
+        $customer->status = $status;
+
+        if ($this->contacts) {
+            $customer->contacts = $this->customerContacts($customer, $company->companyContactPersons);
+        }
+
+        if ($this->locations) {
+            $customer->locations = $this->customerLocations($customer, $company->locations);
+        }
 
         $customer->save();
 
@@ -172,11 +200,15 @@ class CustomerFactory extends ModelFactory {
     }
 
     protected function location(Customer $customer, Location $location): ?LocationModel {
-        return $this->locations->create($customer, $location);
+        return $this->locations
+            ? $this->locations->create($customer, $location)
+            : null;
     }
 
     protected function contact(Customer $customer, CompanyContactPerson $person): ?Contact {
-        return $this->contacts->create($customer, $person);
+        return $this->contacts
+            ? $this->contacts->create($customer, $person)
+            : null;
     }
 
     protected function type(Model $owner, string $type): TypeModel {
@@ -226,7 +258,7 @@ class CustomerFactory extends ModelFactory {
             $model = $factory($customer, $object);
 
             if (!$model) {
-                $this->logger->warning('Found invalid contact.', [
+                $this->logger->warning('Found invalid object.', [
                     'customer' => $customer,
                     'object'   => $object,
                 ]);
@@ -261,4 +293,5 @@ class CustomerFactory extends ModelFactory {
         // Return
         return iterator_to_array($models);
     }
+    //</editor-fold>
 }
