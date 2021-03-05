@@ -37,6 +37,11 @@ class LocationFactory extends DependentModelFactory {
         parent::__construct($logger, $normalizer);
     }
 
+    public function find(Model $object, Type $type): ?LocationModel {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return parent::find($object, $type);
+    }
+
     public function create(Model $object, Type $type): ?LocationModel {
         $model = null;
 

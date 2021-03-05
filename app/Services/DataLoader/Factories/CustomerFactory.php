@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\Location as LocationModel;
+use App\Models\Model;
 use App\Models\Status as StatusModel;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\DataLoaderException;
@@ -93,6 +94,11 @@ class CustomerFactory extends ModelFactory {
 
     // <editor-fold desc="Factory">
     // =========================================================================
+    public function find(Type $type): ?Customer {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return parent::find($type);
+    }
+
     public function create(Type $type): ?Customer {
         $model = null;
 

@@ -29,6 +29,11 @@ class ContactFactory extends DependentModelFactory {
         parent::__construct($logger, $normalizer);
     }
 
+    public function find(Model $object, Type $type): ?Contact {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return parent::find($object, $type);
+    }
+
     public function create(Model $object, Type $type): ?Contact {
         $model = null;
 
