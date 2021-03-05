@@ -18,6 +18,7 @@ use function sprintf;
  * @property string                                                         $type_id
  * @property string                                                         $status_id
  * @property string                                                         $name
+ * @property int                                                            $assets_count
  * @property \Carbon\CarbonImmutable                                        $created_at
  * @property \Carbon\CarbonImmutable                                        $updated_at
  * @property \Carbon\CarbonImmutable|null                                   $deleted_at
@@ -30,6 +31,7 @@ use function sprintf;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereAssetsCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereId($value)
@@ -97,6 +99,11 @@ class Customer extends Model {
                 'Related model should be instance of `%s`.',
                 PolymorphicModel::class,
             ));
+        }
+
+        // Object should exist
+        if (!$this->exists) {
+            $this->save();
         }
 
         // Create/Update existing
