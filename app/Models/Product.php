@@ -4,16 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use InvalidArgumentException;
-
-use function sprintf;
 
 /**
  * Product.
  *
  * @property string                       $id
  * @property string                       $oem_id
- * @property string                       $type_id
  * @property string                       $sku
  * @property string                       $name
  * @property \Carbon\CarbonImmutable|null $eol
@@ -23,7 +19,6 @@ use function sprintf;
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
  * @property \App\Models\Oem              $oem
- * @property \App\Models\Type             $type
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product query()
@@ -36,7 +31,6 @@ use function sprintf;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereOemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereSku($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereUpdatedAt($value)
  * @mixin \Eloquent
  */
@@ -70,21 +64,5 @@ class Product extends Model {
 
     public function setOemAttribute(Oem $oem): void {
         $this->oem()->associate($oem);
-    }
-
-    public function type(): BelongsTo {
-        return $this->belongsTo(Type::class);
-    }
-
-    public function setTypeAttribute(Type $type): void {
-        if ($type->object_type !== $this->getMorphClass()) {
-            throw new InvalidArgumentException(sprintf(
-                'The `$type` related to `%s`, `%s` required.',
-                $type->object_type,
-                $this->getMorphClass(),
-            ));
-        }
-
-        $this->type()->associate($type);
     }
 }

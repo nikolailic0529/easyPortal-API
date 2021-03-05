@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Oem;
 use App\Models\Product;
-use App\Models\Type;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
@@ -24,15 +23,10 @@ class ProductFactory extends Factory {
      * @return array<mixed>
      */
     public function definition(): array {
-        $object = $this->newModel()->getMorphClass();
-
         return [
             'id'         => $this->faker->uuid,
             'oem_id'     => static function (): Oem {
                 return Oem::factory()->create();
-            },
-            'type_id'    => static function () use ($object): Type {
-                return Type::factory()->create(['object_type' => $object]);
             },
             'sku'        => $this->faker->uuid,
             'name'       => $this->faker->sentence,

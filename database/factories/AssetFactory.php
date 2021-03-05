@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
+use App\Models\Type;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
@@ -30,6 +31,11 @@ class AssetFactory extends Factory {
             'id'            => $this->faker->uuid,
             'oem_id'        => static function (): Oem {
                 return Oem::factory()->create();
+            },
+            'type_id'       => function (): Type {
+                return Type::factory()->create([
+                    'object_type' => $this->newModel()->getMorphClass(),
+                ]);
             },
             'product_id'    => static function (array $properties): Product {
                 return Product::factory()->create(['oem_id' => $properties['oem_id']]);

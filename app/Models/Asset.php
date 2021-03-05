@@ -56,6 +56,22 @@ class Asset extends Model {
         $this->oem()->associate($oem);
     }
 
+    public function type(): BelongsTo {
+        return $this->belongsTo(Type::class);
+    }
+
+    public function setTypeAttribute(Type $type): void {
+        if ($type->object_type !== $this->getMorphClass()) {
+            throw new InvalidArgumentException(sprintf(
+                'The `$type` related to `%s`, `%s` required.',
+                $type->object_type,
+                $this->getMorphClass(),
+            ));
+        }
+
+        $this->type()->associate($type);
+    }
+
     public function product(): BelongsTo {
         return $this->belongsTo(Product::class);
     }
