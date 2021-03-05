@@ -9,6 +9,8 @@ use App\Models\Model;
 use App\Models\Status as StatusModel;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\DataLoaderException;
+use App\Services\DataLoader\Factories\Concerns\WithStatus;
+use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Providers\CustomerProvider;
 use App\Services\DataLoader\Providers\StatusProvider;
@@ -39,6 +41,9 @@ use function sprintf;
  * @internal
  */
 class CustomerFactory extends ModelFactory {
+    use WithType;
+    use WithStatus;
+
     protected ?LocationFactory $locations = null;
     protected ?ContactFactory  $contacts  = null;
 
@@ -209,38 +214,6 @@ class CustomerFactory extends ModelFactory {
         return $this->contacts
             ? $this->contacts->create($customer, $person)
             : null;
-    }
-
-    protected function type(Model $owner, string $type): TypeModel {
-        $type = $this->types->get($owner, $type, function () use ($owner, $type): TypeModel {
-            $model = new TypeModel();
-
-            $model->object_type = $owner->getMorphClass();
-            $model->key         = $this->normalizer->string($type);
-            $model->name        = $this->normalizer->string($type);
-
-            $model->save();
-
-            return $model;
-        });
-
-        return $type;
-    }
-
-    protected function status(Model $owner, string $status): StatusModel {
-        $status = $this->statuses->get($owner, $status, function () use ($owner, $status): StatusModel {
-            $model = new StatusModel();
-
-            $model->object_type = $owner->getMorphClass();
-            $model->key         = $this->normalizer->string($status);
-            $model->name        = $this->normalizer->string($status);
-
-            $model->save();
-
-            return $model;
-        });
-
-        return $status;
     }
 
     /**
