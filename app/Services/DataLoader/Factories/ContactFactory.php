@@ -20,7 +20,7 @@ use function sprintf;
 /**
  * @internal
  */
-class ContactFactory extends PolymorphicFactory {
+class ContactFactory extends DependentModelFactory {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
