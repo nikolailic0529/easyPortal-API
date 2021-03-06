@@ -12,7 +12,10 @@
         },
         "CustomerStatus": {
             "type": "object",
-            "required": ["id", "name"],
+            "required": [
+                "id", 
+                "name"
+            ],
             "properties": {
                 "id": {
                     "$ref": "#/definitions/ID"
@@ -26,8 +29,14 @@
             "$ref": "#/definitions/CustomerStatus"
         },
         "Customer": {
+            "additionProperties": false,
             "type": "object",
-            "required": ["id"],
+            "required": [
+                "id",
+                "name",
+                "locations_count",
+                "locations"
+            ],
             "properties": {
                 "id": {
                     "$ref": "#/definitions/ID"

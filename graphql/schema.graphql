@@ -23,7 +23,7 @@ type Query {
     ): [Customer!]! @paginate
 
     "Customer with given ID"
-    customer(id: ID! @eq): Customer @find
+    customer(id: ID! @eq): Customer! @guard @find
 }
 
 enum CustomersWhereColumns {

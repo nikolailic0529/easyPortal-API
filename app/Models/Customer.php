@@ -9,10 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
-use Illuminate\Support\Facades\Schema;
 
-use function sprintf;
 use function count;
+use function sprintf;
 
 /**
  * Customer.
@@ -21,15 +20,13 @@ use function count;
  * @property string                                                           $type_id
  * @property string                                                           $status_id
  * @property string                                                           $name
+ * @property int                                                              $locations_count
  * @property int                                                              $assets_count
  * @property \Carbon\CarbonImmutable                                          $created_at
  * @property \Carbon\CarbonImmutable                                          $updated_at
  * @property \Carbon\CarbonImmutable|null                                     $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset> $assets
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>    $contacts
- * @property-read int|null                                                    $contacts_count
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>   $locations
- * @property-read int|null                                                    $locations_count
  * @property \App\Models\Status                                               $status
  * @property \App\Models\Type                                                 $type
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newModelQuery()
@@ -70,6 +67,7 @@ class Customer extends Model {
      */
     public function setLocationsAttribute(Collection|array $locations): void {
         $this->syncMorphMany('locations', $locations);
+        $this->locations_count = count($locations);
     }
 
     public function contacts(): MorphMany {
@@ -154,12 +152,7 @@ class Customer extends Model {
         foreach ($existing as $object) {
             $object->delete();
         }
-        // Update count
-        $count_property = $relation."_count";
-        if(Schema::hasColumn($this->getTable() , $count_property)){
-            $this->{$count_property} = count($objects);
-        }
-        
+
         // Reset relation
         unset($this->{$relation});
     }

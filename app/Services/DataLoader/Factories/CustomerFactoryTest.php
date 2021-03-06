@@ -292,7 +292,7 @@ class CustomerFactoryTest extends TestCase {
             $location->locationType = $this->faker->word;
         });
         $actual = $factory->customerLocations($customer, [$ca, $cb]);
-        $first  = reset($actual);
+        $first = reset($actual);
 
         $this->assertCount(1, $actual);
         $this->assertCount(2, $first->types);
