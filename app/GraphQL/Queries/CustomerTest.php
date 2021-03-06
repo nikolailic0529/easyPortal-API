@@ -3,7 +3,6 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Customer;
-use App\Models\Location;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -12,6 +11,8 @@ use Tests\DataProviders\GraphQL\UserDataProvider;
 use Tests\DataProviders\TenantDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+
+use function sprintf;
 
 /**
  * @internal
@@ -31,8 +32,7 @@ class CustomerTest extends TestCase {
         // Prepare
         $this->setTenant($tenantFactory);
         $this->setUser($userFactory);
-        
-        $customer_id = "wrong";
+        $customer_id = 'wrong';
         if ($customerFactory) {
             $customer_id = $customerFactory($this)->id;
         } else {
@@ -74,11 +74,11 @@ class CustomerTest extends TestCase {
                                 'locations_count' => 1,
                                 'contacts_count'  => null,
                                 'locations'       => [
-                                    [ 
-                                        'state' => 'state1',
-                                        'postcode' => '19911'
+                                    [
+                                        'state'    => 'state1',
+                                        'postcode' => '19911',
                                     ],
-                                ]
+                                ],
                             ],
                         ],
                     ]),
@@ -87,7 +87,7 @@ class CustomerTest extends TestCase {
                         // Customer::factory()->create();
 
                         // This should
-                        $customer            = Customer::factory()
+                        $customer = Customer::factory()
                         ->hasLocations(1, [
                             'state'    => 'state1',
                             'postcode' => '19911',
