@@ -155,7 +155,9 @@ class AssetFactory extends ModelFactory {
         string $eos,
     ): Product {
         // Get/Create
-        $factory = $this->factory(function (Product $product) use ($oem, $sku, $name, $eol, $eos): Product {
+        $created = false;
+        $factory = $this->factory(function (Product $product) use (&$created, $oem, $sku, $name, $eol, $eos): Product {
+            $created       = !$product->exists;
             $product->oem  = $oem;
             $product->sku  = $this->normalizer->string($sku);
             $product->name = $this->normalizer->string($name);
@@ -175,7 +177,7 @@ class AssetFactory extends ModelFactory {
         );
 
         // Update
-        if (!$product->wasRecentlyCreated) {
+        if (!$created) {
             $factory(new Product());
         }
 
@@ -193,10 +195,12 @@ class AssetFactory extends ModelFactory {
         string $serialNumber,
     ): AssetModel {
         // Get/Create
+        $created = false;
         $factory = $this->factory(
             function (
                 AssetModel $asset,
             ) use (
+                &$created,
                 $id,
                 $oem,
                 $type,
@@ -205,6 +209,7 @@ class AssetFactory extends ModelFactory {
                 $location,
                 $serialNumber,
             ): AssetModel {
+                $created              = !$asset->exists;
                 $asset->id            = $id;
                 $asset->oem           = $oem;
                 $asset->type          = $type;
@@ -226,7 +231,7 @@ class AssetFactory extends ModelFactory {
         );
 
         // Update
-        if (!$asset->wasRecentlyCreated) {
+        if (!$created) {
             $factory($asset);
         }
 

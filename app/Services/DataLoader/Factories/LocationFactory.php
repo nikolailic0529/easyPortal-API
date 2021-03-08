@@ -147,10 +147,12 @@ class LocationFactory extends DependentModelFactory {
         string $lineTwo,
         string $state,
     ): LocationModel {
+        $created  = false;
         $factory  = $this->factory(
             function (
                 LocationModel $location,
             ) use (
+                &$created,
                 $object,
                 $country,
                 $city,
@@ -159,6 +161,7 @@ class LocationFactory extends DependentModelFactory {
                 $lineTwo,
                 $state,
             ): LocationModel {
+                $created               = !$location->exists;
                 $location->object_type = $object->getMorphClass();
                 $location->object_id   = $object->getKey();
                 $location->country     = $country;
@@ -185,7 +188,7 @@ class LocationFactory extends DependentModelFactory {
             },
         );
 
-        if ($location && !$location->wasRecentlyCreated) {
+        if (!$created) {
             $factory($location);
         }
 

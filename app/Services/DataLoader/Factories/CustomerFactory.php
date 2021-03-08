@@ -121,7 +121,9 @@ class CustomerFactory extends ModelFactory {
         // Get/Create customer
         $type     = $this->customerType($company->companyTypes);
         $status   = $this->customerStatus($company->companyTypes);
-        $factory  = $this->factory(function (Customer $customer) use ($company, $type, $status): Customer {
+        $created  = false;
+        $factory  = $this->factory(function (Customer $customer) use (&$created, $company, $type, $status): Customer {
+            $created          = !$customer->exists;
             $customer->id     = $company->id;
             $customer->name   = $this->normalizer->string($company->name);
             $customer->type   = $type;
@@ -144,7 +146,7 @@ class CustomerFactory extends ModelFactory {
         });
 
         // Update
-        if (!$customer->wasRecentlyCreated) {
+        if (!$created) {
             $factory($customer);
         }
 

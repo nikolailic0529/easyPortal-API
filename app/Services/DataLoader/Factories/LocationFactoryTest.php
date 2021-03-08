@@ -338,16 +338,17 @@ class LocationFactoryTest extends TestCase {
     public function testLocation(): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
-        $customer   = Customer::factory()->create();
-        $country    = Country::factory()->create();
-        $city       = City::factory()->create();
-        $location   = LocationModel::factory()->create([
-            'country_id'  => $country,
-            'city_id'     => $city,
-            'object_type' => $customer->getMorphClass(),
-            'object_id'   => $customer->getKey(),
-        ]);
         $provider   = $this->app->make(LocationProvider::class);
+        $customer   = Customer::factory()->create();
+        $location   = LocationModel::factory()
+            ->hasCountry(Country::factory())
+            ->hasCity(City::factory())
+            ->create([
+                'object_type' => $customer->getMorphClass(),
+                'object_id'   => $customer->getKey(),
+            ]);
+        $country    = $location->country;
+        $city       = $location->city;
 
         $factory = new class($normalizer, $provider) extends LocationFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
