@@ -9,6 +9,7 @@ use App\Models\Oem;
 use App\Models\Product;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\DataLoaderException;
+use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Providers\AssetProvider;
@@ -24,6 +25,7 @@ use Psr\Log\LoggerInterface;
 use function sprintf;
 
 class AssetFactory extends ModelFactory {
+    use WithOem;
     use WithType;
 
     protected ?CustomerFactory $customerFactory = null;
@@ -143,21 +145,6 @@ class AssetFactory extends ModelFactory {
         }
 
         return $location;
-    }
-
-    protected function oem(string $abbr, string $name): Oem {
-        $oem = $this->oems->get($abbr, $this->factory(function () use ($abbr, $name): Oem {
-            $model = new Oem();
-
-            $model->abbr = $this->normalizer->string($abbr);
-            $model->name = $this->normalizer->string($name);
-
-            $model->save();
-
-            return $model;
-        }));
-
-        return $oem;
     }
 
     protected function product(
