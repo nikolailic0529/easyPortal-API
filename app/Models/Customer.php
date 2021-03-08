@@ -26,6 +26,8 @@ use function sprintf;
  * @property \Carbon\CarbonImmutable                                          $updated_at
  * @property \Carbon\CarbonImmutable|null                                     $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset> $assets
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>    $contacts
+ * @property-read int|null                                                    $contacts_count
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>   $locations
  * @property \App\Models\Status                                               $status
  * @property \App\Models\Type                                                 $type

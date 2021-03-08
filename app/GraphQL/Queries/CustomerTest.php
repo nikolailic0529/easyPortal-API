@@ -12,15 +12,13 @@ use Tests\DataProviders\TenantDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
-use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\CustomerTypes
+ * @coversNothing
  */
 class CustomerTest extends TestCase {
     /**
-     * @covers ::__invoke
      * @dataProvider dataProviderQuery
      */
     public function testQuery(
@@ -32,26 +30,29 @@ class CustomerTest extends TestCase {
         // Prepare
         $this->setTenant($tenantFactory);
         $this->setUser($userFactory);
-        $customer_id = 'wrong';
+
+        $customerId = 'wrong';
+
         if ($customerFactory) {
-            $customer_id = $customerFactory($this)->id;
-        } else {
-            // code here
+            $customerId = $customerFactory($this)->id;
         }
+
         // Test
-        $query = sprintf('{
-            customer(id:"%s") {
-                id
-                name
-                locations_count
-                contacts_count
-                locations {
-                    state
-                    postcode
+        $this
+            ->graphQL(/** @lang GraphQL */ '
+                query customer($id: ID!) {
+                    customer(id: $id) {
+                        id
+                        name
+                        locations_count
+                        locations {
+                            state
+                            postcode
+                        }
+                    }
                 }
-            }
-        }', $customer_id);
-        $this->graphQL(/** @lang GraphQL */ $query)->assertThat($expected);
+            ', ['id' => $customerId])
+            ->assertThat($expected);
     }
     // </editor-fold>
 
@@ -72,7 +73,6 @@ class CustomerTest extends TestCase {
                                 'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                 'name'            => 'name aaa',
                                 'locations_count' => 1,
-                                'contacts_count'  => null,
                                 'locations'       => [
                                     [
                                         'state'    => 'state1',
@@ -83,10 +83,6 @@ class CustomerTest extends TestCase {
                         ],
                     ]),
                     static function (): Customer {
-                        // This should not be returned
-                        // Customer::factory()->create();
-
-                        // This should
                         $customer = Customer::factory()
                         ->hasLocations(1, [
                             'state'    => 'state1',

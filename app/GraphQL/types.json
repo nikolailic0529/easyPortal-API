@@ -13,7 +13,7 @@
         "CustomerStatus": {
             "type": "object",
             "required": [
-                "id", 
+                "id",
                 "name"
             ],
             "properties": {
@@ -43,6 +43,12 @@
                 },
                 "name": {
                     "type": "string"
+                },
+                "locations": {
+                    "type": "array"
+                },
+                "locations_count":{
+                    "type": "integer"
                 }
             }
         }

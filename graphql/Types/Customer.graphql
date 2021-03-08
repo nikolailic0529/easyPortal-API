@@ -4,6 +4,5 @@ type Customer {
     type: CustomerType!
     status: CustomerStatus!
     locations_count: Int!
-    contacts_count: Int # Will be update when creating contacts
     locations: [Location]! @morphMany
 }
