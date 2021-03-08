@@ -14,7 +14,7 @@ use JetBrains\PhpStorm\Pure;
  * @internal
  */
 class TypeProvider extends Provider {
-    public function get(Model $model, string $key, Closure $factory): Type {
+    public function get(Model $model, string $key, Closure $factory = null): ?Type {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($this->getUniqueKey($model, $key), $factory);
     }

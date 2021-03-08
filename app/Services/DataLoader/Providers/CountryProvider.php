@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @internal
  */
 class CountryProvider extends Provider {
-    public function get(string $code, Closure $factory): Country {
+    public function get(string $code, Closure $factory = null): ?Country {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($code, $factory);
     }

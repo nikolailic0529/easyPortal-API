@@ -15,14 +15,14 @@ use JetBrains\PhpStorm\Pure;
  * @internal
  */
 class ProductProvider extends Provider {
-    public function get(Oem $oem, string $sku, Closure $factory): Product {
+    public function get(Oem $oem, string $sku, Closure $factory = null): ?Product {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($this->getUniqueKey($oem, $sku), $factory);
     }
 
     protected function getFindQuery(mixed $key): ?Builder {
         return Product::query()
-            ->where('oem_id', '=', $key['oem'])
+            ->where('oem_id', '=', $key['oem_id'])
             ->where('sku', '=', $key['sku']);
     }
 
@@ -43,8 +43,8 @@ class ProductProvider extends Provider {
     #[Pure]
     protected function getUniqueKey(Oem|string $oem, string $sku): array {
         return [
-            'oem' => $oem instanceof Model ? $oem->getKey() : $oem,
-            'sku' => $sku,
+            'oem_id' => $oem instanceof Model ? $oem->getKey() : $oem,
+            'sku'    => $sku,
         ];
     }
 }

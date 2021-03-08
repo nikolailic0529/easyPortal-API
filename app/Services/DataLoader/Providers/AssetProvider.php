@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @internal
  */
 class AssetProvider extends Provider {
-    public function get(string|int $id, Closure $factory): Asset {
+    public function get(string|int $id, Closure $factory = null): ?Asset {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($id, $factory);
     }

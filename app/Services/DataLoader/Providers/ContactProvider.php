@@ -14,7 +14,7 @@ use JetBrains\PhpStorm\Pure;
  * @internal
  */
 class ContactProvider extends Provider {
-    public function get(Model $model, ?string $name, ?string $phone, Closure $factory): Contact {
+    public function get(Model $model, ?string $name, ?string $phone, Closure $factory = null): ?Contact {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($this->getUniqueKey($model, $name, $phone), $factory);
     }
