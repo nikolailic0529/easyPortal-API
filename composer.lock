@@ -10420,12 +10420,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "2ba5393126dc291307518650ee13b3cce56bfd1e"
+                "reference": "d02296fe420483999d2ad8cd8bdceb43014dc83e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/2ba5393126dc291307518650ee13b3cce56bfd1e",
-                "reference": "2ba5393126dc291307518650ee13b3cce56bfd1e",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/d02296fe420483999d2ad8cd8bdceb43014dc83e",
+                "reference": "d02296fe420483999d2ad8cd8bdceb43014dc83e",
                 "shasum": ""
             },
             "require": {
@@ -10469,7 +10469,7 @@
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer",
                 "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
-            "time": "2021-02-14T22:40:25+00:00"
+            "time": "2021-03-05T07:46:22+00:00"
         },
         {
             "name": "symfony/psr-http-message-bridge",

@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\Location as LocationModel;
-use App\Models\Model;
 use App\Models\Status as StatusModel;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\DataLoaderException;

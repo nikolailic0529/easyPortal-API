@@ -27,11 +27,4 @@ class AssetTest extends TestCase {
             json_encode($actual),
         );
     }
-
-    public function testTT(): void {
-        $asset = Asset::create([]);
-
-
-        $this->assertNull($id);
-    }
 }
