@@ -3,9 +3,12 @@
 namespace App\Services\DataLoader\Testing;
 
 use App\Models\Customer;
+use App\Models\Location;
 use App\Models\Type as TypeModel;
+use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
+use DateTimeInterface;
 use libphonenumber\NumberParseException;
 use Propaganistas\LaravelPhone\PhoneNumber;
 
@@ -16,6 +19,12 @@ use function is_null;
 use function reset;
 
 trait Helper {
+    protected function getDatetime(?DateTimeInterface $datetime): ?string {
+        return $datetime
+            ? "{$datetime->getTimestamp()}{$datetime->format('v')}"
+            : null;
+    }
+
     protected function getCompanyType(Company $company): string {
         $types = array_unique(array_map(static function (CompanyType $type): string {
             return $type->type;
@@ -24,6 +33,9 @@ trait Helper {
         return reset($types);
     }
 
+    /**
+     * @return array<mixed>
+     */
     protected function getCompanyLocations(Company $company): array {
         $locations = [];
 
@@ -48,28 +60,23 @@ trait Helper {
         return array_values($locations);
     }
 
+    /**
+     * @return array<mixed>
+     */
     protected function getCustomerLocations(Customer $customer): array {
         $locations = [];
 
         foreach ($customer->locations as $location) {
             /** @var \App\Models\Location $location */
-            $locations[] = [
-                'postcode' => $location->postcode,
-                'state'    => $location->state,
-                'city'     => $location->city->name,
-                'line_one' => $location->line_one,
-                'line_two' => $location->line_two,
-                'types'    => $location->types
-                    ->map(static function (TypeModel $type): string {
-                        return $type->name;
-                    })
-                    ->all(),
-            ];
+            $locations[] = $this->getLocation($location);
         }
 
         return $locations;
     }
 
+    /**
+     * @return array<mixed>
+     */
     protected function getCompanyContacts(Company $company): array {
         $contacts = [];
 
@@ -105,6 +112,9 @@ trait Helper {
         return $contacts;
     }
 
+    /**
+     * @return array<mixed>
+     */
     protected function getCustomerContacts(Customer $customer): array {
         $contacts = [];
 
@@ -121,5 +131,43 @@ trait Helper {
         }
 
         return $contacts;
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    protected function getLocation(Location $location, bool $withTypes = true): array {
+        $types = [];
+
+        if ($withTypes) {
+            $types = $location->types
+                ->map(static function (TypeModel $type): string {
+                    return $type->name;
+                })
+                ->all();
+        }
+
+        return [
+            'postcode' => $location->postcode,
+            'state'    => $location->state,
+            'city'     => $location->city->name,
+            'line_one' => $location->line_one,
+            'line_two' => $location->line_two,
+            'types'    => $types,
+        ];
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    protected function getAssetLocation(Asset $asset): array {
+        return [
+            'types'    => [],
+            'postcode' => $asset->zip,
+            'state'    => '',
+            'city'     => $asset->city,
+            'line_one' => $asset->address,
+            'line_two' => '',
+        ];
     }
 }

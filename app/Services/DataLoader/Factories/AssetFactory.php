@@ -8,7 +8,8 @@ use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
 use App\Models\Type as TypeModel;
-use App\Services\DataLoader\DataLoaderException;
+use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
+use App\Services\DataLoader\Exceptions\LocationNotFoundException;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
@@ -109,9 +110,7 @@ class AssetFactory extends ModelFactory {
         $customer = null;
 
         if ($id) {
-            $customer = $this->customerProvider->get($id, static function (): ?Customer {
-                return null;
-            });
+            $customer = $this->customerProvider->get($id);
         }
 
         if (!$customer && $this->customerFactory) {
@@ -119,7 +118,7 @@ class AssetFactory extends ModelFactory {
         }
 
         if ($id && !$customer) {
-            throw new DataLoaderException(sprintf(
+            throw new CustomerNotFoundException(sprintf(
                 'Customer `%s` not found (asset `%s`).',
                 $id,
                 $asset->id,
@@ -136,7 +135,7 @@ class AssetFactory extends ModelFactory {
             $location = $this->locations->find($customer, $asset);
 
             if (!$location) {
-                throw new DataLoaderException(sprintf(
+                throw new LocationNotFoundException(sprintf(
                     'Customer `%s` location not found (asset `%s`).',
                     $customer->getKey(),
                     $asset->id,
@@ -151,8 +150,8 @@ class AssetFactory extends ModelFactory {
         Oem $oem,
         string $sku,
         string $name,
-        string $eol,
-        string $eos,
+        ?string $eol,
+        ?string $eos,
     ): Product {
         // Get/Create
         $created = false;
@@ -177,8 +176,8 @@ class AssetFactory extends ModelFactory {
         );
 
         // Update
-        if (!$created) {
-            $factory(new Product());
+        if (!$created && !$this->isSearchMode()) {
+            $factory($product);
         }
 
         // Return
@@ -190,8 +189,8 @@ class AssetFactory extends ModelFactory {
         Oem $oem,
         TypeModel $type,
         Product $product,
-        Customer $customer,
-        Location $location,
+        ?Customer $customer,
+        ?Location $location,
         string $serialNumber,
     ): AssetModel {
         // Get/Create
@@ -231,7 +230,7 @@ class AssetFactory extends ModelFactory {
         );
 
         // Update
-        if (!$created) {
+        if (!$created && !$this->isSearchMode()) {
             $factory($asset);
         }
 

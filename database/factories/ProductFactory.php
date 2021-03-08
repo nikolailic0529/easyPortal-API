@@ -30,6 +30,8 @@ class ProductFactory extends Factory {
             },
             'sku'        => $this->faker->uuid,
             'name'       => $this->faker->sentence,
+            'eol'        => Date::now()->addYear()->startOfDay(),
+            'eos'        => Date::now()->addMonth()->startOfDay(),
             'created_at' => Date::now(),
             'updated_at' => Date::now(),
             'deleted_at' => null,
