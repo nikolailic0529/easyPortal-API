@@ -5,6 +5,7 @@ namespace App\Services\DataLoader;
 use App\Models\Model;
 use App\Services\DataLoader\Cache\Cache;
 use App\Services\DataLoader\Cache\ModelKey;
+use App\Services\DataLoader\Exceptions\FactoryObjectNotFoundException;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -29,16 +30,14 @@ abstract class Provider {
     }
 
     protected function resolve(mixed $key, Closure $factory = null): ?Model {
-        // Model already inside cache?
-        if ($this->getCache()->has($key)) {
-            return $this->getCache()->get($key);
-        }
-
-        // Nope. Trying to find or create
+        // Model already in cache or can be found?
         $key   = $this->normalizer->key($key);
-        $model = $this->getFindQuery($key)?->first();
+        $model = $this->getCache()->has($key)
+            ? $this->getCache()->get($key)
+            : $this->getFindQuery($key)?->first();
         $cache = $this->getCache();
 
+        // Not found? Well, maybe we can create?
         if (!$model && $factory) {
             try {
                 $model = $factory($this->normalizer);

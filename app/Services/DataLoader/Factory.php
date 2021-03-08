@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader;
 
+use App\Services\DataLoader\Exceptions\FactoryObjectNotFoundException;
 use Closure;
 use Psr\Log\LoggerInterface;
 
