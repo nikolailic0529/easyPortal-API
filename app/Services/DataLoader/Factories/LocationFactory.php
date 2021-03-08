@@ -188,7 +188,7 @@ class LocationFactory extends DependentModelFactory {
             },
         );
 
-        if (!$created) {
+        if (!$created && !$this->isSearchMode()) {
             $factory($location);
         }
 

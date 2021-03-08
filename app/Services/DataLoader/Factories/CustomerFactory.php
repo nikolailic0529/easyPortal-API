@@ -146,7 +146,7 @@ class CustomerFactory extends ModelFactory {
         });
 
         // Update
-        if (!$created) {
+        if (!$created && !$this->isSearchMode()) {
             $factory($customer);
         }
 
