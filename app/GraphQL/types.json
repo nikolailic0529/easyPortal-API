@@ -47,7 +47,7 @@
                 "locations": {
                     "type": "array"
                 },
-                "locations_count":{
+                "locations_count": {
                     "type": "integer"
                 }
             }
