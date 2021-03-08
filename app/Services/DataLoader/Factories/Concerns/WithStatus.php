@@ -8,6 +8,8 @@ use App\Models\Status;
 /**
  * @property \App\Services\DataLoader\Normalizer               $normalizer
  * @property \App\Services\DataLoader\Providers\StatusProvider $statuses
+ *
+ * @mixin \App\Services\DataLoader\Factory
  */
 trait WithStatus {
     protected function status(Model $owner, string $status): Status {

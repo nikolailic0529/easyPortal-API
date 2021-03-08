@@ -50,7 +50,7 @@ class CustomerFactoryTest extends TestCase {
             ->make(CustomerFactory::class)
             ->setLocationFactory($this->app->make(LocationFactory::class))
             ->setContactsFactory($this->app->make(ContactFactory::class));
-        $json    = $this->getTestData()->json('~customer.json');
+        $json    = $this->getTestData()->json('~customer-full.json');
         $company = Company::create($json);
 
         $this->flushQueryLog();
@@ -199,7 +199,7 @@ class CustomerFactoryTest extends TestCase {
             ->setContactsFactory($this->app->make(ContactFactory::class));
 
         // Test
-        $file     = $this->faker->randomElement(['~customer.json', '~reseller.json']);
+        $file     = $this->faker->randomElement(['~customer-full.json', '~reseller.json']);
         $json     = $this->getTestData()->json($file);
         $company  = Company::create($json);
         $customer = $factory->create($company);

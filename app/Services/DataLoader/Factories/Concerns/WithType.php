@@ -8,6 +8,8 @@ use App\Models\Type;
 /**
  * @property \App\Services\DataLoader\Normalizer             $normalizer
  * @property \App\Services\DataLoader\Providers\TypeProvider $types
+ *
+ * @mixin \App\Services\DataLoader\Factory
  */
 trait WithType {
     protected function type(Model $owner, string $type): Type {
