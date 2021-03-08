@@ -16,20 +16,15 @@ use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Testing\Helper;
 use Closure;
 use Exception;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
-use libphonenumber\NumberParseException;
 use Mockery;
-use Propaganistas\LaravelPhone\PhoneNumber;
 use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
-use function array_map;
-use function array_unique;
-use function array_values;
-use function is_null;
 use function reset;
 use function tap;
 
@@ -39,6 +34,7 @@ use function tap;
  */
 class CustomerFactoryTest extends TestCase {
     use WithQueryLog;
+    use Helper;
 
     // <editor-fold desc="Tests">
     // =========================================================================
@@ -88,110 +84,6 @@ class CustomerFactoryTest extends TestCase {
      * @covers ::createFromCompany
      */
     public function testCreateFromCompany(): void {
-        // Helpers
-        $getCompanyType       = static function (Company $company): string {
-            $types = array_unique(array_map(static function (CompanyType $type): string {
-                return $type->type;
-            }, $company->companyTypes));
-
-            return reset($types);
-        };
-        $getCompanyLocations  = static function (Company $company): array {
-            $locations = [];
-
-            foreach ($company->locations as $location) {
-                // Add to array
-                $key = "{$location->zip}/{$location->zip}/{$location->address}";
-
-                if (isset($locations[$key])) {
-                    $locations[$key]['types'][] = $location->locationType;
-                } else {
-                    $locations[$key] = [
-                        'types'    => [$location->locationType],
-                        'postcode' => $location->zip,
-                        'state'    => '',
-                        'city'     => $location->city,
-                        'line_one' => $location->address,
-                        'line_two' => '',
-                    ];
-                }
-            }
-
-            return array_values($locations);
-        };
-        $getCustomerLocations = static function (Customer $customer): array {
-            $locations = [];
-
-            foreach ($customer->locations as $location) {
-                /** @var \App\Models\Location $location */
-                $locations[] = [
-                    'postcode' => $location->postcode,
-                    'state'    => $location->state,
-                    'city'     => $location->city->name,
-                    'line_one' => $location->line_one,
-                    'line_two' => $location->line_two,
-                    'types'    => $location->types
-                        ->map(static function (TypeModel $type): string {
-                            return $type->name;
-                        })
-                        ->all(),
-                ];
-            }
-
-            return $locations;
-        };
-        $getCompanyContacts   = static function (Company $company): array {
-            $contacts = [];
-
-            foreach ($company->companyContactPersons as $person) {
-                // Empty?
-                if (is_null($person->name) && is_null($person->phoneNumber)) {
-                    continue;
-                }
-
-                // Convert phone
-                $phone = $person->phoneNumber;
-
-                try {
-                    $phone = PhoneNumber::make($phone)->formatE164();
-                } catch (NumberParseException) {
-                    // empty
-                }
-
-                // Add to array
-                $key = "{$person->name}/{$phone}";
-
-                if (isset($contacts[$key])) {
-                    $contacts[$key]['types'][] = $person->type;
-                } else {
-                    $contacts[$key] = [
-                        'name'  => $person->name,
-                        'phone' => $phone,
-                        'types' => [$person->type],
-                    ];
-                }
-            }
-
-            return $contacts;
-        };
-        $getCustomerContacts  = static function (Customer $customer): array {
-            $contacts = [];
-
-            foreach ($customer->contacts as $contact) {
-                $contacts["{$contact->name}/{$contact->phone_number}"] = [
-                    'name'  => $contact->name,
-                    'phone' => $contact->phone_number,
-                    'types' => $contact->types
-                        ->map(static function (TypeModel $type): string {
-                            return $type->name;
-                        })
-                        ->all(),
-                ];
-            }
-
-            return $contacts;
-        };
-
         // Prepare
         $factory = $this->app
             ->make(CustomerFactory::class)
@@ -208,16 +100,16 @@ class CustomerFactoryTest extends TestCase {
         $this->assertTrue($customer->wasRecentlyCreated);
         $this->assertEquals($company->id, $customer->getKey());
         $this->assertEquals($company->name, $customer->name);
-        $this->assertEquals($getCompanyType($company), $customer->type->key);
+        $this->assertEquals($this->getCompanyType($company), $customer->type->key);
         $this->assertCount(1, $customer->locations);
         $this->assertEqualsCanonicalizing(
-            $getCompanyLocations($company),
-            $getCustomerLocations($customer),
+            $this->getCompanyLocations($company),
+            $this->getCustomerLocations($customer),
         );
         $this->assertCount(4, $customer->contacts);
         $this->assertEquals(
-            $getCompanyContacts($company),
-            $getCustomerContacts($customer),
+            $this->getCompanyContacts($company),
+            $this->getCustomerContacts($customer),
         );
 
         // Customer should be updated
@@ -229,16 +121,16 @@ class CustomerFactoryTest extends TestCase {
         $this->assertSame($customer, $updated);
         $this->assertEquals($company->id, $updated->getKey());
         $this->assertEquals($company->name, $updated->name);
-        $this->assertEquals($getCompanyType($company), $updated->type->key);
+        $this->assertEquals($this->getCompanyType($company), $updated->type->key);
         $this->assertCount(1, $updated->locations);
         $this->assertEqualsCanonicalizing(
-            $getCompanyLocations($company),
-            $getCustomerLocations($updated),
+            $this->getCompanyLocations($company),
+            $this->getCustomerLocations($updated),
         );
         $this->assertCount(1, $updated->contacts);
         $this->assertEquals(
-            $getCompanyContacts($company),
-            $getCustomerContacts($updated),
+            $this->getCompanyContacts($company),
+            $this->getCustomerContacts($updated),
         );
     }
 
