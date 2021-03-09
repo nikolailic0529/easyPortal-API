@@ -2,12 +2,12 @@
 
 namespace App\Services\DataLoader\Normalizers;
 
-use function strtolower;
+use function mb_strtolower;
 
 class UuidNormalizer extends StringNormalizer {
     public function normalize(mixed $value): string {
         $value = parent::normalize($value);
-        $value = strtolower($value);
+        $value = mb_strtolower($value);
 
         return $value;
     }

@@ -38,8 +38,8 @@ class CityProvider extends Provider {
     #[Pure]
     protected function getUniqueKey(Country|string $country, string $name): array {
         return [
-            'country' => $country instanceof Model ? $country->getKey() : $country,
-            'name'    => $name,
+            'country_id' => $country instanceof Model ? $country->getKey() : $country,
+            'name'       => $name,
         ];
     }
 }

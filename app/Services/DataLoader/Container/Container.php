@@ -1,7 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader;
+namespace App\Services\DataLoader\Container;
 
+use App\Services\DataLoader\Provider;
 use Illuminate\Container\Container as IlluminateContainer;
 
 use function is_a;
@@ -21,20 +22,21 @@ use function is_a;
  * @internal
  */
 class Container extends IlluminateContainer {
+    private IlluminateContainer $rootContainer;
+
     /**
      * @inheritdoc
      */
     public function resolve($abstract, $parameters = [], $raiseEvents = true) {
         $resolved = null;
 
-        if (is_a($abstract, Provider::class, true)) {
-            // All providers must be singletons (while data loading)
+        if (is_a($abstract, Singleton::class, true)) {
             if (!$this->bound($abstract)) {
                 $this->singleton($abstract);
             }
 
             $resolved = parent::resolve($abstract, $parameters, $raiseEvents);
-        } elseif (is_a($abstract, Factory::class, true)) {
+        } elseif (is_a($abstract, Isolated::class, true)) {
             $resolved = parent::resolve($abstract, $parameters, $raiseEvents);
         } else {
             // For external objects, we use the standard container, but there
@@ -42,9 +44,19 @@ class Container extends IlluminateContainer {
             // internal object it will receive a fresh instance.
             //
             // All our objects are @internal, why do you want to inject them?
-            $resolved = static::getInstance()->resolve($abstract, $parameters, $raiseEvents);
+            $resolved = $this->getRootContainer()->resolve($abstract, $parameters, $raiseEvents);
         }
 
         return $resolved;
+    }
+
+    public function getRootContainer(): IlluminateContainer {
+        return $this->rootContainer;
+    }
+
+    public function setRootContainer(IlluminateContainer $rootContainer): static {
+        $this->rootContainer = $rootContainer;
+
+        return $this;
     }
 }
