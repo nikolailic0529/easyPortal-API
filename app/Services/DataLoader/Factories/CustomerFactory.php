@@ -42,7 +42,6 @@ class CustomerFactory extends ModelFactory {
 
     protected ?LocationFactory $locations = null;
     protected ?ContactFactory  $contacts  = null;
-    protected ?AssetFactory    $assets    = null;
 
     public function __construct(
         LoggerInterface $logger,
@@ -68,12 +67,6 @@ class CustomerFactory extends ModelFactory {
         return $this;
     }
 
-    public function setAssetsFactory(?AssetFactory $factory): static {
-        $this->assets = $factory;
-
-        return $this;
-    }
-
     protected function shouldUpdateLocations(): bool {
         return (bool) $this->locations;
     }
@@ -81,11 +74,6 @@ class CustomerFactory extends ModelFactory {
     protected function shouldUpdateContacts(): bool {
         return (bool) $this->contacts;
     }
-
-    protected function shouldUpdateAssets(): bool {
-        return (bool) $this->assets;
-    }
-
     // </editor-fold>
 
     // <editor-fold desc="Factory">

@@ -15,4 +15,9 @@ return [
      * GraphQL Endpoint
      */
     'endpoint' => env('DATA_LOADER_ENDPOINT'),
+
+    /**
+     * Default limit value.
+     */
+    'limit'    => env('DATA_LOADER_LIMIT', 100),
 ];
