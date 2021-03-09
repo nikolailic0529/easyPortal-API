@@ -8,9 +8,6 @@ use App\Services\DataLoader\Provider;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
-/**
- * @internal
- */
 class OemProvider extends Provider {
     public function get(string $abbr, Closure $factory = null): ?Oem {
         /** @noinspection PhpIncompatibleReturnTypeInspection */

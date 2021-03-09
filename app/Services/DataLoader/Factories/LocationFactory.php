@@ -23,9 +23,6 @@ use function reset;
 use function sprintf;
 use function str_contains;
 
-/**
- * @internal
- */
 class LocationFactory extends DependentModelFactory {
     public function __construct(
         LoggerInterface $logger,

@@ -2,9 +2,6 @@
 
 namespace App\Services\DataLoader\Schema;
 
-/**
- * @internal
- */
 class CompanyContactPerson extends Type {
     public string|null $phoneNumber;
     public string      $vendor;

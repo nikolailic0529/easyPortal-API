@@ -9,9 +9,6 @@ use function json_encode;
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
 
-/**
- * @internal
- */
 class Normalizer extends KeyNormalizer {
     public function normalize(mixed $value): string {
         $value = parent::normalize($value);

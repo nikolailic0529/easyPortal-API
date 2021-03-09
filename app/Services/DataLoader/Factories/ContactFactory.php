@@ -17,9 +17,6 @@ use Psr\Log\LoggerInterface;
 use function is_null;
 use function sprintf;
 
-/**
- * @internal
- */
 class ContactFactory extends DependentModelFactory {
     public function __construct(
         LoggerInterface $logger,

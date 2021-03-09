@@ -5,9 +5,6 @@ namespace App\Services\DataLoader\Normalizers;
 use function preg_replace;
 use function trim;
 
-/**
- * @internal
- */
 class StringNormalizer implements Normalizer {
     public function normalize(mixed $value): string {
         $value = (string) $value;

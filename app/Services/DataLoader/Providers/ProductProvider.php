@@ -11,9 +11,6 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use JetBrains\PhpStorm\Pure;
 
-/**
- * @internal
- */
 class ProductProvider extends Provider {
     public function get(Oem $oem, string $sku, Closure $factory = null): ?Product {
         /** @noinspection PhpIncompatibleReturnTypeInspection */

@@ -11,9 +11,6 @@ use function is_string;
 use function ksort;
 use function mb_strtolower;
 
-/**
- * @internal
- */
 class KeyNormalizer implements Normalizer {
     protected StringNormalizer $normalizer;
 

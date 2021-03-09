@@ -2,9 +2,6 @@
 
 namespace App\Services\DataLoader\Schema;
 
-/**
- * @internal
- */
 class Company extends Type {
     public string $id;
     public string $name;

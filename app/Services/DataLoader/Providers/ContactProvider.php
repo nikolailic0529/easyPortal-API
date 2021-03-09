@@ -10,9 +10,6 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use JetBrains\PhpStorm\Pure;
 
-/**
- * @internal
- */
 class ContactProvider extends Provider {
     public function get(Model $model, ?string $name, ?string $phone, Closure $factory = null): ?Contact {
         /** @noinspection PhpIncompatibleReturnTypeInspection */

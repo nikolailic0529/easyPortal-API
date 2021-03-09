@@ -10,9 +10,6 @@ use function is_int;
 use function is_string;
 use function preg_match;
 
-/**
- * @internal
- */
 class DateTimeNormalizer implements Normalizer {
     public function __construct(
         protected Repository $config,

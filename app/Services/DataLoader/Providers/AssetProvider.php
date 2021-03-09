@@ -7,9 +7,6 @@ use App\Services\DataLoader\Provider;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
-/**
- * @internal
- */
 class AssetProvider extends Provider {
     public function get(string|int $id, Closure $factory = null): ?Asset {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
