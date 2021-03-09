@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Loaders;
 
-use App\Models\Asset;
 use App\Services\DataLoader\Client;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;

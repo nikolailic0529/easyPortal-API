@@ -28,8 +28,7 @@ class CustomerTest extends TestCase {
         Closure $customerFactory = null,
     ): void {
         // Prepare
-        $this->setTenant($tenantFactory);
-        $this->setUser($userFactory);
+        $this->setUser($userFactory, $this->setTenant($tenantFactory));
 
         $customerId = 'wrong';
 
