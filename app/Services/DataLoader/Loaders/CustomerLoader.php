@@ -68,6 +68,9 @@ class CustomerLoader extends Loader {
         // TODO [DataLoader] Would be good to load only necessary objects
         //      according to current settings.
 
+        // FIXME [DataLoader] We no need to cache Assets here, but it is not
+        //      possible to disable cache now.
+
         // Load company
         $company = $this->client->getCompanyById($id);
 
@@ -92,10 +95,15 @@ class CustomerLoader extends Loader {
             $assets[] = $asset?->getKey();
         }
 
+        // Update countable
+        $customer->assets_count = $customer->assets()->count();
+        $customer->save();
+
         // Some assets can be removed, we need find and update them
         $assets  = array_filter($assets);
         $factory = $this->getAssetsFactory();
-        $removed = Asset::query()
+        $removed = $customer
+            ->assets()
             ->whereNotIn('id', $assets)
             ->iterator()
             ->safe();
