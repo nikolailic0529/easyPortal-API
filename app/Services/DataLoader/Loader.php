@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader;
 
+use App\Services\DataLoader\Container\Isolated;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -10,7 +11,7 @@ use Psr\Log\LoggerInterface;
  *
  * @internal
  */
-abstract class Loader {
+abstract class Loader implements Isolated {
     public function __construct(
         protected LoggerInterface $logger,
         protected Client $client,

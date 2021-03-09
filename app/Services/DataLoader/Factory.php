@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader;
 
+use App\Services\DataLoader\Container\Isolated;
 use App\Services\DataLoader\Exceptions\FactoryObjectNotFoundException;
 use Closure;
 use Psr\Log\LoggerInterface;
@@ -15,7 +16,7 @@ use Psr\Log\LoggerInterface;
  *
  * @internal
  */
-abstract class Factory {
+abstract class Factory implements Isolated {
     private bool $searchMode = false;
 
     public function __construct(
