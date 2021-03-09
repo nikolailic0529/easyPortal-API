@@ -10,20 +10,23 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property string                       $id
  * @property string                       $oem_id
- * @property string                       $category_id
  * @property string                       $sku
  * @property string                       $name
+ * @property \Carbon\CarbonImmutable|null $eol
+ * @property \Carbon\CarbonImmutable|null $eos
+ * @property string|null                  $description
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property \App\Models\ProductCategory  $category
  * @property \App\Models\Oem              $oem
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereEol($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereEos($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereOemId($value)
@@ -34,6 +37,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Product extends Model {
     use HasFactory;
 
+    protected const CASTS = [
+        'eol' => 'date',
+        'eos' => 'date',
+    ];
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -41,19 +49,20 @@ class Product extends Model {
      */
     protected $table = 'products';
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<string>
+     */
+    protected $casts = self::CASTS + parent::CASTS;
+
     public function oem(): BelongsTo {
         return $this->belongsTo(Oem::class);
     }
 
-    public function category(): BelongsTo {
-        return $this->belongsTo(ProductCategory::class);
-    }
-
     public function setOemAttribute(Oem $oem): void {
         $this->oem()->associate($oem);
-    }
-
-    public function setCategoryAttribute(ProductCategory $category): void {
-        $this->category()->associate($category);
     }
 }

@@ -5,9 +5,6 @@ namespace App\Services\DataLoader\Schema;
 use App\Services\DataLoader\Utils\JsonFactory;
 use ReflectionClass;
 
-/**
- * @internal
- */
 abstract class Type extends JsonFactory {
     /**
      * @return array<string>

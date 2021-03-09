@@ -11,6 +11,7 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Providers\CityProvider;
 use App\Services\DataLoader\Providers\CountryProvider;
 use App\Services\DataLoader\Providers\LocationProvider;
+use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use InvalidArgumentException;
@@ -27,6 +28,25 @@ class LocationFactoryTest extends TestCase {
 
     // <editor-fold desc="Tests">
     // =========================================================================
+    /**
+     * @covers ::find
+     */
+    public function testFind(): void {
+        $factory  = $this->app->make(LocationFactory::class);
+        $customer = Customer::factory()->make();
+        $location = Location::create([
+            'zip'     => $this->faker->postcode,
+            'address' => $this->faker->streetAddress,
+            'city'    => $this->faker->city,
+        ]);
+
+        $this->flushQueryLog();
+
+        $factory->find($customer, $location);
+
+        $this->assertCount(1, $this->getQueryLog());
+    }
+
     /**
      * @covers ::create
      *
@@ -142,6 +162,96 @@ class LocationFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::createFromAsset
+     */
+    public function testCreateFromAsset(): void {
+        $customer = Customer::factory()->make();
+        $country  = Country::factory()->make();
+        $city     = City::factory()->make([
+            'country_id' => $country,
+        ]);
+        $assert   = Asset::create([
+            'zip'     => $this->faker->postcode,
+            'address' => $this->faker->streetAddress,
+            'city'    => $this->faker->city,
+        ]);
+
+        $factory = Mockery::mock(LocationFactory::class);
+        $factory->makePartial();
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->shouldReceive('country')
+            ->once()
+            ->with('??', 'Unknown Country')
+            ->andReturn($country);
+        $factory
+            ->shouldReceive('city')
+            ->once()
+            ->with($country, $assert->city)
+            ->andReturn($city);
+        $factory
+            ->shouldReceive('location')
+            ->once()
+            ->with(
+                $customer,
+                $country,
+                $city,
+                $assert->zip,
+                $assert->address,
+                '',
+                '',
+            )
+            ->andReturns();
+
+        $factory->create($customer, $assert);
+    }
+
+    /**
+     * @covers ::createFromAsset
+     */
+    public function testCreateFromAssetCityWithState(): void {
+        $customer = Customer::factory()->make();
+        $country  = Country::factory()->make();
+        $city     = City::factory()->make([
+            'country_id' => $country,
+        ]);
+        $state    = $this->faker->state;
+        $cityName = $this->faker->city;
+        $assert   = Asset::create([
+            'zip'     => $this->faker->postcode,
+            'address' => $this->faker->streetAddress,
+            'city'    => "{$cityName},  {$state}",
+        ]);
+
+        $factory = Mockery::mock(LocationFactory::class);
+        $factory->makePartial();
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->shouldReceive('country')
+            ->once()
+            ->with('??', 'Unknown Country')
+            ->andReturn($country);
+        $factory
+            ->shouldReceive('city')
+            ->once()
+            ->with($country, $cityName)
+            ->andReturn($city);
+        $factory
+            ->shouldReceive('location')
+            ->once()
+            ->with(
+                $customer,
+                $country,
+                $city,
+                $assert->zip,
+                $assert->address,
+                '',
+                "  {$state}",
+            )
+            ->andReturns();
+
+        $factory->create($customer, $assert);
+    }
+
+    /**
      * @covers ::country
      */
     public function testCountry(): void {
@@ -187,7 +297,9 @@ class LocationFactoryTest extends TestCase {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
         $country    = Country::factory()->create();
-        $city       = City::factory()->create();
+        $city       = City::factory()->create([
+            'country_id' => $country,
+        ]);
         $provider   = $this->app->make(CityProvider::class);
 
         $factory = new class($normalizer, $provider) extends LocationFactory {
@@ -226,14 +338,17 @@ class LocationFactoryTest extends TestCase {
     public function testLocation(): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
-        $customer   = Customer::factory()->create();
-        $country    = Country::factory()->create();
-        $city       = City::factory()->create();
-        $location   = LocationModel::factory()->create([
-            'object_type' => $customer->getMorphClass(),
-            'object_id'   => $customer->getKey(),
-        ]);
         $provider   = $this->app->make(LocationProvider::class);
+        $customer   = Customer::factory()->create();
+        $location   = LocationModel::factory()
+            ->hasCountry(Country::factory())
+            ->hasCity(City::factory())
+            ->create([
+                'object_type' => $customer->getMorphClass(),
+                'object_id'   => $customer->getKey(),
+            ]);
+        $country    = $location->country;
+        $city       = $location->city;
 
         $factory = new class($normalizer, $provider) extends LocationFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -328,6 +443,7 @@ class LocationFactoryTest extends TestCase {
     public function dataProviderCreate(): array {
         return [
             Location::class => ['createFromLocation', new Location()],
+            Asset::class    => ['createFromAsset', new Asset()],
             'Unknown'       => [
                 null,
                 new class() extends Type {

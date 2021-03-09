@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Providers;
 
 use App\Models\Oem;
 use App\Models\Product;
-use App\Models\ProductCategory;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -24,26 +23,21 @@ class ProductProviderTest extends TestCase {
         // Prepare
         $oemA    = Oem::factory()->create();
         $oemB    = Oem::factory()->create();
-        $catA    = ProductCategory::factory()->create();
-        $catB    = ProductCategory::factory()->create();
         $factory = static function (): Product {
             return Product::factory()->make();
         };
 
         $a = Product::factory()->create([
-            'oem_id'      => $oemA,
-            'category_id' => $catA,
-            'sku'         => 'a',
+            'oem_id' => $oemA,
+            'sku'    => 'a',
         ]);
         Product::factory()->create([
-            'oem_id'      => $oemA,
-            'category_id' => $catA,
-            'sku'         => 'b',
+            'oem_id' => $oemA,
+            'sku'    => 'b',
         ]);
         Product::factory()->create([
-            'oem_id'      => $oemA,
-            'category_id' => $catA,
-            'sku'         => 'c',
+            'oem_id' => $oemA,
+            'sku'    => 'c',
         ]);
 
         // Run
@@ -58,7 +52,6 @@ class ProductProviderTest extends TestCase {
         $this->assertEquals('a', $actual->sku);
         $this->assertEquals($a->name, $actual->name);
         $this->assertEquals($oemA, $actual->oem);
-        $this->assertEquals($catA, $actual->category);
 
         $this->flushQueryLog();
 
@@ -84,11 +77,10 @@ class ProductProviderTest extends TestCase {
         $this->flushQueryLog();
 
         // If not, the new object should be created
-        $spy     = Mockery::spy(static function () use ($oemB, $catB): Product {
+        $spy     = Mockery::spy(static function () use ($oemB): Product {
             return Product::factory()->create([
-                'oem_id'      => $oemB,
-                'category_id' => $catB,
-                'sku'         => 'unKnown',
+                'oem_id' => $oemB,
+                'sku'    => 'unKnown',
             ]);
         });
         $created = $provider->get($oemB, ' unKnown ', Closure::fromCallable($spy));

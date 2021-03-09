@@ -23,8 +23,7 @@ class MeTest extends TestCase {
      * @dataProvider dataProviderInvoke
      */
     public function testInvoke(Response $expected, Closure $tenantFactory, Closure $userFactory = null): void {
-        $this->setTenant($tenantFactory);
-        $this->setUser($userFactory);
+        $this->setUser($userFactory, $this->setTenant($tenantFactory));
 
         $this
             ->graphQL(/** @lang GraphQL */ '{

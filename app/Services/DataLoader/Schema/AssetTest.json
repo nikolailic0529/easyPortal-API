@@ -1,0 +1,20 @@
+{
+    "id": "4fcd6fd9-c220-4857-bc77-333a9c63dd09",
+    "customerId": "41e38559-7d14-4813-9409-ff3629d23962",
+    "customer": {
+        "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
+        "name": "Weber, Gusikowski and Simonis"
+    },
+    "serialNumber": "CZ12345678L",
+    "productDescription": "HP 3PAR 7000 4-pt 8Gb/s FC Adapter",
+    "description": null,
+    "assetType": "Hardware",
+    "vendor": "HPE",
+    "sku": "QR123A",
+    "eolDate": "",
+    "eosDate": "",
+    "zip": "97076",
+    "city": "Port Adanville",
+    "address": "Maddison Path Suite 820 Apt. 898",
+    "address2": "TODO"
+}

@@ -2,9 +2,6 @@
 
 namespace App\Services\DataLoader\Schema;
 
-/**
- * @internal
- */
 class Company extends Type {
     public string $id;
     public string $name;
@@ -20,4 +17,8 @@ class Company extends Type {
      * @var array<\App\Services\DataLoader\Schema\Location>
      */
     public array $locations;
+    /**
+     * @var array<\App\Services\DataLoader\Schema\Asset>
+     */
+    public array $assets;
 }

@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Oem;
 use App\Models\Product;
-use App\Models\ProductCategory;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
@@ -25,20 +24,17 @@ class ProductFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'          => $this->faker->uuid,
-            'oem_id'      => static function (): Oem {
-                return Oem::query()->first()
-                    ?: Oem::factory()->create();
+            'id'         => $this->faker->uuid,
+            'oem_id'     => static function (): Oem {
+                return Oem::factory()->create();
             },
-            'category_id' => static function (): ProductCategory {
-                return ProductCategory::query()->first()
-                    ?: ProductCategory::factory()->create();
-            },
-            'sku'         => $this->faker->uuid,
-            'name'        => $this->faker->sentence,
-            'created_at'  => Date::now(),
-            'updated_at'  => Date::now(),
-            'deleted_at'  => null,
+            'sku'        => $this->faker->uuid,
+            'name'       => $this->faker->sentence,
+            'eol'        => Date::now()->addYear()->startOfDay(),
+            'eos'        => Date::now()->addMonth()->startOfDay(),
+            'created_at' => Date::now(),
+            'updated_at' => Date::now(),
+            'deleted_at' => null,
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Asset;
 use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\Location;
@@ -33,6 +34,7 @@ class AppServiceProvider extends ServiceProvider {
             'app/customer' => Customer::class,
             'app/contact'  => Contact::class,
             'app/location' => Location::class,
+            'app/asset'    => Asset::class,
         ]);
     }
 

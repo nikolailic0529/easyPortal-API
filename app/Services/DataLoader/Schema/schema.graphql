@@ -1,0 +1,134 @@
+# This file is the dump of Tesedi Graphql schema. This file is not used directly.
+# The main reason why it here is to help track changes in the API.
+
+type Asset {
+    id: ID
+    productDescription: String
+    serialNumber: String
+    description: String
+    assetDocument: [AssetDocument]
+    zip: String
+    sourceDocument: [SourceDocument]
+    eolDate: String
+    address: String
+    eosDate: String
+    lifecycleStatus: String
+    city: String
+    address2: String
+    assetTag: String
+    assetType: String
+    resellerId: String
+    vendor: String
+    serialNumberIsGenerated: String
+    sku: String
+    vendorSpecificField: [VendorSpecificField]
+    customerId: String
+    customer: Company
+    reseller: Company
+}
+
+type AssetDocument {
+    skuNumber: String
+    endDate: String
+    productLineDescription: String
+    supportPackage: String
+    documentId: String
+    skuDescription: String
+    warrantyEndDate: String
+    supportPackageDescription: String
+    equipmentNumber: String
+    startDate: String
+    document: Document
+}
+
+type Company {
+    id: ID
+    companyContactPersons: [CompanyContactPerson]
+    vendorSpecificField: [VendorSpecificField]
+    companyTypes: [CompanyType]
+    name: String
+    locations: [Location]
+    aliases: [String]
+    assets: [Asset]
+    documents: [Document]
+}
+
+type CompanyContactPerson {
+    phoneNumber: String
+    vendor: String
+    name: String
+    type: String
+}
+
+type CompanyType {
+    vendorSpecificId: String
+    vendor: String
+    type: String
+    status: String
+}
+
+type Document {
+    id: ID
+    resellerId: String
+    documentEntries: [DocumentEntry]
+    endDate: String
+    vendorSpecificFields: DocumentVendorSpecificField
+    customerId: String
+    documentId: String
+    type: String
+    startDate: String
+    sourceDocument: [SourceDocument]
+}
+
+type DocumentEntry {
+    serialnumber: String
+    assetId: String
+    asset: Asset
+}
+
+type DocumentVendorSpecificField {
+    vendor: String
+    groupId: String
+    groupDescription: String
+    totalNetPrice: String
+    said: String
+}
+
+input KeyValuePair {
+    key: String!
+    value: String!
+}
+
+type Location {
+    zip: String
+    address: String
+    city: String
+    locationType: String
+}
+
+type Query {
+    getAssetsBySerialNumber(serialNumber: String): Asset
+    getAssetsByCustomerId(customerId: String!, limit: Int, offset: Int): [Asset]!
+    getAssetsByResellerId(resellerId: String!, limit: Int, offset: Int): [Asset]!
+    getAssetsByVendor(vendor: String!, limit: Int, offset: Int): [Asset]!
+    getDocumentsByCostumer(
+        customerId: String!
+        type: String
+        limit: Int
+        offset: Int
+    ): [Document]!
+    getAssets(args: [KeyValuePair], limit: Int, offset: Int): [Asset]!
+    getCompanyById(id: String): [Company]!
+    assets(limit: Int, offset: Int): [Asset]!
+}
+
+type SourceDocument {
+    id: String
+    timestamp: String
+}
+
+type VendorSpecificField {
+    vendor: String
+    groupID: String
+    said: String
+}

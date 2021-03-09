@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
@@ -14,22 +15,25 @@ use function sprintf;
 /**
  * Customer.
  *
- * @property string                                                         $id
- * @property string                                                         $type_id
- * @property string                                                         $status_id
- * @property string                                                         $name
- * @property \Carbon\CarbonImmutable                                        $created_at
- * @property \Carbon\CarbonImmutable                                        $updated_at
- * @property \Carbon\CarbonImmutable|null                                   $deleted_at
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>  $contacts
- * @property-read int|null                                                  $contacts_count
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location> $locations
- * @property-read int|null                                                  $locations_count
- * @property \App\Models\Status                                             $status
- * @property \App\Models\Type                                               $type
+ * @property string                                                           $id
+ * @property string                                                           $type_id
+ * @property string                                                           $status_id
+ * @property string                                                           $name
+ * @property int                                                              $assets_count
+ * @property \Carbon\CarbonImmutable                                          $created_at
+ * @property \Carbon\CarbonImmutable                                          $updated_at
+ * @property \Carbon\CarbonImmutable|null                                     $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset> $assets
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>    $contacts
+ * @property-read int|null                                                    $contacts_count
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>   $locations
+ * @property-read int|null                                                    $locations_count
+ * @property \App\Models\Status                                               $status
+ * @property \App\Models\Type                                                 $type
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereAssetsCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereId($value)
@@ -50,6 +54,10 @@ class Customer extends Model {
      * @var string
      */
     protected $table = 'customers';
+
+    public function assets(): HasMany {
+        return $this->hasMany(Asset::class);
+    }
 
     public function locations(): MorphMany {
         return $this->morphMany(Location::class, 'object');
@@ -97,6 +105,11 @@ class Customer extends Model {
                 'Related model should be instance of `%s`.',
                 PolymorphicModel::class,
             ));
+        }
+
+        // Object should exist
+        if (!$this->exists) {
+            $this->save();
         }
 
         // Create/Update existing

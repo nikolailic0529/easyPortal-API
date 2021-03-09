@@ -2,9 +2,6 @@
 
 namespace App\Services\DataLoader\Schema;
 
-/**
- * @internal
- */
 class CompanyType extends Type {
     public string $vendorSpecificId;
     public string $vendor;

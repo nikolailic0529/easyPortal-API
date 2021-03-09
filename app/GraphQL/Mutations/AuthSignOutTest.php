@@ -24,8 +24,7 @@ class AuthSignOutTest extends TestCase {
      */
     public function testInvoke(Response $expected, Closure $tenantFactory, Closure $userFactory = null): void {
         // Prepare
-        $this->setTenant($tenantFactory);
-        $this->setUser($userFactory);
+        $this->setUser($userFactory, $this->setTenant($tenantFactory));
 
         // Test
         $this

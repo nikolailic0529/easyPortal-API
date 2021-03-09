@@ -27,8 +27,7 @@ class CityFactory extends Factory {
             'id'         => $this->faker->uuid,
             'name'       => $this->faker->city,
             'country_id' => static function (): Country {
-                return Country::query()->first()
-                    ?: Country::factory()->create();
+                return Country::factory()->create();
             },
             'created_at' => Date::now(),
             'updated_at' => Date::now(),

@@ -11,11 +11,8 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use JetBrains\PhpStorm\Pure;
 
-/**
- * @internal
- */
 class CityProvider extends Provider {
-    public function get(Country $country, string $name, Closure $factory): City {
+    public function get(Country $country, string $name, Closure $factory = null): ?City {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($this->getUniqueKey($country, $name), $factory);
     }

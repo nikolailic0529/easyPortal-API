@@ -5,9 +5,6 @@ namespace App\Services\DataLoader\Cache;
 use App\Models\Model;
 use Illuminate\Support\Collection;
 
-/**
- * @internal
- */
 class Cache {
     protected const NULL_RETRIEVER = self::class;
 

@@ -7,11 +7,8 @@ use App\Services\DataLoader\Provider;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
-/**
- * @internal
- */
 class CustomerProvider extends Provider {
-    public function get(string|int $id, Closure $factory): Customer {
+    public function get(string|int $id, Closure $factory = null): ?Customer {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($id, $factory);
     }

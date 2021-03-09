@@ -3,6 +3,8 @@
 namespace App\Services\DataLoader;
 
 use App\Models\Model;
+use App\Services\DataLoader\Cache\Cache;
+use App\Services\DataLoader\Exceptions\FactoryObjectNotFoundException;
 use Closure;
 use Exception;
 use Tests\TestCase;
@@ -27,13 +29,19 @@ class ProviderTest extends TestCase {
         // Cache is empty, so resolve should return null and store it in cache
         $this->assertNull($provider->resolve(123));
 
-        // The second call must return value from cache
-        $this->assertNull($provider->resolve(
+        // The second call with factory must call factory
+        $this->assertNotNull($provider->resolve(
             123,
             static function (): ?Model {
-                throw new Exception();
+                return new class(123) extends Model {
+                    /** @noinspection PhpMissingParentConstructorInspection */
+                    public function __construct(int $key) {
+                        $this->{$this->getKeyName()} = $key;
+                    }
+                };
             },
         ));
+        $this->assertNotNull($provider->resolve(123));
 
         // If resolver(s) passed it will be used to create model
         $uuid  = $this->faker->uuid;
@@ -55,5 +63,33 @@ class ProviderTest extends TestCase {
         $this->assertSame($value, $provider->resolve($uuid, static function (): void {
             throw new Exception();
         }));
+    }
+    /**
+     * @covers ::resolve
+     */
+    public function testResolveFactoryObjectNotFoundException(): void {
+        $exception  = null;
+        $normalizer = $this->app->make(Normalizer::class);
+        $provider   = new class($normalizer) extends Provider {
+            public function resolve(mixed $key, Closure $factory = null): ?Model {
+                return parent::resolve($key, $factory);
+            }
+
+            public function getCache(): Cache {
+                return parent::getCache();
+            }
+        };
+
+        try {
+            $provider->resolve(123, static function (): void {
+                throw new FactoryObjectNotFoundException();
+            });
+        } catch (FactoryObjectNotFoundException $exception) {
+            // empty
+        }
+
+        $this->assertNotNull($exception);
+        $this->assertInstanceOf(FactoryObjectNotFoundException::class, $exception);
+        $this->assertTrue($provider->getCache()->has(123));
     }
 }

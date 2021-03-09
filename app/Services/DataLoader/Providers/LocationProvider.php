@@ -13,9 +13,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use JetBrains\PhpStorm\Pure;
 
-/**
- * @internal
- */
 class LocationProvider extends Provider {
     public function get(
         Model $model,
@@ -24,8 +21,8 @@ class LocationProvider extends Provider {
         string $postcode,
         string $lineOne,
         string $lineTwo,
-        Closure $factory,
-    ): Location {
+        Closure $factory = null,
+    ): ?Location {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve(
             $this->getUniqueKey($model, $country, $city, $postcode, $lineOne, $lineTwo),

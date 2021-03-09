@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\GraphQL\Queries\Me;
+use App\Models\Organization;
 use App\Models\User;
 use App\Services\Auth0\AuthService;
 use Auth0\Login\Auth0Service;
@@ -39,14 +40,14 @@ class AuthSignInByCodeTest extends TestCase {
         Closure $foundUserFactory = null,
     ): void {
         // Prepare
-        $this->setTenant($tenantFactory);
-        $this->setUser($userFactory);
+        $tenant = $this->setTenant($tenantFactory);
+        $user   = $this->setUser($userFactory, $tenant);
 
         // Mock
         // TODO [Auth0] Instead `AuthManager::login()` and `AuthManager::logout()`
         //      probably will be better mock Auth0Service to check that data
         //      really deleted.
-        $found        = $foundUserFactory ? $foundUserFactory($this) : null;
+        $found        = $foundUserFactory ? $foundUserFactory($this, $tenant, $user) : null;
         $service      = Mockery::mock(AuthService::class);
         $signInByCode = $service->shouldReceive('signInByCode');
         $rememberUser = $service->shouldReceive('rememberUser');
@@ -135,8 +136,11 @@ class AuthSignInByCodeTest extends TestCase {
                             'email_verified' => false,
                         ],
                     ],
-                    static function (): User {
-                        return User::factory()->create(['sub' => '123']);
+                    static function (self $test, ?Organization $organization): User {
+                        return User::factory()->create([
+                            'organization_id' => $organization,
+                            'sub'             => '123',
+                        ]);
                     },
                 ],
                 'auth successful'                      => [
@@ -150,8 +154,11 @@ class AuthSignInByCodeTest extends TestCase {
                             'picture'        => '123',
                         ],
                     ],
-                    static function (): User {
-                        return User::factory()->create(['sub' => '123']);
+                    static function (self $test, ?Organization $organization): User {
+                        return User::factory()->create([
+                            'organization_id' => $organization,
+                            'sub'             => '123',
+                        ]);
                     },
                 ],
             ]),

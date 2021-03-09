@@ -2,15 +2,18 @@
 
 namespace App\Services\DataLoader;
 
+use App\Services\DataLoader\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizers\KeyNormalizer;
 use App\Services\DataLoader\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizers\UuidNormalizer;
+use DateTimeInterface;
 
 class Normalizer {
     public function __construct(
         protected KeyNormalizer $key,
         protected UuidNormalizer $uuid,
         protected StringNormalizer $string,
+        protected DateTimeNormalizer $datetime,
     ) {
         // empty
     }
@@ -25,5 +28,9 @@ class Normalizer {
 
     public function string(mixed $value): string {
         return $this->string->normalize($value);
+    }
+
+    public function datetime(mixed $value): ?DateTimeInterface {
+        return $this->datetime->normalize($value);
     }
 }

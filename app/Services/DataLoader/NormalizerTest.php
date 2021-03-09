@@ -2,9 +2,11 @@
 
 namespace App\Services\DataLoader;
 
+use App\Services\DataLoader\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizers\KeyNormalizer;
 use App\Services\DataLoader\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizers\UuidNormalizer;
+use Illuminate\Config\Repository;
 use Mockery;
 use Tests\TestCase;
 
@@ -18,7 +20,13 @@ class NormalizerTest extends TestCase {
      */
     public function testKey(): void {
         $key        = Mockery::mock(KeyNormalizer::class);
-        $normalizer = new Normalizer($key, new UuidNormalizer(), new StringNormalizer());
+        $config     = new Repository();
+        $normalizer = new Normalizer(
+            $key,
+            new UuidNormalizer(),
+            new StringNormalizer(),
+            new DateTimeNormalizer($config),
+        );
 
         $key->shouldReceive('normalize')->once()->andReturns();
 
@@ -30,7 +38,13 @@ class NormalizerTest extends TestCase {
      */
     public function testUuid(): void {
         $uuid       = Mockery::mock(UuidNormalizer::class);
-        $normalizer = new Normalizer(new KeyNormalizer(), $uuid, new StringNormalizer());
+        $config     = new Repository();
+        $normalizer = new Normalizer(
+            new KeyNormalizer(),
+            $uuid,
+            new StringNormalizer(),
+            new DateTimeNormalizer($config),
+        );
 
         $uuid->shouldReceive('normalize')->once()->andReturns();
 
@@ -42,10 +56,28 @@ class NormalizerTest extends TestCase {
      */
     public function testString(): void {
         $string     = Mockery::mock(StringNormalizer::class);
-        $normalizer = new Normalizer(new KeyNormalizer(), new UuidNormalizer(), $string);
+        $config     = new Repository();
+        $normalizer = new Normalizer(
+            new KeyNormalizer(),
+            new UuidNormalizer(),
+            $string,
+            new DateTimeNormalizer($config),
+        );
 
         $string->shouldReceive('normalize')->once()->andReturns();
 
         $normalizer->string('value');
+    }
+
+    /**
+     * @covers ::datetime
+     */
+    public function testDatetime(): void {
+        $datetime   = Mockery::mock(DateTimeNormalizer::class);
+        $normalizer = new Normalizer(new KeyNormalizer(), new UuidNormalizer(), new StringNormalizer(), $datetime);
+
+        $datetime->shouldReceive('normalize')->once()->andReturns();
+
+        $normalizer->datetime('value');
     }
 }

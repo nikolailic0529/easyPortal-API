@@ -10,6 +10,7 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Providers\CityProvider;
 use App\Services\DataLoader\Providers\CountryProvider;
 use App\Services\DataLoader\Providers\LocationProvider;
+use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use InvalidArgumentException;
@@ -22,10 +23,7 @@ use function reset;
 use function sprintf;
 use function str_contains;
 
-/**
- * @internal
- */
-class LocationFactory extends PolymorphicFactory {
+class LocationFactory extends DependentModelFactory {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
@@ -36,11 +34,18 @@ class LocationFactory extends PolymorphicFactory {
         parent::__construct($logger, $normalizer);
     }
 
+    public function find(Model $object, Type $type): ?LocationModel {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return parent::find($object, $type);
+    }
+
     public function create(Model $object, Type $type): ?LocationModel {
         $model = null;
 
         if ($type instanceof Location) {
             $model = $this->createFromLocation($object, $type);
+        } elseif ($type instanceof Asset) {
+            $model = $this->createFromAsset($object, $type);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
@@ -85,8 +90,21 @@ class LocationFactory extends PolymorphicFactory {
         return $object;
     }
 
+    protected function createFromAsset(Model $object, Asset $asset): ?LocationModel {
+        // TODO [DataLoader] Today Asset::address2 is always equal `TODO` (I
+        //      guess because it the same as the customer's location that
+        //      doesn't have it), so we ignore it. We will need review this
+        //      method and tests when it will filled correctly.
+        $location          = new Location();
+        $location->zip     = $asset->zip;
+        $location->city    = $asset->city;
+        $location->address = $asset->address;
+
+        return $this->createFromLocation($object, $location);
+    }
+
     protected function country(string $code, string $name): Country {
-        $country = $this->countries->get($code, function () use ($code, $name): Country {
+        $country = $this->countries->get($code, $this->factory(function () use ($code, $name): Country {
             $country       = new Country();
             $country->code = mb_strtoupper($this->normalizer->string($code));
             $country->name = $this->normalizer->string($name);
@@ -94,7 +112,7 @@ class LocationFactory extends PolymorphicFactory {
             $country->save();
 
             return $country;
-        });
+        }));
 
         return $country;
     }
@@ -103,7 +121,7 @@ class LocationFactory extends PolymorphicFactory {
         $city = $this->cities->get(
             $country,
             $name,
-            function () use ($country, $name): City {
+            $this->factory(function () use ($country, $name): City {
                 $city          = new City();
                 $city->name    = $this->normalizer->string($name);
                 $city->country = $country;
@@ -111,7 +129,7 @@ class LocationFactory extends PolymorphicFactory {
                 $city->save();
 
                 return $city;
-            },
+            }),
         );
 
         return $city;
@@ -126,15 +144,21 @@ class LocationFactory extends PolymorphicFactory {
         string $lineTwo,
         string $state,
     ): LocationModel {
-        $location = $this->locations->get(
-            $object,
-            $country,
-            $city,
-            $postcode,
-            $lineOne,
-            $lineTwo,
-            function () use ($object, $country, $city, $postcode, $lineOne, $lineTwo, $state): LocationModel {
-                $location              = new LocationModel();
+        $created  = false;
+        $factory  = $this->factory(
+            function (
+                LocationModel $location,
+            ) use (
+                &$created,
+                $object,
+                $country,
+                $city,
+                $postcode,
+                $lineOne,
+                $lineTwo,
+                $state,
+            ): LocationModel {
+                $created               = !$location->exists;
                 $location->object_type = $object->getMorphClass();
                 $location->object_id   = $object->getKey();
                 $location->country     = $country;
@@ -149,11 +173,20 @@ class LocationFactory extends PolymorphicFactory {
                 return $location;
             },
         );
+        $location = $this->locations->get(
+            $object,
+            $country,
+            $city,
+            $postcode,
+            $lineOne,
+            $lineTwo,
+            static function () use ($factory): LocationModel {
+                return $factory(new LocationModel());
+            },
+        );
 
-        if ($location->state === '') {
-            $location->state = $this->normalizer->string($state);
-
-            $location->save();
+        if (!$created && !$this->isSearchMode()) {
+            $factory($location);
         }
 
         return $location;

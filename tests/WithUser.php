@@ -9,9 +9,9 @@ use Closure;
  * @mixin \Tests\TestCase
  */
 trait WithUser {
-    public function setUser(User|Closure|null $user): User|null {
+    public function setUser(User|Closure|null $user, mixed ...$args): User|null {
         if ($user instanceof Closure) {
-            $user = $user($this);
+            $user = $user($this, ...$args);
         }
 
         if ($user) {

@@ -4,9 +4,6 @@ namespace App\Services\DataLoader\Normalizers;
 
 use JetBrains\PhpStorm\Pure;
 
-/**
- * @internal
- */
 interface Normalizer {
     #[Pure]
     public function normalize(mixed $value): mixed;

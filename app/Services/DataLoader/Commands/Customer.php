@@ -17,7 +17,12 @@ class Customer extends Command {
      *
      * @var string
      */
-    protected $signature = 'data-loader:customer {id* : The ID of the company}';
+    protected $signature = 'data-loader:customer
+        {id* : The ID of the company}
+        {--skip-locations : Do not load customer\'s locations}
+        {--skip-contacts : Do not load customer\'s contacts}
+        {--skip-assets  : Do not load customer\'s assets}
+    ';
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -31,6 +36,10 @@ class Customer extends Command {
         $loader = $service->make(CustomerLoader::class);
         $ids    = array_unique($this->argument('id'));
         $bar    = $this->output->createProgressBar(count($ids));
+
+        $loader->setWithLocations(!$this->option('skip-locations'));
+        $loader->setWithContacts(!$this->option('skip-contacts'));
+        $loader->setWithAssets(!$this->option('skip-assets'));
 
         $bar->start();
 

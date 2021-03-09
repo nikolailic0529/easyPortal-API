@@ -4,9 +4,6 @@ namespace App\Services\DataLoader\Cache;
 
 use App\Models\Model;
 
-/**
- * @internal
- */
 class ModelKey implements KeyRetriever {
     public function get(Model $model): string|int {
         return $model->getKey();

@@ -17,16 +17,18 @@ use Psr\Log\LoggerInterface;
 use function is_null;
 use function sprintf;
 
-/**
- * @internal
- */
-class ContactFactory extends PolymorphicFactory {
+class ContactFactory extends DependentModelFactory {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
         protected ContactProvider $contacts,
     ) {
         parent::__construct($logger, $normalizer);
+    }
+
+    public function find(Model $object, Type $type): ?Contact {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return parent::find($object, $type);
     }
 
     public function create(Model $object, Type $type): ?Contact {
@@ -79,7 +81,7 @@ class ContactFactory extends PolymorphicFactory {
             $object,
             $name,
             $phone,
-            function () use ($object, $name, $phone, $valid): Contact {
+            $this->factory(function () use ($object, $name, $phone, $valid): Contact {
                 $model = new Contact();
 
                 if (!is_null($name)) {
@@ -99,7 +101,7 @@ class ContactFactory extends PolymorphicFactory {
                 $model->save();
 
                 return $model;
-            },
+            }),
         );
 
         return $contact;
