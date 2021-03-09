@@ -9,6 +9,7 @@ type Query {
     # Auth
     "Link to perform Sign In, available only for guests."
     authSignIn: String! @guest          # TODO [GraphQL] URL type needed
+
     # Customers
     "List of all statuses"
     customerStatuses: [CustomerStatus!]!
