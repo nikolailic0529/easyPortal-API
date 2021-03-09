@@ -189,9 +189,11 @@ class AssetFactoryTest extends TestCase {
             'id' => $asset->customerId,
         ]);
 
-        $this->expectException(LocationNotFoundException::class);
+        $created = $factory->create($asset);
 
-        $factory->create($asset);
+        $this->assertNotNull($created->location);
+        $this->assertNull($created->location->object_id);
+        $this->assertEquals($created->getMorphClass(), $created->location->object_type);
     }
 
     /**
@@ -497,7 +499,7 @@ class AssetFactoryTest extends TestCase {
     /**
      * @covers ::assetLocation
      */
-    public function testAssetLocationLocationNotFound(): void {
+    public function testAssetLocationNoLocation(): void {
         $customer  = Customer::factory()->make();
         $asset     = Asset::create([
             'id'          => $this->faker->uuid,
@@ -520,8 +522,6 @@ class AssetFactoryTest extends TestCase {
                 return parent::assetLocation($asset, $customer);
             }
         };
-
-        $this->expectException(LocationNotFoundException::class);
 
         $this->assertNull($factory->assetLocation($asset, $customer));
     }

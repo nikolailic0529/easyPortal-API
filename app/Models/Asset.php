@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use InvalidArgumentException;
 
+use function is_null;
 use function sprintf;
 
 /**
@@ -99,15 +100,16 @@ class Asset extends Model {
         // On the current phase  we assumes that assert may be located only on
         // location which related to the customer.
         if ($location) {
-            $type        = (new Customer())->getMorphClass();
-            $isIdMatch   = $location->object_id === $this->customer_id;
-            $isTypeMatch = $location->object_type === $type;
+            $asset       = (new Asset())->getMorphClass();
+            $customer    = (new Customer())->getMorphClass();
+            $isIdMatch   = is_null($location->object_id) || $location->object_id === $this->customer_id;
+            $isTypeMatch = $location->object_type === $asset || $location->object_type === $customer;
 
             if (!$isIdMatch || !$isTypeMatch) {
                 throw new InvalidArgumentException(sprintf(
-                    'Location must be related to the `%s#%s` but it related to `%s#%s`.',
-                    $type,
-                    $this->customer_id,
+                    'Location must be related to the `%s` or `%s` but it related to `%s#%s`.',
+                    "{$customer}#{$this->customer_id}",
+                    $asset,
                     $location->object_type,
                     $location->object_id,
                 ));
