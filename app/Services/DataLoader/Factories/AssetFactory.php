@@ -130,9 +130,18 @@ class AssetFactory extends ModelFactory {
 
     protected function assetLocation(Asset $asset, ?Customer $customer): ?Location {
         $location = null;
+        $required = null
+            || ($asset->zip ?? null)
+            || ($asset->city ?? null)
+            || ($asset->address ?? null)
+            || ($asset->address2 ?? null);
 
         if ($customer) {
             $location = $this->locations->find($customer, $asset);
+        }
+
+        if ($required && !$location) {
+            $location = $this->locations->create(new AssetModel(), $asset);
 
             if (!$location) {
                 throw new LocationNotFoundException(sprintf(
@@ -143,6 +152,7 @@ class AssetFactory extends ModelFactory {
             }
         }
 
+        // Return
         return $location;
     }
 

@@ -1,8 +1,10 @@
 type Customer {
     id: ID!
     name: String!
-    type: CustomerType!
-    status: CustomerStatus!
+    type: CustomerType! @belongsTo
+    type_id: ID!
+    status: CustomerStatus! @belongsTo
+    status_id: ID!
     locations_count: Int!
     locations: [Location]! @morphMany
 }
