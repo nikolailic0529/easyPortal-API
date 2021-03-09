@@ -6,6 +6,6 @@ type Location {
     line_two: String!
     lat: String
     lng: String
-    city: City!
-    country: Country!
+    city: City! @belongsTo
+    country: Country! @belongsTo
 }
