@@ -1,19 +1,18 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader;
+namespace App\Services\DataLoader\Client;
 
+use App\Services\DataLoader\DataLoaderException;
 use App\Services\DataLoader\Exceptions\GraphQLQueryFailedException;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
 use Closure;
-use Generator;
 use GraphQL\Type\Introspection;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Arr;
+use IteratorAggregate;
 
-use function array_merge;
-use function count;
 use function reset;
 
 class Client {
@@ -26,13 +25,8 @@ class Client {
         // empty
     }
 
-    // <editor-fold desc="API">
+    // <editor-fold desc="Queries">
     // =========================================================================
-    public function isEnabled(): bool {
-        return $this->setting('enabled')
-            && $this->setting('endpoint');
-    }
-
     public function getCompanyById(string $id): ?Company {
         $company = $this->get(
             'getCompanyById',
@@ -116,80 +110,71 @@ class Client {
     }
 
     /**
-     * @return \Generator<\App\Services\DataLoader\Schema\Asset>
+     * @return \IteratorAggregate<\App\Services\DataLoader\Schema\Asset>
      */
-    public function getAssetsByCustomerId(string $id, int $limit = null): Generator {
-        return $this->iterator(
-            'getAssetsByCustomerId',
-            /** @lang GraphQL */ <<<'GRAPHQL'
-            query items($id: String!, $limit: Int, $offset: Int) {
-                getAssetsByCustomerId(customerId: $id, limit: $limit, offset: $offset) {
-                    id
-                    serialNumber
+    public function getAssetsByCustomerId(string $id, int $limit = null, int $offset = null): IteratorAggregate {
+        return $this
+            ->iterator(
+                'getAssetsByCustomerId',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query items($id: String!, $limit: Int, $offset: Int) {
+                    getAssetsByCustomerId(customerId: $id, limit: $limit, offset: $offset) {
+                        id
+                        serialNumber
 
-                    productDescription
-                    description
-                    assetTag
-                    assetType
-                    vendor
-                    sku
+                        productDescription
+                        description
+                        assetTag
+                        assetType
+                        vendor
+                        sku
 
-                    eolDate
-                    eosDate
+                        eolDate
+                        eosDate
 
-                    zip
-                    city
-                    address
-                    address2
+                        zip
+                        city
+                        address
+                        address2
 
-                    customerId
+                        customerId
+                    }
                 }
-            }
-            GRAPHQL,
-            [
-                'id'    => $id,
-                'limit' => $limit,
-            ],
-            static function (array $data): Asset {
-                return Asset::create($data);
-            },
-        );
+                GRAPHQL,
+                [
+                    'id' => $id,
+                ],
+                static function (array $data): Asset {
+                    return Asset::create($data);
+                },
+            )
+            ->limit($limit)
+            ->offset($offset);
     }
 
     /**
      * @return array<mixed>
      */
     public function getIntrospection(): array {
-        return $this->call('data', Introspection::getIntrospectionQuery([
-            'directiveIsRepeatable' => true,
-        ]));
+        return $this->call('data', Introspection::getIntrospectionQuery());
     }
     // </editor-fold>
 
-    // <editor-fold desc="Helpers">
+    // <editor-fold desc="API">
     // =========================================================================
+    public function isEnabled(): bool {
+        return $this->setting('enabled')
+            && $this->setting('endpoint');
+    }
+
     /**
-     * @template T of \App\Services\DataLoader\Schema\Type
+     * @template T
      *
      * @param array<mixed> $params
      * @param \Closure(array<mixed>):T $reriever
-     *
-     * @return \Generator<T>
      */
-    protected function iterator(string $selector, string $graphql, array $params, Closure $retriever): Generator {
-        $offset = 0;
-
-        do {
-            $items  = $this->call($selector, $graphql, array_merge($params, [
-                'offset' => $offset,
-                'limit'  => $this->setting('limit'),
-            ]));
-            $offset = $offset + count($items);
-
-            foreach ($items as $item) {
-                yield $retriever($item);
-            }
-        } while ($items);
+    public function iterator(string $selector, string $graphql, array $params, Closure $retriever): Iterator {
+        return (new Iterator($this, $selector, $graphql, $params, $retriever))->chunk($this->setting('chunk'));
     }
 
     /**
@@ -197,7 +182,7 @@ class Client {
      *
      * @return array<mixed>|null
      */
-    protected function get(string $selector, string $graphql, array $params = []): ?array {
+    public function get(string $selector, string $graphql, array $params = []): ?array {
         $results = $this->call($selector, $graphql, $params);
         $item    = reset($results) ?: null;
 
@@ -209,7 +194,7 @@ class Client {
      *
      * @return array<mixed>|null
      */
-    protected function call(string $selector, string $graphql, array $params = []): ?array {
+    public function call(string $selector, string $graphql, array $params = []): ?array {
         // Enabled?
         if (!$this->isEnabled()) {
             throw new DataLoaderException('DataLoader is disabled.');

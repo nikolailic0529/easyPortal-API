@@ -3,7 +3,7 @@
 /**
  * DataLoader config.
  *
- * @see \App\Services\DataLoader\Client
+ * @see \App\Services\DataLoader\Client\Client
  */
 return [
     /**
@@ -17,7 +17,7 @@ return [
     'endpoint' => env('DATA_LOADER_ENDPOINT'),
 
     /**
-     * Default limit value.
+     * Default chunk size.
      */
-    'limit'    => env('DATA_LOADER_LIMIT', 100),
+    'chunk'    => env('DATA_LOADER_CHUNK', 100),
 ];

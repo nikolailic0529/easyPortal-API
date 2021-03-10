@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader;
 
+use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Container\Isolated;
 use Psr\Log\LoggerInterface;
 

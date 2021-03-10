@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Container;
 
-use App\Services\DataLoader\Client;
+use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Normalizer;

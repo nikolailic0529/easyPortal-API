@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader;
+namespace App\Services\DataLoader\Client;
 
 use App\Services\DataLoader\Schema\Schema;
 use GraphQL\Utils\BuildClientSchema;
@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Client
+ * @coversDefaultClass \App\Services\DataLoader\Client\Client
  */
 class ClientTest extends TestCase {
     /**
