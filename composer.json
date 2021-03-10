@@ -72,7 +72,10 @@
   "autoload-dev": {
     "psr-4": {
       "Tests\\": "tests/"
-    }
+    },
+    "files": [
+      "config/constants.php"
+    ]
   },
   "minimum-stability": "dev",
   "prefer-stable": true,
