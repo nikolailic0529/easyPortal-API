@@ -24,9 +24,7 @@ class OrganizationFactory extends Factory {
     public function definition(): array {
         return [
             'id'         => $this->faker->uuid,
-            'type'       => 'reseller',
             'subdomain'  => null,
-            'abbr'       => $this->faker->word,
             'name'       => $this->faker->company,
             'created_at' => Date::now(),
             'updated_at' => Date::now(),
