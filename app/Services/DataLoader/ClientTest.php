@@ -2,7 +2,10 @@
 
 namespace App\Services\DataLoader;
 
-use PHPUnit\Framework\TestCase;
+use App\Services\DataLoader\Schema\Schema;
+use GraphQL\Utils\BuildClientSchema;
+use GraphQL\Utils\SchemaPrinter;
+use Tests\TestCase;
 
 /**
  * @internal
@@ -10,9 +13,21 @@ use PHPUnit\Framework\TestCase;
  */
 class ClientTest extends TestCase {
     /**
+     * @group integration
+     *
      * @coversNothing
      */
-    public function testEndpoint(): void {
-        $this->markTestIncomplete('This test should download the GraphQL and compared it with the supported.');
+    public function testSchema(): void {
+        $client = $this->app->make(Client::class);
+
+        if ($client->isEnabled()) {
+            $into     = $client->getIntrospection();
+            $actual   = SchemaPrinter::doPrint(BuildClientSchema::build($into));
+            $expected = $this->getTestData(Schema::class)->content('.graphql');
+
+            $this->assertEquals($expected, $actual);
+        } else {
+            $this->markTestSkipped('DataLoader is disabled.');
+        }
     }
 }

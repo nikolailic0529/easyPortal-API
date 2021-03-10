@@ -2,12 +2,15 @@
 
 namespace App\Services\DataLoader;
 
+use App\Services\DataLoader\Exceptions\GraphQLQueryFailedException;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
 use Closure;
 use Generator;
+use GraphQL\Type\Introspection;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Client\Factory;
+use Illuminate\Support\Arr;
 
 use function array_merge;
 use function count;
@@ -152,6 +155,15 @@ class Client {
             },
         );
     }
+
+    /**
+     * @return array<mixed>
+     */
+    public function getIntrospection(): array {
+        return $this->call('data', Introspection::getIntrospectionQuery([
+            'directiveIsRepeatable' => true,
+        ]));
+    }
     // </editor-fold>
 
     // <editor-fold desc="Helpers">
@@ -217,8 +229,15 @@ class Client {
             ->post($url, $data);
         $json     = $response->json();
 
+        // Error?
+        $errors = Arr::get($json, 'errors', Arr::get($json, 'error.errors'));
+
+        if ($errors) {
+            throw (new GraphQLQueryFailedException())->setErrors($errors);
+        }
+
         // Return
-        return $json['data'][$selector] ?? [];
+        return Arr::get($json, $selector) ?: [];
     }
 
     protected function setting(string $name, mixed $default = null): mixed {
