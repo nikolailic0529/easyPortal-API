@@ -4,6 +4,6 @@
 
 use LastDragon_ru\LaraASP\Migrator\Migrations\RawMigration;
 
-class AlterTableOrganizationsRemoveAbbrAndType extends RawMigration {
+class AlterTableOrganizationsAddCountableRemoveAbbrAndType extends RawMigration {
     // Please see the associated SQL files
 }

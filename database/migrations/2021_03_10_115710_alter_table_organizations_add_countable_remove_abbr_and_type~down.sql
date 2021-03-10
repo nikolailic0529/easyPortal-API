@@ -11,7 +11,11 @@ SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABL
 
 ALTER TABLE `organizations`
     ADD COLUMN `type` ENUM ('oem', 'distributor', 'reseller', 'customer') NOT NULL AFTER `id`,
-    ADD COLUMN `abbr` VARCHAR(32)                                         NOT NULL AFTER `type`;
+    ADD COLUMN `abbr` VARCHAR(32)                                         NOT NULL AFTER `type`,
+    DROP COLUMN `customers_count`,
+    DROP COLUMN `locations_count`,
+    DROP COLUMN `contacts_count`,
+    DROP COLUMN `assets_count`;
 
 
 SET SQL_MODE = @OLD_SQL_MODE;

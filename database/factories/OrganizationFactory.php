@@ -23,12 +23,16 @@ class OrganizationFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'         => $this->faker->uuid,
-            'subdomain'  => null,
-            'name'       => $this->faker->company,
-            'created_at' => Date::now(),
-            'updated_at' => Date::now(),
-            'deleted_at' => null,
+            'id'              => $this->faker->uuid,
+            'subdomain'       => null,
+            'name'            => $this->faker->company,
+            'customers_count' => 0,
+            'locations_count' => 0,
+            'contacts_count'  => 0,
+            'assets_count'    => 0,
+            'created_at'      => Date::now(),
+            'updated_at'      => Date::now(),
+            'deleted_at'      => null,
         ];
     }
 }
