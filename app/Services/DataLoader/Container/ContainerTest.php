@@ -19,14 +19,14 @@ class ContainerTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveExternal(): void {
-        $this->assertNotNull($this->app->make(Container::class)->setRootContainer($this->app)->resolve('config'));
+        $this->assertNotNull($this->app->make(Container::class)->resolve('config'));
     }
 
     /**
      * @covers ::resolve
      */
     public function testResolveProvider(): void {
-        $c = $this->app->make(Container::class)->setRootContainer($this->app);
+        $c = $this->app->make(Container::class);
         $a = $c->resolve(ProviderContainerTest_Provider::class);
         $b = $c->resolve(ProviderContainerTest_Provider::class);
         $s = $this->app->make(ProviderContainerTest_Provider::class);
@@ -40,7 +40,7 @@ class ContainerTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveFactory(): void {
-        $c = $this->app->make(Container::class)->setRootContainer($this->app);
+        $c = $this->app->make(Container::class);
         $a = $c->resolve(ProviderContainerTest_Singleton::class);
         $f = $c->resolve(ProviderContainerTest_Factory::class);
         $s = $this->app->make(ProviderContainerTest_Provider::class);
@@ -55,7 +55,7 @@ class ContainerTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveLoader(): void {
-        $c = $this->app->make(Container::class)->setRootContainer($this->app);
+        $c = $this->app->make(Container::class);
         $a = $c->resolve(ProviderContainerTest_Singleton::class);
         $l = $c->resolve(ProviderContainerTest_Loader::class);
         $s = $this->app->make(ProviderContainerTest_Provider::class);
@@ -70,7 +70,7 @@ class ContainerTest extends TestCase {
      * @covers ::resolve
      */
     public function testResolveSingleton(): void {
-        $c = $this->app->make(Container::class)->setRootContainer($this->app);
+        $c = $this->app->make(Container::class);
         $a = $c->resolve(ProviderContainerTest_Singleton::class);
         $b = $c->resolve(ProviderContainerTest_Singleton::class);
         $s = $this->app->make(ProviderContainerTest_Singleton::class);

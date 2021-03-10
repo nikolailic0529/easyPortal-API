@@ -7,6 +7,6 @@ namespace App\Services\DataLoader\Container;
  *
  * @see \App\Services\DataLoader\Container\Container
  */
-interface Singleton {
+interface Singleton extends Isolated {
     // empty
 }

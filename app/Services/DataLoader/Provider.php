@@ -5,7 +5,6 @@ namespace App\Services\DataLoader;
 use App\Models\Model;
 use App\Services\DataLoader\Cache\Cache;
 use App\Services\DataLoader\Cache\ModelKey;
-use App\Services\DataLoader\Container\Isolated;
 use App\Services\DataLoader\Container\Singleton;
 use App\Services\DataLoader\Exceptions\FactoryObjectNotFoundException;
 use Closure;
@@ -23,7 +22,7 @@ use JetBrains\PhpStorm\Pure;
  *
  * @internal
  */
-abstract class Provider implements Isolated, Singleton {
+abstract class Provider implements Singleton {
     protected Cache|null $cache = null;
     protected Normalizer $normalizer;
 

@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Container;
 
-use App\Services\DataLoader\Provider;
 use Illuminate\Container\Container as IlluminateContainer;
 
 use function is_a;
@@ -22,7 +21,11 @@ use function is_a;
  * @internal
  */
 class Container extends IlluminateContainer {
-    private IlluminateContainer $rootContainer;
+    public function __construct(
+        protected IlluminateContainer $root,
+    ) {
+        // empty
+    }
 
     /**
      * @inheritdoc
@@ -43,20 +46,10 @@ class Container extends IlluminateContainer {
             // is one potential pitfall: if the standard object injects our
             // internal object it will receive a fresh instance.
             //
-            // All our objects are @internal, why do you want to inject them?
-            $resolved = $this->getRootContainer()->resolve($abstract, $parameters, $raiseEvents);
+            // All our objects are internal, why do you want to inject them?
+            $resolved = $this->root->resolve($abstract, $parameters, $raiseEvents);
         }
 
         return $resolved;
-    }
-
-    public function getRootContainer(): IlluminateContainer {
-        return $this->rootContainer;
-    }
-
-    public function setRootContainer(IlluminateContainer $rootContainer): static {
-        $this->rootContainer = $rootContainer;
-
-        return $this;
     }
 }
