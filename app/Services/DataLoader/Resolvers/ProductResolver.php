@@ -1,17 +1,17 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Providers;
+namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Model;
 use App\Models\Oem;
 use App\Models\Product;
 use App\Services\DataLoader\Cache\ClosureKey;
-use App\Services\DataLoader\Provider;
+use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use JetBrains\PhpStorm\Pure;
 
-class ProductProvider extends Provider {
+class ProductResolver extends Resolver {
     public function get(Oem $oem, string $sku, Closure $factory = null): ?Product {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($this->getUniqueKey($oem, $sku), $factory);

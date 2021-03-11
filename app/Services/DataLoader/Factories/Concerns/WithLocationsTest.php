@@ -8,7 +8,7 @@ use App\Models\Model;
 use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Providers\TypeProvider;
+use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use Mockery;
@@ -40,7 +40,7 @@ class WithLocationsTest extends TestCase {
             $this->app->make(LoggerInterface::class),
             $this->app->make(Normalizer::class),
             $this->app->make(LocationFactory::class),
-            $this->app->make(TypeProvider::class),
+            $this->app->make(TypeResolver::class),
         ) extends ModelFactory {
             use WithLocations {
                 objectLocations as public;
@@ -51,7 +51,7 @@ class WithLocationsTest extends TestCase {
                 LoggerInterface $logger,
                 Normalizer $normalizer,
                 LocationFactory $locations,
-                TypeProvider $types,
+                TypeResolver $types,
             ) {
                 $this->logger     = $logger;
                 $this->normalizer = $normalizer;

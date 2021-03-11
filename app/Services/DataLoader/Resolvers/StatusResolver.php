@@ -1,16 +1,16 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Providers;
+namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Model;
 use App\Models\Status;
 use App\Services\DataLoader\Cache\ClosureKey;
-use App\Services\DataLoader\Provider;
+use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use JetBrains\PhpStorm\Pure;
 
-class StatusProvider extends Provider {
+class StatusResolver extends Resolver {
     public function get(Model $model, string $key, Closure $factory = null): ?Status {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($this->getUniqueKey($model, $key), $factory);

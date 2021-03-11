@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Providers;
+namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Contact;
 use App\Models\Customer;
@@ -11,9 +11,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Providers\ContactProvider
+ * @coversDefaultClass \App\Services\DataLoader\Resolvers\ContactResolver
  */
-class ContactProviderTest extends TestCase {
+class ContactResolverTest extends TestCase {
     use WithQueryLog;
 
     /**
@@ -41,7 +41,7 @@ class ContactProviderTest extends TestCase {
         ]);
 
         // Run
-        $provider = $this->app->make(ContactProvider::class);
+        $provider = $this->app->make(ContactResolver::class);
         $actual   = $provider->get($ca, 'a', 'a', $factory);
 
         $this->flushQueryLog();

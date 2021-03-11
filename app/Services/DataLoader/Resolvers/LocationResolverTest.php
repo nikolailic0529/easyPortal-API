@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Providers;
+namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\City;
 use App\Models\Country;
@@ -13,9 +13,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Providers\LocationProvider
+ * @coversDefaultClass \App\Services\DataLoader\Resolvers\LocationResolver
  */
-class LocationProviderTest extends TestCase {
+class LocationResolverTest extends TestCase {
     use WithQueryLog;
 
     /**
@@ -65,7 +65,7 @@ class LocationProviderTest extends TestCase {
         ]);
 
         // Run
-        $provider = $this->app->make(LocationProvider::class);
+        $provider = $this->app->make(LocationResolver::class);
         $actual   = $provider->get($customerA, $countryA, $cityA, 'postcode a', 'line_one a', 'line_two a', $factory);
 
         $this->flushQueryLog();

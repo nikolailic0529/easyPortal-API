@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Providers;
+namespace App\Services\DataLoader\Resolvers;
 
-use App\Models\Organization;
+use App\Models\Customer;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -10,9 +10,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Providers\OrganizationProvider
+ * @coversDefaultClass \App\Services\DataLoader\Resolvers\CustomerResolver
  */
-class OrganizationProviderTest extends TestCase {
+class CustomerResolverTest extends TestCase {
     use WithQueryLog;
 
     /**
@@ -20,15 +20,15 @@ class OrganizationProviderTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (): Organization {
-            return Organization::factory()->make();
+        $factory = static function (): Customer {
+            return Customer::factory()->make();
         };
 
-        $a = Organization::factory()->create();
-        $b = Organization::factory()->create();
+        $a = Customer::factory()->create();
+        $b = Customer::factory()->create();
 
         // Run
-        $provider = $this->app->make(OrganizationProvider::class);
+        $provider = $this->app->make(CustomerResolver::class);
         $actual   = $provider->get($a->getKey(), $factory);
 
         $this->flushQueryLog();
@@ -49,9 +49,11 @@ class OrganizationProviderTest extends TestCase {
 
         // If value not found the new object should be created
         $uuid    = $this->faker->uuid;
-        $spy     = Mockery::spy(static function () use ($uuid): Organization {
-            return Organization::factory()->make([
-                'id' => $uuid,
+        $spy     = Mockery::spy(static function () use ($uuid): Customer {
+            return Customer::factory()->make([
+                'id'        => $uuid,
+                'type_id'   => $uuid,
+                'status_id' => $uuid,
             ]);
         });
         $created = $provider->get($uuid, Closure::fromCallable($spy));

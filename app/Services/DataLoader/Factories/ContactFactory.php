@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Contact;
 use App\Models\Model;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Providers\ContactProvider;
+use App\Services\DataLoader\Resolvers\ContactResolver;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
@@ -21,7 +21,7 @@ class ContactFactory extends DependentModelFactory {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
-        protected ContactProvider $contacts,
+        protected ContactResolver $contacts,
     ) {
         parent::__construct($logger, $normalizer);
     }

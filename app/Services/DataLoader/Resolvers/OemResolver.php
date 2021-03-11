@@ -1,14 +1,14 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Providers;
+namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Oem;
 use App\Services\DataLoader\Cache\ClosureKey;
-use App\Services\DataLoader\Provider;
+use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
-class OemProvider extends Provider {
+class OemResolver extends Resolver {
     public function get(string $abbr, Closure $factory = null): ?Oem {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($abbr, $factory);

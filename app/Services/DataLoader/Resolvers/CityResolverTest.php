@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Providers;
+namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\City;
 use App\Models\Country;
@@ -11,9 +11,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Providers\ProductProvider
+ * @coversDefaultClass \App\Services\DataLoader\Resolvers\ProductResolver
  */
-class CityProviderTest extends TestCase {
+class CityResolverTest extends TestCase {
     use WithQueryLog;
 
     /**
@@ -41,7 +41,7 @@ class CityProviderTest extends TestCase {
         ]);
 
         // Run
-        $provider = $this->app->make(CityProvider::class);
+        $provider = $this->app->make(CityResolver::class);
         $actual   = $provider->get($countryA, 'a', $factory);
 
         $this->flushQueryLog();

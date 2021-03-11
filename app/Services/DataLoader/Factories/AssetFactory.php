@@ -13,11 +13,11 @@ use App\Services\DataLoader\Exceptions\LocationNotFoundException;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Providers\AssetProvider;
-use App\Services\DataLoader\Providers\CustomerProvider;
-use App\Services\DataLoader\Providers\OemProvider;
-use App\Services\DataLoader\Providers\ProductProvider;
-use App\Services\DataLoader\Providers\TypeProvider;
+use App\Services\DataLoader\Resolvers\AssetResolver;
+use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\OemResolver;
+use App\Services\DataLoader\Resolvers\ProductResolver;
+use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Type;
 use InvalidArgumentException;
@@ -34,11 +34,11 @@ class AssetFactory extends ModelFactory {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
-        protected AssetProvider $assets,
-        protected OemProvider $oems,
-        protected TypeProvider $types,
-        protected ProductProvider $products,
-        protected CustomerProvider $customerProvider,
+        protected AssetResolver $assets,
+        protected OemResolver $oems,
+        protected TypeResolver $types,
+        protected ProductResolver $products,
+        protected CustomerResolver $customerResolver,
         protected LocationFactory $locations,
     ) {
         parent::__construct($logger, $normalizer);
@@ -110,7 +110,7 @@ class AssetFactory extends ModelFactory {
         $customer = null;
 
         if ($id) {
-            $customer = $this->customerProvider->get($id);
+            $customer = $this->customerResolver->get($id);
         }
 
         if (!$customer && $this->customerFactory) {

@@ -1,19 +1,19 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Providers;
+namespace App\Services\DataLoader\Resolvers;
 
-use App\Models\Asset;
-use App\Services\DataLoader\Provider;
+use App\Models\Customer;
+use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
-class AssetProvider extends Provider {
-    public function get(string|int $id, Closure $factory = null): ?Asset {
+class CustomerResolver extends Resolver {
+    public function get(string|int $id, Closure $factory = null): ?Customer {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($id, $factory);
     }
 
     protected function getFindQuery(mixed $key): ?Builder {
-        return Asset::whereKey($key);
+        return Customer::whereKey($key);
     }
 }

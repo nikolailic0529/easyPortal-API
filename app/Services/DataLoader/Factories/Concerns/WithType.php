@@ -7,7 +7,7 @@ use App\Models\Type;
 
 /**
  * @property \App\Services\DataLoader\Normalizer             $normalizer
- * @property \App\Services\DataLoader\Providers\TypeProvider $types
+ * @property \App\Services\DataLoader\Resolvers\TypeResolver $types
  *
  * @mixin \App\Services\DataLoader\Factory
  */

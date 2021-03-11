@@ -6,7 +6,7 @@ use App\Models\Model;
 use App\Models\Oem;
 use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Providers\OemProvider;
+use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Schema\Type;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Tests\TestCase;
@@ -24,7 +24,7 @@ class WithOemTest extends TestCase {
     public function testOem(): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
-        $provider   = $this->app->make(OemProvider::class);
+        $provider   = $this->app->make(OemResolver::class);
         $oem        = Oem::factory()->create();
 
         $factory = new class($normalizer, $provider) extends ModelFactory {
@@ -33,7 +33,7 @@ class WithOemTest extends TestCase {
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, protected OemProvider $oems) {
+            public function __construct(Normalizer $normalizer, protected OemResolver $oems) {
                 $this->normalizer = $normalizer;
             }
 

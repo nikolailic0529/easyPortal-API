@@ -22,7 +22,7 @@ use JetBrains\PhpStorm\Pure;
  *
  * @internal
  */
-abstract class Provider implements Singleton {
+abstract class Resolver implements Singleton {
     protected Cache|null $cache = null;
     protected Normalizer $normalizer;
 

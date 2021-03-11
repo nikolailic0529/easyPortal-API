@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Providers;
+namespace App\Services\DataLoader\Resolvers;
 
-use App\Models\Country;
+use App\Models\Oem;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -10,9 +10,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Providers\CountryProvider
+ * @coversDefaultClass \App\Services\DataLoader\Resolvers\OemResolver
  */
-class CountryProviderTest extends TestCase {
+class OemResolverTest extends TestCase {
     use WithQueryLog;
 
     /**
@@ -20,29 +20,28 @@ class CountryProviderTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (): Country {
-            return Country::factory()->make();
+        $factory = static function (): Oem {
+            return Oem::factory()->make();
         };
 
-        Country::factory()->create(['code' => 'a']);
-        Country::factory()->create(['code' => 'b']);
-        Country::factory()->create(['code' => 'c']);
+        Oem::factory()->create(['abbr' => 'a']);
+        Oem::factory()->create(['abbr' => 'b']);
+        Oem::factory()->create(['abbr' => 'c']);
 
         // Run
-        $provider = $this->app->make(CountryProvider::class);
+        $provider = $this->app->make(OemResolver::class);
         $actual   = $provider->get('a', $factory);
 
         $this->flushQueryLog();
 
         // Basic
         $this->assertNotNull($actual);
-        $this->assertEquals('a', $actual->code);
+        $this->assertEquals('a', $actual->abbr);
 
         // Second call should return same instance
         $this->assertSame($actual, $provider->get('a', $factory));
         $this->assertSame($actual, $provider->get(' a ', $factory));
         $this->assertSame($actual, $provider->get('A', $factory));
-        $this->assertCount(0, $this->getQueryLog());
 
         // All value should be loaded, so get() should not perform any queries
         $this->assertNotNull($provider->get('b', $factory));
@@ -52,25 +51,25 @@ class CountryProviderTest extends TestCase {
         $this->assertCount(0, $this->getQueryLog());
 
         // If value not found the new object should be created
-        $spy     = Mockery::spy(static function (): Country {
-            return Country::factory()->create([
-                'code' => 'UN',
-                'name' => 'unknown name',
+        $spy     = Mockery::spy(static function (): Oem {
+            return Oem::factory()->create([
+                'abbr' => 'unKnown',
+                'name' => 'unKnown',
             ]);
         });
-        $created = $provider->get(' uN ', Closure::fromCallable($spy));
+        $created = $provider->get(' unKnown ', Closure::fromCallable($spy));
 
         $spy->shouldHaveBeenCalled();
 
         $this->assertNotNull($created);
-        $this->assertEquals('UN', $created->code);
-        $this->assertEquals('unknown name', $created->name);
+        $this->assertEquals('unKnown', $created->abbr);
+        $this->assertEquals('unKnown', $created->name);
         $this->assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // The created object should be in cache
-        $this->assertSame($created, $provider->get('Un', $factory));
+        $this->assertSame($created, $provider->get('unknoWn', $factory));
         $this->assertCount(0, $this->getQueryLog());
     }
 }

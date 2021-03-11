@@ -11,16 +11,16 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Provider
+ * @coversDefaultClass \App\Services\DataLoader\Resolver
  */
-class ProviderTest extends TestCase {
+class ResolverTest extends TestCase {
     /**
      * @covers ::resolve
      */
     public function testResolve(): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
-        $provider   = new class($normalizer) extends Provider {
+        $provider   = new class($normalizer) extends Resolver {
             public function resolve(mixed $key, Closure $factory = null): ?Model {
                 return parent::resolve($key, $factory);
             }
@@ -70,7 +70,7 @@ class ProviderTest extends TestCase {
     public function testResolveFactoryObjectNotFoundException(): void {
         $exception  = null;
         $normalizer = $this->app->make(Normalizer::class);
-        $provider   = new class($normalizer) extends Provider {
+        $provider   = new class($normalizer) extends Resolver {
             public function resolve(mixed $key, Closure $factory = null): ?Model {
                 return parent::resolve($key, $factory);
             }

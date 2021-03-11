@@ -7,7 +7,7 @@ use Illuminate\Container\Container as IlluminateContainer;
 use function is_a;
 
 /**
- * Special container to create Providers/Factories/Loaders.
+ * Special container to create Resolvers/Factories/Loaders.
  *
  * The main reasons why it created are
  * - only one instance of each Provider must exist;

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Providers;
+namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Oem;
 use App\Models\Product;
@@ -11,9 +11,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Providers\ProductProvider
+ * @coversDefaultClass \App\Services\DataLoader\Resolvers\ProductResolver
  */
-class ProductProviderTest extends TestCase {
+class ProductResolverTest extends TestCase {
     use WithQueryLog;
 
     /**
@@ -41,7 +41,7 @@ class ProductProviderTest extends TestCase {
         ]);
 
         // Run
-        $provider = $this->app->make(ProductProvider::class);
+        $provider = $this->app->make(ProductResolver::class);
         $actual   = $provider->get($oemA, ' a ', $factory);
 
         $this->flushQueryLog();

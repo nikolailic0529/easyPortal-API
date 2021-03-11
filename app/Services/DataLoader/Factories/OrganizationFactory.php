@@ -5,8 +5,8 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Organization;
 use App\Services\DataLoader\Factories\Concerns\WithLocations;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Providers\OrganizationProvider;
-use App\Services\DataLoader\Providers\TypeProvider;
+use App\Services\DataLoader\Resolvers\OrganizationResolver;
+use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
@@ -23,8 +23,8 @@ class OrganizationFactory extends ModelFactory {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
-        protected TypeProvider $types,
-        protected OrganizationProvider $organizations,
+        protected TypeResolver $types,
+        protected OrganizationResolver $organizations,
     ) {
         parent::__construct($logger, $normalizer);
     }

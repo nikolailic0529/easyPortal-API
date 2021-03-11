@@ -13,9 +13,9 @@ use App\Services\DataLoader\Factories\Concerns\WithLocations;
 use App\Services\DataLoader\Factories\Concerns\WithStatus;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Providers\CustomerProvider;
-use App\Services\DataLoader\Providers\StatusProvider;
-use App\Services\DataLoader\Providers\TypeProvider;
+use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\StatusResolver;
+use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\CompanyType;
@@ -47,9 +47,9 @@ class CustomerFactory extends ModelFactory {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
-        protected TypeProvider $types,
-        protected StatusProvider $statuses,
-        protected CustomerProvider $customers,
+        protected TypeResolver $types,
+        protected StatusResolver $statuses,
+        protected CustomerResolver $customers,
     ) {
         parent::__construct($logger, $normalizer);
     }

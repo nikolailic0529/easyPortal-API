@@ -6,7 +6,7 @@ use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Provider;
+use App\Services\DataLoader\Resolver;
 use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
@@ -27,9 +27,9 @@ class ContainerTest extends TestCase {
      */
     public function testResolveProvider(): void {
         $c = $this->app->make(Container::class);
-        $a = $c->resolve(ProviderContainerTest_Provider::class);
-        $b = $c->resolve(ProviderContainerTest_Provider::class);
-        $s = $this->app->make(ProviderContainerTest_Provider::class);
+        $a = $c->resolve(ContainerTest_Resolver::class);
+        $b = $c->resolve(ContainerTest_Resolver::class);
+        $s = $this->app->make(ContainerTest_Resolver::class);
 
         $this->assertNotNull($a);
         $this->assertSame($a, $b);
@@ -41,9 +41,9 @@ class ContainerTest extends TestCase {
      */
     public function testResolveFactory(): void {
         $c = $this->app->make(Container::class);
-        $a = $c->resolve(ProviderContainerTest_Singleton::class);
-        $f = $c->resolve(ProviderContainerTest_Factory::class);
-        $s = $this->app->make(ProviderContainerTest_Provider::class);
+        $a = $c->resolve(ContainerTest_Singleton::class);
+        $f = $c->resolve(ContainerTest_Factory::class);
+        $s = $this->app->make(ContainerTest_Resolver::class);
 
         $this->assertNotNull($a);
         $this->assertNotNull($f);
@@ -56,9 +56,9 @@ class ContainerTest extends TestCase {
      */
     public function testResolveLoader(): void {
         $c = $this->app->make(Container::class);
-        $a = $c->resolve(ProviderContainerTest_Singleton::class);
-        $l = $c->resolve(ProviderContainerTest_Loader::class);
-        $s = $this->app->make(ProviderContainerTest_Provider::class);
+        $a = $c->resolve(ContainerTest_Singleton::class);
+        $l = $c->resolve(ContainerTest_Loader::class);
+        $s = $this->app->make(ContainerTest_Resolver::class);
 
         $this->assertNotNull($a);
         $this->assertNotNull($l);
@@ -71,9 +71,9 @@ class ContainerTest extends TestCase {
      */
     public function testResolveSingleton(): void {
         $c = $this->app->make(Container::class);
-        $a = $c->resolve(ProviderContainerTest_Singleton::class);
-        $b = $c->resolve(ProviderContainerTest_Singleton::class);
-        $s = $this->app->make(ProviderContainerTest_Singleton::class);
+        $a = $c->resolve(ContainerTest_Singleton::class);
+        $b = $c->resolve(ContainerTest_Singleton::class);
+        $s = $this->app->make(ContainerTest_Singleton::class);
 
         $this->assertNotNull($a);
         $this->assertNotNull($b);
@@ -89,7 +89,7 @@ class ContainerTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class ProviderContainerTest_Provider extends Provider {
+class ContainerTest_Resolver extends Resolver {
     // empty
 }
 
@@ -97,11 +97,11 @@ class ProviderContainerTest_Provider extends Provider {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class ProviderContainerTest_Factory extends Factory {
+class ContainerTest_Factory extends Factory {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
-        public ProviderContainerTest_Singleton $singleton,
+        public ContainerTest_Singleton $singleton,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -111,11 +111,11 @@ class ProviderContainerTest_Factory extends Factory {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class ProviderContainerTest_Loader extends Loader {
+class ContainerTest_Loader extends Loader {
     public function __construct(
         LoggerInterface $logger,
         Client $client,
-        public ProviderContainerTest_Singleton $singleton,
+        public ContainerTest_Singleton $singleton,
     ) {
         parent::__construct($logger, $client);
     }
@@ -125,7 +125,7 @@ class ProviderContainerTest_Loader extends Loader {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class ProviderContainerTest_Singleton implements Singleton {
+class ContainerTest_Singleton implements Singleton {
     // empty
 }
 
@@ -133,6 +133,6 @@ class ProviderContainerTest_Singleton implements Singleton {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class ProviderContainerTest_Isolated implements Isolated {
+class ContainerTest_Isolated implements Isolated {
     // empty
 }

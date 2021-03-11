@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Providers;
+namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Model;
 use App\Models\Status;
@@ -11,9 +11,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Providers\StatusProvider
+ * @coversDefaultClass \App\Services\DataLoader\Resolvers\StatusResolver
  */
-class StatusProviderTest extends TestCase {
+class StatusResolverTest extends TestCase {
     use WithQueryLog;
 
     /**
@@ -44,7 +44,7 @@ class StatusProviderTest extends TestCase {
         ]);
 
         // Run
-        $provider = $this->app->make(StatusProvider::class);
+        $provider = $this->app->make(StatusResolver::class);
         $actual   = $provider->get($model, 'a', $factory);
 
         $this->flushQueryLog();

@@ -11,9 +11,9 @@ use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Providers\AssetProvider;
-use App\Services\DataLoader\Providers\CustomerProvider;
-use App\Services\DataLoader\Providers\ProductProvider;
+use App\Services\DataLoader\Resolvers\AssetResolver;
+use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
@@ -267,7 +267,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetCustomerExistsThroughProvider(): void {
         $customer = Customer::factory()->make();
-        $provider = Mockery::mock(CustomerProvider::class);
+        $provider = Mockery::mock(CustomerResolver::class);
 
         $provider
             ->shouldReceive('get')
@@ -277,8 +277,8 @@ class AssetFactoryTest extends TestCase {
 
         $factory = new class($provider) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerProvider $provider) {
-                $this->customerProvider = $provider;
+            public function __construct(CustomerResolver $provider) {
+                $this->customerResolver = $provider;
             }
 
             public function assetCustomer(Asset $asset): ?Customer {
@@ -303,7 +303,7 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetCustomer
      */
     public function testAssetCustomerAssetWithoutCustomer(): void {
-        $provider = Mockery::mock(CustomerProvider::class);
+        $provider = Mockery::mock(CustomerResolver::class);
 
         $provider
             ->shouldReceive('get')
@@ -311,8 +311,8 @@ class AssetFactoryTest extends TestCase {
 
         $factory = new class($provider) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerProvider $provider) {
-                $this->customerProvider = $provider;
+            public function __construct(CustomerResolver $provider) {
+                $this->customerResolver = $provider;
             }
 
             public function assetCustomer(Asset $asset): ?Customer {
@@ -336,7 +336,7 @@ class AssetFactoryTest extends TestCase {
                 'id' => $customer->getKey(),
             ],
         ]);
-        $provider = Mockery::mock(CustomerProvider::class);
+        $provider = Mockery::mock(CustomerResolver::class);
         $provider
             ->shouldReceive('get')
             ->with($customer->getKey())
@@ -345,8 +345,8 @@ class AssetFactoryTest extends TestCase {
 
         $factory = new class($provider) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerProvider $provider) {
-                $this->customerProvider = $provider;
+            public function __construct(CustomerResolver $provider) {
+                $this->customerResolver = $provider;
             }
 
             public function assetCustomer(Asset $asset): ?Customer {
@@ -370,7 +370,7 @@ class AssetFactoryTest extends TestCase {
                 'id' => $customer->getKey(),
             ],
         ]);
-        $provider = Mockery::mock(CustomerProvider::class);
+        $provider = Mockery::mock(CustomerResolver::class);
         $provider
             ->shouldReceive('get')
             ->with($customer->getKey())
@@ -386,8 +386,8 @@ class AssetFactoryTest extends TestCase {
 
         $factory = new class($provider) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerProvider $provider) {
-                $this->customerProvider = $provider;
+            public function __construct(CustomerResolver $provider) {
+                $this->customerResolver = $provider;
             }
 
             public function assetCustomer(Asset $asset): ?Customer {
@@ -411,7 +411,7 @@ class AssetFactoryTest extends TestCase {
                 'id' => $customer->getKey(),
             ],
         ]);
-        $provider = Mockery::mock(CustomerProvider::class);
+        $provider = Mockery::mock(CustomerResolver::class);
         $provider
             ->shouldReceive('get')
             ->with($customer->getKey())
@@ -427,8 +427,8 @@ class AssetFactoryTest extends TestCase {
 
         $factory = new class($provider) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerProvider $provider) {
-                $this->customerProvider = $provider;
+            public function __construct(CustomerResolver $provider) {
+                $this->customerResolver = $provider;
             }
 
             public function assetCustomer(Asset $asset): ?Customer {
@@ -531,13 +531,13 @@ class AssetFactoryTest extends TestCase {
     public function testProduct(): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
-        $provider   = $this->app->make(ProductProvider::class);
+        $provider   = $this->app->make(ProductResolver::class);
         $product    = Product::factory()->create();
         $oem        = $product->oem;
 
         $factory = new class($normalizer, $provider) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, ProductProvider $provider) {
+            public function __construct(Normalizer $normalizer, ProductResolver $provider) {
                 $this->normalizer = $normalizer;
                 $this->products   = $provider;
             }
@@ -609,7 +609,7 @@ class AssetFactoryTest extends TestCase {
     public function testAsset(): void {
         // Prepare
         $normalizer   = $this->app->make(Normalizer::class);
-        $provider     = $this->app->make(AssetProvider::class);
+        $provider     = $this->app->make(AssetResolver::class);
         $product      = Product::factory()->create();
         $customer     = Customer::factory()->create();
         $location     = Location::factory()
@@ -630,7 +630,7 @@ class AssetFactoryTest extends TestCase {
 
         $factory = new class($normalizer, $provider) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, AssetProvider $provider) {
+            public function __construct(Normalizer $normalizer, AssetResolver $provider) {
                 $this->normalizer = $normalizer;
                 $this->assets     = $provider;
             }

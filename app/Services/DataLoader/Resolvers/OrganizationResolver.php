@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Providers;
+namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Organization;
-use App\Services\DataLoader\Provider;
+use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
-class OrganizationProvider extends Provider {
+class OrganizationResolver extends Resolver {
     public function get(string|int $id, Closure $factory = null): ?Organization {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($id, $factory);

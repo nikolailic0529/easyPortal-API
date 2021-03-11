@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Providers;
+namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Model;
 use App\Models\Type;
@@ -11,9 +11,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Providers\TypeProvider
+ * @coversDefaultClass \App\Services\DataLoader\Resolvers\TypeResolver
  */
-class TypeProviderTest extends TestCase {
+class TypeResolverTest extends TestCase {
     use WithQueryLog;
 
     /**
@@ -44,7 +44,7 @@ class TypeProviderTest extends TestCase {
         ]);
 
         // Run
-        $provider = $this->app->make(TypeProvider::class);
+        $provider = $this->app->make(TypeResolver::class);
         $actual   = $provider->get($model, 'a', $factory);
 
         $this->flushQueryLog();
