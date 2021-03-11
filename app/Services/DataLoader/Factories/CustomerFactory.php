@@ -2,12 +2,10 @@
 
 namespace App\Services\DataLoader\Factories;
 
-use App\Models\Contact;
 use App\Models\Customer;
-use App\Models\Location as LocationModel;
 use App\Models\Status as StatusModel;
 use App\Models\Type as TypeModel;
-use App\Services\DataLoader\DataLoaderException;
+use App\Services\DataLoader\Exceptions\DataLoaderException;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithLocations;
 use App\Services\DataLoader\Factories\Concerns\WithStatus;
@@ -17,21 +15,14 @@ use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\CompanyType;
-use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
-use Closure;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
-use SplObjectStorage;
 
 use function array_map;
-use function array_merge;
 use function array_unique;
 use function count;
-use function in_array;
-use function iterator_to_array;
 use function reset;
 use function sprintf;
 

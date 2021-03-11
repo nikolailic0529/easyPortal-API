@@ -3,7 +3,6 @@
 namespace App\Services\DataLoader\Commands;
 
 use App\Services\DataLoader\DataLoaderService;
-use App\Services\DataLoader\Loaders\CustomerLoader;
 use Illuminate\Console\Command;
 use Psr\Log\LoggerInterface;
 use Throwable;

@@ -2,8 +2,6 @@
 
 namespace App\Services\DataLoader\Exceptions;
 
-use App\Services\DataLoader\DataLoaderException;
-
 class ClientException extends DataLoaderException {
     // empty
 }

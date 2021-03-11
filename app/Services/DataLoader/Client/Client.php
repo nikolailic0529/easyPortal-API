@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Client;
 
-use App\Services\DataLoader\DataLoaderException;
+use App\Services\DataLoader\Exceptions\DataLoaderException;
 use App\Services\DataLoader\Exceptions\GraphQLQueryFailedException;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
@@ -11,8 +11,6 @@ use GraphQL\Type\Introspection;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Arr;
-use Iterator;
-
 use Traversable;
 
 use function reset;

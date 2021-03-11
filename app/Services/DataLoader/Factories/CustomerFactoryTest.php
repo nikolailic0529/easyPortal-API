@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Model;
 use App\Models\Status as StatusModel;
 use App\Models\Type as TypeModel;
-use App\Services\DataLoader\DataLoaderException;
+use App\Services\DataLoader\Exceptions\DataLoaderException;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Type;
