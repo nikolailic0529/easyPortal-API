@@ -10,7 +10,7 @@ use function array_merge;
 use function count;
 use function min;
 
-class Iterator implements IteratorAggregate {
+class QueryIterator implements IteratorAggregate {
     /**
      * @param array<mixed> $params
      */

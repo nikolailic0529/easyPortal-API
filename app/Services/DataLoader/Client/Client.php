@@ -11,7 +11,9 @@ use GraphQL\Type\Introspection;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Arr;
-use IteratorAggregate;
+use Iterator;
+
+use Traversable;
 
 use function reset;
 
@@ -27,6 +29,48 @@ class Client {
 
     // <editor-fold desc="Queries">
     // =========================================================================
+    /**
+     * @return \Traversable<\App\Services\DataLoader\Schema\Company>
+     */
+    public function getResellers(int $limit = null, int $offset = null): Traversable {
+        $this
+            ->iterator(
+                'getResellers',
+                /** @lang GraphQL */ <<<'GRAPHQL'
+                query items($limit: Int, $offset: Int) {
+                    getResellers(limit: $limit, offset: $offset) {
+                        id
+                        name
+                        companyContactPersons {
+                            phoneNumber
+                            vendor
+                            name
+                            type
+                        }
+                        companyTypes {
+                            vendorSpecificId
+                            vendor
+                            type
+                            status
+                        }
+                        locations {
+                            zip
+                            address
+                            city
+                            locationType
+                        }
+                    }
+                }
+                GRAPHQL,
+                [],
+                static function (array $data): Company {
+                    return Company::create($data);
+                },
+            )
+            ->limit($limit)
+            ->offset($offset);
+    }
+
     public function getCompanyById(string $id): ?Company {
         $company = $this->get(
             'getCompanyById',
@@ -110,9 +154,9 @@ class Client {
     }
 
     /**
-     * @return \IteratorAggregate<\App\Services\DataLoader\Schema\Asset>
+     * @return \Traversable<\App\Services\DataLoader\Schema\Asset>
      */
-    public function getAssetsByCustomerId(string $id, int $limit = null, int $offset = null): IteratorAggregate {
+    public function getAssetsByCustomerId(string $id, int $limit = null, int $offset = null): Traversable {
         return $this
             ->iterator(
                 'getAssetsByCustomerId',
@@ -172,9 +216,11 @@ class Client {
      *
      * @param array<mixed> $params
      * @param \Closure(array<mixed>):T $reriever
+     *
+     * @return \App\Services\DataLoader\Client\QueryIterator<T>
      */
-    public function iterator(string $selector, string $graphql, array $params, Closure $retriever): Iterator {
-        return (new Iterator($this, $selector, $graphql, $params, $retriever))->chunk($this->setting('chunk'));
+    public function iterator(string $selector, string $graphql, array $params, Closure $retriever): QueryIterator {
+        return (new QueryIterator($this, $selector, $graphql, $params, $retriever))->chunk($this->setting('chunk'));
     }
 
     /**

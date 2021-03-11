@@ -11,9 +11,9 @@ use function range;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Client\Iterator
+ * @coversDefaultClass \App\Services\DataLoader\Client\QueryIterator
  */
-class IteratorTest extends TestCase {
+class QueryIteratorTest extends TestCase {
     /**
      * @covers ::getIterator
      */
@@ -30,7 +30,7 @@ class IteratorTest extends TestCase {
             });
 
         $expected = $data;
-        $actual   = iterator_to_array((new Iterator($client, '', ''))->chunk(5));
+        $actual   = iterator_to_array((new QueryIterator($client, '', ''))->chunk(5));
 
         $this->assertEquals($expected, $actual);
     }
@@ -51,7 +51,7 @@ class IteratorTest extends TestCase {
             });
 
         $expected = [6, 7];
-        $actual   = iterator_to_array((new Iterator($client, '', ''))->offset(5)->limit(2)->chunk(5));
+        $actual   = iterator_to_array((new QueryIterator($client, '', ''))->offset(5)->limit(2)->chunk(5));
 
         $this->assertEquals($expected, $actual);
     }
@@ -74,7 +74,7 @@ class IteratorTest extends TestCase {
             });
 
         $expected = $data;
-        $actual   = iterator_to_array((new Iterator($client, '', ''))->limit(10)->chunk(2));
+        $actual   = iterator_to_array((new QueryIterator($client, '', ''))->limit(10)->chunk(2));
 
         $this->assertEquals($expected, $actual);
     }
@@ -97,7 +97,7 @@ class IteratorTest extends TestCase {
             });
 
         $expected = [1, 2];
-        $actual   = iterator_to_array((new Iterator($client, '', ''))->limit(2)->chunk(50));
+        $actual   = iterator_to_array((new QueryIterator($client, '', ''))->limit(2)->chunk(50));
 
         $this->assertEquals($expected, $actual);
     }
