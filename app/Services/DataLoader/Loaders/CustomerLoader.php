@@ -8,14 +8,17 @@ use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
 use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Loader;
+use App\Services\DataLoader\Loaders\Concerns\WithAssets;
+use App\Services\DataLoader\Loaders\Concerns\WithContacts;
+use App\Services\DataLoader\Loaders\Concerns\WithLocations;
 use Psr\Log\LoggerInterface;
 
 use function array_filter;
 
 class CustomerLoader extends Loader {
-    protected bool $withLocations = true;
-    protected bool $withContacts  = true;
-    protected bool $withAssets    = false;
+    use WithLocations;
+    use WithContacts;
+    use WithAssets;
 
     public function __construct(
         LoggerInterface $logger,
@@ -27,39 +30,6 @@ class CustomerLoader extends Loader {
     ) {
         parent::__construct($logger, $client);
     }
-
-    // <editor-fold desc="Getters / Setters">
-    // =========================================================================
-    public function isWithLocations(): bool {
-        return $this->withLocations;
-    }
-
-    public function setWithLocations(bool $withLocations): static {
-        $this->withLocations = $withLocations;
-
-        return $this;
-    }
-
-    public function isWithContacts(): bool {
-        return $this->withContacts;
-    }
-
-    public function setWithContacts(bool $withContacts): static {
-        $this->withContacts = $withContacts;
-
-        return $this;
-    }
-
-    public function isWithAssets(): bool {
-        return $this->withAssets;
-    }
-
-    public function setWithAssets(bool $withAssets): static {
-        $this->withAssets = $withAssets;
-
-        return $this;
-    }
-    // </editor-fold>
 
     // <editor-fold desc="API">
     // =========================================================================
