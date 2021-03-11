@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Commands;
 
+use App\Services\DataLoader\Commands\Concerns\WithBooleanOptions;
 use App\Services\DataLoader\DataLoaderService;
 use Illuminate\Console\Command;
 use Psr\Log\LoggerInterface;
@@ -11,6 +12,8 @@ use function array_unique;
 use function count;
 
 class Customer extends Command {
+    use WithBooleanOptions;
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -18,9 +21,12 @@ class Customer extends Command {
      */
     protected $signature = 'data-loader:customer
         {id* : The ID of the company}
-        {--skip-locations : Do not load customer\'s locations}
-        {--skip-contacts : Do not load customer\'s contacts}
-        {--skip-assets  : Do not load customer\'s assets}
+        {--l|locations : Load locations (default)}
+        {--L|no-locations : Skip locations}
+        {--c|contacts : Load contacts (default)}
+        {--C|no-contacts : Skip contacts}
+        {--a|assets : Load assets}
+        {--A|no-assets : Skip assets (default)}
     ';
 
     /**
@@ -36,9 +42,9 @@ class Customer extends Command {
         $ids    = array_unique($this->argument('id'));
         $bar    = $this->output->createProgressBar(count($ids));
 
-        $loader->setWithLocations(!$this->option('skip-locations'));
-        $loader->setWithContacts(!$this->option('skip-contacts'));
-        $loader->setWithAssets(!$this->option('skip-assets'));
+        $loader->setWithLocations($this->getBooleanOption('locations', true));
+        $loader->setWithContacts($this->getBooleanOption('contacts', true));
+        $loader->setWithAssets($this->getBooleanOption('assets', false));
 
         $bar->start();
 
