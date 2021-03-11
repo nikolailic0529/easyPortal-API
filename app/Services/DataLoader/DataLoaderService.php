@@ -4,6 +4,7 @@ namespace App\Services\DataLoader;
 
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Container\Container;
+use App\Services\DataLoader\Loaders\CustomerLoader;
 
 class DataLoaderService {
     public function __construct(
@@ -12,15 +13,8 @@ class DataLoaderService {
         // empty
     }
 
-    /**
-     * @template T
-     *
-     * @param class-string<T> $class
-     *
-     * @return T
-     */
-    public function make(string $class): object {
-        return $this->container->make($class);
+    public function getCustomerLoader(): CustomerLoader {
+        return $this->container->make(CustomerLoader::class);
     }
 
     public function getClient(): Client {

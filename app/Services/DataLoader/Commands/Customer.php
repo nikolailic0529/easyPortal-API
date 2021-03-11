@@ -33,7 +33,7 @@ class Customer extends Command {
 
     public function handle(DataLoaderService $service, LoggerInterface $logger): int {
         $result = static::SUCCESS;
-        $loader = $service->make(CustomerLoader::class);
+        $loader = $service->getCustomerLoader();
         $ids    = array_unique($this->argument('id'));
         $bar    = $this->output->createProgressBar(count($ids));
 
