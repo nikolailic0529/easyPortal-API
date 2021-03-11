@@ -5,7 +5,7 @@
         {
             "vendorSpecificId": "12345",
             "vendor": "HPE",
-            "type": "RESELLER",
+            "type": "CUSTOMER",
             "status": "ACTIVE"
         }
     ]

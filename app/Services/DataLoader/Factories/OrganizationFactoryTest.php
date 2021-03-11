@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Factories;
 
+use App\Services\DataLoader\Exceptions\DataLoaderException;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
@@ -25,8 +26,9 @@ class OrganizationFactoryTest extends TestCase {
      */
     public function testFind(): void {
         $company = Company::create([
-            'id'   => $this->faker->uuid,
-            'name' => $this->faker->company,
+            'id'           => $this->faker->uuid,
+            'name'         => $this->faker->company,
+            'companyTypes' => [['type' => 'RESELLER']],
         ]);
         $factory = $this->app->make(OrganizationFactory::class);
 
@@ -119,6 +121,21 @@ class OrganizationFactoryTest extends TestCase {
         $this->assertTrue($organization->wasRecentlyCreated);
         $this->assertEquals($company->id, $organization->getKey());
         $this->assertEquals($company->name, $organization->name);
+    }
+
+    /**
+     * @covers ::create
+     * @covers ::createFromCompany
+     */
+    public function testCreateFromCompanyNotReseller(): void {
+        $factory = $this->app->make(OrganizationFactory::class);
+        $json    = $this->getTestData()->json('~customer.json');
+        $company = Company::create($json);
+
+        $this->expectException(DataLoaderException::class);
+        $this->expectErrorMessageMatches('/Company `[^`]+` is not a reseller./ui');
+
+        $factory->create($company);
     }
     // </editor-fold>
 
