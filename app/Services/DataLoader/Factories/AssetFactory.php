@@ -6,16 +6,19 @@ use App\Models\Asset as AssetModel;
 use App\Models\Customer;
 use App\Models\Location;
 use App\Models\Oem;
+use App\Models\Organization;
 use App\Models\Product;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\LocationNotFoundException;
+use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
+use App\Services\DataLoader\Resolvers\OrganizationResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Asset;
@@ -29,7 +32,8 @@ class AssetFactory extends ModelFactory {
     use WithOem;
     use WithType;
 
-    protected ?CustomerFactory $customerFactory = null;
+    protected ?CustomerFactory     $customerFactory     = null;
+    protected ?OrganizationFactory $organizationFactory = null;
 
     public function __construct(
         LoggerInterface $logger,
@@ -39,6 +43,7 @@ class AssetFactory extends ModelFactory {
         protected TypeResolver $types,
         protected ProductResolver $products,
         protected CustomerResolver $customerResolver,
+        protected OrganizationResolver $organizationResolver,
         protected LocationFactory $locations,
     ) {
         parent::__construct($logger, $normalizer);
@@ -48,6 +53,12 @@ class AssetFactory extends ModelFactory {
     // =========================================================================
     public function setCustomersFactory(?CustomerFactory $factory): static {
         $this->customerFactory = $factory;
+
+        return $this;
+    }
+
+    public function setOrganizationFactory(?OrganizationFactory $factory): static {
+        $this->organizationFactory = $factory;
 
         return $this;
     }
@@ -77,8 +88,9 @@ class AssetFactory extends ModelFactory {
         $oem      = $this->assetOem($asset);
         $type     = $this->assetType($asset);
         $product  = $this->assetProduct($asset);
+        $reseller = $this->assetReseller($asset);
         $customer = $this->assetCustomer($asset);
-        $location = $this->assetLocation($asset, $customer);
+        $location = $this->assetLocation($asset, $customer, $reseller);
         $model    = $this->asset($asset->id, $oem, $type, $product, $customer, $location, $asset->serialNumber);
 
         return $model;
@@ -105,6 +117,29 @@ class AssetFactory extends ModelFactory {
         return $product;
     }
 
+    protected function assetReseller(Asset $asset): ?Organization {
+        $id       = $asset->resellerId ?? (isset($asset->reseller) ? $asset->reseller->id : null);
+        $reseller = null;
+
+        if ($id) {
+            $reseller = $this->organizationResolver->get($id);
+        }
+
+        if (!$reseller && $this->organizationFactory) {
+            $reseller = $this->organizationFactory->create($asset->reseller);
+        }
+
+        if ($id && !$reseller) {
+            throw new ResellerNotFoundException(sprintf(
+                'Reseller `%s` not found (asset `%s`).',
+                $id,
+                $asset->id,
+            ));
+        }
+
+        return $reseller;
+    }
+
     protected function assetCustomer(Asset $asset): ?Customer {
         $id       = $asset->customerId ?? (isset($asset->customer) ? $asset->customer->id : null);
         $customer = null;
@@ -128,7 +163,7 @@ class AssetFactory extends ModelFactory {
         return $customer;
     }
 
-    protected function assetLocation(Asset $asset, ?Customer $customer): ?Location {
+    protected function assetLocation(Asset $asset, ?Customer $customer, ?Organization $reseller): ?Location {
         $location = null;
         $required = null
             || ($asset->zip ?? null)
@@ -138,6 +173,10 @@ class AssetFactory extends ModelFactory {
 
         if ($customer) {
             $location = $this->locations->find($customer, $asset);
+        }
+
+        if ($reseller && !$location) {
+            $location = $this->locations->find($reseller, $asset);
         }
 
         if ($required && !$location) {
