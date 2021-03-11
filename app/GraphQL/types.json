@@ -25,9 +25,6 @@
                 }
             }
         },
-        "CustomerType": {
-            "$ref": "#/definitions/CustomerStatus"
-        },
         "Customer": {
             "additionProperties": false,
             "type": "object",
@@ -45,10 +42,112 @@
                     "type": "string"
                 },
                 "locations": {
-                    "type": "array"
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Location"
+                    }
                 },
                 "locations_count": {
                     "type": "integer"
+                },
+                "contacts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Contact"
+                    }
+                },
+                "contacts_count": {
+                    "type": "integer"
+                }
+            }
+        },
+        "Location": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "postcode",
+                "state",
+                "line_one",
+                "line_two",
+                "lat",
+                "lng"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "postcode": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "line_one": {
+                    "type": "string"
+                },
+                "line_two": {
+                    "type": "string"
+                },
+                "types":{
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Type"
+                    }
+                },
+                "lat": {
+                    "type": ["string", "null"]
+                },
+                "lng": {
+                    "type": ["string", "null"]
+                }
+            }
+        },
+        "Contact": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "phone_valid"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "phone_number": {
+                    "type": "string"
+                },
+                "phone_valid": {
+                    "type": "boolean"
+                },
+                "types":{
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Type"
+                    }
+                }
+            }
+        },
+        "Type": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "key": {
+                    "type": "string"
                 }
             }
         }

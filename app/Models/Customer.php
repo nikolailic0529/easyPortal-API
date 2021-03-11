@@ -27,7 +27,7 @@ use function sprintf;
  * @property \Carbon\CarbonImmutable|null                                     $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset> $assets
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>    $contacts
- * @property-read int|null                                                    $contacts_count
+ * @property int                                                              $contacts_count
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>   $locations
  * @property \App\Models\Status                                               $status
  * @property \App\Models\Type                                                 $type
@@ -81,6 +81,7 @@ class Customer extends Model {
      */
     public function setContactsAttribute(Collection|array $contacts): void {
         $this->syncMorphMany('contacts', $contacts);
+        $this->contacts_count = count($contacts);
     }
 
     /**

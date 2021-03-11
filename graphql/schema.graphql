@@ -15,7 +15,7 @@ type Query {
     customerStatuses: [CustomerStatus!]!
 
     "List of all types"
-    customerTypes: [CustomerType!]!
+    customerTypes: [Type!]!
 
     "List of Customers"
     customers (

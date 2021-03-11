@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 /**
  * Type.
  *
@@ -14,6 +14,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location> $locations
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact> $contacts
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type query()
@@ -35,4 +37,12 @@ class Type extends PolymorphicModel {
      * @var string
      */
     protected $table = 'types';
+
+    public function locations(): BelongsToMany {
+        return $this->belongsToMany(Location::class, 'location_types')->withTimestamps();
+    }
+
+    public function contacts(): BelongsToMany {
+        return $this->belongsToMany(Contact::class, 'contact_types')->withTimestamps();
+    }
 }

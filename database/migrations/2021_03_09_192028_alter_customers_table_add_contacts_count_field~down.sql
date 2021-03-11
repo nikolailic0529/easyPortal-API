@@ -1,5 +1,5 @@
 -- MySQL Workbench Synchronization
--- Generated: 2021-03-03 12:14
+-- Generated: 2021-03-09 18:21
 -- Model: New Model
 -- Version: 1.0
 -- Project: Name of the project
@@ -10,7 +10,7 @@ SET @OLD_FOREIGN_KEY_CHECKS = @@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS = 1;
 SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 ALTER TABLE `customers`
-    ADD COLUMN `locations_count` INT(11) NOT NULL DEFAULT 0 AFTER `name`;
+    DROP COLUMN `contacts_count`;
 
 
 SET SQL_MODE = @OLD_SQL_MODE;

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
 
+use function count;
 /**
  * Contact.
  *
@@ -20,7 +21,6 @@ use Illuminate\Support\Collection;
  * @property \Carbon\CarbonImmutable                                    $updated_at
  * @property \Carbon\CarbonImmutable|null                               $deleted_at
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Type> $types
- * @property-read int|null                                              $types_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contact newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contact newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Contact query()

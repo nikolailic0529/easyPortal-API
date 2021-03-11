@@ -12,7 +12,6 @@ use Tests\DataProviders\TenantDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
-
 /**
  * @internal
  * @coversNothing
@@ -45,8 +44,18 @@ class CustomerTest extends TestCase {
                         name
                         locations_count
                         locations {
+                            id
                             state
                             postcode
+                            line_one
+                            line_two
+                            lat
+                            lng
+                        }
+                        contacts {
+                            name
+                            email
+                            phone_valid
                         }
                     }
                 }
@@ -74,8 +83,20 @@ class CustomerTest extends TestCase {
                                 'locations_count' => 1,
                                 'locations'       => [
                                     [
+                                        'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                                         'state'    => 'state1',
                                         'postcode' => '19911',
+                                        'line_one' => 'line_one_data',
+                                        'line_two' => 'line_two_data',
+                                        'lat'      => '47.91634204',
+                                        'lng'      => '-2.26318359',
+                                    ],
+                                ],
+                                'contacts'        => [
+                                    [
+                                        'name'        => 'contact1',
+                                        'email'       => 'contact1@test.com',
+                                        'phone_valid' => false,
                                     ],
                                 ],
                             ],
@@ -83,15 +104,25 @@ class CustomerTest extends TestCase {
                     ]),
                     static function (): Customer {
                         $customer = Customer::factory()
-                        ->hasLocations(1, [
-                            'state'    => 'state1',
-                            'postcode' => '19911',
-                        ])
-                        ->create([
-                            'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                            'name'            => 'name aaa',
-                            'locations_count' => 1,
-                        ]);
+                            ->hasLocations(1, [
+                                'id'          => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                'state'       => 'state1',
+                                'postcode'    => '19911',
+                                'line_one'    => 'line_one_data',
+                                'line_two'    => 'line_two_data',
+                                'lat'         => '47.91634204',
+                                'lng'         => '-2.26318359',
+                            ])
+                            ->hasContacts(1, [
+                                'name'        => 'contact1',
+                                'email'       => 'contact1@test.com',
+                                'phone_valid' => false,
+                            ])
+                            ->create([
+                                'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                'name'            => 'name aaa',
+                                'locations_count' => 1,
+                            ]);
                         return $customer;
                     },
                 ],

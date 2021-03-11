@@ -108,6 +108,7 @@ class CustomerFactoryTest extends TestCase {
             $this->getCustomerLocations($customer),
         );
         $this->assertCount(4, $customer->contacts);
+        $this->assertEquals(4, $customer->contacts_count);
         $this->assertEquals(
             $this->getCompanyContacts($company),
             $this->getCustomerContacts($customer),

@@ -96,6 +96,7 @@ class CustomerLoader extends Loader {
 
         // Update countable
         $customer->locations_count = $customer->locations()->count();
+        $customer->contacts_count  = $customer->contacts()->count();
         $customer->assets_count    = $customer->assets()->count();
         $customer->save();
 
