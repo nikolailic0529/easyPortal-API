@@ -3,12 +3,15 @@
 namespace App\Console;
 
 use App\Services\DataLoader\Commands\Customer;
-use Illuminate\Console\Scheduling\Schedule;
+use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use LastDragon_ru\LaraASP\Queue\Concerns\ConsoleKernelWithSchedule;
 
 use function base_path;
 
 class Kernel extends ConsoleKernel {
+    use ConsoleKernelWithSchedule;
+
     /**
      * The Artisan commands provided by your application.
      *
@@ -21,11 +24,13 @@ class Kernel extends ConsoleKernel {
     ];
 
     /**
-     * Define the application's command schedule.
+     * The application's command schedule.
+     *
+     * @var array<class-string<\LastDragon_ru\LaraASP\Queue\Contracts\Cronable>>
      */
-    protected function schedule(Schedule $schedule): void {
-        // $schedule->command('inspire')->hourly();
-    }
+    protected array $schedule = [
+        ResellersImporterCronJob::class,
+    ];
 
     /**
      * Register the commands for the application.

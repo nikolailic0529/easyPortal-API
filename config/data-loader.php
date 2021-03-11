@@ -5,11 +5,14 @@
  *
  * @see \App\Services\DataLoader\Client\Client
  */
+
+use App\Setting;
+
 return [
     /**
      * Enabled?
      */
-    'enabled'  => env('DATA_LOADER_ENABLED', DATA_LOADER_ENABLED ?? false),
+    'enabled'  => Setting::get('DATA_LOADER_ENABLED'),
 
     /**
      * GraphQL Endpoint
@@ -19,5 +22,5 @@ return [
     /**
      * Default chunk size.
      */
-    'chunk'    => env('DATA_LOADER_CHUNK', DATA_LOADER_CHUNK ?? 100),
+    'chunk'    => Setting::get('DATA_LOADER_CHUNK'),
 ];

@@ -1,5 +1,9 @@
 <?php declare(strict_types = 1);
 
+use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
+use App\Services\DataLoader\Jobs\ResellerUpdate;
+use App\Setting;
+
 return [
 
     /*
@@ -93,5 +97,21 @@ return [
     */
     'batching'    => [
         'table' => 'laravel_job_batches',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Queued Jobs Settings
+    |--------------------------------------------------------------------------
+    */
+    'queueables'  => [
+        ResellersImporterCronJob::class => [
+            'enabled' => Setting::get('DATA_LOADER_RESELLERS_IMPORTER_ENABLED', 'DATA_LOADER_ENABLED'),
+            'cron'    => Setting::get('DATA_LOADER_RESELLERS_IMPORTER_CRON'),
+            'queue'   => Setting::get('DATA_LOADER_RESELLERS_IMPORTER_QUEUE'),
+        ],
+        ResellerUpdate::class           => [
+            'queue' => Setting::get('DATA_LOADER_RESELLER_UPDATE_QUEUE'),
+        ],
     ],
 ];
