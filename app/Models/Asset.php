@@ -12,21 +12,23 @@ use function sprintf;
 /**
  * Asset.
  *
- * @property string                       $id
- * @property string                       $oem_id
- * @property string                       $product_id
- * @property string                       $type_id
- * @property string|null                  $customer_id current
- * @property string|null                  $location_id current
- * @property string                       $serial_number
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property \App\Models\Customer|null    $customer
- * @property \App\Models\Location|null    $location
- * @property \App\Models\Oem              $oem
- * @property \App\Models\Product          $product
- * @property \App\Models\Type             $type
+ * @property string                        $id
+ * @property string                        $oem_id
+ * @property string                        $product_id
+ * @property string                        $type_id
+ * @property string|null                   $organization_id current
+ * @property string|null                   $customer_id current
+ * @property string|null                   $location_id current
+ * @property string                        $serial_number
+ * @property \Carbon\CarbonImmutable       $created_at
+ * @property \Carbon\CarbonImmutable       $updated_at
+ * @property \Carbon\CarbonImmutable|null  $deleted_at
+ * @property \App\Models\Customer|null     $customer
+ * @property \App\Models\Location|null     $location
+ * @property \App\Models\Oem               $oem
+ * @property \App\Models\Organization|null $organization
+ * @property \App\Models\Product           $product
+ * @property \App\Models\Type              $type
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset query()
@@ -36,6 +38,7 @@ use function sprintf;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereLocationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereOemId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereOrganizationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereProductId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereSerialNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereTypeId($value)
@@ -118,5 +121,13 @@ class Asset extends Model {
 
         // Set
         $this->location()->associate($location);
+    }
+
+    public function organization(): BelongsTo {
+        return $this->belongsTo(Organization::class);
+    }
+
+    public function setOrganizationAttribute(?Organization $organization): void {
+        $this->organization()->associate($organization);
     }
 }

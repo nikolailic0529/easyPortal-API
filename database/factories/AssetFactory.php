@@ -6,6 +6,7 @@ use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Location;
 use App\Models\Oem;
+use App\Models\Organization;
 use App\Models\Product;
 use App\Models\Type;
 use Illuminate\Support\Facades\Date;
@@ -29,6 +30,9 @@ class AssetFactory extends Factory {
     public function definition(): array {
         return [
             'id'            => $this->faker->uuid,
+            'ogranization'  => static function (): Organization {
+                return Organization::factory()->create();
+            },
             'oem_id'        => static function (): Oem {
                 return Oem::factory()->create();
             },
