@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\WithLocations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
@@ -33,6 +34,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Organization extends Model {
     use HasFactory;
+    use WithLocations;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
