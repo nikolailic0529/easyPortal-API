@@ -28,7 +28,6 @@ class OrganizationFactory extends Factory {
             'name'            => $this->faker->company,
             'customers_count' => 0,
             'locations_count' => 0,
-            'contacts_count'  => 0,
             'assets_count'    => 0,
             'created_at'      => Date::now(),
             'updated_at'      => Date::now(),

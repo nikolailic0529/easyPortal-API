@@ -14,7 +14,6 @@ ALTER TABLE `organizations`
     ADD COLUMN `abbr` VARCHAR(32)                                         NOT NULL AFTER `type`,
     DROP COLUMN `customers_count`,
     DROP COLUMN `locations_count`,
-    DROP COLUMN `contacts_count`,
     DROP COLUMN `assets_count`;
 
 

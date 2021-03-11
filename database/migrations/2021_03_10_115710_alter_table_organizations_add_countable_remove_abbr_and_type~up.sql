@@ -12,7 +12,6 @@ SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABL
 ALTER TABLE `organizations`
     ADD COLUMN `customers_count` INT(11) NOT NULL DEFAULT 0 AFTER `name`,
     ADD COLUMN `locations_count` INT(11) NOT NULL DEFAULT 0 AFTER `customers_count`,
-    ADD COLUMN `contacts_count` INT(11) NOT NULL DEFAULT 0 AFTER `locations_count`,
     ADD COLUMN `assets_count` INT(11) NOT NULL DEFAULT 0 AFTER `contacts_count`,
     DROP COLUMN `abbr`,
     DROP COLUMN `type`;

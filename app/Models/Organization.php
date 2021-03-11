@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                       $name
  * @property int                          $customers_count
  * @property int                          $locations_count
- * @property int                          $contacts_count
  * @property int                          $assets_count
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
@@ -22,7 +21,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereAssetsCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereContactsCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereCustomersCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereDeletedAt($value)
