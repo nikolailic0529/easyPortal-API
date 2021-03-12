@@ -129,6 +129,34 @@ class Client {
     }
 
     /**
+     * @return \Traversable<\App\Services\DataLoader\Schema\Asset>
+     */
+    public function getAssetsByResellerId(string $id, int $limit = null, int $offset = 0): Traversable {
+        return $this
+            ->iterator(
+                'getAssetsByResellerId',
+                /** @lang GraphQL */ <<<GRAPHQL
+                query items(\$id: String!, \$limit: Int, \$offset: Int) {
+                    getAssetsByResellerId(resellerId: \$id, limit: \$limit, offset: \$offset) {
+                        {$this->getAssetPropertiesGraphQL()}
+                        customer {
+                            {$this->getCompanyPropertiesGraphQL()}
+                        }
+                    }
+                }
+                GRAPHQL,
+                [
+                    'id' => $id,
+                ],
+                static function (array $data): Asset {
+                    return Asset::create($data);
+                },
+            )
+            ->limit($limit)
+            ->offset($offset);
+    }
+
+    /**
      * @return array<mixed>
      */
     public function getIntrospection(): array {

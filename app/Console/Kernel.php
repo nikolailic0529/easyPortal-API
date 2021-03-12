@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Services\DataLoader\Commands\Customer;
+use App\Services\DataLoader\Commands\Reseller;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use LastDragon_ru\LaraASP\Queue\Concerns\ConsoleKernelWithSchedule;
@@ -20,6 +21,7 @@ class Kernel extends ConsoleKernel {
      * @var array<string>
      */
     protected $commands = [
+        Reseller::class,
         Customer::class,
     ];
 

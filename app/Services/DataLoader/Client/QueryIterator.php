@@ -4,7 +4,9 @@ namespace App\Services\DataLoader\Client;
 
 use Closure;
 use Generator;
+use Illuminate\Support\Facades\Log;
 use IteratorAggregate;
+use Throwable;
 
 use function array_merge;
 use function count;
@@ -63,7 +65,15 @@ class QueryIterator implements IteratorAggregate {
             $offset = $offset + count($items);
 
             foreach ($items as $item) {
-                yield $index++ => $retriever($item);
+                try {
+                    yield $index++ => $retriever($item);
+                } catch (Throwable $exception) {
+                    Log::info(__METHOD__, [
+                        'item' => $item,
+                    ]);
+
+                    throw $exception;
+                }
 
                 if ($limit && $index >= $limit) {
                     break 2;
