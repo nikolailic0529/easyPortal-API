@@ -3,22 +3,16 @@
 namespace App\Services\DataLoader\Factories;
 
 use App\Models\Organization;
-use App\Services\DataLoader\Exceptions\DataLoaderException;
 use App\Services\DataLoader\Factories\Concerns\WithLocations;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\OrganizationResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
-use function array_map;
-use function array_unique;
-use function count;
-use function reset;
 use function sprintf;
 
 class OrganizationFactory extends ModelFactory {

@@ -74,6 +74,6 @@ class UserRepository implements Auth0UserRepository {
      * @return array<string, mixed>|null
      */
     protected function getAuth0UserInfo(): ?array {
-        return  $this->container->make('auth0')->getUser();
+        return $this->container->make('auth0')->getUser();
     }
 }

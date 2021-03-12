@@ -89,17 +89,23 @@
                 "line_two": {
                     "type": "string"
                 },
-                "types":{
+                "types": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/Type"
                     }
                 },
                 "lat": {
-                    "type": ["string", "null"]
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "lng": {
-                    "type": ["string", "null"]
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             }
         },
@@ -125,7 +131,7 @@
                 "phone_valid": {
                     "type": "boolean"
                 },
-                "types":{
+                "types": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/Type"

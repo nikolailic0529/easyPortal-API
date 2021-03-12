@@ -64,6 +64,7 @@ class ResolverTest extends TestCase {
             throw new Exception();
         }));
     }
+
     /**
      * @covers ::resolve
      */

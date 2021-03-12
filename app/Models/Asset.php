@@ -17,8 +17,8 @@ use function sprintf;
  * @property string                        $product_id
  * @property string                        $type_id
  * @property string|null                   $organization_id current
- * @property string|null                   $customer_id current
- * @property string|null                   $location_id current
+ * @property string|null                   $customer_id     current
+ * @property string|null                   $location_id     current
  * @property string                        $serial_number
  * @property \Carbon\CarbonImmutable       $created_at
  * @property \Carbon\CarbonImmutable       $updated_at

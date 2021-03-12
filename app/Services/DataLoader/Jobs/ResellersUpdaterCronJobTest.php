@@ -2,8 +2,6 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Jobs\JobsCleanupCronJob;
-use App\Models\Job;
 use App\Models\Organization;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Date;

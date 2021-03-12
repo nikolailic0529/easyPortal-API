@@ -3,14 +3,15 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasAssets;
+use App\Models\Concerns\HasLocations;
 use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
 use App\Models\Concerns\SyncMorphMany;
-use App\Models\Concerns\HasLocations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
+
+use function count;
 
 /**
  * Customer.
