@@ -51,12 +51,13 @@ class AssetResolverTest extends TestCase {
         $uuid    = $this->faker->uuid;
         $spy     = Mockery::spy(static function () use ($uuid): Asset {
             return Asset::factory()->make([
-                'id'          => $uuid,
-                'oem_id'      => $uuid,
-                'type_id'     => $uuid,
-                'product_id'  => $uuid,
-                'customer_id' => $uuid,
-                'location_id' => $uuid,
+                'id'              => $uuid,
+                'oem_id'          => $uuid,
+                'type_id'         => $uuid,
+                'product_id'      => $uuid,
+                'customer_id'     => $uuid,
+                'location_id'     => $uuid,
+                'organization_id' => $uuid,
             ]);
         });
         $created = $provider->get($uuid, Closure::fromCallable($spy));
