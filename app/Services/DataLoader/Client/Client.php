@@ -30,33 +30,14 @@ class Client {
     /**
      * @return \Traversable<\App\Services\DataLoader\Schema\Company>
      */
-    public function getResellers(int $limit = null, int $offset = null): Traversable {
+    public function getResellers(int $limit = null, int $offset = 0): Traversable {
         $this
             ->iterator(
                 'getResellers',
-                /** @lang GraphQL */ <<<'GRAPHQL'
-                query items($limit: Int, $offset: Int) {
-                    getResellers(limit: $limit, offset: $offset) {
-                        id
-                        name
-                        companyContactPersons {
-                            phoneNumber
-                            vendor
-                            name
-                            type
-                        }
-                        companyTypes {
-                            vendorSpecificId
-                            vendor
-                            type
-                            status
-                        }
-                        locations {
-                            zip
-                            address
-                            city
-                            locationType
-                        }
+                /** @lang GraphQL */ <<<GRAPHQL
+                query items(\$limit: Int, \$offset: Int) {
+                    getResellers(limit: \$limit, offset: \$offset) {
+                        {$this->getCompanyPropertiesGraphQL()}
                     }
                 }
                 GRAPHQL,
@@ -72,29 +53,10 @@ class Client {
     public function getCompanyById(string $id): ?Company {
         $company = $this->get(
             'getCompanyById',
-            /** @lang GraphQL */ <<<'GRAPHQL'
-            query getCompanyById($id: String!) {
-                getCompanyById(id: $id) {
-                    id
-                    name
-                    companyContactPersons {
-                        phoneNumber
-                        vendor
-                        name
-                        type
-                    }
-                    companyTypes {
-                        vendorSpecificId
-                        vendor
-                        type
-                        status
-                    }
-                    locations {
-                        zip
-                        address
-                        city
-                        locationType
-                    }
+            /** @lang GraphQL */ <<<GRAPHQL
+            query getCompanyById(\$id: String!) {
+                getCompanyById(id: \$id) {
+                    {$this->getCompanyPropertiesGraphQL()}
                 }
             }
             GRAPHQL,
@@ -113,28 +75,15 @@ class Client {
     public function getAssetById(string $id): ?Asset {
         $asset = $this->get(
             'getAssets',
-            /** @lang GraphQL */ <<<'GRAPHQL'
-            query getAssets($id: String!) {
-                getAssets(args: [{key: "id", value: $id}]) {
-                    id
-                    name
-                    companyContactPersons {
-                        phoneNumber
-                        vendor
-                        name
-                        type
+            /** @lang GraphQL */ <<<GRAPHQL
+            query getAssets(\$id: String!) {
+                getAssets(args: [{key: "id", value: \$id}]) {
+                    {$this->getAssetPropertiesGraphQL()}
+                    reseller {
+                        {$this->getCompanyPropertiesGraphQL()}
                     }
-                    companyTypes {
-                        vendorSpecificId
-                        vendor
-                        type
-                        status
-                    }
-                    locations {
-                        zip
-                        address
-                        city
-                        locationType
+                    customer {
+                        {$this->getCompanyPropertiesGraphQL()}
                     }
                 }
             }
@@ -154,32 +103,17 @@ class Client {
     /**
      * @return \Traversable<\App\Services\DataLoader\Schema\Asset>
      */
-    public function getAssetsByCustomerId(string $id, int $limit = null, int $offset = null): Traversable {
+    public function getAssetsByCustomerId(string $id, int $limit = null, int $offset = 0): Traversable {
         return $this
             ->iterator(
                 'getAssetsByCustomerId',
-                /** @lang GraphQL */ <<<'GRAPHQL'
-                query items($id: String!, $limit: Int, $offset: Int) {
-                    getAssetsByCustomerId(customerId: $id, limit: $limit, offset: $offset) {
-                        id
-                        serialNumber
-
-                        productDescription
-                        description
-                        assetTag
-                        assetType
-                        vendor
-                        sku
-
-                        eolDate
-                        eosDate
-
-                        zip
-                        city
-                        address
-                        address2
-
-                        customerId
+                /** @lang GraphQL */ <<<GRAPHQL
+                query items(\$id: String!, \$limit: Int, \$offset: Int) {
+                    getAssetsByCustomerId(customerId: \$id, limit: \$limit, offset: \$offset) {
+                        {$this->getAssetPropertiesGraphQL()}
+                        reseller {
+                            {$this->getCompanyPropertiesGraphQL()}
+                        }
                     }
                 }
                 GRAPHQL,
@@ -218,7 +152,8 @@ class Client {
      * @return \App\Services\DataLoader\Client\QueryIterator<T>
      */
     public function iterator(string $selector, string $graphql, array $params, Closure $retriever): QueryIterator {
-        return (new QueryIterator($this, $selector, $graphql, $params, $retriever))->chunk($this->setting('chunk'));
+        return (new QueryIterator($this, "data.{$selector}", $graphql, $params, $retriever))
+            ->chunk($this->setting('chunk'));
     }
 
     /**
@@ -227,7 +162,7 @@ class Client {
      * @return array<mixed>|null
      */
     public function get(string $selector, string $graphql, array $params = []): ?array {
-        $results = $this->call($selector, $graphql, $params);
+        $results = $this->call("data.{$selector}", $graphql, $params);
         $item    = reset($results) ?: null;
 
         return $item;
@@ -273,4 +208,57 @@ class Client {
         return $this->config->get(static::CONFIG.'.'.$name, $default);
     }
     // </editor-fold>
+
+    // <editor-fold desc="GraphQL">
+    // =========================================================================
+    protected function getCompanyPropertiesGraphQL(): string {
+        return <<<'GRAPHQL'
+            id
+            name
+            companyContactPersons {
+                phoneNumber
+                vendor
+                name
+                type
+            }
+            companyTypes {
+                vendorSpecificId
+                vendor
+                type
+                status
+            }
+            locations {
+                zip
+                address
+                city
+                locationType
+            }
+            GRAPHQL;
+    }
+
+    protected function getAssetPropertiesGraphQL(): string {
+        return <<<'GRAPHQL'
+            id
+            serialNumber
+
+            productDescription
+            description
+            assetTag
+            assetType
+            vendor
+            sku
+
+            eolDate
+            eosDate
+
+            zip
+            city
+            address
+            address2
+
+            customerId
+            resellerId
+            GRAPHQL;
+    }
+    //</editor-fold>
 }
