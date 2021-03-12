@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Jobs;
 
+use Illuminate\Contracts\Console\Kernel;
 use LastDragon_ru\LaraASP\Queue\Contracts\Initializable;
 use LastDragon_ru\LaraASP\Queue\Queueables\Job;
 
@@ -28,7 +29,10 @@ class ResellerUpdate extends Job implements Initializable {
         return $this->initialized();
     }
 
-    public function handle(): void {
-        // to do
+    public function handle(Kernel $artisan): void {
+        $artisan->call('data-loader:reseller', [
+            'id'       => [$this->getResellerId()],
+            '--assets' => true,
+        ]);
     }
 }
