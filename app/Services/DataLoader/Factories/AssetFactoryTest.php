@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Factories;
 
-use App\Models\Asset as AssetModel;
 use App\Models\Customer;
 use App\Models\Location;
 use App\Models\Oem;
@@ -13,7 +12,6 @@ use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\OrganizationResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
@@ -81,9 +79,12 @@ class AssetFactoryTest extends TestCase {
         // Prepare
         $container = $this->app->make(Container::class);
         $locations = $container->make(LocationFactory::class);
+        $resellers = $container->make(OrganizationFactory::class)
+            ->setLocationFactory($locations);
         $customers = $container->make(CustomerFactory::class)
             ->setLocationFactory($locations);
         $factory   = $container->make(AssetFactory::class)
+            ->setOrganizationFactory($resellers)
             ->setCustomersFactory($customers);
 
         // Test
@@ -94,6 +95,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
         $this->assertEquals($asset->id, $created->getKey());
+        $this->assertEquals($asset->resellerId, $created->organization_id);
         $this->assertEquals($asset->serialNumber, $created->serial_number);
         $this->assertEquals($asset->vendor, $created->oem->abbr);
         $this->assertEquals($asset->productDescription, $created->product->name);
@@ -116,6 +118,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertNotNull($updated);
         $this->assertTrue($updated->wasRecentlyCreated);
         $this->assertEquals($asset->id, $updated->getKey());
+        $this->assertNull($updated->ogranization_id);
         $this->assertEquals($asset->serialNumber, $updated->serial_number);
         $this->assertEquals($asset->vendor, $updated->oem->abbr);
         $this->assertEquals($asset->productDescription, $updated->product->name);
@@ -164,7 +167,11 @@ class AssetFactoryTest extends TestCase {
     public function testCreateFromAssetAssetNoCustomer(): void {
         // Prepare
         $container = $this->app->make(Container::class);
-        $factory   = $container->make(AssetFactory::class);
+        $locations = $container->make(LocationFactory::class);
+        $resellers = $container->make(OrganizationFactory::class)
+            ->setLocationFactory($locations);
+        $factory   = $container->make(AssetFactory::class)
+            ->setOrganizationFactory($resellers);
 
         // Test
         $json  = $this->getTestData()->json('~asset-full.json');
@@ -817,111 +824,6 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($oem->getKey(), $created->oem_id);
         $this->assertEquals($sku, $created->sku);
         $this->assertEquals($name, $created->name);
-
-        $this->flushQueryLog();
-    }
-
-    /**
-     * @covers ::asset
-     */
-    public function testAsset(): void {
-        // Prepare
-        $normalizer   = $this->app->make(Normalizer::class);
-        $provider     = $this->app->make(AssetResolver::class);
-        $product      = Product::factory()->create();
-        $customer     = Customer::factory()->create();
-        $location     = Location::factory()
-            ->create([
-                'object_type' => $customer->getMorphClass(),
-                'object_id'   => $customer->getKey(),
-            ]);
-        $serialNumber = $this->faker->uuid;
-        $asset        = AssetModel::factory()->create([
-            'oem_id'        => $product->oem,
-            'product_id'    => $product,
-            'customer_id'   => $customer,
-            'location_id'   => $location,
-            'serial_number' => $serialNumber,
-        ]);
-        $oem          = $product->oem;
-        $type         = $asset->type;
-
-        $factory = new class($normalizer, $provider) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, AssetResolver $provider) {
-                $this->normalizer = $normalizer;
-                $this->assets     = $provider;
-            }
-
-            public function asset(
-                string $id,
-                Oem $oem,
-                TypeModel $type,
-                Product $product,
-                ?Customer $customer,
-                ?Location $location,
-                string $serialNumber,
-            ): AssetModel {
-                return parent::asset($id, $oem, $type, $product, $customer, $location, $serialNumber);
-            }
-        };
-
-        $this->flushQueryLog();
-
-        // If model exists and not changed - no action required
-        $this->assertEquals(
-            $asset->withoutRelations(),
-            $factory->asset(
-                $asset->id,
-                $oem,
-                $type,
-                $product,
-                $customer,
-                $location,
-                $serialNumber,
-            )->withoutRelations(),
-        );
-        $this->assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
-
-        // If model exists and changed - it should be updated
-        $newSerialNumber = $this->faker->uuid;
-        $updated         = $factory->asset(
-            $asset->id,
-            $oem,
-            $type,
-            $product,
-            $customer,
-            $location,
-            $newSerialNumber,
-        );
-
-        $this->assertEquals($newSerialNumber, $updated->serial_number);
-        $this->assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
-
-        // If not - it should be created
-        $createdId = $this->faker->uuid;
-        $created   = $factory->asset(
-            $createdId,
-            $oem,
-            $type,
-            $product,
-            $customer,
-            $location,
-            $serialNumber,
-        );
-
-        $this->assertNotNull($created);
-        $this->assertEquals($createdId, $created->getKey());
-        $this->assertEquals($oem->getKey(), $created->oem_id);
-        $this->assertEquals($product->getKey(), $created->product_id);
-        $this->assertEquals($type->getKey(), $created->type_id);
-        $this->assertEquals($customer->getKey(), $created->customer_id);
-        $this->assertEquals($location->getKey(), $created->location_id);
-        $this->assertEquals($serialNumber, $created->serial_number);
 
         $this->flushQueryLog();
     }

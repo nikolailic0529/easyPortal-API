@@ -72,15 +72,13 @@ class CustomerFactory extends ModelFactory {
     // =========================================================================
     protected function createFromCompany(Company $company): Customer {
         // Get/Create customer
-        $type     = $this->customerType($company->companyTypes);
-        $status   = $this->customerStatus($company->companyTypes);
         $created  = false;
-        $factory  = $this->factory(function (Customer $customer) use (&$created, $company, $type, $status): Customer {
+        $factory  = $this->factory(function (Customer $customer) use (&$created, $company): Customer {
             $created          = !$customer->exists;
-            $customer->id     = $company->id;
+            $customer->id     = $this->normalizer->uuid($company->id);
             $customer->name   = $this->normalizer->string($company->name);
-            $customer->type   = $type;
-            $customer->status = $status;
+            $customer->type   = $this->customerType($company->companyTypes);
+            $customer->status = $this->customerStatus($company->companyTypes);
 
             if ($this->contacts) {
                 $customer->contacts = $this->objectContacts($customer, $company->companyContactPersons);

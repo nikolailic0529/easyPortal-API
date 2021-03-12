@@ -85,14 +85,40 @@ class AssetFactory extends ModelFactory {
     // <editor-fold desc="Functions">
     // =========================================================================
     protected function createFromAsset(Asset $asset): ?AssetModel {
-        $oem      = $this->assetOem($asset);
-        $type     = $this->assetType($asset);
-        $product  = $this->assetProduct($asset);
-        $reseller = $this->assetReseller($asset);
-        $customer = $this->assetCustomer($asset);
-        $location = $this->assetLocation($asset, $customer, $reseller);
-        $model    = $this->asset($asset->id, $oem, $type, $product, $customer, $location, $asset->serialNumber);
+        // Get/Create
+        $created = false;
+        $factory = $this->factory(function (AssetModel $model) use (&$created, $asset): AssetModel {
+            $reseller = $this->assetReseller($asset);
+            $customer = $this->assetCustomer($asset);
+            $location = $this->assetLocation($asset, $customer, $reseller);
 
+            $created              = !$model->exists;
+            $model->id            = $this->normalizer->uuid($asset->id);
+            $model->oem           = $this->assetOem($asset);
+            $model->type          = $this->assetType($asset);
+            $model->product       = $this->assetProduct($asset);
+            $model->organization  = $reseller;
+            $model->customer      = $customer;
+            $model->location      = $location;
+            $model->serial_number = $this->normalizer->string($asset->serialNumber);
+
+            $model->save();
+
+            return $model;
+        });
+        $model   = $this->assets->get(
+            $asset->id,
+            static function () use ($factory): AssetModel {
+                return $factory(new AssetModel());
+            },
+        );
+
+        // Update
+        if (!$created && !$this->isSearchMode()) {
+            $factory($model);
+        }
+
+        // Return
         return $model;
     }
 
@@ -125,7 +151,7 @@ class AssetFactory extends ModelFactory {
             $reseller = $this->organizationResolver->get($id);
         }
 
-        if (!$reseller && $this->organizationFactory) {
+        if ($id && !$reseller && $this->organizationFactory) {
             $reseller = $this->organizationFactory->create($asset->reseller);
         }
 
@@ -231,60 +257,6 @@ class AssetFactory extends ModelFactory {
 
         // Return
         return $product;
-    }
-
-    protected function asset(
-        string $id,
-        Oem $oem,
-        TypeModel $type,
-        Product $product,
-        ?Customer $customer,
-        ?Location $location,
-        string $serialNumber,
-    ): AssetModel {
-        // Get/Create
-        $created = false;
-        $factory = $this->factory(
-            function (
-                AssetModel $asset,
-            ) use (
-                &$created,
-                $id,
-                $oem,
-                $type,
-                $product,
-                $customer,
-                $location,
-                $serialNumber,
-            ): AssetModel {
-                $created              = !$asset->exists;
-                $asset->id            = $id;
-                $asset->oem           = $oem;
-                $asset->type          = $type;
-                $asset->product       = $product;
-                $asset->customer      = $customer;
-                $asset->location      = $location;
-                $asset->serial_number = $this->normalizer->string($serialNumber);
-
-                $asset->save();
-
-                return $asset;
-            },
-        );
-        $asset   = $this->assets->get(
-            $id,
-            static function () use ($factory): AssetModel {
-                return $factory(new AssetModel());
-            },
-        );
-
-        // Update
-        if (!$created && !$this->isSearchMode()) {
-            $factory($asset);
-        }
-
-        // Return
-        return $asset;
     }
     // </editor-fold>
 }

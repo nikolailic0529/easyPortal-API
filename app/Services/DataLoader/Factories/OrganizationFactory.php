@@ -86,7 +86,7 @@ class OrganizationFactory extends ModelFactory {
         $created      = false;
         $factory      = $this->factory(function (Organization $organization) use (&$created, $company): Organization {
             $created            = !$organization->exists;
-            $organization->id   = $company->id;
+            $organization->id   = $this->normalizer->uuid($company->id);
             $organization->name = $this->normalizer->string($company->name);
 
             if ($this->locations) {
