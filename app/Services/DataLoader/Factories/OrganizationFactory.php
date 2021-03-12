@@ -74,14 +74,6 @@ class OrganizationFactory extends ModelFactory {
     // <editor-fold desc="Functions">
     // =========================================================================
     protected function createFromCompany(Company $company): ?Organization {
-        // Reseller?
-        if (!$this->isReseller($company)) {
-            throw new DataLoaderException(sprintf(
-                'Company `%s` is not a reseller.',
-                $company->id,
-            ));
-        }
-
         // Get/Create
         $created      = false;
         $factory      = $this->factory(function (Organization $organization) use (&$created, $company): Organization {
@@ -111,23 +103,6 @@ class OrganizationFactory extends ModelFactory {
 
         // Return
         return $organization;
-    }
-
-    protected function isReseller(Company $company): bool {
-        $type  = null;
-        $names = array_unique(array_map(static function (CompanyType $type): string {
-            return $type->type;
-        }, $company->companyTypes));
-
-        if (count($names) > 1) {
-            throw new DataLoaderException('Multiple type.');
-        } elseif (count($names) < 1) {
-            throw new DataLoaderException('Type is missing.');
-        } else {
-            $type = reset($names);
-        }
-
-        return $type === 'RESELLER';
     }
     // </editor-fold>
 }

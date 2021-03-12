@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Factories;
 
-use App\Services\DataLoader\Exceptions\DataLoaderException;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
@@ -127,15 +126,12 @@ class OrganizationFactoryTest extends TestCase {
      * @covers ::create
      * @covers ::createFromCompany
      */
-    public function testCreateFromCompanyNotReseller(): void {
+    public function testCreateFromCompanyTypeIsCustomer(): void {
         $factory = $this->app->make(OrganizationFactory::class);
         $json    = $this->getTestData()->json('~customer.json');
         $company = Company::create($json);
 
-        $this->expectException(DataLoaderException::class);
-        $this->expectErrorMessageMatches('/Company `[^`]+` is not a reseller./ui');
-
-        $factory->create($company);
+        $this->assertNotNull($factory->create($company));
     }
     // </editor-fold>
 
