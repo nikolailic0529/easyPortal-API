@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
 use App\Models\Concerns\SyncMorphMany;
-use App\Models\Concerns\WithLocations;
+use App\Models\Concerns\HasLocations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
@@ -47,7 +47,7 @@ class Customer extends Model {
     use HasFactory;
     use HasType;
     use HasStatus;
-    use WithLocations;
+    use HasLocations;
     use SyncMorphMany;
 
     /**

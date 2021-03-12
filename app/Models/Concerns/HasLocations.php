@@ -13,7 +13,7 @@ use function count;
  *
  * @mixin \App\Models\Model
  */
-trait WithLocations {
+trait HasLocations {
     use SyncMorphMany;
 
     public function locations(): MorphMany {
