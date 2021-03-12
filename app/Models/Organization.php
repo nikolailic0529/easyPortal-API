@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasLocations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -36,6 +37,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  */
 class Organization extends Model {
     use HasFactory;
+    use HasAssets;
     use HasLocations;
 
     /**

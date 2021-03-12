@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
 use App\Models\Concerns\SyncMorphMany;
@@ -47,6 +48,7 @@ class Customer extends Model {
     use HasFactory;
     use HasType;
     use HasStatus;
+    use HasAssets;
     use HasLocations;
     use SyncMorphMany;
 
@@ -57,9 +59,6 @@ class Customer extends Model {
      */
     protected $table = 'customers';
 
-    public function assets(): HasMany {
-        return $this->hasMany(Asset::class);
-    }
 
     public function contacts(): MorphMany {
         return $this->morphMany(Contact::class, 'object');
