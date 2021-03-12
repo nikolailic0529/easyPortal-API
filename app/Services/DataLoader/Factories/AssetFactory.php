@@ -174,7 +174,7 @@ class AssetFactory extends ModelFactory {
             $customer = $this->customerResolver->get($id);
         }
 
-        if (!$customer && $this->customerFactory) {
+        if ($id && !$customer && $this->customerFactory) {
             $customer = $this->customerFactory->create($asset->customer);
         }
 
