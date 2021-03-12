@@ -33,6 +33,7 @@ define('DATA_LOADER_ENABLED', true);
 // Chunk size (default: 100)
 define('DATA_LOADER_CHUNK', 100);
 
+
 // <editor-fold desc="ResellersImporterCronJob">
 // -----------------------------------------------------------------------------
 // Enabled?
@@ -45,5 +46,26 @@ define('DATA_LOADER_RESELLERS_IMPORTER_CRON', '0 0 * * *');
 define('DATA_LOADER_RESELLERS_IMPORTER_QUEUE', Queues::DATA_LOADER_DEFAULT);
 // </editor-fold>
 
+
+// <editor-fold desc="ResellersUpdaterCronJob">
+// -----------------------------------------------------------------------------
+// Enabled?
+define('DATA_LOADER_RESELLERS_UPDATER_ENABLED', DATA_LOADER_ENABLED);
+
+// Cron expression (default: 5 min)
+define('DATA_LOADER_RESELLERS_UPDATER_CRON', '*/5 * * * *');
+
+// Queue name
+define('DATA_LOADER_RESELLERS_UPDATER_QUEUE', Queues::DATA_LOADER_DEFAULT);
+
+// Expiration interval
+define('DATA_LOADER_RESELLERS_UPDATER_EXPIRE', '24 hours');
+// </editor-fold>
+
+
+// <editor-fold desc="ResellerUpdater">
+// -----------------------------------------------------------------------------
 define('DATA_LOADER_RESELLER_UPDATE_QUEUE', Queues::DATA_LOADER_RESELLER);
+// </editor-fold>
+
 // </editor-fold>
