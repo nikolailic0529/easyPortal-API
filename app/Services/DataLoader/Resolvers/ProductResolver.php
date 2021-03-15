@@ -17,10 +17,8 @@ class ProductResolver extends Resolver {
         return $this->resolve($this->getUniqueKey($oem, $sku), $factory);
     }
 
-    protected function getFindQuery(mixed $key): ?Builder {
-        return Product::query()
-            ->where('oem_id', '=', $key['oem_id'])
-            ->where('sku', '=', $key['sku']);
+    protected function getFindQuery(): ?Builder {
+        return Product::query();
     }
 
     /**

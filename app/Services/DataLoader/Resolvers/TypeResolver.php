@@ -7,7 +7,7 @@ use App\Models\Type;
 use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Resolver;
 use Closure;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Pure;
 
 class TypeResolver extends Resolver {
@@ -16,8 +16,8 @@ class TypeResolver extends Resolver {
         return $this->resolve($this->getUniqueKey($model, $key), $factory);
     }
 
-    protected function getInitialQuery(): ?Builder {
-        return Type::query();
+    protected function getPreloadedItems(): Collection {
+        return Type::query()->get();
     }
 
     /**

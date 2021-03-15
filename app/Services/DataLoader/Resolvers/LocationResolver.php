@@ -30,8 +30,12 @@ class LocationResolver extends Resolver {
         );
     }
 
-    protected function getFindQuery(mixed $key): ?Builder {
-        return Location::query()
+    protected function getFindQuery(): ?Builder {
+        return Location::query();
+    }
+
+    protected function getFindWhere(Builder $builder, mixed $key): Builder {
+        return $builder
             ->where('object_type', '=', $key['object_type'])
             ->where('object_id', '=', $key['object_id'])
             ->where('country_id', '=', $key['country_id'])

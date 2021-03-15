@@ -6,7 +6,7 @@ use App\Models\Oem;
 use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Resolver;
 use Closure;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class OemResolver extends Resolver {
     public function get(string $abbr, Closure $factory = null): ?Oem {
@@ -14,8 +14,8 @@ class OemResolver extends Resolver {
         return $this->resolve($abbr, $factory);
     }
 
-    protected function getInitialQuery(): ?Builder {
-        return Oem::query();
+    protected function getPreloadedItems(): Collection {
+        return Oem::query()->get();
     }
 
     /**

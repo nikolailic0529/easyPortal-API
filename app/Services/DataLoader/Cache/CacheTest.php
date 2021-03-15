@@ -114,6 +114,23 @@ class CacheTest extends TestCase {
     }
 
     /**
+     * @covers ::putNull
+     * @covers ::hasNull
+     */
+    public function testPutNulls(): void {
+        $a = $this->items->first();
+        $b = $this->items->last();
+
+        $this->assertFalse($this->cache->hasNull($a->getKey()));
+        $this->assertFalse($this->cache->hasNull($b->getKey()));
+
+        $this->cache->putNulls([$a->getKey(), $b->getKey()]);
+
+        $this->assertTrue($this->cache->hasNull($a->getKey()));
+        $this->assertTrue($this->cache->hasNull($b->getKey()));
+    }
+
+    /**
      * @covers ::put
      */
     public function testPut(): void {
@@ -146,6 +163,40 @@ class CacheTest extends TestCase {
 
         $this->assertSame($item, $this->cache->get($item->getKey()));
         $this->assertSame($item, $this->cache->get($item->property));
+    }
+
+    /**
+     * @covers ::putAll
+     */
+    public function testPutAll(): void {
+        $a = $this->item();
+        $b = $this->item();
+
+        $this->assertFalse($this->cache->has($a->getKey()));
+        $this->assertFalse($this->cache->has($b->getKey()));
+
+        $this->cache->putAll(new Collection([$a, $b]));
+
+        $this->assertTrue($this->cache->has($a->getKey()));
+        $this->assertTrue($this->cache->has($b->getKey()));
+    }
+
+    /**
+     * @covers ::reset
+     */
+    public function testReset(): void {
+        $a = $this->item();
+        $b = $this->item();
+
+        $this->cache->putAll(new Collection([$a, $b]));
+
+        $this->assertTrue($this->cache->has($a->getKey()));
+        $this->assertTrue($this->cache->has($b->getKey()));
+
+        $this->cache->reset();
+
+        $this->assertFalse($this->cache->has($a->getKey()));
+        $this->assertFalse($this->cache->has($b->getKey()));
     }
     // </editor-fold>
 

@@ -8,7 +8,7 @@ use App\Models\Model;
 use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Resolver;
 use Closure;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Pure;
 
 class CityResolver extends Resolver {
@@ -17,8 +17,8 @@ class CityResolver extends Resolver {
         return $this->resolve($this->getUniqueKey($country, $name), $factory);
     }
 
-    protected function getInitialQuery(): ?Builder {
-        return City::query();
+    protected function getPreloadedItems(): Collection {
+        return City::query()->get();
     }
 
     /**

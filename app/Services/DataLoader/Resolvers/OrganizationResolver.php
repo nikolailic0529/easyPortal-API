@@ -13,7 +13,7 @@ class OrganizationResolver extends Resolver {
         return $this->resolve($id, $factory);
     }
 
-    protected function getFindQuery(mixed $key): ?Builder {
-        return Organization::whereKey($key);
+    protected function getFindQuery(): ?Builder {
+        return Organization::query();
     }
 }

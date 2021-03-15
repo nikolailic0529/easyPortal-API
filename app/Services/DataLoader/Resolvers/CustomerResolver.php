@@ -13,7 +13,7 @@ class CustomerResolver extends Resolver {
         return $this->resolve($id, $factory);
     }
 
-    protected function getFindQuery(mixed $key): ?Builder {
-        return Customer::whereKey($key);
+    protected function getFindQuery(): ?Builder {
+        return Customer::query();
     }
 }

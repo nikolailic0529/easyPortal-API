@@ -13,7 +13,7 @@ class AssetResolver extends Resolver {
         return $this->resolve($id, $factory);
     }
 
-    protected function getFindQuery(mixed $key): ?Builder {
-        return Asset::whereKey($key);
+    protected function getFindQuery(): ?Builder {
+        return Asset::query();
     }
 }

@@ -16,15 +16,8 @@ class ContactResolver extends Resolver {
         return $this->resolve($this->getUniqueKey($model, $name, $phone), $factory);
     }
 
-    /**
-     * @param array{object_type: string, object_id: string, name: string|null, phone: string|null} $key
-     */
-    protected function getFindQuery(mixed $key): ?Builder {
-        return Contact::query()
-            ->where('object_type', '=', $key['object_type'])
-            ->where('object_id', '=', $key['object_id'])
-            ->where('name', '=', $key['name'])
-            ->where('phone_number', '=', $key['phone_number']);
+    protected function getFindQuery(): ?Builder {
+        return Contact::query();
     }
 
     /**

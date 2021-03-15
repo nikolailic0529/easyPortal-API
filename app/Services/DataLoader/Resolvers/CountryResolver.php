@@ -6,7 +6,7 @@ use App\Models\Country;
 use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Resolver;
 use Closure;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class CountryResolver extends Resolver {
     public function get(string $code, Closure $factory = null): ?Country {
@@ -14,8 +14,8 @@ class CountryResolver extends Resolver {
         return $this->resolve($code, $factory);
     }
 
-    protected function getInitialQuery(): ?Builder {
-        return Country::query();
+    protected function getPreloadedItems(): Collection {
+        return Country::query()->get();
     }
 
     /**

@@ -11,6 +11,9 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Pure;
+use LogicException;
+
+use function is_array;
 
 /**
  * The provider performs a search of the model with given properties in the
@@ -35,7 +38,7 @@ abstract class Resolver implements Singleton {
         $key   = $this->normalizer->key($key);
         $model = $this->getCache()->has($key)
             ? $this->getCache()->get($key)
-            : $this->getFindQuery($key)?->first();
+            : $this->find($key);
         $cache = $this->getCache();
 
         // Not found? Well, maybe we can create?
@@ -60,10 +63,54 @@ abstract class Resolver implements Singleton {
         return $model;
     }
 
-    protected function getCache(): Cache {
+    protected function find(mixed $key): ?Model {
+        return $this->getFindQuery()?->where(function (Builder $builder) use ($key): Builder {
+            return $this->getFindWhere($builder, $key);
+        })->first();
+    }
+
+    /**
+     * @param array<mixed> $keys
+     */
+    protected function prefetch(array $keys, bool $reset = false): static {
+        // Possible?
+        $builder = $this->getFindQuery();
+
+        if (!$builder) {
+            throw new LogicException('Prefetch cannot be used with Resolver without the find query.');
+        }
+
+        // Empty?
+        if (!$keys) {
+            return $this;
+        }
+
+        // Reset?
+        if ($reset) {
+            $this->getCache(false)->reset();
+        }
+
+        // Prefetch
+        $builder = $builder->where(function (Builder $builder) use ($keys): Builder {
+            foreach ($keys as $key) {
+                $builder = $builder->orWhere(function (Builder $builder) use ($key): Builder {
+                    return $this->getFindWhere($builder, $key);
+                });
+            }
+
+            return $builder;
+        });
+
+        // Fill cache
+        $this->getCache()->putNulls($keys)->putAll($builder->get());
+
+        // Return
+        return $this;
+    }
+
+    protected function getCache(bool $preload = true): Cache {
         if (!$this->cache) {
-            $query       = $this->getInitialQuery();
-            $items       = $query ? $query->get() : new Collection();
+            $items       = $preload ? $this->getPreloadedItems() : new Collection();
             $this->cache = new Cache($items, $this->getKeyRetrievers());
         }
 
@@ -81,12 +128,25 @@ abstract class Resolver implements Singleton {
     }
 
     #[Pure]
-    protected function getFindQuery(mixed $key): ?Builder {
+    protected function getFindQuery(): ?Builder {
         return null;
     }
 
     #[Pure]
-    protected function getInitialQuery(): ?Builder {
-        return null;
+    protected function getFindWhere(Builder $builder, mixed $key): Builder {
+        if (is_array($key)) {
+            foreach ($key as $property => $value) {
+                $builder->where($property, '=', $value);
+            }
+        } else {
+            $builder->whereKey($key);
+        }
+
+        return $builder;
+    }
+
+    #[Pure]
+    protected function getPreloadedItems(): Collection {
+        return new Collection();
     }
 }
