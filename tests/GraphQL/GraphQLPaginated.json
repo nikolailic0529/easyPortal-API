@@ -26,9 +26,7 @@
             "required": [
                 "count",
                 "currentPage",
-                "firstItem",
                 "hasMorePages",
-                "lastItem",
                 "lastPage",
                 "perPage",
                 "total"
@@ -41,13 +39,19 @@
                     "type": "integer"
                 },
                 "firstItem": {
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "hasMorePages": {
                     "type": "boolean"
                 },
                 "lastItem": {
-                    "type": "integer"
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
                 },
                 "lastPage": {
                     "type": "integer"
