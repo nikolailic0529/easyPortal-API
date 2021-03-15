@@ -150,6 +150,50 @@
                     "type": "string"
                 }
             }
+        },
+        "Country": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "code"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                }
+            }
+        },
+        "City":{
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "country_id",
+                "country"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "country_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "country": {
+                    "$ref": "#/definitions/Country"
+                }
+            }
         }
     }
 }

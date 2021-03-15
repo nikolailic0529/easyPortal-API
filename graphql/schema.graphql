@@ -26,6 +26,11 @@ type Query {
     "Customer with given ID"
     customer (id: ID! @eq): Customer @guard @find
 
+    "List of all countries"
+    countries: [Country!]! @all
+
+    "List of all cities or filter by country id"
+    cities(country_id: ID @eq): [City!]! @all
 
     "List of all location types related to customer"
     locationTypes: [Type!]!
