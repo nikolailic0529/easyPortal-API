@@ -13,6 +13,13 @@ class AssetResolver extends Resolver {
         return $this->resolve($id, $factory);
     }
 
+    /**
+     * @param array<string|int> $keys
+     */
+    public function prefetch(array $keys, bool $reset = false): static {
+        return parent::prefetch($keys, $reset);
+    }
+
     protected function getFindQuery(): ?Builder {
         return Asset::query();
     }

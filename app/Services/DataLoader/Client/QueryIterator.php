@@ -8,11 +8,14 @@ use Illuminate\Support\Facades\Log;
 use IteratorAggregate;
 use Throwable;
 
+use function array_map;
 use function array_merge;
 use function count;
 use function min;
 
 class QueryIterator implements IteratorAggregate {
+    protected ?Closure $each = null;
+
     /**
      * @param array<mixed> $params
      */
@@ -47,6 +50,15 @@ class QueryIterator implements IteratorAggregate {
         return $this;
     }
 
+    /**
+     * Sets the closure that will be called after received each chunk.
+     */
+    public function each(?Closure $each): static {
+        $this->each = $each;
+
+        return $this;
+    }
+
     public function getIterator(): Generator {
         $index     = 0;
         $chunk     = $this->limit ? min($this->limit, $this->chunk) : $this->chunk;
@@ -62,11 +74,16 @@ class QueryIterator implements IteratorAggregate {
                 'limit'  => $chunk,
                 'offset' => $offset,
             ]));
+            $items  = array_map($retriever, $items);
             $offset = $offset + count($items);
+
+            if ($this->each) {
+                ($this->each)($items);
+            }
 
             foreach ($items as $item) {
                 try {
-                    yield $index++ => $retriever($item);
+                    yield $index++ => $item;
                 } catch (Throwable $exception) {
                     Log::info(__METHOD__, [
                         'item' => $item,

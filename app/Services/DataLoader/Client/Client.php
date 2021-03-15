@@ -28,9 +28,9 @@ class Client {
     // <editor-fold desc="Queries">
     // =========================================================================
     /**
-     * @return \Traversable<\App\Services\DataLoader\Schema\Company>
+     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Company>
      */
-    public function getResellers(int $limit = null, int $offset = 0): Traversable {
+    public function getResellers(int $limit = null, int $offset = 0): QueryIterator {
         $this
             ->iterator(
                 'getResellers',
@@ -101,9 +101,9 @@ class Client {
     }
 
     /**
-     * @return \Traversable<\App\Services\DataLoader\Schema\Asset>
+     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Asset>
      */
-    public function getAssetsByCustomerId(string $id, int $limit = null, int $offset = 0): Traversable {
+    public function getAssetsByCustomerId(string $id, int $limit = null, int $offset = 0): QueryIterator {
         return $this
             ->iterator(
                 'getAssetsByCustomerId',
@@ -129,9 +129,9 @@ class Client {
     }
 
     /**
-     * @return \Traversable<\App\Services\DataLoader\Schema\Asset>
+     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Asset>
      */
-    public function getAssetsByResellerId(string $id, int $limit = null, int $offset = 0): Traversable {
+    public function getAssetsByResellerId(string $id, int $limit = null, int $offset = 0): QueryIterator {
         return $this
             ->iterator(
                 'getAssetsByResellerId',

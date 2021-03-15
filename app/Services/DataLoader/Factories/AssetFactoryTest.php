@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Factories;
 
+use App\Models\Asset as AssetModel;
 use App\Models\Customer;
 use App\Models\Location;
 use App\Models\Oem;
@@ -12,6 +13,7 @@ use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\OrganizationResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
@@ -826,6 +828,39 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($name, $created->name);
 
         $this->flushQueryLog();
+    }
+
+    /**
+     * @covers ::prefetch
+     */
+    public function testPrefetch(): void {
+        $a          = Asset::create([
+            'id'           => $this->faker->uuid,
+            'serialNumber' => $this->faker->uuid,
+        ]);
+        $b          = Asset::create([
+            'id'           => $this->faker->uuid,
+            'serialNumber' => $this->faker->uuid,
+        ]);
+        $resolver   = $this->app->make(AssetResolver::class);
+        $normalizer = $this->app->make(Normalizer::class);
+
+        $factory = new class($normalizer, $resolver) extends AssetFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(Normalizer $normalizer, AssetResolver $resolver) {
+                $this->normalizer = $normalizer;
+                $this->assets     = $resolver;
+            }
+        };
+
+        $factory->prefetch([$a, $b]);
+
+        $this->flushQueryLog();
+
+        $factory->find($a);
+        $factory->find($b);
+
+        $this->assertCount(0, $this->getQueryLog());
     }
     // </editor-fold>
 

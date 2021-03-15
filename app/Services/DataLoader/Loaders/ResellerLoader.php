@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Loaders;
 use App\Models\Model;
 use App\Models\Organization;
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
@@ -65,7 +66,7 @@ class ResellerLoader extends Loader {
     // </editor-fold>
 
     // =========================================================================
-    protected function getCurrentAssets(Model $owner): Traversable {
+    protected function getCurrentAssets(Model $owner): QueryIterator {
         return $this->client->getAssetsByResellerId($owner->getKey());
     }
 

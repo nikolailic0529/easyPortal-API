@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Loaders\Concerns;
 use App\Models\Customer;
 use App\Models\Model;
 use App\Models\Organization;
+use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
@@ -40,8 +41,11 @@ trait WithAssets {
         $updated   = [];
         $customers = [];
         $resellers = [];
+        $prefetch  = function (array $assets): void {
+            $this->assets->prefetch($assets);
+        };
 
-        foreach ($this->getCurrentAssets($owner) as $asset) {
+        foreach ($this->getCurrentAssets($owner)->each($prefetch) as $asset) {
             try {
                 $asset = $factory->create($asset);
 
@@ -118,9 +122,9 @@ trait WithAssets {
     }
 
     /**
-     * @return \Traversable<\App\Services\DataLoader\Schema\Asset>
+     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Asset>
      */
-    abstract protected function getCurrentAssets(Model $owner): Traversable;
+    abstract protected function getCurrentAssets(Model $owner): QueryIterator;
 
     /**
      * @param array<string> $current

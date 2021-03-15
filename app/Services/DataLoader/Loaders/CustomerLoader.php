@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Loaders;
 use App\Models\Customer;
 use App\Models\Model;
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
@@ -68,7 +69,7 @@ class CustomerLoader extends Loader {
 
     // <editor-fold desc="WithAssets">
     // =========================================================================
-    protected function getCurrentAssets(Model $owner): Traversable {
+    protected function getCurrentAssets(Model $owner): QueryIterator {
         return $this->client->getAssetsByCustomerId($owner->getKey());
     }
 
@@ -80,7 +81,7 @@ class CustomerLoader extends Loader {
             ? $owner->assets()->whereNotIn('id', $current)->getQuery()
             : null;
     }
-    //</editor-fold>
+    // </editor-fold>
 
     // <editor-fold desc="Functions">
     // =========================================================================

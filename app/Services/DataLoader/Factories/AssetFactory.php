@@ -26,6 +26,7 @@ use App\Services\DataLoader\Schema\Type;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
+use function array_map;
 use function sprintf;
 
 class AssetFactory extends ModelFactory {
@@ -79,6 +80,22 @@ class AssetFactory extends ModelFactory {
         }
 
         return $model;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Prefetch">
+    // =========================================================================
+    /**
+     * @param array<\App\Services\DataLoader\Schema\Asset> $assets
+     */
+    public function prefetch(array $assets, bool $reset = false): static {
+        $keys = array_map(static function (Asset $asset): string {
+            return $asset->id;
+        }, $assets);
+
+        $this->assets->prefetch($keys, $reset);
+
+        return $this;
     }
     // </editor-fold>
 
