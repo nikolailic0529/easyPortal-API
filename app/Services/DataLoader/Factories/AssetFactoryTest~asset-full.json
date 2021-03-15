@@ -29,6 +29,12 @@
                 "address": "Maddison Path Suite 820 Apt. 898",
                 "city": "Port Adanville",
                 "locationType": "HEADQUARTERS"
+            },
+            {
+                "zip": null,
+                "address": null,
+                "city": "WANGEN",
+                "locationType": "HEADQUARTER"
             }
         ]
     },

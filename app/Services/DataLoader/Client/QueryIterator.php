@@ -74,23 +74,26 @@ class QueryIterator implements IteratorAggregate {
                 'limit'  => $chunk,
                 'offset' => $offset,
             ]));
-            $items  = array_map($retriever, $items);
             $offset = $offset + count($items);
+            $items  = array_map(static function (mixed $item) use ($retriever): mixed {
+                try {
+                    return $retriever($item);
+                } catch (Throwable $exception) {
+                    Log::info(__METHOD__, [
+                        'item'      => $item,
+                        'exception' => $exception,
+                    ]);
+
+                    throw $exception;
+                }
+            }, $items);
 
             if ($this->each) {
                 ($this->each)($items);
             }
 
             foreach ($items as $item) {
-                try {
-                    yield $index++ => $item;
-                } catch (Throwable $exception) {
-                    Log::info(__METHOD__, [
-                        'item' => $item,
-                    ]);
-
-                    throw $exception;
-                }
+                yield $index++ => $item;
 
                 if ($limit && $index >= $limit) {
                     break 2;

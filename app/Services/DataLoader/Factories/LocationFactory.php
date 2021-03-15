@@ -56,7 +56,16 @@ class LocationFactory extends DependentModelFactory {
         return $model;
     }
 
+    public function isEmpty(Location|Asset $location): bool {
+        return !($location->zip ?? null) || !($location->city ?? null);
+    }
+
     protected function createFromLocation(Model $object, Location $location): ?LocationModel {
+        // Is empty?
+        if ($this->isEmpty($location)) {
+            return null;
+        }
+
         // Country is not yet available so we use Unknown
         $country = $this->country('??', 'Unknown Country');
 
@@ -81,7 +90,7 @@ class LocationFactory extends DependentModelFactory {
             $country,
             $city,
             $location->zip,
-            $location->address,
+            (string) $location->address,
             '',
             $state,
         );

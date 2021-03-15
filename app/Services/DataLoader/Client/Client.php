@@ -11,7 +11,6 @@ use GraphQL\Type\Introspection;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Arr;
-use Traversable;
 
 use function reset;
 
@@ -31,7 +30,7 @@ class Client {
      * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Company>
      */
     public function getResellers(int $limit = null, int $offset = 0): QueryIterator {
-        $this
+        return $this
             ->iterator(
                 'getResellers',
                 /** @lang GraphQL */ <<<GRAPHQL

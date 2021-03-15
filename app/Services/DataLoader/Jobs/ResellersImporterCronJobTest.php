@@ -4,8 +4,10 @@ namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Organization;
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\DataLoaderService;
 use App\Services\DataLoader\Schema\Company;
+use Closure;
 use Generator;
 use Illuminate\Support\Facades\Queue;
 use Mockery;
@@ -31,17 +33,36 @@ class ResellersImporterCronJobTest extends TestCase {
     public function testHandle(): void {
         Queue::fake();
 
-        $o = Organization::factory()->create();
-        $a = Company::create(['id' => $o->getKey()]);
-        $b = Company::create(['id' => $this->faker->uuid]);
-        $c = Company::create(['id' => $this->faker->uuid]);
+        $o     = Organization::factory()->create();
+        $a     = Company::create(['id' => $o->getKey()]);
+        $b     = Company::create(['id' => $this->faker->uuid]);
+        $c     = Company::create(['id' => $this->faker->uuid]);
+        $items = [$a, $b, $c];
 
         $client = Mockery::mock(Client::class);
         $client
             ->shouldReceive('getResellers')
             ->once()
-            ->andReturnUsing(static function () use ($a, $b, $c): Generator {
-                yield from [$a, $b, $c];
+            ->andReturnUsing(static function () use ($items): QueryIterator {
+                return new class($items) extends QueryIterator {
+                    /**
+                     * @var array<\App\Services\DataLoader\Schema\Company>
+                     */
+                    private array $items;
+
+                    /**
+                     * @param array<\App\Services\DataLoader\Schema\Company> $items
+                     *
+                     * @noinspection PhpMissingParentConstructorInspection
+                     */
+                    public function __construct(array $items) {
+                        $this->items = $items;
+                    }
+
+                    public function getIterator(): Generator {
+                        yield from $this->items;
+                    }
+                };
             });
 
         $service = Mockery::mock(DataLoaderService::class);
