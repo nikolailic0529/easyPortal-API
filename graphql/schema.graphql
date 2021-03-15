@@ -26,6 +26,10 @@ type Query {
     "Customer with given ID"
     customer (id: ID! @eq): Customer @guard @find
 
+
+    "List of all location types related to customer"
+    locationTypes: [Type!]!
+
     "List of all contact types"
     contactTypes: [Type!]!
 }
