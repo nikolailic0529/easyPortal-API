@@ -6,9 +6,9 @@ type Asset {
     customer_id: ID!
     location_id: ID!
     serial_number: String!
-    customer: Customer
-    location: Location
-    oem: Oem!
-    product: Product!
-    type: Type!
+    customer: Customer! @belongsTo
+    location: Location! @belongsTo
+    oem: Oem! @belongsTo
+    product: Product! @belongsTo
+    type: Type! @belongsTo
 }

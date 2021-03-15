@@ -211,7 +211,7 @@ class AssetsTest extends TestCase {
                         // Product creation belongs to
                         $product = Product::factory()->create([
                             'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                            'oem_id' => $oem->id,
+                            'oem_id' => $oem,
                             'sku'    => 'SKU#123',
                             'eol'    => '2022-12-30',
                             'eos'    => '2022-01-01',

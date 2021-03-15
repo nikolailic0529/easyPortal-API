@@ -23,7 +23,16 @@
         "paginatorInfo": {
             "type": "object",
             "additionalProperties": false,
-            "required": [],
+            "required": [
+                "count",
+                "currentPage",
+                "firstItem",
+                "hasMorePages",
+                "lastItem",
+                "lastPage",
+                "perPage",
+                "total"
+            ],
             "properties": {
                 "count": {
                     "type": "integer"
