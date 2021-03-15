@@ -46,6 +46,11 @@ trait Helper {
         $locations = [];
 
         foreach ($company->locations as $location) {
+            // Is empty
+            if (!$location->zip || !$location->city) {
+                continue;
+            }
+
             // Add to array
             $key = "{$location->zip}/{$location->zip}/{$location->address}";
 
@@ -145,7 +150,11 @@ trait Helper {
     /**
      * @return array<mixed>
      */
-    protected function getLocation(Location $location, bool $withTypes = true): array {
+    protected function getLocation(?Location $location, bool $withTypes = true): ?array {
+        if (!$location) {
+            return null;
+        }
+
         $types = [];
 
         if ($withTypes) {
@@ -172,15 +181,15 @@ trait Helper {
     /**
      * @return array<mixed>
      */
-    protected function getAssetLocation(Asset $asset): array {
-        return [
+    protected function getAssetLocation(Asset $asset): ?array {
+        return $asset->zip && $asset->city ? [
             'types'    => [],
             'postcode' => $asset->zip,
             'state'    => '',
             'city'     => $asset->city,
             'line_one' => $asset->address,
             'line_two' => '',
-        ];
+        ] : null;
     }
     // </editor-fold>
 

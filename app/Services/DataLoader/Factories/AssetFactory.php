@@ -208,11 +208,7 @@ class AssetFactory extends ModelFactory {
 
     protected function assetLocation(Asset $asset, ?Customer $customer, ?Organization $reseller): ?Location {
         $location = null;
-        $required = null
-            || ($asset->zip ?? null)
-            || ($asset->city ?? null)
-            || ($asset->address ?? null)
-            || ($asset->address2 ?? null);
+        $required = !$this->locations->isEmpty($asset);
 
         if ($customer) {
             $location = $this->locations->find($customer, $asset);

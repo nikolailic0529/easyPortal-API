@@ -162,6 +162,24 @@ class LocationFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::createFromLocation
+     */
+    public function testCreateFromLocationWithoutZip(): void {
+        $customer = Customer::factory()->make();
+        $state    = $this->faker->state;
+        $cityName = $this->faker->city;
+        $location = Location::create([
+            'zip'     => null,
+            'address' => $this->faker->streetAddress,
+            'city'    => "{$cityName},  {$state}",
+        ]);
+
+        $factory = $this->app->make(LocationFactory::class);
+
+        $this->assertNull($factory->create($customer, $location));
+    }
+
+    /**
      * @covers ::createFromAsset
      */
     public function testCreateFromAsset(): void {

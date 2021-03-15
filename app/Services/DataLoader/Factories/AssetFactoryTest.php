@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Factories;
 
-use App\Models\Asset as AssetModel;
 use App\Models\Customer;
 use App\Models\Location;
 use App\Models\Oem;
@@ -205,6 +204,27 @@ class AssetFactoryTest extends TestCase {
         $this->assertNotNull($created->location);
         $this->assertNull($created->location->object_id);
         $this->assertEquals($created->getMorphClass(), $created->location->object_type);
+    }
+
+    /**
+     * @covers ::createFromAsset
+     */
+    public function testCreateFromAssetWithoutZip(): void {
+        // Prepare
+        $container = $this->app->make(Container::class);
+        $factory   = $container->make(AssetFactory::class);
+
+        // Test
+        $json  = $this->getTestData()->json('~asset-nozip-address.json');
+        $asset = Asset::create($json);
+
+        Customer::factory()->create([
+            'id' => $asset->customerId,
+        ]);
+
+        $created = $factory->create($asset);
+
+        $this->assertNull($created->location);
     }
 
     /**
@@ -652,6 +672,10 @@ class AssetFactoryTest extends TestCase {
         $locations = Mockery::mock(LocationFactory::class);
 
         $locations
+            ->shouldReceive('isEmpty')
+            ->once()
+            ->andReturnFalse();
+        $locations
             ->shouldReceive('find')
             ->once()
             ->andReturn($location);
@@ -686,6 +710,10 @@ class AssetFactoryTest extends TestCase {
         $locations = Mockery::mock(LocationFactory::class);
 
         $locations
+            ->shouldReceive('isEmpty')
+            ->once()
+            ->andReturnFalse();
+        $locations
             ->shouldReceive('find')
             ->once()
             ->andReturn($location);
@@ -708,10 +736,11 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetLocation
      */
     public function testAssetLocationNoCustomerNoReseller(): void {
-        $factory = new class() extends AssetFactory {
+        $locations = $this->app->make(LocationFactory::class);
+        $factory   = new class($locations) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
+            public function __construct(LocationFactory $factory) {
+                $this->locations = $factory;
             }
 
             public function assetLocation(Asset $asset, ?Customer $customer, ?Organization $reseller): ?Location {
@@ -732,6 +761,7 @@ class AssetFactoryTest extends TestCase {
             'customer_id' => $customer->getKey(),
         ]);
         $locations = Mockery::mock(LocationFactory::class);
+        $locations->makePartial();
 
         $locations
             ->shouldReceive('find')

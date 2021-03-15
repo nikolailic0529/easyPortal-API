@@ -16,8 +16,8 @@ class Asset extends Type {
     public string   $sku;
     public ?string  $eolDate;
     public ?string  $eosDate;
-    public string   $zip;
-    public string   $city;
-    public string   $address;
-    public string   $address2;
+    public ?string  $zip;
+    public ?string  $city;
+    public ?string  $address;
+    public ?string  $address2;
 }
