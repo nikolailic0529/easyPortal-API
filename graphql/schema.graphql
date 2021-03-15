@@ -27,7 +27,7 @@ type Query {
     customer (id: ID! @eq): Customer! @guard @find
 
     "List of all customer assets"
-    assets(customer_id: ID! @eq): [Asset!]! @guard @paginate
+    assets(customer_id: ID @eq): [Asset!]! @guard @paginate
 
     "List of all countries"
     countries: [Country!]! @all
