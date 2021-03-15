@@ -13,7 +13,15 @@ class GraphQLPaginated extends OkResponse {
         ?string $schema,
         SplFileInfo|array|string|stdClass|JsonSerializable|null $content = null,
     ) {
-        $content = ['data' => [ $root => [ 'data' => [ $content ]]]];
-        parent::__construct(new SchemaWrapper($this::class, $root, $schema), $content);
+        $contentPaginated = [
+            'data' => [
+                $root => [
+                    'data' => [
+                        $content,
+                    ],
+                ],
+            ],
+        ];
+        parent::__construct(new SchemaWrapper($this::class, $root, $schema), $contentPaginated);
     }
 }
