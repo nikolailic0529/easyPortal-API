@@ -3,12 +3,9 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Organization;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
-
-use function sprintf;
 
 /**
  * @internal
@@ -36,7 +33,7 @@ class ResellersUpdaterCronJobTest extends TestCase {
         Organization::factory()->create(['updated_at' => $d->addWeek()]);
 
         // Settings
-        Config::set(sprintf('queue.queueables.%s', ResellersUpdaterCronJob::class), [
+        $this->setQueueableConfig(ResellersUpdaterCronJob::class, [
             'settings' => [
                 'expire' => '5 days',
             ],

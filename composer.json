@@ -100,38 +100,11 @@
       "@php -r 'rename(\"programmatic-types.graphql\", \".phpstorm.meta.php/lighthouse-types.graphql\");'",
       "@php -r 'rename(\"schema-directives.graphql\", \".phpstorm.meta.php/lighthouse-directives.graphql\");'"
     ],
+    "phpunit": [
+      "@php ./vendor/bin/phpunit"
+    ],
     "phpcs": [
       "@php ./vendor/bin/phpcs"
     ]
-  },
-  "repositories": [
-    {
-      "type": "git",
-      "url": "git@github.com:LastDragon-ru/lara-asp-core.git"
-    },
-    {
-      "type": "git",
-      "url": "git@github.com:LastDragon-ru/lara-asp-eloquent.git"
-    },
-    {
-      "type": "git",
-      "url": "git@github.com:LastDragon-ru/lara-asp-migrator.git"
-    },
-    {
-      "type": "git",
-      "url": "git@github.com:LastDragon-ru/lara-asp-queue.git"
-    },
-    {
-      "type": "git",
-      "url": "git@github.com:LastDragon-ru/lara-asp-testing.git"
-    },
-    {
-      "type": "git",
-      "url": "git@github.com:LastDragon-ru/lara-asp-spa.git"
-    },
-    {
-      "type": "git",
-      "url": "git@github.com:LastDragon-ru/lara-asp-formatter.git"
-    }
-  ]
+  }
 }
