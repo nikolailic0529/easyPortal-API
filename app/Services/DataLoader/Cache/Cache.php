@@ -19,25 +19,19 @@ class Cache {
     protected array $retrievers;
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\Model>  $items
+     * @param \Illuminate\Support\Collection<\App\Models\Model>  $models
      * @param array<\App\Services\DataLoader\Cache\KeyRetriever> $retrievers
      */
-    public function __construct(Collection $items, array $retrievers) {
+    public function __construct(Collection $models, array $retrievers) {
         $this->normalizer = new Normalizer();
         $this->retrievers = $retrievers;
-        $this->items      = [
-            static::NULL_RETRIEVER => new Collection(),
-        ];
 
-        foreach ($retrievers as $name => $retriever) {
-            $this->items[$name] = $items->keyBy(function (Model $item) use ($retriever): string {
-                return $this->normalizer->normalize($retriever->get($item));
-            });
-        }
+        $this->reset();
+        $this->putAll($models);
     }
 
     public function has(mixed $key): bool {
-        $value = $this->hasByRetriever(static::NULL_RETRIEVER, $key);
+        $value = $this->hasNull($key);
 
         if (!$value) {
             foreach ($this->retrievers as $name => $retriever) {
@@ -54,7 +48,7 @@ class Cache {
     public function get(mixed $key): ?Model {
         $value = null;
 
-        if (!$this->hasByRetriever(static::NULL_RETRIEVER, $key)) {
+        if (!$this->hasNull($key)) {
             foreach ($this->retrievers as $name => $retriever) {
                 if ($this->hasByRetriever($name, $key)) {
                     $value = $this->getByRetriever($name, $key);
@@ -77,11 +71,39 @@ class Cache {
         return $model;
     }
 
-    public function putNull(mixed $key): void {
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\Model> $models
+     */
+    public function putAll(Collection $models): static {
+        foreach ($models as $model) {
+            $this->put($model);
+        }
+
+        return $this;
+    }
+
+    public function putNull(mixed $key): static {
         $this->items[static::NULL_RETRIEVER]->put(
             $this->normalizer->normalize($key),
             null,
         );
+
+        return $this;
+    }
+
+    /**
+     * @param array<mixed> $keys
+     */
+    public function putNulls(array $keys): static {
+        foreach ($keys as $key) {
+            $this->putNull($key);
+        }
+
+        return $this;
+    }
+
+    public function hasNull(mixed $key): bool {
+        return $this->hasByRetriever(static::NULL_RETRIEVER, $key);
     }
 
     public function hasByRetriever(string $retriever, mixed $key): bool {
@@ -98,5 +120,17 @@ class Cache {
             : null;
 
         return $value;
+    }
+
+    public function reset(): static {
+        $this->items = [
+            static::NULL_RETRIEVER => new Collection(),
+        ];
+
+        foreach ($this->retrievers as $name => $retriever) {
+            $this->items[$name] = new Collection();
+        }
+
+        return $this;
     }
 }

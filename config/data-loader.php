@@ -3,13 +3,16 @@
 /**
  * DataLoader config.
  *
- * @see \App\Services\DataLoader\Client
+ * @see \App\Services\DataLoader\Client\Client
  */
+
+use App\Setting;
+
 return [
     /**
      * Enabled?
      */
-    'enabled'  => env('DATA_LOADER_ENABLED', false),
+    'enabled'  => Setting::get('DATA_LOADER_ENABLED'),
 
     /**
      * GraphQL Endpoint
@@ -17,7 +20,7 @@ return [
     'endpoint' => env('DATA_LOADER_ENDPOINT'),
 
     /**
-     * Default limit value.
+     * Default chunk size.
      */
-    'limit'    => env('DATA_LOADER_LIMIT', 100),
+    'chunk'    => Setting::get('DATA_LOADER_CHUNK'),
 ];

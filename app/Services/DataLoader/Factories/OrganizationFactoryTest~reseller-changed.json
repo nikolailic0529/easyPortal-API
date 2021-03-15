@@ -1,0 +1,21 @@
+{
+    "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
+    "name": "Gusikowski",
+    "companyContactPersons": [],
+    "companyTypes": [
+        {
+            "vendorSpecificId": "123456",
+            "vendor": "HPE",
+            "type": "RESELLER",
+            "status": "ACTIVE"
+        }
+    ],
+    "locations": [
+        {
+            "zip": "70618",
+            "address": "Maddison Path Suite 820 Apt. 898",
+            "city": "Port Adanville",
+            "locationType": "HEADQUARTERS"
+        }
+    ]
+}

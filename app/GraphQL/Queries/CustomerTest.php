@@ -105,13 +105,13 @@ class CustomerTest extends TestCase {
                     static function (): Customer {
                         $customer = Customer::factory()
                             ->hasLocations(1, [
-                                'id'          => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                'state'       => 'state1',
-                                'postcode'    => '19911',
-                                'line_one'    => 'line_one_data',
-                                'line_two'    => 'line_two_data',
-                                'lat'         => '47.91634204',
-                                'lng'         => '-2.26318359',
+                                'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                'state'    => 'state1',
+                                'postcode' => '19911',
+                                'line_one' => 'line_one_data',
+                                'line_two' => 'line_two_data',
+                                'lat'      => '47.91634204',
+                                'lng'      => '-2.26318359',
                             ])
                             ->hasContacts(1, [
                                 'name'        => 'contact1',
@@ -123,6 +123,7 @@ class CustomerTest extends TestCase {
                                 'name'            => 'name aaa',
                                 'locations_count' => 1,
                             ]);
+
                         return $customer;
                     },
                 ],

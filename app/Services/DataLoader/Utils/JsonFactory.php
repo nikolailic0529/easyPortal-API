@@ -90,9 +90,9 @@ abstract class JsonFactory {
                 }
 
                 if (str_contains($class, '\\')) {
-                    $factory = static function (array $json) use ($class): object {
+                    $factory = static function (array|null $json) use ($class): ?object {
                         /** @var static $class */
-                        return $class::create($json);
+                        return $json ? $class::create($json) : null;
                     };
 
                     if ($isArray) {

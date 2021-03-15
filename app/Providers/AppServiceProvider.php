@@ -6,6 +6,7 @@ use App\Models\Asset;
 use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\Location;
+use App\Models\Organization;
 use App\Services\Auth0\AuthService;
 use App\Services\Auth0\UserRepository;
 use Auth0\Login\Auth0Service;
@@ -31,10 +32,11 @@ class AppServiceProvider extends ServiceProvider {
      */
     public function boot(): void {
         Relation::morphMap([
-            'app/customer' => Customer::class,
-            'app/contact'  => Contact::class,
-            'app/location' => Location::class,
-            'app/asset'    => Asset::class,
+            'app/customer'     => Customer::class,
+            'app/contact'      => Contact::class,
+            'app/location'     => Location::class,
+            'app/asset'        => Asset::class,
+            'app/organization' => Organization::class,
         ]);
     }
 

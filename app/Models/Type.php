@@ -4,18 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
 /**
  * Type.
  *
- * @property string                       $id
- * @property string                       $object_type
- * @property string                       $key
- * @property string                       $name
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property string                                                         $id
+ * @property string                                                         $object_type
+ * @property string                                                         $key
+ * @property string                                                         $name
+ * @property \Carbon\CarbonImmutable                                        $created_at
+ * @property \Carbon\CarbonImmutable                                        $updated_at
+ * @property \Carbon\CarbonImmutable|null                                   $deleted_at
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location> $locations
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact> $contacts
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>  $contacts
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type query()

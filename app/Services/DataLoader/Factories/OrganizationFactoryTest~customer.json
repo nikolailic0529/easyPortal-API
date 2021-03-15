@@ -1,0 +1,12 @@
+{
+    "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
+    "name": "Gusikowski and Simonis",
+    "companyTypes": [
+        {
+            "vendorSpecificId": "12345",
+            "vendor": "HPE",
+            "type": "CUSTOMER",
+            "status": "ACTIVE"
+        }
+    ]
+}

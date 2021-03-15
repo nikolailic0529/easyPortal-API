@@ -6,7 +6,7 @@ use App\Models\Oem;
 
 /**
  * @property \App\Services\DataLoader\Normalizer            $normalizer
- * @property \App\Services\DataLoader\Providers\OemProvider $oems
+ * @property \App\Services\DataLoader\Resolvers\OemResolver $oems
  *
  * @mixin \App\Services\DataLoader\Factory
  */

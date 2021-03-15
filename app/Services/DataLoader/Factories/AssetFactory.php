@@ -6,39 +6,45 @@ use App\Models\Asset as AssetModel;
 use App\Models\Customer;
 use App\Models\Location;
 use App\Models\Oem;
+use App\Models\Organization;
 use App\Models\Product;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\LocationNotFoundException;
+use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Providers\AssetProvider;
-use App\Services\DataLoader\Providers\CustomerProvider;
-use App\Services\DataLoader\Providers\OemProvider;
-use App\Services\DataLoader\Providers\ProductProvider;
-use App\Services\DataLoader\Providers\TypeProvider;
+use App\Services\DataLoader\Resolvers\AssetResolver;
+use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\OemResolver;
+use App\Services\DataLoader\Resolvers\OrganizationResolver;
+use App\Services\DataLoader\Resolvers\ProductResolver;
+use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Type;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
+use function array_map;
 use function sprintf;
 
 class AssetFactory extends ModelFactory {
     use WithOem;
     use WithType;
 
-    protected ?CustomerFactory $customerFactory = null;
+    protected ?CustomerFactory     $customerFactory     = null;
+    protected ?OrganizationFactory $organizationFactory = null;
 
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
-        protected AssetProvider $assets,
-        protected OemProvider $oems,
-        protected TypeProvider $types,
-        protected ProductProvider $products,
-        protected CustomerProvider $customerProvider,
+        protected AssetResolver $assets,
+        protected OemResolver $oems,
+        protected TypeResolver $types,
+        protected ProductResolver $products,
+        protected CustomerResolver $customerResolver,
+        protected OrganizationResolver $organizationResolver,
         protected LocationFactory $locations,
     ) {
         parent::__construct($logger, $normalizer);
@@ -48,6 +54,12 @@ class AssetFactory extends ModelFactory {
     // =========================================================================
     public function setCustomersFactory(?CustomerFactory $factory): static {
         $this->customerFactory = $factory;
+
+        return $this;
+    }
+
+    public function setOrganizationFactory(?OrganizationFactory $factory): static {
+        $this->organizationFactory = $factory;
 
         return $this;
     }
@@ -71,16 +83,59 @@ class AssetFactory extends ModelFactory {
     }
     // </editor-fold>
 
+    // <editor-fold desc="Prefetch">
+    // =========================================================================
+    /**
+     * @param array<\App\Services\DataLoader\Schema\Asset> $assets
+     */
+    public function prefetch(array $assets, bool $reset = false): static {
+        $keys = array_map(static function (Asset $asset): string {
+            return $asset->id;
+        }, $assets);
+
+        $this->assets->prefetch($keys, $reset);
+
+        return $this;
+    }
+    // </editor-fold>
+
     // <editor-fold desc="Functions">
     // =========================================================================
     protected function createFromAsset(Asset $asset): ?AssetModel {
-        $oem      = $this->assetOem($asset);
-        $type     = $this->assetType($asset);
-        $product  = $this->assetProduct($asset);
-        $customer = $this->assetCustomer($asset);
-        $location = $this->assetLocation($asset, $customer);
-        $model    = $this->asset($asset->id, $oem, $type, $product, $customer, $location, $asset->serialNumber);
+        // Get/Create
+        $created = false;
+        $factory = $this->factory(function (AssetModel $model) use (&$created, $asset): AssetModel {
+            $reseller = $this->assetReseller($asset);
+            $customer = $this->assetCustomer($asset);
+            $location = $this->assetLocation($asset, $customer, $reseller);
 
+            $created              = !$model->exists;
+            $model->id            = $this->normalizer->uuid($asset->id);
+            $model->oem           = $this->assetOem($asset);
+            $model->type          = $this->assetType($asset);
+            $model->product       = $this->assetProduct($asset);
+            $model->organization  = $reseller;
+            $model->customer      = $customer;
+            $model->location      = $location;
+            $model->serial_number = $this->normalizer->string($asset->serialNumber);
+
+            $model->save();
+
+            return $model;
+        });
+        $model   = $this->assets->get(
+            $asset->id,
+            static function () use ($factory): AssetModel {
+                return $factory(new AssetModel());
+            },
+        );
+
+        // Update
+        if (!$created && !$this->isSearchMode()) {
+            $factory($model);
+        }
+
+        // Return
         return $model;
     }
 
@@ -105,15 +160,38 @@ class AssetFactory extends ModelFactory {
         return $product;
     }
 
+    protected function assetReseller(Asset $asset): ?Organization {
+        $id       = $asset->resellerId ?? (isset($asset->reseller) ? $asset->reseller->id : null);
+        $reseller = null;
+
+        if ($id) {
+            $reseller = $this->organizationResolver->get($id);
+        }
+
+        if ($id && !$reseller && $this->organizationFactory) {
+            $reseller = $this->organizationFactory->create($asset->reseller);
+        }
+
+        if ($id && !$reseller) {
+            throw new ResellerNotFoundException(sprintf(
+                'Reseller `%s` not found (asset `%s`).',
+                $id,
+                $asset->id,
+            ));
+        }
+
+        return $reseller;
+    }
+
     protected function assetCustomer(Asset $asset): ?Customer {
         $id       = $asset->customerId ?? (isset($asset->customer) ? $asset->customer->id : null);
         $customer = null;
 
         if ($id) {
-            $customer = $this->customerProvider->get($id);
+            $customer = $this->customerResolver->get($id);
         }
 
-        if (!$customer && $this->customerFactory) {
+        if ($id && !$customer && $this->customerFactory) {
             $customer = $this->customerFactory->create($asset->customer);
         }
 
@@ -128,7 +206,7 @@ class AssetFactory extends ModelFactory {
         return $customer;
     }
 
-    protected function assetLocation(Asset $asset, ?Customer $customer): ?Location {
+    protected function assetLocation(Asset $asset, ?Customer $customer, ?Organization $reseller): ?Location {
         $location = null;
         $required = null
             || ($asset->zip ?? null)
@@ -138,6 +216,10 @@ class AssetFactory extends ModelFactory {
 
         if ($customer) {
             $location = $this->locations->find($customer, $asset);
+        }
+
+        if ($reseller && !$location) {
+            $location = $this->locations->find($reseller, $asset);
         }
 
         if ($required && !$location) {
@@ -192,60 +274,6 @@ class AssetFactory extends ModelFactory {
 
         // Return
         return $product;
-    }
-
-    protected function asset(
-        string $id,
-        Oem $oem,
-        TypeModel $type,
-        Product $product,
-        ?Customer $customer,
-        ?Location $location,
-        string $serialNumber,
-    ): AssetModel {
-        // Get/Create
-        $created = false;
-        $factory = $this->factory(
-            function (
-                AssetModel $asset,
-            ) use (
-                &$created,
-                $id,
-                $oem,
-                $type,
-                $product,
-                $customer,
-                $location,
-                $serialNumber,
-            ): AssetModel {
-                $created              = !$asset->exists;
-                $asset->id            = $id;
-                $asset->oem           = $oem;
-                $asset->type          = $type;
-                $asset->product       = $product;
-                $asset->customer      = $customer;
-                $asset->location      = $location;
-                $asset->serial_number = $this->normalizer->string($serialNumber);
-
-                $asset->save();
-
-                return $asset;
-            },
-        );
-        $asset   = $this->assets->get(
-            $id,
-            static function () use ($factory): AssetModel {
-                return $factory(new AssetModel());
-            },
-        );
-
-        // Update
-        if (!$created && !$this->isSearchMode()) {
-            $factory($asset);
-        }
-
-        // Return
-        return $asset;
     }
     // </editor-fold>
 }

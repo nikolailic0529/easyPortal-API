@@ -6,7 +6,7 @@ use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\Model;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Providers\ContactProvider;
+use App\Services\DataLoader\Resolvers\ContactResolver;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\Type;
 use InvalidArgumentException;
@@ -104,7 +104,7 @@ class ContactFactoryTest extends TestCase {
     public function testContact(): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
-        $provider   = $this->app->make(ContactProvider::class);
+        $provider   = $this->app->make(ContactResolver::class);
         $customer   = Customer::factory()->make();
         $contact    = Contact::factory()->create([
             'object_type' => $customer->getMorphClass(),
@@ -113,7 +113,7 @@ class ContactFactoryTest extends TestCase {
 
         $factory = new class($normalizer, $provider) extends ContactFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, ContactProvider $provider) {
+            public function __construct(Normalizer $normalizer, ContactResolver $provider) {
                 $this->normalizer = $normalizer;
                 $this->contacts   = $provider;
             }

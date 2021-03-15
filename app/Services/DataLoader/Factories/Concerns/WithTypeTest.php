@@ -7,7 +7,7 @@ use App\Models\Model;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Factories\DependentModelFactory;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Providers\TypeProvider;
+use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Type;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Tests\TestCase;
@@ -25,7 +25,7 @@ class WithTypeTest extends TestCase {
     public function testType(): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
-        $provider   = $this->app->make(TypeProvider::class);
+        $provider   = $this->app->make(TypeResolver::class);
         $customer   = Customer::factory()->make();
         $type       = TypeModel::factory()->create([
             'object_type' => $customer->getMorphClass(),
@@ -37,7 +37,7 @@ class WithTypeTest extends TestCase {
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, TypeProvider $provider) {
+            public function __construct(Normalizer $normalizer, TypeResolver $provider) {
                 $this->normalizer = $normalizer;
                 $this->types      = $provider;
             }

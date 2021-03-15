@@ -7,9 +7,9 @@ use App\Models\Country;
 use App\Models\Location as LocationModel;
 use App\Models\Model;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Providers\CityProvider;
-use App\Services\DataLoader\Providers\CountryProvider;
-use App\Services\DataLoader\Providers\LocationProvider;
+use App\Services\DataLoader\Resolvers\CityResolver;
+use App\Services\DataLoader\Resolvers\CountryResolver;
+use App\Services\DataLoader\Resolvers\LocationResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
@@ -27,9 +27,9 @@ class LocationFactory extends DependentModelFactory {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
-        protected CountryProvider $countries,
-        protected CityProvider $cities,
-        protected LocationProvider $locations,
+        protected CountryResolver $countries,
+        protected CityResolver $cities,
+        protected LocationResolver $locations,
     ) {
         parent::__construct($logger, $normalizer);
     }

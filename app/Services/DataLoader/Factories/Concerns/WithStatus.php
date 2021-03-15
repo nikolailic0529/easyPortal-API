@@ -7,7 +7,7 @@ use App\Models\Status;
 
 /**
  * @property \App\Services\DataLoader\Normalizer               $normalizer
- * @property \App\Services\DataLoader\Providers\StatusProvider $statuses
+ * @property \App\Services\DataLoader\Resolvers\StatusResolver $statuses
  *
  * @mixin \App\Services\DataLoader\Factory
  */

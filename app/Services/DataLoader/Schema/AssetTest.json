@@ -1,8 +1,13 @@
 {
     "id": "4fcd6fd9-c220-4857-bc77-333a9c63dd09",
-    "customerId": "41e38559-7d14-4813-9409-ff3629d23962",
+    "resellerId": "5c74df1c-5022-4074-a441-052b6a144b0a",
+    "reseller": {
+        "id": "5c74df1c-5022-4074-a441-052b6a144b0a",
+        "name": "Simonis"
+    },
+    "customerId": "ee27ff63-d1dd-43dc-bd63-d3709f1ed2e4",
     "customer": {
-        "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
+        "id": "ee27ff63-d1dd-43dc-bd63-d3709f1ed2e4",
         "name": "Weber, Gusikowski and Simonis"
     },
     "serialNumber": "CZ12345678L",

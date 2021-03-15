@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Testing;
 
 use App\Models\Customer;
 use App\Models\Location;
+use App\Models\Organization;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
@@ -19,12 +20,17 @@ use function is_null;
 use function reset;
 
 trait Helper {
+    // <editor-fold desc="General">
+    // =========================================================================
     protected function getDatetime(?DateTimeInterface $datetime): ?string {
         return $datetime
             ? "{$datetime->getTimestamp()}{$datetime->format('v')}"
             : null;
     }
+    // </editor-fold>
 
+    // <editor-fold desc="Company">
+    // =========================================================================
     protected function getCompanyType(Company $company): string {
         $types = array_unique(array_map(static function (CompanyType $type): string {
             return $type->type;
@@ -63,20 +69,6 @@ trait Helper {
     /**
      * @return array<mixed>
      */
-    protected function getCustomerLocations(Customer $customer): array {
-        $locations = [];
-
-        foreach ($customer->locations as $location) {
-            /** @var \App\Models\Location $location */
-            $locations[] = $this->getLocation($location);
-        }
-
-        return $locations;
-    }
-
-    /**
-     * @return array<mixed>
-     */
     protected function getCompanyContacts(Company $company): array {
         $contacts = [];
 
@@ -110,6 +102,23 @@ trait Helper {
         }
 
         return $contacts;
+    }
+    //</editor-fold>
+
+    // <editor-fold desc="Customer">
+    // =========================================================================
+    /**
+     * @return array<mixed>
+     */
+    protected function getCustomerLocations(Customer $customer): array {
+        $locations = [];
+
+        foreach ($customer->locations as $location) {
+            /** @var \App\Models\Location $location */
+            $locations[] = $this->getLocation($location);
+        }
+
+        return $locations;
     }
 
     /**
@@ -156,7 +165,10 @@ trait Helper {
             'types'    => $types,
         ];
     }
+    //</editor-fold>
 
+    // <editor-fold desc="Assets">
+    // =========================================================================
     /**
      * @return array<mixed>
      */
@@ -170,4 +182,22 @@ trait Helper {
             'line_two' => '',
         ];
     }
+    // </editor-fold>
+
+    // <editor-fold desc="Organization">
+    // =========================================================================
+    /**
+     * @return array<mixed>
+     */
+    protected function getOrganizationLocations(Organization $organization): array {
+        $locations = [];
+
+        foreach ($organization->locations as $location) {
+            /** @var \App\Models\Location $location */
+            $locations[] = $this->getLocation($location);
+        }
+
+        return $locations;
+    }
+    // </editor-fold>
 }

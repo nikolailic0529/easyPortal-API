@@ -2,19 +2,12 @@
 
 namespace App\Services\DataLoader\Factories;
 
-use App\Models\Contact;
-use App\Models\Customer;
-use App\Models\Location as LocationModel;
 use App\Models\Model;
 use App\Models\Status as StatusModel;
 use App\Models\Type as TypeModel;
-use App\Services\DataLoader\DataLoaderException;
-use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Providers\TypeProvider;
+use App\Services\DataLoader\Exceptions\DataLoaderException;
 use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\CompanyType;
-use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
@@ -22,10 +15,8 @@ use Exception;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
-use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
-use function reset;
 use function tap;
 
 /**
@@ -233,196 +224,6 @@ class CustomerFactoryTest extends TestCase {
 
         $this->assertNotNull($actual);
         $this->assertEquals($expected, $actual->key);
-    }
-
-    public function testCustomerLocations(): void {
-        // Prepare
-        $customer = Customer::factory()->make();
-        $existing = LocationModel::factory(2)->make([
-            'object_type' => $customer->getMorphClass(),
-            'object_id'   => $customer,
-        ]);
-
-        $customer->setRelation('locations', $existing);
-
-        $factory = new class(
-            $this->app->make(LoggerInterface::class),
-            $this->app->make(Normalizer::class),
-            $this->app->make(LocationFactory::class),
-            $this->app->make(TypeProvider::class),
-        ) extends CustomerFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                LoggerInterface $logger,
-                Normalizer $normalizer,
-                LocationFactory $locations,
-                TypeProvider $types,
-            ) {
-                $this->logger     = $logger;
-                $this->normalizer = $normalizer;
-                $this->locations  = $locations;
-                $this->types      = $types;
-            }
-
-            /**
-             * @inheritdoc
-             */
-            public function customerLocations(Customer $customer, array $locations): array {
-                return parent::customerLocations($customer, $locations);
-            }
-        };
-
-        // Empty call should return empty array
-        $this->assertEquals([], $factory->customerLocations($customer, []));
-
-        // Repeated objects should be missed
-        $ca = tap(new Location(), function (Location $location): void {
-            $location->zip          = $this->faker->postcode;
-            $location->city         = $this->faker->city;
-            $location->address      = $this->faker->streetAddress;
-            $location->locationType = $this->faker->word;
-        });
-
-        $this->assertCount(1, $factory->customerLocations($customer, [$ca, $ca]));
-
-        // Objects should be grouped by type
-        $cb     = tap(new Location(), function (Location $location) use ($ca): void {
-            $location->zip          = $ca->zip;
-            $location->city         = $ca->city;
-            $location->address      = $ca->address;
-            $location->locationType = $this->faker->word;
-        });
-        $actual = $factory->customerLocations($customer, [$ca, $cb]);
-        $first  = reset($actual);
-
-        $this->assertCount(1, $actual);
-        $this->assertCount(2, $first->types);
-        $this->assertEquals($cb->zip, $first->postcode);
-        $this->assertEquals($cb->city, $first->city->name);
-        $this->assertEquals($cb->address, $first->line_one);
-    }
-
-    /**
-     * @covers ::location
-     */
-    public function testLocation(): void {
-        // Prepare
-        $customer = new Customer();
-        $location = new Location();
-        $factory  = Mockery::mock(LocationFactory::class);
-        $factory
-            ->shouldReceive('create')
-            ->with($customer, $location)
-            ->once()
-            ->andReturns();
-
-        $factory = new class($factory) extends CustomerFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(LocationFactory $locations) {
-                $this->locations = $locations;
-            }
-
-            public function location(Customer $customer, Location $location): ?LocationModel {
-                return parent::location($customer, $location);
-            }
-        };
-
-        $factory->location($customer, $location);
-    }
-
-    /**
-     * @covers ::customerContacts
-     */
-    public function testCustomerContacts(): void {
-        // Prepare
-        $customer = Customer::factory()->make();
-        $existing = Contact::factory(2)->make([
-            'object_type' => $customer->getMorphClass(),
-            'object_id'   => $customer->getKey(),
-        ]);
-
-        $customer->setRelation('contacts', $existing);
-
-        $factory = new class(
-            $this->app->make(LoggerInterface::class),
-            $this->app->make(Normalizer::class),
-            $this->app->make(ContactFactory::class),
-            $this->app->make(TypeProvider::class),
-        ) extends CustomerFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                LoggerInterface $logger,
-                Normalizer $normalizer,
-                ContactFactory $contacts,
-                TypeProvider $types,
-            ) {
-                $this->logger     = $logger;
-                $this->normalizer = $normalizer;
-                $this->contacts   = $contacts;
-                $this->types      = $types;
-            }
-
-            /**
-             * @inheritdoc
-             */
-            public function customerContacts(Customer $customer, array $persons): array {
-                return parent::customerContacts($customer, $persons);
-            }
-        };
-
-        // Empty call should return empty array
-        $this->assertEquals([], $factory->customerContacts($customer, []));
-
-        // Repeated objects should be missed
-        $ca = tap(new CompanyContactPerson(), function (CompanyContactPerson $person): void {
-            $person->name        = $this->faker->name;
-            $person->type        = $this->faker->word;
-            $person->phoneNumber = $this->faker->e164PhoneNumber;
-        });
-
-        $this->assertCount(1, $factory->customerContacts($customer, [$ca, $ca]));
-
-        // Objects should be grouped by type
-        $cb     = tap(new CompanyContactPerson(), function (CompanyContactPerson $person) use ($ca): void {
-            $person->name        = $ca->name;
-            $person->type        = $this->faker->word;
-            $person->phoneNumber = $ca->phoneNumber;
-        });
-        $actual = $factory->customerContacts($customer, [$ca, $cb]);
-        $first  = reset($actual);
-
-        $this->assertCount(1, $actual);
-        $this->assertCount(2, $first->types);
-        $this->assertEquals($cb->phoneNumber, $first->phone_number);
-        $this->assertEquals($cb->name, $first->name);
-    }
-
-    /**
-     * @covers ::contact
-     */
-    public function testContact(): void {
-        // Prepare
-        $customer = new Customer();
-        $contact  = new CompanyContactPerson();
-        $factory  = Mockery::mock(ContactFactory::class);
-        $factory
-            ->shouldReceive('create')
-            ->with($customer, $contact)
-            ->once()
-            ->andReturns();
-
-        $factory = new class($factory) extends CustomerFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(ContactFactory $contacts) {
-                $this->contacts = $contacts;
-            }
-
-            public function contact(Customer $customer, CompanyContactPerson $person): ?Contact {
-                return parent::contact($customer, $person);
-            }
-        };
-
-        $factory->contact($customer, $contact);
     }
     // </editor-fold>
 
