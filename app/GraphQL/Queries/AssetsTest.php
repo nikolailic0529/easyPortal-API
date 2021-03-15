@@ -122,71 +122,63 @@ class AssetsTest extends TestCase {
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLPaginated('assets', self::class, [
-                        'data' => [
-                            'assets' => [
-                                'data' => [
-                                    [
-                                        'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                        'oem_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                        'product_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                        'location_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                        'type_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                        'customer_id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                        'serial_number' => '#PRODUCT_SERIAL_323',
-                                        'oem'           => [
-                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                            'abbr' => 'abbr',
-                                            'name' => 'oem1',
-                                        ],
-                                        'product'       => [
-                                            'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                            'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                            'sku'    => 'SKU#123',
-                                            'eol'    => '2022-12-30',
-                                            'eos'    => '2022-01-01',
-                                            'oem'    => [
-                                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                                'abbr' => 'abbr',
-                                                'name' => 'oem1',
-                                            ],
-                                        ],
-                                        'type'          => [
-                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                            'name' => 'name aaa',
-                                        ],
-                                        'location'      => [
-                                            'id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                            'state'    => 'state1',
-                                            'postcode' => '19911',
-                                            'line_one' => 'line_one_data',
-                                            'line_two' => 'line_two_data',
-                                            'lat'      => '47.91634204',
-                                            'lng'      => '-2.26318359',
-                                        ],
-                                        'customer'      => [
-                                            'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                            'name'            => 'name aaa',
-                                            'locations_count' => 1,
-                                            'locations'       => [
-                                                [
-                                                    'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                                    'state'    => 'state1',
-                                                    'postcode' => '19911',
-                                                    'line_one' => 'line_one_data',
-                                                    'line_two' => 'line_two_data',
-                                                    'lat'      => '47.91634204',
-                                                    'lng'      => '-2.26318359',
-                                                ],
-                                            ],
-                                            'contacts'        => [
-                                                [
-                                                    'name'        => 'contact1',
-                                                    'email'       => 'contact1@test.com',
-                                                    'phone_valid' => false,
-                                                ],
-                                            ],
-                                        ],
-                                    ],
+                        'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                        'oem_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        'product_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                        'location_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                        'type_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                        'customer_id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                        'serial_number' => '#PRODUCT_SERIAL_323',
+                        'oem'           => [
+                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'abbr' => 'abbr',
+                            'name' => 'oem1',
+                        ],
+                        'product'       => [
+                            'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                            'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'sku'    => 'SKU#123',
+                            'eol'    => '2022-12-30',
+                            'eos'    => '2022-01-01',
+                            'oem'    => [
+                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                'abbr' => 'abbr',
+                                'name' => 'oem1',
+                            ],
+                        ],
+                        'type'          => [
+                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            'name' => 'name aaa',
+                        ],
+                        'location'      => [
+                            'id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                            'state'    => 'state1',
+                            'postcode' => '19911',
+                            'line_one' => 'line_one_data',
+                            'line_two' => 'line_two_data',
+                            'lat'      => '47.91634204',
+                            'lng'      => '-2.26318359',
+                        ],
+                        'customer'      => [
+                            'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                            'name'            => 'name aaa',
+                            'locations_count' => 1,
+                            'locations'       => [
+                                [
+                                    'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                    'state'    => 'state1',
+                                    'postcode' => '19911',
+                                    'line_one' => 'line_one_data',
+                                    'line_two' => 'line_two_data',
+                                    'lat'      => '47.91634204',
+                                    'lng'      => '-2.26318359',
+                                ],
+                            ],
+                            'contacts'        => [
+                                [
+                                    'name'        => 'contact1',
+                                    'email'       => 'contact1@test.com',
+                                    'phone_valid' => false,
                                 ],
                             ],
                         ],
