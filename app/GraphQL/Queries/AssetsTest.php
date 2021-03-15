@@ -93,6 +93,15 @@ class AssetsTest extends TestCase {
                                     phone_valid
                                 }
                             }
+                            location {
+                                id
+                                state
+                                postcode
+                                line_one
+                                line_two
+                                lat
+                                lng
+                            }
                         }
                     }
                 }
@@ -144,6 +153,15 @@ class AssetsTest extends TestCase {
                                         'type'          => [
                                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                             'name' => 'name aaa',
+                                        ],
+                                        'location'      => [
+                                            'id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                            'state'    => 'state1',
+                                            'postcode' => '19911',
+                                            'line_one' => 'line_one_data',
+                                            'line_two' => 'line_two_data',
+                                            'lat'      => '47.91634204',
+                                            'lng'      => '-2.26318359',
                                         ],
                                         'customer'      => [
                                             'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
