@@ -25,6 +25,9 @@ type Query {
 
     "Customer with given ID"
     customer (id: ID! @eq): Customer @guard @find
+
+    "List of all contact types"
+    contactTypes: [Type!]!
 }
 
 enum CustomersWhereColumns {

@@ -6,7 +6,7 @@ type Customer {
     status: CustomerStatus! @belongsTo
     status_id: ID!
     locations_count: Int!
-    locations: [Location]! @morphMany
+    locations: [Location!]! @morphMany
     contacts_count: Int!
-    contacts: [Contact]! @morphMany
+    contacts: [Contact!]! @morphMany
 }
