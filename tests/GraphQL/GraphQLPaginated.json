@@ -1,0 +1,58 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "description": "http://spec.graphql.org/June2018/#sec-Response-Format",
+    "type": "object",
+    "additionalProperties": false,
+    "minProperties": 1,
+    "required": [
+        "data"
+    ],
+    "properties": {
+        "data": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "${graphql.root}"
+            ],
+            "properties": {
+                "${graphql.root}": {
+                    "$ref": "${schema.path}"
+                }
+            }
+        },
+        "paginatorInfo": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [],
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "currentPage": {
+                    "type": "integer"
+                },
+                "firstItem": {
+                    "type": "integer"
+                },
+                "hasMorePages": {
+                    "type": "boolean"
+                },
+                "lastItem": {
+                    "type": "integer"
+                },
+                "lastPage": {
+                    "type": "integer"
+                },
+                "perPage": {
+                    "type": "integer"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "extensions": {
+            "type": "object"
+        }
+    }
+}

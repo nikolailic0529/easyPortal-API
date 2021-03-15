@@ -1,0 +1,14 @@
+type Asset {
+    id: ID!
+    oem_id: ID!,
+    product_id: ID!
+    type_id: ID!
+    customer_id: ID!
+    location_id: ID!
+    serial_number: String!
+    customer: Customer
+    location: Location
+    oem: Oem!
+    product: Product!
+    type: Type!
+}

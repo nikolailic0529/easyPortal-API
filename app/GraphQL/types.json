@@ -177,27 +177,62 @@
                 }
             }
         },
-        "City":{
+        "Asset": {
             "additionProperties": false,
             "type": "object",
             "required": [
-                "id",
-                "name",
-                "country_id",
-                "country"
+                "oem_id",
+                "product_id",
+                "type_id",
+                "customer_id",
+                "location_id",
+                "serial_number"
             ],
             "properties": {
-                "id": {
+                "oem_id": {
                     "$ref": "#/definitions/ID"
                 },
-                "name": {
+                "product_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "type_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "customer_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "serial_number": {
                     "type": "string"
                 },
-                "country_id": {
+                "location_id": {
                     "$ref": "#/definitions/ID"
                 },
-                "country": {
-                    "$ref": "#/definitions/Country"
+                "customer": {
+                    "$ref": "#/definitions/Customer"
+                }
+            },
+            "City": {
+                "additionProperties": false,
+                "type": "object",
+                "required": [
+                    "id",
+                    "name",
+                    "country_id",
+                    "country"
+                ],
+                "properties": {
+                    "id": {
+                        "$ref": "#/definitions/ID"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "country_id": {
+                        "$ref": "#/definitions/ID"
+                    },
+                    "country": {
+                        "$ref": "#/definitions/Country"
+                    }
                 }
             }
         }

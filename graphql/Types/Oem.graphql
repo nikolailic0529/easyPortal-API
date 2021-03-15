@@ -1,0 +1,5 @@
+type Oem {
+    id: ID!
+    abbr: String!
+    name: String!
+}
