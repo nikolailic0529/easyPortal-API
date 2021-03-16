@@ -63,13 +63,14 @@ trait WithAssets {
             }
         }
 
-        // Update outdated
-        $iterator = $this->getOutdatedAssets($owner, $updated)?->iterator()->safe() ?? [];
+        // Update missed
+        $iterator = $this->getMissedAssets($owner, $updated)?->iterator()->safe() ?? [];
 
         unset($updated);
 
-        foreach ($iterator as $outdated) {
-            $asset = $this->client->getAssetById($outdated->getKey());
+        foreach ($iterator as $missed) {
+            /** @var \App\Models\Asset $missed */
+            $asset = $this->client->getAssetById($missed->getKey());
 
             if ($asset) {
                 try {
@@ -86,15 +87,20 @@ trait WithAssets {
                     ]);
                 }
             } else {
-                $outdated->delete();
+                $missed->customer     = null;
+                $missed->organization = null;
+                $missed->save();
+
+                $this->logger->error('Asset found in database but not found in Cosmos.', [
+                    'id' => $missed->getKey(),
+                ]);
             }
         }
 
         // Update Customers
         foreach ($customers as $id => $_) {
             $customer = $this->customers->find(Company::create([
-                'id'           => $id,
-                'companyTypes' => [['type' => 'CUSTOMER']],
+                'id' => $id,
             ]));
 
             if ($customer) {
@@ -107,8 +113,7 @@ trait WithAssets {
         // Update Resellers
         foreach ($resellers as $id => $_) {
             $reseller = $this->resellers->find(Company::create([
-                'id'           => $id,
-                'companyTypes' => [['type' => 'RESELLER']],
+                'id' => $id,
             ]));
 
             if ($reseller) {
@@ -132,7 +137,7 @@ trait WithAssets {
      *
      * @return \Illuminate\Database\Eloquent\Builder<\App\Models\Asset>|null
      */
-    abstract protected function getOutdatedAssets(Model $owner, array $current): ?Builder;
+    abstract protected function getMissedAssets(Model $owner, array $current): ?Builder;
 
     protected function updateCustomerCountable(Customer $customer): void {
         $customer->locations_count = $customer->locations()->count();
