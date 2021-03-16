@@ -13,10 +13,11 @@ use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Factories\OrganizationFactory;
 use App\Services\DataLoader\Schema\Company;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Log;
 use Throwable;
-use Traversable;
 
+/**
+ * @mixin \App\Services\DataLoader\Loader
+ */
 trait WithAssets {
     protected OrganizationFactory $resellers;
     protected CustomerFactory     $customers;
@@ -55,7 +56,7 @@ trait WithAssets {
                     $resellers[(string) $asset->organization_id] = true;
                 }
             } catch (Throwable $exception) {
-                Log::warning(__METHOD__, [
+                $this->logger->warning(__METHOD__, [
                     'asset'     => $asset,
                     'exception' => $exception,
                 ]);
@@ -79,13 +80,13 @@ trait WithAssets {
                         $resellers[(string) $asset->organization_id] = true;
                     }
                 } catch (Throwable $exception) {
-                    Log::warning(__METHOD__, [
+                    $this->logger->warning(__METHOD__, [
                         'asset'     => $asset,
                         'exception' => $exception,
                     ]);
                 }
             } else {
-                $asset->delete();
+                $outdated->delete();
             }
         }
 
