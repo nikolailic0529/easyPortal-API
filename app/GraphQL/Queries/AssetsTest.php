@@ -44,7 +44,7 @@ class AssetsTest extends TestCase {
         $this
             ->graphQL(/** @lang GraphQL */ '
                 query assets($customer_id: Mixed!) {
-                    assets(where:{ column:CUSTOMER, operator:EQ, value: $customer_id }) {
+                    assets(where:{ column: CUSTOMER, operator: EQ, value: $customer_id }) {
                         data {
                             id
                             oem_id
