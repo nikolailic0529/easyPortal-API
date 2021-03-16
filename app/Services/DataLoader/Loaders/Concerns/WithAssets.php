@@ -99,6 +99,10 @@ trait WithAssets {
 
         // Update Customers
         foreach ($customers as $id => $_) {
+            if (!$id) {
+                continue;
+            }
+
             $customer = $this->customers->find(Company::create([
                 'id' => $id,
             ]));
@@ -112,6 +116,10 @@ trait WithAssets {
 
         // Update Resellers
         foreach ($resellers as $id => $_) {
+            if (!$id) {
+                continue;
+            }
+
             $reseller = $this->resellers->find(Company::create([
                 'id' => $id,
             ]));
