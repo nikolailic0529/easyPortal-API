@@ -4,14 +4,12 @@ namespace Tests\GraphQL;
 
 use JsonSerializable;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\OkResponse;
-use SplFileInfo;
-use stdClass;
 
 class GraphQLPaginated extends OkResponse {
     public function __construct(
         string $root,
         ?string $schema,
-        SplFileInfo|array|string|stdClass|JsonSerializable|null $content = null,
+        array|JsonSerializable $content = [],
     ) {
         $contentPaginated = [
             'data' => [
