@@ -7,12 +7,14 @@ use App\Services\DataLoader\Factories\Concerns\WithLocations;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\OrganizationResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
+use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
+use function array_map;
 use function sprintf;
 
 class OrganizationFactory extends ModelFactory {
@@ -39,6 +41,22 @@ class OrganizationFactory extends ModelFactory {
 
     protected function shouldUpdateLocations(): bool {
         return (bool) $this->locations;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Prefetch">
+    // =========================================================================
+    /**
+     * @param array<\App\Services\DataLoader\Schema\Company> $organizations
+     */
+    public function prefetch(array $organizations, bool $reset = false): static {
+        $keys = array_map(static function (Company $organization): string {
+            return $organization->id;
+        }, $organizations);
+
+        $this->organizations->prefetch($keys, $reset);
+
+        return $this;
     }
     // </editor-fold>
 

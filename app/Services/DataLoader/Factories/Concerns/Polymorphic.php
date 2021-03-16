@@ -28,11 +28,6 @@ trait Polymorphic {
             $model = $factory($owner, $object);
 
             if (!$model) {
-                $this->logger->warning('Found invalid object.', [
-                    'owner'  => $owner,
-                    'object' => $object,
-                ]);
-
                 continue;
             }
 

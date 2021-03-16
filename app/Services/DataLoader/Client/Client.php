@@ -11,6 +11,7 @@ use GraphQL\Type\Introspection;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Arr;
+use Psr\Log\LoggerInterface;
 
 use function reset;
 
@@ -18,6 +19,7 @@ class Client {
     protected const CONFIG = 'data-loader';
 
     public function __construct(
+        protected LoggerInterface $logger,
         protected Repository $config,
         protected Factory $client,
     ) {
@@ -179,7 +181,7 @@ class Client {
      * @return \App\Services\DataLoader\Client\QueryIterator<T>
      */
     public function iterator(string $selector, string $graphql, array $params, Closure $retriever): QueryIterator {
-        return (new QueryIterator($this, "data.{$selector}", $graphql, $params, $retriever))
+        return (new QueryIterator($this->logger, $this, "data.{$selector}", $graphql, $params, $retriever))
             ->chunk($this->setting('chunk'));
     }
 
