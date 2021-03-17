@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @method static \Database\Factories\OemFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Oem newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Oem newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Oem query()

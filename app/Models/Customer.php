@@ -31,10 +31,12 @@ use function count;
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>   $locations
  * @property \App\Models\Status                                               $status
  * @property \App\Models\Type                                                 $type
+ * @method static \Database\Factories\CustomerFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereAssetsCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereContactsCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereId($value)

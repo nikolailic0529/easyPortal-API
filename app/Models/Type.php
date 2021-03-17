@@ -16,7 +16,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property \Carbon\CarbonImmutable                                        $updated_at
  * @property \Carbon\CarbonImmutable|null                                   $deleted_at
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location> $locations
+ * @property-read int|null                                                  $locations_count
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>  $contacts
+ * @property-read int|null                                                  $contacts_count
+ * @method static \Database\Factories\TypeFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type query()
