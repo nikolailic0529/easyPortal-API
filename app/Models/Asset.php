@@ -30,6 +30,7 @@ use function sprintf;
  * @property \App\Models\Organization|null $organization
  * @property \App\Models\Product           $product
  * @property \App\Models\Type              $type
+ * @method static \Database\Factories\AssetFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset query()

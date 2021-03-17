@@ -8,7 +8,6 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\OkResponse;
 use Mockery;
 use Tests\DataProviders\GraphQL\GuestDataProvider;
 use Tests\DataProviders\TenantDataProvider;
@@ -38,7 +37,7 @@ class AuthSignInTest extends TestCase {
             Mockery::mock(Auth0Service::class),
         );
 
-        if ($expected instanceof OkResponse) {
+        if ($expected instanceof GraphQLSuccess) {
             $service->shouldReceive($method)->once()->andReturn(
                 'http://example.com/',
             );

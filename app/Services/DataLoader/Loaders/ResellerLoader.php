@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Loaders;
 
-use App\Models\Asset;
 use App\Models\Model;
 use App\Models\Organization;
 use App\Services\DataLoader\Client\Client;

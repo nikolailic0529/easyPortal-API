@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Factories;
 
-use App\Models\Organization;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\OrganizationResolver;
 use App\Services\DataLoader\Schema\Company;
