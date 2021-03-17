@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use InvalidArgumentException;
 
+use function in_array;
 use function is_null;
 use function sprintf;
 
@@ -29,6 +30,7 @@ use function sprintf;
  * @property \App\Models\Organization|null $organization
  * @property \App\Models\Product           $product
  * @property \App\Models\Type              $type
+ * @method static \Database\Factories\AssetFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset query()
@@ -105,13 +107,16 @@ class Asset extends Model {
         if ($location) {
             $asset       = (new Asset())->getMorphClass();
             $customer    = (new Customer())->getMorphClass();
-            $isIdMatch   = is_null($location->object_id) || $location->object_id === $this->customer_id;
-            $isTypeMatch = $location->object_type === $asset || $location->object_type === $customer;
+            $reseller    = (new Organization())->getMorphClass();
+            $isIdMatch   = is_null($location->object_id)
+                || in_array($location->object_id, [$this->customer_id, $this->organization_id], true);
+            $isTypeMatch = in_array($location->object_type, [$asset, $customer, $reseller], true);
 
             if (!$isIdMatch || !$isTypeMatch) {
                 throw new InvalidArgumentException(sprintf(
-                    'Location must be related to the `%s` or `%s` but it related to `%s#%s`.',
-                    "{$customer}#{$this->customer_id}",
+                    'Location must be related to the `%s` or `%s` or `%s` but it related to `%s#%s`.',
+                    $customer.($this->customer_id ? "#{$this->customer_id}" : ''),
+                    $reseller.($this->organization_id ? "#{$this->organization_id}" : ''),
                     $asset,
                     $location->object_type,
                     $location->object_id,

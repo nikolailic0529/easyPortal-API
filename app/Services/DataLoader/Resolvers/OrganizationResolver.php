@@ -16,4 +16,11 @@ class OrganizationResolver extends Resolver {
     protected function getFindQuery(): ?Builder {
         return Organization::query();
     }
+
+    /**
+     * @param array<string|int> $keys
+     */
+    public function prefetch(array $keys, bool $reset = false): static {
+        return parent::prefetch($keys, $reset);
+    }
 }

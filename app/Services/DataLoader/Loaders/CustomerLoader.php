@@ -17,7 +17,6 @@ use App\Services\DataLoader\Loaders\Concerns\WithContacts;
 use App\Services\DataLoader\Loaders\Concerns\WithLocations;
 use Illuminate\Database\Eloquent\Builder;
 use Psr\Log\LoggerInterface;
-use Traversable;
 
 class CustomerLoader extends Loader {
     use WithLocations;
@@ -46,7 +45,9 @@ class CustomerLoader extends Loader {
             $customer = Customer::query()->whereKey($id)->first();
 
             if ($customer) {
-                $customer->delete();
+                $this->logger->error('Customer found in database but not found in Cosmos.', [
+                    'id' => $id,
+                ]);
             }
 
             return false;
@@ -76,7 +77,7 @@ class CustomerLoader extends Loader {
     /**
      * @inheritdoc
      */
-    protected function getOutdatedAssets(Model $owner, array $current): ?Builder {
+    protected function getMissedAssets(Model $owner, array $current): ?Builder {
         return $owner instanceof Customer
             ? $owner->assets()->whereNotIn('id', $current)->getQuery()
             : null;

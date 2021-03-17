@@ -2,7 +2,7 @@
 
 /**
  * This file contains a list of application settings except for passwords and
- * other sensitive data (lease use .env for them).
+ * other sensitive data (please use .env for them).
  *
  * Settings priorities:
  * - .env

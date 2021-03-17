@@ -12,7 +12,7 @@ class SchemaWrapper extends JsonSchemaWrapper {
     public function __construct(string $response, string $root, string $schema = null, ISchemaLoader $loader = null) {
         $this->response = $response;
         $this->root     = $root;
-        $schema       ??= NullSchema::class;
+        $schema       ??= AnySchema::class;
 
         parent::__construct($schema, $loader);
     }

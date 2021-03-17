@@ -70,7 +70,7 @@ class WithContactsTest extends TestCase {
         // Repeated objects should be missed
         $ca = tap(new CompanyContactPerson(), function (CompanyContactPerson $person): void {
             $person->name        = $this->faker->name;
-            $person->type        = $this->faker->word;
+            $person->type        = $this->faker->text(64);
             $person->phoneNumber = $this->faker->e164PhoneNumber;
         });
 

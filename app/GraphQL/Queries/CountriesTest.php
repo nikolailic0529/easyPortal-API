@@ -59,14 +59,10 @@ class CountriesTest extends TestCase {
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('countries', self::class, [
-                        'data' => [
-                            'countries' => [
-                                [
-                                    'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                    'name' => 'name aaa',
-                                    'code' => 'c1',
-                                ],
-                            ],
+                        [
+                            'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                            'name' => 'name aaa',
+                            'code' => 'c1',
                         ],
                     ]),
                     static function (): void {

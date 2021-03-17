@@ -27,6 +27,8 @@ use Illuminate\Support\Collection;
  * @property \App\Models\City                                           $city
  * @property \App\Models\Country                                        $country
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Type> $types
+ * @property-read int|null                                              $types_count
+ * @method static \Database\Factories\LocationFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location query()

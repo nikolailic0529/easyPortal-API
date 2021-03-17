@@ -3,7 +3,6 @@
     "description": "http://spec.graphql.org/June2018/#sec-Response-Format",
     "type": "object",
     "additionalProperties": false,
-    "minProperties": 1,
     "required": [
         "data"
     ],
@@ -19,9 +18,6 @@
                     "$ref": "${schema.path}"
                 }
             }
-        },
-        "extensions": {
-            "type": "object"
         }
     }
 }

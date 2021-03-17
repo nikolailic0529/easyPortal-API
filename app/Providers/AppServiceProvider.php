@@ -32,11 +32,11 @@ class AppServiceProvider extends ServiceProvider {
      */
     public function boot(): void {
         Relation::morphMap([
-            'app/customer'     => Customer::class,
-            'app/contact'      => Contact::class,
-            'app/location'     => Location::class,
-            'app/asset'        => Asset::class,
-            'app/organization' => Organization::class,
+            'customer'     => Customer::class,
+            'contact'      => Contact::class,
+            'location'     => Location::class,
+            'asset'        => Asset::class,
+            'organization' => Organization::class,
         ]);
     }
 

@@ -2,6 +2,6 @@
 
 namespace Tests\GraphQL;
 
-class NullSchema {
+class AnySchema {
     // empty
 }

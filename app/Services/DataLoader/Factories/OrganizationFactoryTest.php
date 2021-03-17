@@ -2,6 +2,8 @@
 
 namespace App\Services\DataLoader\Factories;
 
+use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Resolvers\OrganizationResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
@@ -132,6 +134,37 @@ class OrganizationFactoryTest extends TestCase {
         $company = Company::create($json);
 
         $this->assertNotNull($factory->create($company));
+    }
+
+    /**
+     * @covers ::prefetch
+     */
+    public function testPrefetch(): void {
+        $a          = Company::create([
+            'id' => $this->faker->uuid,
+        ]);
+        $b          = Company::create([
+            'id' => $this->faker->uuid,
+        ]);
+        $resolver   = $this->app->make(OrganizationResolver::class);
+        $normalizer = $this->app->make(Normalizer::class);
+
+        $factory = new class($normalizer, $resolver) extends OrganizationFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(Normalizer $normalizer, OrganizationResolver $resolver) {
+                $this->normalizer    = $normalizer;
+                $this->organizations = $resolver;
+            }
+        };
+
+        $factory->prefetch([$a, $b]);
+
+        $this->flushQueryLog();
+
+        $factory->find($a);
+        $factory->find($b);
+
+        $this->assertCount(0, $this->getQueryLog());
     }
     // </editor-fold>
 

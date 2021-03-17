@@ -59,13 +59,9 @@ class LocationTypesTest extends TestCase {
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('locationTypes', LocationTypes::class, [
-                        'data' => [
-                            'locationTypes' => [
-                                [
-                                    'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                    'name' => 'Type1',
-                                ],
-                            ],
+                        [
+                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                            'name' => 'Type1',
                         ],
                     ]),
                     static function (): void {
