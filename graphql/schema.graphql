@@ -54,7 +54,7 @@ enum CustomersWhereColumns {
 enum AssetsWhereColumns {
     OEM @enum(value: "oem_id")
     PRODUCT @enum(value: "product_id")
-    Type @enum(value: "type_id")
+    TYPE @enum(value: "type_id")
     CUSTOMER @enum(value: "customer_id")
 }
 
