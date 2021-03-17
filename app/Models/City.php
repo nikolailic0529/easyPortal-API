@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
  * @property \App\Models\Country          $country
+ * @method static \Database\Factories\CityFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\City newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\City newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\City query()

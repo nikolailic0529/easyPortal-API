@@ -2,10 +2,9 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Models\Organization;
 use App\Services\DataLoader\DataLoaderService;
+use App\Services\DataLoader\Factories\OrganizationFactory;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -13,13 +12,21 @@ use Throwable;
 /**
  * Imports reseller list.
  */
-class ResellersImporterCronJob extends CronJob implements ShouldBeUnique {
-    public function handle(Container $container, LoggerInterface $logger, DataLoaderService $service): void {
-        $client = $service->getClient();
+class ResellersImporterCronJob extends CronJob {
+    public function handle(
+        Container $container,
+        LoggerInterface $logger,
+        DataLoaderService $service,
+        OrganizationFactory $resolver,
+    ): void {
+        $client   = $service->getClient();
+        $prefetch = static function (array $resellers) use ($resolver): void {
+            $resolver->prefetch($resellers);
+        };
 
-        foreach ($client->getResellers() as $reseller) {
+        foreach ($client->getResellers()->each($prefetch) as $reseller) {
             // If organization exists we just skip it.
-            if (Organization::query()->whereKey($reseller->id)->exists()) {
+            if ($resolver->find($reseller)) {
                 continue;
             }
 

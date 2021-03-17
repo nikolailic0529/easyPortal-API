@@ -4,8 +4,8 @@ namespace App\Services\DataLoader\Client;
 
 use Closure;
 use Generator;
-use Illuminate\Support\Facades\Log;
 use IteratorAggregate;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 use function array_map;
@@ -20,6 +20,7 @@ class QueryIterator implements IteratorAggregate {
      * @param array<mixed> $params
      */
     public function __construct(
+        protected LoggerInterface $logger,
         protected Client $client,
         protected string $selector,
         protected string $graphql,
@@ -79,7 +80,7 @@ class QueryIterator implements IteratorAggregate {
                 try {
                     return $retriever($item);
                 } catch (Throwable $exception) {
-                    Log::info(__METHOD__, [
+                    $this->logger->warning(__METHOD__, [
                         'item'      => $item,
                         'exception' => $exception,
                     ]);

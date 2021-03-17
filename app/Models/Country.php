@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @method static \Database\Factories\CountryFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Country newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Country newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Country query()

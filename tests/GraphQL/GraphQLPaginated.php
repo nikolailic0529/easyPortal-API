@@ -3,23 +3,35 @@
 namespace Tests\GraphQL;
 
 use JsonSerializable;
-use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\OkResponse;
+use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonMatchesFragment;
+use SplFileInfo;
+use stdClass;
 
-class GraphQLPaginated extends OkResponse {
+class GraphQLPaginated extends GraphQLSuccess {
+    protected JsonSerializable|SplFileInfo|stdClass|array|string|null $paginator = null;
+
     public function __construct(
         string $root,
         ?string $schema,
-        array|JsonSerializable $content = [],
+        JsonSerializable|SplFileInfo|stdClass|array|string|null $content = null,
+        JsonSerializable|SplFileInfo|stdClass|array|string|null $paginator = null,
     ) {
-        $contentPaginated = [
-            'data' => [
-                $root => [
-                    'data' => [
-                        $content,
-                    ],
-                ],
-            ],
+        $this->paginator = $paginator;
+
+        parent::__construct($root, $schema, $content);
+    }
+
+    /**
+     * @return array<\PHPUnit\Framework\Constraint\Constraint>
+     */
+    protected function getResponseConstraints(): array {
+        return [
+            $this->content
+                ? new JsonMatchesFragment("data.{$this->root}.data", $this->content)
+                : null,
+            $this->paginator
+                ? new JsonMatchesFragment("data.{$this->root}.paginatorInfo", $this->paginator)
+                : null,
         ];
-        parent::__construct(new SchemaWrapper($this::class, $root, $schema), $contentPaginated);
     }
 }

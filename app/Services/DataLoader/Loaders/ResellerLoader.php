@@ -16,7 +16,6 @@ use App\Services\DataLoader\Loaders\Concerns\WithAssets;
 use App\Services\DataLoader\Loaders\Concerns\WithLocations;
 use Illuminate\Database\Eloquent\Builder;
 use Psr\Log\LoggerInterface;
-use Traversable;
 
 class ResellerLoader extends Loader {
     use WithLocations;
@@ -44,7 +43,9 @@ class ResellerLoader extends Loader {
             $reseller = Organization::query()->whereKey($id)->first();
 
             if ($reseller) {
-                $reseller->delete();
+                $this->logger->error('Reseller found in database but not found in Cosmos.', [
+                    'id' => $id,
+                ]);
             }
 
             return false;
@@ -73,7 +74,7 @@ class ResellerLoader extends Loader {
     /**
      * @inheritdoc
      */
-    protected function getOutdatedAssets(Model $owner, array $current): ?Builder {
+    protected function getMissedAssets(Model $owner, array $current): ?Builder {
         return $owner instanceof Organization
             ? $owner->assets()->whereNotIn('id', $current)->getQuery()
             : null;

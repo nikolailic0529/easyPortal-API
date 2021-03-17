@@ -13,10 +13,11 @@ use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Factories\OrganizationFactory;
 use App\Services\DataLoader\Schema\Company;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Log;
 use Throwable;
-use Traversable;
 
+/**
+ * @mixin \App\Services\DataLoader\Loader
+ */
 trait WithAssets {
     protected OrganizationFactory $resellers;
     protected CustomerFactory     $customers;
@@ -55,20 +56,21 @@ trait WithAssets {
                     $resellers[(string) $asset->organization_id] = true;
                 }
             } catch (Throwable $exception) {
-                Log::warning(__METHOD__, [
+                $this->logger->warning(__METHOD__, [
                     'asset'     => $asset,
                     'exception' => $exception,
                 ]);
             }
         }
 
-        // Update outdated
-        $iterator = $this->getOutdatedAssets($owner, $updated)?->iterator()->safe() ?? [];
+        // Update missed
+        $iterator = $this->getMissedAssets($owner, $updated)?->iterator()->safe() ?? [];
 
         unset($updated);
 
-        foreach ($iterator as $outdated) {
-            $asset = $this->client->getAssetById($outdated->getKey());
+        foreach ($iterator as $missed) {
+            /** @var \App\Models\Asset $missed */
+            $asset = $this->client->getAssetById($missed->getKey());
 
             if ($asset) {
                 try {
@@ -79,21 +81,30 @@ trait WithAssets {
                         $resellers[(string) $asset->organization_id] = true;
                     }
                 } catch (Throwable $exception) {
-                    Log::warning(__METHOD__, [
+                    $this->logger->warning(__METHOD__, [
                         'asset'     => $asset,
                         'exception' => $exception,
                     ]);
                 }
             } else {
-                $asset->delete();
+                $missed->customer     = null;
+                $missed->organization = null;
+                $missed->save();
+
+                $this->logger->error('Asset found in database but not found in Cosmos.', [
+                    'id' => $missed->getKey(),
+                ]);
             }
         }
 
         // Update Customers
         foreach ($customers as $id => $_) {
+            if (!$id) {
+                continue;
+            }
+
             $customer = $this->customers->find(Company::create([
-                'id'           => $id,
-                'companyTypes' => [['type' => 'CUSTOMER']],
+                'id' => $id,
             ]));
 
             if ($customer) {
@@ -105,9 +116,12 @@ trait WithAssets {
 
         // Update Resellers
         foreach ($resellers as $id => $_) {
+            if (!$id) {
+                continue;
+            }
+
             $reseller = $this->resellers->find(Company::create([
-                'id'           => $id,
-                'companyTypes' => [['type' => 'RESELLER']],
+                'id' => $id,
             ]));
 
             if ($reseller) {
@@ -131,7 +145,7 @@ trait WithAssets {
      *
      * @return \Illuminate\Database\Eloquent\Builder<\App\Models\Asset>|null
      */
-    abstract protected function getOutdatedAssets(Model $owner, array $current): ?Builder;
+    abstract protected function getMissedAssets(Model $owner, array $current): ?Builder;
 
     protected function updateCustomerCountable(Customer $customer): void {
         $customer->locations_count = $customer->locations()->count();

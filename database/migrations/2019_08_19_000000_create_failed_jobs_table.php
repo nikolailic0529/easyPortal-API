@@ -11,7 +11,7 @@ class CreateFailedJobsTable extends Migration {
      * Run the migrations.
      */
     public function up(): void {
-        Schema::create('laravel_failed_jobs', static function (Blueprint $table): void {
+        Schema::create('failed_jobs', static function (Blueprint $table): void {
             $table->id();
             $table->string('uuid')->unique();
             $table->text('connection');
@@ -26,6 +26,6 @@ class CreateFailedJobsTable extends Migration {
      * Reverse the migrations.
      */
     public function down(): void {
-        Schema::dropIfExists('laravel_failed_jobs');
+        Schema::dropIfExists('failed_jobs');
     }
 }

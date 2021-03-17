@@ -41,7 +41,7 @@ return [
 
         'database'   => [
             'driver'      => 'database',
-            'table'       => 'laravel_jobs',
+            'table'       => 'jobs',
             'queue'       => 'default',
             'retry_after' => 90,
         ],
@@ -88,7 +88,7 @@ return [
     'failed'      => [
         'driver'   => env('QUEUE_FAILED_DRIVER', 'database-uuids'),
         'database' => env('DB_CONNECTION', 'mysql'),
-        'table'    => 'laravel_failed_jobs',
+        'table'    => 'failed_jobs',
     ],
 
     /*
@@ -97,7 +97,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'batching'    => [
-        'table' => 'laravel_job_batches',
+        'table' => 'job_batches',
     ],
 
     /*

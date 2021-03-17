@@ -32,6 +32,6 @@ class SettingTest extends TestCase {
     public function testGetNotExists(): void {
         $this->expectExceptionObject(new LogicException('Setting not found.'));
 
-        $this->assertEquals(null, Setting::get('UNKNOWN'));
+        $this->assertEquals(null, Setting::get(__FUNCTION__));
     }
 }

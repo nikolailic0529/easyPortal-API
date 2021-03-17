@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Client;
 
 use Mockery;
+use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
 use function array_slice;
@@ -19,6 +20,7 @@ class QueryIteratorTest extends TestCase {
      */
     public function testGetIterator(): void {
         $data   = range(1, 10);
+        $logger = $this->app->make(LoggerInterface::class);
         $client = Mockery::mock(Client::class);
         $client->shouldAllowMockingProtectedMethods();
 
@@ -30,7 +32,7 @@ class QueryIteratorTest extends TestCase {
             });
 
         $expected = $data;
-        $actual   = iterator_to_array((new QueryIterator($client, '', ''))->chunk(5));
+        $actual   = iterator_to_array((new QueryIterator($logger, $client, '', ''))->chunk(5));
 
         $this->assertEquals($expected, $actual);
     }
@@ -40,6 +42,7 @@ class QueryIteratorTest extends TestCase {
      */
     public function testIteratorWithLimitOffset(): void {
         $data   = range(1, 10);
+        $logger = $this->app->make(LoggerInterface::class);
         $client = Mockery::mock(Client::class);
         $client->shouldAllowMockingProtectedMethods();
 
@@ -51,7 +54,7 @@ class QueryIteratorTest extends TestCase {
             });
 
         $expected = [6, 7];
-        $actual   = iterator_to_array((new QueryIterator($client, '', ''))->offset(5)->limit(2)->chunk(5));
+        $actual   = iterator_to_array((new QueryIterator($logger, $client, '', ''))->offset(5)->limit(2)->chunk(5));
 
         $this->assertEquals($expected, $actual);
     }
@@ -61,6 +64,7 @@ class QueryIteratorTest extends TestCase {
      */
     public function testIteratorChunkLessThanLimit(): void {
         $data   = range(1, 10);
+        $logger = $this->app->make(LoggerInterface::class);
         $client = Mockery::mock(Client::class);
         $client->shouldAllowMockingProtectedMethods();
 
@@ -74,7 +78,7 @@ class QueryIteratorTest extends TestCase {
             });
 
         $expected = $data;
-        $actual   = iterator_to_array((new QueryIterator($client, '', ''))->limit(10)->chunk(2));
+        $actual   = iterator_to_array((new QueryIterator($logger, $client, '', ''))->limit(10)->chunk(2));
 
         $this->assertEquals($expected, $actual);
     }
@@ -84,6 +88,7 @@ class QueryIteratorTest extends TestCase {
      */
     public function testIteratorChunkGreaterThanLimit(): void {
         $data   = range(1, 10);
+        $logger = $this->app->make(LoggerInterface::class);
         $client = Mockery::mock(Client::class);
         $client->shouldAllowMockingProtectedMethods();
 
@@ -97,7 +102,7 @@ class QueryIteratorTest extends TestCase {
             });
 
         $expected = [1, 2];
-        $actual   = iterator_to_array((new QueryIterator($client, '', ''))->limit(2)->chunk(50));
+        $actual   = iterator_to_array((new QueryIterator($logger, $client, '', ''))->limit(2)->chunk(50));
 
         $this->assertEquals($expected, $actual);
     }

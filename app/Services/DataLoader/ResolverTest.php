@@ -8,7 +8,6 @@ use App\Services\DataLoader\Cache\ModelKey;
 use App\Services\DataLoader\Exceptions\FactoryObjectNotFoundException;
 use Closure;
 use Exception;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use LogicException;
 use Mockery;

@@ -4,29 +4,33 @@ namespace Tests\GraphQL;
 
 use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonMatchesSchema;
 use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonSchema;
-use LastDragon_ru\LaraASP\Testing\Constraints\Response\Bodies\JsonBody;
-use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentTypes\JsonContentType;
-use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
-use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 
-use function array_filter;
 use function array_keys;
 
-class GraphQLError extends Response {
+class GraphQLError extends GraphQLResponse {
+    /**
+     * @var array<string>|null
+     */
+    protected ?array $errors = null;
+
     /**
      * @param array<string>|null $errors
      */
-    public function __construct(string $root, array $errors = null) {
-        parent::__construct(
-            new Ok(),
-            new JsonContentType(),
-            new JsonBody(...array_filter([
-                new JsonMatchesSchema(new SchemaWrapper($this::class, $root)),
-                $errors
-                    ? new JsonMatchesSchema(new JsonSchema($this->getErrorsSchema($errors)))
-                    : null,
-            ])),
-        );
+    public function __construct(string $root, ?array $errors = null) {
+        $this->errors = $errors;
+
+        parent::__construct($root, null);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getResponseConstraints(): array {
+        return [
+            $this->errors
+                ? new JsonMatchesSchema(new JsonSchema($this->getErrorsSchema($this->errors)))
+                : null,
+        ];
     }
 
     /**

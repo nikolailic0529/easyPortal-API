@@ -6,11 +6,12 @@ use App\Models\Organization;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\DataLoaderService;
+use App\Services\DataLoader\Factories\OrganizationFactory;
 use App\Services\DataLoader\Schema\Company;
-use Closure;
 use Generator;
 use Illuminate\Support\Facades\Queue;
 use Mockery;
+use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
 use function in_array;
@@ -33,11 +34,13 @@ class ResellersImporterCronJobTest extends TestCase {
     public function testHandle(): void {
         Queue::fake();
 
-        $o     = Organization::factory()->create();
-        $a     = Company::create(['id' => $o->getKey()]);
-        $b     = Company::create(['id' => $this->faker->uuid]);
-        $c     = Company::create(['id' => $this->faker->uuid]);
-        $items = [$a, $b, $c];
+        $o       = Organization::factory()->create();
+        $a       = Company::create(['id' => $o->getKey()]);
+        $b       = Company::create(['id' => $this->faker->uuid]);
+        $c       = Company::create(['id' => $this->faker->uuid]);
+        $items   = [$a, $b, $c];
+        $logger  = $this->app->make(LoggerInterface::class);
+        $factory = $this->app->make(OrganizationFactory::class);
 
         $client = Mockery::mock(Client::class);
         $client
@@ -73,7 +76,7 @@ class ResellersImporterCronJobTest extends TestCase {
 
         $this->app
             ->make(ResellersImporterCronJob::class)
-            ->handle($this->app, $service);
+            ->handle($this->app, $logger, $service, $factory);
 
         Queue::assertPushed(ResellerUpdate::class, 2);
         Queue::assertPushed(ResellerUpdate::class, static function (ResellerUpdate $job) use ($b, $c): bool {

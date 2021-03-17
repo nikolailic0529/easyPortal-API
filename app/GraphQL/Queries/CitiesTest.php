@@ -69,18 +69,14 @@ class CitiesTest extends TestCase {
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('cities', self::class, [
-                        'data' => [
-                            'cities' => [
-                                [
-                                    'id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
-                                    'name'       => 'city name',
-                                    'country_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                    'country'    => [
-                                        'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                        'name' => 'country name',
-                                        'code' => 'c1',
-                                    ],
-                                ],
+                        [
+                            'id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
+                            'name'       => 'city name',
+                            'country_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                            'country'    => [
+                                'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                                'name' => 'country name',
+                                'code' => 'c1',
                             ],
                         ],
                     ]),

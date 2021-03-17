@@ -228,6 +228,45 @@ class AssetFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::createFromAsset
+     */
+    public function testCreateFromAssetOnResellerLocation(): void {
+        // Prepare
+        $container = $this->app->make(Container::class);
+        $locations = $container->make(LocationFactory::class);
+        $resellers = $container->make(OrganizationFactory::class)
+            ->setLocationFactory($locations);
+        $customers = $container->make(CustomerFactory::class)
+            ->setLocationFactory($locations);
+        $factory   = $container->make(AssetFactory::class)
+            ->setOrganizationFactory($resellers)
+            ->setCustomersFactory($customers);
+
+        // Test
+        $json    = $this->getTestData()->json('~asset-reseller-location.json');
+        $asset   = Asset::create($json);
+        $created = $factory->create($asset);
+
+        $this->assertNotNull($created);
+        $this->assertTrue($created->wasRecentlyCreated);
+        $this->assertEquals($asset->id, $created->getKey());
+        $this->assertEquals($asset->resellerId, $created->organization_id);
+        $this->assertEquals($asset->serialNumber, $created->serial_number);
+        $this->assertEquals($asset->vendor, $created->oem->abbr);
+        $this->assertEquals($asset->productDescription, $created->product->name);
+        $this->assertEquals($asset->sku, $created->product->sku);
+        $this->assertNull($created->product->eos);
+        $this->assertEquals($asset->eosDate, (string) $created->product->eos);
+        $this->assertEquals($asset->eolDate, $this->getDatetime($created->product->eol));
+        $this->assertEquals($asset->assetType, $created->type->key);
+        $this->assertEquals($asset->customerId, $created->customer->getKey());
+        $this->assertEquals(
+            $this->getAssetLocation($asset),
+            $this->getLocation($created->location, false),
+        );
+    }
+
+    /**
      * @covers ::assetOem
      */
     public function testAssetOem(): void {

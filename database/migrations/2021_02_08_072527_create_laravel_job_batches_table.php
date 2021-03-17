@@ -11,7 +11,7 @@ class CreateLaravelJobBatchesTable extends Migration {
      * Run the migrations.
      */
     public function up(): void {
-        Schema::create('laravel_job_batches', static function (Blueprint $table): void {
+        Schema::create('job_batches', static function (Blueprint $table): void {
             $table->string('id')->primary();
             $table->string('name');
             $table->integer('total_jobs');
@@ -29,6 +29,6 @@ class CreateLaravelJobBatchesTable extends Migration {
      * Reverse the migrations.
      */
     public function down(): void {
-        Schema::dropIfExists('laravel_job_batches');
+        Schema::dropIfExists('job_batches');
     }
 }
