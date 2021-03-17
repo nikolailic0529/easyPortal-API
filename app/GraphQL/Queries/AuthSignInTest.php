@@ -38,7 +38,7 @@ class AuthSignInTest extends TestCase {
             Mockery::mock(Auth0Service::class),
         );
 
-        if ($expected instanceof OkResponse) {
+        if ($expected instanceof GraphQLSuccess) {
             $service->shouldReceive($method)->once()->andReturn(
                 'http://example.com/',
             );

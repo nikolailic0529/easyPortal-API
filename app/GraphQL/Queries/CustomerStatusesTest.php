@@ -59,13 +59,9 @@ class CustomerStatusesTest extends TestCase {
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('customerStatuses', CustomerStatuses::class, [
-                        'data' => [
-                            'customerStatuses' => [
-                                [
-                                    'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                    'name' => 'name aaa',
-                                ],
-                            ],
+                        [
+                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                            'name' => 'name aaa',
                         ],
                     ]),
                     static function (): void {

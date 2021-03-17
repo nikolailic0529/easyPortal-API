@@ -59,13 +59,9 @@ class ContactTypesTest extends TestCase {
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('contactTypes', ContactTypes::class, [
-                        'data' => [
-                            'contactTypes' => [
-                                [
-                                    'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                    'name' => 'Contact1',
-                                ],
-                            ],
+                        [
+                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                            'name' => 'Contact1',
                         ],
                     ]),
                     static function (): void {

@@ -8111,12 +8111,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-testing.git",
-                "reference": "9dd91b0bd7e52f0be00c2da3c18c1bd23b739968"
+                "reference": "27d71478707d74d98ce03fac73ce19782c7182fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-testing/zipball/9dd91b0bd7e52f0be00c2da3c18c1bd23b739968",
-                "reference": "9dd91b0bd7e52f0be00c2da3c18c1bd23b739968",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-testing/zipball/27d71478707d74d98ce03fac73ce19782c7182fe",
+                "reference": "27d71478707d74d98ce03fac73ce19782c7182fe",
                 "shasum": ""
             },
             "require": {
@@ -8179,7 +8179,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-03-15T05:49:19+00:00"
+            "time": "2021-03-16T17:07:31+00:00"
         },
         {
             "name": "m1x0n/opis-json-schema-error-presenter",

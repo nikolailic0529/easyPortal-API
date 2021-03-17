@@ -3,7 +3,6 @@
     "description": "http://spec.graphql.org/June2018/#sec-Response-Format",
     "type": "object",
     "additionalProperties": false,
-    "minProperties": 1,
     "required": [
         "data"
     ],
@@ -16,43 +15,68 @@
             ],
             "properties": {
                 "${graphql.root}": {
-                    "$ref": "${schema.path}"
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                        "data",
+                        "paginatorInfo"
+                    ],
+                    "properties": {
+                        "data": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "${schema.path}"
+                            }
+                        },
+                        "paginatorInfo": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "required": [
+                                "count",
+                                "currentPage",
+                                "firstItem",
+                                "hasMorePages",
+                                "lastItem",
+                                "lastPage",
+                                "perPage",
+                                "total"
+                            ],
+                            "properties": {
+                                "count": {
+                                    "type": "integer"
+                                },
+                                "currentPage": {
+                                    "type": "integer"
+                                },
+                                "firstItem": {
+                                    "type": [
+                                        "integer",
+                                        "null"
+                                    ]
+                                },
+                                "hasMorePages": {
+                                    "type": "boolean"
+                                },
+                                "lastItem": {
+                                    "type": [
+                                        "integer",
+                                        "null"
+                                    ]
+                                },
+                                "lastPage": {
+                                    "type": "integer"
+                                },
+                                "perPage": {
+                                    "type": "integer"
+                                },
+                                "total": {
+                                    "type": "integer"
+                                }
+                            }
+                        }
+                    }
                 }
             }
-        },
-        "paginatorInfo": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": [],
-            "properties": {
-                "count": {
-                    "type": "integer"
-                },
-                "currentPage": {
-                    "type": "integer"
-                },
-                "firstItem": {
-                    "type": "integer"
-                },
-                "hasMorePages": {
-                    "type": "boolean"
-                },
-                "lastItem": {
-                    "type": "integer"
-                },
-                "lastPage": {
-                    "type": "integer"
-                },
-                "perPage": {
-                    "type": "integer"
-                },
-                "total": {
-                    "type": "integer"
-                }
-            }
-        },
-        "extensions": {
-            "type": "object"
         }
     }
 }
