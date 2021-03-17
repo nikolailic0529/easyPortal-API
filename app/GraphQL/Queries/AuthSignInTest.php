@@ -8,7 +8,6 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\OkResponse;
 use Mockery;
 use Tests\DataProviders\GraphQL\GuestDataProvider;
 use Tests\DataProviders\TenantDataProvider;
