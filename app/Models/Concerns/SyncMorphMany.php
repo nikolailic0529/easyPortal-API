@@ -79,10 +79,14 @@ trait SyncMorphMany {
 
         // Delete unused
         foreach ($existing as $object) {
-            $object->delete();
+            $this->syncMorphManyDelete($object);
         }
 
-        // Reset relation
-        unset($this->{$relation});
+        // Update relation
+        $this->setRelation($relation, new Collection($objects));
+    }
+
+    protected function syncMorphManyDelete(PolymorphicModel $model): void {
+        $model->delete();
     }
 }

@@ -1,5 +1,6 @@
 <?php declare(strict_types = 1);
 
+use App\Services\DataLoader\Jobs\LocationsCleanupCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellerUpdate;
@@ -118,6 +119,11 @@ return [
             'settings' => [
                 'expire' => Setting::get('DATA_LOADER_RESELLERS_UPDATER_EXPIRE'),
             ],
+        ],
+        LocationsCleanupCronJob::class  => [
+            'enabled' => Setting::get('DATA_LOADER_LOCATIONS_CLEANUP_ENABLED', 'DATA_LOADER_ENABLED'),
+            'cron'    => Setting::get('DATA_LOADER_LOCATIONS_CLEANUP_CRON'),
+            'queue'   => Setting::get('DATA_LOADER_LOCATIONS_CLEANUP_QUEUE'),
         ],
         ResellerUpdate::class           => [
             'queue' => Setting::get('DATA_LOADER_RESELLER_UPDATE_QUEUE'),

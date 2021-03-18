@@ -53,7 +53,6 @@ class Customer extends Model {
     use HasStatus;
     use HasAssets;
     use HasLocations;
-    use SyncMorphMany;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -61,7 +60,6 @@ class Customer extends Model {
      * @var string
      */
     protected $table = 'customers';
-
 
     public function contacts(): MorphMany {
         return $this->morphMany(Contact::class, 'object');

@@ -63,6 +63,19 @@ define('DATA_LOADER_RESELLERS_UPDATER_EXPIRE', '24 hours');
 // </editor-fold>
 
 
+// <editor-fold desc="ResellersUpdaterCronJob">
+// -----------------------------------------------------------------------------
+// Enabled?
+define('DATA_LOADER_LOCATIONS_CLEANUP_ENABLED', DATA_LOADER_ENABLED);
+
+// Cron expression (default: every 6 hours)
+define('DATA_LOADER_LOCATIONS_CLEANUP_CRON', '0 */6 * * *');
+
+// Queue name
+define('DATA_LOADER_LOCATIONS_CLEANUP_QUEUE', Queues::DATA_LOADER_DEFAULT);
+// </editor-fold>
+
+
 // <editor-fold desc="ResellerUpdater">
 // -----------------------------------------------------------------------------
 define('DATA_LOADER_RESELLER_UPDATE_QUEUE', Queues::DATA_LOADER_RESELLER);
