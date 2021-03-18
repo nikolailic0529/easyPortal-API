@@ -2,10 +2,10 @@
 
 namespace App\Services\DataLoader\Factories;
 
-use App\Models\Organization;
+use App\Models\Reseller;
 use App\Services\DataLoader\Factories\Concerns\WithLocations;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\OrganizationResolver;
+use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Location;
@@ -16,7 +16,7 @@ use Psr\Log\LoggerInterface;
 use function array_map;
 use function sprintf;
 
-class OrganizationFactory extends ModelFactory {
+class ResellerFactory extends ModelFactory {
     use WithLocations;
 
     protected ?LocationFactory $locations = null;
@@ -25,7 +25,7 @@ class OrganizationFactory extends ModelFactory {
         LoggerInterface $logger,
         Normalizer $normalizer,
         protected TypeResolver $types,
-        protected OrganizationResolver $organizations,
+        protected ResellerResolver $resellers,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -46,14 +46,14 @@ class OrganizationFactory extends ModelFactory {
     // <editor-fold desc="Prefetch">
     // =========================================================================
     /**
-     * @param array<\App\Services\DataLoader\Schema\Company> $organizations
+     * @param array<\App\Services\DataLoader\Schema\Company> $resellers
      */
-    public function prefetch(array $organizations, bool $reset = false): static {
-        $keys = array_map(static function (Company $organization): string {
-            return $organization->id;
-        }, $organizations);
+    public function prefetch(array $resellers, bool $reset = false): static {
+        $keys = array_map(static function (Company $reseller): string {
+            return $reseller->id;
+        }, $resellers);
 
-        $this->organizations->prefetch($keys, $reset);
+        $this->resellers->prefetch($keys, $reset);
 
         return $this;
     }
@@ -61,12 +61,12 @@ class OrganizationFactory extends ModelFactory {
 
     // <editor-fold desc="Factory">
     // =========================================================================
-    public function find(Type $type): ?Organization {
+    public function find(Type $type): ?Reseller {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return parent::find($type);
     }
 
-    public function create(Type $type): ?Organization {
+    public function create(Type $type): ?Reseller {
         $model = null;
 
         if ($type instanceof Company) {
@@ -84,36 +84,36 @@ class OrganizationFactory extends ModelFactory {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-    protected function createFromCompany(Company $company): ?Organization {
+    protected function createFromCompany(Company $company): ?Reseller {
         // Get/Create
-        $created      = false;
-        $factory      = $this->factory(function (Organization $organization) use (&$created, $company): Organization {
-            $created            = !$organization->exists;
-            $organization->id   = $this->normalizer->uuid($company->id);
-            $organization->name = $this->normalizer->string($company->name);
+        $created  = false;
+        $factory  = $this->factory(function (Reseller $reseller) use (&$created, $company): Reseller {
+            $created        = !$reseller->exists;
+            $reseller->id   = $this->normalizer->uuid($company->id);
+            $reseller->name = $this->normalizer->string($company->name);
 
             if ($this->locations) {
-                $organization->locations = $this->objectLocations($organization, $company->locations);
+                $reseller->locations = $this->objectLocations($reseller, $company->locations);
             }
 
-            $organization->save();
+            $reseller->save();
 
-            return $organization;
+            return $reseller;
         });
-        $organization = $this->organizations->get(
+        $reseller = $this->resellers->get(
             $company->id,
-            static function () use ($factory): Organization {
-                return $factory(new Organization());
+            static function () use ($factory): Reseller {
+                return $factory(new Reseller());
             },
         );
 
         // Update
         if (!$created && !$this->isSearchMode()) {
-            $factory($organization);
+            $factory($reseller);
         }
 
         // Return
-        return $organization;
+        return $reseller;
     }
     // </editor-fold>
 }

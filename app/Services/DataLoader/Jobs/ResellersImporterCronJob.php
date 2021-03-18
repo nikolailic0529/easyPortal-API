@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Services\DataLoader\DataLoaderService;
-use App\Services\DataLoader\Factories\OrganizationFactory;
+use App\Services\DataLoader\Factories\ResellerFactory;
 use Illuminate\Contracts\Container\Container;
 use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
 use Psr\Log\LoggerInterface;
@@ -17,7 +17,7 @@ class ResellersImporterCronJob extends CronJob {
         Container $container,
         LoggerInterface $logger,
         DataLoaderService $service,
-        OrganizationFactory $resolver,
+        ResellerFactory $resolver,
     ): void {
         $client   = $service->getClient();
         $prefetch = static function (array $resellers) use ($resolver): void {
@@ -25,7 +25,7 @@ class ResellersImporterCronJob extends CronJob {
         };
 
         foreach ($client->getResellers()->each($prefetch) as $reseller) {
-            // If organization exists we just skip it.
+            // If reseller exists we just skip it.
             if ($resolver->find($reseller)) {
                 continue;
             }

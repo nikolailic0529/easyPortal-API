@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Resolvers;
 
-use App\Models\Organization;
+use App\Models\Reseller;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -10,9 +10,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Resolvers\OrganizationResolver
+ * @coversDefaultClass \App\Services\DataLoader\Resolvers\ResellerResolver
  */
-class OrganizationResolverTest extends TestCase {
+class ResellerResolverTest extends TestCase {
     use WithQueryLog;
 
     /**
@@ -20,15 +20,15 @@ class OrganizationResolverTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (): Organization {
-            return Organization::factory()->make();
+        $factory = static function (): Reseller {
+            return Reseller::factory()->make();
         };
 
-        $a = Organization::factory()->create();
-        $b = Organization::factory()->create();
+        $a = Reseller::factory()->create();
+        $b = Reseller::factory()->create();
 
         // Run
-        $provider = $this->app->make(OrganizationResolver::class);
+        $provider = $this->app->make(ResellerResolver::class);
         $actual   = $provider->get($a->getKey(), $factory);
 
         $this->flushQueryLog();
@@ -49,8 +49,8 @@ class OrganizationResolverTest extends TestCase {
 
         // If value not found the new object should be created
         $uuid    = $this->faker->uuid;
-        $spy     = Mockery::spy(static function () use ($uuid): Organization {
-            return Organization::factory()->make([
+        $spy     = Mockery::spy(static function () use ($uuid): Reseller {
+            return Reseller::factory()->make([
                 'id' => $uuid,
             ]);
         });

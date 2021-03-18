@@ -7,12 +7,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Models\Organization
+ * @coversDefaultClass \App\Models\Reseller
  */
-class OrganizationTest extends TestCase {
+class ResellerTest extends TestCase {
     use HasLocationsTests;
 
     protected function getModel(): Model {
-        return new Organization();
+        return new Reseller();
     }
 }

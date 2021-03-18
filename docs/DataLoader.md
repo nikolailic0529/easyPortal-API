@@ -65,16 +65,6 @@ Sync the Customer with Cosmos.
     * Asset location (if Reseller doesn't have required location, in this case `locations.object_type` will be `asset` and `locations.object_id = null`)
 
 
-# Knows Errors
-
-These resellers were created for testing and probably they are required in the current stage. So following errors should be ignored:
-
-```
-[2021-03-16 13:15:11] local.ERROR: Reseller found in database but not found in Cosmos. {"id":"5f35eab3-c382-4f92-b5b6-92fb12e77041"} 
-[2021-03-16 13:15:11] local.ERROR: Reseller found in database but not found in Cosmos. {"id":"bc899f0e-47f7-4af7-9789-2f44a1afa995"} 
-```
-
-
 # What can be improved
 
 Instead of fetching all data from Cosmos we can fetch only updated:

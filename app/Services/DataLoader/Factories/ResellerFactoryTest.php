@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Factories;
 
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\OrganizationResolver;
+use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
@@ -14,9 +14,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factories\OrganizationFactory
+ * @coversDefaultClass \App\Services\DataLoader\Factories\ResellerFactory
  */
-class OrganizationFactoryTest extends TestCase {
+class ResellerFactoryTest extends TestCase {
     use WithQueryLog;
     use Helper;
 
@@ -31,7 +31,7 @@ class OrganizationFactoryTest extends TestCase {
             'name'         => $this->faker->company,
             'companyTypes' => [['type' => 'RESELLER']],
         ]);
-        $factory = $this->app->make(OrganizationFactory::class);
+        $factory = $this->app->make(ResellerFactory::class);
 
         $this->flushQueryLog();
 
@@ -46,7 +46,7 @@ class OrganizationFactoryTest extends TestCase {
      * @dataProvider dataProviderCreate
      */
     public function testCreate(?string $expected, Type $type): void {
-        $factory = Mockery::mock(OrganizationFactory::class);
+        $factory = Mockery::mock(ResellerFactory::class);
         $factory->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
 
@@ -70,23 +70,23 @@ class OrganizationFactoryTest extends TestCase {
     public function testCreateFromCompany(): void {
         // Prepare
         $factory = $this->app
-            ->make(OrganizationFactory::class)
+            ->make(ResellerFactory::class)
             ->setLocationFactory($this->app->make(LocationFactory::class));
 
         // Test
-        $json         = $this->getTestData()->json('~reseller-full.json');
-        $company      = Company::create($json);
-        $organization = $factory->create($company);
+        $json     = $this->getTestData()->json('~reseller-full.json');
+        $company  = Company::create($json);
+        $reseller = $factory->create($company);
 
-        $this->assertNotNull($organization);
-        $this->assertTrue($organization->wasRecentlyCreated);
-        $this->assertEquals($company->id, $organization->getKey());
-        $this->assertEquals($company->name, $organization->name);
-        $this->assertCount(2, $organization->locations);
-        $this->assertEquals(2, $organization->locations_count);
+        $this->assertNotNull($reseller);
+        $this->assertTrue($reseller->wasRecentlyCreated);
+        $this->assertEquals($company->id, $reseller->getKey());
+        $this->assertEquals($company->name, $reseller->name);
+        $this->assertCount(2, $reseller->locations);
+        $this->assertEquals(2, $reseller->locations_count);
         $this->assertEqualsCanonicalizing(
             $this->getCompanyLocations($company),
-            $this->getOrganizationLocations($organization),
+            $this->getResellerLocations($reseller),
         );
 
         // Customer should be updated
@@ -95,13 +95,13 @@ class OrganizationFactoryTest extends TestCase {
         $updated = $factory->create($company);
 
         $this->assertNotNull($updated);
-        $this->assertSame($organization, $updated);
+        $this->assertSame($reseller, $updated);
         $this->assertEquals($company->id, $updated->getKey());
         $this->assertEquals($company->name, $updated->name);
         $this->assertCount(1, $updated->locations);
         $this->assertEqualsCanonicalizing(
             $this->getCompanyLocations($company),
-            $this->getOrganizationLocations($updated),
+            $this->getResellerLocations($updated),
         );
     }
 
@@ -111,17 +111,17 @@ class OrganizationFactoryTest extends TestCase {
      */
     public function testCreateFromCompanyResellerOnly(): void {
         // Prepare
-        $factory = $this->app->make(OrganizationFactory::class);
+        $factory = $this->app->make(ResellerFactory::class);
 
         // Test
-        $json         = $this->getTestData()->json('~reseller-only.json');
-        $company      = Company::create($json);
-        $organization = $factory->create($company);
+        $json     = $this->getTestData()->json('~reseller-only.json');
+        $company  = Company::create($json);
+        $reseller = $factory->create($company);
 
-        $this->assertNotNull($organization);
-        $this->assertTrue($organization->wasRecentlyCreated);
-        $this->assertEquals($company->id, $organization->getKey());
-        $this->assertEquals($company->name, $organization->name);
+        $this->assertNotNull($reseller);
+        $this->assertTrue($reseller->wasRecentlyCreated);
+        $this->assertEquals($company->id, $reseller->getKey());
+        $this->assertEquals($company->name, $reseller->name);
     }
 
     /**
@@ -129,7 +129,7 @@ class OrganizationFactoryTest extends TestCase {
      * @covers ::createFromCompany
      */
     public function testCreateFromCompanyTypeIsCustomer(): void {
-        $factory = $this->app->make(OrganizationFactory::class);
+        $factory = $this->app->make(ResellerFactory::class);
         $json    = $this->getTestData()->json('~customer.json');
         $company = Company::create($json);
 
@@ -146,14 +146,14 @@ class OrganizationFactoryTest extends TestCase {
         $b          = Company::create([
             'id' => $this->faker->uuid,
         ]);
-        $resolver   = $this->app->make(OrganizationResolver::class);
+        $resolver   = $this->app->make(ResellerResolver::class);
         $normalizer = $this->app->make(Normalizer::class);
 
-        $factory = new class($normalizer, $resolver) extends OrganizationFactory {
+        $factory = new class($normalizer, $resolver) extends ResellerFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, OrganizationResolver $resolver) {
-                $this->normalizer    = $normalizer;
-                $this->organizations = $resolver;
+            public function __construct(Normalizer $normalizer, ResellerResolver $resolver) {
+                $this->normalizer = $normalizer;
+                $this->resellers  = $resolver;
             }
         };
 

@@ -4,13 +4,13 @@ namespace App\Services\DataLoader\Loaders\Concerns;
 
 use App\Models\Customer;
 use App\Models\Model;
-use App\Models\Organization;
+use App\Models\Reseller;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
 use App\Services\DataLoader\Factories\LocationFactory;
-use App\Services\DataLoader\Factories\OrganizationFactory;
+use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Schema\Company;
 use Illuminate\Database\Eloquent\Builder;
 use Throwable;
@@ -19,12 +19,12 @@ use Throwable;
  * @mixin \App\Services\DataLoader\Loader
  */
 trait WithAssets {
-    protected OrganizationFactory $resellers;
-    protected CustomerFactory     $customers;
-    protected LocationFactory     $locations;
-    protected ContactFactory      $contacts;
-    protected AssetFactory        $assets;
-    protected bool                $withAssets = false;
+    protected ResellerFactory $resellers;
+    protected CustomerFactory $customers;
+    protected LocationFactory $locations;
+    protected ContactFactory  $contacts;
+    protected AssetFactory    $assets;
+    protected bool            $withAssets = false;
 
     public function isWithAssets(): bool {
         return $this->withAssets;
@@ -51,9 +51,9 @@ trait WithAssets {
                 $asset = $factory->create($asset);
 
                 if ($asset) {
-                    $updated[]                                   = $asset->getKey();
-                    $customers[(string) $asset->customer_id]     = true;
-                    $resellers[(string) $asset->organization_id] = true;
+                    $updated[]                               = $asset->getKey();
+                    $customers[(string) $asset->customer_id] = true;
+                    $resellers[(string) $asset->reseller_id] = true;
                 }
             } catch (Throwable $exception) {
                 $this->logger->warning(__METHOD__, [
@@ -77,8 +77,8 @@ trait WithAssets {
                     $asset = $factory->create($asset);
 
                     if ($asset) {
-                        $customers[(string) $asset->customer_id]     = true;
-                        $resellers[(string) $asset->organization_id] = true;
+                        $customers[(string) $asset->customer_id] = true;
+                        $resellers[(string) $asset->reseller_id] = true;
                     }
                 } catch (Throwable $exception) {
                     $this->logger->warning(__METHOD__, [
@@ -87,8 +87,8 @@ trait WithAssets {
                     ]);
                 }
             } else {
-                $missed->customer     = null;
-                $missed->organization = null;
+                $missed->customer = null;
+                $missed->reseller = null;
                 $missed->save();
 
                 $this->logger->error('Asset found in database but not found in Cosmos.', [
@@ -154,7 +154,7 @@ trait WithAssets {
         $customer->save();
     }
 
-    protected function updateResellerCountable(Organization $reseller): void {
+    protected function updateResellerCountable(Reseller $reseller): void {
         $reseller->locations_count = $reseller->locations()->count();
         $reseller->assets_count    = $reseller->assets()->count();
         $reseller->save();
@@ -167,7 +167,7 @@ trait WithAssets {
         $resellers = (clone $this->resellers)
             ->setLocationFactory($this->locations);
         $factory   = (clone $this->assets)
-            ->setOrganizationFactory($resellers)
+            ->setResellerFactory($resellers)
             ->setCustomersFactory($customers);
 
         return $factory;

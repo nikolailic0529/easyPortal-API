@@ -2,11 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\Organization;
+use App\Models\Reseller;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
-class OrganizationFactory extends Factory {
+class ResellerFactory extends Factory {
     /**
      * The name of the factory's corresponding model.
      *
@@ -14,7 +14,7 @@ class OrganizationFactory extends Factory {
      *
      * @var string
      */
-    protected $model = Organization::class;
+    protected $model = Reseller::class;
 
     /**
      * Define the model's default state.
@@ -23,12 +23,14 @@ class OrganizationFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'         => $this->faker->uuid,
-            'subdomain'  => null,
-            'name'       => $this->faker->company,
-            'created_at' => Date::now(),
-            'updated_at' => Date::now(),
-            'deleted_at' => null,
+            'id'              => $this->faker->uuid,
+            'name'            => $this->faker->company,
+            'customers_count' => 0,
+            'locations_count' => 0,
+            'assets_count'    => 0,
+            'created_at'      => Date::now(),
+            'updated_at'      => Date::now(),
+            'deleted_at'      => null,
         ];
     }
 }

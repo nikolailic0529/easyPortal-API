@@ -2,19 +2,19 @@
 
 namespace App\Services\DataLoader\Resolvers;
 
-use App\Models\Organization;
+use App\Models\Reseller;
 use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 
-class OrganizationResolver extends Resolver {
-    public function get(string|int $id, Closure $factory = null): ?Organization {
+class ResellerResolver extends Resolver {
+    public function get(string|int $id, Closure $factory = null): ?Reseller {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($id, $factory);
     }
 
     protected function getFindQuery(): ?Builder {
-        return Organization::query();
+        return Reseller::query();
     }
 
     /**

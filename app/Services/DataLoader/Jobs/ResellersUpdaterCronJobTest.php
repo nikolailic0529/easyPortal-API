@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Models\Organization;
+use App\Models\Reseller;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
@@ -27,10 +27,10 @@ class ResellersUpdaterCronJobTest extends TestCase {
         Queue::fake();
 
         $d = Date::now();
-        $a = Organization::factory()->create(['updated_at' => $d->subWeek()]);
+        $a = Reseller::factory()->create(['updated_at' => $d->subWeek()]);
 
-        Organization::factory()->create(['updated_at' => $d]);
-        Organization::factory()->create(['updated_at' => $d->addWeek()]);
+        Reseller::factory()->create(['updated_at' => $d]);
+        Reseller::factory()->create(['updated_at' => $d->addWeek()]);
 
         // Settings
         $this->setQueueableConfig(ResellersUpdaterCronJob::class, [

@@ -13,23 +13,23 @@ use function sprintf;
 /**
  * Asset.
  *
- * @property string                        $id
- * @property string                        $oem_id
- * @property string                        $product_id
- * @property string                        $type_id
- * @property string|null                   $organization_id current
- * @property string|null                   $customer_id     current
- * @property string|null                   $location_id     current
- * @property string                        $serial_number
- * @property \Carbon\CarbonImmutable       $created_at
- * @property \Carbon\CarbonImmutable       $updated_at
- * @property \Carbon\CarbonImmutable|null  $deleted_at
- * @property \App\Models\Customer|null     $customer
- * @property \App\Models\Location|null     $location
- * @property \App\Models\Oem               $oem
- * @property \App\Models\Organization|null $organization
- * @property \App\Models\Product           $product
- * @property \App\Models\Type              $type
+ * @property string                       $id
+ * @property string                       $oem_id
+ * @property string                       $product_id
+ * @property string                       $type_id
+ * @property string|null                  $reseller_id current
+ * @property string|null                  $customer_id current
+ * @property string|null                  $location_id current
+ * @property string                       $serial_number
+ * @property \Carbon\CarbonImmutable      $created_at
+ * @property \Carbon\CarbonImmutable      $updated_at
+ * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property \App\Models\Customer|null    $customer
+ * @property \App\Models\Location|null    $location
+ * @property \App\Models\Oem              $oem
+ * @property \App\Models\Reseller|null    $reseller
+ * @property \App\Models\Product          $product
+ * @property \App\Models\Type             $type
  * @method static \Database\Factories\AssetFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newQuery()
@@ -40,7 +40,7 @@ use function sprintf;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereLocationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereOemId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereOrganizationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereResellerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereProductId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereSerialNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereTypeId($value)
@@ -109,16 +109,16 @@ class Asset extends Model {
         if ($location) {
             $asset       = (new Asset())->getMorphClass();
             $customer    = (new Customer())->getMorphClass();
-            $reseller    = (new Organization())->getMorphClass();
+            $reseller    = (new Reseller())->getMorphClass();
             $isIdMatch   = is_null($location->object_id)
-                || in_array($location->object_id, [$this->customer_id, $this->organization_id], true);
+                || in_array($location->object_id, [$this->customer_id, $this->reseller_id], true);
             $isTypeMatch = in_array($location->object_type, [$asset, $customer, $reseller], true);
 
             if (!$isIdMatch || !$isTypeMatch) {
                 throw new InvalidArgumentException(sprintf(
                     'Location must be related to the `%s` or `%s` or `%s` but it related to `%s#%s`.',
                     $customer.($this->customer_id ? "#{$this->customer_id}" : ''),
-                    $reseller.($this->organization_id ? "#{$this->organization_id}" : ''),
+                    $reseller.($this->reseller_id ? "#{$this->reseller_id}" : ''),
                     $asset,
                     $location->object_type,
                     $location->object_id,
@@ -126,18 +126,15 @@ class Asset extends Model {
             }
         }
 
-        // Current location?
-
-
         // Set
         $this->location()->associate($location);
     }
 
-    public function organization(): BelongsTo {
-        return $this->belongsTo(Organization::class);
+    public function reseller(): BelongsTo {
+        return $this->belongsTo(Reseller::class);
     }
 
-    public function setOrganizationAttribute(?Organization $organization): void {
-        $this->organization()->associate($organization);
+    public function setResellerAttribute(?Reseller $reseller): void {
+        $this->reseller()->associate($reseller);
     }
 }

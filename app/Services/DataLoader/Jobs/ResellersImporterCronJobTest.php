@@ -2,11 +2,11 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Models\Organization;
+use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\DataLoaderService;
-use App\Services\DataLoader\Factories\OrganizationFactory;
+use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Schema\Company;
 use Generator;
 use Illuminate\Support\Facades\Queue;
@@ -34,13 +34,13 @@ class ResellersImporterCronJobTest extends TestCase {
     public function testHandle(): void {
         Queue::fake();
 
-        $o       = Organization::factory()->create();
+        $o       = Reseller::factory()->create();
         $a       = Company::create(['id' => $o->getKey()]);
         $b       = Company::create(['id' => $this->faker->uuid]);
         $c       = Company::create(['id' => $this->faker->uuid]);
         $items   = [$a, $b, $c];
         $logger  = $this->app->make(LoggerInterface::class);
-        $factory = $this->app->make(OrganizationFactory::class);
+        $factory = $this->app->make(ResellerFactory::class);
 
         $client = Mockery::mock(Client::class);
         $client
