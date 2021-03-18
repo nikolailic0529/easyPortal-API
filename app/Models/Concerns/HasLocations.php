@@ -3,6 +3,8 @@
 namespace App\Models\Concerns;
 
 use App\Models\Location;
+use App\Models\PolymorphicModel;
+use Exception;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 
@@ -26,5 +28,15 @@ trait HasLocations {
     public function setLocationsAttribute(Collection|array $locations): void {
         $this->syncMorphMany('locations', $locations);
         $this->locations_count = count($locations);
+    }
+
+    protected function syncMorphManyDelete(PolymorphicModel $model): void {
+        // Location can be used by Assets, in this case, we cannot delete it.
+        try {
+            $model->delete();
+        } catch (Exception) {
+            $model->object_id = null;
+            $model->save();
+        }
     }
 }

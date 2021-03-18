@@ -102,8 +102,10 @@ class Asset extends Model {
     }
 
     public function setLocationAttribute(?Location $location): void {
-        // On the current phase  we assumes that assert may be located only on
-        // location which related to the customer.
+        // Assert may be located on
+        // - customer location
+        // - reseller location
+        // - own location
         if ($location) {
             $asset       = (new Asset())->getMorphClass();
             $customer    = (new Customer())->getMorphClass();
@@ -123,6 +125,9 @@ class Asset extends Model {
                 ));
             }
         }
+
+        // Current location?
+
 
         // Set
         $this->location()->associate($location);

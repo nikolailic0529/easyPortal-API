@@ -82,7 +82,10 @@ class Location extends PolymorphicModel {
      * @param \Illuminate\Support\Collection<\App\Models\Type>|array<\App\Models\Type> $types
      */
     public function setTypesAttribute(Collection|array $types): void {
-        $this->types()->sync((new Collection($types))->map(static function (Type $type): string {
+        $types = new Collection($types);
+
+        $this->setRelation('types', $types);
+        $this->types()->sync($types->map(static function (Type $type): string {
             return $type->getKey();
         })->all());
     }
