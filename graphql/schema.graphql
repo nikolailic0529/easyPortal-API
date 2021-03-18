@@ -24,7 +24,7 @@ type Query {
     ): [Customer!]! @paginate
 
     "Customer with given ID"
-    customer (id: ID! @eq): Customer! @guard @find
+    customer (id: ID! @eq): Customer @guard @find
 
     "List of all customer assets"
     assets(customer_id: ID @eq): [Asset!]! @guard @paginate
@@ -42,7 +42,7 @@ type Query {
     contactTypes: [Type!]!
 
     "Get asset by id"
-    asset(id: ID! @eq): Asset! @guard @find
+    asset(id: ID! @eq): Asset @guard @find
 }
 
 enum CustomersWhereColumns {
