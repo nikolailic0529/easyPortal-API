@@ -31,6 +31,15 @@
 1. Update the Reseller (= run `php artisan data-loader:reseller <id> --assets`)
 
 
+### LocationsCleanupCronJob
+
+| Cron           | Queue                 | Parallel? |
+| -------------- | --------------------- | --------- |
+| `0 */6 * * *`  | data-loader-default   | No        |
+
+While the import, some locations may become unused, this job removes them from the database.
+
+
 ## Commands
 
 ### `php artisan data-loader:reseller`
