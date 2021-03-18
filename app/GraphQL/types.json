@@ -212,7 +212,9 @@
                 "location_id",
                 "serial_number",
                 "customer",
-                "location"
+                "location",
+                "oem",
+                "product"
             ],
             "properties": {
                 "oem_id": {
@@ -235,6 +237,12 @@
                 },
                 "customer": {
                     "$ref": "#/definitions/Customer"
+                },
+                "oem": {
+                    "$ref": "#/definitions/Oem"
+                },
+                "product": {
+                    "$ref": "#/definitions/Product"
                 }
             }
         },
