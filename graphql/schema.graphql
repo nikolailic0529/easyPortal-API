@@ -27,7 +27,10 @@ type Query {
     customer (id: ID! @eq): Customer! @guard @find
 
     "List of all customer assets"
-    assets(customer_id: ID @eq): [Asset!]! @guard @paginate
+    assets(
+        where: _ @whereConditions(columnsEnum: AssetsWhereColumns)
+        order: _ @orderBy(columns: ["serial_number"])
+    ): [Asset!]! @guard @paginate
 
     "List of all countries"
     countries: [Country!]! @all
@@ -46,6 +49,13 @@ enum CustomersWhereColumns {
     NAME @enum(value: "name")
     TYPE @enum(value: "type_id")
     STATUS @enum(value: "status_id")
+}
+
+enum AssetsWhereColumns {
+    OEM @enum(value: "oem_id")
+    PRODUCT @enum(value: "product_id")
+    TYPE @enum(value: "type_id")
+    CUSTOMER @enum(value: "customer_id")
 }
 
 type Mutation {

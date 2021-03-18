@@ -43,8 +43,8 @@ class AssetsTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '
-                query assets($customer_id: ID!) {
-                    assets(customer_id: $customer_id) {
+                query assets($customer_id: Mixed!) {
+                    assets(where:{ column: CUSTOMER, operator: EQ, value: $customer_id }) {
                         data {
                             id
                             oem_id
@@ -92,6 +92,15 @@ class AssetsTest extends TestCase {
                                     email
                                     phone_valid
                                 }
+                            }
+                            location {
+                                id
+                                state
+                                postcode
+                                line_one
+                                line_two
+                                lat
+                                lng
                             }
                         },
                         paginatorInfo {
@@ -152,6 +161,15 @@ class AssetsTest extends TestCase {
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                 'name' => 'name aaa',
                             ],
+                            'location'      => [
+                                'id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                'state'    => 'state1',
+                                'postcode' => '19911',
+                                'line_one' => 'line_one_data',
+                                'line_two' => 'line_two_data',
+                                'lat'      => '47.91634204',
+                                'lng'      => '-2.26318359',
+                            ],
                             'customer'      => [
                                 'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                 'name'            => 'name aaa',
@@ -197,7 +215,7 @@ class AssetsTest extends TestCase {
                         // Product creation belongs to
                         $product = Product::factory()->create([
                             'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                            'oem_id' => $oem->id,
+                            'oem_id' => $oem,
                             'sku'    => 'SKU#123',
                             'eol'    => '2022-12-30',
                             'eos'    => '2022-01-01',

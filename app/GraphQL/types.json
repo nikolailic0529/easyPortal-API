@@ -210,7 +210,11 @@
                 "type_id",
                 "customer_id",
                 "location_id",
-                "serial_number"
+                "serial_number",
+                "customer",
+                "location",
+                "oem",
+                "product"
             ],
             "properties": {
                 "oem_id": {
@@ -233,30 +237,68 @@
                 },
                 "customer": {
                     "$ref": "#/definitions/Customer"
+                },
+                "oem": {
+                    "$ref": "#/definitions/Oem"
+                },
+                "product": {
+                    "$ref": "#/definitions/Product"
                 }
-            },
-            "City": {
-                "additionProperties": false,
-                "type": "object",
-                "required": [
-                    "id",
-                    "name",
-                    "country_id",
-                    "country"
-                ],
-                "properties": {
-                    "id": {
-                        "$ref": "#/definitions/ID"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "country_id": {
-                        "$ref": "#/definitions/ID"
-                    },
-                    "country": {
-                        "$ref": "#/definitions/Country"
-                    }
+            }
+        },
+        "Oem" : {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "abbr",
+                "name"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "abbr": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "Product" : {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "oem_id",
+                "sku",
+                "name",
+                "oem"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "oem_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "sku": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "eol": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "eos": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "oem": {
+                    "$ref": "#/definitions/Oem"
                 }
             }
         }
