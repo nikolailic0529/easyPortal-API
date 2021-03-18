@@ -44,6 +44,9 @@ type Query {
     "List of all contact types"
     contactTypes: [Type!]!
 
+    "List of all oems"
+    oems: [Oem!]! @all
+
     "Get asset by id"
     asset(id: ID! @eq): Asset @guard @find
 }
