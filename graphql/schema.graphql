@@ -21,7 +21,7 @@ type Query {
     customers (
         where: _ @whereConditions(columnsEnum: CustomersWhereColumns)
         order: _ @orderBy(columns: ["name"])
-    ): [Customer!]! @paginate
+    ): [Customer!]! @guard @paginate
 
     "Customer with given ID"
     customer (id: ID! @eq): Customer @guard @find
