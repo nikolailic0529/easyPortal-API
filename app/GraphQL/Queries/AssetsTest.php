@@ -60,6 +60,7 @@ class AssetsTest extends TestCase {
                             }
                             product {
                                 id
+                                name
                                 oem_id
                                 sku
                                 eol
@@ -147,6 +148,7 @@ class AssetsTest extends TestCase {
                             ],
                             'product'       => [
                                 'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                'name'   => 'Product1',
                                 'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                 'sku'    => 'SKU#123',
                                 'eol'    => '2022-12-30',
@@ -215,6 +217,7 @@ class AssetsTest extends TestCase {
                         // Product creation belongs to
                         $product = Product::factory()->create([
                             'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                            'name'   => 'Product1',
                             'oem_id' => $oem,
                             'sku'    => 'SKU#123',
                             'eol'    => '2022-12-30',

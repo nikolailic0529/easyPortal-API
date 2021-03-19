@@ -301,26 +301,6 @@
                     "$ref": "#/definitions/Oem"
                 }
             }
-        },
-        "Oem" : {
-            "additionProperties": false,
-            "type": "object",
-            "required": [
-                "id",
-                "abbr",
-                "name"
-            ],
-            "properties": {
-                "id": {
-                    "$ref": "#/definitions/ID"
-                },
-                "abbr": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                }
-            }
         }
     }
 }

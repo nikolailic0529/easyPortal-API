@@ -59,6 +59,7 @@ class AssetTest extends TestCase {
                         }
                         product {
                             id
+                            name
                             oem_id
                             sku
                             eol
@@ -91,6 +92,15 @@ class AssetTest extends TestCase {
                                 email
                                 phone_valid
                             }
+                        }
+                        location {
+                            id
+                            state
+                            postcode
+                            line_one
+                            line_two
+                            lat
+                            lng
                         }
                     }
                 }
@@ -125,6 +135,7 @@ class AssetTest extends TestCase {
                         ],
                         'product'       => [
                             'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                            'name'   => 'Product1',
                             'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                             'sku'    => 'SKU#123',
                             'eol'    => '2022-12-30',
@@ -138,6 +149,15 @@ class AssetTest extends TestCase {
                         'type'          => [
                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             'name' => 'name aaa',
+                        ],
+                        'location'      => [
+                            'id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                            'state'    => 'state1',
+                            'postcode' => '19911',
+                            'line_one' => 'line_one_data',
+                            'line_two' => 'line_two_data',
+                            'lat'      => '47.91634204',
+                            'lng'      => '-2.26318359',
                         ],
                         'customer'      => [
                             'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
@@ -183,6 +203,7 @@ class AssetTest extends TestCase {
                         // Product creation belongs to
                         $product = Product::factory()->create([
                             'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                            'name'   => 'Product1',
                             'oem_id' => $oem->id,
                             'sku'    => 'SKU#123',
                             'eol'    => '2022-12-30',
