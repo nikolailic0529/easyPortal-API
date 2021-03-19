@@ -20,8 +20,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string                                                                   $reseller_id
  * @property string                                                                   $number internal number
  * @property string                                                                   $start
- * @property string                                                                   $end
- * @property string                                                                   $price
+ * @property \Carbon\CarbonImmutable                                                  $end
+ * @property \Carbon\CarbonImmutable                                                  $price
  * @property string                                                                   $currency_id
  * @property \Carbon\CarbonImmutable                                                  $created_at
  * @property \Carbon\CarbonImmutable                                                  $updated_at
@@ -64,6 +64,15 @@ class Document extends Model {
         'start' => 'date',
         'end'   => 'date',
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<string>
+     */
+    protected $casts = self::CASTS + parent::CASTS;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
