@@ -10,6 +10,7 @@ use App\Models\Concerns\HasType;
 use App\Models\Enums\ProductType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use InvalidArgumentException;
 
 use function in_array;
@@ -19,23 +20,25 @@ use function sprintf;
 /**
  * Asset.
  *
- * @property string                       $id
- * @property string                       $oem_id
- * @property string                       $product_id
- * @property string                       $type_id
- * @property string|null                  $reseller_id current
- * @property string|null                  $customer_id current
- * @property string|null                  $location_id current
- * @property string                       $serial_number
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property \App\Models\Customer|null    $customer
- * @property \App\Models\Location|null    $location
- * @property \App\Models\Oem              $oem
- * @property \App\Models\Reseller|null    $reseller
- * @property \App\Models\Product          $product
- * @property \App\Models\Type             $type
+ * @property string                                                                   $id
+ * @property string                                                                   $oem_id
+ * @property string                                                                   $product_id
+ * @property string                                                                   $type_id
+ * @property string|null                                                              $reseller_id current
+ * @property string|null                                                              $customer_id current
+ * @property string|null                                                              $location_id current
+ * @property string                                                                   $serial_number
+ * @property \Carbon\CarbonImmutable                                                  $created_at
+ * @property \Carbon\CarbonImmutable                                                  $updated_at
+ * @property \Carbon\CarbonImmutable|null                                             $deleted_at
+ * @property \App\Models\Customer|null                                                $customer
+ * @property \App\Models\Location|null                                                $location
+ * @property \App\Models\Oem                                                          $oem
+ * @property \App\Models\Product                                                      $product
+ * @property \App\Models\Reseller|null                                                $reseller
+ * @property \App\Models\Type                                                         $type
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $warranties
+ * @property-read int|null                                                            $warranties_count
  * @method static \Database\Factories\AssetFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newQuery()
@@ -46,8 +49,8 @@ use function sprintf;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereLocationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereOemId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereResellerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereResellerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereSerialNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereUpdatedAt($value)
@@ -99,6 +102,10 @@ class Asset extends Model {
 
         // Set
         $this->location()->associate($location);
+    }
+
+    public function warranties(): HasMany {
+        return $this->hasMany(AssetWarranty::class);
     }
 
     /**
