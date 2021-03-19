@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Enums\ProductType;
 use App\Models\Oem;
 use App\Models\Product;
 use Illuminate\Support\Facades\Date;
@@ -25,6 +26,7 @@ class ProductFactory extends Factory {
     public function definition(): array {
         return [
             'id'         => $this->faker->uuid,
+            'type'       => $this->faker->randomElement(ProductType::values()),
             'oem_id'     => static function (): Oem {
                 return Oem::factory()->create();
             },

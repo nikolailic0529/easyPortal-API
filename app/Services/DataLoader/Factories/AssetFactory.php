@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\Asset as AssetModel;
 use App\Models\Customer;
+use App\Models\Enums\ProductType;
 use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
@@ -242,20 +243,25 @@ class AssetFactory extends ModelFactory {
         ?string $eos,
     ): Product {
         // Get/Create
+        $type    = ProductType::asset();
         $created = false;
-        $factory = $this->factory(function (Product $product) use (&$created, $oem, $sku, $name, $eol, $eos): Product {
-            $created       = !$product->exists;
-            $product->oem  = $oem;
-            $product->sku  = $this->normalizer->string($sku);
-            $product->name = $this->normalizer->string($name);
-            $product->eol  = $this->normalizer->datetime($eol);
-            $product->eos  = $this->normalizer->datetime($eos);
+        $factory = $this->factory(
+            function (Product $product) use (&$created, $type, $oem, $sku, $name, $eol, $eos): Product {
+                $created       = !$product->exists;
+                $product->type = $type;
+                $product->oem  = $oem;
+                $product->sku  = $this->normalizer->string($sku);
+                $product->name = $this->normalizer->string($name);
+                $product->eol  = $this->normalizer->datetime($eol);
+                $product->eos  = $this->normalizer->datetime($eos);
 
-            $product->save();
+                $product->save();
 
-            return $product;
-        });
+                return $product;
+            },
+        );
         $product = $this->products->get(
+            $type,
             $oem,
             $sku,
             static function () use ($factory): Product {

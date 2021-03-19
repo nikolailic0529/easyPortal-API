@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Factories;
 
 use App\Models\Customer;
+use App\Models\Enums\ProductType;
 use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
@@ -99,6 +100,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->resellerId, $created->reseller_id);
         $this->assertEquals($asset->serialNumber, $created->serial_number);
         $this->assertEquals($asset->vendor, $created->oem->abbr);
+        $this->assertEquals(ProductType::asset(), $created->product->type);
         $this->assertEquals($asset->productDescription, $created->product->name);
         $this->assertEquals($asset->sku, $created->product->sku);
         $this->assertNull($created->product->eos);
@@ -122,6 +124,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertNull($updated->ogranization_id);
         $this->assertEquals($asset->serialNumber, $updated->serial_number);
         $this->assertEquals($asset->vendor, $updated->oem->abbr);
+        $this->assertEquals(ProductType::asset(), $updated->product->type);
         $this->assertEquals($asset->productDescription, $updated->product->name);
         $this->assertEquals($asset->sku, $updated->product->sku);
         $this->assertEquals($asset->eosDate, $this->getDatetime($updated->product->eos));
@@ -152,6 +155,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->id, $created->getKey());
         $this->assertEquals($asset->serialNumber, $created->serial_number);
         $this->assertEquals($asset->vendor, $created->oem->abbr);
+        $this->assertEquals(ProductType::asset(), $created->product->type);
         $this->assertEquals($asset->productDescription, $created->product->name);
         $this->assertEquals($asset->sku, $created->product->sku);
         $this->assertNull($created->product->eos);
@@ -253,6 +257,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->resellerId, $created->reseller_id);
         $this->assertEquals($asset->serialNumber, $created->serial_number);
         $this->assertEquals($asset->vendor, $created->oem->abbr);
+        $this->assertEquals(ProductType::asset(), $created->product->type);
         $this->assertEquals($asset->productDescription, $created->product->name);
         $this->assertEquals($asset->sku, $created->product->sku);
         $this->assertNull($created->product->eos);
@@ -828,7 +833,9 @@ class AssetFactoryTest extends TestCase {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
         $provider   = $this->app->make(ProductResolver::class);
-        $product    = Product::factory()->create();
+        $product    = Product::factory()->create([
+            'type' => ProductType::asset(),
+        ]);
         $oem        = $product->oem;
 
         $factory = new class($normalizer, $provider) extends AssetFactory {
@@ -872,6 +879,7 @@ class AssetFactoryTest extends TestCase {
             $newEos,
         );
 
+        $this->assertSame(ProductType::asset(), $updated->type);
         $this->assertEquals($newName, $updated->name);
         $this->assertEquals($newEol, $newEol);
         $this->assertNull($updated->eos);
@@ -892,6 +900,7 @@ class AssetFactoryTest extends TestCase {
         );
 
         $this->assertNotNull($created);
+        $this->assertSame(ProductType::asset(), $created->type);
         $this->assertEquals($oem->getKey(), $created->oem_id);
         $this->assertEquals($sku, $created->sku);
         $this->assertEquals($name, $created->name);
