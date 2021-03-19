@@ -36,7 +36,10 @@ type Query {
     countries: [Country!]! @all
 
     "List of all cities or filter by country id"
-    cities(country_id: ID @eq): [City!]! @all
+    cities(
+        where: _ @whereConditions(columnsEnum: CitiesWhereColumns)
+        order: _ @orderBy(columns: ["name"])
+    ): [City!]! @all
 
     "List of all location types related to customer"
     locationTypes: [Type!]!
@@ -65,6 +68,11 @@ enum AssetsWhereColumns {
     PRODUCT @enum(value: "product_id")
     TYPE @enum(value: "type_id")
     CUSTOMER @enum(value: "customer_id")
+}
+
+enum CitiesWhereColumns {
+    COUNTRY @enum(value: "country_id")
+    NAME @enum(value: "name")
 }
 
 type Mutation {
