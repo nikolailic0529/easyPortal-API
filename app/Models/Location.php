@@ -11,24 +11,26 @@ use Illuminate\Support\Collection;
 /**
  * Location.
  *
- * @property string                                                     $id
- * @property string                                                     $object_id
- * @property string                                                     $object_type
- * @property string                                                     $country_id
- * @property string                                                     $city_id
- * @property string                                                     $postcode
- * @property string                                                     $state
- * @property string                                                     $line_one
- * @property string                                                     $line_two
- * @property string|null                                                $lat
- * @property string|null                                                $lng
- * @property \Carbon\CarbonImmutable                                    $created_at
- * @property \Carbon\CarbonImmutable                                    $updated_at
- * @property \Carbon\CarbonImmutable|null                               $deleted_at
- * @property \App\Models\City                                           $city
- * @property \App\Models\Country                                        $country
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Type> $types
- * @property-read int|null                                              $types_count
+ * @property string                                                           $id
+ * @property string                                                           $object_id
+ * @property string                                                           $object_type
+ * @property string                                                           $country_id
+ * @property string                                                           $city_id
+ * @property string                                                           $postcode
+ * @property string                                                           $state
+ * @property string                                                           $line_one
+ * @property string                                                           $line_two
+ * @property string|null                                                      $lat
+ * @property string|null                                                      $lng
+ * @property \Carbon\CarbonImmutable                                          $created_at
+ * @property \Carbon\CarbonImmutable                                          $updated_at
+ * @property \Carbon\CarbonImmutable|null                                     $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset> $assets
+ * @property-read int|null                                                    $assets_count
+ * @property \App\Models\City                                                 $city
+ * @property \App\Models\Country                                              $country
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Type>       $types
+ * @property-read int|null                                                    $types_count
  * @method static \Database\Factories\LocationFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location newQuery()
