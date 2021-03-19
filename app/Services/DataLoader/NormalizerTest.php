@@ -4,6 +4,7 @@ namespace App\Services\DataLoader;
 
 use App\Services\DataLoader\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizers\KeyNormalizer;
+use App\Services\DataLoader\Normalizers\PriceNormalizer;
 use App\Services\DataLoader\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizers\UuidNormalizer;
 use Illuminate\Config\Repository;
@@ -26,6 +27,7 @@ class NormalizerTest extends TestCase {
             new UuidNormalizer(),
             new StringNormalizer(),
             new DateTimeNormalizer($config),
+            new PriceNormalizer(),
         );
 
         $key->shouldReceive('normalize')->once()->andReturns();
@@ -44,6 +46,7 @@ class NormalizerTest extends TestCase {
             $uuid,
             new StringNormalizer(),
             new DateTimeNormalizer($config),
+            new PriceNormalizer(),
         );
 
         $uuid->shouldReceive('normalize')->once()->andReturns();
@@ -62,6 +65,7 @@ class NormalizerTest extends TestCase {
             new UuidNormalizer(),
             $string,
             new DateTimeNormalizer($config),
+            new PriceNormalizer(),
         );
 
         $string->shouldReceive('normalize')->once()->andReturns();
@@ -74,10 +78,35 @@ class NormalizerTest extends TestCase {
      */
     public function testDatetime(): void {
         $datetime   = Mockery::mock(DateTimeNormalizer::class);
-        $normalizer = new Normalizer(new KeyNormalizer(), new UuidNormalizer(), new StringNormalizer(), $datetime);
+        $normalizer = new Normalizer(
+            new KeyNormalizer(),
+            new UuidNormalizer(),
+            new StringNormalizer(),
+            $datetime,
+            new PriceNormalizer(),
+        );
 
         $datetime->shouldReceive('normalize')->once()->andReturns();
 
         $normalizer->datetime('value');
+    }
+
+    /**
+     * @covers ::price
+     */
+    public function testPrice(): void {
+        $price      = Mockery::mock(PriceNormalizer::class);
+        $config     = new Repository();
+        $normalizer = new Normalizer(
+            new KeyNormalizer(),
+            new UuidNormalizer(),
+            new StringNormalizer(),
+            new DateTimeNormalizer($config),
+            $price,
+        );
+
+        $price->shouldReceive('normalize')->once()->andReturns();
+
+        $normalizer->price('value');
     }
 }

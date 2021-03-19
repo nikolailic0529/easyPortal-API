@@ -4,6 +4,7 @@ namespace App\Services\DataLoader;
 
 use App\Services\DataLoader\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizers\KeyNormalizer;
+use App\Services\DataLoader\Normalizers\PriceNormalizer;
 use App\Services\DataLoader\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizers\UuidNormalizer;
 use DateTimeInterface;
@@ -14,6 +15,7 @@ class Normalizer {
         protected UuidNormalizer $uuid,
         protected StringNormalizer $string,
         protected DateTimeNormalizer $datetime,
+        protected PriceNormalizer $price,
     ) {
         // empty
     }
@@ -32,5 +34,9 @@ class Normalizer {
 
     public function datetime(mixed $value): ?DateTimeInterface {
         return $this->datetime->normalize($value);
+    }
+
+    public function price(mixed $value): ?string {
+        return $this->price->normalize($value);
     }
 }
