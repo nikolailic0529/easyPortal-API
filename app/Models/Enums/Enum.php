@@ -93,6 +93,10 @@ abstract class Enum implements Castable {
         // Return
         return self::$instances[static::class][$value];
     }
+
+    public function __toString(): string {
+        return (string) $this->getValue();
+    }
     // </editor-fold>
 
     // <editor-fold desc="CastsAttributes">

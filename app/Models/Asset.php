@@ -2,6 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasCustomer;
+use App\Models\Concerns\HasOem;
+use App\Models\Concerns\HasProduct;
+use App\Models\Concerns\HasReseller;
+use App\Models\Concerns\HasType;
+use App\Models\Enums\ProductType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use InvalidArgumentException;
@@ -49,6 +55,11 @@ use function sprintf;
  */
 class Asset extends Model {
     use HasFactory;
+    use HasOem;
+    use HasType;
+    use HasProduct;
+    use HasReseller;
+    use HasCustomer;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -56,46 +67,6 @@ class Asset extends Model {
      * @var string
      */
     protected $table = 'assets';
-
-    public function oem(): BelongsTo {
-        return $this->belongsTo(Oem::class);
-    }
-
-    public function setOemAttribute(Oem $oem): void {
-        $this->oem()->associate($oem);
-    }
-
-    public function type(): BelongsTo {
-        return $this->belongsTo(Type::class);
-    }
-
-    public function setTypeAttribute(Type $type): void {
-        if ($type->object_type !== $this->getMorphClass()) {
-            throw new InvalidArgumentException(sprintf(
-                'The `$type` related to `%s`, `%s` required.',
-                $type->object_type,
-                $this->getMorphClass(),
-            ));
-        }
-
-        $this->type()->associate($type);
-    }
-
-    public function product(): BelongsTo {
-        return $this->belongsTo(Product::class);
-    }
-
-    public function setProductAttribute(Product $product): void {
-        $this->product()->associate($product);
-    }
-
-    public function customer(): BelongsTo {
-        return $this->belongsTo(Customer::class);
-    }
-
-    public function setCustomerAttribute(?Customer $customer): void {
-        $this->customer()->associate($customer);
-    }
 
     public function location(): BelongsTo {
         return $this->belongsTo(Location::class);
@@ -130,11 +101,10 @@ class Asset extends Model {
         $this->location()->associate($location);
     }
 
-    public function reseller(): BelongsTo {
-        return $this->belongsTo(Reseller::class);
-    }
-
-    public function setResellerAttribute(?Reseller $reseller): void {
-        $this->reseller()->associate($reseller);
+    /**
+     * @inheritdoc
+     */
+    protected function getValidProductTypes(): array {
+        return [ProductType::asset()];
     }
 }

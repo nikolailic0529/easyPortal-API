@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasOem;
 use App\Models\Enums\ProductType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -38,6 +39,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Product extends Model {
     use HasFactory;
+    use HasOem;
 
     protected const CASTS = [
         'eol'  => 'date',
@@ -60,12 +62,4 @@ class Product extends Model {
      * @var array<string>
      */
     protected $casts = self::CASTS + parent::CASTS;
-
-    public function oem(): BelongsTo {
-        return $this->belongsTo(Oem::class);
-    }
-
-    public function setOemAttribute(Oem $oem): void {
-        $this->oem()->associate($oem);
-    }
 }
