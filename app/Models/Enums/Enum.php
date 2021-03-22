@@ -75,7 +75,7 @@ abstract class Enum implements Castable {
         return self::$values[static::class];
     }
 
-    protected static function create(string|int $value): static {
+    public static function create(string|int $value): static {
         // Valid?
         if (!self::$lookup && !in_array($value, static::values(), true)) {
             throw new InvalidArgumentException(sprintf(

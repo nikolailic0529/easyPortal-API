@@ -312,13 +312,13 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetProduct(): void {
         $oem   = Oem::factory()->make();
+        $type  = ProductType::asset();
         $asset = Asset::create([
             'vendor'             => $this->faker->word,
             'sku'                => $this->faker->word,
             'eolDate'            => "{$this->faker->unixTime}000",
             'eosDate'            => '',
             'productDescription' => $this->faker->sentence,
-
         ]);
 
         $factory = Mockery::mock(AssetFactoryTest_Factory::class);
@@ -331,7 +331,7 @@ class AssetFactoryTest extends TestCase {
             ->andReturn($oem);
         $factory
             ->shouldReceive('product')
-            ->with($oem, $asset->sku, $asset->productDescription, $asset->eolDate, $asset->eosDate)
+            ->with($oem, $type, $asset->sku, $asset->productDescription, $asset->eolDate, $asset->eosDate)
             ->once()
             ->andReturns();
 
@@ -824,88 +824,6 @@ class AssetFactoryTest extends TestCase {
         };
 
         $this->assertNull($factory->assetLocation($asset, $customer, null));
-    }
-
-    /**
-     * @covers ::product
-     */
-    public function testProduct(): void {
-        // Prepare
-        $normalizer = $this->app->make(Normalizer::class);
-        $provider   = $this->app->make(ProductResolver::class);
-        $product    = Product::factory()->create([
-            'type' => ProductType::asset(),
-        ]);
-        $oem        = $product->oem;
-
-        $factory = new class($normalizer, $provider) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, ProductResolver $provider) {
-                $this->normalizer = $normalizer;
-                $this->products   = $provider;
-            }
-
-            public function product(Oem $oem, string $sku, string $name, ?string $eol, ?string $eos): Product {
-                return parent::product($oem, $sku, $name, $eol, $eos);
-            }
-        };
-
-        $this->flushQueryLog();
-
-        // If model exists and not changed - no action required
-        $this->assertEquals(
-            $product->withoutRelations(),
-            $factory->product(
-                $oem,
-                $product->sku,
-                $product->name,
-                "{$product->eol->getTimestamp()}000",
-                "{$product->eos->getTimestamp()}000",
-            )->withoutRelations(),
-        );
-        $this->assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
-
-        // If model exists and changed - it should be updated
-        $newEos  = $this->faker->randomElement(['', null]);
-        $newEol  = Date::now();
-        $newName = $this->faker->sentence;
-        $updated = $factory->product(
-            $oem,
-            $product->sku,
-            $newName,
-            "{$newEol->getTimestamp()}000",
-            $newEos,
-        );
-
-        $this->assertSame(ProductType::asset(), $updated->type);
-        $this->assertEquals($newName, $updated->name);
-        $this->assertEquals($newEol, $newEol);
-        $this->assertNull($updated->eos);
-
-        $this->assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
-
-        // If not - it should be created
-        $sku     = $this->faker->uuid;
-        $name    = $this->faker->sentence;
-        $created = $factory->product(
-            $oem,
-            $sku,
-            $name,
-            null,
-            null,
-        );
-
-        $this->assertNotNull($created);
-        $this->assertSame(ProductType::asset(), $created->type);
-        $this->assertEquals($oem->getKey(), $created->oem_id);
-        $this->assertEquals($sku, $created->sku);
-        $this->assertEquals($name, $created->name);
-
-        $this->flushQueryLog();
     }
 
     /**

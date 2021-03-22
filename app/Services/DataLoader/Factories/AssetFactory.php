@@ -14,6 +14,7 @@ use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\LocationNotFoundException;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
+use App\Services\DataLoader\Factories\Concerns\WithProduct;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
@@ -33,6 +34,7 @@ use function sprintf;
 class AssetFactory extends ModelFactory {
     use WithOem;
     use WithType;
+    use WithProduct;
 
     protected ?CustomerFactory $customerFactory = null;
     protected ?ResellerFactory $resellerFactory = null;
@@ -150,8 +152,10 @@ class AssetFactory extends ModelFactory {
 
     protected function assetProduct(Asset $asset): Product {
         $oem     = $this->assetOem($asset);
+        $type    = ProductType::asset();
         $product = $this->product(
             $oem,
+            $type,
             $asset->sku,
             $asset->productDescription,
             $asset->eolDate,
@@ -233,49 +237,6 @@ class AssetFactory extends ModelFactory {
 
         // Return
         return $location;
-    }
-
-    protected function product(
-        Oem $oem,
-        string $sku,
-        string $name,
-        ?string $eol,
-        ?string $eos,
-    ): Product {
-        // Get/Create
-        $type    = ProductType::asset();
-        $created = false;
-        $factory = $this->factory(
-            function (Product $product) use (&$created, $type, $oem, $sku, $name, $eol, $eos): Product {
-                $created       = !$product->exists;
-                $product->type = $type;
-                $product->oem  = $oem;
-                $product->sku  = $this->normalizer->string($sku);
-                $product->name = $this->normalizer->string($name);
-                $product->eol  = $this->normalizer->datetime($eol);
-                $product->eos  = $this->normalizer->datetime($eos);
-
-                $product->save();
-
-                return $product;
-            },
-        );
-        $product = $this->products->get(
-            $type,
-            $oem,
-            $sku,
-            static function () use ($factory): Product {
-                return $factory(new Product());
-            },
-        );
-
-        // Update
-        if (!$created && !$this->isSearchMode()) {
-            $factory($product);
-        }
-
-        // Return
-        return $product;
     }
     // </editor-fold>
 }
