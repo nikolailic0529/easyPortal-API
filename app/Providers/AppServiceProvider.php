@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Asset;
 use App\Models\Contact;
 use App\Models\Customer;
+use App\Models\Document;
 use App\Models\Location;
 use App\Models\Reseller;
 use App\Services\Auth0\AuthService;
@@ -37,6 +38,7 @@ class AppServiceProvider extends ServiceProvider {
             'location' => Location::class,
             'asset'    => Asset::class,
             'reseller' => Reseller::class,
+            'document' => Document::class,
         ]);
     }
 
