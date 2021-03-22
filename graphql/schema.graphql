@@ -63,7 +63,10 @@ type Query {
     currencies: [Currency!]! @all
 
     "List of all contracts"
-    contracts: [Document!]! @paginate @builder(method: "App\\GraphQL\\Builders\\TypesBuilder@contracts") 
+    contracts: [Document!]! @paginate @builder(method: "App\\GraphQL\\Builders\\TypesBuilder@contracts")
+
+    "Get contract by id"
+    contract(id: ID! @eq): Document @find
 }
 
 enum CustomersWhereColumns {
