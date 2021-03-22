@@ -63,6 +63,8 @@ Sync the Customer with Cosmos.
     * Customer Location
     * Reseller Location (if Customer doesn't have required location)
     * Asset location (if Reseller doesn't have required location, in this case `locations.object_type` will be `asset` and `locations.object_id = null`)
+6. DataLoader skips Assets without `sku` and/or `productDescription`
+7. DataLoader cannot load Assets without Reseller.
 
 
 # What can be improved
@@ -72,6 +74,8 @@ Instead of fetching all data from Cosmos we can fetch only updated:
 * `getAssets(updatedAt > xxx): [Asset]!` - should return Assets which created/updated later than `xxx`
 * `getResellers(updatedAt > xxx): [Company]!`
 * `getAssetsByCustomerId(updatedAt > xxx)`
+* `getDocuments(limits, updatedAt > xxx)` (new)
+* `getDocumentById(id: guid)` (new)
 * etc
 
 in this case, we can have
