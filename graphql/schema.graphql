@@ -67,6 +67,12 @@ type Query {
 
     "Get contract by id"
     contract(id: ID! @eq): Document @find
+
+    "List of all quotes"
+    quotes: [Document!]! @paginate @builder(method: "App\\GraphQL\\Builders\\TypesBuilder@quotes")
+
+    "Get quote by id"
+    quote(id: ID! @eq): Document @find
 }
 
 enum CustomersWhereColumns {
