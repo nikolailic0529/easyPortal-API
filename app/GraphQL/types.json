@@ -307,6 +307,26 @@
                     "$ref": "#/definitions/Oem"
                 }
             }
+        },
+        "Currency": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "code"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                }
+            }
         }
     }
 }

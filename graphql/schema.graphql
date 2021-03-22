@@ -56,8 +56,24 @@ type Query {
   "List of all oems"
   oems: [Oem!]! @all
 
-  "Get asset by id"
-  asset(id: ID! @eq): Asset @guard @find
+    "Get asset by id"
+    asset(id: ID! @eq): Asset @guard @find
+
+    "List of all currencies"
+    currencies: [Currency!]! @all
+}
+
+enum CustomersWhereColumns {
+    NAME @enum(value: "name")
+    TYPE @enum(value: "type_id")
+    STATUS @enum(value: "status_id")
+}
+
+enum AssetsWhereColumns {
+    OEM @enum(value: "oem_id")
+    PRODUCT @enum(value: "product_id")
+    TYPE @enum(value: "type_id")
+    CUSTOMER @enum(value: "customer_id")
 }
 
 type Mutation {
