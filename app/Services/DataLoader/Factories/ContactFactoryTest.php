@@ -104,18 +104,18 @@ class ContactFactoryTest extends TestCase {
     public function testContact(): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
-        $provider   = $this->app->make(ContactResolver::class);
+        $resolver   = $this->app->make(ContactResolver::class);
         $customer   = Customer::factory()->make();
         $contact    = Contact::factory()->create([
             'object_type' => $customer->getMorphClass(),
             'object_id'   => $customer->getKey(),
         ]);
 
-        $factory = new class($normalizer, $provider) extends ContactFactory {
+        $factory = new class($normalizer, $resolver) extends ContactFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, ContactResolver $provider) {
+            public function __construct(Normalizer $normalizer, ContactResolver $resolver) {
                 $this->normalizer = $normalizer;
-                $this->contacts   = $provider;
+                $this->contacts   = $resolver;
             }
 
             public function contact(Model $object, ?string $name, ?string $phone, ?bool $valid): Contact {

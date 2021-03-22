@@ -27,13 +27,13 @@ class WithProductTest extends TestCase {
     public function testProduct(): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
-        $provider   = $this->app->make(ProductResolver::class);
+        $resolver   = $this->app->make(ProductResolver::class);
         $product    = Product::factory()->create([
             'type' => ProductType::asset(),
         ]);
         $oem        = $product->oem;
 
-        $factory = new class($normalizer, $provider) extends ModelFactory {
+        $factory = new class($normalizer, $resolver) extends ModelFactory {
             use WithProduct {
                 product as public;
             }

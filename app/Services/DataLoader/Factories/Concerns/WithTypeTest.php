@@ -25,21 +25,21 @@ class WithTypeTest extends TestCase {
     public function testType(): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
-        $provider   = $this->app->make(TypeResolver::class);
+        $resolver   = $this->app->make(TypeResolver::class);
         $customer   = Customer::factory()->make();
         $type       = TypeModel::factory()->create([
             'object_type' => $customer->getMorphClass(),
         ]);
 
-        $factory = new class($normalizer, $provider) extends DependentModelFactory {
+        $factory = new class($normalizer, $resolver) extends DependentModelFactory {
             use WithType {
                 type as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, TypeResolver $provider) {
+            public function __construct(Normalizer $normalizer, TypeResolver $resolver) {
                 $this->normalizer = $normalizer;
-                $this->types      = $provider;
+                $this->types      = $resolver;
             }
 
             public function create(Model $object, Type $type): ?Model {

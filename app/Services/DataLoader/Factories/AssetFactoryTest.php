@@ -15,12 +15,10 @@ use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
-use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
-use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -119,7 +117,7 @@ class AssetFactoryTest extends TestCase {
         $updated = $factory->create($asset);
 
         $this->assertNotNull($updated);
-        $this->assertTrue($updated->wasRecentlyCreated);
+        $this->assertSame($created, $updated);
         $this->assertEquals($asset->id, $updated->getKey());
         $this->assertNull($updated->ogranization_id);
         $this->assertEquals($asset->serialNumber, $updated->serial_number);
@@ -524,18 +522,18 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetCustomerExistsThroughProvider(): void {
         $customer = Customer::factory()->make();
-        $provider = Mockery::mock(CustomerResolver::class);
+        $resolver = Mockery::mock(CustomerResolver::class);
 
-        $provider
+        $resolver
             ->shouldReceive('get')
             ->with($customer->getKey())
             ->twice()
             ->andReturn($customer);
 
-        $factory = new class($provider) extends AssetFactory {
+        $factory = new class($resolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerResolver $provider) {
-                $this->customerResolver = $provider;
+            public function __construct(CustomerResolver $resolver) {
+                $this->customerResolver = $resolver;
             }
 
             public function assetCustomer(Asset $asset): ?Customer {
@@ -560,16 +558,16 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetCustomer
      */
     public function testAssetCustomerAssetWithoutCustomer(): void {
-        $provider = Mockery::mock(CustomerResolver::class);
+        $resolver = Mockery::mock(CustomerResolver::class);
 
-        $provider
+        $resolver
             ->shouldReceive('get')
             ->never();
 
-        $factory = new class($provider) extends AssetFactory {
+        $factory = new class($resolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerResolver $provider) {
-                $this->customerResolver = $provider;
+            public function __construct(CustomerResolver $resolver) {
+                $this->customerResolver = $resolver;
             }
 
             public function assetCustomer(Asset $asset): ?Customer {
@@ -593,17 +591,17 @@ class AssetFactoryTest extends TestCase {
                 'id' => $customer->getKey(),
             ],
         ]);
-        $provider = Mockery::mock(CustomerResolver::class);
-        $provider
+        $resolver = Mockery::mock(CustomerResolver::class);
+        $resolver
             ->shouldReceive('get')
             ->with($customer->getKey())
             ->once()
             ->andReturn(null);
 
-        $factory = new class($provider) extends AssetFactory {
+        $factory = new class($resolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerResolver $provider) {
-                $this->customerResolver = $provider;
+            public function __construct(CustomerResolver $resolver) {
+                $this->customerResolver = $resolver;
             }
 
             public function assetCustomer(Asset $asset): ?Customer {
@@ -627,8 +625,8 @@ class AssetFactoryTest extends TestCase {
                 'id' => $customer->getKey(),
             ],
         ]);
-        $provider = Mockery::mock(CustomerResolver::class);
-        $provider
+        $resolver = Mockery::mock(CustomerResolver::class);
+        $resolver
             ->shouldReceive('get')
             ->with($customer->getKey())
             ->once()
@@ -641,10 +639,10 @@ class AssetFactoryTest extends TestCase {
             ->once()
             ->andReturn($customer);
 
-        $factory = new class($provider) extends AssetFactory {
+        $factory = new class($resolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerResolver $provider) {
-                $this->customerResolver = $provider;
+            public function __construct(CustomerResolver $resolver) {
+                $this->customerResolver = $resolver;
             }
 
             public function assetCustomer(Asset $asset): ?Customer {
@@ -668,8 +666,8 @@ class AssetFactoryTest extends TestCase {
                 'id' => $customer->getKey(),
             ],
         ]);
-        $provider = Mockery::mock(CustomerResolver::class);
-        $provider
+        $resolver = Mockery::mock(CustomerResolver::class);
+        $resolver
             ->shouldReceive('get')
             ->with($customer->getKey())
             ->once()
@@ -682,10 +680,10 @@ class AssetFactoryTest extends TestCase {
             ->once()
             ->andReturn(null);
 
-        $factory = new class($provider) extends AssetFactory {
+        $factory = new class($resolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerResolver $provider) {
-                $this->customerResolver = $provider;
+            public function __construct(CustomerResolver $resolver) {
+                $this->customerResolver = $resolver;
             }
 
             public function assetCustomer(Asset $asset): ?Customer {

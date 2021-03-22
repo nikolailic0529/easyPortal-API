@@ -23,8 +23,8 @@ class CountryResolver extends Resolver {
      */
     protected function getKeyRetrievers(): array {
         return [
-            'code' => new ClosureKey(static function (Country $Country): string {
-                return $Country->code;
+            'code' => new ClosureKey(static function (Country $country): string {
+                return $country->code;
             }),
         ];
     }
