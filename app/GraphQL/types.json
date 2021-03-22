@@ -327,6 +327,124 @@
                     "type": "string"
                 }
             }
+        },
+        "Reseller": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "customers_count",
+                "locations_count",
+                "assets_count"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "customers_count": {
+                    "type": "integer"
+                },
+                "locations_count": {
+                    "type": "integer"
+                },
+                "assets_count": {
+                    "type": "integer"
+                },
+                "assets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Asset"
+                    }
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Location"
+                    }
+                }
+            }
+        },
+        "Document": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "oem_id",
+                "type_id",
+                "customer_id",
+                "reseller_id",
+                "number",
+                "product_id",
+                "start",
+                "end",
+                "price",
+                "currency_id",
+                "currency",
+                "customer",
+                "oem",
+                "product",
+                "reseller",
+                "type"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "oem_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "type_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "customer_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "reseller_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "number": {
+                    "type": "string"
+                },
+                "product_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "start": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "end": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "price": {
+                    "type": "string"
+                },
+                "currency_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "currency": {
+                    "$ref": "#/definitions/Currency"
+                },
+                "customer": {
+                    "$ref": "#/definitions/Customer"
+                },
+                "oem": {
+                    "$ref": "#/definitions/Oem"
+                },
+                "product": {
+                    "$ref": "#/definitions/Product"
+                },
+                "reseller": {
+                    "$ref": "#/definitions/Reseller"
+                },
+                "type": {
+                    "$ref": "#/definitions/Type"
+                }
+            }
         }
     }
 }

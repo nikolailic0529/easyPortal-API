@@ -82,3 +82,9 @@ define('DATA_LOADER_RESELLER_UPDATE_QUEUE', Queues::DATA_LOADER_RESELLER);
 // </editor-fold>
 
 // </editor-fold>
+
+// Contracts related ids
+define('CONTRACTS_TYPE_IDS', []);
+
+// Quotes related ids
+define('QUOTES_TYPE_IDS', []);
