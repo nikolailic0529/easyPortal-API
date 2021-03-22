@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Reseller;
 use App\Models\Type;
 use Closure;
+use Illuminate\Contracts\Config\Repository;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -38,7 +39,9 @@ class ContractTest extends TestCase {
         $contractId = 'wrong';
 
         if ($contractFactory) {
-            $contractId = $contractFactory($this)->id;
+            $contract   = $contractFactory($this);
+            $contractId = $contract->id;
+            $this->app->make(Repository::class)->set('easyportal.contracts_type_ids', [$contract->type_id]);
         }
 
         // Test

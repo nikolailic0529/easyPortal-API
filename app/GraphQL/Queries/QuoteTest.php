@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Reseller;
 use App\Models\Type;
 use Closure;
+use Illuminate\Contracts\Config\Repository;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -38,7 +39,9 @@ class QuoteTest extends TestCase {
         $quoteId = 'wrong';
 
         if ($quoteFactory) {
-            $quoteId = $quoteFactory($this)->id;
+            $quote   = $quoteFactory($this);
+            $quoteId = $quote->id;
+            $this->app->make(Repository::class)->set('easyportal.contracts_type_ids', [$quote->type_id]);
         }
 
         // Test
