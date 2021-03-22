@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `documents` (
     `type_id`     CHAR(36)       NOT NULL,
     `customer_id` CHAR(36)       NOT NULL,
     `reseller_id` CHAR(36)       NOT NULL,
-    `number`      VARCHAR(64)    NOT NULL COMMENT 'internal number',
+    `number`      VARCHAR(64)    NOT NULL COMMENT 'Internal Number',
     `start`       TIMESTAMP      NOT NULL,
     `end`         TIMESTAMP      NOT NULL,
     `price`       DECIMAL(12, 2) NOT NULL,

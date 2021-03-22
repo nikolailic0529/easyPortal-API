@@ -7,6 +7,10 @@ class ProductType extends Enum {
         return static::create(__FUNCTION__);
     }
 
+    public static function support(): static {
+        return static::create(__FUNCTION__);
+    }
+
     public static function service(): static {
         return static::create(__FUNCTION__);
     }

@@ -5,8 +5,10 @@ namespace App\Models;
 use App\Models\Concerns\HasCurrency;
 use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasOem;
+use App\Models\Concerns\HasProduct;
 use App\Models\Concerns\HasReseller;
 use App\Models\Concerns\HasType;
+use App\Models\Enums\ProductType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -18,10 +20,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string                                                                   $type_id
  * @property string                                                                   $customer_id
  * @property string                                                                   $reseller_id
- * @property string                                                                   $number internal number
- * @property string                                                                   $start
+ * @property string                                                                   $number     Internal Number
+ * @property string                                                                   $product_id Support Level
+ * @property \Carbon\CarbonImmutable                                                  $start
  * @property \Carbon\CarbonImmutable                                                  $end
- * @property \Carbon\CarbonImmutable                                                  $price
+ * @property string                                                                   $price
  * @property string                                                                   $currency_id
  * @property \Carbon\CarbonImmutable                                                  $created_at
  * @property \Carbon\CarbonImmutable                                                  $updated_at
@@ -31,6 +34,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $entries
  * @property-read int|null                                                            $entries_count
  * @property \App\Models\Oem                                                          $oem
+ * @property \App\Models\Product                                                      $product
  * @property \App\Models\Reseller                                                     $reseller
  * @property \App\Models\Type                                                         $type
  * @method static \Database\Factories\DocumentFactory factory(...$parameters)
@@ -46,6 +50,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereOemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereProductId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereResellerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereStart($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereTypeId($value)
@@ -59,6 +64,7 @@ class Document extends Model {
     use HasReseller;
     use HasCustomer;
     use HasCurrency;
+    use HasProduct;
 
     protected const CASTS = [
         'start' => 'date',
@@ -83,5 +89,12 @@ class Document extends Model {
 
     public function entries(): HasMany {
         return $this->hasMany(DocumentEntry::class);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getValidProductTypes(): array {
+        return [ProductType::support()];
     }
 }
