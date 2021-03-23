@@ -78,6 +78,7 @@ class AssetsTest extends TestCase {
                             customer {
                                 id
                                 name
+                                assets_count
                                 locations_count
                                 locations {
                                     id
@@ -88,6 +89,7 @@ class AssetsTest extends TestCase {
                                     lat
                                     lng
                                 }
+                                contacts_count
                                 contacts {
                                     name
                                     email
@@ -175,6 +177,7 @@ class AssetsTest extends TestCase {
                             'customer'      => [
                                 'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                 'name'            => 'name aaa',
+                                'assets_count'    => 0,
                                 'locations_count' => 1,
                                 'locations'       => [
                                     [
@@ -187,6 +190,7 @@ class AssetsTest extends TestCase {
                                         'lng'      => '-2.26318359',
                                     ],
                                 ],
+                                'contacts_count'  => 1,
                                 'contacts'        => [
                                     [
                                         'name'        => 'contact1',
@@ -242,6 +246,8 @@ class AssetsTest extends TestCase {
                             ->create([
                                 'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                 'name'            => 'name aaa',
+                                'assets_count'    => 0,
+                                'contacts_count'  => 1,
                                 'locations_count' => 1,
                             ]);
 

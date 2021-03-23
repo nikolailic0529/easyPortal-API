@@ -31,6 +31,9 @@
             "required": [
                 "id",
                 "name",
+                "assets_count",
+                "contacts_count",
+                "contacts",
                 "locations_count",
                 "locations"
             ],
@@ -40,6 +43,9 @@
                 },
                 "name": {
                     "type": "string"
+                },
+                "assets_count": {
+                    "type": "integer"
                 },
                 "locations": {
                     "type": "array",

@@ -40,6 +40,8 @@ class CustomersTest extends TestCase {
                 data {
                     id
                     name
+                    assets_count
+                    contacts_count
                     locations_count
                     locations {
                         id
@@ -86,6 +88,7 @@ class CustomersTest extends TestCase {
                         [
                             'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                             'name'            => 'name aaa',
+                            'assets_count'    => 0,
                             'locations_count' => 1,
                             'locations'       => [
                                 [
@@ -98,6 +101,7 @@ class CustomersTest extends TestCase {
                                     'lng'      => '-2.26318359',
                                 ],
                             ],
+                            'contacts_count'  => 1,
                             'contacts'        => [
                                 [
                                     'name'        => 'contact1',
@@ -126,6 +130,8 @@ class CustomersTest extends TestCase {
                             ->create([
                                 'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                 'name'            => 'name aaa',
+                                'assets_count'    => 0,
+                                'contacts_count'  => 1,
                                 'locations_count' => 1,
                             ]);
                     },

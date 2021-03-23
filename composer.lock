@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "883adfc01c2938b3705afcdc21be6aa8",
+    "content-hash": "0f647e5f91cc2021acd7a497f7f52214",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2608,6 +2608,74 @@
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
             "time": "2021-03-07T13:13:38+00:00"
+        },
+        {
+            "name": "lastdragon-ru/lara-asp-graphql",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/LastDragon-ru/lara-asp-graphql.git",
+                "reference": "9af3cd68ed6d37c7494d6169105e5bb3a39f2972"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/9af3cd68ed6d37c7494d6169105e5bb3a39f2972",
+                "reference": "9af3cd68ed6d37c7494d6169105e5bb3a39f2972",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "laravel/framework": "^8.22.1",
+                "lastdragon-ru/lara-asp-core": "self.version",
+                "nuwave/lighthouse": "^5.3",
+                "php": ">=8.0.0"
+            },
+            "require-dev": {
+                "ext-pdo_sqlite": "*",
+                "lastdragon-ru/lara-asp-testing": "self.version",
+                "mockery/mockery": "^1.4",
+                "orchestra/testbench": "^6.9.0",
+                "phpunit/phpunit": "^9.5.0"
+            },
+            "suggest": {
+                "ext-fileinfo": "Required for league/flysystem"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "LastDragon_ru\\LaraASP\\GraphQL\\Provider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "LastDragon_ru\\LaraASP\\GraphQL\\": "src/"
+                },
+                "exclude-from-classmap": [
+                    "src/**Test.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "The Awesome Set of Packages for Laravel - The GraphQL Extensions.",
+            "homepage": "https://github.com/LastDragon-ru/lara-asp",
+            "keywords": [
+                "graphql",
+                "laravel",
+                "laravel-package",
+                "lighthouse-php",
+                "php"
+            ],
+            "support": {
+                "forum": "https://github.com/LastDragon-ru/lara-asp/discussions",
+                "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
+                "source": "https://github.com/LastDragon-ru/lara-asp"
+            },
+            "time": "2021-03-22T16:08:10+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-migrator",
@@ -10662,6 +10730,7 @@
         "lastdragon-ru/lara-asp-core": 20,
         "lastdragon-ru/lara-asp-eloquent": 20,
         "lastdragon-ru/lara-asp-formatter": 20,
+        "lastdragon-ru/lara-asp-graphql": 20,
         "lastdragon-ru/lara-asp-migrator": 20,
         "lastdragon-ru/lara-asp-queue": 20,
         "lastdragon-ru/lara-asp-spa": 20,

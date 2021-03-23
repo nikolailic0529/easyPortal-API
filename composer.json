@@ -23,6 +23,7 @@
     "lastdragon-ru/lara-asp-core": "dev-master",
     "lastdragon-ru/lara-asp-eloquent": "dev-master",
     "lastdragon-ru/lara-asp-formatter": "dev-master",
+    "lastdragon-ru/lara-asp-graphql": "dev-master",
     "lastdragon-ru/lara-asp-migrator": "dev-master",
     "lastdragon-ru/lara-asp-queue": "dev-master",
     "lastdragon-ru/lara-asp-spa": "dev-master",
