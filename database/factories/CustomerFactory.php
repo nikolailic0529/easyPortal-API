@@ -27,17 +27,20 @@ class CustomerFactory extends Factory {
         $object = $this->newModel()->getMorphClass();
 
         return [
-            'id'         => $this->faker->uuid,
-            'name'       => $this->faker->company,
-            'type_id'    => static function () use ($object): Type {
+            'id'              => $this->faker->uuid,
+            'name'            => $this->faker->company,
+            'type_id'         => static function () use ($object): Type {
                 return Type::factory()->create(['object_type' => $object]);
             },
-            'status_id'  => static function () use ($object): Status {
+            'status_id'       => static function () use ($object): Status {
                 return Status::factory()->create(['object_type' => $object]);
             },
-            'created_at' => Date::now(),
-            'updated_at' => Date::now(),
-            'deleted_at' => null,
+            'assets_count'    => 0,
+            'locations_count' => 0,
+            'contacts_count'  => 0,
+            'created_at'      => Date::now(),
+            'updated_at'      => Date::now(),
+            'deleted_at'      => null,
         ];
     }
 }

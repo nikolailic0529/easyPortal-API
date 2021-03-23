@@ -4,6 +4,8 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\Asset as AssetModel;
 use App\Models\Customer;
+use App\Models\Document;
+use App\Models\DocumentEntry;
 use App\Models\Enums\ProductType;
 use App\Models\Location;
 use App\Models\Oem;
@@ -24,11 +26,15 @@ use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Asset;
+use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Type;
+use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
+use SplObjectStorage;
 
 use function array_map;
+use function iterator_to_array;
 use function sprintf;
 
 class AssetFactory extends ModelFactory {
@@ -49,6 +55,7 @@ class AssetFactory extends ModelFactory {
         protected CustomerResolver $customerResolver,
         protected ResellerResolver $resellerResolver,
         protected LocationFactory $locations,
+        protected AssetDocumentFactory $documents,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -105,6 +112,16 @@ class AssetFactory extends ModelFactory {
     // <editor-fold desc="Functions">
     // =========================================================================
     protected function createFromAsset(Asset $asset): ?AssetModel {
+        $model = $this->assetAsset($asset);
+
+        if (isset($asset->assetDocument) && !$this->isSearchMode()) {
+            $this->assetDocuments($asset);
+        }
+
+        return $model;
+    }
+
+    protected function assetAsset(Asset $asset): AssetModel {
         // Get/Create
         $created = false;
         $factory = $this->factory(function (AssetModel $model) use (&$created, $asset): AssetModel {
@@ -140,6 +157,99 @@ class AssetFactory extends ModelFactory {
 
         // Return
         return $model;
+    }
+
+    /**
+     * @return array<\App\Models\Document>
+     */
+    protected function assetDocuments(Asset $asset): array {
+        // Get Asset model
+        $model = $this->assets->get($asset->id);
+
+        // Get all Document and Entries
+        /** @var \SplObjectStorage<\App\Models\Document,\Illuminate\Support\Collection<\App\Models\DocumentEntry>> $documents */
+        $documents = new SplObjectStorage();
+
+        foreach ($asset->assetDocument as $assetDocument) {
+            $document = $this->assetDocument($assetDocument);
+            $entry    = $this->assetDocumentEntry($assetDocument);
+
+            if ($documents->contains($document)) {
+                $documents[$document]->add($entry);
+            } else {
+                $documents[$document] = new Collection([$entry]);
+            }
+        }
+
+        // Update Documents entries
+        $byProductId = static function (DocumentEntry $entry): string {
+            return $entry->product_id;
+        };
+
+        /** @var \App\Models\Document $document */
+        foreach ($documents as $document) {
+            $existing = $document->entries
+                ->filter(function (DocumentEntry $entry) use ($model): bool {
+                    return $entry->asset_id === $this->normalizer->uuid($model->getKey());
+                })
+                ->keyBy($byProductId);
+            $entries  = $documents[$document]->groupBy($byProductId);
+
+            foreach ($entries as $product => $group) {
+                // Update entry
+                /** @var \App\Models\DocumentEntry $entry */
+                $entry = $existing->get($product) ?? $group->first();
+
+                $entry->asset    = $model;
+                $entry->document = $document;
+                $entry->quantity = $group->count();
+                $entry->save();
+
+                // Mark that exists
+                $existing->forget($product);
+
+                // Add entry to entries
+                if ($document->entries->search($entry, true) === false) {
+                    $document->entries->add($entry);
+                }
+            }
+
+            // Remove missed entries
+            foreach ($existing as $entry) {
+                $key = $document->entries->search($entry, true);
+
+                if ($key !== false) {
+                    $document->entries->offsetUnset($key);
+                }
+
+                $entry->delete();
+            }
+        }
+
+        // Return
+        return iterator_to_array($documents);
+    }
+
+    protected function assetDocument(AssetDocument $document): Document {
+        return $this->documents->create($document);
+    }
+
+    protected function assetDocumentEntry(AssetDocument $document): DocumentEntry {
+        $entry          = new DocumentEntry();
+        $entry->oem     = $this->oem(
+            $document->document->vendorSpecificFields->vendor,
+            $document->document->vendorSpecificFields->vendor,
+        );
+        $entry->product = $this->product(
+            $entry->oem,
+            ProductType::service(),
+            $document->skuNumber,
+            $document->skuDescription,
+            null,
+            null,
+        );
+
+        return $entry;
     }
 
     protected function assetOem(Asset $asset): Oem {

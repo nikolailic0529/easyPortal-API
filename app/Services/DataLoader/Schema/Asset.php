@@ -20,4 +20,9 @@ class Asset extends Type {
     public ?string  $city;
     public ?string  $address;
     public ?string  $address2;
+
+    /**
+     * @var array<\App\Services\DataLoader\Schema\AssetDocument>
+     */
+    public array $assetDocument;
 }
