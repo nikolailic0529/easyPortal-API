@@ -19,8 +19,8 @@ type Query {
 
     "List of Customers"
     customers (
-        where: _ @whereConditions(columnsEnum: CustomersWhereColumns)
-        order: _ @orderBy(columns: ["name"])
+        where: CustomersQuery @searchBy
+        order: CustomersSort @sortBy
     ): [Customer!]! @guard @paginate
 
     "Customer with given ID"
@@ -57,10 +57,61 @@ type Query {
     asset(id: ID! @eq): Asset @guard @find
 }
 
-enum CustomersWhereColumns {
-    NAME @enum(value: "name")
-    TYPE @enum(value: "type_id")
-    STATUS @enum(value: "status_id")
+input CustomersSort {
+  name: String!
+  locations_count: Int!
+  contacts_count: Int!
+}
+
+input CustomersQuery {
+  id: ID!
+  name: String!
+  type_id: ID!
+  status_id: ID!
+  locations_count: Int!
+  locations: LocationQuery
+  contacts_count: Int!
+  contacts: ContactQuery
+}
+
+input TypeQuery {
+  id: ID!
+}
+
+input LocationQuery {
+  id: ID!
+  postcode: String!
+  state: String!
+  line_one: String!
+  line_two: String!
+  lat: String
+  lng: String
+  city: CityQuery
+  city_id: ID!
+  country: CountryQuery
+  country_id: ID!
+  types: TypeQuery
+}
+
+input ContactQuery {
+  id: ID!
+  name: String
+  email: String
+  phone_number: String
+  phone_valid: Boolean
+  types: TypeQuery
+}
+
+input CityQuery {
+  id: ID!
+  name: String!
+  country_id: ID!
+}
+
+input CountryQuery {
+  id: ID!
+  name: String!
+  code: String!
 }
 
 enum AssetsWhereColumns {
