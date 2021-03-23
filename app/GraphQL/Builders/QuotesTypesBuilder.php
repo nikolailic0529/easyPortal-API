@@ -12,7 +12,8 @@ class QuotesTypesBuilder {
         // empty
     }
     public function __invoke(Builder $builder): Builder {
-        $contactTypes = $this->config->get('easyportal.quotes_type_ids');
-        return $builder->whereIn('type_id', $contactTypes);
+        $quotesTypes = $this->config->get('easyportal.quotes_type_ids');
+        // if empty should not be used
+        return empty($quotesTypes) ? $builder : $builder->whereIn('type_id', $quotesTypes);
     }
 }
