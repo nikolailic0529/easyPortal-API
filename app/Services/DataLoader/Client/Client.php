@@ -115,6 +115,9 @@ class Client {
                         reseller {
                             {$this->getCompanyPropertiesGraphQL()}
                         }
+                        assetDocument {
+                            {$this->getAssetDocumentsPropertiesGraphQL()}
+                        }
                     }
                 }
                 GRAPHQL,
@@ -142,6 +145,9 @@ class Client {
                         {$this->getAssetPropertiesGraphQL()}
                         customer {
                             {$this->getCompanyPropertiesGraphQL()}
+                        }
+                        assetDocument {
+                            {$this->getAssetDocumentsPropertiesGraphQL()}
                         }
                     }
                 }
@@ -287,6 +293,34 @@ class Client {
 
             customerId
             resellerId
+            GRAPHQL;
+    }
+
+    protected function getAssetDocumentsPropertiesGraphQL(): string {
+        return <<<'GRAPHQL'
+            document {
+                id
+                type
+                documentId
+                customerId
+                resellerId
+
+                startDate
+                endDate
+
+                vendorSpecificFields {
+                    vendor
+                    totalNetPrice
+                }
+            }
+
+            skuNumber
+            skuDescription
+
+            supportPackage
+            supportPackageDescription
+
+            warrantyEndDate
             GRAPHQL;
     }
     //</editor-fold>
