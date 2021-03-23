@@ -2,20 +2,13 @@
 
 namespace App\Services\DataLoader\Normalizers;
 
-use DateTimeInterface;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Support\Facades\Date;
-
 use function filter_var;
 use function is_float;
 use function is_int;
 use function is_null;
 use function is_string;
 use function number_format;
-use function preg_match;
-use function preg_replace;
 use function round;
-use function str_replace;
 
 use const FILTER_FLAG_ALLOW_THOUSAND;
 use const FILTER_VALIDATE_FLOAT;

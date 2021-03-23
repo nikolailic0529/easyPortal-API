@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Concerns\HasOem;
 use App\Models\Enums\ProductType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Product.
