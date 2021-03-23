@@ -83,6 +83,8 @@ class QuotesTest extends TestCase {
                             customer {
                                 id
                                 name
+                                assets_count
+                                contacts_count
                                 locations_count
                                 locations {
                                     id
@@ -102,9 +104,6 @@ class QuotesTest extends TestCase {
                             reseller {
                                 id
                                 name
-                                customers_count
-                                locations_count
-                                assets_count
                             }
                             currency {
                                 id
@@ -178,6 +177,7 @@ class QuotesTest extends TestCase {
                             'customer'    => [
                                 'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                 'name'            => 'name aaa',
+                                'assets_count'    => 0,
                                 'locations_count' => 1,
                                 'locations'       => [
                                     [
@@ -190,6 +190,7 @@ class QuotesTest extends TestCase {
                                         'lng'      => '-2.26318359',
                                     ],
                                 ],
+                                'contacts_count'  => 1,
                                 'contacts'        => [
                                     [
                                         'name'        => 'contact1',
@@ -201,9 +202,6 @@ class QuotesTest extends TestCase {
                             'reseller'    => [
                                 'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                 'name'            => 'reseller1',
-                                'customers_count' => 0,
-                                'locations_count' => 0,
-                                'assets_count'    => 0,
                             ],
                             'currency'    => [
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
@@ -243,7 +241,9 @@ class QuotesTest extends TestCase {
                             ->create([
                                 'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                 'name'            => 'name aaa',
+                                'assets_count'    => 0,
                                 'locations_count' => 1,
+                                'contacts_count'  => 1,
                             ]);
                         // Product creation belongs to
                         $product = Product::factory()->create([

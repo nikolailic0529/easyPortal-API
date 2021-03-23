@@ -333,10 +333,7 @@
             "type": "object",
             "required": [
                 "id",
-                "name",
-                "customers_count",
-                "locations_count",
-                "assets_count"
+                "name"
             ],
             "properties": {
                 "id": {
