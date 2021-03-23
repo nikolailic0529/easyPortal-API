@@ -61,6 +61,7 @@ input CustomersSort {
   name: String!
   locations_count: Int!
   contacts_count: Int!
+  assets_count: Int!
 }
 
 input CustomersQuery {
@@ -68,6 +69,7 @@ input CustomersQuery {
   name: String!
   type_id: ID!
   status_id: ID!
+  assets_count: Int!
   locations_count: Int!
   locations: LocationQuery
   contacts_count: Int!
