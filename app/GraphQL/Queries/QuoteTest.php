@@ -41,7 +41,7 @@ class QuoteTest extends TestCase {
         if ($quoteFactory) {
             $quote   = $quoteFactory($this);
             $quoteId = $quote->id;
-            $this->app->make(Repository::class)->set('easyportal.contracts_type_ids', [$quote->type_id]);
+            $this->app->make(Repository::class)->set('easyportal.quotes_type_ids', [$quote->type_id]);
         }
 
         // Test
@@ -190,8 +190,8 @@ class QuoteTest extends TestCase {
                             ],
                         ],
                         'reseller'    => [
-                            'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                            'name'            => 'reseller1',
+                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                            'name' => 'reseller1',
                         ],
                         'currency'    => [
                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
