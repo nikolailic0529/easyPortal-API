@@ -1,0 +1,8 @@
+input ContactQuery {
+  id: ID!
+  name: String
+  email: String
+  phone_number: String
+  phone_valid: Boolean
+  types: TypeQuery
+}

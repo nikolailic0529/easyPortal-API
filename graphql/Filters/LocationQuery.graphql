@@ -1,0 +1,14 @@
+input LocationQuery {
+  id: ID!
+  postcode: String!
+  state: String!
+  line_one: String!
+  line_two: String!
+  lat: String
+  lng: String
+  city: CityQuery
+  city_id: ID!
+  country: CountryQuery
+  country_id: ID!
+  types: TypeQuery
+}

@@ -1,5 +1,6 @@
 #import Scalars/*.graphql
 #import Types/*.graphql
+#import Filters/*.graphql
 
 type Query {
     # General
@@ -49,7 +50,7 @@ type Query {
 
     "Get Locale"
     locale: String!
-    
+
     "List of all asset types"
     assetTypes: [Type!]!
 
@@ -58,65 +59,6 @@ type Query {
 
     "Get asset by id"
     asset(id: ID! @eq): Asset @guard @find
-}
-
-input CustomersSort {
-  name: String!
-  locations_count: Int!
-  contacts_count: Int!
-  assets_count: Int!
-}
-
-input CustomersQuery {
-  id: ID!
-  name: String!
-  type_id: ID!
-  status_id: ID!
-  assets_count: Int!
-  locations_count: Int!
-  locations: LocationQuery
-  contacts_count: Int!
-  contacts: ContactQuery
-}
-
-input TypeQuery {
-  id: ID!
-}
-
-input LocationQuery {
-  id: ID!
-  postcode: String!
-  state: String!
-  line_one: String!
-  line_two: String!
-  lat: String
-  lng: String
-  city: CityQuery
-  city_id: ID!
-  country: CountryQuery
-  country_id: ID!
-  types: TypeQuery
-}
-
-input ContactQuery {
-  id: ID!
-  name: String
-  email: String
-  phone_number: String
-  phone_valid: Boolean
-  types: TypeQuery
-}
-
-input CityQuery {
-  id: ID!
-  name: String!
-  country_id: ID!
-}
-
-input CountryQuery {
-  id: ID!
-  name: String!
-  code: String!
 }
 
 enum AssetsWhereColumns {

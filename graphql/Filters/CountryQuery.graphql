@@ -1,0 +1,5 @@
+input CountryQuery {
+  id: ID!
+  name: String!
+  code: String!
+}

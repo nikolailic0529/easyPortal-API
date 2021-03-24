@@ -1,0 +1,5 @@
+input CityQuery {
+  id: ID!
+  name: String!
+  country_id: ID!
+}
