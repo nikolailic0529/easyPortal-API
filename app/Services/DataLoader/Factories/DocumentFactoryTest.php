@@ -14,7 +14,9 @@ use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
@@ -369,6 +371,56 @@ class DocumentFactoryTest extends TestCase {
         };
 
         $this->assertEquals($currency, $factory->documentCurrency(AssetDocument::create([])));
+    }
+
+    /**
+     * @covers ::prefetch
+     */
+    public function testPrefetch(): void {
+        $a       = [
+            'document' => [
+                'id' => 'c11353d9-0560-41b7-92b1-e151d195e867',
+            ],
+        ];
+        $b       = [
+            'document' => [
+                'id' => '9b8dccbc-a72c-401b-bdc3-79b0ae6a2d67',
+            ],
+        ];
+        $c       = [
+            'document' => [
+                'id' => '2baf7184-af04-40f8-a652-f38b3fb56770',
+            ],
+        ];
+        $factory = new class(
+            $this->app->make(Normalizer::class),
+            $this->app->make(DocumentResolver::class),
+        ) extends DocumentFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected DocumentResolver $documents,
+            ) {
+                // empty
+            }
+        };
+
+        $factory->prefetch([
+            Asset::create([
+                'assetDocument' => [$a, $b],
+            ]),
+            Asset::create([
+                'assetDocument' => [$c],
+            ]),
+        ]);
+
+        $this->flushQueryLog();
+
+        $factory->find(AssetDocument::create($a));
+        $factory->find(AssetDocument::create($b));
+        $factory->find(AssetDocument::create($c));
+
+        $this->assertCount(0, $this->getQueryLog());
     }
     // </editor-fold>
 

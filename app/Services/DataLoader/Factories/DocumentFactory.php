@@ -23,11 +23,14 @@ use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
+use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Type;
+use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
+use function array_map;
 use function sprintf;
 
 class DocumentFactory extends ModelFactory {
@@ -54,6 +57,8 @@ class DocumentFactory extends ModelFactory {
         return parent::find($type);
     }
 
+    // <editor-fold desc="Factory">
+    // =========================================================================
     public function create(Type $type): ?DocumentModel {
         $model = null;
 
@@ -68,7 +73,33 @@ class DocumentFactory extends ModelFactory {
 
         return $model;
     }
+    // </editor-fold>
 
+    // <editor-fold desc="Prefetch">
+    // =========================================================================
+    /**
+     * @param array<\App\Services\DataLoader\Schema\Asset> $assets
+     */
+    public function prefetch(array $assets, bool $reset = false): static {
+        $keys = (new Collection($assets))
+            ->map(static function (Asset $asset): array {
+                return array_map(static function (AssetDocument $document): string {
+                    return $document->document->id;
+                }, $asset->assetDocument ?? []);
+            })
+            ->flatten()
+            ->filter()
+            ->unique()
+            ->all();
+
+        $this->documents->prefetch($keys, $reset);
+
+        return $this;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Functions">
+    // =========================================================================
     protected function createFromAssetDocument(AssetDocument $document): ?DocumentModel {
         // Get/Create
         $created = false;
@@ -184,4 +215,5 @@ class DocumentFactory extends ModelFactory {
 
         return $customer;
     }
+    // </editor-fold>
 }
