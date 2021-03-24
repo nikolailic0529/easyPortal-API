@@ -25,9 +25,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factories\AssetDocumentFactory
+ * @coversDefaultClass \App\Services\DataLoader\Factories\DocumentFactory
  */
-class AssetDocumentFactoryTest extends TestCase {
+class DocumentFactoryTest extends TestCase {
     use WithQueryLog;
     use Helper;
 
@@ -37,7 +37,7 @@ class AssetDocumentFactoryTest extends TestCase {
      * @covers ::find
      */
     public function testFind(): void {
-        $factory  = $this->app->make(AssetDocumentFactory::class);
+        $factory  = $this->app->make(DocumentFactory::class);
         $json     = $this->getTestData()->json('~document-full.json');
         $document = AssetDocument::create($json);
 
@@ -54,7 +54,7 @@ class AssetDocumentFactoryTest extends TestCase {
      * @dataProvider dataProviderCreate
      */
     public function testCreate(?string $expected, Type $type): void {
-        $factory = Mockery::mock(AssetDocumentFactory::class);
+        $factory = Mockery::mock(DocumentFactory::class);
         $factory->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
 
@@ -76,7 +76,7 @@ class AssetDocumentFactoryTest extends TestCase {
      */
     public function testCreateFromAssetDocument(): void {
         // Prepare
-        $factory    = $this->app->make(AssetDocumentFactory::class);
+        $factory    = $this->app->make(DocumentFactory::class);
         $normalizer = $this->app->make(Normalizer::class);
 
         // Test
@@ -141,7 +141,7 @@ class AssetDocumentFactoryTest extends TestCase {
                 ],
             ],
         ]);
-        $factory  = Mockery::mock(AssetDocumentFactoryTest_Factory::class);
+        $factory  = Mockery::mock(DocumentFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
 
@@ -166,7 +166,7 @@ class AssetDocumentFactoryTest extends TestCase {
                 'type' => $this->faker->word,
             ],
         ]);
-        $factory  = Mockery::mock(AssetDocumentFactoryTest_Factory::class);
+        $factory  = Mockery::mock(DocumentFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
 
@@ -195,7 +195,7 @@ class AssetDocumentFactoryTest extends TestCase {
             'supportPackageDescription' => $this->faker->word,
         ]);
 
-        $factory = Mockery::mock(AssetDocumentFactoryTest_Factory::class);
+        $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
         $factory
@@ -225,7 +225,7 @@ class AssetDocumentFactoryTest extends TestCase {
             ->once()
             ->andReturn($reseller);
 
-        $factory = new class($resolver) extends AssetDocumentFactory {
+        $factory = new class($resolver) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(ResellerResolver $resolver) {
                 $this->resellers = $resolver;
@@ -262,7 +262,7 @@ class AssetDocumentFactoryTest extends TestCase {
             ->once()
             ->andReturn(null);
 
-        $factory = new class($resolver) extends AssetDocumentFactory {
+        $factory = new class($resolver) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(ResellerResolver $resolver) {
                 $this->resellers = $resolver;
@@ -291,7 +291,7 @@ class AssetDocumentFactoryTest extends TestCase {
             ->once()
             ->andReturn($customer);
 
-        $factory = new class($resolver) extends AssetDocumentFactory {
+        $factory = new class($resolver) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(CustomerResolver $resolver) {
                 $this->customers = $resolver;
@@ -328,7 +328,7 @@ class AssetDocumentFactoryTest extends TestCase {
             ->once()
             ->andReturn(null);
 
-        $factory = new class($resolver) extends AssetDocumentFactory {
+        $factory = new class($resolver) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(CustomerResolver $resolver) {
                 $this->customers = $resolver;
@@ -357,7 +357,7 @@ class AssetDocumentFactoryTest extends TestCase {
             ->once()
             ->andReturn($currency);
 
-        $factory = new class($resolver) extends AssetDocumentFactory {
+        $factory = new class($resolver) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(CurrencyResolver $resolver) {
                 $this->currencies = $resolver;
@@ -398,7 +398,7 @@ class AssetDocumentFactoryTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class AssetDocumentFactoryTest_Factory extends AssetDocumentFactory {
+class DocumentFactoryTest_Factory extends DocumentFactory {
     // TODO [tests] Remove after https://youtrack.jetbrains.com/issue/WI-25253
 
     public function documentOem(AssetDocument $document): Oem {

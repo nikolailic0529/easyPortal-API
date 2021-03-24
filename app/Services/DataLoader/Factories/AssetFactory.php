@@ -56,7 +56,7 @@ class AssetFactory extends ModelFactory {
         protected CustomerResolver $customerResolver,
         protected ResellerResolver $resellerResolver,
         protected LocationFactory $locations,
-        protected AssetDocumentFactory $documents,
+        protected DocumentFactory $documents,
     ) {
         parent::__construct($logger, $normalizer);
     }

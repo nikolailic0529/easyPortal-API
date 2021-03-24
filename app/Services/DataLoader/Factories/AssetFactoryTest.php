@@ -318,7 +318,7 @@ class AssetFactoryTest extends TestCase {
         $container = $this->app->make(Container::class);
         $factory   = new class(
             $container->make(Normalizer::class),
-            $container->make(AssetDocumentFactory::class),
+            $container->make(DocumentFactory::class),
             $container->make(AssetResolver::class),
             $container->make(ProductResolver::class),
             $container->make(OemResolver::class),
@@ -326,7 +326,7 @@ class AssetFactoryTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected AssetDocumentFactory $documents,
+                protected DocumentFactory $documents,
                 protected AssetResolver $assets,
                 protected ProductResolver $products,
                 protected OemResolver $oems,
@@ -475,7 +475,7 @@ class AssetFactoryTest extends TestCase {
     public function testAssetDocument(): void {
         $document = new AssetDocument();
         $resolved = new Document();
-        $factory  = Mockery::mock(AssetDocumentFactory::class);
+        $factory  = Mockery::mock(DocumentFactory::class);
 
         $factory
             ->shouldReceive('create')
@@ -486,7 +486,7 @@ class AssetFactoryTest extends TestCase {
         $factory = new class($factory) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected AssetDocumentFactory $documents,
+                protected DocumentFactory $documents,
             ) {
                 // empty
             }

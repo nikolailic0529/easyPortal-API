@@ -30,7 +30,7 @@ use Psr\Log\LoggerInterface;
 
 use function sprintf;
 
-class AssetDocumentFactory extends ModelFactory {
+class DocumentFactory extends ModelFactory {
     use WithOem;
     use WithType;
     use WithProduct;
