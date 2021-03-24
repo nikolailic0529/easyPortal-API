@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\Customer;
-use App\Models\Document;
 use App\Models\Reseller;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
@@ -35,9 +34,7 @@ class AssetWarrantyFactory extends Factory {
             'asset_id'    => static function (): Asset {
                 return Asset::factory()->create();
             },
-            'document_id' => static function (): Document {
-                return Document::factory()->create();
-            },
+            'document_id' => null,
             'reseller_id' => static function (): Reseller {
                 return Reseller::factory()->create();
             },

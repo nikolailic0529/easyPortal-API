@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Factories;
 
 use App\Models\Asset as AssetModel;
+use App\Models\AssetWarranty;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\DocumentEntry;
@@ -34,7 +35,7 @@ use Psr\Log\LoggerInterface;
 use SplObjectStorage;
 
 use function array_map;
-use function iterator_to_array;
+use function is_null;
 use function sprintf;
 
 class AssetFactory extends ModelFactory {
@@ -115,7 +116,10 @@ class AssetFactory extends ModelFactory {
         $model = $this->assetAsset($asset);
 
         if (isset($asset->assetDocument) && !$this->isSearchMode()) {
-            $this->assetDocuments($asset);
+            $documents = $this->assetDocuments($model, $asset);
+
+            $this->assetInitialWarranties($model, $asset, $documents);
+            $this->assetExtendedWarranties($model, $documents);
         }
 
         return $model;
@@ -160,12 +164,9 @@ class AssetFactory extends ModelFactory {
     }
 
     /**
-     * @return array<\App\Models\Document>
+     * @return \Illuminate\Support\Collection<\App\Models\Document>
      */
-    protected function assetDocuments(Asset $asset): array {
-        // Get Asset model
-        $model = $this->assets->get($asset->id);
-
+    protected function assetDocuments(AssetModel $model, Asset $asset): Collection {
         // Get all Document and Entries
         /** @var \SplObjectStorage<\App\Models\Document,\Illuminate\Support\Collection<\App\Models\DocumentEntry>> $documents */
         $documents = new SplObjectStorage();
@@ -227,7 +228,7 @@ class AssetFactory extends ModelFactory {
         }
 
         // Return
-        return iterator_to_array($documents);
+        return new Collection($documents);
     }
 
     protected function assetDocument(AssetDocument $document): Document {
@@ -250,6 +251,95 @@ class AssetFactory extends ModelFactory {
         );
 
         return $entry;
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\Document> $documents
+     *
+     * @return \Illuminate\Support\Collection<\App\Models\AssetWarranty>
+     */
+    protected function assetInitialWarranties(AssetModel $model, Asset $asset, Collection $documents): Collection {
+        // @LastDragon: If I understand correctly, after purchasing the Asset
+        // has an initial warranty up to "warrantyEndDate" and then the user
+        // can buy additional warranty.
+
+        $warranties = new Collection();
+        $documents  = $documents->keyBy(static function (Document $document): string {
+            return $document->getKey();
+        });
+
+        foreach ($asset->assetDocument as $assetDocument) {
+            // Warranty exists?
+            $end = $this->normalizer->datetime($assetDocument->warrantyEndDate);
+
+            if (!$end) {
+                continue;
+            }
+
+            // Document exists?
+            /** @var \App\Models\Document $document */
+            $document = $documents->get($assetDocument->document->id);
+
+            if (!$document) {
+                continue;
+            }
+
+            // Add new/Update
+            /** @var \App\Models\AssetWarranty|null $warranty */
+            $warranty = $model->warranties->first(static function (AssetWarranty $warranty) use ($document): bool {
+                return is_null($warranty->document_id)
+                    && $warranty->customer_id === $document->customer_id;
+            });
+
+            if (!$warranty) {
+                $warranty = new AssetWarranty();
+
+                $model->warranties->add($warranty);
+            }
+
+            $warranty->start    = null;
+            $warranty->end      = $end;
+            $warranty->asset    = $model;
+            $warranty->customer = $document->customer;
+            $warranty->reseller = $document->reseller;
+            $warranty->document = null;
+
+            $warranty->save();
+
+            $warranties->add($warranty);
+        }
+
+        // Return
+        return $warranties;
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\Document> $documents
+     *
+     * @return \Illuminate\Support\Collection<\App\Models\AssetWarranty>
+     */
+    protected function assetExtendedWarranties(AssetModel $asset, Collection $documents): Collection {
+        foreach ($documents as $document) {
+            $warranty = $asset->warranties->first(static function (AssetWarranty $warranty) use ($document): bool {
+                return $warranty->document_id === $document->getKey();
+            });
+
+            if (!$warranty) {
+                $warranty = new AssetWarranty();
+
+                $asset->warranties->add($warranty);
+            }
+
+            $warranty->start    = $document->start;
+            $warranty->end      = $document->end;
+            $warranty->asset    = $asset;
+            $warranty->customer = $document->customer;
+            $warranty->reseller = $document->reseller;
+            $warranty->document = $document;
+            $warranty->save();
+        }
+
+        return $asset->warranties;
     }
 
     protected function assetOem(Asset $asset): Oem {
