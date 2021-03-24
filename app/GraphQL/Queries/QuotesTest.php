@@ -14,7 +14,7 @@ use Illuminate\Contracts\Config\Repository;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\AnyDataProvider;
+use Tests\DataProviders\GraphQL\UserDataProvider;
 use Tests\DataProviders\TenantDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\TestCase;
@@ -136,7 +136,7 @@ class QuotesTest extends TestCase {
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            new AnyDataProvider(),
+            new UserDataProvider('quotes'),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLPaginated('quotes', self::class, [
