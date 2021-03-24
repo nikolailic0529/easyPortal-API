@@ -20,8 +20,8 @@ type Query {
 
     "List of Customers"
     customers (
-        where: CustomersQuery @searchBy
-        order: CustomersSort @sortBy
+        where: CustomerQuery @searchBy
+        order: CustomerSort @sortBy
     ): [Customer!]! @guard @paginate
 
     "Customer with given ID"
@@ -29,8 +29,8 @@ type Query {
 
     "List of all customer assets"
     assets(
-        where: _ @whereConditions(columnsEnum: AssetsWhereColumns)
-        order: _ @orderBy(columns: ["serial_number"])
+        where: AssetQuery @searchBy
+        order: AssetsSort @sortBy
     ): [Asset!]! @guard @paginate
 
     "List of all countries"
@@ -59,13 +59,6 @@ type Query {
 
     "Get asset by id"
     asset(id: ID! @eq): Asset @guard @find
-}
-
-enum AssetsWhereColumns {
-    OEM @enum(value: "oem_id")
-    PRODUCT @enum(value: "product_id")
-    TYPE @enum(value: "type_id")
-    CUSTOMER @enum(value: "customer_id")
 }
 
 enum CitiesWhereColumns {

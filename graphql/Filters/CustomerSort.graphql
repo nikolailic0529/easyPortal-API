@@ -1,4 +1,4 @@
-input CustomersSort {
+input CustomerSort {
   name: String!
   locations_count: Int!
   contacts_count: Int!

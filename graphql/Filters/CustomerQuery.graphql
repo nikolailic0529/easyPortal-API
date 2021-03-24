@@ -1,4 +1,4 @@
-input CustomersQuery {
+input CustomerQuery {
   id: ID!
   name: String!
   type_id: ID!
