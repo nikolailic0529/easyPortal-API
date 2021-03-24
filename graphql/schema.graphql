@@ -38,8 +38,8 @@ type Query {
 
     "List of all cities or filter by country id"
     cities(
-        where: _ @whereConditions(columnsEnum: CitiesWhereColumns)
-        order: _ @orderBy(columns: ["name"])
+        where: CityQuery @searchBy
+        order: CitySort @sortBy
     ): [City!]! @all
 
     "List of all location types related to customer"
@@ -59,11 +59,6 @@ type Query {
 
     "Get asset by id"
     asset(id: ID! @eq): Asset @guard @find
-}
-
-enum CitiesWhereColumns {
-    COUNTRY @enum(value: "country_id")
-    NAME @enum(value: "name")
 }
 
 type Mutation {
