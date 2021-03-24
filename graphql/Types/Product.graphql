@@ -5,5 +5,5 @@ type Product {
     name: String!
     eol: Date
     eos: Date
-    oem: Oem!
+    oem: Oem! @belongsTo
 }
