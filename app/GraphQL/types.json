@@ -463,8 +463,8 @@
                 "note",
                 "asset",
                 "customer",
-                "Document",
-                "Reseller"
+                "document",
+                "reseller"
             ],
             "properties": {
                 "id": {
@@ -510,6 +510,54 @@
                 },
                 "reseller": {
                     "$ref": "#/definitions/Reseller"
+                }
+            }
+        },
+        "DocumentEntry": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "oem_id",
+                "document_id",
+                "asset_id",
+                "product_id",
+                "quantity",
+                "oem",
+                "document",
+                "asset",
+                "product"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "oem_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "document_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "asset_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "product_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "asset": {
+                    "$ref": "#/definitions/Asset"
+                },
+                "document": {
+                    "$ref": "#/definitions/Document"
+                },
+                "oem": {
+                    "$ref": "#/definitions/Oem"
+                },
+                "product": {
+                    "$ref": "#/definitions/Product"
                 }
             }
         }
