@@ -1,0 +1,7 @@
+input ProductSort {
+  id: ID!
+  sku: String!
+  name: String!
+  eol: Date
+  eos: Date
+}

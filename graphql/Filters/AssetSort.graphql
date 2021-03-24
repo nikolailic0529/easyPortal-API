@@ -1,0 +1,5 @@
+input AssetsSort {
+  id: ID!
+  product: ProductSort!
+  serial_number: String!
+}

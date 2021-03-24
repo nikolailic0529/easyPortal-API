@@ -1,0 +1,10 @@
+input AssetQuery {
+  id: ID!
+  oem_id: ID!
+  type_id: ID!
+  product_id: ID!
+  reseller_id: ID!
+  customer_id: ID!
+  location_id: ID!
+  serial_number: String!
+}
