@@ -76,7 +76,7 @@ class QueryIterator implements IteratorAggregate {
                 'offset' => $offset,
             ]));
             $offset = $offset + count($items);
-            $items  = array_map(static function (mixed $item) use ($retriever): mixed {
+            $items  = array_map(function (mixed $item) use ($retriever): mixed {
                 try {
                     return $retriever($item);
                 } catch (Throwable $exception) {
