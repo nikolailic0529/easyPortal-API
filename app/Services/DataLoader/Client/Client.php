@@ -232,7 +232,14 @@ class Client {
         $errors = Arr::get($json, 'errors', Arr::get($json, 'error.errors'));
 
         if ($errors) {
-            throw (new GraphQLQueryFailedException())->setErrors($errors);
+            $this->logger->error('GraphQL request failed.', [
+                'selector' => $selector,
+                'graphql'  => $graphql,
+                'params'   => $params,
+                'errors'   => $errors,
+            ]);
+
+            throw new GraphQLQueryFailedException('GraphQL request failed.');
         }
 
         // Return
