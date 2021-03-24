@@ -391,7 +391,8 @@
                 "oem",
                 "product",
                 "reseller",
-                "type"
+                "type",
+                "entries"
             ],
             "properties": {
                 "id": {
@@ -446,6 +447,12 @@
                 },
                 "type": {
                     "$ref": "#/definitions/Type"
+                },
+                "entries" : {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/DocumentEntry"
+                    }
                 }
             }
         },
@@ -524,8 +531,6 @@
                 "product_id",
                 "quantity",
                 "oem",
-                "document",
-                "asset",
                 "product"
             ],
             "properties": {

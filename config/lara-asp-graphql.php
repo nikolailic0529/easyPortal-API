@@ -33,7 +33,7 @@ return [
                 GreaterThan::class,
                 GreaterThanOrEqual::class,
                 Between::class,
-            ]
+            ],
         ],
 
         /**
