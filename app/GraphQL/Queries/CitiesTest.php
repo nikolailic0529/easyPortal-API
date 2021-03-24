@@ -40,8 +40,8 @@ class CitiesTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '
-                query cities($country_id: Mixed!) {
-                    cities(where:{ column: COUNTRY, operator: EQ, value: $country_id }) {
+                query cities($country_id: ID!) {
+                    cities(where:{ country_id: { eq: $country_id } }) {
                         id
                         name
                         country_id
