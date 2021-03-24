@@ -1,0 +1,16 @@
+input DocumentsQuery {
+  oem_id: ID!
+  type_id: ID!
+  customer_id: ID!
+  reseller_id: ID!
+  number: String!
+  product_id: ID!
+  price: String!
+  currency_id: ID!
+  currency: CurrenciesQuery
+  customer: CustomersQuery
+  oem: OemsQuery
+  product: ProductsQuery
+  reseller: ResellersQuery
+  type: TypeQuery
+}

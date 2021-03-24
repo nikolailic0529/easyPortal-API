@@ -5,15 +5,15 @@ namespace App\GraphQL\Builders;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
 
-class ContractTypesBuilder {
+class QuotesBuilder {
     public function __construct(
         protected Repository $config,
     ) {
         // empty
     }
     public function __invoke(Builder $builder): Builder {
-        $contactTypes = $this->config->get('easyportal.contracts_type_ids');
+        $quotesTypes = $this->config->get('easyportal.quotes_type_ids');
         // if empty should not be used
-        return empty($contactTypes) ? $builder : $builder->whereIn('type_id', $contactTypes);
+        return empty($quotesTypes) ? $builder : $builder->whereIn('type_id', $quotesTypes);
     }
 }

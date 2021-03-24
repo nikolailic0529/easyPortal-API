@@ -249,6 +249,12 @@
                 },
                 "product": {
                     "$ref": "#/definitions/Product"
+                },
+                "warranties": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AssetWarranty"
+                    }
                 }
             }
         },
@@ -440,6 +446,70 @@
                 },
                 "type": {
                     "$ref": "#/definitions/Type"
+                }
+            }
+        },
+        "AssetWarranty": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "asset_id",
+                "reseller_id",
+                "customer_id",
+                "document_id",
+                "start",
+                "end",
+                "note",
+                "asset",
+                "customer",
+                "Document",
+                "Reseller"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "asset_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "reseller_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "customer_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "document_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "number": {
+                    "type": "string"
+                },
+                "start": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "end": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "note": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "asset": {
+                    "$ref": "#/definitions/Asset"
+                },
+                "customer": {
+                    "$ref": "#/definitions/Customer"
+                },
+                "document": {
+                    "$ref": "#/definitions/Document"
+                },
+                "reseller": {
+                    "$ref": "#/definitions/Reseller"
                 }
             }
         }

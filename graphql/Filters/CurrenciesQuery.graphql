@@ -1,0 +1,4 @@
+input CurrenciesQuery {
+  code: String!
+  name: String!
+}
