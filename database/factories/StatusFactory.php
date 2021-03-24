@@ -4,6 +4,10 @@ namespace Database\Factories;
 
 use App\Models\Status;
 
+/**
+ * @method \App\Models\Status create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method \App\Models\Status make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ */
 class StatusFactory extends TypeFactory {
     /**
      * The name of the factory's corresponding model.

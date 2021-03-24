@@ -7,6 +7,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
+/**
+ * @method \App\Models\User create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method \App\Models\User make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ */
 class UserFactory extends Factory {
     /**
      * The name of the factory's corresponding model.

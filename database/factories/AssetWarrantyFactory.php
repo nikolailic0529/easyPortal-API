@@ -10,6 +10,10 @@ use App\Models\Reseller;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
+/**
+ * @method \App\Models\AssetWarranty create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method \App\Models\AssetWarranty make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ */
 class AssetWarrantyFactory extends Factory {
     /**
      * The name of the factory's corresponding model.

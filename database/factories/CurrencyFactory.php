@@ -6,6 +6,10 @@ use App\Models\Currency;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
+/**
+ * @method \App\Models\Currency create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method \App\Models\Currency make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ */
 class CurrencyFactory extends Factory {
     /**
      * The name of the factory's corresponding model.

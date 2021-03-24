@@ -8,6 +8,10 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
+/**
+ * @method \App\Models\Product create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method \App\Models\Product make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ */
 class ProductFactory extends Factory {
     /**
      * The name of the factory's corresponding model.

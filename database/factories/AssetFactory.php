@@ -13,6 +13,10 @@ use App\Models\Type;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
+/**
+ * @method \App\Models\Asset create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method \App\Models\Asset make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ */
 class AssetFactory extends Factory {
     /**
      * The name of the factory's corresponding model.
