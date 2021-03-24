@@ -16,6 +16,12 @@
         },
         "family_name": {
             "type": "string"
+        },
+        "locale": {
+            "type": [
+                "string",
+                "null"
+            ]
         }
     }
 }

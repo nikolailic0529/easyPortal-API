@@ -24,6 +24,7 @@ class Me {
             'id'          => $user->getKey(),
             'given_name'  => $user->given_name,
             'family_name' => $user->family_name,
+            'locale'      => $user->locale,
         ] : null;
     }
 }

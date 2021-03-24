@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\GraphQL\Queries\Me;
+use App\Http\Middleware\SetLocale;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\Auth0\AuthService;
@@ -94,6 +95,10 @@ class AuthSignInByCodeTest extends TestCase {
             $rememberUser->never();
             $logout->never();
         }
+
+        // Disable middleware and it affected the test instead of user get called once,
+        // it get called twice due to SetLocale middleware
+        $this->withoutMiddleware(SetLocale::class);
 
         // Test
         $this

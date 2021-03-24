@@ -8,6 +8,7 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use LogicException;
@@ -27,6 +28,7 @@ use LogicException;
  * @property \Carbon\CarbonImmutable|null $phone_verified_at
  * @property string|null                  $photo
  * @property mixed                        $permissions
+ * @property string|null                  $locale
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
@@ -51,7 +53,11 @@ use LogicException;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class User extends Model implements AuthenticatableContract, AuthorizableContract, BelongsToTenantContract {
+class User extends Model implements
+    AuthenticatableContract,
+    AuthorizableContract,
+    BelongsToTenantContract,
+    HasLocalePreference {
     use HasFactory;
     use Authenticatable;
     use Authorizable;
@@ -113,5 +119,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function getAuthIdentifierName(): string {
         return 'sub';
+    }
+
+    public function preferredLocale(): ?string {
+        return $this->locale;
     }
 }

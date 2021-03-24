@@ -4,7 +4,7 @@
 type Query {
     # General
     "Current user, `null` for guests."
-    me: User
+    me: Me
 
     # Auth
     "Link to perform Sign In, available only for guests."
@@ -47,6 +47,9 @@ type Query {
     "List of all contact types"
     contactTypes: [Type!]!
 
+    "Get Locale"
+    locale: String!
+    
     "List of all asset types"
     assetTypes: [Type!]!
 
@@ -155,4 +158,9 @@ type Mutation {
     authResetPassword(
         username: String!               # TODO [GraphQL] Email type needed
     ): Boolean! @guest
+
+    "Set Locale"
+    locale(
+        locale: String! @rules(apply:["regex:/^[a-z]{2}(?:_[A-Z]{2})?$/"])
+    ): Boolean!
 }
