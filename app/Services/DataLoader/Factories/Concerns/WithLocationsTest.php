@@ -72,7 +72,7 @@ class WithLocationsTest extends TestCase {
             $location->zip          = $this->faker->postcode;
             $location->city         = $this->faker->city;
             $location->address      = $this->faker->streetAddress;
-            $location->locationType = $this->faker->word;
+            $location->locationType = (string) $this->faker->randomNumber();
         });
 
         $this->assertCount(1, $factory->objectLocations($owner, [$ca, $ca]));
