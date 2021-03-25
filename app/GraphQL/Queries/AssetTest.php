@@ -4,9 +4,11 @@ namespace App\GraphQL\Queries;
 
 use App\Models\Asset;
 use App\Models\Customer;
+use App\Models\Document;
 use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
+use App\Models\Reseller;
 use App\Models\Type;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -104,6 +106,16 @@ class AssetTest extends TestCase {
                             lat
                             lng
                         }
+                        warranties {
+                            id
+                            asset_id
+                            reseller_id
+                            customer_id
+                            document_id
+                            start
+                            end
+                            note
+                        }
                     }
                 }
             ', ['id' => $assetId])
@@ -186,6 +198,18 @@ class AssetTest extends TestCase {
                                 ],
                             ],
                         ],
+                        'warranties'    => [
+                            [
+                                'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                'asset_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                'reseller_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'customer_id' => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                'document_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                'start'       => '2021-01-01',
+                                'end'         => '2022-01-01',
+                                'note'        => 'note'
+                            ],
+                        ],
                     ]),
                     static function (): Asset {
                         // OEM Creation belongs to
@@ -248,6 +272,19 @@ class AssetTest extends TestCase {
                             ->for($customer)
                             ->for($type)
                             ->for($location)
+                            ->hasWarranties(1, [
+                                'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                'reseller_id' => Reseller::factory()->create([
+                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                ]),
+                                'customer_id' => $customer,
+                                'document_id' => Document::factory()->create([
+                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                ]),
+                                'start'       => '2021-01-01',
+                                'end'         => '2022-01-01',
+                                'note'        => 'note'
+                            ])
                             ->create([
                                 'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                 'serial_number' => '#PRODUCT_SERIAL_323',

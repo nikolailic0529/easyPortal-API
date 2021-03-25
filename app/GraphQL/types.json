@@ -220,7 +220,8 @@
                 "customer",
                 "location",
                 "oem",
-                "product"
+                "product",
+                "warranties"
             ],
             "properties": {
                 "oem_id": {
@@ -466,12 +467,7 @@
                 "customer_id",
                 "document_id",
                 "start",
-                "end",
-                "note",
-                "asset",
-                "customer",
-                "document",
-                "reseller"
+                "end"
             ],
             "properties": {
                 "id": {
