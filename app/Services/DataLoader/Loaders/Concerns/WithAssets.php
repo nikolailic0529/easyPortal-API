@@ -9,6 +9,7 @@ use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
+use App\Services\DataLoader\Factories\DocumentFactory;
 use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Schema\Company;
@@ -24,7 +25,9 @@ trait WithAssets {
     protected LocationFactory $locations;
     protected ContactFactory  $contacts;
     protected AssetFactory    $assets;
-    protected bool            $withAssets = false;
+    protected DocumentFactory $documents;
+    protected bool            $withAssets          = false;
+    protected bool            $withAssetsDocuments = false;
 
     public function isWithAssets(): bool {
         return $this->withAssets;
@@ -36,6 +39,16 @@ trait WithAssets {
         return $this;
     }
 
+    public function isWithAssetsDocuments(): bool {
+        return $this->isWithAssets() && $this->withAssetsDocuments;
+    }
+
+    public function setWithAssetsDocuments(bool $withAssetsDocuments): static {
+        $this->withAssetsDocuments = $withAssetsDocuments;
+
+        return $this;
+    }
+
     protected function loadAssets(Model $owner): bool {
         // Update assets
         $factory   = $this->getAssetsFactory();
@@ -43,7 +56,8 @@ trait WithAssets {
         $customers = [];
         $resellers = [];
         $prefetch  = function (array $assets): void {
-            $this->assets->prefetch($assets);
+            $this->assets->prefetch($assets, true);
+            $this->documents->prefetch($assets);
         };
 
         foreach ($this->getCurrentAssets($owner)->each($prefetch) as $asset) {
@@ -168,7 +182,10 @@ trait WithAssets {
             ->setLocationFactory($this->locations);
         $factory   = (clone $this->assets)
             ->setResellerFactory($resellers)
-            ->setCustomersFactory($customers);
+            ->setCustomersFactory($customers)
+            ->setDocumentFactory(
+                $this->isWithAssetsDocuments() ? $this->documents : null,
+            );
 
         return $factory;
     }

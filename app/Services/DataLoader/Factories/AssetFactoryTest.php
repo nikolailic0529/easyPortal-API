@@ -15,6 +15,7 @@ use App\Models\Reseller;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
+use App\Services\DataLoader\Exceptions\DocumentNotFoundException;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
@@ -96,11 +97,13 @@ class AssetFactoryTest extends TestCase {
             ->setLocationFactory($locations);
         $customers = $container->make(CustomerFactory::class)
             ->setLocationFactory($locations);
+        $documents = $container->make(DocumentFactory::class);
 
         /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
         $factory = $container->make(AssetFactory::class)
             ->setResellerFactory($resellers)
-            ->setCustomersFactory($customers);
+            ->setCustomersFactory($customers)
+            ->setDocumentFactory($documents);
 
         // Test
         $json    = $this->getTestData()->json('~asset-full.json');
@@ -320,20 +323,20 @@ class AssetFactoryTest extends TestCase {
         $container = $this->app->make(Container::class);
         $factory   = new class(
             $container->make(Normalizer::class),
-            $container->make(DocumentFactory::class),
             $container->make(AssetResolver::class),
             $container->make(ProductResolver::class),
             $container->make(OemResolver::class),
+            $container->make(DocumentFactory::class),
         ) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected DocumentFactory $documents,
                 protected AssetResolver $assets,
                 protected ProductResolver $products,
                 protected OemResolver $oems,
+                DocumentFactory $documentFactory,
             ) {
-                // empty
+                $this->setDocumentFactory($documentFactory);
             }
 
             /**
@@ -488,17 +491,42 @@ class AssetFactoryTest extends TestCase {
         $factory = new class($factory) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected DocumentFactory $documents,
+                DocumentFactory $documentFactory,
             ) {
-                // empty
+                $this->setDocumentFactory($documentFactory);
             }
 
-            public function assetDocument(AssetDocument $document): Document {
-                return parent::assetDocument($document);
+            public function assetDocument(AssetDocument $assetDocument): Document {
+                return parent::assetDocument($assetDocument);
             }
         };
 
         $this->assertSame($resolved, $factory->assetDocument($document));
+    }
+
+    /**
+     * @covers ::assetDocument
+     */
+    public function testAssetDocumentDocumentNotFound(): void {
+        $document = AssetDocument::create([
+            'document' => [
+                'id' => '2182cd66-321f-47ac-8992-e295c018b8a4',
+            ],
+        ]);
+        $factory  = new class() extends AssetFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            public function assetDocument(AssetDocument $assetDocument): Document {
+                return parent::assetDocument($assetDocument);
+            }
+        };
+
+        $this->expectException(DocumentNotFoundException::class);
+
+        $factory->assetDocument($document);
     }
 
     /**

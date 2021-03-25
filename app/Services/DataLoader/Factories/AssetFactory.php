@@ -14,6 +14,7 @@ use App\Models\Product;
 use App\Models\Reseller;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
+use App\Services\DataLoader\Exceptions\DocumentNotFoundException;
 use App\Services\DataLoader\Exceptions\LocationNotFoundException;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
@@ -46,6 +47,7 @@ class AssetFactory extends ModelFactory {
 
     protected ?CustomerFactory $customerFactory = null;
     protected ?ResellerFactory $resellerFactory = null;
+    protected ?DocumentFactory $documentFactory = null;
 
     public function __construct(
         LoggerInterface $logger,
@@ -57,7 +59,6 @@ class AssetFactory extends ModelFactory {
         protected CustomerResolver $customerResolver,
         protected ResellerResolver $resellerResolver,
         protected LocationFactory $locations,
-        protected DocumentFactory $documents,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -72,6 +73,12 @@ class AssetFactory extends ModelFactory {
 
     public function setResellerFactory(?ResellerFactory $factory): static {
         $this->resellerFactory = $factory;
+
+        return $this;
+    }
+
+    public function setDocumentFactory(?DocumentFactory $factory): static {
+        $this->documentFactory = $factory;
 
         return $this;
     }
@@ -117,7 +124,7 @@ class AssetFactory extends ModelFactory {
     protected function createFromAsset(Asset $asset): ?AssetModel {
         $model = $this->assetAsset($asset);
 
-        if (isset($asset->assetDocument) && !$this->isSearchMode()) {
+        if (!$this->isSearchMode() && $this->documentFactory && isset($asset->assetDocument)) {
             $documents = $this->assetDocuments($model, $asset);
 
             $this->assetInitialWarranties($model, $asset, $documents);
@@ -233,8 +240,19 @@ class AssetFactory extends ModelFactory {
         return new Collection($documents);
     }
 
-    protected function assetDocument(AssetDocument $document): Document {
-        return $this->documents->create($document);
+    protected function assetDocument(AssetDocument $assetDocument): Document {
+        $document = $this->documentFactory
+            ? $this->documentFactory->create($assetDocument)
+            : null;
+
+        if (!$document) {
+            throw new DocumentNotFoundException(sprintf(
+                'Document `%s` not found.',
+                $assetDocument->document->id,
+            ));
+        }
+
+        return $document;
     }
 
     protected function assetDocumentEntry(AssetDocument $document): DocumentEntry {

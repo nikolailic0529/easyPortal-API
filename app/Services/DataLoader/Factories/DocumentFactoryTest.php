@@ -419,6 +419,9 @@ class DocumentFactoryTest extends TestCase {
                 Asset::create([
                     'assetDocument' => [$c],
                 ]),
+                Asset::create([
+                    // should pass
+                ]),
             ],
             false,
             Closure::fromCallable($callback),
