@@ -10,6 +10,7 @@ use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
+use Closure;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
@@ -47,13 +48,14 @@ class ResellerFactory extends ModelFactory {
     // =========================================================================
     /**
      * @param array<\App\Services\DataLoader\Schema\Company> $resellers
+     * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
      */
-    public function prefetch(array $resellers, bool $reset = false): static {
+    public function prefetch(array $resellers, bool $reset = false, Closure|null $callback = null): static {
         $keys = array_map(static function (Company $reseller): string {
             return $reseller->id;
         }, $resellers);
 
-        $this->resellers->prefetch($keys, $reset);
+        $this->resellers->prefetch($keys, $reset, $callback);
 
         return $this;
     }

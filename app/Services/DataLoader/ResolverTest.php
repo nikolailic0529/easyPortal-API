@@ -8,6 +8,7 @@ use App\Services\DataLoader\Cache\ModelKey;
 use App\Services\DataLoader\Exceptions\FactoryObjectNotFoundException;
 use Closure;
 use Exception;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use LogicException;
 use Mockery;
@@ -116,7 +117,7 @@ class ResolverTest extends TestCase {
                 $this->{$this->getKeyName()} = $uuid;
             }
         };
-        $items   = new Collection([$model]);
+        $items   = new EloquentCollection([$model]);
         $builder = Mockery::mock($model->query());
         $builder->makePartial();
         $builder
@@ -140,7 +141,13 @@ class ResolverTest extends TestCase {
             ->twice()
             ->andReturn($cache);
 
-        $resolver->prefetch($keys, true);
+        $callback = Mockery::spy(function (EloquentCollection $collection) use ($items): void {
+            $this->assertEquals($items, $collection);
+        });
+
+        $resolver->prefetch($keys, true, Closure::fromCallable($callback));
+
+        $callback->shouldHaveBeenCalled()->once();
 
         $this->assertTrue($cache->hasByRetriever('key', $keys['a']));
         $this->assertFalse($cache->hasNull($keys['a']));
@@ -183,7 +190,7 @@ class ResolverTest_Resolver extends Resolver {
     /**
      * @inheritdoc
      */
-    public function prefetch(array $keys, bool $reset = false): static {
-        return parent::prefetch($keys, $reset);
+    public function prefetch(array $keys, bool $reset = false, Closure|null $callback = null): static {
+        return parent::prefetch($keys, $reset, $callback);
     }
 }

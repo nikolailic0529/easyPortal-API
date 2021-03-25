@@ -20,6 +20,8 @@ use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
+use Closure;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -405,14 +407,24 @@ class DocumentFactoryTest extends TestCase {
             }
         };
 
-        $factory->prefetch([
-            Asset::create([
-                'assetDocument' => [$a, $b],
-            ]),
-            Asset::create([
-                'assetDocument' => [$c],
-            ]),
-        ]);
+        $callback = Mockery::spy(function (EloquentCollection $collection): void {
+            $this->assertCount(0, $collection);
+        });
+
+        $factory->prefetch(
+            [
+                Asset::create([
+                    'assetDocument' => [$a, $b],
+                ]),
+                Asset::create([
+                    'assetDocument' => [$c],
+                ]),
+            ],
+            false,
+            Closure::fromCallable($callback),
+        );
+
+        $callback->shouldHaveBeenCalled()->once();
 
         $this->flushQueryLog();
 

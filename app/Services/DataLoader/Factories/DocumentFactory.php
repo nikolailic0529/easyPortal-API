@@ -26,6 +26,7 @@ use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Type;
+use Closure;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
@@ -79,8 +80,9 @@ class DocumentFactory extends ModelFactory {
     // =========================================================================
     /**
      * @param array<\App\Services\DataLoader\Schema\Asset> $assets
+     * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
      */
-    public function prefetch(array $assets, bool $reset = false): static {
+    public function prefetch(array $assets, bool $reset = false, Closure|null $callback = null): static {
         $keys = (new Collection($assets))
             ->map(static function (Asset $asset): array {
                 return array_map(static function (AssetDocument $document): string {
@@ -92,7 +94,7 @@ class DocumentFactory extends ModelFactory {
             ->unique()
             ->all();
 
-        $this->documents->prefetch($keys, $reset);
+        $this->documents->prefetch($keys, $reset, $callback);
 
         return $this;
     }

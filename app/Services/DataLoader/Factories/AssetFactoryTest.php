@@ -26,6 +26,8 @@ use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
+use Closure;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
@@ -1311,7 +1313,13 @@ class AssetFactoryTest extends TestCase {
             }
         };
 
-        $factory->prefetch([$a, $b]);
+        $callback = Mockery::spy(function (EloquentCollection $collection): void {
+            $this->assertCount(0, $collection);
+        });
+
+        $factory->prefetch([$a, $b], false, Closure::fromCallable($callback));
+
+        $callback->shouldHaveBeenCalled()->once();
 
         $this->flushQueryLog();
 
