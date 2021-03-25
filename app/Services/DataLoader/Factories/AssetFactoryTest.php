@@ -2,28 +2,41 @@
 
 namespace App\Services\DataLoader\Factories;
 
+use App\Models\Asset as AssetModel;
+use App\Models\AssetWarranty;
 use App\Models\Customer;
+use App\Models\Document;
+use App\Models\DocumentEntry;
+use App\Models\Enums\ProductType;
 use App\Models\Location;
 use App\Models\Oem;
-use App\Models\Organization;
 use App\Models\Product;
+use App\Models\Reseller;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
+use App\Services\DataLoader\Exceptions\DocumentNotFoundException;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
-use App\Services\DataLoader\Resolvers\OrganizationResolver;
+use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
+use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Asset;
+use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
+use Closure;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
+
+use function is_null;
 
 /**
  * @internal
@@ -80,13 +93,17 @@ class AssetFactoryTest extends TestCase {
         // Prepare
         $container = $this->app->make(Container::class);
         $locations = $container->make(LocationFactory::class);
-        $resellers = $container->make(OrganizationFactory::class)
+        $resellers = $container->make(ResellerFactory::class)
             ->setLocationFactory($locations);
         $customers = $container->make(CustomerFactory::class)
             ->setLocationFactory($locations);
-        $factory   = $container->make(AssetFactory::class)
-            ->setOrganizationFactory($resellers)
-            ->setCustomersFactory($customers);
+        $documents = $container->make(DocumentFactory::class);
+
+        /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
+        $factory = $container->make(AssetFactory::class)
+            ->setResellerFactory($resellers)
+            ->setCustomersFactory($customers)
+            ->setDocumentFactory($documents);
 
         // Test
         $json    = $this->getTestData()->json('~asset-full.json');
@@ -96,9 +113,10 @@ class AssetFactoryTest extends TestCase {
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
         $this->assertEquals($asset->id, $created->getKey());
-        $this->assertEquals($asset->resellerId, $created->organization_id);
+        $this->assertEquals($asset->resellerId, $created->reseller_id);
         $this->assertEquals($asset->serialNumber, $created->serial_number);
         $this->assertEquals($asset->vendor, $created->oem->abbr);
+        $this->assertEquals(ProductType::asset(), $created->product->type);
         $this->assertEquals($asset->productDescription, $created->product->name);
         $this->assertEquals($asset->sku, $created->product->sku);
         $this->assertNull($created->product->eos);
@@ -111,17 +129,46 @@ class AssetFactoryTest extends TestCase {
             $this->getLocation($created->location, false),
         );
 
+        // Documents
+        $this->assertEquals(1, Document::query()->count());
+
+        // Warranties
+        $this->assertEquals(2, $created->warranties()->count());
+
+        /** @var \App\Models\AssetWarranty $initial */
+        $initial = $created->warranties->first(static function (AssetWarranty $warranty): bool {
+            return is_null($warranty->document_id);
+        });
+
+        $this->assertEquals($initial->asset_id, $created->getKey());
+        $this->assertNull($initial->document_id);
+        $this->assertEquals($created->customer_id, $initial->customer_id);
+        $this->assertNull($initial->start);
+        $this->assertEquals($asset->assetDocument[0]->warrantyEndDate, $this->getDatetime($initial->end));
+
+        /** @var \App\Models\AssetWarranty $extended */
+        $extended = $created->warranties->first(static function (AssetWarranty $warranty): bool {
+            return (bool) $warranty->document_id;
+        });
+
+        $this->assertEquals($extended->asset_id, $created->getKey());
+        $this->assertNotNull($extended->document_id);
+        $this->assertEquals($created->customer_id, $extended->customer_id);
+        $this->assertNotNull($extended->start);
+        $this->assertNotNull($extended->end);
+
         // Customer should be updated
         $json    = $this->getTestData()->json('~asset-changed.json');
         $asset   = Asset::create($json);
         $updated = $factory->create($asset);
 
         $this->assertNotNull($updated);
-        $this->assertTrue($updated->wasRecentlyCreated);
+        $this->assertSame($created, $updated);
         $this->assertEquals($asset->id, $updated->getKey());
         $this->assertNull($updated->ogranization_id);
         $this->assertEquals($asset->serialNumber, $updated->serial_number);
         $this->assertEquals($asset->vendor, $updated->oem->abbr);
+        $this->assertEquals(ProductType::asset(), $updated->product->type);
         $this->assertEquals($asset->productDescription, $updated->product->name);
         $this->assertEquals($asset->sku, $updated->product->sku);
         $this->assertEquals($asset->eosDate, $this->getDatetime($updated->product->eos));
@@ -152,6 +199,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->id, $created->getKey());
         $this->assertEquals($asset->serialNumber, $created->serial_number);
         $this->assertEquals($asset->vendor, $created->oem->abbr);
+        $this->assertEquals(ProductType::asset(), $created->product->type);
         $this->assertEquals($asset->productDescription, $created->product->name);
         $this->assertEquals($asset->sku, $created->product->sku);
         $this->assertNull($created->product->eos);
@@ -169,10 +217,10 @@ class AssetFactoryTest extends TestCase {
         // Prepare
         $container = $this->app->make(Container::class);
         $locations = $container->make(LocationFactory::class);
-        $resellers = $container->make(OrganizationFactory::class)
+        $resellers = $container->make(ResellerFactory::class)
             ->setLocationFactory($locations);
         $factory   = $container->make(AssetFactory::class)
-            ->setOrganizationFactory($resellers);
+            ->setResellerFactory($resellers);
 
         // Test
         $json  = $this->getTestData()->json('~asset-full.json');
@@ -234,12 +282,12 @@ class AssetFactoryTest extends TestCase {
         // Prepare
         $container = $this->app->make(Container::class);
         $locations = $container->make(LocationFactory::class);
-        $resellers = $container->make(OrganizationFactory::class)
+        $resellers = $container->make(ResellerFactory::class)
             ->setLocationFactory($locations);
         $customers = $container->make(CustomerFactory::class)
             ->setLocationFactory($locations);
         $factory   = $container->make(AssetFactory::class)
-            ->setOrganizationFactory($resellers)
+            ->setResellerFactory($resellers)
             ->setCustomersFactory($customers);
 
         // Test
@@ -250,9 +298,10 @@ class AssetFactoryTest extends TestCase {
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
         $this->assertEquals($asset->id, $created->getKey());
-        $this->assertEquals($asset->resellerId, $created->organization_id);
+        $this->assertEquals($asset->resellerId, $created->reseller_id);
         $this->assertEquals($asset->serialNumber, $created->serial_number);
         $this->assertEquals($asset->vendor, $created->oem->abbr);
+        $this->assertEquals(ProductType::asset(), $created->product->type);
         $this->assertEquals($asset->productDescription, $created->product->name);
         $this->assertEquals($asset->sku, $created->product->sku);
         $this->assertNull($created->product->eos);
@@ -264,6 +313,454 @@ class AssetFactoryTest extends TestCase {
             $this->getAssetLocation($asset),
             $this->getLocation($created->location, false),
         );
+    }
+
+    /**
+     * @covers ::assetDocuments
+     */
+    public function testAssetDocuments(): void {
+        // Factory
+        $container = $this->app->make(Container::class);
+        $factory   = new class(
+            $container->make(Normalizer::class),
+            $container->make(AssetResolver::class),
+            $container->make(ProductResolver::class),
+            $container->make(OemResolver::class),
+            $container->make(DocumentFactory::class),
+        ) extends AssetFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected AssetResolver $assets,
+                protected ProductResolver $products,
+                protected OemResolver $oems,
+                DocumentFactory $documentFactory,
+            ) {
+                $this->setDocumentFactory($documentFactory);
+            }
+
+            /**
+             * @inheritdoc
+             */
+            public function assetDocuments(AssetModel $model, Asset $asset): Collection {
+                return parent::assetDocuments($model, $asset);
+            }
+        };
+
+        // Prepare
+        $json     = $this->getTestData()->json('~asset-documents-full.json');
+        $asset    = Asset::create($json);
+        $reseller = Reseller::factory()->create([
+            'id' => $asset->resellerId,
+        ]);
+        $customer = Customer::factory()->create([
+            'id' => $asset->customerId,
+        ]);
+        $model    = AssetModel::factory()->create([
+            'id'          => $asset->id,
+            'reseller_id' => $reseller,
+            'customer_id' => $customer,
+        ]);
+
+        $documents  = $factory->assetDocuments($model, $asset);
+        $collection = (new Collection($documents))->keyBy(static function (Document $document): string {
+            return $document->getKey();
+        });
+
+        $this->assertCount(3, $documents);
+        $this->assertCount(3, $collection);
+
+        // Test
+        // ---------------------------------------------------------------------
+        /** @var \App\Models\Document $a */
+        $a = $collection->get('688b9621-3244-464b-9468-3cd74f5eaacf');
+
+        $this->assertNotNull($a);
+        $this->assertEquals($customer, $a->customer);
+        $this->assertEquals($reseller, $a->reseller);
+        $this->assertEquals('0056523287', $a->number);
+        $this->assertEquals('1292.16', $a->price);
+        $this->assertEquals('1583020800000', $this->getDatetime($a->start));
+        $this->assertEquals('1614470400000', $this->getDatetime($a->end));
+        $this->assertEquals('HPE', $a->oem->abbr);
+        $this->assertEquals('MultiNational Quote', $a->type->key);
+        $this->assertEquals('EUR', $a->currency->code);
+        $this->assertEquals('H7J34AC', $a->product->sku);
+        $this->assertEquals('HPE Foundation Care 24x7 SVC', $a->product->name);
+        $this->assertEquals(ProductType::support(), $a->product->type);
+        $this->assertEquals('HPE', $a->product->oem->abbr);
+        $this->assertEquals('HPE', $a->oem->abbr);
+
+        $this->assertCount(1, $a->entries);
+
+        /** @var \App\Models\DocumentEntry $e */
+        $e = $a->entries->first();
+
+        $this->assertEquals('HPE', $e->oem->abbr);
+        $this->assertEquals(2, $e->quantity);
+        $this->assertEquals($a->getKey(), $e->document_id);
+        $this->assertEquals($asset->id, $e->asset_id);
+        $this->assertEquals('HA151AC', $e->product->sku);
+        $this->assertEquals('HPE Hardware Maintenance Onsite Support', $e->product->name);
+        $this->assertEquals(ProductType::service(), $e->product->type);
+        $this->assertEquals('HPE', $e->product->oem->abbr);
+
+        /** @var \App\Models\Document $b */
+        $b = $collection->get('dbd3f08b-6bd1-4e28-8122-3004257879c0');
+
+        $this->assertNotNull($b);
+        $this->assertEquals($customer, $b->customer);
+        $this->assertEquals($reseller, $b->reseller);
+        $this->assertEquals('0056490551', $b->number);
+        $this->assertEquals('6376.15', $b->price);
+
+        $this->assertCount(2, $b->entries);
+
+        /** @var \App\Models\DocumentEntry $f */
+        $f = $b->entries->first();
+        /** @var \App\Models\DocumentEntry $l */
+        $l = $b->entries->last();
+
+        $this->assertEquals(1, $f->quantity);
+        $this->assertEquals(1, $l->quantity);
+        $this->assertNotEquals($f->product_id, $l->product_id);
+
+        /** @var \App\Models\Document $c */
+        $c = $collection->get('7e6b6976-cb1b-4b2a-9cf1-de9e768e8802');
+
+        $this->assertNotNull($c);
+        $this->assertCount(2, $c->entries);
+
+        // Changed
+        // ---------------------------------------------------------------------
+        $json       = $this->getTestData()->json('~asset-documents-changed.json');
+        $asset      = Asset::create($json);
+        $documents  = $factory->assetDocuments($model, $asset);
+        $collection = (new Collection($documents))->keyBy(static function (Document $document): string {
+            return $document->getKey();
+        });
+
+        $this->assertCount(2, $documents);
+        $this->assertCount(2, $collection);
+
+        /** @var \App\Models\Document $a */
+        $a = $collection->get('688b9621-3244-464b-9468-3cd74f5eaacf');
+
+        $this->assertNotNull($a);
+        $this->assertEquals('3292.16', $a->price);
+
+        $this->assertCount(1, $a->entries);
+        $this->assertCount(1, $a->refresh()->entries);
+
+        /** @var \App\Models\DocumentEntry $e */
+        $e = $a->entries->first();
+
+        $this->assertNotNull($e);
+        $this->assertEquals(2, $e->quantity);
+        $this->assertEquals(2, $e->refresh()->quantity);
+
+        /** @var \App\Models\Document $b */
+        $b = $collection->get('dbd3f08b-6bd1-4e28-8122-3004257879c0');
+
+        $this->assertNotNull($b);
+        $this->assertCount(1, $b->entries);
+        $this->assertCount(1, $b->refresh()->entries);
+
+        /** @var \App\Models\DocumentEntry $e */
+        $e = $a->entries->first();
+
+        $this->assertNotNull($e);
+        $this->assertEquals(2, $e->quantity);
+        $this->assertEquals(2, $e->refresh()->quantity);
+    }
+
+    /**
+     * @covers ::assetDocument
+     */
+    public function testAssetDocument(): void {
+        $document = new AssetDocument();
+        $resolved = new Document();
+        $factory  = Mockery::mock(DocumentFactory::class);
+
+        $factory
+            ->shouldReceive('create')
+            ->with($document)
+            ->once()
+            ->andReturn($resolved);
+
+        $factory = new class($factory) extends AssetFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                DocumentFactory $documentFactory,
+            ) {
+                $this->setDocumentFactory($documentFactory);
+            }
+
+            public function assetDocument(AssetDocument $assetDocument): Document {
+                return parent::assetDocument($assetDocument);
+            }
+        };
+
+        $this->assertSame($resolved, $factory->assetDocument($document));
+    }
+
+    /**
+     * @covers ::assetDocument
+     */
+    public function testAssetDocumentDocumentNotFound(): void {
+        $document = AssetDocument::create([
+            'document' => [
+                'id' => '2182cd66-321f-47ac-8992-e295c018b8a4',
+            ],
+        ]);
+        $factory  = new class() extends AssetFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            public function assetDocument(AssetDocument $assetDocument): Document {
+                return parent::assetDocument($assetDocument);
+            }
+        };
+
+        $this->expectException(DocumentNotFoundException::class);
+
+        $factory->assetDocument($document);
+    }
+
+    /**
+     * @covers ::assetDocumentEntry
+     */
+    public function testAssetDocumentEntry(): void {
+        $document = AssetDocument::create([
+            'skuNumber'      => $this->faker->word,
+            'skuDescription' => $this->faker->sentence,
+            'document'       => [
+                'vendorSpecificFields' => [
+                    'vendor' => $this->faker->word,
+                ],
+            ],
+        ]);
+        $factory  = new class(
+            $this->app->make(Normalizer::class),
+            $this->app->make(ProductResolver::class),
+            $this->app->make(OemResolver::class),
+        ) extends AssetFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected ProductResolver $products,
+                protected OemResolver $oems,
+            ) {
+                // empty
+            }
+
+            public function assetDocumentEntry(AssetDocument $document): DocumentEntry {
+                return parent::assetDocumentEntry($document);
+            }
+        };
+
+        $entry = $factory->assetDocumentEntry($document);
+
+        $this->assertInstanceOf(DocumentEntry::class, $entry);
+        $this->assertNull($entry->document_id);
+        $this->assertNull($entry->asset_id);
+        $this->assertNotNull($entry->oem_id);
+        $this->assertEquals(
+            $document->document->vendorSpecificFields->vendor,
+            $entry->oem->abbr,
+        );
+        $this->assertNotNull($entry->product_id);
+        $this->assertSame($entry->oem, $entry->product->oem);
+        $this->assertEquals(ProductType::service(), $entry->product->type);
+        $this->assertEquals($document->skuNumber, $entry->product->sku);
+        $this->assertEquals($document->skuDescription, $entry->product->name);
+        $this->assertNull($entry->product->eos);
+        $this->assertNull($entry->product->eol);
+    }
+
+    /**
+     * @covers ::assetInitialWarranties
+     */
+    public function testAssetInitialWarranties(): void {
+        $factory = new class(
+            $this->app->make(Normalizer::class),
+        ) extends AssetFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Normalizer $normalizer,
+            ) {
+                // empty
+            }
+
+            public function assetInitialWarranties(AssetModel $model, Asset $asset, Collection $documents): Collection {
+                return parent::assetInitialWarranties($model, $asset, $documents);
+            }
+        };
+
+        $date     = Date::now();
+        $customer = Customer::factory()->create();
+        $model    = AssetModel::factory()->create([
+            'customer_id' => $customer,
+        ]);
+        $docA     = Document::factory()->create();
+        $docB     = Document::factory()->create();
+        $docC     = Document::factory()->create();
+        $warranty = AssetWarranty::factory()->create([
+            'end'         => $date->subYear(),
+            'asset_id'    => $model,
+            'document_id' => $docB,
+        ]);
+        $existing = AssetWarranty::factory()->create([
+            'end'         => $date->subYear(),
+            'asset_id'    => $model,
+            'customer_id' => $docC->customer_id,
+            'document_id' => null,
+        ]);
+        $asset    = Asset::create([
+            'id'            => $model->getKey(),
+            'assetDocument' => [
+                [
+                    'document'        => [
+                        'id' => $docA->getKey(),
+                    ],
+                    'warrantyEndDate' => null,
+                ],
+                [
+                    'document'        => [
+                        'id' => $docB->getKey(),
+                    ],
+                    'warrantyEndDate' => $this->getDatetime($date),
+                ],
+                [
+                    'document'        => [
+                        'id' => $docC->getKey(),
+                    ],
+                    'warrantyEndDate' => $this->getDatetime($date),
+                ],
+                [
+                    'document'        => [
+                        'id' => '9e602148-7767-448e-b593-ba6bcff00cac',
+                    ],
+                    'warrantyEndDate' => $this->getDatetime($date),
+                ],
+            ],
+        ]);
+
+        // Test
+        $warranties = $factory->assetInitialWarranties($model, $asset, new Collection([$docA, $docB, $docC]));
+
+        $this->assertCount(2, $warranties);
+
+        // Should not be updated (because document is defined)
+        $this->assertEquals($date->subYear()->startOfDay(), $warranty->refresh()->end);
+
+        // Should be created for DocB Customer
+        /** @var \App\Models\AssetWarranty $b */
+        $b = $warranties->first(static function (AssetWarranty $warranty) use ($docB): bool {
+            return $warranty->customer_id === $docB->customer_id;
+        });
+
+        $this->assertNotNull($b);
+        $this->assertTrue($b->wasRecentlyCreated);
+        $this->assertNull($b->document_id);
+        $this->assertNull($b->start);
+        $this->assertEquals($date->startOfDay(), $b->end);
+        $this->assertEquals($model->getKey(), $b->asset_id);
+
+        // Should be updated for DocC Customer
+        /** @var \App\Models\AssetWarranty $c */
+        $c = $warranties->first(static function (AssetWarranty $warranty) use ($docC): bool {
+            return $warranty->customer_id === $docC->customer_id;
+        });
+
+        $this->assertNotNull($c);
+        $this->assertEquals($existing->getKey(), $c->getKey());
+        $this->assertFalse($c->wasRecentlyCreated);
+        $this->assertNull($c->document_id);
+        $this->assertNull($c->start);
+        $this->assertEquals($date->startOfDay(), $c->end);
+        $this->assertEquals($model->getKey(), $c->asset_id);
+    }
+
+    /**
+     * @covers ::assetExtendedWarranties
+     */
+    public function testAssetExtendedWarranties(): void {
+        $factory = new class() extends AssetFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            public function assetExtendedWarranties(AssetModel $asset, Collection $documents): Collection {
+                return parent::assetExtendedWarranties($asset, $documents);
+            }
+        };
+
+        $date     = Date::now();
+        $customer = Customer::factory()->create();
+        $asset    = AssetModel::factory()->create([
+            'customer_id' => $customer,
+        ]);
+        $docA     = Document::factory()->create([
+            'customer_id' => $customer,
+        ]);
+        $docB     = Document::factory()->create([
+            'customer_id' => $customer,
+        ]);
+        $docC     = Document::factory()->create();
+        $warranty = AssetWarranty::factory()->create([
+            'start'       => $date->subYear(),
+            'end'         => $date,
+            'asset_id'    => $asset,
+            'document_id' => $docA,
+        ]);
+
+        Document::factory()->create();
+
+        // Pre-test
+        $this->assertEquals(1, $asset->warranties()->count());
+        $this->assertNotEquals($docA->customer_id, $warranty->customer_id);
+
+        // Test
+        $warranties = $factory->assetExtendedWarranties($asset, new Collection([$docA, $docB, $docC]));
+
+        $this->assertCount(3, $warranties);
+
+        // Existing warranty should be updated
+        /** @var \App\Models\AssetWarranty $a */
+        $a = $warranties->first(static function (AssetWarranty $warranty) use ($docA): bool {
+            return $warranty->document_id === $docA->getKey();
+        });
+
+        $this->assertNotNull($a);
+        $this->assertEquals($docA->start, $a->start);
+        $this->assertEquals($docA->end, $a->end);
+        $this->assertEquals($docA->customer_id, $a->customer_id);
+        $this->assertEquals($docA->getKey(), $a->document_id);
+        $this->assertEquals($asset->getKey(), $a->asset_id);
+
+        // Not existing - created
+        $b = $warranties->first(static function (AssetWarranty $warranty) use ($docB): bool {
+            return $warranty->document_id === $docB->getKey();
+        });
+
+        $this->assertNotNull($b);
+        $this->assertEquals($docB->start, $b->start);
+        $this->assertEquals($docB->end, $b->end);
+        $this->assertEquals($docB->customer_id, $b->customer_id);
+        $this->assertEquals($docB->getKey(), $b->document_id);
+        $this->assertEquals($asset->getKey(), $b->asset_id);
+
+        // If existing warranty related to another customer it should be updated
+        $c = $warranties->first(static function (AssetWarranty $warranty) use ($docC): bool {
+            return $warranty->document_id === $docC->getKey();
+        });
+
+        $this->assertNotNull($b);
+        $this->assertEquals($docC->customer_id, $c->customer_id);
     }
 
     /**
@@ -307,13 +804,13 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetProduct(): void {
         $oem   = Oem::factory()->make();
+        $type  = ProductType::asset();
         $asset = Asset::create([
             'vendor'             => $this->faker->word,
             'sku'                => $this->faker->word,
             'eolDate'            => "{$this->faker->unixTime}000",
             'eosDate'            => '',
             'productDescription' => $this->faker->sentence,
-
         ]);
 
         $factory = Mockery::mock(AssetFactoryTest_Factory::class);
@@ -326,7 +823,7 @@ class AssetFactoryTest extends TestCase {
             ->andReturn($oem);
         $factory
             ->shouldReceive('product')
-            ->with($oem, $asset->sku, $asset->productDescription, $asset->eolDate, $asset->eosDate)
+            ->with($oem, $type, $asset->sku, $asset->productDescription, $asset->eolDate, $asset->eosDate)
             ->once()
             ->andReturns();
 
@@ -337,8 +834,8 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetReseller
      */
     public function testAssetResellerExistsThroughProvider(): void {
-        $reseller = Organization::factory()->make();
-        $resolver = Mockery::mock(OrganizationResolver::class);
+        $reseller = Reseller::factory()->make();
+        $resolver = Mockery::mock(ResellerResolver::class);
 
         $resolver
             ->shouldReceive('get')
@@ -348,11 +845,11 @@ class AssetFactoryTest extends TestCase {
 
         $factory = new class($resolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(OrganizationResolver $resolver) {
-                $this->organizationResolver = $resolver;
+            public function __construct(ResellerResolver $resolver) {
+                $this->resellerResolver = $resolver;
             }
 
-            public function assetReseller(Asset $asset): ?Organization {
+            public function assetReseller(Asset $asset): ?Reseller {
                 return parent::assetReseller($asset);
             }
         };
@@ -374,7 +871,7 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetReseller
      */
     public function testAssetResellerAssetWithoutReseller(): void {
-        $reseller = Mockery::mock(OrganizationResolver::class);
+        $reseller = Mockery::mock(ResellerResolver::class);
 
         $reseller
             ->shouldReceive('get')
@@ -382,11 +879,11 @@ class AssetFactoryTest extends TestCase {
 
         $factory = new class($reseller) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(OrganizationResolver $resolver) {
-                $this->organizationResolver = $resolver;
+            public function __construct(ResellerResolver $resolver) {
+                $this->resellerResolver = $resolver;
             }
 
-            public function assetReseller(Asset $asset): ?Organization {
+            public function assetReseller(Asset $asset): ?Reseller {
                 return parent::assetReseller($asset);
             }
         };
@@ -400,14 +897,14 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetReseller
      */
     public function testAssetResellerResellerNotFound(): void {
-        $reseller = Organization::factory()->make();
+        $reseller = Reseller::factory()->make();
         $asset    = Asset::create([
             'id'       => $this->faker->uuid,
             'reseller' => [
                 'id' => $reseller->getKey(),
             ],
         ]);
-        $resolver = Mockery::mock(OrganizationResolver::class);
+        $resolver = Mockery::mock(ResellerResolver::class);
         $resolver
             ->shouldReceive('get')
             ->with($reseller->getKey())
@@ -416,11 +913,11 @@ class AssetFactoryTest extends TestCase {
 
         $factory = new class($resolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(OrganizationResolver $resolver) {
-                $this->organizationResolver = $resolver;
+            public function __construct(ResellerResolver $resolver) {
+                $this->resellerResolver = $resolver;
             }
 
-            public function assetReseller(Asset $asset): ?Organization {
+            public function assetReseller(Asset $asset): ?Reseller {
                 return parent::assetReseller($asset);
             }
         };
@@ -434,22 +931,22 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetReseller
      */
     public function testAssetResellerExistsThroughFactory(): void {
-        $reseller = Organization::factory()->make();
+        $reseller = Reseller::factory()->make();
         $asset    = Asset::create([
             'id'       => $this->faker->uuid,
             'reseller' => [
                 'id' => $reseller->getKey(),
             ],
         ]);
-        $resolver = Mockery::mock(OrganizationResolver::class);
+        $resolver = Mockery::mock(ResellerResolver::class);
         $resolver
             ->shouldReceive('get')
             ->with($reseller->getKey())
             ->once()
             ->andReturn(null);
 
-        $organizations = Mockery::mock(OrganizationFactory::class);
-        $organizations
+        $resellers = Mockery::mock(ResellerFactory::class);
+        $resellers
             ->shouldReceive('create')
             ->with($asset->reseller)
             ->once()
@@ -457,16 +954,16 @@ class AssetFactoryTest extends TestCase {
 
         $factory = new class($resolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(OrganizationResolver $resolver) {
-                $this->organizationResolver = $resolver;
+            public function __construct(ResellerResolver $resolver) {
+                $this->resellerResolver = $resolver;
             }
 
-            public function assetReseller(Asset $asset): ?Organization {
+            public function assetReseller(Asset $asset): ?Reseller {
                 return parent::assetReseller($asset);
             }
         };
 
-        $factory->setOrganizationFactory($organizations);
+        $factory->setResellerFactory($resellers);
 
         $this->assertEquals($reseller, $factory->assetReseller($asset));
     }
@@ -475,22 +972,22 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetReseller
      */
     public function testAssetResellerNotFoundThroughFactory(): void {
-        $reseller = Organization::factory()->make();
+        $reseller = Reseller::factory()->make();
         $asset    = Asset::create([
             'id'       => $this->faker->uuid,
             'reseller' => [
                 'id' => $reseller->getKey(),
             ],
         ]);
-        $resolver = Mockery::mock(OrganizationResolver::class);
+        $resolver = Mockery::mock(ResellerResolver::class);
         $resolver
             ->shouldReceive('get')
             ->with($reseller->getKey())
             ->once()
             ->andReturn(null);
 
-        $organizations = Mockery::mock(OrganizationFactory::class);
-        $organizations
+        $resellers = Mockery::mock(ResellerFactory::class);
+        $resellers
             ->shouldReceive('create')
             ->with($asset->reseller)
             ->once()
@@ -498,16 +995,16 @@ class AssetFactoryTest extends TestCase {
 
         $factory = new class($resolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(OrganizationResolver $resolver) {
-                $this->organizationResolver = $resolver;
+            public function __construct(ResellerResolver $resolver) {
+                $this->resellerResolver = $resolver;
             }
 
-            public function assetReseller(Asset $asset): ?Organization {
+            public function assetReseller(Asset $asset): ?Reseller {
                 return parent::assetReseller($asset);
             }
         };
 
-        $factory->setOrganizationFactory($organizations);
+        $factory->setResellerFactory($resellers);
 
         $this->expectException(ResellerNotFoundException::class);
 
@@ -519,18 +1016,18 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetCustomerExistsThroughProvider(): void {
         $customer = Customer::factory()->make();
-        $provider = Mockery::mock(CustomerResolver::class);
+        $resolver = Mockery::mock(CustomerResolver::class);
 
-        $provider
+        $resolver
             ->shouldReceive('get')
             ->with($customer->getKey())
             ->twice()
             ->andReturn($customer);
 
-        $factory = new class($provider) extends AssetFactory {
+        $factory = new class($resolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerResolver $provider) {
-                $this->customerResolver = $provider;
+            public function __construct(CustomerResolver $resolver) {
+                $this->customerResolver = $resolver;
             }
 
             public function assetCustomer(Asset $asset): ?Customer {
@@ -555,16 +1052,16 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetCustomer
      */
     public function testAssetCustomerAssetWithoutCustomer(): void {
-        $provider = Mockery::mock(CustomerResolver::class);
+        $resolver = Mockery::mock(CustomerResolver::class);
 
-        $provider
+        $resolver
             ->shouldReceive('get')
             ->never();
 
-        $factory = new class($provider) extends AssetFactory {
+        $factory = new class($resolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerResolver $provider) {
-                $this->customerResolver = $provider;
+            public function __construct(CustomerResolver $resolver) {
+                $this->customerResolver = $resolver;
             }
 
             public function assetCustomer(Asset $asset): ?Customer {
@@ -588,17 +1085,17 @@ class AssetFactoryTest extends TestCase {
                 'id' => $customer->getKey(),
             ],
         ]);
-        $provider = Mockery::mock(CustomerResolver::class);
-        $provider
+        $resolver = Mockery::mock(CustomerResolver::class);
+        $resolver
             ->shouldReceive('get')
             ->with($customer->getKey())
             ->once()
             ->andReturn(null);
 
-        $factory = new class($provider) extends AssetFactory {
+        $factory = new class($resolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerResolver $provider) {
-                $this->customerResolver = $provider;
+            public function __construct(CustomerResolver $resolver) {
+                $this->customerResolver = $resolver;
             }
 
             public function assetCustomer(Asset $asset): ?Customer {
@@ -622,8 +1119,8 @@ class AssetFactoryTest extends TestCase {
                 'id' => $customer->getKey(),
             ],
         ]);
-        $provider = Mockery::mock(CustomerResolver::class);
-        $provider
+        $resolver = Mockery::mock(CustomerResolver::class);
+        $resolver
             ->shouldReceive('get')
             ->with($customer->getKey())
             ->once()
@@ -636,10 +1133,10 @@ class AssetFactoryTest extends TestCase {
             ->once()
             ->andReturn($customer);
 
-        $factory = new class($provider) extends AssetFactory {
+        $factory = new class($resolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerResolver $provider) {
-                $this->customerResolver = $provider;
+            public function __construct(CustomerResolver $resolver) {
+                $this->customerResolver = $resolver;
             }
 
             public function assetCustomer(Asset $asset): ?Customer {
@@ -663,8 +1160,8 @@ class AssetFactoryTest extends TestCase {
                 'id' => $customer->getKey(),
             ],
         ]);
-        $provider = Mockery::mock(CustomerResolver::class);
-        $provider
+        $resolver = Mockery::mock(CustomerResolver::class);
+        $resolver
             ->shouldReceive('get')
             ->with($customer->getKey())
             ->once()
@@ -677,10 +1174,10 @@ class AssetFactoryTest extends TestCase {
             ->once()
             ->andReturn(null);
 
-        $factory = new class($provider) extends AssetFactory {
+        $factory = new class($resolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerResolver $provider) {
-                $this->customerResolver = $provider;
+            public function __construct(CustomerResolver $resolver) {
+                $this->customerResolver = $resolver;
             }
 
             public function assetCustomer(Asset $asset): ?Customer {
@@ -725,7 +1222,7 @@ class AssetFactoryTest extends TestCase {
                 $this->locations = $locations;
             }
 
-            public function assetLocation(Asset $asset, ?Customer $customer, ?Organization $reseller): ?Location {
+            public function assetLocation(Asset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
                 return parent::assetLocation($asset, $customer, $reseller);
             }
         };
@@ -737,7 +1234,7 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetLocation
      */
     public function testAssetLocationNoCustomer(): void {
-        $reseller  = Organization::factory()->make();
+        $reseller  = Reseller::factory()->make();
         $asset     = Asset::create([
             'id'          => $this->faker->uuid,
             'reseller_id' => $reseller->getKey(),
@@ -763,7 +1260,7 @@ class AssetFactoryTest extends TestCase {
                 $this->locations = $locations;
             }
 
-            public function assetLocation(Asset $asset, ?Customer $customer, ?Organization $reseller): ?Location {
+            public function assetLocation(Asset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
                 return parent::assetLocation($asset, $customer, $reseller);
             }
         };
@@ -782,7 +1279,7 @@ class AssetFactoryTest extends TestCase {
                 $this->locations = $factory;
             }
 
-            public function assetLocation(Asset $asset, ?Customer $customer, ?Organization $reseller): ?Location {
+            public function assetLocation(Asset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
                 return parent::assetLocation($asset, $customer, $reseller);
             }
         };
@@ -813,90 +1310,12 @@ class AssetFactoryTest extends TestCase {
                 $this->locations = $locations;
             }
 
-            public function assetLocation(Asset $asset, ?Customer $customer, ?Organization $reseller): ?Location {
+            public function assetLocation(Asset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
                 return parent::assetLocation($asset, $customer, $reseller);
             }
         };
 
         $this->assertNull($factory->assetLocation($asset, $customer, null));
-    }
-
-    /**
-     * @covers ::product
-     */
-    public function testProduct(): void {
-        // Prepare
-        $normalizer = $this->app->make(Normalizer::class);
-        $provider   = $this->app->make(ProductResolver::class);
-        $product    = Product::factory()->create();
-        $oem        = $product->oem;
-
-        $factory = new class($normalizer, $provider) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, ProductResolver $provider) {
-                $this->normalizer = $normalizer;
-                $this->products   = $provider;
-            }
-
-            public function product(Oem $oem, string $sku, string $name, ?string $eol, ?string $eos): Product {
-                return parent::product($oem, $sku, $name, $eol, $eos);
-            }
-        };
-
-        $this->flushQueryLog();
-
-        // If model exists and not changed - no action required
-        $this->assertEquals(
-            $product->withoutRelations(),
-            $factory->product(
-                $oem,
-                $product->sku,
-                $product->name,
-                "{$product->eol->getTimestamp()}000",
-                "{$product->eos->getTimestamp()}000",
-            )->withoutRelations(),
-        );
-        $this->assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
-
-        // If model exists and changed - it should be updated
-        $newEos  = $this->faker->randomElement(['', null]);
-        $newEol  = Date::now();
-        $newName = $this->faker->sentence;
-        $updated = $factory->product(
-            $oem,
-            $product->sku,
-            $newName,
-            "{$newEol->getTimestamp()}000",
-            $newEos,
-        );
-
-        $this->assertEquals($newName, $updated->name);
-        $this->assertEquals($newEol, $newEol);
-        $this->assertNull($updated->eos);
-
-        $this->assertCount(1, $this->getQueryLog());
-
-        $this->flushQueryLog();
-
-        // If not - it should be created
-        $sku     = $this->faker->uuid;
-        $name    = $this->faker->sentence;
-        $created = $factory->product(
-            $oem,
-            $sku,
-            $name,
-            null,
-            null,
-        );
-
-        $this->assertNotNull($created);
-        $this->assertEquals($oem->getKey(), $created->oem_id);
-        $this->assertEquals($sku, $created->sku);
-        $this->assertEquals($name, $created->name);
-
-        $this->flushQueryLog();
     }
 
     /**
@@ -922,7 +1341,13 @@ class AssetFactoryTest extends TestCase {
             }
         };
 
-        $factory->prefetch([$a, $b]);
+        $callback = Mockery::spy(function (EloquentCollection $collection): void {
+            $this->assertCount(0, $collection);
+        });
+
+        $factory->prefetch([$a, $b], false, Closure::fromCallable($callback));
+
+        $callback->shouldHaveBeenCalled()->once();
 
         $this->flushQueryLog();
 

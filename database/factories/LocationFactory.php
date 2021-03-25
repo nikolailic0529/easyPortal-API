@@ -8,6 +8,10 @@ use App\Models\Location;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
+/**
+ * @method \App\Models\Location create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method \App\Models\Location make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ */
 class LocationFactory extends Factory {
     /**
      * The name of the factory's corresponding model.

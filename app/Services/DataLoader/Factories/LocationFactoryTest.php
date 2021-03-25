@@ -275,14 +275,14 @@ class LocationFactoryTest extends TestCase {
     public function testCountry(): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
-        $provider   = $this->app->make(CountryResolver::class);
+        $resolver   = $this->app->make(CountryResolver::class);
         $country    = Country::factory()->create();
 
-        $factory = new class($normalizer, $provider) extends LocationFactory {
+        $factory = new class($normalizer, $resolver) extends LocationFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, CountryResolver $provider) {
+            public function __construct(Normalizer $normalizer, CountryResolver $resolver) {
                 $this->normalizer = $normalizer;
-                $this->countries  = $provider;
+                $this->countries  = $resolver;
             }
 
             public function country(string $code, string $name): Country {
@@ -318,13 +318,13 @@ class LocationFactoryTest extends TestCase {
         $city       = City::factory()->create([
             'country_id' => $country,
         ]);
-        $provider   = $this->app->make(CityResolver::class);
+        $resolver   = $this->app->make(CityResolver::class);
 
-        $factory = new class($normalizer, $provider) extends LocationFactory {
+        $factory = new class($normalizer, $resolver) extends LocationFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, CityResolver $provider) {
+            public function __construct(Normalizer $normalizer, CityResolver $resolver) {
                 $this->normalizer = $normalizer;
-                $this->cities     = $provider;
+                $this->cities     = $resolver;
             }
 
             public function city(Country $country, string $name): City {
@@ -356,7 +356,7 @@ class LocationFactoryTest extends TestCase {
     public function testLocation(): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
-        $provider   = $this->app->make(LocationResolver::class);
+        $resolver   = $this->app->make(LocationResolver::class);
         $customer   = Customer::factory()->create();
         $location   = LocationModel::factory()
             ->hasCountry(Country::factory())
@@ -368,11 +368,11 @@ class LocationFactoryTest extends TestCase {
         $country    = $location->country;
         $city       = $location->city;
 
-        $factory = new class($normalizer, $provider) extends LocationFactory {
+        $factory = new class($normalizer, $resolver) extends LocationFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, LocationResolver $provider) {
+            public function __construct(Normalizer $normalizer, LocationResolver $resolver) {
                 $this->normalizer = $normalizer;
-                $this->locations  = $provider;
+                $this->locations  = $resolver;
             }
 
             public function location(

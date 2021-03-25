@@ -2,8 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasCustomer;
+use App\Models\Concerns\HasOem;
+use App\Models\Concerns\HasProduct;
+use App\Models\Concerns\HasReseller;
+use App\Models\Concerns\HasType;
+use App\Models\Enums\ProductType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use InvalidArgumentException;
 
 use function in_array;
@@ -13,23 +20,25 @@ use function sprintf;
 /**
  * Asset.
  *
- * @property string                        $id
- * @property string                        $oem_id
- * @property string                        $product_id
- * @property string                        $type_id
- * @property string|null                   $organization_id current
- * @property string|null                   $customer_id     current
- * @property string|null                   $location_id     current
- * @property string                        $serial_number
- * @property \Carbon\CarbonImmutable       $created_at
- * @property \Carbon\CarbonImmutable       $updated_at
- * @property \Carbon\CarbonImmutable|null  $deleted_at
- * @property \App\Models\Customer|null     $customer
- * @property \App\Models\Location|null     $location
- * @property \App\Models\Oem               $oem
- * @property \App\Models\Organization|null $organization
- * @property \App\Models\Product           $product
- * @property \App\Models\Type              $type
+ * @property string                                                                   $id
+ * @property string                                                                   $oem_id
+ * @property string                                                                   $product_id
+ * @property string                                                                   $type_id
+ * @property string|null                                                              $reseller_id current
+ * @property string|null                                                              $customer_id current
+ * @property string|null                                                              $location_id current
+ * @property string                                                                   $serial_number
+ * @property \Carbon\CarbonImmutable                                                  $created_at
+ * @property \Carbon\CarbonImmutable                                                  $updated_at
+ * @property \Carbon\CarbonImmutable|null                                             $deleted_at
+ * @property \App\Models\Customer|null                                                $customer
+ * @property \App\Models\Location|null                                                $location
+ * @property \App\Models\Oem                                                          $oem
+ * @property \App\Models\Product                                                      $product
+ * @property \App\Models\Reseller|null                                                $reseller
+ * @property \App\Models\Type                                                         $type
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $warranties
+ * @property-read int|null                                                            $warranties_count
  * @method static \Database\Factories\AssetFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newQuery()
@@ -40,8 +49,8 @@ use function sprintf;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereLocationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereOemId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereOrganizationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereResellerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereSerialNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereUpdatedAt($value)
@@ -49,6 +58,11 @@ use function sprintf;
  */
 class Asset extends Model {
     use HasFactory;
+    use HasOem;
+    use HasType;
+    use HasProduct;
+    use HasReseller;
+    use HasCustomer;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -56,46 +70,6 @@ class Asset extends Model {
      * @var string
      */
     protected $table = 'assets';
-
-    public function oem(): BelongsTo {
-        return $this->belongsTo(Oem::class);
-    }
-
-    public function setOemAttribute(Oem $oem): void {
-        $this->oem()->associate($oem);
-    }
-
-    public function type(): BelongsTo {
-        return $this->belongsTo(Type::class);
-    }
-
-    public function setTypeAttribute(Type $type): void {
-        if ($type->object_type !== $this->getMorphClass()) {
-            throw new InvalidArgumentException(sprintf(
-                'The `$type` related to `%s`, `%s` required.',
-                $type->object_type,
-                $this->getMorphClass(),
-            ));
-        }
-
-        $this->type()->associate($type);
-    }
-
-    public function product(): BelongsTo {
-        return $this->belongsTo(Product::class);
-    }
-
-    public function setProductAttribute(Product $product): void {
-        $this->product()->associate($product);
-    }
-
-    public function customer(): BelongsTo {
-        return $this->belongsTo(Customer::class);
-    }
-
-    public function setCustomerAttribute(?Customer $customer): void {
-        $this->customer()->associate($customer);
-    }
 
     public function location(): BelongsTo {
         return $this->belongsTo(Location::class);
@@ -109,16 +83,16 @@ class Asset extends Model {
         if ($location) {
             $asset       = (new Asset())->getMorphClass();
             $customer    = (new Customer())->getMorphClass();
-            $reseller    = (new Organization())->getMorphClass();
+            $reseller    = (new Reseller())->getMorphClass();
             $isIdMatch   = is_null($location->object_id)
-                || in_array($location->object_id, [$this->customer_id, $this->organization_id], true);
+                || in_array($location->object_id, [$this->customer_id, $this->reseller_id], true);
             $isTypeMatch = in_array($location->object_type, [$asset, $customer, $reseller], true);
 
             if (!$isIdMatch || !$isTypeMatch) {
                 throw new InvalidArgumentException(sprintf(
                     'Location must be related to the `%s` or `%s` or `%s` but it related to `%s#%s`.',
                     $customer.($this->customer_id ? "#{$this->customer_id}" : ''),
-                    $reseller.($this->organization_id ? "#{$this->organization_id}" : ''),
+                    $reseller.($this->reseller_id ? "#{$this->reseller_id}" : ''),
                     $asset,
                     $location->object_type,
                     $location->object_id,
@@ -126,18 +100,18 @@ class Asset extends Model {
             }
         }
 
-        // Current location?
-
-
         // Set
         $this->location()->associate($location);
     }
 
-    public function organization(): BelongsTo {
-        return $this->belongsTo(Organization::class);
+    public function warranties(): HasMany {
+        return $this->hasMany(AssetWarranty::class);
     }
 
-    public function setOrganizationAttribute(?Organization $organization): void {
-        $this->organization()->associate($organization);
+    /**
+     * @inheritdoc
+     */
+    protected function getValidProductTypes(): array {
+        return [ProductType::asset()];
     }
 }

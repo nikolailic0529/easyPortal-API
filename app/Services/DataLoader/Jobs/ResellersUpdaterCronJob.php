@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Models\Organization;
+use App\Models\Reseller;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Support\Facades\Date;
@@ -28,7 +28,7 @@ class ResellersUpdaterCronJob extends CronJob implements ShouldBeUnique {
         $config   = $configurator->config($this);
         $expire   = $config->setting('expire');
         $expire   = Date::now()->sub($expire);
-        $outdated = Organization::query()
+        $outdated = Reseller::query()
             ->where('updated_at', '<', $expire)
             ->get();
 

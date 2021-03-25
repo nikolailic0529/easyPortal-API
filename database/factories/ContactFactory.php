@@ -6,6 +6,10 @@ use App\Models\Contact;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
+/**
+ * @method \App\Models\Contact create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method \App\Models\Contact make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ */
 class ContactFactory extends Factory {
     /**
      * The name of the factory's corresponding model.

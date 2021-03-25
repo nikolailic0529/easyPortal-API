@@ -7,6 +7,10 @@ use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 use stdClass;
 
+/**
+ * @method \App\Models\Type create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method \App\Models\Type make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ */
 class TypeFactory extends Factory {
     /**
      * The name of the factory's corresponding model.

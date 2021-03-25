@@ -7,7 +7,6 @@ use App\Models\Model;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ContactResolver;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
-use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use InvalidArgumentException;
 use libphonenumber\NumberParseException;
@@ -39,7 +38,7 @@ class ContactFactory extends DependentModelFactory {
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
-                Location::class,
+                CompanyContactPerson::class,
             ));
         }
 

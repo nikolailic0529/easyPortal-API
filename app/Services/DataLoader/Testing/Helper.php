@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Testing;
 
 use App\Models\Customer;
 use App\Models\Location;
-use App\Models\Organization;
+use App\Models\Reseller;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
@@ -193,15 +193,15 @@ trait Helper {
     }
     // </editor-fold>
 
-    // <editor-fold desc="Organization">
+    // <editor-fold desc="Reseller">
     // =========================================================================
     /**
      * @return array<mixed>
      */
-    protected function getOrganizationLocations(Organization $organization): array {
+    protected function getResellerLocations(Reseller $reseller): array {
         $locations = [];
 
-        foreach ($organization->locations as $location) {
+        foreach ($reseller->locations as $location) {
             /** @var \App\Models\Location $location */
             $locations[] = $this->getLocation($location);
         }

@@ -25,21 +25,21 @@ class WithStatusTest extends TestCase {
     public function testStatus(): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
-        $provider   = $this->app->make(StatusResolver::class);
+        $resolver   = $this->app->make(StatusResolver::class);
         $customer   = Customer::factory()->make();
         $status     = StatusModel::factory()->create([
             'object_type' => $customer->getMorphClass(),
         ]);
 
-        $factory = new class($normalizer, $provider) extends DependentModelFactory {
+        $factory = new class($normalizer, $resolver) extends DependentModelFactory {
             use WithStatus {
                 status as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, StatusResolver $provider) {
+            public function __construct(Normalizer $normalizer, StatusResolver $resolver) {
                 $this->normalizer = $normalizer;
-                $this->statuses   = $provider;
+                $this->statuses   = $resolver;
             }
 
             public function create(Model $object, Type $type): ?Model {

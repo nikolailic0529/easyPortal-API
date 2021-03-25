@@ -3,14 +3,15 @@
 namespace App\Services\DataLoader\Loaders;
 
 use App\Models\Model;
-use App\Models\Organization;
+use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
+use App\Services\DataLoader\Factories\DocumentFactory;
 use App\Services\DataLoader\Factories\LocationFactory;
-use App\Services\DataLoader\Factories\OrganizationFactory;
+use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\Concerns\WithAssets;
 use App\Services\DataLoader\Loaders\Concerns\WithLocations;
@@ -24,11 +25,12 @@ class ResellerLoader extends Loader {
     public function __construct(
         LoggerInterface $logger,
         Client $client,
-        protected OrganizationFactory $resellers,
+        protected ResellerFactory $resellers,
         protected CustomerFactory $customers,
         protected LocationFactory $locations,
         protected ContactFactory $contacts,
         protected AssetFactory $assets,
+        protected DocumentFactory $documents,
     ) {
         parent::__construct($logger, $client);
     }
@@ -40,7 +42,7 @@ class ResellerLoader extends Loader {
         $company = $this->client->getCompanyById($id);
 
         if (!$company) {
-            $reseller = Organization::query()->whereKey($id)->first();
+            $reseller = Reseller::query()->whereKey($id)->first();
 
             if ($reseller) {
                 $this->logger->error('Reseller found in database but not found in Cosmos.', [
@@ -52,7 +54,7 @@ class ResellerLoader extends Loader {
         }
 
         // Load customer
-        $resellers = $this->getOrganizationFactory();
+        $resellers = $this->getResellerFactory();
         $reseller  = $resellers->create($company);
 
         if ($this->isWithAssets()) {
@@ -68,14 +70,16 @@ class ResellerLoader extends Loader {
 
     // =========================================================================
     protected function getCurrentAssets(Model $owner): QueryIterator {
-        return $this->client->getAssetsByResellerId($owner->getKey());
+        return $this->isWithAssetsDocuments()
+            ? $this->client->getAssetsWithDocumentsByResellerId($owner->getKey())
+            : $this->client->getAssetsByResellerId($owner->getKey());
     }
 
     /**
      * @inheritdoc
      */
     protected function getMissedAssets(Model $owner, array $current): ?Builder {
-        return $owner instanceof Organization
+        return $owner instanceof Reseller
             ? $owner->assets()->whereNotIn('id', $current)->getQuery()
             : null;
     }
@@ -83,7 +87,7 @@ class ResellerLoader extends Loader {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-    protected function getOrganizationFactory(): OrganizationFactory {
+    protected function getResellerFactory(): ResellerFactory {
         return (clone $this->resellers)
             ->setLocationFactory(
                 $this->isWithLocations() ? $this->locations : null,

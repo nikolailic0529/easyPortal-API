@@ -6,6 +6,10 @@ use App\Models\Country;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
+/**
+ * @method \App\Models\Country create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method \App\Models\Country make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ */
 class CountryFactory extends Factory {
     /**
      * The name of the factory's corresponding model.

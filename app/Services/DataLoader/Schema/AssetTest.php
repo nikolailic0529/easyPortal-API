@@ -22,6 +22,8 @@ class AssetTest extends TestCase {
 
         $this->assertEquals(array_keys($json), $properties);
         $this->assertInstanceOf(Company::class, $actual->customer);
+        $this->assertInstanceOf(AssetDocument::class, $actual->assetDocument[0]);
+        $this->assertInstanceOf(Document::class, $actual->assetDocument[0]->document);
         $this->assertJsonStringEqualsJsonString(
             json_encode($json),
             json_encode($actual),

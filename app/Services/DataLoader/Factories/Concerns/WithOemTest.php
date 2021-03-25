@@ -24,10 +24,10 @@ class WithOemTest extends TestCase {
     public function testOem(): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
-        $provider   = $this->app->make(OemResolver::class);
+        $resolver   = $this->app->make(OemResolver::class);
         $oem        = Oem::factory()->create();
 
-        $factory = new class($normalizer, $provider) extends ModelFactory {
+        $factory = new class($normalizer, $resolver) extends ModelFactory {
             use WithOem {
                 oem as public;
             }

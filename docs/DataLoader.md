@@ -31,6 +31,15 @@
 1. Update the Reseller (= run `php artisan data-loader:reseller <id> --assets`)
 
 
+### LocationsCleanupCronJob
+
+| Cron           | Queue                 | Parallel? |
+| -------------- | --------------------- | --------- |
+| `0 */6 * * *`  | data-loader-default   | No        |
+
+While the import, some locations may become unused, this job removes them from the database.
+
+
 ## Commands
 
 ### `php artisan data-loader:reseller`
@@ -54,16 +63,8 @@ Sync the Customer with Cosmos.
     * Customer Location
     * Reseller Location (if Customer doesn't have required location)
     * Asset location (if Reseller doesn't have required location, in this case `locations.object_type` will be `asset` and `locations.object_id = null`)
-
-
-# Knows Errors
-
-These resellers were created for testing and probably they are required in the current stage. So following errors should be ignored:
-
-```
-[2021-03-16 13:15:11] local.ERROR: Reseller found in database but not found in Cosmos. {"id":"5f35eab3-c382-4f92-b5b6-92fb12e77041"} 
-[2021-03-16 13:15:11] local.ERROR: Reseller found in database but not found in Cosmos. {"id":"bc899f0e-47f7-4af7-9789-2f44a1afa995"} 
-```
+6. DataLoader skips Assets without `sku` and/or `productDescription`
+7. DataLoader cannot load Assets without Reseller.
 
 
 # What can be improved
@@ -73,6 +74,8 @@ Instead of fetching all data from Cosmos we can fetch only updated:
 * `getAssets(updatedAt > xxx): [Asset]!` - should return Assets which created/updated later than `xxx`
 * `getResellers(updatedAt > xxx): [Company]!`
 * `getAssetsByCustomerId(updatedAt > xxx)`
+* `getDocuments(limits, updatedAt > xxx)` (new)
+* `getDocumentById(id: guid)` (new)
 * etc
 
 in this case, we can have

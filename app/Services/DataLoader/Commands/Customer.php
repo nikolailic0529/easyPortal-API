@@ -27,6 +27,8 @@ class Customer extends Command {
         {--C|no-contacts : Skip contacts}
         {--a|assets : Load assets}
         {--A|no-assets : Skip assets (default)}
+        {--ad|assets-documents : Load assets documents (and warranties), required --a|assets (default)}
+        {--AD|no-assets-documents : Skip assets documents}
     ';
 
     /**
@@ -45,6 +47,7 @@ class Customer extends Command {
         $loader->setWithLocations($this->getBooleanOption('locations', true));
         $loader->setWithContacts($this->getBooleanOption('contacts', true));
         $loader->setWithAssets($this->getBooleanOption('assets', false));
+        $loader->setWithAssetsDocuments($this->getBooleanOption('assets-documents', true));
 
         $bar->start();
 

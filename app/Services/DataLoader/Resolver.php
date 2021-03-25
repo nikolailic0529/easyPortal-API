@@ -64,6 +64,7 @@ abstract class Resolver implements Singleton {
     }
 
     protected function find(mixed $key): ?Model {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->getFindQuery()?->where(function (Builder $builder) use ($key): Builder {
             return $this->getFindWhere($builder, $key);
         })->first();
@@ -71,8 +72,9 @@ abstract class Resolver implements Singleton {
 
     /**
      * @param array<mixed> $keys
+     * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
      */
-    protected function prefetch(array $keys, bool $reset = false): static {
+    protected function prefetch(array $keys, bool $reset = false, Closure|null $callback = null): static {
         // Possible?
         $builder = $this->getFindQuery();
 
@@ -91,18 +93,24 @@ abstract class Resolver implements Singleton {
         }
 
         // Prefetch
-        $builder = $builder->where(function (Builder $builder) use ($keys): Builder {
-            foreach ($keys as $key) {
-                $builder = $builder->orWhere(function (Builder $builder) use ($key): Builder {
-                    return $this->getFindWhere($builder, $key);
-                });
-            }
+        $items = $builder
+            ->where(function (Builder $builder) use ($keys): Builder {
+                foreach ($keys as $key) {
+                    $builder = $builder->orWhere(function (Builder $builder) use ($key): Builder {
+                        return $this->getFindWhere($builder, $key);
+                    });
+                }
 
-            return $builder;
-        });
+                return $builder;
+            })
+            ->get();
+
+        if ($callback) {
+            $callback($items);
+        }
 
         // Fill cache
-        $this->getCache()->putNulls($keys)->putAll($builder->get());
+        $this->getCache()->putNulls($keys)->putAll($items);
 
         // Return
         return $this;

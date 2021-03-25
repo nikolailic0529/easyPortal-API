@@ -4,27 +4,32 @@ namespace App\Services\DataLoader\Loaders\Concerns;
 
 use App\Models\Customer;
 use App\Models\Model;
-use App\Models\Organization;
+use App\Models\Reseller;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
+use App\Services\DataLoader\Factories\DocumentFactory;
 use App\Services\DataLoader\Factories\LocationFactory;
-use App\Services\DataLoader\Factories\OrganizationFactory;
+use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Schema\Company;
 use Illuminate\Database\Eloquent\Builder;
 use Throwable;
+
+use function array_filter;
 
 /**
  * @mixin \App\Services\DataLoader\Loader
  */
 trait WithAssets {
-    protected OrganizationFactory $resellers;
-    protected CustomerFactory     $customers;
-    protected LocationFactory     $locations;
-    protected ContactFactory      $contacts;
-    protected AssetFactory        $assets;
-    protected bool                $withAssets = false;
+    protected ResellerFactory $resellers;
+    protected CustomerFactory $customers;
+    protected LocationFactory $locations;
+    protected ContactFactory  $contacts;
+    protected AssetFactory    $assets;
+    protected DocumentFactory $documents;
+    protected bool            $withAssets          = false;
+    protected bool            $withAssetsDocuments = false;
 
     public function isWithAssets(): bool {
         return $this->withAssets;
@@ -36,14 +41,24 @@ trait WithAssets {
         return $this;
     }
 
+    public function isWithAssetsDocuments(): bool {
+        return $this->isWithAssets() && $this->withAssetsDocuments;
+    }
+
+    public function setWithAssetsDocuments(bool $withAssetsDocuments): static {
+        $this->withAssetsDocuments = $withAssetsDocuments;
+
+        return $this;
+    }
+
     protected function loadAssets(Model $owner): bool {
         // Update assets
         $factory   = $this->getAssetsFactory();
         $updated   = [];
-        $customers = [];
         $resellers = [];
         $prefetch  = function (array $assets): void {
-            $this->assets->prefetch($assets);
+            $this->assets->prefetch($assets, true);
+            $this->documents->prefetch($assets);
         };
 
         foreach ($this->getCurrentAssets($owner)->each($prefetch) as $asset) {
@@ -51,9 +66,10 @@ trait WithAssets {
                 $asset = $factory->create($asset);
 
                 if ($asset) {
-                    $updated[]                                   = $asset->getKey();
-                    $customers[(string) $asset->customer_id]     = true;
-                    $resellers[(string) $asset->organization_id] = true;
+                    $resellerId                          = (string) $asset->reseller_id;
+                    $customerId                          = (string) $asset->customer_id;
+                    $updated[]                           = $asset->getKey();
+                    $resellers[$resellerId][$customerId] = $customerId;
                 }
             } catch (Throwable $exception) {
                 $this->logger->warning(__METHOD__, [
@@ -77,8 +93,9 @@ trait WithAssets {
                     $asset = $factory->create($asset);
 
                     if ($asset) {
-                        $customers[(string) $asset->customer_id]     = true;
-                        $resellers[(string) $asset->organization_id] = true;
+                        $resellerId                          = (string) $asset->reseller_id;
+                        $customerId                          = (string) $asset->customer_id;
+                        $resellers[$resellerId][$customerId] = $customerId;
                     }
                 } catch (Throwable $exception) {
                     $this->logger->warning(__METHOD__, [
@@ -87,8 +104,8 @@ trait WithAssets {
                     ]);
                 }
             } else {
-                $missed->customer     = null;
-                $missed->organization = null;
+                $missed->customer = null;
+                $missed->reseller = null;
                 $missed->save();
 
                 $this->logger->error('Asset found in database but not found in Cosmos.', [
@@ -97,33 +114,38 @@ trait WithAssets {
             }
         }
 
-        // Update Customers
-        foreach ($customers as $id => $_) {
-            if (!$id) {
-                continue;
+        // Update Resellers/Customers
+        foreach ($resellers as $resellerId => $customers) {
+            // Get Reseller
+            $reseller = null;
+
+            if ($resellerId) {
+                $reseller = $this->resellers->find(Company::create([
+                    'id' => $resellerId,
+                ]));
             }
 
-            $customer = $this->customers->find(Company::create([
-                'id' => $id,
-            ]));
+            // Update Customers
+            $customers = array_filter($customers);
 
-            if ($customer) {
-                $this->updateCustomerCountable($customer);
-            }
-        }
+            foreach ($customers as $customerId) {
+                $customer = $this->customers->find(Company::create([
+                    'id' => $customerId,
+                ]));
 
-        unset($customers);
-
-        // Update Resellers
-        foreach ($resellers as $id => $_) {
-            if (!$id) {
-                continue;
+                if ($customer) {
+                    $this->updateCustomerCountable($customer);
+                }
             }
 
-            $reseller = $this->resellers->find(Company::create([
-                'id' => $id,
-            ]));
+            // Add new customers to Reseller
+            if ($reseller) {
+                $reseller->customers()->syncWithoutDetaching($customers);
 
+                unset($reseller->customers);
+            }
+
+            // Update Reseller
             if ($reseller) {
                 $this->updateResellerCountable($reseller);
             }
@@ -154,8 +176,9 @@ trait WithAssets {
         $customer->save();
     }
 
-    protected function updateResellerCountable(Organization $reseller): void {
+    protected function updateResellerCountable(Reseller $reseller): void {
         $reseller->locations_count = $reseller->locations()->count();
+        $reseller->customers_count = $reseller->customers()->count();
         $reseller->assets_count    = $reseller->assets()->count();
         $reseller->save();
     }
@@ -167,8 +190,11 @@ trait WithAssets {
         $resellers = (clone $this->resellers)
             ->setLocationFactory($this->locations);
         $factory   = (clone $this->assets)
-            ->setOrganizationFactory($resellers)
-            ->setCustomersFactory($customers);
+            ->setResellerFactory($resellers)
+            ->setCustomersFactory($customers)
+            ->setDocumentFactory(
+                $this->isWithAssetsDocuments() ? $this->documents : null,
+            );
 
         return $factory;
     }

@@ -9,8 +9,9 @@ use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
+use App\Services\DataLoader\Factories\DocumentFactory;
 use App\Services\DataLoader\Factories\LocationFactory;
-use App\Services\DataLoader\Factories\OrganizationFactory;
+use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\Concerns\WithAssets;
 use App\Services\DataLoader\Loaders\Concerns\WithContacts;
@@ -26,11 +27,12 @@ class CustomerLoader extends Loader {
     public function __construct(
         LoggerInterface $logger,
         Client $client,
-        protected OrganizationFactory $resellers,
+        protected ResellerFactory $resellers,
         protected CustomerFactory $customers,
         protected LocationFactory $locations,
         protected ContactFactory $contacts,
         protected AssetFactory $assets,
+        protected DocumentFactory $documents,
     ) {
         parent::__construct($logger, $client);
     }
@@ -71,7 +73,9 @@ class CustomerLoader extends Loader {
     // <editor-fold desc="WithAssets">
     // =========================================================================
     protected function getCurrentAssets(Model $owner): QueryIterator {
-        return $this->client->getAssetsByCustomerId($owner->getKey());
+        return $this->isWithAssetsDocuments()
+            ? $this->client->getAssetsWithDocumentsByCustomerId($owner->getKey())
+            : $this->client->getAssetsByCustomerId($owner->getKey());
     }
 
     /**
