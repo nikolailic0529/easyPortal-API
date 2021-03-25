@@ -5,20 +5,22 @@ namespace App\Models;
 use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasLocations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Reseller.
  *
- * @property string                                                                 $id
- * @property string                                                                 $name
- * @property int                                                                    $customers_count
- * @property int                                                                    $locations_count
- * @property int                                                                    $assets_count
- * @property \Carbon\CarbonImmutable                                                $created_at
- * @property \Carbon\CarbonImmutable                                                $updated_at
- * @property \Carbon\CarbonImmutable|null                                           $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|array<\App\Models\Asset> $assets
- * @property \Illuminate\Database\Eloquent\Collection|array<\App\Models\Location>   $locations
+ * @property string                                                              $id
+ * @property string                                                              $name
+ * @property-read int|null                                                       $customers_count
+ * @property-read int|null                                                       $locations_count
+ * @property-read int|null                                                       $assets_count
+ * @property \Carbon\CarbonImmutable                                             $created_at
+ * @property \Carbon\CarbonImmutable                                             $updated_at
+ * @property \Carbon\CarbonImmutable|null                                        $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer> $customers
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>      $locations
  * @method static \Database\Factories\ResellerFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller newQuery()
@@ -44,4 +46,8 @@ class Reseller extends Model {
      * @var string
      */
     protected $table = 'resellers';
+
+    public function customers(): BelongsToMany {
+        return $this->belongsToMany(Customer::class, 'reseller_customers')->withTimestamps();
+    }
 }

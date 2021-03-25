@@ -16,6 +16,8 @@ use App\Services\DataLoader\Schema\Company;
 use Illuminate\Database\Eloquent\Builder;
 use Throwable;
 
+use function array_filter;
+
 /**
  * @mixin \App\Services\DataLoader\Loader
  */
@@ -53,7 +55,6 @@ trait WithAssets {
         // Update assets
         $factory   = $this->getAssetsFactory();
         $updated   = [];
-        $customers = [];
         $resellers = [];
         $prefetch  = function (array $assets): void {
             $this->assets->prefetch($assets, true);
@@ -65,9 +66,10 @@ trait WithAssets {
                 $asset = $factory->create($asset);
 
                 if ($asset) {
-                    $updated[]                               = $asset->getKey();
-                    $customers[(string) $asset->customer_id] = true;
-                    $resellers[(string) $asset->reseller_id] = true;
+                    $resellerId                          = (string) $asset->reseller_id;
+                    $customerId                          = (string) $asset->customer_id;
+                    $updated[]                           = $asset->getKey();
+                    $resellers[$resellerId][$customerId] = $customerId;
                 }
             } catch (Throwable $exception) {
                 $this->logger->warning(__METHOD__, [
@@ -91,8 +93,9 @@ trait WithAssets {
                     $asset = $factory->create($asset);
 
                     if ($asset) {
-                        $customers[(string) $asset->customer_id] = true;
-                        $resellers[(string) $asset->reseller_id] = true;
+                        $resellerId                          = (string) $asset->reseller_id;
+                        $customerId                          = (string) $asset->customer_id;
+                        $resellers[$resellerId][$customerId] = $customerId;
                     }
                 } catch (Throwable $exception) {
                     $this->logger->warning(__METHOD__, [
@@ -111,33 +114,38 @@ trait WithAssets {
             }
         }
 
-        // Update Customers
-        foreach ($customers as $id => $_) {
-            if (!$id) {
-                continue;
+        // Update Resellers/Customers
+        foreach ($resellers as $resellerId => $customers) {
+            // Get Reseller
+            $reseller = null;
+
+            if ($resellerId) {
+                $reseller = $this->resellers->find(Company::create([
+                    'id' => $resellerId,
+                ]));
             }
 
-            $customer = $this->customers->find(Company::create([
-                'id' => $id,
-            ]));
+            // Update Customers
+            $customers = array_filter($customers);
 
-            if ($customer) {
-                $this->updateCustomerCountable($customer);
-            }
-        }
+            foreach ($customers as $customerId) {
+                $customer = $this->customers->find(Company::create([
+                    'id' => $customerId,
+                ]));
 
-        unset($customers);
-
-        // Update Resellers
-        foreach ($resellers as $id => $_) {
-            if (!$id) {
-                continue;
+                if ($customer) {
+                    $this->updateCustomerCountable($customer);
+                }
             }
 
-            $reseller = $this->resellers->find(Company::create([
-                'id' => $id,
-            ]));
+            // Add new customers to Reseller
+            if ($reseller) {
+                $reseller->customers()->syncWithoutDetaching($customers);
 
+                unset($reseller->customers);
+            }
+
+            // Update Reseller
             if ($reseller) {
                 $this->updateResellerCountable($reseller);
             }
@@ -170,6 +178,7 @@ trait WithAssets {
 
     protected function updateResellerCountable(Reseller $reseller): void {
         $reseller->locations_count = $reseller->locations()->count();
+        $reseller->customers_count = $reseller->customers()->count();
         $reseller->assets_count    = $reseller->assets()->count();
         $reseller->save();
     }
