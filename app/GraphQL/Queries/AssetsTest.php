@@ -220,7 +220,7 @@ class AssetsTest extends TestCase {
                                     'document_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                     'start'       => '2021-01-01',
                                     'end'         => '2022-01-01',
-                                    'note'        => 'note'
+                                    'note'        => 'note',
                                 ],
                             ],
                         ],
@@ -298,7 +298,7 @@ class AssetsTest extends TestCase {
                                 ]),
                                 'start'       => '2021-01-01',
                                 'end'         => '2022-01-01',
-                                'note'        => 'note'
+                                'note'        => 'note',
                             ])
                             ->create([
                                 'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',

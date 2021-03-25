@@ -13,7 +13,6 @@ class ContractsBuilder {
     }
     public function __invoke(Builder $builder): Builder {
         $contactTypes = $this->config->get('easyportal.contracts_type_ids');
-        // if empty should not be used
-        return empty($contactTypes) ? $builder : $builder->whereIn('type_id', $contactTypes);
+        return $builder->whereIn('type_id', $contactTypes);
     }
 }
