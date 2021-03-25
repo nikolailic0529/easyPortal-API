@@ -26,7 +26,15 @@ return [
          * @var array<string, array<string|\LastDragon_ru\LaraASP\GraphQL\SearchBy\Contracts\Operator>>
          */
         'scalars' => [
-            'Date' => [
+            'Date'     => [
+                Equal::class,
+                LessThan::class,
+                LessThanOrEqual::class,
+                GreaterThan::class,
+                GreaterThanOrEqual::class,
+                Between::class,
+            ],
+            'DateTime' => [
                 Equal::class,
                 LessThan::class,
                 LessThanOrEqual::class,

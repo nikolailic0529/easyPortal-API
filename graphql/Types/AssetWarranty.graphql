@@ -3,7 +3,7 @@ type AssetWarranty {
     asset_id: ID!
     reseller_id: ID!
     customer_id: ID!
-    document_id: ID!
+    document_id: ID
     start: Date
     end: Date
     note: String

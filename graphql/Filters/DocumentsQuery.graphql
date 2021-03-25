@@ -5,6 +5,8 @@ input DocumentsQuery {
   reseller_id: ID!
   number: String!
   product_id: ID!
+  start: Date!
+  end: Date!
   price: String!
   currency_id: ID!
   currency: CurrenciesQuery
