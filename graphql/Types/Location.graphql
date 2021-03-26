@@ -1,14 +1,14 @@
 type Location {
-    id: ID!
-    postcode: String!
-    state: String!
-    line_one: String!
-    line_two: String!
-    lat: String
-    lng: String
-    city: City! @belongsTo
-    city_id: ID!
-    country: Country! @belongsTo
-    country_id: ID!
-    types: [Type]! @belongsToMany
+  id: ID!
+  postcode: String!
+  state: String!
+  line_one: String!
+  line_two: String!
+  lat: String
+  lng: String
+  city: City! @belongsTo
+  city_id: ID!
+  country: Country! @belongsTo
+  country_id: ID!
+  types: [Type]! @belongsToMany
 }

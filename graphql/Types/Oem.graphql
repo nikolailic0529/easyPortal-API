@@ -1,5 +1,5 @@
 type Oem {
-    id: ID!
-    abbr: String!
-    name: String!
+  id: ID!
+  abbr: String!
+  name: String!
 }
