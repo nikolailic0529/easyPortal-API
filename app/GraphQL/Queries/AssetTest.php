@@ -5,6 +5,7 @@ namespace App\GraphQL\Queries;
 use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Document;
+use App\Models\DocumentEntry;
 use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
@@ -115,6 +116,57 @@ class AssetTest extends TestCase {
                             start
                             end
                             note
+                            services {
+                                id
+                                name
+                                oem_id
+                                sku
+                                eol
+                                eos
+                                oem {
+                                    id
+                                    abbr
+                                    name
+                                }
+                            }
+                            package {
+                                id
+                                name
+                                oem_id
+                                sku
+                                eol
+                                eos
+                                oem {
+                                    id
+                                    abbr
+                                    name
+                                }
+                            }
+                            customer {
+                                id
+                                name
+                                assets_count
+                                locations_count
+                                locations {
+                                    id
+                                    state
+                                    postcode
+                                    line_one
+                                    line_two
+                                    lat
+                                    lng
+                                }
+                                contacts_count
+                                contacts {
+                                    name
+                                    email
+                                    phone_valid
+                                }
+                            }
+                            reseller {
+                                id
+                                name
+                            }
                         }
                     }
                 }
@@ -147,6 +199,10 @@ class AssetTest extends TestCase {
                             'abbr' => 'abbr',
                             'name' => 'oem1',
                         ],
+                        'type'          => [
+                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            'name' => 'name aaa',
+                        ],
                         'product'       => [
                             'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                             'name'   => 'Product1',
@@ -159,10 +215,6 @@ class AssetTest extends TestCase {
                                 'abbr' => 'abbr',
                                 'name' => 'oem1',
                             ],
-                        ],
-                        'type'          => [
-                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            'name' => 'name aaa',
                         ],
                         'location'      => [
                             'id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
@@ -208,6 +260,61 @@ class AssetTest extends TestCase {
                                 'start'       => '2021-01-01',
                                 'end'         => '2022-01-01',
                                 'note'        => 'note',
+                                'services'    => [
+                                    'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                    'name'   => 'Product1',
+                                    'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                    'sku'    => 'SKU#123',
+                                    'eol'    => '2022-12-30',
+                                    'eos'    => '2022-01-01',
+                                    'oem'    => [
+                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                        'abbr' => 'abbr',
+                                        'name' => 'oem1',
+                                    ],
+                                ],
+                                'package'     => [
+                                    'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24998',
+                                    'name'   => 'Product2',
+                                    'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                    'sku'    => 'SKU#321',
+                                    'eol'    => '2022-12-30',
+                                    'eos'    => '2022-01-01',
+                                    'oem'    => [
+                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                        'abbr' => 'abbr',
+                                        'name' => 'oem1',
+                                    ],
+                                ],
+                                'customer'    => [
+                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                    'name'            => 'name aaa',
+                                    'assets_count'    => 0,
+                                    'locations_count' => 1,
+                                    'locations'       => [
+                                        [
+                                            'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                            'state'    => 'state1',
+                                            'postcode' => '19911',
+                                            'line_one' => 'line_one_data',
+                                            'line_two' => 'line_two_data',
+                                            'lat'      => '47.91634204',
+                                            'lng'      => '-2.26318359',
+                                        ],
+                                    ],
+                                    'contacts_count'  => 1,
+                                    'contacts'        => [
+                                        [
+                                            'name'        => 'contact1',
+                                            'email'       => 'contact1@test.com',
+                                            'phone_valid' => false,
+                                        ],
+                                    ],
+                                ],
+                                'reseller'    => [
+                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                    'name' => 'reseller1',
+                                ],
                             ],
                         ],
                     ]),
@@ -266,6 +373,31 @@ class AssetTest extends TestCase {
                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             'name' => 'name aaa',
                         ]);
+                        // Product creation for package
+                        $product2 = Product::factory()->create([
+                            'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24998',
+                            'name'   => 'Product2',
+                            'oem_id' => $oem->id,
+                            'sku'    => 'SKU#321',
+                            'eol'    => '2022-12-30',
+                            'eos'    => '2022-01-01',
+                        ]);
+                        // Document creation for package
+                        $document = Document::factory()->create([
+                            'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                            'product_id' => $product2,
+                        ]);
+                        // Document entry creation for services
+                        DocumentEntry::factory()->create([
+                            'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                            'oem_id'      => $oem,
+                            'document_id' => $document,
+                            'asset_id'    => Asset::factory()->create([
+                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
+                            ]),
+                            'product_id'  => $product,
+                            'quantity'    => 20,
+                        ]);
                         return Asset::factory()
                             ->for($oem)
                             ->for($product)
@@ -275,12 +407,11 @@ class AssetTest extends TestCase {
                             ->hasWarranties(1, [
                                 'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                 'reseller_id' => Reseller::factory()->create([
-                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                    'name' => 'reseller1',
                                 ]),
                                 'customer_id' => $customer,
-                                'document_id' => Document::factory()->create([
-                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                ]),
+                                'document_id' => $document,
                                 'start'       => '2021-01-01',
                                 'end'         => '2022-01-01',
                                 'note'        => 'note',

@@ -467,7 +467,11 @@
                 "customer_id",
                 "document_id",
                 "start",
-                "end"
+                "end",
+                "services",
+                "package",
+                "customer",
+                "reseller"
             ],
             "properties": {
                 "id": {
@@ -513,6 +517,12 @@
                 },
                 "reseller": {
                     "$ref": "#/definitions/Reseller"
+                },
+                "service": {
+                    "$ref": "#/definitions/Product"
+                },
+                "package": {
+                    "$ref": "#/definitions/Product"
                 }
             }
         },

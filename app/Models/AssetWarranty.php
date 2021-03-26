@@ -27,6 +27,8 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
  * @property \App\Models\Customer         $customer
  * @property \App\Models\Document|null    $document
  * @property \App\Models\Reseller         $reseller
+ * @property \App\Models\Product          $services
+ * @property \App\Models\Package          $package
  * @method static \Database\Factories\AssetWarrantyFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarranty newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarranty newQuery()
@@ -81,6 +83,17 @@ class AssetWarranty extends Model {
             Product::class,
             DocumentEntry::class,
             'document_id',
+            'id',
+            'document_id',
+            'product_id',
+        );
+    }
+
+    public function package(): HasOneThrough {
+        return $this->hasOneThrough(
+            Product::class,
+            Document::class,
+            'id',
             'id',
             'document_id',
             'product_id',
