@@ -1,11 +1,6 @@
 <?php declare(strict_types = 1);
 
-use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\Between;
-use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\Equal;
-use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\GreaterThan;
-use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\GreaterThanOrEqual;
-use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\LessThan;
-use LastDragon_ru\LaraASP\GraphQL\SearchBy\Operators\Comparison\LessThanOrEqual;
+
 /**
  * -----------------------------------------------------------------------------
  * GraphQL Settings
@@ -26,22 +21,8 @@ return [
          * @var array<string, array<string|\LastDragon_ru\LaraASP\GraphQL\SearchBy\Contracts\Operator>>
          */
         'scalars' => [
-            'Date'     => [
-                Equal::class,
-                LessThan::class,
-                LessThanOrEqual::class,
-                GreaterThan::class,
-                GreaterThanOrEqual::class,
-                Between::class,
-            ],
-            'DateTime' => [
-                Equal::class,
-                LessThan::class,
-                LessThanOrEqual::class,
-                GreaterThan::class,
-                GreaterThanOrEqual::class,
-                Between::class,
-            ],
+            'Date'     => 'Int',
+            'DateTime' => 'Date',
         ],
 
         /**
