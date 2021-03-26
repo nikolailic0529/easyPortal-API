@@ -7,6 +7,7 @@ use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasDocument;
 use App\Models\Concerns\HasReseller;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 /**
  * Asset Warranty.
@@ -73,5 +74,16 @@ class AssetWarranty extends Model {
 
     public function setDocumentAttribute(Document|null $document): void {
         $this->document()->associate($document);
+    }
+
+    public function services(): HasOneThrough {
+        return $this->hasOneThrough(
+            Product::class,
+            DocumentEntry::class,
+            'document_id',
+            'id',
+            'document_id',
+            'product_id',
+        );
     }
 }

@@ -11,4 +11,6 @@ type AssetWarranty {
     customer: Customer @belongsTo
     document: Document @belongsTo
     reseller: Reseller @belongsTo
+    documentEntry: DocumentEntry
+    services: Product @hasOne
 }
