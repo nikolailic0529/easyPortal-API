@@ -25,8 +25,9 @@ class ResellerUpdateTest extends TestCase {
             ->with(
                 'data-loader:reseller',
                 [
-                    'id'       => [$id],
-                    '--assets' => true,
+                    'id'                    => [$id],
+                    '--assets'              => true,
+                    '--no-assets-documents' => true,
                 ],
             )
             ->once();
