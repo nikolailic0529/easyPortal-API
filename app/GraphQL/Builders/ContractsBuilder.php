@@ -12,7 +12,7 @@ class ContractsBuilder {
         // empty
     }
     public function __invoke(Builder $builder): Builder {
-        $contactTypes = $this->config->get('easyportal.contracts_type_ids');
+        $contactTypes = $this->config->get('easyportal.contract_types');
         return $builder->whereIn('type_id', $contactTypes);
     }
 }

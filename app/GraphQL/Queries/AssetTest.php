@@ -166,6 +166,18 @@ class AssetTest extends TestCase {
                             reseller {
                                 id
                                 name
+                                customers_count
+                                locations_count
+                                assets_count
+                                locations {
+                                    id
+                                    state
+                                    postcode
+                                    line_one
+                                    line_two
+                                    lat
+                                    lng
+                                }
                             }
                         }
                     }
@@ -312,8 +324,22 @@ class AssetTest extends TestCase {
                                     ],
                                 ],
                                 'reseller'    => [
-                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                    'name' => 'reseller1',
+                                    'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                    'name'            => 'reseller1',
+                                    'customers_count' => 0,
+                                    'locations_count' => 1,
+                                    'assets_count'    => 0,
+                                    'locations'       => [
+                                        [
+                                            'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
+                                            'state'    => 'state2',
+                                            'postcode' => '19912',
+                                            'line_one' => 'reseller_one_data',
+                                            'line_two' => 'reseller_two_data',
+                                            'lat'      => '49.91634204',
+                                            'lng'      => '90.26318359',
+                                        ],
+                                    ],
                                 ],
                             ],
                         ],
@@ -398,6 +424,23 @@ class AssetTest extends TestCase {
                             'product_id'  => $product,
                             'quantity'    => 20,
                         ]);
+                        $reseller = Reseller::factory()
+                            ->hasLocations(1, [
+                                'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
+                                'state'    => 'state2',
+                                'postcode' => '19912',
+                                'line_one' => 'reseller_one_data',
+                                'line_two' => 'reseller_two_data',
+                                'lat'      => '49.91634204',
+                                'lng'      => '90.26318359',
+                            ])
+                            ->create([
+                                'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'name'            => 'reseller1',
+                                'customers_count' => 0,
+                                'locations_count' => 1,
+                                'assets_count'    => 0,
+                            ]);
                         return Asset::factory()
                             ->for($oem)
                             ->for($product)
@@ -406,10 +449,7 @@ class AssetTest extends TestCase {
                             ->for($location)
                             ->hasWarranties(1, [
                                 'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                                'reseller_id' => Reseller::factory()->create([
-                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                    'name' => 'reseller1',
-                                ]),
+                                'reseller_id' => $reseller,
                                 'customer_id' => $customer,
                                 'document_id' => $document,
                                 'start'       => '2021-01-01',

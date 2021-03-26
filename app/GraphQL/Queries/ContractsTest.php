@@ -39,7 +39,7 @@ class ContractsTest extends TestCase {
 
         if ($contractsFactory) {
             $typeId = $contractsFactory($this);
-            $this->app->make(Repository::class)->set('easyportal.contracts_type_ids', [$typeId]);
+            $this->app->make(Repository::class)->set('easyportal.contract_types', [$typeId]);
         }
 
         // Test
@@ -105,6 +105,18 @@ class ContractsTest extends TestCase {
                             reseller {
                                 id
                                 name
+                                customers_count
+                                locations_count
+                                assets_count
+                                locations {
+                                    id
+                                    state
+                                    postcode
+                                    line_one
+                                    line_two
+                                    lat
+                                    lng
+                                }
                             }
                             currency {
                                 id
@@ -227,8 +239,22 @@ class ContractsTest extends TestCase {
                                 ],
                             ],
                             'reseller'    => [
-                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                                'name' => 'reseller1',
+                                'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                'name'            => 'reseller1',
+                                'customers_count' => 0,
+                                'locations_count' => 1,
+                                'assets_count'    => 0,
+                                'locations'       => [
+                                    [
+                                        'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
+                                        'state'    => 'state2',
+                                        'postcode' => '19912',
+                                        'line_one' => 'reseller_one_data',
+                                        'line_two' => 'reseller_two_data',
+                                        'lat'      => '49.91634204',
+                                        'lng'      => '90.26318359',
+                                    ],
+                                ],
                             ],
                             'currency'    => [
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
@@ -310,10 +336,23 @@ class ContractsTest extends TestCase {
                             'eos'    => '2022-01-01',
                         ]);
                         // Reseller creation belongs to
-                        $reseller = Reseller::factory()->create([
-                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                            'name' => 'reseller1',
-                        ]);
+                        $reseller = Reseller::factory()
+                            ->hasLocations(1, [
+                                'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
+                                'state'    => 'state2',
+                                'postcode' => '19912',
+                                'line_one' => 'reseller_one_data',
+                                'line_two' => 'reseller_two_data',
+                                'lat'      => '49.91634204',
+                                'lng'      => '90.26318359',
+                            ])
+                            ->create([
+                                'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                'name'            => 'reseller1',
+                                'customers_count' => 0,
+                                'locations_count' => 1,
+                                'assets_count'    => 0,
+                            ]);
                         // Currency creation belongs to
                         $currency = Currency::factory()->create([
                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
