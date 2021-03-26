@@ -20,8 +20,8 @@ type Query {
 
   "List of Customers"
   customers (
-    where: CustomerQuery @searchBy
-    order: CustomerSort @sortBy
+    where: CustomersQuery @searchBy
+    order: CustomersSort @sortBy
   ): [Customer!]! @guard @paginate
 
   "Customer with given ID"
@@ -29,7 +29,7 @@ type Query {
 
   "List of all customer assets"
   assets(
-    where: AssetQuery @searchBy
+    where: AssetsQuery @searchBy
     order: AssetsSort @sortBy
   ): [Asset!]! @guard @paginate
 
@@ -38,8 +38,8 @@ type Query {
 
   "List of all cities or filter by country id"
   cities(
-    where: CityQuery @searchBy
-    order: CitySort @sortBy
+    where: CitiesQuery @searchBy
+    order: CitiesSort @sortBy
   ): [City!]! @all
 
   "List of all location types related to customer"

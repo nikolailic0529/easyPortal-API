@@ -1,4 +1,4 @@
-input AssetQuery {
+input AssetsQuery {
   id: ID!
   oem_id: ID!
   type_id: ID!

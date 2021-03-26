@@ -1,4 +1,4 @@
-input ProductSort {
+input ProductsSort {
   id: ID!
   sku: String!
   name: String!

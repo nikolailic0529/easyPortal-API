@@ -1,4 +1,4 @@
-input CityQuery {
+input CitiesQuery {
   id: ID!
   name: String!
   country_id: ID!

@@ -1,3 +1,0 @@
-input CitySort {
-  name: String!
-}
