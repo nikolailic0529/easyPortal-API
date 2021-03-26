@@ -7,4 +7,6 @@ input AssetQuery {
   customer_id: ID!
   location_id: ID!
   serial_number: String!
+  location: LocationQuery
+  customer: CustomerQuery
 }
