@@ -61,10 +61,10 @@ class Kernel extends HttpKernel {
             Tenant::class,
             StartSession::class,
             AuthenticateSession::class,
+            SetLocale::class,
             // \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             VerifyCsrfToken::class,
             SubstituteBindings::class,
-            SetLocale::class,
         ],
 
         'api' => [

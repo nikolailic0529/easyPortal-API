@@ -97,5 +97,14 @@
     "validation.uploaded":"The :attribute failed to upload.",
     "validation.url":"The :attribute format is invalid.",
     "validation.uuid":"The :attribute must be a valid UUID.",
-    "validation.phone":"The :attribute field contains an invalid number."
+    "validation.phone":"The :attribute field contains an invalid number.",
+    "errors.unauthenticated": "Unauthenticated",
+    "errors.unauthorized": "Unauthorized",
+    "errors.forbidden": "Forbidden",
+    "errors.not_found": "Not Found",
+    "errors.page_expired": "Page Expired",
+    "errors.too_many_requests": "Too Many Requests",
+    "errors.server_error": "Server Error",
+    "errors.service_unavailable": "Service Unavailable",
+    "errors.validation_failed": "Validation failed"
 }
