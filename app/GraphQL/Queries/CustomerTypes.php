@@ -13,6 +13,7 @@ class CustomerTypes {
     public function __invoke(mixed $_, array $args): Collection {
         return Type::query()
             ->where('object_type', '=', (new Customer())->getMorphClass())
+            ->orderByKey()
             ->get();
     }
 }

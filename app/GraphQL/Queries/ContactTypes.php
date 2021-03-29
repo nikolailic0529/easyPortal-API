@@ -14,6 +14,7 @@ class ContactTypes {
     public function __invoke($_, array $args): Collection {
         return Type::query()
             ->where('object_type', '=', (new Contact())->getMorphClass())
+            ->orderByKey()
             ->get();
     }
 }
