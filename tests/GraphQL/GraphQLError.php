@@ -2,21 +2,20 @@
 
 namespace Tests\GraphQL;
 
+use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonMatchesSchema;
 use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonSchema;
 
-use function array_keys;
-
 class GraphQLError extends GraphQLResponse {
     /**
-     * @var array<string>|null
+     * @var array<string>|\Closure():array<string>|null
      */
-    protected ?array $errors = null;
+    protected Closure|array|null $errors = null;
 
     /**
-     * @param array<string>|null $errors
+     * @param array<string>|\Closure():array<string>|null $errors
      */
-    public function __construct(string $root, ?array $errors = null) {
+    public function __construct(string $root, Closure|array|null $errors = null) {
         $this->errors = $errors;
 
         parent::__construct($root, null);
@@ -28,48 +27,8 @@ class GraphQLError extends GraphQLResponse {
     protected function getResponseConstraints(): array {
         return [
             $this->errors
-                ? new JsonMatchesSchema(new JsonSchema($this->getErrorsSchema($this->errors)))
+                ? new JsonMatchesSchema(new JsonSchema(new GraphQLErrorsSchema($this->errors)))
                 : null,
-        ];
-    }
-
-    /**
-     * @param array<string> $errors
-     *
-     * @return array<mixed>
-     */
-    protected function getErrorsSchema(array $errors): array {
-        $items = [];
-
-        foreach ($errors as $error) {
-            $items[] = [
-                'type'       => 'object',
-                'required'   => [
-                    'message',
-                ],
-                'properties' => [
-                    'message' => [
-                        'const' => $error,
-                    ],
-                ],
-            ];
-        }
-
-        return [
-            '$schema'              => 'http://json-schema.org/draft-07/schema#',
-            'type'                 => 'object',
-            'additionalProperties' => true,
-            'required'             => [
-                'errors',
-            ],
-            'properties'           => [
-                'errors' => [
-                    'type'            => 'array',
-                    'additionalItems' => false,
-                    'required'        => array_keys($items),
-                    'items'           => $items,
-                ],
-            ],
         ];
     }
 }

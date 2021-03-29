@@ -1,4 +1,0 @@
-type CustomerStatus {
-    id: ID!
-    name: String!
-}

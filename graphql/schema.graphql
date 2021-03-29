@@ -3,94 +3,93 @@
 #import Filters/*.graphql
 
 type Query {
-    # General
-    "Current user, `null` for guests."
-    me: Me
+  # General
+  "Current user, `null` for guests."
+  me: Me
 
-    # Auth
-    "Link to perform Sign In, available only for guests."
-    authSignIn: String! @guest          # TODO [GraphQL] URL type needed
+  # Auth
+  "Link to perform Sign In, available only for guests."
+  authSignIn: String! @guest          # TODO [GraphQL] URL type needed
 
-    # Customers
-    "List of all statuses"
-    customerStatuses: [CustomerStatus!]!
+  # Customers
+  "List of all statuses"
+  customerStatuses: [Status!]!
 
-    "List of all types"
-    customerTypes: [Type!]!
+  "List of all types"
+  customerTypes: [Type!]!
 
-    "List of Customers"
-    customers (
-        where: CustomerQuery @searchBy
-        order: CustomerSort @sortBy
-    ): [Customer!]! @guard @paginate
+  "List of Customers"
+  customers (
+    where: CustomersQuery @searchBy
+    order: CustomersSort @sortBy
+  ): [Customer!]! @guard @paginate
 
-    "Customer with given ID"
-    customer (id: ID! @eq): Customer @guard @find
+  "Customer with given ID"
+  customer (id: ID! @eq): Customer @guard @find
 
-    "List of all customer assets"
-    assets(
-        where: AssetQuery @searchBy
-        order: AssetsSort @sortBy
-    ): [Asset!]! @guard @paginate
+  "List of all customer assets"
+  assets(
+    where: AssetsQuery @searchBy
+    order: AssetsSort @sortBy
+  ): [Asset!]! @guard @paginate
 
-    "List of all countries"
-    countries: [Country!]! @all
+  "List of all countries"
+  countries: [Country!]! @all @orderBy(column: "code")
 
-    "List of all cities or filter by country id"
-    cities(
-        where: CityQuery @searchBy
-        order: CitySort @sortBy
-    ): [City!]! @all
+  "List of all cities or filter by country id"
+  cities(
+    where: CitiesQuery @searchBy
+  ): [City!]! @all @orderBy(column: "id")
 
-    "List of all location types related to customer"
-    locationTypes: [Type!]!
+  "List of all location types related to customer"
+  locationTypes: [Type!]!
 
-    "List of all contact types"
-    contactTypes: [Type!]!
+  "List of all contact types"
+  contactTypes: [Type!]!
 
-    "Get Locale"
-    locale: String!
+  "Get Locale"
+  locale: String!
 
-    "List of all asset types"
-    assetTypes: [Type!]!
+  "List of all asset types"
+  assetTypes: [Type!]!
 
-    "List of all oems"
-    oems: [Oem!]! @all
+  "List of all oems"
+  oems: [Oem!]! @all
 
-    "Get asset by id"
-    asset(id: ID! @eq): Asset @guard @find
+  "Get asset by id"
+  asset(id: ID! @eq): Asset @guard @find
 }
 
 type Mutation {
-    "Return the link where the user should be redirected to complete sign-out."
-    authSignOut: String! @guard         # TODO [GraphQL] URL type needed
+  "Return the link where the user should be redirected to complete sign-out."
+  authSignOut: String! @guard         # TODO [GraphQL] URL type needed
 
-    "Complete sign-in and returns current User if successful."
-    authSignInByCode(code: String!, state: String!): User @guest
+  "Complete sign-in and returns current User if successful."
+  authSignInByCode(code: String!, state: String!): User @guest
 
-    "Password based sing-in."
-    authSignInByPassword(
-        username: String!               # TODO [GraphQL] Email type needed
-        password: String!
-    ): User @guest @validator
+  "Password based sing-in."
+  authSignInByPassword(
+    username: String!               # TODO [GraphQL] Email type needed
+    password: String!
+  ): User @guest @validator
 
-    "Register new user"
-    authSignUp(
-        given_name: String!
-        family_name: String!
-        email: String!                  # TODO [GraphQL] Email type needed
-        phone: String!                  # TODO [GraphQL] Phone type needed
-        company: String!
-        reseller: String
-    ): Boolean! @guest @validator
+  "Register new user"
+  authSignUp(
+    given_name: String!
+    family_name: String!
+    email: String!                  # TODO [GraphQL] Email type needed
+    phone: String!                  # TODO [GraphQL] Phone type needed
+    company: String!
+    reseller: String
+  ): Boolean! @guest @validator
 
-    "Reset password"
-    authResetPassword(
-        username: String!               # TODO [GraphQL] Email type needed
-    ): Boolean! @guest
+  "Reset password"
+  authResetPassword(
+    username: String!               # TODO [GraphQL] Email type needed
+  ): Boolean! @guest
 
-    "Set Locale"
-    locale(
-        locale: String! @rules(apply:["regex:/^[a-z]{2}(?:_[A-Z]{2})?$/"])
-    ): Boolean!
+  "Set Locale"
+  locale(
+    locale: String! @rules(apply:["regex:/^[a-z]{2}(?:_[A-Z]{2})?$/"])
+  ): Boolean!
 }

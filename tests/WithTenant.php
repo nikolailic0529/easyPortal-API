@@ -12,12 +12,12 @@ use RuntimeException;
  * @mixin \Tests\TestCase
  */
 trait WithTenant {
-    public function setTenant(Organization|Closure|null $tenant): ?Organization {
+    protected function setTenant(Organization|Closure|null $tenant): ?Organization {
         if ($tenant instanceof Closure) {
             $tenant = $tenant($this);
         }
 
-        if ($tenant) {
+        if ($tenant && !$tenant->isRoot()) {
             $generator = $this->app->get(UrlGeneratorContract::class);
 
             if ($generator instanceof UrlGenerator) {
@@ -28,5 +28,9 @@ trait WithTenant {
         }
 
         return $tenant;
+    }
+
+    protected function useRootTenant(): ?Organization {
+        return $this->setTenant(Organization::factory()->root()->create());
     }
 }

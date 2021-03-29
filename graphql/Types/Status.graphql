@@ -1,5 +1,4 @@
-type Country {
+type Status {
   id: ID!
   name: String! @translate
-  code: String!
 }

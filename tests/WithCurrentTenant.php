@@ -6,6 +6,8 @@ use App\CurrentTenant;
 use App\Models\Organization;
 
 /**
+ * @deprecated Not sure that this trait is needed, probably you want {@link \Tests\WithTenant}.
+ *
  * @mixin \Tests\TestCase
  */
 trait WithCurrentTenant {

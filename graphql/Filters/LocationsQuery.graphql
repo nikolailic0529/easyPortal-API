@@ -1,4 +1,4 @@
-input LocationQuery {
+input LocationsQuery {
   id: ID!
   postcode: String!
   state: String!
@@ -6,9 +6,9 @@ input LocationQuery {
   line_two: String!
   lat: String
   lng: String
-  city: CityQuery
+  city: CitiesQuery
   city_id: ID!
-  country: CountryQuery
+  country: CountriesQuery
   country_id: ID!
-  types: TypeQuery
+  types: TypesQuery
 }

@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Testing\WithFaker;
 use LastDragon_ru\LaraASP\Testing\Database\RefreshDatabaseIfEmpty;
 use LastDragon_ru\LaraASP\Testing\TestCase as BaseTestCase;
@@ -15,5 +16,9 @@ abstract class TestCase extends BaseTestCase {
     use WithUser;
     use WithFaker {
         faker as public;
+    }
+
+    public function app(): Application {
+        return $this->app;
     }
 }

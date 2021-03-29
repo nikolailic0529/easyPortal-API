@@ -1,11 +1,11 @@
-input CustomerQuery {
+input CustomersQuery {
   id: ID!
   name: String!
   type_id: ID!
   status_id: ID!
   assets_count: Int!
   locations_count: Int!
-  locations: LocationQuery
+  locations: LocationsQuery
   contacts_count: Int!
-  contacts: ContactQuery
+  contacts: ContactsQuery
 }

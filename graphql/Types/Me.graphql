@@ -1,6 +1,6 @@
 type Me {
-    id: ID!
-    given_name: String!
-    family_name: String!
-    locale: String
+  id: ID!
+  given_name: String!
+  family_name: String!
+  locale: String
 }

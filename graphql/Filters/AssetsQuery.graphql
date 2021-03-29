@@ -1,4 +1,4 @@
-input AssetQuery {
+input AssetsQuery {
   id: ID!
   oem_id: ID!
   type_id: ID!
@@ -7,6 +7,6 @@ input AssetQuery {
   customer_id: ID!
   location_id: ID!
   serial_number: String!
-  location: LocationQuery
-  customer: CustomerQuery
+  location: LocationsQuery
+  customer: CustomersQuery
 }

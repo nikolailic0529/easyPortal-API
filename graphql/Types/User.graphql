@@ -1,5 +1,5 @@
 type User {
-    id: ID! # FIXME [!] Do we really need it on frontend?
-    given_name: String!
-    family_name: String!
+  id: ID! # FIXME [!] Do we really need it on frontend?
+  given_name: String!
+  family_name: String!
 }

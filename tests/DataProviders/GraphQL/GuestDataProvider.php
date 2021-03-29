@@ -10,6 +10,8 @@ use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
 use Tests\GraphQL\GraphQLError;
 use Tests\TestCase;
 
+use function __;
+
 class GuestDataProvider extends ArrayDataProvider {
     public function __construct(string $root) {
         parent::__construct([
@@ -20,7 +22,9 @@ class GuestDataProvider extends ArrayDataProvider {
                 },
             ],
             'user is not allowed' => [
-                new ExpectedFinal(new GraphQLError($root, ['Unauthenticated.'])),
+                new ExpectedFinal(new GraphQLError($root, static function (): array {
+                    return [__('errors.unauthenticated')];
+                })),
                 static function (TestCase $test, ?Organization $organization): ?User {
                     return User::factory()->make([
                         'organization_id' => $organization,

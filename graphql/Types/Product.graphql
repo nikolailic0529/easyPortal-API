@@ -1,9 +1,9 @@
 type Product {
-    id: ID!
-    oem_id: ID!
-    sku: String!
-    name: String!
-    eol: Date
-    eos: Date
-    oem: Oem! @belongsTo
+  id: ID!
+  oem_id: ID!
+  sku: String!
+  name: String!
+  eol: Date
+  eos: Date
+  oem: Oem! @belongsTo
 }

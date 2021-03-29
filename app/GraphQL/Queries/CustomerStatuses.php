@@ -13,6 +13,7 @@ class CustomerStatuses {
     public function __invoke(mixed $_, array $args): Collection {
         return Status::query()
             ->where('object_type', '=', (new Customer())->getMorphClass())
+            ->orderByKey()
             ->get();
     }
 }
