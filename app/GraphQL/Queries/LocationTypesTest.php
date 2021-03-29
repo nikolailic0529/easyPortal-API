@@ -86,11 +86,11 @@ class LocationTypesTest extends TestCase {
                         $type       = (new Location())->getMorphClass();
 
                         $translator->addLines([
-                            "model.{$model}.{$type}.translated" => 'Translated (locale)',
+                            "models.{$model}.name.{$type}.translated" => 'Translated (locale)',
                         ], $locale);
 
                         $translator->addLines([
-                            "model.{$model}.{$type}.translated-fallback" => 'Translated (fallback)',
+                            "models.{$model}.name.{$type}.translated-fallback" => 'Translated (fallback)',
                         ], $fallback);
 
                         return $locale;

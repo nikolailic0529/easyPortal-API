@@ -87,11 +87,11 @@ class CustomerTypesTest extends TestCase {
                         $type       = (new Customer())->getMorphClass();
 
                         $translator->addLines([
-                            "model.{$model}.{$type}.translated" => 'Translated (locale)',
+                            "models.{$model}.name.{$type}.translated" => 'Translated (locale)',
                         ], $locale);
 
                         $translator->addLines([
-                            "model.{$model}.{$type}.translated-fallback" => 'Translated (fallback)',
+                            "models.{$model}.name.{$type}.translated-fallback" => 'Translated (fallback)',
                         ], $fallback);
 
                         return $locale;

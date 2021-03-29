@@ -48,6 +48,6 @@ class Status extends Model implements Translatable {
     }
 
     protected function getTranslatedPropertyKey(string $property): string {
-        return "model.{$this->getMorphClass()}.{$this->object_type}.{$this->key}";
+        return "models.{$this->getMorphClass()}.{$property}.{$this->object_type}.{$this->key}";
     }
 }
