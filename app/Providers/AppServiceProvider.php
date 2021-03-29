@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Asset;
 use App\Models\Contact;
+use App\Models\Country;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Location;
@@ -46,6 +47,7 @@ class AppServiceProvider extends ServiceProvider {
             // Used only for translation
             'type'     => Type::class,
             'status'   => Status::class,
+            'country'  => Country::class,
         ]);
     }
 

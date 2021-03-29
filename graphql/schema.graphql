@@ -34,7 +34,7 @@ type Query {
   ): [Asset!]! @guard @paginate
 
   "List of all countries"
-  countries: [Country!]! @all
+  countries: [Country!]! @all @orderBy(column: "code")
 
   "List of all cities or filter by country id"
   cities(
