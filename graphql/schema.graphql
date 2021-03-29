@@ -60,7 +60,7 @@ type Query {
     asset(id: ID! @eq): Asset @guard @find
 
     "List of all currencies"
-    currencies: [Currency!]! @all
+    currencies: [Currency!]! @all @orderBy(column: "code")
 
     "List of all contracts"
     contracts (

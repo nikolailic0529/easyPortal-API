@@ -6,6 +6,7 @@ use App\Models\Asset;
 use App\Models\City;
 use App\Models\Contact;
 use App\Models\Country;
+use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Location;
@@ -50,6 +51,7 @@ class AppServiceProvider extends ServiceProvider {
             'status'   => Status::class,
             'country'  => Country::class,
             'city'     => City::class,
+            'currency' => Currency::class,
         ]);
     }
 
