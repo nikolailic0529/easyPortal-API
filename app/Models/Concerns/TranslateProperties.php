@@ -19,15 +19,24 @@ trait TranslateProperties {
         }
 
         // Translate
-        $key        = $this->getTranslatedPropertyKey($property);
-        $translated = __($key);
+        $keys  = $this->getTranslatedPropertyKeys($property);
+        $value = null;
 
-        if ($translated === $key) {
-            $translated = $this[$property];
+        foreach ($keys as $key) {
+            $translated = __($key);
+
+            if ($translated !== $key) {
+                $value = $translated;
+                break;
+            }
+        }
+
+        if (!$value) {
+            $value = $this[$property];
         }
 
         // Return
-        return $translated;
+        return $value;
     }
 
     /**
@@ -35,5 +44,8 @@ trait TranslateProperties {
      */
     abstract protected function getTranslatableProperties(): array;
 
-    abstract protected function getTranslatedPropertyKey(string $property): string;
+    /**
+     * @return array<string>
+     */
+    abstract protected function getTranslatedPropertyKeys(string $property): array;
 }

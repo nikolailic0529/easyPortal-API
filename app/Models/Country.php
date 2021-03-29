@@ -45,7 +45,12 @@ class Country extends Model implements Translatable {
         return ['name'];
     }
 
-    protected function getTranslatedPropertyKey(string $property): string {
-        return "models.{$this->getMorphClass()}.{$property}.{$this->code}";
+    /**
+     * @inheritdoc
+     */
+    protected function getTranslatedPropertyKeys(string $property): array {
+        return [
+            "models.{$this->getMorphClass()}.{$property}.{$this->code}",
+        ];
     }
 }
