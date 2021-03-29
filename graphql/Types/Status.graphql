@@ -1,4 +1,4 @@
 type Status {
   id: ID!
-  name: String!
+  name: String! @translate
 }

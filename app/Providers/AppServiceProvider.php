@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Location;
 use App\Models\Reseller;
+use App\Models\Status;
 use App\Models\Type;
 use App\Services\Auth0\AuthService;
 use App\Services\Auth0\UserRepository;
@@ -44,6 +45,7 @@ class AppServiceProvider extends ServiceProvider {
 
             // Used only for translation
             'type'     => Type::class,
+            'status'   => Status::class,
         ]);
     }
 
