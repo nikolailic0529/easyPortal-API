@@ -44,6 +44,7 @@ use LogicException;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereFamilyName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereGivenName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereLocale($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereOrganizationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePermissions($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhone($value)

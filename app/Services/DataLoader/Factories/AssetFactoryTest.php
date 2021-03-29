@@ -339,9 +339,6 @@ class AssetFactoryTest extends TestCase {
                 $this->setDocumentFactory($documentFactory);
             }
 
-            /**
-             * @inheritdoc
-             */
             public function assetDocuments(AssetModel $model, Asset $asset): Collection {
                 return parent::assetDocuments($model, $asset);
             }

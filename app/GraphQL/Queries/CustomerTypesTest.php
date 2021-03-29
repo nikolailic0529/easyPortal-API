@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\Type;
 use Closure;
