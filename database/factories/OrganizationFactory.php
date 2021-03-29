@@ -35,4 +35,14 @@ class OrganizationFactory extends Factory {
             'deleted_at' => null,
         ];
     }
+
+    public function root(): static {
+        // phpcs:disable SlevomatCodingStandard.Functions.StaticClosure.ClosureNotStatic
+        return $this->state(function (): array {
+            return [
+                'subdomain' => Organization::ROOT,
+            ];
+        });
+        // phpcs:enable
+    }
 }

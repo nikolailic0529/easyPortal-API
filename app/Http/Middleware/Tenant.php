@@ -63,7 +63,7 @@ class Tenant {
         $server = (string) $request->server->get('SERVER_NAME');
 
         if ($this->isRootDomain($server)) {
-            $name = '@root';
+            $name = Organization::ROOT;
         } else {
             $name = $this->getTenantNameFromDomain($server);
 

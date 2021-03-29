@@ -181,9 +181,7 @@ class TenantTest extends TestCase {
     public function dataProviderGetTenantFromRequest(): array {
         $tenant  = 'tenant-test';
         $root    = static function (): Organization {
-            return Organization::factory()->create([
-                'subdomain' => '@root',
-            ]);
+            return Organization::factory()->root()->create();
         };
         $factory = static function () use ($tenant): Organization {
             return Organization::factory()->create([

@@ -30,10 +30,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Organization extends Model {
     use HasFactory;
 
+    public const ROOT = '@root';
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
      */
     protected $table = 'organizations';
+
+    public function isRoot(): bool {
+        return $this->subdomain === self::ROOT;
+    }
 }

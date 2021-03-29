@@ -17,7 +17,7 @@ trait WithTenant {
             $tenant = $tenant($this);
         }
 
-        if ($tenant) {
+        if ($tenant && !$tenant->isRoot()) {
             $generator = $this->app->get(UrlGeneratorContract::class);
 
             if ($generator instanceof UrlGenerator) {
