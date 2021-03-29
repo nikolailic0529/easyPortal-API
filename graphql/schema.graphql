@@ -39,8 +39,7 @@ type Query {
   "List of all cities or filter by country id"
   cities(
     where: CitiesQuery @searchBy
-    order: CitiesSort @sortBy
-  ): [City!]! @all
+  ): [City!]! @all @orderBy(column: "id")
 
   "List of all location types related to customer"
   locationTypes: [Type!]!

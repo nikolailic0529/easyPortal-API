@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Asset;
+use App\Models\City;
 use App\Models\Contact;
 use App\Models\Country;
 use App\Models\Customer;
@@ -48,6 +49,7 @@ class AppServiceProvider extends ServiceProvider {
             'type'     => Type::class,
             'status'   => Status::class,
             'country'  => Country::class,
+            'city'     => City::class,
         ]);
     }
 

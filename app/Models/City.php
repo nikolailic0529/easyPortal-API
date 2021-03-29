@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\GraphQL\Contracts\Translatable;
+use App\Models\Concerns\TranslateProperties;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -27,8 +29,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\City whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class City extends Model {
+class City extends Model implements Translatable {
     use HasFactory;
+    use TranslateProperties;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -43,5 +46,22 @@ class City extends Model {
 
     public function setCountryAttribute(Country $country): void {
         $this->country()->associate($country);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getTranslatableProperties(): array {
+        return ['name'];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getTranslatedPropertyKeys(string $property): array {
+        return [
+            "models.{$this->getMorphClass()}.{$property}.{$this->country->code}.{$this->name}",
+            "models.{$this->getMorphClass()}.{$property}.{$this->name}",
+        ];
     }
 }

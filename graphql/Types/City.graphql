@@ -1,6 +1,6 @@
 type City {
   id: ID!
-  name: String!
+  name: String! @translate @with(relation: "country")
   country_id: ID!
-  country: Country!
+  country: Country! @belongsTo
 }
