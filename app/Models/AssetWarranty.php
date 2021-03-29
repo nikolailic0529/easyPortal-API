@@ -7,6 +7,7 @@ use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasDocument;
 use App\Models\Concerns\HasReseller;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 /**
@@ -78,8 +79,8 @@ class AssetWarranty extends Model {
         $this->document()->associate($document);
     }
 
-    public function services(): HasOneThrough {
-        return $this->hasOneThrough(
+    public function services(): HasManyThrough {
+        return $this->hasManyThrough(
             Product::class,
             DocumentEntry::class,
             'document_id',

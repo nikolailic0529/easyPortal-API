@@ -522,8 +522,11 @@
                 "reseller": {
                     "$ref": "#/definitions/Reseller"
                 },
-                "service": {
-                    "$ref": "#/definitions/Product"
+                "services": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Product"
+                    }
                 },
                 "package": {
                     "$ref": "#/definitions/Product"

@@ -286,16 +286,18 @@ class AssetsTest extends TestCase {
                                     'end'         => '2022-01-01',
                                     'note'        => 'note',
                                     'services'    => [
-                                        'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                        'name'   => 'Product1',
-                                        'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                        'sku'    => 'SKU#123',
-                                        'eol'    => '2022-12-30',
-                                        'eos'    => '2022-01-01',
-                                        'oem'    => [
-                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                            'abbr' => 'abbr',
-                                            'name' => 'oem1',
+                                        [
+                                            'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                            'name'   => 'Product1',
+                                            'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                            'sku'    => 'SKU#123',
+                                            'eol'    => '2022-12-30',
+                                            'eos'    => '2022-01-01',
+                                            'oem'    => [
+                                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                                'abbr' => 'abbr',
+                                                'name' => 'oem1',
+                                            ],
                                         ],
                                     ],
                                     'package'     => [

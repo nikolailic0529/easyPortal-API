@@ -11,6 +11,6 @@ type AssetWarranty {
     customer: Customer @belongsTo
     document: Document @belongsTo
     reseller: Reseller @belongsTo
-    services: Product @hasOne
+    services: [Product!]! @hasMany
     package: Product @hasOne
 }
