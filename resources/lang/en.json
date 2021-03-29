@@ -106,5 +106,14 @@
     "errors.too_many_requests": "Too Many Requests",
     "errors.server_error": "Server Error",
     "errors.service_unavailable": "Service Unavailable",
-    "errors.validation_failed": "Validation failed"
+    "errors.validation_failed": "Validation failed",
+    "lara-asp-graphql::messages.search_by.errors.too_many_properties": "Only one property allowed, found: `:properties`.",
+    "lara-asp-graphql::messages.search_by.errors.too_many_operators": "Only one comparison operator allowed, found: `:operators`.",
+    "lara-asp-graphql::messages.search_by.errors.unsupported_option": "Operator `:operator` cannot be used with `:option`.",
+    "lara-asp-graphql::messages.search_by.errors.unknown_operator": "Operator `:operator` not found.",
+    "lara-asp-graphql::messages.search_by.errors.empty_condition": "Search condition cannot be empty.",
+    "lara-asp-graphql::messages.sort_by.errors.unsupported_relation": "Relation of type `:relation` cannot be used for sort, only `:supported` supported.",
+    "lara-asp-graphql::messages.sort_by.errors.unsupported_builder": "Relation cannot be used with `:builder`.",
+    "lara-asp-graphql::messages.sort_by.errors.too_many_properties": "Only one property allowed, found: `:properties`.",
+    "lara-asp-graphql::messages.sort_by.errors.empty_clause": "Sort clause cannot be empty."
 }
