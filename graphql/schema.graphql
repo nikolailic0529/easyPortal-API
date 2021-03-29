@@ -13,7 +13,7 @@ type Query {
 
   # Customers
   "List of all statuses"
-  customerStatuses: [CustomerStatus!]!
+  customerStatuses: [Status!]!
 
   "List of all types"
   customerTypes: [Type!]!

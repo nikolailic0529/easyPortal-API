@@ -1,4 +1,4 @@
-type CustomerStatus {
+type Status {
   id: ID!
   name: String!
 }
