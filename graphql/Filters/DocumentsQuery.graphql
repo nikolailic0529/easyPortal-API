@@ -14,5 +14,5 @@ input DocumentsQuery {
   oem: OemsQuery
   product: ProductsQuery
   reseller: ResellersQuery
-  type: TypeQuery
+  type: TypesQuery
 }
