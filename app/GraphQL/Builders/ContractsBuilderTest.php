@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Builders;
 
 use App\Models\Asset;
 use App\Models\Currency;
@@ -24,10 +24,12 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversNothing
+ * @coversDefaultClass \App\GraphQL\Builders\ContractsBuilder
  */
-class ContractsTest extends TestCase {
+class ContractsBuilderTest extends TestCase {
     /**
+     * @covers ::__invoke
+     *
      * @dataProvider dataProviderQuery
      *
      * @param array<mixed> $settings
