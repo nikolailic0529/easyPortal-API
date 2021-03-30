@@ -1,12 +1,10 @@
 type DocumentEntry {
   id: ID!
-  oem_id: ID!
   document_id: ID!
   asset_id: ID!
   product_id: ID!
   quantity: Int!
   asset: Asset! @belongsTo
   document: Document! @belongsTo
-  oem: Oem! @belongsTo
   product: Product! @belongsTo
 }

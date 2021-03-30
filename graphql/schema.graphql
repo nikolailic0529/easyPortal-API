@@ -18,20 +18,20 @@ type Query {
   "List of all types"
   customerTypes: [Type!]!
 
-    "List of Customers"
-    customers (
-        where: CustomersQuery @searchBy
-        order: CustomersSort @sortBy
-    ): [Customer!]! @guard @paginate
+  "List of Customers"
+  customers (
+    where: CustomersQuery @searchBy
+    order: CustomersSort @sortBy
+  ): [Customer!]! @guard @paginate
 
   "Customer with given ID"
   customer (id: ID! @eq): Customer @guard @find
 
-    "List of all customer assets"
-    assets(
-        where: AssetsQuery @searchBy
-        order: AssetsSort @sortBy
-    ): [Asset!]! @guard @paginate
+  "List of all customer assets"
+  assets(
+    where: AssetsQuery @searchBy
+    order: AssetsSort @sortBy
+  ): [Asset!]! @guard @paginate
 
   "List of all countries"
   countries: [Country!]! @all @orderBy(column: "code")
@@ -79,67 +79,6 @@ type Query {
 
   "Get quote by id"
   quote(id: ID! @eq): Document @guard @find @builder(method: "App\\GraphQL\\Builders\\QuotesBuilder")
-}
-
-enum CustomersWhereColumns {
-    NAME @enum(value: "name")
-    TYPE @enum(value: "type_id")
-    STATUS @enum(value: "status_id")
-}
-
-input DocumentsQuery {
-  id: ID!
-  oem_id: ID!
-  type_id: ID!
-  customer_id: ID!
-  reseller_id: ID!
-  number: String!
-  product_id: ID!
-  price: String!
-  currency_id: ID!
-  currency: CurrenciesQuery
-  customer: CustomersQuery
-  oem: OemsQuery
-  product: ProductsQuery
-  reseller: ResellersQuery
-  type: TypesQuery
-}
-
-input CurrenciesQuery {
-  id: ID!
-  code: String!
-  name: String!
-}
-
-input OemsQuery {
-  id: ID!
-  abbr: String!
-  name: String!
-}
-
-input ProductsQuery {
-  id: ID!
-  oem_id: ID!
-  sku: String!
-  name: String!
-}
-
-input ResellersQuery {
-  id: ID!
-  name: String!
-}
-
-input DocumentsSort {
-  start: Date!
-  end: Date!
-  price: String!
-}
-
-enum AssetsWhereColumns {
-    OEM @enum(value: "oem_id")
-    PRODUCT @enum(value: "product_id")
-    TYPE @enum(value: "type_id")
-    CUSTOMER @enum(value: "customer_id")
 }
 
 type Mutation {

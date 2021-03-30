@@ -418,7 +418,6 @@ class AssetTest extends TestCase {
                         // Document entry creation for services
                         DocumentEntry::factory()->create([
                             'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                            'oem_id'      => $oem,
                             'document_id' => $document,
                             'asset_id'    => Asset::factory()->create([
                                 'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',

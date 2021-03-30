@@ -1,3 +1,4 @@
 input ResellersQuery {
+  id: ID!
   name: String!
 }

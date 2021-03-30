@@ -1,4 +1,5 @@
 input DocumentsQuery {
+  id: ID!
   oem_id: ID!
   type_id: ID!
   customer_id: ID!

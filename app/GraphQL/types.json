@@ -538,19 +538,14 @@
             "type": "object",
             "required": [
                 "id",
-                "oem_id",
                 "document_id",
                 "asset_id",
                 "product_id",
                 "quantity",
-                "oem",
                 "product"
             ],
             "properties": {
                 "id": {
-                    "$ref": "#/definitions/ID"
-                },
-                "oem_id": {
                     "$ref": "#/definitions/ID"
                 },
                 "document_id": {
@@ -570,9 +565,6 @@
                 },
                 "document": {
                     "$ref": "#/definitions/Document"
-                },
-                "oem": {
-                    "$ref": "#/definitions/Oem"
                 },
                 "product": {
                     "$ref": "#/definitions/Product"

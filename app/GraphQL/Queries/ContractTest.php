@@ -127,16 +127,10 @@ class ContractTest extends TestCase {
                         }
                         entries {
                             id
-                            oem_id
                             document_id
                             asset_id
                             product_id
                             quantity
-                            oem {
-                                id
-                                abbr
-                                name
-                            }
                             product {
                                 id
                                 name
@@ -254,16 +248,10 @@ class ContractTest extends TestCase {
                         'entries'     => [
                             [
                                 'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                'oem_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                 'asset_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                 'product_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                 'document_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                 'quantity'    => 20,
-                                'oem'         => [
-                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                    'abbr' => 'abbr',
-                                    'name' => 'oem1',
-                                ],
                                 'product'     => [
                                     'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                     'name'   => 'Product1',
@@ -357,7 +345,6 @@ class ContractTest extends TestCase {
                             ->for($currency)
                             ->hasEntries(1, [
                                 'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                'oem_id'     => $oem,
                                 'asset_id'   => Asset::factory()->create([
                                     'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                 ]),

@@ -419,7 +419,7 @@ class AssetsTest extends TestCase {
                         $product2 = Product::factory()->create([
                             'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24998',
                             'name'   => 'Product2',
-                            'oem_id' => $oem->id,
+                            'oem_id' => $oem,
                             'sku'    => 'SKU#321',
                             'eol'    => '2022-12-30',
                             'eos'    => '2022-01-01',
@@ -432,7 +432,6 @@ class AssetsTest extends TestCase {
                         // Document entry creation for services
                         DocumentEntry::factory()->create([
                             'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                            'oem_id'      => $oem,
                             'document_id' => $document,
                             'asset_id'    => Asset::factory()->create([
                                 'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
