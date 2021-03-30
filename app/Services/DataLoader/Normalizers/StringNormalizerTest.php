@@ -14,5 +14,6 @@ class StringNormalizerTest extends TestCase {
      */
     public function testNormalize(): void {
         $this->assertEquals('Fsfsd dsfd dSfd', (new StringNormalizer())->normalize(' Fsfsd  dsfd    dSfd '));
+        $this->assertNull((new StringNormalizer())->normalize(null));
     }
 }

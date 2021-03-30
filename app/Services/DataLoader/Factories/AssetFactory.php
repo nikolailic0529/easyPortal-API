@@ -4,8 +4,10 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\Asset as AssetModel;
 use App\Models\AssetWarranty;
+use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\Document;
+use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry;
 use App\Models\Enums\ProductType;
 use App\Models\Location;
@@ -22,7 +24,9 @@ use App\Services\DataLoader\Factories\Concerns\WithProduct;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
+use App\Services\DataLoader\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
@@ -59,6 +63,8 @@ class AssetFactory extends ModelFactory {
         protected CustomerResolver $customerResolver,
         protected ResellerResolver $resellerResolver,
         protected LocationFactory $locations,
+        protected DocumentResolver $documentResolver,
+        protected CurrencyResolver $currencies,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -181,8 +187,8 @@ class AssetFactory extends ModelFactory {
         $documents = new SplObjectStorage();
 
         foreach ($asset->assetDocument as $assetDocument) {
-            $document = $this->assetDocument($assetDocument);
-            $entry    = $this->assetDocumentEntry($assetDocument);
+            $document = $this->assetDocument($model, $assetDocument);
+            $entry    = $this->assetDocumentEntry($document, $assetDocument);
 
             if ($documents->contains($document)) {
                 $documents[$document]->add($entry);
@@ -240,32 +246,82 @@ class AssetFactory extends ModelFactory {
         return new Collection($documents);
     }
 
-    protected function assetDocument(AssetDocument $assetDocument): Document {
-        $document = $this->documentFactory
-            ? $this->documentFactory->create($assetDocument)
-            : null;
+    protected function assetDocument(AssetModel $asset, AssetDocument $assetDocument): Document {
+        $document = null;
+
+        if ($this->documentFactory) {
+            if (isset($assetDocument->document)) {
+                $document = $this->documentFactory->create($assetDocument);
+            } else {
+                // This is temporary fix for https://thefas.atlassian.net/browse/EAP-60
+                $created  = false;
+                $factory  = $this->factory(
+                    function (DocumentModel $model) use (&$created, $asset, $assetDocument): DocumentModel {
+                        $created         = !$model->exists;
+                        $model->id       = $this->normalizer->string($assetDocument->documentId);
+                        $model->oem      = $asset->oem;
+                        $model->type     = $this->type(new DocumentModel(), '??');
+                        $model->product  = $this->product(
+                            $asset->oem,
+                            ProductType::support(),
+                            $assetDocument->supportPackage,
+                            $assetDocument->supportPackageDescription,
+                            null,
+                            null,
+                        );
+                        $model->reseller = $asset->reseller;
+                        $model->customer = $asset->customer;
+                        $model->currency = $this->currencies->get('EUR', $this->factory(static function (): Currency {
+                            $model = new Currency();
+
+                            $model->code = 'EUR';
+                            $model->name = 'EUR';
+
+                            $model->save();
+
+                            return $model;
+                        }));
+                        $model->start    = $this->normalizer->datetime($assetDocument->startDate);
+                        $model->end      = $this->normalizer->datetime($assetDocument->endDate);
+                        $model->price    = $this->normalizer->price('0.00');
+                        $model->number   = $this->normalizer->string($assetDocument->documentId);
+
+                        $model->save();
+
+                        return $model;
+                    },
+                );
+                $document = $this->documentResolver->get(
+                    $assetDocument->documentId,
+                    static function () use ($factory): DocumentModel {
+                        return $factory(new DocumentModel());
+                    },
+                );
+
+                // Update
+                if (!$created && !$this->isSearchMode()) {
+                    $factory($document);
+                }
+            }
+        }
 
         if (!$document) {
             throw new DocumentNotFoundException(sprintf(
                 'Document `%s` not found.',
-                $assetDocument->document->id,
+                $assetDocument->documentId,
             ));
         }
 
         return $document;
     }
 
-    protected function assetDocumentEntry(AssetDocument $document): DocumentEntry {
+    protected function assetDocumentEntry(Document $document, AssetDocument $assetDocument): DocumentEntry {
         $entry          = new DocumentEntry();
-        $entry->oem     = $this->oem(
-            $document->document->vendorSpecificFields->vendor,
-            $document->document->vendorSpecificFields->vendor,
-        );
         $entry->product = $this->product(
-            $entry->oem,
+            $document->oem,
             ProductType::service(),
-            $document->skuNumber,
-            $document->skuDescription,
+            $assetDocument->skuNumber,
+            $assetDocument->skuDescription,
             null,
             null,
         );
@@ -298,7 +354,7 @@ class AssetFactory extends ModelFactory {
 
             // Document exists?
             /** @var \App\Models\Document $document */
-            $document = $documents->get($assetDocument->document->id);
+            $document = $documents->get($assetDocument->documentId);
 
             if (!$document) {
                 continue;

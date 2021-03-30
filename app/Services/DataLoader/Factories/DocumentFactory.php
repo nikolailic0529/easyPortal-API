@@ -86,7 +86,7 @@ class DocumentFactory extends ModelFactory {
         $keys = (new Collection($assets))
             ->map(static function (Asset $asset): array {
                 return array_map(static function (AssetDocument $document): string {
-                    return $document->document->id;
+                    return $document->documentId ?? $document->document->id;
                 }, $asset->assetDocument ?? []);
             })
             ->flatten()

@@ -19,10 +19,13 @@ use App\Services\DataLoader\Exceptions\DocumentNotFoundException;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
+use App\Services\DataLoader\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Type;
@@ -393,7 +396,6 @@ class AssetFactoryTest extends TestCase {
         /** @var \App\Models\DocumentEntry $e */
         $e = $a->entries->first();
 
-        $this->assertEquals('HPE', $e->oem->abbr);
         $this->assertEquals(2, $e->quantity);
         $this->assertEquals($a->getKey(), $e->document_id);
         $this->assertEquals($asset->id, $e->asset_id);
@@ -472,10 +474,131 @@ class AssetFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::assetDocuments
+     *
+     * @see https://thefas.atlassian.net/browse/EAP-60
+     */
+    public function testAssetDocumentsDocumentNull(): void {
+        // Factory
+        $container = $this->app->make(Container::class);
+        $factory   = new class(
+            $container->make(Normalizer::class),
+            $container->make(AssetResolver::class),
+            $container->make(ProductResolver::class),
+            $container->make(OemResolver::class),
+            $container->make(TypeResolver::class),
+            $container->make(DocumentResolver::class),
+            $container->make(CurrencyResolver::class),
+            $container->make(DocumentFactory::class),
+        ) extends AssetFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected AssetResolver $assets,
+                protected ProductResolver $products,
+                protected OemResolver $oems,
+                protected TypeResolver $types,
+                protected DocumentResolver $documentResolver,
+                protected CurrencyResolver $currencies,
+                DocumentFactory $documentFactory,
+            ) {
+                $this->setDocumentFactory($documentFactory);
+            }
+
+            public function assetDocuments(AssetModel $model, Asset $asset): Collection {
+                return parent::assetDocuments($model, $asset);
+            }
+        };
+
+        // Prepare
+        $json     = $this->getTestData()->json('~asset-documents-no-document.json');
+        $asset    = Asset::create($json);
+        $reseller = Reseller::factory()->create([
+            'id' => $asset->resellerId,
+        ]);
+        $customer = Customer::factory()->create([
+            'id' => $asset->customerId,
+        ]);
+        $model    = AssetModel::factory()->create([
+            'id'          => $asset->id,
+            'reseller_id' => $reseller,
+            'customer_id' => $customer,
+        ]);
+
+        $documents  = $factory->assetDocuments($model, $asset);
+        $collection = (new Collection($documents))->keyBy(static function (Document $document): string {
+            return $document->getKey();
+        });
+
+        $this->assertCount(3, $documents);
+        $this->assertCount(3, $collection);
+
+        // Test
+        // ---------------------------------------------------------------------
+        /** @var \App\Models\Document $a */
+        $a = $collection->get('688b9621-3244-464b-9468-3cd74f5eaacf');
+
+        $this->assertNotNull($a);
+        $this->assertEquals($customer, $a->customer);
+        $this->assertEquals($reseller, $a->reseller);
+        $this->assertEquals('688b9621-3244-464b-9468-3cd74f5eaacf', $a->number);
+        $this->assertEquals('0.00', $a->price);
+        $this->assertEquals('1583020800000', $this->getDatetime($a->start));
+        $this->assertEquals('1614470400000', $this->getDatetime($a->end));
+        $this->assertEquals($model->oem->abbr, $a->oem->abbr);
+        $this->assertEquals('??', $a->type->key);
+        $this->assertEquals('EUR', $a->currency->code);
+        $this->assertEquals('H7J34AC', $a->product->sku);
+        $this->assertEquals('HPE Foundation Care 24x7 SVC', $a->product->name);
+        $this->assertEquals(ProductType::support(), $a->product->type);
+        $this->assertEquals($model->oem->abbr, $a->product->oem->abbr);
+
+        $this->assertCount(1, $a->entries);
+
+        /** @var \App\Models\DocumentEntry $e */
+        $e = $a->entries->first();
+
+        $this->assertEquals(2, $e->quantity);
+        $this->assertEquals($a->getKey(), $e->document_id);
+        $this->assertEquals($asset->id, $e->asset_id);
+        $this->assertEquals('HA151AC', $e->product->sku);
+        $this->assertEquals('HPE Hardware Maintenance Onsite Support', $e->product->name);
+        $this->assertEquals(ProductType::service(), $e->product->type);
+        $this->assertEquals($model->oem->abbr, $e->product->oem->abbr);
+
+        /** @var \App\Models\Document $b */
+        $b = $collection->get('dbd3f08b-6bd1-4e28-8122-3004257879c0');
+
+        $this->assertNotNull($b);
+        $this->assertEquals($customer, $b->customer);
+        $this->assertEquals($reseller, $b->reseller);
+        $this->assertEquals('dbd3f08b-6bd1-4e28-8122-3004257879c0', $b->number);
+        $this->assertEquals('0.00', $b->price);
+
+        $this->assertCount(2, $b->entries);
+
+        /** @var \App\Models\DocumentEntry $f */
+        $f = $b->entries->first();
+        /** @var \App\Models\DocumentEntry $l */
+        $l = $b->entries->last();
+
+        $this->assertEquals(1, $f->quantity);
+        $this->assertEquals(1, $l->quantity);
+        $this->assertNotEquals($f->product_id, $l->product_id);
+
+        /** @var \App\Models\Document $c */
+        $c = $collection->get('7e6b6976-cb1b-4b2a-9cf1-de9e768e8802');
+
+        $this->assertNotNull($c);
+        $this->assertCount(2, $c->entries);
+    }
+
+    /**
      * @covers ::assetDocument
      */
     public function testAssetDocument(): void {
-        $document = new AssetDocument();
+        $asset    = new AssetModel();
+        $document = AssetDocument::create(['document' => ['id' => $this->faker->uuid]]);
         $resolved = new Document();
         $factory  = Mockery::mock(DocumentFactory::class);
 
@@ -493,22 +616,21 @@ class AssetFactoryTest extends TestCase {
                 $this->setDocumentFactory($documentFactory);
             }
 
-            public function assetDocument(AssetDocument $assetDocument): Document {
-                return parent::assetDocument($assetDocument);
+            public function assetDocument(AssetModel $asset, AssetDocument $assetDocument): Document {
+                return parent::assetDocument($asset, $assetDocument);
             }
         };
 
-        $this->assertSame($resolved, $factory->assetDocument($document));
+        $this->assertSame($resolved, $factory->assetDocument($asset, $document));
     }
 
     /**
      * @covers ::assetDocument
      */
     public function testAssetDocumentDocumentNotFound(): void {
+        $asset    = new AssetModel();
         $document = AssetDocument::create([
-            'document' => [
-                'id' => '2182cd66-321f-47ac-8992-e295c018b8a4',
-            ],
+            'documentId' => '2182cd66-321f-47ac-8992-e295c018b8a4',
         ]);
         $factory  = new class() extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -516,30 +638,26 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            public function assetDocument(AssetDocument $assetDocument): Document {
-                return parent::assetDocument($assetDocument);
+            public function assetDocument(AssetModel $asset, AssetDocument $assetDocument): Document {
+                return parent::assetDocument($asset, $assetDocument);
             }
         };
 
         $this->expectException(DocumentNotFoundException::class);
 
-        $factory->assetDocument($document);
+        $factory->assetDocument($asset, $document);
     }
 
     /**
      * @covers ::assetDocumentEntry
      */
     public function testAssetDocumentEntry(): void {
-        $document = AssetDocument::create([
+        $assetDocument = AssetDocument::create([
             'skuNumber'      => $this->faker->word,
             'skuDescription' => $this->faker->sentence,
-            'document'       => [
-                'vendorSpecificFields' => [
-                    'vendor' => $this->faker->word,
-                ],
-            ],
         ]);
-        $factory  = new class(
+        $document      = Document::factory()->make();
+        $factory       = new class(
             $this->app->make(Normalizer::class),
             $this->app->make(ProductResolver::class),
             $this->app->make(OemResolver::class),
@@ -553,26 +671,21 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            public function assetDocumentEntry(AssetDocument $document): DocumentEntry {
-                return parent::assetDocumentEntry($document);
+            public function assetDocumentEntry(Document $document, AssetDocument $assetDocument): DocumentEntry {
+                return parent::assetDocumentEntry($document, $assetDocument);
             }
         };
 
-        $entry = $factory->assetDocumentEntry($document);
+        $entry = $factory->assetDocumentEntry($document, $assetDocument);
 
         $this->assertInstanceOf(DocumentEntry::class, $entry);
         $this->assertNull($entry->document_id);
         $this->assertNull($entry->asset_id);
-        $this->assertNotNull($entry->oem_id);
-        $this->assertEquals(
-            $document->document->vendorSpecificFields->vendor,
-            $entry->oem->abbr,
-        );
         $this->assertNotNull($entry->product_id);
-        $this->assertSame($entry->oem, $entry->product->oem);
+        $this->assertSame($document->oem, $entry->product->oem);
         $this->assertEquals(ProductType::service(), $entry->product->type);
-        $this->assertEquals($document->skuNumber, $entry->product->sku);
-        $this->assertEquals($document->skuDescription, $entry->product->name);
+        $this->assertEquals($assetDocument->skuNumber, $entry->product->sku);
+        $this->assertEquals($assetDocument->skuDescription, $entry->product->name);
         $this->assertNull($entry->product->eos);
         $this->assertNull($entry->product->eol);
     }
@@ -619,27 +732,19 @@ class AssetFactoryTest extends TestCase {
             'id'            => $model->getKey(),
             'assetDocument' => [
                 [
-                    'document'        => [
-                        'id' => $docA->getKey(),
-                    ],
+                    'documentId'      => $docA->getKey(),
                     'warrantyEndDate' => null,
                 ],
                 [
-                    'document'        => [
-                        'id' => $docB->getKey(),
-                    ],
+                    'documentId'      => $docB->getKey(),
                     'warrantyEndDate' => $this->getDatetime($date),
                 ],
                 [
-                    'document'        => [
-                        'id' => $docC->getKey(),
-                    ],
+                    'documentId'      => $docC->getKey(),
                     'warrantyEndDate' => $this->getDatetime($date),
                 ],
                 [
-                    'document'        => [
-                        'id' => '9e602148-7767-448e-b593-ba6bcff00cac',
-                    ],
+                    'documentId'      => '9e602148-7767-448e-b593-ba6bcff00cac',
                     'warrantyEndDate' => $this->getDatetime($date),
                 ],
             ],

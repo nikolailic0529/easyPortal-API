@@ -8,7 +8,7 @@ class Asset extends Type {
     public ?Company $reseller;
     public ?string  $customerId;
     public ?Company $customer;
-    public string   $serialNumber;
+    public ?string  $serialNumber;
     public string   $productDescription;
     public ?string  $description;
     public string   $assetType;
