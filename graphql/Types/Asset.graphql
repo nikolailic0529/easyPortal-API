@@ -13,6 +13,5 @@ type Asset {
   product: Product! @belongsTo
   type: Type! @belongsTo
   warranties: [AssetWarranty!]! @hasMany
-  warranties: [AssetWarranty!]! @hasMany
   reseller: Reseller @belongsTo
 }
