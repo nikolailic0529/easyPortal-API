@@ -31,9 +31,8 @@ class ResellerUpdate extends Job implements Initializable {
 
     public function handle(Kernel $artisan): void {
         $artisan->call('data-loader:reseller', [
-            'id'                    => [$this->getResellerId()],
-            '--assets'              => true,
-            '--no-assets-documents' => true,
+            'id'       => [$this->getResellerId()],
+            '--assets' => true,
         ]);
     }
 }
