@@ -7,7 +7,6 @@ type AssetWarranty {
   start: Date
   end: Date!
   note: String
-  asset: Asset @belongsTo
   customer: Customer! @belongsTo
   document: Document @belongsTo
   reseller: Reseller! @belongsTo
