@@ -28,7 +28,7 @@ class Normalizer {
         return $this->uuid->normalize($value);
     }
 
-    public function string(mixed $value): string {
+    public function string(mixed $value): ?string {
         return $this->string->normalize($value);
     }
 

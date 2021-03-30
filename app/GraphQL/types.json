@@ -236,7 +236,7 @@
                     "$ref": "#/definitions/ID"
                 },
                 "serial_number": {
-                    "type": "string"
+                    "type": ["string", "null"]
                 },
                 "location_id": {
                     "$ref": "#/definitions/ID"

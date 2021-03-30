@@ -27,7 +27,7 @@ use function sprintf;
  * @property string|null                                                              $reseller_id current
  * @property string|null                                                              $customer_id current
  * @property string|null                                                              $location_id current
- * @property string                                                                   $serial_number
+ * @property string|null                                                              $serial_number
  * @property \Carbon\CarbonImmutable                                                  $created_at
  * @property \Carbon\CarbonImmutable                                                  $updated_at
  * @property \Carbon\CarbonImmutable|null                                             $deleted_at
