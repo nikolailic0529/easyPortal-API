@@ -1,9 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace App\Services;
 
 use App\Models\User;
-use App\Services\LocaleService;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Translation\Translator;
 use Tests\TestCase;

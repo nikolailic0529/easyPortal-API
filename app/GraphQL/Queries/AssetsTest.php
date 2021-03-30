@@ -4,9 +4,12 @@ namespace App\GraphQL\Queries;
 
 use App\Models\Asset;
 use App\Models\Customer;
+use App\Models\Document;
+use App\Models\DocumentEntry;
 use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
+use App\Models\Reseller;
 use App\Models\Type;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -105,6 +108,79 @@ class AssetsTest extends TestCase {
                                 lat
                                 lng
                             }
+                            warranties {
+                                id
+                                asset_id
+                                reseller_id
+                                customer_id
+                                document_id
+                                start
+                                end
+                                note
+                                services {
+                                    id
+                                    name
+                                    oem_id
+                                    sku
+                                    eol
+                                    eos
+                                    oem {
+                                        id
+                                        abbr
+                                        name
+                                    }
+                                }
+                                package {
+                                    id
+                                    name
+                                    oem_id
+                                    sku
+                                    eol
+                                    eos
+                                    oem {
+                                        id
+                                        abbr
+                                        name
+                                    }
+                                }
+                                customer {
+                                    id
+                                    name
+                                    assets_count
+                                    locations_count
+                                    locations {
+                                        id
+                                        state
+                                        postcode
+                                        line_one
+                                        line_two
+                                        lat
+                                        lng
+                                    }
+                                    contacts_count
+                                    contacts {
+                                        name
+                                        email
+                                        phone_valid
+                                    }
+                                }
+                                reseller {
+                                    id
+                                    name
+                                    customers_count
+                                    locations_count
+                                    assets_count
+                                    locations {
+                                        id
+                                        state
+                                        postcode
+                                        line_one
+                                        line_two
+                                        lat
+                                        lng
+                                    }
+                                }
+                            }
                         },
                         paginatorInfo {
                             count
@@ -199,6 +275,89 @@ class AssetsTest extends TestCase {
                                     ],
                                 ],
                             ],
+                            'warranties'    => [
+                                [
+                                    'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                    'asset_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'reseller_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                    'customer_id' => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                    'document_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                    'start'       => '2021-01-01',
+                                    'end'         => '2022-01-01',
+                                    'note'        => 'note',
+                                    'services'    => [
+                                        [
+                                            'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                            'name'   => 'Product1',
+                                            'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                            'sku'    => 'SKU#123',
+                                            'eol'    => '2022-12-30',
+                                            'eos'    => '2022-01-01',
+                                            'oem'    => [
+                                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                                'abbr' => 'abbr',
+                                                'name' => 'oem1',
+                                            ],
+                                        ],
+                                    ],
+                                    'package'     => [
+                                        'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24998',
+                                        'name'   => 'Product2',
+                                        'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                        'sku'    => 'SKU#321',
+                                        'eol'    => '2022-12-30',
+                                        'eos'    => '2022-01-01',
+                                        'oem'    => [
+                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                            'abbr' => 'abbr',
+                                            'name' => 'oem1',
+                                        ],
+                                    ],
+                                    'customer'    => [
+                                        'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                        'name'            => 'name aaa',
+                                        'assets_count'    => 0,
+                                        'locations_count' => 1,
+                                        'locations'       => [
+                                            [
+                                                'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                                'state'    => 'state1',
+                                                'postcode' => '19911',
+                                                'line_one' => 'line_one_data',
+                                                'line_two' => 'line_two_data',
+                                                'lat'      => '47.91634204',
+                                                'lng'      => '-2.26318359',
+                                            ],
+                                        ],
+                                        'contacts_count'  => 1,
+                                        'contacts'        => [
+                                            [
+                                                'name'        => 'contact1',
+                                                'email'       => 'contact1@test.com',
+                                                'phone_valid' => false,
+                                            ],
+                                        ],
+                                    ],
+                                    'reseller'    => [
+                                        'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                        'name'            => 'reseller1',
+                                        'customers_count' => 0,
+                                        'locations_count' => 1,
+                                        'assets_count'    => 0,
+                                        'locations'       => [
+                                            [
+                                                'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
+                                                'state'    => 'state2',
+                                                'postcode' => '19912',
+                                                'line_one' => 'reseller_one_data',
+                                                'line_two' => 'reseller_two_data',
+                                                'lat'      => '49.91634204',
+                                                'lng'      => '90.26318359',
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
                         ],
                     ]),
                     static function (): Customer {
@@ -256,13 +415,62 @@ class AssetsTest extends TestCase {
                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             'name' => 'name aaa',
                         ]);
-
+                        // Product creation for package
+                        $product2 = Product::factory()->create([
+                            'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24998',
+                            'name'   => 'Product2',
+                            'oem_id' => $oem,
+                            'sku'    => 'SKU#321',
+                            'eol'    => '2022-12-30',
+                            'eos'    => '2022-01-01',
+                        ]);
+                        // Document creation for package
+                        $document = Document::factory()->create([
+                            'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                            'product_id' => $product2,
+                        ]);
+                        // Document entry creation for services
+                        DocumentEntry::factory()->create([
+                            'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                            'document_id' => $document,
+                            'asset_id'    => Asset::factory()->create([
+                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
+                            ]),
+                            'product_id'  => $product,
+                            'quantity'    => 20,
+                        ]);
+                        $reseller = Reseller::factory()
+                            ->hasLocations(1, [
+                                'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
+                                'state'    => 'state2',
+                                'postcode' => '19912',
+                                'line_one' => 'reseller_one_data',
+                                'line_two' => 'reseller_two_data',
+                                'lat'      => '49.91634204',
+                                'lng'      => '90.26318359',
+                            ])
+                            ->create([
+                                'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'name'            => 'reseller1',
+                                'customers_count' => 0,
+                                'locations_count' => 1,
+                                'assets_count'    => 0,
+                            ]);
                         Asset::factory()
                             ->for($oem)
                             ->for($product)
                             ->for($customer)
                             ->for($type)
                             ->for($location)
+                            ->hasWarranties(1, [
+                                'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                'reseller_id' => $reseller,
+                                'customer_id' => $customer,
+                                'document_id' => $document,
+                                'start'       => '2021-01-01',
+                                'end'         => '2022-01-01',
+                                'note'        => 'note',
+                            ])
                             ->create([
                                 'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                 'serial_number' => '#PRODUCT_SERIAL_323',

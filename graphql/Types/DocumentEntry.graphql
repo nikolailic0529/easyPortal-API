@@ -1,0 +1,10 @@
+type DocumentEntry {
+  id: ID!
+  document_id: ID!
+  asset_id: ID!
+  product_id: ID!
+  quantity: Int!
+  asset: Asset! @belongsTo
+  document: Document! @belongsTo
+  product: Product! @belongsTo
+}

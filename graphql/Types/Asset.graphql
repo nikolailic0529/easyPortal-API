@@ -3,12 +3,15 @@ type Asset {
   oem_id: ID!,
   product_id: ID!
   type_id: ID!
-  customer_id: ID!
-  location_id: ID!
+  customer_id: ID
+  location_id: ID
+  reseller_id: ID!
   serial_number: String
   customer: Customer @belongsTo
   location: Location @belongsTo
   oem: Oem! @belongsTo
   product: Product! @belongsTo
   type: Type! @belongsTo
+  warranties: [AssetWarranty!]! @hasMany
+  reseller: Reseller! @belongsTo
 }

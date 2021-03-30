@@ -58,6 +58,27 @@ type Query {
 
   "Get asset by id"
   asset(id: ID! @eq): Asset @guard @find
+
+  "List of all currencies"
+  currencies: [Currency!]! @all @orderBy(column: "code")
+
+  "List of all contracts"
+  contracts (
+    where: DocumentsQuery @searchBy
+    order: DocumentsSort @sortBy
+  ): [Document!]! @guard @paginate @builder(method: "App\\GraphQL\\Builders\\ContractsBuilder")
+
+  "Get contract by id"
+  contract(id: ID! @eq): Document @guard @find @builder(method: "App\\GraphQL\\Builders\\ContractsBuilder")
+
+  "List of all quotes"
+  quotes (
+    where: DocumentsQuery @searchBy
+    order: DocumentsSort @sortBy
+  ): [Document!]! @guard @paginate @builder(method: "App\\GraphQL\\Builders\\QuotesBuilder")
+
+  "Get quote by id"
+  quote(id: ID! @eq): Document @guard @find @builder(method: "App\\GraphQL\\Builders\\QuotesBuilder")
 }
 
 type Mutation {

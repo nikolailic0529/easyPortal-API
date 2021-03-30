@@ -220,7 +220,8 @@
                 "customer",
                 "location",
                 "oem",
-                "product"
+                "product",
+                "warranties"
             ],
             "properties": {
                 "oem_id": {
@@ -249,6 +250,12 @@
                 },
                 "product": {
                     "$ref": "#/definitions/Product"
+                },
+                "warranties": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/AssetWarranty"
+                    }
                 }
             }
         },
@@ -305,6 +312,262 @@
                 },
                 "oem": {
                     "$ref": "#/definitions/Oem"
+                }
+            }
+        },
+        "Currency": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "code"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "code": {
+                    "type": "string"
+                }
+            }
+        },
+        "Reseller": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "customers_count",
+                "locations_count",
+                "assets_count",
+                "locations"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "customers_count": {
+                    "type": "integer"
+                },
+                "locations_count": {
+                    "type": "integer"
+                },
+                "assets_count": {
+                    "type": "integer"
+                },
+                "assets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Asset"
+                    }
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Location"
+                    }
+                }
+            }
+        },
+        "Document": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "oem_id",
+                "type_id",
+                "customer_id",
+                "reseller_id",
+                "number",
+                "product_id",
+                "start",
+                "end",
+                "price",
+                "currency_id",
+                "currency",
+                "customer",
+                "oem",
+                "product",
+                "reseller",
+                "type",
+                "entries"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "oem_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "type_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "customer_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "reseller_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "number": {
+                    "type": "string"
+                },
+                "product_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "start": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "end": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "price": {
+                    "type": "string"
+                },
+                "currency_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "currency": {
+                    "$ref": "#/definitions/Currency"
+                },
+                "customer": {
+                    "$ref": "#/definitions/Customer"
+                },
+                "oem": {
+                    "$ref": "#/definitions/Oem"
+                },
+                "product": {
+                    "$ref": "#/definitions/Product"
+                },
+                "reseller": {
+                    "$ref": "#/definitions/Reseller"
+                },
+                "type": {
+                    "$ref": "#/definitions/Type"
+                },
+                "entries" : {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/DocumentEntry"
+                    }
+                }
+            }
+        },
+        "AssetWarranty": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "asset_id",
+                "reseller_id",
+                "customer_id",
+                "document_id",
+                "start",
+                "end",
+                "services",
+                "package",
+                "customer",
+                "reseller"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "asset_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "reseller_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "customer_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "document_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "number": {
+                    "type": "string"
+                },
+                "start": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "end": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "note": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "asset": {
+                    "$ref": "#/definitions/Asset"
+                },
+                "customer": {
+                    "$ref": "#/definitions/Customer"
+                },
+                "document": {
+                    "$ref": "#/definitions/Document"
+                },
+                "reseller": {
+                    "$ref": "#/definitions/Reseller"
+                },
+                "services": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Product"
+                    }
+                },
+                "package": {
+                    "$ref": "#/definitions/Product"
+                }
+            }
+        },
+        "DocumentEntry": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "document_id",
+                "asset_id",
+                "product_id",
+                "quantity",
+                "product"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "document_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "asset_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "product_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "asset": {
+                    "$ref": "#/definitions/Asset"
+                },
+                "document": {
+                    "$ref": "#/definitions/Document"
+                },
+                "product": {
+                    "$ref": "#/definitions/Product"
                 }
             }
         }

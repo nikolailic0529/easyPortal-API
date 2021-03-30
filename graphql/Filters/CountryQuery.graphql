@@ -1,5 +1,4 @@
 input CountriesQuery {
   id: ID!
-  name: String!
   code: String!
 }

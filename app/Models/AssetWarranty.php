@@ -7,6 +7,8 @@ use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasDocument;
 use App\Models\Concerns\HasReseller;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 /**
  * Asset Warranty.
@@ -26,6 +28,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \App\Models\Customer         $customer
  * @property \App\Models\Document|null    $document
  * @property \App\Models\Reseller         $reseller
+ * @property \App\Models\Product          $services
+ * @property \App\Models\Package          $package
  * @method static \Database\Factories\AssetWarrantyFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarranty newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarranty newQuery()
@@ -73,5 +77,27 @@ class AssetWarranty extends Model {
 
     public function setDocumentAttribute(Document|null $document): void {
         $this->document()->associate($document);
+    }
+
+    public function services(): HasManyThrough {
+        return $this->hasManyThrough(
+            Product::class,
+            DocumentEntry::class,
+            'document_id',
+            'id',
+            'document_id',
+            'product_id',
+        );
+    }
+
+    public function package(): HasOneThrough {
+        return $this->hasOneThrough(
+            Product::class,
+            Document::class,
+            'id',
+            'id',
+            'document_id',
+            'product_id',
+        );
     }
 }

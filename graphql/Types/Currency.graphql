@@ -1,0 +1,5 @@
+type Currency {
+  id: ID!
+  code: String!
+  name: String! @translate
+}

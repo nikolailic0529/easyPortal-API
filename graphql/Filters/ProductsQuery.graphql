@@ -1,0 +1,6 @@
+input ProductsQuery {
+  id: ID!
+  oem_id: ID!
+  sku: String!
+  name: String!
+}

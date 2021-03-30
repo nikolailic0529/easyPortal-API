@@ -82,3 +82,14 @@ define('DATA_LOADER_RESELLER_UPDATE_QUEUE', Queues::DATA_LOADER_RESELLER);
 // </editor-fold>
 
 // </editor-fold>
+
+// <editor-fold desc="Contract/Quotes Types ids">
+// -----------------------------------------------------------------------------
+
+// Types ids related to contracts
+define('EASYPORTAL_CONTRACT_TYPES', []);
+
+// Types ids related to quotes
+// optional , if empty will use types that are not in EASYPORTAL_CONTRACT_TYPES
+define('EASYPORTAL_QUOTE_TYPES', []);
+// </editor-fold>

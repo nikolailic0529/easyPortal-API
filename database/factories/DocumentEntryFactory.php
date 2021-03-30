@@ -6,7 +6,6 @@ use App\Models\Asset;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Enums\ProductType;
-use App\Models\Oem;
 use App\Models\Product;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
@@ -33,9 +32,6 @@ class DocumentEntryFactory extends Factory {
     public function definition(): array {
         return [
             'id'          => $this->faker->uuid,
-            'oem_id'      => static function (): Oem {
-                return Oem::factory()->create();
-            },
             'document_id' => static function (): Document {
                 return Document::factory()->create();
             },
