@@ -1,5 +1,0 @@
-input OemsQuery {
-  id: ID!
-  abbr: String!
-  name: String!
-}

@@ -1,4 +1,0 @@
-input CurrenciesQuery {
-  id: ID!
-  code: String!
-}

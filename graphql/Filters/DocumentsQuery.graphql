@@ -10,10 +10,7 @@ input DocumentsQuery {
   end: Date!
   price: String!
   currency_id: ID!
-  currency: CurrenciesQuery
   customer: CustomersQuery
-  oem: OemsQuery
   product: ProductsQuery
   reseller: ResellersQuery
-  type: TypesQuery
 }
