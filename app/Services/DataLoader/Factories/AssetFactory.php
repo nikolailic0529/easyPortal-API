@@ -182,7 +182,7 @@ class AssetFactory extends ModelFactory {
 
         foreach ($asset->assetDocument as $assetDocument) {
             $document = $this->assetDocument($assetDocument);
-            $entry    = $this->assetDocumentEntry($assetDocument);
+            $entry    = $this->assetDocumentEntry($document, $assetDocument);
 
             if ($documents->contains($document)) {
                 $documents[$document]->add($entry);
@@ -255,17 +255,13 @@ class AssetFactory extends ModelFactory {
         return $document;
     }
 
-    protected function assetDocumentEntry(AssetDocument $document): DocumentEntry {
+    protected function assetDocumentEntry(Document $document, AssetDocument $assetDocument): DocumentEntry {
         $entry          = new DocumentEntry();
-        $entry->oem     = $this->oem(
-            $document->document->vendorSpecificFields->vendor,
-            $document->document->vendorSpecificFields->vendor,
-        );
         $entry->product = $this->product(
-            $entry->oem,
+            $document->oem,
             ProductType::service(),
-            $document->skuNumber,
-            $document->skuDescription,
+            $assetDocument->skuNumber,
+            $assetDocument->skuDescription,
             null,
             null,
         );

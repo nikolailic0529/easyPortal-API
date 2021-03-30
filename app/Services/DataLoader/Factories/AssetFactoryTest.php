@@ -393,7 +393,6 @@ class AssetFactoryTest extends TestCase {
         /** @var \App\Models\DocumentEntry $e */
         $e = $a->entries->first();
 
-        $this->assertEquals('HPE', $e->oem->abbr);
         $this->assertEquals(2, $e->quantity);
         $this->assertEquals($a->getKey(), $e->document_id);
         $this->assertEquals($asset->id, $e->asset_id);
@@ -530,16 +529,12 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetDocumentEntry
      */
     public function testAssetDocumentEntry(): void {
-        $document = AssetDocument::create([
+        $assetDocument = AssetDocument::create([
             'skuNumber'      => $this->faker->word,
             'skuDescription' => $this->faker->sentence,
-            'document'       => [
-                'vendorSpecificFields' => [
-                    'vendor' => $this->faker->word,
-                ],
-            ],
         ]);
-        $factory  = new class(
+        $document      = Document::factory()->make();
+        $factory       = new class(
             $this->app->make(Normalizer::class),
             $this->app->make(ProductResolver::class),
             $this->app->make(OemResolver::class),
@@ -553,26 +548,21 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            public function assetDocumentEntry(AssetDocument $document): DocumentEntry {
-                return parent::assetDocumentEntry($document);
+            public function assetDocumentEntry(Document $document, AssetDocument $assetDocument): DocumentEntry {
+                return parent::assetDocumentEntry($document, $assetDocument);
             }
         };
 
-        $entry = $factory->assetDocumentEntry($document);
+        $entry = $factory->assetDocumentEntry($document, $assetDocument);
 
         $this->assertInstanceOf(DocumentEntry::class, $entry);
         $this->assertNull($entry->document_id);
         $this->assertNull($entry->asset_id);
-        $this->assertNotNull($entry->oem_id);
-        $this->assertEquals(
-            $document->document->vendorSpecificFields->vendor,
-            $entry->oem->abbr,
-        );
         $this->assertNotNull($entry->product_id);
-        $this->assertSame($entry->oem, $entry->product->oem);
+        $this->assertSame($document->oem, $entry->product->oem);
         $this->assertEquals(ProductType::service(), $entry->product->type);
-        $this->assertEquals($document->skuNumber, $entry->product->sku);
-        $this->assertEquals($document->skuDescription, $entry->product->name);
+        $this->assertEquals($assetDocument->skuNumber, $entry->product->sku);
+        $this->assertEquals($assetDocument->skuDescription, $entry->product->name);
         $this->assertNull($entry->product->eos);
         $this->assertNull($entry->product->eol);
     }

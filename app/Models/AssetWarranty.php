@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                       $customer_id
  * @property string|null                  $document_id
  * @property \Carbon\CarbonImmutable|null $start
- * @property \Carbon\CarbonImmutable|null $end
+ * @property \Carbon\CarbonImmutable      $end
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
