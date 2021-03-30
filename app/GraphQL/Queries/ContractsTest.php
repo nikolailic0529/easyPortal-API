@@ -12,12 +12,14 @@ use App\Models\Reseller;
 use App\Models\Type;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
+use LastDragon_ru\LaraASP\Core\Utils\ConfigMerger;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\UserDataProvider;
 use Tests\DataProviders\TenantDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
+use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
 /**
@@ -27,19 +29,36 @@ use Tests\TestCase;
 class ContractsTest extends TestCase {
     /**
      * @dataProvider dataProviderQuery
+     *
+     * @param array<mixed> $settings
      */
     public function testQuery(
         Response $expected,
         Closure $tenantFactory,
         Closure $userFactory = null,
+        array $settings = [],
         Closure $contractsFactory = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setTenant($tenantFactory));
 
         if ($contractsFactory) {
-            $typeId = $contractsFactory($this);
-            $this->app->make(Repository::class)->set('easyportal.contract_types', [$typeId]);
+            $contractsFactory($this);
+        }
+
+        if ($settings) {
+            $config = $this->app->make(Repository::class);
+            $group  = 'easyportal';
+
+            $config->set($group, (new ConfigMerger())->merge(
+                $config->get($group),
+                $settings,
+            ));
+        }
+
+        // Not empty?
+        if ($expected instanceof GraphQLSuccess) {
+            $this->assertGreaterThan(0, Document::query()->count());
         }
 
         // Test
@@ -171,7 +190,7 @@ class ContractsTest extends TestCase {
             new TenantDataProvider(),
             new UserDataProvider('contracts'),
             new ArrayDataProvider([
-                'ok' => [
+                'ok'             => [
                     new GraphQLPaginated('contracts', self::class, [
                         [
                             'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
@@ -279,7 +298,12 @@ class ContractsTest extends TestCase {
                             ],
                         ],
                     ]),
-                    static function (): string {
+                    [
+                        'contract_types' => [
+                            'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                        ],
+                    ],
+                    static function (): void {
                         // OEM Creation belongs to
                         $oem = Oem::factory()->create([
                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -369,7 +393,36 @@ class ContractsTest extends TestCase {
                                 'start'  => '2021-01-01',
                                 'end'    => '2024-01-01',
                             ]);
-                        return $type->id;
+
+                        Document::factory()->create([
+                            'type_id' => Type::factory()->create(),
+                        ]);
+                    },
+                ],
+                'no types'       => [
+                    new GraphQLPaginated('contracts', self::class, [
+                        // empty
+                    ]),
+                    [
+                        'contract_types' => [
+                            // empty
+                        ],
+                    ],
+                    static function (): void {
+                        Document::factory()->create();
+                    },
+                ],
+                'type not match' => [
+                    new GraphQLPaginated('contracts', self::class, [
+                        // empty
+                    ]),
+                    [
+                        'contract_types' => [
+                            'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                        ],
+                    ],
+                    static function (): void {
+                        Document::factory()->create();
                     },
                 ],
             ]),
