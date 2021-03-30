@@ -361,6 +361,9 @@ class Client {
 
     protected function getAssetDocumentsPropertiesGraphQL(): string {
         return <<<'GRAPHQL'
+            startDate
+            endDate
+            documentId
             document {
                 id
                 type

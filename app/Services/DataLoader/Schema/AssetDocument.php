@@ -11,5 +11,8 @@ class AssetDocument extends Type {
 
     public ?string $warrantyEndDate;
 
-    public Document $document;
+    public string    $documentId;
+    public ?Document $document;
+    public string    $startDate;
+    public string    $endDate;
 }
