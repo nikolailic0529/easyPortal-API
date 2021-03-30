@@ -5,6 +5,5 @@ type DocumentEntry {
   product_id: ID!
   quantity: Int!
   asset: Asset! @belongsTo
-  document: Document! @belongsTo
   product: Product! @belongsTo
 }
