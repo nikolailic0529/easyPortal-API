@@ -108,7 +108,7 @@
     "errors.service_unavailable": "Service Unavailable.",
     "errors.validation_failed": "Validation failed.",
     "models.country.name.??": "Unknown Country",
-    "models.currency.name.??": "Unknown Currency",
+    "models.currency.name.EUR": "Euro",
     "models.status.name.customer.ACTIVE": "Active",
     "models.type.name.location.EQUIPMENT_LOCATION": "Equipment",
     "models.type.name.location.HEADQUARTER": "Headquarter",
