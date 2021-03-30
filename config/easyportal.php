@@ -7,6 +7,6 @@ use App\Setting;
  */
 
 return [
-    'contract_types' => Setting::get('EASYPORTAL_CONTRACT_TYPES'),
-    'quote_types'    => Setting::get('EASYPORTAL_QUOTE_TYPES'),
+    'contract_types' => Setting::getArray('EASYPORTAL_CONTRACT_TYPES'),
+    'quote_types'    => Setting::getArray('EASYPORTAL_QUOTE_TYPES'),
 ];
