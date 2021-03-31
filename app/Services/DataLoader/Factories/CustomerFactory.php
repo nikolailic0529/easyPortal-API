@@ -14,9 +14,11 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
+use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Type;
+use Closure;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
@@ -65,6 +67,23 @@ class CustomerFactory extends ModelFactory {
         }
 
         return $model;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Prefetch">
+    // =========================================================================
+    /**
+     * @param array<\App\Services\DataLoader\Schema\Asset> $assets
+     * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
+     */
+    public function prefetch(array $assets, bool $reset = false, Closure|null $callback = null): static {
+        $keys = array_unique(array_map(static function (Asset $asset): string {
+            return $asset->customerId;
+        }, $assets));
+
+        $this->customers->prefetch($keys, $reset, $callback);
+
+        return $this;
     }
     // </editor-fold>
 

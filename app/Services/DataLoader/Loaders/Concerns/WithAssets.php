@@ -14,6 +14,7 @@ use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Schema\Company;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Throwable;
 
 use function array_filter;
@@ -56,9 +57,20 @@ trait WithAssets {
         $factory   = $this->getAssetsFactory();
         $updated   = [];
         $resellers = [];
-        $prefetch  = function (array $assets): void {
-            $this->assets->prefetch($assets, true);
-            $this->documents->prefetch($assets);
+        $prefetch  = function (array $assets) use ($factory): void {
+            $factory->prefetch($assets, true, function (Collection $assets): void {
+                if ($this->isWithAssetsDocuments()) {
+                    $assets->loadMissing('warranties');
+                    $assets->loadMissing('warranties.services');
+                }
+            });
+            $factory->getCustomerFactory()?->prefetch($assets, false, static function (Collection $customers): void {
+                $customers->loadMissing('locations');
+            });
+            $factory->getDocumentFactory()?->prefetch($assets, false, static function (Collection $documents): void {
+                $documents->loadMissing('entries');
+                $documents->loadMissing('entries.product');
+            });
         };
 
         foreach ($this->getCurrentAssets($owner)->each($prefetch) as $asset) {
@@ -184,12 +196,12 @@ trait WithAssets {
     }
 
     protected function getAssetsFactory(): AssetFactory {
-        $customers = (clone $this->customers)
+        $customers = $this->customers
             ->setLocationFactory($this->locations)
             ->setContactsFactory($this->contacts);
-        $resellers = (clone $this->resellers)
+        $resellers = $this->resellers
             ->setLocationFactory($this->locations);
-        $factory   = (clone $this->assets)
+        $factory   = $this->assets
             ->setResellerFactory($resellers)
             ->setCustomersFactory($customers)
             ->setDocumentFactory(

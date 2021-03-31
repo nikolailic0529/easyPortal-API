@@ -41,6 +41,7 @@ use Psr\Log\LoggerInterface;
 use SplObjectStorage;
 
 use function array_map;
+use function array_unique;
 use function is_null;
 use function sprintf;
 
@@ -71,16 +72,28 @@ class AssetFactory extends ModelFactory {
 
     // <editor-fold desc="Settings">
     // =========================================================================
+    public function getCustomerFactory(): ?CustomerFactory {
+        return $this->customerFactory;
+    }
+
     public function setCustomersFactory(?CustomerFactory $factory): static {
         $this->customerFactory = $factory;
 
         return $this;
     }
 
+    public function getResellerFactory(): ?ResellerFactory {
+        return $this->resellerFactory;
+    }
+
     public function setResellerFactory(?ResellerFactory $factory): static {
         $this->resellerFactory = $factory;
 
         return $this;
+    }
+
+    public function getDocumentFactory(): ?DocumentFactory {
+        return $this->documentFactory;
     }
 
     public function setDocumentFactory(?DocumentFactory $factory): static {
@@ -115,9 +128,9 @@ class AssetFactory extends ModelFactory {
      * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
      */
     public function prefetch(array $assets, bool $reset = false, Closure|null $callback = null): static {
-        $keys = array_map(static function (Asset $asset): string {
+        $keys = array_unique(array_map(static function (Asset $asset): string {
             return $asset->id;
-        }, $assets);
+        }, $assets));
 
         $this->assets->prefetch($keys, $reset, $callback);
 
@@ -281,10 +294,19 @@ class AssetFactory extends ModelFactory {
 
                             return $model;
                         }));
-                        $model->start    = $this->normalizer->datetime($assetDocument->startDate);
-                        $model->end      = $this->normalizer->datetime($assetDocument->endDate);
                         $model->price    = $this->normalizer->price('0.00');
                         $model->number   = $this->normalizer->string($assetDocument->documentId);
+
+                        if ($created) {
+                            // These dates are not consistent and create a lot of:
+                            // - UPDATE `documents` SET `start` = '2020-10-22 00:00:00', `end` = '2022-12-31 00:00:00'
+                            // - UPDATE `documents` SET `start` = '2019-07-01 00:00:00', `end` = '2020-10-21 00:00:00'
+                            // - UPDATE `documents` SET `start` = '2020-10-22 00:00:00', `end` = '2022-12-31 00:00:00'
+                            //
+                            // For this reason we will not update it at all.
+                            $model->start = $this->normalizer->datetime($assetDocument->startDate);
+                            $model->end   = $this->normalizer->datetime($assetDocument->endDate);
+                        }
 
                         $model->save();
 
@@ -395,6 +417,7 @@ class AssetFactory extends ModelFactory {
      * @return \Illuminate\Support\Collection<\App\Models\AssetWarranty>
      */
     protected function assetExtendedWarranties(AssetModel $asset, Collection $documents): Collection {
+        /** @var \App\Models\Document $document */
         foreach ($documents as $document) {
             $warranty = $asset->warranties->first(static function (AssetWarranty $warranty) use ($document): bool {
                 return $warranty->document_id === $document->getKey();
@@ -412,6 +435,13 @@ class AssetFactory extends ModelFactory {
             $warranty->customer = $document->customer;
             $warranty->reseller = $document->reseller;
             $warranty->document = $document;
+            $warranty->services = $document->entries
+                ->filter(static function (DocumentEntry $entry) use ($asset): bool {
+                    return $entry->asset_id === $asset->getKey();
+                })
+                ->map(static function (DocumentEntry $entry): Product {
+                    return $entry->product;
+                });
             $warranty->save();
         }
 

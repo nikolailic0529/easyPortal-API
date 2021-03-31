@@ -38,10 +38,9 @@ class DocumentEntryFactory extends Factory {
             'asset_id'    => static function (): Asset {
                 return Asset::factory()->create();
             },
-            'product_id'  => static function (array $properties): Product {
+            'product_id'  => static function (): Product {
                 return Product::factory()->create([
-                    'oem_id' => $properties['oem_id'],
-                    'type'   => ProductType::service(),
+                    'type' => ProductType::service(),
                 ]);
             },
             'quantity'    => $this->faker->randomDigit,

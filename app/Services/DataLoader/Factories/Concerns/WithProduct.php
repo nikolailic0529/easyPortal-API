@@ -29,9 +29,17 @@ trait WithProduct {
                 $product->type = $type;
                 $product->oem  = $oem;
                 $product->sku  = $this->normalizer->string($sku);
-                $product->name = $this->normalizer->string($name);
                 $product->eol  = $this->normalizer->datetime($eol);
                 $product->eos  = $this->normalizer->datetime($eos);
+
+                if ($created) {
+                    // Product name may be inconsistent, eg
+                    // - 'HPE Hardware Maintenance Onsite Support'
+                    // - '(Gewährleistung) HPE Hardware Maintenance Onsite Support'
+                    //
+                    // To avoid infinite updates we will not update it at all.
+                    $product->name = $this->normalizer->string($name);
+                }
 
                 $product->save();
 

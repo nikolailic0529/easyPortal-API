@@ -295,7 +295,9 @@ class Client {
                 'errors'   => $errors,
             ]);
 
-            throw new GraphQLQueryFailedException('GraphQL request failed.');
+            if (!Arr::has($json, $selector) && Arr::get($json, $selector)) {
+                throw new GraphQLQueryFailedException('GraphQL request failed.');
+            }
         }
 
         // Return

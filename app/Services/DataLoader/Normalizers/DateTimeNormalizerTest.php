@@ -60,6 +60,16 @@ class DateTimeNormalizerTest extends TestCase {
                 'UTC',
                 '4194454321000',
             ],
+            'date string + UTC'            => [
+                '2102-12-01T00:00:00.000+00:00',
+                'UTC',
+                '2102-12-01',
+            ],
+            'date string + null'           => [
+                '2102-12-01T00:00:00.000+00:00',
+                null,
+                '2102-12-01',
+            ],
             'empty string'                 => [
                 null,
                 null,
@@ -69,6 +79,11 @@ class DateTimeNormalizerTest extends TestCase {
                 null,
                 null,
                 null,
+            ],
+            'invalid date'                 => [
+                null,
+                null,
+                '2102d',
             ],
         ];
     }
