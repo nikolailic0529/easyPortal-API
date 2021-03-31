@@ -294,10 +294,19 @@ class AssetFactory extends ModelFactory {
 
                             return $model;
                         }));
-                        $model->start    = $this->normalizer->datetime($assetDocument->startDate);
-                        $model->end      = $this->normalizer->datetime($assetDocument->endDate);
                         $model->price    = $this->normalizer->price('0.00');
                         $model->number   = $this->normalizer->string($assetDocument->documentId);
+
+                        if ($created) {
+                            // These dates are not consistent and create a lot of:
+                            // - UPDATE `documents` SET `start` = '2020-10-22 00:00:00', `end` = '2022-12-31 00:00:00'
+                            // - UPDATE `documents` SET `start` = '2019-07-01 00:00:00', `end` = '2020-10-21 00:00:00'
+                            // - UPDATE `documents` SET `start` = '2020-10-22 00:00:00', `end` = '2022-12-31 00:00:00'
+                            //
+                            // For this reason we will not update it at all.
+                            $model->start = $this->normalizer->datetime($assetDocument->startDate);
+                            $model->end   = $this->normalizer->datetime($assetDocument->endDate);
+                        }
 
                         $model->save();
 
