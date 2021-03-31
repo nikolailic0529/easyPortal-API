@@ -395,6 +395,7 @@ class AssetFactory extends ModelFactory {
      * @return \Illuminate\Support\Collection<\App\Models\AssetWarranty>
      */
     protected function assetExtendedWarranties(AssetModel $asset, Collection $documents): Collection {
+        /** @var \App\Models\Document $document */
         foreach ($documents as $document) {
             $warranty = $asset->warranties->first(static function (AssetWarranty $warranty) use ($document): bool {
                 return $warranty->document_id === $document->getKey();
@@ -412,6 +413,13 @@ class AssetFactory extends ModelFactory {
             $warranty->customer = $document->customer;
             $warranty->reseller = $document->reseller;
             $warranty->document = $document;
+            $warranty->services = $document->entries
+                ->filter(static function (DocumentEntry $entry) use ($asset): bool {
+                    return $entry->asset_id === $asset->getKey();
+                })
+                ->map(static function (DocumentEntry $entry): Product {
+                    return $entry->product;
+                });
             $warranty->save();
         }
 

@@ -6,30 +6,32 @@ use App\Models\Concerns\HasAsset;
 use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasDocument;
 use App\Models\Concerns\HasReseller;
+use App\Models\Concerns\SyncBelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Illuminate\Support\Collection;
 
 /**
  * Asset Warranty.
  *
- * @property string                       $id
- * @property string                       $asset_id
- * @property string                       $reseller_id
- * @property string                       $customer_id
- * @property string|null                  $document_id
- * @property \Carbon\CarbonImmutable|null $start
- * @property \Carbon\CarbonImmutable      $end
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property string|null                  $note
- * @property \App\Models\Asset            $asset
- * @property \App\Models\Customer         $customer
- * @property \App\Models\Document|null    $document
- * @property \App\Models\Reseller         $reseller
- * @property \App\Models\Product          $services
- * @property \App\Models\Package          $package
+ * @property string                                                        $id
+ * @property string                                                        $asset_id
+ * @property string                                                        $reseller_id
+ * @property string                                                        $customer_id
+ * @property string|null                                                   $document_id
+ * @property \Carbon\CarbonImmutable|null                                  $start
+ * @property \Carbon\CarbonImmutable                                       $end
+ * @property \Carbon\CarbonImmutable                                       $created_at
+ * @property \Carbon\CarbonImmutable                                       $updated_at
+ * @property \Carbon\CarbonImmutable|null                                  $deleted_at
+ * @property string|null                                                   $note
+ * @property \App\Models\Asset                                             $asset
+ * @property \App\Models\Customer                                          $customer
+ * @property \App\Models\Document|null                                     $document
+ * @property \App\Models\Reseller                                          $reseller
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Product> $services
+ * @property \App\Models\Product                                           $package
  * @method static \Database\Factories\AssetWarrantyFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarranty newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarranty newQuery()
@@ -53,6 +55,7 @@ class AssetWarranty extends Model {
     use HasReseller;
     use HasCustomer;
     use HasDocument;
+    use SyncBelongsToMany;
 
     protected const CASTS = [
         'start' => 'date',
@@ -79,15 +82,15 @@ class AssetWarranty extends Model {
         $this->document()->associate($document);
     }
 
-    public function services(): HasManyThrough {
-        return $this->hasManyThrough(
-            Product::class,
-            DocumentEntry::class,
-            'document_id',
-            'id',
-            'document_id',
-            'product_id',
-        );
+    public function services(): BelongsToMany {
+        return $this->belongsToMany(Product::class, 'asset_warranty_products')->withTimestamps();
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\Product>|array<\App\Models\Product> $services
+     */
+    public function setServicesAttribute(Collection|array $services): void {
+        $this->syncBelongsToMany('services', $services);
     }
 
     public function package(): HasOneThrough {

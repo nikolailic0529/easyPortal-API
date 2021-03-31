@@ -136,7 +136,41 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals(1, Document::query()->count());
 
         // Warranties
-        $this->assertEquals(2, $created->warranties()->count());
+        $this->assertEquals(
+            [
+                [
+                    'sku'      => null,
+                    'package'  => null,
+                    'services' => [],
+                ],
+                [
+                    'sku'      => 'H7J34AC',
+                    'package'  => 'HPE Foundation Care 24x7 SVC',
+                    'services' => [
+                        [
+                            'sku'     => 'HA151AC',
+                            'package' => 'HPE Hardware Maintenance Onsite Support',
+                        ],
+                    ],
+                ],
+            ],
+            $created->warranties
+                ->map(static function (AssetWarranty $warranty): array {
+                    return [
+                        'sku'      => $warranty->package?->sku,
+                        'package'  => $warranty->package?->name,
+                        'services' => $warranty->services
+                            ->map(static function (Product $product): array {
+                                return [
+                                    'sku'     => $product->sku,
+                                    'package' => $product->name,
+                                ];
+                            })
+                            ->all(),
+                    ];
+                })
+                ->all(),
+        );
 
         /** @var \App\Models\AssetWarranty $initial */
         $initial = $created->warranties->first(static function (AssetWarranty $warranty): bool {
@@ -803,6 +837,7 @@ class AssetFactoryTest extends TestCase {
 
         $date     = Date::now();
         $customer = Customer::factory()->create();
+        $service  = Product::factory()->create();
         $asset    = AssetModel::factory()->create([
             'customer_id' => $customer,
         ]);
@@ -819,6 +854,16 @@ class AssetFactoryTest extends TestCase {
             'asset_id'    => $asset,
             'document_id' => $docA,
         ]);
+        $entryA   = DocumentEntry::factory()->create([
+            'asset_id'    => $asset,
+            'document_id' => $docA,
+        ]);
+        $entryB   = DocumentEntry::factory()->create([
+            'asset_id'    => $asset,
+            'document_id' => $docB,
+        ]);
+
+        $warranty->services()->sync($service->getKey());
 
         Document::factory()->create();
 
@@ -843,6 +888,9 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($docA->customer_id, $a->customer_id);
         $this->assertEquals($docA->getKey(), $a->document_id);
         $this->assertEquals($asset->getKey(), $a->asset_id);
+        $this->assertEquals(1, $a->services->count());
+        $this->assertEquals($entryA->product_id, $a->services()->first()->getKey());
+        $this->assertEquals($entryA->product_id, $a->services->first()->getKey());
 
         // Not existing - created
         $b = $warranties->first(static function (AssetWarranty $warranty) use ($docB): bool {
@@ -855,6 +903,9 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($docB->customer_id, $b->customer_id);
         $this->assertEquals($docB->getKey(), $b->document_id);
         $this->assertEquals($asset->getKey(), $b->asset_id);
+        $this->assertEquals(1, $b->services->count());
+        $this->assertEquals($entryB->product_id, $b->services()->first()->getKey());
+        $this->assertEquals($entryB->product_id, $b->services->first()->getKey());
 
         // If existing warranty related to another customer it should be updated
         $c = $warranties->first(static function (AssetWarranty $warranty) use ($docC): bool {

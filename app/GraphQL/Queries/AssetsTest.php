@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Asset;
+use App\Models\AssetWarranty;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\DocumentEntry;
@@ -456,24 +457,29 @@ class AssetsTest extends TestCase {
                                 'locations_count' => 1,
                                 'assets_count'    => 0,
                             ]);
-                        Asset::factory()
+
+                        $asset = Asset::factory()
                             ->for($oem)
                             ->for($product)
                             ->for($customer)
                             ->for($type)
                             ->for($location)
-                            ->hasWarranties(1, [
+                            ->create([
+                                'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                'serial_number' => '#PRODUCT_SERIAL_323',
+                            ]);
+
+                        AssetWarranty::factory()
+                            ->hasAttached($product, [], 'services')
+                            ->create([
                                 'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                'asset_id'    => $asset,
                                 'reseller_id' => $reseller,
                                 'customer_id' => $customer,
                                 'document_id' => $document,
                                 'start'       => '2021-01-01',
                                 'end'         => '2022-01-01',
                                 'note'        => 'note',
-                            ])
-                            ->create([
-                                'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                'serial_number' => '#PRODUCT_SERIAL_323',
                             ]);
 
                         return $customer;
