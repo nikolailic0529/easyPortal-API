@@ -28,12 +28,12 @@ class CurrenciesTest extends TestCase {
         Closure $localeFactory = null,
         Closure $currenciesFactory = null,
     ): void {
-        // Prepare
-        $this->setUser($userFactory, $this->setTenant($tenantFactory));
-
         if ($currenciesFactory) {
             $currenciesFactory($this);
         }
+
+        // Prepare
+        $this->setUser($userFactory, $this->setTenant($tenantFactory));
 
         if ($localeFactory) {
             $this->app->setLocale($localeFactory($this));

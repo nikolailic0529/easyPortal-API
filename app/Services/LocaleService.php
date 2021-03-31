@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\CurrentTenant;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Session\Session;
@@ -11,11 +12,13 @@ class LocaleService {
     protected AuthManager $auth;
     protected Application $app;
     protected Session $session;
+    protected CurrentTenant $tenant;
 
-    public function __construct(AuthManager $auth, Application $app, Session $session) {
+    public function __construct(AuthManager $auth, Application $app, Session $session, CurrentTenant $tenant) {
         $this->auth    = $auth;
         $this->app     = $app;
         $this->session = $session;
+        $this->tenant  = $tenant;
     }
 
     public function get(): string {
@@ -27,6 +30,13 @@ class LocaleService {
         $user = $this->auth->user();
         if ($user instanceof HasLocalePreference && $user->preferredLocale()) {
             return $user->preferredLocale();
+        }
+        // Organization.locale
+        if ($this->tenant->has()) {
+            $currentTenant = $this->tenant->get();
+            if ($currentTenant instanceof HasLocalePreference && $currentTenant->preferredLocale()) {
+                return $currentTenant->preferredLocale();
+            }
         }
         // Default
         return $this->app->getLocale();

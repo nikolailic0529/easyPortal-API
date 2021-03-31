@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasCurrency;
+use App\Models\Concerns\HasLocations;
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -10,6 +13,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                                                                 $id
  * @property string|null                                                            $subdomain
  * @property string                                                                 $name
+ * @property string|null                                                            $locale
+ * @property string|null                                                            $currency_id
+ * @property bool                                                                   $branding_dark_theme
+ * @property string|null                                                            $branding_primary_color
+ * @property string|null                                                            $branding_secondary_color
+ * @property string|null                                                            $branding_logo
+ * @property string|null                                                            $branding_fav_icon
  * @property \Carbon\CarbonImmutable                                                $created_at
  * @property \Carbon\CarbonImmutable                                                $updated_at
  * @property \Carbon\CarbonImmutable|null                                           $deleted_at
@@ -27,10 +37,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Organization extends Model {
+class Organization extends Model implements HasLocalePreference {
     use HasFactory;
+    use HasCurrency;
+    use HasLocations;
+
+    protected const CASTS = [
+        'branding_dark_theme' => 'bool',
+    ];
 
     public const ROOT = '@root';
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<string>
+     */
+    protected $casts = self::CASTS + parent::CASTS;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -41,5 +66,9 @@ class Organization extends Model {
 
     public function isRoot(): bool {
         return $this->subdomain === self::ROOT;
+    }
+
+    public function preferredLocale(): ?string {
+        return $this->locale;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Currency;
 use App\Models\Organization;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
@@ -27,12 +28,21 @@ class OrganizationFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'         => $this->faker->uuid,
-            'subdomain'  => null,
-            'name'       => $this->faker->company,
-            'created_at' => Date::now(),
-            'updated_at' => Date::now(),
-            'deleted_at' => null,
+            'id'                       => $this->faker->uuid,
+            'subdomain'                => null,
+            'name'                     => $this->faker->company,
+            'locale'                   => $this->faker->locale(),
+            'currency_id'              => static function (): Currency {
+                return Currency::query()->first() ?? Currency::factory()->create();
+            },
+            'branding_primary_color'   => $this->faker->hexColor(),
+            'branding_secondary_color' => $this->faker->hexColor(),
+            'branding_logo'            => null,
+            'branding_fav_icon'        => null,
+            'branding_dark_theme'      => $this->faker->boolean(),
+            'created_at'               => Date::now(),
+            'updated_at'               => Date::now(),
+            'deleted_at'               => null,
         ];
     }
 

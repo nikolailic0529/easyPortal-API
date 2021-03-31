@@ -79,6 +79,9 @@ type Query {
 
   "Get quote by id"
   quote(id: ID! @eq): Document @guard @find @builder(method: "App\\GraphQL\\Builders\\QuotesBuilder")
+
+  "Get current organization"
+  organization: Organization
 }
 
 type Mutation {
@@ -113,4 +116,15 @@ type Mutation {
   locale(
     locale: String! @rules(apply:["regex:/^[a-z]{2}(?:_[A-Z]{2})?$/"])
   ): Boolean!
+
+  "Set Organization properties"
+  organization(
+    locale: String
+    currency_id: ID
+    branding_is_dark_theme_mode: Boolean
+    branding_primary_color: String
+    branding_secondary_color: String
+    branding_logo: Upload
+    branding_fav_icon: Upload
+  ): Boolean! @guard @validator
 }

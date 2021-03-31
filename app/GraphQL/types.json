@@ -570,6 +570,82 @@
                     "$ref": "#/definitions/Product"
                 }
             }
+        },
+        "Organization" : {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "subdomain",
+                "name",
+                "locale",
+                "branding_dark_theme",
+                "branding_primary_color",
+                "branding_secondary_color",
+                "branding_logo",
+                "branding_fav_icon",
+                "currency",
+                "locations"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "subdomain": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "type": "string"
+                },
+                "locale": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "branding_primary_color": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "branding_secondary_color": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "branding_logo" : {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "branding_fav_icon" : {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "assets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Asset"
+                    }
+                },
+                "currency": {
+                    "$ref": "#/definitions/Currency"
+                },
+                "locations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Location"
+                    }
+                }
+            }
         }
     }
 }
