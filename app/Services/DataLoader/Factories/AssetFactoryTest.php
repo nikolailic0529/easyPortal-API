@@ -206,7 +206,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->serialNumber, $updated->serial_number);
         $this->assertEquals($asset->vendor, $updated->oem->abbr);
         $this->assertEquals(ProductType::asset(), $updated->product->type);
-        $this->assertEquals($asset->productDescription, $updated->product->name);
+        $this->assertEquals($created->product->name, $updated->product->name);
         $this->assertEquals($asset->sku, $updated->product->sku);
         $this->assertEquals($asset->eosDate, $this->getDatetime($updated->product->eos));
         $this->assertEquals($asset->eolDate, $this->getDatetime($updated->product->eol));

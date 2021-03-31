@@ -83,7 +83,7 @@ class WithProductTest extends TestCase {
         );
 
         $this->assertSame(ProductType::asset(), $updated->type);
-        $this->assertEquals($newName, $updated->name);
+        $this->assertEquals($product->name, $updated->name);
         $this->assertEquals($newEol, $newEol);
         $this->assertNull($updated->eos);
 
