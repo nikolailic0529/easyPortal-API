@@ -41,6 +41,7 @@ use Psr\Log\LoggerInterface;
 use SplObjectStorage;
 
 use function array_map;
+use function array_unique;
 use function is_null;
 use function sprintf;
 
@@ -71,16 +72,28 @@ class AssetFactory extends ModelFactory {
 
     // <editor-fold desc="Settings">
     // =========================================================================
+    public function getCustomerFactory(): ?CustomerFactory {
+        return $this->customerFactory;
+    }
+
     public function setCustomersFactory(?CustomerFactory $factory): static {
         $this->customerFactory = $factory;
 
         return $this;
     }
 
+    public function getResellerFactory(): ?ResellerFactory {
+        return $this->resellerFactory;
+    }
+
     public function setResellerFactory(?ResellerFactory $factory): static {
         $this->resellerFactory = $factory;
 
         return $this;
+    }
+
+    public function getDocumentFactory(): ?DocumentFactory {
+        return $this->documentFactory;
     }
 
     public function setDocumentFactory(?DocumentFactory $factory): static {
@@ -115,9 +128,9 @@ class AssetFactory extends ModelFactory {
      * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
      */
     public function prefetch(array $assets, bool $reset = false, Closure|null $callback = null): static {
-        $keys = array_map(static function (Asset $asset): string {
+        $keys = array_unique(array_map(static function (Asset $asset): string {
             return $asset->id;
-        }, $assets);
+        }, $assets));
 
         $this->assets->prefetch($keys, $reset, $callback);
 

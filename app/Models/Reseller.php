@@ -12,9 +12,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  *
  * @property string                                                              $id
  * @property string                                                              $name
- * @property-read int|null                                                       $customers_count
- * @property-read int|null                                                       $locations_count
- * @property-read int|null                                                       $assets_count
+ * @property int|null                                                            $customers_count
+ * @property int|null                                                            $locations_count
+ * @property int|null                                                            $assets_count
  * @property \Carbon\CarbonImmutable                                             $created_at
  * @property \Carbon\CarbonImmutable                                             $updated_at
  * @property \Carbon\CarbonImmutable|null                                        $deleted_at

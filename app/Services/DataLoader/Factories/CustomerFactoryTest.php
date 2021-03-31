@@ -6,12 +6,16 @@ use App\Models\Model;
 use App\Models\Status as StatusModel;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\DataLoaderException;
+use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
 use Exception;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -224,6 +228,50 @@ class CustomerFactoryTest extends TestCase {
 
         $this->assertNotNull($actual);
         $this->assertEquals($expected, $actual->key);
+    }
+
+    /**
+     * @covers ::prefetch
+     */
+    public function testPrefetch(): void {
+        $a          = Company::create([
+            'id' => $this->faker->uuid,
+        ]);
+        $b          = Company::create([
+            'id' => $this->faker->uuid,
+        ]);
+        $resolver   = $this->app->make(CustomerResolver::class);
+        $normalizer = $this->app->make(Normalizer::class);
+
+        $factory = new class($normalizer, $resolver) extends CustomerFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(Normalizer $normalizer, CustomerResolver $resolver) {
+                $this->normalizer = $normalizer;
+                $this->customers  = $resolver;
+            }
+        };
+
+        $callback = Mockery::spy(function (EloquentCollection $collection): void {
+            $this->assertCount(0, $collection);
+        });
+
+        $factory->prefetch(
+            [
+                Asset::create(['customerId' => $a->id]),
+                Asset::create(['customerId' => $b->id]),
+            ],
+            false,
+            Closure::fromCallable($callback),
+        );
+
+        $callback->shouldHaveBeenCalled()->once();
+
+        $this->flushQueryLog();
+
+        $factory->find($a);
+        $factory->find($b);
+
+        $this->assertCount(0, $this->getQueryLog());
     }
     // </editor-fold>
 

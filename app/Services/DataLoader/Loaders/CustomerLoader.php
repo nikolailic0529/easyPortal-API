@@ -91,7 +91,7 @@ class CustomerLoader extends Loader {
     // <editor-fold desc="Functions">
     // =========================================================================
     protected function getCustomersFactory(): CustomerFactory {
-        return (clone $this->customers)
+        return $this->customers
             ->setLocationFactory(
                 $this->isWithLocations() ? $this->locations : null,
             )

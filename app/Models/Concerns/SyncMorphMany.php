@@ -3,6 +3,7 @@
 namespace App\Models\Concerns;
 
 use App\Models\PolymorphicModel;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
@@ -83,7 +84,7 @@ trait SyncMorphMany {
         }
 
         // Update relation
-        $this->setRelation($relation, new Collection($objects));
+        $this->setRelation($relation, new EloquentCollection($objects));
     }
 
     protected function syncMorphManyDelete(PolymorphicModel $model): void {

@@ -88,7 +88,7 @@ class ResellerLoader extends Loader {
     // <editor-fold desc="Functions">
     // =========================================================================
     protected function getResellerFactory(): ResellerFactory {
-        return (clone $this->resellers)
+        return $this->resellers
             ->setLocationFactory(
                 $this->isWithLocations() ? $this->locations : null,
             );
