@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\GraphQL\Contracts\Translatable;
 use App\Models\Concerns\HasCurrency;
 use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasOem;
 use App\Models\Concerns\HasProduct;
 use App\Models\Concerns\HasReseller;
 use App\Models\Concerns\HasType;
+use App\Models\Concerns\TranslateProperties;
 use App\Models\Enums\ProductType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -57,7 +59,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Document extends Model {
+class Document extends Model implements Translatable {
     use HasFactory;
     use HasOem;
     use HasType;
@@ -65,6 +67,7 @@ class Document extends Model {
     use HasCustomer;
     use HasCurrency;
     use HasProduct;
+    use TranslateProperties;
 
     protected const CASTS = [
         'start' => 'date',
@@ -96,5 +99,21 @@ class Document extends Model {
      */
     protected function getValidProductTypes(): array {
         return [ProductType::support()];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getTranslatableProperties(): array {
+        return ['name'];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function getTranslatedPropertyKeys(string $property): array {
+        return [
+            "models.{$this->getMorphClass()}.{$property}.{$this->key}",
+        ];
     }
 }
