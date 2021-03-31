@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasAssets;
+use App\Models\Concerns\HasTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -54,6 +55,7 @@ use Illuminate\Support\Collection;
 class Location extends PolymorphicModel {
     use HasFactory;
     use HasAssets;
+    use HasTypes;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -76,21 +78,5 @@ class Location extends PolymorphicModel {
 
     public function setCityAttribute(City $country): void {
         $this->city()->associate($country);
-    }
-
-    public function types(): BelongsToMany {
-        return $this->belongsToMany(Type::class, 'location_types')->withTimestamps();
-    }
-
-    /**
-     * @param \Illuminate\Support\Collection<\App\Models\Type>|array<\App\Models\Type> $types
-     */
-    public function setTypesAttribute(Collection|array $types): void {
-        $types = new Collection($types);
-
-        $this->setRelation('types', $types);
-        $this->types()->sync($types->map(static function (Type $type): string {
-            return $type->getKey();
-        })->all());
     }
 }
