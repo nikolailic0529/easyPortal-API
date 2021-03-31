@@ -20,8 +20,12 @@ class DateTimeNormalizer implements Normalizer {
     public function normalize(mixed $value): ?DateTimeInterface {
         // Parse
         if ($value) {
-            if (is_int($value) || (is_string($value) && preg_match('/\d+/', $value))) {
+            if (is_int($value) || (is_string($value) && preg_match('/^\d+$/', $value))) {
                 $value = Date::createFromTimestampMs($value);
+            } elseif (is_string($value) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $value)) {
+                $value = Date::createFromFormat('Y-m-d', $value, 'UTC')->startOfDay();
+            } else {
+                // empty
             }
         } else {
             $value = null;
@@ -31,6 +35,8 @@ class DateTimeNormalizer implements Normalizer {
         if ($value instanceof DateTimeInterface) {
             $tz    = $this->config->get('app.timezone') ?: 'UTC';
             $value = $value->setTimezone($tz);
+        } else {
+            $value = null;
         }
 
         return $value;
