@@ -98,6 +98,7 @@
     "validation.url": "The :attribute format is invalid.",
     "validation.uuid": "The :attribute must be a valid UUID.",
     "validation.phone": "The :attribute field contains an invalid number.",
+    "validation.locale": "The :attribute is invalid locale.",
     "errors.unauthenticated": "Unauthenticated.",
     "errors.unauthorized": "Unauthorized.",
     "errors.forbidden": "Forbidden.",

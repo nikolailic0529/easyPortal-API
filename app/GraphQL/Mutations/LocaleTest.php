@@ -32,11 +32,11 @@ class LocaleTest extends TestCase {
         $this
             ->graphQL(/** @lang GraphQL */ 'mutation Locale($locale: String!) {
                 locale(locale: $locale)
-            }', [ 'locale' => 'en_UK'])
+            }', [ 'locale' => 'en_BB'])
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            $this->assertEquals('en_UK', $this->app->getLocale());
+            $this->assertEquals('en_BB', $this->app->getLocale());
         }
     }
     // </editor-fold>

@@ -3,6 +3,7 @@
 namespace App\GraphQL\Validators\Mutation;
 
 use App\Models\Currency;
+use App\Rules\Locale;
 use Illuminate\Contracts\Config\Repository;
 use Nuwave\Lighthouse\Validation\Validator;
 
@@ -24,7 +25,7 @@ class OrganizationValidator extends Validator {
         $mimeTypes       = implode(',', $formats);
 
         return [
-            'locale'                   => [ 'regex:/^[a-z]{2}(?:_[A-Z]{2})?$/' ],
+            'locale'                   => [ new Locale() ],
             'currency_id'              => ["exists:{$currenciesTable},id"],
             'branding_dark_theme'      => ['boolean'],
             'branding_primary_color'   => ['regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],

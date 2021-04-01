@@ -114,7 +114,7 @@ type Mutation {
 
   "Set Locale"
   locale(
-    locale: String! @rules(apply:["regex:/^[a-z]{2}(?:_[A-Z]{2})?$/"])
+    locale: String! @rules(apply: ["App\\Rules\\Locale"])
   ): Boolean!
 
   "Set Organization properties"

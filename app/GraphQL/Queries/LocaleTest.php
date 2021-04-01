@@ -57,8 +57,8 @@ class LocaleTest extends TestCase {
             new AnyDataProvider(),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('locale', Locale::class, json_encode('en_UK')),
-                    'en_UK',
+                    new GraphQLSuccess('locale', Locale::class, json_encode('fr')),
+                    'fr',
                 ],
             ]),
         ))->getData();
