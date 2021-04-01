@@ -17,9 +17,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\ContractTypes
+ * @coversDefaultClass \App\GraphQL\Queries\QuoteTypes
  */
-class ContractTypesTest extends TestCase {
+class QuoteTypesTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
@@ -29,13 +29,13 @@ class ContractTypesTest extends TestCase {
         Closure $tenantFactory,
         Closure $userFactory = null,
         Closure $localeFactory = null,
-        Closure $contactFactory = null,
+        Closure $typesFactory = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setTenant($tenantFactory));
 
-        if ($contactFactory) {
-            $contactFactory($this);
+        if ($typesFactory) {
+            $typesFactory($this);
         }
 
         if ($localeFactory) {
@@ -45,7 +45,7 @@ class ContractTypesTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                contractTypes {
+                quoteTypes {
                     id
                     name
                 }
@@ -64,8 +64,8 @@ class ContractTypesTest extends TestCase {
             new TenantDataProvider(),
             new AnyDataProvider(),
             new ArrayDataProvider([
-                'ok/from contract types'         => [
-                    new GraphQLSuccess('contractTypes', ContractTypes::class, [
+                'ok/in quotes config'        => [
+                    new GraphQLSuccess('quoteTypes', QuoteTypes::class, [
                         [
                             'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
                             'name' => 'Translated (locale)',
@@ -117,29 +117,98 @@ class ContractTypesTest extends TestCase {
                         Type::factory()->create([
                             'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
                             'key'         => 'key',
-                            'name'        => 'Not In config',
+                            'name'        => 'Not In quotes config',
                             'object_type' => (new Document())->getMorphClass(),
                         ]);
                         Type::factory()->create([
                             'name' => 'Wrong object_type',
                         ]);
-                        $test->app->make(Repository::class)->set('easyportal.contract_types', [
+                        $test->app->make(Repository::class)->set('easyportal.quote_types', [
                             'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                             '6f19ef5f-5963-437e-a798-29296db08d59',
                             'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                         ]);
                     },
                 ],
-                'ok/empty contract types config' => [
-                    new GraphQLSuccess('contractTypes', ContractTypes::class, [
-                        // empty
+                'ok/not in contracts config' => [
+                    new GraphQLSuccess('quoteTypes', QuoteTypes::class, [
+                        [
+                            'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
+                            'name' => 'Translated (locale)',
+                        ],
+                        [
+                            'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                            'name' => 'Translated (fallback)',
+                        ],
+                        [
+                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                            'name' => 'No translation',
+                        ],
                     ]),
                     static function (TestCase $test): string {
-                        return $test->app->getLocale();
+                        $translator = $test->app()->make(Translator::class);
+                        $fallback   = $translator->getFallback();
+                        $locale     = $test->app()->getLocale();
+                        $model      = (new Type())->getMorphClass();
+                        $type       = (new Document())->getMorphClass();
+
+                        $translator->addLines([
+                            "models.{$model}.name.{$type}.translated" => 'Translated (locale)',
+                        ], $locale);
+
+                        $translator->addLines([
+                            "models.{$model}.name.{$type}.translated-fallback" => 'Translated (fallback)',
+                        ], $fallback);
+
+                        return $locale;
                     },
                     static function (TestCase $test): void {
                         Type::factory()->create([
+                            'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                            'name'        => 'No translation',
                             'object_type' => (new Document())->getMorphClass(),
+                        ]);
+                        Type::factory()->create([
+                            'id'          => '6f19ef5f-5963-437e-a798-29296db08d59',
+                            'key'         => 'translated',
+                            'name'        => 'Should be translated',
+                            'object_type' => (new Document())->getMorphClass(),
+                        ]);
+                        Type::factory()->create([
+                            'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                            'key'         => 'translated-fallback',
+                            'name'        => 'Should be translated via fallback',
+                            'object_type' => (new Document())->getMorphClass(),
+                        ]);
+                        Type::factory()->create([
+                            'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
+                            'key'         => 'key',
+                            'name'        => 'In contracts config',
+                            'object_type' => (new Document())->getMorphClass(),
+                        ]);
+                        Type::factory()->create([
+                            'name' => 'Wrong object_type',
+                        ]);
+                        $test->app->make(Repository::class)->set('easyportal.contract_types', [
+                            'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
+                        ]);
+                    },
+                ],
+                'ok/empty both config'       => [
+                    new GraphQLSuccess('quoteTypes', QuoteTypes::class, [
+                        // empty
+                    ]),
+                    static function (TestCase $test): string {
+                        return $test->app()->getLocale();
+                    },
+                    static function (TestCase $test): void {
+                        Type::factory()->create([
+                            'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                            'name'        => 'No translation',
+                            'object_type' => (new Document())->getMorphClass(),
+                        ]);
+                        $test->app->make(Repository::class)->set('easyportal.quote_types', [
+                            // empty
                         ]);
                         $test->app->make(Repository::class)->set('easyportal.contract_types', [
                             // empty

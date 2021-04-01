@@ -7,7 +7,7 @@ use App\Models\Type;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Collection;
 
-class ContractTypes {
+class QuoteTypes {
     public function __construct(
         protected Repository $config,
     ) {
@@ -18,10 +18,16 @@ class ContractTypes {
      * @param  array<string, mixed>  $args
      */
     public function __invoke($_, array $args): Collection {
-        return Type::query()
+        $quotesTypes = $this->config->get('easyportal.quote_types');
+        $builder     = Type::query()
             ->where('object_type', '=', (new Document())->getMorphClass())
-            ->whereIn('id', $this->config->get('easyportal.contract_types'))
-            ->orderByKey()
-            ->get();
+            ->orderByKey();
+        // if empty quotes type we will use ids not represented in contracts
+        if (empty($quotesTypes)) {
+            $builder->whereNotIn('id', $this->config->get('easyportal.contract_types'));
+        } else {
+            $builder->whereIn('id', $quotesTypes);
+        }
+        return $builder->get();
     }
 }

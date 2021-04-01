@@ -88,6 +88,9 @@ type Query {
 
   "List of all contract types"
   contractTypes: [Type!]!
+
+  "List of all quotes types"
+  quoteTypes: [Type!]!
 }
 
 type Mutation {
