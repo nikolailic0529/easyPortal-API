@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL;
+namespace App\Exceptions;
 
 use Closure;
 use Error;
@@ -16,7 +16,7 @@ use Nuwave\Lighthouse\Execution\ErrorHandler as LighthouseErrorHandler;
 
 use function __;
 
-class ErrorHandler implements LighthouseErrorHandler {
+class GraphQLHandler implements LighthouseErrorHandler {
     public function __construct() {
         // empty
     }
