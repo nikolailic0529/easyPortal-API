@@ -85,6 +85,9 @@ type Query {
 
   "Get app name & version"
   application: Application!
+
+  "List of all contract types"
+  contractTypes: [Type!]!
 }
 
 type Mutation {
