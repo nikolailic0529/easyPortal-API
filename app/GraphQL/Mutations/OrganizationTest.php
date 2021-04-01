@@ -16,9 +16,9 @@ use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
+use function __;
 use function array_key_exists;
 use function json_encode;
-
 
 /**
  * @internal
@@ -151,7 +151,7 @@ class OrganizationTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid currency' => [
-                   new GraphQLError('currency_id', static function (): array {
+                    new GraphQLError('currency_id', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     static function (): array {
