@@ -3,14 +3,14 @@
 namespace App\GraphQL\Mutations;
 
 use App\CurrentTenant;
-use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Contracts\Filesystem\Factory;
 
 use function array_key_exists;
 
 class Organization {
     public function __construct(
         protected CurrentTenant $tenant,
-        protected Filesystem $storage,
+        protected Factory $storage,
     ) {
         // empty
     }
@@ -42,8 +42,8 @@ class Organization {
         }
 
         if (array_key_exists('branding_logo', $args)) {
-            if ($this->storage->exists($currentTenant->branding_logo)) {
-                $this->storage->delete($currentTenant->branding_logo);
+            if ($this->storage->disk('local')->exists($currentTenant->branding_logo)) {
+                $this->storage->disk('local')->delete($currentTenant->branding_logo);
             }
 
             $file                         = $args['branding_logo'];
@@ -51,8 +51,8 @@ class Organization {
         }
 
         if (array_key_exists('branding_favicon', $args)) {
-            if ($this->storage->exists($currentTenant->branding_favicon)) {
-                $this->storage->delete($currentTenant->branding_favicon);
+            if ($this->storage->disk('local')->exists($currentTenant->branding_favicon)) {
+                $this->storage->disk('local')->delete($currentTenant->branding_favicon);
             }
 
             $file                            = $args['branding_favicon'];
