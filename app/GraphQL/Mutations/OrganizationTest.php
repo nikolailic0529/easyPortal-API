@@ -5,8 +5,8 @@ namespace App\GraphQL\Mutations;
 use App\Models\Currency;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -87,6 +87,7 @@ class OrganizationTest extends TestCase {
             'query'         => $query,
             'variables'     => $data,
         ];
+        Storage::fake('local');
 
         $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
 
@@ -99,8 +100,8 @@ class OrganizationTest extends TestCase {
             $this->assertEquals($data['branding_secondary_color'], $tenant->branding_secondary_color);
             $this->assertNotNull($tenant->branding_logo);
             $this->assertNotNull($tenant->branding_favicon);
-            $storage = $this->app->make(Filesystem::class);
-            $storage->delete([ $tenant->branding_logo, $tenant->branding_favicon]);
+            Storage::disk('local')->assertExists($tenant->branding_logo);
+            Storage::disk('local')->assertExists($tenant->branding_favicon);
         }
     }
     // </editor-fold>
