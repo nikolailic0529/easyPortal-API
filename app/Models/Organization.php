@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null                                                            $branding_primary_color
  * @property string|null                                                            $branding_secondary_color
  * @property string|null                                                            $branding_logo
- * @property string|null                                                            $branding_fav_icon
+ * @property string|null                                                            $branding_favicon
  * @property \Carbon\CarbonImmutable                                                $created_at
  * @property \Carbon\CarbonImmutable                                                $updated_at
  * @property \Carbon\CarbonImmutable|null                                           $deleted_at

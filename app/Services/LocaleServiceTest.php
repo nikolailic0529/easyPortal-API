@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\CurrentTenant;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Contracts\Session\Session;
@@ -44,7 +45,7 @@ class LocaleServiceTest extends TestCase {
         );
     }
 
-/**
+    /**
      * @covers ::get
      *
      * @dataProvider dataProviderGet
@@ -55,26 +56,29 @@ class LocaleServiceTest extends TestCase {
         ?string $tenantLocale,
         ?string $sessionLocale,
     ): void {
-        $this->tearDownWithCurrentTenant();
-
         if ($userLocale) {
             $this->setUser(User::factory()->create([
                 'locale' => $userLocale,
             ]));
         }
+        $currentTenant = $this->app->make(CurrentTenant::class)->get();
 
         if ($tenantLocale) {
             Organization::factory()->create([
                 'locale' => $tenantLocale,
             ]);
-            $this->setUpWithCurrentTenant();
+            $currentTenant->locale = $tenantLocale;
+            $currentTenant->save();
+        } else {
+            $currentTenant->locale = null;
+            $currentTenant->save();
         }
 
         if ($sessionLocale) {
             $this->app->make(Session::class)->put('locale', $sessionLocale);
         }
 
-        $this->app->setLocale('en_UK');
+        $this->app->setLocale('en_BB');
 
         $this->assertEquals($expected, $this->app->make(LocaleService::class)->get());
     }
@@ -106,7 +110,7 @@ class LocaleServiceTest extends TestCase {
                 null,
             ],
             'From app config'                                 => [
-                'en_UK',
+                'en_BB',
                 null,
                 null,
                 null,

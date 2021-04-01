@@ -121,10 +121,10 @@ type Mutation {
   organization(
     locale: String
     currency_id: ID
-    branding_is_dark_theme_mode: Boolean
+    branding_dark_theme: Boolean
     branding_primary_color: String
     branding_secondary_color: String
     branding_logo: Upload
-    branding_fav_icon: Upload
+    branding_favicon: Upload
   ): Boolean! @guard @validator
 }

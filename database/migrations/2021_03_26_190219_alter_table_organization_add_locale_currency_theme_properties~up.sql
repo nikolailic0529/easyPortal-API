@@ -12,11 +12,11 @@ SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABL
 ALTER TABLE `organizations`
     ADD COLUMN `locale` CHAR(9) NULL DEFAULT NULL AFTER `name`,
     ADD COLUMN `currency_id` CHAR(36) NULL DEFAULT NULL AFTER `locale`,
-    ADD COLUMN `branding_dark_theme` BOOLEAN NOT NULL DEFAULT 0 AFTER `currency_id`,
+    ADD COLUMN `branding_dark_theme` TINYINT(1) NOT NULL DEFAULT 0 AFTER `currency_id`,
     ADD COLUMN `branding_primary_color` CHAR(10) NULL DEFAULT NULL AFTER `branding_dark_theme`,
     ADD COLUMN `branding_secondary_color` CHAR(10) NULL DEFAULT NULL AFTER `branding_primary_color`,
     ADD COLUMN `branding_logo` varchar(255) NULL DEFAULT NULL AFTER `branding_secondary_color`,
-    ADD COLUMN `branding_fav_icon` varchar(255) NULL DEFAULT NULL AFTER `branding_logo`,
+    ADD COLUMN `branding_favicon` varchar(255) NULL DEFAULT NULL AFTER `branding_logo`,
 
     ADD CONSTRAINT `fk_organizations_currencies1`
         FOREIGN KEY (`currency_id`)

@@ -19,22 +19,22 @@ class OrganizationValidator extends Validator {
      */
     public function rules(): array {
         $currenciesTable = (new Currency())->getTable();
-        $maxSize         = $this->config->get('branding.max_image_size');
-        $formats         = $this->config->get('branding.image_formats');
+        $maxSize         = $this->config->get('easyportal.max_image_size');
+        $formats         = $this->config->get('easyportal.image_formats');
         $mimeTypes       = implode(',', $formats);
 
         return [
-            'locale'                      => [ 'regex:/^[a-z]{2}(?:_[A-Z]{2})?$/' ],
-            'currency_id'                 => ["exists:{$currenciesTable},id"],
-            'branding_is_dark_theme_mode' => ['boolean'],
-            'branding_primary_color'      => ['regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
-            'branding_secondary_color'    => ['regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
-            'branding_logo'               => [
+            'locale'                   => [ 'regex:/^[a-z]{2}(?:_[A-Z]{2})?$/' ],
+            'currency_id'              => ["exists:{$currenciesTable},id"],
+            'branding_dark_theme'      => ['boolean'],
+            'branding_primary_color'   => ['regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
+            'branding_secondary_color' => ['regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
+            'branding_logo'            => [
                 'nullable',
                 "mimes:{$mimeTypes}",
                 "max:{$maxSize}",
             ],
-            'branding_fav_icon'           => [
+            'branding_favicon'         => [
                 'nullable',
                 "mimes:{$mimeTypes}",
                 "max:{$maxSize}",

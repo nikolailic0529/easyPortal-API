@@ -55,30 +55,30 @@ class OrganizationTest extends TestCase {
                 $data['branding_logo'] = null;
             }
 
-            if (array_key_exists('branding_fav_icon', $data)) {
-                $map['1']                  = ['variables.branding_fav_icon'];
-                $file['1']                 = $data['branding_fav_icon'];
-                $data['branding_fav_icon'] = null;
+            if (array_key_exists('branding_favicon', $data)) {
+                $map['1']                 = ['variables.branding_favicon'];
+                $file['1']                = $data['branding_favicon'];
+                $data['branding_favicon'] = null;
             }
         }
 
         $query = /** @lang GraphQL */'mutation organization(
             $locale: String,
             $currency_id: ID
-            $branding_is_dark_theme_mode: Boolean
+            $branding_dark_theme: Boolean
             $branding_primary_color: String
             $branding_secondary_color: String
             $branding_logo: Upload
-            $branding_fav_icon: Upload
+            $branding_favicon: Upload
         ) {
             organization(
                 locale: $locale,
                 currency_id: $currency_id,
-                branding_is_dark_theme_mode: $branding_is_dark_theme_mode,
+                branding_dark_theme: $branding_dark_theme,
                 branding_primary_color: $branding_primary_color,
                 branding_secondary_color: $branding_secondary_color
                 branding_logo: $branding_logo,
-                branding_fav_icon: $branding_fav_icon
+                branding_favicon: $branding_favicon
             )
         }';
 
@@ -94,13 +94,13 @@ class OrganizationTest extends TestCase {
             $tenant = $tenant->fresh();
             $this->assertEquals($data['locale'], $tenant->locale);
             $this->assertEquals($data['currency_id'], $tenant->currency_id);
-            $this->assertEquals($data['branding_is_dark_theme_mode'], $tenant->branding_dark_theme);
+            $this->assertEquals($data['branding_dark_theme'], $tenant->branding_dark_theme);
             $this->assertEquals($data['branding_primary_color'], $tenant->branding_primary_color);
             $this->assertEquals($data['branding_secondary_color'], $tenant->branding_secondary_color);
             $this->assertNotNull($tenant->branding_logo);
-            $this->assertNotNull($tenant->branding_fav_icon);
+            $this->assertNotNull($tenant->branding_favicon);
             $storage = $this->app->make(Filesystem::class);
-            $storage->delete([ $tenant->branding_logo, $tenant->branding_fav_icon]);
+            $storage->delete([ $tenant->branding_logo, $tenant->branding_favicon]);
         }
     }
     // </editor-fold>
@@ -120,18 +120,18 @@ class OrganizationTest extends TestCase {
                     static function (): array {
                         $currency = Currency::factory()->create();
                         return [
-                            'locale'                      => 'en',
-                            'currency_id'                 => $currency->id,
-                            'branding_is_dark_theme_mode' => false,
-                            'branding_primary_color'      => '#ffffff',
-                            'branding_secondary_color'    => '#ffffff',
-                            'branding_logo'               => UploadedFile::fake()->create('branding_logo.jpg', 20),
-                            'branding_fav_icon'           => UploadedFile::fake()->create('branding_fav_icon.jpg', 100),
+                            'locale'                   => 'en',
+                            'currency_id'              => $currency->id,
+                            'branding_dark_theme'      => false,
+                            'branding_primary_color'   => '#ffffff',
+                            'branding_secondary_color' => '#ffffff',
+                            'branding_logo'            => UploadedFile::fake()->create('branding_logo.jpg', 20),
+                            'branding_favicon'         => UploadedFile::fake()->create('branding_favicon.jpg', 100),
                         ];
                     },
                 ],
                 'invalid request/Invalid color'    => [
-                    new GraphQLError('organization'),
+                    new GraphQLError('branding_primary_color'),
                     static function (): array {
                         return [
                             'branding_primary_color' => 'Color',
@@ -139,7 +139,7 @@ class OrganizationTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid locale'   => [
-                    new GraphQLError('organization'),
+                    new GraphQLError('locale'),
                     static function (): array {
                         return [
                             'locale' => 'en_UKX',
@@ -147,7 +147,7 @@ class OrganizationTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid currency' => [
-                   new GraphQLError('organization'),
+                   new GraphQLError('currency_id'),
                     static function (): array {
                         return [
                             'currency_id' => 'wrongId',
@@ -155,29 +155,29 @@ class OrganizationTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid format'   => [
-                    new GraphQLError('organization'),
+                    new GraphQLError('branding_logo'),
                     static function (TestCase $test): array {
                         $config  = $test->app->make(Repository::class);
                         $maxSize = 2000;
-                        $config->set('branding.max_image_size', $maxSize);
-                        $config->set('branding.image_formats', ['png']);
+                        $config->set('easyportal.max_image_size', $maxSize);
+                        $config->set('easyportal.image_formats', ['png']);
                         return [
-                            'branding_logo'     => UploadedFile::fake()->create('branding_logo.jpg', 200),
-                            'branding_fav_icon' => UploadedFile::fake()->create('branding_fav_icon.jpg', 200),
+                            'branding_logo'    => UploadedFile::fake()->create('branding_logo.jpg', 200),
+                            'branding_favicon' => UploadedFile::fake()->create('branding_favicon.jpg', 200),
                         ];
                     },
                 ],
                 'invalid request/Invalid size'     => [
-                    new GraphQLError('organization'),
+                    new GraphQLError('branding_favicon'),
                     static function (TestCase $test): array {
                         $config  = $test->app->make(Repository::class);
                         $maxSize = 2000;
-                        $config->set('branding.max_image_size', $maxSize);
-                        $config->set('branding.image_formats', ['png']);
+                        $config->set('easyportal.max_image_size', $maxSize);
+                        $config->set('easyportal.image_formats', ['png']);
                         return [
-                            'branding_logo'     => UploadedFile::fake()->create('branding_logo.png', $maxSize + 1024),
-                            'branding_fav_icon' => UploadedFile::fake()
-                                ->create('branding_fav_icon.jpg', $maxSize + 1024),
+                            'branding_logo'    => UploadedFile::fake()->create('branding_logo.png', $maxSize + 1024),
+                            'branding_favicon' => UploadedFile::fake()
+                                ->create('branding_favicon.jpg', $maxSize + 1024),
                         ];
                     },
                 ],

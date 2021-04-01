@@ -47,13 +47,13 @@ class AppServiceProvider extends ServiceProvider {
             'reseller'     => Reseller::class,
             'document'     => Document::class,
             'organization' => Organization::class,
-            'currency'     => Currency::class,
 
             // Used only for translation
             'type'         => Type::class,
             'status'       => Status::class,
             'country'      => Country::class,
             'city'         => City::class,
+            'currency'     => Currency::class,
         ]);
     }
 

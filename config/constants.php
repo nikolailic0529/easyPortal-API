@@ -93,3 +93,13 @@ define('EASYPORTAL_CONTRACT_TYPES', []);
 // optional , if empty will use types that are not in EASYPORTAL_CONTRACT_TYPES
 define('EASYPORTAL_QUOTE_TYPES', []);
 // </editor-fold>
+
+// <editor-fold desc="Branding restrictions">
+// -----------------------------------------------------------------------------
+
+// Max size of branding images/icons ( branding_favicon, branding_logo) in KB
+define('EASYPORTAL_MAX_IMAGE_SIZE', '2048');
+
+// Accepted image formats
+define('EASYPORTAL_IMAGE_FORMATS', ['jpg', 'jpeg', 'png']);
+// </editor-fold>

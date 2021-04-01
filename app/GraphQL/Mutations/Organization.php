@@ -29,8 +29,8 @@ class Organization {
             $currentTenant->currency_id = $args['currency_id'];
         }
 
-        if (array_key_exists('branding_is_dark_theme_mode', $args)) {
-            $currentTenant->branding_dark_theme = $args['branding_is_dark_theme_mode'];
+        if (array_key_exists('branding_dark_theme', $args)) {
+            $currentTenant->branding_dark_theme = $args['branding_dark_theme'];
         }
 
         if (array_key_exists('branding_primary_color', $args)) {
@@ -50,13 +50,13 @@ class Organization {
             $currentTenant->branding_logo = $file->storePublicly('uploads');
         }
 
-        if (array_key_exists('branding_fav_icon', $args)) {
-            if ($this->storage->exists($currentTenant->branding_fav_icon)) {
-                $this->storage->delete($currentTenant->branding_fav_icon);
+        if (array_key_exists('branding_favicon', $args)) {
+            if ($this->storage->exists($currentTenant->branding_favicon)) {
+                $this->storage->delete($currentTenant->branding_favicon);
             }
 
-            $file                             = $args['branding_fav_icon'];
-            $currentTenant->branding_fav_icon = $file->storePublicly('uploads');
+            $file                            = $args['branding_favicon'];
+            $currentTenant->branding_favicon = $file->storePublicly('uploads');
         }
 
         $currentTenant->save();

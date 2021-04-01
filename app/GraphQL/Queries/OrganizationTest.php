@@ -43,7 +43,7 @@ class OrganizationTest extends TestCase {
                 branding_primary_color
                 branding_secondary_color
                 branding_logo
-                branding_fav_icon
+                branding_favicon
                 currency {
                     id
                     name
@@ -121,7 +121,7 @@ class OrganizationTest extends TestCase {
                         'branding_primary_color'   => '#FFFFFF',
                         'branding_secondary_color' => '#000000',
                         'branding_logo'            => null,
-                        'branding_fav_icon'        => null,
+                        'branding_favicon'         => null,
                         'branding_secondary_color' => '#000000',
                         'currency'                 => [
                             'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',

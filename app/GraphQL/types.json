@@ -583,7 +583,7 @@
                 "branding_primary_color",
                 "branding_secondary_color",
                 "branding_logo",
-                "branding_fav_icon",
+                "branding_favicon",
                 "currency",
                 "locations"
             ],
@@ -624,7 +624,7 @@
                         "null"
                     ]
                 },
-                "branding_fav_icon" : {
+                "branding_favicon" : {
                     "type": [
                         "string",
                         "null"

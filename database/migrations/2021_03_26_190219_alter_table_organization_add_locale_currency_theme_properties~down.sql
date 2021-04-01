@@ -17,7 +17,7 @@ ALTER TABLE `organizations`
     DROP COLUMN `branding_primary_color`,
     DROP COLUMN `branding_secondary_color`,
     DROP COLUMN `branding_logo`,
-    DROP COLUMN `branding_fav_icon`;
+    DROP COLUMN `branding_favicon`;
 
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;

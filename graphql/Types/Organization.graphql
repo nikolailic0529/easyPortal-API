@@ -7,7 +7,7 @@ type Organization {
     branding_primary_color: String
     branding_secondary_color: String
     branding_logo: String
-    branding_fav_icon: String
+    branding_favicon: String
     currency: Currency @belongsTo
     locations: [Location!] @morphMany
 }
