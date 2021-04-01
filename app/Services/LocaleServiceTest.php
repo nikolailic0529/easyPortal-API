@@ -2,16 +2,20 @@
 
 namespace App\Services;
 
+use App\CurrentTenant;
+use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Translation\Translator;
 use Tests\TestCase;
+use Tests\WithCurrentTenant;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\LocaleService
  */
 class LocaleServiceTest extends TestCase {
+    use WithCurrentTenant;
 
     /**
      * @covers ::set
@@ -46,18 +50,35 @@ class LocaleServiceTest extends TestCase {
      *
      * @dataProvider dataProviderGet
      */
-    public function testGet(string $expected, ?string $userLocale, ?string $sessionLocale): void {
+    public function testGet(
+        string $expected,
+        ?string $userLocale,
+        ?string $tenantLocale,
+        ?string $sessionLocale,
+    ): void {
         if ($userLocale) {
             $this->setUser(User::factory()->create([
                 'locale' => $userLocale,
             ]));
+        }
+        $currentTenant = $this->app->make(CurrentTenant::class)->get();
+
+        if ($tenantLocale) {
+            Organization::factory()->create([
+                'locale' => $tenantLocale,
+            ]);
+            $currentTenant->locale = $tenantLocale;
+            $currentTenant->save();
+        } else {
+            $currentTenant->locale = null;
+            $currentTenant->save();
         }
 
         if ($sessionLocale) {
             $this->app->make(Session::class)->put('locale', $sessionLocale);
         }
 
-        $this->app->setLocale('en_UK');
+        $this->app->setLocale('en_BB');
 
         $this->assertEquals($expected, $this->app->make(LocaleService::class)->get());
     }
@@ -70,23 +91,33 @@ class LocaleServiceTest extends TestCase {
      */
     public function dataProviderGet(): array {
         return [
-            'From session'                     => [
+            'From session'                                    => [
                 'fr',
                 'en',
+                'de',
                 'fr',
             ],
-            'From user'                        => [
+            'From user'                                       => [
                 'de',
+                'de',
+                'en',
+                null,
+            ],
+            'From tenant'                                     => [
+                'de',
+                null,
                 'de',
                 null,
             ],
-            'From app config'                  => [
-                'en_UK',
+            'From app config'                                 => [
+                'en_BB',
+                null,
                 null,
                 null,
             ],
-            'From session without user locale' => [
+            'From session without user locale/ tenant locale' => [
                 'fr',
+                null,
                 null,
                 'fr',
             ],

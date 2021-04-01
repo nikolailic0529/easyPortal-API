@@ -1,0 +1,13 @@
+type Organization {
+    id: ID!
+    subdomain: String
+    name: String!
+    locale: String
+    branding_dark_theme: Boolean!
+    branding_primary_color: String
+    branding_secondary_color: String
+    branding_logo: String
+    branding_favicon: String
+    currency: Currency @belongsTo
+    locations: [Location!] @morphMany
+}

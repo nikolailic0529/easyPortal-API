@@ -27,12 +27,19 @@ class OrganizationFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'         => $this->faker->uuid,
-            'subdomain'  => null,
-            'name'       => $this->faker->company,
-            'created_at' => Date::now(),
-            'updated_at' => Date::now(),
-            'deleted_at' => null,
+            'id'                       => $this->faker->uuid,
+            'subdomain'                => null,
+            'name'                     => $this->faker->company,
+            'locale'                   => $this->faker->locale(),
+            'currency_id'              => null,
+            'branding_primary_color'   => $this->faker->hexColor(),
+            'branding_secondary_color' => $this->faker->hexColor(),
+            'branding_logo'            => null,
+            'branding_favicon'         => null,
+            'branding_dark_theme'      => $this->faker->boolean(),
+            'created_at'               => Date::now(),
+            'updated_at'               => Date::now(),
+            'deleted_at'               => null,
         ];
     }
 
