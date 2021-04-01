@@ -131,7 +131,9 @@ class OrganizationTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid color'    => [
-                    new GraphQLError('branding_primary_color'),
+                    new GraphQLError('branding_primary_color', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
                     static function (): array {
                         return [
                             'branding_primary_color' => 'Color',
@@ -139,7 +141,9 @@ class OrganizationTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid locale'   => [
-                    new GraphQLError('locale'),
+                    new GraphQLError('locale', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
                     static function (): array {
                         return [
                             'locale' => 'en_UKX',
@@ -147,7 +151,9 @@ class OrganizationTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid currency' => [
-                   new GraphQLError('currency_id'),
+                   new GraphQLError('currency_id', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
                     static function (): array {
                         return [
                             'currency_id' => 'wrongId',
@@ -155,7 +161,9 @@ class OrganizationTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid format'   => [
-                    new GraphQLError('branding_logo'),
+                    new GraphQLError('branding_logo', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
                     static function (TestCase $test): array {
                         $config  = $test->app->make(Repository::class);
                         $maxSize = 2000;
@@ -168,7 +176,9 @@ class OrganizationTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid size'     => [
-                    new GraphQLError('branding_favicon'),
+                    new GraphQLError('branding_favicon', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
                     static function (TestCase $test): array {
                         $config  = $test->app->make(Repository::class);
                         $maxSize = 2000;
