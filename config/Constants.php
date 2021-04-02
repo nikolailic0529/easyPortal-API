@@ -10,10 +10,12 @@ use App\Services\DataLoader\Jobs\ResellerUpdate;
 use App\Services\Settings\Attributes\CronJob;
 use App\Services\Settings\Attributes\Job;
 use App\Services\Settings\Attributes\Name;
+use App\Services\Settings\Attributes\Nullable;
 use App\Services\Settings\Attributes\Readonly;
 use App\Services\Settings\Attributes\Type;
 use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\Expiration;
+use App\Services\Settings\Types\Url;
 
 use function interface_exists;
 
@@ -76,10 +78,18 @@ interface Constants {
     public const DATA_LOADER_ENABLED = true;
 
     /**
-     * Chunk size.
+     * Default chunk size.
      */
     #[Name('data-loader.chunk')]
     public const DATA_LOADER_CHUNK = 100;
+
+    /**
+     * GraphQL Endpoint.
+     */
+    #[Name('data-loader.endpoint')]
+    #[Type(Url::class)]
+    #[Nullable]
+    public const DATA_LOADER_ENDPOINT = '';
 
     // <editor-fold desc="DATA_LOADER_RESELLERS_IMPORTER">
     // -------------------------------------------------------------------------
