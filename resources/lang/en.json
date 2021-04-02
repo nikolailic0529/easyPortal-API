@@ -107,6 +107,8 @@
     "errors.server_error": "Server Error.",
     "errors.service_unavailable": "Service Unavailable.",
     "errors.validation_failed": "Validation failed.",
+    "errors.graphql.error": "GraphQL Request is invalid.",
+    "errors.graphql.schema_broken": "GraphQL Schema is broken.",
     "models.country.name.??": "Unknown Country",
     "models.currency.name.EUR": "Euro",
     "models.status.name.customer.ACTIVE": "Active",
