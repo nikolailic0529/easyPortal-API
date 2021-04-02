@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Exceptions\GraphQLHandler;
 use App\Models\Asset;
 use App\Models\City;
 use App\Models\Contact;
@@ -18,10 +19,12 @@ use App\Services\Auth0\UserRepository;
 use Auth0\Login\Auth0Service;
 use Auth0\Login\Contract\Auth0UserRepository;
 use Carbon\CarbonImmutable;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\ServiceProvider;
+use Nuwave\Lighthouse\Events\ManipulateResult;
 
 class AppServiceProvider extends ServiceProvider {
     /**
@@ -36,7 +39,36 @@ class AppServiceProvider extends ServiceProvider {
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void {
+    public function boot(Dispatcher $dispatcher): void {
+        $this->bootMorphMap();
+        $this->bootGraphQL($dispatcher);
+    }
+
+    protected function registerAuth0(): void {
+        $this->app->singleton(Auth0Service::class, static function (Application $app): Auth0Service {
+            return $app->make(AuthService::class)->getService();
+        });
+
+        $this->app->singleton(AuthService::class, static function (Application $app): AuthService {
+            return new AuthService($app);
+        });
+
+        $this->app->bind(
+            Auth0UserRepository::class,
+            UserRepository::class,
+        );
+    }
+
+    protected function bootGraphQL(Dispatcher $dispatcher): void {
+        $dispatcher->listen(
+            ManipulateResult::class,
+            function (ManipulateResult $event): void {
+                $event->result->setErrorFormatter($this->app->make(GraphQLHandler::class));
+            },
+        );
+    }
+
+    protected function bootMorphMap(): void {
         Relation::morphMap([
             // Used in database
             'customer' => Customer::class,
@@ -53,20 +85,5 @@ class AppServiceProvider extends ServiceProvider {
             'city'     => City::class,
             'currency' => Currency::class,
         ]);
-    }
-
-    protected function registerAuth0(): void {
-        $this->app->singleton(Auth0Service::class, static function (Application $app): Auth0Service {
-            return $app->make(AuthService::class)->getService();
-        });
-
-        $this->app->singleton(AuthService::class, static function (Application $app): AuthService {
-            return new AuthService($app);
-        });
-
-        $this->app->bind(
-            Auth0UserRepository::class,
-            UserRepository::class,
-        );
     }
 }

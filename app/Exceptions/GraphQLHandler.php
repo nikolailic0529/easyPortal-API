@@ -2,64 +2,30 @@
 
 namespace App\Exceptions;
 
-use Closure;
-use Error;
-use Exception;
 use GraphQL\Error\Error as GraphQLError;
 use GraphQL\Error\FormattedError;
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Auth\AuthenticationException;
-use Nuwave\Lighthouse\Exceptions\RateLimitException;
-use Nuwave\Lighthouse\Exceptions\RendersErrorsExtensions;
-use Nuwave\Lighthouse\Exceptions\ValidationException;
-use Nuwave\Lighthouse\Execution\ErrorHandler as LighthouseErrorHandler;
+use Illuminate\Contracts\Config\Repository;
 
-use function __;
-
-class GraphQLHandler implements LighthouseErrorHandler {
-    public function __construct() {
+class GraphQLHandler {
+    public function __construct(
+        protected Repository $config,
+        protected Helper $helper,
+    ) {
         // empty
     }
 
     /**
-     * @inheritDoc
+     * @return array<mixed>
      */
-    public function __invoke(?GraphQLError $error, Closure $next): ?array {
-        if ($error?->getPrevious() instanceof AuthenticationException) {
-            $error = $this->setErrorMessage($error, __('errors.unauthenticated'));
+    public function __invoke(GraphQLError $error): array {
+        $result = [
+                'message' => $this->helper->getMessage($error->getPrevious() ?? $error),
+            ] + FormattedError::createFromException($error);
+
+        if ($this->config->get('app.debug')) {
+            $result['extensions']['stack'] = $this->helper->getTrace($error);
         }
 
-        if ($error?->getPrevious() instanceof AuthorizationException) {
-            $error = $this->setErrorMessage($error, __('errors.unauthorized'));
-        }
-
-        if ($error?->getPrevious() instanceof RateLimitException) {
-            $error = $this->setErrorMessage($error, __('errors.too_many_requests'));
-        }
-
-        if ($error?->getPrevious() instanceof ValidationException) {
-            $error = $this->setErrorMessage($error, __('errors.validation_failed'));
-        }
-
-        if ($error?->getPrevious() instanceof Error) {
-            FormattedError::setInternalErrorMessage(__('errors.server_error'));
-            $error = $this->setErrorMessage($error, __('errors.server_error'));
-        }
-
-        return $next($error);
-    }
-
-    protected function setErrorMessage(Exception $error, string $message): Exception {
-        return new GraphQLError(
-            $message,
-            $error->getNodes(),
-            $error->getSource(),
-            $error->getPositions(),
-            $error->getPath(),
-            $error->getPrevious(),
-            $error->getPrevious() instanceof RendersErrorsExtensions
-                ? $error->getPrevious()->extensionsContent()
-                : [],
-        );
+        return $result;
     }
 }

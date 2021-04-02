@@ -1,6 +1,5 @@
 <?php declare(strict_types = 1);
 
-use App\Exceptions\GraphQLHandler;
 use GraphQL\Error\DebugFlag;
 use GraphQL\Validator\Rules\DisableIntrospection;
 use GraphQL\Validator\Rules\QueryComplexity;
@@ -231,7 +230,6 @@ return [
     'error_handlers'          => [
         ExtensionErrorHandler::class,
         ReportingErrorHandler::class,
-        GraphQLHandler::class,
     ],
 
     /*
