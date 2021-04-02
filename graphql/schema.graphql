@@ -82,6 +82,9 @@ type Query {
 
   "Get current organization"
   organization: Organization
+  
+  "Get app name & version"
+  application: Application!
 }
 
 type Mutation {

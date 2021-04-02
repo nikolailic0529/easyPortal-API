@@ -646,6 +646,22 @@
                     }
                 }
             }
+        },
+        "Application": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "name",
+                "version"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                }
+            }
         }
     }
 }
