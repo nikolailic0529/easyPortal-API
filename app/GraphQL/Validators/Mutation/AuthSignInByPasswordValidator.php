@@ -6,6 +6,8 @@ use App\Models\User;
 use Closure;
 use Nuwave\Lighthouse\Validation\Validator;
 
+use function __;
+
 class AuthSignInByPasswordValidator extends Validator {
     /**
      * @return array<string, array<mixed>>
@@ -20,7 +22,7 @@ class AuthSignInByPasswordValidator extends Validator {
                     $user = User::whereEmail($value)->first();
 
                     if (!$user) {
-                        $fail('User not found.');
+                        $fail(__('auth.failed'));
 
                         return;
                     }
