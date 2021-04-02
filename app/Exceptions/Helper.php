@@ -19,6 +19,7 @@ use Throwable;
 
 use function __;
 use function collect;
+use function is_null;
 
 class Helper {
     /**
@@ -72,13 +73,28 @@ class Helper {
         }
 
         // Translate
-        $message = $key ? __($key) : $error->getMessage();
+        $message = null;
+        $keys    = [
+            $key,
+            $error->getMessage()
+                ? "errors.messages.{$error->getMessage()}"
+                : null,
+        ];
 
-        if (!$key || $key === $message) {
+        foreach ($keys as $key) {
+            $string = $key ? __($key) : $key;
+
+            if ($key !== $string) {
+                $message = $string;
+                break;
+            }
+        }
+
+        if (is_null($message)) {
             $message = $error->getMessage();
 
             $this->logger->notice('Missing translation.', [
-                'key'   => $key,
+                'keys'  => $keys,
                 'error' => $error,
             ]);
         }
