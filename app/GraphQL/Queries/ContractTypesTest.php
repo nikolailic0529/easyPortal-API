@@ -7,6 +7,7 @@ use App\Models\Type;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Translation\Translator;
+use LastDragon_ru\LaraASP\Core\Utils\ConfigMerger;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -22,13 +23,17 @@ use Tests\TestCase;
 class ContractTypesTest extends TestCase {
     /**
      * @covers ::__invoke
+     *
      * @dataProvider dataProviderInvoke
+     *
+     * @param array<mixed> $settings
      */
     public function testInvoke(
         Response $expected,
         Closure $tenantFactory,
         Closure $userFactory = null,
         Closure $localeFactory = null,
+        array $settings = [],
         Closure $contactFactory = null,
     ): void {
         // Prepare
@@ -36,6 +41,16 @@ class ContractTypesTest extends TestCase {
 
         if ($contactFactory) {
             $contactFactory($this);
+        }
+
+        if ($settings) {
+            $config = $this->app->make(Repository::class);
+            $group  = 'easyportal';
+
+            $config->set($group, (new ConfigMerger())->merge(
+                $config->get($group),
+                $settings,
+            ));
         }
 
         if ($localeFactory) {
@@ -96,6 +111,13 @@ class ContractTypesTest extends TestCase {
 
                         return $locale;
                     },
+                    [
+                        'contract_types' => [
+                            'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                            '6f19ef5f-5963-437e-a798-29296db08d59',
+                            'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                        ],
+                    ],
                     static function (TestCase $test): void {
                         Type::factory()->create([
                             'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
@@ -123,11 +145,6 @@ class ContractTypesTest extends TestCase {
                         Type::factory()->create([
                             'name' => 'Wrong object_type',
                         ]);
-                        $test->app->make(Repository::class)->set('easyportal.contract_types', [
-                            'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                            '6f19ef5f-5963-437e-a798-29296db08d59',
-                            'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                        ]);
                     },
                 ],
                 'ok/empty contract types config' => [
@@ -137,12 +154,12 @@ class ContractTypesTest extends TestCase {
                     static function (TestCase $test): string {
                         return $test->app->getLocale();
                     },
+                    [
+                        'contract_types' => [],
+                    ],
                     static function (TestCase $test): void {
                         Type::factory()->create([
                             'object_type' => (new Document())->getMorphClass(),
-                        ]);
-                        $test->app->make(Repository::class)->set('easyportal.contract_types', [
-                            // empty
                         ]);
                     },
                 ],
