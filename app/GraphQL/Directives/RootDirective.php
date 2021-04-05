@@ -2,12 +2,14 @@
 
 namespace App\GraphQL\Directives;
 
+use App\Models\User;
 use Closure;
 use GraphQL\Language\AST\TypeDefinitionNode;
 use GraphQL\Language\AST\TypeExtensionNode;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Config\Repository;
+use Nuwave\Lighthouse\Exceptions\AuthenticationException;
 use Nuwave\Lighthouse\Exceptions\AuthorizationException;
 use Nuwave\Lighthouse\Schema\AST\ASTHelper;
 use Nuwave\Lighthouse\Schema\AST\DocumentAST;
@@ -53,20 +55,33 @@ class RootDirective extends BaseDirective implements FieldMiddleware, TypeDefini
             $guards,
             $previous,
         ): mixed {
-            $rootId     = $this->config->get('easyportal.root_user_id');
-            $authorized = false;
+            $rootId        = $this->config->get('easyportal.root_user_id');
+            $authorized    = false;
+            $authenticated = false;
 
             foreach ($guards as $guard) {
                 $guard = $this->auth->guard($guard);
 
-                if ($guard && $guard->check() && $guard->user()->getAuthIdentifier() === $rootId) {
-                    $authorized = true;
-                    break;
+                if ($guard && $guard->check()) {
+                    $authenticated = true;
+                    $user          = $guard->user();
+
+                    if ($user instanceof User && $user->getKey() === $rootId) {
+                        $authorized = true;
+                        break;
+                    }
                 }
             }
 
-            if (!$authorized) {
+            if (!$authenticated) {
+                throw new AuthenticationException(
+                    AuthenticationException::MESSAGE,
+                    $guards,
+                );
+            } elseif (!$authorized) {
                 throw new AuthorizationException();
+            } else {
+                // passed
             }
 
             return $previous($root, $args, $context, $resolveInfo);
