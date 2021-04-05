@@ -147,17 +147,7 @@ class QuoteTypesTest extends TestCase {
                     $translation,
                     $factory,
                 ],
-                'no quote_types + contract_types not match' => [
-                    new GraphQLSuccess('quoteTypes', QuoteTypes::class, $objects),
-                    [
-                        'contract_types' => [
-                            'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
-                        ],
-                    ],
-                    $translation,
-                    $factory,
-                ],
-                'no quote_types + contract_types match'     => [
+                'no quote_types + contract_types' => [
                     new GraphQLSuccess('quoteTypes', QuoteTypes::class, $objects),
                     [
                         'contract_types' => [
