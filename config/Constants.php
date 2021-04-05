@@ -8,13 +8,13 @@ use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellerUpdate;
 use App\Services\Settings\Attributes\CronJob;
-use App\Services\Settings\Attributes\Job;
 use App\Services\Settings\Attributes\Internal;
+use App\Services\Settings\Attributes\Job;
 use App\Services\Settings\Attributes\Setting;
 use App\Services\Settings\Attributes\Type;
 use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\Expiration;
-use App\Services\Settings\Types\StringScalar;
+use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Url;
 
 use function interface_exists;
@@ -47,7 +47,7 @@ interface Constants {
      * Accepted image formats.
      */
     #[Setting('easyportal.image_formats')]
-    #[Type(StringScalar::class)]
+    #[Type(StringType::class)]
     public const EASYPORTAL_IMAGE_FORMATS = ['jpg', 'jpeg', 'png'];
 
     /**
@@ -61,7 +61,7 @@ interface Constants {
      * Type IDs related to contracts.
      */
     #[Setting('easyportal.contract_types')]
-    #[Type(StringScalar::class)]
+    #[Type(StringType::class)]
     public const EASYPORTAL_CONTRACT_TYPES = [];
 
     /**
@@ -69,7 +69,7 @@ interface Constants {
      * not in {@link \Config\Constants::EASYPORTAL_CONTRACT_TYPES}.
      */
     #[Setting('easyportal.quote_types')]
-    #[Type(StringScalar::class)]
+    #[Type(StringType::class)]
     public const EASYPORTAL_QUOTE_TYPES = [];
 
     // <editor-fold desc="DATA_LOADER">

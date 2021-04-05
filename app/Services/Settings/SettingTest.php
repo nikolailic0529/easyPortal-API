@@ -3,15 +3,15 @@
 namespace App\Services\Settings;
 
 use App\Services\Settings\Attributes\CronJob as CronJobAttribute;
-use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\Internal;
+use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\Secret;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Attributes\Type;
-use App\Services\Settings\Types\BooleanScalar;
-use App\Services\Settings\Types\FloatScalar;
-use App\Services\Settings\Types\IntegerScalar;
-use App\Services\Settings\Types\StringScalar;
+use App\Services\Settings\Types\BooleanType;
+use App\Services\Settings\Types\FloatType;
+use App\Services\Settings\Types\IntType;
+use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Url;
 use Illuminate\Config\Repository;
 use Illuminate\Translation\Translator;
@@ -185,7 +185,7 @@ class SettingTest extends TestCase {
             public const URL = 'test';
 
             #[SettingAttribute('config.path.secret')]
-            #[Type(StringScalar::class)]
+            #[Type(StringType::class)]
             public const ARRAY = ['test'];
         };
         $string  = new Setting(new Repository(), new ReflectionClassConstant($class, 'STRING'));
@@ -195,12 +195,12 @@ class SettingTest extends TestCase {
         $url     = new Setting(new Repository(), new ReflectionClassConstant($class, 'URL'));
         $array   = new Setting(new Repository(), new ReflectionClassConstant($class, 'ARRAY'));
 
-        $this->assertInstanceOf(StringScalar::class, $string->getType());
-        $this->assertInstanceOf(IntegerScalar::class, $integer->getType());
-        $this->assertInstanceOf(BooleanScalar::class, $boolean->getType());
-        $this->assertInstanceOf(FloatScalar::class, $float->getType());
+        $this->assertInstanceOf(StringType::class, $string->getType());
+        $this->assertInstanceOf(IntType::class, $integer->getType());
+        $this->assertInstanceOf(BooleanType::class, $boolean->getType());
+        $this->assertInstanceOf(FloatType::class, $float->getType());
         $this->assertInstanceOf(Url::class, $url->getType());
-        $this->assertInstanceOf(StringScalar::class, $array->getType());
+        $this->assertInstanceOf(StringType::class, $array->getType());
     }
 
     /**
@@ -225,7 +225,7 @@ class SettingTest extends TestCase {
             public const URL = 'test';
 
             #[SettingAttribute('config.path.secret')]
-            #[Type(StringScalar::class)]
+            #[Type(StringType::class)]
             public const ARRAY = ['test'];
         };
         $string  = new Setting(new Repository(), new ReflectionClassConstant($class, 'STRING'));

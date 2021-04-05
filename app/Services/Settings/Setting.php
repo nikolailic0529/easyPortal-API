@@ -8,10 +8,10 @@ use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\Secret as SecretAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Attributes\Type as TypeAttribute;
-use App\Services\Settings\Types\BooleanScalar;
-use App\Services\Settings\Types\FloatScalar;
-use App\Services\Settings\Types\IntegerScalar;
-use App\Services\Settings\Types\StringScalar;
+use App\Services\Settings\Types\BooleanType;
+use App\Services\Settings\Types\FloatType;
+use App\Services\Settings\Types\IntType;
+use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Type;
 use Illuminate\Contracts\Config\Repository;
 use InvalidArgumentException;
@@ -74,16 +74,16 @@ class Setting implements JsonSerializable {
 
             switch ($default) {
                 case 'boolean':
-                    $type = new BooleanScalar();
+                    $type = new BooleanType();
                     break;
                 case 'integer':
-                    $type = new IntegerScalar();
+                    $type = new IntType();
                     break;
                 case 'double':
-                    $type = new FloatScalar();
+                    $type = new FloatType();
                     break;
                 case 'string':
-                    $type = new StringScalar();
+                    $type = new StringType();
                     break;
                 default:
                     throw new InvalidArgumentException(sprintf(
