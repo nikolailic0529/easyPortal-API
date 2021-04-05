@@ -1,0 +1,4 @@
+type ApplicationSetting {
+  name: String!
+  value: String!
+}

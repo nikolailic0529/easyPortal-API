@@ -1,4 +1,6 @@
 type Application {
   name: String!
   version: String!
+  settings: [ApplicationSetting!]! @root
+    @field(resolver: "App\\GraphQL\\Queries\\Application\\Settings")
 }

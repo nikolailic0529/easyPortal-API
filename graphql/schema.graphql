@@ -138,4 +138,16 @@ type Mutation {
     website_url: String             # TODO [GraphQL] URL type needed
     email: String                   # TODO [GraphQL] Email type needed
   ): Boolean! @guard @validator
+
+  "Update application settings"
+  updateApplicationSettings(input: [UpdateApplicationSettingsInput!]!): UpdateApplicationSettingsPayload @root
+}
+
+input UpdateApplicationSettingsInput {
+    name: String!
+    value: String
+}
+
+type UpdateApplicationSettingsPayload {
+    settings: [ApplicationSetting!]
 }

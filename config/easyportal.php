@@ -12,4 +12,6 @@ return [
 
     'max_image_size' => Setting::get('EASYPORTAL_MAX_IMAGE_SIZE'),
     'image_formats'  => Setting::getArray('EASYPORTAL_IMAGE_FORMATS'),
+
+    'root_user_id'   => env('ROOT_USER_ID'),
 ];

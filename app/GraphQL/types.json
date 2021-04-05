@@ -674,6 +674,28 @@
                 },
                 "version": {
                     "type": "string"
+                },
+                "settings" : {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ApplicationSetting"
+                    }
+                }
+            }
+        },
+        "ApplicationSetting": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "name",
+                "value"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
                 }
             }
         }
