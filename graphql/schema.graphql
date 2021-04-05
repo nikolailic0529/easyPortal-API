@@ -82,7 +82,7 @@ type Query {
 
   "Get current organization"
   organization: Organization
-  
+
   "Get app name & version"
   application: Application!
 }
@@ -125,9 +125,11 @@ type Mutation {
     locale: String
     currency_id: ID
     branding_dark_theme: Boolean
-    branding_primary_color: String
-    branding_secondary_color: String
+    branding_primary_color: String  # TODO [GraphQL] Color type needed
+    branding_secondary_color: String# TODO [GraphQL] Color type needed
     branding_logo: Upload
     branding_favicon: Upload
+    website_url: String             # TODO [GraphQL] URL type needed
+    email: String                   # TODO [GraphQL] Email type needed
   ): Boolean! @guard @validator
 }

@@ -8,6 +8,8 @@ type Organization {
     branding_secondary_color: String
     branding_logo: String
     branding_favicon: String
+    website_url: String
+    email: String
     currency: Currency @belongsTo
     locations: [Location!] @morphMany
 }

@@ -584,6 +584,8 @@
                 "branding_secondary_color",
                 "branding_logo",
                 "branding_favicon",
+                "website_url",
+                "email",
                 "currency",
                 "locations"
             ],
@@ -625,6 +627,18 @@
                     ]
                 },
                 "branding_favicon" : {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "website_url" : {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "email" : {
                     "type": [
                         "string",
                         "null"

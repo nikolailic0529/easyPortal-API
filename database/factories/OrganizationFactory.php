@@ -34,6 +34,8 @@ class OrganizationFactory extends Factory {
             'currency_id'              => null,
             'branding_primary_color'   => $this->faker->hexColor(),
             'branding_secondary_color' => $this->faker->hexColor(),
+            'website_url'              => null,
+            'email'                    => null,
             'branding_logo'            => null,
             'branding_favicon'         => null,
             'branding_dark_theme'      => $this->faker->boolean(),

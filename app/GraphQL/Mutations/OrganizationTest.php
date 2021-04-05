@@ -68,6 +68,8 @@ class OrganizationTest extends TestCase {
             $branding_dark_theme: Boolean
             $branding_primary_color: String
             $branding_secondary_color: String
+            $website_url: String
+            $email: String
             $branding_logo: Upload
             $branding_favicon: Upload
         ) {
@@ -77,6 +79,8 @@ class OrganizationTest extends TestCase {
                 branding_dark_theme: $branding_dark_theme,
                 branding_primary_color: $branding_primary_color,
                 branding_secondary_color: $branding_secondary_color
+                website_url: $website_url
+                email: $email
                 branding_logo: $branding_logo,
                 branding_favicon: $branding_favicon
             )
@@ -98,6 +102,8 @@ class OrganizationTest extends TestCase {
             $this->assertEquals($data['branding_dark_theme'], $tenant->branding_dark_theme);
             $this->assertEquals($data['branding_primary_color'], $tenant->branding_primary_color);
             $this->assertEquals($data['branding_secondary_color'], $tenant->branding_secondary_color);
+            $this->assertEquals($data['website_url'], $tenant->website_url);
+            $this->assertEquals($data['email'], $tenant->email);
             $this->assertNotNull($tenant->branding_logo);
             $this->assertNotNull($tenant->branding_favicon);
             Storage::disk('local')->assertExists($tenant->branding_logo);
@@ -126,6 +132,8 @@ class OrganizationTest extends TestCase {
                             'branding_dark_theme'      => false,
                             'branding_primary_color'   => '#ffffff',
                             'branding_secondary_color' => '#ffffff',
+                            'website_url'              => 'https://www.example.com',
+                            'email'                    => 'test@example.com',
                             'branding_logo'            => UploadedFile::fake()->create('branding_logo.jpg', 20),
                             'branding_favicon'         => UploadedFile::fake()->create('branding_favicon.jpg', 100),
                         ];
@@ -189,6 +197,26 @@ class OrganizationTest extends TestCase {
                             'branding_logo'    => UploadedFile::fake()->create('branding_logo.png', $maxSize + 1024),
                             'branding_favicon' => UploadedFile::fake()
                                 ->create('branding_favicon.jpg', $maxSize + 1024),
+                        ];
+                    },
+                ],
+                'invalid request/Invalid url'      => [
+                    new GraphQLError('branding_favicon', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    static function (TestCase $test): array {
+                        return [
+                            'website_url' => 'wrong url',
+                        ];
+                    },
+                ],
+                'invalid request/Invalid email'    => [
+                    new GraphQLError('branding_favicon', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    static function (TestCase $test): array {
+                        return [
+                            'email' => 'wrong mail',
                         ];
                     },
                 ],

@@ -41,6 +41,14 @@ class Organization {
             $currentTenant->branding_secondary_color = $args['branding_secondary_color'];
         }
 
+        if (array_key_exists('website_url', $args)) {
+            $currentTenant->website_url = $args['website_url'];
+        }
+
+        if (array_key_exists('email', $args)) {
+            $currentTenant->email = $args['email'];
+        }
+
         if (array_key_exists('branding_logo', $args)) {
             if ($this->storage->disk('local')->exists($currentTenant->branding_logo)) {
                 $this->storage->disk('local')->delete($currentTenant->branding_logo);

@@ -30,6 +30,8 @@ class OrganizationValidator extends Validator {
             'branding_dark_theme'      => ['boolean'],
             'branding_primary_color'   => ['regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
             'branding_secondary_color' => ['regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
+            'website_url'              => ['url'],
+            'email'                    => ['email'],
             'branding_logo'            => [
                 'nullable',
                 "mimes:{$mimeTypes}",

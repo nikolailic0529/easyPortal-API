@@ -20,6 +20,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null                                                            $branding_secondary_color
  * @property string|null                                                            $branding_logo
  * @property string|null                                                            $branding_favicon
+ * @property string|null                                                            $website_url
+ * @property string|null                                                            $email
  * @property \Carbon\CarbonImmutable                                                $created_at
  * @property \Carbon\CarbonImmutable                                                $updated_at
  * @property \Carbon\CarbonImmutable|null                                           $deleted_at
@@ -34,6 +36,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereSubdomain($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereWebsiteUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereUpdatedAt($value)
  * @mixin \Eloquent
  */

@@ -44,6 +44,8 @@ class OrganizationTest extends TestCase {
                 branding_secondary_color
                 branding_logo
                 branding_favicon
+                website_url
+                email
                 currency {
                     id
                     name
@@ -104,6 +106,8 @@ class OrganizationTest extends TestCase {
                                 'branding_dark_theme'      => false,
                                 'branding_primary_color'   => '#FFFFFF',
                                 'branding_secondary_color' => '#000000',
+                                'website_url'              => 'https://www.example.com',
+                                'email'                    => 'test@example.com',
                             ]);
                         return $organization;
                     },
@@ -122,7 +126,8 @@ class OrganizationTest extends TestCase {
                         'branding_secondary_color' => '#000000',
                         'branding_logo'            => null,
                         'branding_favicon'         => null,
-                        'branding_secondary_color' => '#000000',
+                        'website_url'              => 'https://www.example.com',
+                        'email'                    => 'test@example.com',
                         'currency'                 => [
                             'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                             'name' => 'currency1',
