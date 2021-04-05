@@ -9,7 +9,7 @@ use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellerUpdate;
 use App\Services\Settings\Attributes\CronJob;
 use App\Services\Settings\Attributes\Job;
-use App\Services\Settings\Attributes\Readonly;
+use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Setting;
 use App\Services\Settings\Attributes\Type;
 use App\Services\Settings\Types\CronExpression;
@@ -54,7 +54,7 @@ interface Constants {
      * Root user ID.
      */
     #[Name('easyportal.root_user_id')]
-    #[Readonly]
+    #[Internal]
     public const EASYPORTAL_ROOT_USER_ID = '';
 
     /**
@@ -99,7 +99,7 @@ interface Constants {
      * DO NOT EDIT.
      */
     #[CronJob(ResellersImporterCronJob::class, 'name')]
-    #[Readonly]
+    #[Internal]
     public const DATA_LOADER_RESELLERS_IMPORTER = 'data-loader-resellers-importer';
 
     /**
@@ -128,7 +128,7 @@ interface Constants {
      * DO NOT EDIT.
      */
     #[CronJob(ResellersUpdaterCronJob::class, 'name')]
-    #[Readonly]
+    #[Internal]
     public const DATA_LOADER_RESELLERS_UPDATER = 'data-loader-resellers-updater';
 
     /**
@@ -164,7 +164,7 @@ interface Constants {
      * DO NOT EDIT.
      */
     #[CronJob(LocationsCleanupCronJob::class, 'name')]
-    #[Readonly]
+    #[Internal]
     public const DATA_LOADER_LOCATIONS_CLEANUP = 'data-loader-locations-cleanup';
 
     /**
@@ -193,7 +193,7 @@ interface Constants {
      * DO NOT EDIT.
      */
     #[Job(ResellerUpdate::class, 'name')]
-    #[Readonly]
+    #[Internal]
     public const DATA_LOADER_RESELLER_UPDATE = 'data-loader-reseller-update';
 
     /**

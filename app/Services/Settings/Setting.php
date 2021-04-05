@@ -3,8 +3,8 @@
 namespace App\Services\Settings;
 
 use App\Services\Settings\Attributes\CronJob as CronJobAttribute;
+use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
-use App\Services\Settings\Attributes\Readonly as ReadonlyAttribute;
 use App\Services\Settings\Attributes\Secret as SecretAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Attributes\Type as TypeAttribute;
@@ -121,8 +121,8 @@ class Setting implements JsonSerializable {
         return $default;
     }
 
-    public function isReadonly(): bool {
-        return (bool) $this->constant->getAttributes(ReadonlyAttribute::class);
+    public function isInternal(): bool {
+        return (bool) $this->constant->getAttributes(InternalAttribute::class);
     }
 
     public function isSecret(): bool {

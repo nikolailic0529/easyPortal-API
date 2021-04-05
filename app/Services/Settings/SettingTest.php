@@ -4,7 +4,7 @@ namespace App\Services\Settings;
 
 use App\Services\Settings\Attributes\CronJob as CronJobAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
-use App\Services\Settings\Attributes\Readonly;
+use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Secret;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Attributes\Type;
@@ -145,22 +145,22 @@ class SettingTest extends TestCase {
     }
 
     /**
-     * @covers ::isReadonly
+     * @covers ::isInternal
      */
-    public function testIsReadonly(): void {
+    public function testIsInternal(): void {
         $class = new class() {
             #[SettingAttribute('config.path')]
             public const TEST = 'test';
 
             #[SettingAttribute('config.path.secret')]
-            #[Readonly]
-            public const READONLY = 'test';
+            #[Internal]
+            public const INTERNAL = 'test';
         };
         $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'TEST'));
-        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'READONLY'));
+        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'INTERNAL'));
 
-        $this->assertFalse($a->isReadonly());
-        $this->assertTrue($b->isReadonly());
+        $this->assertFalse($a->isInternal());
+        $this->assertTrue($b->isInternal());
     }
 
     /**

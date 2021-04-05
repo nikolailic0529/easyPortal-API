@@ -5,10 +5,10 @@ namespace App\Services\Settings\Attributes;
 use Attribute;
 
 /**
- * Marks that setting readonly.
+ * Marks that setting internal (internal settings cannot be edited by UI).
  */
 #[Attribute(Attribute::TARGET_CLASS_CONSTANT)]
-class Readonly {
+class Internal {
     public function __construct() {
         // empty
     }
