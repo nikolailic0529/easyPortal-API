@@ -12,6 +12,9 @@ use Tests\TestCase;
 
 use function __;
 
+/**
+ * Only Guest cat perform the action.
+ */
 class GuestDataProvider extends ArrayDataProvider {
     public function __construct(string $root) {
         parent::__construct([

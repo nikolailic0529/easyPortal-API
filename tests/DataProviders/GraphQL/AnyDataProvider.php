@@ -8,6 +8,9 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
 use Tests\TestCase;
 
+/**
+ * Any guest or user can perform action.
+ */
 class AnyDataProvider extends ArrayDataProvider {
     public function __construct() {
         parent::__construct([

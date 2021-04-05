@@ -13,6 +13,11 @@ use Tests\TestCase;
 
 use function __;
 
+/**
+ * Only root cat perform the action.
+ *
+ * @see \Config\Constants::EASYPORTAL_ROOT_USER_ID
+ */
 class RootDataProvider extends ArrayDataProvider {
     public function __construct(string $root) {
         parent::__construct([
