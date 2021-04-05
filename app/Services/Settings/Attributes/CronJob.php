@@ -9,5 +9,10 @@ use Attribute;
  */
 #[Attribute(Attribute::TARGET_CLASS_CONSTANT)]
 class CronJob extends Job {
-    // empty
+    /**
+     * @param class-string<\LastDragon_ru\LaraASP\Queue\Queueables\CronJob> $class
+     */
+    public function __construct(string $class, string $name) {
+        parent::__construct($class, $name);
+    }
 }

@@ -28,6 +28,7 @@
     "lastdragon-ru/lara-asp-queue": "dev-master",
     "lastdragon-ru/lara-asp-spa": "dev-master",
     "nuwave/lighthouse": "^5.2",
+    "phpdocumentor/reflection-docblock": "^5.2",
     "propaganistas/laravel-phone": "^4.2"
   },
   "require-dev": {

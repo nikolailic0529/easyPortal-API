@@ -2,7 +2,12 @@
 
 namespace App\Services\Settings\Attributes;
 
+use App\Services\Settings\Types\Type as TypeInstance;
 use Attribute;
+use InvalidArgumentException;
+
+use function is_a;
+use function sprintf;
 
 /**
  * The setting type.
@@ -15,13 +20,15 @@ class Type {
     public function __construct(
         protected string $type,
     ) {
-        // empty
+        if (!is_a($this->type, TypeInstance::class, true)) {
+            throw new InvalidArgumentException(sprintf(
+                'The `$type` must be instance of `%s`.',
+                TypeInstance::class,
+            ));
+        }
     }
 
-    /**
-     * @return class-string<\App\Services\Settings\Types\Type>
-     */
-    public function getType(): string {
-        return $this->type;
+    public function getType(): TypeInstance {
+        return new $this->type();
     }
 }

@@ -5,10 +5,10 @@ namespace App\Services\Settings\Attributes;
 use Attribute;
 
 /**
- * The setting name.
+ * The setting.
  */
 #[Attribute(Attribute::TARGET_CLASS_CONSTANT)]
-class Name {
+class Setting {
     public function __construct(
         protected string $name,
     ) {

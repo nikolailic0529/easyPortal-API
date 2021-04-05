@@ -9,12 +9,12 @@ use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellerUpdate;
 use App\Services\Settings\Attributes\CronJob;
 use App\Services\Settings\Attributes\Job;
-use App\Services\Settings\Attributes\Name;
-use App\Services\Settings\Attributes\Nullable;
 use App\Services\Settings\Attributes\Readonly;
+use App\Services\Settings\Attributes\Setting;
 use App\Services\Settings\Attributes\Type;
 use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\Expiration;
+use App\Services\Settings\Types\StringScalar;
 use App\Services\Settings\Types\Url;
 
 use function interface_exists;
@@ -40,13 +40,14 @@ interface Constants {
     /**
      * Max size of branding images/icons (branding_favicon, branding_logo) in KB.
      */
-    #[Name('easyportal.max_image_size')]
+    #[Setting('easyportal.max_image_size')]
     public const EASYPORTAL_MAX_IMAGE_SIZE = 2048;
 
     /**
      * Accepted image formats.
      */
-    #[Name('easyportal.image_formats')]
+    #[Setting('easyportal.image_formats')]
+    #[Type(StringScalar::class)]
     public const EASYPORTAL_IMAGE_FORMATS = ['jpg', 'jpeg', 'png'];
 
     /**
@@ -59,14 +60,16 @@ interface Constants {
     /**
      * Type IDs related to contracts.
      */
-    #[Name('easyportal.contract_types')]
+    #[Setting('easyportal.contract_types')]
+    #[Type(StringScalar::class)]
     public const EASYPORTAL_CONTRACT_TYPES = [];
 
     /**
      * Types IDs related to quotes. Optional, if empty will use IDs which are
      * not in {@link \Config\Constants::EASYPORTAL_CONTRACT_TYPES}.
      */
-    #[Name('easyportal.quote_types')]
+    #[Setting('easyportal.quote_types')]
+    #[Type(StringScalar::class)]
     public const EASYPORTAL_QUOTE_TYPES = [];
 
     // <editor-fold desc="DATA_LOADER">
@@ -74,25 +77,31 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Name('data-loader.enabled')]
+    #[Setting('data-loader.enabled')]
     public const DATA_LOADER_ENABLED = true;
 
     /**
      * Default chunk size.
      */
-    #[Name('data-loader.chunk')]
+    #[Setting('data-loader.chunk')]
     public const DATA_LOADER_CHUNK = 100;
 
     /**
      * GraphQL Endpoint.
      */
-    #[Name('data-loader.endpoint')]
+    #[Setting('data-loader.endpoint')]
     #[Type(Url::class)]
-    #[Nullable]
     public const DATA_LOADER_ENDPOINT = '';
 
     // <editor-fold desc="DATA_LOADER_RESELLERS_IMPORTER">
     // -------------------------------------------------------------------------
+    /**
+     * DO NOT EDIT.
+     */
+    #[CronJob(ResellersImporterCronJob::class, 'name')]
+    #[Readonly]
+    public const DATA_LOADER_RESELLERS_IMPORTER = 'data-loader-resellers-importer';
+
     /**
      * Enabled?
      */
@@ -115,6 +124,13 @@ interface Constants {
 
     // <editor-fold desc="DATA_LOADER_RESELLERS_UPDATER">
     // -------------------------------------------------------------------------
+    /**
+     * DO NOT EDIT.
+     */
+    #[CronJob(ResellersUpdaterCronJob::class, 'name')]
+    #[Readonly]
+    public const DATA_LOADER_RESELLERS_UPDATER = 'data-loader-resellers-updater';
+
     /**
      * Enabled?
      */
@@ -145,6 +161,13 @@ interface Constants {
     // <editor-fold desc="DATA_LOADER_LOCATIONS_CLEANUP">
     // -------------------------------------------------------------------------
     /**
+     * DO NOT EDIT.
+     */
+    #[CronJob(LocationsCleanupCronJob::class, 'name')]
+    #[Readonly]
+    public const DATA_LOADER_LOCATIONS_CLEANUP = 'data-loader-locations-cleanup';
+
+    /**
      * Enabled?
      */
     #[CronJob(LocationsCleanupCronJob::class, 'enabled')]
@@ -166,6 +189,13 @@ interface Constants {
 
     // <editor-fold desc="DATA_LOADER_RESELLER_UPDATE">
     // -------------------------------------------------------------------------
+    /**
+     * DO NOT EDIT.
+     */
+    #[Job(ResellerUpdate::class, 'name')]
+    #[Readonly]
+    public const DATA_LOADER_RESELLER_UPDATE = 'data-loader-reseller-update';
+
     /**
      * Queue name.
      */
