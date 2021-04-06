@@ -4,9 +4,12 @@ namespace App\Services\Settings\Types;
 
 use ReflectionClass;
 
+use function is_null;
 use function mb_strlen;
 use function mb_substr;
+use function preg_match;
 use function str_ends_with;
+use function strtolower;
 
 /**
  * Assign setting type to GraphQL scalar type.
@@ -28,10 +31,21 @@ abstract class Type {
     }
 
     public function fromString(string $value): mixed {
-        return $value;
+        return $value === 'null' || $value === '(null)' ? null : $this->fromNotNullString($value);
     }
 
     public function toString(mixed $value): string {
+        return is_null($value) ? 'null' : $this->toNotNullString($value);
+    }
+
+    protected function fromNotNullString(string $value): mixed {
+        // Unwraps string in "string" or 'string'
+        return preg_match('/\A([\'"])(.*)\1\z/', $value, $matches)
+            ? $matches[2]
+            : $value;
+    }
+
+    protected function toNotNullString(mixed $value): string {
         return (string) $value;
     }
 }

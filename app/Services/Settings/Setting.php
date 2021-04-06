@@ -15,20 +15,22 @@ use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Type;
 use Illuminate\Contracts\Config\Repository;
 use InvalidArgumentException;
-use JsonSerializable;
 use phpDocumentor\Reflection\DocBlockFactory;
 use ReflectionAttribute;
 use ReflectionClassConstant;
 
 use function __;
+use function array_fill_keys;
+use function array_keys;
 use function gettype;
 use function implode;
 use function is_array;
+use function is_null;
 use function reset;
 use function sprintf;
 use function trim;
 
-class Setting implements JsonSerializable {
+class Setting {
     protected const SECRET = '********';
 
     protected SettingAttribute $setting;
@@ -102,23 +104,11 @@ class Setting implements JsonSerializable {
     }
 
     public function getValue(): mixed {
-        $value = $this->config->get($this->getPath());
-
-        if ($this->isSecret()) {
-            $value = $value ? static::SECRET : null;
-        }
-
-        return $value;
+        return $this->hide($this->config->get($this->getPath()));
     }
 
     public function getDefaultValue(): mixed {
-        $default = $this->constant->getValue();
-
-        if ($this->isSecret()) {
-            $default = $default ? static::SECRET : null;
-        }
-
-        return $default;
+        return $this->hide($this->constant->getValue());
     }
 
     public function isInternal(): bool {
@@ -150,21 +140,6 @@ class Setting implements JsonSerializable {
     }
 
     /**
-     * @return array<mixed>
-     */
-    public function jsonSerialize(): array {
-        return [
-            'name'        => $this->getName(),
-            'type'        => $this->getTypeName(),
-            'array'       => $this->isArray(),
-            'value'       => $this->getValue(),
-            'secret'      => $this->isSecret(),
-            'default'     => $this->getDefaultValue(),
-            'description' => $this->getDescription(),
-        ];
-    }
-
-    /**
      * @template T of \App\Services\Settings\Attributes\Setting
      *
      * @param class-string<T> ...$attributes
@@ -185,5 +160,17 @@ class Setting implements JsonSerializable {
         }
 
         return $result;
+    }
+
+    protected function hide(mixed $value): mixed {
+        if ($this->isSecret()) {
+            if ($this->isArray() && !is_null($value)) {
+                $value = array_fill_keys(array_keys((array) $value), static::SECRET);
+            } else {
+                $value = $value ? static::SECRET : null;
+            }
+        }
+
+        return $value;
     }
 }

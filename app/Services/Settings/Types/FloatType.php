@@ -8,11 +8,11 @@ use function number_format;
 use const FILTER_VALIDATE_FLOAT;
 
 class FloatType extends Type {
-    public function fromString(string $value): float {
+    protected function fromNotNullString(string $value): float {
         return (float) filter_var($value, FILTER_VALIDATE_FLOAT);
     }
 
-    public function toString(mixed $value): string {
+    protected function toNotNullString(mixed $value): string {
         return number_format($value, 2, '.', '');
     }
 }

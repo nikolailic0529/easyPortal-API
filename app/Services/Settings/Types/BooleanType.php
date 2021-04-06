@@ -3,11 +3,11 @@
 namespace App\Services\Settings\Types;
 
 class BooleanType extends Type {
-    public function fromString(string $value): bool {
-        return $value === 'true';
+    protected function fromNotNullString(string $value): bool {
+        return $value === 'true' || $value === '(true)';
     }
 
-    public function toString(mixed $value): string {
+    protected function toNotNullString(mixed $value): string {
         return $value === true ? 'true' : 'false';
     }
 }

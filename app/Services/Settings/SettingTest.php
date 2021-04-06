@@ -3,11 +3,11 @@
 namespace App\Services\Settings;
 
 use App\Services\Settings\Attributes\CronJob as CronJobAttribute;
-use App\Services\Settings\Attributes\Internal;
+use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
-use App\Services\Settings\Attributes\Secret;
+use App\Services\Settings\Attributes\Secret as SecretAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
-use App\Services\Settings\Attributes\Type;
+use App\Services\Settings\Attributes\Type as TypeAttribute;
 use App\Services\Settings\Types\BooleanType;
 use App\Services\Settings\Types\FloatType;
 use App\Services\Settings\Types\IntType;
@@ -91,7 +91,7 @@ class SettingTest extends TestCase {
             public const TEST = 'test';
 
             #[SettingAttribute('config.path.secret')]
-            #[Secret]
+            #[SecretAttribute]
             public const SECRET = 'test';
         };
         $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'TEST'));
@@ -99,31 +99,6 @@ class SettingTest extends TestCase {
 
         $this->assertFalse($a->isSecret());
         $this->assertTrue($b->isSecret());
-    }
-
-    /**
-     * @covers ::jsonSerialize
-     */
-    public function testJsonSerialize(): void {
-        $class = new class() {
-            /**
-             * Summary summary summary summary summary summary summary.
-             */
-            #[SettingAttribute('a')]
-            #[Secret]
-            public const A = 'test';
-        };
-        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'A'));
-
-        $this->assertEquals([
-            'name'        => 'A',
-            'type'        => 'String',
-            'array'       => false,
-            'value'       => null,
-            'secret'      => true,
-            'default'     => '********',
-            'description' => 'Summary summary summary summary summary summary summary.',
-        ], $a->jsonSerialize());
     }
 
     /**
@@ -153,7 +128,7 @@ class SettingTest extends TestCase {
             public const TEST = 'test';
 
             #[SettingAttribute('config.path.secret')]
-            #[Internal]
+            #[InternalAttribute]
             public const INTERNAL = 'test';
         };
         $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'TEST'));
@@ -181,11 +156,11 @@ class SettingTest extends TestCase {
             public const FLOAT = 123.4;
 
             #[SettingAttribute('config.path.secret')]
-            #[Type(Url::class)]
+            #[TypeAttribute(Url::class)]
             public const URL = 'test';
 
             #[SettingAttribute('config.path.secret')]
-            #[Type(StringType::class)]
+            #[TypeAttribute(StringType::class)]
             public const ARRAY = ['test'];
         };
         $string  = new Setting(new Repository(), new ReflectionClassConstant($class, 'STRING'));
@@ -221,11 +196,11 @@ class SettingTest extends TestCase {
             public const FLOAT = 123.4;
 
             #[SettingAttribute('config.path.secret')]
-            #[Type(Url::class)]
+            #[TypeAttribute(Url::class)]
             public const URL = 'test';
 
             #[SettingAttribute('config.path.secret')]
-            #[Type(StringType::class)]
+            #[TypeAttribute(StringType::class)]
             public const ARRAY = ['test'];
         };
         $string  = new Setting(new Repository(), new ReflectionClassConstant($class, 'STRING'));
@@ -247,7 +222,7 @@ class SettingTest extends TestCase {
      * @covers ::getValue
      */
     public function testGetValue(): void {
-        $config = new Repository(['a' => 'aaaaa', 'c' => 'secret']);
+        $config = new Repository(['a' => 'aaaaa', 'c' => 'secret', 'f' => [1, 2]]);
         $class  = new class() {
             #[SettingAttribute('a')]
             public const A = 'test';
@@ -256,22 +231,35 @@ class SettingTest extends TestCase {
             public const B = 'test';
 
             #[SettingAttribute('c')]
-            #[Secret]
+            #[SecretAttribute]
             public const C = 'test';
 
             #[SettingAttribute('d')]
-            #[Secret]
+            #[SecretAttribute]
             public const D = 'test';
+
+            #[SettingAttribute('d')]
+            #[TypeAttribute(StringType::class)]
+            public const E = null;
+
+            #[SettingAttribute('f')]
+            #[TypeAttribute(IntType::class)]
+            #[SecretAttribute]
+            public const F = [1, 2, 3];
         };
         $a      = new Setting($config, new ReflectionClassConstant($class, 'A'));
         $b      = new Setting($config, new ReflectionClassConstant($class, 'B'));
         $c      = new Setting($config, new ReflectionClassConstant($class, 'C'));
         $d      = new Setting($config, new ReflectionClassConstant($class, 'D'));
+        $e      = new Setting($config, new ReflectionClassConstant($class, 'E'));
+        $f      = new Setting($config, new ReflectionClassConstant($class, 'F'));
 
         $this->assertEquals('aaaaa', $a->getValue());
         $this->assertNull($b->getValue());
         $this->assertEquals('********', $c->getValue());
         $this->assertNull($d->getValue());
+        $this->assertNull($e->getValue());
+        $this->assertEquals(['********', '********'], $f->getValue());
     }
 
     /**
@@ -287,16 +275,29 @@ class SettingTest extends TestCase {
             public const B = 'test';
 
             #[SettingAttribute('c')]
-            #[Secret]
+            #[SecretAttribute]
             public const C = 'test';
+
+            #[SettingAttribute('d')]
+            #[TypeAttribute(IntType::class)]
+            public const D = null;
+
+            #[SettingAttribute('e')]
+            #[TypeAttribute(IntType::class)]
+            #[SecretAttribute]
+            public const E = [1, 2, 3];
         };
         $a      = new Setting($config, new ReflectionClassConstant($class, 'A'));
         $b      = new Setting($config, new ReflectionClassConstant($class, 'B'));
         $c      = new Setting($config, new ReflectionClassConstant($class, 'C'));
+        $d      = new Setting($config, new ReflectionClassConstant($class, 'D'));
+        $e      = new Setting($config, new ReflectionClassConstant($class, 'E'));
 
         $this->assertEquals('test', $a->getDefaultValue());
         $this->assertEquals('test', $b->getDefaultValue());
         $this->assertEquals('********', $c->getDefaultValue());
+        $this->assertNull($d->getDefaultValue());
+        $this->assertEquals(['********', '********', '********'], $e->getDefaultValue());
     }
 
     /**
