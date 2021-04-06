@@ -33,7 +33,7 @@ use function trim;
 class Setting {
     protected const SECRET = '********';
 
-    protected SettingAttribute $setting;
+    protected SettingAttribute $definition;
 
     public function __construct(
         protected Repository $config,
@@ -47,7 +47,7 @@ class Setting {
         $attribute  = $this->getAttribute(...$attributes)?->newInstance();
 
         if ($attribute instanceof SettingAttribute) {
-            $this->setting = $attribute;
+            $this->definition = $attribute;
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$constant` must have one of the following attributes `%s`.',
@@ -61,7 +61,7 @@ class Setting {
     }
 
     public function getPath(): string {
-        return $this->setting->getName();
+        return $this->definition->getName();
     }
 
     public function getType(): Type {

@@ -6,6 +6,6 @@ use LastDragon_ru\LaraASP\Core\Enum;
 
 class Disc extends Enum {
     public static function app(): static {
-        return static::get('app');
+        return static::make('app');
     }
 }

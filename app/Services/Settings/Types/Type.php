@@ -9,7 +9,6 @@ use function mb_strlen;
 use function mb_substr;
 use function preg_match;
 use function str_ends_with;
-use function strtolower;
 
 /**
  * Assign setting type to GraphQL scalar type.
@@ -31,7 +30,7 @@ abstract class Type {
     }
 
     public function fromString(string $value): mixed {
-        return $value === 'null' || $value === '(null)' ? null : $this->fromNotNullString($value);
+        return $this->isNull($value) ? null : $this->fromNotNullString($value);
     }
 
     public function toString(mixed $value): string {
@@ -47,5 +46,9 @@ abstract class Type {
 
     protected function toNotNullString(mixed $value): string {
         return (string) $value;
+    }
+
+    public function isNull(string $value): bool {
+        return $value === 'null' || $value === '(null)';
     }
 }
