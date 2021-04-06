@@ -36,7 +36,6 @@ class OrganizationTest extends TestCase {
         $this->graphQL(/** @lang GraphQL */ '{
             organization {
                 id
-                subdomain
                 name
                 locale
                 branding_dark_theme
@@ -101,13 +100,13 @@ class OrganizationTest extends TestCase {
                             ->create([
                                 'id'                       => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                                 'name'                     => 'org1',
-                                'subdomain'                => 'org1',
                                 'locale'                   => 'en',
                                 'branding_dark_theme'      => false,
                                 'branding_primary_color'   => '#FFFFFF',
                                 'branding_secondary_color' => '#000000',
                                 'website_url'              => 'https://www.example.com',
                                 'email'                    => 'test@example.com',
+                                'subdomain'                => 'org1',
                             ]);
                         return $organization;
                     },
@@ -119,7 +118,6 @@ class OrganizationTest extends TestCase {
                     new GraphQLSuccess('organization', Organization::class, [
                         'id'                       => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                         'name'                     => 'org1',
-                        'subdomain'                => 'org1',
                         'locale'                   => 'en',
                         'branding_dark_theme'      => false,
                         'branding_primary_color'   => '#FFFFFF',

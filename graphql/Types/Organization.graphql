@@ -1,6 +1,5 @@
 type Organization {
     id: ID!
-    subdomain: String
     name: String!
     locale: String
     branding_dark_theme: Boolean!

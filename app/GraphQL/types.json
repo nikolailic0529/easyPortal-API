@@ -576,7 +576,6 @@
             "type": "object",
             "required": [
                 "id",
-                "subdomain",
                 "name",
                 "locale",
                 "branding_dark_theme",
