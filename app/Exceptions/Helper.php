@@ -42,8 +42,23 @@ class Helper {
     }
 
     public function getMessage(Throwable $error): string {
+        // Translated?
+        if ($error instanceof TranslatedException) {
+            if ($error->getCode() !== 0) {
+                $message = __('errors.message', [
+                    'message' => $error->getMessage(),
+                    'code'    => $error->getCode(),
+                ]);
+            } else {
+                $message = $error->getMessage();
+            }
+
+            return $message;
+        }
+
         // Determine key
-        $key = null;
+        $key     = null;
+        $default = 'errors.server_error';
 
         if ($error instanceof TokenMismatchException) {
             $key = 'errors.page_expired';
@@ -67,7 +82,7 @@ class Helper {
         } elseif ($error instanceof GraphQLError) {
             $key = 'errors.graphql.error';
         } elseif ($error instanceof Error) {
-            $key = 'errors.server_error';
+            $key = $default;
         } else {
             // empty
         }
@@ -91,7 +106,7 @@ class Helper {
         }
 
         if (is_null($message)) {
-            $message = $error->getMessage();
+            $message = __($default);
 
             $this->logger->notice('Missing translation.', [
                 'keys'  => $keys,

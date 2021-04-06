@@ -20,4 +20,5 @@
 
 * [Coding Standards](./Coding-Standards.md)
 * [API Interaction](./docs/API-Interaction.md)
+* [Translation](./docs/Translation.md)
 * [Data Loader](./docs/DataLoader.md)
