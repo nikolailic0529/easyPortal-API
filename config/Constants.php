@@ -53,7 +53,7 @@ interface Constants {
     /**
      * Root user ID.
      */
-    #[Name('easyportal.root_user_id')]
+    #[Setting('easyportal.root_user_id')]
     #[Internal]
     public const EASYPORTAL_ROOT_USER_ID = '';
 
