@@ -1,4 +1,24 @@
 type ApplicationSetting {
   name: String!
+  """
+  Type. Can be standard GraphQL type like Int, Boolean, etc, or a special
+  application type.
+  """
+  type: String!
+  """
+  Indicated that the setting is array.
+  """
+  array: Boolean!
+  """
+  Value of the setting. For array it will contain comma-separated values, for
+  Boolean: "true" or "false", also can be "null" that means null.
+  """
   value: String!
+  """
+  Indicates that the setting contains sensitive data (eg password), in this case,
+  the real value will not be returned.
+  """
+  secret: Boolean!
+  default: String!
+  description: String
 }
