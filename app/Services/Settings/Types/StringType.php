@@ -3,5 +3,7 @@
 namespace App\Services\Settings\Types;
 
 class StringType extends Type {
-    // empty
+    protected function fromNotNullString(string $value): string {
+        return $value === 'empty' || $value === '(empty)' ? '' : $value;
+    }
 }
