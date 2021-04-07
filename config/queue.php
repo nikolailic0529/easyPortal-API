@@ -1,11 +1,5 @@
 <?php declare(strict_types = 1);
 
-use App\Services\DataLoader\Jobs\LocationsCleanupCronJob;
-use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
-use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
-use App\Services\DataLoader\Jobs\ResellerUpdate;
-use App\Setting;
-
 return [
 
     /*
@@ -99,34 +93,5 @@ return [
     */
     'batching'    => [
         'table' => 'job_batches',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Queued Jobs Settings
-    |--------------------------------------------------------------------------
-    */
-    'queueables'  => [
-        ResellersImporterCronJob::class => [
-            'enabled' => Setting::get('DATA_LOADER_RESELLERS_IMPORTER_ENABLED', 'DATA_LOADER_ENABLED'),
-            'cron'    => Setting::get('DATA_LOADER_RESELLERS_IMPORTER_CRON'),
-            'queue'   => Setting::get('DATA_LOADER_RESELLERS_IMPORTER_QUEUE'),
-        ],
-        ResellersUpdaterCronJob::class  => [
-            'enabled'  => Setting::get('DATA_LOADER_RESELLERS_UPDATER_ENABLED', 'DATA_LOADER_ENABLED'),
-            'cron'     => Setting::get('DATA_LOADER_RESELLERS_UPDATER_CRON'),
-            'queue'    => Setting::get('DATA_LOADER_RESELLERS_UPDATER_QUEUE'),
-            'settings' => [
-                'expire' => Setting::get('DATA_LOADER_RESELLERS_UPDATER_EXPIRE'),
-            ],
-        ],
-        LocationsCleanupCronJob::class  => [
-            'enabled' => Setting::get('DATA_LOADER_LOCATIONS_CLEANUP_ENABLED', 'DATA_LOADER_ENABLED'),
-            'cron'    => Setting::get('DATA_LOADER_LOCATIONS_CLEANUP_CRON'),
-            'queue'   => Setting::get('DATA_LOADER_LOCATIONS_CLEANUP_QUEUE'),
-        ],
-        ResellerUpdate::class           => [
-            'queue' => Setting::get('DATA_LOADER_RESELLER_UPDATE_QUEUE'),
-        ],
     ],
 ];

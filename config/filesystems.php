@@ -1,7 +1,8 @@
 <?php declare(strict_types = 1);
 
-return [
+use App\Disc;
 
+return [
     /*
     |--------------------------------------------------------------------------
     | Default Filesystem Disk
@@ -12,7 +13,6 @@ return [
     | based disks are available to your application. Just store away!
     |
     */
-
     'default' => env('FILESYSTEM_DRIVER', 'local'),
 
     /*
@@ -27,22 +27,22 @@ return [
     | Supported Drivers: "local", "ftp", "sftp", "s3"
     |
     */
-
     'disks'   => [
-
-        'local'  => [
+        'local'                 => [
             'driver' => 'local',
             'root'   => storage_path('app'),
         ],
-
-        'public' => [
+        Disc::app()->getValue() => [
+            'driver' => 'local',
+            'root'   => storage_path('app'),
+        ],
+        'public'                => [
             'driver'     => 'local',
             'root'       => storage_path('app/public'),
             'url'        => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
-
-        's3'     => [
+        's3'                    => [
             'driver'   => 's3',
             'key'      => env('AWS_ACCESS_KEY_ID'),
             'secret'   => env('AWS_SECRET_ACCESS_KEY'),
@@ -51,7 +51,6 @@ return [
             'url'      => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
         ],
-
     ],
 
     /*
@@ -64,9 +63,7 @@ return [
     | the locations of the links and the values should be their targets.
     |
     */
-
     'links'   => [
         public_path('storage') => storage_path('app/public'),
     ],
-
 ];

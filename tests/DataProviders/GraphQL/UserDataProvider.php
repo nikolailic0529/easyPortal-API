@@ -12,6 +12,9 @@ use Tests\TestCase;
 
 use function __;
 
+/**
+ * Only User cat perform the action.
+ */
 class UserDataProvider extends ArrayDataProvider {
     public function __construct(string $root) {
         parent::__construct([

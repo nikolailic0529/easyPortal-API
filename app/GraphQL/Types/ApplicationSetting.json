@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "name",
+        "type",
+        "array",
+        "value",
+        "secret",
+        "default",
+        "readonly",
+        "description"
+    ],
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "type": {
+            "type": "string"
+        },
+        "array": {
+            "type": "boolean"
+        },
+        "value": {
+            "type": "string"
+        },
+        "secret": {
+            "type": "boolean"
+        },
+        "default": {
+            "type": "string"
+        },
+        "readonly": {
+            "type": "boolean"
+        },
+        "description": {
+            "type": [
+                "string",
+                "null"
+            ]
+        }
+    }
+}

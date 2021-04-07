@@ -12,6 +12,7 @@ abstract class TestCase extends BaseTestCase {
     use CreatesApplication;
     use RefreshDatabaseIfEmpty;
     use MakesGraphQLRequests;
+    use WithTranslations;
     use WithTenant;
     use WithUser;
     use WithFaker {

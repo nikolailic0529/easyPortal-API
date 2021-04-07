@@ -144,10 +144,13 @@ type Mutation {
 }
 
 input UpdateApplicationSettingsInput {
-    name: String!
-    value: String
+  name: String!
+  value: String!
 }
 
 type UpdateApplicationSettingsPayload {
-    settings: [ApplicationSetting!]
+  """
+  Updated settings.
+  """
+  settings: [ApplicationSetting!]!
 }

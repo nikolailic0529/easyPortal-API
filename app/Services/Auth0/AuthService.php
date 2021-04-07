@@ -8,7 +8,7 @@ use Auth0\SDK\API\Authentication;
 use Auth0\SDK\Auth0;
 use Auth0\SDK\Store\StoreInterface;
 use Illuminate\Config\Repository;
-use Illuminate\Container\Container;
+use Illuminate\Contracts\Container\Container;
 use ReflectionProperty;
 
 class AuthService {

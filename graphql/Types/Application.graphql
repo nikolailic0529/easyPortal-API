@@ -3,4 +3,6 @@ type Application {
   version: String!
   settings: [ApplicationSetting!]! @root
     @field(resolver: "App\\GraphQL\\Queries\\Application\\Settings")
+  settingGroups: [ApplicationSettingGroup!]! @root
+    @field(resolver: "App\\GraphQL\\Queries\\Application\\SettingGroups")
 }

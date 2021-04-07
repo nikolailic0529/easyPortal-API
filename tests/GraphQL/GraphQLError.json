@@ -55,7 +55,7 @@
                     },
                     "debugMessage": {
                         "description": "from https://github.com/nuwave/lighthouse",
-                        "type": "array"
+                        "type": "string"
                     }
                 }
             }
