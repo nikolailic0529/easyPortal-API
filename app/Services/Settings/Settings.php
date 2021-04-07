@@ -74,12 +74,9 @@ class Settings {
             }
 
             // Changed?
-            $name  = $setting->getName();
-            $value = $this->getValue($setting, $settings[$name]);
-
-            if ($value !== $setting->getValue()) {
-                $updated[$name] = new Value($setting, $value);
-            }
+            $name           = $setting->getName();
+            $value          = $this->getValue($setting, $settings[$name]);
+            $updated[$name] = new Value($setting, $value);
         }
 
         // Save
@@ -87,14 +84,8 @@ class Settings {
             $this->saveSettings($updated);
         }
 
-        // Convert into array<Setting>
-        $updated = array_map(static function (Value $value): Setting {
-            return $value->getSetting();
-        }, $updated);
-        $updated = array_values($updated);
-
         // Return
-        return $updated;
+        return array_values($updated);
     }
 
     /**
