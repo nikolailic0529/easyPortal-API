@@ -33,6 +33,7 @@ class Setting {
     public function __construct(
         protected Repository $config,
         protected ReflectionClassConstant $constant,
+        protected bool $readonly = false,
     ) {
         $attributes = [
             CronJobAttribute::class,
@@ -116,6 +117,10 @@ class Setting {
 
     public function isArray(): bool {
         return is_array($this->constant->getValue());
+    }
+
+    public function isReadonly(): bool {
+        return $this->readonly;
     }
 
     public function getDescription(): ?string {

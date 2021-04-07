@@ -11,6 +11,7 @@ use App\Services\Settings\Types\IntType;
 use Closure;
 use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Foundation\Application;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -44,11 +45,13 @@ class SettingsTest extends TestCase {
 
         if ($store) {
             $service = new class(
+                $this->app,
                 $this->app->make(Repository::class),
                 $store::class,
             ) extends Settings {
                 /** @noinspection PhpMissingParentConstructorInspection */
                 public function __construct(
+                    protected Application $app,
                     protected Repository $config,
                     protected string $store,
                 ) {

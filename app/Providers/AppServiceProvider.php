@@ -17,12 +17,13 @@ use App\Models\Status;
 use App\Models\Type;
 use App\Services\Auth0\AuthService;
 use App\Services\Auth0\UserRepository;
+use App\Services\Settings\Bootstraper;
 use Auth0\Login\Auth0Service;
 use Auth0\Login\Contract\Auth0UserRepository;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\ServiceProvider;
 use Nuwave\Lighthouse\Events\ManipulateResult;
@@ -41,6 +42,7 @@ class AppServiceProvider extends ServiceProvider {
      * Bootstrap any application services.
      */
     public function boot(Dispatcher $dispatcher): void {
+        $this->bootConfig();
         $this->bootMorphMap();
         $this->bootGraphQL($dispatcher);
     }
@@ -58,6 +60,12 @@ class AppServiceProvider extends ServiceProvider {
             Auth0UserRepository::class,
             UserRepository::class,
         );
+    }
+
+    protected function bootConfig(): void {
+        $this->app->booted(static function (Application $app): void {
+            $app->make(Bootstraper::class)->bootstrap();
+        });
     }
 
     protected function bootGraphQL(Dispatcher $dispatcher): void {

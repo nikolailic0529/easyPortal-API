@@ -8,7 +8,10 @@ use App\Services\Settings\Exceptions\SettingsFailedToSave;
 use Config\Constants;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Foundation\CachesConfiguration;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Env;
 use Psr\Log\LoggerInterface;
 use ReflectionClass;
 use ReflectionClassConstant;
@@ -25,11 +28,16 @@ use function json_encode;
 use function json_last_error;
 
 use const JSON_ERROR_NONE;
+use const JSON_PRETTY_PRINT;
+use const JSON_UNESCAPED_LINE_TERMINATORS;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
 
 class Settings {
     public const DELIMITER = ',';
 
     public function __construct(
+        protected Application $app,
         protected Repository $config,
         protected Filesystem $filesystem,
         protected LoggerInterface $logger,
@@ -97,7 +105,11 @@ class Settings {
         $constants = (new ReflectionClass($store))->getConstants(ReflectionClassConstant::IS_PUBLIC);
 
         foreach ($constants as $name => $value) {
-            $settings[] = new Setting($this->config, new ReflectionClassConstant($store, $name));
+            $settings[] = new Setting(
+                $this->config,
+                new ReflectionClassConstant($store, $name),
+                $this->isOverridden($name),
+            );
         }
 
         return $settings;
@@ -162,7 +174,10 @@ class Settings {
         $success = false;
 
         try {
-            $success = $disc->put($this->getFile(), json_encode($stored));
+            $success = $disc->put($this->getFile(), json_encode(
+                $stored,
+                JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_LINE_TERMINATORS,
+            ));
         } catch (Exception $exception) {
             $error = $exception;
         }
@@ -175,11 +190,11 @@ class Settings {
         return true;
     }
 
-    protected function getValue(Setting $setting, string $value): mixed {
+    protected function getValue(Setting $setting, ?string $value): mixed {
         $type   = $setting->getType();
         $result = $value;
 
-        if ($type->isNull($value)) {
+        if (is_null($value) || $type->isNull($value)) {
             $result = null;
         } elseif ($setting->isArray()) {
             $result = explode(self::DELIMITER, $value);
@@ -191,6 +206,15 @@ class Settings {
         }
 
         return $result;
+    }
+
+    /**
+     * Determines if setting overridden by ENV var (this is possible only if the
+     * application doesn't use cached config).
+     */
+    protected function isOverridden(string $name): bool {
+        return !($this->app instanceof CachesConfiguration && $this->app->configurationIsCached())
+            && Env::getRepository()->has($name);
     }
 
     /**
