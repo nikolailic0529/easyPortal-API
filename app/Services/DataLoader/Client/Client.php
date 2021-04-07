@@ -16,8 +16,6 @@ use Psr\Log\LoggerInterface;
 use function reset;
 
 class Client {
-    protected const CONFIG = 'data-loader';
-
     public function __construct(
         protected LoggerInterface $logger,
         protected Repository $config,
@@ -230,8 +228,8 @@ class Client {
     // <editor-fold desc="API">
     // =========================================================================
     public function isEnabled(): bool {
-        return $this->setting('enabled')
-            && $this->setting('endpoint');
+        return $this->config->get('easyportal.data-loader.enabled')
+            && $this->config->get('easyportal.data-loader.endpoint');
     }
 
     /**
@@ -244,7 +242,7 @@ class Client {
      */
     public function iterator(string $selector, string $graphql, array $params, Closure $retriever): QueryIterator {
         return (new QueryIterator($this->logger, $this, "data.{$selector}", $graphql, $params, $retriever))
-            ->chunk($this->setting('chunk'));
+            ->chunk($this->config->get('easyportal.data-loader.chunk'));
     }
 
     /**
@@ -271,7 +269,7 @@ class Client {
         }
 
         // Call
-        $url      = $this->setting('endpoint');
+        $url      = $this->config->get('easyportal.data-loader.endpoint');
         $data     = [
             'query'     => $graphql,
             'variables' => $params,
@@ -302,10 +300,6 @@ class Client {
 
         // Return
         return Arr::get($json, $selector) ?: [];
-    }
-
-    protected function setting(string $name, mixed $default = null): mixed {
-        return $this->config->get(static::CONFIG.'.'.$name, $default);
     }
     // </editor-fold>
 

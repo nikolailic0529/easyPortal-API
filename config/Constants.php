@@ -40,13 +40,13 @@ interface Constants {
     /**
      * Max size of branding images/icons (branding_favicon, branding_logo) in KB.
      */
-    #[Setting('easyportal.max_image_size')]
-    public const EASYPORTAL_MAX_IMAGE_SIZE = 2048;
+    #[Setting('easyportal.image.max_size')]
+    public const EASYPORTAL_IMAGE_MAX_SIZE = 2048;
 
     /**
      * Accepted image formats.
      */
-    #[Setting('easyportal.image_formats')]
+    #[Setting('easyportal.image.formats')]
     #[Type(StringType::class)]
     public const EASYPORTAL_IMAGE_FORMATS = ['jpg', 'jpeg', 'png'];
 
@@ -77,31 +77,24 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Setting('data-loader.enabled')]
+    #[Setting('easyportal.data-loader.enabled')]
     public const DATA_LOADER_ENABLED = true;
 
     /**
      * Default chunk size.
      */
-    #[Setting('data-loader.chunk')]
+    #[Setting('easyportal.data-loader.chunk')]
     public const DATA_LOADER_CHUNK = 100;
 
     /**
      * GraphQL Endpoint.
      */
-    #[Setting('data-loader.endpoint')]
+    #[Setting('easyportal.data-loader.endpoint')]
     #[Type(Url::class)]
     public const DATA_LOADER_ENDPOINT = '';
 
     // <editor-fold desc="DATA_LOADER_RESELLERS_IMPORTER">
     // -------------------------------------------------------------------------
-    /**
-     * DO NOT EDIT.
-     */
-    #[CronJob(ResellersImporterCronJob::class, 'name')]
-    #[Internal]
-    public const DATA_LOADER_RESELLERS_IMPORTER = 'data-loader-resellers-importer';
-
     /**
      * Enabled?
      */
@@ -124,13 +117,6 @@ interface Constants {
 
     // <editor-fold desc="DATA_LOADER_RESELLERS_UPDATER">
     // -------------------------------------------------------------------------
-    /**
-     * DO NOT EDIT.
-     */
-    #[CronJob(ResellersUpdaterCronJob::class, 'name')]
-    #[Internal]
-    public const DATA_LOADER_RESELLERS_UPDATER = 'data-loader-resellers-updater';
-
     /**
      * Enabled?
      */
@@ -161,13 +147,6 @@ interface Constants {
     // <editor-fold desc="DATA_LOADER_LOCATIONS_CLEANUP">
     // -------------------------------------------------------------------------
     /**
-     * DO NOT EDIT.
-     */
-    #[CronJob(LocationsCleanupCronJob::class, 'name')]
-    #[Internal]
-    public const DATA_LOADER_LOCATIONS_CLEANUP = 'data-loader-locations-cleanup';
-
-    /**
      * Enabled?
      */
     #[CronJob(LocationsCleanupCronJob::class, 'enabled')]
@@ -189,13 +168,6 @@ interface Constants {
 
     // <editor-fold desc="DATA_LOADER_RESELLER_UPDATE">
     // -------------------------------------------------------------------------
-    /**
-     * DO NOT EDIT.
-     */
-    #[Job(ResellerUpdate::class, 'name')]
-    #[Internal]
-    public const DATA_LOADER_RESELLER_UPDATE = 'data-loader-reseller-update';
-
     /**
      * Queue name.
      */
