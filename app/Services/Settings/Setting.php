@@ -20,19 +20,14 @@ use ReflectionAttribute;
 use ReflectionClassConstant;
 
 use function __;
-use function array_fill_keys;
-use function array_keys;
 use function gettype;
 use function implode;
 use function is_array;
-use function is_null;
 use function reset;
 use function sprintf;
 use function trim;
 
 class Setting {
-    protected const SECRET = '********';
-
     protected SettingAttribute $definition;
 
     public function __construct(
@@ -104,11 +99,11 @@ class Setting {
     }
 
     public function getValue(): mixed {
-        return $this->hide($this->config->get($this->getPath()));
+        return $this->config->get($this->getPath());
     }
 
     public function getDefaultValue(): mixed {
-        return $this->hide($this->constant->getValue());
+        return $this->constant->getValue();
     }
 
     public function isInternal(): bool {
@@ -160,17 +155,5 @@ class Setting {
         }
 
         return $result;
-    }
-
-    protected function hide(mixed $value): mixed {
-        if ($this->isSecret()) {
-            if ($this->isArray() && !is_null($value)) {
-                $value = array_fill_keys(array_keys((array) $value), static::SECRET);
-            } else {
-                $value = $value ? static::SECRET : null;
-            }
-        }
-
-        return $value;
     }
 }

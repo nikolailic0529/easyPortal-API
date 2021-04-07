@@ -256,10 +256,10 @@ class SettingTest extends TestCase {
 
         $this->assertEquals('aaaaa', $a->getValue());
         $this->assertNull($b->getValue());
-        $this->assertEquals('********', $c->getValue());
+        $this->assertEquals('secret', $c->getValue());
         $this->assertNull($d->getValue());
         $this->assertNull($e->getValue());
-        $this->assertEquals(['********', '********'], $f->getValue());
+        $this->assertEquals([1, 2], $f->getValue());
     }
 
     /**
@@ -295,9 +295,9 @@ class SettingTest extends TestCase {
 
         $this->assertEquals('test', $a->getDefaultValue());
         $this->assertEquals('test', $b->getDefaultValue());
-        $this->assertEquals('********', $c->getDefaultValue());
+        $this->assertEquals('test', $c->getDefaultValue());
         $this->assertNull($d->getDefaultValue());
-        $this->assertEquals(['********', '********', '********'], $e->getDefaultValue());
+        $this->assertEquals([1, 2, 3], $e->getDefaultValue());
     }
 
     /**
