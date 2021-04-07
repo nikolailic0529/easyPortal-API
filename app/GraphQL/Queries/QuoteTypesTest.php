@@ -131,23 +131,24 @@ class QuoteTypesTest extends TestCase {
                 'name' => 'No translation',
             ],
         ];
+
         return (new CompositeDataProvider(
             new TenantDataProvider(),
             new AnyDataProvider(),
             new ArrayDataProvider([
-                'quote_types match'                         => [
+                'quote_types match'                  => [
                     new GraphQLSuccess('quoteTypes', QuoteTypes::class, $objects),
                     [
-                       'quote_types' => [
+                        'quote_types' => [
                             'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                             '6f19ef5f-5963-437e-a798-29296db08d59',
                             'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                       ],
+                        ],
                     ],
                     $translation,
                     $factory,
                 ],
-                'no quote_types + contract_types' => [
+                'no quote_types + contract_types'    => [
                     new GraphQLSuccess('quoteTypes', QuoteTypes::class, $objects),
                     [
                         'contract_types' => [
@@ -157,7 +158,7 @@ class QuoteTypesTest extends TestCase {
                     $translation,
                     $factory,
                 ],
-                'quote_types not match'                     => [
+                'quote_types not match'              => [
                     new GraphQLSuccess('quoteTypes', QuoteTypes::class, [
                         // empty
                     ]),
@@ -169,7 +170,7 @@ class QuoteTypesTest extends TestCase {
                     $translation,
                     $factory,
                 ],
-                'no quote_types + no contract_types'        => [
+                'no quote_types + no contract_types' => [
                     new GraphQLSuccess('quoteTypes', QuoteTypes::class, [
                         // empty
                     ]),

@@ -75,7 +75,6 @@ class Settings {
         return $string;
     }
 
-
     protected function hide(Setting $setting, mixed $value): mixed {
         if ($setting->isSecret()) {
             if ($setting->isArray() && !is_null($value)) {
