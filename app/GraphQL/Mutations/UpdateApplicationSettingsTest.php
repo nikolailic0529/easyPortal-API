@@ -162,7 +162,7 @@ class UpdateApplicationSettingsTest extends TestCase {
                     static function (TestCase $test, string $locale): array {
                         return [
                             $locale => [
-                                'settings.SETTING_STRING' => 'String string string string string.',
+                                'settings.descriptions.SETTING_STRING' => 'String string string string string.',
                             ],
                         ];
                     },

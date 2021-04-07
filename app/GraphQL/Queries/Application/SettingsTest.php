@@ -155,7 +155,7 @@ class SettingsTest extends TestCase {
                     static function (TestCase $test, string $locale): array {
                         return [
                             $locale => [
-                                'settings.SETTING_ARRAY' => 'Array array array array array.',
+                                'settings.descriptions.SETTING_ARRAY' => 'Array array array array array.',
                             ],
                         ];
                     },
