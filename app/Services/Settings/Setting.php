@@ -124,7 +124,7 @@ class Setting {
     }
 
     public function getDescription(): ?string {
-        $key  = "settings.{$this->getName()}";
+        $key  = "settings.descriptions.{$this->getName()}";
         $desc = __($key);
 
         if ($desc === $key) {
