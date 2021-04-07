@@ -2,10 +2,12 @@
 
 namespace App\Services\Settings;
 
+use App\Services\Filesystem;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use Illuminate\Contracts\Config\Repository;
 use Mockery;
+use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
 use function array_map;
@@ -31,7 +33,10 @@ class SettingsTest extends TestCase {
             protected const C = 'test';
         };
         $service = Mockery::mock(Settings::class, [
+            $this->app,
             $this->app->make(Repository::class),
+            Mockery::mock(Filesystem::class),
+            Mockery::mock(LoggerInterface::class),
         ]);
         $service->makePartial();
         $service->shouldAllowMockingProtectedMethods();
