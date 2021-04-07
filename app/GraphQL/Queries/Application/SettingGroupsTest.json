@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "settingGroups"
+    ],
+    "properties": {
+        "settingGroups": {
+            "type": "array",
+            "items": {
+                "$ref": "../../Types/ApplicationSettingGroup.json"
+            }
+        }
+    }
+}

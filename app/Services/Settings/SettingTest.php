@@ -3,6 +3,7 @@
 namespace App\Services\Settings;
 
 use App\Services\Settings\Attributes\CronJob as CronJobAttribute;
+use App\Services\Settings\Attributes\Group as GroupAttribute;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\Secret as SecretAttribute;
@@ -14,7 +15,6 @@ use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Url;
 use Illuminate\Config\Repository;
-use Illuminate\Translation\Translator;
 use InvalidArgumentException;
 use ReflectionClassConstant;
 use Tests\TestCase;
@@ -327,9 +327,13 @@ class SettingTest extends TestCase {
         $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'B'));
         $c     = new Setting(new Repository(), new ReflectionClassConstant($class, 'C'));
 
-        $this->app->make(Translator::class)->addLines([
-            'settings.B' => 'translated',
-        ], $this->app->getLocale());
+        $this->setTranslations(static function (TestCase $test, string $locale): array {
+            return [
+                $locale => [
+                    'settings.descriptions.B' => 'translated',
+                ],
+            ];
+        });
 
         $this->assertEquals(
             <<<'DESC'
@@ -345,5 +349,38 @@ class SettingTest extends TestCase {
         );
         $this->assertEquals('translated', $b->getDescription());
         $this->assertNull($c->getDescription());
+    }
+
+    /**
+     * @covers ::getGroup
+     */
+    public function testGetGroup(): void {
+        $class = new class() {
+            #[SettingAttribute('a')]
+            #[GroupAttribute('test')]
+            public const A = 'test';
+
+            #[SettingAttribute('b')]
+            #[GroupAttribute('untranslated')]
+            public const B = 'test';
+
+            #[SettingAttribute('b')]
+            public const C = 'test';
+        };
+        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'A'));
+        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'B'));
+        $c     = new Setting(new Repository(), new ReflectionClassConstant($class, 'C'));
+
+        $this->setTranslations(static function (TestCase $test, string $locale, string $fallback): array {
+            return [
+                $locale => [
+                    'settings.groups.test' => 'translated',
+                ],
+            ];
+        });
+
+        $this->assertEquals('translated', $a->getGroup());
+        $this->assertEquals('untranslated', $b->getGroup());
+        $this->assertNull($c->getGroup());
     }
 }

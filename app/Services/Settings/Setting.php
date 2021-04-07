@@ -3,6 +3,7 @@
 namespace App\Services\Settings;
 
 use App\Services\Settings\Attributes\CronJob as CronJobAttribute;
+use App\Services\Settings\Attributes\Group;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\Secret as SecretAttribute;
@@ -139,8 +140,26 @@ class Setting {
         return $desc;
     }
 
+    public function getGroup(): ?string {
+        $group     = null;
+        $attribute = $this->getAttribute(Group::class)?->newInstance();
+
+        if ($attribute instanceof Group) {
+            $key  = "settings.groups.{$attribute->getName()}";
+            $name = __($key);
+
+            if ($key === $name) {
+                $group = $attribute->getName();
+            } else {
+                $group = $name;
+            }
+        }
+
+        return $group;
+    }
+
     /**
-     * @template T of \App\Services\Settings\Attributes\Setting
+     * @template T of \Attribute
      *
      * @param class-string<T> ...$attributes
      *

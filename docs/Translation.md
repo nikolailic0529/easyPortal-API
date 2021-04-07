@@ -20,7 +20,11 @@ HTTP's errors with uncommon "status code".
 Any exception with "message".
 
 
+## `settings.groups.<group>`
+
+Setting group name.
+
+
 ## `settings.descriptions.<setting>`
 
 Description for setting.
-

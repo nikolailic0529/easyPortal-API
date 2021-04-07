@@ -8,6 +8,7 @@ use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellerUpdate;
 use App\Services\Settings\Attributes\CronJob;
+use App\Services\Settings\Attributes\Group;
 use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Job;
 use App\Services\Settings\Attributes\Setting;
@@ -78,18 +79,21 @@ interface Constants {
      * Enabled?
      */
     #[Setting('easyportal.data-loader.enabled')]
+    #[Group('data_loader')]
     public const DATA_LOADER_ENABLED = true;
 
     /**
      * Default chunk size.
      */
     #[Setting('easyportal.data-loader.chunk')]
+    #[Group('data_loader')]
     public const DATA_LOADER_CHUNK = 100;
 
     /**
      * GraphQL Endpoint.
      */
     #[Setting('easyportal.data-loader.endpoint')]
+    #[Group('data_loader')]
     #[Type(Url::class)]
     public const DATA_LOADER_ENDPOINT = '';
 
