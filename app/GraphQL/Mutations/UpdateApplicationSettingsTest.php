@@ -2,15 +2,23 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Disc;
+use App\Services\Filesystem;
+use App\Services\Settings\Attributes\Internal;
+use App\Services\Settings\Attributes\Secret;
+use App\Services\Settings\Attributes\Setting;
+use App\Services\Settings\Attributes\Type;
+use App\Services\Settings\Settings;
+use App\Services\Settings\Types\StringType;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Facades\Storage;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\UserDataProvider;
+use Psr\Log\LoggerInterface;
+use Tests\DataProviders\GraphQL\RootDataProvider;
 use Tests\DataProviders\TenantDataProvider;
-use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -26,37 +34,73 @@ class UpdateApplicationSettingsTest extends TestCase {
      *
      * @dataProvider dataProviderInvoke
      *
-     *  @param array<string,mixed> $settings
+     * @param array{name: string, value: string} $input
      */
     public function testInvoke(
         Response $expected,
         Closure $tenantFactory,
         Closure $userFactory = null,
-        array $settings = [],
-        bool $addToRoot = false,
+        Closure $translationsFactory = null,
+        object $store = null,
+        array $input = [],
     ): void {
         // Prepare
+        $this->setUser($userFactory, $this->setTenant($tenantFactory));
+        $this->setTranslations($translationsFactory);
 
-        // So it won't save on real settings
-        Storage::fake();
+        // Mock
+        if ($store) {
+            $service = new class(
+                $this->app->make(Repository::class),
+                $this->app->make(Filesystem::class),
+                $this->app->make(LoggerInterface::class),
+                $store::class,
+            ) extends Settings {
+                public function __construct(
+                    Repository $config,
+                    Filesystem $filesystem,
+                    LoggerInterface $logger,
+                    protected string $store,
+                ) {
+                    parent::__construct($config, $filesystem, $logger);
+                }
 
-        $user = $this->setUser($userFactory, $this->setTenant($tenantFactory));
+                public function getStore(): string {
+                    return $this->store;
+                }
 
-        if ($addToRoot && $user) {
-            $config = $this->app->make(Repository::class);
-            $config->set('easyportal.root_user_id', $user->id);
+                public function getDisc(): Disc {
+                    return parent::getDisc();
+                }
+
+                public function getFile(): string {
+                    return parent::getFile();
+                }
+            };
+
+            $this->app->bind(Settings::class, static function () use ($service): Settings {
+                return $service;
+            });
+
+            Storage::fake($service->getDisc()->getValue());
         }
+
         // Test
         $this
-            ->graphQL(/** @lang GraphQL */ 'mutation updateApplicationSettings(
-                $input: [UpdateApplicationSettingsInput!]!) {
+            ->graphQL(/** @lang GraphQL */ '
+                mutation updateApplicationSettings($input: [UpdateApplicationSettingsInput!]!) {
                     updateApplicationSettings(input:$input){
                         settings {
                             name
+                            type
+                            array
                             value
+                            secret
+                            default
+                            description
                         }
                     }
-            }', [ 'input' => $settings ])
+                }', ['input' => $input])
             ->assertThat($expected);
     }
     // </editor-fold>
@@ -69,36 +113,110 @@ class UpdateApplicationSettingsTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            new UserDataProvider('updateApplicationSettings'),
+            new RootDataProvider('updateApplicationSettings'),
             new ArrayDataProvider([
-                'ok'           => [
+                'ok' => [
                     new GraphQLSuccess('updateApplicationSettings', UpdateApplicationSettings::class, [
                         'settings' => [
                             [
-                                'name'  => 'key1',
-                                'value' => 'value1',
+                                'name'        => 'SETTING_INT',
+                                'type'        => 'Int',
+                                'array'       => false,
+                                'value'       => '345',
+                                'secret'      => false,
+                                'default'     => '123',
+                                'description' => 'Description description description description.',
+                            ],
+                            [
+                                'name'        => 'SETTING_SECRET',
+                                'type'        => 'String',
+                                'array'       => false,
+                                'value'       => '********',
+                                'secret'      => true,
+                                'default'     => '********',
+                                'description' => null,
+                            ],
+                            [
+                                'name'        => 'SETTING_STRING',
+                                'type'        => 'String',
+                                'array'       => false,
+                                'value'       => 'null',
+                                'secret'      => false,
+                                'default'     => 'null',
+                                'description' => 'String string string string string.',
+                            ],
+                            [
+                                'name'        => 'SETTING_ARRAY',
+                                'type'        => 'String',
+                                'array'       => true,
+                                'value'       => 'last,win',
+                                'secret'      => false,
+                                'default'     => 'abc,de',
+                                'description' => null,
                             ],
                         ],
                     ]),
+                    static function (TestCase $test, string $locale): array {
+                        return [
+                            $locale => [
+                                'settings.SETTING_STRING' => 'String string string string string.',
+                            ],
+                        ];
+                    },
+                    new class() {
+                        /**
+                         * Description description description description.
+                         */
+                        #[Setting('int')]
+                        public const SETTING_INT = 123;
+
+                        #[Setting('secret')]
+                        #[Secret]
+                        public const SETTING_SECRET = 'secret';
+
+                        #[Setting('string')]
+                        #[Type(StringType::class)]
+                        public const SETTING_STRING = null;
+
+                        #[Setting('array')]
+                        #[Type(StringType::class)]
+                        public const SETTING_ARRAY = ['abc', 'de'];
+
+                        #[Setting('internal')]
+                        #[Internal]
+                        public const SETTING_INTERNAL = 'internal';
+                    },
                     [
                         [
-                            'name'  => 'key1',
-                            'value' => 'value1',
+                            'name'  => 'SETTING_INT',
+                            'value' => '345',
+                        ],
+                        [
+                            'name'  => 'SETTING_SECRET',
+                            'value' => '********',
+                        ],
+                        [
+                            'name'  => 'SETTING_STRING',
+                            'value' => 'null',
+                        ],
+                        [
+                            'name'  => 'SETTING_ARRAY',
+                            'value' => 'abc,de',
+                        ],
+                        [
+                            'name'  => 'SETTING_ARRAY',
+                            'value' => 'last,win',
+                        ],
+                        [
+                            'name'  => 'SETTING_UNKNOWN',
+                            'value' => 'unknown (must be ignored)',
+                        ],
+                        [
+                            'name'  => 'SETTING_INTERNAL',
+                            'value' => 'must not be changed',
                         ],
                     ],
                     true,
-                ],
-                'unauthorized' => [
-                    new GraphQLError('updateApplicationSettings', static function (): array {
-                        return ['Unauthorized.'];
-                    }),
-                    [
-                        [
-                            'name'  => 'key1',
-                            'value' => 'value1',
-                        ],
-                    ],
-                    false,
                 ],
             ]),
         ))->getData();

@@ -2,38 +2,28 @@
 
 namespace App\GraphQL\Mutations;
 
-use Illuminate\Contracts\Filesystem\Factory;
-
-use function json_decode;
-use function json_encode;
+use App\GraphQL\Queries\Application\Settings as SettingsQuery;
+use App\Services\Settings\Settings;
 
 class UpdateApplicationSettings {
     public function __construct(
-        protected Factory $storage,
+        protected Settings $settings,
+        protected SettingsQuery $query,
     ) {
         // empty
     }
+
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
-     * @return array<string, mixed>
+     * @param null                 $_
+     * @param array<string, mixed> $args
+     *
+     * @return array{setting: array<mixed>}
      */
     public function __invoke($_, array $args): array {
-        $path      = 'app/settings.json';
-        $input     = $args['input'];
-        $localDisk = $this->storage->disk('local');
-        $settings  = [];
-
-        // Check if settings json file exists
-        if ($localDisk->exists($path)) {
-            $settings = json_decode($localDisk->get($path), true);
-        }
-
-        // update or create a setting
-        foreach ($input as $setting) {
-            $settings[$setting['name']] = $setting['value'];
-        }
-        $localDisk->put($path, json_encode($settings));
-        return [ 'settings' => $input ];
+        return [
+            'settings' => $this->query->map(
+                $this->settings->setEditableSettings($args['input']),
+            ),
+        ];
     }
 }
