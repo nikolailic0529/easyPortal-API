@@ -14,10 +14,13 @@ use function count;
 use function explode;
 use function filter_var;
 use function in_array;
+use function parse_url;
 use function reset;
 use function str_starts_with;
 
+use const FILTER_FLAG_IPV4;
 use const FILTER_VALIDATE_IP;
+use const PHP_URL_HOST;
 
 /**
  * Determine current tenant based on domain name and host, return `404` if not
@@ -109,7 +112,7 @@ class Tenant {
     #[Pure]
     protected function isRootDomain(string $domain): bool {
         return empty($domain)
-            || filter_var($domain, FILTER_VALIDATE_IP)
+            || filter_var(parse_url("http://{$domain}/", PHP_URL_HOST), FILTER_VALIDATE_IP)
             || in_array($domain, ['_'], true)
             || count(explode('.', $domain)) === 2;
     }
