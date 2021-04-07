@@ -6,10 +6,14 @@ use App\Services\Settings\Setting;
 use App\Services\Settings\Settings as SettingsService;
 use Illuminate\Support\Collection;
 
+use function array_fill_keys;
+use function array_keys;
 use function array_map;
 use function is_null;
 
 class Settings {
+    protected const SECRET = '********';
+
     public function __construct(
         protected SettingsService $settings,
     ) {
@@ -23,9 +27,18 @@ class Settings {
      * @return array<string,mixed>
      */
     public function __invoke($_, array $args): array {
+        return $this->map($this->settings->getEditableSettings());
+    }
+
+    /**
+     * @param array<\App\Services\Settings\Setting> $settings
+     *
+     * @return array<mixed>
+     */
+    public function map(array $settings): array {
         return array_map(function (Setting $setting): array {
             return $this->toArray($setting);
-        }, $this->settings->getEditableSettings());
+        }, $settings);
     }
 
     /**
@@ -45,6 +58,7 @@ class Settings {
 
     protected function toString(Setting $setting, mixed $value): string {
         $type   = $setting->getType();
+        $value  = $this->hide($setting, $value);
         $string = null;
 
         if ($setting->isArray() && !is_null($value)) {
@@ -52,11 +66,24 @@ class Settings {
                 ->map(static function (mixed $value) use ($type): string {
                     return $type->toString($value);
                 })
-                ->implode(',');
+                ->implode(SettingsService::DELIMITER);
         } else {
             $string = $type->toString($value);
         }
 
         return $string;
+    }
+
+
+    protected function hide(Setting $setting, mixed $value): mixed {
+        if ($setting->isSecret()) {
+            if ($setting->isArray() && !is_null($value)) {
+                $value = array_fill_keys(array_keys((array) $value), static::SECRET);
+            } else {
+                $value = $value ? static::SECRET : null;
+            }
+        }
+
+        return $value;
     }
 }
