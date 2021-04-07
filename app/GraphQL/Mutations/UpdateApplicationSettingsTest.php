@@ -79,6 +79,10 @@ class UpdateApplicationSettingsTest extends TestCase {
                 public function getFile(): string {
                     return parent::getFile();
                 }
+
+                protected function isOverridden(string $name): bool {
+                    return $name === 'SETTING_READONLY' || parent::isOverridden($name);
+                }
             };
 
             $this->app->bind(Settings::class, static function () use ($service): Settings {
@@ -188,6 +192,9 @@ class UpdateApplicationSettingsTest extends TestCase {
                         #[Setting('internal')]
                         #[Internal]
                         public const SETTING_INTERNAL = 'internal';
+
+                        #[Setting('test.readonly')]
+                        public const SETTING_READONLY = 'readonly';
                     },
                     [
                         [
@@ -216,6 +223,10 @@ class UpdateApplicationSettingsTest extends TestCase {
                         ],
                         [
                             'name'  => 'SETTING_INTERNAL',
+                            'value' => 'must not be changed',
+                        ],
+                        [
+                            'name'  => 'SETTING_READONLY',
                             'value' => 'must not be changed',
                         ],
                     ],

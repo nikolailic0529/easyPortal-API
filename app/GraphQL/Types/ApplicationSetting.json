@@ -9,6 +9,7 @@
         "value",
         "secret",
         "default",
+        "readonly",
         "description"
     ],
     "properties": {
@@ -29,6 +30,9 @@
         },
         "default": {
             "type": "string"
+        },
+        "readonly": {
+            "type": "boolean"
         },
         "description": {
             "type": [

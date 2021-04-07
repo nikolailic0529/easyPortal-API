@@ -19,6 +19,14 @@ type ApplicationSetting {
   the real value will not be returned.
   """
   secret: Boolean!
+  """
+  Default value.
+  """
   default: String!
+  """
+  Indicates that the setting is read-only due to configs priority and cannot
+  be changed.
+  """
+  readonly: Boolean!
   description: String
 }

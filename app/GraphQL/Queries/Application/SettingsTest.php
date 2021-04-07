@@ -61,6 +61,10 @@ class SettingsTest extends TestCase {
                 public function getStore(): string {
                     return $this->store;
                 }
+
+                protected function isOverridden(string $name): bool {
+                    return $name === 'SETTING_READONLY' || parent::isOverridden($name);
+                }
             };
 
             $this->app->bind(Settings::class, static function () use ($service): Settings {
@@ -80,6 +84,7 @@ class SettingsTest extends TestCase {
                             value
                             secret
                             default
+                            readonly
                             description
                         }
                     }
@@ -112,6 +117,7 @@ class SettingsTest extends TestCase {
                                 'value'       => 'null',
                                 'secret'      => false,
                                 'default'     => '123.40',
+                                'readonly'    => false,
                                 'description' => 'Summary summary summary summary summary summary summary.',
                             ],
                             [
@@ -121,6 +127,7 @@ class SettingsTest extends TestCase {
                                 'value'       => 'null',
                                 'secret'      => false,
                                 'default'     => 'false',
+                                'readonly'    => false,
                                 'description' => null,
                             ],
                             [
@@ -130,6 +137,7 @@ class SettingsTest extends TestCase {
                                 'value'       => 'null',
                                 'secret'      => false,
                                 'default'     => '123,345',
+                                'readonly'    => false,
                                 'description' => 'Array array array array array.',
                             ],
                             [
@@ -139,15 +147,27 @@ class SettingsTest extends TestCase {
                                 'value'       => 'null',
                                 'secret'      => true,
                                 'default'     => '********,********',
+                                'readonly'    => false,
                                 'description' => null,
                             ],
                             [
-                                'name'        => 'SECRET',
+                                'name'        => 'SETTING_SECRET',
                                 'type'        => 'String',
                                 'array'       => false,
                                 'value'       => 'null',
                                 'secret'      => true,
                                 'default'     => '********',
+                                'readonly'    => false,
+                                'description' => null,
+                            ],
+                            [
+                                'name'        => 'SETTING_READONLY',
+                                'type'        => 'String',
+                                'array'       => false,
+                                'value'       => 'null',
+                                'secret'      => false,
+                                'default'     => 'readonly',
+                                'readonly'    => true,
                                 'description' => null,
                             ],
                         ],
@@ -184,7 +204,10 @@ class SettingsTest extends TestCase {
 
                         #[SettingAttribute('test.secret')]
                         #[SecretAttribute]
-                        public const SECRET = 'secret';
+                        public const SETTING_SECRET = 'secret';
+
+                        #[SettingAttribute('test.readonly')]
+                        public const SETTING_READONLY = 'readonly';
                     },
                 ],
             ]),

@@ -76,6 +76,11 @@ class Settings {
             });
 
         foreach ($editable as $setting) {
+            // Readonly?
+            if ($setting->isReadonly()) {
+                continue;
+            }
+
             // Passed?
             if (!isset($settings[$setting->getName()])) {
                 continue;
