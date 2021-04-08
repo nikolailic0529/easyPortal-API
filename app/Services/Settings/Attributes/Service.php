@@ -8,7 +8,7 @@ use Attribute;
  * Marks that setting related to {@link \LastDragon_ru\LaraASP\Queue\Queueables\CronJob}.
  */
 #[Attribute(Attribute::TARGET_CLASS_CONSTANT)]
-class CronJob extends Job {
+class Service extends Job {
     /**
      * @param class-string<\LastDragon_ru\LaraASP\Queue\Queueables\CronJob> $class
      */

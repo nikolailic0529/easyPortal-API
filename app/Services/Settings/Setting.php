@@ -2,11 +2,11 @@
 
 namespace App\Services\Settings;
 
-use App\Services\Settings\Attributes\CronJob as CronJobAttribute;
-use App\Services\Settings\Attributes\Group;
+use App\Services\Settings\Attributes\Group as GroupAttribute;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\Secret as SecretAttribute;
+use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Attributes\Type as TypeAttribute;
 use App\Services\Settings\Types\BooleanType;
@@ -16,7 +16,6 @@ use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Type;
 use Illuminate\Contracts\Config\Repository;
 use InvalidArgumentException;
-use phpDocumentor\Reflection\DocBlockFactory;
 use ReflectionAttribute;
 use ReflectionClassConstant;
 
@@ -26,7 +25,6 @@ use function implode;
 use function is_array;
 use function reset;
 use function sprintf;
-use function trim;
 
 class Setting {
     protected SettingAttribute $definition;
@@ -37,7 +35,7 @@ class Setting {
         protected bool $readonly = false,
     ) {
         $attributes = [
-            CronJobAttribute::class,
+            ServiceAttribute::class,
             JobAttribute::class,
             SettingAttribute::class,
         ];
@@ -129,12 +127,7 @@ class Setting {
         $desc = __($key);
 
         if ($desc === $key) {
-            if ($this->constant->getDocComment()) {
-                $doc  = DocBlockFactory::createInstance()->create($this->constant);
-                $desc = trim("{$doc->getSummary()}\n\n{$doc->getDescription()}");
-            } else {
-                $desc = null;
-            }
+            $desc = (new Description())->get($this->constant);
         }
 
         return $desc;
@@ -142,9 +135,9 @@ class Setting {
 
     public function getGroup(): ?string {
         $group     = null;
-        $attribute = $this->getAttribute(Group::class)?->newInstance();
+        $attribute = $this->getAttribute(GroupAttribute::class)?->newInstance();
 
-        if ($attribute instanceof Group) {
+        if ($attribute instanceof GroupAttribute) {
             $key  = "settings.groups.{$attribute->getName()}";
             $name = __($key);
 
@@ -156,6 +149,19 @@ class Setting {
         }
 
         return $group;
+    }
+
+    public function isService(): bool {
+        return $this->definition instanceof ServiceAttribute;
+    }
+
+    /**
+     * @return class-string<\LastDragon_ru\LaraASP\Queue\Queueables\CronJob>|null
+     */
+    public function getService(): ?string {
+        return $this->definition instanceof ServiceAttribute
+            ? $this->definition->getClass()
+            : null;
     }
 
     /**

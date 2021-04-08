@@ -2,11 +2,11 @@
 
 namespace App\Services\Settings;
 
-use App\Services\Settings\Attributes\CronJob as CronJobAttribute;
 use App\Services\Settings\Attributes\Group as GroupAttribute;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\Secret as SecretAttribute;
+use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Attributes\Type as TypeAttribute;
 use App\Services\Settings\Types\BooleanType;
@@ -17,6 +17,7 @@ use App\Services\Settings\Types\Url;
 use Illuminate\Config\Repository;
 use InvalidArgumentException;
 use ReflectionClassConstant;
+use stdClass;
 use Tests\TestCase;
 
 use function implode;
@@ -41,7 +42,7 @@ class SettingTest extends TestCase {
         $this->expectExceptionObject(new InvalidArgumentException(sprintf(
             'The `$constant` must have one of the following attributes `%s`.',
             implode('`, `', [
-                CronJobAttribute::class,
+                ServiceAttribute::class,
                 JobAttribute::class,
                 SettingAttribute::class,
             ]),
@@ -382,5 +383,41 @@ class SettingTest extends TestCase {
         $this->assertEquals('translated', $a->getGroup());
         $this->assertEquals('untranslated', $b->getGroup());
         $this->assertNull($c->getGroup());
+    }
+
+    /**
+     * @covers ::isService
+     */
+    public function testIsService(): void {
+        $class = new class() {
+            #[SettingAttribute('a')]
+            public const A = 'test';
+
+            #[ServiceAttribute(stdClass::class, 'b')]
+            public const B = 'test';
+        };
+        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'A'));
+        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'B'));
+
+        $this->assertFalse($a->isService());
+        $this->assertTrue($b->isService());
+    }
+
+    /**
+     * @covers ::getService
+     */
+    public function testGetService(): void {
+        $class = new class() {
+            #[SettingAttribute('a')]
+            public const A = 'test';
+
+            #[ServiceAttribute(stdClass::class, 'b')]
+            public const B = 'test';
+        };
+        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'A'));
+        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'B'));
+
+        $this->assertNull($a->getService());
+        $this->assertEquals(stdClass::class, $b->getService());
     }
 }
