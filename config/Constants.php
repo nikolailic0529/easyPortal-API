@@ -13,6 +13,7 @@ use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Job;
 use App\Services\Settings\Attributes\Setting;
 use App\Services\Settings\Attributes\Type;
+use App\Services\Settings\Jobs\ConfigUpdate;
 use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\Expiration;
 use App\Services\Settings\Types\StringType;
@@ -38,6 +39,8 @@ if (interface_exists(Constants::class)) {
  * - other configuration files
  */
 interface Constants {
+    // <editor-fold desc="EP">
+    // =========================================================================
     /**
      * Max size of branding images/icons (branding_favicon, branding_logo) in KB.
      */
@@ -72,6 +75,19 @@ interface Constants {
     #[Setting('easyportal.quote_types')]
     #[Type(StringType::class)]
     public const EASYPORTAL_QUOTE_TYPES = [];
+    // </editor-fold>
+
+    // <editor-fold desc="EP_SETTINGS">
+    // =========================================================================
+    // <editor-fold desc="EP_SETTINGS_CONFIG_UPDATE">
+    // -------------------------------------------------------------------------
+    /**
+     * Queue name.
+     */
+    #[Job(ConfigUpdate::class, 'queue')]
+    public const EP_SETTINGS_CONFIG_UPDATE_QUEUE = Queues::DEFAULT;
+    // </editor-fold>
+    // </editor-fold>
 
     // <editor-fold desc="DATA_LOADER">
     // =========================================================================

@@ -5,6 +5,7 @@ namespace App\Services\Settings;
 use App\Disc;
 use App\Services\Filesystem;
 use App\Services\Settings\Exceptions\SettingsFailedToSave;
+use App\Services\Settings\Jobs\ConfigUpdate;
 use Config\Constants;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
@@ -45,12 +46,17 @@ class Settings {
         // empty
     }
 
+    public function isCached(): bool {
+        return $this->app instanceof CachesConfiguration
+            && $this->app->configurationIsCached();
+    }
+
     /**
      * @return array<\App\Services\Settings\Setting>
      */
     public function getEditableSettings(): array {
-        return array_filter($this->getSettings(), static function (Setting $setting) {
-            return !$setting->isInternal();
+        return array_filter($this->getSettings(), function (Setting $setting) {
+            return $this->isEditable($setting);
         });
     }
 
@@ -95,6 +101,8 @@ class Settings {
         // Save
         if ($updated) {
             $this->saveSettings($updated);
+
+            $this->app->make(ConfigUpdate::class)->dispatch();
         }
 
         // Return
@@ -218,8 +226,11 @@ class Settings {
      * application doesn't use cached config).
      */
     protected function isOverridden(string $name): bool {
-        return !($this->app instanceof CachesConfiguration && $this->app->configurationIsCached())
-            && Env::getRepository()->has($name);
+        return !$this->isCached() && Env::getRepository()->has($name);
+    }
+
+    protected function isEditable(Setting $setting): bool {
+        return !$setting->isInternal();
     }
 
     /**
