@@ -112,7 +112,12 @@ class TenantTest extends TestCase {
                 ]);
             }
         };
-        $actual       = $middleware->getTenantFromRequest($request);
+
+        if ($organization->subdomain !== Organization::ROOT) {
+            Organization::factory()->root()->create();
+        }
+
+        $actual = $middleware->getTenantFromRequest($request);
 
         if ($expected) {
             $this->assertNotNull($actual);
@@ -196,14 +201,14 @@ class TenantTest extends TestCase {
             'domain + example.com'                 => [true, 'example.com', 'example.com', $root],
             'ip + no host'                         => [true, '127.0.0.1', null, $root],
             'ip + example.com'                     => [true, '127.0.0.1', 'example.com', $root],
-            'no domain + no host + no root'        => [false, null, null, $factory],
-            'no domain + example.com + no root'    => [false, null, 'example.com', $factory],
-            'no domain + sub.example.com'          => [false, null, 'sub.example.com', $factory],
-            'domain + no host  + no root'          => [false, 'example.com', null, $factory],
-            'domain + example.com + no root'       => [false, 'example.com', 'example.com', $factory],
-            'domain + sub.example.com'             => [false, 'example.com', 'sub.example.com', $factory],
-            'ip + no host  + no root'              => [false, '127.0.0.1', null, $factory],
-            'ip + example.com + no root'           => [false, '127.0.0.1', 'example.com', $factory],
+            'no domain + no host + no root'        => [true, null, null, $root],
+            'no domain + example.com + no root'    => [true, null, 'example.com', $root],
+            'no domain + sub.example.com'          => [true, null, 'sub.example.com', $root],
+            'domain + no host  + no root'          => [true, 'example.com', null, $root],
+            'domain + example.com + no root'       => [true, 'example.com', 'example.com', $root],
+            'domain + sub.example.com'             => [true, 'example.com', 'sub.example.com', $root],
+            'ip + no host  + no root'              => [true, '127.0.0.1', null, $root],
+            'ip + example.com + no root'           => [true, '127.0.0.1', 'example.com', $root],
             'sub domain + no host'                 => [false, 'sub.example.com', null, $factory],
             'sub domain + example.com'             => [false, 'sub.example.com', 'example.com', $factory],
             'sub domain + sub.example.com'         => [false, 'sub.example.com', "{$tenant}.example.com", $factory],
@@ -275,6 +280,12 @@ class TenantTest extends TestCase {
             'nginx default domain _ (local)'                       => [true, 'local', '_'],
             'nginx default domain _ (testing)'                     => [true, 'testing', '_'],
             'nginx default domain _ (production)'                  => [true, 'production', '_'],
+            'localhost _ (local)'                                  => [true, 'local', 'localhost'],
+            'localhost _ (testing)'                                => [true, 'testing', 'localhost'],
+            'localhost _ (production)'                             => [true, 'production', 'localhost'],
+            'localhost:port _ (local)'                             => [true, 'local', 'localhost:80'],
+            'localhost:port _ (testing)'                           => [true, 'testing', 'localhost:80'],
+            'localhost:port _ (production)'                        => [true, 'production', 'localhost:80'],
             'nginx wildcard domain example.com (local)'            => [true, 'local', 'example.com'],
             'nginx wildcard domain example.com (testing)'          => [true, 'testing', 'example.com'],
             'nginx wildcard domain example.com (production)'       => [true, 'production', 'example.com'],

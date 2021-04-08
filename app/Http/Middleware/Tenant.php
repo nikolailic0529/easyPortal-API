@@ -15,10 +15,10 @@ use function explode;
 use function filter_var;
 use function in_array;
 use function parse_url;
+use function preg_match;
 use function reset;
 use function str_starts_with;
 
-use const FILTER_FLAG_IPV4;
 use const FILTER_VALIDATE_IP;
 use const PHP_URL_HOST;
 
@@ -113,7 +113,8 @@ class Tenant {
     protected function isRootDomain(string $domain): bool {
         return empty($domain)
             || filter_var(parse_url("http://{$domain}/", PHP_URL_HOST), FILTER_VALIDATE_IP)
-            || in_array($domain, ['_'], true)
+            || in_array($domain, ['_', 'localhost'], true)
+            || preg_match('/^localhost:\d+$/', $domain)
             || count(explode('.', $domain)) === 2;
     }
 }
