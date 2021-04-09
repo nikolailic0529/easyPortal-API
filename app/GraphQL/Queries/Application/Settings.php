@@ -53,6 +53,8 @@ class Settings {
             'secret'      => $setting->isSecret(),
             'default'     => $this->toString($setting, $setting->getDefaultValue()),
             'readonly'    => $setting->isReadonly(),
+            'job'         => $setting->isJob(),
+            'service'     => $setting->isService(),
             'description' => $setting->getDescription(),
         ];
     }

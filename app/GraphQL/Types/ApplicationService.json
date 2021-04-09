@@ -4,43 +4,30 @@
     "additionalProperties": false,
     "required": [
         "name",
-        "type",
-        "array",
-        "value",
-        "secret",
-        "default",
-        "readonly",
-        "job",
-        "service",
+        "enabled",
+        "cron",
+        "queue",
+        "settings",
         "description"
     ],
     "properties": {
         "name": {
             "type": "string"
         },
-        "type": {
+        "enabled": {
+            "type": "boolean"
+        },
+        "cron": {
             "type": "string"
         },
-        "array": {
-            "type": "boolean"
-        },
-        "value": {
+        "queue": {
             "type": "string"
         },
-        "secret": {
-            "type": "boolean"
-        },
-        "default": {
-            "type": "string"
-        },
-        "readonly": {
-            "type": "boolean"
-        },
-        "job": {
-            "type": "boolean"
-        },
-        "service": {
-            "type": "boolean"
+        "settings": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         },
         "description": {
             "type": [

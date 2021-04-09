@@ -7,12 +7,13 @@ use App\Services\DataLoader\Jobs\LocationsCleanupCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellerUpdate;
-use App\Services\Settings\Attributes\CronJob;
 use App\Services\Settings\Attributes\Group;
 use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Job;
+use App\Services\Settings\Attributes\Service;
 use App\Services\Settings\Attributes\Setting;
 use App\Services\Settings\Attributes\Type;
+use App\Services\Settings\Jobs\ConfigUpdate;
 use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\Expiration;
 use App\Services\Settings\Types\StringType;
@@ -38,6 +39,8 @@ if (interface_exists(Constants::class)) {
  * - other configuration files
  */
 interface Constants {
+    // <editor-fold desc="EP">
+    // =========================================================================
     /**
      * Max size of branding images/icons (branding_favicon, branding_logo) in KB.
      */
@@ -72,6 +75,19 @@ interface Constants {
     #[Setting('easyportal.quote_types')]
     #[Type(StringType::class)]
     public const EASYPORTAL_QUOTE_TYPES = [];
+    // </editor-fold>
+
+    // <editor-fold desc="EP_SETTINGS">
+    // =========================================================================
+    // <editor-fold desc="EP_SETTINGS_CONFIG_UPDATE">
+    // -------------------------------------------------------------------------
+    /**
+     * Queue name.
+     */
+    #[Job(ConfigUpdate::class, 'queue')]
+    public const EP_SETTINGS_CONFIG_UPDATE_QUEUE = Queues::DEFAULT;
+    // </editor-fold>
+    // </editor-fold>
 
     // <editor-fold desc="DATA_LOADER">
     // =========================================================================
@@ -102,20 +118,20 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[CronJob(ResellersImporterCronJob::class, 'enabled')]
+    #[Service(ResellersImporterCronJob::class, 'enabled')]
     public const DATA_LOADER_RESELLERS_IMPORTER_ENABLED = self::DATA_LOADER_ENABLED;
 
     /**
      * Cron expression.
      */
-    #[CronJob(ResellersImporterCronJob::class, 'cron')]
+    #[Service(ResellersImporterCronJob::class, 'cron')]
     #[Type(CronExpression::class)]
     public const DATA_LOADER_RESELLERS_IMPORTER_CRON = '0 0 * * *';
 
     /**
      * Queue name.
      */
-    #[CronJob(ResellersImporterCronJob::class, 'queue')]
+    #[Service(ResellersImporterCronJob::class, 'queue')]
     public const DATA_LOADER_RESELLERS_IMPORTER_QUEUE = Queues::DATA_LOADER_DEFAULT;
     // </editor-fold>
 
@@ -124,26 +140,26 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[CronJob(ResellersUpdaterCronJob::class, 'enabled')]
+    #[Service(ResellersUpdaterCronJob::class, 'enabled')]
     public const DATA_LOADER_RESELLERS_UPDATER_ENABLED = self::DATA_LOADER_ENABLED;
 
     /**
      * Cron expression.
      */
-    #[CronJob(ResellersUpdaterCronJob::class, 'cron')]
+    #[Service(ResellersUpdaterCronJob::class, 'cron')]
     #[Type(CronExpression::class)]
     public const DATA_LOADER_RESELLERS_UPDATER_CRON = '*/5 * * * *';
 
     /**
      * Queue name.
      */
-    #[CronJob(ResellersUpdaterCronJob::class, 'queue')]
+    #[Service(ResellersUpdaterCronJob::class, 'queue')]
     public const DATA_LOADER_RESELLERS_UPDATER_QUEUE = Queues::DATA_LOADER_DEFAULT;
 
     /**
      * Queue name.
      */
-    #[CronJob(ResellersUpdaterCronJob::class, 'settings.expire')]
+    #[Service(ResellersUpdaterCronJob::class, 'settings.expire')]
     #[Type(Expiration::class)]
     public const DATA_LOADER_RESELLERS_UPDATER_EXPIRE = '24 hours';
     // </editor-fold>
@@ -153,20 +169,20 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[CronJob(LocationsCleanupCronJob::class, 'enabled')]
+    #[Service(LocationsCleanupCronJob::class, 'enabled')]
     public const DATA_LOADER_LOCATIONS_CLEANUP_ENABLED = self::DATA_LOADER_ENABLED;
 
     /**
      * Cron expression.
      */
-    #[CronJob(LocationsCleanupCronJob::class, 'cron')]
+    #[Service(LocationsCleanupCronJob::class, 'cron')]
     #[Type(CronExpression::class)]
     public const DATA_LOADER_LOCATIONS_CLEANUP_CRON = '0 */6 * * *';
 
     /**
      * Queue name.
      */
-    #[CronJob(LocationsCleanupCronJob::class, 'queue')]
+    #[Service(LocationsCleanupCronJob::class, 'queue')]
     public const DATA_LOADER_LOCATIONS_CLEANUP_QUEUE = Queues::DATA_LOADER_DEFAULT;
     // </editor-fold>
 

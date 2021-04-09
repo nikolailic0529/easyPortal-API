@@ -3,8 +3,8 @@
 namespace App\Services\Settings;
 
 use App\Disc;
-use App\Services\Filesystem;
 use App\Services\Settings\Exceptions\SettingsFailedToSave;
+use App\Services\Settings\Jobs\ConfigUpdate;
 use Config\Constants;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
@@ -16,9 +16,7 @@ use Psr\Log\LoggerInterface;
 use ReflectionClass;
 use ReflectionClassConstant;
 
-use function array_fill_keys;
 use function array_filter;
-use function array_intersect_key;
 use function array_map;
 use function array_values;
 use function explode;
@@ -39,18 +37,22 @@ class Settings {
     public function __construct(
         protected Application $app,
         protected Repository $config,
-        protected Filesystem $filesystem,
         protected LoggerInterface $logger,
     ) {
         // empty
+    }
+
+    public function isCached(): bool {
+        return $this->app instanceof CachesConfiguration
+            && $this->app->configurationIsCached();
     }
 
     /**
      * @return array<\App\Services\Settings\Setting>
      */
     public function getEditableSettings(): array {
-        return array_filter($this->getSettings(), static function (Setting $setting) {
-            return !$setting->isInternal();
+        return array_filter($this->getSettings(), function (Setting $setting) {
+            return $this->isEditable($setting);
         });
     }
 
@@ -95,10 +97,44 @@ class Settings {
         // Save
         if ($updated) {
             $this->saveSettings($updated);
+
+            $this->app->make(ConfigUpdate::class)->dispatch();
         }
 
         // Return
         return array_values($updated);
+    }
+
+    /**
+     * @return array<class-string<\LastDragon_ru\LaraASP\Queue\Queueables\Job>>
+     */
+    public function getJobs(): array {
+        $settings = $this->getSettings();
+        $jobs     = [];
+
+        foreach ($settings as $setting) {
+            if ($setting->isJob()) {
+                $jobs[] = $setting->getJob();
+            }
+        }
+
+        return $jobs;
+    }
+
+    /**
+     * @return array<class-string<\LastDragon_ru\LaraASP\Queue\Queueables\CronJob>>
+     */
+    public function getServices(): array {
+        $settings = $this->getSettings();
+        $services = [];
+
+        foreach ($settings as $setting) {
+            if ($setting->isService()) {
+                $services[] = $setting->getService();
+            }
+        }
+
+        return $services;
     }
 
     /**
@@ -124,20 +160,21 @@ class Settings {
      * @return array<string, string>
      */
     protected function getSavedSettings(): array {
-        $disc     = $this->filesystem->disk($this->getDisc());
+        $fs       = $this->getDisc()->filesystem();
         $error    = null;
         $settings = [];
 
         try {
-            if ($disc->exists($this->getFile())) {
-                $settings = json_decode($disc->get($this->getFile()), true);
+            if ($fs->exists($this->getFile())) {
+                $settings = (array) json_decode($fs->get($this->getFile()), true);
             }
 
             if (json_last_error() !== JSON_ERROR_NONE) {
                 $error = json_last_error();
             }
         } catch (Exception $exception) {
-            $error = $exception;
+            $error    = $exception;
+            $settings = [];
         }
 
         if (!is_null($error)) {
@@ -161,12 +198,20 @@ class Settings {
      */
     protected function saveSettings(array $settings): bool {
         // Cleanup
-        $editable = $this->getEditableSettings();
-        $editable = array_map(static function (Setting $setting): string {
-            return $setting->getName();
-        }, $editable);
-        $editable = array_fill_keys($editable, null);
-        $stored   = array_intersect_key($this->getSavedSettings(), $editable);
+        $editable = (new Collection($this->getEditableSettings()))
+            ->filter(static function (Setting $setting): bool {
+                return !$setting->isReadonly();
+            })
+            ->keyBy(static function (Setting $setting): string {
+                return $setting->getName();
+            });
+        $settings = (new Collection($settings))
+            ->keyBy(static function (Setting $setting): string {
+                return $setting->getName();
+            })
+            ->intersectByKeys($editable);
+        $stored   = (new Collection($this->getSavedSettings()))
+            ->intersectByKeys($editable);
 
         // Update
         foreach ($settings as $setting) {
@@ -174,17 +219,18 @@ class Settings {
         }
 
         // Save
-        $disc    = $this->filesystem->disk($this->getDisc());
+        $fs      = $this->getDisc()->filesystem();
         $error   = null;
         $success = false;
 
         try {
-            $success = $disc->put($this->getFile(), json_encode(
+            $success = $fs->put($this->getFile(), json_encode(
                 $stored,
                 JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_LINE_TERMINATORS,
             ));
         } catch (Exception $exception) {
-            $error = $exception;
+            $error   = $exception;
+            $success = false;
         }
 
         if (!$success) {
@@ -218,8 +264,11 @@ class Settings {
      * application doesn't use cached config).
      */
     protected function isOverridden(string $name): bool {
-        return !($this->app instanceof CachesConfiguration && $this->app->configurationIsCached())
-            && Env::getRepository()->has($name);
+        return !$this->isCached() && Env::getRepository()->has($name);
+    }
+
+    protected function isEditable(Setting $setting): bool {
+        return !$setting->isInternal();
     }
 
     /**

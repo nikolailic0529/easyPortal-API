@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Jobs;
 
+use App\Jobs\NamedJob;
 use App\Models\Reseller;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -12,7 +13,11 @@ use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
 /**
  * Search for outdated resellers and update it.
  */
-class ResellersUpdaterCronJob extends CronJob implements ShouldBeUnique {
+class ResellersUpdaterCronJob extends CronJob implements ShouldBeUnique, NamedJob {
+    public function displayName(): string {
+        return 'ep-data-loader-resellers-updater';
+    }
+
     /**
      * @return array<mixed>
      */

@@ -1,8 +1,16 @@
 type Application {
   name: String!
   version: String!
-  settings: [ApplicationSetting!]! @root
+  settings: [ApplicationSetting!]!
     @field(resolver: "App\\GraphQL\\Queries\\Application\\Settings")
-  settingGroups: [ApplicationSettingGroup!]! @root
+    @root
+  settingGroups: [ApplicationSettingGroup!]!
     @field(resolver: "App\\GraphQL\\Queries\\Application\\SettingGroups")
+    @root
+  services: [ApplicationService!]!
+    @field(resolver: "App\\GraphQL\\Queries\\Application\\Services")
+    @root
+  jobs: [ApplicationJob!]!
+    @field(resolver: "App\\GraphQL\\Queries\\Application\\Jobs")
+    @root
 }

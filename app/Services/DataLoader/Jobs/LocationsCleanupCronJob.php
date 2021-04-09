@@ -2,13 +2,19 @@
 
 namespace App\Services\DataLoader\Jobs;
 
+use App\Jobs\NamedJob;
 use App\Models\Location;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-class LocationsCleanupCronJob extends CronJob {
+class LocationsCleanupCronJob extends CronJob implements ShouldBeUnique, NamedJob {
+    public function displayName(): string {
+        return 'ep-data-loader-locations-cleanup';
+    }
+
     public function handle(LoggerInterface $logger): void {
         $expire    = Date::now()->sub('1 hour');
         $locations = Location::query()

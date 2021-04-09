@@ -7,7 +7,15 @@ use Illuminate\Support\Env;
 use function array_key_exists;
 
 class Bootstraper extends Settings {
+    protected const MARKER = '__settings_loaded';
+
     public function bootstrap(): void {
+        // Loaded?
+        if ($this->isBootstrapped()) {
+            return;
+        }
+
+        // Load
         $saved = $this->getSavedSettings();
 
         foreach ($this->getSettings() as $setting) {
@@ -16,18 +24,27 @@ class Bootstraper extends Settings {
 
             $this->config->set($path, $value);
         }
+
+        // Mark
+        $this->config->set(static::MARKER, true);
+    }
+
+    protected function isBootstrapped(): bool {
+        return (bool) $this->config->get(static::MARKER);
     }
 
     /**
      * @param array<string, mixed> $saved
      */
     protected function getCurrentValue(array $saved, Setting $setting): mixed {
-        if ($this->isOverridden($setting->getName())) {
-            return $this->getValue($setting, Env::getRepository()->get($setting->getName()));
-        }
+        if (!$setting->isReadonly()) {
+            if ($this->isOverridden($setting->getName())) {
+                return $this->getValue($setting, Env::getRepository()->get($setting->getName()));
+            }
 
-        if (array_key_exists($setting->getName(), $saved)) {
-            return $saved[$setting->getName()];
+            if ($this->isEditable($setting) && array_key_exists($setting->getName(), $saved)) {
+                return $saved[$setting->getName()];
+            }
         }
 
         return $setting->getDefaultValue();

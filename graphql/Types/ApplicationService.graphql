@@ -1,0 +1,21 @@
+type ApplicationService {
+  name: String!
+  enabled: Boolean!
+
+  """
+  Cron expression that determines when service should run if enabled.
+  """
+  cron: String!
+
+  """
+  Queue name
+  """
+  queue: String!
+
+  """
+  Settings related to this service.
+  """
+  settings: [String!]!
+
+  description: String
+}
