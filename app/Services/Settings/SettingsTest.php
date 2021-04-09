@@ -4,11 +4,15 @@ namespace App\Services\Settings;
 
 use App\Disc;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
+use App\Services\Settings\Attributes\Job as JobAttribute;
+use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\StringType;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Collection;
+use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
+use LastDragon_ru\LaraASP\Queue\Queueables\Job;
 use Mockery;
 use Psr\Log\LoggerInterface;
 use Tests\TestCase;
@@ -306,6 +310,35 @@ class SettingsTest extends TestCase {
 
         $this->assertEquals($expected, $service->getValue($setting, $value));
     }
+
+    /**
+     * @covers ::getServices
+     */
+    public function testGetServices(): void {
+        $service = new class(
+            $this->app,
+            Mockery::mock(Repository::class),
+            Mockery::mock(LoggerInterface::class),
+        ) extends Settings {
+            protected function getStore(): string {
+                return (new class() {
+                    #[SettingAttribute('a')]
+                    public const A = 'test';
+
+                    #[SettingAttribute('b')]
+                    public const READONLY = 'readonly';
+
+                    #[ServiceAttribute(SettingsTest_Service::class, 'b')]
+                    public const SERVICE = 'service';
+
+                    #[JobAttribute(SettingsTest_Job::class, 'b')]
+                    public const JOB = 'job';
+                })::class;
+            }
+        };
+
+        $this->assertEquals([SettingsTest_Service::class], $service->getServices());
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -326,4 +359,24 @@ class SettingsTest extends TestCase {
         ];
     }
     // </editor-fold>
+}
+
+
+// @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+// @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class SettingsTest_Service extends CronJob {
+    // empty
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class SettingsTest_Job extends Job {
+    // empty
 }

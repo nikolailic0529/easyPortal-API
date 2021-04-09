@@ -106,6 +106,22 @@ class Settings {
     }
 
     /**
+     * @return array<class-string<\LastDragon_ru\LaraASP\Queue\Queueables\CronJob>>
+     */
+    public function getServices(): array {
+        $settings = $this->getSettings();
+        $services = [];
+
+        foreach ($settings as $setting) {
+            if ($setting->isService()) {
+                $services[] = $setting->getService();
+            }
+        }
+
+        return $services;
+    }
+
+    /**
      * @return array<\App\Services\Settings\Setting>
      */
     protected function getSettings(): array {

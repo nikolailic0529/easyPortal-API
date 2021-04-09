@@ -28,25 +28,11 @@ class Services {
      * @return array<string,mixed>
      */
     public function __invoke($_, array $args): array {
-        $configurator = $this->app->make(QueueableConfigurator::class);
-        $settings     = $this->settings->getEditableSettings();
+        // Collect properties
         $services     = [];
+        $configurator = $this->app->make(QueueableConfigurator::class);
 
-        foreach ($settings as $setting) {
-            // Is Service?
-            $class = $setting->getService();
-
-            if (!$class) {
-                continue;
-            }
-
-            // Add Setting
-            if (isset($services[$class])) {
-                $services[$class]['settings'][] = $setting->getName();
-                continue;
-            }
-
-            // Collect info
+        foreach ($this->settings->getServices() as $class) {
             $service = $this->app->make($class);
             $config  = $configurator->config($service);
 
@@ -56,12 +42,22 @@ class Services {
                 'enabled'     => $config->get('enabled'),
                 'cron'        => $config->get('cron'),
                 'queue'       => $config->get('queue'),
-                'settings'    => [
-                    $setting->getName(),
-                ],
+                'settings'    => [],
             ];
         }
 
+        // Collect settings
+        $settings = $this->settings->getEditableSettings();
+
+        foreach ($settings as $setting) {
+            $class = $setting->getService();
+
+            if ($class && isset($services[$class])) {
+                $services[$class]['settings'][] = $setting->getName();
+            }
+        }
+
+        // Return
         return array_values($services);
     }
 
