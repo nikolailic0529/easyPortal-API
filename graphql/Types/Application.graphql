@@ -10,4 +10,7 @@ type Application {
   services: [ApplicationService!]!
     @field(resolver: "App\\GraphQL\\Queries\\Application\\Services")
     @root
+  jobs: [ApplicationJob!]!
+    @field(resolver: "App\\GraphQL\\Queries\\Application\\Jobs")
+    @root
 }

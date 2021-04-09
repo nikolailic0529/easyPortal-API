@@ -420,4 +420,46 @@ class SettingTest extends TestCase {
         $this->assertNull($a->getService());
         $this->assertEquals(stdClass::class, $b->getService());
     }
+
+    /**
+     * @covers ::isJob
+     */
+    public function testIsJob(): void {
+        $class = new class() {
+            #[SettingAttribute('a')]
+            public const A = 'test';
+
+            #[JobAttribute(stdClass::class, 'b')]
+            public const B = 'test';
+
+            #[ServiceAttribute(stdClass::class, 'c')]
+            public const C = 'test';
+        };
+        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'A'));
+        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'B'));
+
+        $this->assertFalse($a->isJob());
+        $this->assertTrue($b->isJob());
+    }
+
+    /**
+     * @covers ::getJob
+     */
+    public function testGetJob(): void {
+        $class = new class() {
+            #[SettingAttribute('a')]
+            public const A = 'test';
+
+            #[JobAttribute(stdClass::class, 'b')]
+            public const B = 'test';
+
+            #[ServiceAttribute(stdClass::class, 'c')]
+            public const C = 'test';
+        };
+        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'A'));
+        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'B'));
+
+        $this->assertNull($a->getJob());
+        $this->assertEquals(stdClass::class, $b->getJob());
+    }
 }

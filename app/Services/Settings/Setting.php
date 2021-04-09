@@ -151,6 +151,19 @@ class Setting {
         return $group;
     }
 
+    public function isJob(): bool {
+        return $this->definition instanceof JobAttribute;
+    }
+
+    /**
+     * @return class-string<\LastDragon_ru\LaraASP\Queue\Queueables\Job>|null
+     */
+    public function getJob(): ?string {
+        return $this->isJob() && $this->definition instanceof JobAttribute
+            ? $this->definition->getClass()
+            : null;
+    }
+
     public function isService(): bool {
         return $this->definition instanceof ServiceAttribute;
     }
@@ -159,7 +172,7 @@ class Setting {
      * @return class-string<\LastDragon_ru\LaraASP\Queue\Queueables\CronJob>|null
      */
     public function getService(): ?string {
-        return $this->definition instanceof ServiceAttribute
+        return $this->isService() && $this->definition instanceof ServiceAttribute
             ? $this->definition->getClass()
             : null;
     }

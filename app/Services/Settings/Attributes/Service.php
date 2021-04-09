@@ -8,11 +8,18 @@ use Attribute;
  * Marks that setting related to {@link \LastDragon_ru\LaraASP\Queue\Queueables\CronJob}.
  */
 #[Attribute(Attribute::TARGET_CLASS_CONSTANT)]
-class Service extends Job {
+class Service extends Setting {
     /**
-     * @param class-string<\LastDragon_ru\LaraASP\Queue\Queueables\CronJob> $class
+     * @param class-string<\LastDragon_ru\LaraASP\Queue\Queueables\Job> $class
      */
-    public function __construct(string $class, string $name) {
-        parent::__construct($class, $name);
+    public function __construct(
+        protected string $class,
+        protected string $name,
+    ) {
+        parent::__construct("queue.queueables.{$class}.{$name}");
+    }
+
+    public function getClass(): string {
+        return $this->class;
     }
 }

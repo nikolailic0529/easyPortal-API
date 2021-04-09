@@ -339,6 +339,35 @@ class SettingsTest extends TestCase {
 
         $this->assertEquals([SettingsTest_Service::class], $service->getServices());
     }
+
+    /**
+     * @covers ::getJobs
+     */
+    public function testGetJobs(): void {
+        $service = new class(
+            $this->app,
+            Mockery::mock(Repository::class),
+            Mockery::mock(LoggerInterface::class),
+        ) extends Settings {
+            protected function getStore(): string {
+                return (new class() {
+                    #[SettingAttribute('a')]
+                    public const A = 'test';
+
+                    #[SettingAttribute('b')]
+                    public const READONLY = 'readonly';
+
+                    #[ServiceAttribute(SettingsTest_Service::class, 'b')]
+                    public const SERVICE = 'service';
+
+                    #[JobAttribute(SettingsTest_Job::class, 'b')]
+                    public const JOB = 'job';
+                })::class;
+            }
+        };
+
+        $this->assertEquals([SettingsTest_Job::class], $service->getJobs());
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">

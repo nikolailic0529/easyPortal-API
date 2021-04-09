@@ -33,3 +33,8 @@ Description for setting.
 ## `settings.services.<service>`
 
 Description for service.
+
+
+## `settings.jobs.<service>`
+
+Description for jobs.
