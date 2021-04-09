@@ -3,7 +3,6 @@
 namespace App\GraphQL\Mutations;
 
 use App\Disc;
-use App\Services\Filesystem;
 use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Secret;
 use App\Services\Settings\Attributes\Setting;
@@ -54,18 +53,16 @@ class UpdateApplicationSettingsTest extends TestCase {
             $service = new class(
                 $this->app,
                 $this->app->make(Repository::class),
-                $this->app->make(Filesystem::class),
                 $this->app->make(LoggerInterface::class),
                 $store::class,
             ) extends Settings {
                 public function __construct(
                     Application $app,
                     Repository $config,
-                    Filesystem $filesystem,
                     LoggerInterface $logger,
                     protected string $store,
                 ) {
-                    parent::__construct($app, $config, $filesystem, $logger);
+                    parent::__construct($app, $config, $logger);
                 }
 
                 public function getStore(): string {

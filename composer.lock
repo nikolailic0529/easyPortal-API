@@ -2616,12 +2616,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-graphql.git",
-                "reference": "307c8411d6ea9b83e35ef64c6baadb11b490ccf9"
+                "reference": "3e293ce391f4a0fc5ab130e02d88e75a3ed6b291"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/307c8411d6ea9b83e35ef64c6baadb11b490ccf9",
-                "reference": "307c8411d6ea9b83e35ef64c6baadb11b490ccf9",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/3e293ce391f4a0fc5ab130e02d88e75a3ed6b291",
+                "reference": "3e293ce391f4a0fc5ab130e02d88e75a3ed6b291",
                 "shasum": ""
             },
             "require": {
@@ -2677,7 +2677,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-03-28T12:28:09+00:00"
+            "time": "2021-04-03T11:47:41+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-migrator",
