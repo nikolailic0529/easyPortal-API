@@ -1,0 +1,22 @@
+extend type Mutation {
+  """
+  Dispatch/Run application service.
+  """
+  dispatchApplicationService(input: DispatchApplicationServiceInput!): DispatchApplicationServicePayload @root
+}
+
+input DispatchApplicationServiceInput {
+  """
+  Name of the service.
+  """
+  name: String!
+
+  """
+  If true the service will be executed right now.
+  """
+  immediately: Boolean! = false
+}
+
+type DispatchApplicationServicePayload {
+  result: Boolean!
+}

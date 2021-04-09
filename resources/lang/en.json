@@ -111,6 +111,8 @@
     "errors.validation_failed": "Validation failed.",
     "errors.graphql.error": "GraphQL Request is invalid.",
     "errors.graphql.schema_broken": "GraphQL Schema is broken.",
+    "graphql.mutations.dispatchApplicationService.failed": "Service execution failed.",
+    "graphql.mutations.dispatchApplicationService.not_found": "Service not found.",
     "models.country.name.??": "Unknown Country",
     "models.currency.name.EUR": "Euro",
     "models.status.name.customer.ACTIVE": "Active",
