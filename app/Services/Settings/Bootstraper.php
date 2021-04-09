@@ -11,7 +11,7 @@ class Bootstraper extends Settings {
 
     public function bootstrap(): void {
         // Loaded?
-        if ($this->config->get(static::MARKER)) {
+        if ($this->isBootstrapped()) {
             return;
         }
 
@@ -29,16 +29,22 @@ class Bootstraper extends Settings {
         $this->config->set(static::MARKER, true);
     }
 
+    protected function isBootstrapped(): bool {
+        return (bool) $this->config->get(static::MARKER);
+    }
+
     /**
      * @param array<string, mixed> $saved
      */
     protected function getCurrentValue(array $saved, Setting $setting): mixed {
-        if ($this->isOverridden($setting->getName())) {
-            return $this->getValue($setting, Env::getRepository()->get($setting->getName()));
-        }
+        if (!$setting->isReadonly()) {
+            if ($this->isOverridden($setting->getName())) {
+                return $this->getValue($setting, Env::getRepository()->get($setting->getName()));
+            }
 
-        if ($this->isEditable($setting) && array_key_exists($setting->getName(), $saved)) {
-            return $saved[$setting->getName()];
+            if ($this->isEditable($setting) && array_key_exists($setting->getName(), $saved)) {
+                return $saved[$setting->getName()];
+            }
         }
 
         return $setting->getDefaultValue();

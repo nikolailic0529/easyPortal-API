@@ -18,7 +18,7 @@ class Description {
 
         if ($object->getDocComment()) {
             $doc  = DocBlockFactory::createInstance()->create($object);
-            $desc = trim("{$doc->getSummary()}\n\n{$doc->getDescription()}");
+            $desc = trim("{$doc->getSummary()}\n\n{$doc->getDescription()}") ?: null;
         }
 
         return $desc;

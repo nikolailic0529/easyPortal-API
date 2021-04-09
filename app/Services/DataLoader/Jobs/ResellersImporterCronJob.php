@@ -2,9 +2,11 @@
 
 namespace App\Services\DataLoader\Jobs;
 
+use App\Jobs\NamedJob;
 use App\Services\DataLoader\DataLoaderService;
 use App\Services\DataLoader\Factories\ResellerFactory;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -12,7 +14,11 @@ use Throwable;
 /**
  * Imports reseller list.
  */
-class ResellersImporterCronJob extends CronJob {
+class ResellersImporterCronJob extends CronJob implements ShouldBeUnique, NamedJob {
+    public function displayName(): string {
+        return 'ep-data-loader-resellers-importer';
+    }
+
     public function handle(
         Container $container,
         LoggerInterface $logger,

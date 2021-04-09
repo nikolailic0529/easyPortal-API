@@ -28,3 +28,8 @@ Setting group name.
 ## `settings.descriptions.<setting>`
 
 Description for setting.
+
+
+## `settings.services.<service>`
+
+Description for service.
