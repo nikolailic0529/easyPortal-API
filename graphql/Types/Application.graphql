@@ -6,6 +6,14 @@ type Application {
     @root
   settingGroups: [ApplicationSettingGroup!]!
     @field(resolver: "App\\GraphQL\\Queries\\Application\\SettingGroups")
+  storage: ApplicationStorage @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+}
+
+type ApplicationStorage {
+  translations (
+    locale: String! @rules(apply: ["App\\Rules\\Locale"])
+    ): [Translation!]!
+    @field(resolver: "App\\GraphQL\\Queries\\Application\\StorageTranslations")
     @root
   services: [ApplicationService!]!
     @field(resolver: "App\\GraphQL\\Queries\\Application\\Services")

@@ -32,6 +32,10 @@ return [
             'driver' => 'local',
             'root'   => storage_path('app'),
         ],
+        Disc::ui()->getValue()  => [
+            'driver' => 'local',
+            'root'   => storage_path('ui'),
+        ],
         Disc::app()->getValue() => [
             'driver' => 'local',
             'root'   => storage_path('app'),

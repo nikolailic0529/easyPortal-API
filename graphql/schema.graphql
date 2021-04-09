@@ -142,6 +142,9 @@ type Mutation {
 
   "Update application settings"
   updateApplicationSettings(input: [UpdateApplicationSettingsInput!]!): UpdateApplicationSettingsPayload @root
+
+  "Update application ui translations"
+  updateApplicationStorageTranslations(input: UpdateApplicationStorageTranslationsInput!): UpdateApplicationStorageTranslationsPayload @root
 }
 
 input UpdateApplicationSettingsInput {
@@ -154,4 +157,19 @@ type UpdateApplicationSettingsPayload {
   Updated settings.
   """
   settings: [ApplicationSetting!]!
+}
+
+input UpdateApplicationStorageTranslationsInput {
+  locale: String! @rules(apply: ["App\\Rules\\Locale"])
+  translations: [UpdateApplicationTranslationsTranslation!]!
+}
+
+input UpdateApplicationTranslationsTranslation {
+  key: String!
+  value: String!
+}
+
+type UpdateApplicationStorageTranslationsPayload {
+  locale: String!
+  translations: [Translation!]!
 }

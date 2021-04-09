@@ -140,5 +140,7 @@
     "lara-asp-graphql::messages.sort_by.errors.unsupported_relation": "Relation of type `:relation` cannot be used for sort, only `:supported` supported.",
     "lara-asp-graphql::messages.sort_by.errors.unsupported_builder": "Relation cannot be used with `:builder`.",
     "lara-asp-graphql::messages.sort_by.errors.too_many_properties": "Only one property allowed, found: `:properties`.",
-    "lara-asp-graphql::messages.sort_by.errors.empty_clause": "Sort clause cannot be empty."
+    "lara-asp-graphql::messages.sort_by.errors.empty_clause": "Sort clause cannot be empty.",
+    "graphql.mutations.storageTranslation.failed_to_save": "Failed to save translations",
+    "graphql.queries.storageTranslation.file_corrupted": "Invalid language file"
 }

@@ -11,6 +11,11 @@ class Disc extends Enum {
         return static::make('app');
     }
 
+
+    public static function ui(): static {
+        return static::make('ui');
+    }
+
     public function filesystem(): Filesystem {
         return Storage::disk($this->getValue());
     }
