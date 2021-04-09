@@ -32,7 +32,7 @@ class StorageTranslations {
         }
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new StorageTranslationsQueryFileCorrupted();
+            throw new StorageTranslationsFileCorrupted();
         }
 
         return $translations;

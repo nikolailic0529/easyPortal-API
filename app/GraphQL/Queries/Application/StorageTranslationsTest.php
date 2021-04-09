@@ -60,7 +60,7 @@ class StorageTranslationsTest extends TestCase {
                 'en',
             ],
             'exception' => [
-                StorageTranslationsQueryFileCorrupted::class,
+                StorageTranslationsFileCorrupted::class,
                 '[{"key": "ValueA","value": 123}{"key": "ValueB","value": "asd"}]',
                 'en',
             ],

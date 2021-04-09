@@ -53,7 +53,7 @@ class UpdateApplicationStorageTranslations {
         }
 
         if (!$success) {
-            throw new StorageTranslationsFailedToSave($error);
+            throw new UpdateApplicationStorageTranslationsFailedToSave($error);
         }
 
         return [ 'translations' => array_values($updated) ];

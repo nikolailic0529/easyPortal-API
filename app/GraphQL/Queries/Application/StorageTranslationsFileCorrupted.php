@@ -8,8 +8,8 @@ use Throwable;
 
 use function __;
 
-class StorageTranslationsQueryFileCorrupted extends Exception implements TranslatedException {
+class StorageTranslationsFileCorrupted extends Exception implements TranslatedException {
     public function __construct(Throwable $previous = null) {
-        parent::__construct(__('graphql.queries.storageTranslation.file_corrupted'), 0, $previous);
+        parent::__construct(__('graphql.queries.application.storage.translations.file_corrupted'), 0, $previous);
     }
 }

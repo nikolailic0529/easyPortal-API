@@ -111,8 +111,10 @@
     "errors.validation_failed": "Validation failed.",
     "errors.graphql.error": "GraphQL Request is invalid.",
     "errors.graphql.schema_broken": "GraphQL Schema is broken.",
+    "graphql.queries.application.storage.translations.file_corrupted": "Failed to load language file.",
     "graphql.mutations.dispatchApplicationService.failed": "Service execution failed.",
     "graphql.mutations.dispatchApplicationService.not_found": "Service not found.",
+    "graphql.mutations.updateApplicationStorageTranslations.failed_to_save": "Failed to save translations.",
     "models.country.name.??": "Unknown Country",
     "models.currency.name.EUR": "Euro",
     "models.status.name.customer.ACTIVE": "Active",
@@ -131,16 +133,5 @@
     "models.type.name.document.Contract renewal": "Contract renewal",
     "models.type.name.document.MultiNational Quote": "MultiNational Quote",
     "models.type.name.document.MultiNational Contract": "MultiNational Contract",
-    "models.type.name.document.Delivery only": "Delivery only",
-    "lara-asp-graphql::messages.search_by.errors.too_many_properties": "Only one property allowed, found: `:properties`.",
-    "lara-asp-graphql::messages.search_by.errors.too_many_operators": "Only one comparison operator allowed, found: `:operators`.",
-    "lara-asp-graphql::messages.search_by.errors.unsupported_option": "Operator `:operator` cannot be used with `:option`.",
-    "lara-asp-graphql::messages.search_by.errors.unknown_operator": "Operator `:operator` not found.",
-    "lara-asp-graphql::messages.search_by.errors.empty_condition": "Search condition cannot be empty.",
-    "lara-asp-graphql::messages.sort_by.errors.unsupported_relation": "Relation of type `:relation` cannot be used for sort, only `:supported` supported.",
-    "lara-asp-graphql::messages.sort_by.errors.unsupported_builder": "Relation cannot be used with `:builder`.",
-    "lara-asp-graphql::messages.sort_by.errors.too_many_properties": "Only one property allowed, found: `:properties`.",
-    "lara-asp-graphql::messages.sort_by.errors.empty_clause": "Sort clause cannot be empty.",
-    "graphql.mutations.storageTranslation.failed_to_save": "Failed to save translations",
-    "graphql.queries.storageTranslation.file_corrupted": "Invalid language file"
+    "models.type.name.document.Delivery only": "Delivery only"
 }

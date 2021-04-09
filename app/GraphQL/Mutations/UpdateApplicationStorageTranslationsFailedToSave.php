@@ -8,8 +8,8 @@ use Throwable;
 
 use function __;
 
-class StorageTranslationsFailedToSave extends Exception implements TranslatedException {
+class UpdateApplicationStorageTranslationsFailedToSave extends Exception implements TranslatedException {
     public function __construct(Throwable $previous = null) {
-        parent::__construct(__('graphql.mutations.storageTranslation.failed_to_save'), 0, $previous);
+        parent::__construct(__('graphql.mutations.updateApplicationStorageTranslations.failed_to_save'), 0, $previous);
     }
 }
