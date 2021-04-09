@@ -28,7 +28,7 @@
 | --------------------- | --------- |
 | data-loader-reseller  | Yes       |
 
-1. Update the Reseller (= run `php artisan data-loader:reseller <id> --assets`)
+1. Update the Reseller (= run `php artisan ep:data-loader-reseller <id> --assets`)
 
 
 ### LocationsCleanupCronJob
@@ -42,12 +42,12 @@ While the import, some locations may become unused, this job removes them from t
 
 ## Commands
 
-### `php artisan data-loader:reseller`
+### `php artisan ep:data-loader-reseller`
 
 Sync the Reseller with Cosmos.
 
 
-### `php artisan data-loader:customer`
+### `php artisan ep:data-loader-customer`
 
 Sync the Customer with Cosmos.
 
@@ -55,7 +55,7 @@ Sync the Customer with Cosmos.
 ## Limitations/Issues/Notes
 
 0. Every time we need to load all data from Cosmos, this is slow and not optimal (just for note, cold run: started 2021-03-16 10:43:29 and finished 2021-03-16 11:29:13 = ~50 min).
-1. Cosmos may contain resellers with `type = CUSTOMER`, they will be processed only if `Cosmos.getResellers()` return them (afaik they are not returned now). It can be imported by `php artisan data-loader:reseller` if needed.
+1. Cosmos may contain resellers with `type = CUSTOMER`, they will be processed only if `Cosmos.getResellers()` return them (afaik they are not returned now). It can be imported by `php artisan ep:data-loader-reseller` if needed.
 2. (potential) If the Reseller/Customer has a huge amount of assets the sync may fail. The problem comes from the necessity to find all assets which are no longer related to this Reseller/Customer, current implementation uses `WHERE IN()` and the very long query may fail. When this will be actual then probably will be better just to skip this step, because we always update all resellers and will find these Assets just a bit later;
 3. DataLoader doesn't delete Resellers/Customers/Assets if they no longer exist in Cosmos, it just writes an error into the logs.
 4. DataLoader skips Locations without zip and/or city.

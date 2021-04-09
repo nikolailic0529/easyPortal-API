@@ -36,7 +36,7 @@ class ResellerUpdate extends Job implements ShouldBeUnique, NamedJob, Initializa
     }
 
     public function handle(Kernel $artisan): void {
-        $artisan->call('data-loader:reseller', [
+        $artisan->call('ep:data-loader-reseller', [
             'id'       => [$this->getResellerId()],
             '--assets' => true,
         ]);

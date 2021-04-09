@@ -19,7 +19,7 @@ class Customer extends Command {
      *
      * @var string
      */
-    protected $signature = 'data-loader:customer
+    protected $signature = 'ep:data-loader-customer
         {id* : The ID of the company}
         {--l|locations : Load locations (default)}
         {--L|no-locations : Skip locations}

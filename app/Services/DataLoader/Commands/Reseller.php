@@ -19,7 +19,7 @@ class Reseller extends Command {
      *
      * @var string
      */
-    protected $signature = 'data-loader:reseller
+    protected $signature = 'ep:data-loader-reseller
         {id* : The ID of the company}
         {--l|locations : Load locations (default)}
         {--L|no-locations : Skip locations}
