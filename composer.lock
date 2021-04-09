@@ -2754,12 +2754,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-queue.git",
-                "reference": "bbacb6092fe753a685e32da0d94768945c3ddd19"
+                "reference": "b1746acb4dd245022b734632e2110eb8751b2a8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-queue/zipball/bbacb6092fe753a685e32da0d94768945c3ddd19",
-                "reference": "bbacb6092fe753a685e32da0d94768945c3ddd19",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-queue/zipball/b1746acb4dd245022b734632e2110eb8751b2a8f",
+                "reference": "b1746acb4dd245022b734632e2110eb8751b2a8f",
                 "shasum": ""
             },
             "require": {
@@ -2803,7 +2803,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-03-28T12:28:09+00:00"
+            "time": "2021-04-09T12:08:37+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-spa",
