@@ -10,6 +10,8 @@
         "secret",
         "default",
         "readonly",
+        "job",
+        "service",
         "description"
     ],
     "properties": {
@@ -32,6 +34,12 @@
             "type": "string"
         },
         "readonly": {
+            "type": "boolean"
+        },
+        "job": {
+            "type": "boolean"
+        },
+        "service": {
             "type": "boolean"
         },
         "description": {
