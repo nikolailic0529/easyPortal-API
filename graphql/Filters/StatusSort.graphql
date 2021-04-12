@@ -1,0 +1,3 @@
+input StatusSort {
+  name: String!
+}

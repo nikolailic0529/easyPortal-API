@@ -2,4 +2,6 @@ input AssetsSort {
   id: ID!
   product: ProductsSort!
   serial_number: String!
+  location: LocationsSort!
+  customer: CustomersSort!
 }

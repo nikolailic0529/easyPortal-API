@@ -1,0 +1,8 @@
+input LocationsSort {
+  postcode: String!
+  state: String!
+  line_one: String!
+  line_two: String!
+  country: CountriesSort!
+  city: CitiesSort!
+}
