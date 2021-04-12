@@ -99,6 +99,7 @@
     "validation.uuid": "The :attribute must be a valid UUID.",
     "validation.phone": "The :attribute field contains an invalid number.",
     "validation.locale": "The :attribute is invalid locale.",
+    "validation.setting": "The :setting is invalid: :messages.",
     "errors.message": ":message (:code)",
     "errors.unauthenticated": "Unauthenticated.",
     "errors.unauthorized": "Unauthorized.",

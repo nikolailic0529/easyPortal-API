@@ -25,6 +25,8 @@ use function json_decode;
 use function json_encode;
 use function json_last_error;
 
+use function trim;
+
 use const JSON_ERROR_NONE;
 use const JSON_PRETTY_PRINT;
 use const JSON_UNESCAPED_LINE_TERMINATORS;
@@ -39,6 +41,11 @@ class Settings {
      */
     private array $settings = [];
 
+    /**
+     * @var array<\App\Services\Settings\Setting>
+     */
+    private array $editable = [];
+
     public function __construct(
         protected Application $app,
         protected Repository $config,
@@ -52,13 +59,21 @@ class Settings {
             && $this->app->configurationIsCached();
     }
 
+    public function getEditableSetting(string $name): ?Setting {
+        return $this->getEditableSettings()[$name] ?? null;
+    }
+
     /**
      * @return array<\App\Services\Settings\Setting>
      */
     public function getEditableSettings(): array {
-        return array_filter($this->getSettings(), function (Setting $setting) {
-            return $this->isEditable($setting);
-        });
+        if (!$this->editable) {
+            $this->editable = array_filter($this->getSettings(), function (Setting $setting) {
+                return $this->isEditable($setting);
+            });
+        }
+
+        return $this->editable;
     }
 
     /**
@@ -156,7 +171,7 @@ class Settings {
             $this->settings = [];
 
             foreach ($constants as $name => $value) {
-                $this->settings[] = new Setting(
+                $this->settings[$name] = new Setting(
                     $this->config,
                     new ReflectionClassConstant($store, $name),
                     $this->isOverridden($name),
@@ -256,15 +271,15 @@ class Settings {
         $type   = $setting->getType();
         $result = $value;
 
-        if (is_null($value) || $type->isNull($value)) {
+        if (is_null($value)) {
             $result = null;
         } elseif ($setting->isArray()) {
             $result = explode(self::DELIMITER, $value);
             $result = array_map(static function (string $value) use ($type): mixed {
-                return $type->fromString($value);
+                return $type->fromString(trim($value));
             }, $result);
         } else {
-            $result = $type->fromString($value);
+            $result = $type->fromString(trim($value));
         }
 
         return $result;

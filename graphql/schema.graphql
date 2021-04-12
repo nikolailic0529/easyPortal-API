@@ -147,7 +147,7 @@ type Mutation {
   updateApplicationStorageTranslations(input: UpdateApplicationStorageTranslationsInput!): UpdateApplicationStorageTranslationsPayload @root
 }
 
-input UpdateApplicationSettingsInput {
+input UpdateApplicationSettingsInput @validator {
   name: String!
   value: String!
 }
