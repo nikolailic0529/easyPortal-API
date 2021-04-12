@@ -34,6 +34,11 @@ use const JSON_UNESCAPED_UNICODE;
 class Settings {
     public const DELIMITER = ',';
 
+    /**
+     * @var array<\App\Services\Settings\Setting>
+     */
+    private array $settings = [];
+
     public function __construct(
         protected Application $app,
         protected Repository $config,
@@ -141,19 +146,25 @@ class Settings {
      * @return array<\App\Services\Settings\Setting>
      */
     protected function getSettings(): array {
-        $store     = $this->getStore();
-        $settings  = [];
-        $constants = (new ReflectionClass($store))->getConstants(ReflectionClassConstant::IS_PUBLIC);
+        if (!$this->settings) {
+            // We need to load `.env` to determine readonly settings.
+            $this->loadEnv();
 
-        foreach ($constants as $name => $value) {
-            $settings[] = new Setting(
-                $this->config,
-                new ReflectionClassConstant($store, $name),
-                $this->isOverridden($name),
-            );
+            // Get list of the settings.
+            $store          = $this->getStore();
+            $constants      = (new ReflectionClass($store))->getConstants(ReflectionClassConstant::IS_PUBLIC);
+            $this->settings = [];
+
+            foreach ($constants as $name => $value) {
+                $this->settings[] = new Setting(
+                    $this->config,
+                    new ReflectionClassConstant($store, $name),
+                    $this->isOverridden($name),
+                );
+            }
         }
 
-        return $settings;
+        return $this->settings;
     }
 
     /**
@@ -234,7 +245,7 @@ class Settings {
         }
 
         if (!$success) {
-            throw new SettingsFailedToSave($error);
+            throw new SettingsFailedToSave($this->getDisc(), $this->getFile(), $error);
         }
 
         // Return
@@ -260,15 +271,18 @@ class Settings {
     }
 
     /**
-     * Determines if setting overridden by ENV var (this is possible only if the
-     * application doesn't use cached config).
+     * Determines if setting overridden by ENV var.
      */
     protected function isOverridden(string $name): bool {
-        return !$this->isCached() && Env::getRepository()->has($name);
+        return Env::getRepository()->has($name);
     }
 
     protected function isEditable(Setting $setting): bool {
         return !$setting->isInternal();
+    }
+
+    protected function loadEnv(): void {
+        (new EnvLoader())->load($this->app);
     }
 
     /**

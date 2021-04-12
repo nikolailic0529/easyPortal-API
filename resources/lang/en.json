@@ -111,7 +111,7 @@
     "errors.validation_failed": "Validation failed.",
     "errors.graphql.error": "GraphQL Request is invalid.",
     "errors.graphql.schema_broken": "GraphQL Schema is broken.",
-    "graphql.queries.application.storage.translations.file_corrupted": "Failed to load language file.",
+    "graphql.queries.application.storage.translations.file_corrupted": "Failed to load translations file.",
     "graphql.mutations.dispatchApplicationService.failed": "Service execution failed.",
     "graphql.mutations.dispatchApplicationService.not_found": "Service not found.",
     "graphql.mutations.updateApplicationStorageTranslations.failed_to_save": "Failed to save translations.",
@@ -135,5 +135,7 @@
     "models.type.name.document.MultiNational Contract": "MultiNational Contract",
     "models.type.name.document.Delivery only": "Delivery only",
     "settings.groups.ep": "Easy Portal",
-    "settings.groups.data_loader": "Data Loader"
+    "settings.groups.data_loader": "Data Loader",
+    "settings.errors.failed_to_load_env": "Impossible to load env file: :file. Corrupted?",
+    "settings.errors.failed_to_save": "Impossible to save settings into :file (disc: :disc)."
 }
