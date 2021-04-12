@@ -94,21 +94,21 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Setting('ep.data-loader.enabled')]
+    #[Setting('ep.data_loader.enabled')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_ENABLED = true;
 
     /**
      * Default chunk size.
      */
-    #[Setting('ep.data-loader.chunk')]
+    #[Setting('ep.data_loader.chunk')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_CHUNK = 100;
 
     /**
      * GraphQL Endpoint.
      */
-    #[Setting('ep.data-loader.endpoint')]
+    #[Setting('ep.data_loader.endpoint')]
     #[Group('data_loader')]
     #[Type(Url::class)]
     public const EP_DATA_LOADER_ENDPOINT = '';
