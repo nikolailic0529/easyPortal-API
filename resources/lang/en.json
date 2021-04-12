@@ -133,5 +133,7 @@
     "models.type.name.document.Contract renewal": "Contract renewal",
     "models.type.name.document.MultiNational Quote": "MultiNational Quote",
     "models.type.name.document.MultiNational Contract": "MultiNational Contract",
-    "models.type.name.document.Delivery only": "Delivery only"
+    "models.type.name.document.Delivery only": "Delivery only",
+    "settings.groups.ep": "Easy Portal",
+    "settings.groups.data_loader": "Data Loader"
 }
