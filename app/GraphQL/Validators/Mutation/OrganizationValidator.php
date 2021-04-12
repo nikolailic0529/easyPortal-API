@@ -20,8 +20,8 @@ class OrganizationValidator extends Validator {
      */
     public function rules(): array {
         $currenciesTable = (new Currency())->getTable();
-        $maxSize         = $this->config->get('easyportal.image.max_size');
-        $formats         = $this->config->get('easyportal.image.formats');
+        $maxSize         = $this->config->get('ep.image.max_size');
+        $formats         = $this->config->get('ep.image.formats');
         $mimeTypes       = implode(',', $formats);
 
         return [

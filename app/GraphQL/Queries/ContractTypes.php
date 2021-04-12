@@ -20,7 +20,7 @@ class ContractTypes {
     public function __invoke($_, array $args): Collection {
         return Type::query()
             ->where('object_type', '=', (new Document())->getMorphClass())
-            ->whereIn('id', $this->config->get('easyportal.contract_types'))
+            ->whereIn('id', $this->config->get('ep.contract_types'))
             ->orderByKey()
             ->get();
     }

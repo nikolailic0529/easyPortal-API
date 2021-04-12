@@ -42,7 +42,7 @@ class QuoteTest extends TestCase {
         if ($quoteFactory) {
             $quote   = $quoteFactory($this);
             $quoteId = $quote->id;
-            $this->app->make(Repository::class)->set('easyportal.quote_types', [$quote->type_id]);
+            $this->app->make(Repository::class)->set('ep.quote_types', [$quote->type_id]);
         }
 
         // Test

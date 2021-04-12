@@ -42,7 +42,7 @@ class ContractTest extends TestCase {
         if ($contractFactory) {
             $contract   = $contractFactory($this);
             $contractId = $contract->id;
-            $this->app->make(Repository::class)->set('easyportal.contract_types', [$contract->type_id]);
+            $this->app->make(Repository::class)->set('ep.contract_types', [$contract->type_id]);
         }
 
         // Test

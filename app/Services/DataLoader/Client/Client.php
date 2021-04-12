@@ -228,7 +228,7 @@ class Client {
     // <editor-fold desc="API">
     // =========================================================================
     public function isEnabled(): bool {
-        return $this->config->get('easyportal.data-loader.enabled')
+        return $this->config->get('ep.data-loader.enabled')
             && $this->config->get('easyportal.data-loader.endpoint');
     }
 

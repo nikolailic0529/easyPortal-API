@@ -16,7 +16,7 @@ use function __;
 /**
  * Only root cat perform the action.
  *
- * @see \Config\Constants::EASYPORTAL_ROOT_USER_ID
+ * @see \Config\Constants::EP_ROOT_USER_ID
  */
 class RootDataProvider extends ArrayDataProvider {
     public function __construct(string $root) {
@@ -45,7 +45,7 @@ class RootDataProvider extends ArrayDataProvider {
                     $user = User::factory()->make();
 
                     $test->app()->make(Repository::class)->set(
-                        'easyportal.root_user_id',
+                        'ep.root_user_id',
                         $user->getKey(),
                     );
 

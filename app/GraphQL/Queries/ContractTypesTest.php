@@ -45,7 +45,7 @@ class ContractTypesTest extends TestCase {
 
         if ($settings) {
             $config = $this->app->make(Repository::class);
-            $group  = 'easyportal';
+            $group  = 'ep';
 
             $config->set($group, (new ConfigMerger())->merge(
                 $config->get($group),

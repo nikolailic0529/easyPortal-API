@@ -55,7 +55,7 @@ class RootDirective extends BaseDirective implements FieldMiddleware, TypeDefini
             $guards,
             $previous,
         ): mixed {
-            $rootId        = $this->config->get('easyportal.root_user_id');
+            $rootId        = $this->config->get('ep.root_user_id');
             $authorized    = false;
             $authenticated = false;
 

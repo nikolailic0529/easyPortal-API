@@ -44,37 +44,37 @@ interface Constants {
     /**
      * Max size of branding images/icons (branding_favicon, branding_logo) in KB.
      */
-    #[Setting('easyportal.image.max_size')]
-    public const EASYPORTAL_IMAGE_MAX_SIZE = 2048;
+    #[Setting('ep.image.max_size')]
+    public const EP_IMAGE_MAX_SIZE = 2048;
 
     /**
      * Accepted image formats.
      */
-    #[Setting('easyportal.image.formats')]
+    #[Setting('ep.image.formats')]
     #[Type(StringType::class)]
-    public const EASYPORTAL_IMAGE_FORMATS = ['jpg', 'jpeg', 'png'];
+    public const EP_IMAGE_FORMATS = ['jpg', 'jpeg', 'png'];
 
     /**
      * Root user ID.
      */
-    #[Setting('easyportal.root_user_id')]
+    #[Setting('ep.root_user_id')]
     #[Internal]
-    public const EASYPORTAL_ROOT_USER_ID = '';
+    public const EP_ROOT_USER_ID = '';
 
     /**
      * Type IDs related to contracts.
      */
-    #[Setting('easyportal.contract_types')]
+    #[Setting('ep.contract_types')]
     #[Type(StringType::class)]
-    public const EASYPORTAL_CONTRACT_TYPES = [];
+    public const EP_CONTRACT_TYPES = [];
 
     /**
      * Types IDs related to quotes. Optional, if empty will use IDs which are
-     * not in {@link \Config\Constants::EASYPORTAL_CONTRACT_TYPES}.
+     * not in {@link \Config\Constants::EP_CONTRACT_TYPES}.
      */
-    #[Setting('easyportal.quote_types')]
+    #[Setting('ep.quote_types')]
     #[Type(StringType::class)]
-    public const EASYPORTAL_QUOTE_TYPES = [];
+    public const EP_QUOTE_TYPES = [];
     // </editor-fold>
 
     // <editor-fold desc="EP_SETTINGS">
@@ -94,24 +94,24 @@ interface Constants {
     /**
      * Enabled?
      */
-    #[Setting('easyportal.data-loader.enabled')]
+    #[Setting('ep.data-loader.enabled')]
     #[Group('data_loader')]
-    public const DATA_LOADER_ENABLED = true;
+    public const EP_DATA_LOADER_ENABLED = true;
 
     /**
      * Default chunk size.
      */
-    #[Setting('easyportal.data-loader.chunk')]
+    #[Setting('ep.data-loader.chunk')]
     #[Group('data_loader')]
-    public const DATA_LOADER_CHUNK = 100;
+    public const EP_DATA_LOADER_CHUNK = 100;
 
     /**
      * GraphQL Endpoint.
      */
-    #[Setting('easyportal.data-loader.endpoint')]
+    #[Setting('ep.data-loader.endpoint')]
     #[Group('data_loader')]
     #[Type(Url::class)]
-    public const DATA_LOADER_ENDPOINT = '';
+    public const EP_DATA_LOADER_ENDPOINT = '';
 
     // <editor-fold desc="DATA_LOADER_RESELLERS_IMPORTER">
     // -------------------------------------------------------------------------
@@ -119,20 +119,20 @@ interface Constants {
      * Enabled?
      */
     #[Service(ResellersImporterCronJob::class, 'enabled')]
-    public const DATA_LOADER_RESELLERS_IMPORTER_ENABLED = self::DATA_LOADER_ENABLED;
+    public const EP_DATA_LOADER_RESELLERS_IMPORTER_ENABLED = self::EP_DATA_LOADER_ENABLED;
 
     /**
      * Cron expression.
      */
     #[Service(ResellersImporterCronJob::class, 'cron')]
     #[Type(CronExpression::class)]
-    public const DATA_LOADER_RESELLERS_IMPORTER_CRON = '0 0 * * *';
+    public const EP_DATA_LOADER_RESELLERS_IMPORTER_CRON = '0 0 * * *';
 
     /**
      * Queue name.
      */
     #[Service(ResellersImporterCronJob::class, 'queue')]
-    public const DATA_LOADER_RESELLERS_IMPORTER_QUEUE = Queues::DATA_LOADER_DEFAULT;
+    public const EP_DATA_LOADER_RESELLERS_IMPORTER_QUEUE = Queues::DATA_LOADER_DEFAULT;
     // </editor-fold>
 
     // <editor-fold desc="DATA_LOADER_RESELLERS_UPDATER">
@@ -141,27 +141,27 @@ interface Constants {
      * Enabled?
      */
     #[Service(ResellersUpdaterCronJob::class, 'enabled')]
-    public const DATA_LOADER_RESELLERS_UPDATER_ENABLED = self::DATA_LOADER_ENABLED;
+    public const EP_DATA_LOADER_RESELLERS_UPDATER_ENABLED = self::EP_DATA_LOADER_ENABLED;
 
     /**
      * Cron expression.
      */
     #[Service(ResellersUpdaterCronJob::class, 'cron')]
     #[Type(CronExpression::class)]
-    public const DATA_LOADER_RESELLERS_UPDATER_CRON = '*/5 * * * *';
+    public const EP_DATA_LOADER_RESELLERS_UPDATER_CRON = '*/5 * * * *';
 
     /**
      * Queue name.
      */
     #[Service(ResellersUpdaterCronJob::class, 'queue')]
-    public const DATA_LOADER_RESELLERS_UPDATER_QUEUE = Queues::DATA_LOADER_DEFAULT;
+    public const EP_DATA_LOADER_RESELLERS_UPDATER_QUEUE = Queues::DATA_LOADER_DEFAULT;
 
     /**
      * Queue name.
      */
     #[Service(ResellersUpdaterCronJob::class, 'settings.expire')]
     #[Type(Expiration::class)]
-    public const DATA_LOADER_RESELLERS_UPDATER_EXPIRE = '24 hours';
+    public const EP_DATA_LOADER_RESELLERS_UPDATER_EXPIRE = '24 hours';
     // </editor-fold>
 
     // <editor-fold desc="DATA_LOADER_LOCATIONS_CLEANUP">
@@ -170,20 +170,20 @@ interface Constants {
      * Enabled?
      */
     #[Service(LocationsCleanupCronJob::class, 'enabled')]
-    public const DATA_LOADER_LOCATIONS_CLEANUP_ENABLED = self::DATA_LOADER_ENABLED;
+    public const EP_DATA_LOADER_LOCATIONS_CLEANUP_ENABLED = self::EP_DATA_LOADER_ENABLED;
 
     /**
      * Cron expression.
      */
     #[Service(LocationsCleanupCronJob::class, 'cron')]
     #[Type(CronExpression::class)]
-    public const DATA_LOADER_LOCATIONS_CLEANUP_CRON = '0 */6 * * *';
+    public const EP_DATA_LOADER_LOCATIONS_CLEANUP_CRON = '0 */6 * * *';
 
     /**
      * Queue name.
      */
     #[Service(LocationsCleanupCronJob::class, 'queue')]
-    public const DATA_LOADER_LOCATIONS_CLEANUP_QUEUE = Queues::DATA_LOADER_DEFAULT;
+    public const EP_DATA_LOADER_LOCATIONS_CLEANUP_QUEUE = Queues::DATA_LOADER_DEFAULT;
     // </editor-fold>
 
     // <editor-fold desc="DATA_LOADER_RESELLER_UPDATE">
@@ -192,7 +192,7 @@ interface Constants {
      * Queue name.
      */
     #[Job(ResellerUpdate::class, 'queue')]
-    public const DATA_LOADER_RESELLER_UPDATE_QUEUE = Queues::DATA_LOADER_RESELLER;
+    public const EP_DATA_LOADER_RESELLER_UPDATE_QUEUE = Queues::DATA_LOADER_RESELLER;
     // </editor-fold>
     // </editor-fold>
 }

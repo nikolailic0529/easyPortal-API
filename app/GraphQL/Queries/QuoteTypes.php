@@ -18,13 +18,13 @@ class QuoteTypes {
      * @param  array<string, mixed>  $args
      */
     public function __invoke($_, array $args): Collection {
-        $quotesTypes = $this->config->get('easyportal.quote_types');
+        $quotesTypes = $this->config->get('ep.quote_types');
         $builder     = Type::query()
             ->where('object_type', '=', (new Document())->getMorphClass())
             ->orderByKey();
         // if empty quotes type we will use ids not represented in contracts
         if (empty($quotesTypes)) {
-            $builder->whereNotIn('id', $this->config->get('easyportal.contract_types'));
+            $builder->whereNotIn('id', $this->config->get('ep.contract_types'));
         } else {
             $builder->whereIn('id', $quotesTypes);
         }

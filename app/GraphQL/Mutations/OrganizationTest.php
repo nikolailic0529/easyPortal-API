@@ -176,8 +176,8 @@ class OrganizationTest extends TestCase {
                     static function (TestCase $test): array {
                         $config  = $test->app->make(Repository::class);
                         $maxSize = 2000;
-                        $config->set('easyportal.image.max_size', $maxSize);
-                        $config->set('easyportal.image.formats', ['png']);
+                        $config->set('ep.image.max_size', $maxSize);
+                        $config->set('ep.image.formats', ['png']);
                         return [
                             'branding_logo'    => UploadedFile::fake()->create('branding_logo.jpg', 200),
                             'branding_favicon' => UploadedFile::fake()->create('branding_favicon.jpg', 200),
@@ -191,8 +191,8 @@ class OrganizationTest extends TestCase {
                     static function (TestCase $test): array {
                         $config  = $test->app->make(Repository::class);
                         $maxSize = 2000;
-                        $config->set('easyportal.image.max_size', $maxSize);
-                        $config->set('easyportal.image.formats', ['png']);
+                        $config->set('ep.image.max_size', $maxSize);
+                        $config->set('ep.image.formats', ['png']);
                         return [
                             'branding_logo'    => UploadedFile::fake()->create('branding_logo.png', $maxSize + 1024),
                             'branding_favicon' => UploadedFile::fake()
