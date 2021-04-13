@@ -2,12 +2,13 @@
 
 namespace App\GraphQL\Queries\Application;
 
-use App\Services\Filesystem\Disks\AppDisk;
-use App\Services\Filesystem\Storages\AppTranslations;
+use App\Services\TranslationLoader;
+use Illuminate\Contracts\Foundation\Application;
 
 class Translations {
     public function __construct(
-        protected AppDisk $disk,
+        protected Application $app,
+        protected TranslationLoader $translations,
     ) {
         // empty
     }
@@ -19,7 +20,7 @@ class Translations {
      * @return array<string,mixed>
      */
     public function __invoke($_, array $args): array {
-        $translations = $this->getStorage($args['locale'])->load();
+        $translations = $this->translations->load($this->app->getLocale(), '*', '*');
         $output       = [];
 
         foreach ($translations as $key => $value) {
@@ -30,9 +31,5 @@ class Translations {
         }
 
         return $output;
-    }
-
-    protected function getStorage(string $locale): AppTranslations {
-        return new AppTranslations($this->disk, $locale);
     }
 }

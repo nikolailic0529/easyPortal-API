@@ -2,8 +2,6 @@
 
 namespace App\GraphQL\Queries\Application;
 
-use App\Services\Filesystem\Disks\AppDisk;
-use App\Services\Filesystem\Storages\AppTranslations;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -23,28 +21,14 @@ class TranslationsTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvokeQuery
-     *
-     * @param array<mixed> $translations
      */
     public function testInvokeQuery(
         Response $expected,
         Closure $tenantFactory,
         Closure $userFactory = null,
-        array $translations = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setTenant($tenantFactory));
-
-        if ($translations) {
-            $disk    = $this->app()->make(AppDisk::class);
-            $storage = new AppTranslations($disk, 'de');
-
-            $storage->save($translations);
-
-            $this->app->bind(AppDisk::class, static function () use ($disk): AppDisk {
-                return $disk;
-            });
-        }
 
         // Test
         $this
@@ -57,7 +41,7 @@ class TranslationsTest extends TestCase {
                     }
                 }
             }
-        ')
+            ')
             ->assertThat($expected);
     }
     // </editor-fold>
@@ -73,16 +57,7 @@ class TranslationsTest extends TestCase {
             new RootDataProvider('application'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('application', Translations::class, [
-                        'translations' => [
-                            ['key' => 'ValueA', 'value' => '123'],
-                            ['key' => 'ValueB', 'value' => 'asd'],
-                        ],
-                    ]),
-                    [
-                        'ValueA' => 123,
-                        'ValueB' => 'asd',
-                    ],
+                    new GraphQLSuccess('application', Translations::class),
                 ],
             ]),
         ))->getData();

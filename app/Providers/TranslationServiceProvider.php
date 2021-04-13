@@ -11,6 +11,7 @@ use Psr\Log\LoggerInterface;
 
 class TranslationServiceProvider extends IlluminateTranslationServiceProvider {
     protected function registerLoader(): void {
+        $this->app->alias('translation.loader', TranslationLoader::class);
         $this->app->singleton('translation.loader', static function (Application $app): FileLoader {
             return new TranslationLoader(
                 $app,
