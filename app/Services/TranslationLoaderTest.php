@@ -2,13 +2,11 @@
 
 namespace App\Services;
 
-use App\GraphQL\Mutations\UpdateApplicationTranslations;
+use App\Services\Filesystem\Disks\AppDisk;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Storage;
 use Mockery;
+use Psr\Log\LoggerInterface;
 use Tests\TestCase;
-
-use function __;
 
 /**
  * @internal
@@ -25,7 +23,13 @@ class TranslationLoaderTest extends TestCase {
         $this->app->setLocale($locale);
         $this->app->setFallbackLocale($fallback);
 
-        $loader = Mockery::mock(TranslationLoader::class, [$this->app, $this->app->make(Filesystem::class), '']);
+        $loader = Mockery::mock(TranslationLoader::class, [
+            $this->app,
+            $this->app->make(AppDisk::class),
+            Mockery::mock(LoggerInterface::class),
+            $this->app->make(Filesystem::class),
+            '',
+        ]);
         $loader->shouldAllowMockingProtectedMethods();
         $loader->makePartial();
 
@@ -34,12 +38,20 @@ class TranslationLoaderTest extends TestCase {
             ->with($locale)
             ->once()
             ->andReturn([
-                $locale => 123,
+                "{$locale}.loadJsonPaths" => 123,
+            ]);
+        $loader
+            ->shouldReceive('loadStorage')
+            ->with($locale)
+            ->once()
+            ->andReturn([
+                "{$locale}.loadStorage" => 123,
             ]);
 
         $this->assertEquals(
             [
-                $locale => 123,
+                "{$locale}.loadJsonPaths" => 123,
+                "{$locale}.loadStorage"   => 123,
             ],
             $loader->load($locale, '*', '*'),
         );
@@ -57,7 +69,13 @@ class TranslationLoaderTest extends TestCase {
 
         $this->assertNotEquals($locale, $fallback);
 
-        $loader = Mockery::mock(TranslationLoader::class, [$this->app, $this->app->make(Filesystem::class), '']);
+        $loader = Mockery::mock(TranslationLoader::class, [
+            $this->app,
+            $this->app->make(AppDisk::class),
+            Mockery::mock(LoggerInterface::class),
+            $this->app->make(Filesystem::class),
+            '',
+        ]);
         $loader->shouldAllowMockingProtectedMethods();
         $loader->makePartial();
 
@@ -66,20 +84,36 @@ class TranslationLoaderTest extends TestCase {
             ->with($locale)
             ->once()
             ->andReturn([
-                $locale => 123,
+                "{$locale}.loadJsonPaths" => 123,
             ]);
         $loader
             ->shouldReceive('loadJsonPaths')
             ->with($fallback)
             ->once()
             ->andReturn([
-                $fallback => 123,
+                "{$fallback}.loadJsonPaths" => 123,
+            ]);
+        $loader
+            ->shouldReceive('loadStorage')
+            ->with($locale)
+            ->once()
+            ->andReturn([
+                "{$locale}.loadStorage" => 123,
+            ]);
+        $loader
+            ->shouldReceive('loadStorage')
+            ->with($fallback)
+            ->once()
+            ->andReturn([
+                "{$fallback}.loadStorage" => 123,
             ]);
 
         $this->assertEquals(
             [
-                $locale   => 123,
-                $fallback => 123,
+                "{$locale}.loadJsonPaths"   => 123,
+                "{$fallback}.loadJsonPaths" => 123,
+                "{$locale}.loadStorage"     => 123,
+                "{$fallback}.loadStorage"   => 123,
             ],
             $loader->load($locale, '*', '*'),
         );
@@ -97,7 +131,13 @@ class TranslationLoaderTest extends TestCase {
 
         $this->assertNotEquals($locale, $fallback);
 
-        $loader = Mockery::mock(TranslationLoader::class, [$this->app, $this->app->make(Filesystem::class), '']);
+        $loader = Mockery::mock(TranslationLoader::class, [
+            $this->app,
+            Mockery::mock(AppDisk::class),
+            Mockery::mock(LoggerInterface::class),
+            $this->app->make(Filesystem::class),
+            '',
+        ]);
         $loader->shouldAllowMockingProtectedMethods();
         $loader->makePartial();
 
@@ -111,21 +151,5 @@ class TranslationLoaderTest extends TestCase {
         $loader->load($locale, 'group', 'namespace');
         $loader->load($locale, '*');
         $loader->load($locale, '*', 'namespace');
-    }
-
-    /**
-     * @covers ::load
-     */
-    public function testLoadFromStorage(): void {
-        $this->markTestIncomplete('FIXME [!]');
-
-        $locale = 'ru';
-
-        $this->app->setLocale($locale);
-
-        $mutation = $this->app->make(UpdateApplicationTranslations::class);
-        Storage::fake($mutation->getDisc()->getValue())
-            ->put($mutation->getFile($locale), '{"group.test":"translated"}');
-        $this->assertEquals('translated', __('group.test'));
     }
 }
