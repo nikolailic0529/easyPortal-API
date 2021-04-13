@@ -11,6 +11,7 @@
 |
 */
 
+use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -22,3 +23,5 @@ Route::get('/', [IndexController::class, 'index']);
 Route::fallback(static function (): void {
     throw new NotFoundHttpException();
 });
+
+Route::post('/download', [DownloadController::class, 'index']);
