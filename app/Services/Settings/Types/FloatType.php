@@ -2,6 +2,8 @@
 
 namespace App\Services\Settings\Types;
 
+use App\Rules\FloatNumber;
+
 use function filter_var;
 use function number_format;
 
@@ -14,5 +16,12 @@ class FloatType extends Type {
 
     protected function toNotNullString(mixed $value): string {
         return number_format($value, 2, '.', '');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getValidationRules(): array {
+        return [new FloatNumber()];
     }
 }

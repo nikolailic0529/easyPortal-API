@@ -2,13 +2,13 @@
 
 namespace App\Services\Settings\Types;
 
-use App\Rules\CronExpression as CronExpressionRule;
+use App\Rules\Duration as DurationRule;
 
-class CronExpression extends Type {
+class Duration extends Type {
     /**
      * @inheritDoc
      */
     public function getValidationRules(): array {
-        return [new CronExpressionRule()];
+        return [new DurationRule()];
     }
 }

@@ -24,7 +24,7 @@ class ResellersUpdaterCronJob extends CronJob implements ShouldBeUnique, NamedJo
     public function getQueueConfig(): array {
         return [
                 'settings' => [
-                    'expire' => '24 hours', // Expiration interval, seconds
+                    'expire' => '24 hours', // Expiration interval
                 ],
             ] + parent::getQueueConfig();
     }

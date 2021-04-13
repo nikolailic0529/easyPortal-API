@@ -3,5 +3,10 @@
 namespace App\Services\Settings\Types;
 
 class Url extends Type {
-    // empty
+    /**
+     * @inheritDoc
+     */
+    public function getValidationRules(): array {
+        return ['url'];
+    }
 }

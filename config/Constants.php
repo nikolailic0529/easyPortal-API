@@ -15,7 +15,7 @@ use App\Services\Settings\Attributes\Setting;
 use App\Services\Settings\Attributes\Type;
 use App\Services\Settings\Jobs\ConfigUpdate;
 use App\Services\Settings\Types\CronExpression;
-use App\Services\Settings\Types\Expiration;
+use App\Services\Settings\Types\Duration;
 use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Url;
 
@@ -173,8 +173,8 @@ interface Constants {
      */
     #[Service(ResellersUpdaterCronJob::class, 'settings.expire')]
     #[Group('data_loader')]
-    #[Type(Expiration::class)]
-    public const EP_DATA_LOADER_RESELLERS_UPDATER_EXPIRE = '24 hours';
+    #[Type(Duration::class)]
+    public const EP_DATA_LOADER_RESELLERS_UPDATER_EXPIRE = 'PT24H';
     // </editor-fold>
 
     // <editor-fold desc="DATA_LOADER_LOCATIONS_CLEANUP">
