@@ -2,8 +2,9 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Services\Filesystem\Disks\AppDisk;
+use App\Services\Filesystem\Storages\AppTranslations;
 use Closure;
-use Illuminate\Support\Facades\Storage;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -25,6 +26,7 @@ class UpdateApplicationTranslationsTest extends TestCase {
      * @dataProvider dataProviderInvoke
      *
      * @param array<string,mixed> $input
+     * @param array<mixed>        $translations
      */
     public function testInvoke(
         Response $expected,
@@ -34,15 +36,20 @@ class UpdateApplicationTranslationsTest extends TestCase {
             'locale'       => 'en',
             'translations' => [],
         ],
-        string $json = null,
+        array $translations = [],
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setTenant($tenantFactory));
 
-        if ($json) {
-            $mutation = $this->app->make(UpdateApplicationTranslations::class);
-            $disc     = $mutation->getDisc()->getValue();
-            Storage::fake($disc)->put($mutation->getFile('en'), $json);
+        if ($translations) {
+            $disk    = $this->app()->make(AppDisk::class);
+            $storage = new AppTranslations($disk, 'en');
+
+            $storage->save($translations);
+
+            $this->app->bind(AppDisk::class, static function () use ($disk): AppDisk {
+                return $disk;
+            });
         }
 
         // Test
@@ -55,7 +62,7 @@ class UpdateApplicationTranslationsTest extends TestCase {
                             value
                         }
                     }
-            }', [ 'input' => $input ])
+            }', ['input' => $input])
             ->assertThat($expected);
     }
     // </editor-fold>
@@ -81,6 +88,7 @@ class UpdateApplicationTranslationsTest extends TestCase {
                 'value' => 'value1',
             ],
         ];
+
         return (new CompositeDataProvider(
             new TenantDataProvider(),
             new RootDataProvider('updateApplicationTranslations'),
@@ -94,7 +102,9 @@ class UpdateApplicationTranslationsTest extends TestCase {
                         ],
                     ),
                     $input,
-                    '{"key1":"other key"}',
+                    [
+                        'key1' => 'other key',
+                    ],
                 ],
                 'success - update current value'             => [
                     new GraphQLSuccess(
@@ -105,7 +115,9 @@ class UpdateApplicationTranslationsTest extends TestCase {
                         ],
                     ),
                     $input,
-                    '{"key1":"old"}',
+                    [
+                        'key1' => 'old',
+                    ],
                 ],
                 'success - retrieve updated duplicate input' => [
                     new GraphQLSuccess(
@@ -128,7 +140,9 @@ class UpdateApplicationTranslationsTest extends TestCase {
                             ],
                         ],
                     ],
-                    '{"key1":"old"}',
+                    [
+                        'key1' => 'old',
+                    ],
                 ],
             ]),
         ))->getData();

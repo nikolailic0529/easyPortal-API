@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations;
 use App\Jobs\NamedJob;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Settings;
+use App\Services\Settings\Storage;
 use Closure;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
@@ -49,7 +50,7 @@ class DispatchApplicationServiceTest extends TestCase {
         $service = new class(
             $this->app,
             $this->app->make(Repository::class),
-            $this->app->make(LoggerInterface::class),
+            $this->app->make(Storage::class),
         ) extends Settings {
             protected function getStore(): string {
                 return (new class() {

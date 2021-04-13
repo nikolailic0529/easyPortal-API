@@ -5,6 +5,8 @@ namespace Tests;
 use Closure;
 use Illuminate\Translation\Translator;
 
+use function array_keys;
+
 /**
  * @mixin \Tests\TestCase
  */
@@ -14,12 +16,17 @@ trait WithTranslations {
      *      $translations
      */
     public function setTranslations(Closure|null $translations): void {
+        /**
+         * FIXME [test] This is doesn't work properly for HTTP requests when
+         * Locale set by {@see \App\Services\LocaleService}.
+         */
         $translator   = $this->app->make(Translator::class);
         $translations = $translations instanceof Closure
             ? $translations($this, $translator->getLocale(), $translator->getFallback())
             : [];
 
         foreach ((array) $translations as $locale => $lines) {
+            $translator->load('*', '*', $locale);
             $translator->replaceLines($lines, $locale);
         }
     }

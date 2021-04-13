@@ -2,44 +2,38 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Disc;
-use App\Services\Filesystem;
-use Exception;
+use App\Services\Filesystem\Disks\UIDisk;
+use App\Services\Filesystem\Storages\UITranslations;
 use Illuminate\Support\Collection;
 
 use function array_values;
-use function json_decode;
-use function json_encode;
 
 class UpdateApplicationStorageTranslations {
     public function __construct(
-        protected Filesystem $filesystem,
+        protected UIDisk $disk,
     ) {
         // empty
     }
 
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
+     * @param null                 $_
+     * @param array<string, mixed> $args
+     *
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
         $inputTranslations = $args['input']['translations'];
-        $disc              = $this->filesystem->disk($this->getDisc());
-        $file              = $this->getFile($args['input']['locale']);
-        $translations      = [];
+        $locale            = $args['input']['locale'];
+        $storage           = $this->getStorage($locale);
+        $translations      = $storage->load();
+        $updated           = [];
+        $deleted           = [];
 
-        // Check if translation json file exists
-        if ($disc->exists($file)) {
-            $translations = json_decode($disc->get($file), true) ?: [];
-        }
-
-        $updated = [];
-        $deleted = [];
-
+        // Update
         $translations = (new Collection($translations))->keyBy(static function ($translation): string {
             return $translation['key'];
         });
+
         foreach ($inputTranslations as $translation) {
             if ($translation['delete']) {
                 if (!$translations->has($translation['key'])) {
@@ -58,30 +52,17 @@ class UpdateApplicationStorageTranslations {
             }
         }
 
-        $error   = null;
-        $success = false;
+        // Save
+        $storage->save($translations->values()->all());
 
-        try {
-            $success = $disc->put($file, json_encode($translations->values()));
-        } catch (Exception $exception) {
-            $error = $exception;
-        }
-
-        if (!$success) {
-            throw new UpdateApplicationStorageTranslationsFailedToSave($error);
-        }
-
+        // Return
         return [
             'updated' => array_values($updated),
             'deleted' => array_values($deleted),
         ];
     }
 
-    public function getDisc(): Disc {
-        return Disc::ui();
-    }
-
-    public function getFile(string $locale): string {
-        return "lang/{$locale}.json";
+    protected function getStorage(string $locale): UITranslations {
+        return new UITranslations($this->disk, $locale);
     }
 }

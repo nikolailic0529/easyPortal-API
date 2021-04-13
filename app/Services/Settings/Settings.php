@@ -2,17 +2,13 @@
 
 namespace App\Services\Settings;
 
-use App\Disc;
-use App\Services\Settings\Exceptions\SettingsFailedToSave;
 use App\Services\Settings\Jobs\ConfigUpdate;
 use Config\Constants;
-use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Foundation\CachesConfiguration;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Env;
-use Psr\Log\LoggerInterface;
 use ReflectionClass;
 use ReflectionClassConstant;
 
@@ -21,17 +17,7 @@ use function array_map;
 use function array_values;
 use function explode;
 use function is_null;
-use function json_decode;
-use function json_encode;
-use function json_last_error;
-
 use function trim;
-
-use const JSON_ERROR_NONE;
-use const JSON_PRETTY_PRINT;
-use const JSON_UNESCAPED_LINE_TERMINATORS;
-use const JSON_UNESCAPED_SLASHES;
-use const JSON_UNESCAPED_UNICODE;
 
 class Settings {
     public const DELIMITER = ',';
@@ -49,7 +35,7 @@ class Settings {
     public function __construct(
         protected Application $app,
         protected Repository $config,
-        protected LoggerInterface $logger,
+        protected Storage $storage,
     ) {
         // empty
     }
@@ -186,41 +172,11 @@ class Settings {
      * @return array<string, string>
      */
     protected function getSavedSettings(): array {
-        $fs       = $this->getDisc()->filesystem();
-        $error    = null;
-        $settings = [];
-
-        try {
-            if ($fs->exists($this->getFile())) {
-                $settings = (array) json_decode($fs->get($this->getFile()), true);
-            }
-
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                $error = json_last_error();
-            }
-        } catch (Exception $exception) {
-            $error    = $exception;
-            $settings = [];
-        }
-
-        if (!is_null($error)) {
-            $this->logger->warning(
-                'Impossible to load application settings. Default used.',
-                [
-                    'disc'  => $this->getDisc()->getValue(),
-                    'file'  => $this->getFile(),
-                    'error' => $error,
-                ],
-            );
-        }
-
-        return $settings;
+        return $this->storage->load();
     }
 
     /**
      * @param array<string, \App\Services\Settings\Value> $settings
-     *
-     * @throws \App\Services\Settings\Exceptions\SettingsFailedToSave if failed
      */
     protected function saveSettings(array $settings): bool {
         // Cleanup
@@ -245,26 +201,7 @@ class Settings {
         }
 
         // Save
-        $fs      = $this->getDisc()->filesystem();
-        $error   = null;
-        $success = false;
-
-        try {
-            $success = $fs->put($this->getFile(), json_encode(
-                $stored,
-                JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_LINE_TERMINATORS,
-            ));
-        } catch (Exception $exception) {
-            $error   = $exception;
-            $success = false;
-        }
-
-        if (!$success) {
-            throw new SettingsFailedToSave($this->getDisc(), $this->getFile(), $error);
-        }
-
-        // Return
-        return true;
+        return $this->storage->save($stored->all());
     }
 
     protected function getValue(Setting $setting, ?string $value): mixed {
@@ -305,13 +242,5 @@ class Settings {
      */
     protected function getStore(): string {
         return Constants::class;
-    }
-
-    protected function getDisc(): Disc {
-        return Disc::app();
-    }
-
-    protected function getFile(): string {
-        return 'settings.json';
     }
 }

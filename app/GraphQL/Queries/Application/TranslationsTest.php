@@ -2,9 +2,9 @@
 
 namespace App\GraphQL\Queries\Application;
 
+use App\Services\Filesystem\Disks\AppDisk;
+use App\Services\Filesystem\Storages\AppTranslations;
 use Closure;
-use Exception;
-use Illuminate\Support\Facades\Storage;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -13,93 +13,55 @@ use Tests\DataProviders\TenantDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
-use function is_array;
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Application\Translations
-*/
+ */
 class TranslationsTest extends TestCase {
-    /**
-     * @covers ::__invoke
-     * @dataProvider dataProviderInvoke
-     *
-     * @param  array<mixed> $expected
-    */
-    public function testInvoke(array|string $expected, string $json, string $locale): void {
-        if (!is_array($expected)) {
-            // Didn't use $expected exception object since __ or trans() are not initialized yet in dataProviders
-            $this->expectException($expected);
-        }
-        $query = $this->app->make(Translations::class);
-        Storage::fake($query->getDisc()->getValue())
-            ->put($query->getFile($locale), $json);
-        $output = $this->app->make(Translations::class)(null, [
-            'locale' => $locale,
-        ]);
-        if (!$expected instanceof Exception) {
-            $this->assertEquals($expected, $output);
-        }
-    }
-
-    // <editor-fold desc="DataProviders">
+    // <editor-fold desc="Tests">
     // =========================================================================
-    /**
-     * @return array<mixed>
-     */
-    public function dataProviderInvoke(): array {
-        return [
-            'ok'        => [
-                [
-                    ['key' => 'ValueA', 'value' => 123],
-                    ['key' => 'ValueB', 'value' => 'asd'],
-                ],
-                '{"ValueA":123,"ValueB":"asd"}',
-                'de',
-            ],
-            'exception' => [
-                TranslationsFileCorrupted::class,
-                '{"ValueA":123,"ValueB":"asd",}',
-                'de',
-            ],
-        ];
-    }
-    // </editor-fold>
-
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvokeQuery
      *
-     * @param  array<mixed> $expected
-    */
+     * @param array<mixed> $translations
+     */
     public function testInvokeQuery(
         Response $expected,
         Closure $tenantFactory,
         Closure $userFactory = null,
-        string $json = null,
+        array $translations = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setTenant($tenantFactory));
 
-        if ($json) {
-            $query = $this->app->make(Translations::class);
-            Storage::fake($query->getDisc()->getValue())
-                ->put($query->getFile('de'), $json);
+        if ($translations) {
+            $disk    = $this->app()->make(AppDisk::class);
+            $storage = new AppTranslations($disk, 'de');
+
+            $storage->save($translations);
+
+            $this->app->bind(AppDisk::class, static function () use ($disk): AppDisk {
+                return $disk;
+            });
         }
 
         // Test
         $this
-        ->graphQL(/** @lang GraphQL */ '
+            ->graphQL(/** @lang GraphQL */ '
             {
                 application {
-                    translations(locale:"de") {
+                    translations(locale: "de") {
                         key
                         value
                     }
                 }
             }
         ')
-        ->assertThat($expected);
+            ->assertThat($expected);
     }
+    // </editor-fold>
+
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
@@ -117,7 +79,10 @@ class TranslationsTest extends TestCase {
                             ['key' => 'ValueB', 'value' => 'asd'],
                         ],
                     ]),
-                    '{"ValueA":"123","ValueB":"asd"}',
+                    [
+                        'ValueA' => 123,
+                        'ValueB' => 'asd',
+                    ],
                 ],
             ]),
         ))->getData();

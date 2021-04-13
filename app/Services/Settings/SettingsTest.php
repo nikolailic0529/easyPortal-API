@@ -2,7 +2,6 @@
 
 namespace App\Services\Settings;
 
-use App\Disc;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
@@ -14,13 +13,9 @@ use Illuminate\Support\Collection;
 use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
 use LastDragon_ru\LaraASP\Queue\Queueables\Job;
 use Mockery;
-use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
 use function array_map;
-use function json_encode;
-
-use const JSON_PRETTY_PRINT;
 
 /**
  * @internal
@@ -42,8 +37,8 @@ class SettingsTest extends TestCase {
     public function testGetEditableSettings(): void {
         $service = new class(
             $this->app,
-            $this->app->make(Repository::class),
-            Mockery::mock(LoggerInterface::class),
+            Mockery::mock(Repository::class),
+            Mockery::mock(Storage::class),
         ) extends Settings {
             protected function getStore(): string {
                 return (new class() {
@@ -60,7 +55,7 @@ class SettingsTest extends TestCase {
             }
         };
 
-        $expected = ['A'];
+        $expected = ['A' => 'A'];
         $actual   = array_map(static function (Setting $setting): string {
             return $setting->getName();
         }, $service->getEditableSettings());
@@ -75,7 +70,7 @@ class SettingsTest extends TestCase {
         $service = new class(
             $this->app,
             $this->app->make(Repository::class),
-            Mockery::mock(LoggerInterface::class),
+            Mockery::mock(Storage::class),
         ) extends Settings {
             /**
              * @inheritdoc
@@ -99,7 +94,7 @@ class SettingsTest extends TestCase {
             }
         };
 
-        $expected = ['A', 'B'];
+        $expected = ['A' => 'A', 'B' => 'B'];
         $actual   = array_map(static function (Setting $setting): string {
             return $setting->getName();
         }, $service->getSettings());
@@ -111,14 +106,10 @@ class SettingsTest extends TestCase {
      * @covers ::getSavedSettings
      */
     public function testGetSavedSettings(): void {
-        $logger = Mockery::mock(LoggerInterface::class);
-
-        $logger->shouldReceive('warning')->once()->andReturns();
-
         $service = new class(
             $this->app,
-            $this->app->make(Repository::class),
-            $logger,
+            Mockery::mock(Repository::class),
+            $this->app->make(Storage::class),
         ) extends Settings {
             /**
              * @inheritDoc
@@ -127,31 +118,17 @@ class SettingsTest extends TestCase {
                 return parent::getSavedSettings();
             }
 
-            public function getDisc(): Disc {
-                return parent::getDisc();
-            }
-
-            public function getFile(): string {
-                return parent::getFile();
+            public function getStorage(): Storage {
+                return $this->storage;
             }
         };
-
-        // No file
-        $fs = $service->getDisc()->fake();
-
-        $this->assertFalse($fs->exists($service->getFile()));
-        $this->assertEquals([], $service->getSavedSettings());
-
-        // Corrupted file
-        $this->assertTrue($fs->put($service->getFile(), 'not json}}'));
-        $this->assertEquals([], $service->getSavedSettings());
 
         // Json
         $expected = [
             'TEST' => 123,
         ];
 
-        $this->assertTrue($fs->put($service->getFile(), json_encode($expected)));
+        $this->assertTrue($service->getStorage()->save($expected));
         $this->assertEquals($expected, $service->getSavedSettings());
     }
 
@@ -161,13 +138,9 @@ class SettingsTest extends TestCase {
     public function testSetEditableSettings(): void {
         $service = new class(
             $this->app,
-            $this->app->make(Repository::class),
-            Mockery::mock(LoggerInterface::class),
+            Mockery::mock(Repository::class),
+            $this->app->make(Storage::class),
         ) extends Settings {
-            public function getDisc(): Disc {
-                return parent::getDisc();
-            }
-
             protected function getStore(): string {
                 return (new class() {
                     #[SettingAttribute('a')]
@@ -189,8 +162,6 @@ class SettingsTest extends TestCase {
                 return $name === 'READONLY';
             }
         };
-
-        $service->getDisc()->fake();
 
         $updated = $service->setEditableSettings([
             [
@@ -236,7 +207,7 @@ class SettingsTest extends TestCase {
         $service = new class(
             $this->app,
             $this->app->make(Repository::class),
-            Mockery::mock(LoggerInterface::class),
+            $this->app->make(Storage::class),
         ) extends Settings {
             /**
              * @inheritDoc
@@ -245,12 +216,8 @@ class SettingsTest extends TestCase {
                 return parent::saveSettings($settings);
             }
 
-            public function getDisc(): Disc {
-                return parent::getDisc();
-            }
-
-            public function getFile(): string {
-                return parent::getFile();
+            public function getStorage(): Storage {
+                return $this->storage;
             }
 
             protected function isOverridden(string $name): bool {
@@ -268,18 +235,13 @@ class SettingsTest extends TestCase {
             }
         };
 
-        $fs       = $service->getDisc()->fake();
         $settings = $service->getEditableSettings();
 
-        $this->assertTrue($fs->put($service->getFile(), json_encode([
+        $this->assertTrue($service->getStorage()->save([
             'TEST' => 123,
-        ])));
+        ]));
         $this->assertTrue($service->saveSettings($settings));
-
-        $this->assertEquals(
-            json_encode(['A' => null], JSON_PRETTY_PRINT),
-            $fs->get($service->getFile()),
-        );
+        $this->assertEquals(['A' => null], $service->getStorage()->load());
     }
 
     /**
@@ -318,7 +280,7 @@ class SettingsTest extends TestCase {
         $service = new class(
             $this->app,
             Mockery::mock(Repository::class),
-            Mockery::mock(LoggerInterface::class),
+            Mockery::mock(Storage::class),
         ) extends Settings {
             protected function getStore(): string {
                 return (new class() {
@@ -347,7 +309,7 @@ class SettingsTest extends TestCase {
         $service = new class(
             $this->app,
             Mockery::mock(Repository::class),
-            Mockery::mock(LoggerInterface::class),
+            Mockery::mock(Storage::class),
         ) extends Settings {
             protected function getStore(): string {
                 return (new class() {

@@ -2,8 +2,9 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Services\Filesystem\Disks\UIDisk;
+use App\Services\Filesystem\Storages\UITranslations;
 use Closure;
-use Illuminate\Support\Facades\Storage;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -11,8 +12,6 @@ use Tests\DataProviders\GraphQL\RootDataProvider;
 use Tests\DataProviders\TenantDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
-
-use function json_encode;
 
 /**
  * @internal
@@ -44,9 +43,14 @@ class UpdateApplicationStorageTranslationsTest extends TestCase {
         $this->setUser($userFactory, $this->setTenant($tenantFactory));
 
         if ($translations) {
-            $mutation = $this->app->make(UpdateApplicationStorageTranslations::class);
-            $disc     = $mutation->getDisc()->getValue();
-            Storage::fake($disc)->put('lang/en.json', json_encode($translations));
+            $disk    = $this->app()->make(UIDisk::class);
+            $storage = new UITranslations($disk, 'en');
+
+            $storage->save($translations);
+
+            $this->app->bind(UIDisk::class, static function () use ($disk): UIDisk {
+                return $disk;
+            });
         }
 
         // Test
@@ -63,7 +67,7 @@ class UpdateApplicationStorageTranslationsTest extends TestCase {
                             value
                         }
                     }
-            }', [ 'input' => $input ])
+            }', ['input' => $input])
             ->assertThat($expected);
     }
     // </editor-fold>
@@ -89,6 +93,7 @@ class UpdateApplicationStorageTranslationsTest extends TestCase {
                 'value' => 'value1',
             ],
         ];
+
         return (new CompositeDataProvider(
             new TenantDataProvider(),
             new RootDataProvider('updateApplicationStorageTranslations'),

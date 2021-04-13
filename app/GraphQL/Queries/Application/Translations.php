@@ -2,53 +2,37 @@
 
 namespace App\GraphQL\Queries\Application;
 
-use App\Disc;
-use App\Services\Filesystem;
-
-use function array_push;
-use function json_decode;
-use function json_last_error;
-
-use const JSON_ERROR_NONE;
+use App\Services\Filesystem\Disks\AppDisk;
+use App\Services\Filesystem\Storages\AppTranslations;
 
 class Translations {
     public function __construct(
-        protected Filesystem $filesystem,
+        protected AppDisk $disk,
     ) {
         // empty
     }
+
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
+     * @param null                 $_
+     * @param array<string, mixed> $args
+     *
      * @return array<string,mixed>
      */
     public function __invoke($_, array $args): array {
-        $disc         = $this->filesystem->disk($this->getDisc());
-        $translations = [];
-        $file         = $this->getFile($args['locale']);
-        if ($disc->exists($file)) {
-            $translations = json_decode($disc->get($file), true);
-        }
+        $translations = $this->getStorage($args['locale'])->load();
+        $output       = [];
 
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new TranslationsFileCorrupted();
-        }
-
-        $output = [];
         foreach ($translations as $key => $value) {
-            array_push($output, [
+            $output[] = [
                 'key'   => $key,
                 'value' => $value,
-            ]);
+            ];
         }
+
         return $output;
     }
 
-    public function getDisc(): Disc {
-        return Disc::resources();
-    }
-
-    public function getFile(string $locale): string {
-        return "{$locale}.json";
+    protected function getStorage(string $locale): AppTranslations {
+        return new AppTranslations($this->disk, $locale);
     }
 }

@@ -9,6 +9,7 @@ use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Bootstraper;
 use App\Services\Settings\Settings;
+use App\Services\Settings\Storage;
 use Closure;
 use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
@@ -50,12 +51,14 @@ class ServicesTest extends TestCase {
             $service = new class(
                 $this->app,
                 $this->app->make(Repository::class),
+                $this->app->make(Storage::class),
                 $store::class,
             ) extends Bootstraper {
                 /** @noinspection PhpMissingParentConstructorInspection */
                 public function __construct(
                     protected Application $app,
                     protected Repository $config,
+                    protected Storage $storage,
                     protected string $store,
                 ) {
                     // empty

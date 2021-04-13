@@ -2,21 +2,19 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Disc;
 use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Secret;
 use App\Services\Settings\Attributes\Setting;
 use App\Services\Settings\Attributes\Type;
 use App\Services\Settings\Settings;
+use App\Services\Settings\Storage;
 use App\Services\Settings\Types\StringType;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Support\Facades\Storage;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Psr\Log\LoggerInterface;
 use Tests\DataProviders\GraphQL\RootDataProvider;
 use Tests\DataProviders\TenantDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -53,28 +51,20 @@ class UpdateApplicationSettingsTest extends TestCase {
             $service = new class(
                 $this->app,
                 $this->app->make(Repository::class),
-                $this->app->make(LoggerInterface::class),
+                $this->app->make(Storage::class),
                 $store::class,
             ) extends Settings {
                 public function __construct(
                     Application $app,
                     Repository $config,
-                    LoggerInterface $logger,
+                    Storage $storage,
                     protected string $store,
                 ) {
-                    parent::__construct($app, $config, $logger);
+                    parent::__construct($app, $config, $storage);
                 }
 
-                public function getStore(): string {
+                protected function getStore(): string {
                     return $this->store;
-                }
-
-                public function getDisc(): Disc {
-                    return parent::getDisc();
-                }
-
-                public function getFile(): string {
-                    return parent::getFile();
                 }
 
                 protected function isOverridden(string $name): bool {
@@ -85,8 +75,6 @@ class UpdateApplicationSettingsTest extends TestCase {
             $this->app->bind(Settings::class, static function () use ($service): Settings {
                 return $service;
             });
-
-            Storage::fake($service->getDisc()->getValue());
         }
 
         // Test
