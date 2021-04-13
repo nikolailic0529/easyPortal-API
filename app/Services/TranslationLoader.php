@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
-use Illuminate\Filesystem\Filesystem;
+use App\Disc;
+use Exception;
+use Illuminate\Filesystem\Filesystem as MainFileSystem;
 use Illuminate\Foundation\Application;
 use Illuminate\Translation\FileLoader;
 
@@ -17,7 +19,7 @@ class TranslationLoader extends FileLoader {
      */
     public function __construct(
         protected Application $app,
-        Filesystem $files,
+        MainFileSystem $files,
         $path,
     ) {
         parent::__construct($files, $path);
@@ -28,6 +30,18 @@ class TranslationLoader extends FileLoader {
      */
     public function load($locale, $group, $namespace = null): array {
         $loaded = parent::load($locale, $group, $namespace);
+
+        if ($group === '*' && $namespace === '*') {
+            try {
+                $fileSystem = $this->app->make(FileSystem::class);
+                $disc       = Disc::app();
+                $this->addJsonPath($fileSystem->disk($disc)->path('lang'));
+                $loaded += $this->loadJsonPaths($locale);
+            } catch (Exception $e) {
+                // It should not break the app and continue
+                // empty
+            }
+        }
 
         if ($group === '*' && $namespace === '*' && $locale !== $this->app->getFallbackLocale()) {
             $loaded += $this->loadJsonPaths($this->app->getFallbackLocale());

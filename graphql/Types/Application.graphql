@@ -14,4 +14,9 @@ type Application {
   jobs: [ApplicationJob!]!
     @field(resolver: "App\\GraphQL\\Queries\\Application\\Jobs")
     @root
+  translations (
+    locale: String! @rules(apply: ["App\\Rules\\Locale"])
+  ): [Translation!]!
+    @field(resolver: "App\\GraphQL\\Queries\\Application\\Translations")
+    @root
 }

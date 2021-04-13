@@ -11,7 +11,6 @@ class Disc extends Enum {
         return static::make('app');
     }
 
-
     public static function ui(): static {
         return static::make('ui');
     }
@@ -22,5 +21,9 @@ class Disc extends Enum {
 
     public function fake(): Filesystem {
         return Storage::fake($this->getValue());
+    }
+
+    public static function resources(): static {
+        return static::make('resources');
     }
 }

@@ -2,9 +2,13 @@
 
 namespace App\Services;
 
+use App\GraphQL\Mutations\UpdateApplicationTranslations;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Storage;
 use Mockery;
 use Tests\TestCase;
+
+use function __;
 
 /**
  * @internal
@@ -28,7 +32,7 @@ class TranslationLoaderTest extends TestCase {
         $loader
             ->shouldReceive('loadJsonPaths')
             ->with($locale)
-            ->once()
+            ->twice()
             ->andReturn([
                 $locale => 123,
             ]);
@@ -60,7 +64,7 @@ class TranslationLoaderTest extends TestCase {
         $loader
             ->shouldReceive('loadJsonPaths')
             ->with($locale)
-            ->once()
+            ->twice()
             ->andReturn([
                 $locale => 123,
             ]);
@@ -107,5 +111,19 @@ class TranslationLoaderTest extends TestCase {
         $loader->load($locale, 'group', 'namespace');
         $loader->load($locale, '*');
         $loader->load($locale, '*', 'namespace');
+    }
+
+    /**
+     * @covers ::load
+     */
+    public function testLoadFromStorage(): void {
+        $locale = 'ru';
+
+        $this->app->setLocale($locale);
+
+        $mutation = $this->app->make(UpdateApplicationTranslations::class);
+        Storage::fake($mutation->getDisc()->getValue())
+            ->put($mutation->getFile($locale), '{"group.test":"translated"}');
+        $this->assertEquals('translated', __('group.test'));
     }
 }

@@ -28,25 +28,29 @@ return [
     |
     */
     'disks'   => [
-        'local'                 => [
+        'local'                       => [
             'driver' => 'local',
             'root'   => storage_path('app'),
         ],
-        Disc::ui()->getValue()  => [
+        Disc::ui()->getValue()        => [
             'driver' => 'local',
             'root'   => storage_path('ui'),
         ],
-        Disc::app()->getValue() => [
+        Disc::app()->getValue()       => [
             'driver' => 'local',
             'root'   => storage_path('app'),
         ],
-        'public'                => [
+        Disc::resources()->getValue() => [
+            'driver' => 'local',
+            'root'   => base_path('resources/lang'),
+        ],
+        'public'                      => [
             'driver'     => 'local',
             'root'       => storage_path('app/public'),
             'url'        => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
-        's3'                    => [
+        's3'                          => [
             'driver'   => 's3',
             'key'      => env('AWS_ACCESS_KEY_ID'),
             'secret'   => env('AWS_SECRET_ACCESS_KEY'),

@@ -145,6 +145,9 @@ type Mutation {
 
   "Update application ui translations"
   updateApplicationStorageTranslations(input: UpdateApplicationStorageTranslationsInput!): UpdateApplicationStorageTranslationsPayload @root
+
+  "Update application api translations"
+  updateApplicationTranslations(input: UpdateApplicationTranslationsInput!): UpdateApplicationTranslationsPayload @root
 }
 
 input UpdateApplicationSettingsInput @validator {
@@ -174,4 +177,14 @@ type UpdateApplicationStorageTranslationsPayload {
   locale: String!
   updated: [Translation!]!
   deleted: [Translation!]!
+}
+
+input UpdateApplicationTranslationsInput {
+  locale: String! @rules(apply: ["App\\Rules\\Locale"])
+  translations: [UpdateApplicationTranslationsTranslation!]!
+}
+
+type UpdateApplicationTranslationsPayload {
+  locale: String!
+  translations: [Translation!]!
 }
