@@ -54,7 +54,11 @@ class UpdateApplicationStorageTranslationsTest extends TestCase {
             ->graphQL(/** @lang GraphQL */ 'mutation updateApplicationStorageTranslations(
                 $input: UpdateApplicationStorageTranslationsInput!) {
                     updateApplicationStorageTranslations(input:$input){
-                        translations {
+                        updated {
+                            key
+                            value
+                        }
+                        deleted {
                             key
                             value
                         }
@@ -94,7 +98,8 @@ class UpdateApplicationStorageTranslationsTest extends TestCase {
                         'updateApplicationStorageTranslations',
                         UpdateApplicationStorageTranslations::class,
                         [
-                            'translations' => $objects,
+                            'updated' => $objects,
+                            'deleted' => [],
                         ],
                     ),
                     $input,
@@ -110,7 +115,8 @@ class UpdateApplicationStorageTranslationsTest extends TestCase {
                         'updateApplicationStorageTranslations',
                         UpdateApplicationStorageTranslations::class,
                         [
-                            'translations' => $objects,
+                            'updated' => $objects,
+                            'deleted' => [],
                         ],
                     ),
                     $input,
@@ -126,7 +132,8 @@ class UpdateApplicationStorageTranslationsTest extends TestCase {
                         'updateApplicationStorageTranslations',
                         UpdateApplicationStorageTranslations::class,
                         [
-                            'translations' => $objects,
+                            'updated' => $objects,
+                            'deleted' => [],
                         ],
                     ),
                     [
@@ -146,6 +153,108 @@ class UpdateApplicationStorageTranslationsTest extends TestCase {
                         [
                             'key'   => 'key1',
                             'value' => 'old',
+                        ],
+                    ],
+                ],
+                'success - delete from existing'             => [
+                    new GraphQLSuccess(
+                        'updateApplicationStorageTranslations',
+                        UpdateApplicationStorageTranslations::class,
+                        [
+                            'updated' => [],
+                            'deleted' => $objects,
+                        ],
+                    ),
+                    [
+                        'locale'       => 'en',
+                        'translations' => [
+                            [
+                                'key'    => 'key1',
+                                'value'  => 'value1',
+                                'delete' => true,
+                            ],
+                        ],
+                    ],
+                    $objects,
+                ],
+                'success - update and delete'                => [
+                    new GraphQLSuccess(
+                        'updateApplicationStorageTranslations',
+                        UpdateApplicationStorageTranslations::class,
+                        [
+                            'updated' => [
+                                [
+                                    'key'   => 'key1',
+                                    'value' => 'value1 updated',
+                                ],
+                            ],
+                            'deleted' => [
+                                [
+                                    'key'   => 'key2',
+                                    'value' => 'value2',
+                                ],
+                            ],
+                        ],
+                    ),
+                    [
+                        'locale'       => 'en',
+                        'translations' => [
+                            [
+                                'key'    => 'key1',
+                                'value'  => 'value1 updated',
+                                'delete' => false,
+                            ],
+                            [
+                                'key'    => 'key2',
+                                'value'  => 'value2',
+                                'delete' => true,
+                            ],
+                        ],
+                    ],
+                    [
+                        [
+                            'key'   => 'key1',
+                            'value' => 'value1',
+                        ],
+                        [
+                            'key'   => 'key2',
+                            'value' => 'value2',
+                        ],
+                    ],
+                ],
+                'success - non-existing delete'              => [
+                    new GraphQLSuccess(
+                        'updateApplicationStorageTranslations',
+                        UpdateApplicationStorageTranslations::class,
+                        [
+                            'updated' => [],
+                            'deleted' => [
+                                [
+                                    'key'   => 'key1',
+                                    'value' => 'value1',
+                                ],
+                            ],
+                        ],
+                    ),
+                    [
+                        'locale'       => 'en',
+                        'translations' => [
+                            [
+                                'key'    => 'key1',
+                                'value'  => 'value1',
+                                'delete' => true,
+                            ],
+                            [
+                                'key'    => 'key2',
+                                'value'  => 'value2',
+                                'delete' => true,
+                            ],
+                        ],
+                    ],
+                    [
+                        [
+                            'key'   => 'key1',
+                            'value' => 'value1',
                         ],
                     ],
                 ],

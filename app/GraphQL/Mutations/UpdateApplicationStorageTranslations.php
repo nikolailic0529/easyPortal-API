@@ -34,13 +34,28 @@ class UpdateApplicationStorageTranslations {
             $translations = json_decode($disc->get($file), true) ?: [];
         }
 
-        $updated      = [];
+        $updated = [];
+        $deleted = [];
+
         $translations = (new Collection($translations))->keyBy(static function ($translation): string {
             return $translation['key'];
         });
         foreach ($inputTranslations as $translation) {
-            $translations->put($translation['key'], $translation);
-            $updated[$translation['key']] = $translation;
+            if ($translation['delete']) {
+                if (!$translations->has($translation['key'])) {
+                    // So it doesn't return false deleted
+                    continue;
+                }
+                $deleted[$translation['key']] = $translation;
+                $translations->forget($translation['key']);
+            } else {
+                $data = [
+                    'key'   => $translation['key'],
+                    'value' => $translation['value'],
+                ];
+                $translations->put($translation['key'], $data);
+                $updated[$translation['key']] = $data;
+            }
         }
 
         $error   = null;
@@ -56,7 +71,10 @@ class UpdateApplicationStorageTranslations {
             throw new UpdateApplicationStorageTranslationsFailedToSave($error);
         }
 
-        return [ 'translations' => array_values($updated) ];
+        return [
+            'updated' => array_values($updated),
+            'deleted' => array_values($deleted),
+        ];
     }
 
     public function getDisc(): Disc {

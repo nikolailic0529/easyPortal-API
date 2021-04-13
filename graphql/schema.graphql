@@ -167,9 +167,11 @@ input UpdateApplicationStorageTranslationsInput {
 input UpdateApplicationTranslationsTranslation {
   key: String!
   value: String!
+  delete: Boolean! = false
 }
 
 type UpdateApplicationStorageTranslationsPayload {
   locale: String!
-  translations: [Translation!]!
+  updated: [Translation!]!
+  deleted: [Translation!]!
 }
