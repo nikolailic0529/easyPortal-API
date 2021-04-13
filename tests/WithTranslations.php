@@ -20,7 +20,7 @@ trait WithTranslations {
             : [];
 
         foreach ((array) $translations as $locale => $lines) {
-            $translator->addLines($lines, $locale);
+            $translator->replaceLines($lines, $locale);
         }
     }
 }
