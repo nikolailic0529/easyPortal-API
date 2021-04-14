@@ -1,0 +1,18 @@
+extend type Mutation {
+  """
+  Force delete all translations for a given locale, may be useful to restore the
+  corrupted file.
+  """
+  deleteApplicationTranslations(
+    input: DeleteApplicationTranslationsInput!
+  ): DeleteApplicationTranslationsPayload
+    @root
+}
+
+input DeleteApplicationTranslationsInput {
+  locale: String! @rules(apply: ["App\\Rules\\Locale"])
+}
+
+type DeleteApplicationTranslationsPayload {
+  result: Boolean!
+}
