@@ -4,7 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Services\Settings\Storage;
 
-class DeleteApplicationSettings {
+class RecoverApplicationSettings {
     public function __construct(
         protected Storage $storage,
     ) {

@@ -15,9 +15,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\DeleteApplicationSettings
+ * @coversDefaultClass \App\GraphQL\Mutations\RecoverApplicationSettings
  */
-class DeleteApplicationSettingsTest extends TestCase {
+class RecoverApplicationSettingsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -50,8 +50,8 @@ class DeleteApplicationSettingsTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '
-                mutation deleteApplicationSettings {
-                    deleteApplicationSettings {
+                mutation recoverApplicationSettings {
+                    recoverApplicationSettings {
                         result
                     }
                 }')
@@ -67,10 +67,10 @@ class DeleteApplicationSettingsTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            new RootDataProvider('deleteApplicationSettings'),
+            new RootDataProvider('recoverApplicationSettings'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('deleteApplicationSettings', DeleteApplicationSettings::class, [
+                    new GraphQLSuccess('recoverApplicationSettings', RecoverApplicationSettings::class, [
                         'result' => true,
                     ]),
                 ],

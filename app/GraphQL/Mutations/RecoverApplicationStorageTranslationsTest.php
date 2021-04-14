@@ -15,9 +15,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\DeleteApplicationStorageTranslations
+ * @coversDefaultClass \App\GraphQL\Mutations\RecoverApplicationStorageTranslations
  */
-class DeleteApplicationStorageTranslationsTest extends TestCase {
+class RecoverApplicationStorageTranslationsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -42,7 +42,7 @@ class DeleteApplicationStorageTranslationsTest extends TestCase {
                 ->once()
                 ->andReturn(true);
 
-            $mutation = Mockery::mock(DeleteApplicationStorageTranslations::class);
+            $mutation = Mockery::mock(RecoverApplicationStorageTranslations::class);
             $mutation->makePartial();
             $mutation->shouldAllowMockingProtectedMethods();
             $mutation
@@ -50,7 +50,7 @@ class DeleteApplicationStorageTranslationsTest extends TestCase {
                 ->once()
                 ->andReturn($storage);
 
-            $this->app->bind(DeleteApplicationStorageTranslations::class, static function () use ($mutation) {
+            $this->app->bind(RecoverApplicationStorageTranslations::class, static function () use ($mutation) {
                 return $mutation;
             });
         }
@@ -58,8 +58,8 @@ class DeleteApplicationStorageTranslationsTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '
-                mutation deleteApplicationStorageTranslations {
-                    deleteApplicationStorageTranslations(input: {locale: "en"}) {
+                mutation recoverApplicationStorageTranslations {
+                    recoverApplicationStorageTranslations(input: {locale: "en"}) {
                         result
                     }
                 }')
@@ -75,12 +75,12 @@ class DeleteApplicationStorageTranslationsTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            new RootDataProvider('deleteApplicationStorageTranslations'),
+            new RootDataProvider('recoverApplicationStorageTranslations'),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess(
-                        'deleteApplicationStorageTranslations',
-                        DeleteApplicationStorageTranslations::class,
+                        'recoverApplicationStorageTranslations',
+                        RecoverApplicationStorageTranslations::class,
                         [
                             'result' => true,
                         ],

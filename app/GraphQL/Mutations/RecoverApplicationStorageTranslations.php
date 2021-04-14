@@ -5,7 +5,7 @@ namespace App\GraphQL\Mutations;
 use App\Services\Filesystem\Disks\UIDisk;
 use App\Services\Filesystem\Storages\UITranslations;
 
-class DeleteApplicationStorageTranslations {
+class RecoverApplicationStorageTranslations {
     public function __construct(
         protected UIDisk $disk,
     ) {

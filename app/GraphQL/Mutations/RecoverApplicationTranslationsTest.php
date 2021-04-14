@@ -15,9 +15,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\DeleteApplicationTranslations
+ * @coversDefaultClass \App\GraphQL\Mutations\RecoverApplicationTranslations
  */
-class DeleteApplicationTranslationsTest extends TestCase {
+class RecoverApplicationTranslationsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -42,7 +42,7 @@ class DeleteApplicationTranslationsTest extends TestCase {
                 ->once()
                 ->andReturn(true);
 
-            $mutation = Mockery::mock(DeleteApplicationTranslations::class);
+            $mutation = Mockery::mock(RecoverApplicationTranslations::class);
             $mutation->makePartial();
             $mutation->shouldAllowMockingProtectedMethods();
             $mutation
@@ -50,7 +50,7 @@ class DeleteApplicationTranslationsTest extends TestCase {
                 ->once()
                 ->andReturn($storage);
 
-            $this->app->bind(DeleteApplicationTranslations::class, static function () use ($mutation) {
+            $this->app->bind(RecoverApplicationTranslations::class, static function () use ($mutation) {
                 return $mutation;
             });
         }
@@ -58,8 +58,8 @@ class DeleteApplicationTranslationsTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '
-                mutation deleteApplicationTranslations {
-                    deleteApplicationTranslations(input: {locale: "en"}) {
+                mutation recoverApplicationTranslations {
+                    recoverApplicationTranslations(input: {locale: "en"}) {
                         result
                     }
                 }')
@@ -75,10 +75,10 @@ class DeleteApplicationTranslationsTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            new RootDataProvider('deleteApplicationTranslations'),
+            new RootDataProvider('recoverApplicationTranslations'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('deleteApplicationTranslations', DeleteApplicationTranslations::class, [
+                    new GraphQLSuccess('recoverApplicationTranslations', RecoverApplicationTranslations::class, [
                         'result' => true,
                     ]),
                 ],

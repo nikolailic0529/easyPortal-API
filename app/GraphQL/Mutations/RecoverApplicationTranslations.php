@@ -5,7 +5,7 @@ namespace App\GraphQL\Mutations;
 use App\Services\Filesystem\Disks\AppDisk;
 use App\Services\Filesystem\Storages\AppTranslations;
 
-class DeleteApplicationTranslations {
+class RecoverApplicationTranslations {
     public function __construct(
         protected AppDisk $disk,
     ) {
