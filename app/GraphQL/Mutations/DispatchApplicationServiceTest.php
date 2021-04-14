@@ -14,7 +14,6 @@ use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Psr\Log\LoggerInterface;
 use Tests\DataProviders\GraphQL\RootDataProvider;
 use Tests\DataProviders\TenantDataProvider;
 use Tests\GraphQL\GraphQLError;

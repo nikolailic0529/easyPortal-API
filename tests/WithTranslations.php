@@ -5,8 +5,6 @@ namespace Tests;
 use Closure;
 use Illuminate\Translation\Translator;
 
-use function array_keys;
-
 /**
  * @mixin \Tests\TestCase
  */

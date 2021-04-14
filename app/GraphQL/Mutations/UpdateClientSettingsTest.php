@@ -62,7 +62,8 @@ class UpdateClientSettingsTest extends TestCase {
 
         $this
             ->graphQL(
-            /** @lang GraphQL */ '
+                /** @lang GraphQL */
+                '
                 mutation updateClientSettings($settings: [UpdateClientSettingsInput!]!) {
                     updateClientSettings(input: $settings) {
                         updated {

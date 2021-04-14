@@ -7,6 +7,9 @@ class StringType extends Type {
         return $value === 'empty' || $value === '(empty)' ? '' : $value;
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function getValidationRules(): array {
         return [];
     }
