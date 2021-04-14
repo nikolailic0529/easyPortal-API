@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "settings"
+    ],
+    "properties": {
+        "settings": {
+            "type": "array",
+            "items": {
+                "$ref": "../../Types/ClientSetting.json"
+            }
+        }
+    }
+}

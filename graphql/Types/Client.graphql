@@ -3,4 +3,7 @@ type Client {
     locale: String! @rules(apply: ["App\\Rules\\Locale"])
   ): [Translation!]!
     @field(resolver: "App\\GraphQL\\Queries\\Client\\Translations")
+
+  settings: [ClientSetting!]!
+    @field(resolver: "App\\GraphQL\\Queries\\Client\\Settings")
 }
