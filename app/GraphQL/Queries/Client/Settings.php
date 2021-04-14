@@ -3,10 +3,13 @@
 namespace App\GraphQL\Queries\Client;
 
 use App\Services\Filesystem\Storages\ClientSettings;
+use App\Services\Settings\Settings as SettingsService;
+use Illuminate\Support\Collection;
 
 class Settings {
     public function __construct(
         protected ClientSettings $storage,
+        protected SettingsService $settings,
     ) {
         // empty
     }
@@ -18,6 +21,17 @@ class Settings {
      * @return array<string,mixed>
      */
     public function __invoke($_, array $args): array {
-        return $this->storage->load();
+        $settings = (new Collection($this->storage->load()))->keyBy(static function (array $setting): string {
+            return $setting['name'];
+        });
+
+        foreach ($this->settings->getPublicSettings() as $name => $value) {
+            $settings[$name] = [
+                'name'  => $name,
+                'value' => $value,
+            ];
+        }
+
+        return $settings->all();
     }
 }

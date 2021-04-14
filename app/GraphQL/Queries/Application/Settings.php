@@ -4,16 +4,10 @@ namespace App\GraphQL\Queries\Application;
 
 use App\Services\Settings\Setting;
 use App\Services\Settings\Settings as SettingsService;
-use Illuminate\Support\Collection;
 
-use function array_fill_keys;
-use function array_keys;
 use function array_map;
-use function is_null;
 
 class Settings {
-    protected const SECRET = '********';
-
     public function __construct(
         protected SettingsService $settings,
     ) {
@@ -49,43 +43,14 @@ class Settings {
             'name'        => $setting->getName(),
             'type'        => $setting->getTypeName(),
             'array'       => $setting->isArray(),
-            'value'       => $this->toString($setting, $setting->getValue()),
+            'value'       => $this->settings->serializeValue($setting, $setting->getValue()),
+            'values'      => $setting->getType()->getValues(),
             'secret'      => $setting->isSecret(),
-            'default'     => $this->toString($setting, $setting->getDefaultValue()),
+            'default'     => $this->settings->serializeValue($setting, $setting->getDefaultValue()),
             'readonly'    => $setting->isReadonly(),
             'job'         => $setting->isJob(),
             'service'     => $setting->isService(),
             'description' => $setting->getDescription(),
         ];
-    }
-
-    protected function toString(Setting $setting, mixed $value): string {
-        $type   = $setting->getType();
-        $value  = $this->hide($setting, $value);
-        $string = null;
-
-        if ($setting->isArray() && !is_null($value)) {
-            $string = (new Collection((array) $value))
-                ->map(static function (mixed $value) use ($type): string {
-                    return $type->toString($value);
-                })
-                ->implode(SettingsService::DELIMITER);
-        } else {
-            $string = $type->toString($value);
-        }
-
-        return $string;
-    }
-
-    protected function hide(Setting $setting, mixed $value): mixed {
-        if ($setting->isSecret()) {
-            if ($setting->isArray() && !is_null($value)) {
-                $value = array_fill_keys(array_keys((array) $value), static::SECRET);
-            } else {
-                $value = $value ? static::SECRET : null;
-            }
-        }
-
-        return $value;
     }
 }

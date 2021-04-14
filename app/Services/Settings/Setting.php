@@ -5,6 +5,7 @@ namespace App\Services\Settings;
 use App\Services\Settings\Attributes\Group as GroupAttribute;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
+use App\Services\Settings\Attributes\PublicName;
 use App\Services\Settings\Attributes\Secret as SecretAttribute;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
@@ -175,6 +176,19 @@ class Setting {
         return $this->isService() && $this->definition instanceof ServiceAttribute
             ? $this->definition->getClass()
             : null;
+    }
+
+    public function isPublic(): bool {
+        return (bool) $this->getAttribute(PublicName::class);
+    }
+
+    public function getPublicName(): ?string {
+        $attr = $this->getAttribute(PublicName::class)?->newInstance();
+        $name = $attr instanceof PublicName
+            ? $attr->getName()
+            : null;
+
+        return $name;
     }
 
     /**

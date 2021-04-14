@@ -107,6 +107,6 @@ class Bootstraper extends Settings {
     }
 
     protected function getEnvValue(Setting $setting): mixed {
-        return $this->getValue($setting, Env::getRepository()->get($setting->getName()));
+        return $this->parseValue($setting, Env::getRepository()->get($setting->getName()));
     }
 }

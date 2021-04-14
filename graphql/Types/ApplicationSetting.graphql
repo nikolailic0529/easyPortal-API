@@ -19,6 +19,11 @@ type ApplicationSetting {
   value: String!
 
   """
+  Allowed values.
+  """
+  values: [ApplicationSettingValues!]
+
+  """
   Indicates that the setting contains sensitive data (eg password), in this case,
   the real value will not be returned.
   """

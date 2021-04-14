@@ -2,6 +2,7 @@
 
 namespace App\Services\Settings\Types;
 
+use Illuminate\Support\Collection;
 use ReflectionClass;
 
 use function is_null;
@@ -57,5 +58,12 @@ abstract class Type {
      */
     public function getValidationRules(): array {
         return [];
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model>|array<mixed>|null
+     */
+    public function getValues(): Collection|array|null {
+        return null;
     }
 }

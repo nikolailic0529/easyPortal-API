@@ -12,8 +12,8 @@ class TranslatorMixin {
          * @param array<string,array<string,string>> $lines
          */
         return function (array $lines, $locale): void {
-            /** @var \Illuminate\Translation\Translator $this */
             foreach ($lines as $key => $value) {
+                /** @var \Illuminate\Translation\Translator $this */
                 $this->loaded['*']['*'][$locale][$key] = $value;
             }
         };

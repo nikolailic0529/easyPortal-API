@@ -10,6 +10,8 @@ use Tests\TestCase;
  * @coversDefaultClass \App\Rules\Locale
  */
 class LocaleTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @covers ::message
      */
@@ -46,4 +48,5 @@ class LocaleTest extends TestCase {
             'Invalid'               => [false, 'wrong'],
         ];
     }
+    // </editor-fold>
 }

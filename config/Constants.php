@@ -10,11 +10,13 @@ use App\Services\DataLoader\Jobs\ResellerUpdate;
 use App\Services\Settings\Attributes\Group;
 use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Job;
+use App\Services\Settings\Attributes\PublicName;
 use App\Services\Settings\Attributes\Service;
 use App\Services\Settings\Attributes\Setting;
 use App\Services\Settings\Attributes\Type;
 use App\Services\Settings\Jobs\ConfigUpdate;
 use App\Services\Settings\Types\CronExpression;
+use App\Services\Settings\Types\DocumentType;
 use App\Services\Settings\Types\Duration;
 use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Url;
@@ -45,6 +47,7 @@ interface Constants {
      * Max size of branding images/icons (branding_favicon, branding_logo) in KB.
      */
     #[Setting('ep.image.max_size')]
+    #[PublicName('epImageMaxSize')]
     #[Group('ep')]
     public const EP_IMAGE_MAX_SIZE = 2048;
 
@@ -52,6 +55,7 @@ interface Constants {
      * Accepted image formats.
      */
     #[Setting('ep.image.formats')]
+    #[PublicName('epImageFormats')]
     #[Group('ep')]
     #[Type(StringType::class)]
     public const EP_IMAGE_FORMATS = ['jpg', 'jpeg', 'png'];
@@ -69,7 +73,7 @@ interface Constants {
      */
     #[Setting('ep.contract_types')]
     #[Group('ep')]
-    #[Type(StringType::class)]
+    #[Type(DocumentType::class)]
     public const EP_CONTRACT_TYPES = [];
 
     /**
@@ -78,7 +82,7 @@ interface Constants {
      */
     #[Setting('ep.quote_types')]
     #[Group('ep')]
-    #[Type(StringType::class)]
+    #[Type(DocumentType::class)]
     public const EP_QUOTE_TYPES = [];
     // </editor-fold>
 

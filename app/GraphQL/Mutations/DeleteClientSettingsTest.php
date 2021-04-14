@@ -62,7 +62,8 @@ class DeleteClientSettingsTest extends TestCase {
 
         $this
             ->graphQL(
-            /** @lang GraphQL */ '
+                /** @lang GraphQL */
+                '
                 mutation deleteClientSettings($names: [String!]!) {
                     deleteClientSettings(input: {names: $names}) {
                         deleted

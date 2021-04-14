@@ -74,7 +74,8 @@ class DeleteClientTranslationsTest extends TestCase {
 
         $this
             ->graphQL(
-            /** @lang GraphQL */ '
+                /** @lang GraphQL */
+                '
                 mutation deleteClientTranslations($locale: String!, $keys: [String!]!) {
                     deleteClientTranslations(input: {locale: $locale, keys: $keys}) {
                         deleted

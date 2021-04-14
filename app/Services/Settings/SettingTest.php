@@ -5,6 +5,7 @@ namespace App\Services\Settings;
 use App\Services\Settings\Attributes\Group as GroupAttribute;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
+use App\Services\Settings\Attributes\PublicName as PublicNameAttribute;
 use App\Services\Settings\Attributes\Secret as SecretAttribute;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
@@ -461,5 +462,43 @@ class SettingTest extends TestCase {
 
         $this->assertNull($a->getJob());
         $this->assertEquals(stdClass::class, $b->getJob());
+    }
+
+    /**
+     * @covers ::isPublic
+     */
+    public function testIsPublic(): void {
+        $class = new class() {
+            #[SettingAttribute('a')]
+            public const A = 'test';
+
+            #[SettingAttribute('b')]
+            #[PublicNameAttribute('b')]
+            public const B = 'test';
+        };
+        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'A'));
+        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'B'));
+
+        $this->assertFalse($a->isPublic());
+        $this->assertTrue($b->isPublic());
+    }
+
+    /**
+     * @covers ::getPublicName
+     */
+    public function testGetPublicName(): void {
+        $class = new class() {
+            #[SettingAttribute('a')]
+            public const A = 'test';
+
+            #[SettingAttribute('b')]
+            #[PublicNameAttribute('publicNameB')]
+            public const B = 'test';
+        };
+        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'A'));
+        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'B'));
+
+        $this->assertNull($a->getPublicName());
+        $this->assertEquals('publicNameB', $b->getPublicName());
     }
 }
