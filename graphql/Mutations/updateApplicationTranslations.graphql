@@ -7,7 +7,7 @@ extend type Mutation {
 
 input UpdateApplicationTranslationsInput {
   locale: String! @rules(apply: ["App\\Rules\\Locale"])
-  translations: [UpdateApplicationTranslationsTranslation!]!
+  translations: [TranslationInput!]!
 }
 
 type UpdateApplicationTranslationsPayload {

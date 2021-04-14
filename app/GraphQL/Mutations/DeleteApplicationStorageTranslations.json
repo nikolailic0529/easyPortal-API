@@ -3,13 +3,13 @@
     "type": "object",
     "additionalProperties": false,
     "required": [
-        "updated"
+        "deleted"
     ],
     "properties": {
-        "updated": {
+        "deleted": {
             "type": "array",
             "items": {
-                "$ref": "../types.json#/definitions/Translation"
+                "type": "string"
             }
         }
     }

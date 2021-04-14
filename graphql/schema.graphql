@@ -1,6 +1,7 @@
 #import Scalars/*.graphql
 #import Types/*.graphql
 #import Filters/*.graphql
+#import Inputs/*.graphql
 #import Mutations/*.graphql
 
 type Query {
@@ -139,10 +140,4 @@ type Mutation {
     website_url: String             # TODO [GraphQL] URL type needed
     email: String                   # TODO [GraphQL] Email type needed
   ): Boolean! @guard @validator
-}
-
-input UpdateApplicationTranslationsTranslation {
-  key: String!
-  value: String!
-  delete: Boolean! = false
 }

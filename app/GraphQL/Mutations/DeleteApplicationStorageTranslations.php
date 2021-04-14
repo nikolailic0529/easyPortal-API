@@ -6,9 +6,9 @@ use App\Services\Filesystem\Disks\UIDisk;
 use App\Services\Filesystem\Storages\UITranslations;
 use Illuminate\Support\Collection;
 
-use function array_values;
+use function array_unique;
 
-class UpdateApplicationStorageTranslations {
+class DeleteApplicationStorageTranslations {
     public function __construct(
         protected UIDisk $disk,
     ) {
@@ -22,20 +22,21 @@ class UpdateApplicationStorageTranslations {
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
-        $inputTranslations = $args['input']['translations'];
-        $locale            = $args['input']['locale'];
-        $storage           = $this->getStorage($locale);
-        $translations      = $storage->load();
-        $updated           = [];
-
-        // Update
-        $translations = (new Collection($translations))->keyBy(static function ($translation): string {
+        $keys         = $args['input']['keys'];
+        $locale       = $args['input']['locale'];
+        $storage      = $this->getStorage($locale);
+        $translations = (new Collection($storage->load()))->keyBy(static function (array $translation): string {
             return $translation['key'];
         });
+        $deleted      = [];
 
-        foreach ($inputTranslations as $translation) {
-            $translations->put($translation['key'], $translation);
-            $updated[$translation['key']] = $translation;
+        // Update
+        foreach ($keys as $key) {
+            if (isset($translations[$key])) {
+                $deleted[] = $key;
+
+                unset($translations[$key]);
+            }
         }
 
         // Save
@@ -43,7 +44,7 @@ class UpdateApplicationStorageTranslations {
 
         // Return
         return [
-            'updated' => array_values($updated),
+            'deleted' => array_unique($deleted),
         ];
     }
 

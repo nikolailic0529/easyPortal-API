@@ -8,11 +8,10 @@ extend type Mutation {
 
 input UpdateApplicationStorageTranslationsInput {
   locale: String! @rules(apply: ["App\\Rules\\Locale"])
-  translations: [UpdateApplicationTranslationsTranslation!]!
+  translations: [TranslationInput!]!
 }
 
 type UpdateApplicationStorageTranslationsPayload {
   locale: String!
   updated: [Translation!]!
-  deleted: [Translation!]!
 }
