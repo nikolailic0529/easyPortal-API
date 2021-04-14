@@ -4,6 +4,7 @@ namespace App\Services\Settings;
 
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
+use App\Services\Settings\Attributes\PublicName;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Types\IntType;
@@ -245,19 +246,19 @@ class SettingsTest extends TestCase {
     }
 
     /**
-     * @covers ::getValue
+     * @covers ::parseValue
      *
-     * @dataProvider dataProviderGetValue
+     * @dataProvider dataProviderParseValue
      */
-    public function testGetValue(mixed $expected, string $type, bool $isArray, mixed $value): void {
+    public function testParseValue(mixed $expected, string $type, bool $isArray, mixed $value): void {
         $service = new class() extends Settings {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct() {
                 // empty
             }
 
-            public function getValue(Setting $setting, ?string $value): mixed {
-                return parent::getValue($setting, $value);
+            public function parseValue(Setting $setting, ?string $value): mixed {
+                return parent::parseValue($setting, $value);
             }
         };
 
@@ -270,7 +271,7 @@ class SettingsTest extends TestCase {
             ->shouldReceive('isArray')
             ->andReturn($isArray);
 
-        $this->assertEquals($expected, $service->getValue($setting, $value));
+        $this->assertEquals($expected, $service->parseValue($setting, $value));
     }
 
     /**
@@ -330,6 +331,64 @@ class SettingsTest extends TestCase {
 
         $this->assertEquals([SettingsTest_Job::class], $service->getJobs());
     }
+
+    /**
+     * @covers ::getPublicSettings
+     */
+    public function testGetPublicSettings(): void {
+        $service = new class(
+            $this->app,
+            $this->app->make(Repository::class),
+            Mockery::mock(Storage::class),
+        ) extends Settings {
+            protected function getStore(): string {
+                return (new class() {
+                    #[SettingAttribute('a')]
+                    #[PublicName('publicSettingA')]
+                    public const A = 'test';
+
+                    #[SettingAttribute('b')]
+                    public const READONLY = 'readonly';
+                })::class;
+            }
+        };
+
+        $this->assertEquals(['publicSettingA' => 'null'], $service->getPublicSettings());
+    }
+
+    /**
+     * @covers ::serializeValue
+     *
+     * @dataProvider dataProviderSerializeValue
+     */
+    public function testSerializeValue(
+        mixed $expected,
+        string $type,
+        bool $isArray,
+        bool $isSecret,
+        mixed $value,
+    ): void {
+        $service = new class() extends Settings {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+        };
+
+        $setting = Mockery::mock(Setting::class);
+        $setting
+            ->shouldReceive('getType')
+            ->once()
+            ->andReturn(new $type());
+        $setting
+            ->shouldReceive('isArray')
+            ->andReturn($isArray);
+        $setting
+            ->shouldReceive('isSecret')
+            ->andReturn($isSecret);
+
+        $this->assertEquals($expected, $service->serializeValue($setting, $value));
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -337,7 +396,7 @@ class SettingsTest extends TestCase {
     /**
      * @return array<mixed>
      */
-    public function dataProviderGetValue(): array {
+    public function dataProviderParseValue(): array {
         return [
             'null'        => [null, StringType::class, false, null],
             '"null"'      => [null, StringType::class, false, 'null'],
@@ -347,6 +406,23 @@ class SettingsTest extends TestCase {
             '1,2,3'       => [[1, 2, 3], IntType::class, true, '1,2,3'],
             '123'         => [123, IntType::class, false, '123'],
             '123 (array)' => [[123], IntType::class, true, '123'],
+        ];
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderSerializeValue(): array {
+        return [
+            'null'                 => ['null', StringType::class, false, false, null],
+            '"null"'               => ['null', StringType::class, false, false, 'null'],
+            '"null,null"'          => ['null,null', StringType::class, false, false, 'null,null'],
+            'null,null'            => ['null,null', IntType::class, true, false, [null, null]],
+            '1,2,3'                => ['1,2,3', IntType::class, true, false, [1, 2, 3]],
+            '123'                  => ['123', IntType::class, false, false, 123],
+            '123 (array)'          => ['123', IntType::class, true, false, [123]],
+            '123 (secret)'         => ['********', IntType::class, false, true, 123],
+            '123 (secret + array)' => ['********,********', IntType::class, true, true, [123, 456]],
         ];
     }
     // </editor-fold>

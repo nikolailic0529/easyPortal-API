@@ -3,6 +3,7 @@
 namespace App\Services\Settings;
 
 use App\Services\Settings\Jobs\ConfigUpdate;
+use App\Services\Settings\Settings as SettingsService;
 use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
@@ -12,7 +13,9 @@ use Illuminate\Support\Env;
 use ReflectionClass;
 use ReflectionClassConstant;
 
+use function array_fill_keys;
 use function array_filter;
+use function array_keys;
 use function array_map;
 use function array_values;
 use function explode;
@@ -20,7 +23,8 @@ use function is_null;
 use function trim;
 
 class Settings {
-    public const DELIMITER = ',';
+    public const    DELIMITER = ',';
+    protected const SECRET    = '********';
 
     /**
      * @var array<\App\Services\Settings\Setting>
@@ -96,7 +100,7 @@ class Settings {
 
             // Changed?
             $name           = $setting->getName();
-            $value          = $this->getValue($setting, $settings[$name]);
+            $value          = $this->parseValue($setting, $settings[$name]);
             $updated[$name] = new Value($setting, $value);
         }
 
@@ -141,6 +145,21 @@ class Settings {
         }
 
         return $services;
+    }
+
+    /**
+     * @return array<string,string>
+     */
+    public function getPublicSettings(): array {
+        $settings = [];
+
+        foreach ($this->getSettings() as $setting) {
+            if ($setting->isPublic()) {
+                $settings[$setting->getPublicName()] = $this->serializeValue($setting, $setting->getValue());
+            }
+        }
+
+        return $settings;
     }
 
     /**
@@ -204,7 +223,7 @@ class Settings {
         return $this->storage->save($stored->all());
     }
 
-    protected function getValue(Setting $setting, ?string $value): mixed {
+    protected function parseValue(Setting $setting, ?string $value): mixed {
         $type   = $setting->getType();
         $result = $value;
 
@@ -220,6 +239,34 @@ class Settings {
         }
 
         return $result;
+    }
+
+    public function serializeValue(Setting $setting, mixed $value): string {
+        // Secret?
+        if ($setting->isSecret()) {
+            if ($setting->isArray() && !is_null($value)) {
+                $value = array_fill_keys(array_keys((array) $value), static::SECRET);
+            } else {
+                $value = $value ? static::SECRET : null;
+            }
+        }
+
+        // Serialize
+        $type   = $setting->getType();
+        $string = null;
+
+        if ($setting->isArray() && !is_null($value)) {
+            $string = (new Collection((array) $value))
+                ->map(static function (mixed $value) use ($type): string {
+                    return $type->toString($value);
+                })
+                ->implode(self::DELIMITER);
+        } else {
+            $string = $type->toString($value);
+        }
+
+        // Return
+        return $string;
     }
 
     /**

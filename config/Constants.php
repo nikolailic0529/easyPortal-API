@@ -10,6 +10,7 @@ use App\Services\DataLoader\Jobs\ResellerUpdate;
 use App\Services\Settings\Attributes\Group;
 use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Job;
+use App\Services\Settings\Attributes\PublicName;
 use App\Services\Settings\Attributes\Service;
 use App\Services\Settings\Attributes\Setting;
 use App\Services\Settings\Attributes\Type;
@@ -45,6 +46,7 @@ interface Constants {
      * Max size of branding images/icons (branding_favicon, branding_logo) in KB.
      */
     #[Setting('ep.image.max_size')]
+    #[PublicName('epImageMaxSize')]
     #[Group('ep')]
     public const EP_IMAGE_MAX_SIZE = 2048;
 
@@ -52,6 +54,7 @@ interface Constants {
      * Accepted image formats.
      */
     #[Setting('ep.image.formats')]
+    #[PublicName('epImageFormats')]
     #[Group('ep')]
     #[Type(StringType::class)]
     public const EP_IMAGE_FORMATS = ['jpg', 'jpeg', 'png'];
