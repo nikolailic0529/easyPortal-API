@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Country;
+use App\Models\Customer;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\AnyDataProvider;
+use Tests\DataProviders\GraphQL\UserDataProvider;
 use Tests\DataProviders\TenantDataProvider;
 use Tests\TestCase;
 
@@ -31,7 +31,6 @@ class DownloadControllerTest extends TestCase {
         Closure $tenantFactory,
         Closure $userFactory = null,
         Closure $exportableFactory = null,
-        array $input = [],
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setTenant($tenantFactory));
@@ -39,7 +38,25 @@ class DownloadControllerTest extends TestCase {
         if ($exportableFactory) {
             $exportableFactory($this);
         }
-        $this->postJson('/download', $input)->assertThat($expected);
+
+        // Query
+        $input = [
+            'operationName' => null,
+            'variables'     => [],
+            'query'         => '{
+                allCustomers {
+                    id
+                    name
+                    type_id
+                    status_id
+                    assets_count
+                    contacts_count
+                    locations_count
+                }
+            }',
+        ];
+
+        $this->post('/download', $input)->assertThat($expected);
     }
     // </editor-fold>
 
@@ -51,26 +68,16 @@ class DownloadControllerTest extends TestCase {
     public function dataProviderIndex(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            new AnyDataProvider(),
+            new UserDataProvider('allCustomers'),
             new ArrayDataProvider([
-                'un paginated export' => [
+                'success' => [
                     new Response(
                         new Ok(),
                         new CsvContentType(),
                     ),
                     static function (TestCase $test): void {
-                        Country::factory()->count(2)->create();
+                        Customer::factory()->count(2)->create();
                     },
-                    [
-                        'operationName' => null,
-                        'variables'     => [],
-                        'query'         => '{
-                            countries {
-                                id
-                                name
-                            }
-                        }',
-                    ],
                 ],
             ]),
         ))->getData();

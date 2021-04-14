@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use GraphQL\Server\Helper;
 use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Laragraph\Utils\RequestParser;
 use Nuwave\Lighthouse\Events\StartRequest;
 use Nuwave\Lighthouse\GraphQL;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 use function array_key_exists;
 use function array_key_first;
@@ -19,7 +21,6 @@ use function fclose;
 use function fopen;
 use function fputcsv;
 use function range;
-use function response;
 
 class DownloadController extends Controller {
     public function index(
@@ -35,7 +36,7 @@ class DownloadController extends Controller {
 
         $result = $graphQL->executeRequest($request, $requestParser, $graphQLHelper);
         if (array_key_exists('errors', $result)) {
-            return response()->json($result['errors'], Response::HTTP_BAD_REQUEST);
+            return new JsonResponse($result, 200);
         }
 
         // it will always return data
@@ -66,7 +67,7 @@ class DownloadController extends Controller {
             }
             fclose($file);
         };
-        return response()->stream($callback, 200, $headers);
+        return new StreamedResponse($callback, 200, $headers);
     }
     /**
      * @param array<mixed> $arr

@@ -26,6 +26,12 @@ type Query {
     order: CustomersSort @sortBy
   ): [Customer!]! @guard @paginate
 
+  "List of Customers for download"
+  allCustomers (
+    where: CustomersQuery @searchBy
+    order: CustomersSort @sortBy
+  ): [Customer!]! @guard @all
+
   "Customer with given ID"
   customer (id: ID! @eq): Customer @guard @find
 
@@ -34,6 +40,12 @@ type Query {
     where: AssetsQuery @searchBy
     order: AssetsSort @sortBy
   ): [Asset!]! @guard @paginate
+
+  "List of all customer assets for download"
+  allAssets(
+    where: AssetsQuery @searchBy
+    order: AssetsSort @sortBy
+  ): [Asset!]! @guard @all
 
   "List of all countries"
   countries: [Country!]! @all @orderBy(column: "code")
