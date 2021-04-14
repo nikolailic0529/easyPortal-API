@@ -43,12 +43,7 @@ class DownloadController extends Controller {
         $items    = [];
         $data     = $result['data'];
         $firstKey = array_key_first($data);
-
-        if ($this->isAssoc($data[$firstKey])) {
-            $items = $data[$firstKey]['data'];
-        } else {
-            $items = $data[$firstKey];
-        }
+        $items    = $data[$firstKey];
 
         $headers  = [
             'Content-type'        => 'text/csv',
@@ -68,15 +63,5 @@ class DownloadController extends Controller {
             fclose($file);
         };
         return new StreamedResponse($callback, 200, $headers);
-    }
-    /**
-     * @param array<mixed> $arr
-     */
-    protected function isAssoc(array $arr): bool {
-        if (array() === $arr) {
-            return false;
-        }
-
-        return array_keys($arr) !== range(0, count($arr) - 1);
     }
 }
