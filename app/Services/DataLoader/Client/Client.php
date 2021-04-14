@@ -229,7 +229,7 @@ class Client {
     // =========================================================================
     public function isEnabled(): bool {
         return $this->config->get('ep.data_loader.enabled')
-            && $this->config->get('easyportal.data_loader.endpoint');
+            && $this->config->get('ep.data_loader.endpoint');
     }
 
     /**
@@ -242,7 +242,7 @@ class Client {
      */
     public function iterator(string $selector, string $graphql, array $params, Closure $retriever): QueryIterator {
         return (new QueryIterator($this->logger, $this, "data.{$selector}", $graphql, $params, $retriever))
-            ->chunk($this->config->get('easyportal.data_loader.chunk'));
+            ->chunk($this->config->get('ep.data_loader.chunk'));
     }
 
     /**
@@ -269,7 +269,7 @@ class Client {
         }
 
         // Call
-        $url      = $this->config->get('easyportal.data_loader.endpoint');
+        $url      = $this->config->get('ep.data_loader.endpoint');
         $data     = [
             'query'     => $graphql,
             'variables' => $params,
