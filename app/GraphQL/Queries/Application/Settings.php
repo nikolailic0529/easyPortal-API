@@ -44,6 +44,7 @@ class Settings {
             'type'        => $setting->getTypeName(),
             'array'       => $setting->isArray(),
             'value'       => $this->settings->serializeValue($setting, $setting->getValue()),
+            'values'      => $setting->getType()->getValues(),
             'secret'      => $setting->isSecret(),
             'default'     => $this->settings->serializeValue($setting, $setting->getDefaultValue()),
             'readonly'    => $setting->isReadonly(),

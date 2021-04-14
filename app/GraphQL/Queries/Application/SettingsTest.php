@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries\Application;
 
+use App\Models\Type as TypeModel;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job;
 use App\Services\Settings\Attributes\Secret as SecretAttribute;
@@ -10,10 +11,12 @@ use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Attributes\Type as TypeAttribute;
 use App\Services\Settings\Settings;
 use App\Services\Settings\Types\IntType;
+use App\Services\Settings\Types\Type;
 use Closure;
 use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Collection;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -85,6 +88,12 @@ class SettingsTest extends TestCase {
                             type
                             array
                             value
+                            values {
+                                ... on Type {
+                                  id
+                                  name
+                                }
+                            }
                             secret
                             default
                             readonly
@@ -120,6 +129,7 @@ class SettingsTest extends TestCase {
                                 'type'        => 'Float',
                                 'array'       => false,
                                 'value'       => 'null',
+                                'values'      => null,
                                 'secret'      => false,
                                 'default'     => '123.40',
                                 'readonly'    => false,
@@ -132,6 +142,7 @@ class SettingsTest extends TestCase {
                                 'type'        => 'Boolean',
                                 'array'       => false,
                                 'value'       => 'null',
+                                'values'      => null,
                                 'secret'      => false,
                                 'default'     => 'false',
                                 'readonly'    => false,
@@ -141,9 +152,15 @@ class SettingsTest extends TestCase {
                             ],
                             [
                                 'name'        => 'SETTING_ARRAY',
-                                'type'        => 'Int',
+                                'type'        => 'SettingsTest_TypeWithValues',
                                 'array'       => true,
                                 'value'       => 'null',
+                                'values'      => [
+                                    [
+                                        'id'   => '3dd66188-0fb9-408e-8d7d-80700ba182de',
+                                        'name' => 'type-a',
+                                    ],
+                                ],
                                 'secret'      => false,
                                 'default'     => '123,345',
                                 'readonly'    => false,
@@ -156,6 +173,7 @@ class SettingsTest extends TestCase {
                                 'type'        => 'Int',
                                 'array'       => true,
                                 'value'       => 'null',
+                                'values'      => null,
                                 'secret'      => true,
                                 'default'     => '********,********',
                                 'readonly'    => false,
@@ -168,6 +186,7 @@ class SettingsTest extends TestCase {
                                 'type'        => 'String',
                                 'array'       => false,
                                 'value'       => 'null',
+                                'values'      => null,
                                 'secret'      => true,
                                 'default'     => '********',
                                 'readonly'    => false,
@@ -180,6 +199,7 @@ class SettingsTest extends TestCase {
                                 'type'        => 'String',
                                 'array'       => false,
                                 'value'       => 'null',
+                                'values'      => null,
                                 'secret'      => false,
                                 'default'     => 'readonly',
                                 'readonly'    => true,
@@ -192,6 +212,7 @@ class SettingsTest extends TestCase {
                                 'type'        => 'String',
                                 'array'       => false,
                                 'value'       => 'null',
+                                'values'      => null,
                                 'secret'      => false,
                                 'default'     => 'test',
                                 'readonly'    => false,
@@ -204,6 +225,7 @@ class SettingsTest extends TestCase {
                                 'type'        => 'Boolean',
                                 'array'       => false,
                                 'value'       => 'null',
+                                'values'      => null,
                                 'secret'      => false,
                                 'default'     => 'true',
                                 'readonly'    => false,
@@ -235,7 +257,7 @@ class SettingsTest extends TestCase {
                         public const SETTING_BOOL = false;
 
                         #[SettingAttribute('test.array')]
-                        #[TypeAttribute(IntType::class)]
+                        #[TypeAttribute(SettingsTest_TypeWithValues::class)]
                         public const SETTING_ARRAY = [123, 345];
 
                         #[SettingAttribute('test.array')]
@@ -261,4 +283,22 @@ class SettingsTest extends TestCase {
         ))->getData();
     }
     // </editor-fold>
+}
+
+// @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+// @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class SettingsTest_TypeWithValues extends Type {
+    public function getValues(): Collection|array|null {
+        return [
+            TypeModel::factory()->make([
+                'id'   => '3dd66188-0fb9-408e-8d7d-80700ba182de',
+                'name' => 'type-a',
+            ]),
+        ];
+    }
 }

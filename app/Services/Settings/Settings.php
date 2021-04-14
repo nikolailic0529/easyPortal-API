@@ -3,7 +3,6 @@
 namespace App\Services\Settings;
 
 use App\Services\Settings\Jobs\ConfigUpdate;
-use App\Services\Settings\Settings as SettingsService;
 use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;

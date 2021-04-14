@@ -16,6 +16,7 @@ use App\Services\Settings\Attributes\Setting;
 use App\Services\Settings\Attributes\Type;
 use App\Services\Settings\Jobs\ConfigUpdate;
 use App\Services\Settings\Types\CronExpression;
+use App\Services\Settings\Types\DocumentType;
 use App\Services\Settings\Types\Duration;
 use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Url;
@@ -72,7 +73,7 @@ interface Constants {
      */
     #[Setting('ep.contract_types')]
     #[Group('ep')]
-    #[Type(StringType::class)]
+    #[Type(DocumentType::class)]
     public const EP_CONTRACT_TYPES = [];
 
     /**
@@ -81,7 +82,7 @@ interface Constants {
      */
     #[Setting('ep.quote_types')]
     #[Group('ep')]
-    #[Type(StringType::class)]
+    #[Type(DocumentType::class)]
     public const EP_QUOTE_TYPES = [];
     // </editor-fold>
 
