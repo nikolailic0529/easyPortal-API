@@ -69,7 +69,7 @@ class Bootstraper extends Settings {
         $cached   = Date::createFromTimestamp($this->config->get(static::MARKER, 0));
         $modified = $this->storage->getLastModified();
 
-        return $cached >= $modified;
+        return $modified && $cached >= $modified;
     }
 
     /**
