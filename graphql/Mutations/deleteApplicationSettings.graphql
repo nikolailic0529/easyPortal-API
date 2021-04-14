@@ -1,0 +1,11 @@
+extend type Mutation {
+  """
+  Force delete all custom settings, may be useful to restore the corrupted file.
+  """
+  deleteApplicationSettings: DeleteApplicationSettingsPayload
+    @root
+}
+
+type DeleteApplicationSettingsPayload {
+  result: Boolean!
+}
