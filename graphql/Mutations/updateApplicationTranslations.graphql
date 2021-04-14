@@ -11,7 +11,5 @@ input UpdateApplicationTranslationsInput {
 }
 
 type UpdateApplicationTranslationsPayload {
-  locale: String!
   updated: [Translation!]!
 }
-

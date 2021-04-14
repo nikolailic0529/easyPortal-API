@@ -24,7 +24,7 @@ class UpdateApplicationSettings {
      */
     public function __invoke($_, array $args): array {
         return [
-            'settings' => $this->query->map(
+            'updated' => $this->query->map(
                 $this->settings->setEditableSettings($args['input']),
             ),
         ];

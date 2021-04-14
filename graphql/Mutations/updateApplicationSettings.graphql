@@ -11,8 +11,5 @@ input UpdateApplicationSettingsInput @validator {
 }
 
 type UpdateApplicationSettingsPayload {
-  """
-  Updated settings.
-  """
-  settings: [ApplicationSetting!]!
+  updated: [ApplicationSetting!]!
 }

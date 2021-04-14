@@ -1,7 +1,7 @@
 extend type Mutation {
   """
-  Force delete all UI translations for a given locale, may be useful to restore
-  the corrupted file.
+  Force delete all client translations for a given locale, may be useful to
+  restore the corrupted file.
   """
   recoverClientTranslations(
     input: RecoverClientTranslationsInput!

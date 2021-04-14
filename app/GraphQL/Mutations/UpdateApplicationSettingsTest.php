@@ -82,7 +82,7 @@ class UpdateApplicationSettingsTest extends TestCase {
             ->graphQL(/** @lang GraphQL */ '
                 mutation updateApplicationSettings($input: [UpdateApplicationSettingsInput!]!) {
                     updateApplicationSettings(input:$input){
-                        settings {
+                        updated {
                             name
                             type
                             array
@@ -109,7 +109,7 @@ class UpdateApplicationSettingsTest extends TestCase {
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('updateApplicationSettings', UpdateApplicationSettings::class, [
-                        'settings' => [
+                        'updated' => [
                             [
                                 'name'        => 'SETTING_INT',
                                 'type'        => 'Int',

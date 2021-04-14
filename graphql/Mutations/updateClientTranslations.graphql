@@ -1,5 +1,4 @@
 extend type Mutation {
-  "Update application ui translations"
   updateClientTranslations(
     input: UpdateClientTranslationsInput!
   ): UpdateClientTranslationsPayload
@@ -12,6 +11,5 @@ input UpdateClientTranslationsInput {
 }
 
 type UpdateClientTranslationsPayload {
-  locale: String!
   updated: [Translation!]!
 }
