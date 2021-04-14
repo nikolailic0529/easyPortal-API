@@ -139,52 +139,10 @@ type Mutation {
     website_url: String             # TODO [GraphQL] URL type needed
     email: String                   # TODO [GraphQL] Email type needed
   ): Boolean! @guard @validator
-
-  "Update application settings"
-  updateApplicationSettings(input: [UpdateApplicationSettingsInput!]!): UpdateApplicationSettingsPayload @root
-
-  "Update application ui translations"
-  updateApplicationStorageTranslations(input: UpdateApplicationStorageTranslationsInput!): UpdateApplicationStorageTranslationsPayload @root
-
-  "Update application api translations"
-  updateApplicationTranslations(input: UpdateApplicationTranslationsInput!): UpdateApplicationTranslationsPayload @root
-}
-
-input UpdateApplicationSettingsInput @validator {
-  name: String!
-  value: String!
-}
-
-type UpdateApplicationSettingsPayload {
-  """
-  Updated settings.
-  """
-  settings: [ApplicationSetting!]!
-}
-
-input UpdateApplicationStorageTranslationsInput {
-  locale: String! @rules(apply: ["App\\Rules\\Locale"])
-  translations: [UpdateApplicationTranslationsTranslation!]!
 }
 
 input UpdateApplicationTranslationsTranslation {
   key: String!
   value: String!
   delete: Boolean! = false
-}
-
-type UpdateApplicationStorageTranslationsPayload {
-  locale: String!
-  updated: [Translation!]!
-  deleted: [Translation!]!
-}
-
-input UpdateApplicationTranslationsInput {
-  locale: String! @rules(apply: ["App\\Rules\\Locale"])
-  translations: [UpdateApplicationTranslationsTranslation!]!
-}
-
-type UpdateApplicationTranslationsPayload {
-  locale: String!
-  translations: [Translation!]!
 }

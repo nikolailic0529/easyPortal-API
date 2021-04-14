@@ -1,0 +1,18 @@
+extend type Mutation {
+  updateApplicationSettings(
+    input: [UpdateApplicationSettingsInput!]!
+  ): UpdateApplicationSettingsPayload
+    @root
+}
+
+input UpdateApplicationSettingsInput @validator {
+  name: String!
+  value: String!
+}
+
+type UpdateApplicationSettingsPayload {
+  """
+  Updated settings.
+  """
+  settings: [ApplicationSetting!]!
+}

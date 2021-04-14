@@ -1,0 +1,17 @@
+extend type Mutation {
+  updateApplicationTranslations(
+    input: UpdateApplicationTranslationsInput!
+  ): UpdateApplicationTranslationsPayload
+    @root
+}
+
+input UpdateApplicationTranslationsInput {
+  locale: String! @rules(apply: ["App\\Rules\\Locale"])
+  translations: [UpdateApplicationTranslationsTranslation!]!
+}
+
+type UpdateApplicationTranslationsPayload {
+  locale: String!
+  translations: [Translation!]!
+}
+
