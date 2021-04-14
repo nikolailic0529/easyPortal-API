@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Services\Filesystem\Disks\UIDisk;
-use App\Services\Filesystem\Storages\UITranslations;
+use App\Services\Filesystem\Disks\ClientDisk;
+use App\Services\Filesystem\Storages\ClientTranslations;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -18,9 +18,9 @@ use function is_array;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\DeleteApplicationStorageTranslations
+ * @coversDefaultClass \App\GraphQL\Mutations\DeleteClientTranslations
  */
-class DeleteApplicationStorageTranslationsTest extends TestCase {
+class DeleteClientTranslationsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -50,12 +50,12 @@ class DeleteApplicationStorageTranslationsTest extends TestCase {
         $storage = null;
 
         if ($locale) {
-            $disk    = $this->app->make(UIDisk::class);
-            $storage = new UITranslations($disk, $locale);
+            $disk    = $this->app->make(ClientDisk::class);
+            $storage = new ClientTranslations($disk, $locale);
 
             $storage->save($content);
 
-            $mutation = Mockery::mock(DeleteApplicationStorageTranslations::class);
+            $mutation = Mockery::mock(DeleteClientTranslations::class);
             $mutation->makePartial();
             $mutation->shouldAllowMockingProtectedMethods();
             $mutation
@@ -63,7 +63,7 @@ class DeleteApplicationStorageTranslationsTest extends TestCase {
                 ->once()
                 ->andReturn($storage);
 
-            $this->app->bind(DeleteApplicationStorageTranslations::class, static function () use ($mutation) {
+            $this->app->bind(DeleteClientTranslations::class, static function () use ($mutation) {
                 return $mutation;
             });
         }
@@ -75,8 +75,8 @@ class DeleteApplicationStorageTranslationsTest extends TestCase {
         $this
             ->graphQL(
             /** @lang GraphQL */ '
-                mutation deleteApplicationStorageTranslations($locale: String!, $keys: [String!]!) {
-                    deleteApplicationStorageTranslations(input: {locale: $locale, keys: $keys}) {
+                mutation deleteClientTranslations($locale: String!, $keys: [String!]!) {
+                    deleteClientTranslations(input: {locale: $locale, keys: $keys}) {
                         deleted
                     }
                 }',
@@ -102,13 +102,13 @@ class DeleteApplicationStorageTranslationsTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            new RootDataProvider('deleteApplicationStorageTranslations'),
+            new RootDataProvider('deleteClientTranslations'),
             new ArrayDataProvider([
                 'ok' => [
                     [
                         'response' => new GraphQLSuccess(
-                            'deleteApplicationStorageTranslations',
-                            DeleteApplicationStorageTranslations::class,
+                            'deleteClientTranslations',
+                            DeleteClientTranslations::class,
                             [
                                 'deleted' => ['a', 'b'],
                             ],

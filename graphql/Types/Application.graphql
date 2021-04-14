@@ -1,7 +1,6 @@
 type Application {
   name: String!
   version: String!
-  storage: ApplicationStorage @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
   settings: [ApplicationSetting!]!
     @field(resolver: "App\\GraphQL\\Queries\\Application\\Settings")
     @root

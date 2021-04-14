@@ -4,6 +4,6 @@ namespace App\Services\Filesystem\Disks;
 
 use App\Services\Filesystem\Disk;
 
-class UIDisk extends Disk {
-    public const NAME = 'ui';
+class ClientDisk extends Disk {
+    public const NAME = 'client';
 }

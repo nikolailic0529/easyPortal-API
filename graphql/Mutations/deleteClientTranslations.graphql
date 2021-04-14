@@ -1,0 +1,15 @@
+extend type Mutation {
+  deleteClientTranslations(
+    input: DeleteClientTranslationsInput!
+  ): DeleteClientTranslationsPayload
+    @root
+}
+
+input DeleteClientTranslationsInput {
+  locale: String! @rules(apply: ["App\\Rules\\Locale"])
+  keys: [String!]!
+}
+
+type DeleteClientTranslationsPayload {
+  deleted: [String!]!
+}

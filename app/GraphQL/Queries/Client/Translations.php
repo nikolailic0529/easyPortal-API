@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries\Application;
+namespace App\GraphQL\Queries\Client;
 
-use App\Services\Filesystem\Disks\UIDisk;
-use App\Services\Filesystem\Storages\UITranslations;
+use App\Services\Filesystem\Disks\ClientDisk;
+use App\Services\Filesystem\Storages\ClientTranslations;
 
-class StorageTranslations {
+class Translations {
     public function __construct(
-        protected UIDisk $disk,
+        protected ClientDisk $disk,
     ) {
         // empty
     }
@@ -22,7 +22,7 @@ class StorageTranslations {
         return $this->getStorage($args['locale'])->load();
     }
 
-    protected function getStorage(string $locale): UITranslations {
-        return new UITranslations($this->disk, $locale);
+    protected function getStorage(string $locale): ClientTranslations {
+        return new ClientTranslations($this->disk, $locale);
     }
 }

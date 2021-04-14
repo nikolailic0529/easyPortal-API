@@ -93,6 +93,9 @@ type Query {
 
   "List of all quotes types"
   quoteTypes: [Type!]!
+
+  "Client data"
+  client: Client @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
 }
 
 type Mutation {

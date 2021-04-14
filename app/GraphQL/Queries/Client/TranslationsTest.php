@@ -1,9 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries\Application;
+namespace App\GraphQL\Queries\Client;
 
-use App\Services\Filesystem\Disks\UIDisk;
-use App\Services\Filesystem\Storages\UITranslations;
+use App\Services\Filesystem\Disks\ClientDisk;
+use App\Services\Filesystem\Storages\ClientTranslations;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -15,9 +15,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\Application\StorageTranslations
+ * @coversDefaultClass \App\GraphQL\Queries\Client\Translations
  */
-class StorageTranslationsTest extends TestCase {
+class TranslationsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -36,12 +36,12 @@ class StorageTranslationsTest extends TestCase {
         $this->setUser($userFactory, $this->setTenant($tenantFactory));
 
         if ($translations) {
-            $disk    = $this->app()->make(UIDisk::class);
-            $storage = new UITranslations($disk, 'en');
+            $disk    = $this->app()->make(ClientDisk::class);
+            $storage = new ClientTranslations($disk, 'en');
 
             $storage->save($translations);
 
-            $this->app->bind(UIDisk::class, static function () use ($disk): UIDisk {
+            $this->app->bind(ClientDisk::class, static function () use ($disk): ClientDisk {
                 return $disk;
             });
         }
@@ -50,12 +50,10 @@ class StorageTranslationsTest extends TestCase {
         $this
             ->graphQL(/** @lang GraphQL */ '
             {
-                application {
-                    storage {
-                        translations(locale:"en") {
-                            key
-                            value
-                        }
+                client {
+                    translations(locale:"en") {
+                        key
+                        value
                     }
                 }
             }
@@ -79,10 +77,8 @@ class StorageTranslationsTest extends TestCase {
             new AnyDataProvider(),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('application', StorageTranslations::class, [
-                        'storage' => [
-                            'translations' => $input,
-                        ],
+                    new GraphQLSuccess('client', Translations::class, [
+                        'translations' => $input,
                     ]),
                     $input,
                 ],

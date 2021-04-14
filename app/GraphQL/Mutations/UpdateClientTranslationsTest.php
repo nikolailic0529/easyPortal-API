@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Services\Filesystem\Disks\UIDisk;
-use App\Services\Filesystem\Storages\UITranslations;
+use App\Services\Filesystem\Disks\ClientDisk;
+use App\Services\Filesystem\Storages\ClientTranslations;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -15,9 +15,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\UpdateApplicationStorageTranslations
+ * @coversDefaultClass \App\GraphQL\Mutations\UpdateClientTranslations
  */
-class UpdateApplicationStorageTranslationsTest extends TestCase {
+class UpdateClientTranslationsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -43,21 +43,21 @@ class UpdateApplicationStorageTranslationsTest extends TestCase {
         $this->setUser($userFactory, $this->setTenant($tenantFactory));
 
         if ($translations) {
-            $disk    = $this->app()->make(UIDisk::class);
-            $storage = new UITranslations($disk, 'en');
+            $disk    = $this->app()->make(ClientDisk::class);
+            $storage = new ClientTranslations($disk, 'en');
 
             $storage->save($translations);
 
-            $this->app->bind(UIDisk::class, static function () use ($disk): UIDisk {
+            $this->app->bind(ClientDisk::class, static function () use ($disk): ClientDisk {
                 return $disk;
             });
         }
 
         // Test
         $this
-            ->graphQL(/** @lang GraphQL */ 'mutation updateApplicationStorageTranslations(
-                $input: UpdateApplicationStorageTranslationsInput!) {
-                    updateApplicationStorageTranslations(input:$input){
+            ->graphQL(/** @lang GraphQL */ 'mutation updateClientTranslations(
+                $input: UpdateClientTranslationsInput!) {
+                    updateClientTranslations(input:$input){
                         updated {
                             key
                             value
@@ -92,12 +92,12 @@ class UpdateApplicationStorageTranslationsTest extends TestCase {
 
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            new RootDataProvider('updateApplicationStorageTranslations'),
+            new RootDataProvider('updateClientTranslations'),
             new ArrayDataProvider([
                 'success - retrieve'                         => [
                     new GraphQLSuccess(
-                        'updateApplicationStorageTranslations',
-                        UpdateApplicationStorageTranslations::class,
+                        'updateClientTranslations',
+                        UpdateClientTranslations::class,
                         [
                             'updated' => $objects,
                         ],
@@ -112,8 +112,8 @@ class UpdateApplicationStorageTranslationsTest extends TestCase {
                 ],
                 'success - update current value'             => [
                     new GraphQLSuccess(
-                        'updateApplicationStorageTranslations',
-                        UpdateApplicationStorageTranslations::class,
+                        'updateClientTranslations',
+                        UpdateClientTranslations::class,
                         [
                             'updated' => $objects,
                         ],
@@ -128,8 +128,8 @@ class UpdateApplicationStorageTranslationsTest extends TestCase {
                 ],
                 'success - retrieve updated duplicate input' => [
                     new GraphQLSuccess(
-                        'updateApplicationStorageTranslations',
-                        UpdateApplicationStorageTranslations::class,
+                        'updateClientTranslations',
+                        UpdateClientTranslations::class,
                         [
                             'updated' => $objects,
                         ],

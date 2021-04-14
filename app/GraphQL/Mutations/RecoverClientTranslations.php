@@ -2,12 +2,12 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Services\Filesystem\Disks\UIDisk;
-use App\Services\Filesystem\Storages\UITranslations;
+use App\Services\Filesystem\Disks\ClientDisk;
+use App\Services\Filesystem\Storages\ClientTranslations;
 
-class RecoverApplicationStorageTranslations {
+class RecoverClientTranslations {
     public function __construct(
-        protected UIDisk $disk,
+        protected ClientDisk $disk,
     ) {
         // empty
     }
@@ -24,7 +24,7 @@ class RecoverApplicationStorageTranslations {
         ];
     }
 
-    protected function getStorage(string $locale): UITranslations {
-        return new UITranslations($this->disk, $locale);
+    protected function getStorage(string $locale): ClientTranslations {
+        return new ClientTranslations($this->disk, $locale);
     }
 }

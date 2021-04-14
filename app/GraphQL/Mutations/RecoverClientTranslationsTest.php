@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Services\Filesystem\Storages\UITranslations;
+use App\Services\Filesystem\Storages\ClientTranslations;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -15,9 +15,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\RecoverApplicationStorageTranslations
+ * @coversDefaultClass \App\GraphQL\Mutations\RecoverClientTranslations
  */
-class RecoverApplicationStorageTranslationsTest extends TestCase {
+class RecoverClientTranslationsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -35,14 +35,14 @@ class RecoverApplicationStorageTranslationsTest extends TestCase {
 
         // Mock
         if ($expected instanceof GraphQLSuccess) {
-            $storage = Mockery::mock(UITranslations::class);
+            $storage = Mockery::mock(ClientTranslations::class);
             $storage
                 ->shouldReceive('delete')
                 ->with(true)
                 ->once()
                 ->andReturn(true);
 
-            $mutation = Mockery::mock(RecoverApplicationStorageTranslations::class);
+            $mutation = Mockery::mock(RecoverClientTranslations::class);
             $mutation->makePartial();
             $mutation->shouldAllowMockingProtectedMethods();
             $mutation
@@ -50,7 +50,7 @@ class RecoverApplicationStorageTranslationsTest extends TestCase {
                 ->once()
                 ->andReturn($storage);
 
-            $this->app->bind(RecoverApplicationStorageTranslations::class, static function () use ($mutation) {
+            $this->app->bind(RecoverClientTranslations::class, static function () use ($mutation) {
                 return $mutation;
             });
         }
@@ -58,8 +58,8 @@ class RecoverApplicationStorageTranslationsTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '
-                mutation recoverApplicationStorageTranslations {
-                    recoverApplicationStorageTranslations(input: {locale: "en"}) {
+                mutation recoverClientTranslations {
+                    recoverClientTranslations(input: {locale: "en"}) {
                         result
                     }
                 }')
@@ -75,12 +75,12 @@ class RecoverApplicationStorageTranslationsTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            new RootDataProvider('recoverApplicationStorageTranslations'),
+            new RootDataProvider('recoverClientTranslations'),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess(
-                        'recoverApplicationStorageTranslations',
-                        RecoverApplicationStorageTranslations::class,
+                        'recoverClientTranslations',
+                        RecoverClientTranslations::class,
                         [
                             'result' => true,
                         ],

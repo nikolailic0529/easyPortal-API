@@ -1,7 +1,7 @@
 <?php declare(strict_types = 1);
 
 use App\Services\Filesystem\Disks\AppDisk;
-use App\Services\Filesystem\Disks\UIDisk;
+use App\Services\Filesystem\Disks\ClientDisk;
 
 return [
     /*
@@ -31,28 +31,28 @@ return [
     'disks'   => [
         // Internal, must be "local".
         // =====================================================================
-        UIDisk::NAME => [
-            'driver' => 'local',
-            'root'   => storage_path('ui'),
-        ],
-        AppDisk::NAME => [
+        AppDisk::NAME    => [
             'driver' => 'local',
             'root'   => storage_path('app'),
+        ],
+        ClientDisk::NAME => [
+            'driver' => 'local',
+            'root'   => storage_path('client'),
         ],
 
         // Default
         // =====================================================================
-        'local'       => [
+        'local'          => [
             'driver' => 'local',
             'root'   => storage_path('app'),
         ],
-        'public'      => [
+        'public'         => [
             'driver'     => 'local',
             'root'       => storage_path('app/public'),
             'url'        => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
-        's3'          => [
+        's3'             => [
             'driver'   => 's3',
             'key'      => env('AWS_ACCESS_KEY_ID'),
             'secret'   => env('AWS_SECRET_ACCESS_KEY'),
