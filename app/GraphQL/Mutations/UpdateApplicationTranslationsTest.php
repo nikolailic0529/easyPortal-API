@@ -57,7 +57,7 @@ class UpdateApplicationTranslationsTest extends TestCase {
             ->graphQL(/** @lang GraphQL */ 'mutation updateApplicationTranslations(
                 $input: UpdateApplicationTranslationsInput!) {
                     updateApplicationTranslations(input:$input){
-                        translations {
+                        updated {
                             key
                             value
                         }
@@ -98,7 +98,7 @@ class UpdateApplicationTranslationsTest extends TestCase {
                         'updateApplicationTranslations',
                         UpdateApplicationTranslations::class,
                         [
-                            'translations' => $objects,
+                            'updated' => $objects,
                         ],
                     ),
                     $input,
@@ -111,7 +111,7 @@ class UpdateApplicationTranslationsTest extends TestCase {
                         'updateApplicationTranslations',
                         UpdateApplicationTranslations::class,
                         [
-                            'translations' => $objects,
+                            'updated' => $objects,
                         ],
                     ),
                     $input,
@@ -124,7 +124,7 @@ class UpdateApplicationTranslationsTest extends TestCase {
                         'updateApplicationTranslations',
                         UpdateApplicationTranslations::class,
                         [
-                            'translations' => $objects,
+                            'updated' => $objects,
                         ],
                     ),
                     [

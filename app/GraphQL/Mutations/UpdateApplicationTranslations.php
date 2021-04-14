@@ -38,7 +38,7 @@ class UpdateApplicationTranslations {
 
         // Return
         return [
-            'translations' => array_values($updated),
+            'updated' => array_values($updated),
         ];
     }
 
