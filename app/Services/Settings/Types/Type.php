@@ -48,7 +48,14 @@ abstract class Type {
         return (string) $value;
     }
 
-    public function isNull(string $value): bool {
+    protected function isNull(string $value): bool {
         return $value === 'null' || $value === '(null)';
+    }
+
+    /**
+     * @return array<string|\Illuminate\Validation\Rule>
+     */
+    public function getValidationRules(): array {
+        return [];
     }
 }

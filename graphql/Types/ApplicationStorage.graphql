@@ -1,6 +1,0 @@
-type ApplicationStorage {
-  translations (
-    locale: String! @rules(apply: ["App\\Rules\\Locale"])
-  ): [Translation!]!
-    @field(resolver: "App\\GraphQL\\Queries\\Application\\StorageTranslations")
-}

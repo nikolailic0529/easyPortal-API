@@ -2,6 +2,13 @@
 
 namespace App\Services\Settings\Types;
 
+use App\Rules\CronExpression as CronExpressionRule;
+
 class CronExpression extends Type {
-    // empty
+    /**
+     * @inheritDoc
+     */
+    public function getValidationRules(): array {
+        return [new CronExpressionRule()];
+    }
 }

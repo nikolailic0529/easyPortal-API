@@ -12,14 +12,11 @@ class Locale implements Rule {
     /**
      * @inheritdoc
      */
-    public function passes($attribute, $value) {
+    public function passes($attribute, $value): bool {
         return in_array($value, ResourceBundle::getLocales(''), true);
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function message() {
+    public function message(): string {
         return __('validation.locale');
     }
 }

@@ -1,14 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services;
+namespace App\Rules;
 
-use App\Rules\Locale;
 use Illuminate\Translation\Translator;
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rule\Locale
+ * @coversDefaultClass \App\Rules\Locale
  */
 class LocaleTest extends TestCase {
     /**
@@ -16,8 +15,8 @@ class LocaleTest extends TestCase {
      */
     public function testMessage(): void {
         $translator = $this->app->make(Translator::class);
-        $translator->addLines(['validation.locale' => 'No translation' ], 'en');
-        $translator->addLines(['validation.locale' => 'Translated (locale)' ], 'de');
+        $translator->addLines(['validation.locale' => 'No translation'], 'en');
+        $translator->addLines(['validation.locale' => 'Translated (locale)'], 'de');
         $this->app->setLocale('de');
         $this->assertEquals(
             $this->app->make(Locale::class)->message(),

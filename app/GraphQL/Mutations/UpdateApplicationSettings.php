@@ -5,6 +5,9 @@ namespace App\GraphQL\Mutations;
 use App\GraphQL\Queries\Application\Settings as SettingsQuery;
 use App\Services\Settings\Settings;
 
+/**
+ * @see \App\GraphQL\Validators\UpdateApplicationSettingsInputValidator
+ */
 class UpdateApplicationSettings {
     public function __construct(
         protected Settings $settings,
@@ -21,7 +24,7 @@ class UpdateApplicationSettings {
      */
     public function __invoke($_, array $args): array {
         return [
-            'settings' => $this->query->map(
+            'updated' => $this->query->map(
                 $this->settings->setEditableSettings($args['input']),
             ),
         ];

@@ -10,4 +10,11 @@ class IntType extends Type {
     protected function fromNotNullString(string $value): int {
         return (int) filter_var($value, FILTER_VALIDATE_INT);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getValidationRules(): array {
+        return ['integer'];
+    }
 }

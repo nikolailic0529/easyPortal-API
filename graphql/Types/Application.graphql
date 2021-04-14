@@ -1,7 +1,6 @@
 type Application {
   name: String!
   version: String!
-  storage: ApplicationStorage @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
   settings: [ApplicationSetting!]!
     @field(resolver: "App\\GraphQL\\Queries\\Application\\Settings")
     @root
@@ -13,5 +12,10 @@ type Application {
     @root
   jobs: [ApplicationJob!]!
     @field(resolver: "App\\GraphQL\\Queries\\Application\\Jobs")
+    @root
+  translations (
+    locale: String! @rules(apply: ["App\\Rules\\Locale"])
+  ): [Translation!]!
+    @field(resolver: "App\\GraphQL\\Queries\\Application\\Translations")
     @root
 }

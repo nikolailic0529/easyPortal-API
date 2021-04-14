@@ -1,0 +1,14 @@
+extend type Mutation {
+  deleteClientSettings(
+    input: DeleteClientSettingsInput!
+  ): DeleteClientSettingsPayload
+    @root
+}
+
+input DeleteClientSettingsInput {
+  names: [String!]!
+}
+
+type DeleteClientSettingsPayload {
+  deleted: [String!]!
+}

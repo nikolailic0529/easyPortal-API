@@ -1,6 +1,7 @@
 #import Scalars/*.graphql
 #import Types/*.graphql
 #import Filters/*.graphql
+#import Inputs/*.graphql
 #import Mutations/*.graphql
 
 type Query {
@@ -92,6 +93,9 @@ type Query {
 
   "List of all quotes types"
   quoteTypes: [Type!]!
+
+  "Client data"
+  client: Client @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
 }
 
 type Mutation {
@@ -139,39 +143,4 @@ type Mutation {
     website_url: String             # TODO [GraphQL] URL type needed
     email: String                   # TODO [GraphQL] Email type needed
   ): Boolean! @guard @validator
-
-  "Update application settings"
-  updateApplicationSettings(input: [UpdateApplicationSettingsInput!]!): UpdateApplicationSettingsPayload @root
-
-  "Update application ui translations"
-  updateApplicationStorageTranslations(input: UpdateApplicationStorageTranslationsInput!): UpdateApplicationStorageTranslationsPayload @root
-}
-
-input UpdateApplicationSettingsInput {
-  name: String!
-  value: String!
-}
-
-type UpdateApplicationSettingsPayload {
-  """
-  Updated settings.
-  """
-  settings: [ApplicationSetting!]!
-}
-
-input UpdateApplicationStorageTranslationsInput {
-  locale: String! @rules(apply: ["App\\Rules\\Locale"])
-  translations: [UpdateApplicationTranslationsTranslation!]!
-}
-
-input UpdateApplicationTranslationsTranslation {
-  key: String!
-  value: String!
-  delete: Boolean! = false
-}
-
-type UpdateApplicationStorageTranslationsPayload {
-  locale: String!
-  updated: [Translation!]!
-  deleted: [Translation!]!
 }
