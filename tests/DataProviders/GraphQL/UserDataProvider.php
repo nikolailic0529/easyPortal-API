@@ -7,10 +7,8 @@ use App\Models\User;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
-use Tests\GraphQL\GraphQLError;
+use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\TestCase;
-
-use function __;
 
 /**
  * Only User cat perform the action.
@@ -19,9 +17,7 @@ class UserDataProvider extends ArrayDataProvider {
     public function __construct(string $root) {
         parent::__construct([
             'guest is not allowed' => [
-                new ExpectedFinal(new GraphQLError($root, static function (): array {
-                    return [__('errors.unauthenticated')];
-                })),
+                new ExpectedFinal(new GraphQLUnauthenticated($root)),
                 static function (): ?User {
                     return null;
                 },
