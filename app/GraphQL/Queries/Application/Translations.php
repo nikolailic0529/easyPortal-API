@@ -20,7 +20,7 @@ class Translations {
      * @return array<string,mixed>
      */
     public function __invoke($_, array $args): array {
-        $translations = $this->translations->load($this->app->getLocale(), '*', '*');
+        $translations = $this->translations->load($args['locale'], '*', '*');
         $output       = [];
 
         foreach ($translations as $key => $value) {
