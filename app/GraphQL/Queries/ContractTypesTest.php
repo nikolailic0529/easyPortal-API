@@ -5,9 +5,7 @@ namespace App\GraphQL\Queries;
 use App\Models\Document;
 use App\Models\Type;
 use Closure;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Translation\Translator;
-use LastDragon_ru\LaraASP\Core\Utils\ConfigMerger;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -38,19 +36,10 @@ class ContractTypesTest extends TestCase {
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setTenant($tenantFactory));
+        $this->setSettings($settings);
 
         if ($contactFactory) {
             $contactFactory($this);
-        }
-
-        if ($settings) {
-            $config = $this->app->make(Repository::class);
-            $group  = 'ep';
-
-            $config->set($group, (new ConfigMerger())->merge(
-                $config->get($group),
-                $settings,
-            ));
         }
 
         if ($localeFactory) {
@@ -112,7 +101,7 @@ class ContractTypesTest extends TestCase {
                         return $locale;
                     },
                     [
-                        'contract_types' => [
+                        'ep.contract_types' => [
                             'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                             '6f19ef5f-5963-437e-a798-29296db08d59',
                             'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -155,7 +144,7 @@ class ContractTypesTest extends TestCase {
                         return $test->app->getLocale();
                     },
                     [
-                        'contract_types' => [],
+                        'ep.contract_types' => [],
                     ],
                     static function (TestCase $test): void {
                         Type::factory()->create([
