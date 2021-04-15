@@ -18,6 +18,8 @@ use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
+use function in_array;
+
 class RootDirective extends BaseDirective implements FieldMiddleware, TypeDefinitionNode {
     protected Factory    $auth;
     protected Repository $config;
@@ -55,7 +57,6 @@ class RootDirective extends BaseDirective implements FieldMiddleware, TypeDefini
             $guards,
             $previous,
         ): mixed {
-            $rootId        = $this->config->get('ep.root_user_id');
             $authorized    = false;
             $authenticated = false;
 
@@ -66,7 +67,7 @@ class RootDirective extends BaseDirective implements FieldMiddleware, TypeDefini
                     $authenticated = true;
                     $user          = $guard->user();
 
-                    if ($user instanceof User && $user->getKey() === $rootId) {
+                    if ($user instanceof User && $this->isRoot($user)) {
                         $authorized = true;
                         break;
                     }
@@ -98,5 +99,9 @@ class RootDirective extends BaseDirective implements FieldMiddleware, TypeDefini
 
     public function manipulateTypeExtension(DocumentAST &$documentAST, TypeExtensionNode &$typeExtension): void {
         ASTHelper::addDirectiveToFields($this->directiveNode, $typeExtension);
+    }
+
+    public function isRoot(User $user): bool {
+        return in_array($user->getKey(), (array) $this->config->get('ep.root_users'), true);
     }
 }
