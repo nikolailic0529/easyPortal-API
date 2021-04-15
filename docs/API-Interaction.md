@@ -1,6 +1,8 @@
 # API Interaction
 
-## Basics
+## REST API
+
+### Basics
 
 API is the REST-Based, and uses following methods:
 
@@ -28,7 +30,7 @@ will return filtered results. The main reasons why search uses `POST` are
 * Length of the URL is limited 
 
 
-## Types
+### Types
 
 API is the strict typed, so for example if Request requires the `int` UI must pass integer value `123` not `'121'`. Same for Responses (if schema contains `bool` it must be `true` or `false` not `0`, `1`, etc). Date and datetime always must be in ISO 8601:
 
@@ -38,11 +40,11 @@ API is the strict typed, so for example if Request requires the `int` UI must pa
 | DateTime | `Y-m-d\TH:i:sP` | 
 
 
-## Available methods
+### Available methods
 
 _This section is actual until we don't have api docs auto-generation. Information actual for most cases._ 
 
-### How to find supported routes?
+#### How to find supported routes?
 
 ```shell
 $ php artisan route:list
@@ -64,16 +66,16 @@ $ php artisan route:list
 +--------+----------+---------------+------+-------------------------------------------------------------------+------------+
 ```
 
-### How to use this information?
+#### How to use this information?
 
-#### Middleware
+##### Middleware
 
 - `web` - accessible for UI
 - `guest` - route available only for guest
 - `auth` - only for user
 - `can:permission` - only for user with permission
 
-### Action
+##### Action
 
 Controller class and method - when we know them we can find what this method will return. For example `App\Http\Controllers\AuthController@signup`: first we need to find file, so go to `<project>/src/App/Http/Controllers/AuthController.php` and open it
 
