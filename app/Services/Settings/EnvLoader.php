@@ -9,14 +9,20 @@ use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
 
 class EnvLoader extends LoadEnvironmentVariables {
     public function load(Application $app): void {
-        // If config is not cached env vars already loaded and no need any actions.
+        // If config is not cached env already loaded and we no need any actions.
         if (!$app->configurationIsCached()) {
             return;
         }
 
-        /** @see LoadEnvironmentVariables::bootstrap() */
-        $this->checkForSpecificEnvironmentFile($app);
+        // Check env file for current env
+        if ($app->environment()) {
+            $this->setEnvironmentFilePath(
+                $app,
+                "{$app->environmentFile()}.{$app->environment()}",
+            );
+        }
 
+        // Load
         try {
             $this->createDotenv($app)->safeLoad();
         } catch (Exception $exception) {
