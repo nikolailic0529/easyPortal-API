@@ -2,15 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\MorphMapRequired;
-use App\Models\Concerns\UuidAsPrimaryKey;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use LastDragon_ru\LaraASP\Eloquent\Model as LaraASPModel;
+use LastDragon_ru\LaraASP\Eloquent\Pivot as LaraASPPivot;
 
-abstract class Model extends LaraASPModel {
+abstract class Pivot extends LaraASPPivot {
     use SoftDeletes;
-    use UuidAsPrimaryKey;
-    use MorphMapRequired;
 
     protected const CASTS = [
         'deleted_at' => 'datetime',

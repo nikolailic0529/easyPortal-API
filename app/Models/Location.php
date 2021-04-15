@@ -77,4 +77,8 @@ class Location extends PolymorphicModel {
     public function setCityAttribute(City $country): void {
         $this->city()->associate($country);
     }
+
+    protected function getTypesPivot(): Pivot {
+        return new LocationType();
+    }
 }

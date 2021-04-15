@@ -5,12 +5,15 @@ namespace App\Models\Concerns;
 use App\Models\Asset;
 use App\Models\Location;
 use App\Models\Model;
+use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 
 /**
  * @internal
  * @mixin \Tests\TestCase
  */
 trait HasLocationsTests {
+    use WithQueryLog;
+
     /**
      * @return \App\Models\Model&\App\Models\Concerns\HasLocations
      */
@@ -51,10 +54,10 @@ trait HasLocationsTests {
         $used             = $used->refresh();
 
         $this->assertEquals([$created], $model->locations->all());
-        $this->assertEquals(2, Location::query()->count());
+        $this->assertEquals(3, Location::query()->count());
         $this->assertNull($used->object_id);
         $this->assertEquals($morph, $used->object_type);
         $this->assertTrue(Asset::query()->whereKey($asset->getKey())->exists());
-        $this->assertFalse(Location::query()->whereKey($location->getKey())->exists());
+        $this->assertTrue(Location::query()->whereKey($location->getKey())->whereNull('object_id')->exists());
     }
 }

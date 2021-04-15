@@ -31,12 +31,16 @@ trait HasLocations {
     }
 
     protected function syncMorphManyDelete(PolymorphicModel $model): void {
-        // Location can be used by Assets, in this case, we cannot delete it.
-        try {
-            $model->delete();
-        } catch (Exception) {
+        if ($model instanceof Location) {
+            /**
+             * Location can be used by Assets, in this case, we cannot delete it
+             * but we can set `object_id` to NULL and it will be removed by
+             * {@see \App\Services\DataLoader\Jobs\LocationsCleanupCronJob}.
+             */
             $model->object_id = null;
             $model->save();
+        } else {
+            $model->delete();
         }
     }
 }
