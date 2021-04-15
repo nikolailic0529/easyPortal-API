@@ -18,10 +18,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 Route::get('/', [IndexController::class, 'index']);
 
+Route::post('/download', DownloadController::class);
+
 // This route required to be able to translate 404 page (without it the error
 // will be shown before the session start and actual locale will not available).
 Route::fallback(static function (): void {
     throw new NotFoundHttpException();
 });
-
-Route::post('/download', [DownloadController::class, 'index']);

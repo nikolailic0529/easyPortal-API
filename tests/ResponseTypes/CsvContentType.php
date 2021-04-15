@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Http\Controllers;
+namespace Tests\ResponseTypes;
 
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentType;
 
