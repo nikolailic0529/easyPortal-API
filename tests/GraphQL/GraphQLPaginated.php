@@ -8,17 +8,20 @@ use SplFileInfo;
 use stdClass;
 
 class GraphQLPaginated extends GraphQLSuccess {
-    protected JsonSerializable|SplFileInfo|stdClass|array|string|null $paginator = null;
+    protected JsonFragment|null $data      = null;
+    protected JsonFragment|null $paginator = null;
 
     public function __construct(
         string $root,
         ?string $schema,
-        JsonSerializable|SplFileInfo|stdClass|array|string|null $content = null,
-        JsonSerializable|SplFileInfo|stdClass|array|string|null $paginator = null,
+        JsonFragment|JsonSerializable|SplFileInfo|stdClass|array|string|null $data = null,
+        JsonFragment|JsonSerializable|SplFileInfo|stdClass|array|string|null $paginator = null,
     ) {
-        $this->paginator = $paginator;
 
-        parent::__construct($root, $schema, $content);
+        $this->data      = $this->getJsonFragment("data.{$root}.data", $data);
+        $this->paginator = $this->getJsonFragment("data.{$root}.paginatorInfo", $paginator);
+
+        parent::__construct($root, $schema, null);
     }
 
     /**
@@ -26,11 +29,11 @@ class GraphQLPaginated extends GraphQLSuccess {
      */
     protected function getResponseConstraints(): array {
         return [
-            $this->content
-                ? new JsonMatchesFragment("data.{$this->root}.data", $this->content)
+            $this->data
+                ? new JsonMatchesFragment($this->data->getPath(), $this->data->getJson())
                 : null,
             $this->paginator
-                ? new JsonMatchesFragment("data.{$this->root}.paginatorInfo", $this->paginator)
+                ? new JsonMatchesFragment($this->paginator->getPath(), $this->paginator->getJson())
                 : null,
         ];
     }

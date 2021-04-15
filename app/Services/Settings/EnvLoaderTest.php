@@ -22,14 +22,22 @@ class EnvLoaderTest extends TestCase {
             ->shouldReceive('configurationIsCached')
             ->once()
             ->andReturn(true);
+        $app
+            ->shouldReceive('environment')
+            ->twice()
+            ->andReturn('test');
+        $app
+            ->shouldReceive('environmentFile')
+            ->once()
+            ->andReturn('.env');
 
         $loader = Mockery::mock(EnvLoader::class);
         $loader->makePartial();
         $loader->shouldAllowMockingProtectedMethods();
         $loader
-            ->shouldReceive('checkForSpecificEnvironmentFile')
+            ->shouldReceive('setEnvironmentFilePath')
             ->once()
-            ->andReturns();
+            ->andReturn(false);
         $loader
             ->shouldReceive('createDotenv')
             ->once()
@@ -54,6 +62,14 @@ class EnvLoaderTest extends TestCase {
             ->once()
             ->andReturn(true);
         $app
+            ->shouldReceive('environment')
+            ->twice()
+            ->andReturn('test');
+        $app
+            ->shouldReceive('environmentFile')
+            ->once()
+            ->andReturn('.env');
+        $app
             ->shouldReceive('environmentPath')
             ->once()
             ->andReturn('path/to/env');
@@ -66,9 +82,9 @@ class EnvLoaderTest extends TestCase {
         $loader->makePartial();
         $loader->shouldAllowMockingProtectedMethods();
         $loader
-            ->shouldReceive('checkForSpecificEnvironmentFile')
+            ->shouldReceive('setEnvironmentFilePath')
             ->once()
-            ->andReturns();
+            ->andReturn(false);
         $loader
             ->shouldReceive('createDotenv')
             ->once()

@@ -3,4 +3,5 @@ type Me {
   given_name: String!
   family_name: String!
   locale: String
+  root: Boolean!
 }

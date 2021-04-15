@@ -2,13 +2,15 @@
 
 namespace App\GraphQL\Queries;
 
+use App\GraphQL\Directives\RootDirective;
 use Illuminate\Auth\AuthManager;
 
 class Me {
-    protected AuthManager $auth;
-
-    public function __construct(AuthManager $auth) {
-        $this->auth = $auth;
+    public function __construct(
+        protected AuthManager $auth,
+        protected RootDirective $root,
+    ) {
+        // empty
     }
 
     /**
@@ -25,6 +27,7 @@ class Me {
             'given_name'  => $user->given_name,
             'family_name' => $user->family_name,
             'locale'      => $user->locale,
+            'root'        => $this->root->isRoot($user),
         ] : null;
     }
 }

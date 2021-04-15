@@ -104,9 +104,11 @@ class AuthSignInByCodeTest extends TestCase {
         $this
             ->graphQL(/** @lang GraphQL */ 'mutation AuthSignInByCode($code: String!, $state: String!) {
                 authSignInByCode(code: $code, state: $state) {
-                    id,
-                    family_name,
+                    id
+                    family_name
                     given_name
+                    locale
+                    root
                 }
             }', ['code' => '123', 'state' => '123'])
             ->assertThat($expected);

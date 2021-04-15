@@ -8,31 +8,26 @@ use Illuminate\Contracts\Config\Repository;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
-use Tests\GraphQL\GraphQLError;
+use Tests\GraphQL\GraphQLUnauthenticated;
+use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
-
-use function __;
 
 /**
  * Only root cat perform the action.
  *
- * @see \Config\Constants::EP_ROOT_USER_ID
+ * @see \Config\Constants::EP_ROOT_USERS
  */
 class RootDataProvider extends ArrayDataProvider {
     public function __construct(string $root) {
         parent::__construct([
             'guest is not allowed' => [
-                new ExpectedFinal(new GraphQLError($root, static function (): array {
-                    return [__('errors.unauthenticated')];
-                })),
+                new ExpectedFinal(new GraphQLUnauthenticated($root)),
                 static function (): ?User {
                     return null;
                 },
             ],
             'user is not allowed'  => [
-                new ExpectedFinal(new GraphQLError($root, static function (): array {
-                    return [__('errors.unauthorized')];
-                })),
+                new ExpectedFinal(new GraphQLUnauthorized($root)),
                 static function (TestCase $test, ?Organization $organization): ?User {
                     return User::factory()->make([
                         'organization_id' => $organization,
@@ -45,7 +40,7 @@ class RootDataProvider extends ArrayDataProvider {
                     $user = User::factory()->make();
 
                     $test->app()->make(Repository::class)->set(
-                        'ep.root_user_id',
+                        'ep.root_users',
                         $user->getKey(),
                     );
 

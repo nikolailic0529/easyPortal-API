@@ -5,7 +5,9 @@
     "required": [
         "id",
         "given_name",
-        "family_name"
+        "family_name",
+        "locale",
+        "root"
     ],
     "properties": {
         "id": {
@@ -22,6 +24,9 @@
                 "string",
                 "null"
             ]
+        },
+        "root": {
+            "type": "boolean"
         }
     }
 }

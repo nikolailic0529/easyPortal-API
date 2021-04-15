@@ -11,8 +11,6 @@ use App\Models\Product;
 use App\Models\Reseller;
 use App\Models\Type;
 use Closure;
-use Illuminate\Contracts\Config\Repository;
-use LastDragon_ru\LaraASP\Core\Utils\ConfigMerger;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -43,19 +41,10 @@ class ContractsBuilderTest extends TestCase {
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setTenant($tenantFactory));
+        $this->setSettings($settings);
 
         if ($contractsFactory) {
             $contractsFactory($this);
-        }
-
-        if ($settings) {
-            $config = $this->app->make(Repository::class);
-            $group  = 'ep';
-
-            $config->set($group, (new ConfigMerger())->merge(
-                $config->get($group),
-                $settings,
-            ));
         }
 
         // Not empty?
@@ -301,7 +290,7 @@ class ContractsBuilderTest extends TestCase {
                         ],
                     ]),
                     [
-                        'contract_types' => [
+                        'ep.contract_types' => [
                             'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                         ],
                     ],
@@ -406,7 +395,7 @@ class ContractsBuilderTest extends TestCase {
                         // empty
                     ]),
                     [
-                        'contract_types' => [
+                        'ep.contract_types' => [
                             // empty
                         ],
                     ],
@@ -419,7 +408,7 @@ class ContractsBuilderTest extends TestCase {
                         // empty
                     ]),
                     [
-                        'contract_types' => [
+                        'ep.contract_types' => [
                             'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                         ],
                     ],

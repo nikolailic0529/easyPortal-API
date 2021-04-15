@@ -11,14 +11,13 @@ use App\Models\Product;
 use App\Models\Reseller;
 use App\Models\Type;
 use Closure;
-use Illuminate\Contracts\Config\Repository;
-use LastDragon_ru\LaraASP\Core\Utils\ConfigMerger;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\UserDataProvider;
 use Tests\DataProviders\TenantDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
+use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 
 /**
@@ -42,19 +41,10 @@ class QuotesBuilderTest extends TestCase {
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setTenant($tenantFactory));
+        $this->setSettings($settings);
 
         if ($quotesFactory) {
             $quotesFactory($this);
-        }
-
-        if ($settings) {
-            $config = $this->app->make(Repository::class);
-            $group  = 'ep';
-
-            $config->set($group, (new ConfigMerger())->merge(
-                $config->get($group),
-                $settings,
-            ));
         }
 
         // Test
@@ -394,7 +384,7 @@ class QuotesBuilderTest extends TestCase {
                 'quote_types match'                         => [
                     new GraphQLPaginated('quotes', self::class, $objects),
                     [
-                        'quote_types' => [
+                        'ep.quote_types' => [
                             'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                         ],
                     ],
@@ -403,23 +393,27 @@ class QuotesBuilderTest extends TestCase {
                 'no quote_types + contract_types not match' => [
                     new GraphQLPaginated('quotes', self::class, $objects),
                     [
-                        'contract_types' => [
+                        'ep.contract_types' => [
                             'd4ad2f4f-7751-4cd2-a6be-71bcee84f37a',
                         ],
                     ],
                     $factory,
                 ],
                 'no quote_types + contract_types match'     => [
-                    new GraphQLPaginated('quotes', self::class, [
-                        // empty
-                    ]),
+                    new GraphQLPaginated(
+                        'quotes',
+                        self::class,
+                        new JsonFragment('0.id', '"2bf6d64b-df97-401c-9abd-dc2dd747e2b0"'),
+                    ),
                     [
-                        'contract_types' => [
+                        'ep.contract_types' => [
                             'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                         ],
                     ],
                     static function (): void {
-                        Document::factory()->create();
+                        Document::factory()->create([
+                            'id' => '2bf6d64b-df97-401c-9abd-dc2dd747e2b0',
+                        ]);
                     },
                 ],
                 'quote_types not match'                     => [
@@ -427,7 +421,7 @@ class QuotesBuilderTest extends TestCase {
                         // empty
                     ]),
                     [
-                        'quote_types' => [
+                        'ep.quote_types' => [
                             'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                         ],
                     ],
@@ -440,7 +434,7 @@ class QuotesBuilderTest extends TestCase {
                         // empty
                     ]),
                     [
-                        'quote_types' => [
+                        'ep.quote_types' => [
                             // empty
                         ],
                     ],

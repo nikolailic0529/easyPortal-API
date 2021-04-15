@@ -103,13 +103,13 @@ type Mutation {
   authSignOut: String! @guard         # TODO [GraphQL] URL type needed
 
   "Complete sign-in and returns current User if successful."
-  authSignInByCode(code: String!, state: String!): User @guest
+  authSignInByCode(code: String!, state: String!): Me @guest
 
   "Password based sing-in."
   authSignInByPassword(
     username: String!               # TODO [GraphQL] Email type needed
     password: String!
-  ): User @guest @validator
+  ): Me @guest @validator
 
   "Register new user"
   authSignUp(
