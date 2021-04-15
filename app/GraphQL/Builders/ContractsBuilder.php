@@ -2,17 +2,19 @@
 
 namespace App\GraphQL\Builders;
 
+use App\GraphQL\Queries\ContractTypes;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
 
 class ContractsBuilder {
     public function __construct(
         protected Repository $config,
+        protected ContractTypes $types,
     ) {
         // empty
     }
+
     public function __invoke(Builder $builder): Builder {
-        $contactTypes = $this->config->get('ep.contract_types');
-        return $builder->whereIn('type_id', $contactTypes);
+        return $this->types->prepare($builder, 'type_id');
     }
 }

@@ -17,6 +17,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\UserDataProvider;
 use Tests\DataProviders\TenantDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
+use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 
 /**
@@ -399,16 +400,20 @@ class QuotesBuilderTest extends TestCase {
                     $factory,
                 ],
                 'no quote_types + contract_types match'     => [
-                    new GraphQLPaginated('quotes', self::class, [
-                        // empty
-                    ]),
+                    new GraphQLPaginated(
+                        'quotes',
+                        self::class,
+                        new JsonFragment('0.id', '"2bf6d64b-df97-401c-9abd-dc2dd747e2b0"'),
+                    ),
                     [
                         'ep.contract_types' => [
                             'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                         ],
                     ],
                     static function (): void {
-                        Document::factory()->create();
+                        Document::factory()->create([
+                            'id' => '2bf6d64b-df97-401c-9abd-dc2dd747e2b0',
+                        ]);
                     },
                 ],
                 'quote_types not match'                     => [
