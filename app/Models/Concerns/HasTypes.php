@@ -19,6 +19,7 @@ trait HasTypes {
         return $this
             ->belongsToMany(Type::class, $pivot->getTable())
             ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
             ->withTimestamps();
     }
 

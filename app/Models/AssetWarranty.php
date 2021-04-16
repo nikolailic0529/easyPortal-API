@@ -88,6 +88,7 @@ class AssetWarranty extends Model {
         return $this
             ->belongsToMany(Product::class, $pivot->getTable())
             ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
             ->withTimestamps();
     }
 
