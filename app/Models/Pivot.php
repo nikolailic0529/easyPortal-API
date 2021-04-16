@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\CascadeDeletes\CascadeDeletes;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LastDragon_ru\LaraASP\Eloquent\Pivot as LaraASPPivot;
 
 abstract class Pivot extends LaraASPPivot {
     use SoftDeletes;
+    use CascadeDeletes;
 
     protected const CASTS = [
-        'deleted_at' => 'datetime',
+        // empty
     ];
 
     /**

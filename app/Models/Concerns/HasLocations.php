@@ -4,7 +4,6 @@ namespace App\Models\Concerns;
 
 use App\Models\Location;
 use App\Models\PolymorphicModel;
-use Exception;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
 
