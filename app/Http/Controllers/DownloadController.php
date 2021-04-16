@@ -52,26 +52,31 @@ class DownloadController extends Controller {
             }
         }
 
-        $callback = static function () use ($request, $graphQL, $paginated, $root, $items): void {
+        $callback = function () use ($request, $graphQL, $paginated, $root, $items): void {
             $file = fopen('php://output', 'w');
             $item = $items[0];
             $keys = [];
+            /**
+             * Get an array of key, values of key => path to value and value is header
+             * ['products.name' => 'product]
+             */
             foreach (array_keys($item) as $key) {
                 if (is_array($item[$key])) {
+                    // relation key with values
                     foreach ($item[$key] as $subKey => $subValue) {
                         $keys["{$key}.{$subKey}"] = "{$key}_{$subKey}";
                     }
                 } else {
+                    // Direct table column
                     $keys[$key] = $key;
                 }
             }
+            // Headers of export
             fputcsv($file, array_values($keys));
+
+            // First item which is fetched before to check for errors
             foreach ($items as $item) {
-                $value = [];
-                foreach (array_keys($keys) as $key) {
-                    $value[] = Arr::get($item, $key);
-                }
-                fputcsv($file, $value);
+                fputcsv($file, $this->getQueryRow($keys, $item));
             }
 
             if ($paginated) {
@@ -91,11 +96,7 @@ class DownloadController extends Controller {
                         $items = $items['data'];
                     }
                     foreach ($items as $item) {
-                        $value = [];
-                        foreach (array_keys($keys) as $key) {
-                            $value[] = Arr::get($item, $key);
-                        }
-                        fputcsv($file, $value);
+                        fputcsv($file, $this->getQueryRow($keys, $item));
                     }
                     $page++;
                 } while (!empty($items));
@@ -109,5 +110,20 @@ class DownloadController extends Controller {
             'Expires'             => '0',
         ];
         return new StreamedResponse($callback, 200, $headers);
+    }
+
+    /**
+     * @param array<string,mixed> $keys
+     *
+     * @param array<string,mixed> $item
+     *
+     * @return array<string,mixed>
+     */
+    protected function getQueryRow(array $keys, array $item): array {
+        $value = [];
+        foreach (array_keys($keys) as $key) {
+            $value[] = Arr::get($item, $key);
+        }
+        return $value;
     }
 }
