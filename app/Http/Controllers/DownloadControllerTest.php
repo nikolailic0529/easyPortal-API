@@ -41,23 +41,30 @@ class DownloadControllerTest extends TestCase {
         }
 
         // Query
-        $input = [
-            'operationName' => null,
-            'variables'     => [],
-            'query'         => '{
-                allCustomers {
+        $query = /** @lang GraphQL */ <<<'GRAPHQL'
+        query customers($first: Int, $page: Int){
+            customers(first:$first, page: $page){
+                data{
                     id
                     name
                     type_id
                     status_id
                     assets_count
                     contacts_count
-                    locations_count
                 }
-            }',
+            }
+        }
+      GRAPHQL;
+        $input = [
+            'operationName' => null,
+            'variables'     => [
+                'first' => 10,
+                'page'  => 1,
+            ],
+            'query'         => $query,
         ];
 
-        $this->post('/download', $input)->assertThat($expected);
+        $this->post('/download/csv', $input)->assertThat($expected);
     }
     // </editor-fold>
 
@@ -69,7 +76,7 @@ class DownloadControllerTest extends TestCase {
     public function dataProviderIndex(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            new UserDataProvider('allCustomers'),
+            new UserDataProvider('customers'),
             new ArrayDataProvider([
                 'success' => [
                     new Response(

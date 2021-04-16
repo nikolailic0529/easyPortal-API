@@ -2,33 +2,84 @@
 
 namespace App\Http\Controllers;
 
-use GraphQL\Server\Helper;
-use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
+use GraphQL\Server\OperationParams;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Laragraph\Utils\RequestParser;
 use Nuwave\Lighthouse\GraphQL;
-use Nuwave\Lighthouse\Support\Contracts\CreatesResponse;
-use Nuwave\Lighthouse\Support\Http\Controllers\GraphQLController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
-
-
-class DownloadController extends GraphQLController {
-    public function __invoke(
+use function array_key_exists;
+use function array_key_first;
+use function array_keys;
+use function array_values;
+use function fopen;
+use function fputcsv;
+class DownloadController extends Controller {
+    public function csv(
         Request $request,
         GraphQL $graphQL,
-        EventsDispatcher $eventsDispatcher,
-        RequestParser $requestParser,
-        Helper $graphQLHelper,
-        CreatesResponse $createsResponse,
     ): Response {
-        return parent::__invoke(
-            $request,
-            $graphQL,
-            $eventsDispatcher,
-            $requestParser,
-            $graphQLHelper,
-            new CsvResponse(),
-        );
+        // execute first to check for errors
+        $operationParam = OperationParams::create([
+            'query'         => $request->get('query'),
+            'operationName' => $request->get('operationName'),
+            'variables'     => $request->get('variables'),
+        ]);
+        $result         = $graphQL->executeOperation($operationParam);
+        if (array_key_exists('errors', $result)) {
+            return new JsonResponse($result);
+        }
+
+        $paginated = false;
+        $file      = fopen('php://output', 'w');
+        $data      = $result['data'];
+        $root      = array_key_first($data);
+        $items     = $data[$root];
+
+        if (array_key_exists('data', $items)) {
+            $paginated = true;
+            $items     = $items['data'];
+        }
+
+        $callback = static function () use ($request, $graphQL, $file, $paginated, $root, $items): void {
+            foreach ($items as $index => $item) {
+                if ($index === 0) {
+                    fputcsv($file, array_keys($item));
+                }
+                fputcsv($file, array_values($item));
+            }
+            if ($paginated) {
+                $variables = $request->variables;
+                $page      = array_key_exists('page', $variables) ? $variables['page'] + 1 : 1;
+                // Should it throw an error since we need page to loop through them ?
+                do {
+                    $variables['page'] = $page;
+                    $operationParam    = OperationParams::create([
+                        'query'         => $request->get('query'),
+                        'operationName' => $request->get('operationName'),
+                        'variables'     => $variables,
+                    ]);
+                    $result            = $graphQL->executeOperation($operationParam);
+                    $items             = $result['data'][$root];
+
+                    if ($paginated) {
+                        $items = $items['data'];
+                    }
+                    foreach ($items as $index => $item) {
+                        fputcsv($file, array_values($item));
+                    }
+                    $page++;
+                } while (!empty($items));
+            }
+        };
+        $headers  = [
+            'Content-type'        => 'text/csv',
+            'Content-Disposition' => 'attachment; filename=export.csv',
+            'Pragma'              => 'no-cache',
+            'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires'             => '0',
+        ];
+        return new StreamedResponse($callback, 200, $headers);
     }
 }
