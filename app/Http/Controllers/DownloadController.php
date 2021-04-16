@@ -32,7 +32,6 @@ class DownloadController extends Controller {
         }
 
         $paginated = false;
-        $file      = fopen('php://output', 'w');
         $data      = $result['data'];
         $root      = array_key_first($data);
         $items     = $data[$root];
@@ -42,7 +41,8 @@ class DownloadController extends Controller {
             $items     = $items['data'];
         }
 
-        $callback = static function () use ($request, $graphQL, $file, $paginated, $root, $items): void {
+        $callback = static function () use ($request, $graphQL, $paginated, $root, $items): void {
+            $file = fopen('php://output', 'w');
             foreach ($items as $index => $item) {
                 if ($index === 0) {
                     fputcsv($file, array_keys($item));
