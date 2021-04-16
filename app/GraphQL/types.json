@@ -237,7 +237,10 @@
                     "$ref": "#/definitions/ID"
                 },
                 "serial_number": {
-                    "type": ["string", "null"]
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "location_id": {
                     "$ref": "#/definitions/ID"
@@ -259,7 +262,7 @@
                 }
             }
         },
-        "Oem" : {
+        "Oem": {
             "additionProperties": false,
             "type": "object",
             "required": [
@@ -279,7 +282,7 @@
                 }
             }
         },
-        "Product" : {
+        "Product": {
             "additionProperties": false,
             "type": "object",
             "required": [
@@ -430,7 +433,10 @@
                     "format": "date"
                 },
                 "price": {
-                    "type": "string"
+                    "type": [
+                        "null",
+                        "string"
+                    ]
                 },
                 "currency_id": {
                     "$ref": "#/definitions/ID"
@@ -453,7 +459,7 @@
                 "type": {
                     "$ref": "#/definitions/Type"
                 },
-                "entries" : {
+                "entries": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/DocumentEntry"
@@ -571,7 +577,7 @@
                 }
             }
         },
-        "Organization" : {
+        "Organization": {
             "additionProperties": false,
             "type": "object",
             "required": [
@@ -619,25 +625,25 @@
                         "null"
                     ]
                 },
-                "branding_logo" : {
+                "branding_logo": {
                     "type": [
                         "string",
                         "null"
                     ]
                 },
-                "branding_favicon" : {
+                "branding_favicon": {
                     "type": [
                         "string",
                         "null"
                     ]
                 },
-                "website_url" : {
+                "website_url": {
                     "type": [
                         "string",
                         "null"
                     ]
                 },
-                "email" : {
+                "email": {
                     "type": [
                         "string",
                         "null"
@@ -674,7 +680,7 @@
                 "version": {
                     "type": "string"
                 },
-                "settings" : {
+                "settings": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/ApplicationSetting"

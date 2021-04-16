@@ -8,7 +8,7 @@ type Document {
   product_id: ID!
   start: Date!
   end: Date!
-  price: String!
+  price: String
   currency_id: ID!
   currency: Currency! @belongsTo
   customer: Customer! @belongsTo

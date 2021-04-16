@@ -336,7 +336,6 @@ class Client {
             serialNumber
 
             productDescription
-            description
             assetTag
             assetType
             vendor
