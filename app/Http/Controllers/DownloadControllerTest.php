@@ -23,13 +23,13 @@ class DownloadControllerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::index
+     * @covers ::csv
      *
-     * @dataProvider dataProviderIndex
+     * @dataProvider dataProviderCsv
      *
      * @param array<mixed> $input
      */
-    public function testIndex(
+    public function testCsv(
         Response $expected,
         Closure $tenantFactory,
         Closure $userFactory = null,
@@ -75,7 +75,7 @@ class DownloadControllerTest extends TestCase {
     /**
      * @return array<mixed>
      */
-    public function dataProviderIndex(): array {
+    public function dataProviderCsv(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
             new ArrayDataProvider([
