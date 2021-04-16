@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ExportQuery;
 use GraphQL\Server\OperationParams;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Nuwave\Lighthouse\GraphQL;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -15,9 +16,11 @@ use function array_keys;
 use function array_values;
 use function fopen;
 use function fputcsv;
+use function is_array;
+
 class DownloadController extends Controller {
     public function csv(
-        Request $request,
+        ExportQuery $request,
         GraphQL $graphQL,
     ): Response {
         // execute first to check for errors
@@ -28,7 +31,7 @@ class DownloadController extends Controller {
         ]);
         $result         = $graphQL->executeOperation($operationParam);
         if (array_key_exists('errors', $result)) {
-            return new JsonResponse($result);
+            return new JsonResponse($result, Response::HTTP_BAD_REQUEST);
         }
 
         $paginated = false;
@@ -39,20 +42,41 @@ class DownloadController extends Controller {
         if (array_key_exists('data', $items)) {
             $paginated = true;
             $items     = $items['data'];
+            if (!array_key_exists('page', $request->variables)) {
+                return new JsonResponse(
+                    [
+                        'message' => 'parameter page is required for paginated queries',
+                    ],
+                    Response::HTTP_BAD_REQUEST,
+                );
+            }
         }
 
         $callback = static function () use ($request, $graphQL, $paginated, $root, $items): void {
             $file = fopen('php://output', 'w');
-            foreach ($items as $index => $item) {
-                if ($index === 0) {
-                    fputcsv($file, array_keys($item));
+            $item = $items[0];
+            $keys = [];
+            foreach (array_keys($item) as $key) {
+                if (is_array($item[$key])) {
+                    foreach ($item[$key] as $subKey => $subValue) {
+                        $keys["{$key}.{$subKey}"] = "{$key}_{$subKey}";
+                    }
+                } else {
+                    $keys[$key] = $key;
                 }
-                fputcsv($file, array_values($item));
             }
+            fputcsv($file, array_values($keys));
+            foreach ($items as $item) {
+                $value = [];
+                foreach (array_keys($keys) as $key) {
+                    $value[] = Arr::get($item, $key);
+                }
+                fputcsv($file, $value);
+            }
+
             if ($paginated) {
                 $variables = $request->variables;
-                $page      = array_key_exists('page', $variables) ? $variables['page'] + 1 : 1;
-                // Should it throw an error since we need page to loop through them ?
+                $page      = $variables['page'] + 1;
                 do {
                     $variables['page'] = $page;
                     $operationParam    = OperationParams::create([
@@ -66,8 +90,12 @@ class DownloadController extends Controller {
                     if ($paginated) {
                         $items = $items['data'];
                     }
-                    foreach ($items as $index => $item) {
-                        fputcsv($file, array_values($item));
+                    foreach ($items as $item) {
+                        $value = [];
+                        foreach (array_keys($keys) as $key) {
+                            $value[] = Arr::get($item, $key);
+                        }
+                        fputcsv($file, $value);
                     }
                     $page++;
                 } while (!empty($items));

@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Customer;
+use App\Models\Asset;
+use App\Models\Organization;
+use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\UserDataProvider;
+use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
 use Tests\DataProviders\TenantDataProvider;
 use Tests\ResponseTypes\CsvContentType;
 use Tests\TestCase;
@@ -42,23 +44,23 @@ class DownloadControllerTest extends TestCase {
 
         // Query
         $query = /** @lang GraphQL */ <<<'GRAPHQL'
-        query customers($first: Int, $page: Int){
-            customers(first:$first, page: $page){
-                data{
-                    id
-                    name
-                    type_id
-                    status_id
-                    assets_count
-                    contacts_count
-                }
+        query assets($first: Int, $page: Int){
+          assets(first:$first, page: $page){
+            data{
+              id
+              product{
+                name
+                sku
+              }
             }
+          }
         }
-      GRAPHQL;
+        GRAPHQL;
+
         $input = [
-            'operationName' => null,
+            'operationName' => 'assets',
             'variables'     => [
-                'first' => 10,
+                'first' => 1,
                 'page'  => 1,
             ],
             'query'         => $query,
@@ -76,7 +78,16 @@ class DownloadControllerTest extends TestCase {
     public function dataProviderIndex(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            new UserDataProvider('customers'),
+            new ArrayDataProvider([
+                'user is allowed' => [
+                    new Unknown(),
+                    static function (TestCase $test, ?Organization $organization): ?User {
+                        return User::factory()->make([
+                            'organization_id' => $organization,
+                        ]);
+                    },
+                ],
+            ]),
             new ArrayDataProvider([
                 'success' => [
                     new Response(
@@ -84,7 +95,7 @@ class DownloadControllerTest extends TestCase {
                         new CsvContentType(),
                     ),
                     static function (TestCase $test): void {
-                        Customer::factory()->count(2)->create();
+                        Asset::factory()->count(10)->create();
                     },
                 ],
             ]),
