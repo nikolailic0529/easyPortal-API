@@ -1,5 +1,6 @@
 <?php declare(strict_types = 1);
 
+use App\Http\Controllers\DownloadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', static function (Request $request) {
     return $request->user();
 });
+
+Route::post('/download/csv', [DownloadController::class, 'csv']);
+Route::post('/download/excel', [DownloadController::class, 'excel']);
