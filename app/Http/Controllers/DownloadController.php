@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\QueryExport;
 use App\Http\Requests\ExportQuery;
-use Barryvdh\Snappy\Facades\SnappyPdf;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use GraphQL\Server\OperationParams;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
@@ -29,10 +29,14 @@ class DownloadController extends Controller {
     }
 
     public function csv(ExportQuery $request): Response {
-
         $result = $this->getInitialResult($request);
 
         if (array_key_exists('errors', $result)) {
+            $errors = $result['errors'];
+            // if we it is Unauthenticated it should return 401 Unauthorized
+            if (array_key_exists('message', $errors[0]) && $errors[0]['message'] === __('errors.unauthenticated')) {
+                return new JsonResponse($errors[0]['message'], Response::HTTP_UNAUTHORIZED);
+            }
             return new JsonResponse($result, Response::HTTP_BAD_REQUEST);
         }
 
@@ -94,65 +98,34 @@ class DownloadController extends Controller {
     }
 
     public function excel(ExportQuery $request): Response {
-        $result = $this->getInitialResult($request);
-
-        if (array_key_exists('errors', $result)) {
-            return new JsonResponse($result, Response::HTTP_BAD_REQUEST);
+        $output = $this->getCollection($request);
+        if ($output instanceof Response) {
+            return $output;
         }
-
-        $paginated  = false;
-        $data       = $result['data'];
-        $root       = array_key_first($data);
-        $items      = $data[$root];
-        $collection = new Collection();
-        if (array_key_exists('data', $items)) {
-            $paginated = true;
-            $items     = $items['data'];
-            if (!array_key_exists('page', $request->variables)) {
-                return new JsonResponse(
-                    [
-                        'message' => __('validation.required', ['attribute' => 'page']),
-                    ],
-                    Response::HTTP_UNPROCESSABLE_ENTITY,
-                );
-            }
-        }
-
-        $keys = $this->getKeys($items[0]);
-
-        // Header
-        $collection->push(array_values($keys));
-
-        // First item which is fetched before to check for errors
-        foreach ($items as $item) {
-            $collection->push($this->getExportRow($keys, $item));
-        }
-
-        if ($paginated) {
-            $variables = $request->variables;
-            $page      = $variables['page'] + 1;
-            do {
-                $variables['page'] = $page;
-                $operationParam    = OperationParams::create([
-                    'query'         => $request->get('query'),
-                    'operationName' => $request->get('operationName'),
-                    'variables'     => $variables,
-                ]);
-                $items             = $this->executeQuery($paginated, $root, $operationParam);
-                foreach ($items as $item) {
-                    $collection->push($this->getExportRow($keys, $item));
-                }
-                $page++;
-            } while (!empty($items));
-        }
-
-        return (new QueryExport($collection))->download('export.xlsx', Excel::XLSX);
+        return (new QueryExport($output))->download('export.xlsx', Excel::XLSX);
     }
 
     public function pdf(ExportQuery $request): Response {
+        $output = $this->getCollection($request);
+        if ($output instanceof Response) {
+            return $output;
+        }
+        $pdf = PDF::loadView('exports.pdf', [
+            'rows' => $output,
+        ]);
+        return $pdf->download('export.pdf');
+    }
+
+    protected function getCollection(ExportQuery $request): Collection|Response {
         $result = $this->getInitialResult($request);
 
         if (array_key_exists('errors', $result)) {
+            $errors = $result['errors'];
+
+            // if we it is Unauthenticated it should return 401 Unauthorized
+            if (array_key_exists('message', $errors[0]) && $errors[0]['message'] === __('errors.unauthenticated')) {
+                return new JsonResponse($errors[0]['message'], Response::HTTP_UNAUTHORIZED);
+            }
             return new JsonResponse($result, Response::HTTP_BAD_REQUEST);
         }
 
@@ -202,10 +175,7 @@ class DownloadController extends Controller {
             } while (!empty($items));
         }
 
-        $pdf = SnappyPdf::loadView('exports.pdf', [
-            'rows' => $collection,
-        ]);
-        return $pdf->download('export.pdf');
+        return $collection;
     }
 
     /**
