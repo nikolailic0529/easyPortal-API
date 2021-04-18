@@ -8,10 +8,8 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 
 class QueryExport implements FromCollection {
     use Exportable;
-    
-    protected Collection $collection;
 
-    public function __construct(Collection $collection){
+    public function __construct(protected Collection $collection) {
         $this->collection = $collection;
     }
     public function collection(): Collection {

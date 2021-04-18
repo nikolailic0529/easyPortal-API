@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\QueryExport;
 use App\Http\Requests\ExportQuery;
+use Barryvdh\Snappy\Facades\SnappyPdf;
 use GraphQL\Server\OperationParams;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
@@ -13,6 +14,7 @@ use Nuwave\Lighthouse\GraphQL;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
+use function __;
 use function array_key_exists;
 use function array_key_first;
 use function array_keys;
@@ -73,7 +75,7 @@ class DownloadController extends Controller {
                         'operationName' => $request->get('operationName'),
                         'variables'     => $variables,
                     ]);
-                    $items = $this->executeQuery($paginated, $root, $operationParam);
+                    $items             = $this->executeQuery($paginated, $root, $operationParam);
                     foreach ($items as $item) {
                         fputcsv($file, $this->getExportRow($keys, $item));
                     }
@@ -98,10 +100,10 @@ class DownloadController extends Controller {
             return new JsonResponse($result, Response::HTTP_BAD_REQUEST);
         }
 
-        $paginated = false;
-        $data      = $result['data'];
-        $root      = array_key_first($data);
-        $items     = $data[$root];
+        $paginated  = false;
+        $data       = $result['data'];
+        $root       = array_key_first($data);
+        $items      = $data[$root];
         $collection = new Collection();
         if (array_key_exists('data', $items)) {
             $paginated = true;
@@ -136,7 +138,7 @@ class DownloadController extends Controller {
                     'operationName' => $request->get('operationName'),
                     'variables'     => $variables,
                 ]);
-                $items = $this->executeQuery($paginated, $root, $operationParam);
+                $items             = $this->executeQuery($paginated, $root, $operationParam);
                 foreach ($items as $item) {
                     $collection->push($this->getExportRow($keys, $item));
                 }
@@ -145,6 +147,65 @@ class DownloadController extends Controller {
         }
 
         return (new QueryExport($collection))->download('export.xlsx', Excel::XLSX);
+    }
+
+    public function pdf(ExportQuery $request): Response {
+        $result = $this->getInitialResult($request);
+
+        if (array_key_exists('errors', $result)) {
+            return new JsonResponse($result, Response::HTTP_BAD_REQUEST);
+        }
+
+        $paginated  = false;
+        $data       = $result['data'];
+        $root       = array_key_first($data);
+        $items      = $data[$root];
+        $collection = new Collection();
+        if (array_key_exists('data', $items)) {
+            $paginated = true;
+            $items     = $items['data'];
+            if (!array_key_exists('page', $request->variables)) {
+                return new JsonResponse(
+                    [
+                        'message' => __('validation.required', ['attribute' => 'page']),
+                    ],
+                    Response::HTTP_UNPROCESSABLE_ENTITY,
+                );
+            }
+        }
+
+        $keys = $this->getKeys($items[0]);
+
+        // Header
+        $collection->push(array_values($keys));
+
+        // First item which is fetched before to check for errors
+        foreach ($items as $item) {
+            $collection->push($this->getExportRow($keys, $item));
+        }
+
+        if ($paginated) {
+            $variables = $request->variables;
+            $page      = $variables['page'] + 1;
+            do {
+                $variables['page'] = $page;
+                $operationParam    = OperationParams::create([
+                    'query'         => $request->get('query'),
+                    'operationName' => $request->get('operationName'),
+                    'variables'     => $variables,
+                ]);
+                $items             = $this->executeQuery($paginated, $root, $operationParam);
+                foreach ($items as $item) {
+                    $collection->push($this->getExportRow($keys, $item));
+                }
+                $page++;
+            } while (!empty($items));
+        }
+
+        $pdf = SnappyPdf::loadView('exports.pdf', [
+            'rows' => $collection,
+        ]);
+        return $pdf->download('export.pdf');
     }
 
     /**
@@ -167,7 +228,7 @@ class DownloadController extends Controller {
      */
     protected function executeQuery(bool $paginated, string $root, OperationParams $params): array {
         $result = $this->graphQL->executeOperation($params);
-        $items = $result['data'][$root];
+        $items  = $result['data'][$root];
 
         if ($paginated) {
             $items = $items['data'];
@@ -178,7 +239,7 @@ class DownloadController extends Controller {
     /**
      * @return array<string,mixed>
      */
-    protected function getInitialResult(ExportQuery $request) :array {
+    protected function getInitialResult(ExportQuery $request): array {
         // execute first to check for errors
         $operationParam = OperationParams::create([
             'query'         => $request->get('query'),
@@ -191,9 +252,12 @@ class DownloadController extends Controller {
     /**
      *  Get an array of key, values of key => path to value and value is header
      * ['products.name' => 'product]
+     *
+     * @param  array<string, mixed>  $item
+     *
      * @return array<string,string>
      */
-    protected function getKeys($item): array {
+    protected function getKeys(array $item): array {
         $keys = [];
         foreach (array_keys($item) as $key) {
             if (is_array($item[$key])) {
