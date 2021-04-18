@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\QueryExport;
 use App\Models\Asset;
 use App\Models\Organization;
 use App\Models\User;
@@ -11,8 +12,10 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
+use Maatwebsite\Excel\Facades\Excel;
 use Tests\DataProviders\TenantDataProvider;
 use Tests\ResponseTypes\CsvContentType;
+use Tests\ResponseTypes\XslxContentType;
 use Tests\TestCase;
 
 /**
@@ -26,8 +29,6 @@ class DownloadControllerTest extends TestCase {
      * @covers ::csv
      *
      * @dataProvider dataProviderCsv
-     *
-     * @param array<mixed> $input
      */
     public function testCsv(
         Response $expected,
@@ -96,6 +97,93 @@ class DownloadControllerTest extends TestCase {
                     ),
                     static function (TestCase $test): void {
                         Asset::factory()->count(10)->create();
+                    },
+                ],
+            ]),
+        ))->getData();
+    }
+    // </editor-fold>
+
+        // <editor-fold desc="Tests">
+    // =========================================================================
+    /**
+     * @covers ::excel
+     *
+     * @dataProvider dataProviderExcel
+     *
+     * @param array<mixed> $input
+     */
+    public function testExcel(
+        Response $expected,
+        Closure $tenantFactory,
+        Closure $userFactory = null,
+        Closure $exportableFactory = null,
+    ): void {
+        // Prepare
+        $this->setUser($userFactory, $this->setTenant($tenantFactory));
+
+        $exported = null;
+        if ($exportableFactory) {
+            $exported = $exportableFactory($this);
+        }
+
+        // Query
+        $query = /** @lang GraphQL */ <<<'GRAPHQL'
+        query assets($first: Int, $page: Int){
+          assets(first:$first, page: $page){
+            data{
+              id
+              product{
+                name
+                sku
+              }
+            }
+          }
+        }
+        GRAPHQL;
+
+        $input = [
+            'operationName' => 'assets',
+            'variables'     => [
+                'first' => 1,
+                'page'  => 1,
+            ],
+            'query'         => $query,
+        ];
+        Excel::fake();
+
+        $this->post('/download/excel', $input)->assertThat($expected);
+
+        if (is_a($expected, Ok::class)) {
+            Excel::assertDownloaded('export.xlsx');
+        }
+
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="DataProviders">
+    // =========================================================================
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderExcel(): array {
+        return (new CompositeDataProvider(
+            new TenantDataProvider(),
+            new ArrayDataProvider([
+                'user is allowed' => [
+                    new Unknown(),
+                    static function (TestCase $test, ?Organization $organization): ?User {
+                        return User::factory()->make([
+                            'organization_id' => $organization,
+                        ]);
+                    },
+                ],
+            ]),
+            new ArrayDataProvider([
+                'success' => [
+                    new Ok(),
+                    static function (TestCase $test): Asset {
+                        return Asset::factory()->create();
                     },
                 ],
             ]),
