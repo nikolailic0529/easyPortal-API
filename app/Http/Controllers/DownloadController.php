@@ -31,13 +31,8 @@ class DownloadController extends Controller {
     public function csv(ExportQuery $request): Response {
         $result = $this->getInitialResult($request);
 
-        if (array_key_exists('errors', $result)) {
-            $errors = $result['errors'];
-            // if we it is Unauthenticated it should return 401 Unauthorized
-            if (array_key_exists('message', $errors[0]) && $errors[0]['message'] === __('errors.unauthenticated')) {
-                return new JsonResponse($errors[0]['message'], Response::HTTP_UNAUTHORIZED);
-            }
-            return new JsonResponse($result, Response::HTTP_BAD_REQUEST);
+        if ($result instanceof Response) {
+            return $result;
         }
 
         $paginated = false;
@@ -119,14 +114,8 @@ class DownloadController extends Controller {
     protected function getCollection(ExportQuery $request): Collection|Response {
         $result = $this->getInitialResult($request);
 
-        if (array_key_exists('errors', $result)) {
-            $errors = $result['errors'];
-
-            // if we it is Unauthenticated it should return 401 Unauthorized
-            if (array_key_exists('message', $errors[0]) && $errors[0]['message'] === __('errors.unauthenticated')) {
-                return new JsonResponse($errors[0]['message'], Response::HTTP_UNAUTHORIZED);
-            }
-            return new JsonResponse($result, Response::HTTP_BAD_REQUEST);
+        if ($result instanceof Response) {
+            return $result;
         }
 
         $paginated  = false;
@@ -209,14 +198,24 @@ class DownloadController extends Controller {
     /**
      * @return array<string,mixed>
      */
-    protected function getInitialResult(ExportQuery $request): array {
+    protected function getInitialResult(ExportQuery $request): array|Response {
         // execute first to check for errors
         $operationParam = OperationParams::create([
             'query'         => $request->get('query'),
             'operationName' => $request->get('operationName'),
             'variables'     => $request->get('variables'),
         ]);
-        return $this->graphQL->executeOperation($operationParam);
+        $result         = $this->graphQL->executeOperation($operationParam);
+        if (array_key_exists('errors', $result)) {
+            $errors = $result['errors'];
+            // if we it is Unauthenticated it should return 401 Unauthorized
+            if (array_key_exists('category', $errors[0]) && $errors[0]['category'] === 'authentication') {
+                return new JsonResponse($errors[0]['message'], Response::HTTP_UNAUTHORIZED);
+            }
+            return new JsonResponse($result, Response::HTTP_BAD_REQUEST);
+        }
+
+        return $result;
     }
 
     /**
