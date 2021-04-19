@@ -100,6 +100,16 @@ class WithLocationsTest extends TestCase {
         $this->assertEquals($cb->zip, $first->postcode);
         $this->assertEquals($cb->city, $first->city->name);
         $this->assertEquals($cb->address, $first->line_one);
+
+        // locationType can be null
+        $cc     = tap(clone $ca, static function (Location $location): void {
+            $location->locationType = null;
+        });
+        $actual = $factory->objectLocations($owner, [$cc]);
+        $first  = reset($actual);
+
+        $this->assertCount(1, $actual);
+        $this->assertCount(0, $first->types);
     }
 
     /**
