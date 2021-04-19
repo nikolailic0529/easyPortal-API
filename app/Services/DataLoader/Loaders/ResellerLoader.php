@@ -39,29 +39,30 @@ class ResellerLoader extends Loader {
     // =========================================================================
     public function load(string $id): bool {
         // Load company
-        $company = $this->client->getCompanyById($id);
+        $company  = $this->client->getCompanyById($id);
+        $reseller = null;
 
-        if (!$company) {
+        if ($company) {
+            $resellers = $this->getResellerFactory();
+            $reseller  = $resellers->create($company);
+
+            if ($this->isWithAssets()) {
+                $this->loadAssets($reseller);
+            }
+        } else {
             $reseller = Reseller::query()->whereKey($id)->first();
 
             if ($reseller) {
-                $this->logger->error('Reseller found in database but not found in Cosmos.', [
+                $this->logger->warning('Reseller found in database but not found in Cosmos.', [
                     'id' => $id,
                 ]);
             }
-
-            return false;
         }
 
-        // Load customer
-        $resellers = $this->getResellerFactory();
-        $reseller  = $resellers->create($company);
-
-        if ($this->isWithAssets()) {
-            $this->loadAssets($reseller);
+        // Countable
+        if ($reseller) {
+            $this->updateResellerCountable($reseller);
         }
-
-        $this->updateResellerCountable($reseller);
 
         // Return
         return true;

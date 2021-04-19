@@ -27,7 +27,7 @@ trait WithLocations {
         return $this->polymorphic(
             $owner,
             $locations,
-            static function (Location $location): string {
+            static function (Location $location): ?string {
                 return $location->locationType;
             },
             function (Model $object, Location $location): ?LocationModel {

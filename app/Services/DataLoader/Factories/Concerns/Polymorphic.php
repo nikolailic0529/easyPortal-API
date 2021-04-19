@@ -31,8 +31,17 @@ trait Polymorphic {
                 continue;
             }
 
+            // Type defined?
+            $type = $getType($object);
+
+            if (!$type) {
+                $models[$model] = [];
+
+                continue;
+            }
+
             // Determine type
-            $type = $this->type($model, $getType($object));
+            $type = $this->type($model, $type);
 
             if ($models->contains($model)) {
                 if (in_array($type, $models[$model], true)) {

@@ -8,21 +8,21 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Jobs\ResellerUpdate
+ * @coversDefaultClass \App\Services\DataLoader\Jobs\CustomerUpdate
  */
-class ResellerUpdateTest extends TestCase {
+class CustomerUpdateTest extends TestCase {
     /**
      * @covers ::handle
      */
     public function testHandle(): void {
         $id     = $this->faker->uuid;
-        $job    = $this->app->make(ResellerUpdate::class);
+        $job    = $this->app->make(CustomerUpdate::class);
         $kernel = Mockery::mock(Kernel::class);
 
         $kernel
             ->shouldReceive('call')
             ->with(
-                'ep:data-loader-reseller',
+                'ep:data-loader-customer',
                 [
                     'id'       => [$id],
                     '--assets' => true,
