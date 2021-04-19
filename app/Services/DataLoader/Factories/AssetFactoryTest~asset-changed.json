@@ -11,5 +11,9 @@
     "city": "New Port Adanville",
     "address": "Maddison Path Suite 12345",
     "address2": "TODO",
+    "country": "Great Britain",
+    "latitude": "51.5",
+    "longitude": "-0.116667",
+    "countryCode": "GB",
     "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a"
 }

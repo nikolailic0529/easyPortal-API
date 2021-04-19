@@ -109,4 +109,23 @@ class NormalizerTest extends TestCase {
 
         $normalizer->price('value');
     }
+
+    /**
+     * @covers ::coordinate
+     */
+    public function testCoordinate(): void {
+        $string     = Mockery::mock(StringNormalizer::class);
+        $config     = new Repository();
+        $normalizer = new Normalizer(
+            new KeyNormalizer(),
+            new UuidNormalizer(),
+            $string,
+            new DateTimeNormalizer($config),
+            new PriceNormalizer(),
+        );
+
+        $string->shouldReceive('normalize')->once()->andReturns();
+
+        $normalizer->coordinate('value');
+    }
 }

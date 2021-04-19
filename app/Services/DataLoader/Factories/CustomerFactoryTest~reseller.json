@@ -43,18 +43,30 @@
     ],
     "locations": [
         {
+            "country": "Great Britain",
+            "latitude": "51.5",
+            "longitude": "-0.116667",
+            "countryCode": "GB",
             "zip": "70618",
             "address": "Maddison Path Suite 820 Apt. 898",
             "city": "Port Adanville",
             "locationType": "EQUIPMENT_LOCATION"
         },
         {
+            "country": "Great Britain",
+            "latitude": "51.5",
+            "longitude": "-0.116667",
+            "countryCode": "GB",
             "zip": "70618",
             "address": "Maddison Path Suite 820 Apt. 898",
             "city": "Port Adanville",
             "locationType": "HEADQUARTERS"
         },
         {
+            "country": null,
+            "latitude": null,
+            "longitude": null,
+            "countryCode": null,
             "zip": "61870",
             "address": "Maddison Path Suite 820 Apt. 898",
             "city": "New Port Adanville",

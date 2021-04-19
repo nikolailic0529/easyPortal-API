@@ -7,6 +7,10 @@
     "sku": "JW1123",
     "eolDate": "1615161600000",
     "eosDate": "",
+    "country": "Great Britain",
+    "latitude": "51.5",
+    "longitude": "-0.116667",
+    "countryCode": "GB",
     "zip": "70618",
     "city": "Port Adanville",
     "address": "Maddison Path Suite 820 Apt. 898",
@@ -25,12 +29,20 @@
         ],
         "locations": [
             {
+                "country": "Great Britain",
+                "latitude": "51.5",
+                "longitude": "-0.116667",
+                "countryCode": "GB",
                 "zip": "35132",
                 "address": "Maddison Path Suite 820 Apt. 898",
                 "city": "Port Adanville",
                 "locationType": "HEADQUARTERS"
             },
             {
+                "country": null,
+                "latitude": null,
+                "longitude": null,
+                "countryCode": null,
                 "zip": null,
                 "address": null,
                 "city": "WANGEN",
@@ -60,12 +72,20 @@
         ],
         "locations": [
             {
+                "country": "Great Britain",
+                "latitude": "51.5",
+                "longitude": "-0.116667",
+                "countryCode": "GB",
                 "zip": "70618",
                 "address": "Maddison Path Suite 820 Apt. 898",
                 "city": "Port Adanville",
                 "locationType": "HEADQUARTERS"
             },
             {
+                "country": "Great Britain",
+                "latitude": "51.5",
+                "longitude": "-0.116667",
+                "countryCode": "GB",
                 "zip": "12345",
                 "address": "Maddison Path Suite 12345",
                 "city": "New Port Adanville",

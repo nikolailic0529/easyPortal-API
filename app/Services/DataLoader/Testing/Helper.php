@@ -58,12 +58,16 @@ trait Helper {
                 $locations[$key]['types'][] = $location->locationType;
             } else {
                 $locations[$key] = [
-                    'types'    => [$location->locationType],
-                    'postcode' => $location->zip,
-                    'state'    => '',
-                    'city'     => $location->city,
-                    'line_one' => $location->address,
-                    'line_two' => '',
+                    'types'       => [$location->locationType],
+                    'country'     => $location->country ?? 'Unknown Country',
+                    'countryCode' => $location->countryCode ?? '??',
+                    'postcode'    => $location->zip,
+                    'state'       => '',
+                    'city'        => $location->city,
+                    'line_one'    => $location->address,
+                    'line_two'    => '',
+                    'latitude'    => $location->latitude,
+                    'longitude'   => $location->longitude,
                 ];
             }
         }
@@ -166,12 +170,16 @@ trait Helper {
         }
 
         return [
-            'postcode' => $location->postcode,
-            'state'    => $location->state,
-            'city'     => $location->city->name,
-            'line_one' => $location->line_one,
-            'line_two' => $location->line_two,
-            'types'    => $types,
+            'country'     => $location->country->name,
+            'countryCode' => $location->country->code,
+            'postcode'    => $location->postcode,
+            'state'       => $location->state,
+            'city'        => $location->city->name,
+            'line_one'    => $location->line_one,
+            'line_two'    => $location->line_two,
+            'types'       => $types,
+            'latitude'    => $location->latitude,
+            'longitude'   => $location->longitude,
         ];
     }
     //</editor-fold>
@@ -183,12 +191,16 @@ trait Helper {
      */
     protected function getAssetLocation(Asset $asset): ?array {
         return $asset->zip && $asset->city ? [
-            'types'    => [],
-            'postcode' => $asset->zip,
-            'state'    => '',
-            'city'     => $asset->city,
-            'line_one' => $asset->address,
-            'line_two' => '',
+            'types'       => [],
+            'country'     => $asset->country,
+            'countryCode' => $asset->countryCode,
+            'postcode'    => $asset->zip,
+            'state'       => '',
+            'city'        => $asset->city,
+            'line_one'    => $asset->address,
+            'line_two'    => '',
+            'latitude'    => $asset->latitude,
+            'longitude'   => $asset->longitude,
         ] : null;
     }
     // </editor-fold>

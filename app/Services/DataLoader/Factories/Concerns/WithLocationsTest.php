@@ -69,6 +69,10 @@ class WithLocationsTest extends TestCase {
 
         // Repeated objects should be missed
         $ca = tap(new Location(), function (Location $location): void {
+            $location->country      = $this->faker->country;
+            $location->countryCode  = $this->faker->countryCode;
+            $location->latitude     = null;
+            $location->longitude    = null;
             $location->zip          = $this->faker->postcode;
             $location->city         = $this->faker->city;
             $location->address      = $this->faker->streetAddress;
@@ -79,6 +83,10 @@ class WithLocationsTest extends TestCase {
 
         // Objects should be grouped by type
         $cb     = tap(new Location(), function (Location $location) use ($ca): void {
+            $location->country      = $ca->country;
+            $location->countryCode  = $ca->countryCode;
+            $location->latitude     = $ca->latitude;
+            $location->longitude    = $ca->longitude;
             $location->zip          = $ca->zip;
             $location->city         = $ca->city;
             $location->address      = $ca->address;
