@@ -3,6 +3,7 @@
 namespace App\Models\Concerns;
 
 use App\Models\Model;
+use http\Header\Parser;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
@@ -33,24 +34,34 @@ trait SyncBelongsToMany {
         $getKey   = static function (Model $model): string {
             return $model->getKey();
         };
-        $objects  = new EloquentCollection($objects);
-        $new      = $objects->map($getKey);
+        $new      = (new EloquentCollection($objects))->keyBy($getKey);
         $existing = new Collection();
 
         if ($this->exists) {
-            $existing = $this->{$relation}->map($getKey);
+            $existing = $this->{$relation}->keyBy($getKey);
         } else {
             $this->save();
         }
 
-        if ($new->diff($existing)->isEmpty() && $existing->diff($new)->isEmpty()) {
-            return;
+        // Add new
+        /** @var \Illuminate\Database\Eloquent\Model $object */
+        foreach ($new as $object) {
+            // Attach if not attached
+            if (!$existing->has($object->getKey())) {
+                $belongsToMany->attach($object->getKey(), [], false);
+            }
+
+            // Mark as used
+            $existing->forget($object->getKey());
         }
 
-        // Sync
-        $this->setRelation($relation, $objects);
-        $belongsToMany->sync($objects->map(static function (Model $model): string {
-            return $model->getKey();
-        })->all());
+        // Remove unused
+        /** @var \Illuminate\Database\Eloquent\Model $object */
+        foreach ($existing as $object) {
+            $object->pivot?->delete();
+        }
+
+        // Update relation
+        $this->setRelation($relation, $new->values());
     }
 }
