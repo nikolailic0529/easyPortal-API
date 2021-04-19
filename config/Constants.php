@@ -3,6 +3,8 @@
 namespace Config;
 
 use App\Jobs\Queues;
+use App\Services\DataLoader\Jobs\CustomersUpdaterCronJob;
+use App\Services\DataLoader\Jobs\CustomerUpdate;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellerUpdate;
@@ -182,7 +184,7 @@ interface Constants {
     public const EP_DATA_LOADER_RESELLERS_UPDATER_QUEUE = Queues::DATA_LOADER_DEFAULT;
 
     /**
-     * Queue name.
+     * Expiration interval.
      */
     #[Service(ResellersUpdaterCronJob::class, 'settings.expire')]
     #[Group('data_loader')]
@@ -197,7 +199,50 @@ interface Constants {
      */
     #[Job(ResellerUpdate::class, 'queue')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_RESELLER_UPDATE_QUEUE = Queues::DATA_LOADER_RESELLER;
+    public const EP_DATA_LOADER_RESELLER_UPDATE_QUEUE = Queues::DATA_LOADER_UPDATE;
+    // </editor-fold>
+
+    // <editor-fold desc="DATA_LOADER_CUSTOMERS_UPDATER">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(CustomersUpdaterCronJob::class, 'enabled')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_ENABLED = self::EP_DATA_LOADER_ENABLED;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(CustomersUpdaterCronJob::class, 'cron')]
+    #[Group('data_loader')]
+    #[Type(CronExpression::class)]
+    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_CRON = '*/5 * * * *';
+
+    /**
+     * Queue name.
+     */
+    #[Service(CustomersUpdaterCronJob::class, 'queue')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_QUEUE = Queues::DATA_LOADER_DEFAULT;
+
+    /**
+     * Expiration interval.
+     */
+    #[Service(CustomersUpdaterCronJob::class, 'settings.expire')]
+    #[Group('data_loader')]
+    #[Type(Duration::class)]
+    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_EXPIRE = 'PT24H';
+    // </editor-fold>
+
+    // <editor-fold desc="DATA_LOADER_CUSTOMER_UPDATE">
+    // -------------------------------------------------------------------------
+    /**
+     * Queue name.
+     */
+    #[Job(CustomerUpdate::class, 'queue')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_CUSTOMER_UPDATE_QUEUE = Queues::DATA_LOADER_UPDATE;
     // </editor-fold>
     // </editor-fold>
 }

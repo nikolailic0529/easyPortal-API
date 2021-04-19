@@ -41,32 +41,33 @@ class CustomerLoader extends Loader {
     // =========================================================================
     public function load(string $id): bool {
         // Load company
-        $company = $this->client->getCompanyById($id);
+        $company  = $this->client->getCompanyById($id);
+        $customer = null;
 
-        if (!$company) {
+        if ($company) {
+            $customers = $this->getCustomersFactory();
+            $customer  = $customers->create($company);
+
+            if ($this->isWithAssets()) {
+                $this->loadAssets($customer);
+            }
+        } else {
             $customer = Customer::query()->whereKey($id)->first();
 
             if ($customer) {
-                $this->logger->error('Customer found in database but not found in Cosmos.', [
+                $this->logger->warning('Customer found in database but not found in Cosmos.', [
                     'id' => $id,
                 ]);
             }
-
-            return false;
         }
 
-        // Load customer
-        $customers = $this->getCustomersFactory();
-        $customer  = $customers->create($company);
-
-        if ($this->isWithAssets()) {
-            $this->loadAssets($customer);
+        // Countable
+        if ($customer) {
+            $this->updateCustomerCountable($customer);
         }
-
-        $this->updateCustomerCountable($customer);
 
         // Return
-        return true;
+        return (bool) $company;
     }
     // </editor-fold>
 

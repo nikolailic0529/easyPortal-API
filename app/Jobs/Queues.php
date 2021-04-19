@@ -14,7 +14,7 @@ interface Queues {
     /**
      * Default queue.
      */
-    public const DEFAULT              = 'default';
+    public const DEFAULT            = 'default';
 
     /**
      * Default queue for Data Loader
@@ -22,7 +22,7 @@ interface Queues {
     public const DATA_LOADER_DEFAULT = 'data-loader-default';
 
     /**
-     * Default queue for Data Loader
+     * Default queue for Data Loader Update jobs.
      */
-    public const DATA_LOADER_RESELLER = 'data-loader-reseller';
+    public const DATA_LOADER_UPDATE = 'data-loader-update';
 }
