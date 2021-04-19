@@ -19,6 +19,10 @@ class Asset extends Type {
     public ?string  $city;
     public ?string  $address;
     public ?string  $address2;
+    public ?string  $country;
+    public ?string  $latitude;
+    public ?string  $longitude;
+    public ?string  $countryCode;
 
     /**
      * @var array<\App\Services\DataLoader\Schema\AssetDocument>

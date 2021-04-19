@@ -21,6 +21,10 @@
     "city": "Port Adanville",
     "address": "Maddison Path Suite 820 Apt. 898",
     "address2": "TODO",
+    "country": "GB",
+    "latitude": null,
+    "longitude": null,
+    "countryCode": "GB",
     "assetDocument": [
         {
             "document": {

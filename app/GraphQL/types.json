@@ -76,8 +76,8 @@
                 "state",
                 "line_one",
                 "line_two",
-                "lat",
-                "lng"
+                "latitude",
+                "longitude"
             ],
             "properties": {
                 "id": {
@@ -101,13 +101,13 @@
                         "$ref": "#/definitions/Type"
                     }
                 },
-                "lat": {
+                "latitude": {
                     "type": [
                         "string",
                         "null"
                     ]
                 },
-                "lng": {
+                "longitude": {
                     "type": [
                         "string",
                         "null"

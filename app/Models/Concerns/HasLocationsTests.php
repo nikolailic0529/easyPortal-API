@@ -2,7 +2,6 @@
 
 namespace App\Models\Concerns;
 
-use App\Models\Asset;
 use App\Models\Location;
 use App\Models\Model;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
@@ -35,9 +34,6 @@ trait HasLocationsTests {
         $used     = Location::factory()->create([
             'object_id'   => $model->getKey(),
             'object_type' => $morph,
-        ]);
-        $asset    = Asset::factory()->create([
-            'location_id' => $used,
         ]);
 
         // Base

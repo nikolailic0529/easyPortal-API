@@ -4,8 +4,8 @@ input LocationsQuery {
   state: String!
   line_one: String!
   line_two: String!
-  lat: String
-  lng: String
+  latitude: String
+  longitude: String
   city: CitiesQuery
   city_id: ID!
   country: CountriesQuery

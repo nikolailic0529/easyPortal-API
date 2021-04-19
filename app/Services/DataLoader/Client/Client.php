@@ -319,9 +319,13 @@ class Client {
                 status
             }
             locations {
+                country
+                countryCode
+                latitude
+                longitude
+                city
                 zip
                 address
-                city
                 locationType
             }
             GRAPHQL;
@@ -341,6 +345,10 @@ class Client {
             eolDate
             eosDate
 
+            country
+            countryCode
+            latitude
+            longitude
             zip
             city
             address

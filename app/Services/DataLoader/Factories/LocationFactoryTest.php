@@ -35,9 +35,13 @@ class LocationFactoryTest extends TestCase {
         $factory  = $this->app->make(LocationFactory::class);
         $customer = Customer::factory()->make();
         $location = Location::create([
-            'zip'     => $this->faker->postcode,
-            'address' => $this->faker->streetAddress,
-            'city'    => $this->faker->city,
+            'zip'         => $this->faker->postcode,
+            'address'     => $this->faker->streetAddress,
+            'city'        => $this->faker->city,
+            'country'     => $this->faker->country,
+            'countryCode' => $this->faker->countryCode,
+            'latitude'    => (string) $this->faker->latitude,
+            'longitude'   => (string) $this->faker->longitude,
         ]);
 
         $this->flushQueryLog();
@@ -75,15 +79,21 @@ class LocationFactoryTest extends TestCase {
      * @covers ::createFromLocation
      */
     public function testCreateFromLocation(): void {
-        $customer = Customer::factory()->make();
-        $country  = Country::factory()->make();
-        $city     = City::factory()->make([
+        $latitude  = (string) $this->faker->latitude;
+        $longitude = (string) $this->faker->longitude;
+        $customer  = Customer::factory()->make();
+        $country   = Country::factory()->make();
+        $city      = City::factory()->make([
             'country_id' => $country,
         ]);
-        $location = Location::create([
-            'zip'     => $this->faker->postcode,
-            'address' => $this->faker->streetAddress,
-            'city'    => $this->faker->city,
+        $location  = Location::create([
+            'zip'         => $this->faker->postcode,
+            'address'     => $this->faker->streetAddress,
+            'city'        => $this->faker->city,
+            'country'     => $country->name,
+            'countryCode' => $country->code,
+            'latitude'    => $latitude,
+            'longitude'   => $longitude,
         ]);
 
         $factory = Mockery::mock(LocationFactory::class);
@@ -91,7 +101,7 @@ class LocationFactoryTest extends TestCase {
         $factory->shouldAllowMockingProtectedMethods();
         $factory->shouldReceive('country')
             ->once()
-            ->with('??', 'Unknown Country')
+            ->with($country->code, $country->name)
             ->andReturn($country);
         $factory
             ->shouldReceive('city')
@@ -109,6 +119,8 @@ class LocationFactoryTest extends TestCase {
                 $location->address,
                 '',
                 '',
+                $latitude,
+                $longitude,
             )
             ->andReturns();
 
@@ -119,17 +131,23 @@ class LocationFactoryTest extends TestCase {
      * @covers ::createFromLocation
      */
     public function testCreateFromLocationCityWithState(): void {
-        $customer = Customer::factory()->make();
-        $country  = Country::factory()->make();
-        $city     = City::factory()->make([
+        $latitude  = (string) $this->faker->latitude;
+        $longitude = (string) $this->faker->longitude;
+        $customer  = Customer::factory()->make();
+        $country   = Country::factory()->make();
+        $city      = City::factory()->make([
             'country_id' => $country,
         ]);
-        $state    = $this->faker->state;
-        $cityName = $this->faker->city;
-        $location = Location::create([
-            'zip'     => $this->faker->postcode,
-            'address' => $this->faker->streetAddress,
-            'city'    => "{$cityName},  {$state}",
+        $state     = $this->faker->state;
+        $cityName  = $this->faker->city;
+        $location  = Location::create([
+            'zip'         => $this->faker->postcode,
+            'address'     => $this->faker->streetAddress,
+            'city'        => "{$cityName},  {$state}",
+            'country'     => $country->name,
+            'countryCode' => $country->code,
+            'latitude'    => $latitude,
+            'longitude'   => $longitude,
         ]);
 
         $factory = Mockery::mock(LocationFactory::class);
@@ -137,7 +155,7 @@ class LocationFactoryTest extends TestCase {
         $factory->shouldAllowMockingProtectedMethods();
         $factory->shouldReceive('country')
             ->once()
-            ->with('??', 'Unknown Country')
+            ->with($country->code, $country->name)
             ->andReturn($country);
         $factory
             ->shouldReceive('city')
@@ -155,6 +173,8 @@ class LocationFactoryTest extends TestCase {
                 $location->address,
                 '',
                 "  {$state}",
+                $latitude,
+                $longitude,
             )
             ->andReturns();
 
@@ -183,15 +203,21 @@ class LocationFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAsset(): void {
-        $customer = Customer::factory()->make();
-        $country  = Country::factory()->make();
-        $city     = City::factory()->make([
+        $latitude  = (string) $this->faker->latitude;
+        $longitude = (string) $this->faker->longitude;
+        $customer  = Customer::factory()->make();
+        $country   = Country::factory()->make();
+        $city      = City::factory()->make([
             'country_id' => $country,
         ]);
-        $assert   = Asset::create([
-            'zip'     => $this->faker->postcode,
-            'address' => $this->faker->streetAddress,
-            'city'    => $this->faker->city,
+        $assert    = Asset::create([
+            'zip'         => $this->faker->postcode,
+            'address'     => $this->faker->streetAddress,
+            'city'        => $this->faker->city,
+            'country'     => $country->name,
+            'countryCode' => $country->code,
+            'latitude'    => $latitude,
+            'longitude'   => $longitude,
         ]);
 
         $factory = Mockery::mock(LocationFactory::class);
@@ -199,7 +225,7 @@ class LocationFactoryTest extends TestCase {
         $factory->shouldAllowMockingProtectedMethods();
         $factory->shouldReceive('country')
             ->once()
-            ->with('??', 'Unknown Country')
+            ->with($country->code, $country->name)
             ->andReturn($country);
         $factory
             ->shouldReceive('city')
@@ -217,6 +243,8 @@ class LocationFactoryTest extends TestCase {
                 $assert->address,
                 '',
                 '',
+                $latitude,
+                $longitude,
             )
             ->andReturns();
 
@@ -227,17 +255,23 @@ class LocationFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAssetCityWithState(): void {
-        $customer = Customer::factory()->make();
-        $country  = Country::factory()->make();
-        $city     = City::factory()->make([
+        $latitude  = (string) $this->faker->latitude;
+        $longitude = (string) $this->faker->longitude;
+        $customer  = Customer::factory()->make();
+        $country   = Country::factory()->make();
+        $city      = City::factory()->make([
             'country_id' => $country,
         ]);
-        $state    = $this->faker->state;
-        $cityName = $this->faker->city;
-        $assert   = Asset::create([
-            'zip'     => $this->faker->postcode,
-            'address' => $this->faker->streetAddress,
-            'city'    => "{$cityName},  {$state}",
+        $state     = $this->faker->state;
+        $cityName  = $this->faker->city;
+        $assert    = Asset::create([
+            'zip'         => $this->faker->postcode,
+            'address'     => $this->faker->streetAddress,
+            'city'        => "{$cityName},  {$state}",
+            'country'     => $country->name,
+            'countryCode' => $country->code,
+            'latitude'    => $latitude,
+            'longitude'   => $longitude,
         ]);
 
         $factory = Mockery::mock(LocationFactory::class);
@@ -245,7 +279,7 @@ class LocationFactoryTest extends TestCase {
         $factory->shouldAllowMockingProtectedMethods();
         $factory->shouldReceive('country')
             ->once()
-            ->with('??', 'Unknown Country')
+            ->with($country->code, $country->name)
             ->andReturn($country);
         $factory
             ->shouldReceive('city')
@@ -263,6 +297,8 @@ class LocationFactoryTest extends TestCase {
                 $assert->address,
                 '',
                 "  {$state}",
+                $latitude,
+                $longitude,
             )
             ->andReturns();
 
@@ -383,6 +419,8 @@ class LocationFactoryTest extends TestCase {
                 string $lineOne,
                 string $lineTwo,
                 string $state,
+                ?string $latitude,
+                ?string $longitude,
             ): LocationModel {
                 return parent::location(
                     $object,
@@ -392,6 +430,8 @@ class LocationFactoryTest extends TestCase {
                     $lineOne,
                     $lineTwo,
                     $state,
+                    $latitude,
+                    $longitude,
                 );
             }
         };
@@ -407,6 +447,8 @@ class LocationFactoryTest extends TestCase {
             $location->line_one,
             $location->line_two,
             $location->state,
+            $location->latitude,
+            $location->longitude,
         ));
         $this->assertNotEquals('', $location->state);
         $this->assertCount(1, $this->getQueryLog());
@@ -414,11 +456,23 @@ class LocationFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // If not - it should be created
-        $state    = " {$this->faker->state} ";
-        $postcode = " {$this->faker->postcode} ";
-        $lineOne  = " {$this->faker->streetAddress} ";
-        $lineTwo  = " {$this->faker->secondaryAddress} ";
-        $created  = $factory->location($customer, $country, $city, $postcode, $lineOne, $lineTwo, $state);
+        $state     = " {$this->faker->state} ";
+        $postcode  = " {$this->faker->postcode} ";
+        $lineOne   = " {$this->faker->streetAddress} ";
+        $lineTwo   = " {$this->faker->secondaryAddress} ";
+        $latitude  = " {$this->faker->latitude} ";
+        $longitude = " {$this->faker->longitude} ";
+        $created   = $factory->location(
+            $customer,
+            $country,
+            $city,
+            $postcode,
+            $lineOne,
+            $lineTwo,
+            $state,
+            $latitude,
+            $longitude,
+        );
 
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
@@ -430,6 +484,8 @@ class LocationFactoryTest extends TestCase {
         $this->assertEquals($normalizer->string($state), $created->state);
         $this->assertEquals($normalizer->string($lineOne), $created->line_one);
         $this->assertEquals($normalizer->string($lineTwo), $created->line_two);
+        $this->assertEquals($normalizer->coordinate($latitude), $created->latitude);
+        $this->assertEquals($normalizer->coordinate($longitude), $created->longitude);
         $this->assertCount(2, $this->getQueryLog());
 
         $this->flushQueryLog();
@@ -445,6 +501,8 @@ class LocationFactoryTest extends TestCase {
             $created->line_one,
             $created->line_two,
             $state,
+            $created->latitude,
+            $created->longitude,
         );
 
         $this->assertSame($created, $updated);

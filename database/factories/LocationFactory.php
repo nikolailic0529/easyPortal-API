@@ -42,8 +42,8 @@ class LocationFactory extends Factory {
             'city_id'     => static function (): City {
                 return City::factory()->create();
             },
-            'lat'         => null,
-            'lng'         => null,
+            'latitude'    => null,
+            'longitude'   => null,
             'created_at'  => Date::now(),
             'updated_at'  => Date::now(),
             'deleted_at'  => null,

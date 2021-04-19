@@ -39,4 +39,8 @@ class Normalizer {
     public function price(mixed $value): ?string {
         return $this->price->normalize($value);
     }
+
+    public function coordinate(mixed $value): ?string {
+        return $this->string($value);
+    }
 }

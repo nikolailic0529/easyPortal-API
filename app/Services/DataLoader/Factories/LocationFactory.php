@@ -67,7 +67,9 @@ class LocationFactory extends DependentModelFactory {
         }
 
         // Country is not yet available so we use Unknown
-        $country = $this->country('??', 'Unknown Country');
+        $country = $location->countryCode
+            ? $this->country($location->countryCode, $location->country ?: 'Unknown Country')
+            : $this->country('??', 'Unknown Country');
 
         // City may contains State
         $city  = null;
@@ -93,6 +95,8 @@ class LocationFactory extends DependentModelFactory {
             (string) $location->address,
             '',
             $state,
+            $location->latitude,
+            $location->longitude,
         );
 
         // Return
@@ -104,10 +108,14 @@ class LocationFactory extends DependentModelFactory {
         //      guess because it the same as the customer's location that
         //      doesn't have it), so we ignore it. We will need review this
         //      method and tests when it will filled correctly.
-        $location          = new Location();
-        $location->zip     = $asset->zip;
-        $location->city    = $asset->city;
-        $location->address = $asset->address;
+        $location              = new Location();
+        $location->zip         = $asset->zip;
+        $location->city        = $asset->city;
+        $location->address     = $asset->address;
+        $location->country     = $asset->country;
+        $location->countryCode = $asset->countryCode;
+        $location->latitude    = $asset->latitude;
+        $location->longitude   = $asset->longitude;
 
         return $this->createFromLocation($object, $location);
     }
@@ -152,6 +160,8 @@ class LocationFactory extends DependentModelFactory {
         string $lineOne,
         string $lineTwo,
         string $state,
+        ?string $latitude,
+        ?string $longitude,
     ): LocationModel {
         $created  = false;
         $factory  = $this->factory(
@@ -166,6 +176,8 @@ class LocationFactory extends DependentModelFactory {
                 $lineOne,
                 $lineTwo,
                 $state,
+                $latitude,
+                $longitude,
             ): LocationModel {
                 $created               = !$location->exists;
                 $location->object_type = $object->getMorphClass();
@@ -176,6 +188,8 @@ class LocationFactory extends DependentModelFactory {
                 $location->state       = $this->normalizer->string($state);
                 $location->line_one    = $this->normalizer->string($lineOne);
                 $location->line_two    = $this->normalizer->string($lineTwo);
+                $location->latitude    = $this->normalizer->coordinate($latitude);
+                $location->longitude   = $this->normalizer->coordinate($longitude);
 
                 $location->save();
 
