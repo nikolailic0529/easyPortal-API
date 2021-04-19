@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string                                                           $state
  * @property string                                                           $line_one
  * @property string                                                           $line_two
- * @property string|null                                                      $lat
- * @property string|null                                                      $lng
+ * @property string|null                                                      $latitude
+ * @property string|null                                                      $longitude
  * @property \Carbon\CarbonImmutable                                          $created_at
  * @property \Carbon\CarbonImmutable                                          $updated_at
  * @property \Carbon\CarbonImmutable|null                                     $deleted_at
@@ -39,10 +39,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereLat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereLatitude($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereLineOne($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereLineTwo($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereLng($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereLongitude($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereObjectId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereObjectType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location wherePostcode($value)

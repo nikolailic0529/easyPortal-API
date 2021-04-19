@@ -89,8 +89,8 @@ class AssetTest extends TestCase {
                                 postcode
                                 line_one
                                 line_two
-                                lat
-                                lng
+                                latitude
+                                longitude
                             }
                             contacts_count
                             contacts {
@@ -105,8 +105,8 @@ class AssetTest extends TestCase {
                             postcode
                             line_one
                             line_two
-                            lat
-                            lng
+                            latitude
+                            longitude
                         }
                         warranties {
                             id
@@ -154,8 +154,8 @@ class AssetTest extends TestCase {
                                     postcode
                                     line_one
                                     line_two
-                                    lat
-                                    lng
+                                    latitude
+                                    longitude
                                 }
                                 contacts_count
                                 contacts {
@@ -176,8 +176,8 @@ class AssetTest extends TestCase {
                                     postcode
                                     line_one
                                     line_two
-                                    lat
-                                    lng
+                                    latitude
+                                    longitude
                                 }
                             }
                         }
@@ -230,13 +230,13 @@ class AssetTest extends TestCase {
                             ],
                         ],
                         'location'      => [
-                            'id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                            'state'    => 'state1',
-                            'postcode' => '19911',
-                            'line_one' => 'line_one_data',
-                            'line_two' => 'line_two_data',
-                            'lat'      => '47.91634204',
-                            'lng'      => '-2.26318359',
+                            'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                            'state'     => 'state1',
+                            'postcode'  => '19911',
+                            'line_one'  => 'line_one_data',
+                            'line_two'  => 'line_two_data',
+                            'latitude'  => '47.91634204',
+                            'longitude' => '-2.26318359',
                         ],
                         'customer'      => [
                             'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
@@ -245,13 +245,13 @@ class AssetTest extends TestCase {
                             'locations_count' => 1,
                             'locations'       => [
                                 [
-                                    'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                    'state'    => 'state1',
-                                    'postcode' => '19911',
-                                    'line_one' => 'line_one_data',
-                                    'line_two' => 'line_two_data',
-                                    'lat'      => '47.91634204',
-                                    'lng'      => '-2.26318359',
+                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                    'state'     => 'state1',
+                                    'postcode'  => '19911',
+                                    'line_one'  => 'line_one_data',
+                                    'line_two'  => 'line_two_data',
+                                    'latitude'  => '47.91634204',
+                                    'longitude' => '-2.26318359',
                                 ],
                             ],
                             'contacts_count'  => 1,
@@ -308,13 +308,13 @@ class AssetTest extends TestCase {
                                     'locations_count' => 1,
                                     'locations'       => [
                                         [
-                                            'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                            'state'    => 'state1',
-                                            'postcode' => '19911',
-                                            'line_one' => 'line_one_data',
-                                            'line_two' => 'line_two_data',
-                                            'lat'      => '47.91634204',
-                                            'lng'      => '-2.26318359',
+                                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                            'state'     => 'state1',
+                                            'postcode'  => '19911',
+                                            'line_one'  => 'line_one_data',
+                                            'line_two'  => 'line_two_data',
+                                            'latitude'  => '47.91634204',
+                                            'longitude' => '-2.26318359',
                                         ],
                                     ],
                                     'contacts_count'  => 1,
@@ -334,13 +334,13 @@ class AssetTest extends TestCase {
                                     'assets_count'    => 0,
                                     'locations'       => [
                                         [
-                                            'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
-                                            'state'    => 'state2',
-                                            'postcode' => '19912',
-                                            'line_one' => 'reseller_one_data',
-                                            'line_two' => 'reseller_two_data',
-                                            'lat'      => '49.91634204',
-                                            'lng'      => '90.26318359',
+                                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
+                                            'state'     => 'state2',
+                                            'postcode'  => '19912',
+                                            'line_one'  => 'reseller_one_data',
+                                            'line_two'  => 'reseller_two_data',
+                                            'latitude'  => '49.91634204',
+                                            'longitude' => '90.26318359',
                                         ],
                                     ],
                                 ],
@@ -356,13 +356,13 @@ class AssetTest extends TestCase {
                         ]);
                         // Location belongs to
                         $location = Location::factory()->create([
-                            'id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                            'state'    => 'state1',
-                            'postcode' => '19911',
-                            'line_one' => 'line_one_data',
-                            'line_two' => 'line_two_data',
-                            'lat'      => '47.91634204',
-                            'lng'      => '-2.26318359',
+                            'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                            'state'     => 'state1',
+                            'postcode'  => '19911',
+                            'line_one'  => 'line_one_data',
+                            'line_two'  => 'line_two_data',
+                            'latitude'  => '47.91634204',
+                            'longitude' => '-2.26318359',
                         ]);
                         // Product creation belongs to
                         $product = Product::factory()->create([
@@ -376,13 +376,13 @@ class AssetTest extends TestCase {
                         // Customer Creation creation belongs to
                         $customer = Customer::factory()
                             ->hasLocations(1, [
-                                'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                'state'    => 'state1',
-                                'postcode' => '19911',
-                                'line_one' => 'line_one_data',
-                                'line_two' => 'line_two_data',
-                                'lat'      => '47.91634204',
-                                'lng'      => '-2.26318359',
+                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                'state'     => 'state1',
+                                'postcode'  => '19911',
+                                'line_one'  => 'line_one_data',
+                                'line_two'  => 'line_two_data',
+                                'latitude'  => '47.91634204',
+                                'longitude' => '-2.26318359',
                             ])
                             ->hasContacts(1, [
                                 'name'        => 'contact1',
@@ -428,13 +428,13 @@ class AssetTest extends TestCase {
                         ]);
                         $reseller = Reseller::factory()
                             ->hasLocations(1, [
-                                'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
-                                'state'    => 'state2',
-                                'postcode' => '19912',
-                                'line_one' => 'reseller_one_data',
-                                'line_two' => 'reseller_two_data',
-                                'lat'      => '49.91634204',
-                                'lng'      => '90.26318359',
+                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
+                                'state'     => 'state2',
+                                'postcode'  => '19912',
+                                'line_one'  => 'reseller_one_data',
+                                'line_two'  => 'reseller_two_data',
+                                'latitude'  => '49.91634204',
+                                'longitude' => '90.26318359',
                             ])
                             ->create([
                                 'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
