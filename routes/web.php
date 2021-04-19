@@ -11,11 +11,18 @@
 |
 */
 
+use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 Route::get('/', [IndexController::class, 'index']);
+
+Route::post('/download/csv', [DownloadController::class, 'csv']);
+
+Route::post('/download/excel', [DownloadController::class, 'excel']);
+
+Route::post('/download/pdf', [DownloadController::class, 'pdf']);
 
 // This route required to be able to translate 404 page (without it the error
 // will be shown before the session start and actual locale will not available).
