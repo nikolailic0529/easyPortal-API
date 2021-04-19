@@ -59,4 +59,8 @@ class Contact extends PolymorphicModel {
      * @var array<string>
      */
     protected $casts = self::CASTS + parent::CASTS;
+
+    protected function getTypesPivot(): Pivot {
+        return new ContactType();
+    }
 }

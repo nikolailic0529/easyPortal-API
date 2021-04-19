@@ -3,8 +3,6 @@
 namespace App\Services\DataLoader\Schema;
 
 class CompanyType extends Type {
-    public string $vendorSpecificId;
-    public string $vendor;
     public string $type;
     public string $status;
 }

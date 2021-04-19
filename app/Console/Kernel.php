@@ -4,7 +4,6 @@ namespace App\Console;
 
 use App\Services\DataLoader\Commands\Customer;
 use App\Services\DataLoader\Commands\Reseller;
-use App\Services\DataLoader\Jobs\LocationsCleanupCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -35,7 +34,6 @@ class Kernel extends ConsoleKernel {
     protected array $schedule = [
         ResellersImporterCronJob::class,
         ResellersUpdaterCronJob::class,
-        LocationsCleanupCronJob::class,
     ];
 
     /**

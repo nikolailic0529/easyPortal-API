@@ -311,13 +311,10 @@ class Client {
             name
             companyContactPersons {
                 phoneNumber
-                vendor
                 name
                 type
             }
             companyTypes {
-                vendorSpecificId
-                vendor
                 type
                 status
             }
@@ -336,7 +333,6 @@ class Client {
             serialNumber
 
             productDescription
-            description
             assetTag
             assetType
             vendor

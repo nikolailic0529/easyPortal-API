@@ -48,6 +48,12 @@ class Reseller extends Model {
     protected $table = 'resellers';
 
     public function customers(): BelongsToMany {
-        return $this->belongsToMany(Customer::class, 'reseller_customers')->withTimestamps();
+        $pivot = new ResellerCustomer();
+
+        return $this
+            ->belongsToMany(Customer::class, $pivot->getTable())
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
     }
 }

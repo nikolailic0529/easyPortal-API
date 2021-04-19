@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string                                                                   $product_id Support Level
  * @property \Carbon\CarbonImmutable                                                  $start
  * @property \Carbon\CarbonImmutable                                                  $end
- * @property string                                                                   $price
+ * @property string|null                                                              $price
  * @property string                                                                   $currency_id
  * @property \Carbon\CarbonImmutable                                                  $created_at
  * @property \Carbon\CarbonImmutable                                                  $updated_at
