@@ -13,6 +13,7 @@ use Mockery;
 use PHPUnit\Framework\TestCase;
 
 use function array_keys;
+use function count;
 
 /**
  * @internal
@@ -55,6 +56,9 @@ class CascadeProcessorTest extends TestCase {
      */
     public function testGetRelations(): void {
         $processor = new class() extends CascadeProcessor {
+            /**
+             * @inheritDoc
+             */
             public function getRelations(Model $model): array {
                 return parent::getRelations($model);
             }
@@ -64,7 +68,10 @@ class CascadeProcessorTest extends TestCase {
             }
         };
         $model     = new class() extends Model {
-            /** @noinspection PhpMissingReturnTypeInspection */
+            /**
+             * @noinspection PhpMissingReturnTypeInspection
+             * @inheritDoc
+             */
             public function relationWithoutTypehint() {
                 return Mockery::mock(BelongsTo::class);
             }
@@ -217,6 +224,11 @@ class CascadeProcessorTest extends TestCase {
                 false,
                 static function (): Model {
                     return new class() extends Model {
+                        /**
+                         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+                         *
+                         * @var string
+                         */
                         protected $table = 'items';
                     };
                 },
@@ -226,6 +238,11 @@ class CascadeProcessorTest extends TestCase {
                         ->shouldReceive('newModelInstance')
                         ->once()
                         ->andReturn(new class() extends Model {
+                            /**
+                             * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+                             *
+                             * @var string
+                             */
                             protected $table = 'objects';
                         });
 
@@ -236,6 +253,11 @@ class CascadeProcessorTest extends TestCase {
                 true,
                 static function (): Model {
                     return new class() extends Model implements CascadeDeletable {
+                        /**
+                         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+                         *
+                         * @var string
+                         */
                         protected $table = 'items';
 
                         public function isCascadeDeletableRelation(
@@ -253,6 +275,11 @@ class CascadeProcessorTest extends TestCase {
                         ->shouldReceive('newModelInstance')
                         ->once()
                         ->andReturn(new class() extends Model {
+                            /**
+                             * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+                             *
+                             * @var string
+                             */
                             protected $table = 'objects';
                         });
 
@@ -263,6 +290,11 @@ class CascadeProcessorTest extends TestCase {
                 true,
                 static function (): Model {
                     return new class() extends Model {
+                        /**
+                         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+                         *
+                         * @var string
+                         */
                         protected $table = 'items';
                     };
                 },
@@ -272,6 +304,11 @@ class CascadeProcessorTest extends TestCase {
                         ->shouldReceive('newModelInstance')
                         ->once()
                         ->andReturn(new class() extends Model {
+                            /**
+                             * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+                             *
+                             * @var string
+                             */
                             protected $table = 'item_objects';
                         });
 
