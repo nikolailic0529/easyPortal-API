@@ -5,6 +5,8 @@ namespace App\GraphQL\Mutations;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Config\Repository;
 
+use RuntimeException;
+
 use function sprintf;
 
 class AuthSignOut {
@@ -20,12 +22,14 @@ class AuthSignOut {
      * @param array<string, mixed> $args
      */
     public function __invoke(mixed $_, array $args): string {
+        throw new RuntimeException('FIXME [KeyCloak] Not implemented.');
+
         $this->auth->logout();
 
         $url = sprintf(
             'https://%s/v2/logout?client_id=%s&returnTo=%s',
-            $this->config->get('laravel-auth0.domain'),
-            $this->config->get('laravel-auth0.client_id'),
+            $this->config->get('fixme.domain'),
+            $this->config->get('fixme.client_id'),
             $this->config->get('app.url'),
         );
 

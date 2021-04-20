@@ -6,8 +6,6 @@ use App\GraphQL\Queries\Me;
 use App\Http\Middleware\SetLocale;
 use App\Models\Organization;
 use App\Models\User;
-use App\Services\Auth0\AuthService;
-use Auth0\Login\Auth0Service;
 use Closure;
 use Illuminate\Auth\AuthManager;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -40,6 +38,8 @@ class AuthSignInByCodeTest extends TestCase {
         array $userInfo = null,
         Closure $foundUserFactory = null,
     ): void {
+        $this->markTestIncomplete('FIXME [KeyCloak] Not implemented.');
+
         // Prepare
         $tenant = $this->setTenant($tenantFactory);
         $user   = $this->setUser($userFactory, $tenant);

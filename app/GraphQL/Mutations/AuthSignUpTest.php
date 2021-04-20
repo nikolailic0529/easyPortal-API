@@ -4,7 +4,6 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\Organization;
 use App\Models\User;
-use App\Services\Auth0\Management;
 use Closure;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -39,6 +38,7 @@ class AuthSignUpTest extends TestCase {
         Closure $dataFactory = null,
     ): void {
         // FIXME [GraphQL] [Auth0] Fix tests
+        $this->markTestIncomplete('FIXME [KeyCloak] Not implemented.');
         $this->markTestIncomplete(<<<'REASON'
             Validation performs BEFORE permission checks (facepalm), so data
             should be valid. This is blocked by PhoneRule that does not (yet)

@@ -4,8 +4,6 @@ namespace App\GraphQL\Mutations;
 
 use App\GraphQL\Queries\Me;
 use App\Models\User;
-use App\Services\Auth0\AuthService;
-use Auth0\Login\Auth0Service;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -38,6 +36,7 @@ class AuthSignInByPasswordTest extends TestCase {
         array $userInfo = null,
         Closure $foundUserFactory = null,
     ): void {
+        $this->markTestIncomplete('FIXME [KeyCloak] Not implemented.');
         $this->markTestIncomplete(<<<'REASON'
             Validation performs BEFORE permission checks (facepalm), so data
             should be valid. This is blocked by PhoneRule that does not (yet)

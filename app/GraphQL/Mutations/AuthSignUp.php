@@ -4,16 +4,14 @@ namespace App\GraphQL\Mutations;
 
 use App\CurrentTenant;
 use App\Models\User;
-use App\Services\Auth0\Management;
 use Illuminate\Support\Str;
+use RuntimeException;
 
 class AuthSignUp {
-    protected Management    $service;
     protected CurrentTenant $tenant;
 
-    public function __construct(Management $service, CurrentTenant $tenant) {
-        $this->service = $service;
-        $this->tenant  = $tenant;
+    public function __construct(CurrentTenant $tenant) {
+        $this->tenant = $tenant;
     }
 
     /**
@@ -22,6 +20,8 @@ class AuthSignUp {
      * @param array<string, mixed> $args
      */
     public function __invoke(mixed $_, array $args): bool {
+        throw new RuntimeException('FIXME [KeyCloak] Not implemented.');
+
         $user                    = new User();
         $user->id                = Str::uuid()->toString();
         $user->given_name        = $args['given_name'];
@@ -52,7 +52,6 @@ class AuthSignUp {
         ]);
 
         // Update user
-        $user->sub   = $result['user_id'];
         $user->photo = $result['picture'];
 
         // Save & return

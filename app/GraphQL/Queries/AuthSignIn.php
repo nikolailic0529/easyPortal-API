@@ -2,19 +2,18 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Services\Auth0\AuthService;
+use RuntimeException;
 
 class AuthSignIn {
-    protected AuthService $service;
-
-    public function __construct(AuthService $service) {
-        $this->service = $service;
+    public function __construct() {
+        // empty
     }
 
     /**
      * @param array<string, mixed> $args
      */
     public function __invoke(mixed $_, array $args): string {
-        return $this->service->getSignInLink();
+        // Should return link to sign in page
+        throw new RuntimeException('FIXME [KeyCloak] Not implemented.');
     }
 }

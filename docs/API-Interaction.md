@@ -53,8 +53,6 @@ $ php artisan route:list
 +--------+----------+---------------+------+-------------------------------------------------------------------+------------+
 |        | GET|HEAD | api/user      |      | Closure                                                           | api        |
 |        |          |               |      |                                                                   | auth:api   |
-|        | GET|HEAD | auth/callback |      | Auth0\Login\Auth0Controller@callback                              | web        |
-|        |          |               |      |                                                                   | guest      |
 |        | GET|HEAD | auth/profile  |      | App\Http\Controllers\AuthController@profile                       | web        |
 |        |          |               |      |                                                                   | auth       |
 |        | GET|HEAD | auth/signin   |      | App\Http\Controllers\AuthController@signin                        | web        |

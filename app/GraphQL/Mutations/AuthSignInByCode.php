@@ -3,28 +3,21 @@
 namespace App\GraphQL\Mutations;
 
 use App\GraphQL\Queries\Me;
-use App\Services\Auth0\AuthService;
-use Auth0\Login\Contract\Auth0UserRepository;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use RuntimeException;
 
 class AuthSignInByCode {
-    protected Container           $container;
-    protected AuthService         $service;
-    protected Auth0UserRepository $repository;
-    protected AuthManager         $auth;
+    protected Container   $container;
+    protected AuthManager $auth;
 
     public function __construct(
         Container $container,
         AuthManager $auth,
-        AuthService $service,
-        Auth0UserRepository $repository,
     ) {
-        $this->container  = $container;
-        $this->auth       = $auth;
-        $this->service    = $service;
-        $this->repository = $repository;
+        $this->container = $container;
+        $this->auth      = $auth;
     }
 
     /**
@@ -33,6 +26,8 @@ class AuthSignInByCode {
      * @return array<mixed>|null
      */
     public function __invoke(mixed $_, array $args): ?array {
+        throw throw new RuntimeException('FIXME [KeyCloak] Not implemented.');
+
         // Get token from Auth0 and sign-in
         $info   = $this->signIn($args);
         $signed = false;

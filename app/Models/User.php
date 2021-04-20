@@ -19,7 +19,6 @@ use LogicException;
  *
  * @property int                          $id
  * @property string                       $organization_id
- * @property string|null                  $sub Auth0 User ID
  * @property bool                         $blocked
  * @property string                       $given_name
  * @property string                       $family_name
@@ -51,7 +50,6 @@ use LogicException;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhoneVerifiedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhoto($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereSub($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
@@ -88,7 +86,6 @@ class User extends Model implements
      * @var array<string>
      */
     protected $fillable = [
-        'sub',
         'name',
         'email',
     ];
@@ -116,11 +113,7 @@ class User extends Model implements
     protected $casts = self::CASTS + parent::CASTS;
 
     public function sendEmailVerificationNotification(): void {
-        throw new LogicException('Email verification should be done inside auth0.');
-    }
-
-    public function getAuthIdentifierName(): string {
-        return 'sub';
+        throw new LogicException('Email verification should be done inside standard process.');
     }
 
     public function preferredLocale(): ?string {

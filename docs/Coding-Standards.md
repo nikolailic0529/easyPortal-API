@@ -405,7 +405,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @property int                          $id
- * @property string|null                  $sub Auth0 User ID
  * @property int                          $blocked
  * @property string                       $given_name
  * @property string                       $family_name
@@ -434,7 +433,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePhoneVerifiedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePhoto($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereSub($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
  */

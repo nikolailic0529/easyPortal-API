@@ -15,11 +15,7 @@ use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\Status;
 use App\Models\Type;
-use App\Services\Auth0\AuthService;
-use App\Services\Auth0\UserRepository;
 use App\Services\Settings\Bootstraper;
-use Auth0\Login\Auth0Service;
-use Auth0\Login\Contract\Auth0UserRepository;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Foundation\Application;
@@ -34,8 +30,6 @@ class AppServiceProvider extends ServiceProvider {
      */
     public function register(): void {
         Date::use(CarbonImmutable::class);
-
-        $this->registerAuth0();
     }
 
     /**
@@ -45,21 +39,6 @@ class AppServiceProvider extends ServiceProvider {
         $this->bootConfig();
         $this->bootMorphMap();
         $this->bootGraphQL($dispatcher);
-    }
-
-    protected function registerAuth0(): void {
-        $this->app->singleton(Auth0Service::class, static function (Application $app): Auth0Service {
-            return $app->make(AuthService::class)->getService();
-        });
-
-        $this->app->singleton(AuthService::class, static function (Application $app): AuthService {
-            return new AuthService($app);
-        });
-
-        $this->app->bind(
-            Auth0UserRepository::class,
-            UserRepository::class,
-        );
     }
 
     protected function bootConfig(): void {
