@@ -6,5 +6,7 @@ namespace App\Exceptions;
  * Marks that exception has translated error message.
  */
 interface TranslatedException {
-    // empty
+    public function getErrorMessage(): string;
+
+    public function getErrorCode(): string|int;
 }
