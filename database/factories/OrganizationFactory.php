@@ -29,6 +29,7 @@ class OrganizationFactory extends Factory {
         return [
             'id'                       => $this->faker->uuid,
             'subdomain'                => null,
+            'keycloak_scope'           => null,
             'name'                     => $this->faker->company,
             'locale'                   => null,
             'currency_id'              => null,

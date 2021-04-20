@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property string                                                         $id
  * @property string|null                                                    $subdomain
+ * @property string|null                                                    $keycloak_scope
  * @property string                                                         $name
  * @property string|null                                                    $locale
  * @property string|null                                                    $currency_id
@@ -42,6 +43,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereKeycloakScope($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereLocale($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereSubdomain($value)
