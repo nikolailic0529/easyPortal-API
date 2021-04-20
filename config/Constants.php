@@ -20,6 +20,7 @@ use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\DocumentType;
 use App\Services\Settings\Types\Duration;
 use App\Services\Settings\Types\StringType;
+use App\Services\Settings\Types\Text;
 use App\Services\Settings\Types\Url;
 
 use function interface_exists;
@@ -86,6 +87,73 @@ interface Constants {
     #[Group('ep')]
     #[Type(DocumentType::class)]
     public const EP_QUOTE_TYPES = [];
+    // </editor-fold>
+
+    // <editor-fold desc="EP_KEYCLOAK">
+    // =========================================================================
+    /**
+     * Server URL.
+     */
+    #[Setting('ep.keycloak.server_url')]
+    #[Group('keycloak')]
+    #[Type(StringType::class)]
+    public const EP_KEYCLOAK_SERVER_URL = null;
+
+    /**
+     * Realm.
+     */
+    #[Setting('ep.keycloak.realm')]
+    #[Group('keycloak')]
+    #[Type(StringType::class)]
+    public const EP_KEYCLOAK_REALM = null;
+
+    /**
+     * Client Id.
+     */
+    #[Setting('ep.keycloak.client_id')]
+    #[Group('keycloak')]
+    #[Type(StringType::class)]
+    public const EP_KEYCLOAK_CLIENT_ID = null;
+
+    /**
+     * Client Secret.
+     */
+    #[Setting('ep.keycloak.client_secret')]
+    #[Group('keycloak')]
+    #[Type(StringType::class)]
+    public const EP_KEYCLOAK_CLIENT_SECRET = null;
+
+    /**
+     * Redirect URI
+     */
+    #[Setting('ep.keycloak.redirect_uri')]
+    #[Group('keycloak')]
+    #[Type(Url::class)]
+    public const EP_KEYCLOAK_REDIRECT_URI = null;
+
+    /**
+     * Encryption Algorithm.
+     */
+    #[Setting('ep.keycloak.encryption_algorithm')]
+    #[Group('keycloak')]
+    #[Type(StringType::class)]
+    public const EP_KEYCLOAK_ENCRYPTION_ALGORITHM = null;
+
+    /**
+     * Encryption Key path.
+     */
+    #[Setting('ep.keycloak.encryption_key_path')]
+    #[Group('keycloak')]
+    #[Type(StringType::class)]
+    public const EP_KEYCLOAK_ENCRYPTION_KEY_PATH = null;
+
+    /**
+     * Encryption Key (have bigger priority than key path).
+     */
+    #[Setting('ep.keycloak.encryption_key')]
+    #[Group('keycloak')]
+    #[Type(Text::class)]
+    public const EP_KEYCLOAK_ENCRYPTION_KEY = null;
     // </editor-fold>
 
     // <editor-fold desc="EP_SETTINGS">
