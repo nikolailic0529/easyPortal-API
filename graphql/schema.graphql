@@ -105,12 +105,6 @@ type Mutation {
   "Complete sign-in and returns current User if successful."
   authSignInByCode(code: String!, state: String!): Me @guest
 
-  "Password based sing-in."
-  authSignInByPassword(
-    username: String!               # TODO [GraphQL] Email type needed
-    password: String!
-  ): Me @guest @validator
-
   "Register new user"
   authSignUp(
     given_name: String!
