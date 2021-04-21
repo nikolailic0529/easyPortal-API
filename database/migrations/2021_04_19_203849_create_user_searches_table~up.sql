@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `user_searches` (
     `deleted_at`  TIMESTAMP NULL,
     PRIMARY KEY (`id`),
     INDEX `fk_user_searches_users1_idx`(`user_id` ASC),
+    INDEX `idx__deleted_at`(`deleted_at` ASC),
     CONSTRAINT `fk_user_searches_users1`
         FOREIGN KEY (`user_id`)
             REFERENCES `users`(`id`)

@@ -1,0 +1,13 @@
+extend type Mutation {
+  deleteMeSearches(
+    input: DeleteMeSearchesInput!
+  ): DeleteMeSearchesPayload @guard
+}
+
+input DeleteMeSearchesInput {
+  key: String
+}
+
+type DeleteMeSearchesPayload {
+  deleted: [String!]!
+}
