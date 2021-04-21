@@ -32,7 +32,7 @@ class KeyCloak {
         return $url;
     }
 
-    public function authorize(string $code, string $state): ?User {
+    public function authorize(string $code, string $state): User {
         // TODO: Create user if not exists
 
         // Is state valid?
@@ -49,7 +49,7 @@ class KeyCloak {
             throw new AuthorizationFailed($exception);
         }
 
-        return null;
+        throw new Exception('Not implemented.');
     }
 
     protected function getProvider(): Provider {

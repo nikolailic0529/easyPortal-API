@@ -20,10 +20,18 @@ class Me {
      * @return array<mixed>|null
      */
     public function __invoke(mixed $_, array $args): ?User {
-        return $this->auth->user();
+        return $this->getMe($this->auth->user());
     }
+
 
     public function root(?User $user): bool {
         return $user && $this->root->isRoot($user);
+    }
+
+    /**
+     * @return array<string,mixed>|null
+     */
+    public function getMe(?User $user): ?User {
+        return $user ?: null;
     }
 }
