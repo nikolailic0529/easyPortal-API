@@ -7,6 +7,8 @@ use App\GraphQL\Mutations\DispatchApplicationServiceNotFoundException;
 use App\Services\Filesystem\StorageFileCorrupted;
 use App\Services\Filesystem\StorageFileDeleteFailed;
 use App\Services\Filesystem\StorageFileSaveFailed;
+use App\Services\KeyCloak\Exceptions\AuthorizationFailed;
+use App\Services\KeyCloak\Exceptions\AuthorizationFailedStateMismatch;
 use App\Services\Settings\Exceptions\SettingsFailedToLoadEnv;
 use Throwable;
 
@@ -21,6 +23,8 @@ class ErrorCodes {
         StorageFileDeleteFailed::class                     => 'ERR04',
         StorageFileSaveFailed::class                       => 'ERR05',
         SettingsFailedToLoadEnv::class                     => 'ERR06',
+        AuthorizationFailed::class                         => 'ERR07',
+        AuthorizationFailedStateMismatch::class            => 'ERR08',
     ];
 
     public static function getCode(Throwable $throwable): string|int {

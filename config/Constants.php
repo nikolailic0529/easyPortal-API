@@ -94,10 +94,10 @@ interface Constants {
     /**
      * Server URL.
      */
-    #[Setting('ep.keycloak.server_url')]
+    #[Setting('ep.keycloak.url')]
     #[Group('keycloak')]
     #[Type(StringType::class)]
-    public const EP_KEYCLOAK_SERVER_URL = null;
+    public const EP_KEYCLOAK_URL = null;
 
     /**
      * Realm.
