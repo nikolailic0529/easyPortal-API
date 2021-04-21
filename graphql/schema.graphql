@@ -2,16 +2,12 @@
 #import Types/*.graphql
 #import Filters/*.graphql
 #import Inputs/*.graphql
-#import Mutations/*.graphql
+#import Mutations/**/*.graphql
 
 type Query {
   # General
   "Current user, `null` for guests."
   me: Me
-
-  # Auth
-  "Link to perform Sign In, available only for guests."
-  authSignIn: String! @guest          # TODO [GraphQL] URL type needed
 
   # Customers
   "List of all statuses"
