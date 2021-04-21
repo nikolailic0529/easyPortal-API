@@ -1,0 +1,11 @@
+extend type Mutation {
+  "Sign Out."
+  signOut: SignOutPayload
+    @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignOut")
+    @guard
+}
+
+type SignOutPayload {
+  "The link where the User should be redirected to complete Sign Out."
+  url: String!    # TODO [GraphQL] URL type needed
+}

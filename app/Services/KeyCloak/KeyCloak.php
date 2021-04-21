@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailed;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailedStateMismatch;
 use Exception;
+use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Session\Session;
 
@@ -18,6 +19,7 @@ class KeyCloak {
     public function __construct(
         protected Repository $config,
         protected Session $session,
+        protected AuthManager $auth,
         protected CurrentTenant $tenant,
     ) {
         // empty
@@ -49,7 +51,14 @@ class KeyCloak {
             throw new AuthorizationFailed($exception);
         }
 
+        // Start session
         throw new Exception('Not implemented.');
+    }
+
+    public function signOut(): string {
+        $this->auth->guard()->logout();
+
+        return $this->getProvider()->getSignOutUrl();
     }
 
     protected function getProvider(): Provider {

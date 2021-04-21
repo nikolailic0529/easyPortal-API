@@ -48,7 +48,7 @@ class Provider extends AbstractProvider {
     /**
      * @param array<mixed> $options
      */
-    public function getLogoutUrl(array $options = []): string {
+    public function getSignOutUrl(array $options = []): string {
         $base   = $this->getRealmUrl('protocol/openid-connect/logout');
         $params = $this->getAuthorizationParameters($options);
         $query  = $this->getAuthorizationQuery($params);
