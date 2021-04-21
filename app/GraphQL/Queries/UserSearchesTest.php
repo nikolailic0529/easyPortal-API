@@ -9,12 +9,9 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
-use Tests\DataProviders\GraphQL\UserDataProvider;
 use Tests\DataProviders\TenantDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
-use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\TestCase;
 
 /**
@@ -69,15 +66,9 @@ class UserSearchesTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            // new UserDataProvider('me'),
             new ArrayDataProvider([
-                'guest is not allowed' => [
-                    new GraphQLSuccess('me', null),
-                    static function (): ?User {
-                        return null;
-                    },
-                ],
-                'user is allowed'      => [
+                // Guest not allowed will return null from Me ( already tested in Me )
+                'user is allowed' => [
                     new Unknown(),
                     static function (TestCase $test, ?Organization $organization): ?User {
                         return User::factory()->create([
@@ -97,7 +88,7 @@ class UserSearchesTest extends TestCase {
                                 'name'       => 'saved_filter',
                                 'conditions' => 'conditions',
                                 'user_id'    => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
-                            ]
+                            ],
                         ],
                     ]),
                     static function (TestCase $test, User $user): string {

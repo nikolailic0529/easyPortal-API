@@ -49,6 +49,14 @@ class DeleteMeSearchesTest extends TestCase {
                 }
             }', [ 'input' => [ 'key' => $key]])
             ->assertThat($expected);
+
+        if ($expected instanceof GraphQLSuccess) {
+            if ($key) {
+                $this->assertSoftDeleted((new UserSearch())->getTable(), ['key' => $key ]);
+            } else {
+                $this->assertEmpty($user->searches);
+            }
+        }
     }
     // </editor-fold>
 

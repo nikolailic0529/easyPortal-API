@@ -37,9 +37,10 @@ class CreateMeSearchTest extends TestCase {
         // Prepare
         $user = $this->setUser($userFactory, $this->setTenant($tenantFactory));
 
-        if ($user){
+        if ($user) {
             $user->save();
         }
+
         // Test
         $this
         ->graphQL(/** @lang GraphQL */ 'mutation CreateMeSearch($input: CreateMeSearchInput!) {

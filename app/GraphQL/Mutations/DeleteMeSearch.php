@@ -23,6 +23,8 @@ class DeleteMeSearch {
             throw new DeleteMeSearchNotFound();
         }
 
+        $search->delete();
+
         return ['deleted' => $args['input']['id'] ];
     }
 }
