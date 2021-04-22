@@ -19,13 +19,12 @@ use LogicException;
  *
  * @property int                          $id
  * @property string                       $organization_id
- * @property bool                         $blocked
  * @property string                       $given_name
  * @property string                       $family_name
  * @property string                       $email
- * @property \Carbon\CarbonImmutable|null $email_verified_at
+ * @property bool                         $email_verified
  * @property string                       $phone
- * @property \Carbon\CarbonImmutable|null $phone_verified_at
+ * @property bool                         $phone_verified
  * @property string|null                  $photo
  * @property mixed                        $permissions
  * @property string|null                  $locale
@@ -36,11 +35,10 @@ use LogicException;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereBlocked($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmailVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmailVerifie($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereFamilyName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereGivenName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereId($value)
@@ -48,7 +46,7 @@ use LogicException;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereOrganizationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePermissions($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhone($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhoneVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhoneVerified($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhoto($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
@@ -65,10 +63,9 @@ class User extends Model implements
     use BelongsToTenant;
 
     protected const CASTS = [
-        'blocked'           => 'bool',
-        'permissions'       => 'array',
-        'email_verified_at' => 'datetime',
-        'phone_verified_at' => 'datetime',
+        'permissions'    => 'array',
+        'email_verified' => 'bool',
+        'phone_verified' => 'bool',
     ];
 
     /**

@@ -4,6 +4,6 @@
 
 use LastDragon_ru\LaraASP\Migrator\Migrations\RawMigration;
 
-class AlterOrganizationsAddKeycloakScope extends RawMigration {
+class AlterUsersDropBlockChangeVerifiedToBool extends RawMigration {
     // Please see the associated SQL files
 }

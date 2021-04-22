@@ -28,23 +28,22 @@ class UserFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'                => $this->faker->uuid,
-            'organization_id'   => static function (): Organization {
+            'id'              => $this->faker->uuid,
+            'organization_id' => static function (): Organization {
                 return Organization::factory()->create();
             },
-            'given_name'        => $this->faker->firstName,
-            'family_name'       => $this->faker->lastName,
-            'email'             => $this->faker->unique()->safeEmail,
-            'email_verified_at' => Date::now(),
-            'phone'             => $this->faker->e164PhoneNumber,
-            'phone_verified_at' => null,
-            'photo'             => null,
-            'created_at'        => Date::now(),
-            'updated_at'        => Date::now(),
-            'deleted_at'        => null,
-            'permissions'       => [],
-            'blocked'           => false,
-            'locale'            => null,
+            'given_name'      => $this->faker->firstName,
+            'family_name'     => $this->faker->lastName,
+            'email'           => $this->faker->unique()->safeEmail,
+            'email_verified'  => true,
+            'phone'           => $this->faker->e164PhoneNumber,
+            'phone_verified'  => false,
+            'photo'           => null,
+            'created_at'      => Date::now(),
+            'updated_at'      => Date::now(),
+            'deleted_at'      => null,
+            'permissions'     => [],
+            'locale'          => null,
         ];
     }
 }
