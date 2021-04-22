@@ -48,7 +48,7 @@ class Helper {
         if ($code) {
             $message = __('errors.message', [
                 'message' => $message,
-                'code'    => $error->getCode(),
+                'code'    => $code,
             ]);
         }
 
