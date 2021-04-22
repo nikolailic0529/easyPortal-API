@@ -8,7 +8,9 @@ use App\Services\Filesystem\StorageFileCorrupted;
 use App\Services\Filesystem\StorageFileDeleteFailed;
 use App\Services\Filesystem\StorageFileSaveFailed;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailed;
-use App\Services\KeyCloak\Exceptions\AuthorizationFailedStateMismatch;
+use App\Services\KeyCloak\Exceptions\InvalidCredentials;
+use App\Services\KeyCloak\Exceptions\InvalidIdentity;
+use App\Services\KeyCloak\Exceptions\StateMismatch;
 use App\Services\Settings\Exceptions\SettingsFailedToLoadEnv;
 use Throwable;
 
@@ -24,7 +26,9 @@ class ErrorCodes {
         StorageFileSaveFailed::class                       => 'ERR05',
         SettingsFailedToLoadEnv::class                     => 'ERR06',
         AuthorizationFailed::class                         => 'ERR07',
-        AuthorizationFailedStateMismatch::class            => 'ERR08',
+        StateMismatch::class                               => 'ERR08',
+        InvalidIdentity::class                             => 'ERR09',
+        InvalidCredentials::class                          => 'ERR10',
     ];
 
     public static function getCode(Throwable $throwable): string|int {

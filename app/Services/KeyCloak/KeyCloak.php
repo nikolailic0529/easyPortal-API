@@ -3,11 +3,14 @@
 namespace App\Services\KeyCloak;
 
 use App\CurrentTenant;
-use App\Models\User;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailed;
-use App\Services\KeyCloak\Exceptions\AuthorizationFailedStateMismatch;
+use App\Services\KeyCloak\Exceptions\InvalidCredentials;
+use App\Services\KeyCloak\Exceptions\InvalidIdentity;
+use App\Services\KeyCloak\Exceptions\KeyCloakException;
+use App\Services\KeyCloak\Exceptions\StateMismatch;
 use Exception;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Session\Session;
 
@@ -34,12 +37,10 @@ class KeyCloak {
         return $url;
     }
 
-    public function authorize(string $code, string $state): User {
-        // TODO: Create user if not exists
-
+    public function authorize(string $code, string $state): Authenticatable {
         // Is state valid?
         if ($this->session->pull(self::STATE) !== $state) {
-            throw new AuthorizationFailedStateMismatch();
+            throw new StateMismatch();
         }
 
         // Get Access Token
@@ -48,11 +49,26 @@ class KeyCloak {
                 'code' => $code,
             ]);
         } catch (Exception $exception) {
+            throw new InvalidIdentity($exception);
+        }
+
+        // Attempt to sign in
+        try {
+            $result = $this->auth->guard()->attempt([
+                UserProvider::ACCESS_TOKEN => $token->getToken(),
+            ]);
+
+            if (!$result) {
+                throw new InvalidCredentials();
+            }
+        } catch (KeyCloakException $exception) {
+            throw $exception;
+        } catch (Exception $exception) {
             throw new AuthorizationFailed($exception);
         }
 
-        // Start session
-        throw new Exception('Not implemented.');
+        // Return
+        return $this->auth->guard()->user();
     }
 
     public function signOut(): string {

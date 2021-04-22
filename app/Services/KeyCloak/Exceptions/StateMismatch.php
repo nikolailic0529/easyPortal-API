@@ -2,6 +2,6 @@
 
 namespace App\Services\KeyCloak\Exceptions;
 
-class AuthorizationFailedStateMismatch extends AuthorizationFailed {
+class StateMismatch extends AuthorizationFailed {
     // empty
 }
