@@ -43,16 +43,16 @@ class CreateMeSearchTest extends TestCase {
 
         // Test
         $this
-        ->graphQL(/** @lang GraphQL */ 'mutation CreateMeSearch($input: CreateMeSearchInput!) {
-            createMeSearch(input:$input) {
-                created {
-                    name
-                    key
-                    conditions
+            ->graphQL(/** @lang GraphQL */ 'mutation CreateMeSearch($input: CreateMeSearchInput!) {
+                createMeSearch(input:$input) {
+                    created {
+                        name
+                        key
+                        conditions
+                    }
                 }
-            }
-        }', [ 'input' => $data ])
-        ->assertThat($expected);
+            }', [ 'input' => $data ])
+            ->assertThat($expected);
     }
     // </editor-fold>
 

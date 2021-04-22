@@ -4,10 +4,15 @@ namespace App\GraphQL\Mutations;
 
 use Illuminate\Auth\AuthManager;
 
+use function array_unique;
+
 class DeleteMeSearches {
-    public function __construct(protected AuthManager $auth) {
+    public function __construct(
+        protected AuthManager $auth,
+    ) {
         // empty
     }
+
     /**
      * @param  null  $_
      * @param  array<string, mixed>  $args
@@ -20,10 +25,14 @@ class DeleteMeSearches {
         $key   = $args['input']['key'];
 
         if ($key !== null) {
-            $query = $query->where('key', $key);
+            $query = $query->where('key', '=', $key);
         }
-        $keys = $query->get();
-        $query->delete();
-        return [ 'deleted' => $keys->unique('key')->pluck('key') ];
+        $keys = [];
+        foreach ($query->iterator()->safe() as $search) {
+            if ($search->delete()) {
+                $keys[] = $search->key;
+            }
+        }
+        return [ 'deleted' => array_unique($keys) ];
     }
 }

@@ -52,7 +52,7 @@ class DeleteMeSearchesTest extends TestCase {
 
         if ($expected instanceof GraphQLSuccess) {
             if ($key) {
-                $this->assertSoftDeleted((new UserSearch())->getTable(), ['key' => $key ]);
+                $this->assertDatabaseMissing((new UserSearch())->getTable(), ['key' => $key, 'deleted_at' => null]);
             } else {
                 $this->assertEmpty($user->searches);
             }
@@ -70,7 +70,7 @@ class DeleteMeSearchesTest extends TestCase {
             new TenantDataProvider(),
             new UserDataProvider('deleteMeSearches'),
             new ArrayDataProvider([
-                'single'   => [
+                'single'         => [
                     new GraphQLSuccess('deleteMeSearches', DeleteMeSearches::class, [
                         'deleted' => ['key'],
                     ]),
@@ -84,7 +84,7 @@ class DeleteMeSearchesTest extends TestCase {
                         return $search->key;
                     },
                 ],
-                'multiple' => [
+                'multiple'       => [
                     new GraphQLSuccess('deleteMeSearches', DeleteMeSearches::class, [
                         'deleted' => ['multiple_key'],
                     ]),
@@ -94,6 +94,19 @@ class DeleteMeSearchesTest extends TestCase {
                             ->count(2)
                             ->create([
                                 'key' => 'multiple_key',
+                            ]);
+                        return null;
+                    },
+                ],
+                'Different user' => [
+                    new GraphQLSuccess('deleteMeSearches', DeleteMeSearches::class, [
+                        'deleted' => [],
+                    ]),
+                    static function (TestCase $test, User $user): ?string {
+                        UserSearch::factory()
+                            ->for(User::factory())
+                            ->create([
+                                'key' => 'key',
                             ]);
                         return null;
                     },

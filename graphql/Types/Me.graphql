@@ -5,6 +5,6 @@ type Me {
   locale: String
   root: Boolean!
   searches (key: String!): [MeSearch!]!
-    @field(resolver: "App\\GraphQL\\Queries\\UserSearches")
+    @field(resolver: "App\\GraphQL\\Queries\\MeSearches")
     @guard
 }

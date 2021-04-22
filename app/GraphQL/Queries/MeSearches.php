@@ -5,7 +5,7 @@ namespace App\GraphQL\Queries;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Support\Collection;
 
-class UserSearches {
+class MeSearches {
     public function __construct(protected AuthManager $auth) {
         // empty
     }
@@ -15,6 +15,6 @@ class UserSearches {
      */
     public function __invoke($_, array $args): Collection {
         $user = $this->auth->user();
-        return $user->searches()->where('key', $args['key'])->orderBy('created_at', 'desc')->get();
+        return $user->searches()->where('key', '=', $args['key'])->orderBy('created_at', 'desc')->get();
     }
 }

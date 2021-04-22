@@ -11,7 +11,7 @@
                 "searches": {
                     "type": "array",
                     "items": {
-                        "$ref": "../types.json#/definitions/UserSearch"
+                        "$ref": "../Types/UserSearch.json"
                     }
                 }
             }

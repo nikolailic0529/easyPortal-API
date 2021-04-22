@@ -719,33 +719,6 @@
                     "type": "string"
                 }
             }
-        },
-        "UserSearch": {
-            "additionProperties": false,
-            "type": "object",
-            "required": [
-                "conditions",
-                "name",
-                "key",
-                "user_id"
-            ],
-            "properties": {
-                "id": {
-                    "$ref": "#/definitions/ID"
-                },
-                "key": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "conditions": {
-                    "type": "string"
-                },
-                "user_id": {
-                    "$ref": "#/definitions/ID"
-                }
-            }
         }
     }
 }

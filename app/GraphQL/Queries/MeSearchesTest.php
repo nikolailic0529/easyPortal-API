@@ -9,6 +9,7 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
 use Tests\DataProviders\TenantDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -16,9 +17,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\UserSearches
+ * @coversDefaultClass \App\GraphQL\Queries\MeSearches
  */
-class UserSearchesTest extends TestCase {
+class MeSearchesTest extends TestCase {
     /**
      * @covers ::__invoke
      *
@@ -67,8 +68,13 @@ class UserSearchesTest extends TestCase {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
             new ArrayDataProvider([
-                // Guest not allowed will return null from Me ( already tested in Me )
-                'user is allowed' => [
+                'guest is not allowed' => [
+                    new ExpectedFinal(new GraphQLSuccess('me', null)),
+                    static function (): ?User {
+                        return null;
+                    },
+                ],
+                'user is allowed'      => [
                     new Unknown(),
                     static function (TestCase $test, ?Organization $organization): ?User {
                         return User::factory()->create([
@@ -80,7 +86,7 @@ class UserSearchesTest extends TestCase {
             ]),
             new ArrayDataProvider([
                 'match' => [
-                    new GraphQLSuccess('me', UserSearches::class, [
+                    new GraphQLSuccess('me', MeSearches::class, [
                         'searches' => [
                             [
                                 'id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
@@ -103,7 +109,7 @@ class UserSearchesTest extends TestCase {
                     },
                 ],
                 'empty' => [
-                    new GraphQLSuccess('me', UserSearches::class, [
+                    new GraphQLSuccess('me', MeSearches::class, [
                         'searches' => [],
                     ]),
                     static function (TestCase $test, User $user): string {

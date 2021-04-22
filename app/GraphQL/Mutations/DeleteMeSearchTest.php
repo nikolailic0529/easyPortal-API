@@ -54,7 +54,7 @@ class DeleteMeSearchTest extends TestCase {
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            $this->assertSoftDeleted((new UserSearch())->getTable(), ['id' => $userSearchId ]);
+            $this->assertDatabaseMissing((new UserSearch())->getTable(), ['id' => $userSearchId, 'deleted_at' => null]);
         }
     }
     // </editor-fold>
@@ -69,7 +69,7 @@ class DeleteMeSearchTest extends TestCase {
             new TenantDataProvider(),
             new UserDataProvider('deleteMeSearch'),
             new ArrayDataProvider([
-                'ok'        => [
+                'ok'             => [
                     new GraphQLSuccess('deleteMeSearch', DeleteMeSearch::class, [
                         'deleted' => '06859f2f-08f0-3f7b-bdcb-bd2cc8e6409a',
                     ]),
@@ -82,7 +82,20 @@ class DeleteMeSearchTest extends TestCase {
                         return '06859f2f-08f0-3f7b-bdcb-bd2cc8e6409a';
                     },
                 ],
-                'Not found' => [
+                'Different User' => [
+                    new GraphQLError('deleteMeSearch', static function (): array {
+                        return [__('graphql.mutations.deleteMeSearch.not_found')];
+                    }),
+                    static function (TestCase $test, User $user): string {
+                        UserSearch::factory()
+                            ->for(User::factory())
+                            ->create([
+                                'id'      => '06859f2f-08f0-3f7b-bdcb-bd2cc8e6409a',
+                            ]);
+                        return '06859f2f-08f0-3f7b-bdcb-bd2cc8e6409a';
+                    },
+                ],
+                'Not found'      => [
                     new GraphQLError('deleteMeSearch', static function (): array {
                         return [__('graphql.mutations.deleteMeSearch.not_found')];
                     }),

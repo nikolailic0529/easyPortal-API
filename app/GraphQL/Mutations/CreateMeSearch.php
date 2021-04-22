@@ -4,12 +4,14 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\UserSearch;
 use Illuminate\Auth\AuthManager;
-use Illuminate\Support\Str;
 
 class CreateMeSearch {
-    public function __construct(protected AuthManager $auth) {
+    public function __construct(
+        protected AuthManager $auth,
+    ) {
         // empty
     }
+
     /**
      * @param  null  $_
      * @param  array<string, mixed>  $args
@@ -22,9 +24,8 @@ class CreateMeSearch {
         $search->conditions = $args['input']['conditions'];
         $search->key        = $args['input']['key'];
         $search->name       = $args['input']['name'];
-        $search->id         = Str::uuid()->toString();
 
-        $search = $user->searches()->save($search);
+        $search->user = $user;
         return ['created' => $search];
     }
 }

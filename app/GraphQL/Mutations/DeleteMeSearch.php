@@ -2,13 +2,15 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Models\UserSearch;
 use Illuminate\Auth\AuthManager;
 
 class DeleteMeSearch {
-    public function __construct(protected AuthManager $auth) {
+    public function __construct(
+        protected AuthManager $auth,
+    ) {
         // empty
     }
+
     /**
      * @param  null  $_
      * @param  array<string, mixed>  $args
@@ -17,7 +19,7 @@ class DeleteMeSearch {
      */
     public function __invoke($_, array $args): array {
         $user   = $this->auth->user();
-        $search = UserSearch::where('id', $args['input']['id'])->where('user_id', $user->id)->first();
+        $search = $user->searches()->whereKey($args['input']['id'])->first();
 
         if (!$search) {
             throw new DeleteMeSearchNotFound();
