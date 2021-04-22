@@ -5,6 +5,7 @@ namespace App\GraphQL\Queries;
 use App\GraphQL\Directives\RootDirective;
 use App\Models\User;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class Me {
     public function __construct(
@@ -20,9 +21,8 @@ class Me {
      * @return array<mixed>|null
      */
     public function __invoke(mixed $_, array $args): ?User {
-        return $this->getMe($this->auth->user());
+        return $this->getMe($this->auth->guard()->user());
     }
-
 
     public function root(?User $user): bool {
         return $user && $this->root->isRoot($user);
@@ -31,7 +31,18 @@ class Me {
     /**
      * @return array<string,mixed>|null
      */
-    public function getMe(?User $user): ?User {
-        return $user ?: null;
+    public function getMe(?Authenticatable $user): ?User {
+        $me = null;
+
+        if ($user instanceof User) {
+            $me = $user;
+        } elseif ($user) {
+            $me                      = new User();
+            $me->{$me->getKeyName()} = $user->getAuthIdentifier();
+        } else {
+            $me = null;
+        }
+
+        return $me;
     }
 }
