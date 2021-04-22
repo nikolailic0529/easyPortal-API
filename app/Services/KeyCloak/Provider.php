@@ -3,10 +3,12 @@
 namespace App\Services\KeyCloak;
 
 use App\Models\Organization;
+use Illuminate\Support\Str;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
+use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 
 use function ltrim;
@@ -18,6 +20,8 @@ use function rtrim;
  * Based on {@see https://github.com/stevenmaguire/oauth2-keycloak}
  */
 class Provider extends AbstractProvider {
+    use BearerAuthorizationTrait;
+
     protected string       $url;
     protected string       $realm;
     protected Organization $tenant;
@@ -61,7 +65,9 @@ class Provider extends AbstractProvider {
      * @return array<string>
      */
     protected function getDefaultScopes(): array {
-        return ['openid', $this->tenant->keycloak_scope];
+        $name = Str::snake($this->tenant->name, '-');
+
+        return ['openid', 'profile', "reseller_{$name}"];
     }
 
     /**
