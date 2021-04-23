@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use LogicException;
 
@@ -124,5 +125,9 @@ class User extends Model implements
 
     public function preferredLocale(): ?string {
         return $this->locale;
+    }
+
+    public function searches(): HasMany {
+        return $this->hasMany(UserSearch::class);
     }
 }

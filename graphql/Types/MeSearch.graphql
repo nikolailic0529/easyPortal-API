@@ -1,0 +1,8 @@
+type MeSearch {
+  id: ID!
+  key: String!
+  name: String!
+  conditions: String
+  user_id: ID!
+  user: User @belongsTo
+}

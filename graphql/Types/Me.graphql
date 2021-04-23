@@ -4,4 +4,7 @@ type Me {
   family_name: String!
   locale: String
   root: Boolean!
+  searches (key: String!): [MeSearch!]!
+    @field(resolver: "App\\GraphQL\\Queries\\MeSearches")
+    @guard
 }

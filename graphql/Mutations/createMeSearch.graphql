@@ -1,0 +1,16 @@
+extend type Mutation {
+  createMeSearch(
+    input: CreateMeSearchInput!
+  ): CreateMeSearchPayload
+  @guard
+}
+
+input CreateMeSearchInput {
+  name: String!
+  key: String!
+  conditions: String!
+}
+
+type CreateMeSearchPayload {
+  created: MeSearch!
+}
