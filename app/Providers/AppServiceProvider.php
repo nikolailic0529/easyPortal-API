@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\CurrentTenant;
 use App\Exceptions\GraphQLHandler;
 use App\Models\Asset;
 use App\Models\City;
