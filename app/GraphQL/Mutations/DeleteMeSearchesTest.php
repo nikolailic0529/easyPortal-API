@@ -52,7 +52,11 @@ class DeleteMeSearchesTest extends TestCase {
 
         if ($expected instanceof GraphQLSuccess) {
             if ($key) {
-                $this->assertDatabaseMissing((new UserSearch())->getTable(), ['key' => $key, 'deleted_at' => null]);
+                $this->assertDatabaseMissing((new UserSearch())->getTable(), [
+                    'key'        => $key,
+                    'user_id'    => $user->id,
+                    'deleted_at' => null,
+                ]);
             } else {
                 $this->assertEmpty($user->searches);
             }
@@ -70,7 +74,7 @@ class DeleteMeSearchesTest extends TestCase {
             new TenantDataProvider(),
             new UserDataProvider('deleteMeSearches'),
             new ArrayDataProvider([
-                'single'         => [
+                'single'                    => [
                     new GraphQLSuccess('deleteMeSearches', DeleteMeSearches::class, [
                         'deleted' => ['key'],
                     ]),
@@ -84,7 +88,7 @@ class DeleteMeSearchesTest extends TestCase {
                         return $search->key;
                     },
                 ],
-                'multiple'       => [
+                'multiple'                  => [
                     new GraphQLSuccess('deleteMeSearches', DeleteMeSearches::class, [
                         'deleted' => ['multiple_key'],
                     ]),
@@ -98,13 +102,27 @@ class DeleteMeSearchesTest extends TestCase {
                         return null;
                     },
                 ],
-                'Different user' => [
+                'Different user - Single'   => [
                     new GraphQLSuccess('deleteMeSearches', DeleteMeSearches::class, [
                         'deleted' => [],
                     ]),
                     static function (TestCase $test, User $user): ?string {
                         UserSearch::factory()
                             ->for(User::factory())
+                            ->create([
+                                'key' => 'key',
+                            ]);
+                        return 'key';
+                    },
+                ],
+                'Different user - Multiple' => [
+                    new GraphQLSuccess('deleteMeSearches', DeleteMeSearches::class, [
+                        'deleted' => [],
+                    ]),
+                    static function (TestCase $test, User $user): ?string {
+                        UserSearch::factory()
+                            ->for(User::factory())
+                            ->count(2)
                             ->create([
                                 'key' => 'key',
                             ]);
