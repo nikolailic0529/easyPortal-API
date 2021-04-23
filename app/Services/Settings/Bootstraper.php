@@ -88,7 +88,7 @@ class Bootstraper extends Settings {
         //      => return saved (if editable and exists) or default
         $value = null;
 
-        if (!$this->isCached() && !$setting->isReadonly()) {
+        if (!$setting->isReadonly()) {
             if ($this->isEditable($setting) && array_key_exists($setting->getName(), $saved)) {
                 $value = $saved[$setting->getName()];
             } else {

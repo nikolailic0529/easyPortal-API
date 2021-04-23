@@ -2,8 +2,9 @@
 
 namespace App\Services\Settings\Exceptions;
 
+use App\Exceptions\HasErrorCode;
 use Exception;
 
 abstract class SettingsException extends Exception {
-    // empty
+    use HasErrorCode;
 }

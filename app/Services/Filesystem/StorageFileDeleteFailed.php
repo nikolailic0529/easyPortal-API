@@ -7,14 +7,22 @@ use Throwable;
 use function __;
 
 class StorageFileDeleteFailed extends StorageException {
-    public function __construct(Disk $disc, string $file, Throwable $previous = null) {
+    public function __construct(
+        protected Disk $disc,
+        protected string $path,
+        Throwable $previous = null,
+    ) {
         parent::__construct(
-            __('errors.storage.file_delete_failed', [
-                'disc' => $disc,
-                'file' => $file,
-            ]),
+            "Delete failed: `{$path}` (disk: `{$disc}`)",
             0,
             $previous,
         );
+    }
+
+    public function getErrorMessage(): string {
+        return __('errors.storage.file_delete_failed', [
+            'disc' => $this->disc,
+            'file' => $this->path,
+        ]);
     }
 }

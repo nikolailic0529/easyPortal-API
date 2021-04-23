@@ -20,8 +20,6 @@ use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
-use function __;
-
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\DispatchApplicationService
@@ -92,17 +90,13 @@ class DispatchApplicationServiceTest extends TestCase {
             new RootDataProvider('dispatchApplicationService'),
             new ArrayDataProvider([
                 'no service'    => [
-                    new GraphQLError('dispatchApplicationService', static function (): array {
-                        return [__('graphql.mutations.dispatchApplicationService.not_found')];
-                    }),
+                    new GraphQLError('dispatchApplicationService', new DispatchApplicationServiceNotFoundException()),
                     [
                         'name' => 'unknown-service',
                     ],
                 ],
                 'failed'        => [
-                    new GraphQLError('dispatchApplicationService', static function (): array {
-                        return [__('graphql.mutations.dispatchApplicationService.failed')];
-                    }),
+                    new GraphQLError('dispatchApplicationService', new DispatchApplicationServiceFailed()),
                     [
                         'name'        => 'service-b',
                         'immediately' => true,

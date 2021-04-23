@@ -5,17 +5,18 @@ namespace Tests\GraphQL;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonMatchesSchema;
 use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonSchema;
+use Throwable;
 
 class GraphQLError extends GraphQLResponse {
     /**
-     * @var array<string>|\Closure():array<string>|null
+     * @var array<string>|\Throwable|\Closure():array<string>|null
      */
-    protected Closure|array|null $errors = null;
+    protected Throwable|Closure|array|null $errors = null;
 
     /**
-     * @param array<string>|\Closure():array<string>|null $errors
+     * @param array<string>|\Throwable|\Closure():array<string>|null $errors
      */
-    public function __construct(string $root, Closure|array|null $errors = null) {
+    public function __construct(string $root, Throwable|Closure|array|null $errors = null) {
         $this->errors = $errors;
 
         parent::__construct($root, null);

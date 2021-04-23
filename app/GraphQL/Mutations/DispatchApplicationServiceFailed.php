@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Exceptions\HasErrorCode;
 use App\Exceptions\TranslatedException;
 use Exception;
 use Throwable;
@@ -9,7 +10,13 @@ use Throwable;
 use function __;
 
 class DispatchApplicationServiceFailed extends Exception implements TranslatedException {
+    use HasErrorCode;
+
     public function __construct(Throwable $previous = null) {
-        parent::__construct(__('graphql.mutations.dispatchApplicationService.failed'), 0, $previous);
+        parent::__construct('Service dispatch failed.', 0, $previous);
+    }
+
+    public function getErrorMessage(): string {
+        return __('graphql.mutations.dispatchApplicationService.failed');
     }
 }

@@ -8,13 +8,20 @@ use Throwable;
 use function __;
 
 class SettingsFailedToLoadEnv extends SettingsException implements TranslatedException {
-    public function __construct(string $file, Throwable $previous = null) {
+    public function __construct(
+        protected string $path,
+        Throwable $previous = null,
+    ) {
         parent::__construct(
-            __('settings.errors.failed_to_load_env', [
-                'file' => $file,
-            ]),
+            "Failed to load ENV from `{$this->path}`",
             0,
             $previous,
         );
+    }
+
+    public function getErrorMessage(): string {
+        return __('settings.errors.failed_to_load_env', [
+            'file' => $this->path,
+        ]);
     }
 }

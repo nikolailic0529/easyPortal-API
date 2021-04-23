@@ -20,6 +20,8 @@ use Throwable;
 use function __;
 use function collect;
 use function is_null;
+use function rtrim;
+use function trim;
 
 class Helper {
     /**
@@ -36,24 +38,51 @@ class Helper {
     ];
 
     public function __construct(
-        protected LoggerInterface $logger,
+        protected LoggerInterface|null $logger = null,
     ) {
         // empty
     }
 
     public function getMessage(Throwable $error): string {
+        $message = $this->getTranslatedMessage($error);
+        $code    = $this->getErrorCode($error);
+
+        if ($code) {
+            $message = __('errors.message', [
+                'message' => rtrim(trim($message), '.'),
+                'code'    => $code,
+            ]);
+        }
+
+        return $message;
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function getTrace(Throwable $error): array {
+        $stack = [];
+
+        do {
+            $stack[] = [
+                'exception' => $error::class,
+                'message'   => $error->getMessage(),
+                'file'      => $error->getFile(),
+                'line'      => $error->getLine(),
+                'trace'     => collect($error->getTrace())->map(static function (array $trace): array {
+                    return Arr::except($trace, ['args']);
+                })->all(),
+            ];
+            $error   = $error->getPrevious();
+        } while ($error);
+
+        return $stack;
+    }
+
+    protected function getTranslatedMessage(Throwable $error): string {
         // Translated?
         if ($error instanceof TranslatedException) {
-            if ($error->getCode() !== 0) {
-                $message = __('errors.message', [
-                    'message' => $error->getMessage(),
-                    'code'    => $error->getCode(),
-                ]);
-            } else {
-                $message = $error->getMessage();
-            }
-
-            return $message;
+            return $error->getErrorMessage();
         }
 
         // Determine key
@@ -108,7 +137,7 @@ class Helper {
         if (is_null($message)) {
             $message = __($default);
 
-            $this->logger->notice('Missing translation.', [
+            $this->logger?->notice('Missing translation.', [
                 'keys'  => $keys,
                 'error' => $error,
             ]);
@@ -118,25 +147,21 @@ class Helper {
         return $message;
     }
 
-    /**
-     * @return array<mixed>
-     */
-    public function getTrace(Throwable $error): array {
-        $stack = [];
+    protected function getErrorCode(Throwable $error): string|int|null {
+        $code = null;
 
-        do {
-            $stack[] = [
-                'exception' => $error::class,
-                'message'   => $error->getMessage(),
-                'file'      => $error->getFile(),
-                'line'      => $error->getLine(),
-                'trace'     => collect($error->getTrace())->map(static function (array $trace): array {
-                    return Arr::except($trace, ['args']);
-                })->all(),
-            ];
-            $error   = $error->getPrevious();
-        } while ($error);
+        if ($error instanceof TranslatedException) {
+            $code = $error->getErrorCode();
 
-        return $stack;
+            if (!$code) {
+                $this->logger?->notice('Missing error code.', [
+                    'error' => $error,
+                ]);
+            }
+        } else {
+            $code = ErrorCodes::getCode($error);
+        }
+
+        return $code;
     }
 }
