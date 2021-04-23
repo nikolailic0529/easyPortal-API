@@ -54,7 +54,7 @@ class DeleteMeSearchTest extends TestCase {
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            $this->assertDatabaseMissing((new UserSearch())->getTable(), ['id' => $userSearchId, 'deleted_at' => null]);
+            $this->assertFalse(UserSearch::query()->whereKey($userSearchId)->exists());
         }
     }
     // </editor-fold>
