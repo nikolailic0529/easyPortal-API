@@ -134,26 +134,17 @@ interface Constants {
     /**
      * Encryption Algorithm.
      */
-    #[Setting('ep.keycloak.encryption_algorithm')]
+    #[Setting('ep.keycloak.encryption.algorithm')]
     #[Group('keycloak')]
-    #[Type(StringType::class)]
-    public const EP_KEYCLOAK_ENCRYPTION_ALGORITHM = null;
+    public const EP_KEYCLOAK_ENCRYPTION_ALGORITHM = 'RS256';
 
     /**
-     * Encryption Key path.
+     * Encryption Public Key.
      */
-    #[Setting('ep.keycloak.encryption_key_path')]
-    #[Group('keycloak')]
-    #[Type(StringType::class)]
-    public const EP_KEYCLOAK_ENCRYPTION_KEY_PATH = null;
-
-    /**
-     * Encryption Key (have bigger priority than key path).
-     */
-    #[Setting('ep.keycloak.encryption_key')]
+    #[Setting('ep.keycloak.encryption.public_key')]
     #[Group('keycloak')]
     #[Type(Text::class)]
-    public const EP_KEYCLOAK_ENCRYPTION_KEY = null;
+    public const EP_KEYCLOAK_ENCRYPTION_PUBLIC_KEY = '';
     // </editor-fold>
 
     // <editor-fold desc="EP_SETTINGS">

@@ -96,11 +96,12 @@ class Provider extends AbstractProvider {
         return ' ';
     }
 
-    protected function getRealmUrl(string $path): string {
-        $url  = rtrim($this->url, '/');
+    public function getRealmUrl(string $path = ''): string {
         $path = ltrim($path, '/');
+        $url  = rtrim($this->url, '/');
+        $url  = rtrim("{$url}/auth/realms/{$this->getRealm()}/{$path}", '/');
 
-        return "{$url}/auth/realms/{$this->getRealm()}/{$path}";
+        return $url;
     }
 
     protected function getRealm(): string {

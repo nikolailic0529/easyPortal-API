@@ -7,6 +7,7 @@ use App\Services\KeyCloak\Exceptions\AuthorizationFailed;
 use App\Services\KeyCloak\Exceptions\InvalidCredentials;
 use App\Services\KeyCloak\Exceptions\InvalidIdentity;
 use App\Services\KeyCloak\Exceptions\KeyCloakException;
+use App\Services\KeyCloak\Exceptions\StateMismatch;
 use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -40,7 +41,7 @@ class KeyCloak {
     public function authorize(string $code, string $state): Authenticatable {
         // Is state valid?
         if ($this->session->pull(self::STATE) !== $state) {
-            //   throw new StateMismatch();
+            throw new StateMismatch();
         }
 
         // Get Access Token
@@ -75,6 +76,10 @@ class KeyCloak {
         $this->auth->guard()->logout();
 
         return $this->getProvider()->getSignOutUrl();
+    }
+
+    public function getValidIssuer(): string {
+        return $this->getProvider()->getRealmUrl();
     }
 
     protected function getProvider(): Provider {
