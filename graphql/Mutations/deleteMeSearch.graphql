@@ -9,5 +9,5 @@ input DeleteMeSearchInput {
 }
 
 type DeleteMeSearchPayload {
-  deleted: String!
+  deleted: Boolean!
 }

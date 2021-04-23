@@ -10,11 +10,8 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\UserDataProvider;
 use Tests\DataProviders\TenantDataProvider;
-use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
-
-use function __;
 
 /**
  * @internal
@@ -32,6 +29,7 @@ class DeleteMeSearchTest extends TestCase {
         Closure $tenantFactory,
         Closure $userFactory = null,
         Closure $dataFactory = null,
+        bool $exists = null,
     ): void {
         // Prepare
         $user = $this->setUser($userFactory, $this->setTenant($tenantFactory));
@@ -40,9 +38,10 @@ class DeleteMeSearchTest extends TestCase {
             $user->save();
         }
 
-        $userSearchId = 'wrongId';
+        $userSearch = null;
+
         if ($user && $dataFactory) {
-            $userSearchId = $dataFactory($this, $user);
+            $userSearch = $dataFactory($this, $user);
         }
 
         $this
@@ -50,11 +49,11 @@ class DeleteMeSearchTest extends TestCase {
                 deleteMeSearch(input:$input) {
                     deleted
                 }
-            }', [ 'input' => [ 'id' => $userSearchId]])
+            }', ['input' => ['id' => $userSearch?->getKey() ?: $this->faker->uuid]])
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            $this->assertFalse(UserSearch::query()->whereKey($userSearchId)->exists());
+            $this->assertEquals($exists, $userSearch->exists());
         }
     }
     // </editor-fold>
@@ -70,43 +69,24 @@ class DeleteMeSearchTest extends TestCase {
             new UserDataProvider('deleteMeSearch'),
             new ArrayDataProvider([
                 'ok'             => [
-                    new GraphQLSuccess('deleteMeSearch', DeleteMeSearch::class, [
-                        'deleted' => '06859f2f-08f0-3f7b-bdcb-bd2cc8e6409a',
+                    new GraphQLSuccess('deleteMeSearch', self::class, [
+                        'deleted' => true,
                     ]),
-                    static function (TestCase $test, User $user): string {
-                        UserSearch::factory()
-                            ->create([
-                                'id'      => '06859f2f-08f0-3f7b-bdcb-bd2cc8e6409a',
-                                'user_id' => $user->id,
-                            ]);
-                        return '06859f2f-08f0-3f7b-bdcb-bd2cc8e6409a';
+                    static function (TestCase $test, User $user): UserSearch {
+                        return UserSearch::factory()->create([
+                            'user_id' => $user->getKey(),
+                        ]);
                     },
+                    false,
                 ],
                 'Different User' => [
-                    new GraphQLError('deleteMeSearch', static function (): array {
-                        return [__('graphql.mutations.deleteMeSearch.not_found')];
-                    }),
-                    static function (TestCase $test, User $user): string {
-                        UserSearch::factory()
-                            ->for(User::factory())
-                            ->create([
-                                'id'      => '06859f2f-08f0-3f7b-bdcb-bd2cc8e6409a',
-                            ]);
-                        return '06859f2f-08f0-3f7b-bdcb-bd2cc8e6409a';
+                    new GraphQLSuccess('deleteMeSearch', self::class, [
+                        'deleted' => false,
+                    ]),
+                    static function (TestCase $test, User $user): UserSearch {
+                        return UserSearch::factory()->for(User::factory())->create();
                     },
-                ],
-                'Not found'      => [
-                    new GraphQLError('deleteMeSearch', static function (): array {
-                        return [__('graphql.mutations.deleteMeSearch.not_found')];
-                    }),
-                    static function (TestCase $test, User $user): string {
-                        UserSearch::factory()
-                            ->create([
-                                'id'      => '06859f2f-08f0-3f7b-bdcb-bd2cc8e6409a',
-                                'user_id' => $user->id,
-                            ]);
-                        return '06859f2f-08f0-3f7b-bdcb-bd2cc8e6409b';
-                    },
+                    true,
                 ],
             ]),
         ))->getData();

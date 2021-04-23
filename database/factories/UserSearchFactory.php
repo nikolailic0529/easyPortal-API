@@ -7,8 +7,8 @@ use App\Models\UserSearch;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\User create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\User make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method \App\Models\UserSearch create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method \App\Models\UserSearch make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
  */
 class UserSearchFactory extends Factory {
     /**

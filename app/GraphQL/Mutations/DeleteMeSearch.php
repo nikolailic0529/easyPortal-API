@@ -12,8 +12,8 @@ class DeleteMeSearch {
     }
 
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
+     * @param null                 $_
+     * @param array<string, mixed> $args
      *
      * @return  array<string, mixed>
      */
@@ -21,12 +21,10 @@ class DeleteMeSearch {
         $user   = $this->auth->user();
         $search = $user->searches()->whereKey($args['input']['id'])->first();
 
-        if (!$search) {
-            throw new DeleteMeSearchNotFound();
+        if ($search) {
+            $search->delete();
         }
 
-        $search->delete();
-
-        return ['deleted' => $args['input']['id'] ];
+        return ['deleted' => (bool) $search];
     }
 }
