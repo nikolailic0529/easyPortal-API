@@ -20,6 +20,8 @@ use Throwable;
 use function __;
 use function collect;
 use function is_null;
+use function rtrim;
+use function trim;
 
 class Helper {
     /**
@@ -47,7 +49,7 @@ class Helper {
 
         if ($code) {
             $message = __('errors.message', [
-                'message' => $message,
+                'message' => rtrim(trim($message), '.'),
                 'code'    => $code,
             ]);
         }
