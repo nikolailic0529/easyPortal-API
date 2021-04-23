@@ -24,7 +24,7 @@ class TenantScope implements Scope {
             $column = $model->getTenantIdColumn();
             $tenant = $this->container->make(CurrentTenant::class);
 
-            $builder->where($column, '=', $tenant->get()->getKey());
+            $builder->where($column, '=', $tenant->getKey());
         }
     }
 }
