@@ -43,4 +43,8 @@ class UserSearch extends Model {
     public function user(): BelongsTo {
         return $this->belongsTo(User::class);
     }
+
+    public function setUserAttribute(User $user): void {
+        $this->user()->associate($user);
+    }
 }

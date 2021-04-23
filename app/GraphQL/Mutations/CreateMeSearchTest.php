@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use Closure;
+use Illuminate\Support\Arr;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -42,17 +43,30 @@ class CreateMeSearchTest extends TestCase {
         }
 
         // Test
-        $this
+        $response = $this
             ->graphQL(/** @lang GraphQL */ 'mutation CreateMeSearch($input: CreateMeSearchInput!) {
                 createMeSearch(input:$input) {
                     created {
-                        name
+                        id
                         key
+                        name
                         conditions
+                        created_at
                     }
                 }
             }', [ 'input' => $data ])
             ->assertThat($expected);
+
+        if ($expected instanceof GraphQLSuccess) {
+            $created = $response->json('data.createMeSearch.created');
+
+            $this->assertIsArray($created);
+            $this->assertNotNull($created['id']);
+            $this->assertNotNull($created['created_at']);
+            $this->assertEquals($data['key'], $created['key']);
+            $this->assertEquals($data['name'], $created['name']);
+            $this->assertEquals($data['conditions'], $created['conditions']);
+        }
     }
     // </editor-fold>
 
@@ -67,13 +81,7 @@ class CreateMeSearchTest extends TestCase {
             new UserDataProvider('createMeSearch'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('createMeSearch', CreateMeSearch::class, [
-                        'created' => [
-                            'conditions' => 'conditionsObject',
-                            'key'        => 'key1',
-                            'name'       => 'name aa',
-                        ],
-                    ]),
+                    new GraphQLSuccess('createMeSearch', CreateMeSearch::class),
                     [
                         'conditions' => 'conditionsObject',
                         'key'        => 'key1',

@@ -13,8 +13,8 @@ class CreateMeSearch {
     }
 
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
+     * @param null                 $_
+     * @param array<string, mixed> $args
      *
      * @return  array<string, mixed>
      */
@@ -24,8 +24,9 @@ class CreateMeSearch {
         $search->conditions = $args['input']['conditions'];
         $search->key        = $args['input']['key'];
         $search->name       = $args['input']['name'];
+        $search->user       = $user;
+        $search->save();
 
-        $search->user = $user;
         return ['created' => $search];
     }
 }
