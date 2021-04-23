@@ -2,17 +2,20 @@
 
 namespace Tests\GraphQL;
 
+use App\Exceptions\Helper;
 use Closure;
 use JsonSerializable;
+use Throwable;
 
 use function array_keys;
+use function is_array;
 
 class GraphQLErrorsSchema implements JsonSerializable {
     /**
-     * @param array<string>|\Closure():array<string>|null $errors
+     * @param array<string>|\Throwable|\Closure():array<string>|\Exception|null $errors
      */
     public function __construct(
-        protected Closure|array $errors,
+        protected Closure|Throwable|array $errors,
     ) {
         // empty
     }
@@ -26,12 +29,21 @@ class GraphQLErrorsSchema implements JsonSerializable {
     /**
      * @param array<string> $errors
      *
-     * @return array<mixed>
+     * @return \Throwable|array<string>
      */
-    protected function getErrorsSchema(array $errors): array {
-        $items = [];
+    protected function getErrorsSchema(Throwable|array $errors): array {
+        if (!is_array($errors)) {
+            $errors = [$errors];
+        }
+
+        $items  = [];
+        $helper = new Helper();
 
         foreach ($errors as $error) {
+            if ($error instanceof Throwable) {
+                $error = $helper->getMessage($error);
+            }
+
             $items[] = [
                 'type'       => 'object',
                 'required'   => [

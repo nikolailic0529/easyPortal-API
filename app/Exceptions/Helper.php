@@ -38,7 +38,7 @@ class Helper {
     ];
 
     public function __construct(
-        protected LoggerInterface $logger,
+        protected LoggerInterface|null $logger = null,
     ) {
         // empty
     }
@@ -137,7 +137,7 @@ class Helper {
         if (is_null($message)) {
             $message = __($default);
 
-            $this->logger->notice('Missing translation.', [
+            $this->logger?->notice('Missing translation.', [
                 'keys'  => $keys,
                 'error' => $error,
             ]);
@@ -154,7 +154,7 @@ class Helper {
             $code = $error->getErrorCode();
 
             if (!$code) {
-                $this->logger->notice('Missing error code.', [
+                $this->logger?->notice('Missing error code.', [
                     'error' => $error,
                 ]);
             }
