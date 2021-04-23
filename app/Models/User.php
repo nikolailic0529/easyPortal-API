@@ -18,21 +18,23 @@ use LogicException;
 /**
  * User.
  *
- * @property string                       $id
- * @property string                       $organization_id
- * @property string                       $given_name
- * @property string                       $family_name
- * @property string                       $email
- * @property bool                         $email_verified
- * @property string                       $phone
- * @property bool                         $phone_verified
- * @property string|null                  $photo
- * @property array                        $permissions
- * @property string|null                  $locale
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property \App\Models\Organization     $organization
+ * @property string                                                                $id
+ * @property string                                                                $organization_id
+ * @property string                                                                $given_name
+ * @property string                                                                $family_name
+ * @property string                                                                $email
+ * @property bool                                                                  $email_verified
+ * @property string                                                                $phone
+ * @property bool                                                                  $phone_verified
+ * @property string|null                                                           $photo
+ * @property array                                                                 $permissions
+ * @property string|null                                                           $locale
+ * @property \Carbon\CarbonImmutable                                               $created_at
+ * @property \Carbon\CarbonImmutable                                               $updated_at
+ * @property \Carbon\CarbonImmutable|null                                          $deleted_at
+ * @property \App\Models\Organization                                              $organization
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\UserSearch> $searches
+ * @property-read int|null                                                         $searches_count
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()

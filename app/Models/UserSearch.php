@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * UserSearch.
+ * User Search.
  *
  * @property string                       $id
  * @property string                       $user_id
@@ -28,6 +28,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserSearch whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserSearch whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserSearch whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserSearch whereUserId($value)
  * @mixin \Eloquent
  */
 class UserSearch extends Model {
