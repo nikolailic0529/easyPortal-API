@@ -3,7 +3,6 @@
 namespace App\GraphQL\Mutations;
 
 use Closure;
-use Illuminate\Support\Arr;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -54,7 +53,7 @@ class CreateMeSearchTest extends TestCase {
                         created_at
                     }
                 }
-            }', [ 'input' => $data ])
+            }', ['input' => $data])
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
