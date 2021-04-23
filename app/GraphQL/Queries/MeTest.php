@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\User;
+use App\Models\UserSearch;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -11,6 +12,8 @@ use Tests\DataProviders\TenantDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
+
+// FIXME [Test] We should standard User DataProviders here.
 
 /**
  * @internal
@@ -21,6 +24,8 @@ class MeTest extends TestCase {
     // =========================================================================
     /**
      * @covers ::__invoke
+     * @covers ::root
+     *
      * @dataProvider dataProviderInvoke
      *
      * @param array<string,mixed> $settings
@@ -44,6 +49,42 @@ class MeTest extends TestCase {
                     root
                 }
             }')
+            ->assertThat($expected);
+    }
+
+    /**
+     * @covers ::__invoke
+     *
+     * @dataProvider dataProviderSearches
+     */
+    public function testSearches(
+        Response $expected,
+        Closure $tenantFactory,
+        Closure $userFactory = null,
+        Closure $userSearchesFactory = null,
+    ): void {
+        // Prepare
+        $user = $this->setUser($userFactory, $this->setTenant($tenantFactory));
+
+        $key = 'wrong';
+
+        if ($userSearchesFactory) {
+            $key = $userSearchesFactory($this, $user);
+        }
+
+        // Test
+        $this
+            ->graphQL(/** @lang GraphQL */ '
+                query searches ($key: String!){
+                    me {
+                        searches(where: {key: {eq: $key}}) {
+                            id
+                            key
+                            name
+                            conditions
+                        }
+                    }
+            }', ['key' => $key])
             ->assertThat($expected);
     }
     // </editor-fold>
@@ -81,6 +122,52 @@ class MeTest extends TestCase {
                             '96948814-7626-4aab-a5a8-f0b7b4be8e6d',
                         ],
                     ],
+                ],
+            ]),
+        ))->getData();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderSearches(): array {
+        return (new CompositeDataProvider(
+            new TenantDataProvider(),
+            new ArrayDataProvider([
+                'guest is allowed' => [
+                    new GraphQLSuccess('me', self::class, 'null'),
+                    static function (): ?User {
+                        return null;
+                    },
+                    static function (TestCase $test, ?User $user): string {
+                        return 'key';
+                    },
+                ],
+                'user is allowed'  => [
+                    new GraphQLSuccess('me', self::class, new JsonFragment('searches', [
+                        [
+                            'id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
+                            'key'        => 'key',
+                            'name'       => 'saved_filter',
+                            'conditions' => 'conditions',
+                        ],
+                    ])),
+                    static function (): ?User {
+                        return User::factory()->create();
+                    },
+                    static function (TestCase $test, ?User $user): string {
+                        if ($user) {
+                            UserSearch::factory([
+                                'id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
+                                'key'        => 'key',
+                                'name'       => 'saved_filter',
+                                'conditions' => 'conditions',
+                                'user_id'    => $user->id,
+                            ])->create();
+                        }
+
+                        return 'key';
+                    },
                 ],
             ]),
         ))->getData();

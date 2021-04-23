@@ -1,0 +1,6 @@
+input MeSearchQuery {
+  id: ID!
+  key: String!
+  name: String!
+  created_at: DateTime!
+}
