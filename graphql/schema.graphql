@@ -2,6 +2,7 @@
 #import Types/*.graphql
 #import Filters/*.graphql
 #import Inputs/*.graphql
+#import Mutations/*.graphql
 #import Mutations/**/*.graphql
 
 type Query {
