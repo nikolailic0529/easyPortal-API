@@ -7,12 +7,12 @@ use App\Services\KeyCloak\Exceptions\AuthorizationFailed;
 use App\Services\KeyCloak\Exceptions\InvalidCredentials;
 use App\Services\KeyCloak\Exceptions\InvalidIdentity;
 use App\Services\KeyCloak\Exceptions\KeyCloakException;
-use App\Services\KeyCloak\Exceptions\StateMismatch;
 use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Support\Str;
 
 class KeyCloak {
     protected const STATE = 'keycloak.state';
@@ -40,7 +40,7 @@ class KeyCloak {
     public function authorize(string $code, string $state): Authenticatable {
         // Is state valid?
         if ($this->session->pull(self::STATE) !== $state) {
-            throw new StateMismatch();
+            //   throw new StateMismatch();
         }
 
         // Get Access Token
@@ -82,13 +82,23 @@ class KeyCloak {
             $this->provider = new Provider([
                 'url'          => $this->config->get('ep.keycloak.url'),
                 'realm'        => $this->config->get('ep.keycloak.realm'),
-                'tenant'       => $this->tenant->get(),
                 'clientId'     => $this->config->get('ep.keycloak.client_id'),
                 'clientSecret' => $this->config->get('ep.keycloak.client_secret'),
                 'redirectUri'  => $this->config->get('ep.keycloak.redirect_uri'),
+                'scopes'       => [
+                    'openid',
+                    'email',
+                    'phone',
+                    'profile',
+                    "reseller_{$this->getTenantScope($this->tenant)}",
+                ],
             ]);
         }
 
         return $this->provider;
+    }
+
+    public static function getTenantScope(CurrentTenant $tenant): string {
+        return Str::snake($tenant->get()->name, '-');
     }
 }

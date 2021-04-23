@@ -1,5 +1,7 @@
 <?php declare(strict_types = 1);
 
+use App\Services\KeyCloak\UserProvider;
+
 return [
 
     /*
@@ -67,9 +69,13 @@ return [
 
     'providers'        => [
         'users' => [
-            'driver' => 'eloquent',
-            'model'  => App\Models\User::class,
+            'driver' => UserProvider::class,
         ],
+
+        // 'users' => [
+        //    'driver' => 'eloquent',
+        //    'model'  => App\Models\User::class,
+        // ],
 
         // 'users' => [
         //     'driver' => 'database',

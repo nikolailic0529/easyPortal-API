@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use LogicException;
@@ -17,7 +18,7 @@ use LogicException;
 /**
  * User.
  *
- * @property int                          $id
+ * @property string                       $id
  * @property string                       $organization_id
  * @property string                       $given_name
  * @property string                       $family_name
@@ -26,11 +27,12 @@ use LogicException;
  * @property string                       $phone
  * @property bool                         $phone_verified
  * @property string|null                  $photo
- * @property mixed                        $permissions
+ * @property array                        $permissions
  * @property string|null                  $locale
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property \App\Models\Organization     $organization
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
@@ -38,7 +40,7 @@ use LogicException;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmailVerifie($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmailVerified($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereFamilyName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereGivenName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereId($value)
@@ -119,5 +121,13 @@ class User extends Model implements
 
     public function searches(): HasMany {
         return $this->hasMany(UserSearch::class);
+    }
+
+    public function organization(): BelongsTo {
+        return $this->belongsTo(Organization::class);
+    }
+
+    public function setOrganizationAttribute(Organization $organization): void {
+        $this->organization()->associate($organization);
     }
 }

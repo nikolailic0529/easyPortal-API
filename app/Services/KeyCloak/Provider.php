@@ -2,8 +2,6 @@
 
 namespace App\Services\KeyCloak;
 
-use App\Models\Organization;
-use Illuminate\Support\Str;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
@@ -22,9 +20,13 @@ use function rtrim;
 class Provider extends AbstractProvider {
     use BearerAuthorizationTrait;
 
-    protected string       $url;
-    protected string       $realm;
-    protected Organization $tenant;
+    protected string $url;
+    protected string $realm;
+
+    /**
+     * @var array<string>
+     */
+    protected array $scopes;
 
     /**
      * @param array<mixed> $options
@@ -65,9 +67,7 @@ class Provider extends AbstractProvider {
      * @return array<string>
      */
     protected function getDefaultScopes(): array {
-        $name = Str::snake($this->tenant->name, '-');
-
-        return ['openid', 'profile', "reseller_{$name}"];
+        return $this->scopes;
     }
 
     /**

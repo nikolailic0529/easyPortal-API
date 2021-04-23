@@ -8,6 +8,7 @@ use App\Services\Filesystem\StorageFileCorrupted;
 use App\Services\Filesystem\StorageFileDeleteFailed;
 use App\Services\Filesystem\StorageFileSaveFailed;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailed;
+use App\Services\KeyCloak\Exceptions\InsufficientData;
 use App\Services\KeyCloak\Exceptions\InvalidCredentials;
 use App\Services\KeyCloak\Exceptions\InvalidIdentity;
 use App\Services\KeyCloak\Exceptions\StateMismatch;
@@ -29,6 +30,7 @@ class ErrorCodes {
         StateMismatch::class                               => 'ERR08',
         InvalidIdentity::class                             => 'ERR09',
         InvalidCredentials::class                          => 'ERR10',
+        InsufficientData::class                            => 'ERR12',
     ];
 
     public static function getCode(Throwable $throwable): string|int {
