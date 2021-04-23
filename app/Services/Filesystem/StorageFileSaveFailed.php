@@ -2,7 +2,6 @@
 
 namespace App\Services\Filesystem;
 
-use App\Exceptions\ErrorCodes;
 use Throwable;
 
 use function __;
@@ -10,11 +9,11 @@ use function __;
 class StorageFileSaveFailed extends StorageException {
     public function __construct(
         protected Disk $disc,
-        protected string $file,
+        protected string $path,
         Throwable $previous = null,
     ) {
         parent::__construct(
-            "Save failed: `{$file}` (disk: `{$disc}`)",
+            "Save failed: `{$path}` (disk: `{$disc}`)",
             0,
             $previous,
         );
@@ -23,7 +22,7 @@ class StorageFileSaveFailed extends StorageException {
     public function getErrorMessage(): string {
         return __('errors.storage.file_save_failed', [
             'disc' => $this->disc,
-            'file' => $this->file,
+            'file' => $this->path,
         ]);
     }
 }

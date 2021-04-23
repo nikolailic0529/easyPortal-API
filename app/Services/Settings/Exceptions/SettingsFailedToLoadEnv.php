@@ -9,11 +9,11 @@ use function __;
 
 class SettingsFailedToLoadEnv extends SettingsException implements TranslatedException {
     public function __construct(
-        protected string $file,
+        protected string $path,
         Throwable $previous = null,
     ) {
         parent::__construct(
-            "Failed to load ENV from `{$this->file}`",
+            "Failed to load ENV from `{$this->path}`",
             0,
             $previous,
         );
@@ -21,7 +21,7 @@ class SettingsFailedToLoadEnv extends SettingsException implements TranslatedExc
 
     public function getErrorMessage(): string {
         return __('settings.errors.failed_to_load_env', [
-            'file' => $this->file,
+            'file' => $this->path,
         ]);
     }
 }

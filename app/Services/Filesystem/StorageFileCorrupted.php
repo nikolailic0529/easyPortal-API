@@ -9,11 +9,11 @@ use function __;
 class StorageFileCorrupted extends StorageException {
     public function __construct(
         protected Disk $disc,
-        protected string $file,
+        protected string $path,
         Throwable $previous = null,
     ) {
         parent::__construct(
-            "File corrupted: `{$file}` (disk: `{$disc}`)",
+            "File corrupted: `{$path}` (disk: `{$disc}`)",
             0,
             $previous,
         );
@@ -22,7 +22,7 @@ class StorageFileCorrupted extends StorageException {
     public function getErrorMessage(): string {
         return __('errors.storage.file_corrupted', [
             'disc' => $this->disc,
-            'file' => $this->file,
+            'file' => $this->path,
         ]);
     }
 }
