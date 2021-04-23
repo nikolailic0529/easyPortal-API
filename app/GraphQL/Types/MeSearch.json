@@ -5,7 +5,8 @@
     "required": [
         "conditions",
         "name",
-        "key"
+        "key",
+        "id"
     ],
     "properties": {
         "id": {
@@ -19,9 +20,6 @@
         },
         "conditions": {
             "type": "string"
-        },
-        "user_id": {
-            "$ref": "../types.json#/definitions/ID"
         }
     }
 }

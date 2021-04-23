@@ -1,7 +1,6 @@
-type MeSearch {
+input MeSearchQuery {
   id: ID!
   key: String!
   name: String!
-  conditions: String!
   created_at: DateTime!
 }

@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\GraphQL\Directives\RootDirective;
+use App\Models\User;
 use Illuminate\Auth\AuthManager;
 
 class Me {
@@ -18,16 +19,11 @@ class Me {
      *
      * @return array<mixed>|null
      */
-    public function __invoke(mixed $_, array $args): ?array {
-        /** @var \App\Models\User|null $user */
-        $user = $this->auth->user();
+    public function __invoke(mixed $_, array $args): ?User {
+        return $this->auth->user();
+    }
 
-        return $user ? [
-            'id'          => $user->getKey(),
-            'given_name'  => $user->given_name,
-            'family_name' => $user->family_name,
-            'locale'      => $user->locale,
-            'root'        => $this->root->isRoot($user),
-        ] : null;
+    public function root(?User $user): bool {
+        return $user && $this->root->isRoot($user);
     }
 }

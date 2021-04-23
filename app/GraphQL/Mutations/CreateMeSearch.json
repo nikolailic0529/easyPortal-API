@@ -7,7 +7,7 @@
     ],
     "properties": {
         "created": {
-            "$ref": "../Types/UserSearch.json"
+            "$ref": "../Types/MeSearch.json"
         }
     }
 }

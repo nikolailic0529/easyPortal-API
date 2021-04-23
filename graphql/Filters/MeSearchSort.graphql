@@ -1,7 +1,5 @@
-type MeSearch {
-  id: ID!
+input MeSearchSort {
   key: String!
   name: String!
-  conditions: String!
   created_at: DateTime!
 }
