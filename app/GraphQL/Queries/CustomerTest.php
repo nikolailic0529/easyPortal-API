@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Customer;
+use App\Models\Location;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -19,15 +20,19 @@ use Tests\TestCase;
 class CustomerTest extends TestCase {
     /**
      * @dataProvider dataProviderQuery
+     *
+     * @param array<mixed> $settings
      */
     public function testQuery(
         Response $expected,
         Closure $tenantFactory,
         Closure $userFactory = null,
+        array $settings = [],
         Closure $customerFactory = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setTenant($tenantFactory));
+        $this->setSettings($settings);
 
         $customerId = 'wrong';
 
@@ -58,6 +63,15 @@ class CustomerTest extends TestCase {
                             name
                             email
                             phone_valid
+                        }
+                        headquarter {
+                            id
+                            state
+                            postcode
+                            line_one
+                            line_two
+                            latitude
+                            longitude
                         }
                     }
                 }
@@ -101,10 +115,28 @@ class CustomerTest extends TestCase {
                                 'phone_valid' => false,
                             ],
                         ],
+                        'headquarter'     => [
+                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                            'state'     => 'state1',
+                            'postcode'  => '19911',
+                            'line_one'  => 'line_one_data',
+                            'line_two'  => 'line_two_data',
+                            'latitude'  => '47.91634204',
+                            'longitude' => '-2.26318359',
+                        ],
                     ]),
+                    [
+                        'ep.headquarter_type' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                    ],
                     static function (): Customer {
-                        $customer = Customer::factory()
-                            ->hasLocations(1, [
+                        // static function will throw error
+                        // @phpcs:disable SlevomatCodingStandard.Functions.StaticClosure
+                        $location = Location::factory()
+                        ->hasTypes(1, [
+                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            'name' => 'headquarter',
+                        ])->state(function () {
+                            return [
                                 'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                                 'state'     => 'state1',
                                 'postcode'  => '19911',
@@ -112,7 +144,10 @@ class CustomerTest extends TestCase {
                                 'line_two'  => 'line_two_data',
                                 'latitude'  => '47.91634204',
                                 'longitude' => '-2.26318359',
-                            ])
+                            ];
+                        });
+                        $customer = Customer::factory()
+                            ->has($location)
                             ->hasContacts(1, [
                                 'name'        => 'contact1',
                                 'email'       => 'contact1@test.com',

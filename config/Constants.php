@@ -244,5 +244,12 @@ interface Constants {
     #[Group('data_loader')]
     public const EP_DATA_LOADER_CUSTOMER_UPDATE_QUEUE = Queues::DATA_LOADER_UPDATE;
     // </editor-fold>
+
+    /**
+     * Type ID related to headquarter.
+     */
+    #[Setting('ep.headquarter_type')]
+    #[Group('ep')]
+    public const EP_HEADQUARTER_TYPES = '';
     // </editor-fold>
 }
