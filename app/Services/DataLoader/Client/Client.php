@@ -365,6 +365,8 @@ class Client {
             endDate
             documentNumber
 
+            currencyCode
+
             document {
                 id
                 type
@@ -375,9 +377,11 @@ class Client {
                 startDate
                 endDate
 
+                currencyCode
+                totalNetPrice
+
                 vendorSpecificFields {
                     vendor
-                    totalNetPrice
                 }
             }
 

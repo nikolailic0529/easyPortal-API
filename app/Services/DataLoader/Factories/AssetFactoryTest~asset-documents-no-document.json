@@ -26,7 +26,8 @@
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
-            "warrantyEndDate": null
+            "warrantyEndDate": null,
+            "currencyCode": "CUR"
         },
         {
             "documentNumber": "7e6b6976-cb1b-4b2a-9cf1-de9e768e8802",
@@ -36,7 +37,8 @@
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1677542400000",
-            "warrantyEndDate": null
+            "warrantyEndDate": null,
+            "currencyCode": "CUR"
         },
         {
             "documentNumber": "dbd3f08b-6bd1-4e28-8122-3004257879c0",
@@ -46,7 +48,8 @@
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1740700800000",
-            "warrantyEndDate": null
+            "warrantyEndDate": null,
+            "currencyCode": "CUR"
         },
         {
             "documentNumber": "688b9621-3244-464b-9468-3cd74f5eaacf",
@@ -56,7 +59,8 @@
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
-            "warrantyEndDate": null
+            "warrantyEndDate": null,
+            "currencyCode": "CUR"
         },
         {
             "documentNumber": "7e6b6976-cb1b-4b2a-9cf1-de9e768e8802",
@@ -66,7 +70,8 @@
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1677542400000",
-            "warrantyEndDate": null
+            "warrantyEndDate": null,
+            "currencyCode": "CUR"
         },
         {
             "documentNumber": "dbd3f08b-6bd1-4e28-8122-3004257879c0",
@@ -76,7 +81,8 @@
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1740700800000",
-            "warrantyEndDate": null
+            "warrantyEndDate": null,
+            "currencyCode": "CUR"
         }
     ]
 }

@@ -101,9 +101,10 @@
                 "type": "MultiNational Quote",
                 "startDate": "1583020800000",
                 "endDate": "1614470400000",
+                "totalNetPrice": "1,292.16",
+                "currencyCode": "CUR",
                 "vendorSpecificFields": {
-                    "vendor": "HPE",
-                    "totalNetPrice": "1,292.16"
+                    "vendor": "HPE"
                 },
                 "documentNumber": "0056523287",
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",

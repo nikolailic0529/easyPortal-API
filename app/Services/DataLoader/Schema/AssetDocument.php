@@ -15,4 +15,6 @@ class AssetDocument extends Type {
     public ?Document $document;
     public string    $startDate;
     public string    $endDate;
+
+    public string $currencyCode;
 }

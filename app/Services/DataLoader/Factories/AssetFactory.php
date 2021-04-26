@@ -284,16 +284,19 @@ class AssetFactory extends ModelFactory {
                         );
                         $model->reseller = $asset->reseller;
                         $model->customer = $asset->customer;
-                        $model->currency = $this->currencies->get('EUR', $this->factory(static function (): Currency {
-                            $model = new Currency();
+                        $model->currency = $this->currencies->get(
+                            $assetDocument->currencyCode ?: 'EUR',
+                            $this->factory(static function () use ($assetDocument): Currency {
+                                $model = new Currency();
 
-                            $model->code = 'EUR';
-                            $model->name = 'EUR';
+                                $model->code = $assetDocument->currencyCode ?: 'EUR';
+                                $model->name = $assetDocument->currencyCode ?: 'EUR';
 
-                            $model->save();
+                                $model->save();
 
-                            return $model;
-                        }));
+                                return $model;
+                            }),
+                        );
                         $model->price    = $this->normalizer->price('0.00');
                         $model->number   = $this->normalizer->string($assetDocument->documentNumber);
 

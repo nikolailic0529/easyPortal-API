@@ -104,14 +104,14 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($document->document->vendorSpecificFields->vendor, $created->oem->abbr);
         $this->assertNotNull($created->price);
         $this->assertEquals(
-            $normalizer->price($document->document->vendorSpecificFields->totalNetPrice),
+            $normalizer->price($document->document->totalNetPrice),
             $created->price,
         );
         $this->assertEquals($document->document->documentNumber, $created->number);
         $this->assertEquals($document->document->startDate, $this->getDatetime($created->start));
         $this->assertEquals($document->document->endDate, $this->getDatetime($created->end));
         $this->assertEquals($document->document->type, $created->type->key);
-        $this->assertEquals('EUR', $created->currency->code);
+        $this->assertEquals('CUR', $created->currency->code);
         $this->assertEquals(ProductType::support(), $created->product->type);
         $this->assertEquals($document->supportPackage, $created->product->sku);
         $this->assertEquals($document->supportPackageDescription, $created->product->name);
@@ -128,7 +128,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($document->document->id, $updated->getKey());
         $this->assertNotNull($created->price);
         $this->assertEquals(
-            $normalizer->price($document->document->vendorSpecificFields->totalNetPrice),
+            $normalizer->price($document->document->totalNetPrice),
             $created->price,
         );
         $this->assertEquals($document->document->documentNumber, $updated->number);
@@ -357,7 +357,7 @@ class DocumentFactoryTest extends TestCase {
 
         $resolver
             ->shouldReceive('get')
-            ->with('EUR', Mockery::any())
+            ->with($currency->code, Mockery::any())
             ->once()
             ->andReturn($currency);
 
@@ -372,7 +372,11 @@ class DocumentFactoryTest extends TestCase {
             }
         };
 
-        $this->assertEquals($currency, $factory->documentCurrency(AssetDocument::create([])));
+        $this->assertEquals($currency, $factory->documentCurrency(AssetDocument::create([
+            'document' => [
+                'currencyCode' => $currency->code,
+            ],
+        ])));
     }
 
     /**

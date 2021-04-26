@@ -4,5 +4,4 @@ namespace App\Services\DataLoader\Schema;
 
 class DocumentVendorSpecificField extends Type {
     public string $vendor;
-    public ?string $totalNetPrice;
 }

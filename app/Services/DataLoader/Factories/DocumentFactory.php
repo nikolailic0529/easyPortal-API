@@ -116,7 +116,7 @@ class DocumentFactory extends ModelFactory {
             $model->currency = $this->documentCurrency($document);
             $model->start    = $this->normalizer->datetime($document->document->startDate);
             $model->end      = $this->normalizer->datetime($document->document->endDate);
-            $model->price    = $this->normalizer->price($document->document->vendorSpecificFields->totalNetPrice);
+            $model->price    = $this->normalizer->price($document->document->totalNetPrice);
             $model->number   = $this->normalizer->string($document->document->documentNumber);
 
             $model->save();
@@ -147,16 +147,19 @@ class DocumentFactory extends ModelFactory {
     }
 
     protected function documentCurrency(AssetDocument $document): Currency {
-        $currency = $this->currencies->get('EUR', $this->factory(static function (): Currency {
-            $model = new Currency();
+        $currency = $this->currencies->get(
+            $document->document->currencyCode ?: 'EUR',
+            $this->factory(static function () use ($document): Currency {
+                $model = new Currency();
 
-            $model->code = 'EUR';
-            $model->name = 'EUR';
+                $model->code = $document->document->currencyCode ?: 'EUR';
+                $model->name = $document->document->currencyCode ?: 'EUR';
 
-            $model->save();
+                $model->save();
 
-            return $model;
-        }));
+                return $model;
+            }),
+        );
 
         return $currency;
     }

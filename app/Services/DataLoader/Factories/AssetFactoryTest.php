@@ -418,7 +418,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals('1614470400000', $this->getDatetime($a->end));
         $this->assertEquals('HPE', $a->oem->abbr);
         $this->assertEquals('MultiNational Quote', $a->type->key);
-        $this->assertEquals('EUR', $a->currency->code);
+        $this->assertEquals('CUR', $a->currency->code);
         $this->assertEquals('H7J34AC', $a->product->sku);
         $this->assertEquals('HPE Foundation Care 24x7 SVC', $a->product->name);
         $this->assertEquals(ProductType::support(), $a->product->type);
@@ -481,6 +481,7 @@ class AssetFactoryTest extends TestCase {
 
         $this->assertNotNull($a);
         $this->assertEquals('3292.16', $a->price);
+        $this->assertEquals('EUR', $a->currency->code);
 
         $this->assertCount(1, $a->entries);
         $this->assertCount(1, $a->refresh()->entries);
@@ -581,7 +582,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals('1614470400000', $this->getDatetime($a->end));
         $this->assertEquals($model->oem->abbr, $a->oem->abbr);
         $this->assertEquals('??', $a->type->key);
-        $this->assertEquals('EUR', $a->currency->code);
+        $this->assertEquals('CUR', $a->currency->code);
         $this->assertEquals('H7J34AC', $a->product->sku);
         $this->assertEquals('HPE Foundation Care 24x7 SVC', $a->product->name);
         $this->assertEquals(ProductType::support(), $a->product->type);
