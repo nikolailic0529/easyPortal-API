@@ -6,9 +6,9 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Normalizers\PriceNormalizer
+ * @coversDefaultClass \App\Services\DataLoader\Normalizers\NumberNormalizer
  */
-class PriceNormalizerTest extends TestCase {
+class NumberNormalizerTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -17,7 +17,7 @@ class PriceNormalizerTest extends TestCase {
      * @dataProvider dataProviderNormalize
      */
     public function testNormalize(mixed $expected, mixed $value): void {
-        $this->assertEquals($expected, (new PriceNormalizer())->normalize($value));
+        $this->assertEquals($expected, (new NumberNormalizer())->normalize($value));
     }
     // </editor-fold>
 

@@ -297,7 +297,7 @@ class AssetFactory extends ModelFactory {
                                 return $model;
                             }),
                         );
-                        $model->price    = $this->normalizer->price('0.00');
+                        $model->price    = $this->normalizer->number('0.00');
                         $model->number   = $this->normalizer->string($assetDocument->documentNumber);
 
                         if ($created) {

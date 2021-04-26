@@ -104,7 +104,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($document->document->vendorSpecificFields->vendor, $created->oem->abbr);
         $this->assertNotNull($created->price);
         $this->assertEquals(
-            $normalizer->price($document->document->totalNetPrice),
+            $normalizer->number($document->document->totalNetPrice),
             $created->price,
         );
         $this->assertEquals($document->document->documentNumber, $created->number);
@@ -128,7 +128,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($document->document->id, $updated->getKey());
         $this->assertNotNull($created->price);
         $this->assertEquals(
-            $normalizer->price($document->document->totalNetPrice),
+            $normalizer->number($document->document->totalNetPrice),
             $created->price,
         );
         $this->assertEquals($document->document->documentNumber, $updated->number);

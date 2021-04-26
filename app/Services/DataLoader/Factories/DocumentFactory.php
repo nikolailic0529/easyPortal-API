@@ -116,7 +116,7 @@ class DocumentFactory extends ModelFactory {
             $model->currency = $this->documentCurrency($document);
             $model->start    = $this->normalizer->datetime($document->document->startDate);
             $model->end      = $this->normalizer->datetime($document->document->endDate);
-            $model->price    = $this->normalizer->price($document->document->totalNetPrice);
+            $model->price    = $this->normalizer->number($document->document->totalNetPrice);
             $model->number   = $this->normalizer->string($document->document->documentNumber);
 
             $model->save();
