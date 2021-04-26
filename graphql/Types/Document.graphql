@@ -9,8 +9,8 @@ type Document {
   start: Date!
   end: Date!
   price: String
-  currency_id: ID!
-  currency: Currency! @belongsTo
+  currency_id: ID
+  currency: Currency @belongsTo
   customer: Customer! @belongsTo
   oem: Oem! @belongsTo
   product: Product! @belongsTo

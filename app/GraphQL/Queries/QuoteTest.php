@@ -131,6 +131,9 @@ class QuoteTest extends TestCase {
                             asset_id
                             product_id
                             quantity
+                            net_price
+                            list_price
+                            discount
                             product {
                                 id
                                 name
@@ -252,6 +255,9 @@ class QuoteTest extends TestCase {
                                 'product_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                 'document_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                 'quantity'    => 20,
+                                'net_price'   => '123.45',
+                                'list_price'  => null,
+                                'discount'    => '-8.00',
                                 'product'     => [
                                     'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                     'name'   => 'Product1',
@@ -351,6 +357,9 @@ class QuoteTest extends TestCase {
                                 ]),
                                 'product_id' => $product,
                                 'quantity'   => 20,
+                                'net_price'  => '123.45',
+                                'list_price' => null,
+                                'discount'   => '-8',
                             ])
                             ->create([
                                 'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
