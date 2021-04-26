@@ -28,7 +28,7 @@
                     "vendor": "HPE",
                     "totalNetPrice": "1,292.16"
                 },
-                "documentId": "0056523287",
+                "documentNumber": "0056523287",
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
                 "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a"
             },
@@ -50,7 +50,7 @@
                     "vendor": "HPE2",
                     "totalNetPrice": "3,646.44"
                 },
-                "documentId": "0056523288",
+                "documentNumber": "0056523288",
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
                 "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a"
             },
@@ -72,7 +72,7 @@
                     "vendor": "HPE",
                     "totalNetPrice": "6,376.15"
                 },
-                "documentId": "0056490551",
+                "documentNumber": "0056490551",
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
                 "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a"
             },
@@ -94,7 +94,7 @@
                     "vendor": "HPE",
                     "totalNetPrice": "1,292.16"
                 },
-                "documentId": "0056523287",
+                "documentNumber": "0056523287",
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
                 "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a"
             },
@@ -116,7 +116,7 @@
                     "vendor": "HPE",
                     "totalNetPrice": "3,646.44"
                 },
-                "documentId": "0056523288",
+                "documentNumber": "0056523288",
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
                 "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a"
             },
@@ -138,7 +138,7 @@
                     "vendor": "HPE",
                     "totalNetPrice": "6,376.15"
                 },
-                "documentId": "0056490551",
+                "documentNumber": "0056490551",
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
                 "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a"
             },

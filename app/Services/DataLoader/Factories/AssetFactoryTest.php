@@ -664,7 +664,7 @@ class AssetFactoryTest extends TestCase {
     public function testAssetDocumentDocumentNotFound(): void {
         $asset    = new AssetModel();
         $document = AssetDocument::create([
-            'documentId' => '2182cd66-321f-47ac-8992-e295c018b8a4',
+            'documentNumber' => '2182cd66-321f-47ac-8992-e295c018b8a4',
         ]);
         $factory  = new class() extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -766,19 +766,19 @@ class AssetFactoryTest extends TestCase {
             'id'            => $model->getKey(),
             'assetDocument' => [
                 [
-                    'documentId'      => $docA->getKey(),
+                    'documentNumber'  => $docA->getKey(),
                     'warrantyEndDate' => null,
                 ],
                 [
-                    'documentId'      => $docB->getKey(),
+                    'documentNumber'  => $docB->getKey(),
                     'warrantyEndDate' => $this->getDatetime($date),
                 ],
                 [
-                    'documentId'      => $docC->getKey(),
+                    'documentNumber'  => $docC->getKey(),
                     'warrantyEndDate' => $this->getDatetime($date),
                 ],
                 [
-                    'documentId'      => '9e602148-7767-448e-b593-ba6bcff00cac',
+                    'documentNumber'  => '9e602148-7767-448e-b593-ba6bcff00cac',
                     'warrantyEndDate' => $this->getDatetime($date),
                 ],
             ],

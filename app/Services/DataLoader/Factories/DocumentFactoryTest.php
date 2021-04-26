@@ -107,7 +107,7 @@ class DocumentFactoryTest extends TestCase {
             $normalizer->price($document->document->vendorSpecificFields->totalNetPrice),
             $created->price,
         );
-        $this->assertEquals($document->document->documentId, $created->number);
+        $this->assertEquals($document->document->documentNumber, $created->number);
         $this->assertEquals($document->document->startDate, $this->getDatetime($created->start));
         $this->assertEquals($document->document->endDate, $this->getDatetime($created->end));
         $this->assertEquals($document->document->type, $created->type->key);
@@ -131,7 +131,7 @@ class DocumentFactoryTest extends TestCase {
             $normalizer->price($document->document->vendorSpecificFields->totalNetPrice),
             $created->price,
         );
-        $this->assertEquals($document->document->documentId, $updated->number);
+        $this->assertEquals($document->document->documentNumber, $updated->number);
     }
 
     /**
