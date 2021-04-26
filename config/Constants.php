@@ -19,6 +19,7 @@ use App\Services\Settings\Jobs\ConfigUpdate;
 use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\DocumentType;
 use App\Services\Settings\Types\Duration;
+use App\Services\Settings\Types\HeadquarterType;
 use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Url;
 
@@ -92,6 +93,7 @@ interface Constants {
      */
     #[Setting('ep.headquarter_type')]
     #[Group('ep')]
+    #[Type(HeadquarterType::class)]
     public const EP_HEADQUARTER_TYPE = '';
 
     // </editor-fold>
