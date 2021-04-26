@@ -73,6 +73,55 @@ type CompanyType {
   status: String
 }
 
+input DefaultImportSchema {
+  vendor: String
+  customerNumber: String
+  documentNumber: String
+  documentType: String
+  documentDate: String
+  productSku: String!
+  productDescription: String
+  serialNumber: String!
+  equipmentNumber: String
+  serviceGroupSku: String
+  serviceGroupDescription: String
+  serviceProductNumber: String
+  serviceProductDescription: String
+  serviceLevelDetailDescription: String
+  warrantyEndDate: String
+  supportLifeEndDate: String
+  productType: String
+  customerName: String!
+  customerLocations: [InputLocation]
+  customerContactPersons: [InputContactPerson]
+  supportStartDate: String
+  supportEndDate: String
+  coverageStartDate: String
+  coverageEndDate: String
+  supportPackage: String
+  supportPackageDescription: String
+  productLineCodeDescription: String
+  listPrice: String
+  discount: String
+  netPrice: String
+  totalNetPrice: String
+  currencyCode: String
+  languageCode: String
+  resellerNumber: String
+  resellerName: String!
+  resellerZip: String
+  resellerCity: String
+  resellerAddress: String
+  resellerCountry: String
+  distributorNumber: String
+  distributorName: String!
+  distributorZip: String
+  distributorCity: String
+  distributorAddress: String
+  distributorCountry: String
+  id: String
+}
+
 type Document {
   id: ID
   resellerId: String
@@ -103,6 +152,21 @@ type DocumentVendorSpecificField {
   said: String
 }
 
+input InputContactPerson {
+  name: String
+  type: String
+  phoneNumber: String
+  mail: String
+}
+
+input InputLocation {
+  zip: String
+  address: String
+  city: String
+  country: String
+  locationType: String
+}
+
 input KeyValuePair {
   key: String!
   value: String!
@@ -119,16 +183,22 @@ type Location {
   countryCode: String
 }
 
+type Mutation {
+  addDefaultImportSchema(input: DefaultImportSchema): Boolean
+}
+
 type Query {
   getAssetsBySerialNumber(serialNumber: String): Asset
   getAssetsByCustomerId(customerId: String!, limit: Int, offset: Int): [Asset]!
   getAssetsByResellerId(resellerId: String!, limit: Int, offset: Int): [Asset]!
+  getAssetsByDistributorId(distributorId: String!, limit: Int, offset: Int): [Asset]!
   getAssetsByVendor(vendor: String!, limit: Int, offset: Int): [Asset]!
   getDocumentsByCostumer(customerId: String!, type: String, limit: Int, offset: Int): [Document]!
   getAssets(args: [KeyValuePair], limit: Int, offset: Int): [Asset]!
   getCompanyById(id: String): [Company]!
   assets(limit: Int, offset: Int): [Asset]!
   getResellers(limit: Int, offset: Int): [Company]!
+  getDistributors(limit: Int, offset: Int): [Company]!
   getDocumentTypes: [String]!
 }
 
