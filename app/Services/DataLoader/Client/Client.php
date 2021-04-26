@@ -363,11 +363,12 @@ class Client {
         return <<<'GRAPHQL'
             startDate
             endDate
-            documentId
+            documentNumber
+
             document {
                 id
                 type
-                documentId
+                documentNumber
                 customerId
                 resellerId
 

@@ -86,7 +86,7 @@ class DocumentFactory extends ModelFactory {
         $keys = (new Collection($assets))
             ->map(static function (Asset $asset): array {
                 return array_map(static function (AssetDocument $document): string {
-                    return $document->document->id ?? $document->documentId;
+                    return $document->document->id ?? $document->documentNumber;
                 }, $asset->assetDocument ?? []);
             })
             ->flatten()
@@ -117,7 +117,7 @@ class DocumentFactory extends ModelFactory {
             $model->start    = $this->normalizer->datetime($document->document->startDate);
             $model->end      = $this->normalizer->datetime($document->document->endDate);
             $model->price    = $this->normalizer->price($document->document->vendorSpecificFields->totalNetPrice);
-            $model->number   = $this->normalizer->string($document->document->documentId);
+            $model->number   = $this->normalizer->string($document->document->documentNumber);
 
             $model->save();
 

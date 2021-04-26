@@ -271,7 +271,7 @@ class AssetFactory extends ModelFactory {
                 $factory  = $this->factory(
                     function (DocumentModel $model) use (&$created, $asset, $assetDocument): DocumentModel {
                         $created         = !$model->exists;
-                        $model->id       = $this->normalizer->string($assetDocument->documentId);
+                        $model->id       = $this->normalizer->string($assetDocument->documentNumber);
                         $model->oem      = $asset->oem;
                         $model->type     = $this->type(new DocumentModel(), '??');
                         $model->product  = $this->product(
@@ -295,7 +295,7 @@ class AssetFactory extends ModelFactory {
                             return $model;
                         }));
                         $model->price    = $this->normalizer->price('0.00');
-                        $model->number   = $this->normalizer->string($assetDocument->documentId);
+                        $model->number   = $this->normalizer->string($assetDocument->documentNumber);
 
                         if ($created) {
                             // These dates are not consistent and create a lot of:
@@ -314,7 +314,7 @@ class AssetFactory extends ModelFactory {
                     },
                 );
                 $document = $this->documentResolver->get(
-                    $assetDocument->documentId,
+                    $assetDocument->documentNumber,
                     static function () use ($factory): DocumentModel {
                         return $factory(new DocumentModel());
                     },
@@ -330,7 +330,7 @@ class AssetFactory extends ModelFactory {
         if (!$document) {
             throw new DocumentNotFoundException(sprintf(
                 'Document `%s` not found.',
-                $assetDocument->documentId,
+                $assetDocument->documentNumber,
             ));
         }
 
@@ -376,7 +376,7 @@ class AssetFactory extends ModelFactory {
 
             // Document exists?
             /** @var \App\Models\Document $document */
-            $document = $documents->get($assetDocument->documentId);
+            $document = $documents->get($assetDocument->documentNumber);
 
             if (!$document) {
                 continue;
