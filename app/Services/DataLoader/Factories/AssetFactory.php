@@ -196,6 +196,8 @@ class AssetFactory extends ModelFactory {
         // Get all Document and Entries
         /** @var \SplObjectStorage<\App\Models\Document,\Illuminate\Support\Collection<\App\Models\DocumentEntry>> $documents */
         $documents = new SplObjectStorage();
+        /** @var \SplObjectStorage<\App\Models\Document,\App\Services\DataLoader\Schema\AssetDocument> $documents */
+        $assetDocuments = new SplObjectStorage();
 
         foreach ($asset->assetDocument as $assetDocument) {
             $document = $this->assetDocument($model, $assetDocument);
@@ -206,6 +208,8 @@ class AssetFactory extends ModelFactory {
             } else {
                 $documents[$document] = new Collection([$entry]);
             }
+
+            $assetDocuments[$document] = $assetDocument;
         }
 
         // Update Documents entries
@@ -215,21 +219,25 @@ class AssetFactory extends ModelFactory {
 
         /** @var \App\Models\Document $document */
         foreach ($documents as $document) {
-            $existing = $document->entries
+            $existing      = $document->entries
                 ->filter(function (DocumentEntry $entry) use ($model): bool {
                     return $entry->asset_id === $this->normalizer->uuid($model->getKey());
                 })
                 ->keyBy($byProductId);
-            $entries  = $documents[$document]->groupBy($byProductId);
+            $entries       = $documents[$document]->groupBy($byProductId);
+            $assetDocument = $assetDocuments[$document];
 
             foreach ($entries as $product => $group) {
                 // Update entry
                 /** @var \App\Models\DocumentEntry $entry */
                 $entry = $existing->get($product) ?? $group->first();
 
-                $entry->asset    = $model;
-                $entry->document = $document;
-                $entry->quantity = $group->count();
+                $entry->asset      = $model;
+                $entry->document   = $document;
+                $entry->quantity   = $group->count();
+                $entry->net_price  = $this->normalizer->number($assetDocument->netPrice);
+                $entry->list_price = $this->normalizer->number($assetDocument->listPrice);
+                $entry->discount   = $this->normalizer->number($assetDocument->discount);
                 $entry->save();
 
                 // Mark that exists
@@ -327,8 +335,11 @@ class AssetFactory extends ModelFactory {
     }
 
     protected function assetDocumentEntry(Document $document, AssetDocument $assetDocument): DocumentEntry {
-        $entry          = new DocumentEntry();
-        $entry->product = $this->product(
+        $entry             = new DocumentEntry();
+        $entry->net_price  = $this->normalizer->number($assetDocument->netPrice);
+        $entry->list_price = $this->normalizer->number($assetDocument->listPrice);
+        $entry->discount   = $this->normalizer->number($assetDocument->discount);
+        $entry->product    = $this->product(
             $document->oem,
             ProductType::service(),
             $assetDocument->skuNumber,

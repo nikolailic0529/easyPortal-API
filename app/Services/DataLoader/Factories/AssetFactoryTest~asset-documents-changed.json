@@ -39,7 +39,10 @@
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
-            "warrantyEndDate": null
+            "warrantyEndDate": null,
+            "netPrice": null,
+            "discount": null,
+            "listPrice": null
         },
         {
             "document": {
@@ -62,7 +65,10 @@
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
-            "warrantyEndDate": null
+            "warrantyEndDate": null,
+            "netPrice": null,
+            "discount": null,
+            "listPrice": null
         },
         {
             "document": {
@@ -85,7 +91,10 @@
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1740700800000",
-            "warrantyEndDate": null
+            "warrantyEndDate": null,
+            "netPrice": null,
+            "discount": null,
+            "listPrice": null
         }
     ]
 }

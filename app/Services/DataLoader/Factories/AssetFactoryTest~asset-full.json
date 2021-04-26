@@ -116,7 +116,10 @@
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
-            "warrantyEndDate": "1614470400000"
+            "warrantyEndDate": "1614470400000",
+            "netPrice": "23.4",
+            "discount": "-2.05",
+            "listPrice": "48"
         }
     ]
 }

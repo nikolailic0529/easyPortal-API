@@ -39,6 +39,7 @@ use Mockery;
 use Tests\TestCase;
 
 use function is_null;
+use function number_format;
 
 /**
  * @internal
@@ -430,6 +431,9 @@ class AssetFactoryTest extends TestCase {
         $e = $a->entries->first();
 
         $this->assertEquals(2, $e->quantity);
+        $this->assertEquals('23.40', $e->net_price);
+        $this->assertEquals('48.00', $e->list_price);
+        $this->assertEquals('-2.05', $e->discount);
         $this->assertEquals($a->getKey(), $e->document_id);
         $this->assertEquals($asset->id, $e->asset_id);
         $this->assertEquals('HA151AC', $e->product->sku);
@@ -487,10 +491,14 @@ class AssetFactoryTest extends TestCase {
 
         /** @var \App\Models\DocumentEntry $e */
         $e = $a->entries->first();
+        $f = $e->refresh();
 
         $this->assertNotNull($e);
         $this->assertEquals(2, $e->quantity);
-        $this->assertEquals(2, $e->refresh()->quantity);
+        $this->assertEquals(2, $f->quantity);
+        $this->assertNull($f->net_price);
+        $this->assertNull($f->list_price);
+        $this->assertNull($f->discount);
 
         /** @var \App\Models\Document $b */
         $b = $collection->get('dbd3f08b-6bd1-4e28-8122-3004257879c0');
@@ -500,11 +508,15 @@ class AssetFactoryTest extends TestCase {
         $this->assertCount(1, $b->refresh()->entries);
 
         /** @var \App\Models\DocumentEntry $e */
-        $e = $a->entries->first();
+        $e = $b->entries->first();
+        $f = $e->refresh();
 
         $this->assertNotNull($e);
-        $this->assertEquals(2, $e->quantity);
-        $this->assertEquals(2, $e->refresh()->quantity);
+        $this->assertEquals(1, $e->quantity);
+        $this->assertEquals(1, $f->quantity);
+        $this->assertNull($f->net_price);
+        $this->assertNull($f->list_price);
+        $this->assertNull($f->discount);
     }
 
     /**
@@ -593,6 +605,9 @@ class AssetFactoryTest extends TestCase {
         $e = $a->entries->first();
 
         $this->assertEquals(2, $e->quantity);
+        $this->assertEquals('23.40', $e->net_price);
+        $this->assertEquals('48.00', $e->list_price);
+        $this->assertEquals('-2.05', $e->discount);
         $this->assertEquals($a->getKey(), $e->document_id);
         $this->assertEquals($asset->id, $e->asset_id);
         $this->assertEquals('HA151AC', $e->product->sku);
@@ -686,12 +701,20 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetDocumentEntry
      */
     public function testAssetDocumentEntry(): void {
-        $assetDocument = AssetDocument::create([
-            'skuNumber'      => $this->faker->word,
-            'skuDescription' => $this->faker->sentence,
+        $skuNumber      = $this->faker->word;
+        $skuDescription = $this->faker->sentence;
+        $netPrice       = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $discount       = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $listPrice      = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $assetDocument  = AssetDocument::create([
+            'skuNumber'      => " {$skuNumber} ",
+            'skuDescription' => " {$skuDescription} ",
+            'netPrice'       => " {$netPrice} ",
+            'discount'       => " {$discount} ",
+            'listPrice'      => " {$listPrice} ",
         ]);
-        $document      = Document::factory()->make();
-        $factory       = new class(
+        $document       = Document::factory()->make();
+        $factory        = new class(
             $this->app->make(Normalizer::class),
             $this->app->make(ProductResolver::class),
             $this->app->make(OemResolver::class),
@@ -718,10 +741,13 @@ class AssetFactoryTest extends TestCase {
         $this->assertNotNull($entry->product_id);
         $this->assertSame($document->oem, $entry->product->oem);
         $this->assertEquals(ProductType::service(), $entry->product->type);
-        $this->assertEquals($assetDocument->skuNumber, $entry->product->sku);
-        $this->assertEquals($assetDocument->skuDescription, $entry->product->name);
+        $this->assertEquals($skuNumber, $entry->product->sku);
+        $this->assertEquals($skuDescription, $entry->product->name);
         $this->assertNull($entry->product->eos);
         $this->assertNull($entry->product->eol);
+        $this->assertEquals($netPrice, $entry->net_price);
+        $this->assertEquals($listPrice, $entry->list_price);
+        $this->assertEquals($discount, $entry->discount);
     }
 
     /**

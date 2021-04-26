@@ -17,4 +17,7 @@ class AssetDocument extends Type {
     public string    $endDate;
 
     public string $currencyCode;
+    public ?string $netPrice;
+    public ?string $discount;
+    public ?string $listPrice;
 }

@@ -366,6 +366,9 @@ class Client {
             documentNumber
 
             currencyCode
+            netPrice
+            discount
+            listPrice
 
             document {
                 id

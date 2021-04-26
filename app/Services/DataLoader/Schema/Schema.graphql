@@ -41,6 +41,9 @@ type AssetDocument {
   startDate: String
   document: Document
   currencyCode: String
+  netPrice: String
+  discount: String
+  listPrice: String
 }
 
 type Company {
