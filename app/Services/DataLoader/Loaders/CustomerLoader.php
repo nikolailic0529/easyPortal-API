@@ -44,26 +44,27 @@ class CustomerLoader extends Loader {
         $company  = $this->client->getCompanyById($id);
         $customer = null;
 
-        if ($company) {
-            $customers = $this->getCustomersFactory();
-            $customer  = $customers->create($company);
+        try {
+            if ($company) {
+                $customers = $this->getCustomersFactory();
+                $customer  = $customers->create($company);
 
-            if ($this->isWithAssets()) {
-                $this->loadAssets($customer);
+                if ($this->isWithAssets()) {
+                    $this->loadAssets($customer);
+                }
+            } else {
+                $customer = Customer::query()->whereKey($id)->first();
+
+                if ($customer) {
+                    $this->logger->warning('Customer found in database but not found in Cosmos.', [
+                        'id' => $id,
+                    ]);
+                }
             }
-        } else {
-            $customer = Customer::query()->whereKey($id)->first();
-
+        } finally {
             if ($customer) {
-                $this->logger->warning('Customer found in database but not found in Cosmos.', [
-                    'id' => $id,
-                ]);
+                $this->updateCustomerCountable($customer);
             }
-        }
-
-        // Countable
-        if ($customer) {
-            $this->updateCustomerCountable($customer);
         }
 
         // Return
