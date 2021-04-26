@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasAsset;
+use App\Models\Concerns\HasCurrency;
 use App\Models\Concerns\HasDocument;
 use App\Models\Concerns\HasProduct;
 use App\Models\Enums\ProductType;
@@ -14,12 +15,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                       $id
  * @property string                       $document_id
  * @property string                       $asset_id
- * @property string                       $product_id
+ * @property string                       $product_id Service
  * @property int                          $quantity
+ * @property string|null                  $currency_id
+ * @property string|null                  $net_price
+ * @property string|null                  $list_price
+ * @property string|null                  $discount
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
  * @property \App\Models\Asset            $asset
+ * @property \App\Models\Currency|null    $currency
  * @property \App\Models\Document         $document
  * @property \App\Models\Product          $product
  * @method static \Database\Factories\DocumentEntryFactory factory(...$parameters)
@@ -28,9 +34,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereAssetId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereCurrencyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereDiscount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereDocumentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereListPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereNetPrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereProductId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereUpdatedAt($value)
@@ -41,6 +51,7 @@ class DocumentEntry extends Model {
     use HasAsset;
     use HasProduct;
     use HasDocument;
+    use HasCurrency;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
