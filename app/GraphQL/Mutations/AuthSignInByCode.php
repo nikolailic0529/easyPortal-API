@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\GraphQL\Queries\Me;
+use App\Models\User;
 use App\Services\Auth0\AuthService;
 use Auth0\Login\Contract\Auth0UserRepository;
 use Illuminate\Auth\AuthManager;
@@ -32,7 +33,7 @@ class AuthSignInByCode {
      *
      * @return array<mixed>|null
      */
-    public function __invoke(mixed $_, array $args): ?array {
+    public function __invoke(mixed $_, array $args): ?User {
         // Get token from Auth0 and sign-in
         $info   = $this->signIn($args);
         $signed = false;
