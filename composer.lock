@@ -2854,12 +2854,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-graphql.git",
-                "reference": "3e293ce391f4a0fc5ab130e02d88e75a3ed6b291"
+                "reference": "9d378ca620ccee5f0b1c09dcf20678f2d3abaec8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/3e293ce391f4a0fc5ab130e02d88e75a3ed6b291",
-                "reference": "3e293ce391f4a0fc5ab130e02d88e75a3ed6b291",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/9d378ca620ccee5f0b1c09dcf20678f2d3abaec8",
+                "reference": "9d378ca620ccee5f0b1c09dcf20678f2d3abaec8",
                 "shasum": ""
             },
             "require": {
@@ -2915,7 +2915,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-04-03T11:47:41+00:00"
+            "time": "2021-04-25T09:57:41+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-migrator",
@@ -9001,12 +9001,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-testing.git",
-                "reference": "f769a8471d109a1fedb4bc1f03ef85083a1ff8e0"
+                "reference": "0fe5896fe7d13ba21fa5ad8deb4c04d5557553b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-testing/zipball/f769a8471d109a1fedb4bc1f03ef85083a1ff8e0",
-                "reference": "f769a8471d109a1fedb4bc1f03ef85083a1ff8e0",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-testing/zipball/0fe5896fe7d13ba21fa5ad8deb4c04d5557553b6",
+                "reference": "0fe5896fe7d13ba21fa5ad8deb4c04d5557553b6",
                 "shasum": ""
             },
             "require": {
@@ -9069,7 +9069,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-04-15T09:17:38+00:00"
+            "time": "2021-04-25T12:25:34+00:00"
         },
         {
             "name": "m1x0n/opis-json-schema-error-presenter",
