@@ -156,7 +156,7 @@ class CustomerTest extends TestCase {
                                 'latitude'    => '47.91634204',
                                 'longitude'   => '-2.26318359',
                                 'object_type' => $customer->getMorphClass(),
-                                'object_id'   => $customer->id,
+                                'object_id'   => $customer->getKey(),
                             ]);
                         return $customer;
                     },
