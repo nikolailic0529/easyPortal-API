@@ -14,7 +14,7 @@ class GraphQLSuccess extends GraphQLResponse {
 
     public function __construct(
         string $root,
-        ?string $schema,
+        JsonFragmentSchema|string|null $schema,
         JsonFragment|JsonSerializable|SplFileInfo|stdClass|array|string|null $content = null,
     ) {
         $this->content = $this->getJsonFragment("data.{$root}", $content);

@@ -2,6 +2,7 @@
 
 namespace Tests\GraphQL;
 
+use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonFragmentMatchesSchema;
 use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonMatchesSchema;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Bodies\JsonBody;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentTypes\JsonContentType;
@@ -11,13 +12,13 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 use function array_filter;
 
 abstract class GraphQLResponse extends Response {
-    protected string  $root;
-    protected ?string $schema;
+    protected string                         $root;
+    protected JsonFragmentSchema|string|null $schema;
 
     /**
-     * @param class-string|null $schema
+     * @param \Tests\GraphQL\JsonFragmentSchema|class-string|null $schema
      */
-    public function __construct(string $root, ?string $schema) {
+    public function __construct(string $root, JsonFragmentSchema|string|null $schema) {
         $this->schema = $schema;
         $this->root   = $root;
 
@@ -26,7 +27,9 @@ abstract class GraphQLResponse extends Response {
             new JsonContentType(),
             new JsonBody(...array_filter([
                 new JsonMatchesSchema(new SchemaWrapper(self::class, $this->root)),
-                new JsonMatchesSchema(new SchemaWrapper($this::class, $this->root, $this->schema)),
+                $schema instanceof JsonFragmentSchema
+                    ? new JsonFragmentMatchesSchema($schema->getPath(), $schema->getSchema())
+                    : new JsonMatchesSchema(new SchemaWrapper($this::class, $this->root, $this->schema)),
                 ...$this->getResponseConstraints(),
             ])),
         );

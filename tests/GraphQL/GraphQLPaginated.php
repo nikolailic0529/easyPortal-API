@@ -13,7 +13,7 @@ class GraphQLPaginated extends GraphQLSuccess {
 
     public function __construct(
         string $root,
-        ?string $schema,
+        JsonFragmentSchema|string|null $schema,
         JsonFragment|JsonSerializable|SplFileInfo|stdClass|array|string|null $data = null,
         JsonFragment|JsonSerializable|SplFileInfo|stdClass|array|string|null $paginator = null,
     ) {
