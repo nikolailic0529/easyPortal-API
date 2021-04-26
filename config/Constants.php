@@ -86,6 +86,14 @@ interface Constants {
     #[Group('ep')]
     #[Type(DocumentType::class)]
     public const EP_QUOTE_TYPES = [];
+
+    /**
+     * Type ID related to headquarter.
+     */
+    #[Setting('ep.headquarter_type')]
+    #[Group('ep')]
+    public const EP_HEADQUARTER_TYPE = '';
+
     // </editor-fold>
 
     // <editor-fold desc="EP_SETTINGS">
@@ -244,12 +252,5 @@ interface Constants {
     #[Group('data_loader')]
     public const EP_DATA_LOADER_CUSTOMER_UPDATE_QUEUE = Queues::DATA_LOADER_UPDATE;
     // </editor-fold>
-
-    /**
-     * Type ID related to headquarter.
-     */
-    #[Setting('ep.headquarter_type')]
-    #[Group('ep')]
-    public const EP_HEADQUARTER_TYPES = '';
     // </editor-fold>
 }
