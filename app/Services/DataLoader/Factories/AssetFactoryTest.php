@@ -19,7 +19,6 @@ use App\Services\DataLoader\Exceptions\DocumentNotFoundException;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
-use App\Services\DataLoader\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
@@ -523,7 +522,7 @@ class AssetFactoryTest extends TestCase {
             $container->make(OemResolver::class),
             $container->make(TypeResolver::class),
             $container->make(DocumentResolver::class),
-            $container->make(CurrencyResolver::class),
+            $container->make(CurrencyFactory::class),
             $container->make(DocumentFactory::class),
         ) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -534,7 +533,7 @@ class AssetFactoryTest extends TestCase {
                 protected OemResolver $oems,
                 protected TypeResolver $types,
                 protected DocumentResolver $documentResolver,
-                protected CurrencyResolver $currencies,
+                protected CurrencyFactory $currencies,
                 DocumentFactory $documentFactory,
             ) {
                 $this->setDocumentFactory($documentFactory);

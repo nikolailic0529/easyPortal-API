@@ -13,4 +13,8 @@ class Document extends Type {
     public string                      $currencyCode;
     public ?string                     $totalNetPrice;
     public DocumentVendorSpecificField $vendorSpecificFields;
+    /**
+     * @var array<\App\Services\DataLoader\Schema\DocumentEntry>
+     */
+    public array $documentEntries;
 }

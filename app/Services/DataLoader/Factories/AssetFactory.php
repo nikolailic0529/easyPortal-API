@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\Asset as AssetModel;
 use App\Models\AssetWarranty;
-use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Document as DocumentModel;
@@ -24,7 +23,6 @@ use App\Services\DataLoader\Factories\Concerns\WithProduct;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
-use App\Services\DataLoader\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
@@ -65,7 +63,7 @@ class AssetFactory extends ModelFactory {
         protected ResellerResolver $resellerResolver,
         protected LocationFactory $locations,
         protected DocumentResolver $documentResolver,
-        protected CurrencyResolver $currencies,
+        protected CurrencyFactory $currencies,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -284,19 +282,7 @@ class AssetFactory extends ModelFactory {
                         );
                         $model->reseller = $asset->reseller;
                         $model->customer = $asset->customer;
-                        $model->currency = $this->currencies->get(
-                            $assetDocument->currencyCode ?: 'EUR',
-                            $this->factory(static function () use ($assetDocument): Currency {
-                                $model = new Currency();
-
-                                $model->code = $assetDocument->currencyCode ?: 'EUR';
-                                $model->name = $assetDocument->currencyCode ?: 'EUR';
-
-                                $model->save();
-
-                                return $model;
-                            }),
-                        );
+                        $model->currency = $this->currencies->create($assetDocument);
                         $model->price    = $this->normalizer->number('0.00');
                         $model->number   = $this->normalizer->string($assetDocument->documentNumber);
 

@@ -16,7 +16,6 @@ use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
@@ -47,7 +46,7 @@ class DocumentFactory extends ModelFactory {
         protected ResellerResolver $resellers,
         protected CustomerResolver $customers,
         protected ProductResolver $products,
-        protected CurrencyResolver $currencies,
+        protected CurrencyFactory $currencies,
         protected DocumentResolver $documents,
     ) {
         parent::__construct($logger, $normalizer);
@@ -147,21 +146,7 @@ class DocumentFactory extends ModelFactory {
     }
 
     protected function documentCurrency(AssetDocument $document): Currency {
-        $currency = $this->currencies->get(
-            $document->document->currencyCode ?: 'EUR',
-            $this->factory(static function () use ($document): Currency {
-                $model = new Currency();
-
-                $model->code = $document->document->currencyCode ?: 'EUR';
-                $model->name = $document->document->currencyCode ?: 'EUR';
-
-                $model->save();
-
-                return $model;
-            }),
-        );
-
-        return $currency;
+        return $this->currencies->create($document->document);
     }
 
     protected function documentType(AssetDocument $document): TypeModel {
