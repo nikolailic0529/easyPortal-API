@@ -40,7 +40,7 @@ class GraphQLSuccess extends GraphQLResponse {
         $fragment = null;
 
         if ($content instanceof JsonFragment) {
-            $fragment = new JsonFragment("{$prefix}.{$content->getPath()}", $content->getJson());
+            $fragment = (clone $content)->setPath("{$prefix}.{$content->getPath()}");
         } elseif (!is_null($content)) {
             $fragment = new JsonFragment("{$prefix}", $content);
         } else {
