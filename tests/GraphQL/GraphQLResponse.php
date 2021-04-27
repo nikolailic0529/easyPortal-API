@@ -10,6 +10,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 
 use function array_filter;
+use function array_merge;
 
 abstract class GraphQLResponse extends Response {
     protected string                         $root;
@@ -19,20 +20,39 @@ abstract class GraphQLResponse extends Response {
      * @param \Tests\GraphQL\JsonFragmentSchema|class-string|null $schema
      */
     public function __construct(string $root, JsonFragmentSchema|string|null $schema) {
-        $this->schema = $schema;
+        $this->schema = $this->getJsonFragmentSchema("data.{$root}", $schema);
         $this->root   = $root;
+        $constraints  = [
+            new JsonMatchesSchema(new SchemaWrapper(self::class, $this->root)),
+        ];
+
+        if ($schema instanceof JsonFragmentSchema) {
+            $constraints[] = new JsonFragmentMatchesSchema(
+                $this->schema->getPath(),
+                $this->schema->getJsonSchema(),
+            );
+        } else {
+            $constraints[] = new JsonMatchesSchema(
+                new SchemaWrapper($this::class, $this->root, $this->schema),
+            );
+        }
 
         parent::__construct(
             new Ok(),
             new JsonContentType(),
-            new JsonBody(...array_filter([
-                new JsonMatchesSchema(new SchemaWrapper(self::class, $this->root)),
-                $schema instanceof JsonFragmentSchema
-                    ? new JsonFragmentMatchesSchema($schema->getPath(), $schema->getSchema())
-                    : new JsonMatchesSchema(new SchemaWrapper($this::class, $this->root, $this->schema)),
-                ...$this->getResponseConstraints(),
-            ])),
+            new JsonBody(...array_filter(array_merge($constraints, $this->getResponseConstraints()))),
         );
+    }
+
+    protected function getJsonFragmentSchema(
+        string $prefix,
+        JsonFragmentSchema|string|null $schema,
+    ): JsonFragmentSchema|string|null {
+        if ($schema instanceof JsonFragmentSchema) {
+            $schema = (clone $schema)->setPath("{$prefix}.{$schema->getPath()}");
+        }
+
+        return $schema;
     }
 
     /**
