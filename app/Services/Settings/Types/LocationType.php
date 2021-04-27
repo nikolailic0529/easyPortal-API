@@ -7,7 +7,7 @@ use App\Models\Type as TypeModel;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
 
-class HeadquarterType extends Type {
+class LocationType extends Type {
     public function getValues(): Collection|array|null {
         return TypeModel::query()
             ->where('object_type', '=', (new Location())->getMorphClass())
