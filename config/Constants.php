@@ -19,6 +19,7 @@ use App\Services\Settings\Jobs\ConfigUpdate;
 use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\DocumentType;
 use App\Services\Settings\Types\Duration;
+use App\Services\Settings\Types\LocationType;
 use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Url;
 
@@ -86,6 +87,15 @@ interface Constants {
     #[Group('ep')]
     #[Type(DocumentType::class)]
     public const EP_QUOTE_TYPES = [];
+
+    /**
+     * Type ID related to headquarter.
+     */
+    #[Setting('ep.headquarter_type')]
+    #[Group('ep')]
+    #[Type(LocationType::class)]
+    public const EP_HEADQUARTER_TYPE = '';
+
     // </editor-fold>
 
     // <editor-fold desc="EP_SETTINGS">

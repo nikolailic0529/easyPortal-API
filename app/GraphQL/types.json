@@ -64,6 +64,9 @@
                 },
                 "contacts_count": {
                     "type": "integer"
+                },
+                "headquarter": {
+                    "$ref": "#/definitions/Location"
                 }
             }
         },

@@ -6,10 +6,13 @@ use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasLocations;
 use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Collection;
 
+use function app;
 use function count;
 
 /**
@@ -70,5 +73,13 @@ class Customer extends Model {
     public function setContactsAttribute(Collection|array $contacts): void {
         $this->syncMorphMany('contacts', $contacts);
         $this->contacts_count = count($contacts);
+    }
+
+    public function headquarter(): MorphOne {
+        $headquarterTypeId = app()->make(Repository::class)->get('ep.headquarter_type');
+        return $this->morphOne(Location::class, 'object')
+            ->whereHas('types', static function ($query) use ($headquarterTypeId) {
+                return $query->whereKey($headquarterTypeId);
+            });
     }
 }
