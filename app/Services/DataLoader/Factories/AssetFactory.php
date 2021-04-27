@@ -4,7 +4,6 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\Asset as AssetModel;
 use App\Models\AssetWarranty;
-use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Document as DocumentModel;
@@ -24,7 +23,6 @@ use App\Services\DataLoader\Factories\Concerns\WithProduct;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
-use App\Services\DataLoader\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
@@ -65,7 +63,7 @@ class AssetFactory extends ModelFactory {
         protected ResellerResolver $resellerResolver,
         protected LocationFactory $locations,
         protected DocumentResolver $documentResolver,
-        protected CurrencyResolver $currencies,
+        protected CurrencyFactory $currencies,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -198,6 +196,8 @@ class AssetFactory extends ModelFactory {
         // Get all Document and Entries
         /** @var \SplObjectStorage<\App\Models\Document,\Illuminate\Support\Collection<\App\Models\DocumentEntry>> $documents */
         $documents = new SplObjectStorage();
+        /** @var \SplObjectStorage<\App\Models\Document,\App\Services\DataLoader\Schema\AssetDocument> $documents */
+        $assetDocuments = new SplObjectStorage();
 
         foreach ($asset->assetDocument as $assetDocument) {
             $document = $this->assetDocument($model, $assetDocument);
@@ -208,6 +208,8 @@ class AssetFactory extends ModelFactory {
             } else {
                 $documents[$document] = new Collection([$entry]);
             }
+
+            $assetDocuments[$document] = $assetDocument;
         }
 
         // Update Documents entries
@@ -217,21 +219,25 @@ class AssetFactory extends ModelFactory {
 
         /** @var \App\Models\Document $document */
         foreach ($documents as $document) {
-            $existing = $document->entries
+            $existing      = $document->entries
                 ->filter(function (DocumentEntry $entry) use ($model): bool {
                     return $entry->asset_id === $this->normalizer->uuid($model->getKey());
                 })
                 ->keyBy($byProductId);
-            $entries  = $documents[$document]->groupBy($byProductId);
+            $entries       = $documents[$document]->groupBy($byProductId);
+            $assetDocument = $assetDocuments[$document];
 
             foreach ($entries as $product => $group) {
                 // Update entry
                 /** @var \App\Models\DocumentEntry $entry */
                 $entry = $existing->get($product) ?? $group->first();
 
-                $entry->asset    = $model;
-                $entry->document = $document;
-                $entry->quantity = $group->count();
+                $entry->asset      = $model;
+                $entry->document   = $document;
+                $entry->quantity   = $group->count();
+                $entry->net_price  = $this->normalizer->number($assetDocument->netPrice);
+                $entry->list_price = $this->normalizer->number($assetDocument->listPrice);
+                $entry->discount   = $this->normalizer->number($assetDocument->discount);
                 $entry->save();
 
                 // Mark that exists
@@ -284,17 +290,8 @@ class AssetFactory extends ModelFactory {
                         );
                         $model->reseller = $asset->reseller;
                         $model->customer = $asset->customer;
-                        $model->currency = $this->currencies->get('EUR', $this->factory(static function (): Currency {
-                            $model = new Currency();
-
-                            $model->code = 'EUR';
-                            $model->name = 'EUR';
-
-                            $model->save();
-
-                            return $model;
-                        }));
-                        $model->price    = $this->normalizer->price('0.00');
+                        $model->currency = $this->currencies->create($assetDocument);
+                        $model->price    = $this->normalizer->number('0.00');
                         $model->number   = $this->normalizer->string($assetDocument->documentNumber);
 
                         if ($created) {
@@ -338,8 +335,11 @@ class AssetFactory extends ModelFactory {
     }
 
     protected function assetDocumentEntry(Document $document, AssetDocument $assetDocument): DocumentEntry {
-        $entry          = new DocumentEntry();
-        $entry->product = $this->product(
+        $entry             = new DocumentEntry();
+        $entry->net_price  = $this->normalizer->number($assetDocument->netPrice);
+        $entry->list_price = $this->normalizer->number($assetDocument->listPrice);
+        $entry->discount   = $this->normalizer->number($assetDocument->discount);
+        $entry->product    = $this->product(
             $document->oem,
             ProductType::service(),
             $assetDocument->skuNumber,

@@ -9,7 +9,7 @@ input DocumentsQuery {
   start: Date!
   end: Date!
   price: String!
-  currency_id: ID!
+  currency_id: ID
   customer: CustomersQuery
   product: ProductsQuery
   reseller: ResellersQuery

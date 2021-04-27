@@ -55,9 +55,7 @@ class DocumentFactory extends Factory {
             'start'       => $this->faker->dateTime,
             'end'         => $this->faker->dateTime,
             'price'       => (string) $this->faker->randomFloat(2),
-            'currency_id' => static function (): Currency {
-                return Currency::query()->first() ?? Currency::factory()->create();
-            },
+            'currency_id' => null,
             'created_at'  => Date::now(),
             'updated_at'  => Date::now(),
             'deleted_at'  => null,

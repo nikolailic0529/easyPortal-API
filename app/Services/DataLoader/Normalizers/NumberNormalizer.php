@@ -13,7 +13,7 @@ use function round;
 use const FILTER_FLAG_ALLOW_THOUSAND;
 use const FILTER_VALIDATE_FLOAT;
 
-class PriceNormalizer implements Normalizer {
+class NumberNormalizer implements Normalizer {
     public function __construct() {
         // empty
     }

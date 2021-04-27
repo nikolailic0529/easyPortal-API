@@ -4,7 +4,7 @@ namespace App\Services\DataLoader;
 
 use App\Services\DataLoader\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizers\KeyNormalizer;
-use App\Services\DataLoader\Normalizers\PriceNormalizer;
+use App\Services\DataLoader\Normalizers\NumberNormalizer;
 use App\Services\DataLoader\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizers\UuidNormalizer;
 use Illuminate\Config\Repository;
@@ -27,7 +27,7 @@ class NormalizerTest extends TestCase {
             new UuidNormalizer(),
             new StringNormalizer(),
             new DateTimeNormalizer($config),
-            new PriceNormalizer(),
+            new NumberNormalizer(),
         );
 
         $key->shouldReceive('normalize')->once()->andReturns();
@@ -46,7 +46,7 @@ class NormalizerTest extends TestCase {
             $uuid,
             new StringNormalizer(),
             new DateTimeNormalizer($config),
-            new PriceNormalizer(),
+            new NumberNormalizer(),
         );
 
         $uuid->shouldReceive('normalize')->once()->andReturns();
@@ -65,7 +65,7 @@ class NormalizerTest extends TestCase {
             new UuidNormalizer(),
             $string,
             new DateTimeNormalizer($config),
-            new PriceNormalizer(),
+            new NumberNormalizer(),
         );
 
         $string->shouldReceive('normalize')->once()->andReturns();
@@ -83,7 +83,7 @@ class NormalizerTest extends TestCase {
             new UuidNormalizer(),
             new StringNormalizer(),
             $datetime,
-            new PriceNormalizer(),
+            new NumberNormalizer(),
         );
 
         $datetime->shouldReceive('normalize')->once()->andReturns();
@@ -92,22 +92,22 @@ class NormalizerTest extends TestCase {
     }
 
     /**
-     * @covers ::price
+     * @covers ::number
      */
-    public function testPrice(): void {
-        $price      = Mockery::mock(PriceNormalizer::class);
+    public function testNumber(): void {
+        $number     = Mockery::mock(NumberNormalizer::class);
         $config     = new Repository();
         $normalizer = new Normalizer(
             new KeyNormalizer(),
             new UuidNormalizer(),
             new StringNormalizer(),
             new DateTimeNormalizer($config),
-            $price,
+            $number,
         );
 
-        $price->shouldReceive('normalize')->once()->andReturns();
+        $number->shouldReceive('normalize')->once()->andReturns();
 
-        $normalizer->price('value');
+        $normalizer->number('value');
     }
 
     /**
@@ -121,7 +121,7 @@ class NormalizerTest extends TestCase {
             new UuidNormalizer(),
             $string,
             new DateTimeNormalizer($config),
-            new PriceNormalizer(),
+            new NumberNormalizer(),
         );
 
         $string->shouldReceive('normalize')->once()->andReturns();

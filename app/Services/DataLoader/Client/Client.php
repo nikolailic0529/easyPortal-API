@@ -365,6 +365,11 @@ class Client {
             endDate
             documentNumber
 
+            currencyCode
+            netPrice
+            discount
+            listPrice
+
             document {
                 id
                 type
@@ -375,9 +380,11 @@ class Client {
                 startDate
                 endDate
 
+                currencyCode
+                totalNetPrice
+
                 vendorSpecificFields {
                     vendor
-                    totalNetPrice
                 }
             }
 

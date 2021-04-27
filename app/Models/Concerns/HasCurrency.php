@@ -13,7 +13,7 @@ trait HasCurrency {
         return $this->belongsTo(Currency::class);
     }
 
-    public function setCurrencyAttribute(Currency $currency): void {
+    public function setCurrencyAttribute(?Currency $currency): void {
         $this->currency()->associate($currency);
     }
 }

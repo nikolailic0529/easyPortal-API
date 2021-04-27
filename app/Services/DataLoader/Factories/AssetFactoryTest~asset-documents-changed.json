@@ -24,9 +24,10 @@
                 "type": "MultiNational Quote",
                 "startDate": "1583020800000",
                 "endDate": "1614470400000",
+                "currencyCode": "EUR",
+                "totalNetPrice": "3,292.16",
                 "vendorSpecificFields": {
-                    "vendor": "HPE",
-                    "totalNetPrice": "3,292.16"
+                    "vendor": "HPE"
                 },
                 "documentNumber": "0056523287",
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
@@ -38,7 +39,10 @@
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
-            "warrantyEndDate": null
+            "warrantyEndDate": null,
+            "netPrice": null,
+            "discount": null,
+            "listPrice": null
         },
         {
             "document": {
@@ -46,9 +50,10 @@
                 "type": "MultiNational Quote",
                 "startDate": "1583020800000",
                 "endDate": "1614470400000",
+                "currencyCode": "EUR",
+                "totalNetPrice": "3,292.16",
                 "vendorSpecificFields": {
-                    "vendor": "HPE",
-                    "totalNetPrice": "3,292.16"
+                    "vendor": "HPE"
                 },
                 "documentNumber": "0056523287",
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
@@ -60,7 +65,10 @@
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
-            "warrantyEndDate": null
+            "warrantyEndDate": null,
+            "netPrice": null,
+            "discount": null,
+            "listPrice": null
         },
         {
             "document": {
@@ -68,9 +76,10 @@
                 "type": "MultiNational Quote",
                 "startDate": "1583020800000",
                 "endDate": "1740700800000",
+                "currencyCode": "EUR",
+                "totalNetPrice": "6,376.15",
                 "vendorSpecificFields": {
-                    "vendor": "HPE",
-                    "totalNetPrice": "6,376.15"
+                    "vendor": "HPE"
                 },
                 "documentNumber": "0056490551",
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
@@ -82,7 +91,10 @@
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1740700800000",
-            "warrantyEndDate": null
+            "warrantyEndDate": null,
+            "netPrice": null,
+            "discount": null,
+            "listPrice": null
         }
     ]
 }

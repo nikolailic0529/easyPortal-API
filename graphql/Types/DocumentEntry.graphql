@@ -3,7 +3,12 @@ type DocumentEntry {
   document_id: ID!
   asset_id: ID!
   product_id: ID!
+  currency_id: ID
   quantity: Int!
+  net_price: String
+  list_price: String
+  discount: String
   asset: Asset! @belongsTo
   product: Product! @belongsTo
+  currency: Currency @belongsTo
 }
