@@ -36,6 +36,10 @@ class Provider extends AbstractProvider {
         parent::__construct($options, $collaborators);
     }
 
+    public function getClientId(): ?string {
+        return $this->clientId;
+    }
+
     public function getBaseAuthorizationUrl(): string {
         return $this->getRealmUrl('protocol/openid-connect/auth');
     }

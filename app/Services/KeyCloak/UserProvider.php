@@ -65,7 +65,7 @@ class UserProvider implements UserProviderContract {
     ];
 
     public function __construct(
-        protected CurrentTenant $tenant,
+        protected KeyCloak $keycloak,
         protected Jwt $jwt,
     ) {
         // empty
@@ -79,7 +79,7 @@ class UserProvider implements UserProviderContract {
     public function retrieveById($identifier): User|null {
         return User::query()
             ->whereKey($identifier)
-            ->where('organization_id', '=', $this->tenant->getKey())
+            ->where('organization_id', '=', $this->getTenant()->getKey())
             ->first();
     }
 
@@ -128,7 +128,7 @@ class UserProvider implements UserProviderContract {
         if ($token instanceof UnencryptedToken && $user instanceof User) {
             $valid = true
                 && $token->isRelatedTo($user->getAuthIdentifier())
-                && $this->tenant->is($user->organization);
+                && $this->getTenant()->is($user->organization);
         }
 
         return $valid;
@@ -137,6 +137,18 @@ class UserProvider implements UserProviderContract {
 
     // <editor-fold desc="Helpers">
     // =========================================================================
+    protected function getKeyCloak(): KeyCloak {
+        return $this->keycloak;
+    }
+
+    protected function getTenant(): CurrentTenant {
+        return $this->getKeyCloak()->getTenant();
+    }
+
+    protected function getJwt(): Jwt {
+        return $this->jwt;
+    }
+
     /**
      * @param array<mixed> $credentials
      */
@@ -144,7 +156,7 @@ class UserProvider implements UserProviderContract {
         $token = null;
 
         if (isset($credentials[self::ACCESS_TOKEN])) {
-            $token = $this->jwt->decode($credentials[self::ACCESS_TOKEN]);
+            $token = $this->getJwt()->decode($credentials[self::ACCESS_TOKEN]);
         }
 
         return $token;
@@ -213,8 +225,8 @@ class UserProvider implements UserProviderContract {
 
     protected function getOrganization(UnencryptedToken $token): ?Organization {
         $organizations = $token->claims()->get(self::CLAIM_RESELLER_ACCESS, []);
-        $organization  = ($organizations[KeyCloak::getTenantScope($this->tenant)] ?? false)
-            ? $this->tenant->get()
+        $organization  = ($organizations[$this->getKeyCloak()->getTenantScope()] ?? false)
+            ? $this->getTenant()->get()
             : null;
 
         return $organization;

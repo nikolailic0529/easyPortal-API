@@ -31,6 +31,8 @@ class KeyCloak {
         // empty
     }
 
+    // <editor-fold desc="Authorization">
+    // =========================================================================
     public function getAuthorizationUrl(): string {
         $url   = $this->getProvider()->getAuthorizationUrl();
         $state = $this->getProvider()->getState();
@@ -79,11 +81,29 @@ class KeyCloak {
 
         return $this->getProvider()->getSignOutUrl();
     }
+    // </editor-fold>
+
+    // <editor-fold desc="Getters">
+    // =========================================================================
+    public function getTenant(): CurrentTenant {
+        return $this->tenant;
+    }
+
+    public function getTenantScope(): string {
+        return Str::snake($this->getTenant()->get()->name, '-');
+    }
 
     public function getValidIssuer(): string {
         return $this->getProvider()->getRealmUrl();
     }
 
+    public function getClientId(): ?string {
+        return $this->getProvider()->getClientId();
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Functions">
+    // =========================================================================
     protected function getProvider(): Provider {
         if (!isset($this->provider)) {
             $this->provider = new Provider([
@@ -97,15 +117,12 @@ class KeyCloak {
                     'email',
                     'phone',
                     'profile',
-                    "reseller_{$this->getTenantScope($this->tenant)}",
+                    "reseller_{$this->getTenantScope()}",
                 ],
             ]);
         }
 
         return $this->provider;
     }
-
-    public static function getTenantScope(CurrentTenant $tenant): string {
-        return Str::snake($tenant->get()->name, '-');
-    }
+    // </editor-fold>
 }
