@@ -4,7 +4,7 @@ namespace App\Services\Tenant\Http\Middleware;
 
 use App\Models\Organization;
 use App\Models\User;
-use App\Services\Tenant\CurrentTenant;
+use App\Services\Tenant\Tenant;
 use Closure;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
@@ -38,17 +38,14 @@ class SetTenantTest extends TestCase {
             }
         };
 
-        // CurrentTenant will be set only within middleware, so it should be
+        // Tenant will be set only within middleware, so it should be
         // undefined at this point.
-        $this->assertFalse($this->app->bound(CurrentTenant::class));
+        $this->assertFalse($this->app->bound(Tenant::class));
 
         // Within middleware it should be defined
         $spy = Mockery::spy(
             function () use ($tenant): void {
-                $current = $this->app->get(CurrentTenant::class);
-
-                $this->assertTrue($current->has());
-                $this->assertEquals($tenant, $current->get());
+                $this->assertEquals($tenant, $this->app->get(Tenant::class)->get());
             },
         );
 
@@ -62,7 +59,7 @@ class SetTenantTest extends TestCase {
         $spy->shouldHaveBeenCalled()->once();
 
         // After request it should be undefined again
-        $this->assertFalse($this->app->bound(CurrentTenant::class));
+        $this->assertFalse($this->app->bound(Tenant::class));
     }
 
     /**
@@ -76,14 +73,14 @@ class SetTenantTest extends TestCase {
             }
         };
 
-        // CurrentTenant will be set only within middleware, so it should be
+        // Tenant will be set only within middleware, so it should be
         // undefined at this point.
-        $this->assertFalse($this->app->bound(CurrentTenant::class));
+        $this->assertFalse($this->app->bound(Tenant::class));
 
         // Within middleware it should not be defined
         $spy = Mockery::spy(
             function (): void {
-                $this->assertFalse($this->app->bound(CurrentTenant::class));
+                $this->assertFalse($this->app->bound(Tenant::class));
             },
         );
 
@@ -97,7 +94,7 @@ class SetTenantTest extends TestCase {
         $spy->shouldHaveBeenCalled()->once();
 
         // After request it should be still undefined
-        $this->assertFalse($this->app->bound(CurrentTenant::class));
+        $this->assertFalse($this->app->bound(Tenant::class));
     }
 
     /**

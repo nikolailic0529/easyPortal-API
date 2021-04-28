@@ -2,72 +2,73 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Services\Tenant\CurrentTenant;
+use App\Services\Tenant\Tenant;
 use Illuminate\Contracts\Filesystem\Factory;
 
 use function array_key_exists;
 
 class Organization {
     public function __construct(
-        protected CurrentTenant $tenant,
+        protected Tenant $tenant,
         protected Factory $storage,
     ) {
         // empty
     }
+
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
+     * @param null                 $_
+     * @param array<string, mixed> $args
      */
     public function __invoke($_, array $args): bool {
-        $currentTenant = $this->tenant->get();
+        $organization = $this->tenant->get();
 
         if (array_key_exists('locale', $args)) {
-            $currentTenant->locale = $args['locale'];
+            $organization->locale = $args['locale'];
         }
 
         if (array_key_exists('currency_id', $args)) {
-            $currentTenant->currency_id = $args['currency_id'];
+            $organization->currency_id = $args['currency_id'];
         }
 
         if (array_key_exists('branding_dark_theme', $args)) {
-            $currentTenant->branding_dark_theme = $args['branding_dark_theme'];
+            $organization->branding_dark_theme = $args['branding_dark_theme'];
         }
 
         if (array_key_exists('branding_primary_color', $args)) {
-            $currentTenant->branding_primary_color = $args['branding_primary_color'];
+            $organization->branding_primary_color = $args['branding_primary_color'];
         }
 
         if (array_key_exists('branding_secondary_color', $args)) {
-            $currentTenant->branding_secondary_color = $args['branding_secondary_color'];
+            $organization->branding_secondary_color = $args['branding_secondary_color'];
         }
 
         if (array_key_exists('website_url', $args)) {
-            $currentTenant->website_url = $args['website_url'];
+            $organization->website_url = $args['website_url'];
         }
 
         if (array_key_exists('email', $args)) {
-            $currentTenant->email = $args['email'];
+            $organization->email = $args['email'];
         }
 
         if (array_key_exists('branding_logo', $args)) {
-            if ($this->storage->disk('local')->exists($currentTenant->branding_logo)) {
-                $this->storage->disk('local')->delete($currentTenant->branding_logo);
+            if ($this->storage->disk('local')->exists($organization->branding_logo)) {
+                $this->storage->disk('local')->delete($organization->branding_logo);
             }
 
-            $file                         = $args['branding_logo'];
-            $currentTenant->branding_logo = $file->storePublicly('uploads');
+            $file                        = $args['branding_logo'];
+            $organization->branding_logo = $file->storePublicly('uploads');
         }
 
         if (array_key_exists('branding_favicon', $args)) {
-            if ($this->storage->disk('local')->exists($currentTenant->branding_favicon)) {
-                $this->storage->disk('local')->delete($currentTenant->branding_favicon);
+            if ($this->storage->disk('local')->exists($organization->branding_favicon)) {
+                $this->storage->disk('local')->delete($organization->branding_favicon);
             }
 
-            $file                            = $args['branding_favicon'];
-            $currentTenant->branding_favicon = $file->storePublicly('uploads');
+            $file                           = $args['branding_favicon'];
+            $organization->branding_favicon = $file->storePublicly('uploads');
         }
 
-        $currentTenant->save();
+        $organization->save();
 
         return true;
     }

@@ -4,7 +4,8 @@ namespace App\Services\Tenant\Http\Middleware;
 
 use App\Models\Organization;
 use App\Models\User;
-use App\Services\Tenant\CurrentTenant;
+use App\Services\Tenant\OrganizationTenant;
+use App\Services\Tenant\Tenant;
 use Closure;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
@@ -31,15 +32,15 @@ class SetTenant {
 
         // Process
         if ($tenant) {
-            $this->app->bind(CurrentTenant::class, static function () use ($tenant): CurrentTenant {
-                return (new CurrentTenant())->set($tenant);
+            $this->app->bind(Tenant::class, static function () use ($tenant): Tenant {
+                return new OrganizationTenant($tenant);
             });
         }
 
         $result = $next($request);
 
         if ($tenant) {
-            unset($this->app[CurrentTenant::class]);
+            unset($this->app[Tenant::class]);
         }
 
         return $result;

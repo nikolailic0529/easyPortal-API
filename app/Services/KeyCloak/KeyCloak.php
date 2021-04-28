@@ -7,7 +7,7 @@ use App\Services\KeyCloak\Exceptions\InvalidCredentials;
 use App\Services\KeyCloak\Exceptions\InvalidIdentity;
 use App\Services\KeyCloak\Exceptions\KeyCloakException;
 use App\Services\KeyCloak\Exceptions\StateMismatch;
-use App\Services\Tenant\CurrentTenant;
+use App\Services\Tenant\Tenant;
 use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -26,7 +26,7 @@ class KeyCloak {
         protected Session $session,
         protected AuthManager $auth,
         protected UrlGenerator $url,
-        protected CurrentTenant $tenant,
+        protected Tenant $tenant,
     ) {
         // empty
     }
@@ -85,7 +85,7 @@ class KeyCloak {
 
     // <editor-fold desc="Getters">
     // =========================================================================
-    public function getTenant(): CurrentTenant {
+    public function getTenant(): Tenant {
         return $this->tenant;
     }
 

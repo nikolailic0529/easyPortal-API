@@ -3,7 +3,7 @@
 namespace App\Models\Scopes;
 
 use App\Models\Contracts\BelongsToTenant;
-use App\Services\Tenant\CurrentTenant;
+use App\Services\Tenant\Tenant;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -22,7 +22,7 @@ class TenantScope implements Scope {
     public function apply(Builder $builder, Model $model) {
         if ($model instanceof BelongsToTenant) {
             $column = $model->getTenantIdColumn();
-            $tenant = $this->container->make(CurrentTenant::class);
+            $tenant = $this->container->make(Tenant::class);
 
             $builder->where($column, '=', $tenant->getKey());
         }

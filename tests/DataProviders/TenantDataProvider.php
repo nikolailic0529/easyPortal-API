@@ -21,9 +21,7 @@ class TenantDataProvider extends ArrayDataProvider {
             'tenant'    => [
                 new Unknown(),
                 static function (TestCase $test): ?Organization {
-                    return Organization::factory()->create([
-                        'subdomain' => $test->faker()->word,
-                    ]);
+                    return Organization::factory()->create();
                 },
             ],
         ]);

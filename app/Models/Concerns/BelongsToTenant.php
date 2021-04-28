@@ -4,7 +4,7 @@ namespace App\Models\Concerns;
 
 use App\Models\Contracts\BelongsToTenant as BelongsToTenantContract;
 use App\Models\Scopes\TenantScope;
-use App\Services\Tenant\CurrentTenant;
+use App\Services\Tenant\Tenant;
 use Illuminate\Database\Eloquent\Builder;
 
 use function app;
@@ -21,7 +21,7 @@ trait BelongsToTenant {
         $column = $this->getTenantIdColumn();
 
         if ($this instanceof BelongsToTenantContract && is_null($this->{$column})) {
-            $this->{$column} = app()->make(CurrentTenant::class)->getKey();
+            $this->{$column} = app()->make(Tenant::class)->getKey();
         }
 
         return parent::performInsert($query);

@@ -5,7 +5,7 @@ namespace App\Services\KeyCloak;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Exceptions\InsufficientData;
-use App\Services\Tenant\CurrentTenant;
+use App\Services\Tenant\Tenant;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as UserProviderContract;
 use Lcobucci\JWT\Token;
@@ -141,7 +141,7 @@ class UserProvider implements UserProviderContract {
         return $this->keycloak;
     }
 
-    protected function getTenant(): CurrentTenant {
+    protected function getTenant(): Tenant {
         return $this->getKeyCloak()->getTenant();
     }
 

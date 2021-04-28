@@ -2,12 +2,10 @@
 
 namespace Tests;
 
-use App\CurrentTenant;
 use App\Models\Organization;
+use App\Services\Tenant\OrganizationTenant;
+use App\Services\Tenant\Tenant;
 use Closure;
-use Illuminate\Contracts\Routing\UrlGenerator as UrlGeneratorContract;
-use Illuminate\Routing\UrlGenerator;
-use RuntimeException;
 
 /**
  * @mixin \Tests\TestCase
@@ -19,21 +17,11 @@ trait WithTenant {
         }
 
         if ($tenant) {
-            // Update bindings
-            $this->app->bind(CurrentTenant::class, static function () use ($tenant): CurrentTenant {
-                return (new CurrentTenant())->set($tenant);
+            $this->app->bind(Tenant::class, static function () use ($tenant): Tenant {
+                return new OrganizationTenant($tenant);
             });
-
-            // Update base url
-            if (!$tenant->isRoot()) {
-                $generator = $this->app->get(UrlGeneratorContract::class);
-
-                if ($generator instanceof UrlGenerator) {
-                    $generator->forceRootUrl("{$generator->formatScheme()}{$tenant->subdomain}.example.com");
-                } else {
-                    throw new RuntimeException('Impossible to set root url.');
-                }
-            }
+        } else {
+            unset($this->app[Tenant::class]);
         }
 
         return $tenant;
