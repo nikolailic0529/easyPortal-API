@@ -58,9 +58,9 @@ class Kernel extends HttpKernel {
         'web' => [
             EncryptCookies::class,
             AddQueuedCookiesToResponse::class,
-            Tenant::class,
             StartSession::class,
             AuthenticateSession::class,
+            Tenant::class,
             SetLocale::class,
             // \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             VerifyCsrfToken::class,
@@ -70,6 +70,7 @@ class Kernel extends HttpKernel {
         'api' => [
             'throttle:api',
             Tenant::class,
+            SetLocale::class,
             SubstituteBindings::class,
         ],
     ];
