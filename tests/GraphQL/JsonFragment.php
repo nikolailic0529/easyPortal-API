@@ -18,6 +18,12 @@ class JsonFragment {
         return $this->path;
     }
 
+    public function setPath(string $path): static {
+        $this->path = $path;
+
+        return $this;
+    }
+
     public function getJson(): JsonSerializable|SplFileInfo|stdClass|array|string|int|float|bool|null {
         return $this->json;
     }
