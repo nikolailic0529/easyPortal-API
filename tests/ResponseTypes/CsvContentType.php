@@ -6,6 +6,6 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentType;
 
 class CsvContentType extends ContentType {
     public function __construct() {
-        parent::__construct('text/csv');
+        parent::__construct('application/csv');
     }
 }

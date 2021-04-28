@@ -19,6 +19,7 @@ use App\Services\Settings\Jobs\ConfigUpdate;
 use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\DocumentType;
 use App\Services\Settings\Types\Duration;
+use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\LocationType;
 use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Url;
@@ -95,7 +96,15 @@ interface Constants {
     #[Group('ep')]
     #[Type(LocationType::class)]
     public const EP_HEADQUARTER_TYPE = '';
-
+    
+    /*
+     * Max number of records to be exported.
+     */
+    #[Setting('ep.export.max_records')]
+    #[PublicName('epExportMaxRecords')]
+    #[Group('ep')]
+    #[Type(IntType::class)]
+    public const EP_EXPORT_MAX_RECORDS = 8000;
     // </editor-fold>
 
     // <editor-fold desc="EP_SETTINGS">

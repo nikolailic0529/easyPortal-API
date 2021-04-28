@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use App\GraphQL\Mutations\DispatchApplicationServiceFailed;
 use App\GraphQL\Mutations\DispatchApplicationServiceNotFoundException;
+use App\Http\Controllers\ExportGraphQLQueryInvalid;
 use App\Services\Filesystem\StorageFileCorrupted;
 use App\Services\Filesystem\StorageFileDeleteFailed;
 use App\Services\Filesystem\StorageFileSaveFailed;
@@ -21,6 +22,7 @@ class ErrorCodes {
         StorageFileDeleteFailed::class                     => 'ERR04',
         StorageFileSaveFailed::class                       => 'ERR05',
         SettingsFailedToLoadEnv::class                     => 'ERR06',
+        ExportGraphQLQueryInvalid::class                   => 'ERR07',
     ];
 
     public static function getCode(Throwable $throwable): string|int {

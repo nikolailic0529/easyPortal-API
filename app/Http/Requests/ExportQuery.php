@@ -16,8 +16,10 @@ class ExportQuery extends FormRequest {
      */
     public function rules(): array {
         return [
-            'query'         => 'required|string',
-            'operationName' => 'string',
+            'query'           => 'required|string|regex:/^query/',
+            'operationName'   => 'string',
+            'variables.page'  => 'integer',
+            'variables.first' => 'integer',
         ];
     }
 }
