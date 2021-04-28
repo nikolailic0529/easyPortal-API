@@ -141,5 +141,6 @@
     "models.type.name.document.Delivery only": "Delivery only",
     "settings.groups.ep": "Easy Portal",
     "settings.groups.data_loader": "Data Loader",
-    "settings.errors.failed_to_load_env": "Impossible to load env file: :file. Corrupted?"
+    "settings.errors.failed_to_load_env": "Impossible to load env file: :file. Corrupted?",
+    "export.errors.graphql_query_invalid": "GraphQL query is invalid."
 }

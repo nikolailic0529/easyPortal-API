@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use App\GraphQL\Mutations\DispatchApplicationServiceFailed;
 use App\GraphQL\Mutations\DispatchApplicationServiceNotFoundException;
+use App\Http\Controllers\ExportGraphQLQueryInvalid;
 use App\Services\Filesystem\StorageFileCorrupted;
 use App\Services\Filesystem\StorageFileDeleteFailed;
 use App\Services\Filesystem\StorageFileSaveFailed;
@@ -26,10 +27,11 @@ class ErrorCodes {
         StorageFileDeleteFailed::class                     => 'ERR04',
         StorageFileSaveFailed::class                       => 'ERR05',
         SettingsFailedToLoadEnv::class                     => 'ERR06',
-        AuthorizationFailed::class                         => 'ERR07',
-        StateMismatch::class                               => 'ERR08',
-        InvalidIdentity::class                             => 'ERR09',
-        InvalidCredentials::class                          => 'ERR10',
+        ExportGraphQLQueryInvalid::class                   => 'ERR07',
+        AuthorizationFailed::class                         => 'ERR08',
+        StateMismatch::class                               => 'ERR09',
+        InvalidIdentity::class                             => 'ERR10',
+        InvalidCredentials::class                          => 'ERR11',
         InsufficientData::class                            => 'ERR12',
     ];
 
