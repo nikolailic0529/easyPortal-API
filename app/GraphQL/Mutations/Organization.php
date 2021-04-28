@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\CurrentTenant;
+use App\Services\Tenant\CurrentTenant;
 use Illuminate\Contracts\Filesystem\Factory;
 
 use function array_key_exists;

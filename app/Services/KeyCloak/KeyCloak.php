@@ -2,12 +2,12 @@
 
 namespace App\Services\KeyCloak;
 
-use App\CurrentTenant;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailed;
 use App\Services\KeyCloak\Exceptions\InvalidCredentials;
 use App\Services\KeyCloak\Exceptions\InvalidIdentity;
 use App\Services\KeyCloak\Exceptions\KeyCloakException;
 use App\Services\KeyCloak\Exceptions\StateMismatch;
+use App\Services\Tenant\CurrentTenant;
 use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\Authenticatable;

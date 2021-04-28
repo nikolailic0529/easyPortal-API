@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Queries;
 
-use App\CurrentTenant;
 use App\Models\Organization as ModelsOrganization;
+use App\Services\Tenant\CurrentTenant;
 
 class Organization {
     public function __construct(

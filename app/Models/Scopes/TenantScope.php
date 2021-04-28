@@ -2,8 +2,8 @@
 
 namespace App\Models\Scopes;
 
-use App\CurrentTenant;
 use App\Models\Contracts\BelongsToTenant;
+use App\Services\Tenant\CurrentTenant;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

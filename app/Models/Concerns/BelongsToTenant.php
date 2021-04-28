@@ -2,9 +2,9 @@
 
 namespace App\Models\Concerns;
 
-use App\CurrentTenant;
 use App\Models\Contracts\BelongsToTenant as BelongsToTenantContract;
 use App\Models\Scopes\TenantScope;
+use App\Services\Tenant\CurrentTenant;
 use Illuminate\Database\Eloquent\Builder;
 
 use function app;

@@ -2,10 +2,10 @@
 
 namespace App\Services\KeyCloak;
 
-use App\CurrentTenant;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Exceptions\InsufficientData;
+use App\Services\Tenant\CurrentTenant;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as UserProviderContract;
 use Lcobucci\JWT\Token;

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace App\Services\Tenant;
 
 use App\Models\Organization;
 use LogicException;

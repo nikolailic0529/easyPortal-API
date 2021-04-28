@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use App\CurrentTenant;
 use App\Models\Organization;
 use App\Models\User;
+use App\Services\Tenant\CurrentTenant;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Translation\Translator;
 use Tests\TestCase;

@@ -2,9 +2,9 @@
 
 namespace App\Services\Tenant\Http\Middleware;
 
-use App\CurrentTenant;
 use App\Models\Organization;
 use App\Models\User;
+use App\Services\Tenant\CurrentTenant;
 use Closure;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;

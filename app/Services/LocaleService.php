@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\CurrentTenant;
+use App\Services\Tenant\CurrentTenant;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Session\Session;
