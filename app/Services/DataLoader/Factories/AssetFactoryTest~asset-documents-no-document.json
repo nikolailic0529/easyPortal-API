@@ -19,64 +19,88 @@
     "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
     "assetDocument": [
         {
-            "documentId": "688b9621-3244-464b-9468-3cd74f5eaacf",
+            "documentNumber": "688b9621-3244-464b-9468-3cd74f5eaacf",
             "skuNumber": "HA151AC",
             "skuDescription": "HPE Hardware Maintenance Onsite Support",
             "supportPackage": "H7J34AC",
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
-            "warrantyEndDate": null
+            "warrantyEndDate": null,
+            "currencyCode": "CUR",
+            "netPrice": "23.4",
+            "discount": "-2.05",
+            "listPrice": "48"
         },
         {
-            "documentId": "7e6b6976-cb1b-4b2a-9cf1-de9e768e8802",
+            "documentNumber": "7e6b6976-cb1b-4b2a-9cf1-de9e768e8802",
             "skuNumber": "HL935AC",
             "skuDescription": "HPE Collaborative Remote Support",
             "supportPackage": "H7J34AC",
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1677542400000",
-            "warrantyEndDate": null
+            "warrantyEndDate": null,
+            "currencyCode": "CUR",
+            "netPrice": "23.4",
+            "discount": "-2.05",
+            "listPrice": "48"
         },
         {
-            "documentId": "dbd3f08b-6bd1-4e28-8122-3004257879c0",
+            "documentNumber": "dbd3f08b-6bd1-4e28-8122-3004257879c0",
             "skuNumber": "HL935AC",
             "skuDescription": "HPE Collaborative Remote Support",
             "supportPackage": "H7J34AC",
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1740700800000",
-            "warrantyEndDate": null
+            "warrantyEndDate": null,
+            "currencyCode": "CUR",
+            "netPrice": "23.4",
+            "discount": "-2.05",
+            "listPrice": "48"
         },
         {
-            "documentId": "688b9621-3244-464b-9468-3cd74f5eaacf",
+            "documentNumber": "688b9621-3244-464b-9468-3cd74f5eaacf",
             "skuNumber": "HA151AC",
             "skuDescription": "HPE Hardware Maintenance Onsite Support",
             "supportPackage": "H7J34AC",
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
-            "warrantyEndDate": null
+            "warrantyEndDate": null,
+            "currencyCode": "CUR",
+            "netPrice": "23.4",
+            "discount": "-2.05",
+            "listPrice": "48"
         },
         {
-            "documentId": "7e6b6976-cb1b-4b2a-9cf1-de9e768e8802",
+            "documentNumber": "7e6b6976-cb1b-4b2a-9cf1-de9e768e8802",
             "skuNumber": "HA151AC",
             "skuDescription": "HPE Hardware Maintenance Onsite Support",
             "supportPackage": "H7J34AC",
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1677542400000",
-            "warrantyEndDate": null
+            "warrantyEndDate": null,
+            "currencyCode": "CUR",
+            "netPrice": "23.4",
+            "discount": "-2.05",
+            "listPrice": "48"
         },
         {
-            "documentId": "dbd3f08b-6bd1-4e28-8122-3004257879c0",
+            "documentNumber": "dbd3f08b-6bd1-4e28-8122-3004257879c0",
             "skuNumber": "HA151AC",
             "skuDescription": "HPE Hardware Maintenance Onsite Support",
             "supportPackage": "H7J34AC",
             "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1740700800000",
-            "warrantyEndDate": null
+            "warrantyEndDate": null,
+            "currencyCode": "CUR",
+            "netPrice": "23.4",
+            "discount": "-2.05",
+            "listPrice": "48"
         }
     ]
 }

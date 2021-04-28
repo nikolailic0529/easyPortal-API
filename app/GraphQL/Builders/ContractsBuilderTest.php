@@ -139,6 +139,9 @@ class ContractsBuilderTest extends TestCase {
                                 asset_id
                                 product_id
                                 quantity
+                                net_price
+                                list_price
+                                discount
                                 product {
                                     id
                                     name
@@ -272,6 +275,9 @@ class ContractsBuilderTest extends TestCase {
                                     'product_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                     'document_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                     'quantity'    => 20,
+                                    'net_price'   => '123.00',
+                                    'list_price'  => '67.12',
+                                    'discount'    => null,
                                     'product'     => [
                                         'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                         'name'   => 'Product1',
@@ -376,6 +382,9 @@ class ContractsBuilderTest extends TestCase {
                                 ]),
                                 'product_id' => $product,
                                 'quantity'   => 20,
+                                'net_price'  => '123',
+                                'list_price' => '67.12',
+                                'discount'   => null,
                             ])
                             ->create([
                                 'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',

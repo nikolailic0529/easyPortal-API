@@ -25,11 +25,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Carbon\CarbonImmutable                                                  $start
  * @property \Carbon\CarbonImmutable                                                  $end
  * @property string|null                                                              $price
- * @property string                                                                   $currency_id
+ * @property string|null                                                              $currency_id
  * @property \Carbon\CarbonImmutable                                                  $created_at
  * @property \Carbon\CarbonImmutable                                                  $updated_at
  * @property \Carbon\CarbonImmutable|null                                             $deleted_at
- * @property \App\Models\Currency                                                     $currency
+ * @property \App\Models\Currency|null                                                $currency
  * @property \App\Models\Customer                                                     $customer
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $entries
  * @property-read int|null                                                            $entries_count

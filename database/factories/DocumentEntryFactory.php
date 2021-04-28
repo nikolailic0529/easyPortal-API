@@ -44,6 +44,10 @@ class DocumentEntryFactory extends Factory {
                 ]);
             },
             'quantity'    => $this->faker->randomDigit,
+            'currency_id' => null,
+            'net_price'   => null,
+            'list_price'  => null,
+            'discount'    => null,
             'created_at'  => Date::now(),
             'updated_at'  => Date::now(),
             'deleted_at'  => null,

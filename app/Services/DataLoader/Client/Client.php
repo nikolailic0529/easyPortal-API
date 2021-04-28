@@ -363,20 +363,28 @@ class Client {
         return <<<'GRAPHQL'
             startDate
             endDate
-            documentId
+            documentNumber
+
+            currencyCode
+            netPrice
+            discount
+            listPrice
+
             document {
                 id
                 type
-                documentId
+                documentNumber
                 customerId
                 resellerId
 
                 startDate
                 endDate
 
+                currencyCode
+                totalNetPrice
+
                 vendorSpecificFields {
                     vendor
-                    totalNetPrice
                 }
             }
 

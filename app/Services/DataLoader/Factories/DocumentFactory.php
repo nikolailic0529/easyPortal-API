@@ -16,7 +16,6 @@ use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
@@ -47,7 +46,7 @@ class DocumentFactory extends ModelFactory {
         protected ResellerResolver $resellers,
         protected CustomerResolver $customers,
         protected ProductResolver $products,
-        protected CurrencyResolver $currencies,
+        protected CurrencyFactory $currencies,
         protected DocumentResolver $documents,
     ) {
         parent::__construct($logger, $normalizer);
@@ -86,7 +85,7 @@ class DocumentFactory extends ModelFactory {
         $keys = (new Collection($assets))
             ->map(static function (Asset $asset): array {
                 return array_map(static function (AssetDocument $document): string {
-                    return $document->document->id ?? $document->documentId;
+                    return $document->document->id ?? $document->documentNumber;
                 }, $asset->assetDocument ?? []);
             })
             ->flatten()
@@ -116,8 +115,8 @@ class DocumentFactory extends ModelFactory {
             $model->currency = $this->documentCurrency($document);
             $model->start    = $this->normalizer->datetime($document->document->startDate);
             $model->end      = $this->normalizer->datetime($document->document->endDate);
-            $model->price    = $this->normalizer->price($document->document->vendorSpecificFields->totalNetPrice);
-            $model->number   = $this->normalizer->string($document->document->documentId);
+            $model->price    = $this->normalizer->number($document->document->totalNetPrice);
+            $model->number   = $this->normalizer->string($document->document->documentNumber);
 
             $model->save();
 
@@ -147,18 +146,7 @@ class DocumentFactory extends ModelFactory {
     }
 
     protected function documentCurrency(AssetDocument $document): Currency {
-        $currency = $this->currencies->get('EUR', $this->factory(static function (): Currency {
-            $model = new Currency();
-
-            $model->code = 'EUR';
-            $model->name = 'EUR';
-
-            $model->save();
-
-            return $model;
-        }));
-
-        return $currency;
+        return $this->currencies->create($document->document);
     }
 
     protected function documentType(AssetDocument $document): TypeModel {

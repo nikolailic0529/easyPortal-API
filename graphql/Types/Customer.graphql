@@ -10,4 +10,5 @@ type Customer {
   locations: [Location!]! @morphMany
   contacts_count: Int!
   contacts: [Contact!]! @morphMany
+  headquarter: Location @morphOne
 }

@@ -64,6 +64,9 @@
                 },
                 "contacts_count": {
                     "type": "integer"
+                },
+                "headquarter": {
+                    "$ref": "#/definitions/Location"
                 }
             }
         },
@@ -439,10 +442,24 @@
                     ]
                 },
                 "currency_id": {
-                    "$ref": "#/definitions/ID"
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "$ref": "#/definitions/ID"
+                        }
+                    ]
                 },
                 "currency": {
-                    "$ref": "#/definitions/Currency"
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "$ref": "#/definitions/Currency"
+                        }
+                    ]
                 },
                 "customer": {
                     "$ref": "#/definitions/Customer"
@@ -548,7 +565,10 @@
                 "asset_id",
                 "product_id",
                 "quantity",
-                "product"
+                "product",
+                "net_price",
+                "list_price",
+                "discount"
             ],
             "properties": {
                 "id": {
@@ -574,6 +594,24 @@
                 },
                 "product": {
                     "$ref": "#/definitions/Product"
+                },
+                "net_price": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "list_price": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "discount": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
                 }
             }
         },

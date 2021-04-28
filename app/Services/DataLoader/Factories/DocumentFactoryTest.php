@@ -12,12 +12,12 @@ use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
@@ -104,14 +104,14 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($document->document->vendorSpecificFields->vendor, $created->oem->abbr);
         $this->assertNotNull($created->price);
         $this->assertEquals(
-            $normalizer->price($document->document->vendorSpecificFields->totalNetPrice),
+            $normalizer->number($document->document->totalNetPrice),
             $created->price,
         );
-        $this->assertEquals($document->document->documentId, $created->number);
+        $this->assertEquals($document->document->documentNumber, $created->number);
         $this->assertEquals($document->document->startDate, $this->getDatetime($created->start));
         $this->assertEquals($document->document->endDate, $this->getDatetime($created->end));
         $this->assertEquals($document->document->type, $created->type->key);
-        $this->assertEquals('EUR', $created->currency->code);
+        $this->assertEquals('CUR', $created->currency->code);
         $this->assertEquals(ProductType::support(), $created->product->type);
         $this->assertEquals($document->supportPackage, $created->product->sku);
         $this->assertEquals($document->supportPackageDescription, $created->product->name);
@@ -126,12 +126,13 @@ class DocumentFactoryTest extends TestCase {
         $this->assertNotNull($updated);
         $this->assertSame($created, $updated);
         $this->assertEquals($document->document->id, $updated->getKey());
-        $this->assertNotNull($created->price);
+        $this->assertNotNull($updated->price);
+        $this->assertEquals('EUR', $updated->currency->code);
         $this->assertEquals(
-            $normalizer->price($document->document->vendorSpecificFields->totalNetPrice),
-            $created->price,
+            $normalizer->number($document->document->totalNetPrice),
+            $updated->price,
         );
-        $this->assertEquals($document->document->documentId, $updated->number);
+        $this->assertEquals($document->document->documentNumber, $updated->number);
     }
 
     /**
@@ -352,19 +353,26 @@ class DocumentFactoryTest extends TestCase {
      * @covers ::documentCurrency
      */
     public function testDocumentCurrency(): void {
+        $document = AssetDocument::create([
+            'document' => [
+                'id' => $this->faker->uuid,
+            ],
+        ]);
         $currency = Currency::factory()->make();
-        $resolver = Mockery::mock(CurrencyResolver::class);
+        $factory  = Mockery::mock(CurrencyFactory::class);
 
-        $resolver
-            ->shouldReceive('get')
-            ->with('EUR', Mockery::any())
+        $factory
+            ->shouldReceive('create')
+            ->with($document->document)
             ->once()
             ->andReturn($currency);
 
-        $factory = new class($resolver) extends DocumentFactory {
+        $factory = new class($factory) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CurrencyResolver $resolver) {
-                $this->currencies = $resolver;
+            public function __construct(
+                protected CurrencyFactory $currencies,
+            ) {
+                // empty
             }
 
             public function documentCurrency(AssetDocument $document): Currency {
@@ -372,7 +380,7 @@ class DocumentFactoryTest extends TestCase {
             }
         };
 
-        $this->assertEquals($currency, $factory->documentCurrency(AssetDocument::create([])));
+        $this->assertEquals($currency, $factory->documentCurrency($document));
     }
 
     /**
