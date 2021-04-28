@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Http\Middleware;
+namespace App\Services\Tenant\Http\Middleware;
 
 use App\CurrentTenant;
 use App\Models\Organization;
@@ -13,9 +13,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Http\Middleware\Tenant
+ * @coversDefaultClass \App\Services\Tenant\Http\Middleware\SetTenant
  */
-class TenantTest extends TestCase {
+class SetTenantTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -24,7 +24,7 @@ class TenantTest extends TestCase {
     public function testHandle(): void {
         $tenant     = Organization::factory()->make();
         $request    = new Request();
-        $middleware = new class($this->app, $tenant) extends Tenant {
+        $middleware = new class($this->app, $tenant) extends SetTenant {
             protected ?Organization $tenant;
 
             public function __construct(Application $app, ?Organization $tenant) {
@@ -70,7 +70,7 @@ class TenantTest extends TestCase {
      */
     public function testHandleNoTenant(): void {
         $request    = new Request();
-        $middleware = new class($this->app) extends Tenant {
+        $middleware = new class($this->app) extends SetTenant {
             protected function getTenantFromRequest(Request $request): ?Organization {
                 return null;
             }
@@ -116,7 +116,7 @@ class TenantTest extends TestCase {
             ->once()
             ->andReturn($user);
 
-        $middleware = new class($this->app) extends Tenant {
+        $middleware = new class($this->app) extends SetTenant {
             public function getTenantFromRequest(Request $request): ?Organization {
                 return parent::getTenantFromRequest($request);
             }

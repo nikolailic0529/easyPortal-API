@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Http\Middleware;
+namespace App\Services\Tenant\Http\Middleware;
 
 use App\CurrentTenant;
 use App\Models\Organization;
@@ -18,7 +18,7 @@ use JetBrains\PhpStorm\Pure;
  *   and {@link \Illuminate\Routing\Middleware\SubstituteBindings};
  * - must not be nested
  */
-class Tenant {
+class SetTenant {
     protected Application $app;
 
     public function __construct(Application $app) {
