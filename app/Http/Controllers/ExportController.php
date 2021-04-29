@@ -22,7 +22,6 @@ use function array_key_first;
 use function array_keys;
 use function array_values;
 use function is_array;
-use function json_encode;
 
 class ExportController extends Controller {
     public function __construct(

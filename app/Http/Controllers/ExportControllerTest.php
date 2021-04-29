@@ -9,6 +9,7 @@ use App\Models\User;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Support\Collection;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Forbidden;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\InternalServerError;
@@ -57,8 +58,9 @@ class ExportControllerTest extends TestCase {
         $this->setUser($userFactory, $this->setTenant($tenantFactory));
         $this->setSettings($settings);
 
+        $exported = null;
         if ($exportableFactory) {
-            $exportableFactory($this);
+            $exported = $exportableFactory($this);
         }
 
         // Query
@@ -93,32 +95,34 @@ class ExportControllerTest extends TestCase {
         }
 
         $response = $this->postJson("/download/{$type}", $input);
-        if ($expected instanceof Response) {
-            $response->assertThat($expected);
-            if (is_a($expected, Ok::class)) {
-                switch ($type) {
-                    case 'csv':
-                        Excel::assertDownloaded('export.csv', function (QueryExport $export): bool {
-                            $max = $this->app->make(Repository::class)->get('ep.export.max_records');
-                            return $export->collection()->count() <= $max;
-                        });
-                        break;
-                    case 'excel':
-                        Excel::assertDownloaded('export.xlsx', function (QueryExport $export): bool {
-                            $max = $this->app->make(Repository::class)->get('ep.export.max_records');
-                            return $export->collection()->count() <= $max;
-                        });
-                        break;
-                    case 'pdf':
-                        PDF::assertViewIs('exports.pdf');
-                        PDF::assertSee('id');
-                        PDF::assertSee('product_name');
-                        PDF::assertSee('product_sku');
-                        break;
+        $response->assertThat($expected);
+        if (is_a($expected, Ok::class)) {
+            switch ($type) {
+                case 'csv':
+                    Excel::assertDownloaded('export.csv', function (QueryExport $export) use ($exported): bool {
+                        if ($exported) {
+                            // collection + header
+                            return $export->collection()->count() === $exported->count() + 1;
+                        }
+                        $max = $this->app->make(Repository::class)->get('ep.export.max_records');
+                        return $export->collection()->count() <= $max;
+                    });
+                    break;
+                case 'excel':
+                    Excel::assertDownloaded('export.xlsx', function (QueryExport $export): bool {
+                        $max = $this->app->make(Repository::class)->get('ep.export.max_records');
+                        return $export->collection()->count() <= $max;
+                    });
+                    break;
+                case 'pdf':
+                    PDF::assertViewIs('exports.pdf');
+                    PDF::assertSee('id');
+                    PDF::assertSee('product_name');
+                    PDF::assertSee('product_sku');
+                    break;
 
-                    default:
-                        // empty
-                }
+                default:
+                    // empty
             }
         }
     }
@@ -145,8 +149,9 @@ class ExportControllerTest extends TestCase {
             }
         GRAPHQL;
 
-        $assetFactory = static function (TestCase $test): void {
+        $assetFactory = static function (TestCase $test): ?Collection {
             Asset::factory()->count(15)->create();
+            return null;
         };
         $settings     = [
             'ep.exports.max_records' => 10,
@@ -192,6 +197,46 @@ class ExportControllerTest extends TestCase {
                     $assetFactory,
                     'pdf',
                     $query,
+                ],
+                'filters-csv'         => [
+                    new Ok(),
+                    $settings,
+                    static function (TestCase $test): ?Collection {
+                        Asset::factory()->count(14)->create();
+                        return Asset::factory()->count(1)->create([
+                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                        ]);
+                    },
+                    'csv',
+                    /** @lang GraphQL */ <<<'GRAPHQL'
+                    query assets(
+                        $first: Int,
+                        $page: Int,
+                        $where:SearchByConditionAssetsQuery,
+                        $order:[SortByClauseAssetsSort!]
+                    ){
+                        assets(first:$first, page: $page, where:$where, order: $order){
+                            data{
+                                id
+                                product{
+                                    name
+                                    sku
+                                }
+                            }
+                        }
+                    }
+                    GRAPHQL,
+                    [
+                        'first' => 5,
+                        'page'  => 1,
+                        'where' => [
+                            'id' => [
+                                'in' => [
+                                    'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
                 'validation-mutation' => [
                     new Response(

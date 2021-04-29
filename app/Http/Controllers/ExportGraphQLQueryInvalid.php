@@ -8,10 +8,14 @@ use Exception;
 use Throwable;
 
 use function __;
+use function json_encode;
 
 class ExportGraphQLQueryInvalid extends Exception implements TranslatedException {
     use HasErrorCode;
 
+    /**
+     * @param array<mixed,string> $errors
+     */
     public function __construct(array $errors, Throwable $previous = null) {
         parent::__construct(
             'GraphQL query invalid: '.json_encode($errors).')',

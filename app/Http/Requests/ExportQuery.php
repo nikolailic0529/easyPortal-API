@@ -20,6 +20,8 @@ class ExportQuery extends FormRequest {
             'operationName'   => 'string',
             'variables.page'  => 'integer',
             'variables.first' => 'integer',
+            'variables.order' => '',
+            'variables.where' => '',
         ];
     }
 }
