@@ -12,6 +12,11 @@ use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Token\RegisteredClaims;
 use Lcobucci\JWT\UnencryptedToken;
 
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function str_replace;
+
 class UserProvider implements UserProviderContract {
     public const    ACCESS_TOKEN                = 'access_token';
     protected const CLAIM_RESELLER_ACCESS       = 'reseller_access';
@@ -220,14 +225,16 @@ class UserProvider implements UserProviderContract {
     }
 
     protected function getOrganization(UnencryptedToken $token): ?Organization {
-        return null;
+        $organizations = $token->claims()->get(self::CLAIM_RESELLER_ACCESS, []);
+        $organizations = array_keys(array_filter($organizations));
+        $organizations = array_map(static function (string $name): string {
+            return str_replace('-', ' ', $name);
+        }, $organizations);
+        $organization  = Organization::query()
+            ->whereIn('name', $organizations)
+            ->first();
 
-//        $organizations = $token->claims()->get(self::CLAIM_RESELLER_ACCESS, []);
-//        $organization  = ($organizations[$this->getKeyCloak()->getTenantScope()] ?? false)
-//            ? $this->getTenant()->get()
-//            : null;
-//
-//        return $organization;
+        return $organization;
     }
 
     /**
