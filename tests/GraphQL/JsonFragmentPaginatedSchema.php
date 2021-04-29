@@ -12,18 +12,13 @@ class JsonFragmentPaginatedSchema extends JsonFragmentSchema {
      * @param class-string $schema
      */
     public function __construct(
-        protected string $root,
         string $path,
         string $schema,
     ) {
         parent::__construct($path, $schema);
     }
 
-    public function getRoot(): string {
-        return $this->root;
-    }
-
     public function getJsonSchema(): JsonSchema {
-        return new SchemaWrapper(GraphQLPaginated::class, $this->getRoot(), $this->getSchema());
+        return new SchemaWrapper(self::class, '', $this->getSchema());
     }
 }
