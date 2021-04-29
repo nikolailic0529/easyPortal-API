@@ -12,6 +12,7 @@ use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Str;
 
@@ -24,6 +25,7 @@ class KeyCloak {
         protected Repository $config,
         protected Session $session,
         protected AuthManager $auth,
+        protected UrlGenerator $url,
         protected CurrentTenant $tenant,
     ) {
         // empty
@@ -89,7 +91,7 @@ class KeyCloak {
                 'realm'        => $this->config->get('ep.keycloak.realm'),
                 'clientId'     => $this->config->get('ep.keycloak.client_id'),
                 'clientSecret' => $this->config->get('ep.keycloak.client_secret'),
-                'redirectUri'  => $this->config->get('ep.keycloak.redirect_uri'),
+                'redirectUri'  => $this->url->to($this->config->get('ep.keycloak.redirect_uri')),
                 'scopes'       => [
                     'openid',
                     'email',
