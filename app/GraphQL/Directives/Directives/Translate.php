@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives;
+namespace App\GraphQL\Directives\Directives;
 
 use App\GraphQL\Contracts\Translatable;
 use GraphQL\Type\Definition\ResolveInfo;
@@ -10,7 +10,7 @@ use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldResolver;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-class TranslateDirective extends BaseDirective implements FieldResolver {
+abstract class Translate extends BaseDirective implements FieldResolver {
     public static function definition(): string {
         return /** @lang GraphQL */ <<<'GRAPHQL'
             """

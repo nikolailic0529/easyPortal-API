@@ -2,12 +2,12 @@
 
 namespace App\Services\KeyCloak;
 
+use App\Models\Organization;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailed;
 use App\Services\KeyCloak\Exceptions\InvalidCredentials;
 use App\Services\KeyCloak\Exceptions\InvalidIdentity;
 use App\Services\KeyCloak\Exceptions\KeyCloakException;
 use App\Services\KeyCloak\Exceptions\StateMismatch;
-use App\Services\Tenant\Tenant;
 use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -26,16 +26,18 @@ class KeyCloak {
         protected Session $session,
         protected AuthManager $auth,
         protected UrlGenerator $url,
-        protected Tenant $tenant,
     ) {
         // empty
     }
 
     // <editor-fold desc="Authorization">
     // =========================================================================
-    public function getAuthorizationUrl(): string {
-        $url   = $this->getProvider()->getAuthorizationUrl();
-        $state = $this->getProvider()->getState();
+    public function getAuthorizationUrl(Organization $organization): string {
+        $provider = $this->getProvider();
+        $url      = $provider->getAuthorizationUrl([
+            'scope' => $this->getOrganizationScopes($organization),
+        ]);
+        $state    = $provider->getState();
 
         $this->session->put(self::STATE, $state);
 
@@ -85,12 +87,8 @@ class KeyCloak {
 
     // <editor-fold desc="Getters">
     // =========================================================================
-    public function getTenant(): Tenant {
-        return $this->tenant;
-    }
-
-    public function getTenantScope(): string {
-        return Str::snake($this->getTenant()->get()->name, '-');
+    public function getOrganizationScope(Organization $organization): string {
+        return Str::snake($organization->name, '-');
     }
 
     public function getValidIssuer(): string {
@@ -112,17 +110,23 @@ class KeyCloak {
                 'clientId'     => $this->config->get('ep.keycloak.client_id'),
                 'clientSecret' => $this->config->get('ep.keycloak.client_secret'),
                 'redirectUri'  => $this->url->to($this->config->get('ep.keycloak.redirect_uri')),
-                'scopes'       => [
-                    'openid',
-                    'email',
-                    'phone',
-                    'profile',
-                    "reseller_{$this->getTenantScope()}",
-                ],
             ]);
         }
 
         return $this->provider;
+    }
+
+    /**
+     * @return array<string>
+     */
+    protected function getOrganizationScopes(Organization $organization): array {
+        return [
+            'openid',
+            'email',
+            'phone',
+            'profile',
+            "reseller_{$this->getOrganizationScope($organization)}",
+        ];
     }
     // </editor-fold>
 }

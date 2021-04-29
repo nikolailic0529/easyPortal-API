@@ -5,7 +5,7 @@ namespace App\Services\KeyCloak;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Exceptions\InsufficientData;
-use App\Services\Tenant\Tenant;
+use App\Services\Tenant\Tenantable;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as UserProviderContract;
 use Lcobucci\JWT\Token;
@@ -79,7 +79,6 @@ class UserProvider implements UserProviderContract {
     public function retrieveById($identifier): User|null {
         return User::query()
             ->whereKey($identifier)
-            ->where('organization_id', '=', $this->getTenant()->getKey())
             ->first();
     }
 
@@ -125,10 +124,11 @@ class UserProvider implements UserProviderContract {
         $valid = false;
         $token = $this->getToken($credentials);
 
-        if ($token instanceof UnencryptedToken && $user instanceof User) {
+        if ($token instanceof UnencryptedToken) {
             $valid = true
                 && $token->isRelatedTo($user->getAuthIdentifier())
-                && $this->getTenant()->is($user->organization);
+                && $user instanceof Tenantable
+                && $user->getOrganization();
         }
 
         return $valid;
@@ -139,10 +139,6 @@ class UserProvider implements UserProviderContract {
     // =========================================================================
     protected function getKeyCloak(): KeyCloak {
         return $this->keycloak;
-    }
-
-    protected function getTenant(): Tenant {
-        return $this->getKeyCloak()->getTenant();
     }
 
     protected function getJwt(): Jwt {
@@ -224,12 +220,14 @@ class UserProvider implements UserProviderContract {
     }
 
     protected function getOrganization(UnencryptedToken $token): ?Organization {
-        $organizations = $token->claims()->get(self::CLAIM_RESELLER_ACCESS, []);
-        $organization  = ($organizations[$this->getKeyCloak()->getTenantScope()] ?? false)
-            ? $this->getTenant()->get()
-            : null;
+        return null;
 
-        return $organization;
+//        $organizations = $token->claims()->get(self::CLAIM_RESELLER_ACCESS, []);
+//        $organization  = ($organizations[$this->getKeyCloak()->getTenantScope()] ?? false)
+//            ? $this->getTenant()->get()
+//            : null;
+//
+//        return $organization;
     }
 
     /**

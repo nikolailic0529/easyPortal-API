@@ -3,9 +3,9 @@
 namespace Tests;
 
 use App\Models\Organization;
-use App\Services\Tenant\OrganizationTenant;
 use App\Services\Tenant\Tenant;
 use Closure;
+use Illuminate\Contracts\Auth\Factory;
 
 /**
  * @mixin \Tests\TestCase
@@ -17,8 +17,19 @@ trait WithTenant {
         }
 
         if ($tenant) {
-            $this->app->bind(Tenant::class, static function () use ($tenant): Tenant {
-                return new OrganizationTenant($tenant);
+            $this->app->bind(Tenant::class, function () use ($tenant): Tenant {
+                return new class($this->app->make(Factory::class), $tenant) extends Tenant {
+                    public function __construct(
+                        Factory $auth,
+                        protected Organization $organization,
+                    ) {
+                        parent::__construct($auth);
+                    }
+
+                    protected function getCurrent(): ?Organization {
+                        return $this->organization;
+                    }
+                };
             });
         } else {
             unset($this->app[Tenant::class]);

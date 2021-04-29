@@ -4,8 +4,6 @@ namespace App\Services;
 
 use App\Models\Organization;
 use App\Models\User;
-use App\Services\Tenant\OrganizationTenant;
-use App\Services\Tenant\Tenant;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Translation\Translator;
 use Tests\TestCase;

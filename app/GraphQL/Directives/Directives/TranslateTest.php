@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives;
+namespace App\GraphQL\Directives\Directives;
 
 use App\GraphQL\Contracts\Translatable;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -12,9 +12,9 @@ use Tests\WithTenant;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\TranslateDirective
+ * @coversDefaultClass \App\GraphQL\Directives\Directives\Translate
  */
-class TranslateDirectiveTest extends TestCase {
+class TranslateTest extends TestCase {
     use WithGraphQLSchema;
     use WithTenant;
 
@@ -30,7 +30,7 @@ class TranslateDirectiveTest extends TestCase {
         $this->mockResolver($object);
 
         $this
-            ->graphQLSchema(
+            ->useGraphQLSchema(
                 /** @lang GraphQL */
                 <<<'GRAPHQL'
                 type Query {

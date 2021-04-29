@@ -24,11 +24,6 @@ class Provider extends AbstractProvider {
     protected string $realm;
 
     /**
-     * @var array<string>
-     */
-    protected array $scopes;
-
-    /**
      * @param array<mixed> $options
      * @param array<mixed> $collaborators
      */
@@ -71,7 +66,7 @@ class Provider extends AbstractProvider {
      * @return array<string>
      */
     protected function getDefaultScopes(): array {
-        return $this->scopes;
+        return [];
     }
 
     /**

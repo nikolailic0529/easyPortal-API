@@ -3,7 +3,7 @@
 namespace App\GraphQL\Contracts;
 
 /**
- * @see \App\GraphQL\Directives\TranslateDirective
+ * @see \App\GraphQL\Directives\Definitions\TranslateDirective
  */
 interface Translatable {
     public function getTranslatedProperty(string $property): string;

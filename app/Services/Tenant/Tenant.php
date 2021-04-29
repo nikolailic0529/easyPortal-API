@@ -3,14 +3,50 @@
 namespace App\Services\Tenant;
 
 use App\Models\Organization;
+use App\Services\Tenant\Exceptions\UnknownTenant;
+use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 
-interface Tenant extends HasLocalePreference {
-    public function get(): Organization;
+class Tenant implements HasLocalePreference {
+    public function __construct(
+        protected Factory $auth,
+    ) {
+        // empty
+    }
 
-    public function getKey(): string;
+    public function has(): bool {
+        return (bool) $this->getCurrent();
+    }
 
-    public function isRoot(): bool;
+    public function get(): Organization {
+        $organization = $this->getCurrent();
 
-    public function is(Organization|string|null $tenant): bool;
+        if (!$organization) {
+            throw new UnknownTenant();
+        }
+
+        return $organization;
+    }
+
+    public function getKey(): string {
+        return $this->get()->getKey();
+    }
+
+    public function preferredLocale(): ?string {
+        return $this->get()->preferredLocale();
+    }
+
+    public function is(Organization|null $organization): bool {
+        return $organization
+            && $this->getKey() === $organization->getKey();
+    }
+
+    protected function getCurrent(): ?Organization {
+        $user   = $this->auth->guard()->user();
+        $tenant = $user instanceof Tenantable
+            ? $user->getOrganization()
+            : null;
+
+        return $tenant;
+    }
 }

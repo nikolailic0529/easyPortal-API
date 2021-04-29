@@ -10,7 +10,6 @@ use App\Http\Middleware\SetLocale;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\TrustProxies;
 use App\Http\Middleware\VerifyCsrfToken;
-use App\Services\Tenant\Http\Middleware\SetTenant;
 use Fruitcake\Cors\HandleCors;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
@@ -60,7 +59,6 @@ class Kernel extends HttpKernel {
             AddQueuedCookiesToResponse::class,
             StartSession::class,
             AuthenticateSession::class,
-            SetTenant::class,
             SetLocale::class,
             // \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             VerifyCsrfToken::class,
@@ -69,7 +67,6 @@ class Kernel extends HttpKernel {
 
         'api' => [
             'throttle:api',
-            SetTenant::class,
             SetLocale::class,
             SubstituteBindings::class,
         ],

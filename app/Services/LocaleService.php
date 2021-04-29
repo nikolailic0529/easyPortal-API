@@ -13,7 +13,7 @@ class LocaleService {
         protected AuthManager $auth,
         protected Application $app,
         protected Session $session,
-        protected Tenant|null $tenant = null,
+        protected Tenant $tenant,
     ) {
         // empty
     }
@@ -31,7 +31,7 @@ class LocaleService {
         }
 
         // Organization.locale
-        if ($this->tenant && $this->tenant->preferredLocale()) {
+        if ($this->tenant->has() && $this->tenant->preferredLocale()) {
             return $this->tenant->preferredLocale();
         }
 

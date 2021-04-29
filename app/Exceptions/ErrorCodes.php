@@ -14,6 +14,7 @@ use App\Services\KeyCloak\Exceptions\InvalidCredentials;
 use App\Services\KeyCloak\Exceptions\InvalidIdentity;
 use App\Services\KeyCloak\Exceptions\StateMismatch;
 use App\Services\Settings\Exceptions\SettingsFailedToLoadEnv;
+use App\Services\Tenant\Exceptions\UnknownTenant;
 use Throwable;
 
 class ErrorCodes {
@@ -33,6 +34,7 @@ class ErrorCodes {
         InvalidIdentity::class                             => 'ERR10',
         InvalidCredentials::class                          => 'ERR11',
         InsufficientData::class                            => 'ERR12',
+        UnknownTenant::class                               => 'ERR13',
     ];
 
     public static function getCode(Throwable $throwable): string|int {
