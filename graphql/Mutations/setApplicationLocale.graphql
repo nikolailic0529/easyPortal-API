@@ -1,0 +1,13 @@
+extend type Mutation {
+  setApplicationLocale(
+    input: SetApplicationLocaleInput!
+  ): SetApplicationLocalePayload
+}
+
+input SetApplicationLocaleInput {
+  locale: String! @rules(apply: ["App\\Rules\\Locale"])
+}
+
+type SetApplicationLocalePayload {
+  result: Boolean!
+}
