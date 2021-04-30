@@ -1,0 +1,11 @@
+extend type Mutation {
+  "Begins the Sign In."
+  signIn: SignInPayload
+    @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn")
+    @guest
+}
+
+type SignInPayload {
+  "The link where the User should be redirected to Sign In."
+  url: String!
+}

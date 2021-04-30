@@ -1,9 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Mutations\Auth;
 
-use App\Services\Auth0\AuthService;
-use Auth0\Login\Auth0Service;
+use App\Services\KeyCloak\KeyCloak;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -16,9 +15,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Queries\AuthSignIn
+ * @coversDefaultClass \App\GraphQL\Mutations\Auth\SignIn
  */
-class AuthSignInTest extends TestCase {
+class SignInTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -30,29 +29,25 @@ class AuthSignInTest extends TestCase {
         $this->setUser($userFactory, $this->setTenant($tenantFactory));
 
         // Mock
-        $service = Mockery::mock(AuthService::class);
-        $method  = 'getSignInLink';
-
-        $service->shouldReceive('getService')->andReturn(
-            Mockery::mock(Auth0Service::class),
-        );
+        $service = Mockery::mock(KeyCloak::class);
 
         if ($expected instanceof GraphQLSuccess) {
-            $service->shouldReceive($method)->once()->andReturn(
-                'http://example.com/',
-            );
-        } else {
-            $service->shouldReceive($method)->never();
+            $service
+                ->shouldReceive('getAuthorizationUrl')
+                ->once()
+                ->andReturn('http://example.com/');
         }
 
-        $this->app->bind(AuthService::class, static function () use ($service): AuthService {
+        $this->app->bind(KeyCloak::class, static function () use ($service): KeyCloak {
             return $service;
         });
 
         // Test
         $this
-            ->graphQL(/** @lang GraphQL */ '{
-                authSignIn
+            ->graphQL(/** @lang GraphQL */ 'mutation {
+                signIn {
+                    url
+                }
             }')
             ->assertThat($expected);
     }
@@ -66,10 +61,12 @@ class AuthSignInTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            new GuestDataProvider('authSignIn'),
+            new GuestDataProvider('signIn'),
             new ArrayDataProvider([
                 'redirect to login' => [
-                    new GraphQLSuccess('authSignIn', AuthSignIn::class),
+                    new GraphQLSuccess('signIn', self::class, [
+                        'url' => 'http://example.com/',
+                    ]),
                 ],
             ]),
         ))->getData();

@@ -21,7 +21,7 @@ trait BelongsToTenant {
         $column = $this->getTenantIdColumn();
 
         if ($this instanceof BelongsToTenantContract && is_null($this->{$column})) {
-            $this->{$column} = app()->make(CurrentTenant::class)->get()->getKey();
+            $this->{$column} = app()->make(CurrentTenant::class)->getKey();
         }
 
         return parent::performInsert($query);

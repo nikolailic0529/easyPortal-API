@@ -22,6 +22,7 @@ use App\Services\Settings\Types\Duration;
 use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\LocationType;
 use App\Services\Settings\Types\StringType;
+use App\Services\Settings\Types\Text;
 use App\Services\Settings\Types\Url;
 
 use function interface_exists;
@@ -105,6 +106,64 @@ interface Constants {
     #[Group('ep')]
     #[Type(IntType::class)]
     public const EP_EXPORT_MAX_RECORDS = 8000;
+    // </editor-fold>
+
+    // <editor-fold desc="EP_KEYCLOAK">
+    // =========================================================================
+    /**
+     * Server URL.
+     */
+    #[Setting('ep.keycloak.url')]
+    #[Group('keycloak')]
+    #[Type(StringType::class)]
+    public const EP_KEYCLOAK_URL = null;
+
+    /**
+     * Realm.
+     */
+    #[Setting('ep.keycloak.realm')]
+    #[Group('keycloak')]
+    #[Type(StringType::class)]
+    public const EP_KEYCLOAK_REALM = null;
+
+    /**
+     * Client Id.
+     */
+    #[Setting('ep.keycloak.client_id')]
+    #[Group('keycloak')]
+    #[Type(StringType::class)]
+    public const EP_KEYCLOAK_CLIENT_ID = null;
+
+    /**
+     * Client Secret.
+     */
+    #[Setting('ep.keycloak.client_secret')]
+    #[Group('keycloak')]
+    #[Type(StringType::class)]
+    public const EP_KEYCLOAK_CLIENT_SECRET = null;
+
+    /**
+     * Redirect URI
+     */
+    #[Setting('ep.keycloak.redirect_uri')]
+    #[Group('keycloak')]
+    #[Type(Url::class)]
+    public const EP_KEYCLOAK_REDIRECT_URI = null;
+
+    /**
+     * Encryption Algorithm.
+     */
+    #[Setting('ep.keycloak.encryption.algorithm')]
+    #[Group('keycloak')]
+    public const EP_KEYCLOAK_ENCRYPTION_ALGORITHM = 'RS256';
+
+    /**
+     * Encryption Public Key.
+     */
+    #[Setting('ep.keycloak.encryption.public_key')]
+    #[Group('keycloak')]
+    #[Type(Text::class)]
+    public const EP_KEYCLOAK_ENCRYPTION_PUBLIC_KEY = '';
     // </editor-fold>
 
     // <editor-fold desc="EP_SETTINGS">

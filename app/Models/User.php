@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use LogicException;
@@ -17,31 +18,31 @@ use LogicException;
 /**
  * User.
  *
- * @property int                          $id
- * @property string                       $organization_id
- * @property string|null                  $sub Auth0 User ID
- * @property bool                         $blocked
- * @property string                       $given_name
- * @property string                       $family_name
- * @property string                       $email
- * @property \Carbon\CarbonImmutable|null $email_verified_at
- * @property string                       $phone
- * @property \Carbon\CarbonImmutable|null $phone_verified_at
- * @property string|null                  $photo
- * @property mixed                        $permissions
- * @property string|null                  $locale
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property string                                                                $id
+ * @property string                                                                $organization_id
+ * @property string                                                                $given_name
+ * @property string                                                                $family_name
+ * @property string                                                                $email
+ * @property bool                                                                  $email_verified
+ * @property string                                                                $phone
+ * @property bool                                                                  $phone_verified
+ * @property string|null                                                           $photo
+ * @property array                                                                 $permissions
+ * @property string|null                                                           $locale
+ * @property \Carbon\CarbonImmutable                                               $created_at
+ * @property \Carbon\CarbonImmutable                                               $updated_at
+ * @property \Carbon\CarbonImmutable|null                                          $deleted_at
+ * @property \App\Models\Organization                                              $organization
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\UserSearch> $searches
+ * @property-read int|null                                                         $searches_count
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereBlocked($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmailVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmailVerified($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereFamilyName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereGivenName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereId($value)
@@ -49,9 +50,8 @@ use LogicException;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereOrganizationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePermissions($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhone($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhoneVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhoneVerified($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhoto($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereSub($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
@@ -67,10 +67,9 @@ class User extends Model implements
     use BelongsToTenant;
 
     protected const CASTS = [
-        'blocked'           => 'bool',
-        'permissions'       => 'array',
-        'email_verified_at' => 'datetime',
-        'phone_verified_at' => 'datetime',
+        'permissions'    => 'array',
+        'email_verified' => 'bool',
+        'phone_verified' => 'bool',
     ];
 
     /**
@@ -88,7 +87,6 @@ class User extends Model implements
      * @var array<string>
      */
     protected $fillable = [
-        'sub',
         'name',
         'email',
     ];
@@ -116,11 +114,7 @@ class User extends Model implements
     protected $casts = self::CASTS + parent::CASTS;
 
     public function sendEmailVerificationNotification(): void {
-        throw new LogicException('Email verification should be done inside auth0.');
-    }
-
-    public function getAuthIdentifierName(): string {
-        return 'sub';
+        throw new LogicException('Email verification should be done inside standard process.');
     }
 
     public function preferredLocale(): ?string {
@@ -129,5 +123,13 @@ class User extends Model implements
 
     public function searches(): HasMany {
         return $this->hasMany(UserSearch::class);
+    }
+
+    public function organization(): BelongsTo {
+        return $this->belongsTo(Organization::class);
+    }
+
+    public function setOrganizationAttribute(Organization $organization): void {
+        $this->organization()->associate($organization);
     }
 }

@@ -33,4 +33,20 @@ class CurrentTenant {
 
         return $instance;
     }
+
+    public function getKey(): string {
+        return $this->get()->getKey();
+    }
+
+    public function is(Organization|string|null $tenant): bool {
+        $equal = false;
+
+        if ($tenant instanceof Organization) {
+            $equal = $this->is($tenant->getKey());
+        } else {
+            $equal = $this->getKey() === $tenant;
+        }
+
+        return $equal;
+    }
 }
