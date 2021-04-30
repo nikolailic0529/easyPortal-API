@@ -69,7 +69,7 @@ class CitiesTest extends TestCase {
 
         // Eager Loading
         if ($expected instanceof GraphQLSuccess) {
-            $this->assertCount(4, $this->getQueryLog());
+            $this->assertCount(3, $this->getQueryLog());
         }
     }
     // </editor-fold>
