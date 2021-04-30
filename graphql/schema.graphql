@@ -47,7 +47,7 @@ type Query {
   contactTypes: [Type!]!
 
   "Get Locale"
-  locale: String!
+  locale: String! @deprecated(reason:"use Application.locale instead")
 
   "List of all asset types"
   assetTypes: [Type!]!
