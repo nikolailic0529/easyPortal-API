@@ -112,5 +112,5 @@ type Mutation {
     branding_favicon: Upload
     website_url: String             # TODO [GraphQL] URL type needed
     email: String                   # TODO [GraphQL] Email type needed
-  ): Boolean! @guard @validator
+  ): Boolean! @guard @validator @deprecated(reason:"use updateOrganization instead")
 }

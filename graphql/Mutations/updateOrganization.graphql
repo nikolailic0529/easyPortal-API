@@ -1,0 +1,21 @@
+extend type Mutation {
+  updateOrganization(
+    input: updateOrganizationInput!
+  ): updateOrganizationPayload @guard @validator
+}
+
+input updateOrganizationInput {
+    locale: String
+    currency_id: ID
+    branding_dark_theme: Boolean
+    branding_primary_color: String   # TODO [GraphQL] Color type needed
+    branding_secondary_color: String # TODO [GraphQL] Color type needed
+    branding_logo: Upload
+    branding_favicon: Upload
+    website_url: String              # TODO [GraphQL] URL type needed
+    email: String                    # TODO [GraphQL] Email type needed
+}
+
+type updateOrganizationPayload {
+  result: Boolean!
+}
