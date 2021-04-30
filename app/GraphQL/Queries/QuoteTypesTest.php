@@ -9,8 +9,8 @@ use Illuminate\Translation\Translator;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\AnyDataProvider;
-use Tests\DataProviders\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -123,7 +123,7 @@ class QuoteTypesTest extends TestCase {
 
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            new AnyDataProvider(),
+            new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'quote_types match'                  => [
                     new GraphQLSuccess('quoteTypes', QuoteTypes::class, $objects),

@@ -13,8 +13,8 @@ use Illuminate\Contracts\Foundation\Application;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\AnyDataProvider;
-use Tests\DataProviders\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -103,7 +103,7 @@ class SettingsTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new TenantDataProvider(),
-            new AnyDataProvider(),
+            new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('client', Settings::class, [

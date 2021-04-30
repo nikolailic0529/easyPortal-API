@@ -20,7 +20,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
 use Maatwebsite\Excel\Facades\Excel;
-use Tests\DataProviders\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
 use Tests\TestCase;
 
 use function is_a;

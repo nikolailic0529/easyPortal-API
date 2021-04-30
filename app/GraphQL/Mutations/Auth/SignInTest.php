@@ -2,16 +2,19 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
+use App\Models\Organization;
 use App\Services\KeyCloak\KeyCloak;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery;
-use Tests\DataProviders\GraphQL\GuestDataProvider;
-use Tests\DataProviders\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
+use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+
+use function __;
 
 /**
  * @internal
@@ -24,9 +27,16 @@ class SignInTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      */
-    public function testInvoke(Response $expected, Closure $tenantFactory, Closure $userFactory = null): void {
+    public function testInvoke(
+        Response $expected,
+        Closure $userFactory = null,
+        Closure $organizationFactory = null,
+    ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setTenant($tenantFactory));
+        $this->setUser($userFactory);
+
+        // Organization
+        $organization = $organizationFactory($this);
 
         // Mock
         $service = Mockery::mock(KeyCloak::class);
@@ -44,11 +54,19 @@ class SignInTest extends TestCase {
 
         // Test
         $this
-            ->graphQL(/** @lang GraphQL */ 'mutation {
-                signIn {
-                    url
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                mutation signin($id: ID!) {
+                    signIn(input: {organization_id: $id}) {
+                        url
+                    }
                 }
-            }')
+                GRAPHQL,
+                [
+                    'id' => $organization?->getKey() ?: $this->faker->uuid,
+                ],
+            )
             ->assertThat($expected);
     }
     // </editor-fold>
@@ -60,14 +78,22 @@ class SignInTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
             new GuestDataProvider('signIn'),
             new ArrayDataProvider([
-                'redirect to login' => [
-                    new GraphQLSuccess('signIn', self::class, [
-                        'url' => 'http://example.com/',
-                    ]),
+                'organization not exists' => [
+                    new GraphQLError('signIn', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    static function () {
+                        return Organization::factory()->make();
+                    },
                 ],
+
+                //                'redirect to login' => [
+                //                    new GraphQLSuccess('signIn', self::class, [
+                //                        'url' => 'http://example.com/',
+                //                    ]),
+                //                ],
             ]),
         ))->getData();
     }

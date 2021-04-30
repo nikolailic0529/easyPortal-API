@@ -29,12 +29,9 @@ abstract class Organization extends AuthDirective implements FieldMiddleware {
             GRAPHQL;
     }
 
-    protected function allowed(): bool {
-        return $this->tenant->has() && parent::allowed();
-    }
-
     protected function isAuthorized(?Authenticatable $user): bool {
         return $user instanceof Tenantable
+            && $this->tenant->has()
             && $this->tenant->is($user->getOrganization());
     }
 }

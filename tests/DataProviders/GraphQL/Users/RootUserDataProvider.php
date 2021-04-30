@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Tests\DataProviders\GraphQL;
+namespace Tests\DataProviders\GraphQL\Users;
 
 use App\Models\Organization;
 use App\Models\User;
@@ -17,7 +17,7 @@ use Tests\TestCase;
  *
  * @see \Config\Constants::EP_ROOT_USERS
  */
-class RootDataProvider extends ArrayDataProvider {
+class RootUserDataProvider extends ArrayDataProvider {
     public function __construct(string $root) {
         parent::__construct([
             'guest is not allowed' => [
