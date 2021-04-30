@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
-use App\GraphQL\Directives\RootDirective;
+use App\GraphQL\Directives\Definitions\RootDirective;
 use App\Models\User;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\Authenticatable;

@@ -7,6 +7,7 @@ use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasDocument;
 use App\Models\Concerns\HasReseller;
 use App\Models\Concerns\SyncBelongsToMany;
+use App\Models\Concerns\Tenants\OwnedByTenant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
@@ -51,6 +52,7 @@ use Illuminate\Support\Collection;
  * @mixin \Eloquent
  */
 class AssetWarranty extends Model {
+    use OwnedByTenant;
     use HasFactory;
     use HasAsset;
     use HasReseller;

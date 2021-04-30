@@ -7,7 +7,7 @@ use function in_array;
 
 /**
  * @see \App\GraphQL\Contracts\Translatable
- * @see \App\GraphQL\Directives\TranslateDirective
+ * @see \App\GraphQL\Directives\Directives\Translate
  *
  * @mixin \App\Models\Model
  */

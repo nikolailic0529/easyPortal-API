@@ -1,0 +1,16 @@
+type Query {
+  value: String! @root @field(resolver: "App\\GraphQL\\Directives\\Directives\\RootDirectiveTest_Resolver")
+}
+
+"""
+Description.
+"""
+type Test @root {
+  one: String! @field(resolver: "App\\GraphQL\\Directives\\Directives\\RootDirectiveTest_Resolver")
+
+  two: String! @root @field(resolver: "App\\GraphQL\\Directives\\Directives\\RootDirectiveTest_Resolver")
+}
+
+extend type Test @root {
+  extension: String! @field(resolver: "App\\GraphQL\\Directives\\Directives\\RootDirectiveTest_Resolver")
+}

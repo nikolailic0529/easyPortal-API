@@ -24,16 +24,15 @@ class Provider extends AbstractProvider {
     protected string $realm;
 
     /**
-     * @var array<string>
-     */
-    protected array $scopes;
-
-    /**
      * @param array<mixed> $options
      * @param array<mixed> $collaborators
      */
     public function __construct(array $options = [], array $collaborators = []) {
         parent::__construct($options, $collaborators);
+    }
+
+    public function getClientId(): ?string {
+        return $this->clientId;
     }
 
     public function getBaseAuthorizationUrl(): string {
@@ -67,7 +66,7 @@ class Provider extends AbstractProvider {
      * @return array<string>
      */
     protected function getDefaultScopes(): array {
-        return $this->scopes;
+        return [];
     }
 
     /**

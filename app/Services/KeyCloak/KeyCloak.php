@@ -2,7 +2,7 @@
 
 namespace App\Services\KeyCloak;
 
-use App\CurrentTenant;
+use App\Models\Organization;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailed;
 use App\Services\KeyCloak\Exceptions\InvalidCredentials;
 use App\Services\KeyCloak\Exceptions\InvalidIdentity;
@@ -26,14 +26,18 @@ class KeyCloak {
         protected Session $session,
         protected AuthManager $auth,
         protected UrlGenerator $url,
-        protected CurrentTenant $tenant,
     ) {
         // empty
     }
 
-    public function getAuthorizationUrl(): string {
-        $url   = $this->getProvider()->getAuthorizationUrl();
-        $state = $this->getProvider()->getState();
+    // <editor-fold desc="Authorization">
+    // =========================================================================
+    public function getAuthorizationUrl(Organization $organization): string {
+        $provider = $this->getProvider();
+        $url      = $provider->getAuthorizationUrl([
+            'scope' => $this->getOrganizationScopes($organization),
+        ]);
+        $state    = $provider->getState();
 
         $this->session->put(self::STATE, $state);
 
@@ -79,11 +83,25 @@ class KeyCloak {
 
         return $this->getProvider()->getSignOutUrl();
     }
+    // </editor-fold>
+
+    // <editor-fold desc="Getters">
+    // =========================================================================
+    public function getOrganizationScope(Organization $organization): string {
+        return Str::snake($organization->name, '-');
+    }
 
     public function getValidIssuer(): string {
         return $this->getProvider()->getRealmUrl();
     }
 
+    public function getClientId(): ?string {
+        return $this->getProvider()->getClientId();
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Functions">
+    // =========================================================================
     protected function getProvider(): Provider {
         if (!isset($this->provider)) {
             $this->provider = new Provider([
@@ -92,20 +110,23 @@ class KeyCloak {
                 'clientId'     => $this->config->get('ep.keycloak.client_id'),
                 'clientSecret' => $this->config->get('ep.keycloak.client_secret'),
                 'redirectUri'  => $this->url->to($this->config->get('ep.keycloak.redirect_uri')),
-                'scopes'       => [
-                    'openid',
-                    'email',
-                    'phone',
-                    'profile',
-                    "reseller_{$this->getTenantScope($this->tenant)}",
-                ],
             ]);
         }
 
         return $this->provider;
     }
 
-    public static function getTenantScope(CurrentTenant $tenant): string {
-        return Str::snake($tenant->get()->name, '-');
+    /**
+     * @return array<string>
+     */
+    protected function getOrganizationScopes(Organization $organization): array {
+        return [
+            'openid',
+            'email',
+            'phone',
+            'profile',
+            "reseller_{$this->getOrganizationScope($organization)}",
+        ];
     }
+    // </editor-fold>
 }

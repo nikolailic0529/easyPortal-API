@@ -165,6 +165,10 @@ return [
         /*
          * Package Service Providers...
          */
+        Nuwave\Lighthouse\LighthouseServiceProvider::class,
+        Nuwave\Lighthouse\Pagination\PaginationServiceProvider::class,
+        Nuwave\Lighthouse\Validation\ValidationServiceProvider::class,
+        Nuwave\Lighthouse\OrderBy\OrderByServiceProvider::class,
 
         /*
          * Application Service Providers...

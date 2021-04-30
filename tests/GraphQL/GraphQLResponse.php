@@ -9,6 +9,8 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentTypes\JsonContentT
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 
+use Psr\Http\Message\ResponseInterface;
+
 use function array_filter;
 use function array_merge;
 
@@ -33,7 +35,7 @@ abstract class GraphQLResponse extends Response {
             );
         } else {
             $constraints[] = new JsonMatchesSchema(
-                new SchemaWrapper($this::class, $this->root, $this->schema),
+                new SchemaWrapper($this->getResponseClass(), $this->root, $this->schema),
             );
         }
 
@@ -53,6 +55,13 @@ abstract class GraphQLResponse extends Response {
         }
 
         return $schema;
+    }
+
+    /**
+     * @return class-string<\Tests\GraphQL\GraphQLResponse>
+     */
+    protected function getResponseClass(): string {
+        return $this::class;
     }
 
     /**

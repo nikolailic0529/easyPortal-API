@@ -10,4 +10,8 @@ class GraphQLUnauthenticated extends GraphQLError {
             return [__('errors.unauthenticated')];
         });
     }
+
+    protected function getResponseClass(): string {
+        return GraphQLError::class;
+    }
 }

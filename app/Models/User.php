@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\BelongsToTenant;
-use App\Models\Contracts\BelongsToTenant as BelongsToTenantContract;
+use App\Services\Tenant\Tenantable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
@@ -58,13 +57,12 @@ use LogicException;
 class User extends Model implements
     AuthenticatableContract,
     AuthorizableContract,
-    BelongsToTenantContract,
-    HasLocalePreference {
+    HasLocalePreference,
+    Tenantable {
     use HasFactory;
     use Authenticatable;
     use Authorizable;
     use MustVerifyEmail;
-    use BelongsToTenant;
 
     protected const CASTS = [
         'permissions'    => 'array',
@@ -131,5 +129,9 @@ class User extends Model implements
 
     public function setOrganizationAttribute(Organization $organization): void {
         $this->organization()->associate($organization);
+    }
+
+    public function getOrganization(): ?Organization {
+        return $this->organization;
     }
 }

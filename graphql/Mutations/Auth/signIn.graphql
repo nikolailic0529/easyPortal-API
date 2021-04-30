@@ -1,8 +1,14 @@
 extend type Mutation {
   "Begins the Sign In."
-  signIn: SignInPayload
+  signIn(
+    input: SignInInput
+  ): SignInPayload
     @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn")
     @guest
+}
+
+input SignInInput {
+  organization_id: ID! @rules(apply: ["exists:App\\Models\\Organization,id"])
 }
 
 type SignInPayload {

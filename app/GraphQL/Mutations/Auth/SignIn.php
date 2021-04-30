@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
+use App\Models\Organization;
 use App\Services\KeyCloak\KeyCloak;
 
 class SignIn {
@@ -17,8 +18,11 @@ class SignIn {
      * @return array<string, mixed>
      */
     public function __invoke(mixed $_, array $args): array {
+        $organization = Organization::query()->whereKey($args['input']['organization_id'])->first();
+        $url          = $this->keycloak->getAuthorizationUrl($organization);
+
         return [
-            'url' => $this->keycloak->getAuthorizationUrl(),
+            'url' => $url,
         ];
     }
 }

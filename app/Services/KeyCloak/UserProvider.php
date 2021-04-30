@@ -2,15 +2,20 @@
 
 namespace App\Services\KeyCloak;
 
-use App\CurrentTenant;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Exceptions\InsufficientData;
+use App\Services\Tenant\Tenantable;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as UserProviderContract;
 use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Token\RegisteredClaims;
 use Lcobucci\JWT\UnencryptedToken;
+
+use function array_filter;
+use function array_keys;
+use function array_map;
+use function str_replace;
 
 class UserProvider implements UserProviderContract {
     public const    ACCESS_TOKEN                = 'access_token';
@@ -65,7 +70,7 @@ class UserProvider implements UserProviderContract {
     ];
 
     public function __construct(
-        protected CurrentTenant $tenant,
+        protected KeyCloak $keycloak,
         protected Jwt $jwt,
     ) {
         // empty
@@ -79,7 +84,6 @@ class UserProvider implements UserProviderContract {
     public function retrieveById($identifier): User|null {
         return User::query()
             ->whereKey($identifier)
-            ->where('organization_id', '=', $this->tenant->getKey())
             ->first();
     }
 
@@ -125,10 +129,11 @@ class UserProvider implements UserProviderContract {
         $valid = false;
         $token = $this->getToken($credentials);
 
-        if ($token instanceof UnencryptedToken && $user instanceof User) {
+        if ($token instanceof UnencryptedToken) {
             $valid = true
                 && $token->isRelatedTo($user->getAuthIdentifier())
-                && $this->tenant->is($user->organization);
+                && $user instanceof Tenantable
+                && $user->getOrganization();
         }
 
         return $valid;
@@ -137,6 +142,14 @@ class UserProvider implements UserProviderContract {
 
     // <editor-fold desc="Helpers">
     // =========================================================================
+    protected function getKeyCloak(): KeyCloak {
+        return $this->keycloak;
+    }
+
+    protected function getJwt(): Jwt {
+        return $this->jwt;
+    }
+
     /**
      * @param array<mixed> $credentials
      */
@@ -144,7 +157,7 @@ class UserProvider implements UserProviderContract {
         $token = null;
 
         if (isset($credentials[self::ACCESS_TOKEN])) {
-            $token = $this->jwt->decode($credentials[self::ACCESS_TOKEN]);
+            $token = $this->getJwt()->decode($credentials[self::ACCESS_TOKEN]);
         }
 
         return $token;
@@ -213,9 +226,13 @@ class UserProvider implements UserProviderContract {
 
     protected function getOrganization(UnencryptedToken $token): ?Organization {
         $organizations = $token->claims()->get(self::CLAIM_RESELLER_ACCESS, []);
-        $organization  = ($organizations[KeyCloak::getTenantScope($this->tenant)] ?? false)
-            ? $this->tenant->get()
-            : null;
+        $organizations = array_keys(array_filter($organizations));
+        $organizations = array_map(static function (string $name): string {
+            return str_replace('-', ' ', $name);
+        }, $organizations);
+        $organization  = Organization::query()
+            ->whereIn('name', $organizations)
+            ->first();
 
         return $organization;
     }

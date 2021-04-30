@@ -7,7 +7,6 @@ use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\Guest;
 use App\Http\Middleware\PreventRequestsDuringMaintenance;
 use App\Http\Middleware\SetLocale;
-use App\Http\Middleware\Tenant;
 use App\Http\Middleware\TrimStrings;
 use App\Http\Middleware\TrustProxies;
 use App\Http\Middleware\VerifyCsrfToken;
@@ -58,7 +57,6 @@ class Kernel extends HttpKernel {
         'web' => [
             EncryptCookies::class,
             AddQueuedCookiesToResponse::class,
-            Tenant::class,
             StartSession::class,
             AuthenticateSession::class,
             SetLocale::class,
@@ -69,7 +67,7 @@ class Kernel extends HttpKernel {
 
         'api' => [
             'throttle:api',
-            Tenant::class,
+            SetLocale::class,
             SubstituteBindings::class,
         ],
     ];

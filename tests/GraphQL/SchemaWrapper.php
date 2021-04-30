@@ -4,11 +4,15 @@ namespace Tests\GraphQL;
 
 use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonSchemaWrapper;
 use Opis\JsonSchema\ISchemaLoader;
+use Tests\GraphQL\Schemas\AnySchema;
 
 class SchemaWrapper extends JsonSchemaWrapper {
     protected string $response;
     protected string $root;
 
+    /**
+     * @param class-string<\Tests\GraphQL\GraphQLResponse> $response
+     */
     public function __construct(string $response, string $root, string $schema = null, ISchemaLoader $loader = null) {
         $this->response = $response;
         $this->root     = $root;

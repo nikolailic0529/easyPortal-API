@@ -2,29 +2,25 @@
 
 namespace App\Services;
 
-use App\CurrentTenant;
 use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Translation\Translator;
 use Tests\TestCase;
-use Tests\WithCurrentTenant;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\LocaleService
  */
 class LocaleServiceTest extends TestCase {
-    use WithCurrentTenant;
-
     /**
      * @covers ::set
      */
     public function testSet(): void {
         $translator = $this->app->make(Translator::class);
         // Init translations
-        $translator->addLines(['test.welcome' => 'Welcome to our application!' ], 'en');
-        $translator->addLines(['test.welcome' => 'Bienvenue sur notre application!' ], 'fr');
+        $translator->addLines(['test.welcome' => 'Welcome to our application!'], 'en');
+        $translator->addLines(['test.welcome' => 'Bienvenue sur notre application!'], 'fr');
 
         $locale = $this->app->make(LocaleService::class);
 
@@ -56,30 +52,27 @@ class LocaleServiceTest extends TestCase {
         ?string $tenantLocale,
         ?string $sessionLocale,
     ): void {
+        // Organization
+        $this->setTenant(Organization::factory()->create([
+            'locale' => $tenantLocale ?: null,
+        ]));
+
+        // User
         if ($userLocale) {
             $this->setUser(User::factory()->create([
                 'locale' => $userLocale,
             ]));
         }
-        $currentTenant = $this->app->make(CurrentTenant::class)->get();
 
-        if ($tenantLocale) {
-            Organization::factory()->create([
-                'locale' => $tenantLocale,
-            ]);
-            $currentTenant->locale = $tenantLocale;
-            $currentTenant->save();
-        } else {
-            $currentTenant->locale = null;
-            $currentTenant->save();
-        }
-
+        // Session
         if ($sessionLocale) {
             $this->app->make(Session::class)->put('locale', $sessionLocale);
         }
 
+        // Default
         $this->app->setLocale('en_BB');
 
+        // Check
         $this->assertEquals($expected, $this->app->make(LocaleService::class)->get());
     }
     // </editor-fold>

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Directives;
+namespace App\GraphQL\Directives\Directives;
 
 use App\Models\User;
 use Closure;
@@ -16,14 +16,27 @@ use function addslashes;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\RootDirective
+ * @coversDefaultClass \App\GraphQL\Directives\Directives\Root
  */
-class RootDirectiveTest extends TestCase {
+class RootTest extends TestCase {
     use WithGraphQLSchema;
     use WithTenant;
 
     // <editor-fold desc="Tests">
     // =========================================================================
+    /**
+     * @covers ::manipulateTypeExtension
+     * @covers ::manipulateTypeDefinition
+     * @covers ::manipulateFieldDefinition
+     * @covers ::addRequirements
+     */
+    public function testDirective(): void {
+        $expected = $this->getTestData()->content('~expected.graphql');
+        $actual   = $this->getGraphQLSchema($this->getTestData()->content('~schema.graphql'));
+
+        $this->assertEquals($expected, $actual);
+    }
+
     /**
      * @covers ::resolveField
      * @covers ::isRoot
@@ -40,8 +53,8 @@ class RootDirectiveTest extends TestCase {
         $resolver = addslashes(RootDirectiveTest_Resolver::class);
 
         $this
-            ->graphQLSchema(
-            /** @lang GraphQL */
+            ->useGraphQLSchema(
+                /** @lang GraphQL */
                 <<<GRAPHQL
                 type Query {
                     value: String! @root @field(resolver: "{$resolver}")
@@ -49,7 +62,7 @@ class RootDirectiveTest extends TestCase {
                 GRAPHQL,
             )
             ->graphQL(
-            /** @lang GraphQL */
+                /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query {
                     value
@@ -106,7 +119,6 @@ class RootDirectiveTest extends TestCase {
     }
     // </editor-fold>
 }
-
 
 // @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
 // @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps

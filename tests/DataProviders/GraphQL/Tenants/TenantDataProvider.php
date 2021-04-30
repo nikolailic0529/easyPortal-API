@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Tests\DataProviders;
+namespace Tests\DataProviders\GraphQL\Tenants;
 
 use App\Models\Organization;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\NotFound;
@@ -21,9 +21,7 @@ class TenantDataProvider extends ArrayDataProvider {
             'tenant'    => [
                 new Unknown(),
                 static function (TestCase $test): ?Organization {
-                    return Organization::factory()->create([
-                        'subdomain' => $test->faker()->word,
-                    ]);
+                    return Organization::factory()->create();
                 },
             ],
         ]);
