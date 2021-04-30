@@ -1,0 +1,4 @@
+input ResellerConnectedQuery {
+  id: ID!
+  name: String!
+}

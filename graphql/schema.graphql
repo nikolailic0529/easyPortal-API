@@ -93,6 +93,12 @@ type Query {
 
   "Client data"
   client: Client @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+
+  "Get all resellers"
+  organizations(
+    where: ResellerConnectedQuery @searchBy
+    order: ResellerConnectedSort @sortBy
+  ): [ResellerConnected!]! @all(model: "App\\Models\\Reseller") @root
 }
 
 type Mutation {

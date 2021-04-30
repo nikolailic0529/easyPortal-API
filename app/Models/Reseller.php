@@ -6,6 +6,7 @@ use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasLocations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Reseller.
@@ -55,5 +56,9 @@ class Reseller extends Model {
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->withTimestamps();
+    }
+
+    public function organization(): HasOne {
+        return $this->hasOne(Organization::class, (new Organization())->getKeyName());
     }
 }
