@@ -76,10 +76,12 @@ class Customer extends Model {
     }
 
     public function headquarter(): MorphOne {
-        $headquarterTypeId = app()->make(Repository::class)->get('ep.headquarter_type');
-        return $this->morphOne(Location::class, 'object')
-            ->whereHas('types', static function ($query) use ($headquarterTypeId) {
-                return $query->whereKey($headquarterTypeId);
+        $type = app()->make(Repository::class)->get('ep.headquarter_type');
+
+        return $this
+            ->morphOne(Location::class, 'object')
+            ->whereHas('types', static function ($query) use ($type) {
+                return $query->whereKey($type);
             });
     }
 }
