@@ -10,6 +10,9 @@ class SchemaWrapper extends JsonSchemaWrapper {
     protected string $response;
     protected string $root;
 
+    /**
+     * @param class-string<\Tests\GraphQL\GraphQLResponse> $response
+     */
     public function __construct(string $response, string $root, string $schema = null, ISchemaLoader $loader = null) {
         $this->response = $response;
         $this->root     = $root;
