@@ -6,10 +6,13 @@ use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasLocations;
 use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
+use App\Models\Concerns\Tenants\OwnedByTenant;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 
 use function app;
@@ -18,21 +21,22 @@ use function count;
 /**
  * Customer.
  *
- * @property string                                                           $id
- * @property string                                                           $type_id
- * @property string                                                           $status_id
- * @property string                                                           $name
- * @property int                                                              $locations_count
- * @property int                                                              $assets_count
- * @property \Carbon\CarbonImmutable                                          $created_at
- * @property \Carbon\CarbonImmutable                                          $updated_at
- * @property \Carbon\CarbonImmutable|null                                     $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset> $assets
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>    $contacts
- * @property int                                                              $contacts_count
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>   $locations
- * @property \App\Models\Status                                               $status
- * @property \App\Models\Type                                                 $type
+ * @property string                                                              $id
+ * @property string                                                              $type_id
+ * @property string                                                              $status_id
+ * @property string                                                              $name
+ * @property int                                                                 $locations_count
+ * @property int                                                                 $assets_count
+ * @property \Carbon\CarbonImmutable                                             $created_at
+ * @property \Carbon\CarbonImmutable                                             $updated_at
+ * @property \Carbon\CarbonImmutable|null                                        $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
+ * @property int                                                                 $contacts_count
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>      $locations
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller> $resellers
+ * @property \App\Models\Status                                                  $status
+ * @property \App\Models\Type                                                    $type
  * @method static \Database\Factories\CustomerFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newQuery()
@@ -50,6 +54,7 @@ use function count;
  * @mixin \Eloquent
  */
 class Customer extends Model {
+    use OwnedByTenant;
     use HasFactory;
     use HasType;
     use HasStatus;
@@ -84,4 +89,25 @@ class Customer extends Model {
                 return $query->whereKey($type);
             });
     }
+
+    public function resellers(): BelongsToMany {
+        $pivot = new ResellerCustomer();
+
+        return $this
+            ->belongsToMany(Reseller::class, $pivot->getTable())
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
+    }
+
+    // <editor-fold desc="OwnedByTenant">
+    // =========================================================================
+    public function getQualifiedTenantColumn(): string {
+        return $this->getTenantThrough()->getQualifiedRelatedPivotKeyName();
+    }
+
+    public function getTenantThrough(): ?BelongsToMany {
+        return $this->resellers();
+    }
+    //</editor-fold>
 }

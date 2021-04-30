@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\BelongsToTenant;
-use App\Models\Contracts\BelongsToTenant as BelongsToTenantContract;
 use App\Services\Tenant\Tenantable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
@@ -59,14 +57,12 @@ use LogicException;
 class User extends Model implements
     AuthenticatableContract,
     AuthorizableContract,
-    BelongsToTenantContract,
     HasLocalePreference,
     Tenantable {
     use HasFactory;
     use Authenticatable;
     use Authorizable;
     use MustVerifyEmail;
-    use BelongsToTenant;
 
     protected const CASTS = [
         'permissions'    => 'array',

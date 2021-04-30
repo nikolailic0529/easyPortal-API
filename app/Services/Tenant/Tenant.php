@@ -32,6 +32,10 @@ class Tenant implements HasLocalePreference {
         return $this->get()->getKey();
     }
 
+    public function isRoot(): bool {
+        return $this->get()->isRoot();
+    }
+
     public function preferredLocale(): ?string {
         return $this->get()->preferredLocale();
     }
