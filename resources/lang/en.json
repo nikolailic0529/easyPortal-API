@@ -144,5 +144,6 @@
     "settings.errors.failed_to_load_env": "Impossible to load env file: :file. Corrupted?",
     "export.errors.graphql_query_invalid": "GraphQL query is invalid.",
     "tenant.errors.unknown_tenant": "Organization is unknown.",
-    "validation.currencyId": "Unknown currency"
+    "validation.currencyId": "Unknown currency",
+    "validation.organizationId": "Unknown organization"
 }
