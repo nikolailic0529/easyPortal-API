@@ -19,7 +19,6 @@ use Tests\TestCase;
 use function __;
 use function array_key_exists;
 use function is_null;
-use function json_encode;
 
 /**
  * @internal
@@ -152,6 +151,20 @@ class UpdateOrganizationTest extends TestCase {
                         ];
                     },
                 ],
+                'invalid request/deleted currency' => [
+                    new GraphQLError('updateOrganization', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    static function (): array {
+                        $currency = Currency::factory()->create([
+                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        ]);
+                        $currency->delete();
+                        return [
+                            'currency_id' => $currency->id,
+                        ];
+                    },
+                ],
                 'invalid request/Invalid format'   => [
                     new GraphQLError('updateOrganization', static function (): array {
                         return [__('errors.validation_failed')];
@@ -204,13 +217,15 @@ class UpdateOrganizationTest extends TestCase {
                     },
                 ],
                 'nullable branding'                => [
-                    new GraphQLSuccess('organization', Organization::class, json_encode(true)),
+                    new GraphQLSuccess('updateOrganization', UpdateOrganization::class, [
+                        'result' => true,
+                    ]),
                     static function (): array {
                         $currency = Currency::factory()->create();
                         return [
                             'locale'                   => 'en',
                             'currency_id'              => $currency->id,
-                            'branding_dark_theme'      => null,
+                            'branding_dark_theme'      => false,
                             'branding_primary_color'   => null,
                             'branding_secondary_color' => null,
                             'website_url'              => 'https://www.example.com',
