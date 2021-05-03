@@ -99,6 +99,9 @@ type Query {
     where: ResellerConnectedQuery @searchBy
     order: ResellerConnectedSort @sortBy
   ): [ResellerConnected!]! @all(model: "App\\Models\\Reseller") @root
+
+  "List of all languages"
+  languages: [Language!]! @all @orderBy(column: "code")
 }
 
 type Mutation {

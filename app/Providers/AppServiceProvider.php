@@ -10,6 +10,7 @@ use App\Models\Country;
 use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\Document;
+use App\Models\Language;
 use App\Models\Location;
 use App\Models\Organization;
 use App\Models\Reseller;
@@ -87,6 +88,7 @@ class AppServiceProvider extends ServiceProvider {
             'country'      => Country::class,
             'city'         => City::class,
             'currency'     => Currency::class,
+            'language'     => Language::class,
         ]);
     }
 }
