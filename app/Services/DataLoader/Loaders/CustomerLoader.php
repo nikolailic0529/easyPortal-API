@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Loaders;
 
+use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Customer;
 use App\Models\Model;
 use App\Services\DataLoader\Client\Client;
@@ -16,10 +17,13 @@ use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\Concerns\WithAssets;
 use App\Services\DataLoader\Loaders\Concerns\WithContacts;
 use App\Services\DataLoader\Loaders\Concerns\WithLocations;
+use App\Services\DataLoader\Schema\Company;
+use App\Services\Tenant\Eloquent\OwnedByTenantScope;
 use Illuminate\Database\Eloquent\Builder;
 use Psr\Log\LoggerInterface;
 
 class CustomerLoader extends Loader {
+    use GlobalScopes;
     use WithLocations;
     use WithContacts;
     use WithAssets;
@@ -41,7 +45,17 @@ class CustomerLoader extends Loader {
     // =========================================================================
     public function load(string $id): bool {
         // Load company
-        $company  = $this->client->getCompanyById($id);
+        $company = $this->client->getCompanyById($id);
+
+        $this->callWithoutGlobalScopes([OwnedByTenantScope::class], function () use ($id, $company): void {
+            $this->process($id, $company);
+        });
+
+        // Return
+        return (bool) $company;
+    }
+
+    protected function process(string $id, ?Company $company): void {
         $customer = null;
 
         try {
@@ -66,9 +80,6 @@ class CustomerLoader extends Loader {
                 $this->updateCustomerCountable($customer);
             }
         }
-
-        // Return
-        return (bool) $company;
     }
     // </editor-fold>
 
