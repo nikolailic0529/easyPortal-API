@@ -17,7 +17,6 @@ use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
-use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
@@ -26,12 +25,14 @@ use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
+use Tests\WithoutTenantScope;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Factories\DocumentFactory
  */
 class DocumentFactoryTest extends TestCase {
+    use WithoutTenantScope;
     use WithQueryLog;
     use Helper;
 

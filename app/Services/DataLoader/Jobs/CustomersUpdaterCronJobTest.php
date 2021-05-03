@@ -6,12 +6,15 @@ use App\Models\Customer;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
+use Tests\WithoutTenantScope;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Jobs\CustomersUpdaterCronJob
  */
 class CustomersUpdaterCronJobTest extends TestCase {
+    use WithoutTenantScope;
+
     /**
      * @coversNothing
      */
