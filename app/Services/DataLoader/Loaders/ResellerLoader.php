@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Loaders;
 
+use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Model;
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
@@ -15,10 +16,13 @@ use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\Concerns\WithAssets;
 use App\Services\DataLoader\Loaders\Concerns\WithLocations;
+use App\Services\DataLoader\Schema\Company;
+use App\Services\Tenant\Eloquent\OwnedByTenantScope;
 use Illuminate\Database\Eloquent\Builder;
 use Psr\Log\LoggerInterface;
 
 class ResellerLoader extends Loader {
+    use GlobalScopes;
     use WithLocations;
     use WithAssets;
 
@@ -39,7 +43,17 @@ class ResellerLoader extends Loader {
     // =========================================================================
     public function load(string $id): bool {
         // Load company
-        $company  = $this->client->getCompanyById($id);
+        $company = $this->client->getCompanyById($id);
+
+        $this->callWithoutGlobalScopes([OwnedByTenantScope::class], function () use ($id, $company): void {
+            $this->process($id, $company);
+        });
+
+        // Return
+        return true;
+    }
+
+    protected function process(string $id, ?Company $company): void {
         $reseller = null;
 
         try {
@@ -64,9 +78,6 @@ class ResellerLoader extends Loader {
                 $this->updateResellerCountable($reseller);
             }
         }
-
-        // Return
-        return true;
     }
     // </editor-fold>
 

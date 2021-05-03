@@ -1,13 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace App\Models\Concerns\Tenants;
+namespace App\Services\Tenant\Eloquent;
 
+use App\Models\Concerns\GlobalScopes\DisableableScope;
 use App\Services\Tenant\Tenant;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Scope;
 
-class OwnedByTenantScope implements Scope {
+class OwnedByTenantScope extends DisableableScope {
     public function __construct(
         protected Tenant $tenant,
     ) {
@@ -15,9 +15,9 @@ class OwnedByTenantScope implements Scope {
     }
 
     /**
-     * @param \App\Models\Model&\App\Models\Concerns\Tenants\OwnedByTenant $model
+     * @param \App\Models\Model&\App\Services\Tenant\Eloquent\OwnedByTenant $model
      */
-    public function apply(Builder $builder, Model $model): void {
+    protected function handle(Builder $builder, Model $model): void {
         // Root organization can view all data
         if ($this->tenant->isRoot()) {
             return;

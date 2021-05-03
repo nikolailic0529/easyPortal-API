@@ -1,8 +1,7 @@
 <?php declare(strict_types = 1);
 
-namespace App\Models\Concerns\Tenants;
+namespace App\Services\Tenant\Eloquent;
 
-use App\Services\Tenant\Tenant;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 use function app;
@@ -12,7 +11,7 @@ use function app;
  */
 trait OwnedByTenant {
     public static function bootOwnedByTenant(): void {
-        static::addGlobalScope(new OwnedByTenantScope(app()->make(Tenant::class)));
+        static::addGlobalScope(app()->make(OwnedByTenantScope::class));
     }
 
     public function getQualifiedTenantColumn(): string {

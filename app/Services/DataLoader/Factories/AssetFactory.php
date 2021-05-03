@@ -33,6 +33,7 @@ use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Type;
 use Closure;
+use Exception;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
@@ -200,16 +201,29 @@ class AssetFactory extends ModelFactory {
         $assetDocuments = new SplObjectStorage();
 
         foreach ($asset->assetDocument as $assetDocument) {
-            $document = $this->assetDocument($model, $assetDocument);
-            $entry    = $this->assetDocumentEntry($document, $assetDocument);
+            $document = null;
+            $entry    = null;
 
-            if ($documents->contains($document)) {
-                $documents[$document]->add($entry);
-            } else {
-                $documents[$document] = new Collection([$entry]);
+            try {
+                $document = $this->assetDocument($model, $assetDocument);
+                $entry    = $this->assetDocumentEntry($document, $assetDocument);
+            } catch (Exception $exception) {
+                $this->logger->warning('Failed to load asset document.', [
+                    'asset'     => $model->getKey(),
+                    'document'  => $assetDocument,
+                    'exception' => $exception,
+                ]);
             }
 
-            $assetDocuments[$document] = $assetDocument;
+            if ($document && $entry) {
+                if ($documents->contains($document)) {
+                    $documents[$document]->add($entry);
+                } else {
+                    $documents[$document] = new Collection([$entry]);
+                }
+
+                $assetDocuments[$document] = $assetDocument;
+            }
         }
 
         // Update Documents entries
@@ -268,59 +282,63 @@ class AssetFactory extends ModelFactory {
     protected function assetDocument(AssetModel $asset, AssetDocument $assetDocument): Document {
         $document = null;
 
-        if ($this->documentFactory) {
-            if (isset($assetDocument->document)) {
+        if (isset($assetDocument->document)) {
+            if ($this->documentFactory) {
                 $document = $this->documentFactory->create($assetDocument);
             } else {
-                // This is temporary fix for https://thefas.atlassian.net/browse/EAP-60
-                $created  = false;
-                $factory  = $this->factory(
-                    function (DocumentModel $model) use (&$created, $asset, $assetDocument): DocumentModel {
-                        $created         = !$model->exists;
-                        $model->id       = $this->normalizer->string($assetDocument->documentNumber);
-                        $model->oem      = $asset->oem;
-                        $model->type     = $this->type(new DocumentModel(), '??');
-                        $model->product  = $this->product(
-                            $asset->oem,
-                            ProductType::support(),
-                            $assetDocument->supportPackage,
-                            $assetDocument->supportPackageDescription,
-                            null,
-                            null,
-                        );
-                        $model->reseller = $asset->reseller;
-                        $model->customer = $asset->customer;
-                        $model->currency = $this->currencies->create($assetDocument);
-                        $model->price    = $this->normalizer->number('0.00');
-                        $model->number   = $this->normalizer->string($assetDocument->documentNumber);
-
-                        if ($created) {
-                            // These dates are not consistent and create a lot of:
-                            // - UPDATE `documents` SET `start` = '2020-10-22 00:00:00', `end` = '2022-12-31 00:00:00'
-                            // - UPDATE `documents` SET `start` = '2019-07-01 00:00:00', `end` = '2020-10-21 00:00:00'
-                            // - UPDATE `documents` SET `start` = '2020-10-22 00:00:00', `end` = '2022-12-31 00:00:00'
-                            //
-                            // For this reason we will not update it at all.
-                            $model->start = $this->normalizer->datetime($assetDocument->startDate);
-                            $model->end   = $this->normalizer->datetime($assetDocument->endDate);
-                        }
-
-                        $model->save();
-
-                        return $model;
-                    },
-                );
                 $document = $this->documentResolver->get(
-                    $assetDocument->documentNumber,
-                    static function () use ($factory): DocumentModel {
-                        return $factory(new DocumentModel());
-                    },
+                    $assetDocument->document->id,
                 );
+            }
+        } else {
+            // This is temporary fix for https://thefas.atlassian.net/browse/EAP-60
+            $created  = false;
+            $factory  = $this->factory(
+                function (DocumentModel $model) use (&$created, $asset, $assetDocument): DocumentModel {
+                    $created         = !$model->exists;
+                    $model->id       = $this->normalizer->string($assetDocument->documentNumber);
+                    $model->oem      = $asset->oem;
+                    $model->type     = $this->type(new DocumentModel(), '??');
+                    $model->product  = $this->product(
+                        $asset->oem,
+                        ProductType::support(),
+                        $assetDocument->supportPackage,
+                        $assetDocument->supportPackageDescription,
+                        null,
+                        null,
+                    );
+                    $model->reseller = $asset->reseller;
+                    $model->customer = $asset->customer;
+                    $model->currency = $this->currencies->create($assetDocument);
+                    $model->price    = $this->normalizer->number('0.00');
+                    $model->number   = $this->normalizer->string($assetDocument->documentNumber);
 
-                // Update
-                if (!$created && !$this->isSearchMode()) {
-                    $factory($document);
-                }
+                    if ($created) {
+                        // These dates are not consistent and create a lot of:
+                        // - UPDATE `documents` SET `start` = '2020-10-22 00:00:00', `end` = '2022-12-31 00:00:00'
+                        // - UPDATE `documents` SET `start` = '2019-07-01 00:00:00', `end` = '2020-10-21 00:00:00'
+                        // - UPDATE `documents` SET `start` = '2020-10-22 00:00:00', `end` = '2022-12-31 00:00:00'
+                        //
+                        // For this reason we will not update it at all.
+                        $model->start = $this->normalizer->datetime($assetDocument->startDate);
+                        $model->end   = $this->normalizer->datetime($assetDocument->endDate);
+                    }
+
+                    $model->save();
+
+                    return $model;
+                },
+            );
+            $document = $this->documentResolver->get(
+                $assetDocument->documentNumber,
+                static function () use ($factory): DocumentModel {
+                    return $factory(new DocumentModel());
+                },
+            );
+
+            // Update
+            if ($document && !$created && !$this->isSearchMode()) {
+                $factory($document);
             }
         }
 
