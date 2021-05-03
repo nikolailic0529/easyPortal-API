@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                                                         $name
  * @property string|null                                                    $locale
  * @property string|null                                                    $currency_id
- * @property bool                                                           $branding_dark_theme
+ * @property bool|null                                                      $branding_dark_theme
  * @property string|null                                                    $branding_primary_color
  * @property string|null                                                    $branding_secondary_color
  * @property string|null                                                    $branding_logo

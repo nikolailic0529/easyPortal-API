@@ -18,6 +18,7 @@ use Tests\TestCase;
 
 use function __;
 use function array_key_exists;
+use function is_null;
 use function json_encode;
 
 /**
@@ -49,13 +50,13 @@ class OrganizationTest extends TestCase {
         if ($dataFactory) {
             $data = $dataFactory($this);
 
-            if (array_key_exists('branding_logo', $data)) {
+            if (array_key_exists('branding_logo', $data) && !is_null($data['branding_logo'])) {
                 $map['0']              = ['variables.branding_logo'];
                 $file['0']             = $data['branding_logo'];
                 $data['branding_logo'] = null;
             }
 
-            if (array_key_exists('branding_favicon', $data)) {
+            if (array_key_exists('branding_favicon', $data) && !is_null($data['branding_favicon'])) {
                 $map['1']                 = ['variables.branding_favicon'];
                 $file['1']                = $data['branding_favicon'];
                 $data['branding_favicon'] = null;
@@ -104,8 +105,6 @@ class OrganizationTest extends TestCase {
             $this->assertEquals($data['branding_secondary_color'], $tenant->branding_secondary_color);
             $this->assertEquals($data['website_url'], $tenant->website_url);
             $this->assertEquals($data['email'], $tenant->email);
-            $this->assertNotNull($tenant->branding_logo);
-            $this->assertNotNull($tenant->branding_favicon);
             Storage::disk('local')->assertExists($tenant->branding_logo);
             Storage::disk('local')->assertExists($tenant->branding_favicon);
         }
@@ -217,6 +216,23 @@ class OrganizationTest extends TestCase {
                     static function (TestCase $test): array {
                         return [
                             'email' => 'wrong mail',
+                        ];
+                    },
+                ],
+                'nullable branding'                => [
+                    new GraphQLSuccess('organization', Organization::class, json_encode(true)),
+                    static function (): array {
+                        $currency = Currency::factory()->create();
+                        return [
+                            'locale'                   => 'en',
+                            'currency_id'              => $currency->id,
+                            'branding_dark_theme'      => null,
+                            'branding_primary_color'   => null,
+                            'branding_secondary_color' => null,
+                            'website_url'              => 'https://www.example.com',
+                            'email'                    => 'test@example.com',
+                            'branding_logo'            => null,
+                            'branding_favicon'         => null,
                         ];
                     },
                 ],

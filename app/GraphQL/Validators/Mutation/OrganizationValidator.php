@@ -25,11 +25,11 @@ class OrganizationValidator extends Validator {
         $mimeTypes       = implode(',', $formats);
 
         return [
-            'locale'                   => [ new Locale() ],
+            'locale'                   => [new Locale() ],
             'currency_id'              => ["exists:{$currenciesTable},id"],
-            'branding_dark_theme'      => ['boolean'],
-            'branding_primary_color'   => ['regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
-            'branding_secondary_color' => ['regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
+            'branding_dark_theme'      => ['nullable', 'boolean'],
+            'branding_primary_color'   => ['nullable', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
+            'branding_secondary_color' => ['nullable', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
             'website_url'              => ['url'],
             'email'                    => ['email'],
             'branding_logo'            => [

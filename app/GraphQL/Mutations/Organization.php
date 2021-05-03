@@ -6,6 +6,7 @@ use App\Services\Tenant\Tenant;
 use Illuminate\Contracts\Filesystem\Factory;
 
 use function array_key_exists;
+use function is_null;
 
 class Organization {
     public function __construct(
@@ -55,8 +56,12 @@ class Organization {
                 $this->storage->disk('local')->delete($organization->branding_logo);
             }
 
-            $file                        = $args['branding_logo'];
-            $organization->branding_logo = $file->storePublicly('uploads');
+            $file = $args['branding_logo'];
+            if (is_null($file)) {
+                $organization->branding_logo = $file;
+            } else {
+                $organization->branding_logo = $file->storePublicly('uploads');
+            }
         }
 
         if (array_key_exists('branding_favicon', $args)) {
@@ -64,8 +69,12 @@ class Organization {
                 $this->storage->disk('local')->delete($organization->branding_favicon);
             }
 
-            $file                           = $args['branding_favicon'];
-            $organization->branding_favicon = $file->storePublicly('uploads');
+            $file = $args['branding_favicon'];
+            if (is_null($file)) {
+                $organization->branding_favicon = $file;
+            } else {
+                $organization->branding_favicon = $file->storePublicly('uploads');
+            }
         }
 
         $organization->save();
