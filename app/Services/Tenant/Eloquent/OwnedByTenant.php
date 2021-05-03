@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Models\Concerns\Tenants;
+namespace App\Services\Tenant\Eloquent;
 
 use App\Services\Tenant\Tenant;
 use Illuminate\Database\Eloquent\Relations\Relation;

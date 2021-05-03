@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Models\Concerns\Tenants;
+namespace App\Services\Tenant\Eloquent;
 
 use App\Services\Tenant\Tenant;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,7 +15,7 @@ class OwnedByTenantScope implements Scope {
     }
 
     /**
-     * @param \App\Models\Model&\App\Models\Concerns\Tenants\OwnedByTenant $model
+     * @param \App\Models\Model&\App\Services\Tenant\Eloquent\OwnedByTenant $model
      */
     public function apply(Builder $builder, Model $model): void {
         // Root organization can view all data
