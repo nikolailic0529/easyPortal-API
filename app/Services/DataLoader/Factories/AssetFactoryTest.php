@@ -683,9 +683,17 @@ class AssetFactoryTest extends TestCase {
         $document = AssetDocument::create([
             'documentNumber' => '2182cd66-321f-47ac-8992-e295c018b8a4',
         ]);
-        $factory  = new class() extends AssetFactory {
+        $resolver = Mockery::mock(DocumentResolver::class);
+        $resolver
+            ->shouldReceive('get')
+            ->once()
+            ->andReturn(null);
+
+        $factory = new class($resolver) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
+            public function __construct(
+                protected DocumentResolver $documentResolver,
+            ) {
                 // empty
             }
 
