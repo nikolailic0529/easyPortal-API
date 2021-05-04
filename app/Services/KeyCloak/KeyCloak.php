@@ -12,12 +12,16 @@ use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Str;
+use League\OAuth2\Client\Token\AccessToken;
+use League\OAuth2\Client\Token\AccessTokenInterface;
 
 class KeyCloak {
     protected const STATE = 'keycloak.state';
+    protected const TOKEN = 'keycloak.token';
 
     protected Provider $provider;
 
@@ -26,6 +30,7 @@ class KeyCloak {
         protected Session $session,
         protected AuthManager $auth,
         protected UrlGenerator $url,
+        protected ExceptionHandler $handler,
     ) {
         // empty
     }
@@ -65,7 +70,9 @@ class KeyCloak {
                 UserProvider::ACCESS_TOKEN => $token->getToken(),
             ]);
 
-            if (!$result) {
+            if ($result) {
+                $this->saveToken($token);
+            } else {
                 throw new InvalidCredentials();
             }
         } catch (KeyCloakException $exception) {
@@ -78,10 +85,33 @@ class KeyCloak {
         return $this->auth->guard()->user();
     }
 
-    public function signOut(): string {
-        $this->auth->guard()->logout();
+    public function signOut(): ?string {
+        // First we try to sign out without redirect
+        $provider   = $this->getProvider();
+        $successful = false;
 
-        return $this->getProvider()->getSignOutUrl();
+        try {
+            $token = $this->getToken();
+
+            if ($token) {
+                $successful = $provider->signOut($token);
+            }
+        } catch (Exception $exception) {
+            $this->handler->report($exception);
+        }
+
+        // Next we destroy the active session
+        $this->auth->guard()->logout();
+        $this->forgetToken();
+
+        // And the last step - redirect if sign out failed.
+        $url = null;
+
+        if (!$successful) {
+            $url = $provider->getSignOutUrl();
+        }
+
+        return $url;
     }
     // </editor-fold>
 
@@ -127,6 +157,23 @@ class KeyCloak {
             'profile',
             "reseller_{$this->getOrganizationScope($organization)}",
         ];
+    }
+
+    protected function getToken(): ?AccessTokenInterface {
+        // TODO [KeyCloak] If token expired should we refresh it?
+        $token = $this->session->has(self::TOKEN)
+            ? new AccessToken($this->session->get(self::TOKEN))
+            : null;
+
+        return $token;
+    }
+
+    protected function saveToken(AccessTokenInterface $token): void {
+        $this->session->put(self::TOKEN, $token->jsonSerialize());
+    }
+
+    protected function forgetToken(): void {
+        $this->session->forget(self::TOKEN);
     }
     // </editor-fold>
 }
