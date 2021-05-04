@@ -175,6 +175,14 @@ interface Constants {
     #[Group('keycloak')]
     #[Type(Text::class)]
     public const EP_KEYCLOAK_ENCRYPTION_PUBLIC_KEY = '';
+
+    /**
+     * Leeway for JWT validation.
+     */
+    #[Setting('ep.keycloak.leeway')]
+    #[Group('keycloak')]
+    #[Type(Duration::class)]
+    public const EP_KEYCLOAK_LEEWAY = null;
     // </editor-fold>
 
     // <editor-fold desc="EP_SETTINGS">
