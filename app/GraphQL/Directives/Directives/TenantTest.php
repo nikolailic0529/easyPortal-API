@@ -53,12 +53,12 @@ class TenantTest extends TestCase {
             /** @lang GraphQL */
                 <<<GRAPHQL
                 type Query {
-                    value: String! @organization @field(resolver: "{$resolver}")
+                    value: String! @tenant @field(resolver: "{$resolver}")
                 }
                 GRAPHQL,
             )
             ->graphQL(
-            /** @lang GraphQL */
+                /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query {
                     value

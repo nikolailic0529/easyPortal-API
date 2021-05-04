@@ -12,7 +12,7 @@ abstract class Guest extends AuthDirective implements FieldMiddleware {
     public static function definition(): string {
         return /** @lang GraphQL */ <<<'GRAPHQL'
             """
-            Checks that current visitor is guest.
+            Current visitor must be a guest.
             """
             directive @guest(
                 """

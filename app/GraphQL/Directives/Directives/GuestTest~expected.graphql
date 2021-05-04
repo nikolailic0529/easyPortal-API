@@ -62,7 +62,7 @@ type PaginatorInfo {
 }
 
 type Query {
-  """@require <guest>"""
+  """@require <guest> Current visitor must be a guest."""
   value: String!
 }
 
@@ -78,15 +78,15 @@ enum SortOrder {
 """
 Description.
 
-@require <guest>
+@require <guest> Current visitor must be a guest.
 """
 type Test {
-  """@require <guest>"""
+  """@require <guest> Current visitor must be a guest."""
   one: String!
 
-  """@require <guest>"""
+  """@require <guest> Current visitor must be a guest."""
   two: String!
 
-  """@require <guest>"""
+  """@require <guest> Current visitor must be a guest."""
   extension: String!
 }

@@ -22,8 +22,7 @@ abstract class Tenant extends AuthDirective implements FieldMiddleware {
     public static function definition(): string {
         return /** @lang GraphQL */ <<<'GRAPHQL'
             """
-            Marks that organization required and the current user should be a
-            member of it.
+            Current user must be a member of the current organization.
             """
             directive @tenant on FIELD_DEFINITION | OBJECT
             GRAPHQL;
