@@ -12,6 +12,24 @@ SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABL
 ALTER TABLE `languages`
     ADD INDEX `idx__deleted_at`(`deleted_at` ASC) VISIBLE;
 
+ALTER TABLE `organizations`
+    DROP FOREIGN KEY `fk_organizations_currencies1`;
+
+ALTER TABLE `organizations`
+    CHANGE COLUMN `locale` `locale` VARCHAR(8) NULL DEFAULT NULL ,
+    ADD INDEX `fk_organizations_currencies1_idx` (`currency_id` ASC) VISIBLE,
+    DROP INDEX `fk_organizations_currencies1` ;
+
+ALTER TABLE `users`
+    CHANGE COLUMN `locale` `locale` VARCHAR(8) NULL DEFAULT NULL ;
+
+ALTER TABLE `organizations`
+    ADD CONSTRAINT `fk_organizations_currencies1`
+        FOREIGN KEY (`currency_id`)
+            REFERENCES `currencies` (`id`)
+            ON DELETE RESTRICT
+            ON UPDATE RESTRICT;
+
 
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
