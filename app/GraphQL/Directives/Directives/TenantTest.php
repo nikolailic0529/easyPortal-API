@@ -17,9 +17,9 @@ use function addslashes;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Organization
+ * @coversDefaultClass \App\GraphQL\Directives\Directives\Tenant
  */
-class OrganizationTest extends TestCase {
+class TenantTest extends TestCase {
     use WithGraphQLSchema;
     use WithTenant;
 

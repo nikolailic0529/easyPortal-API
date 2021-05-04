@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Directives\Definitions;
 
-use App\GraphQL\Directives\Directives\Organization;
+use App\GraphQL\Directives\Directives\Tenant;
 
-class OrganizationDirective extends Organization {
+class TenantDirective extends Tenant {
     // Lighthouse loads all files from the directives directory...
 }
