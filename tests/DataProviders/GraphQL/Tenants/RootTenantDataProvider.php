@@ -9,19 +9,19 @@ use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
 use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\TestCase;
 
-class TenantDataProvider extends ArrayDataProvider {
+class RootTenantDataProvider extends ArrayDataProvider {
     public function __construct(string $root, string $id = null) {
         parent::__construct([
-            'no tenant'     => [
+            'no tenant'   => [
                 new ExpectedFinal(new GraphQLUnauthenticated($root)),
                 static function (): ?Organization {
                     return null;
                 },
             ],
-            'normal tenant' => [
+            'root tenant' => [
                 new Unknown(),
                 static function (TestCase $test) use ($id): ?Organization {
-                    return Organization::factory()->create($id ? ['id' => $id] : []);
+                    return Organization::factory()->root()->create($id ? ['id' => $id] : []);
                 },
             ],
         ]);
