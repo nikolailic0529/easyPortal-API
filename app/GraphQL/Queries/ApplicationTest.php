@@ -6,6 +6,7 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Tests\DataProviders\GraphQL\Tenants\AnyTenantDataProvider;
 use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
 use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -48,7 +49,7 @@ class ApplicationTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider('application'),
+            new AnyTenantDataProvider('application'),
             new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [

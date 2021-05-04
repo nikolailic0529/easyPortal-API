@@ -8,6 +8,7 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Tests\DataProviders\GraphQL\Tenants\AnyTenantDataProvider;
 use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
@@ -96,7 +97,7 @@ class MeTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider('me'),
+            new AnyTenantDataProvider('me'),
             new ArrayDataProvider([
                 'guest is allowed'           => [
                     new GraphQLSuccess('me', null),
