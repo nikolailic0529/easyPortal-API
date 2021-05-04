@@ -21,10 +21,10 @@ type Query {
   customers (
     where: CustomersQuery @searchBy
     order: CustomersSort @sortBy
-  ): [Customer!]! @guard @paginate
+  ): [Customer!]! @tenant @guard @paginate
 
   "Customer with given ID"
-  customer (id: ID! @eq): Customer @guard @find
+  customer(id: ID! @eq): Customer @tenant @guard @find
 
   "List of all assets"
   assets(
