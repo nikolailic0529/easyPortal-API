@@ -37,6 +37,9 @@ ALTER TABLE `organizations`
 ALTER TABLE `contact_types`
     CHANGE COLUMN `id` `id` CHAR(45) NOT NULL;
 
+ALTER TABLE `contacts`
+    ALTER INDEX `unique__email__object_id__object_type__deleted_at` INVISIBLE;
+
 
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
