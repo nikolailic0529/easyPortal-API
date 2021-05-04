@@ -12,13 +12,13 @@ use Tests\TestCase;
 class TenantDataProvider extends ArrayDataProvider {
     public function __construct(string $root, string $id = null) {
         parent::__construct([
-            'no tenant'     => [
+            'no tenant is not allowed' => [
                 new ExpectedFinal(new GraphQLUnauthenticated($root)),
                 static function (): ?Organization {
                     return null;
                 },
             ],
-            'normal tenant' => [
+            'normal tenant is allowed' => [
                 new Unknown(),
                 static function (TestCase $test) use ($id): ?Organization {
                     return Organization::factory()->create($id ? ['id' => $id] : []);
