@@ -77,7 +77,7 @@ type Query {
   ): [Document!]! @guard @paginate @builder(method: "App\\GraphQL\\Builders\\QuotesBuilder")
 
   "Get quote by id"
-  quote(id: ID! @eq): Document @guard @find @builder(method: "App\\GraphQL\\Builders\\QuotesBuilder")
+  quote(id: ID! @eq): Document @tenant @guard @find @builder(method: "App\\GraphQL\\Builders\\QuotesBuilder")
 
   "Get current organization"
   organization: Organization
