@@ -143,12 +143,23 @@ interface Constants {
     public const EP_KEYCLOAK_CLIENT_SECRET = null;
 
     /**
-     * Redirect URI
+     * The URI (can be relative) where user should be redirected after Sign In.
      */
-    #[Setting('ep.keycloak.redirect_uri')]
+    #[Setting('ep.keycloak.redirects.signin_uri')]
     #[Group('keycloak')]
-    #[Type(Url::class)]
-    public const EP_KEYCLOAK_REDIRECT_URI = null;
+    #[Type(StringType::class)]
+    public const EP_KEYCLOAK_REDIRECTS_SIGNIN_URI = 'auth/organizations';
+
+    /**
+     * The URI (can be relative) where user should be redirected after Sign Out.
+     *
+     * Replacements:
+     * * `{organization}` - current organization id
+     */
+    #[Setting('ep.keycloak.redirects.signout_uri')]
+    #[Group('keycloak')]
+    #[Type(StringType::class)]
+    public const EP_KEYCLOAK_REDIRECTS_SIGNOUT_URI = 'auth/organizations/{organization}';
 
     /**
      * Encryption Algorithm.
@@ -164,6 +175,14 @@ interface Constants {
     #[Group('keycloak')]
     #[Type(Text::class)]
     public const EP_KEYCLOAK_ENCRYPTION_PUBLIC_KEY = '';
+
+    /**
+     * Leeway for JWT validation.
+     */
+    #[Setting('ep.keycloak.leeway')]
+    #[Group('keycloak')]
+    #[Type(Duration::class)]
+    public const EP_KEYCLOAK_LEEWAY = null;
     // </editor-fold>
 
     // <editor-fold desc="EP_SETTINGS">

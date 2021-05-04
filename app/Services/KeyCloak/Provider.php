@@ -9,6 +9,8 @@ use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 
+use function array_merge;
+use function http_build_query;
 use function ltrim;
 use function rtrim;
 
@@ -54,12 +56,36 @@ class Provider extends AbstractProvider {
      * @param array<mixed> $options
      */
     public function getSignOutUrl(array $options = []): string {
-        $base   = $this->getRealmUrl('protocol/openid-connect/logout');
+        $base   = $this->getBaseSignOutUrl();
         $params = $this->getAuthorizationParameters($options);
         $query  = $this->getAuthorizationQuery($params);
         $url    = $this->appendQuery($base, $query);
 
         return $url;
+    }
+
+    public function getBaseSignOutUrl(): string {
+        return $this->getRealmUrl('protocol/openid-connect/logout');
+    }
+
+    /**
+     * @param array<mixed> $options
+     */
+    public function signOut(AccessToken $token, array $options = []): bool {
+        $url      = $this->getBaseSignOutUrl();
+        $request  = $this->getAuthenticatedRequest(self::METHOD_POST, $url, $token, [
+            'headers' => [
+                'Content-Type' => 'application/x-www-form-urlencoded',
+            ],
+            'body'    => http_build_query(array_merge($options, [
+                'client_id'     => $this->clientId,
+                'client_secret' => $this->clientSecret,
+                'refresh_token' => $token->getRefreshToken(),
+            ])),
+        ]);
+        $response = $this->getParsedResponse($request);
+
+        return $response !== false;
     }
 
     /**

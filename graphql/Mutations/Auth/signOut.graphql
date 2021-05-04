@@ -7,5 +7,5 @@ extend type Mutation {
 
 type SignOutPayload {
   "The link where the User should be redirected to complete Sign Out."
-  url: String!    # TODO [GraphQL] URL type needed
+  url: String   # TODO [GraphQL] URL type needed
 }
