@@ -40,6 +40,16 @@ ALTER TABLE `contact_types`
 ALTER TABLE `contacts`
     ALTER INDEX `unique__email__object_id__object_type__deleted_at` INVISIBLE;
 
+ALTER TABLE `user_searches`
+    DROP FOREIGN KEY `fk_user_searches_users1`;
+
+ALTER TABLE `user_searches`
+    ADD CONSTRAINT `fk_user_searches_users1`
+        FOREIGN KEY (`user_id`)
+            REFERENCES `users`(`id`)
+            ON DELETE RESTRICT
+            ON UPDATE RESTRICT;
+
 
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
