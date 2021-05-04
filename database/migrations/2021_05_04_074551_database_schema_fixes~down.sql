@@ -34,6 +34,9 @@ ALTER TABLE `organizations`
     CHANGE COLUMN `branding_primary_color` `branding_primary_color`     CHAR(10) NULL DEFAULT NULL,
     CHANGE COLUMN `branding_secondary_color` `branding_secondary_color` CHAR(10) NULL DEFAULT NULL;
 
+ALTER TABLE `contact_types`
+    CHANGE COLUMN `id` `id` CHAR(45) NOT NULL;
+
 
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
