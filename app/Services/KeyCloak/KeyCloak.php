@@ -8,6 +8,7 @@ use App\Services\KeyCloak\Exceptions\InvalidCredentials;
 use App\Services\KeyCloak\Exceptions\InvalidIdentity;
 use App\Services\KeyCloak\Exceptions\KeyCloakException;
 use App\Services\KeyCloak\Exceptions\StateMismatch;
+use App\Services\Tenant\Tenant;
 use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -19,6 +20,8 @@ use Illuminate\Support\Str;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Token\AccessTokenInterface;
 
+use function strtr;
+
 class KeyCloak {
     protected const STATE = 'keycloak.state';
     protected const TOKEN = 'keycloak.token';
@@ -29,6 +32,7 @@ class KeyCloak {
         protected Repository $config,
         protected Session $session,
         protected AuthManager $auth,
+        protected Tenant $tenant,
         protected UrlGenerator $url,
         protected ExceptionHandler $handler,
     ) {
@@ -108,7 +112,12 @@ class KeyCloak {
         $url = null;
 
         if (!$successful) {
-            $url = $provider->getSignOutUrl();
+            $url = $provider->getSignOutUrl([
+                'redirect_uri' => $this->getRedirectUri(
+                    $this->config->get('ep.keycloak.redirects.signout_uri'),
+                    $this->tenant->get(),
+                ),
+            ]);
         }
 
         return $url;
@@ -139,7 +148,7 @@ class KeyCloak {
                 'realm'        => $this->config->get('ep.keycloak.realm'),
                 'clientId'     => $this->config->get('ep.keycloak.client_id'),
                 'clientSecret' => $this->config->get('ep.keycloak.client_secret'),
-                'redirectUri'  => $this->url->to($this->config->get('ep.keycloak.redirect_uri')),
+                'redirectUri'  => $this->getRedirectUri($this->config->get('ep.keycloak.redirects.signin_uri')),
             ]);
         }
 
@@ -157,6 +166,16 @@ class KeyCloak {
             'profile',
             "reseller_{$this->getOrganizationScope($organization)}",
         ];
+    }
+
+    protected function getRedirectUri(string $uri, Organization $organization = null): string {
+        if ($organization) {
+            $uri = strtr($uri, [
+                '{organization}' => $organization->getKey(),
+            ]);
+        }
+
+        return $this->url->to($uri);
     }
 
     protected function getToken(): ?AccessTokenInterface {
