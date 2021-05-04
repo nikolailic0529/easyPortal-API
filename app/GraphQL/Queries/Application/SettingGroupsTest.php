@@ -87,7 +87,7 @@ class SettingGroupsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('application'),
             new RootUserDataProvider('application'),
             new ArrayDataProvider([
                 'ok' => [

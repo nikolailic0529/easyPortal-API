@@ -7,8 +7,8 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\AnyDataProvider;
-use Tests\DataProviders\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -55,8 +55,8 @@ class LanguagesTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
-            new AnyDataProvider(),
+            new TenantDataProvider('languages'),
+            new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('languages', self::class, [

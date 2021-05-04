@@ -66,7 +66,7 @@ class RecoverApplicationSettingsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('recoverApplicationSettings'),
             new RootUserDataProvider('recoverApplicationSettings'),
             new ArrayDataProvider([
                 'ok' => [

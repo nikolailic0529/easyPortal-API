@@ -76,7 +76,7 @@ class CreateMeSearchTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('createMeSearch'),
             new UserDataProvider('createMeSearch'),
             new ArrayDataProvider([
                 'ok' => [

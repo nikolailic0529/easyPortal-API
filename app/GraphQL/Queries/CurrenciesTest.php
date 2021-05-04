@@ -59,7 +59,7 @@ class CurrenciesTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('currencies'),
             new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [

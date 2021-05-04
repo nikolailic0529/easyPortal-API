@@ -53,7 +53,7 @@ class TranslationsTest extends TestCase {
      */
     public function dataProviderInvokeQuery(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('application'),
             new RootUserDataProvider('application'),
             new ArrayDataProvider([
                 'ok' => [

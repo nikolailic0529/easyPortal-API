@@ -195,7 +195,7 @@ class AssetTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('asset'),
             new UserDataProvider('asset'),
             new ArrayDataProvider([
                 'ok' => [

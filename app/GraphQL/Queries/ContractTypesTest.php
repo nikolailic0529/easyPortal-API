@@ -65,7 +65,7 @@ class ContractTypesTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('contractTypes'),
             new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok/from contract types'         => [

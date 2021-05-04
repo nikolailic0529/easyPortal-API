@@ -893,7 +893,7 @@ class CustomerTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('customer'),
             new UserDataProvider('customer'),
             new ArrayDataProvider([
                 'ok' => [

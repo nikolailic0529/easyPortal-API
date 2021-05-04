@@ -60,7 +60,7 @@ class SignOutTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('signOut'),
             new UserDataProvider('signOut'),
             new ArrayDataProvider([
                 'ok' => [

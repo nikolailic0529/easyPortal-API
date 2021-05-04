@@ -102,7 +102,7 @@ class DeleteApplicationTranslationsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('deleteApplicationTranslations'),
             new RootUserDataProvider('deleteApplicationTranslations'),
             new ArrayDataProvider([
                 'ok' => [

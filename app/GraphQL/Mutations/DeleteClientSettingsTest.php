@@ -89,7 +89,7 @@ class DeleteClientSettingsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('deleteClientSettings'),
             new RootUserDataProvider('deleteClientSettings'),
             new ArrayDataProvider([
                 'ok' => [

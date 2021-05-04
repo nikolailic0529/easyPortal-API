@@ -53,7 +53,7 @@ class LocaleTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('locale'),
             new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [

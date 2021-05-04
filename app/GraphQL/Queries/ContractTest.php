@@ -162,7 +162,7 @@ class ContractTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('contract'),
             new UserDataProvider('contract'),
             new ArrayDataProvider([
                 'ok' => [

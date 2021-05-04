@@ -73,7 +73,7 @@ class TranslationsTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('client'),
             new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [

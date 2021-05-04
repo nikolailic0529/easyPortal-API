@@ -60,7 +60,7 @@ class ContactTypesTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('contactTypes'),
             new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [

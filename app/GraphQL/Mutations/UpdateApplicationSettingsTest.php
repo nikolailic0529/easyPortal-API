@@ -104,7 +104,7 @@ class UpdateApplicationSettingsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('updateApplicationSettings'),
             new RootUserDataProvider('updateApplicationSettings'),
             new ArrayDataProvider([
                 'ok' => [

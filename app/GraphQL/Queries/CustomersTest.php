@@ -94,7 +94,7 @@ class CustomersTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('customers'),
             new UserDataProvider('customers'),
             new ArrayDataProvider([
                 'ok' => [

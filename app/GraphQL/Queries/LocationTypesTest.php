@@ -60,7 +60,7 @@ class LocationTypesTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('locationTypes'),
             new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [

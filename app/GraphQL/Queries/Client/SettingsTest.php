@@ -102,7 +102,7 @@ class SettingsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('client'),
             new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [

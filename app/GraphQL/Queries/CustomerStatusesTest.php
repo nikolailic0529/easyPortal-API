@@ -60,7 +60,7 @@ class CustomerStatusesTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('customerStatuses'),
             new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [

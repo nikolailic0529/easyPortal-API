@@ -8,8 +8,8 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\RootDataProvider;
-use Tests\DataProviders\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -20,7 +20,7 @@ class OrganizationsTest extends TestCase {
     /**
      * @dataProvider dataProviderQuery
      *
-     * @covers \App\GraphQL\Queries\OrganizationsConnected::__invoke
+     * @covers       \App\GraphQL\Queries\OrganizationsConnected::__invoke
      */
     public function testQuery(
         Response $expected,
@@ -56,8 +56,8 @@ class OrganizationsTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
-            new RootDataProvider('organizations'),
+            new TenantDataProvider('organizations'),
+            new RootUserDataProvider('organizations'),
             new ArrayDataProvider([
                 'ok'           => [
                     new GraphQLSuccess('organizations', self::class, [

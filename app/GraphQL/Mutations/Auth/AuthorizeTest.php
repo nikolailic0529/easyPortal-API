@@ -89,7 +89,7 @@ class AuthorizeTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('authorize'),
             new GuestDataProvider('authorize'),
             new ArrayDataProvider([
                 'ok' => [

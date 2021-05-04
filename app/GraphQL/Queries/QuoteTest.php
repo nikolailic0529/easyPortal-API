@@ -162,7 +162,7 @@ class QuoteTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('quote'),
             new UserDataProvider('quote'),
             new ArrayDataProvider([
                 'ok' => [

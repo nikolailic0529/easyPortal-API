@@ -53,7 +53,7 @@ class OemsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('oems'),
             new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [

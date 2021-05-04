@@ -99,7 +99,7 @@ class UpdateOrganizationTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('updateOrganization'),
             new UserDataProvider('updateOrganization'),
             new ArrayDataProvider([
                 'ok'                               => [

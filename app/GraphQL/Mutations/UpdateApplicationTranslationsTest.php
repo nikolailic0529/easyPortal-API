@@ -90,7 +90,7 @@ class UpdateApplicationTranslationsTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('updateApplicationTranslations'),
             new RootUserDataProvider('updateApplicationTranslations'),
             new ArrayDataProvider([
                 'success - retrieve'                         => [

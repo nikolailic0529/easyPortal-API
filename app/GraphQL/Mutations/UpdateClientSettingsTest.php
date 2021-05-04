@@ -127,7 +127,7 @@ class UpdateClientSettingsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('updateClientSettings'),
             new RootUserDataProvider('updateClientSettings'),
             new ArrayDataProvider([
                 'ok' => [

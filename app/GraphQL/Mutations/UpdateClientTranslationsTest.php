@@ -91,7 +91,7 @@ class UpdateClientTranslationsTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('updateClientTranslations'),
             new RootUserDataProvider('updateClientTranslations'),
             new ArrayDataProvider([
                 'success - retrieve'                         => [

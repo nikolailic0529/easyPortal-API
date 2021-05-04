@@ -74,7 +74,7 @@ class RecoverClientTranslationsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('recoverClientTranslations'),
             new RootUserDataProvider('recoverClientTranslations'),
             new ArrayDataProvider([
                 'ok' => [

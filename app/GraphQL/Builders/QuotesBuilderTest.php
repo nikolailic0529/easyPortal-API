@@ -387,7 +387,7 @@ class QuotesBuilderTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('quotes'),
             new UserDataProvider('quotes'),
             new ArrayDataProvider([
                 'quote_types match'                         => [

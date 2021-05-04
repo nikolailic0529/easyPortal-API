@@ -118,7 +118,7 @@ class OrganizationTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('organization'),
             new UserDataProvider('organization'),
             new ArrayDataProvider([
                 'ok'                               => [
