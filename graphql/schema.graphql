@@ -68,7 +68,7 @@ type Query {
   ): [Document!]! @guard @paginate @builder(method: "App\\GraphQL\\Builders\\ContractsBuilder")
 
   "Get contract by id"
-  contract(id: ID! @eq): Document @guard @find @builder(method: "App\\GraphQL\\Builders\\ContractsBuilder")
+  contract(id: ID! @eq): Document @tenant @guard @find @builder(method: "App\\GraphQL\\Builders\\ContractsBuilder")
 
   "List of all quotes"
   quotes (
