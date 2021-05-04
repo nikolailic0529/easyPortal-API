@@ -6,7 +6,6 @@ use App\Models\Organization;
 use Illuminate\Contracts\Validation\Rule;
 
 use function __;
-use function is_null;
 
 class OrganizationId implements Rule {
 
@@ -14,10 +13,10 @@ class OrganizationId implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        return !is_null(Organization::find($value));
+        return Organization::query()->whereKey($value)->exists();
     }
 
     public function message(): string {
-        return __('validation.organizationId');
+        return __('validation.organization_id');
     }
 }

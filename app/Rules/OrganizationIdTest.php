@@ -4,7 +4,6 @@ namespace App\Rules;
 
 use App\Models\Organization;
 use Closure;
-use Illuminate\Translation\Translator;
 use Tests\TestCase;
 
 /**
@@ -18,14 +17,16 @@ class OrganizationIdTest extends TestCase {
      * @covers ::message
      */
     public function testMessage(): void {
-        $translator = $this->app->make(Translator::class);
-        $translator->addLines(['validation.organizationId' => 'No translation'], 'en');
-        $translator->addLines(['validation.organizationId' => 'Translated (locale)'], 'de');
         $this->app->setLocale('de');
-        $this->assertEquals(
-            $this->app->make(OrganizationId::class)->message(),
-            $translator->get('validation.organizationId', [], 'de'),
-        );
+        $translationsFactory = static function (TestCase $test, string $locale): array {
+            return [
+                $locale => [
+                    'validation.organization_id' => 'Translated',
+                ],
+            ];
+        };
+        $this->setTranslations($translationsFactory);
+        $this->assertEquals($this->app->make(OrganizationId::class)->message(), 'Translated');
     }
 
     /**

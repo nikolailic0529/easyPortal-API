@@ -4,7 +4,6 @@ namespace App\Rules;
 
 use App\Models\Currency;
 use Closure;
-use Illuminate\Translation\Translator;
 use Tests\TestCase;
 
 /**
@@ -18,14 +17,16 @@ class CurrencyIdTest extends TestCase {
      * @covers ::message
      */
     public function testMessage(): void {
-        $translator = $this->app->make(Translator::class);
-        $translator->addLines(['validation.currencyId' => 'No translation'], 'en');
-        $translator->addLines(['validation.currencyId' => 'Translated (locale)'], 'de');
         $this->app->setLocale('de');
-        $this->assertEquals(
-            $this->app->make(CurrencyId::class)->message(),
-            $translator->get('validation.currencyId', [], 'de'),
-        );
+        $translationsFactory = static function (TestCase $test, string $locale): array {
+            return [
+                $locale => [
+                    'validation.currency_id' => 'Translated',
+                ],
+            ];
+        };
+        $this->setTranslations($translationsFactory);
+        $this->assertEquals($this->app->make(CurrencyId::class)->message(), 'Translated');
     }
 
     /**
