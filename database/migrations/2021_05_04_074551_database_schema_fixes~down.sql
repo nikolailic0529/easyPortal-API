@@ -16,19 +16,23 @@ ALTER TABLE `organizations`
     DROP FOREIGN KEY `fk_organizations_currencies1`;
 
 ALTER TABLE `organizations`
-    CHANGE COLUMN `locale` `locale` CHAR(9) NULL DEFAULT NULL ,
-    ADD INDEX `fk_organizations_currencies1` (`currency_id` ASC) VISIBLE,
-    DROP INDEX `fk_organizations_currencies1_idx` ;
+    CHANGE COLUMN `locale` `locale` CHAR(9) NULL DEFAULT NULL,
+    ADD INDEX `fk_organizations_currencies1`(`currency_id` ASC) VISIBLE,
+    DROP INDEX `fk_organizations_currencies1_idx`;
 
 ALTER TABLE `users`
-    CHANGE COLUMN `locale` `locale` CHAR(8) NULL DEFAULT NULL ;
+    CHANGE COLUMN `locale` `locale` CHAR(8) NULL DEFAULT NULL;
 
 ALTER TABLE `organizations`
     ADD CONSTRAINT `fk_organizations_currencies1`
         FOREIGN KEY (`currency_id`)
-            REFERENCES `currencies` (`id`)
+            REFERENCES `currencies`(`id`)
             ON DELETE RESTRICT
             ON UPDATE RESTRICT;
+
+ALTER TABLE `organizations`
+    CHANGE COLUMN `branding_primary_color` `branding_primary_color`     CHAR(10) NULL DEFAULT NULL,
+    CHANGE COLUMN `branding_secondary_color` `branding_secondary_color` CHAR(10) NULL DEFAULT NULL;
 
 
 SET SQL_MODE = @OLD_SQL_MODE;
