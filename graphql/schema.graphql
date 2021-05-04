@@ -26,11 +26,11 @@ type Query {
   "Customer with given ID"
   customer (id: ID! @eq): Customer @guard @find
 
-  "List of all customer assets"
+  "List of all assets"
   assets(
     where: AssetsQuery @searchBy
     order: AssetsSort @sortBy
-  ): [Asset!]! @guard @paginate
+  ): [Asset!]! @tenant @guard @paginate
 
   "List of all countries"
   countries: [Country!]! @all @orderBy(column: "code")
