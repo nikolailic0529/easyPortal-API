@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use App\GraphQL\Queries\ContractTypes;
 use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasLocations;
 use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
 use App\Services\Tenant\Eloquent\OwnedByTenant;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Collection;
@@ -32,6 +35,7 @@ use function count;
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
  * @property int                                                                 $contacts_count
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contract>      $contracts
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>      $locations
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller> $resellers
  * @property \App\Models\Status                                                  $status
@@ -99,6 +103,14 @@ class Customer extends Model {
             ->withTimestamps();
     }
 
+    public function contracts(): HasMany {
+        $contractTypes = app()->make(ContractTypes::class);
+        
+        return $this->hasMany(Document::class)->where(static function (Builder $builder) use ($contractTypes) {
+            return $contractTypes->prepare($builder, 'type_id');
+        });
+    }
+
     // <editor-fold desc="OwnedByTenant">
     // =========================================================================
     public function getQualifiedTenantColumn(): string {
@@ -108,5 +120,5 @@ class Customer extends Model {
     public function getTenantThrough(): ?BelongsToMany {
         return $this->resellers();
     }
-    //</editor-fold>
+    // </editor-fold>
 }
