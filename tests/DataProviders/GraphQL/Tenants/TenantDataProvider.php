@@ -10,7 +10,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
 use Tests\TestCase;
 
 class TenantDataProvider extends ArrayDataProvider {
-    public function __construct() {
+    public function __construct(string $id = null) {
         parent::__construct([
             'no tenant' => [
                 new ExpectedFinal(new NotFound()),
@@ -20,8 +20,8 @@ class TenantDataProvider extends ArrayDataProvider {
             ],
             'tenant'    => [
                 new Unknown(),
-                static function (TestCase $test): ?Organization {
-                    return Organization::factory()->create();
+                static function (TestCase $test) use ($id): ?Organization {
+                    return $id ? Organization::factory()->create([ 'id' => $id ]) : Organization::factory()->create();
                 },
             ],
         ]);

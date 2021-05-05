@@ -11,4 +11,8 @@ type Customer {
   contacts_count: Int!
   contacts: [Contact!]! @morphMany
   headquarter: Location @morphOne
+  assets(
+    where: AssetsQuery @searchBy
+    order: AssetsSort @sortBy
+  ): [Asset!]! @hasMany(type: "paginator")
 }
