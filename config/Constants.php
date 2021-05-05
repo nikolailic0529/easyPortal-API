@@ -98,7 +98,7 @@ interface Constants {
     #[Type(LocationType::class)]
     public const EP_HEADQUARTER_TYPE = '';
 
-    /*
+    /**
      * Max number of records to be exported.
      */
     #[Setting('ep.export.max_records')]
