@@ -8,6 +8,7 @@ use App\Services\KeyCloak\Exceptions\InvalidCredentials;
 use App\Services\KeyCloak\Exceptions\InvalidIdentity;
 use App\Services\KeyCloak\Exceptions\KeyCloakException;
 use App\Services\KeyCloak\Exceptions\StateMismatch;
+use App\Services\KeyCloak\Exceptions\UnknownScope;
 use App\Services\Tenant\Tenant;
 use Exception;
 use Illuminate\Auth\AuthManager;
@@ -16,7 +17,6 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Contracts\Session\Session;
-use Illuminate\Support\Str;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Token\AccessTokenInterface;
 
@@ -127,7 +127,8 @@ class KeyCloak {
     // <editor-fold desc="Getters">
     // =========================================================================
     public function getOrganizationScope(Organization $organization): string {
-        return Str::snake($organization->name, '-');
+        return $organization->keycloak_scope
+            ?: throw new UnknownScope($organization);
     }
 
     public function getValidIssuer(): string {

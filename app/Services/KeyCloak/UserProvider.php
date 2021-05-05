@@ -226,12 +226,9 @@ class UserProvider implements UserProviderContract {
 
     protected function getOrganization(UnencryptedToken $token): ?Organization {
         $organizations = $token->claims()->get(self::CLAIM_RESELLER_ACCESS, []);
-        $organizations = array_keys(array_filter($organizations));
-        $organizations = array_map(static function (string $name): string {
-            return str_replace('-', ' ', $name);
-        }, $organizations);
+        $organizations = array_filter(array_keys(array_filter($organizations)));
         $organization  = Organization::query()
-            ->whereIn('name', $organizations)
+            ->whereIn('keycloak_scope', $organizations)
             ->first();
 
         return $organization;
