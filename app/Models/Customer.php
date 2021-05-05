@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\GraphQL\Queries\QuoteTypes;
 use App\GraphQL\Queries\ContractTypes;
 use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasLocations;
@@ -37,6 +38,7 @@ use function count;
  * @property int                                                                 $contacts_count
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contract>      $contracts
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>      $locations
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $quotes
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller> $resellers
  * @property \App\Models\Status                                                  $status
  * @property \App\Models\Type                                                    $type
@@ -108,6 +110,14 @@ class Customer extends Model {
         
         return $this->hasMany(Document::class)->where(static function (Builder $builder) use ($contractTypes) {
             return $contractTypes->prepare($builder, 'type_id');
+        });
+    }
+
+    public function quotes(): HasMany {
+        $quoteTypes = app()->make(QuoteTypes::class);
+        return $this->hasMany(Document::class)
+            ->where(static function (Builder $builder) use ($quoteTypes): Builder {
+                return $quoteTypes->prepare($builder, 'type_id');
         });
     }
 

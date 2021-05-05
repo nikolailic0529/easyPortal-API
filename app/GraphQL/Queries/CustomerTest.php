@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\GraphQL\Builders\ContractsBuilderTest;
+use App\GraphQL\Builders\QuotesBuilderTest;
 use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\Currency;
@@ -305,6 +306,158 @@ class CustomerTest extends TestCase {
                 query customer($id: ID!) {
                     customer(id: $id) {
                         contracts {
+                            data {
+                                id
+                                oem_id
+                                product_id
+                                type_id
+                                customer_id
+                                reseller_id
+                                number
+                                price
+                                start
+                                end
+                                currency_id
+                                oem {
+                                    id
+                                    abbr
+                                    name
+                                }
+                                product {
+                                    id
+                                    name
+                                    oem_id
+                                    sku
+                                    eol
+                                    eos
+                                    oem {
+                                        id
+                                        abbr
+                                        name
+                                    }
+                                }
+                                type {
+                                    id
+                                    name
+                                }
+                                customer {
+                                    id
+                                    name
+                                    assets_count
+                                    contacts_count
+                                    locations_count
+                                    locations {
+                                        id
+                                        state
+                                        postcode
+                                        line_one
+                                        line_two
+                                        latitude
+                                        longitude
+                                    }
+                                    contacts {
+                                        name
+                                        email
+                                        phone_valid
+                                    }
+                                }
+                                reseller {
+                                    id
+                                    name
+                                    customers_count
+                                    locations_count
+                                    assets_count
+                                    locations {
+                                        id
+                                        state
+                                        postcode
+                                        line_one
+                                        line_two
+                                        latitude
+                                        longitude
+                                    }
+                                }
+                                currency {
+                                    id
+                                    name
+                                    code
+                                }
+                                entries {
+                                    id
+                                    document_id
+                                    asset_id
+                                    product_id
+                                    quantity
+                                    net_price
+                                    list_price
+                                    discount
+                                    product {
+                                        id
+                                        name
+                                        oem_id
+                                        sku
+                                        eol
+                                        eos
+                                        oem {
+                                            id
+                                            abbr
+                                            name
+                                        }
+                                    }
+                                }
+                            }
+                            paginatorInfo {
+                                count
+                                currentPage
+                                firstItem
+                                hasMorePages
+                                lastItem
+                                lastPage
+                                perPage
+                                total
+                            }
+                        }
+                    }
+                }
+            ', ['id' => $customerId])
+            ->assertThat($expected);
+    }
+
+    /**
+     * @covers ::__invoke
+     *
+     * @dataProvider dataProviderQueryQuotes
+     *
+     * @param array<mixed> $settings
+     */
+    public function testQueryQuotes(
+        Response $expected,
+        Closure $tenantFactory,
+        Closure $userFactory = null,
+        array $settings = [],
+        Closure $customerFactory = null,
+    ): void {
+        // Prepare
+        $tenant = $this->setTenant($tenantFactory);
+        $this->setUser($userFactory, $tenant);
+        $this->setSettings($settings);
+
+        $customerId = 'wrong';
+        if ($customerFactory) {
+            $customerId = $customerFactory($this, $tenant)->getKey();
+        }
+
+        // Not empty?
+        if ($expected instanceof GraphQLSuccess) {
+            $this->assertGreaterThan(0, Document::query()->count());
+        }
+
+        // Test
+        $this
+            ->graphQL(/** @lang GraphQL */ '
+                query customer($id: ID!) {
+                    customer(id: $id) {
+                        quotes {
                             data {
                                 id
                                 oem_id
@@ -819,6 +972,9 @@ class CustomerTest extends TestCase {
         ))->getData();
     }
 
+    /**
+     * @return array<mixed>
+     */
     public function dataProviderQueryContracts(): array {
         $customerContractFactory = static function (TestCase $test, Organization $organization): Customer {
             $reseller = Reseller::factory()->create([
@@ -1148,6 +1304,378 @@ class CustomerTest extends TestCase {
 
                         return $customer;
                     },
+                ],
+            ]),
+        ))->getData();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderQueryQuotes(): array {
+        $customerQuoteEmptyFactory = static function (TestCase $test, Organization $organization): Customer {
+            $reseller = Reseller::factory()->create([
+                'id'              => $organization->getKey(),
+                'name'            => 'reseller1',
+                'customers_count' => 0,
+                'locations_count' => 1,
+                'assets_count'    => 0,
+            ]);
+            $type     = Type::factory()->create([
+                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                'name' => 'name aaa',
+            ]);
+            Document::factory()
+                ->for($reseller)
+                ->for($type)
+                ->create();
+            $customer = Customer::factory()
+                ->create([
+                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                    'name'            => 'name aaa',
+                    'assets_count'    => 0,
+                    'contacts_count'  => 0,
+                    'locations_count' => 0,
+                ]);
+            $customer->resellers()->attach($reseller);
+
+            return $customer;
+        };
+
+        $customerQuoteFactory = static function (TestCase $test, Organization $organization): Customer {
+            // Reseller creation belongs to
+            $reseller = Reseller::factory()
+                ->hasLocations(1, [
+                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
+                    'state'     => 'state2',
+                    'postcode'  => '19912',
+                    'line_one'  => 'reseller_one_data',
+                    'line_two'  => 'reseller_two_data',
+                    'latitude'  => '49.91634204',
+                    'longitude' => '90.26318359',
+                ])
+                ->create([
+                    'id'              => $organization->getKey(),
+                    'name'            => 'reseller1',
+                    'customers_count' => 0,
+                    'locations_count' => 1,
+                    'assets_count'    => 0,
+                ]);
+            $customer = Customer::factory()
+                ->hasContacts(1, [
+                    'name'        => 'contact1',
+                    'email'       => 'contact1@test.com',
+                    'phone_valid' => false,
+                ])
+                ->hasLocations([
+                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                    'state'     => 'state1',
+                    'postcode'  => '19911',
+                    'line_one'  => 'line_one_data',
+                    'line_two'  => 'line_two_data',
+                    'latitude'  => '47.91634204',
+                    'longitude' => '-2.26318359',
+                ])
+                ->create([
+                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                    'name'            => 'name aaa',
+                    'assets_count'    => 0,
+                    'contacts_count'  => 1,
+                    'locations_count' => 1,
+                ]);
+            $customer->resellers()->attach($reseller);
+            // OEM Creation belongs to
+            $oem = Oem::factory()->create([
+                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                'abbr' => 'abbr',
+                'name' => 'oem1',
+            ]);
+            // Type Creation belongs to
+            $type = Type::factory()->create([
+                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                'name' => 'name aaa',
+            ]);
+            // Product creation belongs to
+            $product = Product::factory()->create([
+                'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                'name'   => 'Product1',
+                'oem_id' => $oem,
+                'sku'    => 'SKU#123',
+                'eol'    => '2022-12-30',
+                'eos'    => '2022-01-01',
+            ]);
+            // Currency creation belongs to
+            $currency = Currency::factory()->create([
+                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                'name' => 'Currency1',
+                'code' => 'CUR',
+            ]);
+            Document::factory()
+                ->for($oem)
+                ->for($product)
+                ->for($customer)
+                ->for($type)
+                ->for($reseller)
+                ->for($currency)
+                ->hasEntries(1, [
+                    'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                    'asset_id'   => Asset::factory()->create([
+                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                    ]),
+                    'product_id' => $product,
+                    'quantity'   => 20,
+                    'net_price'  => '123',
+                    'list_price' => '67.12',
+                    'discount'   => null,
+                ])
+                ->create([
+                    'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                    'number' => '1323',
+                    'price'  => '100',
+                    'start'  => '2021-01-01',
+                    'end'    => '2024-01-01',
+                ]);
+
+            return $customer;
+        };
+        $customerQuote        = [
+            'quotes' => [
+                'data'          => [
+                    [
+                        'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                        'oem_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        'product_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                        'customer_id' => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                        'type_id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                        'reseller_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                        'currency_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                        'number'      => '1323',
+                        'price'       => '100.00',
+                        'start'       => '2021-01-01',
+                        'end'         => '2024-01-01',
+                        'oem'         => [
+                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'abbr' => 'abbr',
+                            'name' => 'oem1',
+                        ],
+                        'product'     => [
+                            'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                            'name'   => 'Product1',
+                            'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'sku'    => 'SKU#123',
+                            'eol'    => '2022-12-30',
+                            'eos'    => '2022-01-01',
+                            'oem'    => [
+                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                'abbr' => 'abbr',
+                                'name' => 'oem1',
+                            ],
+                        ],
+                        'type'        => [
+                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            'name' => 'name aaa',
+                        ],
+                        'customer'    => [
+                            'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                            'name'            => 'name aaa',
+                            'assets_count'    => 0,
+                            'locations_count' => 1,
+                            'locations'       => [
+                                [
+                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                    'state'     => 'state1',
+                                    'postcode'  => '19911',
+                                    'line_one'  => 'line_one_data',
+                                    'line_two'  => 'line_two_data',
+                                    'latitude'  => '47.91634204',
+                                    'longitude' => '-2.26318359',
+                                ],
+                            ],
+                            'contacts_count'  => 1,
+                            'contacts'        => [
+                                [
+                                    'name'        => 'contact1',
+                                    'email'       => 'contact1@test.com',
+                                    'phone_valid' => false,
+                                ],
+                            ],
+                        ],
+                        'reseller'    => [
+                            'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                            'name'            => 'reseller1',
+                            'customers_count' => 0,
+                            'locations_count' => 1,
+                            'assets_count'    => 0,
+                            'locations'       => [
+                                [
+                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
+                                    'state'     => 'state2',
+                                    'postcode'  => '19912',
+                                    'line_one'  => 'reseller_one_data',
+                                    'line_two'  => 'reseller_two_data',
+                                    'latitude'  => '49.91634204',
+                                    'longitude' => '90.26318359',
+                                ],
+                            ],
+                        ],
+                        'currency'    => [
+                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                            'name' => 'Currency1',
+                            'code' => 'CUR',
+                        ],
+                        'entries'     => [
+                            [
+                                'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                                'asset_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                'product_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                'document_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                'quantity'    => 20,
+                                'net_price'   => '123.00',
+                                'list_price'  => '67.12',
+                                'discount'    => null,
+                                'product'     => [
+                                    'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                    'name'   => 'Product1',
+                                    'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                    'sku'    => 'SKU#123',
+                                    'eol'    => '2022-12-30',
+                                    'eos'    => '2022-01-01',
+                                    'oem'    => [
+                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                        'abbr' => 'abbr',
+                                        'name' => 'oem1',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                'paginatorInfo' => [
+                    'count'        => 1,
+                    'currentPage'  => 1,
+                    'firstItem'    => 1,
+                    'hasMorePages' => false,
+                    'lastItem'     => 1,
+                    'lastPage'     => 1,
+                    'perPage'      => 25,
+                    'total'        => 1,
+                ],
+            ],
+        ];
+        $customerEmptyQuote   = [
+            'quotes' => [
+                'data'          => [
+                    // empty
+                ],
+                'paginatorInfo' => [
+                    'count'        => 0,
+                    'currentPage'  => 1,
+                    'firstItem'    => null,
+                    'hasMorePages' => false,
+                    'lastItem'     => null,
+                    'lastPage'     => 1,
+                    'perPage'      => 25,
+                    'total'        => 0,
+                ],
+            ],
+        ];
+
+        return (new CompositeDataProvider(
+            new TenantDataProvider('f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+            new UserDataProvider('customer'),
+            new ArrayDataProvider([
+                'ok'                                        => [
+                    new GraphQLSuccess(
+                        'customer',
+                        new JsonFragmentPaginatedSchema('quotes', QuotesBuilderTest::class),
+                        $customerQuote,
+                    ),
+                    [
+                        'ep.quote_types' => [
+                            'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                        ],
+                    ],
+                    $customerQuoteFactory,
+                ],
+                'not allowed'                               => [
+                    new GraphQLSuccess('customer', null, null),
+                    [
+                        'ep.contract_types' => [
+                            // empty
+                        ],
+                    ],
+                    static function (TestCase $test, Organization $organization): Customer {
+                        $reseller = Reseller::factory()->create([
+                            'id'              => $organization->getKey(),
+                            'name'            => 'reseller1',
+                            'customers_count' => 0,
+                            'locations_count' => 1,
+                            'assets_count'    => 0,
+                        ]);
+                        Document::factory()->for($reseller)->create();
+                        $customer = Customer::factory()
+                            ->create([
+                                'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                'name'            => 'name aaa',
+                                'assets_count'    => 0,
+                                'contacts_count'  => 0,
+                                'locations_count' => 0,
+                            ]);
+
+                        return $customer;
+                    },
+                ],
+                'no quote_types + contract_types not match' => [
+                    new GraphQLSuccess(
+                        'customer',
+                        new JsonFragmentPaginatedSchema('quotes', QuotesBuilderTest::class),
+                        $customerQuote,
+                    ),
+                    [
+                        'ep.contract_types' => [
+                            'd4ad2f4f-7751-4cd2-a6be-71bcee84f37a',
+                        ],
+                    ],
+                    $customerQuoteFactory,
+                ],
+                'no quote_types + contract_types match'     => [
+                    new GraphQLSuccess(
+                        'customer',
+                        new JsonFragmentPaginatedSchema('quotes', QuotesBuilderTest::class),
+                        $customerEmptyQuote,
+                    ),
+                    [
+                        'ep.contract_types' => [
+                            'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                        ],
+                    ],
+                    $customerQuoteEmptyFactory,
+                ],
+                'quote_types not match'                     => [
+                    new GraphQLSuccess(
+                        'customer',
+                        new JsonFragmentPaginatedSchema('quotes', QuotesBuilderTest::class),
+                        $customerEmptyQuote,
+                    ),
+                    [
+                        'ep.quote_types' => [
+                            'f9834bc1-2f2f-4c57-bb8d-7a224ac2498a',
+                        ],
+                    ],
+                    $customerQuoteEmptyFactory,
+                ],
+                'no quote_types + no contract_types'        => [
+                    new GraphQLSuccess(
+                        'customer',
+                        new JsonFragmentPaginatedSchema('quotes', QuotesBuilderTest::class),
+                        $customerEmptyQuote,
+                    ),
+                    [
+                        'ep.quote_types' => [
+                            // empty
+                        ],
+                    ],
+                    $customerQuoteEmptyFactory,
                 ],
             ]),
         ))->getData();
