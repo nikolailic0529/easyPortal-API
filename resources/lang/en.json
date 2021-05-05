@@ -103,6 +103,8 @@
     "validation.float": "The :attribute is not a valid float number.",
     "validation.duration": "The :attribute is not a valid duration.",
     "validation.cron": "The :attribute is not a valid cron expression.",
+    "validation.currency_id": "Unknown currency",
+    "validation.organization_id": "Unknown organization",
     "errors.message": ":message (:code)",
     "errors.unauthenticated": "Unauthenticated.",
     "errors.unauthorized": "Unauthorized.",

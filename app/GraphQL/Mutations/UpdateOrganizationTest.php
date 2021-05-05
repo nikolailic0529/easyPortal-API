@@ -10,14 +10,15 @@ use Illuminate\Support\Facades\Storage;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\UserDataProvider;
-use Tests\DataProviders\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
 use function __;
 use function array_key_exists;
+use function is_null;
 
 /**
  * @internal
@@ -48,13 +49,13 @@ class UpdateOrganizationTest extends TestCase {
         if ($dataFactory) {
             $data = $dataFactory($this);
 
-            if (array_key_exists('branding_logo', $data)) {
+            if (array_key_exists('branding_logo', $data) && !is_null($data['branding_logo'])) {
                 $map['0']              = ['variables.input.branding_logo'];
                 $file['0']             = $data['branding_logo'];
                 $data['branding_logo'] = null;
             }
 
-            if (array_key_exists('branding_favicon', $data)) {
+            if (array_key_exists('branding_favicon', $data) && !is_null($data['branding_favicon'])) {
                 $map['1']                 = ['variables.input.branding_favicon'];
                 $file['1']                = $data['branding_favicon'];
                 $data['branding_favicon'] = null;
@@ -85,8 +86,6 @@ class UpdateOrganizationTest extends TestCase {
             $this->assertEquals($data['branding_secondary_color'], $tenant->branding_secondary_color);
             $this->assertEquals($data['website_url'], $tenant->website_url);
             $this->assertEquals($data['email'], $tenant->email);
-            $this->assertNotNull($tenant->branding_logo);
-            $this->assertNotNull($tenant->branding_favicon);
             Storage::disk('local')->assertExists($tenant->branding_logo);
             Storage::disk('local')->assertExists($tenant->branding_favicon);
         }
@@ -152,6 +151,20 @@ class UpdateOrganizationTest extends TestCase {
                         ];
                     },
                 ],
+                'invalid request/deleted currency' => [
+                    new GraphQLError('updateOrganization', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    static function (): array {
+                        $currency = Currency::factory()->create([
+                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        ]);
+                        $currency->delete();
+                        return [
+                            'currency_id' => $currency->id,
+                        ];
+                    },
+                ],
                 'invalid request/Invalid format'   => [
                     new GraphQLError('updateOrganization', static function (): array {
                         return [__('errors.validation_failed')];
@@ -200,6 +213,25 @@ class UpdateOrganizationTest extends TestCase {
                     static function (TestCase $test): array {
                         return [
                             'email' => 'wrong mail',
+                        ];
+                    },
+                ],
+                'nullable branding'                => [
+                    new GraphQLSuccess('updateOrganization', UpdateOrganization::class, [
+                        'result' => true,
+                    ]),
+                    static function (): array {
+                        $currency = Currency::factory()->create();
+                        return [
+                            'locale'                   => 'en',
+                            'currency_id'              => $currency->id,
+                            'branding_dark_theme'      => false,
+                            'branding_primary_color'   => null,
+                            'branding_secondary_color' => null,
+                            'website_url'              => 'https://www.example.com',
+                            'email'                    => 'test@example.com',
+                            'branding_logo'            => null,
+                            'branding_favicon'         => null,
                         ];
                     },
                 ],
