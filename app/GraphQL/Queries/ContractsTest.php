@@ -7,6 +7,7 @@ use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Oem;
+use App\Models\Organization;
 use App\Models\Product;
 use App\Models\Reseller;
 use App\Models\Type;
@@ -14,7 +15,10 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
+use Tests\DataProviders\GraphQL\Tenants\RootTenantDataProvider;
 use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Users\TenantUserDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\GraphQL\GraphQLSuccess;
@@ -40,11 +44,15 @@ class ContractsTest extends TestCase {
         Closure $contractsFactory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setTenant($tenantFactory));
-        $this->setSettings($settings);
+        $tenant = $this->setTenant($tenantFactory);
+        $user   = $this->setUser($userFactory, $tenant);
+
+        if ($settings) {
+            $this->setSettings($settings);
+        }
 
         if ($contractsFactory) {
-            $contractsFactory($this);
+            $contractsFactory($this, $tenant, $user);
         }
 
         // Not empty?
@@ -180,253 +188,289 @@ class ContractsTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderQuery(): array {
-        return (new CompositeDataProvider(
-            new TenantDataProvider('contracts'),
-            new UserDataProvider('contracts'),
-            new ArrayDataProvider([
-                'ok'             => [
-                    new GraphQLPaginated('contracts', self::class, [
+        return (new MergeDataProvider([
+            'root'   => new CompositeDataProvider(
+                new RootTenantDataProvider('contracts'),
+                new TenantUserDataProvider('contracts'),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLPaginated('contracts', null),
                         [
-                            'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                            'oem_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                            'product_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                            'customer_id' => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                            'type_id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            'reseller_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                            'currency_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                            'number'      => '1323',
-                            'price'       => '100.00',
-                            'start'       => '2021-01-01',
-                            'end'         => '2024-01-01',
-                            'oem'         => [
-                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                'abbr' => 'abbr',
-                                'name' => 'oem1',
+                            'ep.contract_types' => [
+                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
-                            'product'     => [
-                                'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                'name'   => 'Product1',
-                                'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                'sku'    => 'SKU#123',
-                                'eol'    => '2022-12-30',
-                                'eos'    => '2022-01-01',
-                                'oem'    => [
+                        ],
+                        static function (TestCase $test, Organization $organization): Document {
+                            $type     = Type::factory()->create([
+                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            ]);
+                            $document = Document::factory()->create([
+                                'type_id' => $type,
+                            ]);
+
+                            return $document;
+                        },
+                    ],
+                ]),
+            ),
+            'tenant' => new CompositeDataProvider(
+                new TenantDataProvider('contracts', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new UserDataProvider('contracts'),
+                new ArrayDataProvider([
+                    'ok'             => [
+                        new GraphQLPaginated('contracts', self::class, [
+                            [
+                                'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                'oem_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                'product_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                'customer_id' => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                'type_id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                'reseller_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                'currency_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'number'      => '1323',
+                                'price'       => '100.00',
+                                'start'       => '2021-01-01',
+                                'end'         => '2024-01-01',
+                                'oem'         => [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                     'abbr' => 'abbr',
                                     'name' => 'oem1',
                                 ],
-                            ],
-                            'type'        => [
-                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                'name' => 'name aaa',
-                            ],
-                            'customer'    => [
-                                'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                'name'            => 'name aaa',
-                                'assets_count'    => 0,
-                                'locations_count' => 1,
-                                'locations'       => [
-                                    [
-                                        'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                        'state'     => 'state1',
-                                        'postcode'  => '19911',
-                                        'line_one'  => 'line_one_data',
-                                        'line_two'  => 'line_two_data',
-                                        'latitude'  => '47.91634204',
-                                        'longitude' => '-2.26318359',
+                                'product'     => [
+                                    'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                    'name'   => 'Product1',
+                                    'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                    'sku'    => 'SKU#123',
+                                    'eol'    => '2022-12-30',
+                                    'eos'    => '2022-01-01',
+                                    'oem'    => [
+                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                        'abbr' => 'abbr',
+                                        'name' => 'oem1',
                                     ],
                                 ],
-                                'contacts_count'  => 1,
-                                'contacts'        => [
-                                    [
-                                        'name'        => 'contact1',
-                                        'email'       => 'contact1@test.com',
-                                        'phone_valid' => false,
+                                'type'        => [
+                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                    'name' => 'name aaa',
+                                ],
+                                'customer'    => [
+                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                    'name'            => 'name aaa',
+                                    'assets_count'    => 0,
+                                    'locations_count' => 1,
+                                    'locations'       => [
+                                        [
+                                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                            'state'     => 'state1',
+                                            'postcode'  => '19911',
+                                            'line_one'  => 'line_one_data',
+                                            'line_two'  => 'line_two_data',
+                                            'latitude'  => '47.91634204',
+                                            'longitude' => '-2.26318359',
+                                        ],
+                                    ],
+                                    'contacts_count'  => 1,
+                                    'contacts'        => [
+                                        [
+                                            'name'        => 'contact1',
+                                            'email'       => 'contact1@test.com',
+                                            'phone_valid' => false,
+                                        ],
                                     ],
                                 ],
-                            ],
-                            'reseller'    => [
-                                'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                                'name'            => 'reseller1',
-                                'customers_count' => 0,
-                                'locations_count' => 1,
-                                'assets_count'    => 0,
-                                'locations'       => [
-                                    [
-                                        'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
-                                        'state'     => 'state2',
-                                        'postcode'  => '19912',
-                                        'line_one'  => 'reseller_one_data',
-                                        'line_two'  => 'reseller_two_data',
-                                        'latitude'  => '49.91634204',
-                                        'longitude' => '90.26318359',
+                                'reseller'    => [
+                                    'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                    'name'            => 'reseller1',
+                                    'customers_count' => 0,
+                                    'locations_count' => 1,
+                                    'assets_count'    => 0,
+                                    'locations'       => [
+                                        [
+                                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
+                                            'state'     => 'state2',
+                                            'postcode'  => '19912',
+                                            'line_one'  => 'reseller_one_data',
+                                            'line_two'  => 'reseller_two_data',
+                                            'latitude'  => '49.91634204',
+                                            'longitude' => '90.26318359',
+                                        ],
                                     ],
                                 ],
-                            ],
-                            'currency'    => [
-                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                'name' => 'Currency1',
-                                'code' => 'CUR',
-                            ],
-                            'entries'     => [
-                                [
-                                    'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                    'asset_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                    'product_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                    'document_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                    'quantity'    => 20,
-                                    'net_price'   => '123.00',
-                                    'list_price'  => '67.12',
-                                    'discount'    => null,
-                                    'product'     => [
-                                        'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                        'name'   => 'Product1',
-                                        'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                        'sku'    => 'SKU#123',
-                                        'eol'    => '2022-12-30',
-                                        'eos'    => '2022-01-01',
-                                        'oem'    => [
-                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                            'abbr' => 'abbr',
-                                            'name' => 'oem1',
+                                'currency'    => [
+                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                    'name' => 'Currency1',
+                                    'code' => 'CUR',
+                                ],
+                                'entries'     => [
+                                    [
+                                        'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                                        'asset_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                        'product_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                        'document_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                        'quantity'    => 20,
+                                        'net_price'   => '123.00',
+                                        'list_price'  => '67.12',
+                                        'discount'    => null,
+                                        'product'     => [
+                                            'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                            'name'   => 'Product1',
+                                            'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                            'sku'    => 'SKU#123',
+                                            'eol'    => '2022-12-30',
+                                            'eos'    => '2022-01-01',
+                                            'oem'    => [
+                                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                                'abbr' => 'abbr',
+                                                'name' => 'oem1',
+                                            ],
                                         ],
                                     ],
                                 ],
                             ],
+                        ]),
+                        [
+                            'ep.contract_types' => [
+                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            ],
                         ],
-                    ]),
-                    [
-                        'ep.contract_types' => [
-                            'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                        ],
-                    ],
-                    static function (): void {
-                        // OEM Creation belongs to
-                        $oem = Oem::factory()->create([
-                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                            'abbr' => 'abbr',
-                            'name' => 'oem1',
-                        ]);
-                        // Type Creation belongs to
-                        $type = Type::factory()->create([
-                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            'name' => 'name aaa',
-                        ]);
-                        // Customer Creation creation belongs to
-                        $customer = Customer::factory()
-                            ->hasLocations(1, [
-                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                'state'     => 'state1',
-                                'postcode'  => '19911',
-                                'line_one'  => 'line_one_data',
-                                'line_two'  => 'line_two_data',
-                                'latitude'  => '47.91634204',
-                                'longitude' => '-2.26318359',
-                            ])
-                            ->hasContacts(1, [
-                                'name'        => 'contact1',
-                                'email'       => 'contact1@test.com',
-                                'phone_valid' => false,
-                            ])
-                            ->create([
-                                'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                'name'            => 'name aaa',
-                                'assets_count'    => 0,
-                                'locations_count' => 1,
-                                'contacts_count'  => 1,
+                        static function (TestCase $test, Organization $organization): void {
+                            // OEM Creation belongs to
+                            $oem = Oem::factory()->create([
+                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                'abbr' => 'abbr',
+                                'name' => 'oem1',
                             ]);
-                        // Product creation belongs to
-                        $product = Product::factory()->create([
-                            'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                            'name'   => 'Product1',
-                            'oem_id' => $oem,
-                            'sku'    => 'SKU#123',
-                            'eol'    => '2022-12-30',
-                            'eos'    => '2022-01-01',
-                        ]);
-                        // Reseller creation belongs to
-                        $reseller = Reseller::factory()
-                            ->hasLocations(1, [
-                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
-                                'state'     => 'state2',
-                                'postcode'  => '19912',
-                                'line_one'  => 'reseller_one_data',
-                                'line_two'  => 'reseller_two_data',
-                                'latitude'  => '49.91634204',
-                                'longitude' => '90.26318359',
-                            ])
-                            ->create([
-                                'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                                'name'            => 'reseller1',
-                                'customers_count' => 0,
-                                'locations_count' => 1,
-                                'assets_count'    => 0,
+                            // Type Creation belongs to
+                            $type = Type::factory()->create([
+                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                'name' => 'name aaa',
                             ]);
-                        // Currency creation belongs to
-                        $currency = Currency::factory()->create([
-                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                            'name' => 'Currency1',
-                            'code' => 'CUR',
-                        ]);
-                        Document::factory()
-                            ->for($oem)
-                            ->for($product)
-                            ->for($customer)
-                            ->for($type)
-                            ->for($reseller)
-                            ->for($currency)
-                            ->hasEntries(1, [
-                                'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                'asset_id'   => Asset::factory()->create([
-                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                ]),
-                                'product_id' => $product,
-                                'quantity'   => 20,
-                                'net_price'  => '123',
-                                'list_price' => '67.12',
-                                'discount'   => null,
-                            ])
-                            ->create([
-                                'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                'number' => '1323',
-                                'price'  => '100',
-                                'start'  => '2021-01-01',
-                                'end'    => '2024-01-01',
+                            // Customer Creation creation belongs to
+                            $customer = Customer::factory()
+                                ->hasLocations(1, [
+                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                    'state'     => 'state1',
+                                    'postcode'  => '19911',
+                                    'line_one'  => 'line_one_data',
+                                    'line_two'  => 'line_two_data',
+                                    'latitude'  => '47.91634204',
+                                    'longitude' => '-2.26318359',
+                                ])
+                                ->hasContacts(1, [
+                                    'name'        => 'contact1',
+                                    'email'       => 'contact1@test.com',
+                                    'phone_valid' => false,
+                                ])
+                                ->create([
+                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                    'name'            => 'name aaa',
+                                    'assets_count'    => 0,
+                                    'locations_count' => 1,
+                                    'contacts_count'  => 1,
+                                ]);
+                            // Product creation belongs to
+                            $product = Product::factory()->create([
+                                'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                'name'   => 'Product1',
+                                'oem_id' => $oem,
+                                'sku'    => 'SKU#123',
+                                'eol'    => '2022-12-30',
+                                'eos'    => '2022-01-01',
+                            ]);
+                            // Reseller creation belongs to
+                            $reseller = Reseller::factory()
+                                ->hasLocations(1, [
+                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
+                                    'state'     => 'state2',
+                                    'postcode'  => '19912',
+                                    'line_one'  => 'reseller_one_data',
+                                    'line_two'  => 'reseller_two_data',
+                                    'latitude'  => '49.91634204',
+                                    'longitude' => '90.26318359',
+                                ])
+                                ->create([
+                                    'id'              => $organization,
+                                    'name'            => 'reseller1',
+                                    'customers_count' => 0,
+                                    'locations_count' => 1,
+                                    'assets_count'    => 0,
+                                ]);
+                            // Currency creation belongs to
+                            $currency = Currency::factory()->create([
+                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'name' => 'Currency1',
+                                'code' => 'CUR',
+                            ]);
+                            Document::factory()
+                                ->for($oem)
+                                ->for($product)
+                                ->for($customer)
+                                ->for($type)
+                                ->for($reseller)
+                                ->for($currency)
+                                ->hasEntries(1, [
+                                    'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                                    'asset_id'   => Asset::factory()->create([
+                                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                    ]),
+                                    'product_id' => $product,
+                                    'quantity'   => 20,
+                                    'net_price'  => '123',
+                                    'list_price' => '67.12',
+                                    'discount'   => null,
+                                ])
+                                ->create([
+                                    'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'number' => '1323',
+                                    'price'  => '100',
+                                    'start'  => '2021-01-01',
+                                    'end'    => '2024-01-01',
+                                ]);
+
+                            Document::factory()->create([
+                                'type_id' => Type::factory()->create(),
                             ]);
 
-                        Document::factory()->create([
-                            'type_id' => Type::factory()->create(),
-                        ]);
-                    },
-                ],
-                'no types'       => [
-                    new GraphQLPaginated('contracts', self::class, [
-                        // empty
-                    ]),
-                    [
-                        'ep.contract_types' => [
+                            $customer->resellers()->attach($reseller);
+                        },
+                    ],
+                    'no types'       => [
+                        new GraphQLPaginated('contracts', self::class, [
                             // empty
+                        ]),
+                        [
+                            'ep.contract_types' => [
+                                // empty
+                            ],
                         ],
+                        static function (TestCase $test, Organization $organization): void {
+                            Document::factory()->create([
+                                'reseller_id' => Reseller::factory()->create([
+                                    'id' => $organization,
+                                ]),
+                            ]);
+                        },
                     ],
-                    static function (): void {
-                        Document::factory()->create();
-                    },
-                ],
-                'type not match' => [
-                    new GraphQLPaginated('contracts', self::class, [
-                        // empty
-                    ]),
-                    [
-                        'ep.contract_types' => [
-                            'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                    'type not match' => [
+                        new GraphQLPaginated('contracts', self::class, [
+                            // empty
+                        ]),
+                        [
+                            'ep.contract_types' => [
+                                'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            ],
                         ],
+                        static function (TestCase $test, Organization $organization): void {
+                            Document::factory()->create([
+                                'reseller_id' => Reseller::factory()->create([
+                                    'id' => $organization,
+                                ]),
+                            ]);
+                        },
                     ],
-                    static function (): void {
-                        Document::factory()->create();
-                    },
-                ],
-            ]),
-        ))->getData();
+                ]),
+            ),
+        ]))->getData();
     }
     // </editor-fold>
 }

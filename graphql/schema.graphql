@@ -65,7 +65,7 @@ type Query {
   contracts (
     where: DocumentsQuery @searchBy
     order: DocumentsSort @sortBy
-  ): [Document!]! @guard @paginate @builder(method: "App\\GraphQL\\Queries\\Contracts")
+  ): [Document!]! @tenant @guard @paginate @builder(method: "App\\GraphQL\\Queries\\Contracts")
 
   "Get contract by id"
   contract(id: ID! @eq): Document @tenant @guard @find @builder(method: "App\\GraphQL\\Queries\\Contracts")
