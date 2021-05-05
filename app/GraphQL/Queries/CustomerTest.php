@@ -2,8 +2,6 @@
 
 namespace App\GraphQL\Queries;
 
-use App\GraphQL\Builders\ContractsBuilderTest;
-use App\GraphQL\Builders\QuotesBuilderTest;
 use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\Currency;
@@ -1079,7 +1077,7 @@ class CustomerTest extends TestCase {
                     'ok'             => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('contracts', ContractsBuilderTest::class),
+                            new JsonFragmentPaginatedSchema('contracts', ContractsTest::class),
                             [
                                 'contracts' => [
                                     'data'          => [
@@ -1310,7 +1308,7 @@ class CustomerTest extends TestCase {
                     'no types'       => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('contracts', ContractsBuilderTest::class),
+                            new JsonFragmentPaginatedSchema('contracts', ContractsTest::class),
                             $customerEmptyContract,
                         ),
                         [
@@ -1323,7 +1321,7 @@ class CustomerTest extends TestCase {
                     'type not match' => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('contracts', ContractsBuilderTest::class),
+                            new JsonFragmentPaginatedSchema('contracts', ContractsTest::class),
                             $customerEmptyContract,
                         ),
                         [
@@ -1660,7 +1658,7 @@ class CustomerTest extends TestCase {
                     'ok'                                        => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('quotes', QuotesBuilderTest::class),
+                            new JsonFragmentPaginatedSchema('quotes', QuotesTest::class),
                             $customerQuote,
                         ),
                         [
@@ -1701,7 +1699,7 @@ class CustomerTest extends TestCase {
                     'no quote_types + contract_types not match' => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('quotes', QuotesBuilderTest::class),
+                            new JsonFragmentPaginatedSchema('quotes', QuotesTest::class),
                             $customerQuote,
                         ),
                         [
@@ -1714,7 +1712,7 @@ class CustomerTest extends TestCase {
                     'no quote_types + contract_types match'     => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('quotes', QuotesBuilderTest::class),
+                            new JsonFragmentPaginatedSchema('quotes', QuotesTest::class),
                             $customerEmptyQuote,
                         ),
                         [
@@ -1727,7 +1725,7 @@ class CustomerTest extends TestCase {
                     'quote_types not match'                     => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('quotes', QuotesBuilderTest::class),
+                            new JsonFragmentPaginatedSchema('quotes', QuotesTest::class),
                             $customerEmptyQuote,
                         ),
                         [
@@ -1740,7 +1738,7 @@ class CustomerTest extends TestCase {
                     'no quote_types + no contract_types'        => [
                         new GraphQLSuccess(
                             'customer',
-                            new JsonFragmentPaginatedSchema('quotes', QuotesBuilderTest::class),
+                            new JsonFragmentPaginatedSchema('quotes', QuotesTest::class),
                             $customerEmptyQuote,
                         ),
                         [

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Builders;
+namespace App\GraphQL\Queries;
 
 use App\Models\Asset;
 use App\Models\Currency;
@@ -22,9 +22,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Builders\QuotesBuilder
+ * @coversDefaultClass \App\GraphQL\Queries\Quotes
  */
-class QuotesBuilderTest extends TestCase {
+class QuotesTest extends TestCase {
     /**
      * @covers ::__invoke
      *

@@ -65,19 +65,19 @@ type Query {
   contracts (
     where: DocumentsQuery @searchBy
     order: DocumentsSort @sortBy
-  ): [Document!]! @guard @paginate @builder(method: "App\\GraphQL\\Builders\\ContractsBuilder")
+  ): [Document!]! @guard @paginate @builder(method: "App\\GraphQL\\Queries\\Contracts")
 
   "Get contract by id"
-  contract(id: ID! @eq): Document @tenant @guard @find @builder(method: "App\\GraphQL\\Builders\\ContractsBuilder")
+  contract(id: ID! @eq): Document @tenant @guard @find @builder(method: "App\\GraphQL\\Queries\\Contracts")
 
   "List of all quotes"
   quotes (
     where: DocumentsQuery @searchBy
     order: DocumentsSort @sortBy
-  ): [Document!]! @guard @paginate @builder(method: "App\\GraphQL\\Builders\\QuotesBuilder")
+  ): [Document!]! @guard @paginate @builder(method: "App\\GraphQL\\Queries\\Quotes")
 
   "Get quote by id"
-  quote(id: ID! @eq): Document @tenant @guard @find @builder(method: "App\\GraphQL\\Builders\\QuotesBuilder")
+  quote(id: ID! @eq): Document @tenant @guard @find @builder(method: "App\\GraphQL\\Queries\\Quotes")
 
   "Get current organization"
   organization: Organization

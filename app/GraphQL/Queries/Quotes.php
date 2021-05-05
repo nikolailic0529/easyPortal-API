@@ -1,12 +1,11 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Builders;
+namespace App\GraphQL\Queries;
 
-use App\GraphQL\Queries\QuoteTypes;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
 
-class QuotesBuilder {
+class Quotes {
     public function __construct(
         protected Repository $config,
         protected QuoteTypes $types,
