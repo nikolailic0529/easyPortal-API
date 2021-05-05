@@ -80,7 +80,7 @@ type Query {
   quote(id: ID! @eq): Document @tenant @guard @find @builder(method: "App\\GraphQL\\Queries\\Quotes")
 
   "Get current organization"
-  organization: Organization
+  organization: Organization @tenant
 
   "Get app name & version"
   application: Application!

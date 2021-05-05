@@ -6,13 +6,13 @@ use App\Models\Currency;
 use App\Models\Organization as ModelsOrganization;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
-use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\NotFound;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
 use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\TestCase;
 
 /**
@@ -73,7 +73,7 @@ class OrganizationTest extends TestCase {
         return (new CompositeDataProvider(
             new ArrayDataProvider([
                 'no tenant' => [
-                    new ExpectedFinal(new NotFound()),
+                    new ExpectedFinal(new GraphQLUnauthenticated('organization')),
                     static function (): ?Organization {
                         return null;
                     },
