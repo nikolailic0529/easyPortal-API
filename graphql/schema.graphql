@@ -74,7 +74,7 @@ type Query {
   quotes (
     where: DocumentsQuery @searchBy
     order: DocumentsSort @sortBy
-  ): [Document!]! @guard @paginate @builder(method: "App\\GraphQL\\Queries\\Quotes")
+  ): [Document!]! @tenant @guard @paginate @builder(method: "App\\GraphQL\\Queries\\Quotes")
 
   "Get quote by id"
   quote(id: ID! @eq): Document @tenant @guard @find @builder(method: "App\\GraphQL\\Queries\\Quotes")
