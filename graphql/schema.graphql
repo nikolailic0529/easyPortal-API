@@ -56,7 +56,7 @@ type Query {
   oems: [Oem!]! @all
 
   "Get asset by id"
-  asset(id: ID! @eq): Asset @guard @find
+  asset(id: ID! @eq): Asset @tenant @guard @find
 
   "List of all currencies"
   currencies: [Currency!]! @all @orderBy(column: "code")
