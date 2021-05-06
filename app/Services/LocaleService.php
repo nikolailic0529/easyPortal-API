@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Services\Organization\Organization;
+use App\Services\Organization\CurrentOrganization;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Session\Session;
@@ -13,7 +13,7 @@ class LocaleService {
         protected AuthManager $auth,
         protected Application $app,
         protected Session $session,
-        protected Organization $organization,
+        protected CurrentOrganization $organization,
     ) {
         // empty
     }
@@ -31,7 +31,7 @@ class LocaleService {
         }
 
         // Organization.locale
-        if ($this->organization->has() && $this->organization->preferredLocale()) {
+        if ($this->organization->defined() && $this->organization->preferredLocale()) {
             return $this->organization->preferredLocale();
         }
 

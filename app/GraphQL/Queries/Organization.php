@@ -3,11 +3,11 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Organization as ModelsOrganization;
-use App\Services\Organization\Organization as OrganizationService;
+use App\Services\Organization\CurrentOrganization;
 
 class Organization {
     public function __construct(
-        protected OrganizationService $organization,
+        protected CurrentOrganization $organization,
     ) {
         // empty
     }

@@ -3,14 +3,14 @@
 namespace App\Services\Organization\Eloquent;
 
 use App\Models\Concerns\GlobalScopes\DisableableScope;
-use App\Services\Organization\Organization;
+use App\Services\Organization\CurrentOrganization;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 class OwnedByOrganizationScope extends DisableableScope {
     public function __construct(
-        protected Organization $organization,
+        protected CurrentOrganization $organization,
     ) {
         // empty
     }

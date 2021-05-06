@@ -2,23 +2,23 @@
 
 namespace App\Services\Organization;
 
-use App\Models\Organization as OrganizationModel;
+use App\Models\Organization;
 use App\Services\Organization\Exceptions\UnknownOrganization;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 
-class Organization implements HasLocalePreference {
+class CurrentOrganization implements HasLocalePreference {
     public function __construct(
         protected Factory $auth,
     ) {
         // empty
     }
 
-    public function has(): bool {
+    public function defined(): bool {
         return (bool) $this->getCurrent();
     }
 
-    public function get(): OrganizationModel {
+    public function get(): Organization {
         $organization = $this->getCurrent();
 
         if (!$organization) {
@@ -40,12 +40,12 @@ class Organization implements HasLocalePreference {
         return $this->get()->preferredLocale();
     }
 
-    public function is(OrganizationModel|null $organization): bool {
+    public function is(Organization|null $organization): bool {
         return $organization
             && $this->getKey() === $organization->getKey();
     }
 
-    protected function getCurrent(): ?OrganizationModel {
+    protected function getCurrent(): ?Organization {
         $user         = $this->auth->guard()->user();
         $organization = $user instanceof HasOrganization
             ? $user->getOrganization()

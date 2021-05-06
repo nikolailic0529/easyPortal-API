@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Services\Organization\Organization as OrganizationService;
+use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Filesystem\Factory;
 
 use function array_key_exists;
@@ -10,7 +10,7 @@ use function is_null;
 
 class Organization {
     public function __construct(
-        protected OrganizationService $organization,
+        protected CurrentOrganization $organization,
         protected Factory $storage,
     ) {
         // empty

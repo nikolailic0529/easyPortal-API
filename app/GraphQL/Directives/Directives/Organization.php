@@ -3,8 +3,8 @@
 namespace App\GraphQL\Directives\Directives;
 
 use App\GraphQL\Directives\AuthDirective;
+use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\HasOrganization;
-use App\Services\Organization\Organization as OrganizationService;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Config\Repository;
@@ -14,7 +14,7 @@ abstract class Organization extends AuthDirective implements FieldMiddleware {
     public function __construct(
         Factory $auth,
         Repository $config,
-        protected OrganizationService $organization,
+        protected CurrentOrganization $organization,
     ) {
         parent::__construct($auth, $config);
     }
@@ -30,7 +30,7 @@ abstract class Organization extends AuthDirective implements FieldMiddleware {
 
     protected function isAuthorized(?Authenticatable $user): bool {
         return $user instanceof HasOrganization
-            && $this->organization->has()
+            && $this->organization->defined()
             && $this->organization->is($user->getOrganization());
     }
 }
