@@ -12,20 +12,20 @@ use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 
 /**
- * Only user of current tenant can perform action.
+ * Only user of current organization can perform action.
  *
- * @see \Tests\DataProviders\GraphQL\Tenants\RootTenantDataProvider
+ * @see \Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider
  */
-class TenantUserDataProvider extends ArrayDataProvider {
+class OrganizationUserDataProvider extends ArrayDataProvider {
     public function __construct(string $root) {
         parent::__construct([
-            'guest is not allowed'                    => [
+            'guest is not allowed'                          => [
                 new ExpectedFinal(new GraphQLUnauthenticated($root)),
                 static function (): ?User {
                     return null;
                 },
             ],
-            'user from root tenant is allowed'        => [
+            'user from root organization is allowed'        => [
                 new Unknown(),
                 static function (TestCase $test, ?Organization $organization): ?User {
                     return User::factory()->make([
@@ -33,7 +33,7 @@ class TenantUserDataProvider extends ArrayDataProvider {
                     ]);
                 },
             ],
-            'user from another tenant is not allowed' => [
+            'user from another organization is not allowed' => [
                 new ExpectedFinal(new GraphQLUnauthorized($root)),
                 static function (TestCase $test, ?Organization $organization): ?User {
                     return User::factory()->make();

@@ -18,9 +18,9 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\RootTenantDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
-use Tests\DataProviders\GraphQL\Users\TenantUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -35,18 +35,18 @@ class AssetTest extends TestCase {
      */
     public function testQuery(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
         Closure $assetsFactory = null,
     ): void {
         // Prepare
-        $tenant = $this->setTenant($tenantFactory);
-        $user   = $this->setUser($userFactory, $tenant);
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
 
         $assetId = 'wrong';
 
         if ($assetsFactory) {
-            $assetId = $assetsFactory($this, $tenant, $user)->getKey();
+            $assetId = $assetsFactory($this, $organization, $user)->getKey();
         }
 
         // Test
@@ -200,9 +200,9 @@ class AssetTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
-            'root'   => new CompositeDataProvider(
-                new RootTenantDataProvider('asset'),
-                new TenantUserDataProvider('asset'),
+            'root'         => new CompositeDataProvider(
+                new RootOrganizationDataProvider('asset'),
+                new OrganizationUserDataProvider('asset'),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('asset', null),
@@ -212,8 +212,8 @@ class AssetTest extends TestCase {
                     ],
                 ]),
             ),
-            'tenant' => new CompositeDataProvider(
-                new TenantDataProvider('asset', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
+            'organization' => new CompositeDataProvider(
+                new OrganizationDataProvider('asset', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
                 new UserDataProvider('asset'),
                 new ArrayDataProvider([
                     'ok' => [

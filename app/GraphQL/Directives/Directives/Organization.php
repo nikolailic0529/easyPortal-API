@@ -3,18 +3,18 @@
 namespace App\GraphQL\Directives\Directives;
 
 use App\GraphQL\Directives\AuthDirective;
-use App\Services\Tenant\Tenant as TenantService;
-use App\Services\Tenant\Tenantable;
+use App\Services\Organization\HasOrganization;
+use App\Services\Organization\Organization as OrganizationService;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Config\Repository;
 use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 
-abstract class Tenant extends AuthDirective implements FieldMiddleware {
+abstract class Organization extends AuthDirective implements FieldMiddleware {
     public function __construct(
         Factory $auth,
         Repository $config,
-        protected TenantService $tenant,
+        protected OrganizationService $organization,
     ) {
         parent::__construct($auth, $config);
     }
@@ -24,13 +24,13 @@ abstract class Tenant extends AuthDirective implements FieldMiddleware {
             """
             Current user must be a member of the current organization.
             """
-            directive @tenant on FIELD_DEFINITION | OBJECT
+            directive @organization on FIELD_DEFINITION | OBJECT
             GRAPHQL;
     }
 
     protected function isAuthorized(?Authenticatable $user): bool {
-        return $user instanceof Tenantable
-            && $this->tenant->has()
-            && $this->tenant->is($user->getOrganization());
+        return $user instanceof HasOrganization
+            && $this->organization->has()
+            && $this->organization->is($user->getOrganization());
     }
 }

@@ -19,7 +19,7 @@ use LastDragon_ru\LaraASP\Queue\Queueables\Job;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -38,13 +38,13 @@ class ServicesTest extends TestCase {
      */
     public function testInvoke(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
         Closure $translationsFactory = null,
         object $store = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setTenant($tenantFactory));
+        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
         $this->setTranslations($translationsFactory);
 
         if ($store) {
@@ -107,7 +107,7 @@ class ServicesTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider('application'),
+            new OrganizationDataProvider('application'),
             new RootUserDataProvider('application'),
             new ArrayDataProvider([
                 Constants::class => [

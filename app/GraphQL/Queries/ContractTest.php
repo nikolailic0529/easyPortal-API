@@ -16,9 +16,9 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\RootTenantDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
-use Tests\DataProviders\GraphQL\Users\TenantUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -33,18 +33,18 @@ class ContractTest extends TestCase {
      */
     public function testQuery(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
         Closure $contractFactory = null,
     ): void {
         // Prepare
-        $tenant = $this->setTenant($tenantFactory);
-        $user   = $this->setUser($userFactory, $tenant);
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
 
         $contractId = 'wrong';
 
         if ($contractFactory) {
-            $contract   = $contractFactory($this, $tenant, $user);
+            $contract   = $contractFactory($this, $organization, $user);
             $contractId = $contract->id;
 
             $this->setSettings([
@@ -169,9 +169,9 @@ class ContractTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
-            'root'   => new CompositeDataProvider(
-                new RootTenantDataProvider('contract'),
-                new TenantUserDataProvider('contract'),
+            'root'         => new CompositeDataProvider(
+                new RootOrganizationDataProvider('contract'),
+                new OrganizationUserDataProvider('contract'),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('contract', null),
@@ -181,8 +181,8 @@ class ContractTest extends TestCase {
                     ],
                 ]),
             ),
-            'tenant' => new CompositeDataProvider(
-                new TenantDataProvider('contract', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+            'organization' => new CompositeDataProvider(
+                new OrganizationDataProvider('contract', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
                 new UserDataProvider('contract'),
                 new ArrayDataProvider([
                     'ok' => [

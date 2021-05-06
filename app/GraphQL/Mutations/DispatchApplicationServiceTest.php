@@ -14,7 +14,7 @@ use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
@@ -36,12 +36,12 @@ class DispatchApplicationServiceTest extends TestCase {
      */
     public function testInvoke(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
         array $input = ['name' => 'service'],
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setTenant($tenantFactory));
+        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
         // Mock
         $service = new class(
@@ -86,7 +86,7 @@ class DispatchApplicationServiceTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider('dispatchApplicationService'),
+            new OrganizationDataProvider('dispatchApplicationService'),
             new RootUserDataProvider('dispatchApplicationService'),
             new ArrayDataProvider([
                 'no service'    => [

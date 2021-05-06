@@ -8,7 +8,7 @@ use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasLocations;
 use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
-use App\Services\Tenant\Eloquent\OwnedByTenant;
+use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -59,7 +59,7 @@ use function count;
  * @mixin \Eloquent
  */
 class Customer extends Model {
-    use OwnedByTenant;
+    use OwnedByOrganization;
     use HasFactory;
     use HasType;
     use HasStatus;
@@ -121,13 +121,13 @@ class Customer extends Model {
             });
     }
 
-    // <editor-fold desc="OwnedByTenant">
+    // <editor-fold desc="OwnedByOrganization">
     // =========================================================================
-    public function getQualifiedTenantColumn(): string {
-        return $this->getTenantThrough()->getQualifiedRelatedPivotKeyName();
+    public function getQualifiedOrganizationColumn(): string {
+        return $this->getOrganizationThrough()->getQualifiedRelatedPivotKeyName();
     }
 
-    public function getTenantThrough(): ?BelongsToMany {
+    public function getOrganizationThrough(): ?BelongsToMany {
         return $this->resellers();
     }
     // </editor-fold>

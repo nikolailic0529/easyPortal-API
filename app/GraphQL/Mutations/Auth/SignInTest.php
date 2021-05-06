@@ -9,7 +9,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery;
-use Tests\DataProviders\GraphQL\Tenants\AnyTenantDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
@@ -30,24 +30,24 @@ class SignInTest extends TestCase {
      */
     public function testInvoke(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
-        Closure $organizationFactory = null,
+        Closure $passedOrganizationFactory = null,
     ): void {
         $this->markTestSkipped('Temporary disabled because https://github.com/nuwave/lighthouse/issues/1780');
 
         // Prepare
-        $tenant = $this->setTenant($tenantFactory);
-        $user   = $this->setUser($userFactory, $tenant);
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
 
         // Organization
         $id = $this->faker->uuid;
 
-        if ($organizationFactory) {
-            $organization = $organizationFactory($this, $tenant, $user);
+        if ($passedOrganizationFactory) {
+            $passed = $passedOrganizationFactory($this, $organization, $user);
 
-            if ($organization) {
-                $id = $organization->getKey();
+            if ($passed) {
+                $id = $passed->getKey();
             }
         }
 
@@ -91,7 +91,7 @@ class SignInTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyTenantDataProvider('signIn'),
+            new AnyOrganizationDataProvider('signIn'),
             new GuestDataProvider('signIn'),
             new ArrayDataProvider([
                 'organization not exists' => [

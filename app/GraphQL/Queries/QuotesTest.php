@@ -16,9 +16,9 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\RootTenantDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
-use Tests\DataProviders\GraphQL\Users\TenantUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\GraphQL\GraphQLSuccess;
@@ -39,21 +39,21 @@ class QuotesTest extends TestCase {
      */
     public function testQuery(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
         array $settings = [],
         Closure $quotesFactory = null,
     ): void {
         // Prepare
-        $tenant = $this->setTenant($tenantFactory);
-        $user   = $this->setUser($userFactory, $tenant);
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
 
         if ($settings) {
             $this->setSettings($settings);
         }
 
         if ($quotesFactory) {
-            $quotesFactory($this, $tenant, $user);
+            $quotesFactory($this, $organization, $user);
         }
 
         // Not empty?
@@ -403,9 +403,9 @@ class QuotesTest extends TestCase {
         ];
 
         return (new MergeDataProvider([
-            'root'   => new CompositeDataProvider(
-                new RootTenantDataProvider('quotes'),
-                new TenantUserDataProvider('quotes'),
+            'root'         => new CompositeDataProvider(
+                new RootOrganizationDataProvider('quotes'),
+                new OrganizationUserDataProvider('quotes'),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLPaginated('quotes', null),
@@ -427,8 +427,8 @@ class QuotesTest extends TestCase {
                     ],
                 ]),
             ),
-            'tenant' => new CompositeDataProvider(
-                new TenantDataProvider('quotes', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+            'organization' => new CompositeDataProvider(
+                new OrganizationDataProvider('quotes', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
                 new UserDataProvider('quotes'),
                 new ArrayDataProvider([
                     'quote_types match'                         => [

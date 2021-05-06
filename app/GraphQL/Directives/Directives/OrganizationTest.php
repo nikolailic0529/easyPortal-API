@@ -11,17 +11,17 @@ use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
-use Tests\WithTenant;
+use Tests\WithOrganization;
 
 use function addslashes;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Directives\Directives\Tenant
+ * @coversDefaultClass \App\GraphQL\Directives\Directives\Organization
  */
-class TenantTest extends TestCase {
+class OrganizationTest extends TestCase {
     use WithGraphQLSchema;
-    use WithTenant;
+    use WithOrganization;
 
     // <editor-fold desc="Tests">
     // =========================================================================
@@ -43,8 +43,8 @@ class TenantTest extends TestCase {
      *
      * @dataProvider dataProviderResolveField
      */
-    public function testResolveField(Response $expected, Closure $tenantFactory, Closure $userFactory): void {
-        $this->setUser($userFactory, $this->setTenant($tenantFactory));
+    public function testResolveField(Response $expected, Closure $organizationFactory, Closure $userFactory): void {
+        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
         $resolver = addslashes(OrganizationDirectiveTest_Resolver::class);
 
@@ -53,12 +53,12 @@ class TenantTest extends TestCase {
             /** @lang GraphQL */
                 <<<GRAPHQL
                 type Query {
-                    value: String! @tenant @field(resolver: "{$resolver}")
+                    value: String! @organization @field(resolver: "{$resolver}")
                 }
                 GRAPHQL,
             )
             ->graphQL(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query {
                     value
@@ -76,7 +76,7 @@ class TenantTest extends TestCase {
      */
     public function dataProviderResolveField(): array {
         return [
-            'no tenant - no user'               => [
+            'no organization - no user'                     => [
                 new GraphQLUnauthenticated('value'),
                 static function () {
                     return null;
@@ -85,7 +85,7 @@ class TenantTest extends TestCase {
                     return null;
                 },
             ],
-            'tenant - no user'                  => [
+            'organization - no user'                        => [
                 new GraphQLUnauthenticated('value'),
                 static function () {
                     return Organization::factory()->make();
@@ -94,7 +94,7 @@ class TenantTest extends TestCase {
                     return null;
                 },
             ],
-            'tenant - user'                     => [
+            'organization - user'                           => [
                 new GraphQLSuccess('value', null),
                 static function () {
                     return Organization::factory()->create();
@@ -105,7 +105,7 @@ class TenantTest extends TestCase {
                     ]);
                 },
             ],
-            'tenant - user from another tenant' => [
+            'organization - user from another organization' => [
                 new GraphQLUnauthorized('value'),
                 static function () {
                     return Organization::factory()->create();

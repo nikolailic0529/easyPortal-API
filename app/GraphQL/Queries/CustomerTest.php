@@ -19,9 +19,9 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\RootTenantDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
-use Tests\DataProviders\GraphQL\Users\TenantUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragmentPaginatedSchema;
@@ -41,21 +41,21 @@ class CustomerTest extends TestCase {
      */
     public function testQuery(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
         array $settings = [],
         Closure $customerFactory = null,
     ): void {
         // Prepare
-        $tenant = $this->setTenant($tenantFactory);
-        $user   = $this->setUser($userFactory, $tenant);
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
 
         $this->setSettings($settings);
 
         $customerId = 'wrong';
 
         if ($customerFactory) {
-            $customerId = $customerFactory($this, $tenant, $user)->id;
+            $customerId = $customerFactory($this, $organization, $user)->id;
         }
 
         // Test
@@ -103,18 +103,18 @@ class CustomerTest extends TestCase {
      */
     public function testQueryAssets(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
         Closure $customerFactory = null,
     ): void {
         // Prepare
-        $tenant = $this->setTenant($tenantFactory);
-        $user   = $this->setUser($userFactory, $tenant);
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
 
         $customerId = 'wrong';
 
         if ($customerFactory) {
-            $customerId = $customerFactory($this, $tenant, $user)->getKey();
+            $customerId = $customerFactory($this, $organization, $user)->getKey();
         }
 
         // Test
@@ -283,20 +283,20 @@ class CustomerTest extends TestCase {
      */
     public function testQueryContracts(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
         array $settings = [],
         Closure $customerFactory = null,
     ): void {
         // Prepare
-        $tenant = $this->setTenant($tenantFactory);
-        $user   = $this->setUser($userFactory, $tenant);
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
 
         $this->setSettings($settings);
 
         $customerId = 'wrong';
         if ($customerFactory) {
-            $customerId = $customerFactory($this, $tenant, $user)->getKey();
+            $customerId = $customerFactory($this, $organization, $user)->getKey();
         }
 
         // Not empty?
@@ -436,20 +436,20 @@ class CustomerTest extends TestCase {
      */
     public function testQueryQuotes(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
         array $settings = [],
         Closure $customerFactory = null,
     ): void {
         // Prepare
-        $tenant = $this->setTenant($tenantFactory);
-        $user   = $this->setUser($userFactory, $tenant);
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
 
         $this->setSettings($settings);
 
         $customerId = 'wrong';
         if ($customerFactory) {
-            $customerId = $customerFactory($this, $tenant, $user)->getKey();
+            $customerId = $customerFactory($this, $organization, $user)->getKey();
         }
 
         // Not empty?
@@ -588,9 +588,9 @@ class CustomerTest extends TestCase {
      */
     public function dataProviderQueryAssets(): array {
         return (new MergeDataProvider([
-            'root'   => new CompositeDataProvider(
-                new RootTenantDataProvider('customer'),
-                new TenantUserDataProvider('customer'),
+            'root'         => new CompositeDataProvider(
+                new RootOrganizationDataProvider('customer'),
+                new OrganizationUserDataProvider('customer'),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('customer', null),
@@ -600,8 +600,8 @@ class CustomerTest extends TestCase {
                     ],
                 ]),
             ),
-            'tenant' => new CompositeDataProvider(
-                new TenantDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
+            'organization' => new CompositeDataProvider(
+                new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
                 new UserDataProvider('customer'),
                 new ArrayDataProvider([
                     'ok'          => [
@@ -912,9 +912,9 @@ class CustomerTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
-            'root'   => new CompositeDataProvider(
-                new RootTenantDataProvider('customer'),
-                new TenantUserDataProvider('customer'),
+            'root'         => new CompositeDataProvider(
+                new RootOrganizationDataProvider('customer'),
+                new OrganizationUserDataProvider('customer'),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('customer', null),
@@ -925,8 +925,8 @@ class CustomerTest extends TestCase {
                     ],
                 ]),
             ),
-            'tenant' => new CompositeDataProvider(
-                new TenantDataProvider('customer'),
+            'organization' => new CompositeDataProvider(
+                new OrganizationDataProvider('customer'),
                 new UserDataProvider('customer'),
                 new ArrayDataProvider([
                     'ok' => [
@@ -1055,9 +1055,9 @@ class CustomerTest extends TestCase {
         ];
 
         return (new MergeDataProvider([
-            'root'   => new CompositeDataProvider(
-                new RootTenantDataProvider('customer'),
-                new TenantUserDataProvider('customer'),
+            'root'         => new CompositeDataProvider(
+                new RootOrganizationDataProvider('customer'),
+                new OrganizationUserDataProvider('customer'),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('customer', null),
@@ -1070,8 +1070,8 @@ class CustomerTest extends TestCase {
                     ],
                 ]),
             ),
-            'tenant' => new CompositeDataProvider(
-                new TenantDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+            'organization' => new CompositeDataProvider(
+                new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
                 new UserDataProvider('customer'),
                 new ArrayDataProvider([
                     'ok'             => [
@@ -1636,9 +1636,9 @@ class CustomerTest extends TestCase {
         ];
 
         return (new MergeDataProvider([
-            'root'   => new CompositeDataProvider(
-                new RootTenantDataProvider('customer'),
-                new TenantUserDataProvider('customer'),
+            'root'         => new CompositeDataProvider(
+                new RootOrganizationDataProvider('customer'),
+                new OrganizationUserDataProvider('customer'),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('customer', null),
@@ -1651,8 +1651,8 @@ class CustomerTest extends TestCase {
                     ],
                 ]),
             ),
-            'tenant' => new CompositeDataProvider(
-                new TenantDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+            'organization' => new CompositeDataProvider(
+                new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
                 new UserDataProvider('customer'),
                 new ArrayDataProvider([
                     'ok'                                        => [

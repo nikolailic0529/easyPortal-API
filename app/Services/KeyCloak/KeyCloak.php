@@ -2,14 +2,13 @@
 
 namespace App\Services\KeyCloak;
 
-use App\Models\Organization;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailed;
 use App\Services\KeyCloak\Exceptions\InvalidCredentials;
 use App\Services\KeyCloak\Exceptions\InvalidIdentity;
 use App\Services\KeyCloak\Exceptions\KeyCloakException;
 use App\Services\KeyCloak\Exceptions\StateMismatch;
 use App\Services\KeyCloak\Exceptions\UnknownScope;
-use App\Services\Tenant\Tenant;
+use App\Services\Organization\Organization;
 use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -32,7 +31,7 @@ class KeyCloak {
         protected Repository $config,
         protected Session $session,
         protected AuthManager $auth,
-        protected Tenant $tenant,
+        protected Organization $organization,
         protected UrlGenerator $url,
         protected ExceptionHandler $handler,
     ) {
@@ -115,7 +114,7 @@ class KeyCloak {
             $url = $provider->getSignOutUrl([
                 'redirect_uri' => $this->getRedirectUri(
                     $this->config->get('ep.keycloak.redirects.signout_uri'),
-                    $this->tenant->get(),
+                    $this->organization->get(),
                 ),
             ]);
         }

@@ -25,14 +25,14 @@ use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
-use Tests\WithoutTenantScope;
+use Tests\WithoutOrganizationScope;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Factories\DocumentFactory
  */
 class DocumentFactoryTest extends TestCase {
-    use WithoutTenantScope;
+    use WithoutOrganizationScope;
     use WithQueryLog;
     use Helper;
 

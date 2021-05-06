@@ -9,7 +9,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery;
-use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -37,14 +37,14 @@ class DeleteClientTranslationsTest extends TestCase {
      */
     public function testInvoke(
         Response|array $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
         string $locale = null,
         array $content = [],
         array $keys = [],
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setTenant($tenantFactory));
+        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
         // Mock
         $storage = null;
@@ -102,7 +102,7 @@ class DeleteClientTranslationsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider('deleteClientTranslations'),
+            new OrganizationDataProvider('deleteClientTranslations'),
             new RootUserDataProvider('deleteClientTranslations'),
             new ArrayDataProvider([
                 'ok' => [

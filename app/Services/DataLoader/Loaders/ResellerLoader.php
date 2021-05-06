@@ -17,7 +17,7 @@ use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\Concerns\WithAssets;
 use App\Services\DataLoader\Loaders\Concerns\WithLocations;
 use App\Services\DataLoader\Schema\Company;
-use App\Services\Tenant\Eloquent\OwnedByTenantScope;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Illuminate\Database\Eloquent\Builder;
 use Psr\Log\LoggerInterface;
 
@@ -45,7 +45,7 @@ class ResellerLoader extends Loader {
         // Load company
         $company = $this->client->getCompanyById($id);
 
-        $this->callWithoutGlobalScopes([OwnedByTenantScope::class], function () use ($id, $company): void {
+        $this->callWithoutGlobalScopes([OwnedByOrganizationScope::class], function () use ($id, $company): void {
             $this->process($id, $company);
         });
 

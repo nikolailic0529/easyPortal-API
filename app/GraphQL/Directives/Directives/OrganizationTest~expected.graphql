@@ -63,7 +63,7 @@ type PaginatorInfo {
 
 type Query {
   """
-  @require <tenant> Current user must be a member of the current organization.
+  @require <organization> Current user must be a member of the current organization.
   """
   value: String!
 }
@@ -80,21 +80,21 @@ enum SortOrder {
 """
 Description.
 
-@require <tenant> Current user must be a member of the current organization.
+@require <organization> Current user must be a member of the current organization.
 """
 type Test {
   """
-  @require <tenant> Current user must be a member of the current organization.
+  @require <organization> Current user must be a member of the current organization.
   """
   one: String!
 
   """
-  @require <tenant> Current user must be a member of the current organization.
+  @require <organization> Current user must be a member of the current organization.
   """
   two: String!
 
   """
-  @require <tenant> Current user must be a member of the current organization.
+  @require <organization> Current user must be a member of the current organization.
   """
   extension: String!
 }

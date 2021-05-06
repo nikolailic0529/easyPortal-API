@@ -9,7 +9,7 @@ use Illuminate\Translation\Translator;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\AnyTenantDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -28,14 +28,14 @@ class QuoteTypesTest extends TestCase {
      */
     public function testInvoke(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
         array $settings = [],
         Closure $localeFactory = null,
         Closure $typesFactory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setTenant($tenantFactory));
+        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
         $this->setSettings($settings);
 
         if ($typesFactory) {
@@ -122,7 +122,7 @@ class QuoteTypesTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new AnyTenantDataProvider('quoteTypes'),
+            new AnyOrganizationDataProvider('quoteTypes'),
             new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'quote_types match'                  => [

@@ -11,9 +11,9 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\RootTenantDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
-use Tests\DataProviders\GraphQL\Users\TenantUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\TestCase;
@@ -30,19 +30,19 @@ class CustomersTest extends TestCase {
      */
     public function testQuery(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
         array $settings = [],
         Closure $customerFactory = null,
     ): void {
         // Prepare
-        $tenant = $this->setTenant($tenantFactory);
-        $user   = $this->setUser($userFactory, $tenant);
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
 
         $this->setSettings($settings);
 
         if ($customerFactory) {
-            $customerFactory($this, $tenant, $user);
+            $customerFactory($this, $organization, $user);
         }
 
         // Test
@@ -101,9 +101,9 @@ class CustomersTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
-            'root'   => new CompositeDataProvider(
-                new RootTenantDataProvider('customers'),
-                new TenantUserDataProvider('customers'),
+            'root'         => new CompositeDataProvider(
+                new RootOrganizationDataProvider('customers'),
+                new OrganizationUserDataProvider('customers'),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLPaginated('customers', null),
@@ -114,8 +114,8 @@ class CustomersTest extends TestCase {
                     ],
                 ]),
             ),
-            'tenant' => new CompositeDataProvider(
-                new TenantDataProvider('customers'),
+            'organization' => new CompositeDataProvider(
+                new OrganizationDataProvider('customers'),
                 new UserDataProvider('customers'),
                 new ArrayDataProvider([
                     'ok' => [

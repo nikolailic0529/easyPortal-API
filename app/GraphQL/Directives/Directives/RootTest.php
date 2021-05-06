@@ -10,7 +10,7 @@ use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
-use Tests\WithTenant;
+use Tests\WithOrganization;
 
 use function addslashes;
 
@@ -20,7 +20,7 @@ use function addslashes;
  */
 class RootTest extends TestCase {
     use WithGraphQLSchema;
-    use WithTenant;
+    use WithOrganization;
 
     // <editor-fold desc="Tests">
     // =========================================================================
@@ -46,7 +46,7 @@ class RootTest extends TestCase {
      * @param array<string,mixed> $settings
      */
     public function testResolveField(Response $expected, array $settings, Closure $userFactory): void {
-        $this->useRootTenant();
+        $this->useRootOrganization();
         $this->setUser($userFactory);
         $this->setSettings($settings);
 

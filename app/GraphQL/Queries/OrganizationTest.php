@@ -26,11 +26,11 @@ class OrganizationTest extends TestCase {
      */
     public function testInvoke(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setTenant($tenantFactory));
+        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
         // Test
         $this->graphQL(/** @lang GraphQL */ '{
@@ -72,13 +72,13 @@ class OrganizationTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new ArrayDataProvider([
-                'no tenant' => [
+                'no organization' => [
                     new ExpectedFinal(new GraphQLUnauthenticated('organization')),
                     static function (): ?Organization {
                         return null;
                     },
                 ],
-                'tenant'    => [
+                'organization'    => [
                     new Unknown(),
                     static function (TestCase $test): ?ModelsOrganization {
                         $currency     = Currency::factory()->create([

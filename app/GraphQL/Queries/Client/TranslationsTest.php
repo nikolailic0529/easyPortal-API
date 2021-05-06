@@ -8,7 +8,7 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\AnyTenantDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -28,12 +28,12 @@ class TranslationsTest extends TestCase {
      */
     public function testInvoke(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
         array $translations = [],
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setTenant($tenantFactory));
+        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
         if ($translations) {
             $disk    = $this->app()->make(ClientDisk::class);
@@ -73,7 +73,7 @@ class TranslationsTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new AnyTenantDataProvider('client'),
+            new AnyOrganizationDataProvider('client'),
             new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [

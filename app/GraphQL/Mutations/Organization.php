@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Services\Tenant\Tenant;
+use App\Services\Organization\Organization as OrganizationService;
 use Illuminate\Contracts\Filesystem\Factory;
 
 use function array_key_exists;
@@ -10,7 +10,7 @@ use function is_null;
 
 class Organization {
     public function __construct(
-        protected Tenant $tenant,
+        protected OrganizationService $organization,
         protected Factory $storage,
     ) {
         // empty
@@ -21,7 +21,7 @@ class Organization {
      * @param array<string, mixed> $args
      */
     public function __invoke($_, array $args): bool {
-        $organization = $this->tenant->get();
+        $organization = $this->organization->get();
 
         if (array_key_exists('locale', $args)) {
             $organization->locale = $args['locale'];
