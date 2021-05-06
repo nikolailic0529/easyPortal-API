@@ -2,6 +2,7 @@
 
 namespace App\Services\KeyCloak;
 
+use App\Models\Organization;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailed;
 use App\Services\KeyCloak\Exceptions\InvalidCredentials;
 use App\Services\KeyCloak\Exceptions\InvalidIdentity;
@@ -40,7 +41,7 @@ class KeyCloak {
 
     // <editor-fold desc="Authorization">
     // =========================================================================
-    public function getAuthorizationUrl(CurrentOrganization $organization): string {
+    public function getAuthorizationUrl(Organization $organization): string {
         $provider = $this->getProvider();
         $url      = $provider->getAuthorizationUrl([
             'scope' => $this->getOrganizationScopes($organization),
@@ -125,7 +126,7 @@ class KeyCloak {
 
     // <editor-fold desc="Getters">
     // =========================================================================
-    public function getOrganizationScope(CurrentOrganization $organization): string {
+    public function getOrganizationScope(Organization $organization): string {
         return $organization->keycloak_scope
             ?: throw new UnknownScope($organization);
     }
@@ -158,7 +159,7 @@ class KeyCloak {
     /**
      * @return array<string>
      */
-    protected function getOrganizationScopes(CurrentOrganization $organization): array {
+    protected function getOrganizationScopes(Organization $organization): array {
         return [
             'openid',
             'email',
@@ -168,7 +169,7 @@ class KeyCloak {
         ];
     }
 
-    protected function getRedirectUri(string $uri, CurrentOrganization $organization = null): string {
+    protected function getRedirectUri(string $uri, Organization $organization = null): string {
         if ($organization) {
             $uri = strtr($uri, [
                 '{organization}' => $organization->getKey(),
