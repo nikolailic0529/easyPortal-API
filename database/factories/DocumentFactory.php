@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Oem;

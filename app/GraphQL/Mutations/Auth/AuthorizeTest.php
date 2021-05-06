@@ -10,7 +10,6 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery;
 use Tests\DataProviders\GraphQL\Tenants\AnyTenantDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
 use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;

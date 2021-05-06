@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\GraphQL\Queries\QuoteTypes;
 use App\GraphQL\Queries\ContractTypes;
+use App\GraphQL\Queries\QuoteTypes;
 use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasLocations;
 use App\Models\Concerns\HasStatus;
@@ -36,7 +36,7 @@ use function count;
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
  * @property int                                                                 $contacts_count
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contract>      $contracts
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Document>      $contracts
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>      $locations
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $quotes
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller> $resellers
@@ -106,19 +106,19 @@ class Customer extends Model {
     }
 
     public function contracts(): HasMany {
-        $contractTypes = app()->make(ContractTypes::class);
-        
-        return $this->hasMany(Document::class)->where(static function (Builder $builder) use ($contractTypes) {
-            return $contractTypes->prepare($builder, 'type_id');
-        });
+        return $this
+            ->hasMany(Document::class)
+            ->where(static function (Builder $builder) {
+                return app()->make(ContractTypes::class)->prepare($builder, 'type_id');
+            });
     }
 
     public function quotes(): HasMany {
-        $quoteTypes = app()->make(QuoteTypes::class);
-        return $this->hasMany(Document::class)
-            ->where(static function (Builder $builder) use ($quoteTypes): Builder {
-                return $quoteTypes->prepare($builder, 'type_id');
-        });
+        return $this
+            ->hasMany(Document::class)
+            ->where(static function (Builder $builder): Builder {
+                return app()->make(QuoteTypes::class)->prepare($builder, 'type_id');
+            });
     }
 
     // <editor-fold desc="OwnedByTenant">

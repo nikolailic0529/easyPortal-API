@@ -20,7 +20,6 @@ use Tests\DataProviders\GraphQL\Tenants\RootTenantDataProvider;
 use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
 use Tests\DataProviders\GraphQL\Users\TenantUserDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
-use Tests\GraphQL\GraphQLPaginated;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 

@@ -14,8 +14,6 @@ use Lcobucci\JWT\UnencryptedToken;
 
 use function array_filter;
 use function array_keys;
-use function array_map;
-use function str_replace;
 
 class UserProvider implements UserProviderContract {
     public const    ACCESS_TOKEN                = 'access_token';
