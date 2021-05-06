@@ -6,7 +6,7 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Tenants\AnyTenantDataProvider;
 use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -32,7 +32,7 @@ class LocaleTest extends TestCase {
         $this
             ->graphQL(/** @lang GraphQL */ 'mutation Locale($locale: String!) {
                 locale(locale: $locale)
-            }', [ 'locale' => 'en_BB'])
+            }', ['locale' => 'en_BB'])
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
@@ -48,7 +48,7 @@ class LocaleTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider('locale'),
+            new AnyTenantDataProvider('locale'),
             new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [
