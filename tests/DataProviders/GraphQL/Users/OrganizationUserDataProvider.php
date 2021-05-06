@@ -36,7 +36,9 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
             'user from another organization is not allowed' => [
                 new ExpectedFinal(new GraphQLUnauthorized($root)),
                 static function (TestCase $test, ?Organization $organization): ?User {
-                    return User::factory()->make();
+                    return User::factory()->make([
+                        'organization_id' => Organization::factory()->create(),
+                    ]);
                 },
             ],
         ]);

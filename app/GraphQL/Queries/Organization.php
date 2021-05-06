@@ -16,7 +16,9 @@ class Organization {
      * @param null                 $_
      * @param array<string, mixed> $args
      */
-    public function __invoke($_, array $args): ModelsOrganization {
-        return $this->organization->get();
+    public function __invoke($_, array $args): ?ModelsOrganization {
+        return $this->organization->defined()
+            ? $this->organization->get()
+            : null;
     }
 }

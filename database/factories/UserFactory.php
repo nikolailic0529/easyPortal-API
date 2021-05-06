@@ -29,9 +29,7 @@ class UserFactory extends Factory {
     public function definition(): array {
         return [
             'id'              => $this->faker->uuid,
-            'organization_id' => static function (): Organization {
-                return Organization::factory()->create();
-            },
+            'organization_id' => null,
             'given_name'      => $this->faker->firstName,
             'family_name'     => $this->faker->lastName,
             'email'           => $this->faker->unique()->safeEmail,

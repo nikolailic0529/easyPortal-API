@@ -128,10 +128,7 @@ class UserProvider implements UserProviderContract {
         $token = $this->getToken($credentials);
 
         if ($token instanceof UnencryptedToken) {
-            $valid = true
-                && $token->isRelatedTo($user->getAuthIdentifier())
-                && $user instanceof HasOrganization
-                && $user->getOrganization();
+            $valid = $token->isRelatedTo($user->getAuthIdentifier());
         }
 
         return $valid;
@@ -201,14 +198,7 @@ class UserProvider implements UserProviderContract {
         }
 
         // Organization
-        $key          = 'organization';
-        $organization = $this->getOrganization($token);
-
-        if ($organization) {
-            $properties[$key] = $organization;
-        } else {
-            $missed[] = $key;
-        }
+        $properties['organization'] = $this->getOrganization($token);
 
         // Permissions
         $properties['permissions'] = $this->getPermissions($token);
