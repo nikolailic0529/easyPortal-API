@@ -19,7 +19,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
 use Maatwebsite\Excel\Facades\Excel;
-use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
+use Tests\DataProviders\Http\Tenants\TenantDataProvider;
 use Tests\TestCase;
 
 use function is_a;
@@ -52,11 +52,11 @@ class ExportControllerTest extends TestCase {
     ): void {
         // Prepare
         $tenant = $this->setTenant($tenantFactory);
-        $this->setUser($userFactory, $tenant);
+        $user   = $this->setUser($userFactory, $tenant);
 
         $exportedCount = 0;
         if ($exportableFactory) {
-            $exportedCount = $exportableFactory($this, $tenant);
+            $exportedCount = $exportableFactory($this, $tenant, $user);
         }
 
         // Query
@@ -153,8 +153,9 @@ class ExportControllerTest extends TestCase {
             // Data + Header
             return 16;
         };
+
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new TenantDataProvider('not-graphql'),
             new ArrayDataProvider([
                 'guest is not allowed' => [
                     new ExpectedFinal(new Response(
