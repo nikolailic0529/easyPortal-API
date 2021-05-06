@@ -2,7 +2,7 @@
 <ruleset name="EasyPortalStandard"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="./vendor/squizlabs/php_codesniffer/phpcs.xsd">
-    <description>Lara Asp coding standard, based on PSR12</description>
+    <description>EasyPortal coding standard, based on PSR12</description>
     <config name="installed_paths" value="../../slevomat/coding-standard"/>
     <file>./app</file>
     <file>./bootstrap/app.php</file>
@@ -50,8 +50,7 @@
     </rule>
     <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
         <properties>
-            <property name="declareOnFirstLine"/>
-            <property name="linesCountBeforeDeclare" value="0"/>
+            <property name="declareOnFirstLine" value="true"/>
             <property name="spacesCountAroundEqualsSign" value="1"/>
         </properties>
     </rule>

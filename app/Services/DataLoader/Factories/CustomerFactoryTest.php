@@ -20,7 +20,7 @@ use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
-use Tests\WithoutTenantScope;
+use Tests\WithoutOrganizationScope;
 
 use function tap;
 
@@ -29,7 +29,7 @@ use function tap;
  * @coversDefaultClass \App\Services\DataLoader\Factories\CustomerFactory
  */
 class CustomerFactoryTest extends TestCase {
-    use WithoutTenantScope;
+    use WithoutOrganizationScope;
     use WithQueryLog;
     use Helper;
 

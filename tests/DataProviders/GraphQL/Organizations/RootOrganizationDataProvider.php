@@ -1,27 +1,27 @@
 <?php declare(strict_types = 1);
 
-namespace Tests\DataProviders\GraphQL\Tenants;
+namespace Tests\DataProviders\GraphQL\Organizations;
 
 use App\Models\Organization;
-use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\NotFound;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
+use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\TestCase;
 
-class TenantDataProvider extends ArrayDataProvider {
-    public function __construct(string $id = null) {
+class RootOrganizationDataProvider extends ArrayDataProvider {
+    public function __construct(string $root, string $id = null) {
         parent::__construct([
-            'no tenant' => [
-                new ExpectedFinal(new NotFound()),
+            'no organization is not allowed' => [
+                new ExpectedFinal(new GraphQLUnauthenticated($root)),
                 static function (): ?Organization {
                     return null;
                 },
             ],
-            'tenant'    => [
+            'root organization is allowed'   => [
                 new Unknown(),
                 static function (TestCase $test) use ($id): ?Organization {
-                    return $id ? Organization::factory()->create([ 'id' => $id ]) : Organization::factory()->create();
+                    return Organization::factory()->root()->create($id ? ['id' => $id] : []);
                 },
             ],
         ]);

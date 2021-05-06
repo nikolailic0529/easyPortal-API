@@ -9,8 +9,6 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\ContentTypes\JsonContentT
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 
-use Psr\Http\Message\ResponseInterface;
-
 use function array_filter;
 use function array_merge;
 

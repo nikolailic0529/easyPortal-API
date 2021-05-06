@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Jobs;
 use App\Jobs\NamedJob;
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Customer;
-use App\Services\Tenant\Eloquent\OwnedByTenantScope;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Support\Facades\Date;
@@ -37,7 +37,7 @@ class CustomersUpdaterCronJob extends CronJob implements ShouldBeUnique, NamedJo
         $config   = $configurator->config($this);
         $expire   = $config->setting('expire');
         $expire   = Date::now()->sub($expire);
-        $outdated = $this->callWithoutGlobalScopes([OwnedByTenantScope::class], static function () use ($expire) {
+        $outdated = $this->callWithoutGlobalScopes([OwnedByOrganizationScope::class], static function () use ($expire) {
             return Customer::query()
                 ->where('updated_at', '<', $expire)
                 ->get();

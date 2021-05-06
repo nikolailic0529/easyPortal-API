@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Services\Tenant\Tenantable;
+use App\Services\Organization\HasOrganization;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
@@ -58,7 +58,7 @@ class User extends Model implements
     AuthenticatableContract,
     AuthorizableContract,
     HasLocalePreference,
-    Tenantable {
+    HasOrganization {
     use HasFactory;
     use Authenticatable;
     use Authorizable;

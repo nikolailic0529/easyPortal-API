@@ -11,7 +11,7 @@ abstract class Root extends AuthDirective {
     public static function definition(): string {
         return /** @lang GraphQL */ <<<'GRAPHQL'
             """
-            Checks that current user is the root.
+            Current user must be a root.
             """
             directive @root(
                 """

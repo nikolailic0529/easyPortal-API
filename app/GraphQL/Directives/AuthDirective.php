@@ -158,14 +158,14 @@ abstract class AuthDirective extends BaseDirective implements
         // Generate
         $tag          = '@require';
         $description  = $node->description->value ?? '';
-        $requirements = array_unique($this->requirements());
+        $requirements = $this->getRequirements();
 
         if ($description && !str_contains($description, $tag)) {
             $description = trim($description)."\n\n";
         }
 
-        foreach ($requirements as $requirement) {
-            $requirement = "{$tag} {$requirement}";
+        foreach ($requirements as $requirement => $desc) {
+            $requirement = "{$tag} {$requirement} {$desc}";
 
             if (!str_contains($description, $requirement)) {
                 $description .= "{$requirement}\n";
@@ -185,8 +185,10 @@ abstract class AuthDirective extends BaseDirective implements
     /**
      * @return array<string>
      */
-    protected function requirements(): array {
-        return ["<{$this->directiveNode->name->value}>"];
+    protected function getRequirements(): array {
+        return [
+            "<{$this->name()}>" => ASTHelper::extractDirectiveDefinition(static::definition())->description?->value,
+        ];
     }
     // </editor-fold>
 }

@@ -6,7 +6,7 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -24,15 +24,15 @@ class LocaleTest extends TestCase {
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
      */
-    public function testInvoke(Response $expected, Closure $tenantFactory, Closure $userFactory = null): void {
+    public function testInvoke(Response $expected, Closure $organizationFactory, Closure $userFactory = null): void {
         // Prepare
-        $this->setUser($userFactory, $this->setTenant($tenantFactory));
+        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ 'mutation Locale($locale: String!) {
                 locale(locale: $locale)
-            }', [ 'locale' => 'en_BB'])
+            }', ['locale' => 'en_BB'])
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
@@ -48,7 +48,7 @@ class LocaleTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new AnyOrganizationDataProvider('locale'),
             new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [

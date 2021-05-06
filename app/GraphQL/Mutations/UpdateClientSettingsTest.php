@@ -13,7 +13,7 @@ use Illuminate\Contracts\Foundation\Application;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -41,14 +41,14 @@ class UpdateClientSettingsTest extends TestCase {
      */
     public function testInvoke(
         Response|array $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
         object $store = null,
         array $content = [],
         array $settings = [],
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setTenant($tenantFactory));
+        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
         // Service
         if ($store) {
@@ -127,7 +127,7 @@ class UpdateClientSettingsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new OrganizationDataProvider('updateClientSettings'),
             new RootUserDataProvider('updateClientSettings'),
             new ArrayDataProvider([
                 'ok' => [

@@ -9,7 +9,7 @@ use Illuminate\Translation\Translator;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -25,13 +25,13 @@ class CustomerTypesTest extends TestCase {
      */
     public function testInvoke(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
         Closure $localeFactory = null,
         Closure $typesFactory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setTenant($tenantFactory));
+        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
         if ($typesFactory) {
             $typesFactory($this);
@@ -60,7 +60,7 @@ class CustomerTypesTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new AnyOrganizationDataProvider('customerTypes'),
             new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok' => [

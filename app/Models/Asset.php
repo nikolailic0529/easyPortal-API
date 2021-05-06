@@ -8,7 +8,7 @@ use App\Models\Concerns\HasProduct;
 use App\Models\Concerns\HasReseller;
 use App\Models\Concerns\HasType;
 use App\Models\Enums\ProductType;
-use App\Services\Tenant\Eloquent\OwnedByTenant;
+use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -58,7 +58,7 @@ use function sprintf;
  * @mixin \Eloquent
  */
 class Asset extends Model {
-    use OwnedByTenant;
+    use OwnedByOrganization;
     use HasFactory;
     use HasOem;
     use HasType;

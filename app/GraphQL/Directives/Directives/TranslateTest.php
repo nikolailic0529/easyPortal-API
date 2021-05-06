@@ -8,7 +8,7 @@ use stdClass;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
-use Tests\WithTenant;
+use Tests\WithOrganization;
 
 /**
  * @internal
@@ -16,7 +16,7 @@ use Tests\WithTenant;
  */
 class TranslateTest extends TestCase {
     use WithGraphQLSchema;
-    use WithTenant;
+    use WithOrganization;
 
     // <editor-fold desc="Tests">
     // =========================================================================
@@ -26,7 +26,7 @@ class TranslateTest extends TestCase {
      * @dataProvider dataProviderResolveField
      */
     public function testResolveField(Response $expected, object $object): void {
-        $this->useRootTenant();
+        $this->useRootOrganization();
         $this->mockResolver($object);
 
         $this

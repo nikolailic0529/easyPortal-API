@@ -37,7 +37,7 @@ use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
-use Tests\WithoutTenantScope;
+use Tests\WithoutOrganizationScope;
 
 use function is_null;
 use function number_format;
@@ -47,7 +47,7 @@ use function number_format;
  * @coversDefaultClass \App\Services\DataLoader\Factories\AssetFactory
  */
 class AssetFactoryTest extends TestCase {
-    use WithoutTenantScope;
+    use WithoutOrganizationScope;
     use WithQueryLog;
     use Helper;
 

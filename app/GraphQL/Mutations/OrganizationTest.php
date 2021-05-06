@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
@@ -34,14 +34,14 @@ class OrganizationTest extends TestCase {
      */
     public function testInvoke(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
         Closure $dataFactory = null,
     ): void {
         // Prepare
-        $tenant = $this->setTenant($tenantFactory($this));
+        $organization = $this->setOrganization($organizationFactory($this));
 
-        $this->setUser($userFactory, $tenant);
+        $this->setUser($userFactory, $organization);
 
         $data = [];
         $map  = [];
@@ -97,16 +97,16 @@ class OrganizationTest extends TestCase {
         $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            $tenant = $tenant->fresh();
-            $this->assertEquals($data['locale'], $tenant->locale);
-            $this->assertEquals($data['currency_id'], $tenant->currency_id);
-            $this->assertEquals($data['branding_dark_theme'], $tenant->branding_dark_theme);
-            $this->assertEquals($data['branding_primary_color'], $tenant->branding_primary_color);
-            $this->assertEquals($data['branding_secondary_color'], $tenant->branding_secondary_color);
-            $this->assertEquals($data['website_url'], $tenant->website_url);
-            $this->assertEquals($data['email'], $tenant->email);
-            Storage::disk('local')->assertExists($tenant->branding_logo);
-            Storage::disk('local')->assertExists($tenant->branding_favicon);
+            $organization = $organization->fresh();
+            $this->assertEquals($data['locale'], $organization->locale);
+            $this->assertEquals($data['currency_id'], $organization->currency_id);
+            $this->assertEquals($data['branding_dark_theme'], $organization->branding_dark_theme);
+            $this->assertEquals($data['branding_primary_color'], $organization->branding_primary_color);
+            $this->assertEquals($data['branding_secondary_color'], $organization->branding_secondary_color);
+            $this->assertEquals($data['website_url'], $organization->website_url);
+            $this->assertEquals($data['email'], $organization->email);
+            Storage::disk('local')->assertExists($organization->branding_logo);
+            Storage::disk('local')->assertExists($organization->branding_favicon);
         }
     }
     // </editor-fold>
@@ -118,7 +118,7 @@ class OrganizationTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new OrganizationDataProvider('organization'),
             new UserDataProvider('organization'),
             new ArrayDataProvider([
                 'ok'                               => [

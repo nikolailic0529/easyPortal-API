@@ -1,20 +1,20 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Tenant;
+namespace App\Services\Organization;
 
 use App\Models\Organization;
-use App\Services\Tenant\Exceptions\UnknownTenant;
+use App\Services\Organization\Exceptions\UnknownOrganization;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 
-class Tenant implements HasLocalePreference {
+class CurrentOrganization implements HasLocalePreference {
     public function __construct(
         protected Factory $auth,
     ) {
         // empty
     }
 
-    public function has(): bool {
+    public function defined(): bool {
         return (bool) $this->getCurrent();
     }
 
@@ -22,7 +22,7 @@ class Tenant implements HasLocalePreference {
         $organization = $this->getCurrent();
 
         if (!$organization) {
-            throw new UnknownTenant();
+            throw new UnknownOrganization();
         }
 
         return $organization;
@@ -46,11 +46,11 @@ class Tenant implements HasLocalePreference {
     }
 
     protected function getCurrent(): ?Organization {
-        $user   = $this->auth->guard()->user();
-        $tenant = $user instanceof Tenantable
+        $user         = $this->auth->guard()->user();
+        $organization = $user instanceof HasOrganization
             ? $user->getOrganization()
             : null;
 
-        return $tenant;
+        return $organization;
     }
 }

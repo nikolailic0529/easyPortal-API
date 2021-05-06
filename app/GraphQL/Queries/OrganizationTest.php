@@ -6,13 +6,13 @@ use App\Models\Currency;
 use App\Models\Organization as ModelsOrganization;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
-use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\NotFound;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
-use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
+use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\TestCase;
 
 /**
@@ -26,11 +26,11 @@ class OrganizationTest extends TestCase {
      */
     public function testInvoke(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setTenant($tenantFactory));
+        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
         // Test
         $this->graphQL(/** @lang GraphQL */ '{
@@ -72,13 +72,13 @@ class OrganizationTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new ArrayDataProvider([
-                'no tenant' => [
-                    new ExpectedFinal(new NotFound()),
+                'no organization' => [
+                    new ExpectedFinal(new GraphQLUnauthenticated('organization')),
                     static function (): ?Organization {
                         return null;
                     },
                 ],
-                'tenant'    => [
+                'organization'    => [
                     new Unknown(),
                     static function (TestCase $test): ?ModelsOrganization {
                         $currency     = Currency::factory()->create([
@@ -113,7 +113,7 @@ class OrganizationTest extends TestCase {
                     },
                 ],
             ]),
-            new AnyUserDataProvider(),
+            new UserDataProvider('organization'),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('organization', Organization::class, [

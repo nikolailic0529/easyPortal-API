@@ -5,7 +5,7 @@ namespace App\Services\KeyCloak;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Exceptions\InsufficientData;
-use App\Services\Tenant\Tenantable;
+use App\Services\Organization\HasOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as UserProviderContract;
 use Lcobucci\JWT\Token;
@@ -14,8 +14,6 @@ use Lcobucci\JWT\UnencryptedToken;
 
 use function array_filter;
 use function array_keys;
-use function array_map;
-use function str_replace;
 
 class UserProvider implements UserProviderContract {
     public const    ACCESS_TOKEN                = 'access_token';
@@ -132,7 +130,7 @@ class UserProvider implements UserProviderContract {
         if ($token instanceof UnencryptedToken) {
             $valid = true
                 && $token->isRelatedTo($user->getAuthIdentifier())
-                && $user instanceof Tenantable
+                && $user instanceof HasOrganization
                 && $user->getOrganization();
         }
 

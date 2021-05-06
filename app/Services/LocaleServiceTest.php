@@ -49,12 +49,12 @@ class LocaleServiceTest extends TestCase {
     public function testGet(
         string $expected,
         ?string $userLocale,
-        ?string $tenantLocale,
+        ?string $organizationFactory,
         ?string $sessionLocale,
     ): void {
         // Organization
-        $this->setTenant(Organization::factory()->create([
-            'locale' => $tenantLocale ?: null,
+        $this->setOrganization(Organization::factory()->create([
+            'locale' => $organizationFactory ?: null,
         ]));
 
         // User
@@ -84,31 +84,31 @@ class LocaleServiceTest extends TestCase {
      */
     public function dataProviderGet(): array {
         return [
-            'From session'                                    => [
+            'From session'                                         => [
                 'fr',
                 'en',
                 'de',
                 'fr',
             ],
-            'From user'                                       => [
+            'From user'                                            => [
                 'de',
                 'de',
                 'en',
                 null,
             ],
-            'From tenant'                                     => [
+            'From organization'                                    => [
                 'de',
                 null,
                 'de',
                 null,
             ],
-            'From app config'                                 => [
+            'From app config'                                      => [
                 'en_BB',
                 null,
                 null,
                 null,
             ],
-            'From session without user locale/ tenant locale' => [
+            'From session without user locale/organization locale' => [
                 'fr',
                 null,
                 null,

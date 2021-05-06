@@ -2,14 +2,13 @@
 
 namespace App\Services\KeyCloak;
 
-use App\Models\Organization;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailed;
 use App\Services\KeyCloak\Exceptions\InvalidCredentials;
 use App\Services\KeyCloak\Exceptions\InvalidIdentity;
 use App\Services\KeyCloak\Exceptions\KeyCloakException;
 use App\Services\KeyCloak\Exceptions\StateMismatch;
 use App\Services\KeyCloak\Exceptions\UnknownScope;
-use App\Services\Tenant\Tenant;
+use App\Services\Organization\CurrentOrganization;
 use Exception;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -32,7 +31,7 @@ class KeyCloak {
         protected Repository $config,
         protected Session $session,
         protected AuthManager $auth,
-        protected Tenant $tenant,
+        protected CurrentOrganization $organization,
         protected UrlGenerator $url,
         protected ExceptionHandler $handler,
     ) {
@@ -41,7 +40,7 @@ class KeyCloak {
 
     // <editor-fold desc="Authorization">
     // =========================================================================
-    public function getAuthorizationUrl(Organization $organization): string {
+    public function getAuthorizationUrl(CurrentOrganization $organization): string {
         $provider = $this->getProvider();
         $url      = $provider->getAuthorizationUrl([
             'scope' => $this->getOrganizationScopes($organization),
@@ -115,7 +114,7 @@ class KeyCloak {
             $url = $provider->getSignOutUrl([
                 'redirect_uri' => $this->getRedirectUri(
                     $this->config->get('ep.keycloak.redirects.signout_uri'),
-                    $this->tenant->get(),
+                    $this->organization->get(),
                 ),
             ]);
         }
@@ -126,7 +125,7 @@ class KeyCloak {
 
     // <editor-fold desc="Getters">
     // =========================================================================
-    public function getOrganizationScope(Organization $organization): string {
+    public function getOrganizationScope(CurrentOrganization $organization): string {
         return $organization->keycloak_scope
             ?: throw new UnknownScope($organization);
     }
@@ -159,7 +158,7 @@ class KeyCloak {
     /**
      * @return array<string>
      */
-    protected function getOrganizationScopes(Organization $organization): array {
+    protected function getOrganizationScopes(CurrentOrganization $organization): array {
         return [
             'openid',
             'email',
@@ -169,7 +168,7 @@ class KeyCloak {
         ];
     }
 
-    protected function getRedirectUri(string $uri, Organization $organization = null): string {
+    protected function getRedirectUri(string $uri, CurrentOrganization $organization = null): string {
         if ($organization) {
             $uri = strtr($uri, [
                 '{organization}' => $organization->getKey(),
