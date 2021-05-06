@@ -11,6 +11,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
 use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
+use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\TestCase;
@@ -113,7 +114,7 @@ class OrganizationTest extends TestCase {
                     },
                 ],
             ]),
-            new AnyUserDataProvider(),
+            new UserDataProvider('organization'),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('organization', Organization::class, [
