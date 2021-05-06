@@ -7,7 +7,6 @@ use App\Http\Requests\ExportQuery;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use GraphQL\Server\OperationParams;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -26,7 +25,6 @@ use function is_array;
 class ExportController extends Controller {
     public function __construct(
         protected GraphQL $graphQL,
-        protected Repository $config,
     ) {
         // empty
     }
@@ -86,12 +84,6 @@ class ExportController extends Controller {
         if ($paginated) {
             $variables = $validated['variables'];
             $page      = $variables['page'] + 1;
-            $max       = $this->config->get('ep.export.max_records');
-            $perPage   = array_key_exists('first', $variables) ? $variables['first']
-                : $this->config->get('lighthouse.pagination.default_count');
-            if (($perPage * $page) >= $max) {
-                return $collection;
-            }
             do {
                 $variables['page'] = $page;
                 $operationParam    = OperationParams::create([
@@ -104,7 +96,7 @@ class ExportController extends Controller {
                     $collection->push($this->getExportRow($keys, $item));
                 }
                 $page++;
-            } while (!empty($items) && ($perPage * $page) <= $max);
+            } while (!empty($items));
         }
         return $collection;
     }
