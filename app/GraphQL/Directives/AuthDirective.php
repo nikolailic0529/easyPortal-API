@@ -11,9 +11,6 @@ use GraphQL\Language\AST\TypeExtensionNode;
 use GraphQL\Language\Parser;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\Factory;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Contracts\Config\Repository;
 use Nuwave\Lighthouse\Exceptions\AuthenticationException;
 use Nuwave\Lighthouse\Exceptions\AuthorizationException;
 use Nuwave\Lighthouse\Schema\AST\ASTHelper;
@@ -26,7 +23,6 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Nuwave\Lighthouse\Support\Contracts\TypeExtensionManipulator;
 use Nuwave\Lighthouse\Support\Contracts\TypeManipulator;
 
-use function array_unique;
 use function str_contains;
 use function trim;
 
@@ -36,10 +32,7 @@ abstract class AuthDirective extends BaseDirective implements
     TypeManipulator,
     TypeExtensionManipulator {
 
-    public function __construct(
-        protected Factory $auth,
-        protected Repository $config,
-    ) {
+    public function __construct() {
         // empty
     }
 
@@ -55,7 +48,7 @@ abstract class AuthDirective extends BaseDirective implements
         ) use (
             $previous,
         ): mixed {
-            if (!$this->allowed()) {
+            if (!$this->allowed($context)) {
                 throw $this->getAuthenticationException();
             }
 
@@ -65,38 +58,12 @@ abstract class AuthDirective extends BaseDirective implements
         return $next($fieldValue->setResolver($resolver));
     }
 
-    /**
-     * @return array<string>
-     */
-    protected function getGuards(): array {
-        $guards = (array) $this->directiveArgValue('with');
-        $guards = $guards ?: [$this->config->get('lighthouse.guard')];
-        $guards = array_unique($guards);
+    protected function allowed(GraphQLContext $context): bool {
+        $user = $context->user();
 
-        return $guards;
-    }
-
-    protected function allowed(): bool {
-        $guards        = $this->getGuards();
-        $authorized    = false;
-        $authenticated = false;
-
-        foreach ($guards as $name) {
-            $guard = $this->auth->guard($name);
-
-            if ($guard && $this->isAuthenticated($guard)) {
-                $authenticated = true;
-                $authorized    = $this->isAuthorized($guard->user());
-
-                $this->auth->shouldUse($name);
-
-                break;
-            }
-        }
-
-        if (!$authenticated) {
+        if (!$this->isAuthenticated($user)) {
             throw $this->getAuthenticationException();
-        } elseif (!$authorized) {
+        } elseif (!$this->isAuthorized($user)) {
             throw $this->getAuthorizationException();
         } else {
             // passed
@@ -105,8 +72,8 @@ abstract class AuthDirective extends BaseDirective implements
         return true;
     }
 
-    protected function isAuthenticated(Guard $guard): bool {
-        return $guard->check();
+    protected function isAuthenticated(Authenticatable|null $user): bool {
+        return (bool) $user;
     }
 
     abstract protected function isAuthorized(Authenticatable|null $user): bool;
@@ -114,7 +81,6 @@ abstract class AuthDirective extends BaseDirective implements
     protected function getAuthenticationException(): AuthenticationException {
         return new AuthenticationException(
             AuthenticationException::MESSAGE,
-            $this->getGuards(),
         );
     }
 
