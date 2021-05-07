@@ -2,19 +2,19 @@ type Application {
   name: String!
   version: String!
 
-  """@require <root> Current user must be a root."""
+  """@require <root> Authenticated user must be a root."""
   settings: [ApplicationSetting!]!
 
-  """@require <root> Current user must be a root."""
+  """@require <root> Authenticated user must be a root."""
   settingGroups: [ApplicationSettingGroup!]!
 
-  """@require <root> Current user must be a root."""
+  """@require <root> Authenticated user must be a root."""
   services: [ApplicationService!]!
 
-  """@require <root> Current user must be a root."""
+  """@require <root> Authenticated user must be a root."""
   jobs: [ApplicationJob!]!
 
-  """@require <root> Current user must be a root."""
+  """@require <root> Authenticated user must be a root."""
   translations(locale: String!): [Translation!]!
   locale: String!
 }
@@ -540,27 +540,27 @@ type Mutation {
   organization(locale: String, currency_id: ID, branding_dark_theme: Boolean, branding_primary_color: String, branding_secondary_color: String, branding_logo: Upload, branding_favicon: Upload, website_url: String, email: String): Boolean! @deprecated(reason: "use updateOrganization instead")
   createMeSearch(input: CreateMeSearchInput!): CreateMeSearchPayload
 
-  """@require <root> Current user must be a root."""
+  """@require <root> Authenticated user must be a root."""
   deleteApplicationTranslations(input: DeleteApplicationTranslationsInput!): DeleteApplicationTranslationsPayload
 
-  """@require <root> Current user must be a root."""
+  """@require <root> Authenticated user must be a root."""
   deleteClientSettings(input: DeleteClientSettingsInput!): DeleteClientSettingsPayload
 
-  """@require <root> Current user must be a root."""
+  """@require <root> Authenticated user must be a root."""
   deleteClientTranslations(input: DeleteClientTranslationsInput!): DeleteClientTranslationsPayload
   deleteMeSearch(input: DeleteMeSearchInput!): DeleteMeSearchPayload
 
   """
   Dispatch/Run application service.
   
-  @require <root> Current user must be a root.
+  @require <root> Authenticated user must be a root.
   """
   dispatchApplicationService(input: DispatchApplicationServiceInput!): DispatchApplicationServicePayload
 
   """
   Force delete all custom settings, may be useful to restore the corrupted file.
   
-  @require <root> Current user must be a root.
+  @require <root> Authenticated user must be a root.
   """
   recoverApplicationSettings: recoverApplicationSettingsPayload
 
@@ -568,14 +568,14 @@ type Mutation {
   Force delete all translations for a given locale, may be useful to restore the
   corrupted file.
   
-  @require <root> Current user must be a root.
+  @require <root> Authenticated user must be a root.
   """
   recoverApplicationTranslations(input: RecoverApplicationTranslationsInput!): RecoverApplicationTranslationsPayload
 
   """
   Force delete all custom settings, may be useful to restore the corrupted file.
   
-  @require <root> Current user must be a root.
+  @require <root> Authenticated user must be a root.
   """
   recoverClientSettings: RecoverClientSettingsPayload
 
@@ -583,21 +583,21 @@ type Mutation {
   Force delete all client translations for a given locale, may be useful to
   restore the corrupted file.
   
-  @require <root> Current user must be a root.
+  @require <root> Authenticated user must be a root.
   """
   recoverClientTranslations(input: RecoverClientTranslationsInput!): RecoverClientTranslationsPayload
   setApplicationLocale(input: SetApplicationLocaleInput!): SetApplicationLocalePayload
 
-  """@require <root> Current user must be a root."""
+  """@require <root> Authenticated user must be a root."""
   updateApplicationSettings(input: [UpdateApplicationSettingsInput!]!): UpdateApplicationSettingsPayload
 
-  """@require <root> Current user must be a root."""
+  """@require <root> Authenticated user must be a root."""
   updateApplicationTranslations(input: UpdateApplicationTranslationsInput!): UpdateApplicationTranslationsPayload
 
-  """@require <root> Current user must be a root."""
+  """@require <root> Authenticated user must be a root."""
   updateClientSettings(input: [UpdateClientSettingsInput!]!): UpdateClientSettingsPayload
 
-  """@require <root> Current user must be a root."""
+  """@require <root> Authenticated user must be a root."""
   updateClientTranslations(input: UpdateClientTranslationsInput!): UpdateClientTranslationsPayload
   updateOrganization(input: updateOrganizationInput!): updateOrganizationPayload
 
@@ -741,7 +741,7 @@ type Query {
   """
   Customer with given ID
   
-  @require <organization> Current user must be a member of the current organization.
+  @require <organization> Authenticated user must be a member of the current organization.
   """
   customer(id: ID!): Customer
 
@@ -769,7 +769,7 @@ type Query {
   """
   Get asset by id
   
-  @require <organization> Current user must be a member of the current organization.
+  @require <organization> Authenticated user must be a member of the current organization.
   """
   asset(id: ID!): Asset
 
@@ -779,22 +779,18 @@ type Query {
   """
   Get contract by id
   
-  @require <organization> Current user must be a member of the current organization.
+  @require <organization> Authenticated user must be a member of the current organization.
   """
   contract(id: ID!): Document
 
   """
   Get quote by id
   
-  @require <organization> Current user must be a member of the current organization.
+  @require <organization> Authenticated user must be a member of the current organization.
   """
   quote(id: ID!): Document
 
-  """
-  Get current organization
-  
-  @require <organization> Current user must be a member of the current organization.
-  """
+  """Get current organization"""
   organization: Organization
 
   """Get app name & version"""
@@ -812,7 +808,7 @@ type Query {
   """
   Get all resellers
   
-  @require <root> Current user must be a root.
+  @require <root> Authenticated user must be a root.
   """
   organizations(where: SearchByConditionResellerConnectedQuery, order: [SortByClauseResellerConnectedSort!]): [ResellerConnected!]!
 
@@ -822,7 +818,7 @@ type Query {
   """
   List of Customers
   
-  @require <organization> Current user must be a member of the current organization.
+  @require <organization> Authenticated user must be a member of the current organization.
   """
   customers(
     where: SearchByConditionCustomersQuery
@@ -838,7 +834,7 @@ type Query {
   """
   List of all assets
   
-  @require <organization> Current user must be a member of the current organization.
+  @require <organization> Authenticated user must be a member of the current organization.
   """
   assets(
     where: SearchByConditionAssetsQuery
@@ -854,7 +850,7 @@ type Query {
   """
   List of all contracts
   
-  @require <organization> Current user must be a member of the current organization.
+  @require <organization> Authenticated user must be a member of the current organization.
   """
   contracts(
     where: SearchByConditionDocumentsQuery
@@ -870,7 +866,7 @@ type Query {
   """
   List of all quotes
   
-  @require <organization> Current user must be a member of the current organization.
+  @require <organization> Authenticated user must be a member of the current organization.
   """
   quotes(
     where: SearchByConditionDocumentsQuery

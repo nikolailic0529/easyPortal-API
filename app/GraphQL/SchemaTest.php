@@ -8,8 +8,6 @@ use Tests\TestCase;
 use Tests\WithGraphQLSchema;
 
 use function dirname;
-use function file_put_contents;
-use function is_file;
 use function preg_quote;
 
 /**
@@ -21,15 +19,7 @@ class SchemaTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     public function testSchema(): void {
-        $file = '.graphql';
-        $data = $this->getTestData();
-        $path = $data->path($file);
-
-        if (!is_file($path) || $data->content($file) === '') {
-            $this->assertNotFalse(file_put_contents($path, $this->serializeGraphQLSchema()));
-        }
-
-        $this->assertGraphQLSchemaEquals($data->content($file));
+        $this->assertGraphQLSchemaEquals($this->getGraphQLSchemaExpected());
     }
 
     /**

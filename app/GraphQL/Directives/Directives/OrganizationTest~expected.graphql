@@ -63,7 +63,7 @@ type PaginatorInfo {
 
 type Query {
   """
-  @require <organization> Current user must be a member of the current organization.
+  @require <organization> Authenticated user must be a member of the current organization.
   """
   value: String!
 }
@@ -98,21 +98,21 @@ enum SortOrder {
 """
 Description.
 
-@require <organization> Current user must be a member of the current organization.
+@require <organization> Authenticated user must be a member of the current organization.
 """
 type Test {
   """
-  @require <organization> Current user must be a member of the current organization.
+  @require <organization> Authenticated user must be a member of the current organization.
   """
   one: String!
 
   """
-  @require <organization> Current user must be a member of the current organization.
+  @require <organization> Authenticated user must be a member of the current organization.
   """
   two: String!
 
   """
-  @require <organization> Current user must be a member of the current organization.
+  @require <organization> Authenticated user must be a member of the current organization.
   """
   extension: String!
 }
