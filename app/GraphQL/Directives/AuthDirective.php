@@ -3,7 +3,9 @@
 namespace App\GraphQL\Directives;
 
 use Closure;
+use GraphQL\Language\AST\DirectiveDefinitionNode;
 use GraphQL\Language\AST\FieldDefinitionNode;
+use GraphQL\Language\AST\InputValueDefinitionNode;
 use GraphQL\Language\AST\ObjectTypeDefinitionNode;
 use GraphQL\Language\AST\ObjectTypeExtensionNode;
 use GraphQL\Language\AST\TypeDefinitionNode;
@@ -11,6 +13,7 @@ use GraphQL\Language\AST\TypeExtensionNode;
 use GraphQL\Language\Parser;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Contracts\Auth\Authenticatable;
+use InvalidArgumentException;
 use Nuwave\Lighthouse\Exceptions\AuthenticationException;
 use Nuwave\Lighthouse\Exceptions\AuthorizationException;
 use Nuwave\Lighthouse\Schema\AST\ASTHelper;
@@ -23,6 +26,7 @@ use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Nuwave\Lighthouse\Support\Contracts\TypeExtensionManipulator;
 use Nuwave\Lighthouse\Support\Contracts\TypeManipulator;
 
+use function sprintf;
 use function str_contains;
 use function trim;
 
@@ -153,8 +157,39 @@ abstract class AuthDirective extends BaseDirective implements
      */
     protected function getRequirements(): array {
         return [
-            "<{$this->name()}>" => ASTHelper::extractDirectiveDefinition(static::definition())->description?->value,
+            "<{$this->name()}>" => $this->getDefinitionNode()->description?->value,
         ];
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Helpers">
+    // =========================================================================
+    protected function getDefinitionNode(): DirectiveDefinitionNode {
+        return ASTHelper::extractDirectiveDefinition(static::definition());
+    }
+
+    protected function getArgDefinitionNode(
+        DirectiveDefinitionNode $directive,
+        string $argument,
+    ): InputValueDefinitionNode {
+        $definition = null;
+
+        foreach ($directive->arguments as $node) {
+            /** @var \GraphQL\Language\AST\InputValueDefinitionNode $node */
+            if ($node->name->value === $argument) {
+                $definition = $node;
+                break;
+            }
+        }
+
+        if (!$definition) {
+            throw new InvalidArgumentException(sprintf(
+                'Argument `%s` does not exist.',
+                $argument,
+            ));
+        }
+
+        return $definition;
     }
     // </editor-fold>
 }

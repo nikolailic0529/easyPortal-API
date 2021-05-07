@@ -64,6 +64,11 @@ type PaginatorInfo {
 type Query {
   """@require <me> User must be authenticated."""
   value: String!
+
+  """
+  @require <me(["a","b","c"])> User must be authenticated and have any of these permissions.
+  """
+  valueWithPermissions: String!
 }
 
 """Pagination information about the corresponding list of items."""
@@ -106,5 +111,27 @@ type Test {
   two: String!
 
   """@require <me> User must be authenticated."""
+  extension: String!
+}
+
+"""
+Description with permissions.
+
+@require <me(["a","b","c"])> User must be authenticated and have any of these permissions.
+"""
+type TestPermissions {
+  """
+  @require <me(["a","b","c"])> User must be authenticated and have any of these permissions.
+  """
+  one: String!
+
+  """
+  @require <me(["a","b"])> User must be authenticated and have any of these permissions.
+  """
+  two: String!
+
+  """
+  @require <me(["a","b","c"])> User must be authenticated and have any of these permissions.
+  """
   extension: String!
 }
