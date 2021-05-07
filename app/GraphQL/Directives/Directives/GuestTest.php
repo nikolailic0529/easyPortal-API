@@ -30,10 +30,10 @@ class GuestTest extends TestCase {
      * @covers ::addRequirements
      */
     public function testDirective(): void {
-        $expected = $this->getTestData()->content('~expected.graphql');
-        $actual   = $this->getGraphQLSchema($this->getTestData()->content('~schema.graphql'));
-
-        $this->assertEquals($expected, $actual);
+        $this->assertGraphQLSchemaEquals(
+            $this->getTestData()->content('~expected.graphql'),
+            $this->getTestData()->content('~schema.graphql'),
+        );
     }
 
     /**
@@ -49,7 +49,7 @@ class GuestTest extends TestCase {
 
         $this
             ->useGraphQLSchema(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<GRAPHQL
                 type Query {
                     value: String! @guest @field(resolver: "{$resolver}")
@@ -57,7 +57,7 @@ class GuestTest extends TestCase {
                 GRAPHQL,
             )
             ->graphQL(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query {
                     value

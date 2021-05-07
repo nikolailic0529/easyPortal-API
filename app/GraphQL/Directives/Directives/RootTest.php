@@ -31,10 +31,10 @@ class RootTest extends TestCase {
      * @covers ::addRequirements
      */
     public function testDirective(): void {
-        $expected = $this->getTestData()->content('~expected.graphql');
-        $actual   = $this->getGraphQLSchema($this->getTestData()->content('~schema.graphql'));
-
-        $this->assertEquals($expected, $actual);
+        $this->assertGraphQLSchemaEquals(
+            $this->getTestData()->content('~expected.graphql'),
+            $this->getTestData()->content('~schema.graphql'),
+        );
     }
 
     /**
