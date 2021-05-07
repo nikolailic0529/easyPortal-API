@@ -25,6 +25,7 @@
                 "startDate": "1583020800000",
                 "endDate": "1614470400000",
                 "currencyCode": "EUR",
+                "languageCode": "en",
                 "totalNetPrice": "3,292.16",
                 "vendorSpecificFields": {
                     "vendor": "HPE"
@@ -51,6 +52,7 @@
                 "startDate": "1583020800000",
                 "endDate": "1614470400000",
                 "currencyCode": "EUR",
+                "languageCode": "en",
                 "totalNetPrice": "3,292.16",
                 "vendorSpecificFields": {
                     "vendor": "HPE"
@@ -77,6 +79,7 @@
                 "startDate": "1583020800000",
                 "endDate": "1740700800000",
                 "currencyCode": "EUR",
+                "languageCode": "en",
                 "totalNetPrice": "6,376.15",
                 "vendorSpecificFields": {
                     "vendor": "HPE"

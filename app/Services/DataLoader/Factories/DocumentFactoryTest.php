@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\Enums\ProductType;
+use App\Models\Language;
 use App\Models\Oem;
 use App\Models\Product;
 use App\Models\Reseller;
@@ -113,6 +114,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($document->document->endDate, $this->getDatetime($created->end));
         $this->assertEquals($document->document->type, $created->type->key);
         $this->assertEquals('CUR', $created->currency->code);
+        $this->assertEquals('en', $created->language->code);
         $this->assertEquals(ProductType::support(), $created->product->type);
         $this->assertEquals($document->supportPackage, $created->product->sku);
         $this->assertEquals($document->supportPackageDescription, $created->product->name);
@@ -129,6 +131,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($document->document->id, $updated->getKey());
         $this->assertNotNull($updated->price);
         $this->assertEquals('EUR', $updated->currency->code);
+        $this->assertNull($updated->language);
         $this->assertEquals(
             $normalizer->number($document->document->totalNetPrice),
             $updated->price,
@@ -445,6 +448,40 @@ class DocumentFactoryTest extends TestCase {
         $factory->find(AssetDocument::create($c));
 
         $this->assertCount(0, $this->getQueryLog());
+    }
+
+    /**
+     * @covers ::documentLanguage
+     */
+    public function testDocumentLanguage(): void {
+        $document = AssetDocument::create([
+            'document' => [
+                'id' => $this->faker->uuid,
+            ],
+        ]);
+        $language = Language::factory()->make();
+        $factory  = Mockery::mock(LanguageFactory::class);
+
+        $factory
+            ->shouldReceive('create')
+            ->with($document->document)
+            ->once()
+            ->andReturn($language);
+
+        $factory = new class($factory) extends DocumentFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected LanguageFactory $languages,
+            ) {
+                // empty
+            }
+
+            public function documentLanguage(AssetDocument $document): Language {
+                return parent::documentLanguage($document);
+            }
+        };
+
+        $this->assertEquals($language, $factory->documentLanguage($document));
     }
     // </editor-fold>
 

@@ -6,6 +6,7 @@ use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\Document as DocumentModel;
 use App\Models\Enums\ProductType;
+use App\Models\Language;
 use App\Models\Oem;
 use App\Models\Product;
 use App\Models\Reseller;
@@ -48,6 +49,7 @@ class DocumentFactory extends ModelFactory {
         protected ProductResolver $products,
         protected CurrencyFactory $currencies,
         protected DocumentResolver $documents,
+        protected LanguageFactory $languages,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -113,6 +115,7 @@ class DocumentFactory extends ModelFactory {
             $model->reseller = $this->documentReseller($document);
             $model->customer = $this->documentCustomer($document);
             $model->currency = $this->documentCurrency($document);
+            $model->language = $this->documentLanguage($document);
             $model->start    = $this->normalizer->datetime($document->document->startDate);
             $model->end      = $this->normalizer->datetime($document->document->endDate);
             $model->price    = $this->normalizer->number($document->document->totalNetPrice);
@@ -204,6 +207,10 @@ class DocumentFactory extends ModelFactory {
         }
 
         return $customer;
+    }
+
+    protected function documentLanguage(AssetDocument $document): ?Language {
+        return $this->languages->create($document->document);
     }
     // </editor-fold>
 }

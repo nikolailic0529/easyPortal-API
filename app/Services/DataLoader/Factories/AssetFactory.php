@@ -65,6 +65,7 @@ class AssetFactory extends ModelFactory {
         protected LocationFactory $locations,
         protected DocumentResolver $documentResolver,
         protected CurrencyFactory $currencies,
+        protected LanguageFactory $languages,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -310,6 +311,7 @@ class AssetFactory extends ModelFactory {
                     $model->reseller = $asset->reseller;
                     $model->customer = $asset->customer;
                     $model->currency = $this->currencies->create($assetDocument);
+                    $model->language = $this->languages->create($assetDocument);
                     $model->price    = $this->normalizer->number('0.00');
                     $model->number   = $this->normalizer->string($assetDocument->documentNumber);
 
