@@ -1,7 +1,9 @@
 extend type Mutation {
   updateOrganization(
     input: updateOrganizationInput!
-  ): updateOrganizationPayload @guard @validator
+  ): updateOrganizationPayload
+    @me
+    @validator
 }
 
 input updateOrganizationInput {

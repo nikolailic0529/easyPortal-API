@@ -536,8 +536,14 @@ type Mutation {
   """Set Locale"""
   locale(locale: String!): Boolean! @deprecated(reason: "use setApplicationLocale instead")
 
-  """Set Organization properties"""
+  """
+  Set Organization properties
+  
+  @require <me> User must be authenticated.
+  """
   organization(locale: String, currency_id: ID, branding_dark_theme: Boolean, branding_primary_color: String, branding_secondary_color: String, branding_logo: Upload, branding_favicon: Upload, website_url: String, email: String): Boolean! @deprecated(reason: "use updateOrganization instead")
+
+  """@require <me> User must be authenticated."""
   createMeSearch(input: CreateMeSearchInput!): CreateMeSearchPayload
 
   """@require <root> Authenticated user must be a root."""
@@ -548,6 +554,8 @@ type Mutation {
 
   """@require <root> Authenticated user must be a root."""
   deleteClientTranslations(input: DeleteClientTranslationsInput!): DeleteClientTranslationsPayload
+
+  """@require <me> User must be authenticated."""
   deleteMeSearch(input: DeleteMeSearchInput!): DeleteMeSearchPayload
 
   """
@@ -599,6 +607,8 @@ type Mutation {
 
   """@require <root> Authenticated user must be a root."""
   updateClientTranslations(input: UpdateClientTranslationsInput!): UpdateClientTranslationsPayload
+
+  """@require <me> User must be authenticated."""
   updateOrganization(input: updateOrganizationInput!): updateOrganizationPayload
 
   """
@@ -615,7 +625,11 @@ type Mutation {
   """
   signIn(input: SignInInput): SignInPayload
 
-  """Sign Out."""
+  """
+  Sign Out.
+  
+  @require <me> User must be authenticated.
+  """
   signOut: SignOutPayload
 }
 
@@ -742,6 +756,8 @@ type Query {
   Customer with given ID
   
   @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
   """
   customer(id: ID!): Customer
 
@@ -770,6 +786,8 @@ type Query {
   Get asset by id
   
   @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
   """
   asset(id: ID!): Asset
 
@@ -780,6 +798,8 @@ type Query {
   Get contract by id
   
   @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
   """
   contract(id: ID!): Document
 
@@ -787,6 +807,8 @@ type Query {
   Get quote by id
   
   @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
   """
   quote(id: ID!): Document
 
@@ -819,6 +841,8 @@ type Query {
   List of Customers
   
   @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
   """
   customers(
     where: SearchByConditionCustomersQuery
@@ -835,6 +859,8 @@ type Query {
   List of all assets
   
   @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
   """
   assets(
     where: SearchByConditionAssetsQuery
@@ -851,6 +877,8 @@ type Query {
   List of all contracts
   
   @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
   """
   contracts(
     where: SearchByConditionDocumentsQuery
@@ -867,6 +895,8 @@ type Query {
   List of all quotes
   
   @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
   """
   quotes(
     where: SearchByConditionDocumentsQuery

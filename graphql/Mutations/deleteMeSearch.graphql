@@ -1,7 +1,8 @@
 extend type Mutation {
   deleteMeSearch(
     input: DeleteMeSearchInput!
-  ): DeleteMeSearchPayload @guard
+  ): DeleteMeSearchPayload
+    @me
 }
 
 input DeleteMeSearchInput {

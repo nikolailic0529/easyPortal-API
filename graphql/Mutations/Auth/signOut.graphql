@@ -2,7 +2,7 @@ extend type Mutation {
   "Sign Out."
   signOut: SignOutPayload
     @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignOut")
-    @guard
+    @me
 }
 
 type SignOutPayload {

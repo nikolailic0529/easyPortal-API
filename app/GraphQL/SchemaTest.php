@@ -51,7 +51,7 @@ class SchemaTest extends TestCase {
      */
     public function dataProviderForbiddenDirectives(): array {
         return [
-            ['@guard', '@user'],
+            ['@guard', '@me'],
         ];
     }
     //</editor-fold>

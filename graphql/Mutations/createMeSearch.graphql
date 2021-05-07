@@ -2,7 +2,7 @@ extend type Mutation {
   createMeSearch(
     input: CreateMeSearchInput!
   ): CreateMeSearchPayload
-  @guard
+    @me
 }
 
 input CreateMeSearchInput {

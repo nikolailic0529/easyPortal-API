@@ -127,14 +127,14 @@ abstract class AuthDirective extends BaseDirective implements
         $requirements = $this->getRequirements();
 
         if ($description && !str_contains($description, $tag)) {
-            $description = trim($description)."\n\n";
+            $description = trim($description);
         }
 
         foreach ($requirements as $requirement => $desc) {
             $requirement = "{$tag} {$requirement} {$desc}";
 
             if (!str_contains($description, $requirement)) {
-                $description .= "{$requirement}\n";
+                $description .= "\n\n{$requirement}";
             }
         }
 
