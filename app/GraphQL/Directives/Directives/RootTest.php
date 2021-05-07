@@ -37,7 +37,6 @@ class RootTest extends TestCase {
 
     /**
      * @covers ::resolveField
-     * @covers ::isRoot
      *
      * @dataProvider dataProviderResolveField
      *

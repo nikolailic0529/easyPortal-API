@@ -2,15 +2,14 @@
 
 namespace App\GraphQL\Queries;
 
-use App\GraphQL\Directives\Definitions\RootDirective;
 use App\Models\User;
-use Illuminate\Auth\AuthManager;
+use App\Services\Auth\Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class Me {
     public function __construct(
-        protected AuthManager $auth,
-        protected RootDirective $root,
+        protected Auth $auth,
     ) {
         // empty
     }
@@ -20,12 +19,12 @@ class Me {
      *
      * @return array<mixed>|null
      */
-    public function __invoke(mixed $_, array $args): ?User {
-        return $this->getMe($this->auth->guard()->user());
+    public function __invoke(mixed $_, array $args, GraphQLContext $context): ?User {
+        return $this->getMe($context->user());
     }
 
     public function root(?User $user): bool {
-        return $user && $this->root->isRoot($user);
+        return $this->auth->isRoot($user);
     }
 
     /**
