@@ -51,7 +51,7 @@ trait WithGraphQLSchema {
         return $schema;
     }
 
-    protected function serializeGraphQLSchema(string|null $schema): string {
+    protected function serializeGraphQLSchema(string|null $schema = null): string {
         return SchemaPrinter::doPrint($this->getGraphQLSchema($schema));
     }
 }

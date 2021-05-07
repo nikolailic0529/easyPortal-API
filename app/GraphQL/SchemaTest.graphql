@@ -1,0 +1,2015 @@
+type Application {
+  name: String!
+  version: String!
+
+  """@require <root> Current user must be a root."""
+  settings: [ApplicationSetting!]!
+
+  """@require <root> Current user must be a root."""
+  settingGroups: [ApplicationSettingGroup!]!
+
+  """@require <root> Current user must be a root."""
+  services: [ApplicationService!]!
+
+  """@require <root> Current user must be a root."""
+  jobs: [ApplicationJob!]!
+
+  """@require <root> Current user must be a root."""
+  translations(locale: String!): [Translation!]!
+  locale: String!
+}
+
+type ApplicationJob {
+  name: String!
+
+  """Settings related to this job."""
+  settings: [String!]!
+
+  """Queue name"""
+  queue: String!
+  description: String
+}
+
+type ApplicationService {
+  name: String!
+  enabled: Boolean!
+
+  """Cron expression that determines when service should run if enabled."""
+  cron: String!
+
+  """Queue name"""
+  queue: String!
+
+  """Settings related to this service."""
+  settings: [String!]!
+  description: String
+}
+
+type ApplicationSetting {
+  name: String!
+
+  """
+  Type. Can be standard GraphQL type like Int, Boolean, etc, or a special
+  application type.
+  """
+  type: String!
+
+  """Indicated that the setting is array."""
+  array: Boolean!
+
+  """
+  Value of the setting. For array it will contain comma-separated values, for
+  Boolean: "true" or "false", also can be "null" that means null.
+  """
+  value: String!
+
+  """Allowed values."""
+  values: [ApplicationSettingValues!]
+
+  """
+  Indicates that the setting contains sensitive data (eg password), in this case,
+  the real value will not be returned.
+  """
+  secret: Boolean!
+
+  """Default value."""
+  default: String!
+
+  """
+  Indicates that the setting is read-only due to configs priority and cannot
+  be changed.
+  """
+  readonly: Boolean!
+
+  """Indicates that this setting related to job."""
+  job: Boolean!
+
+  """Indicates that this setting related to service."""
+  service: Boolean!
+  description: String
+}
+
+type ApplicationSettingGroup {
+  """Group name."""
+  name: String!
+
+  """Settings related to this group."""
+  settings: [String!]!
+}
+
+union ApplicationSettingValues = Type
+
+type Asset {
+  id: ID!
+  oem_id: ID!
+  product_id: ID!
+  type_id: ID!
+  customer_id: ID
+  location_id: ID
+  reseller_id: ID!
+  serial_number: String
+  customer: Customer
+  location: Location
+  oem: Oem!
+  product: Product!
+  type: Type!
+  warranties: [AssetWarranty!]!
+  reseller: Reseller!
+}
+
+"""A paginated list of Asset items."""
+type AssetPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of Asset items."""
+  data: [Asset!]!
+}
+
+type AssetWarranty {
+  id: ID!
+  asset_id: ID!
+  reseller_id: ID!
+  customer_id: ID!
+  document_id: ID
+  start: Date
+  end: Date!
+  note: String
+  customer: Customer!
+  document: Document
+  reseller: Reseller!
+  services: [Product!]!
+  package: Product
+}
+
+input AssetsQuery {
+  id: ID!
+  oem_id: ID!
+  type_id: ID!
+  product_id: ID!
+  reseller_id: ID!
+  customer_id: ID!
+  location_id: ID!
+  serial_number: String!
+  location: LocationsQuery
+  customer: CustomersQuery
+}
+
+input AssetsSort {
+  id: ID!
+  product: ProductsSort!
+  serial_number: String!
+  location: LocationsSort!
+  customer: CustomersSort!
+}
+
+input AuthorizeInput {
+  code: String!
+  state: String!
+}
+
+type AuthorizePayload {
+  me: Me
+}
+
+input CitiesQuery {
+  id: ID!
+  name: String!
+  country_id: ID!
+}
+
+input CitiesSort {
+  id: ID!
+  name: String!
+  country: CountriesSort
+}
+
+type City {
+  id: ID!
+  name: String!
+  country_id: ID!
+  country: Country!
+}
+
+type Client {
+  translations(locale: String!): [Translation!]!
+  settings: [ClientSetting!]!
+}
+
+type ClientSetting {
+  name: String!
+
+  """
+  Value of the setting. For array it will contain comma-separated values, for
+  Boolean: "true" or "false", also can be "null" that means null.
+  """
+  value: String!
+}
+
+type Contact {
+  id: ID!
+  name: String
+  email: String
+  phone_number: String
+
+  """Indicates that phone_number in E.164 format"""
+  phone_valid: Boolean
+  types: [Type]!
+}
+
+input ContactsQuery {
+  id: ID!
+  name: String
+  email: String
+  phone_number: String
+  phone_valid: Boolean
+  types: TypesQuery
+}
+
+input CountriesQuery {
+  id: ID!
+  code: String!
+}
+
+input CountriesSort {
+  id: ID!
+  code: String!
+  name: String!
+}
+
+type Country {
+  id: ID!
+  name: String!
+  code: String!
+}
+
+input CreateMeSearchInput {
+  name: String!
+  key: String!
+  conditions: String!
+}
+
+type CreateMeSearchPayload {
+  created: MeSearch!
+}
+
+type Currency {
+  id: ID!
+  code: String!
+  name: String!
+}
+
+type Customer {
+  id: ID!
+  name: String!
+  type: Type!
+  type_id: ID!
+  status: Status!
+  status_id: ID!
+  assets_count: Int!
+  locations_count: Int!
+  locations: [Location!]!
+  contacts_count: Int!
+  contacts: [Contact!]!
+  headquarter: Location
+  contracts(
+    where: SearchByConditionDocumentsQuery
+    order: [SortByClauseDocumentsSort!]
+
+    """Limits number of fetched elements. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which elements are returned."""
+    page: Int
+  ): DocumentPaginator
+  quotes(
+    where: SearchByConditionDocumentsQuery
+    order: [SortByClauseDocumentsSort!]
+
+    """Limits number of fetched elements. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which elements are returned."""
+    page: Int
+  ): DocumentPaginator
+  assets(
+    where: SearchByConditionAssetsQuery
+    order: [SortByClauseAssetsSort!]
+
+    """Limits number of fetched elements. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which elements are returned."""
+    page: Int
+  ): AssetPaginator
+}
+
+"""A paginated list of Customer items."""
+type CustomerPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of Customer items."""
+  data: [Customer!]!
+}
+
+input CustomersQuery {
+  id: ID!
+  name: String!
+  type_id: ID!
+  status_id: ID!
+  assets_count: Int!
+  locations_count: Int!
+  locations: LocationsQuery
+  contacts_count: Int!
+  contacts: ContactsQuery
+}
+
+input CustomersSort {
+  name: String!
+  locations_count: Int!
+  contacts_count: Int!
+  assets_count: Int!
+  status: StatusSort!
+  type: TypesSort!
+  headquarter: LocationsSort!
+}
+
+"""ISO 8601 Date string with format Y-m-d (`2011-05-23`)."""
+scalar Date
+
+"""
+ISO 8601 Date Time string with format `Y-m-dTH:i:sP` (`2018-05-23T13:43:32+00:00`).
+"""
+scalar DateTime
+
+input DeleteApplicationTranslationsInput {
+  locale: String!
+  keys: [String!]!
+}
+
+type DeleteApplicationTranslationsPayload {
+  deleted: [String!]!
+}
+
+input DeleteClientSettingsInput {
+  names: [String!]!
+}
+
+type DeleteClientSettingsPayload {
+  deleted: [String!]!
+}
+
+input DeleteClientTranslationsInput {
+  locale: String!
+  keys: [String!]!
+}
+
+type DeleteClientTranslationsPayload {
+  deleted: [String!]!
+}
+
+input DeleteMeSearchInput {
+  id: ID!
+}
+
+type DeleteMeSearchPayload {
+  deleted: Boolean!
+}
+
+input DispatchApplicationServiceInput {
+  """Name of the service."""
+  name: String!
+
+  """If true the service will be executed right now."""
+  immediately: Boolean! = false
+}
+
+type DispatchApplicationServicePayload {
+  result: Boolean!
+}
+
+type Document {
+  id: ID!
+  oem_id: ID!
+  type_id: ID!
+  customer_id: ID!
+  reseller_id: ID!
+  number: String!
+  product_id: ID!
+  start: Date!
+  end: Date!
+  price: String
+  currency_id: ID
+  currency: Currency
+  customer: Customer!
+  oem: Oem!
+  product: Product!
+  reseller: Reseller!
+  type: Type!
+  entries: [DocumentEntry!]!
+}
+
+type DocumentEntry {
+  id: ID!
+  document_id: ID!
+  asset_id: ID!
+  product_id: ID!
+  currency_id: ID
+  quantity: Int!
+  net_price: String
+  list_price: String
+  discount: String
+  asset: Asset!
+  product: Product!
+  currency: Currency
+}
+
+"""A paginated list of Document items."""
+type DocumentPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of Document items."""
+  data: [Document!]!
+}
+
+input DocumentsQuery {
+  id: ID!
+  oem_id: ID!
+  type_id: ID!
+  customer_id: ID!
+  reseller_id: ID!
+  number: String!
+  product_id: ID!
+  start: Date!
+  end: Date!
+  price: String!
+  currency_id: ID
+  customer: CustomersQuery
+  product: ProductsQuery
+  reseller: ResellersQuery
+}
+
+input DocumentsSort {
+  start: Date!
+  end: Date!
+  price: String!
+}
+
+type Language {
+  id: ID!
+  code: String!
+  name: String!
+}
+
+type Location {
+  id: ID!
+  postcode: String!
+  state: String!
+  line_one: String!
+  line_two: String!
+  latitude: String
+  longitude: String
+  city: City!
+  city_id: ID!
+  country: Country!
+  country_id: ID!
+  types: [Type]!
+}
+
+input LocationsQuery {
+  id: ID!
+  postcode: String!
+  state: String!
+  line_one: String!
+  line_two: String!
+  latitude: String
+  longitude: String
+  city: CitiesQuery
+  city_id: ID!
+  country: CountriesQuery
+  country_id: ID!
+  types: TypesQuery
+}
+
+input LocationsSort {
+  postcode: String!
+  state: String!
+  line_one: String!
+  line_two: String!
+  country: CountriesSort!
+  city: CitiesSort!
+}
+
+type Me {
+  id: ID!
+  given_name: String!
+  family_name: String!
+  locale: String
+  root: Boolean!
+  searches(where: SearchByConditionMeSearchQuery, order: [SortByClauseMeSearchSort!]): [MeSearch!]!
+}
+
+type MeSearch {
+  id: ID!
+  key: String!
+  name: String!
+  conditions: String!
+  created_at: DateTime!
+}
+
+input MeSearchQuery {
+  id: ID!
+  key: String!
+  name: String!
+  created_at: DateTime!
+}
+
+input MeSearchSort {
+  key: String!
+  name: String!
+  created_at: DateTime!
+}
+
+type Mutation {
+  """Set Locale"""
+  locale(locale: String!): Boolean! @deprecated(reason: "use setApplicationLocale instead")
+
+  """Set Organization properties"""
+  organization(locale: String, currency_id: ID, branding_dark_theme: Boolean, branding_primary_color: String, branding_secondary_color: String, branding_logo: Upload, branding_favicon: Upload, website_url: String, email: String): Boolean! @deprecated(reason: "use updateOrganization instead")
+  createMeSearch(input: CreateMeSearchInput!): CreateMeSearchPayload
+
+  """@require <root> Current user must be a root."""
+  deleteApplicationTranslations(input: DeleteApplicationTranslationsInput!): DeleteApplicationTranslationsPayload
+
+  """@require <root> Current user must be a root."""
+  deleteClientSettings(input: DeleteClientSettingsInput!): DeleteClientSettingsPayload
+
+  """@require <root> Current user must be a root."""
+  deleteClientTranslations(input: DeleteClientTranslationsInput!): DeleteClientTranslationsPayload
+  deleteMeSearch(input: DeleteMeSearchInput!): DeleteMeSearchPayload
+
+  """
+  Dispatch/Run application service.
+  
+  @require <root> Current user must be a root.
+  """
+  dispatchApplicationService(input: DispatchApplicationServiceInput!): DispatchApplicationServicePayload
+
+  """
+  Force delete all custom settings, may be useful to restore the corrupted file.
+  
+  @require <root> Current user must be a root.
+  """
+  recoverApplicationSettings: recoverApplicationSettingsPayload
+
+  """
+  Force delete all translations for a given locale, may be useful to restore the
+  corrupted file.
+  
+  @require <root> Current user must be a root.
+  """
+  recoverApplicationTranslations(input: RecoverApplicationTranslationsInput!): RecoverApplicationTranslationsPayload
+
+  """
+  Force delete all custom settings, may be useful to restore the corrupted file.
+  
+  @require <root> Current user must be a root.
+  """
+  recoverClientSettings: RecoverClientSettingsPayload
+
+  """
+  Force delete all client translations for a given locale, may be useful to
+  restore the corrupted file.
+  
+  @require <root> Current user must be a root.
+  """
+  recoverClientTranslations(input: RecoverClientTranslationsInput!): RecoverClientTranslationsPayload
+  setApplicationLocale(input: SetApplicationLocaleInput!): SetApplicationLocalePayload
+
+  """@require <root> Current user must be a root."""
+  updateApplicationSettings(input: [UpdateApplicationSettingsInput!]!): UpdateApplicationSettingsPayload
+
+  """@require <root> Current user must be a root."""
+  updateApplicationTranslations(input: UpdateApplicationTranslationsInput!): UpdateApplicationTranslationsPayload
+
+  """@require <root> Current user must be a root."""
+  updateClientSettings(input: [UpdateClientSettingsInput!]!): UpdateClientSettingsPayload
+
+  """@require <root> Current user must be a root."""
+  updateClientTranslations(input: UpdateClientTranslationsInput!): UpdateClientTranslationsPayload
+  updateOrganization(input: updateOrganizationInput!): updateOrganizationPayload
+
+  """
+  Finish the Sign In.
+  
+  @require <guest> Current visitor must be a guest.
+  """
+  authorize(input: AuthorizeInput): AuthorizePayload
+
+  """
+  Begins the Sign In.
+  
+  @require <guest> Current visitor must be a guest.
+  """
+  signIn(input: SignInInput): SignInPayload
+
+  """Sign Out."""
+  signOut: SignOutPayload
+}
+
+type Oem {
+  id: ID!
+  abbr: String!
+  name: String!
+}
+
+"""Allows ordering a list of records."""
+input OrderByClause {
+  """The column that is used for ordering."""
+  column: String!
+
+  """The direction that is used for ordering."""
+  order: SortOrder!
+}
+
+type Organization {
+  id: ID!
+  name: String!
+  locale: String
+  branding_dark_theme: Boolean
+  branding_primary_color: String
+  branding_secondary_color: String
+  branding_logo: String
+  branding_favicon: String
+  website_url: String
+  email: String
+  currency: Currency
+  locations: [Location!]
+}
+
+"""Pagination information about the corresponding list of items."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+
+  """Total number of node in connection."""
+  total: Int
+
+  """Count of nodes in current request."""
+  count: Int
+
+  """Current page of request."""
+  currentPage: Int
+
+  """Last page in connection."""
+  lastPage: Int
+}
+
+"""Pagination information about the corresponding list of items."""
+type PaginatorInfo {
+  """Count of available items in the page."""
+  count: Int!
+
+  """Current pagination page."""
+  currentPage: Int!
+
+  """Index of first item in the current page."""
+  firstItem: Int
+
+  """If collection has more pages."""
+  hasMorePages: Boolean!
+
+  """Index of last item in the current page."""
+  lastItem: Int
+
+  """Last page number of the collection."""
+  lastPage: Int!
+
+  """Number of items per page in the collection."""
+  perPage: Int!
+
+  """Total items available in the collection."""
+  total: Int!
+}
+
+type Product {
+  id: ID!
+  oem_id: ID!
+  sku: String!
+  name: String!
+  eol: Date
+  eos: Date
+  oem: Oem!
+}
+
+input ProductsQuery {
+  id: ID!
+  oem_id: ID!
+  sku: String!
+  name: String!
+}
+
+input ProductsSort {
+  id: ID!
+  sku: String!
+  name: String!
+  eol: Date
+  eos: Date
+}
+
+type Query {
+  """Current user, `null` for guests."""
+  me: Me
+
+  """List of all statuses"""
+  customerStatuses: [Status!]!
+
+  """List of all types"""
+  customerTypes: [Type!]!
+
+  """
+  Customer with given ID
+  
+  @require <organization> Current user must be a member of the current organization.
+  """
+  customer(id: ID!): Customer
+
+  """List of all countries"""
+  countries: [Country!]!
+
+  """List of all cities or filter by country id"""
+  cities(where: SearchByConditionCitiesQuery): [City!]!
+
+  """List of all location types related to customer"""
+  locationTypes: [Type!]!
+
+  """List of all contact types"""
+  contactTypes: [Type!]!
+
+  """Get Locale"""
+  locale: String! @deprecated(reason: "use Application.locale instead")
+
+  """List of all asset types"""
+  assetTypes: [Type!]!
+
+  """List of all oems"""
+  oems: [Oem!]!
+
+  """
+  Get asset by id
+  
+  @require <organization> Current user must be a member of the current organization.
+  """
+  asset(id: ID!): Asset
+
+  """List of all currencies"""
+  currencies: [Currency!]!
+
+  """
+  Get contract by id
+  
+  @require <organization> Current user must be a member of the current organization.
+  """
+  contract(id: ID!): Document
+
+  """
+  Get quote by id
+  
+  @require <organization> Current user must be a member of the current organization.
+  """
+  quote(id: ID!): Document
+
+  """
+  Get current organization
+  
+  @require <organization> Current user must be a member of the current organization.
+  """
+  organization: Organization
+
+  """Get app name & version"""
+  application: Application!
+
+  """List of all contract types"""
+  contractTypes: [Type!]!
+
+  """List of all quotes types"""
+  quoteTypes: [Type!]!
+
+  """Client data"""
+  client: Client
+
+  """
+  Get all resellers
+  
+  @require <root> Current user must be a root.
+  """
+  organizations(where: SearchByConditionResellerConnectedQuery, order: [SortByClauseResellerConnectedSort!]): [ResellerConnected!]!
+
+  """List of all languages"""
+  languages: [Language!]!
+
+  """
+  List of Customers
+  
+  @require <organization> Current user must be a member of the current organization.
+  """
+  customers(
+    where: SearchByConditionCustomersQuery
+    order: [SortByClauseCustomersSort!]
+
+    """Limits number of fetched elements. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which elements are returned."""
+    page: Int
+  ): CustomerPaginator
+
+  """
+  List of all assets
+  
+  @require <organization> Current user must be a member of the current organization.
+  """
+  assets(
+    where: SearchByConditionAssetsQuery
+    order: [SortByClauseAssetsSort!]
+
+    """Limits number of fetched elements. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which elements are returned."""
+    page: Int
+  ): AssetPaginator
+
+  """
+  List of all contracts
+  
+  @require <organization> Current user must be a member of the current organization.
+  """
+  contracts(
+    where: SearchByConditionDocumentsQuery
+    order: [SortByClauseDocumentsSort!]
+
+    """Limits number of fetched elements. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which elements are returned."""
+    page: Int
+  ): DocumentPaginator
+
+  """
+  List of all quotes
+  
+  @require <organization> Current user must be a member of the current organization.
+  """
+  quotes(
+    where: SearchByConditionDocumentsQuery
+    order: [SortByClauseDocumentsSort!]
+
+    """Limits number of fetched elements. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which elements are returned."""
+    page: Int
+  ): DocumentPaginator
+}
+
+input RecoverApplicationTranslationsInput {
+  locale: String!
+}
+
+type RecoverApplicationTranslationsPayload {
+  result: Boolean!
+}
+
+type RecoverClientSettingsPayload {
+  result: Boolean!
+}
+
+input RecoverClientTranslationsInput {
+  locale: String!
+}
+
+type RecoverClientTranslationsPayload {
+  result: Boolean!
+}
+
+type Reseller {
+  id: ID!
+  name: String!
+  customers_count: Int
+  locations_count: Int
+  assets_count: Int
+  assets: [Asset!]!
+  customers: [Customer!]!
+  locations: [Location!]!
+}
+
+type ResellerConnected {
+  id: ID!
+  name: String!
+  connected: Boolean!
+}
+
+input ResellerConnectedQuery {
+  id: ID!
+  name: String!
+}
+
+input ResellerConnectedSort {
+  name: String!
+}
+
+input ResellersQuery {
+  id: ID!
+  name: String!
+}
+
+"""
+Available conditions for input AssetsQuery (only one property allowed at a time).
+"""
+input SearchByConditionAssetsQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionAssetsQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionAssetsQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  oem_id: SearchByScalarID
+
+  """Property condition."""
+  type_id: SearchByScalarID
+
+  """Property condition."""
+  product_id: SearchByScalarID
+
+  """Property condition."""
+  reseller_id: SearchByScalarID
+
+  """Property condition."""
+  customer_id: SearchByScalarID
+
+  """Property condition."""
+  location_id: SearchByScalarID
+
+  """Property condition."""
+  serial_number: SearchByScalarString
+
+  """Property condition."""
+  location: SearchByRelationLocationsQuery
+
+  """Property condition."""
+  customer: SearchByRelationCustomersQuery
+}
+
+"""
+Available conditions for input CitiesQuery (only one property allowed at a time).
+"""
+input SearchByConditionCitiesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionCitiesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionCitiesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  name: SearchByScalarString
+
+  """Property condition."""
+  country_id: SearchByScalarID
+}
+
+"""
+Available conditions for input ContactsQuery (only one property allowed at a time).
+"""
+input SearchByConditionContactsQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionContactsQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionContactsQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  name: SearchByScalarStringOrNull
+
+  """Property condition."""
+  email: SearchByScalarStringOrNull
+
+  """Property condition."""
+  phone_number: SearchByScalarStringOrNull
+
+  """Property condition."""
+  phone_valid: SearchByScalarBooleanOrNull
+
+  """Property condition."""
+  types: SearchByRelationTypesQuery
+}
+
+"""
+Available conditions for input CountriesQuery (only one property allowed at a time).
+"""
+input SearchByConditionCountriesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionCountriesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionCountriesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  code: SearchByScalarString
+}
+
+"""
+Available conditions for input CustomersQuery (only one property allowed at a time).
+"""
+input SearchByConditionCustomersQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionCustomersQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionCustomersQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  name: SearchByScalarString
+
+  """Property condition."""
+  type_id: SearchByScalarID
+
+  """Property condition."""
+  status_id: SearchByScalarID
+
+  """Property condition."""
+  assets_count: SearchByScalarInt
+
+  """Property condition."""
+  locations_count: SearchByScalarInt
+
+  """Property condition."""
+  locations: SearchByRelationLocationsQuery
+
+  """Property condition."""
+  contacts_count: SearchByScalarInt
+
+  """Property condition."""
+  contacts: SearchByRelationContactsQuery
+}
+
+"""
+Available conditions for input DocumentsQuery (only one property allowed at a time).
+"""
+input SearchByConditionDocumentsQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionDocumentsQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionDocumentsQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  oem_id: SearchByScalarID
+
+  """Property condition."""
+  type_id: SearchByScalarID
+
+  """Property condition."""
+  customer_id: SearchByScalarID
+
+  """Property condition."""
+  reseller_id: SearchByScalarID
+
+  """Property condition."""
+  number: SearchByScalarString
+
+  """Property condition."""
+  product_id: SearchByScalarID
+
+  """Property condition."""
+  start: SearchByScalarDate
+
+  """Property condition."""
+  end: SearchByScalarDate
+
+  """Property condition."""
+  price: SearchByScalarString
+
+  """Property condition."""
+  currency_id: SearchByScalarIDOrNull
+
+  """Property condition."""
+  customer: SearchByRelationCustomersQuery
+
+  """Property condition."""
+  product: SearchByRelationProductsQuery
+
+  """Property condition."""
+  reseller: SearchByRelationResellersQuery
+}
+
+"""
+Available conditions for input LocationsQuery (only one property allowed at a time).
+"""
+input SearchByConditionLocationsQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionLocationsQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionLocationsQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  postcode: SearchByScalarString
+
+  """Property condition."""
+  state: SearchByScalarString
+
+  """Property condition."""
+  line_one: SearchByScalarString
+
+  """Property condition."""
+  line_two: SearchByScalarString
+
+  """Property condition."""
+  latitude: SearchByScalarStringOrNull
+
+  """Property condition."""
+  longitude: SearchByScalarStringOrNull
+
+  """Property condition."""
+  city: SearchByRelationCitiesQuery
+
+  """Property condition."""
+  city_id: SearchByScalarID
+
+  """Property condition."""
+  country: SearchByRelationCountriesQuery
+
+  """Property condition."""
+  country_id: SearchByScalarID
+
+  """Property condition."""
+  types: SearchByRelationTypesQuery
+}
+
+"""
+Available conditions for input MeSearchQuery (only one property allowed at a time).
+"""
+input SearchByConditionMeSearchQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionMeSearchQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionMeSearchQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  key: SearchByScalarString
+
+  """Property condition."""
+  name: SearchByScalarString
+
+  """Property condition."""
+  created_at: SearchByScalarDateTime
+}
+
+"""
+Available conditions for input ProductsQuery (only one property allowed at a time).
+"""
+input SearchByConditionProductsQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionProductsQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionProductsQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  oem_id: SearchByScalarID
+
+  """Property condition."""
+  sku: SearchByScalarString
+
+  """Property condition."""
+  name: SearchByScalarString
+}
+
+"""
+Available conditions for input ResellerConnectedQuery (only one property allowed at a time).
+"""
+input SearchByConditionResellerConnectedQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionResellerConnectedQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionResellerConnectedQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  name: SearchByScalarString
+}
+
+"""
+Available conditions for input ResellersQuery (only one property allowed at a time).
+"""
+input SearchByConditionResellersQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionResellersQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionResellersQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  name: SearchByScalarString
+}
+
+"""
+Available conditions for input TypesQuery (only one property allowed at a time).
+"""
+input SearchByConditionTypesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionTypesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionTypesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+}
+
+"""Flag."""
+enum SearchByFlag {
+  yes
+}
+
+"""Relation condition for input CitiesQuery."""
+input SearchByRelationCitiesQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionCitiesQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""Relation condition for input ContactsQuery."""
+input SearchByRelationContactsQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionContactsQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""Relation condition for input CountriesQuery."""
+input SearchByRelationCountriesQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionCountriesQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""Relation condition for input CustomersQuery."""
+input SearchByRelationCustomersQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionCustomersQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""Relation condition for input LocationsQuery."""
+input SearchByRelationLocationsQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionLocationsQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""Relation condition for input ProductsQuery."""
+input SearchByRelationProductsQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionProductsQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""Relation condition for input ResellersQuery."""
+input SearchByRelationResellersQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionResellersQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""Relation condition for input TypesQuery."""
+input SearchByRelationTypesQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionTypesQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""
+Available operators for scalar Boolean (only one operator allowed at a time).
+"""
+input SearchByScalarBooleanOrNull {
+  """Equal (`=`)."""
+  eq: Boolean
+
+  """Is NULL?"""
+  isNull: SearchByFlag
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""
+Available operators for scalar Date! (only one operator allowed at a time).
+"""
+input SearchByScalarDate {
+  """Equal (`=`)."""
+  eq: Date
+
+  """Less than (`<`)."""
+  lt: Date
+
+  """Less than or equal to (`<=`)."""
+  lte: Date
+
+  """Greater than (`>`)."""
+  gt: Date
+
+  """Greater than or equal to (`>=`)."""
+  gte: Date
+
+  """Within a set of values."""
+  in: [Date!]
+
+  """Within a range."""
+  between: SearchByScalarDateOperatorBetween
+
+  """Not."""
+  not: SearchByFlag
+}
+
+input SearchByScalarDateOperatorBetween {
+  min: Date!
+  max: Date!
+}
+
+"""
+Available operators for scalar DateTime! (only one operator allowed at a time).
+"""
+input SearchByScalarDateTime {
+  """Equal (`=`)."""
+  eq: DateTime
+
+  """Less than (`<`)."""
+  lt: DateTime
+
+  """Less than or equal to (`<=`)."""
+  lte: DateTime
+
+  """Greater than (`>`)."""
+  gt: DateTime
+
+  """Greater than or equal to (`>=`)."""
+  gte: DateTime
+
+  """Within a set of values."""
+  in: [DateTime!]
+
+  """Within a range."""
+  between: SearchByScalarDateTimeOperatorBetween
+
+  """Not."""
+  not: SearchByFlag
+}
+
+input SearchByScalarDateTimeOperatorBetween {
+  min: DateTime!
+  max: DateTime!
+}
+
+"""
+Available operators for scalar ID! (only one operator allowed at a time).
+"""
+input SearchByScalarID {
+  """Equal (`=`)."""
+  eq: ID
+
+  """Within a set of values."""
+  in: [ID!]
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""
+Available operators for scalar ID (only one operator allowed at a time).
+"""
+input SearchByScalarIDOrNull {
+  """Equal (`=`)."""
+  eq: ID
+
+  """Within a set of values."""
+  in: [ID!]
+
+  """Is NULL?"""
+  isNull: SearchByFlag
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""
+Available operators for scalar Int! (only one operator allowed at a time).
+"""
+input SearchByScalarInt {
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Within a set of values."""
+  in: [Int!]
+
+  """Within a range."""
+  between: SearchByScalarIntOperatorBetween
+
+  """Not."""
+  not: SearchByFlag
+}
+
+input SearchByScalarIntOperatorBetween {
+  min: Int!
+  max: Int!
+}
+
+"""
+Available operators for scalar String! (only one operator allowed at a time).
+"""
+input SearchByScalarString {
+  """Equal (`=`)."""
+  eq: String
+
+  """Like."""
+  like: String
+
+  """Within a set of values."""
+  in: [String!]
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""
+Available operators for scalar String (only one operator allowed at a time).
+"""
+input SearchByScalarStringOrNull {
+  """Equal (`=`)."""
+  eq: String
+
+  """Like."""
+  like: String
+
+  """Within a set of values."""
+  in: [String!]
+
+  """Is NULL?"""
+  isNull: SearchByFlag
+
+  """Not."""
+  not: SearchByFlag
+}
+
+input SetApplicationLocaleInput {
+  locale: String!
+}
+
+type SetApplicationLocalePayload {
+  result: Boolean!
+}
+
+input SignInInput {
+  organization_id: ID!
+}
+
+type SignInPayload {
+  """The link where the User should be redirected to Sign In."""
+  url: String!
+}
+
+type SignOutPayload {
+  """The link where the User should be redirected to complete Sign Out."""
+  url: String
+}
+
+"""Pagination information about the corresponding list of items."""
+type SimplePaginatorInfo {
+  """Count of available items in the page."""
+  count: Int!
+
+  """Current pagination page."""
+  currentPage: Int!
+
+  """Index of first item in the current page."""
+  firstItem: Int
+
+  """Index of last item in the current page."""
+  lastItem: Int
+
+  """Number of items per page in the collection."""
+  perPage: Int!
+}
+
+"""
+Sort clause for input AssetsSort (only one property allowed at a time).
+"""
+input SortByClauseAssetsSort {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  product: SortByClauseProductsSort
+
+  """Property clause."""
+  serial_number: SortByDirection
+
+  """Property clause."""
+  location: SortByClauseLocationsSort
+
+  """Property clause."""
+  customer: SortByClauseCustomersSort
+}
+
+"""
+Sort clause for input CitiesSort (only one property allowed at a time).
+"""
+input SortByClauseCitiesSort {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  name: SortByDirection
+
+  """Property clause."""
+  country: SortByClauseCountriesSort
+}
+
+"""
+Sort clause for input CountriesSort (only one property allowed at a time).
+"""
+input SortByClauseCountriesSort {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  code: SortByDirection
+
+  """Property clause."""
+  name: SortByDirection
+}
+
+"""
+Sort clause for input CustomersSort (only one property allowed at a time).
+"""
+input SortByClauseCustomersSort {
+  """Property clause."""
+  name: SortByDirection
+
+  """Property clause."""
+  locations_count: SortByDirection
+
+  """Property clause."""
+  contacts_count: SortByDirection
+
+  """Property clause."""
+  assets_count: SortByDirection
+
+  """Property clause."""
+  status: SortByClauseStatusSort
+
+  """Property clause."""
+  type: SortByClauseTypesSort
+
+  """Property clause."""
+  headquarter: SortByClauseLocationsSort
+}
+
+"""
+Sort clause for input DocumentsSort (only one property allowed at a time).
+"""
+input SortByClauseDocumentsSort {
+  """Property clause."""
+  start: SortByDirection
+
+  """Property clause."""
+  end: SortByDirection
+
+  """Property clause."""
+  price: SortByDirection
+}
+
+"""
+Sort clause for input LocationsSort (only one property allowed at a time).
+"""
+input SortByClauseLocationsSort {
+  """Property clause."""
+  postcode: SortByDirection
+
+  """Property clause."""
+  state: SortByDirection
+
+  """Property clause."""
+  line_one: SortByDirection
+
+  """Property clause."""
+  line_two: SortByDirection
+
+  """Property clause."""
+  country: SortByClauseCountriesSort
+
+  """Property clause."""
+  city: SortByClauseCitiesSort
+}
+
+"""
+Sort clause for input MeSearchSort (only one property allowed at a time).
+"""
+input SortByClauseMeSearchSort {
+  """Property clause."""
+  key: SortByDirection
+
+  """Property clause."""
+  name: SortByDirection
+
+  """Property clause."""
+  created_at: SortByDirection
+}
+
+"""
+Sort clause for input ProductsSort (only one property allowed at a time).
+"""
+input SortByClauseProductsSort {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  sku: SortByDirection
+
+  """Property clause."""
+  name: SortByDirection
+
+  """Property clause."""
+  eol: SortByDirection
+
+  """Property clause."""
+  eos: SortByDirection
+}
+
+"""
+Sort clause for input ResellerConnectedSort (only one property allowed at a time).
+"""
+input SortByClauseResellerConnectedSort {
+  """Property clause."""
+  name: SortByDirection
+}
+
+"""
+Sort clause for input StatusSort (only one property allowed at a time).
+"""
+input SortByClauseStatusSort {
+  """Property clause."""
+  name: SortByDirection
+}
+
+"""
+Sort clause for input TypesSort (only one property allowed at a time).
+"""
+input SortByClauseTypesSort {
+  """Property clause."""
+  name: SortByDirection
+}
+
+"""Sort direction."""
+enum SortByDirection {
+  asc
+  desc
+}
+
+"""The available directions for ordering a list of records."""
+enum SortOrder {
+  """Sort records in ascending order."""
+  ASC
+
+  """Sort records in descending order."""
+  DESC
+}
+
+type Status {
+  id: ID!
+  name: String!
+}
+
+input StatusSort {
+  name: String!
+}
+
+type Translation {
+  key: String!
+  value: String!
+}
+
+input TranslationInput {
+  key: String!
+  value: String!
+}
+
+type Type {
+  id: ID!
+  name: String!
+}
+
+input TypesQuery {
+  id: ID!
+}
+
+input TypesSort {
+  name: String!
+}
+
+input UpdateApplicationSettingsInput {
+  name: String!
+  value: String!
+}
+
+type UpdateApplicationSettingsPayload {
+  updated: [ApplicationSetting!]!
+}
+
+input UpdateApplicationTranslationsInput {
+  locale: String!
+  translations: [TranslationInput!]!
+}
+
+type UpdateApplicationTranslationsPayload {
+  updated: [Translation!]!
+}
+
+input UpdateClientSettingsInput {
+  name: String!
+  value: String!
+}
+
+type UpdateClientSettingsPayload {
+  updated: [ClientSetting!]!
+}
+
+input UpdateClientTranslationsInput {
+  locale: String!
+  translations: [TranslationInput!]!
+}
+
+type UpdateClientTranslationsPayload {
+  updated: [Translation!]!
+}
+
+"""
+Can be used as an argument to upload files using https://github.com/jaydenseric/graphql-multipart-request-spec
+"""
+scalar Upload
+
+type User {
+  id: ID!
+  given_name: String!
+  family_name: String!
+}
+
+type recoverApplicationSettingsPayload {
+  result: Boolean!
+}
+
+input updateOrganizationInput {
+  locale: String
+  currency_id: ID
+  branding_dark_theme: Boolean
+  branding_primary_color: String
+  branding_secondary_color: String
+  branding_logo: Upload
+  branding_favicon: Upload
+  website_url: String
+  email: String
+}
+
+type updateOrganizationPayload {
+  result: Boolean!
+}
