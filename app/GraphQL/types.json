@@ -403,7 +403,9 @@
                 "product",
                 "reseller",
                 "type",
-                "entries"
+                "entries",
+                "language_id",
+                "language"
             ],
             "properties": {
                 "id": {
@@ -553,6 +555,12 @@
                 },
                 "package": {
                     "$ref": "#/definitions/Product"
+                },
+                "language_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "language": {
+                    "$ref": "./Types/Language.json"
                 }
             }
         },

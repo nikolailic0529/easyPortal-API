@@ -6,6 +6,7 @@ use App\Models\Asset;
 use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\Document;
+use App\Models\Language;
 use App\Models\Oem;
 use App\Models\Organization;
 use App\Models\Product;
@@ -77,6 +78,7 @@ class ContractsTest extends TestCase {
                             start
                             end
                             currency_id
+                            language_id
                             oem {
                                 id
                                 abbr
@@ -164,6 +166,11 @@ class ContractsTest extends TestCase {
                                     }
                                 }
                             }
+                            language {
+                                id
+                                name
+                                code
+                            }
                         }
                         paginatorInfo {
                             count
@@ -227,6 +234,7 @@ class ContractsTest extends TestCase {
                                 'type_id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                 'reseller_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                 'currency_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'language_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
                                 'number'      => '1323',
                                 'price'       => '100.00',
                                 'start'       => '2021-01-01',
@@ -326,6 +334,11 @@ class ContractsTest extends TestCase {
                                         ],
                                     ],
                                 ],
+                                'language'    => [
+                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
+                                    'name' => 'Lang1',
+                                    'code' => 'en',
+                                ],
                             ],
                         ]),
                         [
@@ -401,6 +414,12 @@ class ContractsTest extends TestCase {
                                 'name' => 'Currency1',
                                 'code' => 'CUR',
                             ]);
+                            // Language creation belongs to
+                            $language = Language::factory()->create([
+                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
+                                'name' => 'Lang1',
+                                'code' => 'en',
+                            ]);
                             Document::factory()
                                 ->for($oem)
                                 ->for($product)
@@ -408,6 +427,7 @@ class ContractsTest extends TestCase {
                                 ->for($type)
                                 ->for($reseller)
                                 ->for($currency)
+                                ->for($language)
                                 ->hasEntries(1, [
                                     'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                                     'asset_id'   => Asset::factory()->create([
