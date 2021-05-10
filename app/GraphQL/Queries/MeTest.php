@@ -45,6 +45,7 @@ class MeTest extends TestCase {
                     id
                     family_name
                     given_name
+                    email
                     locale
                     root
                 }
