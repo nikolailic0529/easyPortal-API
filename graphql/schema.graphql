@@ -7,104 +7,161 @@
 
 type Query {
   # General
-  "Current user, `null` for guests."
+  # ============================================================================
+  "Authenticated user or `null` otherwise."
   me: Me
 
-  # Customers
-  "List of all statuses"
+  "Current organization."
+  organization: Organization
+
+  "Application information."
+  application: Application!
+
+  "Client data (settings, translations, etc)."
+  client: Client
+  @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
+
+  # Data
+  # ============================================================================
+  # These enpoints available for anyone
+
+  "List of all OEMs"
+  oems: [Oem!]!
+  @all
+
+  "List of all currencies."
+  currencies: [Currency!]!
+  @all
+  @orderBy(column: "code")
+
+  "List of all languages."
+  languages: [Language!]!
+  @all
+  @orderBy(column: "code")
+
+  "List of all countries."
+  countries: [Country!]!
+  @all
+  @orderBy(column: "code")
+
+  "List of all cities."
+  cities(
+    where: CitiesQuery @searchBy
+  ): [City!]!
+  @all
+  @orderBy(column: "id")
+
+  "List of all possible customer statuses."
   customerStatuses: [Status!]!
 
-  "List of all types"
+  "List of all possible customer types."
   customerTypes: [Type!]!
 
-  "List of Customers"
+  "List of all possible location types."
+  locationTypes: [Type!]!
+
+  "List of all possible contact types."
+  contactTypes: [Type!]!
+
+  "List of all possible asset types."
+  assetTypes: [Type!]!
+
+  "List of all possible contract types."
+  contractTypes: [Type!]!
+
+  "List of all possible quote types."
+  quoteTypes: [Type!]!
+
+  "List of all possible asset statuses."
+  assetStatuses: [Status!]!
+
+  # Customers
+  # ============================================================================
+  "List of Customers."
   customers (
     where: CustomersQuery @searchBy
     order: CustomersSort @sortBy
-  ): [Customer!]! @organization @me @paginate
+  ): [Customer!]!
+  @paginate
+  @organization
+  @me
 
-  "Customer with given ID"
-  customer(id: ID! @eq): Customer @organization @me @find
+  "Customer."
+  customer(id: ID! @eq): Customer
+  @find
+  @organization
+  @me
 
+  # Assets
+  # ============================================================================
   "List of all assets"
   assets(
     where: AssetsQuery @searchBy
     order: AssetsSort @sortBy
-  ): [Asset!]! @organization @me @paginate
+  ): [Asset!]!
+  @paginate
+  @organization
+  @me
 
-  "List of all countries"
-  countries: [Country!]! @all @orderBy(column: "code")
+  "Asset."
+  asset(id: ID! @eq): Asset
+  @find
+  @organization
+  @me
 
-  "List of all cities or filter by country id"
-  cities(
-    where: CitiesQuery @searchBy
-  ): [City!]! @all @orderBy(column: "id")
-
-  "List of all location types related to customer"
-  locationTypes: [Type!]!
-
-  "List of all contact types"
-  contactTypes: [Type!]!
-
-  "Get Locale"
-  locale: String! @deprecated(reason:"use Application.locale instead")
-
-  "List of all asset types"
-  assetTypes: [Type!]!
-
-  "List of all oems"
-  oems: [Oem!]! @all
-
-  "Get asset by id"
-  asset(id: ID! @eq): Asset @organization @me @find
-
-  "List of all currencies"
-  currencies: [Currency!]! @all @orderBy(column: "code")
-
-  "List of all contracts"
+  # Contracts
+  # ============================================================================
+  "List of all contracts."
   contracts (
     where: DocumentsQuery @searchBy
     order: DocumentsSort @sortBy
-  ): [Document!]! @organization @me @paginate @builder(method: "App\\GraphQL\\Queries\\Contracts")
+  ): [Document!]!
+  @builder(method: "App\\GraphQL\\Queries\\Contracts")
+  @paginate
+  @organization
+  @me
 
-  "Get contract by id"
-  contract(id: ID! @eq): Document @organization @me @find @builder(method: "App\\GraphQL\\Queries\\Contracts")
+  "Contract."
+  contract(id: ID! @eq): Document
+  @builder(method: "App\\GraphQL\\Queries\\Contracts")
+  @find
+  @organization
+  @me
 
-  "List of all quotes"
+  # Quotes
+  # ============================================================================
+  "List of all quotes."
   quotes (
     where: DocumentsQuery @searchBy
     order: DocumentsSort @sortBy
-  ): [Document!]! @organization @me @paginate @builder(method: "App\\GraphQL\\Queries\\Quotes")
+  ): [Document!]!
+  @builder(method: "App\\GraphQL\\Queries\\Quotes")
+  @paginate
+  @organization
+  @me
 
-  "Get quote by id"
-  quote(id: ID! @eq): Document @organization @me @find @builder(method: "App\\GraphQL\\Queries\\Quotes")
+  "Quote."
+  quote(id: ID! @eq): Document
+  @builder(method: "App\\GraphQL\\Queries\\Quotes")
+  @find
+  @organization
+  @me
 
-  "Get current organization"
-  organization: Organization
-
-  "Get app name & version"
-  application: Application!
-
-  "List of all contract types"
-  contractTypes: [Type!]!
-
-  "List of all quotes types"
-  quoteTypes: [Type!]!
-
-  "Client data"
-  client: Client @field(resolver: "App\\GraphQL\\Resolvers\\EmptyResolver")
-
-  "Get all resellers"
+  # Administration
+  # ============================================================================
+  "List of all organizations."
   organizations(
     where: ResellerConnectedQuery @searchBy
     order: ResellerConnectedSort @sortBy
-  ): [ResellerConnected!]! @all(model: "App\\Models\\Reseller") @root
+  ): [ResellerConnected!]!
+  @all(model: "App\\Models\\Reseller")
+  @root
 
-  "List of all languages"
-  languages: [Language!]! @all @orderBy(column: "code")
-
-  "List of all assets statuses"
-  assetStatuses: [Status!]!
+  # Deprecated
+  # ============================================================================
+  "Get Locale"
+  locale: String!
+  @deprecated(reason:"use Application.locale instead")
 }
 
 type Mutation {

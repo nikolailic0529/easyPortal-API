@@ -57,6 +57,10 @@ use function count;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read int|null $contracts_count
+ * @property-read \App\Models\Location|null $headquarter
+ * @property-read int|null $quotes_count
+ * @property-read int|null $resellers_count
  */
 class Customer extends Model {
     use OwnedByOrganization;

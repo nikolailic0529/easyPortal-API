@@ -115,6 +115,7 @@ type Asset {
   type: Type!
   warranties: [AssetWarranty!]!
   reseller: Reseller!
+  status: Status!
 }
 
 """A paginated list of Asset items."""
@@ -408,6 +409,8 @@ type Document {
   reseller: Reseller!
   type: Type!
   entries: [DocumentEntry!]!
+  language_id: ID
+  language: Language
 }
 
 type DocumentEntry {
@@ -506,6 +509,7 @@ type Me {
   id: ID!
   given_name: String!
   family_name: String!
+  email: String!
   locale: String
   root: Boolean!
   searches(where: SearchByConditionMeSearchQuery, order: [SortByClauseMeSearchSort!]): [MeSearch!]!
@@ -743,17 +747,59 @@ input ProductsSort {
 }
 
 type Query {
-  """Current user, `null` for guests."""
+  """Authenticated user or `null` otherwise."""
   me: Me
 
-  """List of all statuses"""
+  """Current organization."""
+  organization: Organization
+
+  """Application information."""
+  application: Application!
+
+  """Client data (settings, translations, etc)."""
+  client: Client
+
+  """List of all OEMs"""
+  oems: [Oem!]!
+
+  """List of all currencies."""
+  currencies: [Currency!]!
+
+  """List of all languages."""
+  languages: [Language!]!
+
+  """List of all countries."""
+  countries: [Country!]!
+
+  """List of all cities."""
+  cities(where: SearchByConditionCitiesQuery): [City!]!
+
+  """List of all possible customer statuses."""
   customerStatuses: [Status!]!
 
-  """List of all types"""
+  """List of all possible customer types."""
   customerTypes: [Type!]!
 
+  """List of all possible location types."""
+  locationTypes: [Type!]!
+
+  """List of all possible contact types."""
+  contactTypes: [Type!]!
+
+  """List of all possible asset types."""
+  assetTypes: [Type!]!
+
+  """List of all possible contract types."""
+  contractTypes: [Type!]!
+
+  """List of all possible quote types."""
+  quoteTypes: [Type!]!
+
+  """List of all possible asset statuses."""
+  assetStatuses: [Status!]!
+
   """
-  Customer with given ID
+  Customer.
   
   @require <organization> Authenticated user must be a member of the current organization.
   
@@ -761,29 +807,8 @@ type Query {
   """
   customer(id: ID!): Customer
 
-  """List of all countries"""
-  countries: [Country!]!
-
-  """List of all cities or filter by country id"""
-  cities(where: SearchByConditionCitiesQuery): [City!]!
-
-  """List of all location types related to customer"""
-  locationTypes: [Type!]!
-
-  """List of all contact types"""
-  contactTypes: [Type!]!
-
-  """Get Locale"""
-  locale: String! @deprecated(reason: "use Application.locale instead")
-
-  """List of all asset types"""
-  assetTypes: [Type!]!
-
-  """List of all oems"""
-  oems: [Oem!]!
-
   """
-  Get asset by id
+  Asset.
   
   @require <organization> Authenticated user must be a member of the current organization.
   
@@ -791,11 +816,8 @@ type Query {
   """
   asset(id: ID!): Asset
 
-  """List of all currencies"""
-  currencies: [Currency!]!
-
   """
-  Get contract by id
+  Contract.
   
   @require <organization> Authenticated user must be a member of the current organization.
   
@@ -804,7 +826,7 @@ type Query {
   contract(id: ID!): Document
 
   """
-  Get quote by id
+  Quote.
   
   @require <organization> Authenticated user must be a member of the current organization.
   
@@ -812,33 +834,18 @@ type Query {
   """
   quote(id: ID!): Document
 
-  """Get current organization"""
-  organization: Organization
-
-  """Get app name & version"""
-  application: Application!
-
-  """List of all contract types"""
-  contractTypes: [Type!]!
-
-  """List of all quotes types"""
-  quoteTypes: [Type!]!
-
-  """Client data"""
-  client: Client
-
   """
-  Get all resellers
+  List of all organizations.
   
   @require <root> Authenticated user must be a root.
   """
   organizations(where: SearchByConditionResellerConnectedQuery, order: [SortByClauseResellerConnectedSort!]): [ResellerConnected!]!
 
-  """List of all languages"""
-  languages: [Language!]!
+  """Get Locale"""
+  locale: String! @deprecated(reason: "use Application.locale instead")
 
   """
-  List of Customers
+  List of Customers.
   
   @require <organization> Authenticated user must be a member of the current organization.
   
@@ -874,7 +881,7 @@ type Query {
   ): AssetPaginator
 
   """
-  List of all contracts
+  List of all contracts.
   
   @require <organization> Authenticated user must be a member of the current organization.
   
@@ -892,7 +899,7 @@ type Query {
   ): DocumentPaginator
 
   """
-  List of all quotes
+  List of all quotes.
   
   @require <organization> Authenticated user must be a member of the current organization.
   

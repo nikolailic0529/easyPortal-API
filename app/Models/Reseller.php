@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Organization|null $organization
  */
 class Reseller extends Model {
     use HasFactory;

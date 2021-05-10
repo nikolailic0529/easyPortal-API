@@ -1,5 +1,6 @@
 type ResellerConnected {
-    id: ID!
-    name: String!
-    connected: Boolean! @field(resolver: "App\\GraphQL\\Queries\\OrganizationsConnected")
+  id: ID!
+  name: String!
+  connected: Boolean!
+  @field(resolver: "App\\GraphQL\\Queries\\OrganizationsConnected")
 }

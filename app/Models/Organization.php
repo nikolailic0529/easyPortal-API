@@ -49,6 +49,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereWebsiteUrl($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|Organization whereKeycloakScope($value)
  */
 class Organization extends Model implements HasLocalePreference {
     use HasFactory;

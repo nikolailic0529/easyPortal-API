@@ -5,10 +5,11 @@ type Me {
   email: String!                # TODO [GraphQL] Email type needed
   locale: String
   root: Boolean!
-    @field(resolver: "App\\GraphQL\\Queries\\Me@root")
+  @field(resolver: "App\\GraphQL\\Queries\\Me@root")
+
   searches (
     where: MeSearchQuery @searchBy
     order: MeSearchSort @sortBy
   ): [MeSearch!]!
-    @hasMany
+  @hasMany
 }

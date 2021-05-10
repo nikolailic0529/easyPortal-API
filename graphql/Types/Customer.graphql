@@ -14,13 +14,13 @@ type Customer {
   contracts (
     where: DocumentsQuery @searchBy
     order: DocumentsSort @sortBy
-  ): [Document!]! @hasMany(type: "paginator")
+  ): [Document!]! @hasMany(type: PAGINATOR)
   quotes (
     where: DocumentsQuery @searchBy
     order: DocumentsSort @sortBy
-  ): [Document!]! @hasMany(type: "paginator")
+  ): [Document!]! @hasMany(type: PAGINATOR)
   assets(
     where: AssetsQuery @searchBy
     order: AssetsSort @sortBy
-  ): [Asset!]! @hasMany(type: "paginator")
+  ): [Asset!]! @hasMany(type: PAGINATOR)
 }
