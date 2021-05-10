@@ -224,7 +224,8 @@
                 "location",
                 "oem",
                 "product",
-                "warranties"
+                "warranties",
+                "status"
             ],
             "properties": {
                 "oem_id": {
@@ -262,6 +263,9 @@
                     "items": {
                         "$ref": "#/definitions/AssetWarranty"
                     }
+                },
+                "status": {
+                    "$ref": "#/definitions/Status"
                 }
             }
         },

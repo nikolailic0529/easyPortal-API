@@ -39,6 +39,7 @@ use function sprintf;
  * @property \App\Models\Product                                                      $product
  * @property \App\Models\Reseller|null                                                $reseller
  * @property \App\Models\Type                                                         $type
+ * @property \App\Models\Status                                                       $status
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $warranties
  * @property-read int|null                                                            $warranties_count
  * @method static \Database\Factories\AssetFactory factory(...$parameters)

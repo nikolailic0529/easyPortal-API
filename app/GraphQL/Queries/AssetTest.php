@@ -12,6 +12,7 @@ use App\Models\Oem;
 use App\Models\Organization;
 use App\Models\Product;
 use App\Models\Reseller;
+use App\Models\Status;
 use App\Models\Type;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -185,6 +186,10 @@ class AssetTest extends TestCase {
                                     longitude
                                 }
                             }
+                        }
+                        status {
+                            id
+                            name
                         }
                     }
                 }
@@ -364,6 +369,10 @@ class AssetTest extends TestCase {
                                     ],
                                 ],
                             ],
+                            'status'        => [
+                                'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
+                                'name' => 'active',
+                            ],
                         ]),
                         static function (TestCase $test, Organization $organization): Asset {
                             // OEM Creation belongs to
@@ -461,18 +470,25 @@ class AssetTest extends TestCase {
                                     'locations_count' => 1,
                                     'assets_count'    => 0,
                                 ]);
-                            $asset    = Asset::factory()
+                            // Status belongs to
+                            $status = Status::factory()->create([
+                                'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
+                                'name'        => 'active',
+                                'key'         => 'active',
+                                'object_type' => (new Asset())->getMorphClass(),
+                            ]);
+                            $asset  = Asset::factory()
                                 ->for($oem)
                                 ->for($product)
                                 ->for($reseller)
                                 ->for($customer)
                                 ->for($type)
                                 ->for($location)
+                                ->for($status)
                                 ->create([
                                     'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                     'serial_number' => '#PRODUCT_SERIAL_323',
                                 ]);
-
                             AssetWarranty::factory()
                                 ->hasAttached($product, [], 'services')
                                 ->create([

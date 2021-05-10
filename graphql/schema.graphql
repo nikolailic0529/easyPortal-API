@@ -102,6 +102,9 @@ type Query {
 
   "List of all languages"
   languages: [Language!]! @all @orderBy(column: "code")
+
+  "List of all assets statuses"
+  assetStatuses: [Status!]!
 }
 
 type Mutation {
