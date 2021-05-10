@@ -17,4 +17,6 @@ type Document {
   reseller: Reseller! @belongsTo
   type: Type! @belongsTo
   entries: [DocumentEntry!]! @hasMany
+  language_id: ID
+  language: Language @belongsTo
 }

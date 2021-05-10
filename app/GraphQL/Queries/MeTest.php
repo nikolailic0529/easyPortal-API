@@ -8,7 +8,7 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
@@ -32,11 +32,11 @@ class MeTest extends TestCase {
      */
     public function testInvoke(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
         array $settings = null,
     ): void {
-        $this->setUser($userFactory, $this->setTenant($tenantFactory));
+        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
         $this->setSettings($settings);
 
         $this
@@ -45,6 +45,7 @@ class MeTest extends TestCase {
                     id
                     family_name
                     given_name
+                    email
                     locale
                     root
                 }
@@ -59,12 +60,12 @@ class MeTest extends TestCase {
      */
     public function testSearches(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
         Closure $userSearchesFactory = null,
     ): void {
         // Prepare
-        $user = $this->setUser($userFactory, $this->setTenant($tenantFactory));
+        $user = $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
         $key = 'wrong';
 
@@ -96,7 +97,7 @@ class MeTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new AnyOrganizationDataProvider('me'),
             new ArrayDataProvider([
                 'guest is allowed'           => [
                     new GraphQLSuccess('me', null),
@@ -132,7 +133,7 @@ class MeTest extends TestCase {
      */
     public function dataProviderSearches(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new AnyOrganizationDataProvider('me'),
             new ArrayDataProvider([
                 'guest is allowed' => [
                     new GraphQLSuccess('me', self::class, 'null'),

@@ -13,6 +13,7 @@ use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
 use App\Models\Reseller;
+use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\DocumentNotFoundException;
@@ -20,6 +21,7 @@ use App\Services\DataLoader\Exceptions\LocationNotFoundException;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
+use App\Services\DataLoader\Factories\Concerns\WithStatus;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
@@ -28,6 +30,7 @@ use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
@@ -48,6 +51,7 @@ class AssetFactory extends ModelFactory {
     use WithOem;
     use WithType;
     use WithProduct;
+    use WithStatus;
 
     protected ?CustomerFactory $customerFactory = null;
     protected ?ResellerFactory $resellerFactory = null;
@@ -65,6 +69,8 @@ class AssetFactory extends ModelFactory {
         protected LocationFactory $locations,
         protected DocumentResolver $documentResolver,
         protected CurrencyFactory $currencies,
+        protected LanguageFactory $languages,
+        protected StatusResolver $statuses,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -164,6 +170,7 @@ class AssetFactory extends ModelFactory {
             $model->id            = $this->normalizer->uuid($asset->id);
             $model->oem           = $this->assetOem($asset);
             $model->type          = $this->assetType($asset);
+            $model->status        = $this->assetStatus($asset);
             $model->product       = $this->assetProduct($asset);
             $model->reseller      = $reseller;
             $model->customer      = $customer;
@@ -310,6 +317,7 @@ class AssetFactory extends ModelFactory {
                     $model->reseller = $asset->reseller;
                     $model->customer = $asset->customer;
                     $model->currency = $this->currencies->create($assetDocument);
+                    $model->language = $this->languages->create($assetDocument);
                     $model->price    = $this->normalizer->number('0.00');
                     $model->number   = $this->normalizer->string($assetDocument->documentNumber);
 
@@ -561,6 +569,10 @@ class AssetFactory extends ModelFactory {
 
         // Return
         return $location;
+    }
+
+    protected function assetStatus(Asset $asset): Status {
+        return $this->status(new AssetModel(), $asset->status);
     }
     // </editor-fold>
 }

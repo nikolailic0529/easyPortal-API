@@ -7,13 +7,14 @@ use App\Http\Requests\ExportQuery;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use GraphQL\Server\OperationParams;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Excel;
 use Nuwave\Lighthouse\GraphQL;
+use Nuwave\Lighthouse\Support\Contracts\CreatesContext;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 use function __;
@@ -26,31 +27,33 @@ use function is_array;
 class ExportController extends Controller {
     public function __construct(
         protected GraphQL $graphQL,
-        protected Repository $config,
     ) {
         // empty
     }
 
-    public function csv(ExportQuery $request): BinaryFileResponse {
-        $collection = $this->export($request, 'csv');
+    public function csv(ExportQuery $request, CreatesContext $createsContext): BinaryFileResponse {
+        $collection = $this->export($request, $createsContext->generate($request));
+
         return (new QueryExport($collection))->download('export.csv', Excel::CSV);
     }
 
-    public function excel(ExportQuery $request): BinaryFileResponse {
-        $collection = $this->export($request, 'excel');
+    public function excel(ExportQuery $request, CreatesContext $createsContext): BinaryFileResponse {
+        $collection = $this->export($request, $createsContext->generate($request));
+
         return (new QueryExport($collection))->download('export.xlsx', Excel::XLSX);
     }
 
-    public function pdf(ExportQuery $request): Response {
-        $collection = $this->export($request, 'pdf');
+    public function pdf(ExportQuery $request, CreatesContext $createsContext): Response {
+        $collection = $this->export($request, $createsContext->generate($request));
         $pdf        = PDF::loadView('exports.pdf', [
             'rows' => $collection,
         ]);
+
         return $pdf->download('export.pdf');
     }
 
-    protected function export(ExportQuery $request): Collection {
-        $result = $this->getInitialResult($request);
+    protected function export(ExportQuery $request, GraphQLContext $context): Collection {
+        $result = $this->getInitialResult($request, $context);
 
         $paginated  = false;
         $data       = $result['data'];
@@ -86,12 +89,6 @@ class ExportController extends Controller {
         if ($paginated) {
             $variables = $validated['variables'];
             $page      = $variables['page'] + 1;
-            $max       = $this->config->get('ep.export.max_records');
-            $perPage   = array_key_exists('first', $variables) ? $variables['first']
-                : $this->config->get('lighthouse.pagination.default_count');
-            if (($perPage * $page) >= $max) {
-                return $collection;
-            }
             do {
                 $variables['page'] = $page;
                 $operationParam    = OperationParams::create([
@@ -99,13 +96,14 @@ class ExportController extends Controller {
                     'operationName' => $validated['operationName'],
                     'variables'     => $variables,
                 ]);
-                $items             = $this->executeQuery($paginated, $root, $operationParam);
+                $items             = $this->executeQuery($context, $paginated, $root, $operationParam);
                 foreach ($items as $item) {
                     $collection->push($this->getExportRow($keys, $item));
                 }
                 $page++;
-            } while (!empty($items) && ($perPage * $page) <= $max);
+            } while (!empty($items));
         }
+
         return $collection;
     }
 
@@ -121,26 +119,33 @@ class ExportController extends Controller {
         foreach (array_keys($keys) as $key) {
             $value[] = Arr::get($item, $key);
         }
+
         return $value;
     }
 
     /**
      * @return array<string,mixed>
      */
-    protected function executeQuery(bool $paginated, string $root, OperationParams $params): array {
-        $result = $this->graphQL->executeOperation($params);
+    protected function executeQuery(
+        GraphQLContext $context,
+        bool $paginated,
+        string $root,
+        OperationParams $params,
+    ): array {
+        $result = $this->graphQL->executeOperation($params, $context);
         $items  = $result['data'][$root];
 
         if ($paginated) {
             $items = $items['data'];
         }
+
         return $items;
     }
 
     /**
      * @return array<string,mixed>
      */
-    protected function getInitialResult(ExportQuery $request): array {
+    protected function getInitialResult(ExportQuery $request, GraphQLContext $context): array {
         // execute first to check for errors
         $validated      = $request->validated();
         $operationParam = OperationParams::create([
@@ -148,7 +153,7 @@ class ExportController extends Controller {
             'operationName' => $validated['operationName'],
             'variables'     => $validated['variables'],
         ]);
-        $result         = $this->graphQL->executeOperation($operationParam);
+        $result         = $this->graphQL->executeOperation($operationParam, $context);
         if (array_key_exists('errors', $result)) {
             $errors = $result['errors'];
             if (
@@ -160,6 +165,7 @@ class ExportController extends Controller {
             }
             throw new ExportGraphQLQueryInvalid($errors);
         }
+
         return $result;
     }
 
@@ -167,7 +173,7 @@ class ExportController extends Controller {
      *  Get an array of key, values of key => path to value and value is header
      * ['products.name' => 'product]
      *
-     * @param  array<string, mixed>  $item
+     * @param array<string, mixed> $item
      *
      * @return array<string,string>
      */
@@ -184,6 +190,7 @@ class ExportController extends Controller {
                 $keys[$key] = $key;
             }
         }
+
         return $keys;
     }
 }

@@ -6,6 +6,7 @@
         "endDate": "1614470400000",
         "totalNetPrice": "1,292.16",
         "currencyCode": "CUR",
+        "languageCode": "en",
         "vendorSpecificFields": {
             "vendor": "HPE"
         },

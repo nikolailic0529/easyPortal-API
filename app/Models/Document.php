@@ -4,12 +4,13 @@ namespace App\Models;
 
 use App\Models\Concerns\HasCurrency;
 use App\Models\Concerns\HasCustomer;
+use App\Models\Concerns\HasLanguage;
 use App\Models\Concerns\HasOem;
 use App\Models\Concerns\HasProduct;
 use App\Models\Concerns\HasReseller;
 use App\Models\Concerns\HasType;
 use App\Models\Enums\ProductType;
-use App\Services\Tenant\Eloquent\OwnedByTenant;
+use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -27,10 +28,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Carbon\CarbonImmutable                                                  $end
  * @property string|null                                                              $price
  * @property string|null                                                              $currency_id
+ * @property string|null                                                              $language_id
  * @property \Carbon\CarbonImmutable                                                  $created_at
  * @property \Carbon\CarbonImmutable                                                  $updated_at
  * @property \Carbon\CarbonImmutable|null                                             $deleted_at
  * @property \App\Models\Currency|null                                                $currency
+ * @property \App\Models\Language|null                                                $language
  * @property \App\Models\Customer                                                     $customer
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $entries
  * @property-read int|null                                                            $entries_count
@@ -59,7 +62,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @mixin \Eloquent
  */
 class Document extends Model {
-    use OwnedByTenant;
+    use OwnedByOrganization;
     use HasFactory;
     use HasOem;
     use HasType;
@@ -67,6 +70,7 @@ class Document extends Model {
     use HasCustomer;
     use HasCurrency;
     use HasProduct;
+    use HasLanguage;
 
     protected const CASTS = [
         'start' => 'date',

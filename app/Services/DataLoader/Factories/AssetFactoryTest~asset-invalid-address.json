@@ -16,6 +16,7 @@
     "address": "Maddison Path Suite 820 Apt. 898",
     "address2": "TODO",
     "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
+    "status": "Active",
     "customer": {
         "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
         "name": "Weber, Gusikowski and Simonis"

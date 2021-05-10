@@ -6,9 +6,10 @@ use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasOem;
 use App\Models\Concerns\HasProduct;
 use App\Models\Concerns\HasReseller;
+use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
 use App\Models\Enums\ProductType;
-use App\Services\Tenant\Eloquent\OwnedByTenant;
+use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -38,6 +39,7 @@ use function sprintf;
  * @property \App\Models\Product                                                      $product
  * @property \App\Models\Reseller|null                                                $reseller
  * @property \App\Models\Type                                                         $type
+ * @property \App\Models\Status                                                       $status
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $warranties
  * @property-read int|null                                                            $warranties_count
  * @method static \Database\Factories\AssetFactory factory(...$parameters)
@@ -58,13 +60,14 @@ use function sprintf;
  * @mixin \Eloquent
  */
 class Asset extends Model {
-    use OwnedByTenant;
+    use OwnedByOrganization;
     use HasFactory;
     use HasOem;
     use HasType;
     use HasProduct;
     use HasReseller;
     use HasCustomer;
+    use HasStatus;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

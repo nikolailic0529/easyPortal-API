@@ -5,6 +5,7 @@ namespace App\Services\KeyCloak;
 use App\Services\KeyCloak\Exceptions\JwtDecodingFailed;
 use App\Services\KeyCloak\Exceptions\JwtUnknownAlgorithm;
 use App\Services\KeyCloak\Exceptions\JwtVerificationFailed;
+use DateInterval;
 use DateTimeZone;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
@@ -118,6 +119,7 @@ class Jwt {
                     new SystemClock(new DateTimeZone(
                         $this->config->get('app.timezone') ?: 'UTC',
                     )),
+                    $this->getLeeway(),
                 ),
             );
 
@@ -155,5 +157,16 @@ class Jwt {
         }
 
         return InMemory::plainText($content);
+    }
+
+    protected function getLeeway(): ?DateInterval {
+        $leeway   = null;
+        $interval = $this->config->get('ep.keycloak.leeway');
+
+        if ($interval) {
+            $leeway = new DateInterval($interval);
+        }
+
+        return $leeway;
     }
 }

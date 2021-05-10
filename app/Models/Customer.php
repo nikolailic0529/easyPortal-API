@@ -2,14 +2,18 @@
 
 namespace App\Models;
 
+use App\GraphQL\Queries\ContractTypes;
+use App\GraphQL\Queries\QuoteTypes;
 use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasLocations;
 use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
-use App\Services\Tenant\Eloquent\OwnedByTenant;
+use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Collection;
@@ -32,7 +36,9 @@ use function count;
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
  * @property int                                                                 $contacts_count
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Document>      $contracts
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>      $locations
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $quotes
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller> $resellers
  * @property \App\Models\Status                                                  $status
  * @property \App\Models\Type                                                    $type
@@ -53,7 +59,7 @@ use function count;
  * @mixin \Eloquent
  */
 class Customer extends Model {
-    use OwnedByTenant;
+    use OwnedByOrganization;
     use HasFactory;
     use HasType;
     use HasStatus;
@@ -99,14 +105,30 @@ class Customer extends Model {
             ->withTimestamps();
     }
 
-    // <editor-fold desc="OwnedByTenant">
-    // =========================================================================
-    public function getQualifiedTenantColumn(): string {
-        return $this->getTenantThrough()->getQualifiedRelatedPivotKeyName();
+    public function contracts(): HasMany {
+        return $this
+            ->hasMany(Document::class)
+            ->where(static function (Builder $builder) {
+                return app()->make(ContractTypes::class)->prepare($builder, 'type_id');
+            });
     }
 
-    public function getTenantThrough(): ?BelongsToMany {
+    public function quotes(): HasMany {
+        return $this
+            ->hasMany(Document::class)
+            ->where(static function (Builder $builder): Builder {
+                return app()->make(QuoteTypes::class)->prepare($builder, 'type_id');
+            });
+    }
+
+    // <editor-fold desc="OwnedByOrganization">
+    // =========================================================================
+    public function getQualifiedOrganizationColumn(): string {
+        return $this->getOrganizationThrough()->getQualifiedRelatedPivotKeyName();
+    }
+
+    public function getOrganizationThrough(): ?BelongsToMany {
         return $this->resellers();
     }
-    //</editor-fold>
+    // </editor-fold>
 }

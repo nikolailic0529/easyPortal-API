@@ -12,6 +12,7 @@ use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
 use App\Models\Reseller;
+use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
@@ -37,7 +38,7 @@ use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
-use Tests\WithoutTenantScope;
+use Tests\WithoutOrganizationScope;
 
 use function is_null;
 use function number_format;
@@ -47,7 +48,7 @@ use function number_format;
  * @coversDefaultClass \App\Services\DataLoader\Factories\AssetFactory
  */
 class AssetFactoryTest extends TestCase {
-    use WithoutTenantScope;
+    use WithoutOrganizationScope;
     use WithQueryLog;
     use Helper;
 
@@ -128,6 +129,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->eosDate, (string) $created->product->eos);
         $this->assertEquals($asset->eolDate, $this->getDatetime($created->product->eol));
         $this->assertEquals($asset->assetType, $created->type->key);
+        $this->assertEquals($asset->status, $created->status->key);
         $this->assertEquals($asset->customerId, $created->customer->getKey());
         $this->assertEquals(
             $this->getAssetLocation($asset),
@@ -421,6 +423,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals('HPE', $a->oem->abbr);
         $this->assertEquals('MultiNational Quote', $a->type->key);
         $this->assertEquals('CUR', $a->currency->code);
+        $this->assertEquals('fr', $a->language->code);
         $this->assertEquals('H7J34AC', $a->product->sku);
         $this->assertEquals('HPE Foundation Care 24x7 SVC', $a->product->name);
         $this->assertEquals(ProductType::support(), $a->product->type);
@@ -487,6 +490,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertNotNull($a);
         $this->assertEquals('3292.16', $a->price);
         $this->assertEquals('EUR', $a->currency->code);
+        $this->assertEquals('en', $a->language->code);
 
         $this->assertCount(1, $a->entries);
         $this->assertCount(1, $a->refresh()->entries);
@@ -538,6 +542,7 @@ class AssetFactoryTest extends TestCase {
             $container->make(DocumentResolver::class),
             $container->make(CurrencyFactory::class),
             $container->make(DocumentFactory::class),
+            $container->make(LanguageFactory::class)
         ) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
@@ -549,6 +554,7 @@ class AssetFactoryTest extends TestCase {
                 protected DocumentResolver $documentResolver,
                 protected CurrencyFactory $currencies,
                 DocumentFactory $documentFactory,
+                protected LanguageFactory $languages,
             ) {
                 $this->setDocumentFactory($documentFactory);
             }
@@ -596,6 +602,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($model->oem->abbr, $a->oem->abbr);
         $this->assertEquals('??', $a->type->key);
         $this->assertEquals('CUR', $a->currency->code);
+        $this->assertEquals('fr', $a->language->code);
         $this->assertEquals('H7J34AC', $a->product->sku);
         $this->assertEquals('HPE Foundation Care 24x7 SVC', $a->product->name);
         $this->assertEquals(ProductType::support(), $a->product->type);
@@ -1545,6 +1552,24 @@ class AssetFactoryTest extends TestCase {
 
         $this->assertCount(0, $this->getQueryLog());
     }
+
+    /**
+     * @covers ::assetStatus
+     */
+    public function testAssetStatus(): void {
+        $asset   = Asset::create(['status' => $this->faker->word]);
+        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+
+        $factory
+            ->shouldReceive('status')
+            ->with(Mockery::any(), $asset->status)
+            ->once()
+            ->andReturns();
+
+        $factory->assetStatus($asset);
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -1586,5 +1611,9 @@ class AssetFactoryTest_Factory extends AssetFactory {
 
     public function assetProduct(Asset $asset): Product {
         return parent::assetProduct($asset);
+    }
+
+    public function assetStatus(Asset $asset): Status {
+        return parent::assetStatus($asset);
     }
 }

@@ -11,4 +11,16 @@ type Customer {
   contacts_count: Int!
   contacts: [Contact!]! @morphMany
   headquarter: Location @morphOne
+  contracts (
+    where: DocumentsQuery @searchBy
+    order: DocumentsSort @sortBy
+  ): [Document!]! @hasMany(type: "paginator")
+  quotes (
+    where: DocumentsQuery @searchBy
+    order: DocumentsSort @sortBy
+  ): [Document!]! @hasMany(type: "paginator")
+  assets(
+    where: AssetsQuery @searchBy
+    order: AssetsSort @sortBy
+  ): [Asset!]! @hasMany(type: "paginator")
 }

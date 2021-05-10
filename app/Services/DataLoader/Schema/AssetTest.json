@@ -25,6 +25,7 @@
     "latitude": null,
     "longitude": null,
     "countryCode": "GB",
+    "status": "Active",
     "assetDocument": [
         {
             "document": {

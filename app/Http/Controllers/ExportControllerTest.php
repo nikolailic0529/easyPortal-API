@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use App\Exports\QueryExport;
 use App\Models\Asset;
 use App\Models\Organization;
+use App\Models\Reseller;
 use App\Models\User;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Closure;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Support\Collection;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Forbidden;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\InternalServerError;
@@ -20,7 +19,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
 use Maatwebsite\Excel\Facades\Excel;
-use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
+use Tests\DataProviders\Http\Organizations\OrganizationDataProvider;
 use Tests\TestCase;
 
 use function is_a;
@@ -37,15 +36,12 @@ class ExportControllerTest extends TestCase {
      *
      * @dataProvider dataProviderExport
      *
-     * @param array<mixed,string> $settings
-     *
      * @param array<mixed,string> $variables
      */
     public function testExport(
         Response $expected,
-        Closure $tenantFactory,
+        Closure $organizationFactory,
         Closure $userFactory = null,
-        array $settings = [],
         Closure $exportableFactory = null,
         string $type = 'csv',
         string $query = null,
@@ -55,12 +51,12 @@ class ExportControllerTest extends TestCase {
         ],
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setTenant($tenantFactory));
-        $this->setSettings($settings);
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
 
-        $exported = null;
+        $exportedCount = 0;
         if ($exportableFactory) {
-            $exported = $exportableFactory($this);
+            $exportedCount = $exportableFactory($this, $organization, $user);
         }
 
         // Query
@@ -99,20 +95,20 @@ class ExportControllerTest extends TestCase {
         if (is_a($expected, Ok::class)) {
             switch ($type) {
                 case 'csv':
-                    Excel::assertDownloaded('export.csv', function (QueryExport $export) use ($exported): bool {
-                        if ($exported) {
-                            // collection + header
-                            return $export->collection()->count() === $exported->count() + 1;
-                        }
-                        $max = $this->app->make(Repository::class)->get('ep.export.max_records');
-                        return $export->collection()->count() <= $max;
-                    });
+                    Excel::assertDownloaded(
+                        'export.csv',
+                        static function (QueryExport $export) use ($exportedCount): bool {
+                            return $export->collection()->count() === $exportedCount;
+                        },
+                    );
                     break;
                 case 'excel':
-                    Excel::assertDownloaded('export.xlsx', function (QueryExport $export): bool {
-                        $max = $this->app->make(Repository::class)->get('ep.export.max_records');
-                        return $export->collection()->count() <= $max;
-                    });
+                    Excel::assertDownloaded(
+                        'export.xlsx',
+                        static function (QueryExport $export) use ($exportedCount): bool {
+                            return $export->collection()->count() === $exportedCount;
+                        },
+                    );
                     break;
                 case 'pdf':
                     PDF::assertViewIs('exports.pdf');
@@ -149,15 +145,17 @@ class ExportControllerTest extends TestCase {
             }
         GRAPHQL;
 
-        $assetFactory = static function (TestCase $test): ?Collection {
-            Asset::factory()->count(15)->create();
-            return null;
+        $assetFactory = static function (TestCase $test, Organization $organization): int {
+            $reseller = Reseller::factory()->create([
+                'id' => $organization->getKey(),
+            ]);
+            Asset::factory()->for($reseller)->count(15)->create();
+            // Data + Header
+            return 16;
         };
-        $settings     = [
-            'ep.exports.max_records' => 10,
-        ];
+
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new OrganizationDataProvider('not-graphql'),
             new ArrayDataProvider([
                 'guest is not allowed' => [
                     new ExpectedFinal(new Response(
@@ -179,33 +177,34 @@ class ExportControllerTest extends TestCase {
             new ArrayDataProvider([
                 'success-csv'         => [
                     new Ok(),
-                    $settings,
                     $assetFactory,
                     'csv',
                     $query,
                 ],
                 'success-excel'       => [
                     new Ok(),
-                    $settings,
                     $assetFactory,
                     'excel',
                     $query,
                 ],
                 'success-pdf'         => [
                     new Ok(),
-                    $settings,
                     $assetFactory,
                     'pdf',
                     $query,
                 ],
                 'filters-csv'         => [
                     new Ok(),
-                    $settings,
-                    static function (TestCase $test): ?Collection {
-                        Asset::factory()->count(14)->create();
-                        return Asset::factory()->count(1)->create([
+                    static function (TestCase $test, Organization $organization): int {
+                        $reseller = Reseller::factory()->create([
+                            'id' => $organization->getKey(),
+                        ]);
+                        Asset::factory()->for($reseller)->count(14)->create();
+                        Asset::factory()->for($reseller)->count(1)->create([
                             'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                         ]);
+                        // Data + Header
+                        return 2;
                     },
                     'csv',
                     /** @lang GraphQL */ <<<'GRAPHQL'
@@ -242,7 +241,6 @@ class ExportControllerTest extends TestCase {
                     new Response(
                         new UnprocessableEntity(),
                     ),
-                    $settings,
                     $assetFactory,
                     'csv',
                     /** @lang GraphQL */ <<<'GRAPHQL'
@@ -263,7 +261,6 @@ class ExportControllerTest extends TestCase {
                     new Response(
                         new InternalServerError(),
                     ),
-                    $settings,
                     $assetFactory,
                     'csv',
                     /** @lang GraphQL */ <<<'GRAPHQL'
@@ -284,13 +281,25 @@ class ExportControllerTest extends TestCase {
                     new Response(
                         new UnprocessableEntity(),
                     ),
-                    $settings,
                     $assetFactory,
                     'csv',
                     $query,
                     [
                         // Missing page
                         'first' => 5,
+                    ],
+                ],
+                'different-reseller'  => [
+                    new Ok(),
+                    static function (TestCase $test, Organization $organization): int {
+                        Asset::factory()->count(15)->create()->count();
+                        return 0;
+                    },
+                    'csv',
+                    $query,
+                    [
+                        'first' => 5,
+                        'page'  => 1,
                     ],
                 ],
             ]),

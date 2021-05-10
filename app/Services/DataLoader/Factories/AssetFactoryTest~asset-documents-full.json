@@ -25,6 +25,7 @@
                 "startDate": "1583020800000",
                 "endDate": "1614470400000",
                 "currencyCode": "CUR",
+                "languageCode": "fr",
                 "totalNetPrice": "1,292.16",
                 "vendorSpecificFields": {
                     "vendor": "HPE"
@@ -51,6 +52,7 @@
                 "startDate": "1583020800000",
                 "endDate": "1677542400000",
                 "currencyCode": "CUR",
+                "languageCode": "en",
                 "totalNetPrice": "3,646.44",
                 "vendorSpecificFields": {
                     "vendor": "HPE2"
@@ -77,6 +79,7 @@
                 "startDate": "1583020800000",
                 "endDate": "1740700800000",
                 "currencyCode": "CUR",
+                "languageCode": "fr",
                 "totalNetPrice": "6,376.15",
                 "vendorSpecificFields": {
                     "vendor": "HPE"
@@ -103,6 +106,7 @@
                 "startDate": "1583020800000",
                 "endDate": "1614470400000",
                 "currencyCode": "CUR",
+                "languageCode": "fr",
                 "totalNetPrice": "1,292.16",
                 "vendorSpecificFields": {
                     "vendor": "HPE"
@@ -129,6 +133,7 @@
                 "startDate": "1583020800000",
                 "endDate": "1677542400000",
                 "currencyCode": "CUR",
+                "languageCode": "fr",
                 "totalNetPrice": "3,646.44",
                 "vendorSpecificFields": {
                     "vendor": "HPE"
@@ -155,6 +160,7 @@
                 "startDate": "1583020800000",
                 "endDate": "1740700800000",
                 "currencyCode": "CUR",
+                "languageCode":"fr",
                 "totalNetPrice": "6,376.15",
                 "vendorSpecificFields": {
                     "vendor": "HPE"

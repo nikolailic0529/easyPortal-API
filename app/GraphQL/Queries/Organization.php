@@ -3,11 +3,11 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Organization as ModelsOrganization;
-use App\Services\Tenant\Tenant;
+use App\Services\Organization\CurrentOrganization;
 
 class Organization {
     public function __construct(
-        protected Tenant $tenant,
+        protected CurrentOrganization $organization,
     ) {
         // empty
     }
@@ -16,7 +16,9 @@ class Organization {
      * @param null                 $_
      * @param array<string, mixed> $args
      */
-    public function __invoke($_, array $args): ModelsOrganization {
-        return $this->tenant->get();
+    public function __invoke($_, array $args): ?ModelsOrganization {
+        return $this->organization->defined()
+            ? $this->organization->get()
+            : null;
     }
 }

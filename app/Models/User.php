@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Services\Tenant\Tenantable;
+use App\Services\Organization\HasOrganization;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
@@ -18,7 +18,7 @@ use LogicException;
  * User.
  *
  * @property string                                                                $id
- * @property string                                                                $organization_id
+ * @property string|null                                                           $organization_id
  * @property string                                                                $given_name
  * @property string                                                                $family_name
  * @property string                                                                $email
@@ -58,7 +58,7 @@ class User extends Model implements
     AuthenticatableContract,
     AuthorizableContract,
     HasLocalePreference,
-    Tenantable {
+    HasOrganization {
     use HasFactory;
     use Authenticatable;
     use Authorizable;
@@ -127,7 +127,7 @@ class User extends Model implements
         return $this->belongsTo(Organization::class);
     }
 
-    public function setOrganizationAttribute(Organization $organization): void {
+    public function setOrganizationAttribute(?Organization $organization): void {
         $this->organization()->associate($organization);
     }
 

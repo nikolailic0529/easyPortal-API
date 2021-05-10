@@ -3,7 +3,9 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Jobs\NamedJob;
+use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Customer;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Support\Facades\Date;
@@ -14,6 +16,8 @@ use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
  * Search for outdated customers and update it.
  */
 class CustomersUpdaterCronJob extends CronJob implements ShouldBeUnique, NamedJob {
+    use GlobalScopes;
+
     public function displayName(): string {
         return 'ep-data-loader-customers-updater';
     }
@@ -33,9 +37,11 @@ class CustomersUpdaterCronJob extends CronJob implements ShouldBeUnique, NamedJo
         $config   = $configurator->config($this);
         $expire   = $config->setting('expire');
         $expire   = Date::now()->sub($expire);
-        $outdated = Customer::query()
-            ->where('updated_at', '<', $expire)
-            ->get();
+        $outdated = $this->callWithoutGlobalScopes([OwnedByOrganizationScope::class], static function () use ($expire) {
+            return Customer::query()
+                ->where('updated_at', '<', $expire)
+                ->get();
+        });
 
         foreach ($outdated as $customer) {
             $container

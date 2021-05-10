@@ -9,7 +9,7 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
-use Tests\WithTenant;
+use Tests\WithOrganization;
 
 use function addslashes;
 
@@ -19,7 +19,7 @@ use function addslashes;
  */
 class GuestTest extends TestCase {
     use WithGraphQLSchema;
-    use WithTenant;
+    use WithOrganization;
 
     // <editor-fold desc="Tests">
     // =========================================================================
@@ -42,7 +42,7 @@ class GuestTest extends TestCase {
      * @dataProvider dataProviderResolveField
      */
     public function testResolveField(Response $expected, Closure $userFactory): void {
-        $this->useRootTenant();
+        $this->useRootOrganization();
         $this->setUser($userFactory);
 
         $resolver = addslashes(GuestDirectiveTest_Resolver::class);

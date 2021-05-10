@@ -9,7 +9,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\OkResponse;
-use Tests\DataProviders\GraphQL\Tenants\TenantDataProvider;
+use Tests\DataProviders\Http\Organizations\AnyOrganizationDataProvider;
 use Tests\TestCase;
 
 /**
@@ -26,8 +26,8 @@ class IndexControllerTest extends TestCase {
      *
      * @param array<mixed> $headers
      */
-    public function testIndex(Response $expected, Closure $tenantFactory, array $headers = []): void {
-        $this->setTenant($tenantFactory);
+    public function testIndex(Response $expected, Closure $organizationFactory, array $headers = []): void {
+        $this->setOrganization($organizationFactory);
 
         $this->get('/', $headers)->assertThat($expected);
     }
@@ -40,7 +40,7 @@ class IndexControllerTest extends TestCase {
      */
     public function dataProviderIndex(): array {
         return (new CompositeDataProvider(
-            new TenantDataProvider(),
+            new AnyOrganizationDataProvider('not-graphql'),
             new ArrayDataProvider([
                 'Accept text/html'        => [
                     new Response(

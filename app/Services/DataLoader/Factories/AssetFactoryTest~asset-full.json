@@ -15,6 +15,7 @@
     "city": "Port Adanville",
     "address": "Maddison Path Suite 820 Apt. 898",
     "address2": "TODO",
+    "status": "ACTIVE",
     "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a",
     "reseller": {
         "id": "97292d03-7919-406c-a15b-39bf029e6d5a",
@@ -103,6 +104,7 @@
                 "endDate": "1614470400000",
                 "totalNetPrice": "1,292.16",
                 "currencyCode": "CUR",
+                "languageCode":"fr",
                 "vendorSpecificFields": {
                     "vendor": "HPE"
                 },

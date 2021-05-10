@@ -30,6 +30,7 @@ class OrganizationFactory extends Factory {
             'id'                       => $this->faker->uuid,
             'subdomain'                => null,
             'name'                     => $this->faker->company,
+            'keycloak_scope'           => null,
             'locale'                   => null,
             'currency_id'              => null,
             'branding_primary_color'   => $this->faker->hexColor(),

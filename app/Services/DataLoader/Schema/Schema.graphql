@@ -26,6 +26,7 @@ type Asset {
   longitude: String
   country: String
   countryCode: String
+  status: String
 }
 
 type AssetDocument {
@@ -41,6 +42,7 @@ type AssetDocument {
   startDate: String
   document: Document
   currencyCode: String
+  languageCode: String
   netPrice: String
   discount: String
   listPrice: String
@@ -136,6 +138,7 @@ type Document {
   updatedAt: String
   totalNetPrice: String
   currencyCode: String
+  languageCode: String
 }
 
 type DocumentEntry {

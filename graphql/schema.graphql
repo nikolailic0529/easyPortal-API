@@ -21,16 +21,16 @@ type Query {
   customers (
     where: CustomersQuery @searchBy
     order: CustomersSort @sortBy
-  ): [Customer!]! @guard @paginate
+  ): [Customer!]! @organization @guard @paginate
 
   "Customer with given ID"
-  customer (id: ID! @eq): Customer @guard @find
+  customer(id: ID! @eq): Customer @organization @guard @find
 
-  "List of all customer assets"
+  "List of all assets"
   assets(
     where: AssetsQuery @searchBy
     order: AssetsSort @sortBy
-  ): [Asset!]! @guard @paginate
+  ): [Asset!]! @organization @guard @paginate
 
   "List of all countries"
   countries: [Country!]! @all @orderBy(column: "code")
@@ -56,7 +56,7 @@ type Query {
   oems: [Oem!]! @all
 
   "Get asset by id"
-  asset(id: ID! @eq): Asset @guard @find
+  asset(id: ID! @eq): Asset @organization @guard @find
 
   "List of all currencies"
   currencies: [Currency!]! @all @orderBy(column: "code")
@@ -65,19 +65,19 @@ type Query {
   contracts (
     where: DocumentsQuery @searchBy
     order: DocumentsSort @sortBy
-  ): [Document!]! @guard @paginate @builder(method: "App\\GraphQL\\Builders\\ContractsBuilder")
+  ): [Document!]! @organization @guard @paginate @builder(method: "App\\GraphQL\\Queries\\Contracts")
 
   "Get contract by id"
-  contract(id: ID! @eq): Document @guard @find @builder(method: "App\\GraphQL\\Builders\\ContractsBuilder")
+  contract(id: ID! @eq): Document @organization @guard @find @builder(method: "App\\GraphQL\\Queries\\Contracts")
 
   "List of all quotes"
   quotes (
     where: DocumentsQuery @searchBy
     order: DocumentsSort @sortBy
-  ): [Document!]! @guard @paginate @builder(method: "App\\GraphQL\\Builders\\QuotesBuilder")
+  ): [Document!]! @organization @guard @paginate @builder(method: "App\\GraphQL\\Queries\\Quotes")
 
   "Get quote by id"
-  quote(id: ID! @eq): Document @guard @find @builder(method: "App\\GraphQL\\Builders\\QuotesBuilder")
+  quote(id: ID! @eq): Document @organization @guard @find @builder(method: "App\\GraphQL\\Queries\\Quotes")
 
   "Get current organization"
   organization: Organization
@@ -102,6 +102,9 @@ type Query {
 
   "List of all languages"
   languages: [Language!]! @all @orderBy(column: "code")
+
+  "List of all assets statuses"
+  assetStatuses: [Status!]!
 }
 
 type Mutation {

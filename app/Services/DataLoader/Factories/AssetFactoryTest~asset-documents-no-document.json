@@ -28,6 +28,7 @@
             "endDate": "1614470400000",
             "warrantyEndDate": null,
             "currencyCode": "CUR",
+            "languageCode":"fr",
             "netPrice": "23.4",
             "discount": "-2.05",
             "listPrice": "48"
@@ -42,6 +43,7 @@
             "endDate": "1677542400000",
             "warrantyEndDate": null,
             "currencyCode": "CUR",
+            "languageCode":"fr",
             "netPrice": "23.4",
             "discount": "-2.05",
             "listPrice": "48"
@@ -56,6 +58,7 @@
             "endDate": "1740700800000",
             "warrantyEndDate": null,
             "currencyCode": "CUR",
+            "languageCode":"fr",
             "netPrice": "23.4",
             "discount": "-2.05",
             "listPrice": "48"
@@ -70,6 +73,7 @@
             "endDate": "1614470400000",
             "warrantyEndDate": null,
             "currencyCode": "CUR",
+            "languageCode":"fr",
             "netPrice": "23.4",
             "discount": "-2.05",
             "listPrice": "48"
@@ -84,6 +88,7 @@
             "endDate": "1677542400000",
             "warrantyEndDate": null,
             "currencyCode": "CUR",
+            "languageCode":"fr",
             "netPrice": "23.4",
             "discount": "-2.05",
             "listPrice": "48"
@@ -98,6 +103,7 @@
             "endDate": "1740700800000",
             "warrantyEndDate": null,
             "currencyCode": "CUR",
+            "languageCode":"fr",
             "netPrice": "23.4",
             "discount": "-2.05",
             "listPrice": "48"

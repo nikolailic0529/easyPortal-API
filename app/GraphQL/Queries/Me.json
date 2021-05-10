@@ -6,6 +6,7 @@
         "id",
         "given_name",
         "family_name",
+        "email",
         "locale",
         "root"
     ],
@@ -17,6 +18,9 @@
             "type": "string"
         },
         "family_name": {
+            "type": "string"
+        },
+        "email": {
             "type": "string"
         },
         "locale": {
