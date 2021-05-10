@@ -26,6 +26,7 @@ type Asset {
   longitude: String
   country: String
   countryCode: String
+  status: String
 }
 
 type AssetDocument {

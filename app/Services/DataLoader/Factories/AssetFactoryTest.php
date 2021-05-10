@@ -12,6 +12,7 @@ use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
 use App\Models\Reseller;
+use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
@@ -128,6 +129,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->eosDate, (string) $created->product->eos);
         $this->assertEquals($asset->eolDate, $this->getDatetime($created->product->eol));
         $this->assertEquals($asset->assetType, $created->type->key);
+        $this->assertEquals($asset->status, $created->status->key);
         $this->assertEquals($asset->customerId, $created->customer->getKey());
         $this->assertEquals(
             $this->getAssetLocation($asset),
@@ -1550,6 +1552,24 @@ class AssetFactoryTest extends TestCase {
 
         $this->assertCount(0, $this->getQueryLog());
     }
+
+    /**
+     * @covers ::assetStatus
+     */
+    public function testAssetStatus(): void {
+        $asset   = Asset::create(['status' => $this->faker->word]);
+        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+
+        $factory
+            ->shouldReceive('status')
+            ->with(Mockery::any(), $asset->status)
+            ->once()
+            ->andReturns();
+
+        $factory->assetStatus($asset);
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -1591,5 +1611,9 @@ class AssetFactoryTest_Factory extends AssetFactory {
 
     public function assetProduct(Asset $asset): Product {
         return parent::assetProduct($asset);
+    }
+
+    public function assetStatus(Asset $asset): Status {
+        return parent::assetStatus($asset);
     }
 }

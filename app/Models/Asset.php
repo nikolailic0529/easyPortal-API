@@ -6,6 +6,7 @@ use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasOem;
 use App\Models\Concerns\HasProduct;
 use App\Models\Concerns\HasReseller;
+use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
 use App\Models\Enums\ProductType;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
@@ -65,6 +66,7 @@ class Asset extends Model {
     use HasProduct;
     use HasReseller;
     use HasCustomer;
+    use HasStatus;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

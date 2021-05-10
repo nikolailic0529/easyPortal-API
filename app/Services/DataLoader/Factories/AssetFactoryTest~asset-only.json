@@ -6,5 +6,6 @@
     "vendor": "HPE",
     "sku": "JW1123",
     "eolDate": "",
-    "eosDate": ""
+    "eosDate": "",
+    "status": "Active"
 }
