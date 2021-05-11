@@ -1,0 +1,35 @@
+type Query {
+  value: String! @me @field(resolver: "App\\GraphQL\\Directives\\Directives\\UserDirectiveTest_Resolver")
+
+  valueWithPermissions: String!
+  @me(
+    permissions: ["a", "b", "c"]
+  )
+  @field(resolver: "App\\GraphQL\\Directives\\Directives\\UserDirectiveTest_Resolver")
+}
+
+"""
+Description.
+"""
+type Test @me {
+  one: String! @field(resolver: "App\\GraphQL\\Directives\\Directives\\UserDirectiveTest_Resolver")
+
+  two: String! @me @field(resolver: "App\\GraphQL\\Directives\\Directives\\UserDirectiveTest_Resolver")
+}
+
+extend type Test @me {
+  extension: String! @field(resolver: "App\\GraphQL\\Directives\\Directives\\UserDirectiveTest_Resolver")
+}
+
+"""
+Description with permissions.
+"""
+type TestPermissions @me(permissions: ["a", "b", "c"]) {
+  one: String! @field(resolver: "App\\GraphQL\\Directives\\Directives\\UserDirectiveTest_Resolver")
+
+  two: String! @me(permissions: ["a", "b"]) @field(resolver: "App\\GraphQL\\Directives\\Directives\\UserDirectiveTest_Resolver")
+}
+
+extend type TestPermissions @me(permissions: ["a", "b", "c"]) {
+  extension: String! @field(resolver: "App\\GraphQL\\Directives\\Directives\\UserDirectiveTest_Resolver")
+}

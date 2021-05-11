@@ -3,32 +3,26 @@
 namespace App\GraphQL\Directives\Directives;
 
 use App\GraphQL\Directives\AuthDirective;
+use App\Services\Auth\Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
 
-use function in_array;
-
 abstract class Root extends AuthDirective {
+    public function __construct(
+        protected Auth $auth,
+    ) {
+        parent::__construct();
+    }
+
     public static function definition(): string {
         return /** @lang GraphQL */ <<<'GRAPHQL'
             """
-            Current user must be a root.
+            Authenticated user must be a root.
             """
-            directive @root(
-                """
-                Specify which guards to use, e.g. ["api"].
-                When not defined, the default from `lighthouse.php` is used.
-                """
-                with: [String!]
-            ) on FIELD_DEFINITION | OBJECT
+            directive @root on FIELD_DEFINITION | OBJECT
             GRAPHQL;
     }
 
     protected function isAuthorized(Authenticatable|null $user): bool {
-        return $this->isRoot($user);
-    }
-
-    public function isRoot(Authenticatable|null $user): bool {
-        return $user
-            && in_array($user->getAuthIdentifier(), (array) $this->config->get('ep.root_users'), true);
+        return $this->auth->isRoot($user);
     }
 }

@@ -11,7 +11,6 @@ use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
-use Tests\WithOrganization;
 
 use function addslashes;
 
@@ -21,7 +20,6 @@ use function addslashes;
  */
 class OrganizationTest extends TestCase {
     use WithGraphQLSchema;
-    use WithOrganization;
 
     // <editor-fold desc="Tests">
     // =========================================================================
@@ -32,10 +30,10 @@ class OrganizationTest extends TestCase {
      * @covers ::addRequirements
      */
     public function testDirective(): void {
-        $expected = $this->getTestData()->content('~expected.graphql');
-        $actual   = $this->getGraphQLSchema($this->getTestData()->content('~schema.graphql'));
-
-        $this->assertEquals($expected, $actual);
+        $this->assertGraphQLSchemaEquals(
+            $this->getGraphQLSchemaExpected('~expected.graphql', '~schema.graphql'),
+            $this->getTestData()->content('~schema.graphql'),
+        );
     }
 
     /**

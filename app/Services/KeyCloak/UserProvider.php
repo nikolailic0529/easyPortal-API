@@ -5,18 +5,21 @@ namespace App\Services\KeyCloak;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Exceptions\InsufficientData;
-use App\Services\Organization\HasOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as UserProviderContract;
+use Illuminate\Support\Arr;
 use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Token\RegisteredClaims;
 use Lcobucci\JWT\UnencryptedToken;
 
 use function array_filter;
 use function array_keys;
+use function array_unique;
+use function array_values;
 
 class UserProvider implements UserProviderContract {
     public const    ACCESS_TOKEN                = 'access_token';
+    protected const CLAIM_RESOURCE_ACCESS       = 'resource_access';
     protected const CLAIM_RESELLER_ACCESS       = 'reseller_access';
     protected const CLAIM_EMAIL                 = 'email';
     protected const CLAIM_EMAIL_VERIFIED        = 'email_verified';
@@ -226,9 +229,11 @@ class UserProvider implements UserProviderContract {
      * @return array<string>
      */
     protected function getPermissions(UnencryptedToken $token): array {
-        // FIXME [KeyCloak] Permissions
+        $roles = $token->claims()->get(self::CLAIM_RESOURCE_ACCESS, []);
+        $roles = Arr::get($roles, "{$this->getKeyCloak()->getClientId()}.roles", []);
+        $roles = array_unique(array_values($roles));
 
-        return [];
+        return $roles;
     }
     // </editor-fold>
 }

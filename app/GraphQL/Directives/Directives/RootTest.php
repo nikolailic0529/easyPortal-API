@@ -10,7 +10,6 @@ use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
-use Tests\WithOrganization;
 
 use function addslashes;
 
@@ -20,7 +19,6 @@ use function addslashes;
  */
 class RootTest extends TestCase {
     use WithGraphQLSchema;
-    use WithOrganization;
 
     // <editor-fold desc="Tests">
     // =========================================================================
@@ -31,22 +29,20 @@ class RootTest extends TestCase {
      * @covers ::addRequirements
      */
     public function testDirective(): void {
-        $expected = $this->getTestData()->content('~expected.graphql');
-        $actual   = $this->getGraphQLSchema($this->getTestData()->content('~schema.graphql'));
-
-        $this->assertEquals($expected, $actual);
+        $this->assertGraphQLSchemaEquals(
+            $this->getGraphQLSchemaExpected('~expected.graphql', '~schema.graphql'),
+            $this->getTestData()->content('~schema.graphql'),
+        );
     }
 
     /**
      * @covers ::resolveField
-     * @covers ::isRoot
      *
      * @dataProvider dataProviderResolveField
      *
      * @param array<string,mixed> $settings
      */
     public function testResolveField(Response $expected, array $settings, Closure $userFactory): void {
-        $this->useRootOrganization();
         $this->setUser($userFactory);
         $this->setSettings($settings);
 
@@ -54,7 +50,7 @@ class RootTest extends TestCase {
 
         $this
             ->useGraphQLSchema(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<GRAPHQL
                 type Query {
                     value: String! @root @field(resolver: "{$resolver}")
@@ -62,7 +58,7 @@ class RootTest extends TestCase {
                 GRAPHQL,
             )
             ->graphQL(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query {
                     value

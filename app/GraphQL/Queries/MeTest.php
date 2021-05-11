@@ -48,6 +48,7 @@ class MeTest extends TestCase {
                     email
                     locale
                     root
+                    permissions
                 }
             }')
             ->assertThat($expected);

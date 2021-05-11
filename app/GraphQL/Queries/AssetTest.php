@@ -205,9 +205,11 @@ class AssetTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
-            'root'         => new CompositeDataProvider(
+            'root'           => new CompositeDataProvider(
                 new RootOrganizationDataProvider('asset'),
-                new OrganizationUserDataProvider('asset'),
+                new OrganizationUserDataProvider('asset', [
+                    'view-assets',
+                ]),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('asset', null),
@@ -217,9 +219,25 @@ class AssetTest extends TestCase {
                     ],
                 ]),
             ),
-            'organization' => new CompositeDataProvider(
+            'view-customers' => new CompositeDataProvider(
+                new OrganizationDataProvider('asset'),
+                new UserDataProvider('asset', [
+                    'view-customers',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('asset', null),
+                        static function (TestCase $test, Organization $organization): Asset {
+                            return Asset::factory()->create();
+                        },
+                    ],
+                ]),
+            ),
+            'organization'   => new CompositeDataProvider(
                 new OrganizationDataProvider('asset', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
-                new UserDataProvider('asset'),
+                new UserDataProvider('asset', [
+                    'view-assets',
+                ]),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('asset', self::class, [

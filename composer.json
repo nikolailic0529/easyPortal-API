@@ -47,7 +47,8 @@
     "nunomaduro/collision": "^5.0",
     "phpunit/phpunit": "^9.3.3",
     "slevomat/coding-standard": "dev-master",
-    "squizlabs/php_codesniffer": "dev-master"
+    "squizlabs/php_codesniffer": "dev-master",
+    "symfony/finder": "^5.2"
   },
   "suggest": {
     "ext-pdo": "Required for laravel/framework",

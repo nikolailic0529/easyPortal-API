@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Auth\HasPermissions;
 use App\Services\Organization\HasOrganization;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
@@ -58,7 +59,8 @@ class User extends Model implements
     AuthenticatableContract,
     AuthorizableContract,
     HasLocalePreference,
-    HasOrganization {
+    HasOrganization,
+    HasPermissions {
     use HasFactory;
     use Authenticatable;
     use Authorizable;
@@ -133,5 +135,12 @@ class User extends Model implements
 
     public function getOrganization(): ?Organization {
         return $this->organization;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getPermissions(): array {
+        return $this->permissions ?? [];
     }
 }

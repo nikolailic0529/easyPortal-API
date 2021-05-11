@@ -62,7 +62,7 @@ type PaginatorInfo {
 }
 
 type Query {
-  """@require <root> Current user must be a root."""
+  """@require <root> Authenticated user must be a root."""
   value: String!
 }
 
@@ -96,15 +96,15 @@ enum SortOrder {
 """
 Description.
 
-@require <root> Current user must be a root.
+@require <root> Authenticated user must be a root.
 """
 type Test {
-  """@require <root> Current user must be a root."""
+  """@require <root> Authenticated user must be a root."""
   one: String!
 
-  """@require <root> Current user must be a root."""
+  """@require <root> Authenticated user must be a root."""
   two: String!
 
-  """@require <root> Current user must be a root."""
+  """@require <root> Authenticated user must be a root."""
   extension: String!
 }

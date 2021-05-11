@@ -62,10 +62,13 @@ type PaginatorInfo {
 }
 
 type Query {
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  """
+  """@require <me> User must be authenticated."""
   value: String!
+
+  """
+  @require <me(["a","b","c"])> User must be authenticated and have any of these permissions.
+  """
+  valueWithPermissions: String!
 }
 
 """Pagination information about the corresponding list of items."""
@@ -98,21 +101,37 @@ enum SortOrder {
 """
 Description.
 
-@require <organization> Authenticated user must be a member of the current organization.
+@require <me> User must be authenticated.
 """
 type Test {
+  """@require <me> User must be authenticated."""
+  one: String!
+
+  """@require <me> User must be authenticated."""
+  two: String!
+
+  """@require <me> User must be authenticated."""
+  extension: String!
+}
+
+"""
+Description with permissions.
+
+@require <me(["a","b","c"])> User must be authenticated and have any of these permissions.
+"""
+type TestPermissions {
   """
-  @require <organization> Authenticated user must be a member of the current organization.
+  @require <me(["a","b","c"])> User must be authenticated and have any of these permissions.
   """
   one: String!
 
   """
-  @require <organization> Authenticated user must be a member of the current organization.
+  @require <me(["a","b"])> User must be authenticated and have any of these permissions.
   """
   two: String!
 
   """
-  @require <organization> Authenticated user must be a member of the current organization.
+  @require <me(["a","b","c"])> User must be authenticated and have any of these permissions.
   """
   extension: String!
 }

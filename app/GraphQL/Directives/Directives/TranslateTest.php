@@ -8,7 +8,6 @@ use stdClass;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 use Tests\WithGraphQLSchema;
-use Tests\WithOrganization;
 
 /**
  * @internal
@@ -16,7 +15,6 @@ use Tests\WithOrganization;
  */
 class TranslateTest extends TestCase {
     use WithGraphQLSchema;
-    use WithOrganization;
 
     // <editor-fold desc="Tests">
     // =========================================================================
@@ -26,12 +24,11 @@ class TranslateTest extends TestCase {
      * @dataProvider dataProviderResolveField
      */
     public function testResolveField(Response $expected, object $object): void {
-        $this->useRootOrganization();
         $this->mockResolver($object);
 
         $this
             ->useGraphQLSchema(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 type Query {
                     model: Model! @mock
@@ -43,7 +40,7 @@ class TranslateTest extends TestCase {
                 GRAPHQL,
             )
             ->graphQL(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query {
                     model {

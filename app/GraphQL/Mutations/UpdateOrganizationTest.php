@@ -100,7 +100,9 @@ class UpdateOrganizationTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new OrganizationDataProvider('updateOrganization'),
-            new UserDataProvider('updateOrganization'),
+            new UserDataProvider('updateOrganization', [
+                'edit-organization',
+            ]),
             new ArrayDataProvider([
                 'ok'                               => [
                     new GraphQLSuccess('updateOrganization', UpdateOrganization::class, [

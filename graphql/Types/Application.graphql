@@ -1,22 +1,29 @@
 type Application {
   name: String!
   version: String!
+
   settings: [ApplicationSetting!]!
-    @field(resolver: "App\\GraphQL\\Queries\\Application\\Settings")
-    @root
+  @field(resolver: "App\\GraphQL\\Queries\\Application\\Settings")
+  @root
+
   settingGroups: [ApplicationSettingGroup!]!
-    @field(resolver: "App\\GraphQL\\Queries\\Application\\SettingGroups")
-    @root
+  @field(resolver: "App\\GraphQL\\Queries\\Application\\SettingGroups")
+  @root
+
   services: [ApplicationService!]!
-    @field(resolver: "App\\GraphQL\\Queries\\Application\\Services")
-    @root
+  @field(resolver: "App\\GraphQL\\Queries\\Application\\Services")
+  @root
+
   jobs: [ApplicationJob!]!
-    @field(resolver: "App\\GraphQL\\Queries\\Application\\Jobs")
-    @root
+  @field(resolver: "App\\GraphQL\\Queries\\Application\\Jobs")
+  @root
+
   translations (
     locale: String! @rules(apply: ["App\\Rules\\Locale"])
   ): [Translation!]!
-    @field(resolver: "App\\GraphQL\\Queries\\Application\\Translations")
-    @root
-  locale: String! @field(resolver: "App\\GraphQL\\Queries\\Application\\Locale")
+  @field(resolver: "App\\GraphQL\\Queries\\Application\\Translations")
+  @root
+
+  locale: String!
+  @field(resolver: "App\\GraphQL\\Queries\\Application\\Locale")
 }

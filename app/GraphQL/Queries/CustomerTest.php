@@ -14,6 +14,7 @@ use App\Models\Oem;
 use App\Models\Organization;
 use App\Models\Product;
 use App\Models\Reseller;
+use App\Models\Status;
 use App\Models\Type;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -174,6 +175,10 @@ class CustomerTest extends TestCase {
                                 type {
                                     id
                                     name
+                                }
+                                status {
+                                  id
+                                  name
                                 }
                                 location {
                                     id
@@ -603,7 +608,9 @@ class CustomerTest extends TestCase {
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
                 new RootOrganizationDataProvider('customer'),
-                new OrganizationUserDataProvider('customer'),
+                new OrganizationUserDataProvider('customer', [
+                    'view-customers',
+                ]),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('customer', null),
@@ -615,7 +622,9 @@ class CustomerTest extends TestCase {
             ),
             'organization' => new CompositeDataProvider(
                 new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
-                new UserDataProvider('customer'),
+                new UserDataProvider('customer', [
+                    'view-customers',
+                ]),
                 new ArrayDataProvider([
                     'ok'          => [
                         new GraphQLSuccess('customer', new JsonFragmentPaginatedSchema('assets', AssetTest::class), [
@@ -662,6 +671,10 @@ class CustomerTest extends TestCase {
                                         'type'          => [
                                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
                                             'name' => 'name aaa',
+                                        ],
+                                        'status'        => [
+                                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
+                                            'name' => 'active',
                                         ],
                                         'product'       => [
                                             'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
@@ -853,6 +866,13 @@ class CustomerTest extends TestCase {
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
                                 'name' => 'name aaa',
                             ]);
+                            // Status Creation belongs to
+                            $status = Status::factory()->create([
+                                'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
+                                'name'        => 'active',
+                                'key'         => 'active',
+                                'object_type' => (new Asset())->getMorphClass(),
+                            ]);
                             // Product creation for package
                             $product2 = Product::factory()->create([
                                 'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24998',
@@ -876,6 +896,7 @@ class CustomerTest extends TestCase {
                                 ->for($product)
                                 ->for($customer)
                                 ->for($type)
+                                ->for($status)
                                 ->for($location)
                                 ->for($reseller)
                                 ->create([
@@ -927,7 +948,9 @@ class CustomerTest extends TestCase {
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
                 new RootOrganizationDataProvider('customer'),
-                new OrganizationUserDataProvider('customer'),
+                new OrganizationUserDataProvider('customer', [
+                    'view-customers',
+                ]),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('customer', null),
@@ -940,7 +963,9 @@ class CustomerTest extends TestCase {
             ),
             'organization' => new CompositeDataProvider(
                 new OrganizationDataProvider('customer'),
-                new UserDataProvider('customer'),
+                new UserDataProvider('customer', [
+                    'view-customers',
+                ]),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('customer', self::class, [
@@ -1070,7 +1095,9 @@ class CustomerTest extends TestCase {
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
                 new RootOrganizationDataProvider('customer'),
-                new OrganizationUserDataProvider('customer'),
+                new OrganizationUserDataProvider('customer', [
+                    'view-customers',
+                ]),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('customer', null),
@@ -1085,7 +1112,9 @@ class CustomerTest extends TestCase {
             ),
             'organization' => new CompositeDataProvider(
                 new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new UserDataProvider('customer'),
+                new UserDataProvider('customer', [
+                    'view-customers',
+                ]),
                 new ArrayDataProvider([
                     'ok'             => [
                         new GraphQLSuccess(
@@ -1677,7 +1706,9 @@ class CustomerTest extends TestCase {
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
                 new RootOrganizationDataProvider('customer'),
-                new OrganizationUserDataProvider('customer'),
+                new OrganizationUserDataProvider('customer', [
+                    'view-customers',
+                ]),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('customer', null),
@@ -1692,7 +1723,9 @@ class CustomerTest extends TestCase {
             ),
             'organization' => new CompositeDataProvider(
                 new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new UserDataProvider('customer'),
+                new UserDataProvider('customer', [
+                    'view-customers',
+                ]),
                 new ArrayDataProvider([
                     'ok'                                        => [
                         new GraphQLSuccess(

@@ -11,16 +11,28 @@ type Customer {
   contacts_count: Int!
   contacts: [Contact!]! @morphMany
   headquarter: Location @morphOne
+
+  # Contracts
   contracts (
     where: DocumentsQuery @searchBy
     order: DocumentsSort @sortBy
-  ): [Document!]! @hasMany(type: "paginator")
+  ): [Document!]!
+  @me(permissions: ["view-contracts", "view-customers"])
+  @hasMany(type: PAGINATOR)
+
+  # Quotes
   quotes (
     where: DocumentsQuery @searchBy
     order: DocumentsSort @sortBy
-  ): [Document!]! @hasMany(type: "paginator")
+  ): [Document!]!
+  @me(permissions: ["view-quotes", "view-customers"])
+  @hasMany(type: PAGINATOR)
+
+  # Assets
   assets(
     where: AssetsQuery @searchBy
     order: AssetsSort @sortBy
-  ): [Asset!]! @hasMany(type: "paginator")
+  ): [Asset!]!
+  @me(permissions: ["view-assets", "view-customers"])
+  @hasMany(type: PAGINATOR)
 }

@@ -103,7 +103,9 @@ class CustomersTest extends TestCase {
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
                 new RootOrganizationDataProvider('customers'),
-                new OrganizationUserDataProvider('customers'),
+                new OrganizationUserDataProvider('customers', [
+                    'view-customers',
+                ]),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLPaginated('customers', null),
@@ -116,7 +118,9 @@ class CustomersTest extends TestCase {
             ),
             'organization' => new CompositeDataProvider(
                 new OrganizationDataProvider('customers'),
-                new UserDataProvider('customers'),
+                new UserDataProvider('customers', [
+                    'view-customers',
+                ]),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLPaginated('customers', self::class, [
