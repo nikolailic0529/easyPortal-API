@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Organization;
+use App\Models\Enums\UserType;
 use App\Models\User;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
@@ -29,6 +29,7 @@ class UserFactory extends Factory {
     public function definition(): array {
         return [
             'id'              => $this->faker->uuid,
+            'type'            => UserType::keycloak(),
             'organization_id' => null,
             'given_name'      => $this->faker->firstName,
             'family_name'     => $this->faker->lastName,

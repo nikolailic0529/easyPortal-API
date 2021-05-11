@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Enums\UserType;
 use App\Services\Auth\HasPermissions;
 use App\Services\Organization\HasOrganization;
 use Illuminate\Auth\Authenticatable;
@@ -19,6 +20,7 @@ use LogicException;
  * User.
  *
  * @property string                                                                $id
+ * @property \App\Models\Enums\UserType                                            $type
  * @property string|null                                                           $organization_id
  * @property string                                                                $given_name
  * @property string                                                                $family_name
@@ -67,6 +69,7 @@ class User extends Model implements
     use MustVerifyEmail;
 
     protected const CASTS = [
+        'type'           => UserType::class,
         'permissions'    => 'array',
         'email_verified' => 'bool',
         'phone_verified' => 'bool',
