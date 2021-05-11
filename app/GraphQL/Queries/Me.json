@@ -8,7 +8,8 @@
         "family_name",
         "email",
         "locale",
-        "root"
+        "root",
+        "permissions"
     ],
     "properties": {
         "id": {
@@ -31,6 +32,12 @@
         },
         "root": {
             "type": "boolean"
+        },
+        "permissions": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     }
 }

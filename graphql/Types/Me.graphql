@@ -4,6 +4,7 @@ type Me {
   family_name: String!
   email: String!                # TODO [GraphQL] Email type needed
   locale: String
+  permissions: [String!]
   root: Boolean!
   @field(resolver: "App\\GraphQL\\Queries\\Me@root")
 
