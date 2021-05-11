@@ -339,6 +339,7 @@ class Client {
             productDescription
             assetTag
             assetType
+            status
             vendor
             sku
 
@@ -366,6 +367,7 @@ class Client {
             documentNumber
 
             currencyCode
+            languageCode
             netPrice
             discount
             listPrice
@@ -381,6 +383,7 @@ class Client {
                 endDate
 
                 currencyCode
+                languageCode
                 totalNetPrice
 
                 vendorSpecificFields {
