@@ -2,16 +2,18 @@
 
 namespace App\Models\Enums;
 
+use LastDragon_ru\LaraASP\Eloquent\Enum;
+
 class ProductType extends Enum {
     public static function asset(): static {
-        return static::create(__FUNCTION__);
+        return static::make(__FUNCTION__);
     }
 
     public static function support(): static {
-        return static::create(__FUNCTION__);
+        return static::make(__FUNCTION__);
     }
 
     public static function service(): static {
-        return static::create(__FUNCTION__);
+        return static::make(__FUNCTION__);
     }
 }

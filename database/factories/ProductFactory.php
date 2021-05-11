@@ -30,7 +30,7 @@ class ProductFactory extends Factory {
     public function definition(): array {
         return [
             'id'         => $this->faker->uuid,
-            'type'       => $this->faker->randomElement(ProductType::values()),
+            'type'       => $this->faker->randomElement(ProductType::getValues()),
             'oem_id'     => static function (): Oem {
                 return Oem::factory()->create();
             },
