@@ -16,7 +16,9 @@ class Auth {
     }
 
     public function isRoot(Authenticatable|null $user): bool {
-        return $user && in_array($user->getAuthIdentifier(), (array) $this->config->get('ep.root_users'), true);
+        return $user instanceof Rootable
+            && $user->isRootable()
+            && in_array($user->getAuthIdentifier(), (array) $this->config->get('ep.root_users'), true);
     }
 
     /**

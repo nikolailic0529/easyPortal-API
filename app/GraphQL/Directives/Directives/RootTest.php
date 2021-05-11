@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Directives\Directives;
 
+use App\Models\Enums\UserType;
 use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -97,7 +98,22 @@ class RootTest extends TestCase {
                     ]);
                 },
             ],
-            'user is root'          => [
+            'keycloak user is root' => [
+                new GraphQLUnauthorized('value'),
+                [
+                    'ep.root_users' => [
+                        '96948814-7626-4aab-a5a8-f0b7b4be8e6d',
+                        'f470ecc9-1394-4f95-bfa2-435307f9c4f3',
+                    ],
+                ],
+                static function () {
+                    return User::factory()->make([
+                        'id'   => 'f470ecc9-1394-4f95-bfa2-435307f9c4f3',
+                        'type' => UserType::keycloak(),
+                    ]);
+                },
+            ],
+            'local user is root'    => [
                 new GraphQLSuccess('value', null),
                 [
                     'ep.root_users' => [
@@ -107,7 +123,8 @@ class RootTest extends TestCase {
                 ],
                 static function () {
                     return User::factory()->make([
-                        'id' => 'f470ecc9-1394-4f95-bfa2-435307f9c4f3',
+                        'id'   => 'f470ecc9-1394-4f95-bfa2-435307f9c4f3',
+                        'type' => UserType::local(),
                     ]);
                 },
             ],

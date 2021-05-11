@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth;
 
+use App\Models\Enums\UserType;
 use App\Models\User;
 use Closure;
 use Illuminate\Contracts\Auth\Access\Gate;
@@ -78,13 +79,18 @@ class AuthTest extends TestCase {
 
         if (!is_null($permissions)) {
             $id   = $this->faker->uuid;
-            $user = Mockery::mock(Authenticatable::class, HasPermissions::class);
+            $user = Mockery::mock(Authenticatable::class, Rootable::class, HasPermissions::class);
             $user
-                ->shouldReceive('getAuthIdentifier')
+                ->shouldReceive('isRootable')
                 ->once()
-                ->andReturn($id);
+                ->andReturn($isRoot);
 
             if ($isRoot) {
+                $user
+                    ->shouldReceive('getAuthIdentifier')
+                    ->once()
+                    ->andReturn($id);
+
                 $this->setSettings([
                     'ep.root_users' => [$id],
                 ]);
@@ -120,6 +126,27 @@ class AuthTest extends TestCase {
                     return null;
                 },
             ],
+            'user is not Rootable'  => [
+                false,
+                [
+                    'ep.root_users' => [
+                        '96948814-7626-4aab-a5a8-f0b7b4be8e6d',
+                    ],
+                ],
+                static function () {
+                    $user = Mockery::mock(Authenticatable::class, Rootable::class);
+                    $user
+                        ->shouldReceive('isRootable')
+                        ->once()
+                        ->andReturn(false);
+                    $user
+                        ->shouldReceive('getAuthIdentifier')
+                        ->never()
+                        ->andReturn('96948814-7626-4aab-a5a8-f0b7b4be8e6d');
+
+                    return $user;
+                },
+            ],
             'user is not root'      => [
                 false,
                 [
@@ -130,11 +157,27 @@ class AuthTest extends TestCase {
                 ],
                 static function () {
                     return User::factory()->make([
-                        'id' => 'da83c04b-5273-418f-ad78-134324cc1c01',
+                        'id'   => 'da83c04b-5273-418f-ad78-134324cc1c01',
+                        'type' => UserType::local(),
                     ]);
                 },
             ],
-            'user is root'          => [
+            'keycloak user is root' => [
+                false,
+                [
+                    'ep.root_users' => [
+                        '96948814-7626-4aab-a5a8-f0b7b4be8e6d',
+                        'f470ecc9-1394-4f95-bfa2-435307f9c4f3',
+                    ],
+                ],
+                static function () {
+                    return User::factory()->make([
+                        'id'   => 'f470ecc9-1394-4f95-bfa2-435307f9c4f3',
+                        'type' => UserType::keycloak(),
+                    ]);
+                },
+            ],
+            'local user is root'    => [
                 true,
                 [
                     'ep.root_users' => [
@@ -144,7 +187,8 @@ class AuthTest extends TestCase {
                 ],
                 static function () {
                     return User::factory()->make([
-                        'id' => 'f470ecc9-1394-4f95-bfa2-435307f9c4f3',
+                        'id'   => 'f470ecc9-1394-4f95-bfa2-435307f9c4f3',
+                        'type' => UserType::local(),
                     ]);
                 },
             ],
@@ -191,7 +235,7 @@ class AuthTest extends TestCase {
                 'a',
                 true,
             ],
-            'gate defined - guest with can'           => [
+            'gate defined - guest without can'        => [
                 false,
                 null,
                 false,

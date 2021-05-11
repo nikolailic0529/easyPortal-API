@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Enums\UserType;
 use App\Services\Auth\HasPermissions;
+use App\Services\Auth\Rootable;
 use App\Services\Organization\HasOrganization;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
@@ -62,7 +63,8 @@ class User extends Model implements
     AuthorizableContract,
     HasLocalePreference,
     HasOrganization,
-    HasPermissions {
+    HasPermissions,
+    Rootable {
     use HasFactory;
     use Authenticatable;
     use Authorizable;
@@ -145,5 +147,9 @@ class User extends Model implements
      */
     public function getPermissions(): array {
         return $this->permissions ?? [];
+    }
+
+    public function isRootable(): bool {
+        return $this->type === UserType::local();
     }
 }
