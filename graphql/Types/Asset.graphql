@@ -14,5 +14,5 @@ type Asset {
   type: Type! @belongsTo
   warranties: [AssetWarranty!]! @hasMany
   reseller: Reseller! @belongsTo
-  status: Status! @belongsTo
+  status: Status @belongsTo
 }

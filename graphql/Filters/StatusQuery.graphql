@@ -1,0 +1,4 @@
+input StatusQuery {
+  id: ID!
+  name: String!
+}

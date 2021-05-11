@@ -9,4 +9,5 @@ input AssetsQuery {
   serial_number: String!
   location: LocationsQuery
   customer: CustomersQuery
+  status: StatusQuery
 }
