@@ -119,7 +119,9 @@ class OrganizationTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new OrganizationDataProvider('organization'),
-            new UserDataProvider('organization'),
+            new UserDataProvider('organization', [
+                'edit-organization',
+            ]),
             new ArrayDataProvider([
                 'ok'                               => [
                     new GraphQLSuccess('organization', Organization::class, json_encode(true)),

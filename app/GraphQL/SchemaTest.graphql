@@ -115,7 +115,7 @@ type Asset {
   type: Type!
   warranties: [AssetWarranty!]!
   reseller: Reseller!
-  status: Status!
+  status: Status
 }
 
 """A paginated list of Asset items."""
@@ -273,6 +273,10 @@ type Customer {
   contacts_count: Int!
   contacts: [Contact!]!
   headquarter: Location
+
+  """
+  @require <me(["view-contracts","view-customers"])> User must be authenticated and have any of these permissions.
+  """
   contracts(
     where: SearchByConditionDocumentsQuery
     order: [SortByClauseDocumentsSort!]
@@ -283,6 +287,10 @@ type Customer {
     """The offset from which elements are returned."""
     page: Int
   ): DocumentPaginator
+
+  """
+  @require <me(["view-customers","view-quotes"])> User must be authenticated and have any of these permissions.
+  """
   quotes(
     where: SearchByConditionDocumentsQuery
     order: [SortByClauseDocumentsSort!]
@@ -293,6 +301,10 @@ type Customer {
     """The offset from which elements are returned."""
     page: Int
   ): DocumentPaginator
+
+  """
+  @require <me(["view-assets","view-customers"])> User must be authenticated and have any of these permissions.
+  """
   assets(
     where: SearchByConditionAssetsQuery
     order: [SortByClauseAssetsSort!]
@@ -543,7 +555,7 @@ type Mutation {
   """
   Set Organization properties
   
-  @require <me> User must be authenticated.
+  @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
   """
   organization(locale: String, currency_id: ID, branding_dark_theme: Boolean, branding_primary_color: String, branding_secondary_color: String, branding_logo: Upload, branding_favicon: Upload, website_url: String, email: String): Boolean! @deprecated(reason: "use updateOrganization instead")
 
@@ -612,7 +624,9 @@ type Mutation {
   """@require <root> Authenticated user must be a root."""
   updateClientTranslations(input: UpdateClientTranslationsInput!): UpdateClientTranslationsPayload
 
-  """@require <me> User must be authenticated."""
+  """
+  @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
+  """
   updateOrganization(input: updateOrganizationInput!): updateOrganizationPayload
 
   """
@@ -803,7 +817,7 @@ type Query {
   
   @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me> User must be authenticated.
+  @require <me(["view-customers"])> User must be authenticated and have any of these permissions.
   """
   customer(id: ID!): Customer
 
@@ -812,7 +826,7 @@ type Query {
   
   @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me> User must be authenticated.
+  @require <me(["view-assets","view-customers"])> User must be authenticated and have any of these permissions.
   """
   asset(id: ID!): Asset
 
@@ -821,7 +835,7 @@ type Query {
   
   @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me> User must be authenticated.
+  @require <me(["view-contracts","view-customers"])> User must be authenticated and have any of these permissions.
   """
   contract(id: ID!): Document
 
@@ -830,7 +844,7 @@ type Query {
   
   @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me> User must be authenticated.
+  @require <me(["view-customers","view-quotes"])> User must be authenticated and have any of these permissions.
   """
   quote(id: ID!): Document
 
@@ -849,7 +863,7 @@ type Query {
   
   @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me> User must be authenticated.
+  @require <me(["view-customers"])> User must be authenticated and have any of these permissions.
   """
   customers(
     where: SearchByConditionCustomersQuery
@@ -867,7 +881,7 @@ type Query {
   
   @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me> User must be authenticated.
+  @require <me(["view-assets","view-customers"])> User must be authenticated and have any of these permissions.
   """
   assets(
     where: SearchByConditionAssetsQuery
@@ -885,7 +899,7 @@ type Query {
   
   @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me> User must be authenticated.
+  @require <me(["view-contracts","view-customers"])> User must be authenticated and have any of these permissions.
   """
   contracts(
     where: SearchByConditionDocumentsQuery
@@ -903,7 +917,7 @@ type Query {
   
   @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me> User must be authenticated.
+  @require <me(["view-customers","view-quotes"])> User must be authenticated and have any of these permissions.
   """
   quotes(
     where: SearchByConditionDocumentsQuery

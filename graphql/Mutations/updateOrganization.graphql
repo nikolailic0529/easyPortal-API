@@ -2,7 +2,7 @@ extend type Mutation {
   updateOrganization(
     input: updateOrganizationInput!
   ): updateOrganizationPayload
-    @me
+    @me(permissions: ["edit-organization"])
     @validator
 }
 

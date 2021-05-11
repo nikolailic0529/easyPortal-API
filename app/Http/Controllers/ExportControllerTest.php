@@ -6,20 +6,18 @@ use App\Exports\QueryExport;
 use App\Models\Asset;
 use App\Models\Organization;
 use App\Models\Reseller;
-use App\Models\User;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
-use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Forbidden;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\InternalServerError;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\UnprocessableEntity;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
-use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
 use Maatwebsite\Excel\Facades\Excel;
 use Tests\DataProviders\Http\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\Http\Users\AuthUserDataProvider;
+use Tests\DataProviders\Http\Users\UserDataProvider;
 use Tests\TestCase;
 
 use function is_a;
@@ -61,7 +59,8 @@ class ExportControllerTest extends TestCase {
 
         // Query
         if (!$query) {
-            $query = /** @lang GraphQL */ <<<'GRAPHQL'
+            $query = /** @lang GraphQL */
+                <<<'GRAPHQL'
             query assets($first: Int, $page: Int){
               assets(first:$first, page: $page){
                 data{
@@ -131,7 +130,8 @@ class ExportControllerTest extends TestCase {
      */
 
     public function dataProviderExport(): array {
-        $query = /** @lang GraphQL */ <<<'GRAPHQL'
+        $query = /** @lang GraphQL */
+            <<<'GRAPHQL'
             query assets($first: Int, $page: Int){
                 assets(first:$first, page: $page){
                     data{
@@ -150,29 +150,15 @@ class ExportControllerTest extends TestCase {
                 'id' => $organization->getKey(),
             ]);
             Asset::factory()->for($reseller)->count(15)->create();
+
             // Data + Header
             return 16;
         };
 
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('not-graphql'),
-            new ArrayDataProvider([
-                'guest is not allowed' => [
-                    new ExpectedFinal(new Response(
-                        new Forbidden(),
-                    )),
-                    static function (): ?User {
-                        return null;
-                    },
-                ],
-                'user is allowed'      => [
-                    new Unknown(),
-                    static function (TestCase $test, ?Organization $organization): ?User {
-                        return User::factory()->make([
-                            'organization_id' => $organization,
-                        ]);
-                    },
-                ],
+            new OrganizationDataProvider(),
+            new UserDataProvider([
+                'view-assets',
             ]),
             new ArrayDataProvider([
                 'success-csv'         => [
@@ -203,6 +189,7 @@ class ExportControllerTest extends TestCase {
                         Asset::factory()->for($reseller)->count(1)->create([
                             'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                         ]);
+
                         // Data + Header
                         return 2;
                     },
@@ -293,6 +280,7 @@ class ExportControllerTest extends TestCase {
                     new Ok(),
                     static function (TestCase $test, Organization $organization): int {
                         Asset::factory()->count(15)->create()->count();
+
                         return 0;
                     },
                     'csv',

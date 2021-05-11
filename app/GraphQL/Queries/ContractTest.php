@@ -176,21 +176,55 @@ class ContractTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
-            'root'         => new CompositeDataProvider(
+            'root'           => new CompositeDataProvider(
                 new RootOrganizationDataProvider('contract'),
-                new OrganizationUserDataProvider('contract'),
+                new OrganizationUserDataProvider('contract', [
+                    'view-contracts',
+                ]),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('contract', null),
-                        static function (TestCase $test, Organization $organization): Customer {
-                            return Customer::factory()->create();
+                        static function (TestCase $test, Organization $organization): Document {
+                            return Document::factory()->create();
                         },
                     ],
                 ]),
             ),
-            'organization' => new CompositeDataProvider(
+            'view-customers' => new CompositeDataProvider(
+                new OrganizationDataProvider('contract'),
+                new UserDataProvider('contract', [
+                    'view-customers',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('contract', null),
+                        static function (TestCase $test, Organization $organization): Document {
+                            $type     = Type::factory()->create([
+                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+                            $customer = Customer::factory()->create();
+
+                            $customer->resellers()->attach($reseller);
+
+                            $document = Document::factory()->create([
+                                'type_id'     => $type,
+                                'reseller_id' => $reseller,
+                                'customer_id' => $customer,
+                            ]);
+
+                            return $document;
+                        },
+                    ],
+                ]),
+            ),
+            'organization'   => new CompositeDataProvider(
                 new OrganizationDataProvider('contract', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new UserDataProvider('contract'),
+                new UserDataProvider('contract', [
+                    'view-contracts',
+                ]),
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('contract', self::class, [

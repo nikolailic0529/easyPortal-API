@@ -19,6 +19,19 @@ class Auth {
         return $user && in_array($user->getAuthIdentifier(), (array) $this->config->get('ep.root_users'), true);
     }
 
+    /**
+     * @return array<string,string>
+     */
+    public function getPermissions(): array {
+        return [
+            'view-assets',
+            'view-contracts',
+            'view-quotes',
+            'view-customers',
+            'edit-organization',
+        ];
+    }
+
     protected function hasPermission(Authenticatable|null $user, string $permission): bool {
         $permissions = $user instanceof HasPermissions ? $user->getPermissions() : [];
         $has         = $permissions && in_array($permission, $permissions, true);

@@ -7,6 +7,7 @@ use App\Http\Requests\ExportQuery;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use GraphQL\Server\OperationParams;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -155,15 +156,17 @@ class ExportController extends Controller {
         ]);
         $result         = $this->graphQL->executeOperation($operationParam, $context);
         if (array_key_exists('errors', $result)) {
-            $errors = $result['errors'];
-            if (
-                array_key_exists('extensions', $errors[0]) &&
-                array_key_exists('category', $errors[0]['extensions']) &&
-                $errors[0]['extensions']['category'] === 'authentication'
-            ) {
-                throw new AuthorizationException($errors[0]['message']);
+            switch ($result['errors'][0]['extensions']['category'] ?? null) {
+                case 'authorization':
+                    throw new AuthorizationException($result['errors'][0]['message']);
+                    break;
+                case 'authentication':
+                    throw new AuthenticationException($result['errors'][0]['message']);
+                    break;
+                default:
+                    throw new ExportGraphQLQueryInvalid($result['errors']);
+                    break;
             }
-            throw new ExportGraphQLQueryInvalid($errors);
         }
 
         return $result;

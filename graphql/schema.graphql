@@ -82,15 +82,15 @@ type Query {
     where: CustomersQuery @searchBy
     order: CustomersSort @sortBy
   ): [Customer!]!
-  @paginate
   @organization
-  @me
+  @me(permissions: ["view-customers"])
+  @paginate
 
   "Customer."
   customer(id: ID! @eq): Customer
-  @find
   @organization
-  @me
+  @me(permissions: ["view-customers"])
+  @find
 
   # Assets
   # ============================================================================
@@ -99,15 +99,15 @@ type Query {
     where: AssetsQuery @searchBy
     order: AssetsSort @sortBy
   ): [Asset!]!
-  @paginate
   @organization
-  @me
+  @me(permissions: ["view-assets", "view-customers"])
+  @paginate
 
   "Asset."
   asset(id: ID! @eq): Asset
-  @find
   @organization
-  @me
+  @me(permissions: ["view-assets", "view-customers"])
+  @find
 
   # Contracts
   # ============================================================================
@@ -116,17 +116,17 @@ type Query {
     where: DocumentsQuery @searchBy
     order: DocumentsSort @sortBy
   ): [Document!]!
+  @organization
+  @me(permissions: ["view-contracts", "view-customers"])
   @builder(method: "App\\GraphQL\\Queries\\Contracts")
   @paginate
-  @organization
-  @me
 
   "Contract."
   contract(id: ID! @eq): Document
+  @organization
+  @me(permissions: ["view-contracts", "view-customers"])
   @builder(method: "App\\GraphQL\\Queries\\Contracts")
   @find
-  @organization
-  @me
 
   # Quotes
   # ============================================================================
@@ -135,17 +135,17 @@ type Query {
     where: DocumentsQuery @searchBy
     order: DocumentsSort @sortBy
   ): [Document!]!
+  @organization
+  @me(permissions: ["view-quotes", "view-customers"])
   @builder(method: "App\\GraphQL\\Queries\\Quotes")
   @paginate
-  @organization
-  @me
 
   "Quote."
   quote(id: ID! @eq): Document
+  @organization
+  @me(permissions: ["view-quotes", "view-customers"])
   @builder(method: "App\\GraphQL\\Queries\\Quotes")
   @find
-  @organization
-  @me
 
   # Administration
   # ============================================================================
@@ -154,8 +154,8 @@ type Query {
     where: ResellerConnectedQuery @searchBy
     order: ResellerConnectedSort @sortBy
   ): [ResellerConnected!]!
-  @all(model: "App\\Models\\Reseller")
   @root
+  @all(model: "App\\Models\\Reseller")
 
   # Deprecated
   # ============================================================================
@@ -181,5 +181,8 @@ type Mutation {
     branding_favicon: Upload
     website_url: String             # TODO [GraphQL] URL type needed
     email: String                   # TODO [GraphQL] Email type needed
-  ): Boolean! @me @validator @deprecated(reason:"use updateOrganization instead")
+  ): Boolean!
+  @deprecated(reason:"use updateOrganization instead")
+  @me(permissions: ["edit-organization"])
+  @validator
 }
