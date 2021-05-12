@@ -43,6 +43,7 @@ class UserFactory extends Factory {
             'deleted_at'      => null,
             'permissions'     => [],
             'locale'          => null,
+            'password'        => null,
         ];
     }
 }

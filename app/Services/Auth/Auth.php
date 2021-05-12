@@ -3,22 +3,17 @@
 namespace App\Services\Auth;
 
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Config\Repository;
 
 use function in_array;
 use function is_null;
 
 class Auth {
-    public function __construct(
-        protected Repository $config,
-    ) {
+    public function __construct() {
         // empty
     }
 
     public function isRoot(Authenticatable|null $user): bool {
-        return $user instanceof Rootable
-            && $user->isRootable()
-            && in_array($user->getAuthIdentifier(), (array) $this->config->get('ep.root_users'), true);
+        return $user instanceof Rootable && $user->isRoot();
     }
 
     /**

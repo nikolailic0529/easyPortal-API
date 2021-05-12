@@ -3,5 +3,5 @@
 namespace App\Services\Auth;
 
 interface Rootable {
-    public function isRootable(): bool;
+    public function isRoot(): bool;
 }

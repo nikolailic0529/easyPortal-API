@@ -150,7 +150,7 @@ class User extends Model implements
         return $this->permissions ?? [];
     }
 
-    public function isRootable(): bool {
+    public function isRoot(): bool {
         return $this->type === UserType::local();
     }
 }

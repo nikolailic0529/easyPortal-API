@@ -64,15 +64,6 @@ interface Constants {
     public const EP_IMAGE_FORMATS = ['jpg', 'jpeg', 'png'];
 
     /**
-     * Root user IDs.
-     */
-    #[Setting('ep.root_users')]
-    #[Group('ep')]
-    #[Internal]
-    #[Type(StringType::class)]
-    public const EP_ROOT_USERS = [];
-
-    /**
      * Type IDs related to contracts.
      */
     #[Setting('ep.contract_types')]
