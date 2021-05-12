@@ -29,4 +29,9 @@ class Asset extends Type {
      * @var array<\App\Services\DataLoader\Schema\AssetDocument>
      */
     public array $assetDocument;
+
+    /**
+     * @var array<\App\Services\DataLoader\Schema\CompanyContactPerson>
+     */
+    public array $latestContactPersons;
 }

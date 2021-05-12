@@ -313,6 +313,7 @@ class Client {
                 phoneNumber
                 name
                 type
+                mail
             }
             companyTypes {
                 type
@@ -357,6 +358,13 @@ class Client {
 
             customerId
             resellerId
+
+            latestContactPersons {
+                phoneNumber
+                name
+                type
+                mail
+            }
             GRAPHQL;
     }
 

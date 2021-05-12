@@ -33,6 +33,7 @@ class ContactFactoryTest extends TestCase {
             'vendor'      => 'HPE',
             'name'        => null,
             'type'        => 'SYSTEM_MANAGER',
+            'mail'        => 'manger@hpe.com',
         ]);
         $factory  = $this->app->make(ContactFactory::class);
 
@@ -77,6 +78,7 @@ class ContactFactoryTest extends TestCase {
             'vendor'      => 'HPE',
             'name'        => null,
             'type'        => 'SYSTEM_MANAGER',
+            'mail'        => 'manger@hpe.com',
         ]);
 
         $factory = Mockery::mock(ContactFactory::class);
@@ -91,6 +93,7 @@ class ContactFactoryTest extends TestCase {
                 $contact->name,
                 '+495921234554',
                 Mockery::any(),
+                $contact->mail,
             )
             ->andReturns();
 
@@ -118,21 +121,30 @@ class ContactFactoryTest extends TestCase {
                 $this->contacts   = $resolver;
             }
 
-            public function contact(Model $object, ?string $name, ?string $phone, ?bool $valid): Contact {
-                return parent::contact($object, $name, $phone, $valid);
+            public function contact(
+                Model $object,
+                ?string $name,
+                ?string $phone,
+                ?bool $valid,
+                ?string $mail,
+            ): Contact {
+                return parent::contact($object, $name, $phone, $valid, $mail);
             }
         };
 
         $this->flushQueryLog();
 
         // If model exists - no action required
-        $this->assertEquals($contact, $factory->contact($customer, $contact->name, $contact->phone_number, true));
+        $this->assertEquals(
+            $contact,
+            $factory->contact($customer, $contact->name, $contact->phone_number, true, $contact->email),
+        );
         $this->assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // If not - it should be created
-        $created = $factory->contact($customer, ' new  Name ', ' phone   number ', false);
+        $created = $factory->contact($customer, ' new  Name ', ' phone   number ', false, ' email ');
 
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
@@ -140,8 +152,8 @@ class ContactFactoryTest extends TestCase {
         $this->assertEquals($customer->getKey(), $created->object_id);
         $this->assertEquals('new Name', $created->name);
         $this->assertEquals('phone number', $created->phone_number);
+        $this->assertEquals('email', $created->email);
         $this->assertFalse($created->phone_valid);
-        $this->assertNull($created->email);
         $this->assertCount(2, $this->getQueryLog());
     }
     // </editor-fold>

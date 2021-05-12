@@ -154,6 +154,7 @@ input AssetsQuery {
   serial_number: String!
   location: LocationsQuery
   customer: CustomersQuery
+  status: StatusQuery
 }
 
 input AssetsSort {
@@ -1025,6 +1026,9 @@ input SearchByConditionAssetsQuery {
 
   """Property condition."""
   customer: SearchByRelationCustomersQuery
+
+  """Property condition."""
+  status: SearchByRelationStatusQuery
 }
 
 """
@@ -1342,6 +1346,26 @@ input SearchByConditionResellersQuery {
 }
 
 """
+Available conditions for input StatusQuery (only one property allowed at a time).
+"""
+input SearchByConditionStatusQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionStatusQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionStatusQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  name: SearchByScalarString
+}
+
+"""
 Available conditions for input TypesQuery (only one property allowed at a time).
 """
 input SearchByConditionTypesQuery {
@@ -1511,6 +1535,30 @@ input SearchByRelationProductsQuery {
 input SearchByRelationResellersQuery {
   """Conditions for the related objects."""
   where: SearchByConditionResellersQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""Relation condition for input StatusQuery."""
+input SearchByRelationStatusQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionStatusQuery!
 
   """Equal (`=`)."""
   eq: Int
@@ -1964,6 +2012,11 @@ enum SortOrder {
 }
 
 type Status {
+  id: ID!
+  name: String!
+}
+
+input StatusQuery {
   id: ID!
   name: String!
 }

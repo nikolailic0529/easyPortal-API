@@ -69,18 +69,18 @@ class ContactFactory extends DependentModelFactory {
         }
 
         // Contact
-        $object = $this->contact($object, $person->name, $phone, $valid);
+        $object = $this->contact($object, $person->name, $phone, $valid, $person->mail);
 
         // Return
         return $object;
     }
 
-    protected function contact(Model $object, ?string $name, ?string $phone, ?bool $valid): Contact {
+    protected function contact(Model $object, ?string $name, ?string $phone, ?bool $valid, ?string $mail): Contact {
         $contact = $this->contacts->get(
             $object,
             $name,
             $phone,
-            $this->factory(function () use ($object, $name, $phone, $valid): Contact {
+            $this->factory(function () use ($object, $name, $phone, $valid, $mail): Contact {
                 $model = new Contact();
 
                 if (!is_null($name)) {
@@ -91,10 +91,15 @@ class ContactFactory extends DependentModelFactory {
                     $phone = $this->normalizer->string($phone);
                 }
 
+                if (!is_null($mail)) {
+                    $mail = $this->normalizer->string($mail);
+                }
+
                 $model->object_type  = $object->getMorphClass();
                 $model->object_id    = $object->getKey();
                 $model->name         = $name;
                 $model->phone_number = $phone;
+                $model->email        = $mail;
                 $model->phone_valid  = $valid;
 
                 $model->save();

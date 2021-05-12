@@ -1,5 +1,7 @@
 {
     "phoneNumber": "+49 (591) 12345-67",
     "name": "Alice Marks",
+    "vendor": "HPE",
+    "mail": "alice@hpe.com",
     "type": "HARDWARE_CONTACT"
 }

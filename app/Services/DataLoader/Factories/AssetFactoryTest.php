@@ -104,12 +104,14 @@ class AssetFactoryTest extends TestCase {
         $customers = $container->make(CustomerFactory::class)
             ->setLocationFactory($locations);
         $documents = $container->make(DocumentFactory::class);
+        $contacts  = $container->make(ContactFactory::class);
 
         /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
         $factory = $container->make(AssetFactory::class)
             ->setResellerFactory($resellers)
             ->setCustomersFactory($customers)
-            ->setDocumentFactory($documents);
+            ->setDocumentFactory($documents)
+            ->setContactsFactory($contacts);
 
         // Test
         $json    = $this->getTestData()->json('~asset-full.json');
@@ -134,6 +136,10 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals(
             $this->getAssetLocation($asset),
             $this->getLocation($created->location, false),
+        );
+        $this->assertEquals(
+            $this->getModelContacts($created),
+            $this->getContacts($asset),
         );
 
         // Documents
@@ -220,6 +226,10 @@ class AssetFactoryTest extends TestCase {
             $this->getAssetLocation($asset),
             $this->getLocation($updated->location, false),
         );
+        $this->assertEquals(
+            $this->getModelContacts($updated),
+            $this->getContacts($asset),
+        );
     }
 
     /**
@@ -228,7 +238,8 @@ class AssetFactoryTest extends TestCase {
     public function testCreateFromAssetAssetOnly(): void {
         // Prepare
         $container = $this->app->make(Container::class);
-        $factory   = $container->make(AssetFactory::class);
+        $contacts  = $container->make(ContactFactory::class);
+        $factory   = $container->make(AssetFactory::class)->setContactsFactory($contacts);
 
         // Test
         $json    = $this->getTestData()->json('~asset-only.json');
@@ -249,6 +260,10 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->assetType, $created->type->key);
         $this->assertNull($created->customer_id);
         $this->assertNull($created->location_id);
+        $this->assertEquals(
+            $this->getModelContacts($created),
+            $this->getContacts($asset),
+        );
     }
 
     /**

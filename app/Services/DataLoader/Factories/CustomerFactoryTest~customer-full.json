@@ -6,31 +6,36 @@
             "phoneNumber": "+49 (591) 12345-67",
             "vendor": "HPE",
             "name": "Alice Marks",
-            "type": "HARDWARE_CONTACT"
+            "type": "HARDWARE_CONTACT",
+            "mail": "alice@hpe.com"
         },
         {
             "phoneNumber": "+49 (592) 12345-67",
             "vendor": "HPE",
             "name": "Franz Marks",
-            "type": "SYSTEM_MANAGER"
+            "type": "SYSTEM_MANAGER",
+            "mail": "Franz@hpe.com"
         },
         {
             "phoneNumber": null,
             "vendor": "HPE",
             "name": "Franz Marks Uncle",
-            "type": "SOFTWARE_CONTACT"
+            "type": "SOFTWARE_CONTACT",
+            "mail": "Franz_uncle@hpe.com"
         },
         {
             "phoneNumber": "+49 (592) 12345-54",
             "vendor": "HPE",
             "name": null,
-            "type": "SYSTEM_MANAGER"
+            "type": "SYSTEM_MANAGER",
+            "mail": "manger@hpe.com"
         },
         {
             "phoneNumber": null,
             "vendor": "HPE",
             "name": null,
-            "type": "SYSTEM_MANAGER"
+            "type": "SYSTEM_MANAGER",
+            "mail": "manger@hpe.com"
         }
     ],
     "companyTypes": [

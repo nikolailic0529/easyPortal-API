@@ -19,6 +19,7 @@ use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\DocumentNotFoundException;
 use App\Services\DataLoader\Exceptions\LocationNotFoundException;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
+use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
 use App\Services\DataLoader\Factories\Concerns\WithStatus;
@@ -52,10 +53,12 @@ class AssetFactory extends ModelFactory {
     use WithType;
     use WithProduct;
     use WithStatus;
+    use WithContacts;
 
     protected ?CustomerFactory $customerFactory = null;
     protected ?ResellerFactory $resellerFactory = null;
     protected ?DocumentFactory $documentFactory = null;
+    protected ?ContactFactory  $contactFactory  = null;
 
     public function __construct(
         LoggerInterface $logger,
@@ -176,6 +179,7 @@ class AssetFactory extends ModelFactory {
             $model->customer      = $customer;
             $model->location      = $location;
             $model->serial_number = $this->normalizer->string($asset->serialNumber);
+            $model->contacts      = $this->objectContacts($model, $asset->latestContactPersons);
 
             $model->save();
 

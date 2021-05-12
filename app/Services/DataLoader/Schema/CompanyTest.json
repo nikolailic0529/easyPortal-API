@@ -6,13 +6,15 @@
             "phoneNumber": "+49 (591) 12345-67",
             "vendor": "HPE",
             "name": "Alice Marks",
-            "type": "HARDWARE_CONTACT"
+            "type": "HARDWARE_CONTACT",
+            "mail": "alice@hpe.com"
         },
         {
             "phoneNumber": "+49 (592) 12345-67",
             "vendor": "HPE",
             "name": "Franz Marks",
-            "type": "SYSTEM_MANAGER"
+            "type": "SYSTEM_MANAGER",
+            "mail": "Franz@hpe.com"
         }
     ],
     "companyTypes": [

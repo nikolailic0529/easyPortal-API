@@ -72,6 +72,7 @@ class WithContactsTest extends TestCase {
             $person->name        = $this->faker->name;
             $person->type        = $this->faker->text(64);
             $person->phoneNumber = $this->faker->e164PhoneNumber;
+            $person->mail        = $this->faker->email;
         });
 
         $this->assertCount(1, $factory->objectContacts($owner, [$ca, $ca]));
@@ -81,6 +82,7 @@ class WithContactsTest extends TestCase {
             $person->name        = $ca->name;
             $person->type        = $this->faker->word;
             $person->phoneNumber = $ca->phoneNumber;
+            $person->mail        = $ca->mail;
         });
         $actual = $factory->objectContacts($owner, [$ca, $cb]);
         $first  = reset($actual);
@@ -88,6 +90,7 @@ class WithContactsTest extends TestCase {
         $this->assertCount(1, $actual);
         $this->assertCount(2, $first->types);
         $this->assertEquals($cb->phoneNumber, $first->phone_number);
+        $this->assertEquals($cb->mail, $first->email);
         $this->assertEquals($cb->name, $first->name);
     }
 

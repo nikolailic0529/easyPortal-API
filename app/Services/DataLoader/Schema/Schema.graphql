@@ -27,6 +27,7 @@ type Asset {
   country: String
   countryCode: String
   status: String
+  latestContactPersons: [CompanyContactPerson]
 }
 
 type AssetDocument {
@@ -66,6 +67,7 @@ type CompanyContactPerson {
   vendor: String
   name: String
   type: String
+  mail: String
 }
 
 type CompanyType {

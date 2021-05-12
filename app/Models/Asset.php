@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasContacts;
 use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasOem;
 use App\Models\Concerns\HasProduct;
@@ -31,6 +32,7 @@ use function sprintf;
  * @property string|null                                                              $location_id current
  * @property string|null                                                              $serial_number
  * @property string|null                                                              $status_id
+ * @property int                                                                      $contacts_count
  * @property \Carbon\CarbonImmutable                                                  $created_at
  * @property \Carbon\CarbonImmutable                                                  $updated_at
  * @property \Carbon\CarbonImmutable|null                                             $deleted_at
@@ -69,6 +71,7 @@ class Asset extends Model {
     use HasReseller;
     use HasCustomer;
     use HasStatus;
+    use HasContacts;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

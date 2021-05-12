@@ -7,5 +7,14 @@
     "sku": "JW1123",
     "eolDate": "",
     "eosDate": "",
-    "status": "Active"
+    "status": "Active",
+    "latestContactPersons": [
+        {
+            "phoneNumber": "+49 (591) 12345-67",
+            "vendor": "HPE",
+            "name": "Alice Marks",
+            "type": "HARDWARE_CONTACT",
+            "mail": "alice@hpe.com"
+        }
+    ]
 }

@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Testing;
 
 use App\Models\Customer;
 use App\Models\Location;
+use App\Models\Model;
 use App\Models\Reseller;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Schema\Asset;
@@ -26,6 +27,28 @@ trait Helper {
         return $datetime
             ? "{$datetime->getTimestamp()}{$datetime->format('v')}"
             : null;
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    protected function getModelContacts(Model $model): array {
+        $contacts = [];
+
+        foreach ($model->contacts as $contact) {
+            $contacts["{$contact->name}/{$contact->phone_number}"] = [
+                'name'  => $contact->name,
+                'phone' => $contact->phone_number,
+                'mail'  => $contact->email,
+                'types' => $contact->types
+                    ->map(static function (TypeModel $type): string {
+                        return $type->name;
+                    })
+                    ->all(),
+            ];
+        }
+
+        return $contacts;
     }
     // </editor-fold>
 
@@ -106,6 +129,7 @@ trait Helper {
                     'name'  => $person->name,
                     'phone' => $phone,
                     'types' => [$person->type],
+                    'mail'  => $person->mail,
                 ];
             }
         }
@@ -128,27 +152,6 @@ trait Helper {
         }
 
         return $locations;
-    }
-
-    /**
-     * @return array<mixed>
-     */
-    protected function getCustomerContacts(Customer $customer): array {
-        $contacts = [];
-
-        foreach ($customer->contacts as $contact) {
-            $contacts["{$contact->name}/{$contact->phone_number}"] = [
-                'name'  => $contact->name,
-                'phone' => $contact->phone_number,
-                'types' => $contact->types
-                    ->map(static function (TypeModel $type): string {
-                        return $type->name;
-                    })
-                    ->all(),
-            ];
-        }
-
-        return $contacts;
     }
 
     /**
@@ -202,6 +205,45 @@ trait Helper {
             'latitude'    => $asset->latitude,
             'longitude'   => $asset->longitude,
         ] : null;
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    protected function getContacts(Asset|Company $object): array {
+        $contacts = [];
+
+        foreach ($object->latestContactPersons as $person) {
+            // Empty?
+            if (is_null($person->name) && is_null($person->phoneNumber)) {
+                continue;
+            }
+
+            // Convert phone
+            $phone = $person->phoneNumber;
+
+            try {
+                $phone = PhoneNumber::make($phone)->formatE164();
+            } catch (NumberParseException) {
+                // empty
+            }
+
+            // Add to array
+            $key = "{$person->name}/{$phone}";
+
+            if (isset($contacts[$key])) {
+                $contacts[$key]['types'][] = $person->type;
+            } else {
+                $contacts[$key] = [
+                    'name'  => $person->name,
+                    'phone' => $phone,
+                    'types' => [$person->type],
+                    'mail'  => $person->mail,
+                ];
+            }
+        }
+
+        return $contacts;
     }
     // </editor-fold>
 

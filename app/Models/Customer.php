@@ -5,6 +5,7 @@ namespace App\Models;
 use App\GraphQL\Queries\ContractTypes;
 use App\GraphQL\Queries\QuoteTypes;
 use App\Models\Concerns\HasAssets;
+use App\Models\Concerns\HasContacts;
 use App\Models\Concerns\HasLocations;
 use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
@@ -14,12 +15,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Support\Collection;
 
 use function app;
-use function count;
 
 /**
  * Customer.
@@ -69,6 +67,7 @@ class Customer extends Model {
     use HasStatus;
     use HasAssets;
     use HasLocations;
+    use HasContacts;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -76,18 +75,6 @@ class Customer extends Model {
      * @var string
      */
     protected $table = 'customers';
-
-    public function contacts(): MorphMany {
-        return $this->morphMany(Contact::class, 'object');
-    }
-
-    /**
-     * @param \Illuminate\Support\Collection|array<\App\Models\Contact> $contacts
-     */
-    public function setContactsAttribute(Collection|array $contacts): void {
-        $this->syncMorphMany('contacts', $contacts);
-        $this->contacts_count = count($contacts);
-    }
 
     public function headquarter(): MorphOne {
         $type = app()->make(Repository::class)->get('ep.headquarter_type');
