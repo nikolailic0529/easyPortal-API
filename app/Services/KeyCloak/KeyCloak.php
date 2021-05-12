@@ -53,7 +53,7 @@ class KeyCloak {
         return $url;
     }
 
-    public function authorize(string $code, string $state): Authenticatable {
+    public function authorize(string $code, string $state): ?Authenticatable {
         // Is state valid?
         if ($this->session->pull(self::STATE) !== $state) {
             throw new StateMismatch();
@@ -77,6 +77,27 @@ class KeyCloak {
             if ($result) {
                 $this->saveToken($token);
             } else {
+                throw new InvalidCredentials();
+            }
+        } catch (KeyCloakException $exception) {
+            throw $exception;
+        } catch (Exception $exception) {
+            throw new AuthorizationFailed($exception);
+        }
+
+        // Return
+        return $this->auth->guard()->user();
+    }
+
+    public function signIn(string $email, string $password): ?Authenticatable {
+        // Attempt to sign in
+        try {
+            $result = $this->auth->guard()->attempt([
+                UserProvider::CREDENTIAL_EMAIL    => $email,
+                UserProvider::CREDENTIAL_PASSWORD => $password,
+            ]);
+
+            if (!$result) {
                 throw new InvalidCredentials();
             }
         } catch (KeyCloakException $exception) {

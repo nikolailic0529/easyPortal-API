@@ -32,6 +32,7 @@ use LogicException;
  * @property string|null                                                           $photo
  * @property array                                                                 $permissions
  * @property string|null                                                           $locale
+ * @property string|null                                                           $password
  * @property \Carbon\CarbonImmutable                                               $created_at
  * @property \Carbon\CarbonImmutable                                               $updated_at
  * @property \Carbon\CarbonImmutable|null                                          $deleted_at
