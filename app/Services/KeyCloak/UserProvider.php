@@ -2,11 +2,15 @@
 
 namespace App\Services\KeyCloak;
 
+use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
+use App\Services\Auth\Auth;
+use App\Services\KeyCloak\Exceptions\AnotherUserExists;
 use App\Services\KeyCloak\Exceptions\InsufficientData;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as UserProviderContract;
+use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Support\Arr;
 use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Token\RegisteredClaims;
@@ -18,7 +22,9 @@ use function array_unique;
 use function array_values;
 
 class UserProvider implements UserProviderContract {
-    public const    ACCESS_TOKEN                = 'access_token';
+    public const    CREDENTIAL_ACCESS_TOKEN     = 'access_token';
+    public const    CREDENTIAL_PASSWORD         = 'password';
+    public const    CREDENTIAL_EMAIL            = 'email';
     protected const CLAIM_RESOURCE_ACCESS       = 'resource_access';
     protected const CLAIM_RESELLER_ACCESS       = 'reseller_access';
     protected const CLAIM_EMAIL                 = 'email';
@@ -73,6 +79,8 @@ class UserProvider implements UserProviderContract {
     public function __construct(
         protected KeyCloak $keycloak,
         protected Jwt $jwt,
+        protected Hasher $hasher,
+        protected Auth $auth,
     ) {
         // empty
     }
@@ -113,11 +121,26 @@ class UserProvider implements UserProviderContract {
             $id   = $token->claims()->get(RegisteredClaims::SUBJECT);
             $user = User::query()->whereKey($id)->first();
 
-            if ($user) {
-                $user = $this->update($user, $token);
-            } else {
-                $user = $this->create($id, $token);
+            if ($user && $user->type !== UserType::keycloak()) {
+                throw new AnotherUserExists($user);
             }
+
+            if ($user) {
+                $user = $this->updateTokenUser($user, $token);
+            } else {
+                $user = $this->createTokenUser($id, $token);
+            }
+        } elseif (isset($credentials[self::CREDENTIAL_EMAIL])) {
+            $user = User::query()
+                ->where('type', '=', UserType::local())
+                ->where('email', '=', $credentials[self::CREDENTIAL_EMAIL])
+                ->first();
+
+            if ($user) {
+                $user = $this->updateLocalUser($user);
+            }
+        } else {
+            // empty
         }
 
         return $user;
@@ -127,13 +150,24 @@ class UserProvider implements UserProviderContract {
      * @inheritDoc
      */
     public function validateCredentials(Authenticatable $user, array $credentials): bool {
+        // User?
+        if (!($user instanceof User)) {
+            return false;
+        }
+
+        // Validate
         $valid = false;
         $token = $this->getToken($credentials);
 
         if ($token instanceof UnencryptedToken) {
             $valid = $token->isRelatedTo($user->getAuthIdentifier());
+        } elseif (isset($credentials[self::CREDENTIAL_PASSWORD])) {
+            $valid = $this->getHasher()->check($credentials[self::CREDENTIAL_PASSWORD], $user->getAuthPassword());
+        } else {
+            // empty
         }
 
+        // Return
         return $valid;
     }
     // </editor-fold>
@@ -148,20 +182,28 @@ class UserProvider implements UserProviderContract {
         return $this->jwt;
     }
 
+    protected function getHasher(): Hasher {
+        return $this->hasher;
+    }
+
+    protected function getAuth(): Auth {
+        return $this->auth;
+    }
+
     /**
      * @param array<mixed> $credentials
      */
     protected function getToken(array $credentials): ?Token {
         $token = null;
 
-        if (isset($credentials[self::ACCESS_TOKEN])) {
-            $token = $this->getJwt()->decode($credentials[self::ACCESS_TOKEN]);
+        if (isset($credentials[self::CREDENTIAL_ACCESS_TOKEN])) {
+            $token = $this->getJwt()->decode($credentials[self::CREDENTIAL_ACCESS_TOKEN]);
         }
 
         return $token;
     }
 
-    protected function update(User $user, UnencryptedToken $token): User {
+    protected function updateTokenUser(User $user, UnencryptedToken $token): User {
         // Update properties
         foreach ($this->getProperties($token) as $property => $value) {
             $user->{$property} = $value;
@@ -174,13 +216,14 @@ class UserProvider implements UserProviderContract {
         return $user;
     }
 
-    protected function create(string $id, UnencryptedToken $token): ?User {
+    protected function createTokenUser(string $id, UnencryptedToken $token): ?User {
         // Create
         $user                        = new User();
         $user->{$user->getKeyName()} = $id;
+        $user->type                  = UserType::keycloak();
 
         // Update
-        return $this->update($user, $token);
+        return $this->updateTokenUser($user, $token);
     }
 
     /**
@@ -234,6 +277,13 @@ class UserProvider implements UserProviderContract {
         $roles = array_unique(array_values($roles));
 
         return $roles;
+    }
+
+    protected function updateLocalUser(User $user): User {
+        $user->permissions = $this->getAuth()->getPermissions();
+        $user->save();
+
+        return $user;
     }
     // </editor-fold>
 }

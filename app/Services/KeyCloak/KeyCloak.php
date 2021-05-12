@@ -71,7 +71,7 @@ class KeyCloak {
         // Attempt to sign in
         try {
             $result = $this->auth->guard()->attempt([
-                UserProvider::ACCESS_TOKEN => $token->getToken(),
+                UserProvider::CREDENTIAL_ACCESS_TOKEN => $token->getToken(),
             ]);
 
             if ($result) {
