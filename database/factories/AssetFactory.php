@@ -35,42 +35,43 @@ class AssetFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'            => $this->faker->uuid,
-            'reseller_id'   => static function (): Reseller {
+            'id'             => $this->faker->uuid,
+            'reseller_id'    => static function (): Reseller {
                 return Reseller::factory()->create();
             },
-            'oem_id'        => static function (): Oem {
+            'oem_id'         => static function (): Oem {
                 return Oem::factory()->create();
             },
-            'type_id'       => function (): Type {
+            'type_id'        => function (): Type {
                 return Type::factory()->create([
                     'object_type' => $this->newModel()->getMorphClass(),
                 ]);
             },
-            'product_id'    => static function (array $properties): Product {
+            'product_id'     => static function (array $properties): Product {
                 return Product::factory()->create([
                     'oem_id' => $properties['oem_id'],
                     'type'   => ProductType::asset(),
                 ]);
             },
-            'customer_id'   => static function (): Customer {
+            'customer_id'    => static function (): Customer {
                 return Customer::factory()->create();
             },
-            'location_id'   => static function (array $properties): Location {
+            'location_id'    => static function (array $properties): Location {
                 return Location::factory()->create([
                     'object_type' => (new Customer())->getMorphClass(),
                     'object_id'   => $properties['customer_id'],
                 ]);
             },
-            'status_id'     => function (): Status {
+            'status_id'      => function (): Status {
                 return Status::factory()->create([
                     'object_type' => $this->newModel()->getMorphClass(),
                 ]);
             },
-            'serial_number' => $this->faker->uuid,
-            'created_at'    => Date::now(),
-            'updated_at'    => Date::now(),
-            'deleted_at'    => null,
+            'serial_number'  => $this->faker->uuid,
+            'contacts_count' => 0,
+            'created_at'     => Date::now(),
+            'updated_at'     => Date::now(),
+            'deleted_at'     => null,
         ];
     }
 }

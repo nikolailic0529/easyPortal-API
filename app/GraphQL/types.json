@@ -225,7 +225,9 @@
                 "oem",
                 "product",
                 "warranties",
-                "status"
+                "status",
+                "contacts_count",
+                "contacts"
             ],
             "properties": {
                 "oem_id": {
@@ -266,6 +268,15 @@
                 },
                 "status": {
                     "$ref": "#/definitions/Status"
+                },
+                "contacts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Contact"
+                    }
+                },
+                "contacts_count": {
+                    "type": "integer"
                 }
             }
         },

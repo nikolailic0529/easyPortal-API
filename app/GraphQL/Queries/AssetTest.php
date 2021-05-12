@@ -191,6 +191,12 @@ class AssetTest extends TestCase {
                             id
                             name
                         }
+                        contacts_count
+                        contacts {
+                            name
+                            email
+                            phone_valid
+                        }
                     }
                 }
             ', ['id' => $assetId])
@@ -241,23 +247,24 @@ class AssetTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('asset', self::class, [
-                            'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                            'oem_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                            'product_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                            'location_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                            'type_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            'customer_id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                            'serial_number' => '#PRODUCT_SERIAL_323',
-                            'oem'           => [
+                            'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                            'oem_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'product_id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                            'location_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                            'type_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            'customer_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                            'serial_number'  => '#PRODUCT_SERIAL_323',
+                            'contacts_count' => 1,
+                            'oem'            => [
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                 'abbr' => 'abbr',
                                 'name' => 'oem1',
                             ],
-                            'type'          => [
+                            'type'           => [
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                 'name' => 'name aaa',
                             ],
-                            'product'       => [
+                            'product'        => [
                                 'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                 'name'   => 'Product1',
                                 'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -270,7 +277,7 @@ class AssetTest extends TestCase {
                                     'name' => 'oem1',
                                 ],
                             ],
-                            'location'      => [
+                            'location'       => [
                                 'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
                                 'state'     => 'state1',
                                 'postcode'  => '19911',
@@ -279,7 +286,7 @@ class AssetTest extends TestCase {
                                 'latitude'  => '47.91634204',
                                 'longitude' => '-2.26318359',
                             ],
-                            'customer'      => [
+                            'customer'       => [
                                 'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                 'name'            => 'name aaa',
                                 'assets_count'    => 0,
@@ -304,7 +311,7 @@ class AssetTest extends TestCase {
                                     ],
                                 ],
                             ],
-                            'warranties'    => [
+                            'warranties'     => [
                                 [
                                     'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                     'asset_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
@@ -387,9 +394,16 @@ class AssetTest extends TestCase {
                                     ],
                                 ],
                             ],
-                            'status'        => [
+                            'status'         => [
                                 'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
                                 'name' => 'active',
+                            ],
+                            'contacts'       => [
+                                [
+                                    'name'        => 'contact2',
+                                    'email'       => 'contact2@test.com',
+                                    'phone_valid' => false,
+                                ],
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization): Asset {
@@ -503,9 +517,15 @@ class AssetTest extends TestCase {
                                 ->for($type)
                                 ->for($location)
                                 ->for($status)
+                                ->hasContacts(1, [
+                                    'name'        => 'contact2',
+                                    'email'       => 'contact2@test.com',
+                                    'phone_valid' => false,
+                                ])
                                 ->create([
-                                    'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                    'serial_number' => '#PRODUCT_SERIAL_323',
+                                    'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'serial_number'  => '#PRODUCT_SERIAL_323',
+                                    'contacts_count' => 1,
                                 ]);
                             AssetWarranty::factory()
                                 ->hasAttached($product, [], 'services')

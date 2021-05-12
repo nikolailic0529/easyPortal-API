@@ -15,4 +15,6 @@ type Asset {
   warranties: [AssetWarranty!]! @hasMany
   reseller: Reseller! @belongsTo
   status: Status @belongsTo
+  contacts: [Contact!]! @morphMany
+  contacts_count: Int!
 }

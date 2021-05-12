@@ -262,6 +262,16 @@ class CustomerTest extends TestCase {
                                         }
                                     }
                                 }
+                                contacts_count
+                                contacts {
+                                    name
+                                    email
+                                    phone_valid
+                                }
+                                status {
+                                    id
+                                    name
+                                }
                             }
                             paginatorInfo {
                                 count
@@ -631,14 +641,15 @@ class CustomerTest extends TestCase {
                             'assets' => [
                                 'data'          => [
                                     [
-                                        'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                        'oem_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                        'product_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                        'location_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                        'type_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
-                                        'customer_id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                        'serial_number' => '#PRODUCT_SERIAL_323',
-                                        'customer'      => [
+                                        'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                        'oem_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                        'product_id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                        'location_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                        'type_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
+                                        'customer_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                        'serial_number'  => '#PRODUCT_SERIAL_323',
+                                        'contacts_count' => 1,
+                                        'customer'       => [
                                             'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                             'name'            => 'name aaa',
                                             'assets_count'    => 0,
@@ -663,18 +674,14 @@ class CustomerTest extends TestCase {
                                                 ],
                                             ],
                                         ],
-                                        'oem'           => [
+                                        'oem'            => [
                                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                             'abbr' => 'abbr',
                                             'name' => 'oem1',
                                         ],
-                                        'type'          => [
+                                        'type'           => [
                                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
                                             'name' => 'name aaa',
-                                        ],
-                                        'status'        => [
-                                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
-                                            'name' => 'active',
                                         ],
                                         'product'       => [
                                             'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
@@ -689,7 +696,7 @@ class CustomerTest extends TestCase {
                                                 'name' => 'oem1',
                                             ],
                                         ],
-                                        'location'      => [
+                                        'location'       => [
                                             'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
                                             'state'     => 'state1',
                                             'postcode'  => '19911',
@@ -698,7 +705,7 @@ class CustomerTest extends TestCase {
                                             'latitude'  => '47.91634204',
                                             'longitude' => '-2.26318359',
                                         ],
-                                        'warranties'    => [
+                                        'warranties'     => [
                                             [
                                                 'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                                 'asset_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
@@ -780,6 +787,17 @@ class CustomerTest extends TestCase {
                                                     ],
                                                 ],
                                             ],
+                                        ],
+                                        'contacts'       => [
+                                            [
+                                                'name'        => 'contact2',
+                                                'email'       => 'contact2@test.com',
+                                                'phone_valid' => false,
+                                            ],
+                                        ],
+                                        'status'         => [
+                                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
+                                            'name' => 'active',
                                         ],
                                     ],
                                 ],
@@ -891,7 +909,7 @@ class CustomerTest extends TestCase {
                                     'product_id' => $product2,
                                 ]);
                             // Document entry creation for services
-                            $asset = Asset::factory()
+                            $asset  = Asset::factory()
                                 ->for($oem)
                                 ->for($product)
                                 ->for($customer)
@@ -899,9 +917,16 @@ class CustomerTest extends TestCase {
                                 ->for($status)
                                 ->for($location)
                                 ->for($reseller)
+                                ->for($status)
+                                ->hasContacts(1, [
+                                    'name'        => 'contact2',
+                                    'email'       => 'contact2@test.com',
+                                    'phone_valid' => false,
+                                ])
                                 ->create([
-                                    'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                    'serial_number' => '#PRODUCT_SERIAL_323',
+                                    'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'serial_number'  => '#PRODUCT_SERIAL_323',
+                                    'contacts_count' => 1,
                                 ]);
 
                             DocumentEntry::factory()->create([

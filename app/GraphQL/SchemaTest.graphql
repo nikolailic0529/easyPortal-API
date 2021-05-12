@@ -115,7 +115,9 @@ type Asset {
   type: Type!
   warranties: [AssetWarranty!]!
   reseller: Reseller!
-  status: Status
+  status: Status!
+  contacts: [Contact!]!
+  contacts_count: Int!
 }
 
 """A paginated list of Asset items."""
@@ -125,6 +127,23 @@ type AssetPaginator {
 
   """A list of Asset items."""
   data: [Asset!]!
+}
+
+input AssetWarrantiesQuery {
+  id: ID!
+  asset_id: ID!
+  reseller_id: ID!
+  customer_id: ID!
+  document_id: ID!
+  start: Date
+  end: Date!
+  note: String
+  asset: AssetsQuery
+  customer: CustomersQuery
+  document: DocumentsQuery
+  reseller: ResellersQuery
+  services: ProductsQuery
+  package: ProductsQuery
 }
 
 type AssetWarranty {
@@ -155,6 +174,8 @@ input AssetsQuery {
   location: LocationsQuery
   customer: CustomersQuery
   status: StatusQuery
+  product: ProductsQuery
+  warranties: AssetWarrantiesQuery
 }
 
 input AssetsSort {
@@ -985,6 +1006,62 @@ input ResellersQuery {
 }
 
 """
+Available conditions for input AssetWarrantiesQuery (only one property allowed at a time).
+"""
+input SearchByConditionAssetWarrantiesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionAssetWarrantiesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionAssetWarrantiesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  asset_id: SearchByScalarID
+
+  """Property condition."""
+  reseller_id: SearchByScalarID
+
+  """Property condition."""
+  customer_id: SearchByScalarID
+
+  """Property condition."""
+  document_id: SearchByScalarID
+
+  """Property condition."""
+  start: SearchByScalarDateOrNull
+
+  """Property condition."""
+  end: SearchByScalarDate
+
+  """Property condition."""
+  note: SearchByScalarStringOrNull
+
+  """Property condition."""
+  asset: SearchByRelationAssetsQuery
+
+  """Property condition."""
+  customer: SearchByRelationCustomersQuery
+
+  """Property condition."""
+  document: SearchByRelationDocumentsQuery
+
+  """Property condition."""
+  reseller: SearchByRelationResellersQuery
+
+  """Property condition."""
+  services: SearchByRelationProductsQuery
+
+  """Property condition."""
+  package: SearchByRelationProductsQuery
+}
+
+"""
 Available conditions for input AssetsQuery (only one property allowed at a time).
 """
 input SearchByConditionAssetsQuery {
@@ -1029,6 +1106,12 @@ input SearchByConditionAssetsQuery {
 
   """Property condition."""
   status: SearchByRelationStatusQuery
+
+  """Property condition."""
+  product: SearchByRelationProductsQuery
+
+  """Property condition."""
+  warranties: SearchByRelationAssetWarrantiesQuery
 }
 
 """
@@ -1387,6 +1470,54 @@ enum SearchByFlag {
   yes
 }
 
+"""Relation condition for input AssetWarrantiesQuery."""
+input SearchByRelationAssetWarrantiesQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionAssetWarrantiesQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""Relation condition for input AssetsQuery."""
+input SearchByRelationAssetsQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionAssetsQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
 """Relation condition for input CitiesQuery."""
 input SearchByRelationCitiesQuery {
   """Conditions for the related objects."""
@@ -1463,6 +1594,30 @@ input SearchByRelationCountriesQuery {
 input SearchByRelationCustomersQuery {
   """Conditions for the related objects."""
   where: SearchByConditionCustomersQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""Relation condition for input DocumentsQuery."""
+input SearchByRelationDocumentsQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionDocumentsQuery!
 
   """Equal (`=`)."""
   eq: Int
@@ -1649,6 +1804,38 @@ input SearchByScalarDate {
 input SearchByScalarDateOperatorBetween {
   min: Date!
   max: Date!
+}
+
+"""
+Available operators for scalar Date (only one operator allowed at a time).
+"""
+input SearchByScalarDateOrNull {
+  """Equal (`=`)."""
+  eq: Date
+
+  """Less than (`<`)."""
+  lt: Date
+
+  """Less than or equal to (`<=`)."""
+  lte: Date
+
+  """Greater than (`>`)."""
+  gt: Date
+
+  """Greater than or equal to (`>=`)."""
+  gte: Date
+
+  """Within a set of values."""
+  in: [Date!]
+
+  """Within a range."""
+  between: SearchByScalarDateOperatorBetween
+
+  """Is NULL?"""
+  isNull: SearchByFlag
+
+  """Not."""
+  not: SearchByFlag
 }
 
 """

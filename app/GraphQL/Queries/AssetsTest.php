@@ -65,6 +65,7 @@ class AssetsTest extends TestCase {
                             customer_id
                             location_id
                             serial_number
+                            contacts_count
                             oem {
                                 id
                                 abbr
@@ -194,6 +195,11 @@ class AssetsTest extends TestCase {
                                 id
                                 name
                             }
+                            contacts {
+                                name
+                                email
+                                phone_valid
+                            }
                         },
                         paginatorInfo {
                             count
@@ -256,19 +262,20 @@ class AssetsTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated('assets', self::class, [
                             [
-                                'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                'oem_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                'product_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                'location_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
-                                'type_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                                'customer_id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                'serial_number' => '#PRODUCT_SERIAL_323',
-                                'oem'           => [
+                                'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                'oem_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                'product_id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                'location_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                'type_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                'customer_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                'serial_number'  => '#PRODUCT_SERIAL_323',
+                                'contacts_count' => 1,
+                                'oem'            => [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                     'abbr' => 'abbr',
                                     'name' => 'oem1',
                                 ],
-                                'product'       => [
+                                'product'        => [
                                     'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                     'name'   => 'Product1',
                                     'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -281,11 +288,11 @@ class AssetsTest extends TestCase {
                                         'name' => 'oem1',
                                     ],
                                 ],
-                                'type'          => [
+                                'type'           => [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                     'name' => 'name aaa',
                                 ],
-                                'location'      => [
+                                'location'       => [
                                     'id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
                                     'state'     => 'state1',
                                     'postcode'  => '19911',
@@ -294,7 +301,7 @@ class AssetsTest extends TestCase {
                                     'latitude'  => '47.91634204',
                                     'longitude' => '-2.26318359',
                                 ],
-                                'customer'      => [
+                                'customer'       => [
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                     'name'            => 'name aaa',
                                     'assets_count'    => 0,
@@ -319,7 +326,7 @@ class AssetsTest extends TestCase {
                                         ],
                                     ],
                                 ],
-                                'warranties'    => [
+                                'warranties'     => [
                                     [
                                         'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                         'asset_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
@@ -402,9 +409,16 @@ class AssetsTest extends TestCase {
                                         ],
                                     ],
                                 ],
-                                'status'        => [
+                                'status'         => [
                                     'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
                                     'name' => 'active',
+                                ],
+                                'contacts'       => [
+                                    [
+                                        'name'        => 'contact2',
+                                        'email'       => 'contact2@test.com',
+                                        'phone_valid' => false,
+                                    ],
                                 ],
                             ],
                         ]),
@@ -518,10 +532,16 @@ class AssetsTest extends TestCase {
                                 ->for($type)
                                 ->for($location)
                                 ->for($status)
+                                ->hasContacts(1, [
+                                    'name'        => 'contact2',
+                                    'email'       => 'contact2@test.com',
+                                    'phone_valid' => false,
+                                ])
                                 ->create([
-                                    'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                    'reseller_id'   => $reseller,
-                                    'serial_number' => '#PRODUCT_SERIAL_323',
+                                    'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'reseller_id'    => $reseller,
+                                    'serial_number'  => '#PRODUCT_SERIAL_323',
+                                    'contacts_count' => 1,
                                 ]);
 
                             AssetWarranty::factory()
