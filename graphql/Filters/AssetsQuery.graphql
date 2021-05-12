@@ -10,4 +10,6 @@ input AssetsQuery {
   location: LocationsQuery
   customer: CustomersQuery
   status: StatusQuery
+  product: ProductsQuery
+  warranties: AssetWarrantiesQuery
 }
