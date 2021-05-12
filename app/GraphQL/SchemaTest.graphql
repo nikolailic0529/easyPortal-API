@@ -660,11 +660,11 @@ type Mutation {
   authorize(input: AuthorizeInput): AuthorizePayload
 
   """
-  Begins the Sign In.
+  Begins the Sign In for Organization.
   
   @require <guest> Current visitor must be a guest.
   """
-  signIn(input: SignInInput): SignInPayload
+  signInOrganization(input: SignInOrganizationInput): SignInOrganizationPayload
 
   """
   Sign Out.
@@ -1982,11 +1982,11 @@ type SetApplicationLocalePayload {
   result: Boolean!
 }
 
-input SignInInput {
+input SignInOrganizationInput {
   organization_id: ID!
 }
 
-type SignInPayload {
+type SignInOrganizationPayload {
   """The link where the User should be redirected to Sign In."""
   url: String!
 }

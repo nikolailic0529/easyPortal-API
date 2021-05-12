@@ -1,0 +1,17 @@
+extend type Mutation {
+  "Begins the Sign In for Organization."
+  signInOrganization(
+    input: SignInOrganizationInput
+  ): SignInOrganizationPayload
+    @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignInOrganization")
+    @guest
+}
+
+input SignInOrganizationInput {
+  organization_id: ID! @rules(apply: ["App\\Rules\\OrganizationId"])
+}
+
+type SignInOrganizationPayload {
+  "The link where the User should be redirected to Sign In."
+  url: String!
+}

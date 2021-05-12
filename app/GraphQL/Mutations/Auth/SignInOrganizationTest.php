@@ -19,9 +19,9 @@ use function __;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Auth\SignIn
+ * @coversDefaultClass \App\GraphQL\Mutations\Auth\SignInOrganization
  */
-class SignInTest extends TestCase {
+class SignInOrganizationTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -71,7 +71,7 @@ class SignInTest extends TestCase {
             /** @lang GraphQL */
                 <<<'GRAPHQL'
                 mutation signin($id: ID!) {
-                    signIn(input: {organization_id: $id}) {
+                    signInOrganization(input: {organization_id: $id}) {
                         url
                     }
                 }

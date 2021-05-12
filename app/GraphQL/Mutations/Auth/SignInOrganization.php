@@ -5,7 +5,7 @@ namespace App\GraphQL\Mutations\Auth;
 use App\Models\Organization;
 use App\Services\KeyCloak\KeyCloak;
 
-class SignIn {
+class SignInOrganization {
     public function __construct(
         protected KeyCloak $keycloak,
     ) {
