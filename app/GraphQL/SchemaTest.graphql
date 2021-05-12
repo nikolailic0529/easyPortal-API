@@ -186,12 +186,12 @@ input AssetsSort {
   customer: CustomersSort!
 }
 
-input AuthorizeInput {
+input AuthorizeOrganizationInput {
   code: String!
   state: String!
 }
 
-type AuthorizePayload {
+type AuthorizeOrganizationPayload {
   me: Me
 }
 
@@ -653,11 +653,11 @@ type Mutation {
   updateOrganization(input: updateOrganizationInput!): updateOrganizationPayload
 
   """
-  Finish the Sign In.
+  Finish the Sign In for Organization.
   
   @require <guest> Current visitor must be a guest.
   """
-  authorize(input: AuthorizeInput): AuthorizePayload
+  authorizeOrganization(input: AuthorizeOrganizationInput): AuthorizeOrganizationPayload
 
   """
   Begins the Sign In for Organization.

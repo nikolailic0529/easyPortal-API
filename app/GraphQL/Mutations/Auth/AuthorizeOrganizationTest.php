@@ -21,9 +21,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Auth\Authorize
+ * @coversDefaultClass \App\GraphQL\Mutations\Auth\AuthorizeOrganization
  */
-class AuthorizeTest extends TestCase {
+class AuthorizeOrganizationTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -60,8 +60,8 @@ class AuthorizeTest extends TestCase {
         $this
             ->graphQL(
                 /** @lang GraphQL */
-                'mutation authorize($input: AuthorizeInput!) {
-                    authorize(input: $input) {
+                'mutation authorize($input: AuthorizeOrganizationInput!) {
+                    authorizeOrganization(input: $input) {
                         me {
                             id
                             family_name
@@ -89,11 +89,11 @@ class AuthorizeTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('authorize'),
-            new GuestDataProvider('authorize'),
+            new AnyOrganizationDataProvider('authorizeOrganization'),
+            new GuestDataProvider('authorizeOrganization'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('authorize', self::class),
+                    new GraphQLSuccess('authorizeOrganization', self::class),
                 ],
             ]),
         ))->getData();
