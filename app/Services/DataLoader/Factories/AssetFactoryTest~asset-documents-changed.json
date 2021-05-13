@@ -32,7 +32,16 @@
                 },
                 "documentNumber": "0056523287",
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
-                "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a"
+                "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a",
+                "contactPersons": [
+                    {
+                        "phoneNumber": "+49 (591) 12345-67",
+                        "vendor": "HPE",
+                        "name": "Alice Marks",
+                        "type": "HARDWARE_CONTACT",
+                        "mail": "new@hpe.com"
+                    }
+                ]
             },
             "skuNumber": "HA151AC",
             "skuDescription": "HPE Hardware Maintenance Onsite Support",
@@ -59,7 +68,23 @@
                 },
                 "documentNumber": "0056523287",
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
-                "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a"
+                "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a",
+                "contactPersons": [
+                    {
+                        "phoneNumber": "+49 (591) 12345-67",
+                        "vendor": "HPE",
+                        "name": "Alice Marks2",
+                        "type": "HARDWARE_CONTACT",
+                        "mail": "new2@hpe.com"
+                    },
+                    {
+                        "phoneNumber": "+49 (591) 12345-69",
+                        "vendor": "HPE",
+                        "name": "Alice Marks3",
+                        "type": "HARDWARE_CONTACT",
+                        "mail": "new3@hpe.com"
+                    }
+                ]
             },
             "skuNumber": "HA151AC",
             "skuDescription": "HPE Hardware Maintenance Onsite Support",
@@ -86,7 +111,16 @@
                 },
                 "documentNumber": "0056490551",
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
-                "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a"
+                "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a",
+                "contactPersons": [
+                    {
+                        "phoneNumber": "+49 (591) 12345-69",
+                        "vendor": "HPE",
+                        "name": "Alice Marks4",
+                        "type": "HARDWARE_CONTACT",
+                        "mail": "new4@hpe.com"
+                    }
+                ]
             },
             "skuNumber": "HA151AC",
             "skuDescription": "HPE Hardware Maintenance Onsite Support",

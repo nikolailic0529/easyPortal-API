@@ -397,6 +397,13 @@ class Client {
                 vendorSpecificFields {
                     vendor
                 }
+
+                contactPersons {
+                    phoneNumber
+                    name
+                    type
+                    mail
+                }
             }
 
             skuNumber

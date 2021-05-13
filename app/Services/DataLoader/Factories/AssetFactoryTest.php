@@ -383,6 +383,7 @@ class AssetFactoryTest extends TestCase {
             $container->make(ProductResolver::class),
             $container->make(OemResolver::class),
             $container->make(DocumentFactory::class),
+            $container->make(ContactFactory::class),
         ) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
@@ -391,7 +392,9 @@ class AssetFactoryTest extends TestCase {
                 protected ProductResolver $products,
                 protected OemResolver $oems,
                 DocumentFactory $documentFactory,
+                ContactFactory $contactFactory,
             ) {
+                $documentFactory = $documentFactory->setContactsFactory($contactFactory);
                 $this->setDocumentFactory($documentFactory);
             }
 
@@ -444,8 +447,10 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals(ProductType::support(), $a->product->type);
         $this->assertEquals('HPE', $a->product->oem->abbr);
         $this->assertEquals('HPE', $a->oem->abbr);
+        $this->assertEquals(1, $a->contacts_count);
 
         $this->assertCount(1, $a->entries);
+        $this->assertCount(1, $a->contacts);
 
         /** @var \App\Models\DocumentEntry $e */
         $e = $a->entries->first();
@@ -469,8 +474,10 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($reseller, $b->reseller);
         $this->assertEquals('0056490551', $b->number);
         $this->assertEquals('6376.15', $b->price);
+        $this->assertEquals(1, $b->contacts_count);
 
         $this->assertCount(2, $b->entries);
+        $this->assertCount(1, $b->contacts);
 
         /** @var \App\Models\DocumentEntry $f */
         $f = $b->entries->first();
@@ -486,6 +493,7 @@ class AssetFactoryTest extends TestCase {
 
         $this->assertNotNull($c);
         $this->assertCount(2, $c->entries);
+        $this->assertCount(1, $c->contacts);
 
         // Changed
         // ---------------------------------------------------------------------
@@ -504,10 +512,12 @@ class AssetFactoryTest extends TestCase {
 
         $this->assertNotNull($a);
         $this->assertEquals('3292.16', $a->price);
+        $this->assertEquals(2, $a->contacts_count);
         $this->assertEquals('EUR', $a->currency->code);
         $this->assertEquals('en', $a->language->code);
 
         $this->assertCount(1, $a->entries);
+        $this->assertCount(2, $a->contacts);
         $this->assertCount(1, $a->refresh()->entries);
 
         /** @var \App\Models\DocumentEntry $e */

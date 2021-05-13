@@ -141,6 +141,7 @@ type Document {
   totalNetPrice: String
   currencyCode: String
   languageCode: String
+  contactPersons: [CompanyContactPerson]
 }
 
 type DocumentEntry {

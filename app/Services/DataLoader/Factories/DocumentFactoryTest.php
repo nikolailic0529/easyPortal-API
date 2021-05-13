@@ -82,7 +82,8 @@ class DocumentFactoryTest extends TestCase {
      */
     public function testCreateFromAssetDocument(): void {
         // Prepare
-        $factory    = $this->app->make(DocumentFactory::class);
+        $contacts   = $this->app->make(ContactFactory::class);
+        $factory    = $this->app->make(DocumentFactory::class)->setContactsFactory($contacts);
         $normalizer = $this->app->make(Normalizer::class);
 
         // Test
@@ -120,6 +121,10 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($document->supportPackageDescription, $created->product->name);
         $this->assertNull($created->product->eos);
         $this->assertNull($created->product->eol);
+        $this->assertEquals(
+            $this->getModelContacts($created),
+            $this->getContacts($document->document),
+        );
 
         // Customer should be updated
         $json     = $this->getTestData()->json('~document-changed.json');

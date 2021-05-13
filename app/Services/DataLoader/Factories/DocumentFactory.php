@@ -13,6 +13,7 @@ use App\Models\Reseller;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
+use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
 use App\Services\DataLoader\Factories\Concerns\WithType;
@@ -38,6 +39,7 @@ class DocumentFactory extends ModelFactory {
     use WithOem;
     use WithType;
     use WithProduct;
+    use WithContacts;
 
     public function __construct(
         LoggerInterface $logger,
@@ -120,6 +122,7 @@ class DocumentFactory extends ModelFactory {
             $model->end      = $this->normalizer->datetime($document->document->endDate);
             $model->price    = $this->normalizer->number($document->document->totalNetPrice);
             $model->number   = $this->normalizer->string($document->document->documentNumber);
+            $model->contacts = $this->objectContacts($model, $document->document->contactPersons);
 
             $model->save();
 

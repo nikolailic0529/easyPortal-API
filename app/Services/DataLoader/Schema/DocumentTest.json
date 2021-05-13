@@ -18,5 +18,13 @@
             "discount": "-2.05",
             "listPrice": "48"
         }
+    ],
+    "contactPersons": [
+        {
+            "phoneNumber": "+49 (591) 12345-67",
+            "vendor": "HPA",
+            "name": "Alice Mark",
+            "type": "SOFTWARE_CONTACT"
+        }
     ]
 }

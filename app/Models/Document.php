@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasContacts;
 use App\Models\Concerns\HasCurrency;
 use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasLanguage;
@@ -37,6 +38,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \App\Models\Customer                                                     $customer
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $entries
  * @property-read int|null                                                            $entries_count
+ * @property-read int                                                                 $contacts_count
  * @property \App\Models\Oem                                                          $oem
  * @property \App\Models\Product                                                      $product
  * @property \App\Models\Reseller                                                     $reseller
@@ -71,6 +73,7 @@ class Document extends Model {
     use HasCurrency;
     use HasProduct;
     use HasLanguage;
+    use HasContacts;
 
     protected const CASTS = [
         'start' => 'date',

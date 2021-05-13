@@ -10,6 +10,7 @@ use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
+use App\Services\DataLoader\Schema\Document;
 use DateTimeInterface;
 use libphonenumber\NumberParseException;
 use Propaganistas\LaravelPhone\PhoneNumber;
@@ -210,10 +211,21 @@ trait Helper {
     /**
      * @return array<mixed>
      */
-    protected function getContacts(Asset|Company $object): array {
+    protected function getContacts(Asset|Company|Document $object): array {
         $contacts = [];
+        $persons  = [];
 
-        foreach ($object->latestContactPersons as $person) {
+        if ($object instanceof Document) {
+            $persons = $object->contactPersons;
+        } else if ($object instanceof Company) {
+            $persons = $object->companyContactPersons;
+        } else if ($object instanceof Asset) {
+            $persons = $object->latestContactPersons;
+        } else {
+            // empty
+        }
+
+        foreach ($persons as $person) {
             // Empty?
             if (is_null($person->name) && is_null($person->phoneNumber)) {
                 continue;
