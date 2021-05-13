@@ -19,10 +19,7 @@ class CurrentOrganization extends OrganizationProvider {
 
     protected function getCurrent(): ?Organization {
         $user         = $this->auth->guard()->user();
-        $organization = null;
-
-
-        $user instanceof HasOrganization
+        $organization = $user instanceof HasOrganization
             ? $user->getOrganization()
             : null;
 
