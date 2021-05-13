@@ -24,6 +24,7 @@ use function array_key_first;
 use function array_keys;
 use function array_values;
 use function is_array;
+use function ucfirst;
 
 class ExportController extends Controller {
     public function __construct(
@@ -186,7 +187,7 @@ class ExportController extends Controller {
             if (is_array($item[$key])) {
                 // relation key with values
                 foreach ($item[$key] as $subKey => $subValue) {
-                    $keys["{$key}.{$subKey}"] = "{$key}_{$subKey}";
+                    $keys["{$key}.{$subKey}"] = ucfirst($key).' '.ucfirst($subKey);
                 }
             } else {
                 // Direct table column

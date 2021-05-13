@@ -1,10 +1,14 @@
 <html>
     <body>
         <table>
-            @foreach ($rows as $row)
+            @foreach ($rows as $index => $row)
                 <tr>
                     @foreach ($row as $col)
-                        <td>{{ $col }}</td>
+                        @if($index == 0)
+                            <td style='font-weight:bold;'> {{ $col }}</td>
+                        @else
+                            <td>{{ $col }}</td>
+                        @endif
                     @endforeach
                 </tr>
             @endforeach

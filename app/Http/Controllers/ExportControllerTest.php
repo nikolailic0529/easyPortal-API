@@ -112,8 +112,8 @@ class ExportControllerTest extends TestCase {
                 case 'pdf':
                     PDF::assertViewIs('exports.pdf');
                     PDF::assertSee('id');
-                    PDF::assertSee('product_name');
-                    PDF::assertSee('product_sku');
+                    PDF::assertSee('Product Name');
+                    PDF::assertSee('Product Sku');
                     break;
 
                 default:
