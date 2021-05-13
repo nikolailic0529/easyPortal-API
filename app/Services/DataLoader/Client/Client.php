@@ -270,6 +270,7 @@ class Client {
 
         // Call
         $url      = $this->config->get('ep.data_loader.endpoint');
+        $timeout  = $this->config->get('ep.data_loader.timeout') ?: 5 * 60;
         $data     = [
             'query'     => $graphql,
             'variables' => $params,
@@ -278,6 +279,7 @@ class Client {
             'Accept' => 'application/json',
         ];
         $response = $this->client
+            ->timeout($timeout)
             ->withHeaders($headers)
             ->post($url, $data);
         $json     = $response->json();

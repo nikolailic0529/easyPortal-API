@@ -214,6 +214,13 @@ interface Constants {
     public const EP_DATA_LOADER_CHUNK = 100;
 
     /**
+     * Default timeout for http requests (in seconds).
+     */
+    #[Setting('ep.data_loader.timeout')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_TIMEOUT = 5 * 60;
+
+    /**
      * GraphQL Endpoint.
      */
     #[Setting('ep.data_loader.endpoint')]
