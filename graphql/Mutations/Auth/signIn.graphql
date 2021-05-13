@@ -3,8 +3,9 @@ extend type Mutation {
   signIn(
     input: SignInInput
   ): SignInPayload
-  @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn")
+  @throttle(name: "auth")
   @guest
+  @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn")
 }
 
 input SignInInput {
