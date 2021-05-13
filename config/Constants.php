@@ -106,11 +106,12 @@ interface Constants {
      *
      * Replacements:
      * * `{token}` - token
+     * * `{email}` - email
      */
     #[Setting('ep.client.password_reset_uri')]
     #[Group('client')]
     #[Type(StringType::class)]
-    public const EP_CLIENT_PASSWORD_RESET_URI = 'auth/reset-password/{token}';
+    public const EP_CLIENT_PASSWORD_RESET_URI = 'auth/reset-password/{token}?email={email}';
     //</editor-fold>
 
     // <editor-fold desc="EP_KEYCLOAK">

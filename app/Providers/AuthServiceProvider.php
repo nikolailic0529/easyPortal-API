@@ -47,6 +47,7 @@ class AuthServiceProvider extends ServiceProvider {
 
         ResetPassword::createUrlUsing(static function (User $user, string $token) use ($config, $generator) {
             return $generator->to(strtr($config->get('ep.client.password_reset_uri'), [
+                '{email}' => $user->getEmailForPasswordReset(),
                 '{token}' => $token,
             ]));
         });
