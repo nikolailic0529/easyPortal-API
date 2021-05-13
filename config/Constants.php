@@ -89,6 +89,21 @@ interface Constants {
     public const EP_HEADQUARTER_TYPE = '';
     // </editor-fold>
 
+    // <editor-fold desc="EP_CLIENT">
+    // =========================================================================
+    /**
+     * The URI (can be relative) where user should be redirected to complete
+     * Password Reset.
+     *
+     * Replacements:
+     * * `{token}` - token
+     */
+    #[Setting('ep.client.password_reset_uri')]
+    #[Group('client')]
+    #[Type(StringType::class)]
+    public const EP_CLIENT_PASSWORD_RESET_URI = 'auth/reset-password/{token}';
+    //</editor-fold>
+
     // <editor-fold desc="EP_KEYCLOAK">
     // =========================================================================
     /**
