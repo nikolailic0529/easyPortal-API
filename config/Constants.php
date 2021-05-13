@@ -20,6 +20,7 @@ use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\DocumentType;
 use App\Services\Settings\Types\Duration;
 use App\Services\Settings\Types\LocationType;
+use App\Services\Settings\Types\OrganizationIdType;
 use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Text;
 use App\Services\Settings\Types\Url;
@@ -64,15 +65,6 @@ interface Constants {
     public const EP_IMAGE_FORMATS = ['jpg', 'jpeg', 'png'];
 
     /**
-     * Root user IDs.
-     */
-    #[Setting('ep.root_users')]
-    #[Group('ep')]
-    #[Internal]
-    #[Type(StringType::class)]
-    public const EP_ROOT_USERS = [];
-
-    /**
      * Type IDs related to contracts.
      */
     #[Setting('ep.contract_types')]
@@ -96,7 +88,31 @@ interface Constants {
     #[Group('ep')]
     #[Type(LocationType::class)]
     public const EP_HEADQUARTER_TYPE = '';
+
+    /**
+     * Root organization ID.
+     */
+    #[Setting('ep.root_organization')]
+    #[Group('ep')]
+    #[Type(OrganizationIdType::class)]
+    public const EP_ROOT_ORGANIZATION = '40765bbb-4736-4d2f-8964-1c3fd4e59aac';
     // </editor-fold>
+
+    // <editor-fold desc="EP_CLIENT">
+    // =========================================================================
+    /**
+     * The URI (can be relative) where user should be redirected to complete
+     * Password Reset.
+     *
+     * Replacements:
+     * * `{token}` - token
+     * * `{email}` - email
+     */
+    #[Setting('ep.client.password_reset_uri')]
+    #[Group('client')]
+    #[Type(StringType::class)]
+    public const EP_CLIENT_PASSWORD_RESET_URI = 'auth/reset-password/{token}?email={email}';
+    //</editor-fold>
 
     // <editor-fold desc="EP_KEYCLOAK">
     // =========================================================================

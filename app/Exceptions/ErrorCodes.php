@@ -8,6 +8,7 @@ use App\Http\Controllers\ExportGraphQLQueryInvalid;
 use App\Services\Filesystem\StorageFileCorrupted;
 use App\Services\Filesystem\StorageFileDeleteFailed;
 use App\Services\Filesystem\StorageFileSaveFailed;
+use App\Services\KeyCloak\Exceptions\AnotherUserExists;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailed;
 use App\Services\KeyCloak\Exceptions\InsufficientData;
 use App\Services\KeyCloak\Exceptions\InvalidCredentials;
@@ -37,6 +38,7 @@ class ErrorCodes {
         InsufficientData::class                            => 'ERR12',
         UnknownOrganization::class                         => 'ERR13',
         UnknownScope::class                                => 'ERR14',
+        AnotherUserExists::class                           => 'ERR15',
     ];
 
     public static function getCode(Throwable $throwable): string|int {

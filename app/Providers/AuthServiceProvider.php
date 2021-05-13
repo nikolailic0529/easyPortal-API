@@ -2,9 +2,15 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use App\Services\Auth\Auth;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+
+use function strtr;
 
 class AuthServiceProvider extends ServiceProvider {
     /**
@@ -24,6 +30,7 @@ class AuthServiceProvider extends ServiceProvider {
     public function boot(): void {
         $this->registerPolicies();
         $this->bootPermission();
+        $this->bootPasswordResetUrl();
     }
 
     protected function bootPermission(): void {
@@ -32,5 +39,17 @@ class AuthServiceProvider extends ServiceProvider {
 
         $gate->before([$auth, 'gateBefore']);
         $gate->after([$auth, 'gateAfter']);
+    }
+
+    protected function bootPasswordResetUrl(): void {
+        $config    = $this->app->make(Repository::class);
+        $generator = $this->app->make(UrlGenerator::class);
+
+        ResetPassword::createUrlUsing(static function (User $user, string $token) use ($config, $generator) {
+            return $generator->to(strtr($config->get('ep.client.password_reset_uri'), [
+                '{email}' => $user->getEmailForPasswordReset(),
+                '{token}' => $token,
+            ]));
+        });
     }
 }

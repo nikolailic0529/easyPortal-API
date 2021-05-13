@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * Organization.
  *
  * @property string                                                         $id
- * @property string|null                                                    $subdomain
  * @property string                                                         $name
  * @property string|null                                                    $keycloak_scope
  * @property string|null                                                    $locale
@@ -43,13 +42,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereKeycloakScope($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereLocale($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereSubdomain($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereWebsiteUrl($value)
  * @mixin \Eloquent
- * @method static \Illuminate\Database\Eloquent\Builder|Organization whereKeycloakScope($value)
  */
 class Organization extends Model implements HasLocalePreference {
     use HasFactory;
@@ -59,8 +58,6 @@ class Organization extends Model implements HasLocalePreference {
     protected const CASTS = [
         'branding_dark_theme' => 'bool',
     ];
-
-    public const ROOT = '@root';
 
     /**
      * The attributes that should be cast to native types.
@@ -77,10 +74,6 @@ class Organization extends Model implements HasLocalePreference {
      * @var string
      */
     protected $table = 'organizations';
-
-    public function isRoot(): bool {
-        return $this->subdomain === self::ROOT;
-    }
 
     public function preferredLocale(): ?string {
         return $this->locale;

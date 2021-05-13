@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
+use App\Models\Enums\UserType;
 use App\Models\User;
 use App\Models\UserSearch;
 use Closure;
@@ -27,17 +28,13 @@ class MeTest extends TestCase {
      * @covers ::root
      *
      * @dataProvider dataProviderInvoke
-     *
-     * @param array<string,mixed> $settings
      */
     public function testInvoke(
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
-        array $settings = null,
     ): void {
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
-        $this->setSettings($settings);
 
         $this
             ->graphQL(/** @lang GraphQL */ '{
@@ -116,14 +113,9 @@ class MeTest extends TestCase {
                     new GraphQLSuccess('me', Me::class, new JsonFragment('root', true)),
                     static function (): ?User {
                         return User::factory()->make([
-                            'id' => '96948814-7626-4aab-a5a8-f0b7b4be8e6d',
+                            'type' => UserType::local(),
                         ]);
                     },
-                    [
-                        'ep.root_users' => [
-                            '96948814-7626-4aab-a5a8-f0b7b4be8e6d',
-                        ],
-                    ],
                 ],
             ]),
         ))->getData();

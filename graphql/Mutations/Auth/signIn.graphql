@@ -1,17 +1,18 @@
 extend type Mutation {
-  "Begins the Sign In."
+  "Sign In for local users."
   signIn(
     input: SignInInput
   ): SignInPayload
-    @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn")
-    @guest
+  @throttle(name: "auth")
+  @guest
+  @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignIn")
 }
 
 input SignInInput {
-  organization_id: ID! @rules(apply: ["App\\Rules\\OrganizationId"])
+  email: String!    # TODO [GraphQL] Email type needed
+  password: String!
 }
 
 type SignInPayload {
-  "The link where the User should be redirected to Sign In."
-  url: String!
+  me: Me
 }

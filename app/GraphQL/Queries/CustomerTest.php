@@ -683,7 +683,7 @@ class CustomerTest extends TestCase {
                                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
                                             'name' => 'name aaa',
                                         ],
-                                        'product'       => [
+                                        'product'        => [
                                             'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                             'name'   => 'Product1',
                                             'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -909,7 +909,7 @@ class CustomerTest extends TestCase {
                                     'product_id' => $product2,
                                 ]);
                             // Document entry creation for services
-                            $asset  = Asset::factory()
+                            $asset = Asset::factory()
                                 ->for($oem)
                                 ->for($product)
                                 ->for($customer)

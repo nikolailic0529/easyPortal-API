@@ -21,7 +21,9 @@ class RootOrganizationDataProvider extends ArrayDataProvider {
             'root organization is allowed'   => [
                 new Unknown(),
                 static function (TestCase $test) use ($id): ?Organization {
-                    return Organization::factory()->root()->create($id ? ['id' => $id] : []);
+                    return $test->setRootOrganization(
+                        Organization::factory()->create($id ? ['id' => $id] : []),
+                    );
                 },
             ],
         ]);

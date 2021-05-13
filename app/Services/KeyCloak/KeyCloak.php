@@ -53,7 +53,7 @@ class KeyCloak {
         return $url;
     }
 
-    public function authorize(string $code, string $state): Authenticatable {
+    public function authorize(string $code, string $state): ?Authenticatable {
         // Is state valid?
         if ($this->session->pull(self::STATE) !== $state) {
             throw new StateMismatch();
@@ -71,7 +71,7 @@ class KeyCloak {
         // Attempt to sign in
         try {
             $result = $this->auth->guard()->attempt([
-                UserProvider::ACCESS_TOKEN => $token->getToken(),
+                UserProvider::CREDENTIAL_ACCESS_TOKEN => $token->getToken(),
             ]);
 
             if ($result) {
@@ -89,8 +89,30 @@ class KeyCloak {
         return $this->auth->guard()->user();
     }
 
+    public function signIn(string $email, string $password): ?Authenticatable {
+        // Attempt to sign in
+        try {
+            $result = $this->auth->guard()->attempt([
+                UserProvider::CREDENTIAL_EMAIL    => $email,
+                UserProvider::CREDENTIAL_PASSWORD => $password,
+            ]);
+
+            if (!$result) {
+                throw new InvalidCredentials();
+            }
+        } catch (KeyCloakException $exception) {
+            throw $exception;
+        } catch (Exception $exception) {
+            throw new AuthorizationFailed($exception);
+        }
+
+        // Return
+        return $this->auth->guard()->user();
+    }
+
     public function signOut(): ?string {
         // First we try to sign out without redirect
+        $token      = null;
         $provider   = $this->getProvider();
         $successful = false;
 
@@ -111,7 +133,7 @@ class KeyCloak {
         // And the last step - redirect if sign out failed.
         $url = null;
 
-        if (!$successful) {
+        if ($token && !$successful) {
             $url = $provider->getSignOutUrl([
                 'redirect_uri' => $this->getRedirectUri(
                     $this->config->get('ep.keycloak.redirects.signout_uri'),

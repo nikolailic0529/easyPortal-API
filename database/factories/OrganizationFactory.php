@@ -28,7 +28,6 @@ class OrganizationFactory extends Factory {
     public function definition(): array {
         return [
             'id'                       => $this->faker->uuid,
-            'subdomain'                => null,
             'name'                     => $this->faker->company,
             'keycloak_scope'           => null,
             'locale'                   => null,
@@ -44,15 +43,5 @@ class OrganizationFactory extends Factory {
             'updated_at'               => Date::now(),
             'deleted_at'               => null,
         ];
-    }
-
-    public function root(): static {
-        // phpcs:disable SlevomatCodingStandard.Functions.StaticClosure.ClosureNotStatic
-        return $this->state(function (): array {
-            return [
-                'subdomain' => Organization::ROOT,
-            ];
-        });
-        // phpcs:enable
     }
 }

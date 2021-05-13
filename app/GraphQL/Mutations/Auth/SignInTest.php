@@ -2,20 +2,20 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
+use App\Models\Enums\UserType;
 use App\Models\Organization;
-use App\Services\KeyCloak\KeyCloak;
+use App\Models\User;
+use App\Services\KeyCloak\Exceptions\InvalidCredentials;
 use Closure;
+use Illuminate\Contracts\Hashing\Hasher;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Mockery;
 use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
-
-use function __;
 
 /**
  * @internal
@@ -27,57 +27,42 @@ class SignInTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+     *
+     * @param array{email: string,password:string} $input
      */
     public function testInvoke(
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
-        Closure $passedOrganizationFactory = null,
+        Closure $prepare = null,
+        array $input = [
+            'email'    => '',
+            'password' => '',
+        ],
     ): void {
-        $this->markTestSkipped('Temporary disabled because https://github.com/nuwave/lighthouse/issues/1780');
-
         // Prepare
-        $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $this->setRootOrganization(Organization::factory()->create());
+        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
-        // Organization
-        $id = $this->faker->uuid;
-
-        if ($passedOrganizationFactory) {
-            $passed = $passedOrganizationFactory($this, $organization, $user);
-
-            if ($passed) {
-                $id = $passed->getKey();
-            }
+        if ($prepare) {
+            $prepare($this);
         }
-
-        // Mock
-        $service = Mockery::mock(KeyCloak::class);
-
-        if ($expected instanceof GraphQLSuccess) {
-            $service
-                ->shouldReceive('getAuthorizationUrl')
-                ->once()
-                ->andReturn('http://example.com/');
-        }
-
-        $this->app->bind(KeyCloak::class, static function () use ($service): KeyCloak {
-            return $service;
-        });
 
         // Test
         $this
             ->graphQL(
             /** @lang GraphQL */
                 <<<'GRAPHQL'
-                mutation signin($id: ID!) {
-                    signIn(input: {organization_id: $id}) {
-                        url
+                mutation signIn($input: SignInInput) {
+                    signIn(input: $input) {
+                        me {
+                            id
+                        }
                     }
                 }
                 GRAPHQL,
                 [
-                    'id' => $id,
+                    'input' => $input,
                 ],
             )
             ->assertThat($expected);
@@ -94,21 +79,53 @@ class SignInTest extends TestCase {
             new AnyOrganizationDataProvider('signIn'),
             new GuestDataProvider('signIn'),
             new ArrayDataProvider([
-                'organization not exists' => [
-                    new GraphQLError('signIn', static function (): array {
-                        return [__('errors.validation_failed')];
-                    }),
-                    static function () {
-                        return null;
+                'no user'                           => [
+                    new GraphQLError('signIn', new InvalidCredentials()),
+                    static function (): void {
+                        // empty
                     },
                 ],
-                'redirect to login'       => [
-                    new GraphQLSuccess('signIn', self::class, [
-                        'url' => 'http://example.com/',
-                    ]),
-                    static function () {
-                        return Organization::factory()->create();
+                'local user with valid password'    => [
+                    new GraphQLSuccess('signIn', self::class),
+                    static function (TestCase $test): void {
+                        User::factory()->create([
+                            'type'     => UserType::local(),
+                            'email'    => 'test@example.com',
+                            'password' => $test->app()->make(Hasher::class)->make('12345'),
+                        ]);
                     },
+                    [
+                        'email'    => 'test@example.com',
+                        'password' => '12345',
+                    ],
+                ],
+                'local user with invalid password'  => [
+                    new GraphQLError('signIn', new InvalidCredentials()),
+                    static function (TestCase $test): void {
+                        User::factory()->create([
+                            'type'     => UserType::local(),
+                            'email'    => 'test@example.com',
+                            'password' => $test->app()->make(Hasher::class)->make('12345'),
+                        ]);
+                    },
+                    [
+                        'email'    => 'test@example.com',
+                        'password' => 'invalid',
+                    ],
+                ],
+                'keycloak user with valid password' => [
+                    new GraphQLError('signIn', new InvalidCredentials()),
+                    static function (TestCase $test): void {
+                        User::factory()->create([
+                            'type'     => UserType::keycloak(),
+                            'email'    => 'test@example.com',
+                            'password' => $test->app()->make(Hasher::class)->make('12345'),
+                        ]);
+                    },
+                    [
+                        'email'    => 'test@example.com',
+                        'password' => '12345',
+                    ],
                 ],
             ]),
         ))->getData();

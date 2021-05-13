@@ -93,7 +93,7 @@ class WithProductTest extends TestCase {
 
         // If not - it should be created
         $sku     = $this->faker->uuid;
-        $type    = ProductType::create($this->faker->randomElement(ProductType::values()));
+        $type    = $this->faker->randomElement(ProductType::getValues());
         $name    = $this->faker->sentence;
         $created = $factory->product(
             $oem,

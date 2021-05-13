@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Directives\Directives;
 
+use App\Models\Enums\UserType;
 use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -73,17 +74,14 @@ class MeTest extends TestCase {
      *
      * @dataProvider dataProviderResolveFieldPermissions
      *
-     * @param array<string,mixed> $settings
-     * @param array<string>       $permissions
+     * @param array<string> $permissions
      */
     public function testResolveFieldPermissions(
         Response $expected,
-        array $settings,
         array $permissions,
         Closure $userFactory,
     ): void {
         $this->setUser($userFactory);
-        $this->setSettings($settings);
 
         $resolver    = addslashes(UserDirectiveTest_Resolver::class);
         $permissions = json_encode($permissions);
@@ -139,14 +137,12 @@ class MeTest extends TestCase {
             'permissions empty'       => [
                 new ErrorResponse(new InternalServerError()),
                 [],
-                [],
                 static function () {
                     return null;
                 },
             ],
             'guest'                   => [
                 new GraphQLUnauthenticated('value'),
-                [],
                 ['a', 'b', 'c'],
                 static function () {
                     return null;
@@ -154,7 +150,6 @@ class MeTest extends TestCase {
             ],
             'user with permission'    => [
                 new GraphQLSuccess('value', null),
-                [],
                 ['a', 'b', 'c'],
                 static function () {
                     return User::factory()->make([
@@ -164,7 +159,6 @@ class MeTest extends TestCase {
             ],
             'user without permission' => [
                 new GraphQLUnauthorized('value'),
-                [],
                 ['a', 'b', 'c'],
                 static function () {
                     return User::factory()->make([
@@ -174,16 +168,10 @@ class MeTest extends TestCase {
             ],
             'root without permission' => [
                 new GraphQLSuccess('value', null),
-                [
-                    'ep.root_users' => [
-                        '96948814-7626-4aab-a5a8-f0b7b4be8e6d',
-                        'f470ecc9-1394-4f95-bfa2-435307f9c4f3',
-                    ],
-                ],
                 ['a', 'b', 'c'],
                 static function () {
                     return User::factory()->make([
-                        'id'          => 'f470ecc9-1394-4f95-bfa2-435307f9c4f3',
+                        'type'        => UserType::local(),
                         'permissions' => [],
                     ]);
                 },

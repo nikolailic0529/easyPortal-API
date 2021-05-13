@@ -3,11 +3,11 @@
     "type": "object",
     "additionalProperties": false,
     "required": [
-        "url"
+        "me"
     ],
     "properties": {
-        "url": {
-            "$ref": "../../types.json#/definitions/url"
+        "me": {
+            "type": "object"
         }
     }
 }

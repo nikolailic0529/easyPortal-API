@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Directives\Directives;
 
+use App\Models\Enums\UserType;
 use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -39,12 +40,9 @@ class RootTest extends TestCase {
      * @covers ::resolveField
      *
      * @dataProvider dataProviderResolveField
-     *
-     * @param array<string,mixed> $settings
      */
-    public function testResolveField(Response $expected, array $settings, Closure $userFactory): void {
+    public function testResolveField(Response $expected, Closure $userFactory): void {
         $this->setUser($userFactory);
-        $this->setSettings($settings);
 
         $resolver = addslashes(RootDirectiveTest_Resolver::class);
 
@@ -78,36 +76,21 @@ class RootTest extends TestCase {
         return [
             'no settings - no user' => [
                 new GraphQLUnauthenticated('value'),
-                [],
                 static function () {
                     return null;
                 },
             ],
             'user is not root'      => [
                 new GraphQLUnauthorized('value'),
-                [
-                    'ep.root_users' => [
-                        '96948814-7626-4aab-a5a8-f0b7b4be8e6d',
-                        'f470ecc9-1394-4f95-bfa2-435307f9c4f3',
-                    ],
-                ],
                 static function () {
-                    return User::factory()->make([
-                        'id' => 'da83c04b-5273-418f-ad78-134324cc1c01',
-                    ]);
+                    return User::factory()->make();
                 },
             ],
-            'user is root'          => [
+            'local user is root'    => [
                 new GraphQLSuccess('value', null),
-                [
-                    'ep.root_users' => [
-                        '96948814-7626-4aab-a5a8-f0b7b4be8e6d',
-                        'f470ecc9-1394-4f95-bfa2-435307f9c4f3',
-                    ],
-                ],
                 static function () {
                     return User::factory()->make([
-                        'id' => 'f470ecc9-1394-4f95-bfa2-435307f9c4f3',
+                        'type' => UserType::local(),
                     ]);
                 },
             ],

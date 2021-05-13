@@ -2,13 +2,35 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
+use App\Models\Enums\UserType;
+use App\Models\Organization;
+use App\Models\User;
+use App\Services\Organization\RootOrganization;
+use LastDragon_ru\LaraASP\Migrator\Seeders\SmartSeeder;
 
-class DatabaseSeeder extends Seeder {
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void {
-        // \App\Models\User::factory(10)->create();
+use function app;
+
+class DatabaseSeeder extends SmartSeeder {
+    public function seed(): void {
+        // Root organization
+        $root                                        = app()->make(RootOrganization::class);
+        $organization                                = new Organization();
+        $organization->{$organization->getKeyName()} = $root->getKey();
+        $organization->name                          = 'Root Organization';
+        $organization->keycloak_scope                = 'rootorganization';
+        $organization->save();
+
+        // Root user
+        $user                 = new User();
+        $user->type           = UserType::local();
+        $user->given_name     = 'Root';
+        $user->family_name    = 'User';
+        $user->email          = 'fakharanwar@hotmail.com';
+        $user->email_verified = true;
+        $user->phone          = '';
+        $user->phone_verified = false;
+        $user->permissions    = [];
+        $user->organization   = $organization;
+        $user->save();
     }
 }
