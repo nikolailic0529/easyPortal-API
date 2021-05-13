@@ -112,6 +112,7 @@ class KeyCloak {
 
     public function signOut(): ?string {
         // First we try to sign out without redirect
+        $token      = null;
         $provider   = $this->getProvider();
         $successful = false;
 
@@ -132,7 +133,7 @@ class KeyCloak {
         // And the last step - redirect if sign out failed.
         $url = null;
 
-        if (!$successful) {
+        if ($token && !$successful) {
             $url = $provider->getSignOutUrl([
                 'redirect_uri' => $this->getRedirectUri(
                     $this->config->get('ep.keycloak.redirects.signout_uri'),
