@@ -110,7 +110,6 @@ class OrganizationTest extends TestCase {
                                     'branding_secondary_color' => '#000000',
                                     'website_url'              => 'https://www.example.com',
                                     'email'                    => 'test@example.com',
-                                    'subdomain'                => 'org1',
                                 ]);
 
                             return $organization;

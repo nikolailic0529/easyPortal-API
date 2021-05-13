@@ -660,6 +660,27 @@ type Mutation {
   authorizeOrganization(input: AuthorizeOrganizationInput): AuthorizeOrganizationPayload
 
   """
+  Reset password.
+  
+  @require <guest> Current visitor must be a guest.
+  """
+  resetPassword(input: ResetPasswordInput): ResetPasswordPayload
+
+  """
+  Send reset password link if local user with given email exists.
+  
+  @require <guest> Current visitor must be a guest.
+  """
+  sendResetPasswordLink(input: SendResetPasswordLinkInput): SendResetPasswordLinkPayload
+
+  """
+  Sign In for local users.
+  
+  @require <guest> Current visitor must be a guest.
+  """
+  signIn(input: SignInInput): SignInPayload
+
+  """
   Begins the Sign In for Organization.
   
   @require <guest> Current visitor must be a guest.
@@ -1003,6 +1024,16 @@ input ResellerConnectedSort {
 input ResellersQuery {
   id: ID!
   name: String!
+}
+
+input ResetPasswordInput {
+  email: String!
+  token: String!
+  password: String!
+}
+
+type ResetPasswordPayload {
+  result: Boolean!
 }
 
 """
@@ -1974,12 +2005,25 @@ input SearchByScalarStringOrNull {
   not: SearchByFlag
 }
 
+input SendResetPasswordLinkInput {
+  email: String!
+}
+
+type SendResetPasswordLinkPayload {
+  result: Boolean!
+}
+
 input SetApplicationLocaleInput {
   locale: String!
 }
 
 type SetApplicationLocalePayload {
   result: Boolean!
+}
+
+input SignInInput {
+  email: String!
+  password: String!
 }
 
 input SignInOrganizationInput {
@@ -1989,6 +2033,10 @@ input SignInOrganizationInput {
 type SignInOrganizationPayload {
   """The link where the User should be redirected to Sign In."""
   url: String!
+}
+
+type SignInPayload {
+  me: Me
 }
 
 type SignOutPayload {

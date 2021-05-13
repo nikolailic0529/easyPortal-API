@@ -659,12 +659,6 @@
                 "id": {
                     "$ref": "#/definitions/ID"
                 },
-                "subdomain": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
                 "name": {
                     "type": "string"
                 },

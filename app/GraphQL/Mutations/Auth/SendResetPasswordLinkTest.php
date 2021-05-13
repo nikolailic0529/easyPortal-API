@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations\Auth;
 
 use App\Models\Enums\UserType;
+use App\Models\Organization;
 use App\Models\User;
 use Closure;
 use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
@@ -34,6 +35,7 @@ class SendResetPasswordLinkTest extends TestCase {
         string $email = null,
     ): void {
         // Prepare
+        $this->setRootOrganization(Organization::factory()->create());
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
         $user = null;
@@ -48,7 +50,7 @@ class SendResetPasswordLinkTest extends TestCase {
         // Test
         $this
             ->graphQL(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 mutation sendResetPasswordLink($input: SendResetPasswordLinkInput) {
                     sendResetPasswordLink(input: $input) {
@@ -58,7 +60,7 @@ class SendResetPasswordLinkTest extends TestCase {
                 GRAPHQL,
                 [
                     'input' => [
-                        'email' => $user->email ?? '',
+                        'email' => $email ?? '',
                     ],
                 ],
             )
@@ -105,11 +107,13 @@ class SendResetPasswordLinkTest extends TestCase {
                     new GraphQLSuccess('sendResetPasswordLink', self::class, [
                         'result' => false,
                     ]),
-                    static function (): User {
-                        return User::factory()->create([
+                    static function (): ?User {
+                        User::factory()->create([
                             'type'  => UserType::keycloak(),
                             'email' => 'test@example.com',
                         ]);
+
+                        return null;
                     },
                     'test@example.com',
                 ],

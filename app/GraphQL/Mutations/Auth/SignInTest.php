@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations\Auth;
 
 use App\Models\Enums\UserType;
+use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Exceptions\InvalidCredentials;
 use Closure;
@@ -40,6 +41,7 @@ class SignInTest extends TestCase {
         ],
     ): void {
         // Prepare
+        $this->setRootOrganization(Organization::factory()->create());
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
         if ($prepare) {

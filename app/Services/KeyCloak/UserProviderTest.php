@@ -5,7 +5,6 @@ namespace App\Services\KeyCloak;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
-use App\Services\Auth\Auth;
 use App\Services\KeyCloak\Exceptions\AnotherUserExists;
 use Closure;
 use Exception;
@@ -49,15 +48,15 @@ class UserProviderTest extends TestCase {
     ): void {
         $prepare($this);
 
-        $credentials = $credentialsFactory($this);
-        $provider    = $this->app->make(UserProvider::class);
-        $actual      = $provider->retrieveByCredentials($credentials);
-        $auth        = $this->app->make(Auth::class);
+        $organization = $this->setRootOrganization(Organization::factory()->create());
+        $credentials  = $credentialsFactory($this);
+        $provider     = $this->app->make(UserProvider::class);
+        $actual       = $provider->retrieveByCredentials($credentials);
 
         if ($expected) {
             $this->assertNotNull($actual);
             $this->assertEquals($expected, $actual->getKey());
-            $this->assertEquals($auth->getPermissions(), $auth->getPermissions());
+            $this->assertEquals($organization, $actual->getOrganization());
         } else {
             $this->assertNull($actual);
         }

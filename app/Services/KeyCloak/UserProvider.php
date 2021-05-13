@@ -5,9 +5,9 @@ namespace App\Services\KeyCloak;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
-use App\Services\Auth\Auth;
 use App\Services\KeyCloak\Exceptions\AnotherUserExists;
 use App\Services\KeyCloak\Exceptions\InsufficientData;
+use App\Services\Organization\RootOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as UserProviderContract;
 use Illuminate\Contracts\Hashing\Hasher;
@@ -80,10 +80,29 @@ class UserProvider implements UserProviderContract {
         protected KeyCloak $keycloak,
         protected Jwt $jwt,
         protected Hasher $hasher,
-        protected Auth $auth,
+        protected RootOrganization $rootOrganization,
     ) {
         // empty
     }
+
+    // <editor-fold desc="Getters">
+    // =========================================================================
+    protected function getKeyCloak(): KeyCloak {
+        return $this->keycloak;
+    }
+
+    protected function getJwt(): Jwt {
+        return $this->jwt;
+    }
+
+    protected function getHasher(): Hasher {
+        return $this->hasher;
+    }
+
+    public function getRootOrganization(): Organization {
+        return $this->rootOrganization->get();
+    }
+    // </editor-fold>
 
     // <editor-fold desc="UserProvider">
     // =========================================================================
@@ -174,22 +193,6 @@ class UserProvider implements UserProviderContract {
 
     // <editor-fold desc="Helpers">
     // =========================================================================
-    protected function getKeyCloak(): KeyCloak {
-        return $this->keycloak;
-    }
-
-    protected function getJwt(): Jwt {
-        return $this->jwt;
-    }
-
-    protected function getHasher(): Hasher {
-        return $this->hasher;
-    }
-
-    protected function getAuth(): Auth {
-        return $this->auth;
-    }
-
     /**
      * @param array<mixed> $credentials
      */
@@ -280,7 +283,7 @@ class UserProvider implements UserProviderContract {
     }
 
     protected function updateLocalUser(User $user): User {
-        $user->permissions = $this->getAuth()->getPermissions();
+        $user->organization = $this->getRootOrganization();
         $user->save();
 
         return $user;

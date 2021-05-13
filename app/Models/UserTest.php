@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Enums\UserType;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 /**
  * @internal
@@ -17,7 +17,7 @@ class UserTest extends TestCase {
         foreach (UserType::getValues() as $type) {
             $this->assertEquals($type === UserType::local(), User::factory()->make([
                 'type' => $type,
-            ]));
+            ])->isRoot());
         }
     }
 }

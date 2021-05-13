@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations\Auth;
 
 use App\Models\Enums\UserType;
+use App\Models\Organization;
 use App\Models\PasswordReset;
 use App\Models\User;
 use Closure;
@@ -36,6 +37,7 @@ class ResetPasswordTest extends TestCase {
         Closure $inputFactory = null,
     ): void {
         // Prepare
+        $this->setRootOrganization(Organization::factory()->create());
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
         $success = null;
