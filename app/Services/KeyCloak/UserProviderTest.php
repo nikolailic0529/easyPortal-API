@@ -87,7 +87,7 @@ class UserProviderTest extends TestCase {
             $provider
                 ->shouldReceive('getToken')
                 ->once()
-                ->andReturnUsing(function (array $credentials) {
+                ->andReturnUsing(static function (array $credentials) {
                     return $credentials[UserProvider::CREDENTIAL_ACCESS_TOKEN];
                 });
 
@@ -135,7 +135,7 @@ class UserProviderTest extends TestCase {
             $provider
                 ->shouldReceive('getToken')
                 ->once()
-                ->andReturnUsing(function (array $credentials) {
+                ->andReturnUsing(static function (array $credentials) {
                     return $credentials[UserProvider::CREDENTIAL_ACCESS_TOKEN] ?? null;
                 });
         }
@@ -279,16 +279,16 @@ class UserProviderTest extends TestCase {
         return [
             'empty'                              => [
                 null,
-                static function () {
+                static function (): void {
                     User::factory()->create();
                 },
-                static function () {
+                static function (): void {
                     return [];
                 },
             ],
             'local user by email'                => [
                 'de238c70-3253-411b-a176-f15192a9c1e1',
-                static function () {
+                static function (): void {
                     User::factory()->create([
                         'id'    => 'de238c70-3253-411b-a176-f15192a9c1e1',
                         'type'  => UserType::local(),
@@ -303,7 +303,7 @@ class UserProviderTest extends TestCase {
             ],
             'local user by email (soft deleted)' => [
                 null,
-                static function (TestCase $test) {
+                static function (TestCase $test): void {
                     User::factory()->create([
                         'type'       => UserType::local(),
                         'email'      => 'email@example.com',
@@ -318,7 +318,7 @@ class UserProviderTest extends TestCase {
             ],
             'keycloak user by email'             => [
                 null,
-                static function () {
+                static function (): void {
                     User::factory()->create([
                         'type'  => UserType::keycloak(),
                         'email' => 'email@example.com',
@@ -340,7 +340,7 @@ class UserProviderTest extends TestCase {
         return [
             'empty'                                  => [
                 null,
-                static function () {
+                static function (): void {
                     User::factory()->create();
                 },
                 static function () {
@@ -349,7 +349,7 @@ class UserProviderTest extends TestCase {
             ],
             'keycloak user exists + valid token'     => [
                 false,
-                static function () {
+                static function (): void {
                     User::factory()->create([
                         'id'   => 'c1aa09cc-0bd8-490e-8c7b-25c18df23e18',
                         'type' => UserType::keycloak(),
@@ -359,7 +359,7 @@ class UserProviderTest extends TestCase {
                     return [
                         UserProvider::CREDENTIAL_ACCESS_TOKEN => $test->getToken(
                             [],
-                            static function (Builder $builder) {
+                            static function (Builder $builder): void {
                                 $builder->relatedTo('c1aa09cc-0bd8-490e-8c7b-25c18df23e18');
                             },
                         ),
@@ -368,14 +368,14 @@ class UserProviderTest extends TestCase {
             ],
             'keycloak user not exists + valid token' => [
                 true,
-                static function () {
+                static function (): void {
                     // empty
                 },
                 static function (UserProviderTest $test) {
                     return [
                         UserProvider::CREDENTIAL_ACCESS_TOKEN => $test->getToken(
                             [],
-                            static function (Builder $builder) {
+                            static function (Builder $builder): void {
                                 $builder->relatedTo('c1aa09cc-0bd8-490e-8c7b-25c18df23e18');
                             },
                         ),
@@ -386,7 +386,7 @@ class UserProviderTest extends TestCase {
                 new AnotherUserExists((new User())->forceFill([
                     'id' => 'c1aa09cc-0bd8-490e-8c7b-25c18df23e18',
                 ])),
-                static function () {
+                static function (): void {
                     User::factory()->create([
                         'id'   => 'c1aa09cc-0bd8-490e-8c7b-25c18df23e18',
                         'type' => UserType::local(),
@@ -396,7 +396,7 @@ class UserProviderTest extends TestCase {
                     return [
                         UserProvider::CREDENTIAL_ACCESS_TOKEN => $test->getToken(
                             [],
-                            static function (Builder $builder) {
+                            static function (Builder $builder): void {
                                 $builder->relatedTo('c1aa09cc-0bd8-490e-8c7b-25c18df23e18');
                             },
                         ),
@@ -442,7 +442,7 @@ class UserProviderTest extends TestCase {
                     return [
                         UserProvider::CREDENTIAL_ACCESS_TOKEN => $test->getToken(
                             [],
-                            static function (Builder $builder) {
+                            static function (Builder $builder): void {
                                 $builder->relatedTo('6b9dcdcd-a8e9-44c7-b750-f80a974b2a35');
                             },
                         ),
@@ -458,7 +458,7 @@ class UserProviderTest extends TestCase {
                     return [
                         UserProvider::CREDENTIAL_ACCESS_TOKEN => $test->getToken(
                             [],
-                            static function (Builder $builder) {
+                            static function (Builder $builder): void {
                                 $builder->relatedTo('6b9dcdcd-a8e9-44c7-b750-f80a974b2a35');
                             },
                         ),

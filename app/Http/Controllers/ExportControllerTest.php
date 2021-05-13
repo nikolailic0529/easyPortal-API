@@ -16,7 +16,6 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Maatwebsite\Excel\Facades\Excel;
 use Tests\DataProviders\Http\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\Http\Users\AuthUserDataProvider;
 use Tests\DataProviders\Http\Users\UserDataProvider;
 use Tests\TestCase;
 

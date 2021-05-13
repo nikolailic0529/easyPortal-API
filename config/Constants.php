@@ -3,7 +3,6 @@
 namespace Config;
 
 use App\Jobs\Queues;
-use App\Rules\OrganizationId;
 use App\Services\DataLoader\Jobs\CustomersUpdaterCronJob;
 use App\Services\DataLoader\Jobs\CustomerUpdate;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;

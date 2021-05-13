@@ -217,9 +217,9 @@ trait Helper {
 
         if ($object instanceof Document) {
             $persons = $object->contactPersons;
-        } else if ($object instanceof Company) {
+        } elseif ($object instanceof Company) {
             $persons = $object->companyContactPersons;
-        } else if ($object instanceof Asset) {
+        } elseif ($object instanceof Asset) {
             $persons = $object->latestContactPersons;
         } else {
             // empty
