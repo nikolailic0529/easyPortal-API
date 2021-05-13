@@ -89,7 +89,7 @@ class ResetPasswordTest extends TestCase {
             new AnyOrganizationDataProvider('resetPassword'),
             new GuestDataProvider('resetPassword'),
             new ArrayDataProvider([
-                'no user'                     => [
+                'no user'                              => [
                     new GraphQLSuccess('resetPassword', self::class, [
                         'result' => false,
                     ]),
@@ -104,7 +104,7 @@ class ResetPasswordTest extends TestCase {
                         ];
                     },
                 ],
-                'invalid token'               => [
+                'invalid token'                        => [
                     new GraphQLSuccess('resetPassword', self::class, [
                         'result' => false,
                     ]),
@@ -128,7 +128,7 @@ class ResetPasswordTest extends TestCase {
                         ];
                     },
                 ],
-                'user exists and token valid' => [
+                'user exists and token valid'          => [
                     new GraphQLSuccess('resetPassword', self::class, [
                         'result' => true,
                     ]),

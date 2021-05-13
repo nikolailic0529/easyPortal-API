@@ -80,7 +80,7 @@ class SendResetPasswordLinkTest extends TestCase {
             new AnyOrganizationDataProvider('sendResetPasswordLink'),
             new GuestDataProvider('sendResetPasswordLink'),
             new ArrayDataProvider([
-                'no user'     => [
+                'no user'              => [
                     new GraphQLSuccess('sendResetPasswordLink', self::class, [
                         'result' => false,
                     ]),
@@ -89,13 +89,25 @@ class SendResetPasswordLinkTest extends TestCase {
                     },
                     'test@example.com',
                 ],
-                'user exists' => [
+                'user exists'          => [
                     new GraphQLSuccess('sendResetPasswordLink', self::class, [
                         'result' => true,
                     ]),
                     static function (): User {
                         return User::factory()->create([
                             'type'  => UserType::local(),
+                            'email' => 'test@example.com',
+                        ]);
+                    },
+                    'test@example.com',
+                ],
+                'keycloak user exists' => [
+                    new GraphQLSuccess('sendResetPasswordLink', self::class, [
+                        'result' => false,
+                    ]),
+                    static function (): User {
+                        return User::factory()->create([
+                            'type'  => UserType::keycloak(),
                             'email' => 'test@example.com',
                         ]);
                     },
