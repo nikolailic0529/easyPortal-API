@@ -415,6 +415,8 @@ class Client {
             supportPackageDescription
 
             warrantyEndDate
+
+            estimatedValueRenewal
             GRAPHQL;
     }
     //</editor-fold>
