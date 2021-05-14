@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Factories;
 
+use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Company;
@@ -9,6 +10,7 @@ use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Facades\Event;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -70,6 +72,9 @@ class ResellerFactoryTest extends TestCase {
      * @covers ::createFromCompany
      */
     public function testCreateFromCompany(): void {
+        // Fake
+        Event::fake();
+
         // Prepare
         $factory = $this->app
             ->make(ResellerFactory::class)
@@ -105,6 +110,9 @@ class ResellerFactoryTest extends TestCase {
             $this->getCompanyLocations($company),
             $this->getResellerLocations($updated),
         );
+
+        // Events
+        Event::assertDispatchedTimes(ResellerUpdated::class, 2);
     }
 
     /**
@@ -112,6 +120,9 @@ class ResellerFactoryTest extends TestCase {
      * @covers ::createFromCompany
      */
     public function testCreateFromCompanyResellerOnly(): void {
+        // Fake
+        Event::fake();
+
         // Prepare
         $factory = $this->app->make(ResellerFactory::class);
 
@@ -124,6 +135,9 @@ class ResellerFactoryTest extends TestCase {
         $this->assertTrue($reseller->wasRecentlyCreated);
         $this->assertEquals($company->id, $reseller->getKey());
         $this->assertEquals($company->name, $reseller->name);
+
+        // Events
+        Event::assertDispatchedTimes(ResellerUpdated::class, 1);
     }
 
     /**
@@ -131,11 +145,19 @@ class ResellerFactoryTest extends TestCase {
      * @covers ::createFromCompany
      */
     public function testCreateFromCompanyTypeIsCustomer(): void {
+        // Fake
+        Event::fake();
+
+        // Prepare
         $factory = $this->app->make(ResellerFactory::class);
         $json    = $this->getTestData()->json('~customer.json');
         $company = Company::create($json);
 
+        // Test
         $this->assertNotNull($factory->create($company));
+
+        // Events
+        Event::assertDispatchedTimes(ResellerUpdated::class, 1);
     }
 
     /**

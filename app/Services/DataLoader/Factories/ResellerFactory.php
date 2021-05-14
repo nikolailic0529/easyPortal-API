@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Factories;
 
 use App\Models\Reseller;
+use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Factories\Concerns\WithLocations;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
@@ -11,6 +12,7 @@ use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use Closure;
+use Illuminate\Contracts\Events\Dispatcher;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
@@ -27,6 +29,7 @@ class ResellerFactory extends ModelFactory {
         Normalizer $normalizer,
         protected TypeResolver $types,
         protected ResellerResolver $resellers,
+        protected Dispatcher $events,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -99,6 +102,8 @@ class ResellerFactory extends ModelFactory {
             }
 
             $reseller->save();
+
+            $this->events->dispatch(new ResellerUpdated($reseller, $company));
 
             return $reseller;
         });

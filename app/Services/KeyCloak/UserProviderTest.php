@@ -282,7 +282,7 @@ class UserProviderTest extends TestCase {
                 static function (): void {
                     User::factory()->create();
                 },
-                static function (): void {
+                static function () {
                     return [];
                 },
             ],
