@@ -109,21 +109,21 @@ class DocumentFactory extends ModelFactory {
         // Get/Create
         $created = false;
         $factory = $this->factory(function (DocumentModel $model) use (&$created, $document): DocumentModel {
-            $created         = !$model->exists;
-            $model->id       = $this->normalizer->uuid($document->document->id);
-            $model->oem      = $this->documentOem($document);
-            $model->type     = $this->documentType($document);
-            $model->product  = $this->documentProduct($document);
-            $model->reseller = $this->documentReseller($document);
-            $model->customer = $this->documentCustomer($document);
-            $model->currency = $this->documentCurrency($document);
-            $model->language = $this->documentLanguage($document);
-            $model->start    = $this->normalizer->datetime($document->document->startDate);
-            $model->end      = $this->normalizer->datetime($document->document->endDate);
-            $model->price    = $this->normalizer->number($document->document->totalNetPrice);
-            $model->number   = $this->normalizer->string($document->document->documentNumber);
-            $model->contacts = $this->objectContacts($model, $document->document->contactPersons);
-
+            $created                        = !$model->exists;
+            $model->id                      = $this->normalizer->uuid($document->document->id);
+            $model->oem                     = $this->documentOem($document);
+            $model->type                    = $this->documentType($document);
+            $model->product                 = $this->documentProduct($document);
+            $model->reseller                = $this->documentReseller($document);
+            $model->customer                = $this->documentCustomer($document);
+            $model->currency                = $this->documentCurrency($document);
+            $model->language                = $this->documentLanguage($document);
+            $model->start                   = $this->normalizer->datetime($document->document->startDate);
+            $model->end                     = $this->normalizer->datetime($document->document->endDate);
+            $model->price                   = $this->normalizer->number($document->document->totalNetPrice);
+            $model->number                  = $this->normalizer->string($document->document->documentNumber);
+            $model->contacts                = $this->objectContacts($model, $document->document->contactPersons);
+            $model->estimated_value_renewal = $this->normalizer->number($document->estimatedValueRenewal);
             $model->save();
 
             return $model;

@@ -52,7 +52,8 @@
             "warrantyEndDate": null,
             "netPrice": "23.4",
             "discount": "-2.05",
-            "listPrice": "48"
+            "listPrice": "48",
+            "estimatedValueRenewal": "145"
         },
         {
             "document": {
@@ -88,7 +89,8 @@
             "warrantyEndDate": null,
             "netPrice": "23.4",
             "discount": "-2.05",
-            "listPrice": "48"
+            "listPrice": "48",
+            "estimatedValueRenewal": "25"
         },
         {
             "document": {
@@ -124,7 +126,8 @@
             "warrantyEndDate": null,
             "netPrice": "23.4",
             "discount": "-2.05",
-            "listPrice": "48"
+            "listPrice": "48",
+            "estimatedValueRenewal": "10.44"
         },
         {
             "document": {
@@ -160,7 +163,8 @@
             "warrantyEndDate": null,
             "netPrice": "23.4",
             "discount": "-2.05",
-            "listPrice": "48"
+            "listPrice": "48",
+            "estimatedValueRenewal": "40"
         },
         {
             "document": {
@@ -196,7 +200,8 @@
             "warrantyEndDate": null,
             "netPrice": "23.4",
             "discount": "-2.05",
-            "listPrice": "48"
+            "listPrice": "48",
+            "estimatedValueRenewal": "0"
         },
         {
             "document": {
@@ -205,7 +210,7 @@
                 "startDate": "1583020800000",
                 "endDate": "1740700800000",
                 "currencyCode": "CUR",
-                "languageCode":"fr",
+                "languageCode": "fr",
                 "totalNetPrice": "6,376.15",
                 "vendorSpecificFields": {
                     "vendor": "HPE"
@@ -232,7 +237,8 @@
             "warrantyEndDate": null,
             "netPrice": "23.4",
             "discount": "-2.05",
-            "listPrice": "48"
+            "listPrice": "48",
+            "estimatedValueRenewal": "24.3"
         }
     ]
 }

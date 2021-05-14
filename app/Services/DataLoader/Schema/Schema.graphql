@@ -47,6 +47,7 @@ type AssetDocument {
   netPrice: String
   discount: String
   listPrice: String
+  estimatedValueRenewal: String
 }
 
 type Company {
@@ -197,9 +198,18 @@ type Query {
   getAssetsBySerialNumber(serialNumber: String): Asset
   getAssetsByCustomerId(customerId: String!, limit: Int, offset: Int): [Asset]!
   getAssetsByResellerId(resellerId: String!, limit: Int, offset: Int): [Asset]!
-  getAssetsByDistributorId(distributorId: String!, limit: Int, offset: Int): [Asset]!
+  getAssetsByDistributorId(
+    distributorId: String!
+    limit: Int
+    offset: Int
+  ): [Asset]!
   getAssetsByVendor(vendor: String!, limit: Int, offset: Int): [Asset]!
-  getDocumentsByCostumer(customerId: String!, type: String, limit: Int, offset: Int): [Document]!
+  getDocumentsByCostumer(
+    customerId: String!
+    type: String
+    limit: Int
+    offset: Int
+  ): [Document]!
   getAssets(args: [KeyValuePair], limit: Int, offset: Int): [Asset]!
   getCompanyById(id: String): [Company]!
   assets(limit: Int, offset: Int): [Asset]!

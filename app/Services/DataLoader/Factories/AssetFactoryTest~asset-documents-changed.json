@@ -52,7 +52,8 @@
             "warrantyEndDate": null,
             "netPrice": null,
             "discount": null,
-            "listPrice": null
+            "listPrice": null,
+            "estimatedValueRenewal": "1.1"
         },
         {
             "document": {
@@ -95,7 +96,8 @@
             "warrantyEndDate": null,
             "netPrice": null,
             "discount": null,
-            "listPrice": null
+            "listPrice": null,
+            "estimatedValueRenewal": null
         },
         {
             "document": {
@@ -131,7 +133,8 @@
             "warrantyEndDate": null,
             "netPrice": null,
             "discount": null,
-            "listPrice": null
+            "listPrice": null,
+            "estimatedValueRenewal": null
         }
     ]
 }

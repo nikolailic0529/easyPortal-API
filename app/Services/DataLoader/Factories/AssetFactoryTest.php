@@ -448,6 +448,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals('HPE', $a->product->oem->abbr);
         $this->assertEquals('HPE', $a->oem->abbr);
         $this->assertEquals(1, $a->contacts_count);
+        $this->assertEquals('40.00', $a->estimated_value_renewal);
 
         $this->assertCount(1, $a->entries);
         $this->assertCount(1, $a->contacts);
@@ -475,6 +476,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals('0056490551', $b->number);
         $this->assertEquals('6376.15', $b->price);
         $this->assertEquals(1, $b->contacts_count);
+        $this->assertEquals('24.30', $b->estimated_value_renewal);
 
         $this->assertCount(2, $b->entries);
         $this->assertCount(1, $b->contacts);
@@ -494,6 +496,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertNotNull($c);
         $this->assertCount(2, $c->entries);
         $this->assertCount(1, $c->contacts);
+        $this->assertEquals('0.00', $c->estimated_value_renewal);
 
         // Changed
         // ---------------------------------------------------------------------
@@ -515,6 +518,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals(2, $a->contacts_count);
         $this->assertEquals('EUR', $a->currency->code);
         $this->assertEquals('en', $a->language->code);
+        $this->assertNull($a->estimated_value_renewal);
 
         $this->assertCount(1, $a->entries);
         $this->assertCount(2, $a->contacts);

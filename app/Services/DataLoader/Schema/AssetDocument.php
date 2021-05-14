@@ -21,4 +21,6 @@ class AssetDocument extends Type {
     public ?string $netPrice;
     public ?string $discount;
     public ?string $listPrice;
+
+    public ?string $estimatedValueRenewal;
 }
