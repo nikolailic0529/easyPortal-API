@@ -726,6 +726,24 @@ type Organization {
   locations: [Location!]
 }
 
+"""A paginated list of Organization items."""
+type OrganizationPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of Organization items."""
+  data: [Organization!]!
+}
+
+input OrganizationsQuery {
+  id: ID!
+  name: String!
+}
+
+input OrganizationsSort {
+  name: String!
+}
+
 """Pagination information about the corresponding list of items."""
 type PageInfo {
   """When paginating forwards, are there more items?"""
@@ -893,13 +911,6 @@ type Query {
   """
   quote(id: ID!): Document
 
-  """
-  List of all organizations.
-  
-  @require <root> Authenticated user must be a root.
-  """
-  organizations(where: SearchByConditionResellerConnectedQuery, order: [SortByClauseResellerConnectedSort!]): [ResellerConnected!]!
-
   """Get Locale"""
   locale: String! @deprecated(reason: "use Application.locale instead")
 
@@ -974,6 +985,22 @@ type Query {
     """The offset from which elements are returned."""
     page: Int
   ): DocumentPaginator
+
+  """
+  List of all organizations.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  organizations(
+    where: SearchByConditionOrganizationsQuery
+    order: [SortByClauseOrganizationsSort!]
+
+    """Limits number of fetched elements. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which elements are returned."""
+    page: Int
+  ): OrganizationPaginator
 }
 
 input RecoverApplicationTranslationsInput {
@@ -999,27 +1026,7 @@ type RecoverClientTranslationsPayload {
 type Reseller {
   id: ID!
   name: String!
-  customers_count: Int
-  locations_count: Int
-  assets_count: Int
-  assets: [Asset!]!
-  customers: [Customer!]!
   locations: [Location!]!
-}
-
-type ResellerConnected {
-  id: ID!
-  name: String!
-  connected: Boolean!
-}
-
-input ResellerConnectedQuery {
-  id: ID!
-  name: String!
-}
-
-input ResellerConnectedSort {
-  name: String!
 }
 
 input ResellersQuery {
@@ -1395,6 +1402,26 @@ input SearchByConditionMeSearchQuery {
 }
 
 """
+Available conditions for input OrganizationsQuery (only one property allowed at a time).
+"""
+input SearchByConditionOrganizationsQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionOrganizationsQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionOrganizationsQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  name: SearchByScalarString
+}
+
+"""
 Available conditions for input ProductsQuery (only one property allowed at a time).
 """
 input SearchByConditionProductsQuery {
@@ -1415,26 +1442,6 @@ input SearchByConditionProductsQuery {
 
   """Property condition."""
   sku: SearchByScalarString
-
-  """Property condition."""
-  name: SearchByScalarString
-}
-
-"""
-Available conditions for input ResellerConnectedQuery (only one property allowed at a time).
-"""
-input SearchByConditionResellerConnectedQuery {
-  """All of the conditions must be true."""
-  allOf: [SearchByConditionResellerConnectedQuery!]
-
-  """Any of the conditions must be true."""
-  anyOf: [SearchByConditionResellerConnectedQuery!]
-
-  """Not."""
-  not: SearchByFlag
-
-  """Property condition."""
-  id: SearchByScalarID
 
   """Property condition."""
   name: SearchByScalarString
@@ -2189,6 +2196,14 @@ input SortByClauseMeSearchSort {
 }
 
 """
+Sort clause for input OrganizationsSort (only one property allowed at a time).
+"""
+input SortByClauseOrganizationsSort {
+  """Property clause."""
+  name: SortByDirection
+}
+
+"""
 Sort clause for input ProductsSort (only one property allowed at a time).
 """
 input SortByClauseProductsSort {
@@ -2206,14 +2221,6 @@ input SortByClauseProductsSort {
 
   """Property clause."""
   eos: SortByDirection
-}
-
-"""
-Sort clause for input ResellerConnectedSort (only one property allowed at a time).
-"""
-input SortByClauseResellerConnectedSort {
-  """Property clause."""
-  name: SortByDirection
 }
 
 """

@@ -151,11 +151,11 @@ type Query {
   # ============================================================================
   "List of all organizations."
   organizations(
-    where: ResellerConnectedQuery @searchBy
-    order: ResellerConnectedSort @sortBy
-  ): [ResellerConnected!]!
+    where: OrganizationsQuery @searchBy
+    order: OrganizationsSort @sortBy
+  ): [Organization!]!
   @root
-  @all(model: "App\\Models\\Reseller")
+  @paginate
 
   # Deprecated
   # ============================================================================

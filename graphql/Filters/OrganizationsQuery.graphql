@@ -1,0 +1,4 @@
+input OrganizationsQuery {
+  id: ID!
+  name: String!
+}

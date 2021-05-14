@@ -6,7 +6,6 @@ use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasLocations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Reseller.
@@ -35,7 +34,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property-read \App\Models\Organization|null $organization
  */
 class Reseller extends Model {
     use HasFactory;
@@ -57,9 +55,5 @@ class Reseller extends Model {
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->withTimestamps();
-    }
-
-    public function organization(): HasOne {
-        return $this->hasOne(Organization::class, (new Organization())->getKeyName());
     }
 }
