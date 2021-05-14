@@ -60,6 +60,7 @@ class AssetResolverTest extends TestCase {
                 'customer_id' => $uuid,
                 'location_id' => $uuid,
                 'reseller_id' => $uuid,
+                'status_id'   => null,
             ]);
         });
         $created = $provider->get($uuid, Closure::fromCallable($spy));
