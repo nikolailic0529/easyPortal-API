@@ -1,0 +1,6 @@
+input OrganizationsQuery {
+  id: ID!
+  name: String!
+  website_url: String
+  email: String
+}

@@ -3,14 +3,13 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Organization;
-use App\Models\Reseller;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
-use Tests\GraphQL\GraphQLSuccess;
+use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\GraphQL\GraphQLPaginated;
 use Tests\TestCase;
 
 /**
@@ -19,30 +18,40 @@ use Tests\TestCase;
 class OrganizationsTest extends TestCase {
     /**
      * @dataProvider dataProviderQuery
-     *
-     * @covers       \App\GraphQL\Queries\OrganizationsConnected::__invoke
      */
     public function testQuery(
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
-        Closure $resellerFactory = null,
+        Closure $prepare = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
-        if ($resellerFactory) {
-            $resellerFactory($this);
+        if ($prepare) {
+            $prepare($this);
         }
 
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '
-                {
+                query {
                   organizations {
-                    id
-                    name
-                    connected
+                    data {
+                      id
+                      name
+                      root
+                    }
+                    paginatorInfo {
+                      count
+                      currentPage
+                      firstItem
+                      hasMorePages
+                      lastItem
+                      lastPage
+                      perPage
+                      total
+                    }
                   }
                 }
             ')->assertThat($expected);
@@ -56,40 +65,15 @@ class OrganizationsTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('organizations'),
-            new RootUserDataProvider('organizations'),
+            new RootOrganizationDataProvider('organizations'),
+            new UserDataProvider('organizations', [
+                'administer',
+            ]),
             new ArrayDataProvider([
-                'ok'           => [
-                    new GraphQLSuccess('organizations', self::class, [
-                        [
-                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                            'name'      => 'Reseller1',
-                            'connected' => false,
-                        ],
-                    ]),
+                'ok' => [
+                    new GraphQLPaginated('organizations', self::class),
                     static function (): void {
-                        Reseller::factory()->create([
-                            'id'   => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                            'name' => 'Reseller1',
-                        ]);
-                    },
-                ],
-                'ok-connected' => [
-                    new GraphQLSuccess('organizations', self::class, [
-                        [
-                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                            'name'      => 'Reseller1',
-                            'connected' => true,
-                        ],
-                    ]),
-                    static function (): void {
-                        Reseller::factory()->create([
-                            'id'   => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                            'name' => 'Reseller1',
-                        ]);
-                        Organization::factory()->create([
-                            'id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                        ]);
+                        Organization::factory()->create();
                     },
                 ],
             ]),

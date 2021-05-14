@@ -651,6 +651,7 @@
             "required": [
                 "id",
                 "name",
+                "root",
                 "locale",
                 "branding_dark_theme",
                 "branding_primary_color",
@@ -660,6 +661,7 @@
                 "website_url",
                 "email",
                 "currency",
+                "currency_id",
                 "locations"
             ],
             "properties": {
@@ -668,6 +670,9 @@
                 },
                 "name": {
                     "type": "string"
+                },
+                "root": {
+                    "type": "boolean"
                 },
                 "locale": {
                     "type": [
@@ -719,6 +724,12 @@
                 },
                 "currency": {
                     "$ref": "#/definitions/Currency"
+                },
+                "currency_id": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "locations": {
                     "type": "array",

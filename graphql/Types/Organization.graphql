@@ -1,6 +1,7 @@
 type Organization {
     id: ID!
     name: String!
+    root: Boolean! @field(resolver: "App\\GraphQL\\Queries\\Organization@root")
     locale: String
     branding_dark_theme: Boolean
     branding_primary_color: String
@@ -9,6 +10,7 @@ type Organization {
     branding_favicon: String
     website_url: String
     email: String
+    currency_id: ID
     currency: Currency @belongsTo
     locations: [Location!] @morphMany
 }

@@ -4,10 +4,12 @@ namespace App\GraphQL\Queries;
 
 use App\Models\Organization as ModelsOrganization;
 use App\Services\Organization\CurrentOrganization;
+use App\Services\Organization\RootOrganization;
 
 class Organization {
     public function __construct(
-        protected CurrentOrganization $organization,
+        protected RootOrganization $root,
+        protected CurrentOrganization $current,
     ) {
         // empty
     }
@@ -17,8 +19,12 @@ class Organization {
      * @param array<string, mixed> $args
      */
     public function __invoke($_, array $args): ?ModelsOrganization {
-        return $this->organization->defined()
-            ? $this->organization->get()
+        return $this->current->defined()
+            ? $this->current->get()
             : null;
+    }
+
+    public function root(?ModelsOrganization $organization): bool {
+        return $this->root->is($organization);
     }
 }

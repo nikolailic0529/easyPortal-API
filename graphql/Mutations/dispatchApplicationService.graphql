@@ -5,7 +5,8 @@ extend type Mutation {
   dispatchApplicationService(
     input: DispatchApplicationServiceInput!
   ): DispatchApplicationServicePayload
-    @root
+  @organization(root: true)
+  @root
 }
 
 input DispatchApplicationServiceInput {

@@ -6,7 +6,8 @@ extend type Mutation {
   recoverApplicationTranslations(
     input: RecoverApplicationTranslationsInput!
   ): RecoverApplicationTranslationsPayload
-    @root
+  @organization(root: true)
+  @root
 }
 
 input RecoverApplicationTranslationsInput {

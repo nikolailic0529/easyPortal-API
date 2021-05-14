@@ -65,6 +65,47 @@ class OrganizationTest extends TestCase {
             )
             ->assertThat($expected);
     }
+
+    /**
+     * @covers ::resolveField
+     *
+     * @dataProvider dataProviderResolveFieldRootOnly
+     */
+    public function testResolveFieldRootOnly(
+        Response $expected,
+        Closure $organizationFactory,
+        Closure $userFactory,
+        bool $isRootOrganization = false,
+    ): void {
+        $organization = $this->setOrganization($organizationFactory);
+
+        $this->setUser($userFactory, $organization);
+
+        if ($isRootOrganization) {
+            $this->setRootOrganization($organization);
+        }
+
+        $resolver = addslashes(OrganizationDirectiveTest_Resolver::class);
+
+        $this
+            ->useGraphQLSchema(
+            /** @lang GraphQL */
+                <<<GRAPHQL
+                type Query {
+                    value: String! @organization(root: true) @field(resolver: "{$resolver}")
+                }
+                GRAPHQL,
+            )
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                query {
+                    value
+                }
+                GRAPHQL,
+            )
+            ->assertThat($expected);
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -111,6 +152,88 @@ class OrganizationTest extends TestCase {
                 static function () {
                     return User::factory()->create();
                 },
+            ],
+        ];
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderResolveFieldRootOnly(): array {
+        return [
+            'no organization - no user'                          => [
+                new GraphQLUnauthenticated('value'),
+                static function () {
+                    return null;
+                },
+                static function () {
+                    return null;
+                },
+                false,
+            ],
+            'organization - no user'                             => [
+                new GraphQLUnauthenticated('value'),
+                static function () {
+                    return Organization::factory()->make();
+                },
+                static function () {
+                    return null;
+                },
+                false,
+            ],
+            'root organization - no user'                        => [
+                new GraphQLUnauthenticated('value'),
+                static function () {
+                    return Organization::factory()->make();
+                },
+                static function () {
+                    return null;
+                },
+                true,
+            ],
+            'organization - user'                                => [
+                new GraphQLUnauthorized('value'),
+                static function () {
+                    return Organization::factory()->create();
+                },
+                static function (TestCase $test, Organization $organization) {
+                    return User::factory()->create([
+                        'organization_id' => $organization,
+                    ]);
+                },
+                false,
+            ],
+            'root organization - user'                           => [
+                new GraphQLSuccess('value', null),
+                static function () {
+                    return Organization::factory()->create();
+                },
+                static function (TestCase $test, Organization $organization) {
+                    return User::factory()->create([
+                        'organization_id' => $organization,
+                    ]);
+                },
+                true,
+            ],
+            'organization - user from another organization'      => [
+                new GraphQLUnauthorized('value'),
+                static function () {
+                    return Organization::factory()->create();
+                },
+                static function () {
+                    return User::factory()->create();
+                },
+                false,
+            ],
+            'root organization - user from another organization' => [
+                new GraphQLUnauthorized('value'),
+                static function () {
+                    return Organization::factory()->create();
+                },
+                static function () {
+                    return User::factory()->create();
+                },
+                true,
             ],
         ];
     }

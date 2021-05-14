@@ -2,8 +2,7 @@
 
 namespace App\Providers;
 
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use App\Services\Organization\Listeners\OrganizationUpdater;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider {
@@ -15,9 +14,18 @@ class EventServiceProvider extends ServiceProvider {
      * @var array<array<string>>
      */
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
-        ],
+        // empty
+    ];
+
+    /**
+     * The subscriber classes to register.
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<class-string<\App\Events\Subscriber>>
+     */
+    protected $subscribe = [
+        OrganizationUpdater::class,
     ];
 
     /**

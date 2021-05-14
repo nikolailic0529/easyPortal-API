@@ -66,6 +66,11 @@ type Query {
   @require <organization> Authenticated user must be a member of the current organization.
   """
   value: String!
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  """
+  root: String!
 }
 
 """Pagination information about the corresponding list of items."""
@@ -112,7 +117,17 @@ type Test {
   two: String!
 
   """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  """
+  root: String!
+
+  """
   @require <organization> Authenticated user must be a member of the current organization.
   """
   extension: String!
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  """
+  extensionRoot: String!
 }

@@ -45,13 +45,13 @@ use function sprintf;
  * @property \App\Models\Status                                                       $status
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $warranties
  * @property-read int|null                                                            $warranties_count
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
- * @property-read int|null                                                            $contacts_count
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>            $contacts
  * @method static \Database\Factories\AssetFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereContactsCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereCustomerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereId($value)
@@ -60,6 +60,7 @@ use function sprintf;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereProductId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereResellerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereSerialNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereStatusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereUpdatedAt($value)
  * @mixin \Eloquent

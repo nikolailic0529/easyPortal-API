@@ -6,7 +6,8 @@ extend type Mutation {
   recoverClientTranslations(
     input: RecoverClientTranslationsInput!
   ): RecoverClientTranslationsPayload
-    @root
+  @organization(root: true)
+  @root
 }
 
 input RecoverClientTranslationsInput {

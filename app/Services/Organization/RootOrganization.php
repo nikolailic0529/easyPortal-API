@@ -6,6 +6,8 @@ use App\Models\Organization;
 use Illuminate\Contracts\Config\Repository;
 
 class RootOrganization extends OrganizationProvider {
+    protected Organization|null $current = null;
+
     public function __construct(
         protected Repository $config,
     ) {
@@ -21,10 +23,12 @@ class RootOrganization extends OrganizationProvider {
     }
 
     protected function getCurrent(): ?Organization {
-        $id           = $this->getRootKey();
-        $organization = Organization::query()->whereKey($id)->first();
+        if (!$this->current) {
+            $id            = $this->getRootKey();
+            $this->current = Organization::query()->whereKey($id)->first();
+        }
 
-        return $organization;
+        return $this->current;
     }
 
     protected function getRootKey(): ?string {
