@@ -714,6 +714,7 @@ input OrderByClause {
 type Organization {
   id: ID!
   name: String!
+  root: Boolean!
   locale: String
   branding_dark_theme: Boolean
   branding_primary_color: String
@@ -722,6 +723,7 @@ type Organization {
   branding_favicon: String
   website_url: String
   email: String
+  currency_id: ID
   currency: Currency
   locations: [Location!]
 }
@@ -738,6 +740,8 @@ type OrganizationPaginator {
 input OrganizationsQuery {
   id: ID!
   name: String!
+  website_url: String
+  email: String
 }
 
 input OrganizationsSort {
@@ -1419,6 +1423,12 @@ input SearchByConditionOrganizationsQuery {
 
   """Property condition."""
   name: SearchByScalarString
+
+  """Property condition."""
+  website_url: SearchByScalarStringOrNull
+
+  """Property condition."""
+  email: SearchByScalarStringOrNull
 }
 
 """

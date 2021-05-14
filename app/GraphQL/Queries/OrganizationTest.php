@@ -56,6 +56,7 @@ class OrganizationTest extends TestCase {
                 branding_favicon
                 website_url
                 email
+                currency_id
                 currency {
                     id
                     name
@@ -142,6 +143,7 @@ class OrganizationTest extends TestCase {
                             'branding_favicon'         => null,
                             'website_url'              => 'https://www.example.com',
                             'email'                    => 'test@example.com',
+                            'currency_id'              => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                             'currency'                 => [
                                 'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                                 'name' => 'currency1',

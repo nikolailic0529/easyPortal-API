@@ -10,6 +10,7 @@ type Organization {
     branding_favicon: String
     website_url: String
     email: String
+    currency_id: ID
     currency: Currency @belongsTo
     locations: [Location!] @morphMany
 }
