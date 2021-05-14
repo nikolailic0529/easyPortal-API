@@ -2,19 +2,39 @@ type Application {
   name: String!
   version: String!
 
-  """@require <root> Authenticated user must be a root."""
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
   settings: [ApplicationSetting!]!
 
-  """@require <root> Authenticated user must be a root."""
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
   settingGroups: [ApplicationSettingGroup!]!
 
-  """@require <root> Authenticated user must be a root."""
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
   services: [ApplicationService!]!
 
-  """@require <root> Authenticated user must be a root."""
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
   jobs: [ApplicationJob!]!
 
-  """@require <root> Authenticated user must be a root."""
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
   translations(locale: String!): [Translation!]!
   locale: String!
 }
@@ -586,13 +606,25 @@ type Mutation {
   """@require <me> User must be authenticated."""
   createMeSearch(input: CreateMeSearchInput!): CreateMeSearchPayload
 
-  """@require <root> Authenticated user must be a root."""
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
   deleteApplicationTranslations(input: DeleteApplicationTranslationsInput!): DeleteApplicationTranslationsPayload
 
-  """@require <root> Authenticated user must be a root."""
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
   deleteClientSettings(input: DeleteClientSettingsInput!): DeleteClientSettingsPayload
 
-  """@require <root> Authenticated user must be a root."""
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
   deleteClientTranslations(input: DeleteClientTranslationsInput!): DeleteClientTranslationsPayload
 
   """@require <me> User must be authenticated."""
@@ -601,12 +633,16 @@ type Mutation {
   """
   Dispatch/Run application service.
   
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
   @require <root> Authenticated user must be a root.
   """
   dispatchApplicationService(input: DispatchApplicationServiceInput!): DispatchApplicationServicePayload
 
   """
   Force delete all custom settings, may be useful to restore the corrupted file.
+  
+  @require <organization(root)> Authenticated user must be a member of the root organization.
   
   @require <root> Authenticated user must be a root.
   """
@@ -616,12 +652,16 @@ type Mutation {
   Force delete all translations for a given locale, may be useful to restore the
   corrupted file.
   
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
   @require <root> Authenticated user must be a root.
   """
   recoverApplicationTranslations(input: RecoverApplicationTranslationsInput!): RecoverApplicationTranslationsPayload
 
   """
   Force delete all custom settings, may be useful to restore the corrupted file.
+  
+  @require <organization(root)> Authenticated user must be a member of the root organization.
   
   @require <root> Authenticated user must be a root.
   """
@@ -631,21 +671,39 @@ type Mutation {
   Force delete all client translations for a given locale, may be useful to
   restore the corrupted file.
   
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
   @require <root> Authenticated user must be a root.
   """
   recoverClientTranslations(input: RecoverClientTranslationsInput!): RecoverClientTranslationsPayload
   setApplicationLocale(input: SetApplicationLocaleInput!): SetApplicationLocalePayload
 
-  """@require <root> Authenticated user must be a root."""
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
   updateApplicationSettings(input: [UpdateApplicationSettingsInput!]!): UpdateApplicationSettingsPayload
 
-  """@require <root> Authenticated user must be a root."""
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
   updateApplicationTranslations(input: UpdateApplicationTranslationsInput!): UpdateApplicationTranslationsPayload
 
-  """@require <root> Authenticated user must be a root."""
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
   updateClientSettings(input: [UpdateClientSettingsInput!]!): UpdateClientSettingsPayload
 
-  """@require <root> Authenticated user must be a root."""
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
   updateClientTranslations(input: UpdateClientTranslationsInput!): UpdateClientTranslationsPayload
 
   """

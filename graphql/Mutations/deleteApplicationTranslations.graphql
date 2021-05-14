@@ -2,7 +2,8 @@ extend type Mutation {
   deleteApplicationTranslations(
     input: DeleteApplicationTranslationsInput!
   ): DeleteApplicationTranslationsPayload
-    @root
+  @organization(root: true)
+  @root
 }
 
 input DeleteApplicationTranslationsInput {
