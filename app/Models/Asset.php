@@ -51,6 +51,7 @@ use function sprintf;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereContactsCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereCustomerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereId($value)
@@ -59,6 +60,7 @@ use function sprintf;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereProductId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereResellerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereSerialNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereStatusId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereUpdatedAt($value)
  * @mixin \Eloquent

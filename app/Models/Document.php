@@ -39,7 +39,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \App\Models\Customer                                                     $customer
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $entries
  * @property-read int|null                                                            $entries_count
- * @property-read int                                                                 $contacts_count
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>            $contacts
+ * @property int                                                                      $contacts_count
  * @property \App\Models\Oem                                                          $oem
  * @property \App\Models\Product                                                      $product
  * @property \App\Models\Reseller                                                     $reseller
@@ -48,12 +49,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereContactsCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereCurrencyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereCustomerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereEnd($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereLanguageId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereOemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document wherePrice($value)

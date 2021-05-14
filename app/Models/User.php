@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Notifications\RoutesNotifications;
 use LogicException;
 
 /**
@@ -55,10 +55,12 @@ use LogicException;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereLocale($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereOrganizationId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePermissions($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhoneVerified($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhoto($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
@@ -75,7 +77,7 @@ class User extends Model implements
     use Authorizable;
     use MustVerifyEmail;
     use CanResetPassword;
-    use Notifiable;
+    use RoutesNotifications;
 
     protected const CASTS = [
         'type'           => UserType::class,
