@@ -7,8 +7,8 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\TestCase;
 
@@ -65,8 +65,10 @@ class OrganizationsTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('organizations'),
-            new RootUserDataProvider('organizations'),
+            new RootOrganizationDataProvider('organizations'),
+            new UserDataProvider('organizations', [
+                'administer',
+            ]),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLPaginated('organizations', self::class),

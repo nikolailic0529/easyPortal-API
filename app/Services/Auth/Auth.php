@@ -26,6 +26,7 @@ class Auth {
             'view-quotes',
             'view-customers',
             'edit-organization',
+            'administer',
         ];
     }
 

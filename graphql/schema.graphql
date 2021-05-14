@@ -154,7 +154,8 @@ type Query {
     where: OrganizationsQuery @searchBy
     order: OrganizationsSort @sortBy
   ): [Organization!]!
-  @root
+  @organization(root: true)
+  @me(permissions: ["administer"])
   @paginate
 
   # Deprecated

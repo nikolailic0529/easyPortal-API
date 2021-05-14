@@ -7,6 +7,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
 use Tests\GraphQL\GraphQLUnauthenticated;
+use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 
 class RootOrganizationDataProvider extends ArrayDataProvider {
@@ -16,6 +17,12 @@ class RootOrganizationDataProvider extends ArrayDataProvider {
                 new ExpectedFinal(new GraphQLUnauthenticated($root)),
                 static function (): ?Organization {
                     return null;
+                },
+            ],
+            'organization is not allowed'    => [
+                new ExpectedFinal(new GraphQLUnauthenticated($root)),
+                static function (TestCase $test) use ($id): ?Organization {
+                    return Organization::factory()->create($id ? ['id' => $id] : []);
                 },
             ],
             'root organization is allowed'   => [

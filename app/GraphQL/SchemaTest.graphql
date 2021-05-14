@@ -993,7 +993,9 @@ type Query {
   """
   List of all organizations.
   
-  @require <root> Authenticated user must be a root.
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
   organizations(
     where: SearchByConditionOrganizationsQuery
