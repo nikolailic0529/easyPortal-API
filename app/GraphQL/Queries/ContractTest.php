@@ -162,6 +162,11 @@ class ContractTest extends TestCase {
                             name
                             code
                         }
+                        contacts {
+                            name
+                            email
+                            phone_valid
+                        }
                     }
                 }
             ', ['id' => $contractId])
@@ -340,6 +345,13 @@ class ContractTest extends TestCase {
                                 'name' => 'Lang1',
                                 'code' => 'en',
                             ],
+                            'contacts'    => [
+                                [
+                                    'name'        => 'contact2',
+                                    'email'       => 'contact2@test.com',
+                                    'phone_valid' => false,
+                                ],
+                            ],
                         ]),
                         static function (TestCase $test, Organization $organization): Document {
                             // OEM Creation belongs to
@@ -426,6 +438,11 @@ class ContractTest extends TestCase {
                                 ->for($reseller)
                                 ->for($currency)
                                 ->for($language)
+                                ->hasContacts(1, [
+                                    'name'        => 'contact2',
+                                    'email'       => 'contact2@test.com',
+                                    'phone_valid' => false,
+                                ])
                                 ->hasEntries(1, [
                                     'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                                     'asset_id'   => Asset::factory()->create([

@@ -115,7 +115,7 @@ type Asset {
   type: Type!
   warranties: [AssetWarranty!]!
   reseller: Reseller!
-  status: Status!
+  status: Status
   contacts: [Contact!]!
   contacts_count: Int!
 }
@@ -445,6 +445,7 @@ type Document {
   entries: [DocumentEntry!]!
   language_id: ID
   language: Language
+  contacts: [Contact!]!
 }
 
 type DocumentEntry {

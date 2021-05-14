@@ -172,6 +172,11 @@ class QuotesTest extends TestCase {
                                 name
                                 code
                             }
+                            contacts {
+                                name
+                                email
+                                phone_valid
+                            }
                         }
                         paginatorInfo {
                             count
@@ -278,6 +283,11 @@ class QuotesTest extends TestCase {
                 ->for($reseller)
                 ->for($currency)
                 ->for($language)
+                ->hasContacts(1, [
+                    'name'        => 'contact2',
+                    'email'       => 'contact2@test.com',
+                    'phone_valid' => false,
+                ])
                 ->hasEntries(1, [
                     'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                     'asset_id'   => Asset::factory()->create([
@@ -418,6 +428,13 @@ class QuotesTest extends TestCase {
                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
                     'name' => 'Lang1',
                     'code' => 'en',
+                ],
+                'contacts'    => [
+                    [
+                        'name'        => 'contact2',
+                        'email'       => 'contact2@test.com',
+                        'phone_valid' => false,
+                    ],
                 ],
             ],
         ];

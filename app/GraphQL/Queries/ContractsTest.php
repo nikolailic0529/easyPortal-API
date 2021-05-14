@@ -171,6 +171,11 @@ class ContractsTest extends TestCase {
                                 name
                                 code
                             }
+                            contacts {
+                                name
+                                email
+                                phone_valid
+                            }
                         }
                         paginatorInfo {
                             count
@@ -378,6 +383,13 @@ class ContractsTest extends TestCase {
                                     'name' => 'Lang1',
                                     'code' => 'en',
                                 ],
+                                'contacts'    => [
+                                    [
+                                        'name'        => 'contact2',
+                                        'email'       => 'contact2@test.com',
+                                        'phone_valid' => false,
+                                    ],
+                                ],
                             ],
                         ]),
                         [
@@ -477,6 +489,11 @@ class ContractsTest extends TestCase {
                                     'net_price'  => '123',
                                     'list_price' => '67.12',
                                     'discount'   => null,
+                                ])
+                                ->hasContacts(1, [
+                                    'name'        => 'contact2',
+                                    'email'       => 'contact2@test.com',
+                                    'phone_valid' => false,
                                 ])
                                 ->create([
                                     'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',

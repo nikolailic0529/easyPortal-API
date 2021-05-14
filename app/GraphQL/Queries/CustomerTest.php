@@ -431,6 +431,11 @@ class CustomerTest extends TestCase {
                                     name
                                     code
                                 }
+                                contacts {
+                                    name
+                                    email
+                                    phone_valid
+                                }
                             }
                             paginatorInfo {
                                 count
@@ -589,6 +594,11 @@ class CustomerTest extends TestCase {
                                     id
                                     name
                                     code
+                                }
+                                contacts {
+                                    name
+                                    email
+                                    phone_valid
                                 }
                             }
                             paginatorInfo {
@@ -1261,6 +1271,13 @@ class CustomerTest extends TestCase {
                                                 'name' => 'Lang1',
                                                 'code' => 'en',
                                             ],
+                                            'contacts'    => [
+                                                [
+                                                    'name'        => 'contact3',
+                                                    'email'       => 'contact3@test.com',
+                                                    'phone_valid' => false,
+                                                ],
+                                            ],
                                         ],
                                     ],
                                     'paginatorInfo' => [
@@ -1373,6 +1390,11 @@ class CustomerTest extends TestCase {
                                     'net_price'  => '123',
                                     'list_price' => '67.12',
                                     'discount'   => null,
+                                ])
+                                ->hasContacts(1, [
+                                    'name'        => 'contact3',
+                                    'email'       => 'contact3@test.com',
+                                    'phone_valid' => false,
                                 ])
                                 ->create([
                                     'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
@@ -1570,6 +1592,11 @@ class CustomerTest extends TestCase {
                     'list_price' => '67.12',
                     'discount'   => null,
                 ])
+                ->hasContacts(1, [
+                    'name'        => 'contact3',
+                    'email'       => 'contact3@test.com',
+                    'phone_valid' => false,
+                ])
                 ->create([
                     'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                     'number' => '1323',
@@ -1695,6 +1722,13 @@ class CustomerTest extends TestCase {
                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24991',
                             'name' => 'Lang1',
                             'code' => 'en',
+                        ],
+                        'contacts'    => [
+                            [
+                                'name'        => 'contact3',
+                                'email'       => 'contact3@test.com',
+                                'phone_valid' => false,
+                            ],
                         ],
                     ],
                 ],

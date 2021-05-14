@@ -162,6 +162,11 @@ class QuoteTest extends TestCase {
                             name
                             code
                         }
+                        contacts {
+                            name
+                            email
+                            phone_valid
+                        }
                     }
                 }
             ', ['id' => $quoteId])
@@ -340,6 +345,13 @@ class QuoteTest extends TestCase {
                                 'name' => 'Lang1',
                                 'code' => 'en',
                             ],
+                            'contacts'    => [
+                                [
+                                    'name'        => 'contact2',
+                                    'email'       => 'contact2@test.com',
+                                    'phone_valid' => false,
+                                ],
+                            ],
                         ]),
                         static function (TestCase $test, Organization $organization): Document {
                             // OEM Creation belongs to
@@ -436,6 +448,11 @@ class QuoteTest extends TestCase {
                                     'net_price'  => '123.45',
                                     'list_price' => null,
                                     'discount'   => '-8',
+                                ])
+                                ->hasContacts(1, [
+                                    'name'        => 'contact2',
+                                    'email'       => 'contact2@test.com',
+                                    'phone_valid' => false,
                                 ])
                                 ->create([
                                     'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',

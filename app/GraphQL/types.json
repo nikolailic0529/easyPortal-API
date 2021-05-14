@@ -420,7 +420,8 @@
                 "type",
                 "entries",
                 "language_id",
-                "language"
+                "language",
+                "contacts"
             ],
             "properties": {
                 "id": {
@@ -497,6 +498,12 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/DocumentEntry"
+                    }
+                },
+                "contacts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Contact"
                     }
                 }
             }

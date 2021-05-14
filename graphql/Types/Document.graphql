@@ -19,4 +19,5 @@ type Document {
   entries: [DocumentEntry!]! @hasMany
   language_id: ID
   language: Language @belongsTo
+  contacts: [Contact!]! @morphMany
 }
