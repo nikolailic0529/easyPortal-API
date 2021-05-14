@@ -1,6 +1,7 @@
 type Organization {
     id: ID!
     name: String!
+    root: Boolean! @field(resolver: "App\\GraphQL\\Queries\\Organization@root")
     locale: String
     branding_dark_theme: Boolean
     branding_primary_color: String

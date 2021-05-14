@@ -4,7 +4,8 @@
     "type": "object",
     "required": [
         "id",
-        "name"
+        "name",
+        "root"
     ],
     "properties": {
         "id": {
@@ -12,6 +13,9 @@
         },
         "name": {
             "type": "string"
+        },
+        "root": {
+            "type": "boolean"
         }
     }
 }

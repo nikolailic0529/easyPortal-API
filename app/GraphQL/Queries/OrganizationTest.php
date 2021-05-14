@@ -13,6 +13,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
 use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 
 /**
@@ -22,21 +23,31 @@ use Tests\TestCase;
 class OrganizationTest extends TestCase {
     /**
      * @covers ::__invoke
+     * @covers ::root
+     *
      * @dataProvider dataProviderInvoke
      */
     public function testInvoke(
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
+        bool $isRootOrganization = false,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $organization = $this->setOrganization($organizationFactory);
+
+        $this->setUser($userFactory, $organization);
+
+        if ($isRootOrganization) {
+            $this->setRootOrganization($organization);
+        }
 
         // Test
         $this->graphQL(/** @lang GraphQL */ '{
             organization {
                 id
                 name
+                root
                 locale
                 branding_dark_theme
                 branding_primary_color
@@ -118,10 +129,11 @@ class OrganizationTest extends TestCase {
                 ]),
                 new AnyUserDataProvider(),
                 new ArrayDataProvider([
-                    'ok' => [
+                    'ok'   => [
                         new GraphQLSuccess('organization', Organization::class, [
                             'id'                       => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                             'name'                     => 'org1',
+                            'root'                     => false,
                             'locale'                   => 'en',
                             'branding_dark_theme'      => false,
                             'branding_primary_color'   => '#FFFFFF',
@@ -147,6 +159,11 @@ class OrganizationTest extends TestCase {
                                 ],
                             ],
                         ]),
+                        false,
+                    ],
+                    'root' => [
+                        new GraphQLSuccess('organization', Organization::class, new JsonFragment('root', true)),
+                        true,
                     ],
                 ]),
             ),

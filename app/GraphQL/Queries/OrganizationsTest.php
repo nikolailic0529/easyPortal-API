@@ -40,6 +40,7 @@ class OrganizationsTest extends TestCase {
                     data {
                       id
                       name
+                      root
                     }
                     paginatorInfo {
                       count
