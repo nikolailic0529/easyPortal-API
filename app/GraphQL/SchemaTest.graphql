@@ -1090,6 +1090,9 @@ type RecoverClientTranslationsPayload {
 type Reseller {
   id: ID!
   name: String!
+  assets_count: Int!
+  customers_count: Int!
+  locations_count: Int!
   locations: [Location!]!
 }
 
