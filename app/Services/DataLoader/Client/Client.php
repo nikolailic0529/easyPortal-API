@@ -367,6 +367,8 @@ class Client {
                 type
                 mail
             }
+
+            assetCoverage
             GRAPHQL;
     }
 

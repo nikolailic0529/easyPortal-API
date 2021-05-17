@@ -24,6 +24,7 @@ class Asset extends Type {
     public ?string  $longitude;
     public ?string  $countryCode;
     public string   $status;
+    public string   $assetCoverage;
 
     /**
      * @var array<\App\Services\DataLoader\Schema\AssetDocument>

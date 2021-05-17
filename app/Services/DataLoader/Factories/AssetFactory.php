@@ -74,6 +74,7 @@ class AssetFactory extends ModelFactory {
         protected CurrencyFactory $currencies,
         protected LanguageFactory $languages,
         protected StatusResolver $statuses,
+        protected AssetCoverageFactory $assetCoverages,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -180,6 +181,7 @@ class AssetFactory extends ModelFactory {
             $model->location      = $location;
             $model->serial_number = $this->normalizer->string($asset->serialNumber);
             $model->contacts      = $this->objectContacts($model, $asset->latestContactPersons);
+            $model->coverage      = $this->assetCoverages->create($asset);
 
             $model->save();
 

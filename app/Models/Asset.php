@@ -32,6 +32,7 @@ use function sprintf;
  * @property string|null                                                              $location_id current
  * @property string|null                                                              $serial_number
  * @property string|null                                                              $status_id
+ * @property string|null                                                              $coverage_id
  * @property int                                                                      $contacts_count
  * @property \Carbon\CarbonImmutable                                                  $created_at
  * @property \Carbon\CarbonImmutable                                                  $updated_at
@@ -43,6 +44,7 @@ use function sprintf;
  * @property \App\Models\Reseller|null                                                $reseller
  * @property \App\Models\Type                                                         $type
  * @property \App\Models\Status                                                       $status
+ * @property \App\Models\AssetCoverage                                                $coverage
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $warranties
  * @property-read int|null                                                            $warranties_count
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>            $contacts
@@ -125,5 +127,13 @@ class Asset extends Model {
      */
     protected function getValidProductTypes(): array {
         return [ProductType::asset()];
+    }
+
+    public function coverage(): BelongsTo {
+        return $this->belongsTo(AssetCoverage::class);
+    }
+
+    public function setCoverageAttribute(?AssetCoverage $coverage): void {
+        $this->coverage()->associate($coverage);
     }
 }

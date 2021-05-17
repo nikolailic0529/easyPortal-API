@@ -16,6 +16,7 @@
     "address": "Maddison Path Suite 820 Apt. 898",
     "address2": "TODO",
     "status": "Active",
+    "assetCoverage": "cCOVERED_ON_CONTRACT",
     "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a",
     "reseller": {
         "id": "97292d03-7919-406c-a15b-39bf029e6d5a",
