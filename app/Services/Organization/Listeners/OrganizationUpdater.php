@@ -8,14 +8,13 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Events\ResellerUpdated;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Str;
 
 use function filter_var;
+use function is_int;
 use function mb_strtolower;
 use function preg_replace;
 use function str_replace;
 use function str_starts_with;
-
 use function trim;
 
 use const FILTER_VALIDATE_INT;
@@ -81,7 +80,7 @@ class OrganizationUpdater implements Subscriber {
             ->sort()
             ->last();
 
-        if ($last) {
+        if (is_int($last)) {
             $scope = $scope.'_'.($last + 1);
         }
 
