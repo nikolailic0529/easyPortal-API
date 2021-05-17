@@ -89,7 +89,7 @@ class OrganizationUpdater implements Subscriber {
 
     protected function normalizeKeycloakScope(string $scope): string {
         $scope = trim(mb_strtolower($scope));
-        $scope = preg_replace('/\P{L}+/ui', '', $scope);
+        $scope = preg_replace('/[^\p{L}\p{Nd}]+/ui', '', $scope);
 
         return $scope;
     }

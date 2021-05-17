@@ -175,7 +175,7 @@ class OrganizationUpdaterTest extends TestCase {
     public function dataProviderNormalizeKeycloakScope(): array {
         return [
             ['abcdnetworkingsolutions', 'A.B.C.D - Networking & Solutions'],
-            ['cubegmbh', 'Cube GmbH'],
+            ['cubegmbh134', 'Cube GmbH 1 3 4'],
             ['drmüllerit', 'Dr. Müller & IT'],
         ];
     }
