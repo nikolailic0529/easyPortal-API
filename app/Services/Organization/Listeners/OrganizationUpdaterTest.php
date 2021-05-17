@@ -8,6 +8,7 @@ use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Schema\Company;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Event;
+use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 
@@ -16,6 +17,10 @@ use Tests\TestCase;
  * @coversDefaultClass \App\Services\Organization\Listeners\OrganizationUpdater
  */
 class OrganizationUpdaterTest extends TestCase {
+    use WithQueryLog;
+
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @covers ::subscribe
      */
@@ -26,7 +31,47 @@ class OrganizationUpdaterTest extends TestCase {
     /**
      * @covers ::handle
      */
-    public function testHandleNoOrganization(): void {
+    public function testHandleUnusedScope(): void {
+        $reseller = Reseller::factory()->create(['name' => 'Test Reseller']);
+        $updater  = new OrganizationUpdater();
+        $event    = new ResellerUpdated($reseller, Mockery::mock(Company::class));
+
+        $this->assertFalse(Organization::query()->withTrashed()->whereKey($reseller->getKey())->exists());
+
+        $updater->handle($event);
+
+        $organization = Organization::query()->whereKey($reseller->getKey())->first();
+
+        $this->assertNotNull($organization);
+        $this->assertEquals('testreseller', $organization->keycloak_scope);
+    }
+
+    /**
+     * @covers ::handle
+     */
+    public function testHandleUsedScope(): void {
+        $reseller = Reseller::factory()->create(['name' => 'Test Reseller']);
+        $updater  = new OrganizationUpdater();
+        $event    = new ResellerUpdated($reseller, Mockery::mock(Company::class));
+
+        Organization::factory()->create([
+            'keycloak_scope' => 'testreseller',
+        ]);
+
+        $this->assertFalse(Organization::query()->withTrashed()->whereKey($reseller->getKey())->exists());
+
+        $updater->handle($event);
+
+        $organization = Organization::query()->whereKey($reseller->getKey())->first();
+
+        $this->assertNotNull($organization);
+        $this->assertEquals('testreseller_1', $organization->keycloak_scope);
+    }
+
+    /**
+     * @covers ::handle
+     */
+    public function testHandleUsedScopeMultiple(): void {
         $reseller = Reseller::factory()->create(['name' => 'Test Reseller']);
         $updater  = new OrganizationUpdater();
         $event    = new ResellerUpdated($reseller, Mockery::mock(Company::class));
@@ -101,4 +146,38 @@ class OrganizationUpdaterTest extends TestCase {
         $this->assertFalse($organization->trashed());
         $this->assertEquals('anothertestreseller', $organization->keycloak_scope);
     }
+
+    /**
+     * @covers ::normalizeKeycloakScope
+     *
+     * @dataProvider dataProviderNormalizeKeycloakScope
+     */
+    public function testNormalizeKeycloakScope(string $expected, string $scope): void {
+        $updated = new class() extends OrganizationUpdater {
+            public function __construct() {
+                // empty
+            }
+
+            public function normalizeKeycloakScope(string $scope): string {
+                return parent::normalizeKeycloakScope($scope);
+            }
+        };
+
+        $this->assertEquals($expected, $updated->normalizeKeycloakScope($scope));
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="DataProviders">
+    // =========================================================================
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderNormalizeKeycloakScope(): array {
+        return [
+            ['abcdnetworkingsolutions', 'A.B.C.D - Networking & Solutions'],
+            ['cubegmbh', 'Cube GmbH'],
+            ['drmüllerit', 'Dr. Müller & IT'],
+        ];
+    }
+    // </editor-fold>
 }
