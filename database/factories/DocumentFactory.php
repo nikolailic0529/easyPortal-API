@@ -32,33 +32,32 @@ class DocumentFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'                      => $this->faker->uuid,
-            'oem_id'                  => static function (): Oem {
+            'id'          => $this->faker->uuid,
+            'oem_id'      => static function (): Oem {
                 return Oem::factory()->create();
             },
-            'type_id'                 => function (): Type {
+            'type_id'     => function (): Type {
                 return Type::factory()->create([
                     'object_type' => $this->newModel()->getMorphClass(),
                 ]);
             },
-            'reseller_id'             => static function (): Reseller {
+            'reseller_id' => static function (): Reseller {
                 return Reseller::factory()->create();
             },
-            'customer_id'             => static function (): Customer {
+            'customer_id' => static function (): Customer {
                 return Customer::factory()->create();
             },
-            'product_id'              => static function (): Product {
+            'product_id'  => static function (): Product {
                 return Product::factory()->create();
             },
-            'number'                  => $this->faker->uuid,
-            'start'                   => $this->faker->dateTime,
-            'end'                     => $this->faker->dateTime,
-            'price'                   => (string) $this->faker->randomFloat(2),
-            'estimated_value_renewal' => (string) $this->faker->randomFloat(2),
-            'currency_id'             => null,
-            'created_at'              => Date::now(),
-            'updated_at'              => Date::now(),
-            'deleted_at'              => null,
+            'number'      => $this->faker->uuid,
+            'start'       => $this->faker->dateTime,
+            'end'         => $this->faker->dateTime,
+            'price'       => (string) $this->faker->randomFloat(2),
+            'currency_id' => null,
+            'created_at'  => Date::now(),
+            'updated_at'  => Date::now(),
+            'deleted_at'  => null,
         ];
     }
 }

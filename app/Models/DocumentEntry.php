@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null                  $net_price
  * @property string|null                  $list_price
  * @property string|null                  $discount
+ * @property string|null                  $renewal
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at

@@ -486,7 +486,6 @@ type Document {
   language_id: ID
   language: Language
   contacts: [Contact!]!
-  estimated_value_renewal: String
 }
 
 input DocumentEntriesQuery {
@@ -499,6 +498,7 @@ input DocumentEntriesQuery {
   net_price: String
   list_price: String
   discount: String
+  renewal: String
   asset: AssetsQuery
   product: ProductsQuery
   currency: CurrenciesQuery
@@ -514,6 +514,7 @@ type DocumentEntry {
   net_price: String
   list_price: String
   discount: String
+  renewal: String
   asset: Asset!
   product: Product!
   currency: Currency
@@ -1440,6 +1441,9 @@ input SearchByConditionDocumentEntriesQuery {
 
   """Property condition."""
   discount: SearchByScalarStringOrNull
+
+  """Property condition."""
+  renewal: SearchByScalarStringOrNull
 
   """Property condition."""
   asset: SearchByRelationAssetsQuery

@@ -22,5 +22,4 @@ type Document {
   language_id: ID
   language: Language @belongsTo
   contacts: [Contact!]! @morphMany
-  estimated_value_renewal: String
 }

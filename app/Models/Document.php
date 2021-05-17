@@ -28,7 +28,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Carbon\CarbonImmutable                                                  $start
  * @property \Carbon\CarbonImmutable                                                  $end
  * @property string|null                                                              $price
- * @property string|null                                                              $estimated_value_renewal
  * @property string|null                                                              $currency_id
  * @property string|null                                                              $language_id
  * @property \Carbon\CarbonImmutable                                                  $created_at

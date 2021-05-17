@@ -452,7 +452,6 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals('HPE', $a->product->oem->abbr);
         $this->assertEquals('HPE', $a->oem->abbr);
         $this->assertEquals(1, $a->contacts_count);
-        $this->assertEquals('40.00', $a->estimated_value_renewal);
 
         $this->assertCount(1, $a->entries);
         $this->assertCount(1, $a->contacts);
@@ -470,6 +469,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals('HPE Hardware Maintenance Onsite Support', $e->product->name);
         $this->assertEquals(ProductType::service(), $e->product->type);
         $this->assertEquals('HPE', $e->product->oem->abbr);
+        $this->assertEquals('145.00', $e->renewal);
 
         /** @var \App\Models\Document $b */
         $b = $collection->get('dbd3f08b-6bd1-4e28-8122-3004257879c0');
@@ -480,7 +480,6 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals('0056490551', $b->number);
         $this->assertEquals('6376.15', $b->price);
         $this->assertEquals(1, $b->contacts_count);
-        $this->assertEquals('24.30', $b->estimated_value_renewal);
 
         $this->assertCount(2, $b->entries);
         $this->assertCount(1, $b->contacts);
@@ -500,7 +499,6 @@ class AssetFactoryTest extends TestCase {
         $this->assertNotNull($c);
         $this->assertCount(2, $c->entries);
         $this->assertCount(1, $c->contacts);
-        $this->assertEquals('0.00', $c->estimated_value_renewal);
 
         // Changed
         // ---------------------------------------------------------------------
@@ -522,7 +520,6 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals(2, $a->contacts_count);
         $this->assertEquals('EUR', $a->currency->code);
         $this->assertEquals('en', $a->language->code);
-        $this->assertNull($a->estimated_value_renewal);
 
         $this->assertCount(1, $a->entries);
         $this->assertCount(2, $a->contacts);
@@ -538,6 +535,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertNull($f->net_price);
         $this->assertNull($f->list_price);
         $this->assertNull($f->discount);
+        $this->assertEquals('145.00', $f->renewal);
 
         /** @var \App\Models\Document $b */
         $b = $collection->get('dbd3f08b-6bd1-4e28-8122-3004257879c0');
@@ -756,12 +754,14 @@ class AssetFactoryTest extends TestCase {
         $netPrice       = number_format($this->faker->randomFloat(2), 2, '.', '');
         $discount       = number_format($this->faker->randomFloat(2), 2, '.', '');
         $listPrice      = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $renewal        = number_format($this->faker->randomFloat(2), 2, '.', '');
         $assetDocument  = AssetDocument::create([
-            'skuNumber'      => " {$skuNumber} ",
-            'skuDescription' => " {$skuDescription} ",
-            'netPrice'       => " {$netPrice} ",
-            'discount'       => " {$discount} ",
-            'listPrice'      => " {$listPrice} ",
+            'skuNumber'             => " {$skuNumber} ",
+            'skuDescription'        => " {$skuDescription} ",
+            'netPrice'              => " {$netPrice} ",
+            'discount'              => " {$discount} ",
+            'listPrice'             => " {$listPrice} ",
+            'estimatedValueRenewal' => " {$renewal} ",
         ]);
         $document       = Document::factory()->make();
         $factory        = new class(
@@ -798,6 +798,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($netPrice, $entry->net_price);
         $this->assertEquals($listPrice, $entry->list_price);
         $this->assertEquals($discount, $entry->discount);
+        $this->assertEquals($renewal, $entry->renewal);
     }
 
     /**

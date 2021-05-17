@@ -28,10 +28,11 @@
             "endDate": "1614470400000",
             "warrantyEndDate": null,
             "currencyCode": "CUR",
-            "languageCode":"fr",
+            "languageCode": "fr",
             "netPrice": "23.4",
             "discount": "-2.05",
-            "listPrice": "48"
+            "listPrice": "48",
+            "estimatedValueRenewal": "123"
         },
         {
             "documentNumber": "7e6b6976-cb1b-4b2a-9cf1-de9e768e8802",
@@ -43,10 +44,11 @@
             "endDate": "1677542400000",
             "warrantyEndDate": null,
             "currencyCode": "CUR",
-            "languageCode":"fr",
+            "languageCode": "fr",
             "netPrice": "23.4",
             "discount": "-2.05",
-            "listPrice": "48"
+            "listPrice": "48",
+            "estimatedValueRenewal": "123"
         },
         {
             "documentNumber": "dbd3f08b-6bd1-4e28-8122-3004257879c0",
@@ -58,10 +60,11 @@
             "endDate": "1740700800000",
             "warrantyEndDate": null,
             "currencyCode": "CUR",
-            "languageCode":"fr",
+            "languageCode": "fr",
             "netPrice": "23.4",
             "discount": "-2.05",
-            "listPrice": "48"
+            "listPrice": "48",
+            "estimatedValueRenewal": "123"
         },
         {
             "documentNumber": "688b9621-3244-464b-9468-3cd74f5eaacf",
@@ -73,10 +76,11 @@
             "endDate": "1614470400000",
             "warrantyEndDate": null,
             "currencyCode": "CUR",
-            "languageCode":"fr",
+            "languageCode": "fr",
             "netPrice": "23.4",
             "discount": "-2.05",
-            "listPrice": "48"
+            "listPrice": "48",
+            "estimatedValueRenewal": "123"
         },
         {
             "documentNumber": "7e6b6976-cb1b-4b2a-9cf1-de9e768e8802",
@@ -88,10 +92,11 @@
             "endDate": "1677542400000",
             "warrantyEndDate": null,
             "currencyCode": "CUR",
-            "languageCode":"fr",
+            "languageCode": "fr",
             "netPrice": "23.4",
             "discount": "-2.05",
-            "listPrice": "48"
+            "listPrice": "48",
+            "estimatedValueRenewal": "123"
         },
         {
             "documentNumber": "dbd3f08b-6bd1-4e28-8122-3004257879c0",
@@ -103,10 +108,11 @@
             "endDate": "1740700800000",
             "warrantyEndDate": null,
             "currencyCode": "CUR",
-            "languageCode":"fr",
+            "languageCode": "fr",
             "netPrice": "23.4",
             "discount": "-2.05",
-            "listPrice": "48"
+            "listPrice": "48",
+            "estimatedValueRenewal": "123"
         }
     ]
 }

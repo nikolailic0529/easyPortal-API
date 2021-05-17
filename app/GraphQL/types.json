@@ -429,8 +429,7 @@
                 "entries",
                 "language_id",
                 "language",
-                "contacts",
-                "estimated_value_renewal"
+                "contacts"
             ],
             "properties": {
                 "id": {
@@ -514,9 +513,6 @@
                     "items": {
                         "$ref": "#/definitions/Contact"
                     }
-                },
-                "estimated_value_renewal": {
-                    "type": "string"
                 }
             }
         },
@@ -610,7 +606,8 @@
                 "product",
                 "net_price",
                 "list_price",
-                "discount"
+                "discount",
+                "renewal"
             ],
             "properties": {
                 "id": {
@@ -650,6 +647,12 @@
                     ]
                 },
                 "discount": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "renewal": {
                     "type": [
                         "null",
                         "string"

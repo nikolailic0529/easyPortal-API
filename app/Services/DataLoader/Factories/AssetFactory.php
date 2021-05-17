@@ -371,6 +371,7 @@ class AssetFactory extends ModelFactory {
         $entry->net_price  = $this->normalizer->number($assetDocument->netPrice);
         $entry->list_price = $this->normalizer->number($assetDocument->listPrice);
         $entry->discount   = $this->normalizer->number($assetDocument->discount);
+        $entry->renewal    = $this->normalizer->number($assetDocument->estimatedValueRenewal);
         $entry->product    = $this->product(
             $document->oem,
             ProductType::service(),

@@ -8,6 +8,7 @@ input DocumentEntriesQuery {
   net_price: String
   list_price: String
   discount: String
+  renewal: String
   asset: AssetsQuery
   product: ProductsQuery
   currency: CurrenciesQuery

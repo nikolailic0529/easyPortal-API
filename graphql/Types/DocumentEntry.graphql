@@ -8,6 +8,7 @@ type DocumentEntry {
   net_price: String
   list_price: String
   discount: String
+  renewal: String
   asset: Asset! @belongsTo
   product: Product! @belongsTo
   currency: Currency @belongsTo
