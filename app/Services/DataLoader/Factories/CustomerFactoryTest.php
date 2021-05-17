@@ -107,7 +107,7 @@ class CustomerFactoryTest extends TestCase {
         $this->assertCount(4, $customer->contacts);
         $this->assertEquals(4, $customer->contacts_count);
         $this->assertEquals(
-            $this->getCompanyContacts($company),
+            $this->getContacts($company),
             $this->getModelContacts($customer),
         );
 
@@ -128,7 +128,7 @@ class CustomerFactoryTest extends TestCase {
         );
         $this->assertCount(1, $updated->contacts);
         $this->assertEquals(
-            $this->getCompanyContacts($company),
+            $this->getContacts($company),
             $this->getModelContacts($updated),
         );
     }

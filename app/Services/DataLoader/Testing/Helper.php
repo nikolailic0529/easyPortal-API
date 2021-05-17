@@ -98,45 +98,6 @@ trait Helper {
 
         return array_values($locations);
     }
-
-    /**
-     * @return array<mixed>
-     */
-    protected function getCompanyContacts(Company $company): array {
-        $contacts = [];
-
-        foreach ($company->companyContactPersons as $person) {
-            // Empty?
-            if (is_null($person->name) && is_null($person->phoneNumber)) {
-                continue;
-            }
-
-            // Convert phone
-            $phone = $person->phoneNumber;
-
-            try {
-                $phone = PhoneNumber::make($phone)->formatE164();
-            } catch (NumberParseException) {
-                // empty
-            }
-
-            // Add to array
-            $key = "{$person->name}/{$phone}";
-
-            if (isset($contacts[$key])) {
-                $contacts[$key]['types'][] = $person->type;
-            } else {
-                $contacts[$key] = [
-                    'name'  => $person->name,
-                    'phone' => $phone,
-                    'types' => [$person->type],
-                    'mail'  => $person->mail,
-                ];
-            }
-        }
-
-        return $contacts;
-    }
     //</editor-fold>
 
     // <editor-fold desc="Customer">
