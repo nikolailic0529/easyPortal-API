@@ -296,6 +296,12 @@ type CreateMeSearchPayload {
   created: MeSearch!
 }
 
+input CurrenciesQuery {
+  id: ID!
+  code: String!
+  name: String!
+}
+
 type Currency {
   id: ID!
   code: String!
@@ -462,11 +468,26 @@ type Document {
   product: Product!
   reseller: Reseller!
   type: Type!
-  entries: [DocumentEntry!]!
+  entries(where: SearchByConditionDocumentEntriesQuery): [DocumentEntry!]!
   language_id: ID
   language: Language
   contacts: [Contact!]!
   estimated_value_renewal: String
+}
+
+input DocumentEntriesQuery {
+  id: ID!
+  document_id: ID!
+  asset_id: ID!
+  product_id: ID!
+  currency_id: ID
+  quantity: Int!
+  net_price: String
+  list_price: String
+  discount: String
+  asset: AssetsQuery
+  product: ProductsQuery
+  currency: CurrenciesQuery
 }
 
 type DocumentEntry {
@@ -1297,6 +1318,29 @@ input SearchByConditionCountriesQuery {
 }
 
 """
+Available conditions for input CurrenciesQuery (only one property allowed at a time).
+"""
+input SearchByConditionCurrenciesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionCurrenciesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionCurrenciesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  code: SearchByScalarString
+
+  """Property condition."""
+  name: SearchByScalarString
+}
+
+"""
 Available conditions for input CustomersQuery (only one property allowed at a time).
 """
 input SearchByConditionCustomersQuery {
@@ -1335,6 +1379,56 @@ input SearchByConditionCustomersQuery {
 
   """Property condition."""
   contacts: SearchByRelationContactsQuery
+}
+
+"""
+Available conditions for input DocumentEntriesQuery (only one property allowed at a time).
+"""
+input SearchByConditionDocumentEntriesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionDocumentEntriesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionDocumentEntriesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  document_id: SearchByScalarID
+
+  """Property condition."""
+  asset_id: SearchByScalarID
+
+  """Property condition."""
+  product_id: SearchByScalarID
+
+  """Property condition."""
+  currency_id: SearchByScalarIDOrNull
+
+  """Property condition."""
+  quantity: SearchByScalarInt
+
+  """Property condition."""
+  net_price: SearchByScalarStringOrNull
+
+  """Property condition."""
+  list_price: SearchByScalarStringOrNull
+
+  """Property condition."""
+  discount: SearchByScalarStringOrNull
+
+  """Property condition."""
+  asset: SearchByRelationAssetsQuery
+
+  """Property condition."""
+  product: SearchByRelationProductsQuery
+
+  """Property condition."""
+  currency: SearchByRelationCurrenciesQuery
 }
 
 """
@@ -1683,6 +1777,30 @@ input SearchByRelationContactsQuery {
 input SearchByRelationCountriesQuery {
   """Conditions for the related objects."""
   where: SearchByConditionCountriesQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""Relation condition for input CurrenciesQuery."""
+input SearchByRelationCurrenciesQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionCurrenciesQuery!
 
   """Equal (`=`)."""
   eq: Int
