@@ -466,6 +466,7 @@ type Document {
   language_id: ID
   language: Language
   contacts: [Contact!]!
+  estimated_value_renewal: String
 }
 
 type DocumentEntry {

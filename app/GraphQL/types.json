@@ -421,7 +421,8 @@
                 "entries",
                 "language_id",
                 "language",
-                "contacts"
+                "contacts",
+                "estimated_value_renewal"
             ],
             "properties": {
                 "id": {
@@ -505,6 +506,9 @@
                     "items": {
                         "$ref": "#/definitions/Contact"
                     }
+                },
+                "estimated_value_renewal": {
+                    "type": "string"
                 }
             }
         },

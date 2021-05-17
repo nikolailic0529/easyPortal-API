@@ -66,6 +66,7 @@ class QuoteTest extends TestCase {
                         reseller_id
                         number
                         price
+                        estimated_value_renewal
                         start
                         end
                         currency_id
@@ -233,24 +234,25 @@ class QuoteTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('quote', self::class, [
-                            'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                            'oem_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                            'product_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                            'customer_id' => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                            'type_id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                            'reseller_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                            'currency_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                            'language_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
-                            'number'      => '1323',
-                            'price'       => '100.00',
-                            'start'       => '2021-01-01',
-                            'end'         => '2024-01-01',
-                            'oem'         => [
+                            'id'                      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                            'oem_id'                  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'product_id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                            'customer_id'             => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                            'type_id'                 => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            'reseller_id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                            'currency_id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                            'language_id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
+                            'number'                  => '1323',
+                            'price'                   => '100.00',
+                            'estimated_value_renewal' => '24.20',
+                            'start'                   => '2021-01-01',
+                            'end'                     => '2024-01-01',
+                            'oem'                     => [
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                 'abbr' => 'abbr',
                                 'name' => 'oem1',
                             ],
-                            'product'     => [
+                            'product'                 => [
                                 'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                 'name'   => 'Product1',
                                 'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -263,11 +265,11 @@ class QuoteTest extends TestCase {
                                     'name' => 'oem1',
                                 ],
                             ],
-                            'type'        => [
+                            'type'                    => [
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                 'name' => 'name aaa',
                             ],
-                            'customer'    => [
+                            'customer'                => [
                                 'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                 'name'            => 'name aaa',
                                 'assets_count'    => 0,
@@ -292,7 +294,7 @@ class QuoteTest extends TestCase {
                                     ],
                                 ],
                             ],
-                            'reseller'    => [
+                            'reseller'                => [
                                 'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                 'name'            => 'reseller1',
                                 'customers_count' => 0,
@@ -310,12 +312,12 @@ class QuoteTest extends TestCase {
                                     ],
                                 ],
                             ],
-                            'currency'    => [
+                            'currency'                => [
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                 'name' => 'Currency1',
                                 'code' => 'CUR',
                             ],
-                            'entries'     => [
+                            'entries'                 => [
                                 [
                                     'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                                     'asset_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
@@ -340,12 +342,12 @@ class QuoteTest extends TestCase {
                                     ],
                                 ],
                             ],
-                            'language'    => [
+                            'language'                => [
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
                                 'name' => 'Lang1',
                                 'code' => 'en',
                             ],
-                            'contacts'    => [
+                            'contacts'                => [
                                 [
                                     'name'        => 'contact2',
                                     'email'       => 'contact2@test.com',
@@ -455,11 +457,12 @@ class QuoteTest extends TestCase {
                                     'phone_valid' => false,
                                 ])
                                 ->create([
-                                    'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                    'number' => '1323',
-                                    'price'  => '100',
-                                    'start'  => '2021-01-01',
-                                    'end'    => '2024-01-01',
+                                    'id'                      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'number'                  => '1323',
+                                    'price'                   => '100',
+                                    'estimated_value_renewal' => '24.20',
+                                    'start'                   => '2021-01-01',
+                                    'end'                     => '2024-01-01',
                                 ]);
                         },
                     ],
