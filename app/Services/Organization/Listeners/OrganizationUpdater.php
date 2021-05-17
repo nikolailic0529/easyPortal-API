@@ -11,8 +11,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
 use function filter_var;
+use function mb_strtolower;
+use function preg_replace;
 use function str_replace;
 use function str_starts_with;
+
+use function trim;
 
 use const FILTER_VALIDATE_INT;
 
@@ -45,7 +49,7 @@ class OrganizationUpdater implements Subscriber {
     }
 
     protected function getKeycloakScope(Reseller $reseller): string {
-        $scope = Str::snake($reseller->name, '');
+        $scope = $this->normalizeKeycloakScope($reseller->name);
         $last  = Organization::query()
             ->where(static function (Builder $builder) use ($scope): void {
                 $builder->orWhere('keycloak_scope', '=', $scope);
@@ -80,6 +84,13 @@ class OrganizationUpdater implements Subscriber {
         if ($last) {
             $scope = $scope.'_'.($last + 1);
         }
+
+        return $scope;
+    }
+
+    protected function normalizeKeycloakScope(string $scope): string {
+        $scope = trim(mb_strtolower($scope));
+        $scope = preg_replace('/\P{L}+/ui', '', $scope);
 
         return $scope;
     }

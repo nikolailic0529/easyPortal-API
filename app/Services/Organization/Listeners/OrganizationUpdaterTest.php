@@ -16,6 +16,8 @@ use Tests\TestCase;
  * @coversDefaultClass \App\Services\Organization\Listeners\OrganizationUpdater
  */
 class OrganizationUpdaterTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @covers ::subscribe
      */
@@ -101,4 +103,38 @@ class OrganizationUpdaterTest extends TestCase {
         $this->assertFalse($organization->trashed());
         $this->assertEquals('anothertestreseller', $organization->keycloak_scope);
     }
+
+    /**
+     * @covers ::normalizeKeycloakScope
+     *
+     * @dataProvider dataProviderNormalizeKeycloakScope
+     */
+    public function testNormalizeKeycloakScope(string $expected, string $scope): void {
+        $updated = new class() extends OrganizationUpdater {
+            public function __construct() {
+                // empty
+            }
+
+            public function normalizeKeycloakScope(string $scope): string {
+                return parent::normalizeKeycloakScope($scope);
+            }
+        };
+
+        $this->assertEquals($expected, $updated->normalizeKeycloakScope($scope));
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="DataProviders">
+    // =========================================================================
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderNormalizeKeycloakScope(): array {
+        return [
+            ['abcdnetworkingsolutions', 'A.B.C.D - Networking & Solutions'],
+            ['cubegmbh', 'Cube GmbH'],
+            ['drmüllerit', 'Dr. Müller & IT'],
+        ];
+    }
+    // </editor-fold>
 }
