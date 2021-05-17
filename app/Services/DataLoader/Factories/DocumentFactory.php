@@ -26,6 +26,7 @@ use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use Closure;
 use Illuminate\Support\Collection;
@@ -106,29 +107,33 @@ class DocumentFactory extends ModelFactory {
     // <editor-fold desc="Functions">
     // =========================================================================
     protected function createFromAssetDocument(AssetDocument $document): ?DocumentModel {
+        return $this->createFromDocument($document->document, $this->documentProduct($document));
+    }
+
+    protected function createFromDocument(Document $document, Product $product = null): ?DocumentModel {
         // Get/Create
         $created = false;
-        $factory = $this->factory(function (DocumentModel $model) use (&$created, $document): DocumentModel {
+        $factory = $this->factory(function (DocumentModel $model) use (&$created, $document, $product): DocumentModel {
             $created         = !$model->exists;
-            $model->id       = $this->normalizer->uuid($document->document->id);
+            $model->id       = $this->normalizer->uuid($document->id);
             $model->oem      = $this->documentOem($document);
             $model->type     = $this->documentType($document);
-            $model->product  = $this->documentProduct($document);
+            $model->product  = $product;
             $model->reseller = $this->documentReseller($document);
             $model->customer = $this->documentCustomer($document);
             $model->currency = $this->documentCurrency($document);
             $model->language = $this->documentLanguage($document);
-            $model->start    = $this->normalizer->datetime($document->document->startDate);
-            $model->end      = $this->normalizer->datetime($document->document->endDate);
-            $model->price    = $this->normalizer->number($document->document->totalNetPrice);
-            $model->number   = $this->normalizer->string($document->document->documentNumber);
-            $model->contacts = $this->objectContacts($model, $document->document->contactPersons);
+            $model->start    = $this->normalizer->datetime($document->startDate);
+            $model->end      = $this->normalizer->datetime($document->endDate);
+            $model->price    = $this->normalizer->number($document->totalNetPrice);
+            $model->number   = $this->normalizer->string($document->documentNumber);
+            $model->contacts = $this->objectContacts($model, $document->contactPersons);
             $model->save();
 
             return $model;
         });
         $model   = $this->documents->get(
-            $document->document->id,
+            $document->id,
             static function () use ($factory): DocumentModel {
                 return $factory(new DocumentModel());
             },
@@ -143,38 +148,37 @@ class DocumentFactory extends ModelFactory {
         return $model;
     }
 
-    protected function documentOem(AssetDocument $document): Oem {
+    protected function documentOem(Document $document): Oem {
         return $this->oem(
-            $document->document->vendorSpecificFields->vendor,
-            $document->document->vendorSpecificFields->vendor,
+            $document->vendorSpecificFields->vendor,
+            $document->vendorSpecificFields->vendor,
         );
     }
 
-    protected function documentCurrency(AssetDocument $document): Currency {
-        return $this->currencies->create($document->document);
+    protected function documentCurrency(Document $document): Currency {
+        return $this->currencies->create($document);
     }
 
-    protected function documentType(AssetDocument $document): TypeModel {
-        return $this->type(new DocumentModel(), $document->document->type);
+    protected function documentType(Document $document): TypeModel {
+        return $this->type(new DocumentModel(), $document->type);
     }
 
-    protected function documentProduct(AssetDocument $document): Product {
-        $oem     = $this->documentOem($document);
-        $type    = ProductType::support();
-        $product = $this->product(
-            $oem,
-            $type,
-            $document->supportPackage,
-            $document->supportPackageDescription,
-            null,
-            null,
-        );
+    protected function documentProduct(AssetDocument $document): ?Product {
+        $product     = null;
+        $package     = $document->supportPackage ?? null;
+        $description = $document->supportPackageDescription ?? null;
+
+        if ($package && $description) {
+            $oem     = $this->documentOem($document->document);
+            $type    = ProductType::support();
+            $product = $this->product($oem, $type, $package, $description, null, null);
+        }
 
         return $product;
     }
 
-    protected function documentReseller(AssetDocument $document): ?Reseller {
-        $id       = $document->document->resellerId;
+    protected function documentReseller(Document $document): ?Reseller {
+        $id       = $document->resellerId;
         $reseller = null;
 
         if ($id) {
@@ -185,15 +189,15 @@ class DocumentFactory extends ModelFactory {
             throw new ResellerNotFoundException(sprintf(
                 'Reseller `%s` not found (document `%s`).',
                 $id,
-                $document->document->id,
+                $document->id,
             ));
         }
 
         return $reseller;
     }
 
-    protected function documentCustomer(AssetDocument $document): ?Customer {
-        $id       = $document->document->customerId;
+    protected function documentCustomer(Document $document): ?Customer {
+        $id       = $document->customerId;
         $customer = null;
 
         if ($id) {
@@ -204,15 +208,15 @@ class DocumentFactory extends ModelFactory {
             throw new CustomerNotFoundException(sprintf(
                 'Customer `%s` not found (document `%s`).',
                 $id,
-                $document->document->id,
+                $document->id,
             ));
         }
 
         return $customer;
     }
 
-    protected function documentLanguage(AssetDocument $document): ?Language {
-        return $this->languages->create($document->document);
+    protected function documentLanguage(Document $document): ?Language {
+        return $this->languages->create($document);
     }
     // </editor-fold>
 }

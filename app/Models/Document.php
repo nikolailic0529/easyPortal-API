@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string                                                                   $customer_id
  * @property string|null                                                              $reseller_id
  * @property string                                                                   $number     Internal Number
- * @property string                                                                   $product_id Support Level
+ * @property string|null                                                              $product_id Support Level
  * @property \Carbon\CarbonImmutable                                                  $start
  * @property \Carbon\CarbonImmutable                                                  $end
  * @property string|null                                                              $price
@@ -41,7 +41,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>            $contacts
  * @property int                                                                      $contacts_count
  * @property \App\Models\Oem                                                          $oem
- * @property \App\Models\Product                                                      $product
+ * @property \App\Models\Product|null                                                 $product
  * @property \App\Models\Reseller|null                                                $reseller
  * @property \App\Models\Type                                                         $type
  * @method static \Database\Factories\DocumentFactory factory(...$parameters)
@@ -74,9 +74,11 @@ class Document extends Model {
     use HasReseller;
     use HasCustomer;
     use HasCurrency;
-    use HasProduct;
     use HasLanguage;
     use HasContacts;
+    use HasProduct {
+        setProductAttribute as protected setProduct;
+    }
 
     protected const CASTS = [
         'start' => 'date',
@@ -101,6 +103,14 @@ class Document extends Model {
 
     public function entries(): HasMany {
         return $this->hasMany(DocumentEntry::class);
+    }
+
+    public function setProductAttribute(?Product $product): void {
+        if ($product) {
+            $this->setProduct($product);
+        } else {
+            $this->product()->associate(null);
+        }
     }
 
     /**

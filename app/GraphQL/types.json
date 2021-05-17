@@ -451,7 +451,14 @@
                     "type": "string"
                 },
                 "product_id": {
-                    "$ref": "#/definitions/ID"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "start": {
                     "type": "string",
@@ -494,7 +501,14 @@
                     "$ref": "#/definitions/Oem"
                 },
                 "product": {
-                    "$ref": "#/definitions/Product"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Product"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "reseller": {
                     "$ref": "#/definitions/Reseller"

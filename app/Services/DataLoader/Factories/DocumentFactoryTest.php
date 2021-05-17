@@ -18,6 +18,7 @@ use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
@@ -142,17 +143,16 @@ class DocumentFactoryTest extends TestCase {
             $updated->price,
         );
         $this->assertEquals($document->document->documentNumber, $updated->number);
+        $this->assertNull($updated->product);
     }
 
     /**
      * @covers ::documentOem
      */
     public function testDocumentOem(): void {
-        $document = AssetDocument::create([
-            'document' => [
-                'vendorSpecificFields' => [
-                    'vendor' => $this->faker->word,
-                ],
+        $document = Document::create([
+            'vendorSpecificFields' => [
+                'vendor' => $this->faker->word,
             ],
         ]);
         $factory  = Mockery::mock(DocumentFactoryTest_Factory::class);
@@ -162,8 +162,8 @@ class DocumentFactoryTest extends TestCase {
         $factory
             ->shouldReceive('oem')
             ->with(
-                $document->document->vendorSpecificFields->vendor,
-                $document->document->vendorSpecificFields->vendor,
+                $document->vendorSpecificFields->vendor,
+                $document->vendorSpecificFields->vendor,
             )
             ->once()
             ->andReturns();
@@ -175,10 +175,8 @@ class DocumentFactoryTest extends TestCase {
      * @covers ::documentType
      */
     public function testDocumentType(): void {
-        $document = AssetDocument::create([
-            'document' => [
-                'type' => $this->faker->word,
-            ],
+        $document = Document::create([
+            'type' => $this->faker->word,
         ]);
         $factory  = Mockery::mock(DocumentFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
@@ -186,7 +184,7 @@ class DocumentFactoryTest extends TestCase {
 
         $factory
             ->shouldReceive('type')
-            ->with(Mockery::any(), $document->document->type)
+            ->with(Mockery::any(), $document->type)
             ->once()
             ->andReturns();
 
@@ -214,7 +212,7 @@ class DocumentFactoryTest extends TestCase {
         $factory->makePartial();
         $factory
             ->shouldReceive('documentOem')
-            ->with($document)
+            ->with($document->document)
             ->once()
             ->andReturn($oem);
         $factory
@@ -245,16 +243,13 @@ class DocumentFactoryTest extends TestCase {
                 $this->resellers = $resolver;
             }
 
-            public function documentReseller(AssetDocument $document): ?Reseller {
+            public function documentReseller(Document $document): ?Reseller {
                 return parent::documentReseller($document);
             }
         };
 
-        $this->assertEquals($reseller, $factory->documentReseller(AssetDocument::create([
-            'document' => [
-                'id'         => $this->faker->uuid,
-                'resellerId' => $reseller->getKey(),
-            ],
+        $this->assertEquals($reseller, $factory->documentReseller(Document::create([
+            'resellerId' => $reseller->getKey(),
         ])));
     }
 
@@ -263,11 +258,9 @@ class DocumentFactoryTest extends TestCase {
      */
     public function testDocumentResellerResellerNotFound(): void {
         $reseller = Reseller::factory()->make();
-        $document = AssetDocument::create([
-            'document' => [
-                'id'         => $this->faker->uuid,
-                'resellerId' => $reseller->getKey(),
-            ],
+        $document = Document::create([
+            'id'         => $this->faker->uuid,
+            'resellerId' => $reseller->getKey(),
         ]);
         $resolver = Mockery::mock(ResellerResolver::class);
         $resolver
@@ -282,7 +275,7 @@ class DocumentFactoryTest extends TestCase {
                 $this->resellers = $resolver;
             }
 
-            public function documentReseller(AssetDocument $document): ?Reseller {
+            public function documentReseller(Document $document): ?Reseller {
                 return parent::documentReseller($document);
             }
         };
@@ -311,16 +304,13 @@ class DocumentFactoryTest extends TestCase {
                 $this->customers = $resolver;
             }
 
-            public function documentCustomer(AssetDocument $document): ?Customer {
+            public function documentCustomer(Document $document): ?Customer {
                 return parent::documentCustomer($document);
             }
         };
 
-        $this->assertEquals($customer, $factory->documentCustomer(AssetDocument::create([
-            'document' => [
-                'id'         => $this->faker->uuid,
-                'customerId' => $customer->getKey(),
-            ],
+        $this->assertEquals($customer, $factory->documentCustomer(Document::create([
+            'customerId' => $customer->getKey(),
         ])));
     }
 
@@ -329,11 +319,9 @@ class DocumentFactoryTest extends TestCase {
      */
     public function testDocumentCustomerCustomerNotFound(): void {
         $customer = Customer::factory()->make();
-        $document = AssetDocument::create([
-            'document' => [
-                'id'         => $this->faker->uuid,
-                'customerId' => $customer->getKey(),
-            ],
+        $document = Document::create([
+            'id'         => $this->faker->uuid,
+            'customerId' => $customer->getKey(),
         ]);
         $resolver = Mockery::mock(CustomerResolver::class);
         $resolver
@@ -348,7 +336,7 @@ class DocumentFactoryTest extends TestCase {
                 $this->customers = $resolver;
             }
 
-            public function documentCustomer(AssetDocument $document): ?Customer {
+            public function documentCustomer(Document $document): ?Customer {
                 return parent::documentCustomer($document);
             }
         };
@@ -362,17 +350,15 @@ class DocumentFactoryTest extends TestCase {
      * @covers ::documentCurrency
      */
     public function testDocumentCurrency(): void {
-        $document = AssetDocument::create([
-            'document' => [
-                'id' => $this->faker->uuid,
-            ],
+        $document = Document::create([
+            'id' => $this->faker->uuid,
         ]);
         $currency = Currency::factory()->make();
         $factory  = Mockery::mock(CurrencyFactory::class);
 
         $factory
             ->shouldReceive('create')
-            ->with($document->document)
+            ->with($document)
             ->once()
             ->andReturn($currency);
 
@@ -384,7 +370,7 @@ class DocumentFactoryTest extends TestCase {
                 // empty
             }
 
-            public function documentCurrency(AssetDocument $document): Currency {
+            public function documentCurrency(Document $document): Currency {
                 return parent::documentCurrency($document);
             }
         };
@@ -459,17 +445,15 @@ class DocumentFactoryTest extends TestCase {
      * @covers ::documentLanguage
      */
     public function testDocumentLanguage(): void {
-        $document = AssetDocument::create([
-            'document' => [
-                'id' => $this->faker->uuid,
-            ],
+        $document = Document::create([
+            'id' => $this->faker->uuid,
         ]);
         $language = Language::factory()->make();
         $factory  = Mockery::mock(LanguageFactory::class);
 
         $factory
             ->shouldReceive('create')
-            ->with($document->document)
+            ->with($document)
             ->once()
             ->andReturn($language);
 
@@ -481,7 +465,7 @@ class DocumentFactoryTest extends TestCase {
                 // empty
             }
 
-            public function documentLanguage(AssetDocument $document): Language {
+            public function documentLanguage(Document $document): Language {
                 return parent::documentLanguage($document);
             }
         };
@@ -519,11 +503,11 @@ class DocumentFactoryTest extends TestCase {
 class DocumentFactoryTest_Factory extends DocumentFactory {
     // TODO [tests] Remove after https://youtrack.jetbrains.com/issue/WI-25253
 
-    public function documentOem(AssetDocument $document): Oem {
+    public function documentOem(Document $document): Oem {
         return parent::documentOem($document);
     }
 
-    public function documentType(AssetDocument $document): TypeModel {
+    public function documentType(Document $document): TypeModel {
         return parent::documentType($document);
     }
 

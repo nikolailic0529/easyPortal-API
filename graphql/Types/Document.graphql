@@ -5,7 +5,8 @@ type Document {
   customer_id: ID!
   reseller_id: ID!
   number: String!
-  product_id: ID!
+  "Support package"
+  product_id: ID
   start: Date!
   end: Date!
   price: String
@@ -13,7 +14,7 @@ type Document {
   currency: Currency @belongsTo
   customer: Customer! @belongsTo
   oem: Oem! @belongsTo
-  product: Product! @belongsTo
+  product: Product @belongsTo
   reseller: Reseller! @belongsTo
   type: Type! @belongsTo
   entries(

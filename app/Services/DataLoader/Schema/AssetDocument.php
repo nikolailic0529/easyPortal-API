@@ -6,8 +6,8 @@ class AssetDocument extends Type {
     public string $skuNumber;
     public string $skuDescription;
 
-    public string $supportPackage;
-    public string $supportPackageDescription;
+    public ?string $supportPackage;
+    public ?string $supportPackageDescription;
 
     public ?string $warrantyEndDate;
 

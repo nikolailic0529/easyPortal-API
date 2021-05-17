@@ -471,7 +471,9 @@ type Document {
   customer_id: ID!
   reseller_id: ID!
   number: String!
-  product_id: ID!
+
+  """Support package"""
+  product_id: ID
   start: Date!
   end: Date!
   price: String
@@ -479,7 +481,7 @@ type Document {
   currency: Currency
   customer: Customer!
   oem: Oem!
-  product: Product!
+  product: Product
   reseller: Reseller!
   type: Type!
   entries(where: SearchByConditionDocumentEntriesQuery): [DocumentEntry!]!
@@ -536,7 +538,7 @@ input DocumentsQuery {
   customer_id: ID!
   reseller_id: ID!
   number: String!
-  product_id: ID!
+  product_id: ID
   start: Date!
   end: Date!
   price: String!
@@ -1487,7 +1489,7 @@ input SearchByConditionDocumentsQuery {
   number: SearchByScalarString
 
   """Property condition."""
-  product_id: SearchByScalarID
+  product_id: SearchByScalarIDOrNull
 
   """Property condition."""
   start: SearchByScalarDate

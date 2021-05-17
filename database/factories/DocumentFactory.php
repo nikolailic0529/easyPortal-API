@@ -5,7 +5,6 @@ namespace Database\Factories;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Oem;
-use App\Models\Product;
 use App\Models\Reseller;
 use App\Models\Type;
 use Illuminate\Support\Facades\Date;
@@ -47,9 +46,7 @@ class DocumentFactory extends Factory {
             'customer_id' => static function (): Customer {
                 return Customer::factory()->create();
             },
-            'product_id'  => static function (): Product {
-                return Product::factory()->create();
-            },
+            'product_id'  => null,
             'number'      => $this->faker->uuid,
             'start'       => $this->faker->dateTime,
             'end'         => $this->faker->dateTime,
