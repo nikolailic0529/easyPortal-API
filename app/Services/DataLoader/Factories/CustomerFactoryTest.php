@@ -9,8 +9,10 @@ use App\Services\DataLoader\Exceptions\DataLoaderException;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Schema\Asset;
+use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
@@ -74,6 +76,83 @@ class CustomerFactoryTest extends TestCase {
         }
 
         $factory->create($type);
+    }
+
+    /**
+     * @covers ::createFromAssetDocumentObject
+     */
+    public function testCreateFromAssetDocumentObject(): void {
+        $document = AssetDocumentObject::create([
+            'document' => [
+                'customer' => [
+                    'id' => $this->faker->uuid,
+                ],
+            ],
+        ]);
+
+        $factory = Mockery::mock(CustomerFactory::class);
+        $factory->makePartial();
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->shouldReceive('createFromCompany')
+            ->once()
+            ->with($document->document->customer)
+            ->andReturn(null);
+
+        $factory->create($document);
+    }
+
+    /**
+     * @covers ::createFromAssetDocument
+     */
+    public function testCreateFromAssetDocument(): void {
+        $document = AssetDocument::create([
+            'customer' => [
+                'id' => $this->faker->uuid,
+            ],
+            'document' => [
+                'customer' => [
+                    'id' => $this->faker->uuid,
+                ],
+            ],
+        ]);
+
+        $factory = Mockery::mock(CustomerFactory::class);
+        $factory->makePartial();
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory
+            ->shouldReceive('createFromCompany')
+            ->once()
+            ->with($document->document->customer)
+            ->andReturn(null);
+        $factory
+            ->shouldReceive('createFromCompany')
+            ->once()
+            ->with($document->customer)
+            ->andReturn(null);
+
+        $factory->create($document);
+    }
+
+    /**
+     * @covers ::createFromDocument
+     */
+    public function testCreateFromDocument(): void {
+        $document = Document::create([
+            'customer' => [
+                'id' => $this->faker->uuid,
+            ],
+        ]);
+
+        $factory = Mockery::mock(CustomerFactory::class);
+        $factory->makePartial();
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory
+            ->shouldReceive('createFromCompany')
+            ->once()
+            ->with($document->customer)
+            ->andReturn(null);
+
+        $factory->create($document);
     }
 
     /**
@@ -284,8 +363,11 @@ class CustomerFactoryTest extends TestCase {
      */
     public function dataProviderCreate(): array {
         return [
-            Company::class => ['createFromCompany', new Company()],
-            'Unknown'      => [
+            AssetDocumentObject::class => ['createFromAssetDocumentObject', new AssetDocumentObject()],
+            AssetDocument::class       => ['createFromAssetDocument', new AssetDocument()],
+            Document::class            => ['createFromDocument', new Document()],
+            Company::class             => ['createFromCompany', new Company()],
+            'Unknown'                  => [
                 null,
                 new class() extends Type {
                     // empty

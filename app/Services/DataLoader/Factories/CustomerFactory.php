@@ -15,8 +15,10 @@ use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Asset;
+use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use Closure;
 use InvalidArgumentException;
@@ -25,6 +27,7 @@ use Psr\Log\LoggerInterface;
 use function array_map;
 use function array_unique;
 use function count;
+use function implode;
 use function reset;
 use function sprintf;
 
@@ -57,12 +60,23 @@ class CustomerFactory extends ModelFactory {
     public function create(Type $type): ?Customer {
         $model = null;
 
-        if ($type instanceof Company) {
+        if ($type instanceof AssetDocumentObject) {
+            $model = $this->createFromAssetDocumentObject($type);
+        } elseif ($type instanceof AssetDocument) {
+            $model = $this->createFromAssetDocument($type);
+        } elseif ($type instanceof Document) {
+            $model = $this->createFromDocument($type);
+        } elseif ($type instanceof Company) {
             $model = $this->createFromCompany($type);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
-                Company::class,
+                implode('`, `', [
+                    AssetDocumentObject::class,
+                    AssetDocument::class,
+                    Document::class,
+                    Company::class,
+                ]),
             ));
         }
 
@@ -89,7 +103,32 @@ class CustomerFactory extends ModelFactory {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-    protected function createFromCompany(Company $company): Customer {
+
+    protected function createFromAssetDocumentObject(AssetDocumentObject $document): ?Customer {
+        return $this->createFromAssetDocument($document->document);
+    }
+
+    protected function createFromAssetDocument(AssetDocument $document): ?Customer {
+        $customer = null;
+
+        if (isset($document->document)) {
+            $customer = $this->createFromDocument($document->document);
+        }
+
+        if (!$customer && isset($document->customer) && $document->customer) {
+            $customer = $this->createFromCompany($document->customer);
+        }
+
+        return $customer;
+    }
+
+    protected function createFromDocument(Document $document): ?Customer {
+        return isset($document->customer) && $document->customer
+            ? $this->createFromCompany($document->customer)
+            : null;
+    }
+
+    protected function createFromCompany(Company $company): ?Customer {
         // Get/Create customer
         $created  = false;
         $factory  = $this->factory(function (Customer $customer) use (&$created, $company): Customer {
