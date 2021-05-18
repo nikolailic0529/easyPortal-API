@@ -8,6 +8,7 @@
     "endDate": "2021-03-31",
     "currencyCode": "EUR",
     "totalNetPrice": null,
+    "languageCode": "DE",
     "vendorSpecificFields": {
         "vendor": "HPE"
     },

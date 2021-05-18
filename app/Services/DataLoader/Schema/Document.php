@@ -10,8 +10,9 @@ class Document extends Type {
     public ?string                     $customerId;
     public string                      $startDate;
     public string                      $endDate;
-    public string                      $currencyCode;
+    public ?string                     $currencyCode;
     public ?string                     $totalNetPrice;
+    public ?string                     $languageCode;
     public DocumentVendorSpecificField $vendorSpecificFields;
     /**
      * @var array<\App\Services\DataLoader\Schema\DocumentEntry>

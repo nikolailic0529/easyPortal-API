@@ -62,12 +62,42 @@ class LanguageFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::createFromAssetDocumentObject
+     */
+    public function testCreateFromAssetDocumentObject(): void {
+        $code     = $this->faker->languageCode;
+        $document = AssetDocumentObject::create([
+            'document' => [
+                'languageCode' => $code,
+            ],
+        ]);
+
+        $factory = Mockery::mock(LanguageFactory::class);
+        $factory->makePartial();
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->shouldReceive('language')
+            ->once()
+            ->with($code)
+            ->andReturn(null);
+
+        $factory->create($document);
+    }
+
+    /**
      * @covers ::createFromAssetDocument
      */
     public function testCreateFromAssetDocument(): void {
         $code     = $this->faker->languageCode;
-        $document = AssetDocument::create([
-            'languageCode' => $code,
+        $document = $this->faker->randomElement([
+            AssetDocument::create([
+                'languageCode' => $code,
+            ]),
+            AssetDocument::create([
+                'languageCode' => $this->faker->languageCode,
+                'document'     => [
+                    'languageCode' => $code,
+                ],
+            ]),
         ]);
 
         $factory = Mockery::mock(LanguageFactory::class);
@@ -150,9 +180,10 @@ class LanguageFactoryTest extends TestCase {
      */
     public function dataProviderCreate(): array {
         return [
-            AssetDocument::class => ['createFromAssetDocument', new AssetDocument()],
-            Document::class      => ['createFromDocument', new Document()],
-            'Unknown'            => [
+            AssetDocumentObject::class => ['createFromAssetDocumentObject', new AssetDocumentObject()],
+            AssetDocument::class       => ['createFromAssetDocument', new AssetDocument()],
+            Document::class            => ['createFromDocument', new Document()],
+            'Unknown'                  => [
                 null,
                 new class() extends Type {
                     // empty

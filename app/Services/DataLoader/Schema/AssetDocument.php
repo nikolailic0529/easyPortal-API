@@ -16,7 +16,7 @@ class AssetDocument extends Type {
     public string    $startDate;
     public string    $endDate;
 
-    public string $currencyCode;
+    public ?string $currencyCode;
     public ?string $languageCode;
     public ?string $netPrice;
     public ?string $discount;

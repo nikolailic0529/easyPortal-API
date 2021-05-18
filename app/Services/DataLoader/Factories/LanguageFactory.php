@@ -31,7 +31,9 @@ class LanguageFactory extends ModelFactory {
     public function create(Type $type): ?Language {
         $model = null;
 
-        if ($type instanceof AssetDocument) {
+        if ($type instanceof AssetDocumentObject) {
+            $model = $this->createFromAssetDocumentObject($type);
+        } elseif ($type instanceof AssetDocument) {
             $model = $this->createFromAssetDocument($type);
         } elseif ($type instanceof Document) {
             $model = $this->createFromDocument($type);
@@ -39,6 +41,7 @@ class LanguageFactory extends ModelFactory {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
                 implode('`, `', [
+                    AssetDocumentObject::class,
                     AssetDocument::class,
                     Document::class,
                 ]),
@@ -48,8 +51,14 @@ class LanguageFactory extends ModelFactory {
         return $model;
     }
 
+    protected function createFromAssetDocumentObject(AssetDocumentObject $document): ?Language {
+        return $this->createFromAssetDocument($document->document);
+    }
+
     protected function createFromAssetDocument(AssetDocument $document): ?Language {
-        return $this->language($document->languageCode);
+        return isset($document->document)
+            ? $this->createFromDocument($document->document)
+            : $this->language($document->languageCode);
     }
 
     protected function createFromDocument(Document $document): ?Language {
