@@ -56,13 +56,21 @@ class CurrencyFactory extends ModelFactory {
     }
 
     protected function createFromAssetDocumentObject(AssetDocumentObject $document): ?Currency {
-        return $this->createFromAssetDocument($document->document);
+        $currency = null;
+
+        if (isset($document->document->document)) {
+            $currency = $this->createFromDocument($document->document->document);
+        }
+
+        if (!$currency) {
+            $currency = $this->createFromAssetDocument($document->document);
+        }
+
+        return $currency;
     }
 
     protected function createFromAssetDocument(AssetDocument $document): ?Currency {
-        return isset($document->document)
-            ? $this->createFromDocument($document->document)
-            : $this->currency($document->currencyCode);
+        return $this->currency($document->currencyCode);
     }
 
     protected function createFromDocument(Document $document): ?Currency {

@@ -78,15 +78,26 @@ class ResellerFactoryTest extends TestCase {
                 'reseller' => [
                     'id' => $this->faker->uuid,
                 ],
+                'document' => [
+                    'reseller' => [
+                        'id' => $this->faker->uuid,
+                    ],
+                ],
             ],
         ]);
 
         $factory = Mockery::mock(ResellerFactory::class);
         $factory->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
-        $factory->shouldReceive('createFromCompany')
+        $factory
+            ->shouldReceive('createFromDocument')
             ->once()
-            ->with($document->document->reseller)
+            ->with($document->document->document)
+            ->andReturn(null);
+        $factory
+            ->shouldReceive('createFromAssetDocument')
+            ->once()
+            ->with($document->document)
             ->andReturn(null);
 
         $factory->create($document);
@@ -100,21 +111,11 @@ class ResellerFactoryTest extends TestCase {
             'reseller' => [
                 'id' => $this->faker->uuid,
             ],
-            'document' => [
-                'reseller' => [
-                    'id' => $this->faker->uuid,
-                ],
-            ],
         ]);
 
         $factory = Mockery::mock(ResellerFactory::class);
         $factory->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
-        $factory
-            ->shouldReceive('createFromCompany')
-            ->once()
-            ->with($document->document->reseller)
-            ->andReturn(null);
         $factory
             ->shouldReceive('createFromCompany')
             ->once()
@@ -175,7 +176,7 @@ class ResellerFactoryTest extends TestCase {
             $this->getResellerLocations($reseller),
         );
 
-        // Customer should be updated
+        // Reseller should be updated
         $json    = $this->getTestData()->json('~reseller-changed.json');
         $company = Company::create($json);
         $updated = $factory->create($company);

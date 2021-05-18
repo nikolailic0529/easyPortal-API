@@ -66,19 +66,27 @@ class CurrencyFactoryTest extends TestCase {
      * @covers ::createFromAssetDocumentObject
      */
     public function testCreateFromAssetDocumentObject(): void {
-        $code     = $this->faker->currencyCode;
         $document = AssetDocumentObject::create([
             'document' => [
-                'currencyCode' => $code,
+                'currencyCode' => $this->faker->currencyCode,
+                'document'     => [
+                    'currencyCode' => $this->faker->currencyCode,
+                ],
             ],
         ]);
 
         $factory = Mockery::mock(CurrencyFactory::class);
         $factory->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
-        $factory->shouldReceive('currency')
+        $factory
+            ->shouldReceive('createFromDocument')
             ->once()
-            ->with($code)
+            ->with($document->document->document)
+            ->andReturn(null);
+        $factory
+            ->shouldReceive('createFromAssetDocument')
+            ->once()
+            ->with($document->document)
             ->andReturn(null);
 
         $factory->create($document);
@@ -89,16 +97,8 @@ class CurrencyFactoryTest extends TestCase {
      */
     public function testCreateFromAssetDocument(): void {
         $code     = $this->faker->currencyCode;
-        $document = $this->faker->randomElement([
-            AssetDocument::create([
-                'currencyCode' => $code,
-            ]),
-            AssetDocument::create([
-                'currencyCode' => $this->faker->currencyCode,
-                'document'     => [
-                    'currencyCode' => $code,
-                ],
-            ]),
+        $document = AssetDocument::create([
+            'currencyCode' => $code,
         ]);
 
         $factory = Mockery::mock(CurrencyFactory::class);

@@ -87,15 +87,26 @@ class CustomerFactoryTest extends TestCase {
                 'customer' => [
                     'id' => $this->faker->uuid,
                 ],
+                'document' => [
+                    'customer' => [
+                        'id' => $this->faker->uuid,
+                    ],
+                ],
             ],
         ]);
 
         $factory = Mockery::mock(CustomerFactory::class);
         $factory->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
-        $factory->shouldReceive('createFromCompany')
+        $factory
+            ->shouldReceive('createFromDocument')
             ->once()
-            ->with($document->document->customer)
+            ->with($document->document->document)
+            ->andReturn(null);
+        $factory
+            ->shouldReceive('createFromAssetDocument')
+            ->once()
+            ->with($document->document)
             ->andReturn(null);
 
         $factory->create($document);
@@ -109,21 +120,11 @@ class CustomerFactoryTest extends TestCase {
             'customer' => [
                 'id' => $this->faker->uuid,
             ],
-            'document' => [
-                'customer' => [
-                    'id' => $this->faker->uuid,
-                ],
-            ],
         ]);
 
         $factory = Mockery::mock(CustomerFactory::class);
         $factory->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
-        $factory
-            ->shouldReceive('createFromCompany')
-            ->once()
-            ->with($document->document->customer)
-            ->andReturn(null);
         $factory
             ->shouldReceive('createFromCompany')
             ->once()

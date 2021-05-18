@@ -103,21 +103,23 @@ class ResellerFactory extends ModelFactory {
     // <editor-fold desc="Functions">
     // =========================================================================
     protected function createFromAssetDocumentObject(AssetDocumentObject $document): ?Reseller {
-        return $this->createFromAssetDocument($document->document);
-    }
-
-    protected function createFromAssetDocument(AssetDocument $document): ?Reseller {
         $reseller = null;
 
-        if (isset($document->document)) {
-            $reseller = $this->createFromDocument($document->document);
+        if (isset($document->document->document)) {
+            $reseller = $this->createFromDocument($document->document->document);
         }
 
-        if (!$reseller && isset($document->reseller) && $document->reseller) {
-            $reseller = $this->createFromCompany($document->reseller);
+        if (!$reseller) {
+            $reseller = $this->createFromAssetDocument($document->document);
         }
 
         return $reseller;
+    }
+
+    protected function createFromAssetDocument(AssetDocument $document): ?Reseller {
+        return isset($document->reseller) && $document->reseller
+            ? $this->createFromCompany($document->reseller)
+            : null;
     }
 
     protected function createFromDocument(Document $document): ?Reseller {

@@ -103,23 +103,24 @@ class CustomerFactory extends ModelFactory {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-
     protected function createFromAssetDocumentObject(AssetDocumentObject $document): ?Customer {
-        return $this->createFromAssetDocument($document->document);
-    }
-
-    protected function createFromAssetDocument(AssetDocument $document): ?Customer {
         $customer = null;
 
-        if (isset($document->document)) {
-            $customer = $this->createFromDocument($document->document);
+        if (isset($document->document->document)) {
+            $customer = $this->createFromDocument($document->document->document);
         }
 
-        if (!$customer && isset($document->customer) && $document->customer) {
-            $customer = $this->createFromCompany($document->customer);
+        if (!$customer) {
+            $customer = $this->createFromAssetDocument($document->document);
         }
 
         return $customer;
+    }
+
+    protected function createFromAssetDocument(AssetDocument $document): ?Customer {
+        return isset($document->customer) && $document->customer
+            ? $this->createFromCompany($document->customer)
+            : null;
     }
 
     protected function createFromDocument(Document $document): ?Customer {

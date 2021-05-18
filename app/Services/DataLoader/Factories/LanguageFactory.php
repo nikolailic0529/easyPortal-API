@@ -52,13 +52,21 @@ class LanguageFactory extends ModelFactory {
     }
 
     protected function createFromAssetDocumentObject(AssetDocumentObject $document): ?Language {
-        return $this->createFromAssetDocument($document->document);
+        $language = null;
+
+        if (isset($document->document->document)) {
+            $language = $this->createFromDocument($document->document->document);
+        }
+
+        if (!$language) {
+            $language = $this->createFromAssetDocument($document->document);
+        }
+
+        return $language;
     }
 
     protected function createFromAssetDocument(AssetDocument $document): ?Language {
-        return isset($document->document)
-            ? $this->createFromDocument($document->document)
-            : $this->language($document->languageCode);
+        return $this->language($document->languageCode);
     }
 
     protected function createFromDocument(Document $document): ?Language {

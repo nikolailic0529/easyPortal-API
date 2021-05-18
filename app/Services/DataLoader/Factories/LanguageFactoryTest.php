@@ -65,19 +65,27 @@ class LanguageFactoryTest extends TestCase {
      * @covers ::createFromAssetDocumentObject
      */
     public function testCreateFromAssetDocumentObject(): void {
-        $code     = $this->faker->languageCode;
         $document = AssetDocumentObject::create([
             'document' => [
-                'languageCode' => $code,
+                'languageCode' => $this->faker->languageCode,
+                'document'     => [
+                    'languageCode' => $this->faker->languageCode,
+                ],
             ],
         ]);
 
         $factory = Mockery::mock(LanguageFactory::class);
         $factory->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
-        $factory->shouldReceive('language')
+        $factory
+            ->shouldReceive('createFromDocument')
             ->once()
-            ->with($code)
+            ->with($document->document->document)
+            ->andReturn(null);
+        $factory
+            ->shouldReceive('createFromAssetDocument')
+            ->once()
+            ->with($document->document)
             ->andReturn(null);
 
         $factory->create($document);
@@ -88,22 +96,15 @@ class LanguageFactoryTest extends TestCase {
      */
     public function testCreateFromAssetDocument(): void {
         $code     = $this->faker->languageCode;
-        $document = $this->faker->randomElement([
-            AssetDocument::create([
-                'languageCode' => $code,
-            ]),
-            AssetDocument::create([
-                'languageCode' => $this->faker->languageCode,
-                'document'     => [
-                    'languageCode' => $code,
-                ],
-            ]),
+        $document = AssetDocument::create([
+            'languageCode' => $code,
         ]);
 
         $factory = Mockery::mock(LanguageFactory::class);
         $factory->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
-        $factory->shouldReceive('language')
+        $factory
+            ->shouldReceive('language')
             ->once()
             ->with($code)
             ->andReturn(null);
