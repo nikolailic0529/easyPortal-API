@@ -23,5 +23,13 @@
     "netPrice": "23.4",
     "discount": "-2.05",
     "listPrice": "48",
-    "estimatedValueRenewal": "145"
+    "estimatedValueRenewal": "145",
+    "reseller": {
+        "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
+        "name": "Weber, Gusikowski and Simonis"
+    },
+    "customer": {
+        "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
+        "name": "Weber, Gusikowski and Simonis"
+    }
 }

@@ -385,7 +385,7 @@ class Client {
     }
 
     protected function getAssetDocumentsPropertiesGraphQL(): string {
-        return <<<'GRAPHQL'
+        return <<<GRAPHQL
             startDate
             endDate
             documentNumber
@@ -420,6 +420,14 @@ class Client {
                     type
                     mail
                 }
+
+                customer {
+                  {$this->getCompanyPropertiesGraphQL()}
+                }
+
+                reseller {
+                  {$this->getCompanyPropertiesGraphQL()}
+                }
             }
 
             skuNumber
@@ -431,6 +439,14 @@ class Client {
             warrantyEndDate
 
             estimatedValueRenewal
+
+            customer {
+              {$this->getCompanyPropertiesGraphQL()}
+            }
+
+            reseller {
+              {$this->getCompanyPropertiesGraphQL()}
+            }
             GRAPHQL;
     }
     //</editor-fold>
