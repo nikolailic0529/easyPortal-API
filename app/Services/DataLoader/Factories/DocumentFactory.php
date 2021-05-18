@@ -34,6 +34,7 @@ use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
 use function array_map;
+use function implode;
 use function sprintf;
 
 class DocumentFactory extends ModelFactory {
@@ -69,10 +70,15 @@ class DocumentFactory extends ModelFactory {
 
         if ($type instanceof AssetDocument) {
             $model = $this->createFromAssetDocument($type);
+        } elseif ($type instanceof Document) {
+            $model = $this->createFromDocument($type);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
-                AssetDocument::class,
+                implode('`, `', [
+                    AssetDocument::class,
+                    Document::class,
+                ]),
             ));
         }
 
@@ -107,7 +113,59 @@ class DocumentFactory extends ModelFactory {
     // <editor-fold desc="Functions">
     // =========================================================================
     protected function createFromAssetDocument(AssetDocument $document): ?DocumentModel {
-        return $this->createFromDocument($document->document, $this->documentProduct($document));
+        $model   = null;
+        $product = $this->documentProduct($document);
+
+        if (isset($document->document)) {
+            // FIXME: We can have a document that was created with ID = number,
+            //      now we know its ID and probably should remove or update it.
+            $model = $this->createFromDocument($document->document, $product);
+        } else {
+            $created = false;
+            $factory = $this->factory(
+                function (DocumentModel $model) use (&$created, $document, $product): DocumentModel {
+                    $created         = !$model->exists;
+                    $model->id       = $this->normalizer->string($document->documentNumber);
+                    $model->oem      = $asset->oem;
+                    $model->type     = $this->type(new DocumentModel(), '??');
+                    $model->product  = $product;
+                    $model->reseller = $asset->reseller;
+                    $model->customer = $asset->customer;
+                    $model->currency = $this->currencies->create($document);
+                    $model->language = $this->languages->create($document);
+                    $model->price    = null;
+                    $model->number   = $this->normalizer->string($document->documentNumber);
+
+                    if ($created) {
+                        // These dates are not consistent and create a lot of:
+                        // - UPDATE `documents` SET `start` = '2020-10-22 00:00:00', `end` = '2022-12-31 00:00:00'
+                        // - UPDATE `documents` SET `start` = '2019-07-01 00:00:00', `end` = '2020-10-21 00:00:00'
+                        // - UPDATE `documents` SET `start` = '2020-10-22 00:00:00', `end` = '2022-12-31 00:00:00'
+                        //
+                        // For this reason we will not update it at all.
+                        $model->start = $this->normalizer->datetime($document->startDate);
+                        $model->end   = $this->normalizer->datetime($document->endDate);
+                    }
+
+                    $model->save();
+
+                    return $model;
+                },
+            );
+            $model   = $this->documents->get(
+                $document->documentNumber,
+                static function () use ($factory): DocumentModel {
+                    return $factory(new DocumentModel());
+                },
+            );
+
+            // Update
+            if (!$created && !$this->isSearchMode()) {
+                $factory($document);
+            }
+        }
+
+        return $model;
     }
 
     protected function createFromDocument(Document $document, Product $product = null): ?DocumentModel {

@@ -6,7 +6,6 @@ use App\Models\Asset as AssetModel;
 use App\Models\AssetWarranty;
 use App\Models\Customer;
 use App\Models\Document;
-use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry;
 use App\Models\Enums\ProductType;
 use App\Models\Location;
@@ -293,67 +292,13 @@ class AssetFactory extends ModelFactory {
     }
 
     protected function assetDocument(AssetModel $asset, AssetDocument $assetDocument): Document {
+        $id       = $assetDocument->document->id ?? $assetDocument->documentNumber ?? null;
         $document = null;
 
-        if (isset($assetDocument->document)) {
-            if ($this->documentFactory) {
-                $document = $this->documentFactory->create($assetDocument);
-            } else {
-                $document = $this->documentResolver->get(
-                    $assetDocument->document->id,
-                );
-            }
+        if ($this->documentFactory) {
+            $document = $this->documentFactory->create($assetDocument);
         } else {
-            // This is temporary fix for https://thefas.atlassian.net/browse/EAP-60
-            $created  = false;
-            $factory  = $this->factory(
-                function (DocumentModel $model) use (&$created, $asset, $assetDocument): DocumentModel {
-                    $created         = !$model->exists;
-                    $model->id       = $this->normalizer->string($assetDocument->documentNumber);
-                    $model->oem      = $asset->oem;
-                    $model->type     = $this->type(new DocumentModel(), '??');
-                    $model->product  = $this->product(
-                        $asset->oem,
-                        ProductType::support(),
-                        $assetDocument->supportPackage,
-                        $assetDocument->supportPackageDescription,
-                        null,
-                        null,
-                    );
-                    $model->reseller = $asset->reseller;
-                    $model->customer = $asset->customer;
-                    $model->currency = $this->currencies->create($assetDocument);
-                    $model->language = $this->languages->create($assetDocument);
-                    $model->price    = $this->normalizer->number('0.00');
-                    $model->number   = $this->normalizer->string($assetDocument->documentNumber);
-
-                    if ($created) {
-                        // These dates are not consistent and create a lot of:
-                        // - UPDATE `documents` SET `start` = '2020-10-22 00:00:00', `end` = '2022-12-31 00:00:00'
-                        // - UPDATE `documents` SET `start` = '2019-07-01 00:00:00', `end` = '2020-10-21 00:00:00'
-                        // - UPDATE `documents` SET `start` = '2020-10-22 00:00:00', `end` = '2022-12-31 00:00:00'
-                        //
-                        // For this reason we will not update it at all.
-                        $model->start = $this->normalizer->datetime($assetDocument->startDate);
-                        $model->end   = $this->normalizer->datetime($assetDocument->endDate);
-                    }
-
-                    $model->save();
-
-                    return $model;
-                },
-            );
-            $document = $this->documentResolver->get(
-                $assetDocument->documentNumber,
-                static function () use ($factory): DocumentModel {
-                    return $factory(new DocumentModel());
-                },
-            );
-
-            // Update
-            if ($document && !$created && !$this->isSearchMode()) {
-                $factory($document);
-            }
+            $document = $this->documentResolver->get($id);
         }
 
         if (!$document) {
@@ -367,6 +312,7 @@ class AssetFactory extends ModelFactory {
     }
 
     protected function assetDocumentEntry(Document $document, AssetDocument $assetDocument): DocumentEntry {
+        // FIXME: Currency is missing
         $entry             = new DocumentEntry();
         $entry->net_price  = $this->normalizer->number($assetDocument->netPrice);
         $entry->list_price = $this->normalizer->number($assetDocument->listPrice);
