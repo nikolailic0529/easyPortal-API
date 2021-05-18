@@ -65,7 +65,52 @@ class CurrencyFactoryTest extends TestCase {
     /**
      * @covers ::createFromAssetDocument
      */
+    public function testCreateFromAssetDocumentObject(): void {
+        $code     = $this->faker->currencyCode;
+        $document = AssetDocumentObject::create([
+            'document' => [
+                'currencyCode' => $code,
+            ],
+        ]);
+
+        $factory = Mockery::mock(CurrencyFactory::class);
+        $factory->makePartial();
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->shouldReceive('currency')
+            ->once()
+            ->with($code)
+            ->andReturn(null);
+
+        $factory->create($document);
+    }
+
+    /**
+     * @covers ::createFromAssetDocument
+     */
     public function testCreateFromAssetDocument(): void {
+        $code     = $this->faker->currencyCode;
+        $document = AssetDocument::create([
+            'currencyCode' => $this->faker->currencyCode,
+            'document'     => [
+                'currencyCode' => $code,
+            ],
+        ]);
+
+        $factory = Mockery::mock(CurrencyFactory::class);
+        $factory->makePartial();
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->shouldReceive('currency')
+            ->once()
+            ->with($code)
+            ->andReturn(null);
+
+        $factory->create($document);
+    }
+
+    /**
+     * @covers ::createFromAssetDocument
+     */
+    public function testCreateFromAssetDocumentNoDocument(): void {
         $code     = $this->faker->currencyCode;
         $document = AssetDocument::create([
             'currencyCode' => $code,
@@ -171,10 +216,11 @@ class CurrencyFactoryTest extends TestCase {
      */
     public function dataProviderCreate(): array {
         return [
-            AssetDocument::class => ['createFromAssetDocument', new AssetDocument()],
-            Document::class      => ['createFromDocument', new Document()],
-            DocumentEntry::class => ['createFromDocumentEntry', new DocumentEntry()],
-            'Unknown'            => [
+            AssetDocumentObject::class => ['createFromAssetDocumentObject', new AssetDocumentObject()],
+            AssetDocument::class       => ['createFromAssetDocument', new AssetDocument()],
+            Document::class            => ['createFromDocument', new Document()],
+            DocumentEntry::class       => ['createFromDocumentEntry', new DocumentEntry()],
+            'Unknown'                  => [
                 null,
                 new class() extends Type {
                     // empty
