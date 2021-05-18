@@ -128,11 +128,11 @@ class KeyCloak {
 
         // Next we destroy the active session
         //
-        // `flush()` required to fix https://github.com/laravel/framework/issues/37393
-        // but after it CSRF token will be also deleted and the client will need
-        // to get a new one to make POST requests.
+        // `flush()` and `regenerateToken()` required to fix
+        // https://github.com/laravel/framework/issues/37393
         $this->auth->guard()->logout();
         $this->session->flush();
+        $this->session->regenerateToken();
         $this->forgetToken();
 
         // And the last step - redirect if sign out failed.
