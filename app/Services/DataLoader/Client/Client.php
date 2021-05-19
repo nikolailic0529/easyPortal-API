@@ -3,12 +3,14 @@
 namespace App\Services\DataLoader\Client;
 
 use App\Services\DataLoader\Exceptions\DataLoaderException;
-use App\Services\DataLoader\Exceptions\GraphQLQueryFailedException;
+use App\Services\DataLoader\Exceptions\GraphQLQueryFailed;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
 use Closure;
+use Exception;
 use GraphQL\Type\Introspection;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Arr;
 use Psr\Log\LoggerInterface;
@@ -17,9 +19,11 @@ use function reset;
 
 class Client {
     public function __construct(
+        protected ExceptionHandler $handler,
         protected LoggerInterface $logger,
         protected Repository $config,
         protected Factory $client,
+        protected Token $token,
     ) {
         // empty
     }
@@ -229,7 +233,9 @@ class Client {
     // =========================================================================
     public function isEnabled(): bool {
         return $this->config->get('ep.data_loader.enabled')
-            && $this->config->get('ep.data_loader.endpoint');
+            && $this->config->get('ep.data_loader.url')
+            && $this->config->get('ep.data_loader.client_id')
+            && $this->config->get('ep.data_loader.client_secret');
     }
 
     /**
@@ -269,39 +275,45 @@ class Client {
         }
 
         // Call
-        $url      = $this->config->get('ep.data_loader.endpoint');
-        $timeout  = $this->config->get('ep.data_loader.timeout') ?: 5 * 60;
-        $data     = [
+        $url     = $this->config->get('ep.data_loader.endpoint') ?: $this->config->get('ep.data_loader.url');
+        $timeout = $this->config->get('ep.data_loader.timeout') ?: 5 * 60;
+        $data    = [
             'query'     => $graphql,
             'variables' => $params,
         ];
-        $headers  = [
-            'Accept' => 'application/json',
+        $headers = [
+            'Accept'        => 'application/json',
+            'Authorization' => "Bearer {$this->token->getAccessToken()}",
         ];
-        $response = $this->client
-            ->timeout($timeout)
-            ->withHeaders($headers)
-            ->post($url, $data);
-        $json     = $response->json();
+
+        try {
+            $response = $this->client
+                ->timeout($timeout)
+                ->withHeaders($headers)
+                ->post($url, $data);
+
+            $response->throw();
+        } catch (Exception $exception) {
+            throw new GraphQLQueryFailed($graphql, $params, [], $exception);
+        }
 
         // Error?
+        $json   = $response->json();
         $errors = Arr::get($json, 'errors', Arr::get($json, 'error.errors'));
+        $result = Arr::get($json, $selector, []) ?: [];
 
         if ($errors) {
-            $this->logger->error('GraphQL request failed.', [
-                'selector' => $selector,
-                'graphql'  => $graphql,
-                'params'   => $params,
-                'errors'   => $errors,
-            ]);
+            $error = new GraphQLQueryFailed($graphql, $params, $errors);
 
-            if (!Arr::has($json, $selector) && Arr::get($json, $selector)) {
-                throw new GraphQLQueryFailedException('GraphQL request failed.');
+            if ($result) {
+                $this->handler->report($error);
+            } else {
+                throw $error;
             }
         }
 
         // Return
-        return Arr::get($json, $selector) ?: [];
+        return $result;
     }
     // </editor-fold>
 
