@@ -138,6 +138,18 @@ type Asset {
   status: Status
   contacts: [Contact!]!
   contacts_count: Int!
+  coverage_id: ID
+  coverage(where: SearchByConditionAssetCoveragesQuery): AssetCoverage
+}
+
+type AssetCoverage {
+  id: ID!
+  name: String!
+}
+
+input AssetCoveragesQuery {
+  id: ID!
+  name: String!
 }
 
 """A paginated list of Asset items."""
@@ -1131,6 +1143,26 @@ input ResetPasswordInput {
 
 type ResetPasswordPayload {
   result: Boolean!
+}
+
+"""
+Available conditions for input AssetCoveragesQuery (only one property allowed at a time).
+"""
+input SearchByConditionAssetCoveragesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionAssetCoveragesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionAssetCoveragesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  name: SearchByScalarString
 }
 
 """

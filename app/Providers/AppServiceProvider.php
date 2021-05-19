@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Exceptions\GraphQLHandler;
 use App\Models\Asset;
+use App\Models\AssetCoverage;
 use App\Models\City;
 use App\Models\Contact;
 use App\Models\Country;
@@ -89,6 +90,7 @@ class AppServiceProvider extends ServiceProvider {
             'city'         => City::class,
             'currency'     => Currency::class,
             'language'     => Language::class,
+            'coverage'     => AssetCoverage::class,
         ]);
     }
 }

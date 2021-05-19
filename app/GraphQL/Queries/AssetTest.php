@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Asset;
+use App\Models\AssetCoverage;
 use App\Models\AssetWarranty;
 use App\Models\Customer;
 use App\Models\Document;
@@ -197,6 +198,12 @@ class AssetTest extends TestCase {
                             email
                             phone_valid
                         }
+                        coverage_id
+                        coverage {
+                            id
+                            name
+                            key
+                        }
                     }
                 }
             ', ['id' => $assetId])
@@ -253,6 +260,7 @@ class AssetTest extends TestCase {
                             'location_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
                             'type_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             'customer_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                            'coverage_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
                             'serial_number'  => '#PRODUCT_SERIAL_323',
                             'contacts_count' => 1,
                             'oem'            => [
@@ -405,6 +413,11 @@ class AssetTest extends TestCase {
                                     'phone_valid' => false,
                                 ],
                             ],
+                            'coverage'       => [
+                                'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
+                                'name' => 'COVERED_ON_CONTRACT',
+                                'key'  => 'COVERED_ON_CONTRACT',
+                            ],
                         ]),
                         static function (TestCase $test, Organization $organization): Asset {
                             // OEM Creation belongs to
@@ -509,7 +522,14 @@ class AssetTest extends TestCase {
                                 'key'         => 'active',
                                 'object_type' => (new Asset())->getMorphClass(),
                             ]);
-                            $asset  = Asset::factory()
+                            // Coverages belongs to
+                            $coverage = AssetCoverage::factory()->create([
+                                'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
+                                'name' => 'COVERED_ON_CONTRACT',
+                                'key'  => 'COVERED_ON_CONTRACT',
+                            ]);
+                            // Asset Creation
+                            $asset = Asset::factory()
                                 ->for($oem)
                                 ->for($product)
                                 ->for($reseller)
@@ -517,6 +537,7 @@ class AssetTest extends TestCase {
                                 ->for($type)
                                 ->for($location)
                                 ->for($status)
+                                ->for($coverage, 'coverage')
                                 ->hasContacts(1, [
                                     'name'        => 'contact2',
                                     'email'       => 'contact2@test.com',

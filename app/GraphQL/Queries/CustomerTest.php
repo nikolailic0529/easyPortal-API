@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Asset;
+use App\Models\AssetCoverage;
 use App\Models\AssetWarranty;
 use App\Models\Currency;
 use App\Models\Customer;
@@ -271,6 +272,12 @@ class CustomerTest extends TestCase {
                                 status {
                                     id
                                     name
+                                }
+                                coverage_id
+                                coverage {
+                                    id
+                                    name
+                                    key
                                 }
                             }
                             paginatorInfo {
@@ -659,6 +666,7 @@ class CustomerTest extends TestCase {
                                         'location_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
                                         'type_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
                                         'customer_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                        'coverage_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
                                         'serial_number'  => '#PRODUCT_SERIAL_323',
                                         'contacts_count' => 1,
                                         'customer'       => [
@@ -811,6 +819,11 @@ class CustomerTest extends TestCase {
                                             'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
                                             'name' => 'active',
                                         ],
+                                        'coverage'       => [
+                                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
+                                            'name' => 'COVERED_ON_CONTRACT',
+                                            'key'  => 'COVERED_ON_CONTRACT',
+                                        ],
                                     ],
                                 ],
                                 'paginatorInfo' => [
@@ -920,7 +933,13 @@ class CustomerTest extends TestCase {
                                     'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                     'product_id' => $product2,
                                 ]);
-                            // Document entry creation for services
+                            // Coverages belongs to
+                            $coverage = AssetCoverage::factory()->create([
+                                'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
+                                'name' => 'COVERED_ON_CONTRACT',
+                                'key'  => 'COVERED_ON_CONTRACT',
+                            ]);
+                            // Asset creation
                             $asset = Asset::factory()
                                 ->for($oem)
                                 ->for($product)
@@ -930,6 +949,7 @@ class CustomerTest extends TestCase {
                                 ->for($location)
                                 ->for($reseller)
                                 ->for($status)
+                                ->for($coverage, 'coverage')
                                 ->hasContacts(1, [
                                     'name'        => 'contact2',
                                     'email'       => 'contact2@test.com',
@@ -940,7 +960,7 @@ class CustomerTest extends TestCase {
                                     'serial_number'  => '#PRODUCT_SERIAL_323',
                                     'contacts_count' => 1,
                                 ]);
-
+                            // Document entry creation for services
                             DocumentEntry::factory()->create([
                                 'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                                 'document_id' => $document,

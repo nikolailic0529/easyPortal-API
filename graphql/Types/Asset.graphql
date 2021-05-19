@@ -17,4 +17,9 @@ type Asset {
   status: Status @belongsTo
   contacts: [Contact!]! @morphMany
   contacts_count: Int!
+  coverage_id: ID
+  coverage(
+    where: AssetCoveragesQuery @searchBy
+  ): AssetCoverage
+  @belongsTo
 }
