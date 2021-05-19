@@ -148,5 +148,6 @@
     "settings.groups.data_loader": "Data Loader",
     "settings.errors.failed_to_load_env": "Impossible to load env file: :file. Corrupted?",
     "export.errors.graphql_query_invalid": "GraphQL query is invalid.",
-    "organization.errors.unknown_organization": "Organization is unknown."
+    "organization.errors.unknown_organization": "Organization is unknown.",
+    "tokens.invalid_credentials": "Invalid client credentials (impossible to obtain access token)"
 }
