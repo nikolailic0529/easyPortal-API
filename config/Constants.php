@@ -223,6 +223,28 @@ interface Constants {
     public const EP_DATA_LOADER_ENABLED = true;
 
     /**
+     * URL.
+     */
+    #[Setting('ep.data_loader.url')]
+    #[Group('data_loader')]
+    #[Type(Url::class)]
+    public const EP_DATA_LOADER_URL = '';
+
+    /**
+     * Client ID.
+     */
+    #[Setting('ep.data_loader.client_id')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_CLIENT_ID = '';
+
+    /**
+     * Client Secret.
+     */
+    #[Setting('ep.data_loader.client_secret')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_CLIENT_SECRET = '';
+
+    /**
      * Default chunk size.
      */
     #[Setting('ep.data_loader.chunk')]
@@ -237,12 +259,12 @@ interface Constants {
     public const EP_DATA_LOADER_TIMEOUT = 5 * 60;
 
     /**
-     * GraphQL Endpoint.
+     * GraphQL Endpoint (optional, if empty {@link \Config\Constants::EP_DATA_LOADER_URL} will be used).
      */
     #[Setting('ep.data_loader.endpoint')]
     #[Group('data_loader')]
     #[Type(Url::class)]
-    public const EP_DATA_LOADER_ENDPOINT = '';
+    public const EP_DATA_LOADER_ENDPOINT = null;
 
     // <editor-fold desc="DATA_LOADER_RESELLERS_IMPORTER">
     // -------------------------------------------------------------------------
