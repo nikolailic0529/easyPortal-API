@@ -80,6 +80,7 @@ class ContactFactory extends DependentModelFactory {
             $object,
             $name,
             $phone,
+            $mail,
             $this->factory(function () use ($object, $name, $phone, $valid, $mail): Contact {
                 $model = new Contact();
 

@@ -32,17 +32,19 @@ class ContactResolverTest extends TestCase {
             'object_id'    => $ca,
             'name'         => 'a',
             'phone_number' => 'a',
+            'email'        => 'a',
         ]);
         Contact::factory()->create([
             'object_type'  => $ca->getMorphClass(),
             'object_id'    => $ca,
             'name'         => 'b',
             'phone_number' => 'b',
+            'email'        => 'b',
         ]);
 
         // Run
         $provider = $this->app->make(ContactResolver::class);
-        $actual   = $provider->get($ca, 'a', 'a', $factory);
+        $actual   = $provider->get($ca, 'a', 'a', 'a', $factory);
 
         $this->flushQueryLog();
 
@@ -51,18 +53,19 @@ class ContactResolverTest extends TestCase {
         $this->assertFalse($actual->wasRecentlyCreated);
         $this->assertEquals('a', $actual->name);
         $this->assertEquals('a', $actual->phone_number);
+        $this->assertEquals('a', $actual->email);
         $this->assertEquals($ca->getMorphClass(), $actual->object_type);
         $this->assertEquals($ca->getKey(), $actual->object_id);
 
         $this->flushQueryLog();
 
         // Second call should return same instance
-        $this->assertSame($actual, $provider->get($ca, ' a ', 'a', $factory));
-        $this->assertSame($actual, $provider->get($ca, 'a', ' a ', $factory));
-        $this->assertSame($actual, $provider->get($ca, ' a ', ' a ', $factory));
+        $this->assertSame($actual, $provider->get($ca, ' a ', 'a', 'a', $factory));
+        $this->assertSame($actual, $provider->get($ca, 'a', ' a ', 'a', $factory));
+        $this->assertSame($actual, $provider->get($ca, ' a ', ' a ', 'a', $factory));
         $this->assertCount(0, $this->getQueryLog());
 
-        $this->assertNotSame($actual, $provider->get($cb, 'email', 'phone', static function (): Contact {
+        $this->assertNotSame($actual, $provider->get($cb, 'name', 'phone', 'email', static function (): Contact {
             return Contact::factory()->make();
         }));
 
@@ -75,15 +78,17 @@ class ContactResolverTest extends TestCase {
                 'object_id'    => $cb,
                 'name'         => 'unKnown',
                 'phone_number' => 'unKnOwn',
+                'email'        => 'unKnOwn',
             ]);
         });
-        $created = $provider->get($cb, ' unKnown ', ' unKnOwn ', Closure::fromCallable($spy));
+        $created = $provider->get($cb, ' unKnown ', ' unKnOwn ', ' unKnOwn ', Closure::fromCallable($spy));
 
         $spy->shouldHaveBeenCalled();
 
         $this->assertNotNull($created);
         $this->assertEquals('unKnown', $created->name);
         $this->assertEquals('unKnOwn', $created->phone_number);
+        $this->assertEquals('unKnOwn', $created->email);
         $this->assertEquals($cb->getMorphClass(), $created->object_type);
         $this->assertEquals($cb->getKey(), $created->object_id);
         $this->assertCount(2, $this->getQueryLog());
@@ -91,7 +96,7 @@ class ContactResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // The created object should be in cache
-        $this->assertSame($created, $provider->get($cb, ' unknown ', ' unknown ', $factory));
+        $this->assertSame($created, $provider->get($cb, ' unknown ', ' unknown ', ' unknown ', $factory));
         $this->assertCount(0, $this->getQueryLog());
     }
 }
