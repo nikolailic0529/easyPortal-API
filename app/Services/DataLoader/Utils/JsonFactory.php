@@ -6,6 +6,7 @@ use ReflectionClass;
 use ReflectionNamedType;
 
 use function array_map;
+use function is_object;
 use function preg_match;
 use function str_contains;
 
@@ -90,9 +91,9 @@ abstract class JsonFactory {
                 }
 
                 if (str_contains($class, '\\')) {
-                    $factory = static function (array|null $json) use ($class): ?object {
+                    $factory = static function (object|array|null $json) use ($class): ?object {
                         /** @var static $class */
-                        return $json ? $class::create($json) : null;
+                        return is_object($json) ? $json : ($json ? $class::create($json) : null);
                     };
 
                     if ($isArray) {
