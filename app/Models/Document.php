@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\CascadeDeletes\CascadeDeletable;
 use App\Models\Concerns\HasContacts;
 use App\Models\Concerns\HasCurrency;
 use App\Models\Concerns\HasCustomer;
@@ -15,9 +16,11 @@ use App\Models\Enums\ProductType;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 
 use function count;
+use function in_array;
 
 /**
  * Document.
@@ -70,7 +73,7 @@ use function count;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Document extends Model {
+class Document extends Model implements CascadeDeletable {
     use OwnedByOrganization;
     use HasFactory;
     use HasOem;
@@ -131,5 +134,9 @@ class Document extends Model {
      */
     protected function getValidProductTypes(): array {
         return [ProductType::support()];
+    }
+
+    public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {
+        return $name === 'entries';
     }
 }
