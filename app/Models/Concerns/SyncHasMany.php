@@ -33,7 +33,7 @@ trait SyncHasMany {
         $getKey   = static function (Model $model): string {
             return $model->getKey();
         };
-        $new      = (new EloquentCollection($objects))->keyBy($getKey);
+        $new      = new EloquentCollection($objects);
         $existing = new Collection();
 
         if ($this->exists) {
