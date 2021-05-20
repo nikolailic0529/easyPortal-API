@@ -1,4 +1,0 @@
-input AssetCoveragesQuery {
-  id: ID!
-  name: String!
-}

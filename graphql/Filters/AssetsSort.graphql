@@ -4,4 +4,6 @@ input AssetsSort {
   serial_number: String!
   location: LocationsSort!
   customer: CustomersSort!
+  status: StatusSort!
+  coverage: AssetCoveragesSort!
 }

@@ -18,8 +18,5 @@ type Asset {
   contacts: [Contact!]! @morphMany
   contacts_count: Int!
   coverage_id: ID
-  coverage(
-    where: AssetCoveragesQuery @searchBy
-  ): AssetCoverage
-  @belongsTo
+  coverage: AssetCoverage @belongsTo
 }

@@ -6,10 +6,11 @@ input AssetsQuery {
   reseller_id: ID!
   customer_id: ID!
   location_id: ID!
+  coverage_id: ID
+  status_id: ID
   serial_number: String!
   location: LocationsQuery
   customer: CustomersQuery
-  status: StatusQuery
   product: ProductsQuery
   warranties: AssetWarrantiesQuery
 }

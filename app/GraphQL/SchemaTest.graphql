@@ -139,7 +139,7 @@ type Asset {
   contacts: [Contact!]!
   contacts_count: Int!
   coverage_id: ID
-  coverage(where: SearchByConditionAssetCoveragesQuery): AssetCoverage
+  coverage: AssetCoverage
 }
 
 type AssetCoverage {
@@ -147,8 +147,7 @@ type AssetCoverage {
   name: String!
 }
 
-input AssetCoveragesQuery {
-  id: ID!
+input AssetCoveragesSort {
   name: String!
 }
 
@@ -202,10 +201,11 @@ input AssetsQuery {
   reseller_id: ID!
   customer_id: ID!
   location_id: ID!
+  coverage_id: ID
+  status_id: ID
   serial_number: String!
   location: LocationsQuery
   customer: CustomersQuery
-  status: StatusQuery
   product: ProductsQuery
   warranties: AssetWarrantiesQuery
 }
@@ -216,6 +216,8 @@ input AssetsSort {
   serial_number: String!
   location: LocationsSort!
   customer: CustomersSort!
+  status: StatusSort!
+  coverage: AssetCoveragesSort!
 }
 
 input AuthorizeOrganizationInput {
@@ -1149,26 +1151,6 @@ type ResetPasswordPayload {
 }
 
 """
-Available conditions for input AssetCoveragesQuery (only one property allowed at a time).
-"""
-input SearchByConditionAssetCoveragesQuery {
-  """All of the conditions must be true."""
-  allOf: [SearchByConditionAssetCoveragesQuery!]
-
-  """Any of the conditions must be true."""
-  anyOf: [SearchByConditionAssetCoveragesQuery!]
-
-  """Not."""
-  not: SearchByFlag
-
-  """Property condition."""
-  id: SearchByScalarID
-
-  """Property condition."""
-  name: SearchByScalarString
-}
-
-"""
 Available conditions for input AssetWarrantiesQuery (only one property allowed at a time).
 """
 input SearchByConditionAssetWarrantiesQuery {
@@ -1259,6 +1241,12 @@ input SearchByConditionAssetsQuery {
   location_id: SearchByScalarID
 
   """Property condition."""
+  coverage_id: SearchByScalarIDOrNull
+
+  """Property condition."""
+  status_id: SearchByScalarIDOrNull
+
+  """Property condition."""
   serial_number: SearchByScalarString
 
   """Property condition."""
@@ -1266,9 +1254,6 @@ input SearchByConditionAssetsQuery {
 
   """Property condition."""
   customer: SearchByRelationCustomersQuery
-
-  """Property condition."""
-  status: SearchByRelationStatusQuery
 
   """Property condition."""
   product: SearchByRelationProductsQuery
@@ -1671,26 +1656,6 @@ input SearchByConditionResellersQuery {
 }
 
 """
-Available conditions for input StatusQuery (only one property allowed at a time).
-"""
-input SearchByConditionStatusQuery {
-  """All of the conditions must be true."""
-  allOf: [SearchByConditionStatusQuery!]
-
-  """Any of the conditions must be true."""
-  anyOf: [SearchByConditionStatusQuery!]
-
-  """Not."""
-  not: SearchByFlag
-
-  """Property condition."""
-  id: SearchByScalarID
-
-  """Property condition."""
-  name: SearchByScalarString
-}
-
-"""
 Available conditions for input TypesQuery (only one property allowed at a time).
 """
 input SearchByConditionTypesQuery {
@@ -1956,30 +1921,6 @@ input SearchByRelationProductsQuery {
 input SearchByRelationResellersQuery {
   """Conditions for the related objects."""
   where: SearchByConditionResellersQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input StatusQuery."""
-input SearchByRelationStatusQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionStatusQuery!
 
   """Equal (`=`)."""
   eq: Int
@@ -2298,6 +2239,14 @@ type SimplePaginatorInfo {
 }
 
 """
+Sort clause for input AssetCoveragesSort (only one property allowed at a time).
+"""
+input SortByClauseAssetCoveragesSort {
+  """Property clause."""
+  name: SortByDirection
+}
+
+"""
 Sort clause for input AssetsSort (only one property allowed at a time).
 """
 input SortByClauseAssetsSort {
@@ -2315,6 +2264,12 @@ input SortByClauseAssetsSort {
 
   """Property clause."""
   customer: SortByClauseCustomersSort
+
+  """Property clause."""
+  status: SortByClauseStatusSort
+
+  """Property clause."""
+  coverage: SortByClauseAssetCoveragesSort
 }
 
 """
@@ -2482,11 +2437,6 @@ enum SortOrder {
 }
 
 type Status {
-  id: ID!
-  name: String!
-}
-
-input StatusQuery {
   id: ID!
   name: String!
 }
