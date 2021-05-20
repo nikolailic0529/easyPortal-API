@@ -24,7 +24,8 @@ use function array_key_first;
 use function array_keys;
 use function array_values;
 use function is_array;
-use function ucfirst;
+use function str_replace;
+use function ucwords;
 
 class ExportController extends Controller {
     public function __construct(
@@ -57,12 +58,16 @@ class ExportController extends Controller {
     protected function export(ExportQuery $request, GraphQLContext $context): Collection {
         $result = $this->getInitialResult($request, $context);
 
-        $paginated  = false;
-        $data       = $result['data'];
-        $root       = array_key_first($data);
-        $items      = $data[$root];
+        $paginated = false;
+        $data      = $result['data'];
+        $validated = $request->validated();
+        $root      = array_key_exists('root', $validated) && $validated['root'] ? $validated['root']
+            : array_key_first($data);
+        $items     = Arr::get($data, $root);
+        if (!$items) {
+            throw new ExportGraphQLQueryEmpty();
+        }
         $collection = new Collection();
-        $validated  = $request->validated();
         if (array_key_exists('data', $items)) {
             $paginated = true;
             $items     = $items['data'];
@@ -187,14 +192,19 @@ class ExportController extends Controller {
             if (is_array($item[$key])) {
                 // relation key with values
                 foreach ($item[$key] as $subKey => $subValue) {
-                    $keys["{$key}.{$subKey}"] = ucfirst($key).' '.ucfirst($subKey);
+                    $keys["{$key}.{$subKey}"] = $this->formatHeader($key).' '.$this->formatHeader($subKey);
                 }
             } else {
                 // Direct table column
-                $keys[$key] = $key;
+                $keys[$key] = $this->formatHeader($key);
             }
         }
 
         return $keys;
+    }
+
+    protected function formatHeader(string $text): string {
+        $text = str_replace('_', ' ', $text);
+        return ucwords($text);
     }
 }

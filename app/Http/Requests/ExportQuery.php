@@ -18,6 +18,8 @@ class ExportQuery extends FormRequest {
         return [
             'query'           => 'required|string|regex:/^query/',
             'operationName'   => 'string',
+            'root'            => 'nullable|string',
+            'variables'       => '',
             'variables.page'  => 'integer',
             'variables.first' => 'integer',
             'variables.order' => '',

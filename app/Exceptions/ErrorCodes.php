@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use App\GraphQL\Mutations\DispatchApplicationServiceFailed;
 use App\GraphQL\Mutations\DispatchApplicationServiceNotFoundException;
+use App\Http\Controllers\ExportGraphQLQueryEmpty;
 use App\Http\Controllers\ExportGraphQLQueryInvalid;
 use App\Services\Filesystem\StorageFileCorrupted as FilesystemStorageFileCorrupted;
 use App\Services\Filesystem\StorageFileDeleteFailed as FilesystemStorageFileDeleteFailed;
@@ -41,6 +42,7 @@ class ErrorCodes {
         KeyCloakUnknownScope::class                        => 'ERR14',
         KeyCloakAnotherUserExists::class                   => 'ERR15',
         TokensInvalidCredentials::class                    => 'ERR16',
+        ExportGraphQLQueryEmpty::class                     => 'ERR17',
     ];
 
     public static function getCode(Throwable $throwable): string|int {

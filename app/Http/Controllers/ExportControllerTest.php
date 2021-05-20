@@ -41,11 +41,13 @@ class ExportControllerTest extends TestCase {
         Closure $userFactory = null,
         Closure $exportableFactory = null,
         string $type = 'csv',
+        string $operationName = 'assets',
         string $query = null,
         array $variables = [
             'first' => 5,
             'page'  => 1,
         ],
+        string $root = null,
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
@@ -75,9 +77,10 @@ class ExportControllerTest extends TestCase {
         }
 
         $input = [
-            'operationName' => 'assets',
+            'operationName' => $operationName,
             'variables'     => $variables,
             'query'         => $query,
+            'root'          => $root,
         ];
 
         if ($type === 'csv' || $type === 'excel') {
@@ -164,18 +167,21 @@ class ExportControllerTest extends TestCase {
                     new Ok(),
                     $assetFactory,
                     'csv',
+                    'assets',
                     $query,
                 ],
                 'success-excel'       => [
                     new Ok(),
                     $assetFactory,
                     'excel',
+                    'assets',
                     $query,
                 ],
                 'success-pdf'         => [
                     new Ok(),
                     $assetFactory,
                     'pdf',
+                    'assets',
                     $query,
                 ],
                 'filters-csv'         => [
@@ -193,6 +199,7 @@ class ExportControllerTest extends TestCase {
                         return 2;
                     },
                     'csv',
+                    'assets',
                     /** @lang GraphQL */ <<<'GRAPHQL'
                     query assets(
                         $first: Int,
@@ -229,6 +236,7 @@ class ExportControllerTest extends TestCase {
                     ),
                     $assetFactory,
                     'csv',
+                    'assets',
                     /** @lang GraphQL */ <<<'GRAPHQL'
                         mutation assets($first: Int, $page: Int){
                             assets(first:$first, page: $page){
@@ -249,6 +257,7 @@ class ExportControllerTest extends TestCase {
                     ),
                     $assetFactory,
                     'csv',
+                    'assets',
                     /** @lang GraphQL */ <<<'GRAPHQL'
                         query assets($first: Int, $page: Int){
                             assets(first:$first, page: $page){
@@ -269,6 +278,7 @@ class ExportControllerTest extends TestCase {
                     ),
                     $assetFactory,
                     'csv',
+                    'assets',
                     $query,
                     [
                         // Missing page
@@ -283,11 +293,79 @@ class ExportControllerTest extends TestCase {
                         return 0;
                     },
                     'csv',
+                    'assets',
                     $query,
                     [
                         'first' => 5,
                         'page'  => 1,
                     ],
+                ],
+                'success-csv-sub'     => [
+                    new Ok(),
+                    static function (TestCase $test, Organization $organization): int {
+                        $reseller = Reseller::factory()->create([
+                            'id' => $organization->getKey(),
+                        ]);
+                        Asset::factory()
+                            ->for($reseller)
+                            ->hasContacts(3)
+                            ->create([ 'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986']);
+
+                        // Data + Header
+                        return 4;
+                    },
+                    'csv',
+                    'asset',
+                    /** @lang GraphQL */ <<<'GRAPHQL'
+                    query asset($id:ID!){
+                        asset(id:$id){
+                            contacts {
+                                id
+                                name
+                            }
+                        }
+                    }
+                    GRAPHQL,
+                    [
+                        'first' => 5,
+                        'page'  => 1,
+                        'id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                    ],
+                    'asset.contacts',
+                ],
+                'success-csv-empty'   => [
+                    new Response(
+                        new InternalServerError(),
+                    ),
+                    static function (TestCase $test, Organization $organization): int {
+                        $reseller = Reseller::factory()->create([
+                            'id' => $organization->getKey(),
+                        ]);
+                        Asset::factory()
+                            ->for($reseller)
+                            ->create([ 'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986']);
+
+                        // Data + Header
+                        return 0;
+                    },
+                    'csv',
+                    'asset',
+                    /** @lang GraphQL */ <<<'GRAPHQL'
+                    query asset($id:ID!){
+                        asset(id:$id){
+                            contacts {
+                                id
+                                name
+                            }
+                        }
+                    }
+                    GRAPHQL,
+                    [
+                        'first' => 5,
+                        'page'  => 1,
+                        'id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                    ],
+                    'asset.customer',
                 ],
             ]),
         ))->getData();
