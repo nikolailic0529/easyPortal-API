@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string                                                                   $oem_id
  * @property string                                                                   $type_id
  * @property string                                                                   $customer_id
- * @property string                                                                   $reseller_id
+ * @property string|null                                                              $reseller_id
  * @property string                                                                   $number     Internal Number
  * @property string                                                                   $product_id Support Level
  * @property \Carbon\CarbonImmutable                                                  $start
@@ -43,7 +43,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int                                                                      $contacts_count
  * @property \App\Models\Oem                                                          $oem
  * @property \App\Models\Product                                                      $product
- * @property \App\Models\Reseller                                                     $reseller
+ * @property \App\Models\Reseller|null                                                $reseller
  * @property \App\Models\Type                                                         $type
  * @method static \Database\Factories\DocumentFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newModelQuery()
