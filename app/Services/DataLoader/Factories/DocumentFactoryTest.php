@@ -2,20 +2,17 @@
 
 namespace App\Services\DataLoader\Factories;
 
-use App\Models\Currency;
-use App\Models\Customer;
+use App\Models\Asset as AssetModel;
+use App\Models\Document as DocumentModel;
+use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\Enums\ProductType;
-use App\Models\Language;
 use App\Models\Oem;
 use App\Models\Product;
-use App\Models\Reseller;
 use App\Models\Type as TypeModel;
-use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
-use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
-use App\Services\DataLoader\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Resolvers\OemResolver;
+use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Document;
@@ -23,11 +20,16 @@ use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 use Tests\WithoutOrganizationScope;
+
+use function is_null;
+use function number_format;
+use function reset;
 
 /**
  * @internal
@@ -46,7 +48,9 @@ class DocumentFactoryTest extends TestCase {
     public function testFind(): void {
         $factory  = $this->app->make(DocumentFactory::class);
         $json     = $this->getTestData()->json('~document-full.json');
-        $document = AssetDocument::create($json);
+        $document = AssetDocumentObject::create([
+            'document' => $json,
+        ]);
 
         $this->flushQueryLog();
 
@@ -79,32 +83,388 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::createFromAssetDocument
+     * @covers ::createFromAssetDocumentObject
      */
-    public function testCreateFromAssetDocument(): void {
+    public function testCreateFromAssetDocumentObject(): void {
+        // Factory
+        $contacts = $this->app->make(ContactFactory::class);
+        $factory  = $this->app
+            ->make(DocumentFactoryTest_Factory::class)
+            ->setContactsFactory($contacts);
+
+        // Create
+        // ---------------------------------------------------------------------
+        $json    = $this->getTestData()->json('~asset-document-full.json');
+        $asset   = Asset::create($json);
+        $model   = AssetModel::factory()->create([
+            'id' => $asset->id,
+        ]);
+        $object  = AssetDocumentObject::create([
+            'asset'    => $model,
+            'document' => reset($asset->assetDocument),
+            'entries'  => $asset->assetDocument,
+        ]);
+        $created = $factory->createFromAssetDocumentObject($object);
+
+        $this->assertNotNull($created);
+        $this->assertEquals($asset->customerId, $created->customer_id);
+        $this->assertEquals($asset->resellerId, $created->reseller_id);
+        $this->assertEquals('0056523287', $created->number);
+        $this->assertEquals('1292.16', $created->price);
+        $this->assertEquals('1583020800000', $this->getDatetime($created->start));
+        $this->assertEquals('1614470400000', $this->getDatetime($created->end));
+        $this->assertEquals('HPE', $created->oem->abbr);
+        $this->assertEquals('MultiNational Quote', $created->type->key);
+        $this->assertEquals('CUR', $created->currency->code);
+        $this->assertEquals('fr', $created->language->code);
+        $this->assertEquals('H7J34AC', $created->product->sku);
+        $this->assertEquals('HPE Foundation Care 24x7 SVC', $created->product->name);
+        $this->assertEquals(ProductType::support(), $created->product->type);
+        $this->assertEquals('HPE', $created->product->oem->abbr);
+        $this->assertEquals('HPE', $created->oem->abbr);
+        $this->assertEquals(6, $created->entries_count);
+        $this->assertEquals(1, $created->contacts_count);
+        $this->assertCount(6, $created->entries);
+        $this->assertCount(1, $created->contacts);
+
+        /** @var \App\Models\DocumentEntry $e */
+        $e = $created->entries->first(static function (DocumentEntryModel $entry): bool {
+            return $entry->renewal === '145.00';
+        });
+
+        $this->assertNotNull($e);
+        $this->assertEquals('23.40', $e->net_price);
+        $this->assertEquals('48.00', $e->list_price);
+        $this->assertEquals('-2.05', $e->discount);
+        $this->assertEquals($created->getKey(), $e->document_id);
+        $this->assertEquals($asset->id, $e->asset_id);
+        $this->assertEquals('HA151AC', $e->product->sku);
+        $this->assertEquals('HPE Hardware Maintenance Onsite Support', $e->product->name);
+        $this->assertEquals(ProductType::service(), $e->product->type);
+        $this->assertEquals('HPE', $e->product->oem->abbr);
+        $this->assertEquals('145.00', $e->renewal);
+
+        // Changed
+        // ---------------------------------------------------------------------
+        $json    = $this->getTestData()->json('~asset-document-changed.json');
+        $asset   = Asset::create($json);
+        $object  = AssetDocumentObject::create([
+            'asset'    => $model,
+            'document' => reset($asset->assetDocument),
+            'entries'  => $asset->assetDocument,
+        ]);
+        $changed = $factory->createFromAssetDocumentObject($object);
+
+        $this->assertEquals($model->getKey(), $asset->id);
+        $this->assertNotNull($changed);
+        $this->assertEquals('3292.16', $changed->price);
+        $this->assertEquals('EUR', $changed->currency->code);
+        $this->assertEquals('en', $changed->language->code);
+        $this->assertCount(0, $changed->contacts);
+        $this->assertEquals(0, $changed->contacts_count);
+        $this->assertEquals(2, $changed->entries_count);
+        $this->assertCount(2, $changed->entries);
+        $this->assertCount(2, $changed->refresh()->entries);
+
+        /** @var \App\Models\DocumentEntry $e */
+        $e = $changed->entries->first(static function (DocumentEntryModel $entry): bool {
+            return is_null($entry->renewal);
+        });
+
+        $this->assertNotNull($e);
+        $this->assertNull($e->net_price);
+        $this->assertNull($e->list_price);
+        $this->assertNull($e->discount);
+        $this->assertNull($e->renewal);
+    }
+
+    /**
+     * @covers ::assetDocumentObjectProduct
+     */
+    public function testAssetDocumentObjectProduct(): void {
+        $oem      = Oem::factory()->make();
+        $type     = ProductType::support();
+        $document = AssetDocumentObject::create([
+            'document' => [
+                'document'                  => [
+                    'vendorSpecificFields' => [
+                        'vendor' => $this->faker->word,
+                    ],
+                ],
+                'supportPackage'            => $this->faker->word,
+                'supportPackageDescription' => $this->faker->word,
+            ],
+        ]);
+
+        $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('documentOem')
+            ->with($document->document->document)
+            ->once()
+            ->andReturn($oem);
+        $factory
+            ->shouldReceive('product')
+            ->with(
+                $oem,
+                $type,
+                $document->document->supportPackage,
+                $document->document->supportPackageDescription,
+                null,
+                null,
+            )
+            ->once()
+            ->andReturns();
+
+        $factory->assetDocumentObjectProduct($document);
+    }
+
+    /**
+     * @covers ::assetDocumentObjectEntries
+     */
+    public function testAssetDocumentObjectEntries(): void {
+        // Prepare
+        $asset      = AssetModel::factory()->create();
+        $document   = DocumentModel::factory()->create([
+            'product_id' => static function (): Product {
+                return Product::factory()->create([
+                    'type' => ProductType::support(),
+                ]);
+            },
+        ]);
+        $another    = DocumentEntryModel::factory(2)->create([
+            'document_id' => $document,
+        ]);
+        $properties = [
+            'document_id' => $document,
+            'asset_id'    => $asset,
+            'product_id'  => static function () use ($document): Product {
+                return Product::factory()->create([
+                    'type'   => ProductType::service(),
+                    'oem_id' => $document->oem_id,
+                ]);
+            },
+        ];
+        $a          = DocumentEntryModel::factory()->create($properties);
+        $b          = DocumentEntryModel::factory()->create($properties);
+        $c          = DocumentEntryModel::factory()->create($properties);
+        $d          = DocumentEntryModel::factory()->create($properties);
+        $object     = AssetDocumentObject::create([
+            'asset'   => $asset,
+            'entries' => [
+                [
+                    'skuNumber'                 => $a->product->sku,
+                    'skuDescription'            => $a->product->name,
+                    'supportPackage'            => $document->product->sku,
+                    'supportPackageDescription' => $document->product->name,
+                    'currencyCode'              => $a->currency->code,
+                    'netPrice'                  => $a->net_price,
+                    'discount'                  => $a->discount,
+                    'listPrice'                 => $a->list_price,
+                    'estimatedValueRenewal'     => $a->renewal,
+                ],
+                [
+                    'skuNumber'                 => $b->product->sku,
+                    'skuDescription'            => $b->product->name,
+                    'supportPackage'            => $document->product->sku,
+                    'supportPackageDescription' => $document->product->name,
+                    'currencyCode'              => $a->currency->code,
+                    'netPrice'                  => $b->net_price,
+                    'discount'                  => $b->discount,
+                    'listPrice'                 => $b->list_price,
+                    'estimatedValueRenewal'     => $b->renewal,
+                ],
+                [
+                    'skuNumber'                 => $b->product->sku,
+                    'skuDescription'            => $b->product->name,
+                    'supportPackage'            => $document->product->sku,
+                    'supportPackageDescription' => $document->product->name,
+                    'currencyCode'              => null,
+                    'netPrice'                  => null,
+                    'discount'                  => null,
+                    'listPrice'                 => null,
+                    'estimatedValueRenewal'     => null,
+                ],
+            ],
+        ]);
+        $factory    = new class(
+            $this->app->make(Normalizer::class),
+            $this->app->make(ProductResolver::class),
+            $this->app->make(OemResolver::class),
+            $this->app->make(CurrencyFactory::class),
+        ) extends DocumentFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected ProductResolver $products,
+                protected OemResolver $oems,
+                protected CurrencyFactory $currencies,
+            ) {
+                // empty
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function assetDocumentObjectEntries(DocumentModel $model, AssetDocumentObject $document): array {
+                return parent::assetDocumentObjectEntries($model, $document); // TODO: Change the autogenerated stub
+            }
+        };
+
+        // Test
+        $actual   = new Collection($factory->assetDocumentObjectEntries($document, $object));
+        $added    = $actual
+            ->filter(static function (DocumentEntryModel $entry) {
+                return is_null($entry->getKey());
+            })
+            ->first();
+        $existing = $actual
+            ->map(static function (DocumentEntryModel $entry) {
+                return $entry->getKey();
+            })
+            ->filter()
+            ->sort()
+            ->values();
+        $expected = $another
+            ->push($a, $b)
+            ->map(static function (DocumentEntryModel $entry) {
+                return $entry->getKey();
+            })
+            ->sort()
+            ->values();
+
+        $this->assertCount(5, $actual);
+        $this->assertCount(4, $existing);
+        $this->assertEquals($expected, $existing);
+        $this->assertFalse($existing->contains($c->getKey()));
+        $this->assertFalse($existing->contains($d->getKey()));
+        $this->assertNotNull($added);
+        $this->assertNull($added->list_price);
+        $this->assertNull($added->net_price);
+        $this->assertNull($added->discount);
+        $this->assertNull($added->renewal);
+    }
+
+    /**
+     * @covers ::assetDocumentEntry
+     */
+    public function testAssetDocumentEntry(): void {
+        $asset          = AssetModel::factory()->make([
+            'id' => $this->faker->uuid,
+        ]);
+        $skuNumber      = $this->faker->word;
+        $skuDescription = $this->faker->sentence;
+        $currencyCode   = $this->faker->currencyCode;
+        $netPrice       = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $discount       = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $listPrice      = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $renewal        = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $assetDocument  = AssetDocument::create([
+            'skuNumber'             => " {$skuNumber} ",
+            'skuDescription'        => " {$skuDescription} ",
+            'netPrice'              => " {$netPrice} ",
+            'discount'              => " {$discount} ",
+            'listPrice'             => " {$listPrice} ",
+            'estimatedValueRenewal' => " {$renewal} ",
+            'currencyCode'          => " {$currencyCode} ",
+        ]);
+        $document       = DocumentModel::factory()->make();
+        $factory        = new class(
+            $this->app->make(Normalizer::class),
+            $this->app->make(ProductResolver::class),
+            $this->app->make(OemResolver::class),
+            $this->app->make(CurrencyFactory::class),
+        ) extends DocumentFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected ProductResolver $products,
+                protected OemResolver $oems,
+                protected CurrencyFactory $currencies,
+            ) {
+                // empty
+            }
+
+            public function assetDocumentEntry(
+                AssetModel $asset,
+                DocumentModel $document,
+                AssetDocument $assetDocument,
+            ): DocumentEntryModel {
+                return parent::assetDocumentEntry($asset, $document, $assetDocument);
+            }
+        };
+
+        $entry = $factory->assetDocumentEntry($asset, $document, $assetDocument);
+
+        $this->assertInstanceOf(DocumentEntryModel::class, $entry);
+        $this->assertEquals($asset->getKey(), $entry->asset_id);
+        $this->assertNull($entry->document_id);
+        $this->assertNotNull($entry->product_id);
+        $this->assertSame($document->oem, $entry->product->oem);
+        $this->assertEquals(ProductType::service(), $entry->product->type);
+        $this->assertEquals($skuNumber, $entry->product->sku);
+        $this->assertEquals($skuDescription, $entry->product->name);
+        $this->assertNull($entry->product->eos);
+        $this->assertNull($entry->product->eol);
+        $this->assertEquals($currencyCode, $entry->currency->code);
+        $this->assertEquals($netPrice, $entry->net_price);
+        $this->assertEquals($listPrice, $entry->list_price);
+        $this->assertEquals($discount, $entry->discount);
+        $this->assertEquals($renewal, $entry->renewal);
+    }
+
+    /**
+     * @covers ::compareDocumentEntries
+     */
+    public function testCompareDocumentEntries(): void {
+        // Prepare
+        $a       = DocumentEntryModel::factory()->make();
+        $b       = DocumentEntryModel::factory()->make();
+        $factory = new class() extends DocumentFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            public function compareDocumentEntries(DocumentEntryModel $a, DocumentEntryModel $b): int {
+                return parent::compareDocumentEntries($a, $b);
+            }
+        };
+
+        // Test
+        $this->assertNotEquals(0, $factory->compareDocumentEntries($a, $b));
+
+        // Make same
+        $a->currency_id = $b->currency_id;
+        $a->net_price   = $b->net_price;
+        $a->list_price  = $b->list_price;
+        $a->discount    = $b->discount;
+        $a->renewal     = $b->renewal;
+        $a->product_id  = $b->product_id;
+
+        $this->assertEquals(0, $factory->compareDocumentEntries($a, $b));
+    }
+
+    /**
+     * @covers ::createFromDocument
+     */
+    public function testCreateFromDocument(): void {
         // Prepare
         $contacts   = $this->app->make(ContactFactory::class);
-        $factory    = $this->app->make(DocumentFactory::class)->setContactsFactory($contacts);
         $normalizer = $this->app->make(Normalizer::class);
+        $factory    = $this->app->make(DocumentFactoryTest_Factory::class)->setContactsFactory($contacts);
 
         // Test
         $json     = $this->getTestData()->json('~document-full.json');
         $document = AssetDocument::create($json);
-
-        Reseller::factory()->create([
-            'id' => $document->document->resellerId,
-        ]);
-        Customer::factory()->create([
-            'id' => $document->document->customerId,
-        ]);
-
-        $created = $factory->create($document);
+        $created  = $factory->createFromDocument($document->document);
 
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
         $this->assertEquals($document->document->id, $created->getKey());
-        $this->assertEquals($document->document->resellerId, $created->reseller_id);
-        $this->assertEquals($document->document->customerId, $created->customer_id);
+        $this->assertEquals($document->document->reseller->id, $created->reseller_id);
+        $this->assertEquals($document->document->customer->id, $created->customer_id);
         $this->assertEquals($document->document->vendorSpecificFields->vendor, $created->oem->abbr);
         $this->assertNotNull($created->price);
         $this->assertEquals(
@@ -117,11 +477,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($document->document->type, $created->type->key);
         $this->assertEquals('CUR', $created->currency->code);
         $this->assertEquals('en', $created->language->code);
-        $this->assertEquals(ProductType::support(), $created->product->type);
-        $this->assertEquals($document->supportPackage, $created->product->sku);
-        $this->assertEquals($document->supportPackageDescription, $created->product->name);
-        $this->assertNull($created->product->eos);
-        $this->assertNull($created->product->eol);
+        $this->assertNull($created->product);
         $this->assertEquals(
             $this->getModelContacts($created),
             $this->getContacts($document->document),
@@ -130,7 +486,7 @@ class DocumentFactoryTest extends TestCase {
         // Customer should be updated
         $json     = $this->getTestData()->json('~document-changed.json');
         $document = AssetDocument::create($json);
-        $updated  = $factory->create($document);
+        $updated  = $factory->createFromDocument($document->document);
 
         $this->assertNotNull($updated);
         $this->assertSame($created, $updated);
@@ -192,193 +548,6 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::documentProduct
-     */
-    public function testDocumentProduct(): void {
-        $oem      = Oem::factory()->make();
-        $type     = ProductType::support();
-        $document = AssetDocument::create([
-            'document'                  => [
-                'vendorSpecificFields' => [
-                    'vendor' => $this->faker->word,
-                ],
-            ],
-            'supportPackage'            => $this->faker->word,
-            'supportPackageDescription' => $this->faker->word,
-        ]);
-
-        $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory->makePartial();
-        $factory
-            ->shouldReceive('documentOem')
-            ->with($document->document)
-            ->once()
-            ->andReturn($oem);
-        $factory
-            ->shouldReceive('product')
-            ->with($oem, $type, $document->supportPackage, $document->supportPackageDescription, null, null)
-            ->once()
-            ->andReturns();
-
-        $factory->documentProduct($document);
-    }
-
-    /**
-     * @covers ::documentReseller
-     */
-    public function testDocumentReseller(): void {
-        $reseller = Reseller::factory()->make();
-        $resolver = Mockery::mock(ResellerResolver::class);
-
-        $resolver
-            ->shouldReceive('get')
-            ->with($reseller->getKey())
-            ->once()
-            ->andReturn($reseller);
-
-        $factory = new class($resolver) extends DocumentFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(ResellerResolver $resolver) {
-                $this->resellers = $resolver;
-            }
-
-            public function documentReseller(Document $document): ?Reseller {
-                return parent::documentReseller($document);
-            }
-        };
-
-        $this->assertEquals($reseller, $factory->documentReseller(Document::create([
-            'resellerId' => $reseller->getKey(),
-        ])));
-    }
-
-    /**
-     * @covers ::documentReseller
-     */
-    public function testDocumentResellerResellerNotFound(): void {
-        $reseller = Reseller::factory()->make();
-        $document = Document::create([
-            'id'         => $this->faker->uuid,
-            'resellerId' => $reseller->getKey(),
-        ]);
-        $resolver = Mockery::mock(ResellerResolver::class);
-        $resolver
-            ->shouldReceive('get')
-            ->with($reseller->getKey())
-            ->once()
-            ->andReturn(null);
-
-        $factory = new class($resolver) extends DocumentFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(ResellerResolver $resolver) {
-                $this->resellers = $resolver;
-            }
-
-            public function documentReseller(Document $document): ?Reseller {
-                return parent::documentReseller($document);
-            }
-        };
-
-        $this->expectException(ResellerNotFoundException::class);
-
-        $this->assertEquals($reseller, $factory->documentReseller($document));
-    }
-
-    /**
-     * @covers ::documentCustomer
-     */
-    public function testDocumentCustomer(): void {
-        $customer = Customer::factory()->make();
-        $resolver = Mockery::mock(CustomerResolver::class);
-
-        $resolver
-            ->shouldReceive('get')
-            ->with($customer->getKey())
-            ->once()
-            ->andReturn($customer);
-
-        $factory = new class($resolver) extends DocumentFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerResolver $resolver) {
-                $this->customers = $resolver;
-            }
-
-            public function documentCustomer(Document $document): ?Customer {
-                return parent::documentCustomer($document);
-            }
-        };
-
-        $this->assertEquals($customer, $factory->documentCustomer(Document::create([
-            'customerId' => $customer->getKey(),
-        ])));
-    }
-
-    /**
-     * @covers ::documentCustomer
-     */
-    public function testDocumentCustomerCustomerNotFound(): void {
-        $customer = Customer::factory()->make();
-        $document = Document::create([
-            'id'         => $this->faker->uuid,
-            'customerId' => $customer->getKey(),
-        ]);
-        $resolver = Mockery::mock(CustomerResolver::class);
-        $resolver
-            ->shouldReceive('get')
-            ->with($customer->getKey())
-            ->once()
-            ->andReturn(null);
-
-        $factory = new class($resolver) extends DocumentFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerResolver $resolver) {
-                $this->customers = $resolver;
-            }
-
-            public function documentCustomer(Document $document): ?Customer {
-                return parent::documentCustomer($document);
-            }
-        };
-
-        $this->expectException(CustomerNotFoundException::class);
-
-        $this->assertEquals($customer, $factory->documentCustomer($document));
-    }
-
-    /**
-     * @covers ::documentCurrency
-     */
-    public function testDocumentCurrency(): void {
-        $document = Document::create([
-            'id' => $this->faker->uuid,
-        ]);
-        $currency = Currency::factory()->make();
-        $factory  = Mockery::mock(CurrencyFactory::class);
-
-        $factory
-            ->shouldReceive('create')
-            ->with($document)
-            ->once()
-            ->andReturn($currency);
-
-        $factory = new class($factory) extends DocumentFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected CurrencyFactory $currencies,
-            ) {
-                // empty
-            }
-
-            public function documentCurrency(Document $document): Currency {
-                return parent::documentCurrency($document);
-            }
-        };
-
-        $this->assertEquals($currency, $factory->documentCurrency($document));
-    }
-
-    /**
      * @covers ::prefetch
      */
     public function testPrefetch(): void {
@@ -434,43 +603,17 @@ class DocumentFactoryTest extends TestCase {
 
         $this->flushQueryLog();
 
-        $factory->find(AssetDocument::create($a));
-        $factory->find(AssetDocument::create($b));
-        $factory->find(AssetDocument::create($c));
+        $factory->find(AssetDocumentObject::create([
+            'document' => $a,
+        ]));
+        $factory->find(AssetDocumentObject::create([
+            'document' => $b,
+        ]));
+        $factory->find(AssetDocumentObject::create([
+            'document' => $c,
+        ]));
 
         $this->assertCount(0, $this->getQueryLog());
-    }
-
-    /**
-     * @covers ::documentLanguage
-     */
-    public function testDocumentLanguage(): void {
-        $document = Document::create([
-            'id' => $this->faker->uuid,
-        ]);
-        $language = Language::factory()->make();
-        $factory  = Mockery::mock(LanguageFactory::class);
-
-        $factory
-            ->shouldReceive('create')
-            ->with($document)
-            ->once()
-            ->andReturn($language);
-
-        $factory = new class($factory) extends DocumentFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected LanguageFactory $languages,
-            ) {
-                // empty
-            }
-
-            public function documentLanguage(Document $document): Language {
-                return parent::documentLanguage($document);
-            }
-        };
-
-        $this->assertEquals($language, $factory->documentLanguage($document));
     }
     // </editor-fold>
 
@@ -481,8 +624,10 @@ class DocumentFactoryTest extends TestCase {
      */
     public function dataProviderCreate(): array {
         return [
-            AssetDocument::class => ['createFromAssetDocument', new AssetDocument()],
-            'Unknown'            => [
+            AssetDocumentObject::class => ['createFromAssetDocumentObject', new AssetDocumentObject()],
+            AssetDocument::class       => [null, new AssetDocument()],
+            Document::class            => [null, new Document()],
+            'Unknown'                  => [
                 null,
                 new class() extends Type {
                     // empty
@@ -511,7 +656,19 @@ class DocumentFactoryTest_Factory extends DocumentFactory {
         return parent::documentType($document);
     }
 
-    public function documentProduct(AssetDocument $document): Product {
-        return parent::documentProduct($document);
+    public function assetDocumentObjectProduct(AssetDocumentObject $document): Product {
+        return parent::assetDocumentObjectProduct($document);
+    }
+
+    public function createFromDocument(
+        Document $document,
+        Closure $product = null,
+        Closure $entries = null,
+    ): ?DocumentModel {
+        return parent::createFromDocument($document, $product, $entries);
+    }
+
+    public function createFromAssetDocumentObject(AssetDocumentObject $document): ?DocumentModel {
+        return parent::createFromAssetDocumentObject($document);
     }
 }

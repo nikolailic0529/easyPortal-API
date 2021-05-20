@@ -31,8 +31,6 @@
                     "vendor": "HPE"
                 },
                 "documentNumber": "0056523287",
-                "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
-                "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a",
                 "contactPersons": [
                     {
                         "phoneNumber": "+49 (591) 12345-67",
@@ -41,7 +39,21 @@
                         "type": "HARDWARE_CONTACT",
                         "mail": "alice1@hpe.com"
                     }
-                ]
+                ],
+                "reseller": {
+                    "id": "97292d03-7919-406c-a15b-39bf029e6d5a",
+                    "name": "Gusikowski and Simonis"
+                },
+                "customer": {
+                    "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
+                    "name": "Weber, Gusikowski and Simonis",
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ]
+                }
             },
             "skuNumber": "HA151AC",
             "skuDescription": "HPE Hardware Maintenance Onsite Support",
@@ -53,6 +65,7 @@
             "netPrice": "23.4",
             "discount": "-2.05",
             "listPrice": "48",
+            "currencyCode": "EUR",
             "estimatedValueRenewal": "145"
         },
         {
@@ -68,8 +81,6 @@
                     "vendor": "HPE2"
                 },
                 "documentNumber": "0056523288",
-                "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
-                "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a",
                 "contactPersons": [
                     {
                         "phoneNumber": "+49 (591) 12345-68",
@@ -78,7 +89,21 @@
                         "type": "HARDWARE_CONTACT",
                         "mail": "alice2@hpe.com"
                     }
-                ]
+                ],
+                "reseller": {
+                    "id": "97292d03-7919-406c-a15b-39bf029e6d5a",
+                    "name": "Gusikowski and Simonis"
+                },
+                "customer": {
+                    "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
+                    "name": "Weber, Gusikowski and Simonis",
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ]
+                }
             },
             "skuNumber": "HL935AC",
             "skuDescription": "HPE Collaborative Remote Support",
@@ -90,6 +115,7 @@
             "netPrice": "23.4",
             "discount": "-2.05",
             "listPrice": "48",
+            "currencyCode": "EUR",
             "estimatedValueRenewal": "25"
         },
         {
@@ -105,8 +131,6 @@
                     "vendor": "HPE"
                 },
                 "documentNumber": "0056490551",
-                "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
-                "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a",
                 "contactPersons": [
                     {
                         "phoneNumber": "+49 (591) 12345-68",
@@ -115,7 +139,21 @@
                         "type": "HARDWARE_CONTACT",
                         "mail": "alice3@hpe.com"
                     }
-                ]
+                ],
+                "reseller": {
+                    "id": "97292d03-7919-406c-a15b-39bf029e6d5a",
+                    "name": "Gusikowski and Simonis"
+                },
+                "customer": {
+                    "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
+                    "name": "Weber, Gusikowski and Simonis",
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ]
+                }
             },
             "skuNumber": "HL935AC",
             "skuDescription": "HPE Collaborative Remote Support",
@@ -127,6 +165,7 @@
             "netPrice": "23.4",
             "discount": "-2.05",
             "listPrice": "48",
+            "currencyCode": "EUR",
             "estimatedValueRenewal": "10.44"
         },
         {
@@ -142,8 +181,6 @@
                     "vendor": "HPE"
                 },
                 "documentNumber": "0056523287",
-                "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
-                "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a",
                 "contactPersons": [
                     {
                         "phoneNumber": "+49 (591) 12345-60",
@@ -152,7 +189,21 @@
                         "type": "HARDWARE_CONTACT",
                         "mail": "alice4@hpe.com"
                     }
-                ]
+                ],
+                "reseller": {
+                    "id": "97292d03-7919-406c-a15b-39bf029e6d5a",
+                    "name": "Gusikowski and Simonis"
+                },
+                "customer": {
+                    "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
+                    "name": "Weber, Gusikowski and Simonis",
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ]
+                }
             },
             "skuNumber": "HA151AC",
             "skuDescription": "HPE Hardware Maintenance Onsite Support",
@@ -164,6 +215,7 @@
             "netPrice": "23.4",
             "discount": "-2.05",
             "listPrice": "48",
+            "currencyCode": "EUR",
             "estimatedValueRenewal": "40"
         },
         {
@@ -179,8 +231,6 @@
                     "vendor": "HPE"
                 },
                 "documentNumber": "0056523288",
-                "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
-                "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a",
                 "contactPersons": [
                     {
                         "phoneNumber": "+49 (591) 12345-61",
@@ -189,7 +239,21 @@
                         "type": "HARDWARE_CONTACT",
                         "mail": "alice5@hpe.com"
                     }
-                ]
+                ],
+                "reseller": {
+                    "id": "97292d03-7919-406c-a15b-39bf029e6d5a",
+                    "name": "Gusikowski and Simonis"
+                },
+                "customer": {
+                    "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
+                    "name": "Weber, Gusikowski and Simonis",
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ]
+                }
             },
             "skuNumber": "HA151AC",
             "skuDescription": "HPE Hardware Maintenance Onsite Support",
@@ -201,6 +265,7 @@
             "netPrice": "23.4",
             "discount": "-2.05",
             "listPrice": "48",
+            "currencyCode": "EUR",
             "estimatedValueRenewal": "0"
         },
         {
@@ -216,8 +281,6 @@
                     "vendor": "HPE"
                 },
                 "documentNumber": "0056490551",
-                "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
-                "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a",
                 "contactPersons": [
                     {
                         "phoneNumber": "+49 (591) 12345-62",
@@ -226,7 +289,21 @@
                         "type": "HARDWARE_CONTACT",
                         "mail": "alice5@hpe.com"
                     }
-                ]
+                ],
+                "reseller": {
+                    "id": "97292d03-7919-406c-a15b-39bf029e6d5a",
+                    "name": "Gusikowski and Simonis"
+                },
+                "customer": {
+                    "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
+                    "name": "Weber, Gusikowski and Simonis",
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ]
+                }
             },
             "skuNumber": "HA151AC",
             "skuDescription": "HPE Hardware Maintenance Onsite Support",
@@ -238,6 +315,7 @@
             "netPrice": "23.4",
             "discount": "-2.05",
             "listPrice": "48",
+            "currencyCode": "EUR",
             "estimatedValueRenewal": "24.3"
         }
     ]
