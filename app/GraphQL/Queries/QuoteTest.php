@@ -139,7 +139,6 @@ class QuoteTest extends TestCase {
                             document_id
                             asset_id
                             product_id
-                            quantity
                             net_price
                             list_price
                             discount
@@ -322,7 +321,6 @@ class QuoteTest extends TestCase {
                                     'asset_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                     'product_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                     'document_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                    'quantity'    => 20,
                                     'net_price'   => '123.45',
                                     'list_price'  => null,
                                     'discount'    => '-8.00',
@@ -446,7 +444,6 @@ class QuoteTest extends TestCase {
                                         'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                     ]),
                                     'product_id' => $product,
-                                    'quantity'   => 20,
                                     'net_price'  => '123.45',
                                     'list_price' => null,
                                     'discount'   => '-8',

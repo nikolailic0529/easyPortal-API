@@ -43,7 +43,6 @@ class DocumentEntryFactory extends Factory {
                     'type' => ProductType::service(),
                 ]);
             },
-            'quantity'    => $this->faker->randomDigit,
             'currency_id' => null,
             'net_price'   => null,
             'list_price'  => null,
