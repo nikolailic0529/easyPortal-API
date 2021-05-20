@@ -4,17 +4,13 @@
     "additionalProperties": false,
     "required": [
         "id",
-        "name",
-        "key"
+        "name"
     ],
     "properties": {
         "id": {
             "$ref": "../types.json#/definitions/ID"
         },
         "name": {
-            "type": "string"
-        },
-        "key": {
             "type": "string"
         }
     }

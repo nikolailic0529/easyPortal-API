@@ -202,7 +202,6 @@ class AssetTest extends TestCase {
                         coverage {
                             id
                             name
-                            key
                         }
                     }
                 }
@@ -416,7 +415,6 @@ class AssetTest extends TestCase {
                             'coverage'       => [
                                 'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
                                 'name' => 'COVERED_ON_CONTRACT',
-                                'key'  => 'COVERED_ON_CONTRACT',
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization): Asset {
@@ -526,7 +524,6 @@ class AssetTest extends TestCase {
                             $coverage = AssetCoverage::factory()->create([
                                 'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
                                 'name' => 'COVERED_ON_CONTRACT',
-                                'key'  => 'COVERED_ON_CONTRACT',
                             ]);
                             // Asset Creation
                             $asset = Asset::factory()

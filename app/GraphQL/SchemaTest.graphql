@@ -971,6 +971,9 @@ type Query {
   """List of all possible asset statuses."""
   assetStatuses: [Status!]!
 
+  """List of all possible asset coverages."""
+  assetCoverages: [AssetCoverage!]!
+
   """
   Customer.
   
