@@ -163,7 +163,7 @@ class DocumentFactory extends ModelFactory {
 
             // Update
             if (!$created && !$this->isSearchMode()) {
-                $factory($document);
+                $factory($model);
             }
         }
 
