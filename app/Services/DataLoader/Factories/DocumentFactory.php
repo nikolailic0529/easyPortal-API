@@ -134,18 +134,8 @@ class DocumentFactory extends ModelFactory {
                     $model->language = $this->languages->create($document);
                     $model->price    = null;
                     $model->number   = $this->normalizer->string($document->document->documentNumber);
-
-                    if ($created) {
-                        // These dates are not consistent and create a lot of:
-                        // - UPDATE `documents` SET `start` = '2020-10-22 00:00:00', `end` = '2022-12-31 00:00:00'
-                        // - UPDATE `documents` SET `start` = '2019-07-01 00:00:00', `end` = '2020-10-21 00:00:00'
-                        // - UPDATE `documents` SET `start` = '2020-10-22 00:00:00', `end` = '2022-12-31 00:00:00'
-                        //
-                        // For this reason we will not update it at all.
-                        $model->start = $this->normalizer->datetime($document->document->startDate);
-                        $model->end   = $this->normalizer->datetime($document->document->endDate);
-                    }
-
+                    $model->start    = $this->normalizer->datetime($document->document->startDate);
+                    $model->end      = $this->normalizer->datetime($document->document->endDate);
                     $model->contacts = [];
                     $model->entries  = $entries($model);
 
@@ -250,11 +240,11 @@ class DocumentFactory extends ModelFactory {
     protected function compareDocumentEntries(DocumentEntry $a, DocumentEntry $b): int {
         return $a->currency_id <=> $b->currency_id
             ?: $a->net_price <=> $b->net_price
-            ?: $a->list_price <=> $b->list_price
-            ?: $a->discount <=> $b->discount
-            ?: $a->renewal <=> $b->renewal
-            ?: $a->product_id <=> $b->product_id
-            ?: 0;
+                ?: $a->list_price <=> $b->list_price
+                    ?: $a->discount <=> $b->discount
+                        ?: $a->renewal <=> $b->renewal
+                            ?: $a->product_id <=> $b->product_id
+                                ?: 0;
     }
     // </editor-fold>
 

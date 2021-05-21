@@ -25,7 +25,6 @@ use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
-use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
@@ -66,11 +65,8 @@ class AssetFactory extends ModelFactory {
         protected CustomerResolver $customerResolver,
         protected ResellerResolver $resellerResolver,
         protected LocationFactory $locations,
-        protected DocumentResolver $documentResolver,
-        protected CurrencyFactory $currencies,
-        protected LanguageFactory $languages,
         protected StatusResolver $statuses,
-        protected AssetCoverageFactory $assetCoverages,
+        protected AssetCoverageFactory $coverages,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -177,7 +173,7 @@ class AssetFactory extends ModelFactory {
             $model->location      = $location;
             $model->serial_number = $this->normalizer->string($asset->serialNumber);
             $model->contacts      = $this->objectContacts($model, $asset->latestContactPersons);
-            $model->coverage      = $this->assetCoverages->create($asset);
+            $model->coverage      = $this->coverages->create($asset);
 
             $model->save();
 
@@ -210,6 +206,10 @@ class AssetFactory extends ModelFactory {
         return (new Collection($asset->assetDocument))
             ->filter(static function (AssetDocument $document): bool {
                 return (bool) $document->documentNumber;
+            })
+            ->sort(static function (AssetDocument $a, AssetDocument $b): int {
+                return $a->startDate <=> $b->startDate
+                    ?: $a->endDate <=> $b->endDate;
             })
             ->groupBy(static function (AssetDocument $document): string {
                 return $document->documentNumber;

@@ -294,7 +294,11 @@ class Client {
 
             $response->throw();
         } catch (Exception $exception) {
-            throw new GraphQLQueryFailed($graphql, $params, [], $exception);
+            $error = new GraphQLQueryFailed($graphql, $params, [], $exception);
+
+            $this->handler->report($error);
+
+            throw $error;
         }
 
         // Error?
@@ -305,9 +309,9 @@ class Client {
         if ($errors) {
             $error = new GraphQLQueryFailed($graphql, $params, $errors);
 
-            if ($result) {
-                $this->handler->report($error);
-            } else {
+            $this->handler->report($error);
+
+            if (!$result) {
                 throw $error;
             }
         }

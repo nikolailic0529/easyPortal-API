@@ -179,6 +179,63 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::createFromAssetDocumentObject
+     */
+    public function testCreateFromAssetDocumentObjectDocumentNull(): void {
+        // Factory
+        $factory = $this->app->make(DocumentFactoryTest_Factory::class);
+
+        // Create
+        // ---------------------------------------------------------------------
+        $json    = $this->getTestData()->json('~asset-document-no-document.json');
+        $asset   = Asset::create($json);
+        $model   = AssetModel::factory()->create([
+            'id' => $asset->id,
+        ]);
+        $object  = AssetDocumentObject::create([
+            'asset'    => $model,
+            'document' => reset($asset->assetDocument),
+            'entries'  => $asset->assetDocument,
+        ]);
+        $created = $factory->createFromAssetDocumentObject($object);
+
+        // Test
+        // ---------------------------------------------------------------------
+        $this->assertNotNull($created);
+        $this->assertEquals($asset->customerId, $created->customer_id);
+        $this->assertEquals($asset->resellerId, $created->reseller_id);
+        $this->assertEquals('688b9621-3244-464b-9468-3cd74f5eaacf', $created->number);
+        $this->assertEquals(null, $created->price);
+        $this->assertEquals('1583020800000', $this->getDatetime($created->start));
+        $this->assertEquals('1614470400000', $this->getDatetime($created->end));
+        $this->assertEquals($model->oem->abbr, $created->oem->abbr);
+        $this->assertEquals('??', $created->type->key);
+        $this->assertEquals('CUR', $created->currency->code);
+        $this->assertEquals('fr', $created->language->code);
+        $this->assertEquals('H7J34AC', $created->product->sku);
+        $this->assertEquals('HPE Foundation Care 24x7 SVC', $created->product->name);
+        $this->assertEquals(ProductType::support(), $created->product->type);
+        $this->assertEquals($model->oem->abbr, $created->product->oem->abbr);
+
+        $this->assertCount(2, $created->entries);
+
+        /** @var \App\Models\DocumentEntry $e */
+        $e = $created->entries->first(static function (DocumentEntryModel $entry): bool {
+            return $entry->renewal === '145.00';
+        });
+
+        $this->assertEquals('23.40', $e->net_price);
+        $this->assertEquals('48.00', $e->list_price);
+        $this->assertEquals('-2.05', $e->discount);
+        $this->assertEquals($created->getKey(), $e->document_id);
+        $this->assertEquals($asset->id, $e->asset_id);
+        $this->assertEquals('HA151AC', $e->product->sku);
+        $this->assertEquals('HPE Hardware Maintenance Onsite Support', $e->product->name);
+        $this->assertEquals(ProductType::service(), $e->product->type);
+        $this->assertEquals($model->oem->abbr, $e->product->oem->abbr);
+    }
+
+    /**
      * @covers ::assetDocumentObjectProduct
      */
     public function testAssetDocumentObjectProduct(): void {

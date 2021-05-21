@@ -381,12 +381,18 @@ class AssetFactoryTest extends TestCase {
             'assetDocument' => [
                 [
                     'documentNumber' => 'a',
+                    'startDate'      => '09/07/2020',
+                    'endDate'        => '09/07/2021',
                 ],
                 [
                     'documentNumber' => 'a',
+                    'startDate'      => '09/01/2020',
+                    'endDate'        => '09/07/2021',
                 ],
                 [
                     'documentNumber' => 'b',
+                    'startDate'      => '09/01/2020',
+                    'endDate'        => '09/07/2021',
                 ],
             ],
         ]);
@@ -400,6 +406,7 @@ class AssetFactoryTest extends TestCase {
 
                 return $object->asset === $model
                     && $object->document instanceof AssetDocument
+                    && $object->document->startDate === '09/01/2020'
                     && count($ids) === 1;
             }))
             ->twice()
