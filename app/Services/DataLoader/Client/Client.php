@@ -400,8 +400,6 @@ class Client {
                 id
                 type
                 documentNumber
-                customerId
-                resellerId
 
                 startDate
                 endDate

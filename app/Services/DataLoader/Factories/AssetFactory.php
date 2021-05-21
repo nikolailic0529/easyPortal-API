@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Asset as AssetModel;
 use App\Models\AssetWarranty;
 use App\Models\Customer;
-use App\Models\Document;
+use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry;
 use App\Models\Enums\ProductType;
 use App\Models\Location;
@@ -15,7 +15,6 @@ use App\Models\Reseller;
 use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
-use App\Services\DataLoader\Exceptions\DocumentNotFoundException;
 use App\Services\DataLoader\Exceptions\LocationNotFoundException;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
@@ -36,11 +35,9 @@ use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Type;
 use Closure;
-use Exception;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
-use SplObjectStorage;
 
 use function array_map;
 use function array_unique;
@@ -151,7 +148,7 @@ class AssetFactory extends ModelFactory {
     protected function createFromAsset(Asset $asset): ?AssetModel {
         $model = $this->assetAsset($asset);
 
-        if (!$this->isSearchMode() && $this->documentFactory && isset($asset->assetDocument)) {
+        if (!$this->isSearchMode() && $this->getDocumentFactory() && isset($asset->assetDocument)) {
             $documents = $this->assetDocuments($model, $asset);
 
             $this->assetInitialWarranties($model, $asset, $documents);
@@ -206,128 +203,27 @@ class AssetFactory extends ModelFactory {
      * @return \Illuminate\Support\Collection<\App\Models\Document>
      */
     protected function assetDocuments(AssetModel $model, Asset $asset): Collection {
-        // Get all Document and Entries
-        /** @var \SplObjectStorage<\App\Models\Document,\Illuminate\Support\Collection<\App\Models\DocumentEntry>> $documents */
-        $documents = new SplObjectStorage();
-        /** @var \SplObjectStorage<\App\Models\Document,\App\Services\DataLoader\Schema\AssetDocument> $documents */
-        $assetDocuments = new SplObjectStorage();
+        // Asset.assetDocument is not a document but an array of entries where
+        // each entry is the mixin of Document, DocumentEntry, and additional
+        // information (that is not available in Document and DocumentEntry)
 
-        foreach ($asset->assetDocument as $assetDocument) {
-            $document = null;
-            $entry    = null;
-
-            try {
-                $document = $this->assetDocument($model, $assetDocument);
-                $entry    = $this->assetDocumentEntry($document, $assetDocument);
-            } catch (Exception $exception) {
-                $this->logger->warning('Failed to load asset document.', [
-                    'asset'     => $model->getKey(),
-                    'document'  => $assetDocument,
-                    'exception' => $exception,
-                ]);
-            }
-
-            if ($document && $entry) {
-                if ($documents->contains($document)) {
-                    $documents[$document]->add($entry);
-                } else {
-                    $documents[$document] = new Collection([$entry]);
-                }
-
-                $assetDocuments[$document] = $assetDocument;
-            }
-        }
-
-        // Update Documents entries
-        $byProductId = static function (DocumentEntry $entry): string {
-            return $entry->product_id;
-        };
-
-        /** @var \App\Models\Document $document */
-        foreach ($documents as $document) {
-            $existing      = $document->entries
-                ->filter(function (DocumentEntry $entry) use ($model): bool {
-                    return $entry->asset_id === $this->normalizer->uuid($model->getKey());
-                })
-                ->keyBy($byProductId);
-            $entries       = $documents[$document]->groupBy($byProductId);
-            $assetDocument = $assetDocuments[$document];
-
-            foreach ($entries as $product => $group) {
-                // Update entry
-                /** @var \App\Models\DocumentEntry $entry */
-                $entry = $existing->get($product) ?? $group->first();
-
-                $entry->asset      = $model;
-                $entry->document   = $document;
-                $entry->quantity   = $group->count();
-                $entry->net_price  = $this->normalizer->number($assetDocument->netPrice);
-                $entry->list_price = $this->normalizer->number($assetDocument->listPrice);
-                $entry->discount   = $this->normalizer->number($assetDocument->discount);
-                $entry->save();
-
-                // Mark that exists
-                $existing->forget($product);
-
-                // Add entry to entries
-                if ($document->entries->search($entry, true) === false) {
-                    $document->entries->add($entry);
-                }
-            }
-
-            // Remove missed entries
-            foreach ($existing as $entry) {
-                $key = $document->entries->search($entry, true);
-
-                if ($key !== false) {
-                    $document->entries->offsetUnset($key);
-                }
-
-                $entry->delete();
-            }
-        }
-
-        // Return
-        return new Collection($documents);
-    }
-
-    protected function assetDocument(AssetModel $asset, AssetDocument $assetDocument): Document {
-        $id       = $assetDocument->document->id ?? $assetDocument->documentNumber ?? null;
-        $document = null;
-
-        if ($this->documentFactory) {
-            $document = $this->documentFactory->create($assetDocument);
-        } else {
-            $document = $this->documentResolver->get($id);
-        }
-
-        if (!$document) {
-            throw new DocumentNotFoundException(sprintf(
-                'Document `%s` not found.',
-                $assetDocument->documentNumber,
-            ));
-        }
-
-        return $document;
-    }
-
-    protected function assetDocumentEntry(Document $document, AssetDocument $assetDocument): DocumentEntry {
-        // FIXME: Currency is missing
-        $entry             = new DocumentEntry();
-        $entry->net_price  = $this->normalizer->number($assetDocument->netPrice);
-        $entry->list_price = $this->normalizer->number($assetDocument->listPrice);
-        $entry->discount   = $this->normalizer->number($assetDocument->discount);
-        $entry->renewal    = $this->normalizer->number($assetDocument->estimatedValueRenewal);
-        $entry->product    = $this->product(
-            $document->oem,
-            ProductType::service(),
-            $assetDocument->skuNumber,
-            $assetDocument->skuDescription,
-            null,
-            null,
-        );
-
-        return $entry;
+        return (new Collection($asset->assetDocument))
+            ->filter(static function (AssetDocument $document): bool {
+                return (bool) $document->documentNumber;
+            })
+            ->groupBy(static function (AssetDocument $document): string {
+                return $document->documentNumber;
+            })
+            ->map(function (Collection $entries) use ($model): ?DocumentModel {
+                return $this->getDocumentFactory()->create(AssetDocumentObject::create([
+                    'asset'    => $model,
+                    'document' => $entries->first(),
+                    'entries'  => $entries->all(),
+                ]));
+            })
+            ->filter(static function (?DocumentModel $document): bool {
+                return (bool) $document;
+            });
     }
 
     /**
@@ -341,7 +237,7 @@ class AssetFactory extends ModelFactory {
         // can buy additional warranty.
 
         $warranties = new Collection();
-        $documents  = $documents->keyBy(static function (Document $document): string {
+        $documents  = $documents->keyBy(static function (DocumentModel $document): string {
             return $document->getKey();
         });
 
