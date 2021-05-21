@@ -20,7 +20,6 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 
 use function count;
-use function in_array;
 
 /**
  * Document.

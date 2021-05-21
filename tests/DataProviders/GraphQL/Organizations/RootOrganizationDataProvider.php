@@ -7,7 +7,6 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
 use Tests\GraphQL\GraphQLUnauthenticated;
-use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 
 class RootOrganizationDataProvider extends ArrayDataProvider {

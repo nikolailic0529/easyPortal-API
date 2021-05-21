@@ -201,9 +201,9 @@ trait WithAssets {
             ->setContactsFactory($this->contacts);
         $resellers = $this->resellers
             ->setLocationFactory($this->locations);
-        $documents = $this->isWithAssetsDocuments() ?
-            $this->documents->setContactsFactory($this->contacts):
-            null;
+        $documents = $this->isWithAssetsDocuments()
+            ? $this->documents->setContactsFactory($this->contacts)
+            : null;
         $factory   = $this->assets
             ->setResellerFactory($resellers)
             ->setCustomersFactory($customers)
