@@ -22,8 +22,14 @@ class DateTimeNormalizer implements Normalizer {
         if ($value) {
             if (is_int($value) || (is_string($value) && preg_match('/^\d+$/', $value))) {
                 $value = Date::createFromTimestampMs($value);
-            } elseif (is_string($value) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $value)) {
-                $value = Date::createFromFormat('Y-m-d', $value, 'UTC')->startOfDay();
+            } elseif (is_string($value)) {
+                if (preg_match('|^\d{4}-\d{2}-\d{2}$|', $value)) {
+                    $value = Date::createFromFormat('Y-m-d', $value, 'UTC')->startOfDay();
+                } elseif (preg_match('|^\d{2}/\d{2}/\d{4}$|', $value)) {
+                    $value = Date::createFromFormat('d/m/Y', $value, 'UTC')->startOfDay();
+                } else {
+                    // empty
+                }
             } else {
                 // empty
             }
