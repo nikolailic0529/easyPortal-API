@@ -3,6 +3,7 @@
 namespace App\Models\Concerns;
 
 use App\Models\Customer;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -10,7 +11,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 trait HasCustomer {
     public function customer(): BelongsTo {
-        return $this->belongsTo(Customer::class);
+        return $this
+            ->belongsTo(Customer::class)
+            ->withoutGlobalScope(OwnedByOrganizationScope::class);
     }
 
     public function setCustomerAttribute(?Customer $customer): void {
