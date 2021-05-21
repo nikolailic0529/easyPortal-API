@@ -60,15 +60,25 @@ class DateTimeNormalizerTest extends TestCase {
                 'UTC',
                 '4194454321000',
             ],
-            'date string + UTC'            => [
+            'Y-m-d string + UTC'           => [
                 '2102-12-01T00:00:00.000+00:00',
                 'UTC',
                 '2102-12-01',
             ],
-            'date string + null'           => [
+            'Y-m-d string + null'          => [
                 '2102-12-01T00:00:00.000+00:00',
                 null,
                 '2102-12-01',
+            ],
+            'd/m/Y string + UTC'           => [
+                '2102-12-31T00:00:00.000+00:00',
+                'UTC',
+                '31/12/2102',
+            ],
+            'd/m/Y string + null'          => [
+                '2102-12-31T00:00:00.000+00:00',
+                null,
+                '31/12/2102',
             ],
             'empty string'                 => [
                 null,
