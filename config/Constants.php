@@ -266,6 +266,13 @@ interface Constants {
     #[Type(Url::class)]
     public const EP_DATA_LOADER_ENDPOINT = null;
 
+    /**
+     * GraphQL queries that take more than `X` seconds will be logged (set to `0` to disable)
+     */
+    #[Setting('ep.data_loader.slowlog')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_SLOWLOG = 0;
+
     // <editor-fold desc="DATA_LOADER_RESELLERS_IMPORTER">
     // -------------------------------------------------------------------------
     /**

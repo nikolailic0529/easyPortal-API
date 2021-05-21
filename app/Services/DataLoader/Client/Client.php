@@ -16,6 +16,7 @@ use Illuminate\Support\Arr;
 use Psr\Log\LoggerInterface;
 
 use function reset;
+use function time;
 
 class Client {
     public function __construct(
@@ -285,6 +286,7 @@ class Client {
             'Accept'        => 'application/json',
             'Authorization' => "Bearer {$this->token->getAccessToken()}",
         ];
+        $begin   = time();
 
         try {
             $response = $this->client
@@ -299,6 +301,19 @@ class Client {
             $this->handler->report($error);
 
             throw $error;
+        }
+
+        // Slow log
+        $slowlog = (int) $this->config->get('ep.data_loader.slowlog', 0);
+        $time    = time() - $begin;
+
+        if ($slowlog > 0 && $time >= $slowlog) {
+            $this->logger->info('DataLoader: Slow query detected.', [
+                'threshold' => $slowlog,
+                'time'      => $time,
+                'graphql'   => $graphql,
+                'params'    => $params,
+            ]);
         }
 
         // Error?
