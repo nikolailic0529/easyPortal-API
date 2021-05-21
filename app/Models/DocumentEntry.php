@@ -16,11 +16,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                       $document_id
  * @property string                       $asset_id
  * @property string                       $product_id Service
- * @property int                          $quantity
  * @property string|null                  $currency_id
  * @property string|null                  $net_price
  * @property string|null                  $list_price
  * @property string|null                  $discount
+ * @property string|null                  $renewal
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
@@ -42,7 +42,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereListPrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereNetPrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereUpdatedAt($value)
  * @mixin \Eloquent
  */

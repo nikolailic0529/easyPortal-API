@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\CascadeDeletes\CascadeDeletable;
 use App\Models\Concerns\HasContacts;
 use App\Models\Concerns\HasCurrency;
 use App\Models\Concerns\HasCustomer;
@@ -10,41 +11,45 @@ use App\Models\Concerns\HasOem;
 use App\Models\Concerns\HasProduct;
 use App\Models\Concerns\HasReseller;
 use App\Models\Concerns\HasType;
+use App\Models\Concerns\SyncHasMany;
 use App\Models\Enums\ProductType;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Collection;
+
+use function count;
 
 /**
  * Document.
  *
- * @property string                                                                   $id
- * @property string                                                                   $oem_id
- * @property string                                                                   $type_id
- * @property string                                                                   $customer_id
- * @property string|null                                                              $reseller_id
- * @property string                                                                   $number     Internal Number
- * @property string                                                                   $product_id Support Level
- * @property \Carbon\CarbonImmutable                                                  $start
- * @property \Carbon\CarbonImmutable                                                  $end
- * @property string|null                                                              $price
- * @property string|null                                                              $estimated_value_renewal
- * @property string|null                                                              $currency_id
- * @property string|null                                                              $language_id
- * @property \Carbon\CarbonImmutable                                                  $created_at
- * @property \Carbon\CarbonImmutable                                                  $updated_at
- * @property \Carbon\CarbonImmutable|null                                             $deleted_at
- * @property \App\Models\Currency|null                                                $currency
- * @property \App\Models\Language|null                                                $language
- * @property \App\Models\Customer                                                     $customer
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $entries
- * @property-read int|null                                                            $entries_count
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>            $contacts
- * @property int                                                                      $contacts_count
- * @property \App\Models\Oem                                                          $oem
- * @property \App\Models\Product                                                      $product
- * @property \App\Models\Reseller|null                                                $reseller
- * @property \App\Models\Type                                                         $type
+ * @property string                                                              $id
+ * @property string                                                              $oem_id
+ * @property string                                                              $type_id
+ * @property string                                                              $customer_id
+ * @property string|null                                                         $reseller_id
+ * @property string                                                              $number     Internal Number
+ * @property string|null                                                         $product_id Support Level
+ * @property \Carbon\CarbonImmutable                                             $start
+ * @property \Carbon\CarbonImmutable                                             $end
+ * @property string|null                                                         $price
+ * @property string|null                                                         $currency_id
+ * @property string|null                                                         $language_id
+ * @property \Carbon\CarbonImmutable                                             $created_at
+ * @property \Carbon\CarbonImmutable                                             $updated_at
+ * @property \Carbon\CarbonImmutable|null                                        $deleted_at
+ * @property \App\Models\Currency|null                                           $currency
+ * @property \App\Models\Language|null                                           $language
+ * @property \App\Models\Customer                                                $customer
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $entries
+ * @property int                                                                 $entries_count
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
+ * @property int                                                                 $contacts_count
+ * @property \App\Models\Oem                                                     $oem
+ * @property \App\Models\Product|null                                            $product
+ * @property \App\Models\Reseller|null                                           $reseller
+ * @property \App\Models\Type                                                    $type
  * @method static \Database\Factories\DocumentFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newQuery()
@@ -67,7 +72,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Document extends Model {
+class Document extends Model implements CascadeDeletable {
     use OwnedByOrganization;
     use HasFactory;
     use HasOem;
@@ -75,9 +80,12 @@ class Document extends Model {
     use HasReseller;
     use HasCustomer;
     use HasCurrency;
-    use HasProduct;
     use HasLanguage;
     use HasContacts;
+    use SyncHasMany;
+    use HasProduct {
+        setProductAttribute as protected setProduct;
+    }
 
     protected const CASTS = [
         'start' => 'date',
@@ -105,9 +113,29 @@ class Document extends Model {
     }
 
     /**
+     * @param \Illuminate\Support\Collection<\App\Models\DocumentEntry>|array<\App\Models\DocumentEntry> $entries
+     */
+    public function setEntriesAttribute(Collection|array $entries): void {
+        $this->syncHasMany('entries', $entries);
+        $this->entries_count = count($entries);
+    }
+
+    public function setProductAttribute(?Product $product): void {
+        if ($product) {
+            $this->setProduct($product);
+        } else {
+            $this->product()->associate(null);
+        }
+    }
+
+    /**
      * @inheritdoc
      */
     protected function getValidProductTypes(): array {
         return [ProductType::support()];
+    }
+
+    public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {
+        return $name === 'entries';
     }
 }

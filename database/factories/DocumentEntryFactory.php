@@ -3,12 +3,15 @@
 namespace Database\Factories;
 
 use App\Models\Asset;
+use App\Models\Currency;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Enums\ProductType;
 use App\Models\Product;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
+
+use function number_format;
 
 /**
  * @method \App\Models\DocumentEntry create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
@@ -43,11 +46,13 @@ class DocumentEntryFactory extends Factory {
                     'type' => ProductType::service(),
                 ]);
             },
-            'quantity'    => $this->faker->randomDigit,
-            'currency_id' => null,
-            'net_price'   => null,
-            'list_price'  => null,
-            'discount'    => null,
+            'currency_id' => static function (): Currency {
+                return Currency::query()->first() ?? Currency::factory()->create();
+            },
+            'net_price'   => number_format($this->faker->randomFloat(2), 2, '.', ''),
+            'list_price'  => number_format($this->faker->randomFloat(2), 2, '.', ''),
+            'discount'    => number_format($this->faker->randomFloat(2, 0, 75), 2, '.', ''),
+            'renewal'     => number_format($this->faker->randomFloat(2), 2, '.', ''),
             'created_at'  => Date::now(),
             'updated_at'  => Date::now(),
             'deleted_at'  => null,

@@ -32,7 +32,9 @@ class CurrencyFactory extends ModelFactory {
     public function create(Type $type): ?Currency {
         $model = null;
 
-        if ($type instanceof AssetDocument) {
+        if ($type instanceof AssetDocumentObject) {
+            $model = $this->createFromAssetDocumentObject($type);
+        } elseif ($type instanceof AssetDocument) {
             $model = $this->createFromAssetDocument($type);
         } elseif ($type instanceof Document) {
             $model = $this->createFromDocument($type);
@@ -42,6 +44,7 @@ class CurrencyFactory extends ModelFactory {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
                 implode('`, `', [
+                    AssetDocumentObject::class,
                     AssetDocument::class,
                     Document::class,
                     DocumentEntry::class,
@@ -50,6 +53,20 @@ class CurrencyFactory extends ModelFactory {
         }
 
         return $model;
+    }
+
+    protected function createFromAssetDocumentObject(AssetDocumentObject $document): ?Currency {
+        $currency = null;
+
+        if (isset($document->document->document)) {
+            $currency = $this->createFromDocument($document->document->document);
+        }
+
+        if (!$currency) {
+            $currency = $this->createFromAssetDocument($document->document);
+        }
+
+        return $currency;
     }
 
     protected function createFromAssetDocument(AssetDocument $document): ?Currency {

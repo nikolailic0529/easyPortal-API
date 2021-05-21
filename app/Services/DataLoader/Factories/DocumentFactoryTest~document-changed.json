@@ -11,8 +11,6 @@
             "vendor": "HPE"
         },
         "documentNumber": "0056523288",
-        "customerId": "099c3ccf-70a0-4bd6-a3ef-6e7c7be968ad",
-        "resellerId": "f9e95182-a806-446b-a401-48f18f3a3af3",
         "contactPersons": [
             {
                 "phoneNumber": "+49 (591) 12345-68",
@@ -21,9 +19,20 @@
                 "type": "SOFTWARE_CONTACT",
                 "mail": "new@hpe.com"
             }
-        ]
-    },
-    "supportPackage": "H7J34AC",
-    "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
-    "estimatedValueRenewal": "25"
+        ],
+        "reseller": {
+            "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
+            "name": "Gusikowski and Simonis"
+        },
+        "customer": {
+            "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
+            "name": "Weber, Gusikowski and Simonis",
+            "companyTypes": [
+                {
+                    "type": "CUSTOMER",
+                    "status": "ACTIVE"
+                }
+            ]
+        }
+    }
 }

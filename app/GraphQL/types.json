@@ -429,8 +429,7 @@
                 "entries",
                 "language_id",
                 "language",
-                "contacts",
-                "estimated_value_renewal"
+                "contacts"
             ],
             "properties": {
                 "id": {
@@ -452,7 +451,14 @@
                     "type": "string"
                 },
                 "product_id": {
-                    "$ref": "#/definitions/ID"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "start": {
                     "type": "string",
@@ -495,7 +501,14 @@
                     "$ref": "#/definitions/Oem"
                 },
                 "product": {
-                    "$ref": "#/definitions/Product"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Product"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "reseller": {
                     "$ref": "#/definitions/Reseller"
@@ -514,9 +527,6 @@
                     "items": {
                         "$ref": "#/definitions/Contact"
                     }
-                },
-                "estimated_value_renewal": {
-                    "type": "string"
                 }
             }
         },
@@ -606,11 +616,11 @@
                 "document_id",
                 "asset_id",
                 "product_id",
-                "quantity",
                 "product",
                 "net_price",
                 "list_price",
-                "discount"
+                "discount",
+                "renewal"
             ],
             "properties": {
                 "id": {
@@ -624,9 +634,6 @@
                 },
                 "product_id": {
                     "$ref": "#/definitions/ID"
-                },
-                "quantity": {
-                    "type": "integer"
                 },
                 "asset": {
                     "$ref": "#/definitions/Asset"
@@ -650,6 +657,12 @@
                     ]
                 },
                 "discount": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "renewal": {
                     "type": [
                         "null",
                         "string"

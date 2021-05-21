@@ -2,30 +2,25 @@
 
 namespace App\Services\DataLoader\Factories;
 
-use App\Models\Currency;
-use App\Models\Customer;
+use App\Models\Asset as AssetModel;
 use App\Models\Document as DocumentModel;
+use App\Models\DocumentEntry;
 use App\Models\Enums\ProductType;
-use App\Models\Language;
 use App\Models\Oem;
 use App\Models\Product;
-use App\Models\Reseller;
 use App\Models\Type as TypeModel;
-use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
-use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
-use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use Closure;
 use Illuminate\Support\Collection;
@@ -33,6 +28,10 @@ use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
 use function array_map;
+use function array_merge;
+use function array_udiff;
+use function array_uintersect;
+use function implode;
 use function sprintf;
 
 class DocumentFactory extends ModelFactory {
@@ -46,8 +45,8 @@ class DocumentFactory extends ModelFactory {
         Normalizer $normalizer,
         protected OemResolver $oems,
         protected TypeResolver $types,
-        protected ResellerResolver $resellers,
-        protected CustomerResolver $customers,
+        protected ResellerFactory $resellers,
+        protected CustomerFactory $customers,
         protected ProductResolver $products,
         protected CurrencyFactory $currencies,
         protected DocumentResolver $documents,
@@ -66,12 +65,15 @@ class DocumentFactory extends ModelFactory {
     public function create(Type $type): ?DocumentModel {
         $model = null;
 
-        if ($type instanceof AssetDocument) {
-            $model = $this->createFromAssetDocument($type);
+        if ($type instanceof AssetDocumentObject) {
+            $model = $this->createFromAssetDocumentObject($type);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
-                AssetDocument::class,
+                implode('`, `', [
+                    AssetDocumentObject::class,
+                    Document::class,
+                ]),
             ));
         }
 
@@ -103,33 +105,197 @@ class DocumentFactory extends ModelFactory {
     }
     // </editor-fold>
 
-    // <editor-fold desc="Functions">
+    // <editor-fold desc="AssetDocumentObject">
     // =========================================================================
-    protected function createFromAssetDocument(AssetDocument $document): ?DocumentModel {
+    protected function createFromAssetDocumentObject(AssetDocumentObject $document): ?DocumentModel {
+        // Get/Create/Update
+        $model   = null;
+        $product = $this->factory(function () use ($document): ?Product {
+            return $this->assetDocumentObjectProduct($document);
+        });
+        $entries = $this->factory(function (DocumentModel $model) use ($document) {
+            return $this->assetDocumentObjectEntries($model, $document);
+        });
+
+        if (isset($document->document->document)) {
+            $model = $this->createFromDocument($document->document->document, $product, $entries);
+        } else {
+            $created = false;
+            $factory = $this->factory(
+                function (DocumentModel $model) use (&$created, $document, $product, $entries): DocumentModel {
+                    $created         = !$model->exists;
+                    $model->id       = $this->normalizer->string($document->document->documentNumber);
+                    $model->oem      = $document->asset->oem;
+                    $model->type     = $this->type(new DocumentModel(), '??');
+                    $model->product  = $product($model);
+                    $model->reseller = $this->resellers->create($document);
+                    $model->customer = $this->customers->create($document);
+                    $model->currency = $this->currencies->create($document);
+                    $model->language = $this->languages->create($document);
+                    $model->price    = null;
+                    $model->number   = $this->normalizer->string($document->document->documentNumber);
+                    $model->contacts = [];
+                    $model->entries  = $entries($model);
+
+                    if ($created) {
+                        // These dates are not consistent and create a lot of:
+                        // - UPDATE `documents` SET `start` = '2020-10-22 00:00:00', `end` = '2022-12-31 00:00:00'
+                        // - UPDATE `documents` SET `start` = '2019-07-01 00:00:00', `end` = '2020-10-21 00:00:00'
+                        // - UPDATE `documents` SET `start` = '2020-10-22 00:00:00', `end` = '2022-12-31 00:00:00'
+                        //
+                        // For this reason we will not update it at all.
+                        $model->start = $this->normalizer->datetime($document->document->startDate);
+                        $model->end   = $this->normalizer->datetime($document->document->endDate);
+                    }
+
+                    $model->save();
+
+                    return $model;
+                },
+            );
+            $model   = $this->documents->get(
+                $document->document->documentNumber,
+                static function () use ($factory): DocumentModel {
+                    return $factory(new DocumentModel());
+                },
+            );
+
+            // Update
+            if (!$created && !$this->isSearchMode()) {
+                $factory($document);
+            }
+        }
+
+        // Return
+        return $model;
+    }
+
+    protected function assetDocumentObjectProduct(AssetDocumentObject $document): ?Product {
+        $product = null;
+        $package = $document->document->supportPackage ?? null;
+        $desc    = $document->document->supportPackageDescription ?? null;
+        $oem     = isset($document->document->document)
+            ? $this->documentOem($document->document->document)
+            : $document->asset->oem;
+
+        if ($oem && $package && $desc) {
+            $type    = ProductType::support();
+            $product = $this->product($oem, $type, $package, $desc, null, null);
+        }
+
+        return $product;
+    }
+
+    /**
+     * @return array<\App\Models\DocumentEntry>
+     */
+    protected function assetDocumentObjectEntries(DocumentModel $model, AssetDocumentObject $document): array {
+        // AssetDocumentObject contains entries only for related Asset thus we
+        // must not touch other entries.
+
+        // Separate asset's entries
+        $all      = [];
+        $existing = [];
+        $assetId  = $document->asset->getKey();
+
+        foreach ($model->entries as $entry) {
+            /** @var \App\Models\DocumentEntry $entry */
+            if ($entry->asset_id === $assetId) {
+                $existing[] = $entry;
+            } else {
+                $all[] = $entry;
+            }
+        }
+
+        // Update entries:
+        $compare = function (DocumentEntry $a, DocumentEntry $b): int {
+            return $this->compareDocumentEntries($a, $b);
+        };
+        $entries = array_map(function (AssetDocument $entry) use ($model, $document) {
+            return $this->assetDocumentEntry($document->asset, $model, $entry);
+        }, $document->entries);
+        $keep    = array_uintersect($existing, $entries, $compare);
+        $add     = array_udiff($entries, $existing, $compare);
+        $all     = array_merge($all, $keep, $add);
+
+        // Return
+        return $all;
+    }
+
+    protected function assetDocumentEntry(
+        AssetModel $asset,
+        DocumentModel $document,
+        AssetDocument $assetDocument,
+    ): DocumentEntry {
+        $entry             = new DocumentEntry();
+        $entry->asset      = $asset;
+        $entry->currency   = $this->currencies->create($assetDocument);
+        $entry->net_price  = $this->normalizer->number($assetDocument->netPrice);
+        $entry->list_price = $this->normalizer->number($assetDocument->listPrice);
+        $entry->discount   = $this->normalizer->number($assetDocument->discount);
+        $entry->renewal    = $this->normalizer->number($assetDocument->estimatedValueRenewal);
+        $entry->product    = $this->product(
+            $document->oem,
+            ProductType::service(),
+            $assetDocument->skuNumber,
+            $assetDocument->skuDescription,
+            null,
+            null,
+        );
+
+        return $entry;
+    }
+
+    protected function compareDocumentEntries(DocumentEntry $a, DocumentEntry $b): int {
+        return $a->currency_id <=> $b->currency_id
+            ?: $a->net_price <=> $b->net_price
+            ?: $a->list_price <=> $b->list_price
+            ?: $a->discount <=> $b->discount
+            ?: $a->renewal <=> $b->renewal
+            ?: $a->product_id <=> $b->product_id
+            ?: 0;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Document">
+    // =========================================================================
+    protected function createFromDocument(
+        Document $document,
+        Closure $product = null,
+        Closure $entries = null,
+    ): ?DocumentModel {
+        // WARNING: Document and Document.entries doesn't contains all required
+        //      information to create Document.
+
+        // FIXME: We can have a document that was created with ID = number,
+        //      now we know its ID and probably should remove or update it.
+
         // Get/Create
         $created = false;
-        $factory = $this->factory(function (DocumentModel $model) use (&$created, $document): DocumentModel {
-            $created                        = !$model->exists;
-            $model->id                      = $this->normalizer->uuid($document->document->id);
-            $model->oem                     = $this->documentOem($document);
-            $model->type                    = $this->documentType($document);
-            $model->product                 = $this->documentProduct($document);
-            $model->reseller                = $this->documentReseller($document);
-            $model->customer                = $this->documentCustomer($document);
-            $model->currency                = $this->documentCurrency($document);
-            $model->language                = $this->documentLanguage($document);
-            $model->start                   = $this->normalizer->datetime($document->document->startDate);
-            $model->end                     = $this->normalizer->datetime($document->document->endDate);
-            $model->price                   = $this->normalizer->number($document->document->totalNetPrice);
-            $model->number                  = $this->normalizer->string($document->document->documentNumber);
-            $model->contacts                = $this->objectContacts($model, $document->document->contactPersons);
-            $model->estimated_value_renewal = $this->normalizer->number($document->estimatedValueRenewal);
-            $model->save();
+        $factory = $this->factory(
+            function (DocumentModel $model) use (&$created, $document, $product, $entries): DocumentModel {
+                $created         = !$model->exists;
+                $model->id       = $this->normalizer->uuid($document->id);
+                $model->oem      = $this->documentOem($document);
+                $model->type     = $this->documentType($document);
+                $model->product  = $product ? $product($model) : null;
+                $model->reseller = $this->resellers->create($document);
+                $model->customer = $this->customers->create($document);
+                $model->currency = $this->currencies->create($document);
+                $model->language = $this->languages->create($document);
+                $model->start    = $this->normalizer->datetime($document->startDate);
+                $model->end      = $this->normalizer->datetime($document->endDate);
+                $model->price    = $this->normalizer->number($document->totalNetPrice);
+                $model->number   = $this->normalizer->string($document->documentNumber);
+                $model->contacts = $this->objectContacts($model, $document->contactPersons);
+                $model->entries  = $entries ? $entries($model) : [/** TODO */];
+                $model->save();
 
-            return $model;
-        });
+                return $model;
+            },
+        );
         $model   = $this->documents->get(
-            $document->document->id,
+            $document->id,
             static function () use ($factory): DocumentModel {
                 return $factory(new DocumentModel());
             },
@@ -144,76 +310,15 @@ class DocumentFactory extends ModelFactory {
         return $model;
     }
 
-    protected function documentOem(AssetDocument $document): Oem {
+    protected function documentOem(Document $document): Oem {
         return $this->oem(
-            $document->document->vendorSpecificFields->vendor,
-            $document->document->vendorSpecificFields->vendor,
+            $document->vendorSpecificFields->vendor,
+            $document->vendorSpecificFields->vendor,
         );
     }
 
-    protected function documentCurrency(AssetDocument $document): Currency {
-        return $this->currencies->create($document->document);
-    }
-
-    protected function documentType(AssetDocument $document): TypeModel {
-        return $this->type(new DocumentModel(), $document->document->type);
-    }
-
-    protected function documentProduct(AssetDocument $document): Product {
-        $oem     = $this->documentOem($document);
-        $type    = ProductType::support();
-        $product = $this->product(
-            $oem,
-            $type,
-            $document->supportPackage,
-            $document->supportPackageDescription,
-            null,
-            null,
-        );
-
-        return $product;
-    }
-
-    protected function documentReseller(AssetDocument $document): ?Reseller {
-        $id       = $document->document->resellerId;
-        $reseller = null;
-
-        if ($id) {
-            $reseller = $this->resellers->get($id);
-        }
-
-        if ($id && !$reseller) {
-            throw new ResellerNotFoundException(sprintf(
-                'Reseller `%s` not found (document `%s`).',
-                $id,
-                $document->document->id,
-            ));
-        }
-
-        return $reseller;
-    }
-
-    protected function documentCustomer(AssetDocument $document): ?Customer {
-        $id       = $document->document->customerId;
-        $customer = null;
-
-        if ($id) {
-            $customer = $this->customers->get($id);
-        }
-
-        if ($id && !$customer) {
-            throw new CustomerNotFoundException(sprintf(
-                'Customer `%s` not found (document `%s`).',
-                $id,
-                $document->document->id,
-            ));
-        }
-
-        return $customer;
-    }
-
-    protected function documentLanguage(AssetDocument $document): ?Language {
-        return $this->languages->create($document->document);
+    protected function documentType(Document $document): TypeModel {
+        return $this->type(new DocumentModel(), $document->type);
     }
     // </editor-fold>
 }

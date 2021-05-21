@@ -63,6 +63,36 @@ class CurrencyFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::createFromAssetDocumentObject
+     */
+    public function testCreateFromAssetDocumentObject(): void {
+        $document = AssetDocumentObject::create([
+            'document' => [
+                'currencyCode' => $this->faker->currencyCode,
+                'document'     => [
+                    'currencyCode' => $this->faker->currencyCode,
+                ],
+            ],
+        ]);
+
+        $factory = Mockery::mock(CurrencyFactory::class);
+        $factory->makePartial();
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory
+            ->shouldReceive('createFromDocument')
+            ->once()
+            ->with($document->document->document)
+            ->andReturn(null);
+        $factory
+            ->shouldReceive('createFromAssetDocument')
+            ->once()
+            ->with($document->document)
+            ->andReturn(null);
+
+        $factory->create($document);
+    }
+
+    /**
      * @covers ::createFromAssetDocument
      */
     public function testCreateFromAssetDocument(): void {
@@ -171,10 +201,11 @@ class CurrencyFactoryTest extends TestCase {
      */
     public function dataProviderCreate(): array {
         return [
-            AssetDocument::class => ['createFromAssetDocument', new AssetDocument()],
-            Document::class      => ['createFromDocument', new Document()],
-            DocumentEntry::class => ['createFromDocumentEntry', new DocumentEntry()],
-            'Unknown'            => [
+            AssetDocumentObject::class => ['createFromAssetDocumentObject', new AssetDocumentObject()],
+            AssetDocument::class       => ['createFromAssetDocument', new AssetDocument()],
+            Document::class            => ['createFromDocument', new Document()],
+            DocumentEntry::class       => ['createFromDocumentEntry', new DocumentEntry()],
+            'Unknown'                  => [
                 null,
                 new class() extends Type {
                     // empty

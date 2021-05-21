@@ -62,6 +62,36 @@ class LanguageFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::createFromAssetDocumentObject
+     */
+    public function testCreateFromAssetDocumentObject(): void {
+        $document = AssetDocumentObject::create([
+            'document' => [
+                'languageCode' => $this->faker->languageCode,
+                'document'     => [
+                    'languageCode' => $this->faker->languageCode,
+                ],
+            ],
+        ]);
+
+        $factory = Mockery::mock(LanguageFactory::class);
+        $factory->makePartial();
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory
+            ->shouldReceive('createFromDocument')
+            ->once()
+            ->with($document->document->document)
+            ->andReturn(null);
+        $factory
+            ->shouldReceive('createFromAssetDocument')
+            ->once()
+            ->with($document->document)
+            ->andReturn(null);
+
+        $factory->create($document);
+    }
+
+    /**
      * @covers ::createFromAssetDocument
      */
     public function testCreateFromAssetDocument(): void {
@@ -73,7 +103,8 @@ class LanguageFactoryTest extends TestCase {
         $factory = Mockery::mock(LanguageFactory::class);
         $factory->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
-        $factory->shouldReceive('language')
+        $factory
+            ->shouldReceive('language')
             ->once()
             ->with($code)
             ->andReturn(null);
@@ -150,9 +181,10 @@ class LanguageFactoryTest extends TestCase {
      */
     public function dataProviderCreate(): array {
         return [
-            AssetDocument::class => ['createFromAssetDocument', new AssetDocument()],
-            Document::class      => ['createFromDocument', new Document()],
-            'Unknown'            => [
+            AssetDocumentObject::class => ['createFromAssetDocumentObject', new AssetDocumentObject()],
+            AssetDocument::class       => ['createFromAssetDocument', new AssetDocument()],
+            Document::class            => ['createFromDocument', new Document()],
+            'Unknown'                  => [
                 null,
                 new class() extends Type {
                     // empty
