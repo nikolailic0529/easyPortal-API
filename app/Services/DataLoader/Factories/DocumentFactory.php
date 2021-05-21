@@ -134,8 +134,6 @@ class DocumentFactory extends ModelFactory {
                     $model->language = $this->languages->create($document);
                     $model->price    = null;
                     $model->number   = $this->normalizer->string($document->document->documentNumber);
-                    $model->contacts = [];
-                    $model->entries  = $entries($model);
 
                     if ($created) {
                         // These dates are not consistent and create a lot of:
@@ -147,6 +145,9 @@ class DocumentFactory extends ModelFactory {
                         $model->start = $this->normalizer->datetime($document->document->startDate);
                         $model->end   = $this->normalizer->datetime($document->document->endDate);
                     }
+
+                    $model->contacts = [];
+                    $model->entries  = $entries($model);
 
                     $model->save();
 
