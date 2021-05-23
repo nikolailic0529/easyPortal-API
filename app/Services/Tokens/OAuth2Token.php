@@ -104,6 +104,6 @@ abstract class OAuth2Token {
     }
 
     protected function getCache(): Repository {
-        return $this->getCache();
+        return $this->cache;
     }
 }
