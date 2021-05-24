@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Services\DataLoader\Commands\AnalyzeAssets;
 use App\Services\DataLoader\Commands\Customer;
 use App\Services\DataLoader\Commands\Reseller;
 use App\Services\DataLoader\Jobs\CustomersUpdaterCronJob;
@@ -25,6 +26,7 @@ class Kernel extends ConsoleKernel {
     protected $commands = [
         Reseller::class,
         Customer::class,
+        AnalyzeAssets::class,
     ];
 
     /**
