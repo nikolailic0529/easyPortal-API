@@ -16,16 +16,13 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Support\Facades\Date;
-use Monolog\Handler\StreamHandler;
-use Monolog\Logger;
+use Illuminate\Log\LogManager;
 use Psr\Log\LoggerInterface;
 
 use function array_filter;
 use function array_map;
 use function array_unique;
 use function count;
-use function storage_path;
 
 class AnalyzeAssets extends Command {
     use WithBooleanOptions;
@@ -48,13 +45,14 @@ class AnalyzeAssets extends Command {
     protected $description = 'Analyze assets to find assets without reseller/customer or missed in database.';
 
     public function handle(
+        LogManager $log,
         Repository $config,
         DataLoaderService $service,
         AssetResolver $assetResolver,
         ResellerResolver $resellerResolver,
         CustomerResolver $customerResolver,
     ): int {
-        $logger = $this->getLogger();
+        $logger = $log->channel(self::class);
 
         try {
             $this->callWithoutGlobalScopes([OwnedByOrganizationScope::class], function () use (
@@ -217,17 +215,5 @@ class AnalyzeAssets extends Command {
         return array_filter(array_unique(array_map(static function (CompanyType $type): string {
             return $type->type;
         }, $company->companyTypes ?? [])));
-    }
-
-    protected function getLogger(): LoggerInterface {
-        $date   = Date::now()->format('Y-m-d');
-        $path   = storage_path("logs/data-loader-analyze-assets-{$date}.log");
-        $logger = new Logger($this->getName());
-        $level  = Logger::INFO;
-
-        $logger->pushHandler(new StreamHandler($path, $level));
-        $logger->pushHandler(new StreamHandler('php://stdout', $level));
-
-        return $logger;
     }
 }

@@ -1,5 +1,6 @@
 <?php declare(strict_types = 1);
 
+use App\Services\DataLoader\Commands\AnalyzeAssets;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -35,26 +36,26 @@ return [
     */
 
     'channels' => [
-        'stack'      => [
+        'stack'                      => [
             'driver'            => 'stack',
             'channels'          => ['daily'],
             'ignore_exceptions' => false,
         ],
 
-        'single'     => [
+        'single'                     => [
             'driver' => 'single',
             'path'   => storage_path('logs/laravel.log'),
             'level'  => env('LOG_LEVEL', 'debug'),
         ],
 
-        'daily'      => [
+        'daily'                      => [
             'driver' => 'daily',
             'path'   => storage_path('logs/laravel.log'),
             'level'  => env('LOG_LEVEL', 'debug'),
             'days'   => 365,
         ],
 
-        'slack'      => [
+        'slack'                      => [
             'driver'   => 'slack',
             'url'      => env('LOG_SLACK_WEBHOOK_URL'),
             'username' => 'Laravel Log',
@@ -62,7 +63,7 @@ return [
             'level'    => env('LOG_LEVEL', 'critical'),
         ],
 
-        'papertrail' => [
+        'papertrail'                 => [
             'driver'       => 'monolog',
             'level'        => env('LOG_LEVEL', 'debug'),
             'handler'      => SyslogUdpHandler::class,
@@ -72,7 +73,7 @@ return [
             ],
         ],
 
-        'stderr'     => [
+        'stderr'                     => [
             'driver'    => 'monolog',
             'handler'   => StreamHandler::class,
             'formatter' => env('LOG_STDERR_FORMATTER'),
@@ -81,23 +82,37 @@ return [
             ],
         ],
 
-        'syslog'     => [
+        'syslog'                     => [
             'driver' => 'syslog',
             'level'  => env('LOG_LEVEL', 'debug'),
         ],
 
-        'errorlog'   => [
+        'errorlog'                   => [
             'driver' => 'errorlog',
             'level'  => env('LOG_LEVEL', 'debug'),
         ],
 
-        'null'       => [
+        'null'                       => [
             'driver'  => 'monolog',
             'handler' => NullHandler::class,
         ],
 
-        'emergency'  => [
+        'emergency'                  => [
             'path' => storage_path('logs/laravel.log'),
+        ],
+
+        // AnalyzeAssets
+        AnalyzeAssets::class         => [
+            'driver'            => 'stack',
+            'channels'          => ['stderr', AnalyzeAssets::class.'#file'],
+            'ignore_exceptions' => false,
+        ],
+
+        AnalyzeAssets::class.'#file' => [
+            'driver' => 'daily',
+            'path'   => storage_path('logs/data-loader-analyze-assets.log'),
+            'level'  => 'info',
+            'days'   => 365,
         ],
     ],
 
