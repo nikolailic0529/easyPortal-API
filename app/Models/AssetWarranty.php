@@ -86,10 +86,10 @@ class AssetWarranty extends Model {
     }
 
     public function services(): BelongsToMany {
-        $pivot = new AssetWarrantyProduct();
+        $pivot = new AssetWarrantyService();
 
         return $this
-            ->belongsToMany(Product::class, $pivot->getTable())
+            ->belongsToMany(Product::class, $pivot->getTable(), null, 'service_id')
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->withTimestamps();
