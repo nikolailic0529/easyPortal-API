@@ -121,7 +121,6 @@ class AssetsTest extends TestCase {
                             }
                             warranties {
                                 id
-                                asset_id
                                 reseller_id
                                 customer_id
                                 document_id
@@ -336,7 +335,6 @@ class AssetsTest extends TestCase {
                                 'warranties'     => [
                                     [
                                         'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                                        'asset_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                         'reseller_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                         'customer_id' => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                         'document_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',

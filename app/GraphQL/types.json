@@ -549,7 +549,6 @@
             "type": "object",
             "required": [
                 "id",
-                "asset_id",
                 "reseller_id",
                 "customer_id",
                 "document_id",
@@ -562,9 +561,6 @@
             ],
             "properties": {
                 "id": {
-                    "$ref": "#/definitions/ID"
-                },
-                "asset_id": {
                     "$ref": "#/definitions/ID"
                 },
                 "reseller_id": {
