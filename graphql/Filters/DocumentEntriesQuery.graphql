@@ -5,8 +5,9 @@ input DocumentEntriesQuery {
   list_price: String
   discount: String
   renewal: String
-  asset_id: ID!
-  asset: AssetsQuery
+  serial_number: String
+  product_id: ID!
+  product: ProductsQuery
   service_id: ID!
   service: ProductsQuery
   currency_id: ID

@@ -173,7 +173,7 @@ input AssetWarrantiesQuery {
   reseller_id: ID
   reseller: ResellersQuery
   services: ProductsQuery
-  package: ProductsQuery
+  support: ProductsQuery
 }
 
 type AssetWarranty {
@@ -188,7 +188,7 @@ type AssetWarranty {
   reseller_id: ID
   reseller: Reseller
   services: [Product!]!
-  package: Product
+  support: Product
 }
 
 input AssetsQuery {
@@ -487,8 +487,9 @@ input DocumentEntriesQuery {
   list_price: String
   discount: String
   renewal: String
-  asset_id: ID!
-  asset: AssetsQuery
+  serial_number: String
+  product_id: ID!
+  product: ProductsQuery
   service_id: ID!
   service: ProductsQuery
   currency_id: ID
@@ -501,8 +502,9 @@ type DocumentEntry {
   list_price: String
   discount: String
   renewal: String
-  asset_id: ID!
-  asset: Asset!
+  serial_number: String
+  product_id: ID!
+  product: Product!
   service_id: ID!
   service: Product!
   currency_id: ID
@@ -526,6 +528,9 @@ input DocumentsQuery {
   start: Date!
   end: Date!
   price: String!
+  serial_number: String
+  product_id: ID!
+  product: ProductsQuery!
   currency_id: ID
   customer_id: ID!
   customer: CustomersQuery
@@ -1190,7 +1195,7 @@ input SearchByConditionAssetWarrantiesQuery {
   services: SearchByRelationProductsQuery
 
   """Property condition."""
-  package: SearchByRelationProductsQuery
+  support: SearchByRelationProductsQuery
 }
 
 """
@@ -1397,10 +1402,13 @@ input SearchByConditionDocumentEntriesQuery {
   renewal: SearchByScalarStringOrNull
 
   """Property condition."""
-  asset_id: SearchByScalarID
+  serial_number: SearchByScalarStringOrNull
 
   """Property condition."""
-  asset: SearchByRelationAssetsQuery
+  product_id: SearchByScalarID
+
+  """Property condition."""
+  product: SearchByRelationProductsQuery
 
   """Property condition."""
   service_id: SearchByScalarID
@@ -1445,6 +1453,15 @@ input SearchByConditionDocumentsQuery {
 
   """Property condition."""
   price: SearchByScalarString
+
+  """Property condition."""
+  serial_number: SearchByScalarStringOrNull
+
+  """Property condition."""
+  product_id: SearchByScalarID
+
+  """Property condition."""
+  product: SearchByRelationProductsQuery
 
   """Property condition."""
   currency_id: SearchByScalarIDOrNull

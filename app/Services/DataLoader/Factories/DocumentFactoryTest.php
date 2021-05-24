@@ -292,10 +292,12 @@ class DocumentFactoryTest extends TestCase {
         ]);
         $another    = DocumentEntryModel::factory(2)->create([
             'document_id' => $document,
+            'product_id'  => $asset->product_id,
         ]);
         $properties = [
             'document_id' => $document,
             'asset_id'    => $asset,
+            'product_id'  => $asset->product_id,
             'service_id'  => static function () use ($document): Product {
                 return Product::factory()->create([
                     'type'   => ProductType::service(),
@@ -408,7 +410,8 @@ class DocumentFactoryTest extends TestCase {
      */
     public function testAssetDocumentEntry(): void {
         $asset          = AssetModel::factory()->make([
-            'id' => $this->faker->uuid,
+            'id'            => $this->faker->uuid,
+            'serial_number' => $this->faker->uuid,
         ]);
         $skuNumber      = $this->faker->word;
         $skuDescription = $this->faker->sentence;
@@ -457,6 +460,8 @@ class DocumentFactoryTest extends TestCase {
         $this->assertInstanceOf(DocumentEntryModel::class, $entry);
         $this->assertEquals($asset->getKey(), $entry->asset_id);
         $this->assertNull($entry->document_id);
+        $this->assertEquals($asset->serial_number, $entry->serial_number);
+        $this->assertSame($asset->product, $entry->product);
         $this->assertNotNull($entry->service_id);
         $this->assertSame($document->oem, $entry->service->oem);
         $this->assertEquals(ProductType::service(), $entry->service->type);

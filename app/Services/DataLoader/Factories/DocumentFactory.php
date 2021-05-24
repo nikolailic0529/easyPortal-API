@@ -218,14 +218,16 @@ class DocumentFactory extends ModelFactory {
         DocumentModel $document,
         AssetDocument $assetDocument,
     ): DocumentEntry {
-        $entry             = new DocumentEntry();
-        $entry->asset      = $asset;
-        $entry->currency   = $this->currencies->create($assetDocument);
-        $entry->net_price  = $this->normalizer->number($assetDocument->netPrice);
-        $entry->list_price = $this->normalizer->number($assetDocument->listPrice);
-        $entry->discount   = $this->normalizer->number($assetDocument->discount);
-        $entry->renewal    = $this->normalizer->number($assetDocument->estimatedValueRenewal);
-        $entry->service    = $this->product(
+        $entry                = new DocumentEntry();
+        $entry->asset         = $asset;
+        $entry->product       = $asset->product;
+        $entry->serial_number = $asset->serial_number;
+        $entry->currency      = $this->currencies->create($assetDocument);
+        $entry->net_price     = $this->normalizer->number($assetDocument->netPrice);
+        $entry->list_price    = $this->normalizer->number($assetDocument->listPrice);
+        $entry->discount      = $this->normalizer->number($assetDocument->discount);
+        $entry->renewal       = $this->normalizer->number($assetDocument->estimatedValueRenewal);
+        $entry->service       = $this->product(
             $document->oem,
             ProductType::service(),
             $assetDocument->skuNumber,

@@ -7,7 +7,7 @@ namespace App\Models;
  *
  * @property string                       $id
  * @property string                       $asset_warranty_id
- * @property string                       $product_id
+ * @property string                       $service_id
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
@@ -18,7 +18,7 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarrantyService whereAssetWarrantyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarrantyService whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarrantyService whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarrantyService whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarrantyService whereServiceId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarrantyService whereUpdatedAt($value)
  * @mixin \Eloquent
  */

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\HasAsset;
 use App\Models\Concerns\HasCurrency;
 use App\Models\Concerns\HasDocument;
+use App\Models\Concerns\HasProduct;
 use App\Models\Concerns\HasService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -15,6 +16,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                       $document_id
  * @property string                       $asset_id
  * @property string                       $service_id
+ * @property string                       $product_id
+ * @property string|null                  $serial_number
  * @property string|null                  $currency_id
  * @property string|null                  $net_price
  * @property string|null                  $list_price
@@ -26,6 +29,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \App\Models\Asset            $asset
  * @property \App\Models\Currency|null    $currency
  * @property \App\Models\Document         $document
+ * @property \App\Models\Product          $product
  * @property \App\Models\Product          $service
  * @method static \Database\Factories\DocumentEntryFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry newModelQuery()
@@ -40,6 +44,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereListPrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereNetPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereRenewal($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereSerialNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereServiceId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereUpdatedAt($value)
  * @mixin \Eloquent
@@ -48,6 +55,7 @@ class DocumentEntry extends Model {
     use HasFactory;
     use HasAsset;
     use HasService;
+    use HasProduct;
     use HasDocument;
     use HasCurrency;
 

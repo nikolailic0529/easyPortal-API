@@ -563,10 +563,12 @@ class AssetFactoryTest extends TestCase {
         ]);
         $entryA   = DocumentEntry::factory()->create([
             'asset_id'    => $asset,
+            'product_id'  => $asset->product_id,
             'document_id' => $docA,
         ]);
         $entryB   = DocumentEntry::factory()->create([
             'asset_id'    => $asset,
+            'product_id'  => $asset->product_id,
             'document_id' => $docB,
         ]);
 

@@ -5,8 +5,9 @@ type DocumentEntry {
   list_price: String
   discount: String
   renewal: String
-  asset_id: ID!
-  asset: Asset! @belongsTo
+  serial_number: String
+  product_id: ID!
+  product: Product!
   service_id: ID!
   service: Product! @belongsTo
   currency_id: ID

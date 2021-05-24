@@ -638,22 +638,21 @@
             "required": [
                 "id",
                 "document_id",
-                "asset_id",
                 "service_id",
                 "service",
                 "net_price",
                 "list_price",
                 "discount",
-                "renewal"
+                "renewal",
+                "serial_number",
+                "product_id",
+                "product"
             ],
             "properties": {
                 "id": {
                     "$ref": "#/definitions/ID"
                 },
                 "document_id": {
-                    "$ref": "#/definitions/ID"
-                },
-                "asset_id": {
                     "$ref": "#/definitions/ID"
                 },
                 "service_id": {
@@ -690,6 +689,32 @@
                     "type": [
                         "null",
                         "string"
+                    ]
+                },
+                "serial_number": {
+                    "type": [
+                        "null",
+                        "string"
+                    ]
+                },
+                "product_id": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "product": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Product"
+                        },
+                        {
+                            "type": "null"
+                        }
                     ]
                 }
             }

@@ -6,6 +6,9 @@ input DocumentsQuery {
   start: Date!
   end: Date!
   price: String!
+  serial_number: String
+  product_id: ID!
+  product: ProductsQuery!
   currency_id: ID
   customer_id: ID!
   customer: CustomersQuery

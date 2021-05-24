@@ -137,12 +137,26 @@ class QuoteTest extends TestCase {
                         entries {
                             id
                             document_id
-                            asset_id
                             service_id
                             net_price
                             list_price
                             discount
                             renewal
+                            serial_number
+                            product_id
+                            product {
+                                id
+                                name
+                                oem_id
+                                sku
+                                eol
+                                eos
+                                oem {
+                                    id
+                                    abbr
+                                    name
+                                }
+                            }
                             service {
                                 id
                                 name
@@ -317,15 +331,29 @@ class QuoteTest extends TestCase {
                             ],
                             'entries'     => [
                                 [
-                                    'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                    'asset_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                    'service_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                    'document_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                    'net_price'   => '123.45',
-                                    'list_price'  => null,
-                                    'discount'    => '-8.00',
-                                    'renewal'     => '24.20',
-                                    'service'     => [
+                                    'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                                    'service_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                    'document_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'net_price'     => '123.45',
+                                    'list_price'    => null,
+                                    'discount'      => '-8.00',
+                                    'renewal'       => '24.20',
+                                    'serial_number' => null,
+                                    'product_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                    'product'       => [
+                                        'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                        'name'   => 'Product1',
+                                        'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                        'sku'    => 'SKU#123',
+                                        'eol'    => '2022-12-30',
+                                        'eos'    => '2022-01-01',
+                                        'oem'    => [
+                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                            'abbr' => 'abbr',
+                                            'name' => 'oem1',
+                                        ],
+                                    ],
+                                    'service'       => [
                                         'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                         'name'   => 'Product1',
                                         'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -439,15 +467,17 @@ class QuoteTest extends TestCase {
                                 ->for($currency)
                                 ->for($language)
                                 ->hasEntries(1, [
-                                    'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                    'asset_id'   => Asset::factory()->create([
+                                    'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                                    'asset_id'      => Asset::factory()->create([
                                         'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                     ]),
-                                    'service_id' => $product,
-                                    'net_price'  => '123.45',
-                                    'list_price' => null,
-                                    'discount'   => '-8',
-                                    'renewal'    => '24.20',
+                                    'serial_number' => null,
+                                    'product_id'    => $product,
+                                    'service_id'    => $product,
+                                    'net_price'     => '123.45',
+                                    'list_price'    => null,
+                                    'discount'      => '-8',
+                                    'renewal'       => '24.20',
                                 ])
                                 ->hasContacts(1, [
                                     'name'        => 'contact2',
