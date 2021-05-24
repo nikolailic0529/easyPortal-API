@@ -464,7 +464,7 @@ type Document {
   number: String!
   start: Date!
   end: Date!
-  price: String
+  price: Float
   currency_id: ID
   currency: Currency
   customer: Customer!
@@ -483,10 +483,10 @@ type Document {
 input DocumentEntriesQuery {
   id: ID!
   document_id: ID!
-  net_price: String
-  list_price: String
-  discount: String
-  renewal: String
+  net_price: Float
+  list_price: Float
+  discount: Float
+  renewal: Float
   serial_number: String
   product_id: ID!
   product: ProductsQuery
@@ -498,10 +498,10 @@ input DocumentEntriesQuery {
 type DocumentEntry {
   id: ID!
   document_id: ID!
-  net_price: String
-  list_price: String
-  discount: String
-  renewal: String
+  net_price: Float
+  list_price: Float
+  discount: Float
+  renewal: Float
   serial_number: String
   product_id: ID!
   product: Product!
@@ -527,7 +527,7 @@ input DocumentsQuery {
   number: String!
   start: Date!
   end: Date!
-  price: String!
+  price: Float
   serial_number: String
   product_id: ID!
   product: ProductsQuery!
@@ -543,7 +543,7 @@ input DocumentsQuery {
 input DocumentsSort {
   start: Date!
   end: Date!
-  price: String!
+  price: Float
 }
 
 type Language {
@@ -1390,16 +1390,16 @@ input SearchByConditionDocumentEntriesQuery {
   document_id: SearchByScalarID
 
   """Property condition."""
-  net_price: SearchByScalarStringOrNull
+  net_price: SearchByScalarFloatOrNull
 
   """Property condition."""
-  list_price: SearchByScalarStringOrNull
+  list_price: SearchByScalarFloatOrNull
 
   """Property condition."""
-  discount: SearchByScalarStringOrNull
+  discount: SearchByScalarFloatOrNull
 
   """Property condition."""
-  renewal: SearchByScalarStringOrNull
+  renewal: SearchByScalarFloatOrNull
 
   """Property condition."""
   serial_number: SearchByScalarStringOrNull
@@ -1452,7 +1452,7 @@ input SearchByConditionDocumentsQuery {
   end: SearchByScalarDate
 
   """Property condition."""
-  price: SearchByScalarString
+  price: SearchByScalarFloatOrNull
 
   """Property condition."""
   serial_number: SearchByScalarStringOrNull
@@ -2031,6 +2031,43 @@ input SearchByScalarDateTime {
 input SearchByScalarDateTimeOperatorBetween {
   min: DateTime!
   max: DateTime!
+}
+
+input SearchByScalarFloatOperatorBetween {
+  min: Float!
+  max: Float!
+}
+
+"""
+Available operators for scalar Float (only one operator allowed at a time).
+"""
+input SearchByScalarFloatOrNull {
+  """Equal (`=`)."""
+  eq: Float
+
+  """Less than (`<`)."""
+  lt: Float
+
+  """Less than or equal to (`<=`)."""
+  lte: Float
+
+  """Greater than (`>`)."""
+  gt: Float
+
+  """Greater than or equal to (`>=`)."""
+  gte: Float
+
+  """Within a set of values."""
+  in: [Float!]
+
+  """Within a range."""
+  between: SearchByScalarFloatOperatorBetween
+
+  """Is NULL?"""
+  isNull: SearchByFlag
+
+  """Not."""
+  not: SearchByFlag
 }
 
 """

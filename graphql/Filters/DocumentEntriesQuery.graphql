@@ -1,10 +1,10 @@
 input DocumentEntriesQuery {
   id: ID!
   document_id: ID!
-  net_price: String
-  list_price: String
-  discount: String
-  renewal: String
+  net_price: Float
+  list_price: Float
+  discount: Float
+  renewal: Float
   serial_number: String
   product_id: ID!
   product: ProductsQuery

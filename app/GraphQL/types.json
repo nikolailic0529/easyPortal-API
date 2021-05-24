@@ -478,7 +478,7 @@
                 "price": {
                     "type": [
                         "null",
-                        "string"
+                        "number"
                     ]
                 },
                 "currency_id": {
@@ -670,25 +670,25 @@
                 "net_price": {
                     "type": [
                         "null",
-                        "string"
+                        "number"
                     ]
                 },
                 "list_price": {
                     "type": [
                         "null",
-                        "string"
+                        "number"
                     ]
                 },
                 "discount": {
                     "type": [
                         "null",
-                        "string"
+                        "number"
                     ]
                 },
                 "renewal": {
                     "type": [
                         "null",
-                        "string"
+                        "number"
                     ]
                 },
                 "serial_number": {

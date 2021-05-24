@@ -5,7 +5,7 @@ input DocumentsQuery {
   number: String!
   start: Date!
   end: Date!
-  price: String!
+  price: Float
   serial_number: String
   product_id: ID!
   product: ProductsQuery!

@@ -294,7 +294,7 @@ class ContractsTest extends TestCase {
                                 'currency_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                 'language_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
                                 'number'      => '1323',
-                                'price'       => '100.00',
+                                'price'       => 100,
                                 'start'       => '2021-01-01',
                                 'end'         => '2024-01-01',
                                 'oem'         => [
@@ -372,10 +372,10 @@ class ContractsTest extends TestCase {
                                         'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                                         'service_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                         'document_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                        'net_price'     => '123.00',
-                                        'list_price'    => '67.12',
+                                        'net_price'     => 123,
+                                        'list_price'    => 67.12,
                                         'discount'      => null,
-                                        'renewal'       => '24.20',
+                                        'renewal'       => 24.20,
                                         'serial_number' => null,
                                         'product_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                         'product'       => [
@@ -515,10 +515,10 @@ class ContractsTest extends TestCase {
                                     'serial_number' => null,
                                     'product_id'    => $product,
                                     'service_id'    => $product,
-                                    'net_price'     => '123',
-                                    'list_price'    => '67.12',
+                                    'net_price'     => 123,
+                                    'list_price'    => 67.12,
                                     'discount'      => null,
-                                    'renewal'       => '24.20',
+                                    'renewal'       => 24.20,
                                 ])
                                 ->hasContacts(1, [
                                     'name'        => 'contact2',
@@ -528,7 +528,7 @@ class ContractsTest extends TestCase {
                                 ->create([
                                     'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                     'number' => '1323',
-                                    'price'  => '100',
+                                    'price'  => 100,
                                     'start'  => '2021-01-01',
                                     'end'    => '2024-01-01',
                                 ]);

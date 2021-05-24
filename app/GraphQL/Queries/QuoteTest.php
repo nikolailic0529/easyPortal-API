@@ -256,7 +256,7 @@ class QuoteTest extends TestCase {
                             'currency_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                             'language_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
                             'number'      => '1323',
-                            'price'       => '100.00',
+                            'price'       => 100,
                             'start'       => '2021-01-01',
                             'end'         => '2024-01-01',
                             'oem'         => [
@@ -334,10 +334,10 @@ class QuoteTest extends TestCase {
                                     'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                                     'service_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                     'document_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                    'net_price'     => '123.45',
+                                    'net_price'     => 123.45,
                                     'list_price'    => null,
-                                    'discount'      => '-8.00',
-                                    'renewal'       => '24.20',
+                                    'discount'      => -8.00,
+                                    'renewal'       => 24.20,
                                     'serial_number' => null,
                                     'product_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                     'product'       => [
@@ -474,10 +474,10 @@ class QuoteTest extends TestCase {
                                     'serial_number' => null,
                                     'product_id'    => $product,
                                     'service_id'    => $product,
-                                    'net_price'     => '123.45',
+                                    'net_price'     => 123.45,
                                     'list_price'    => null,
-                                    'discount'      => '-8',
-                                    'renewal'       => '24.20',
+                                    'discount'      => -8,
+                                    'renewal'       => 24.20,
                                 ])
                                 ->hasContacts(1, [
                                     'name'        => 'contact2',
@@ -487,7 +487,7 @@ class QuoteTest extends TestCase {
                                 ->create([
                                     'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                     'number' => '1323',
-                                    'price'  => '100',
+                                    'price'  => 100,
                                     'start'  => '2021-01-01',
                                     'end'    => '2024-01-01',
                                 ]);
