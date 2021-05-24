@@ -4,35 +4,35 @@ type Application {
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
-
+  
   @require <root> Authenticated user must be a root.
   """
   settings: [ApplicationSetting!]!
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
-
+  
   @require <root> Authenticated user must be a root.
   """
   settingGroups: [ApplicationSettingGroup!]!
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
-
+  
   @require <root> Authenticated user must be a root.
   """
   services: [ApplicationService!]!
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
-
+  
   @require <root> Authenticated user must be a root.
   """
   jobs: [ApplicationJob!]!
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
-
+  
   @require <root> Authenticated user must be a root.
   """
   translations(locale: String!): [Translation!]!
@@ -635,7 +635,7 @@ type Mutation {
 
   """
   Set Organization properties
-
+  
   @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
   """
   organization(locale: String, currency_id: ID, branding_dark_theme: Boolean, branding_primary_color: String, branding_secondary_color: String, branding_logo: Upload, branding_favicon: Upload, website_url: String, email: String): Boolean! @deprecated(reason: "use updateOrganization instead")
@@ -645,21 +645,21 @@ type Mutation {
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
-
+  
   @require <root> Authenticated user must be a root.
   """
   deleteApplicationTranslations(input: DeleteApplicationTranslationsInput!): DeleteApplicationTranslationsPayload
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
-
+  
   @require <root> Authenticated user must be a root.
   """
   deleteClientSettings(input: DeleteClientSettingsInput!): DeleteClientSettingsPayload
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
-
+  
   @require <root> Authenticated user must be a root.
   """
   deleteClientTranslations(input: DeleteClientTranslationsInput!): DeleteClientTranslationsPayload
@@ -669,18 +669,18 @@ type Mutation {
 
   """
   Dispatch/Run application service.
-
+  
   @require <organization(root)> Authenticated user must be a member of the root organization.
-
+  
   @require <root> Authenticated user must be a root.
   """
   dispatchApplicationService(input: DispatchApplicationServiceInput!): DispatchApplicationServicePayload
 
   """
   Force delete all custom settings, may be useful to restore the corrupted file.
-
+  
   @require <organization(root)> Authenticated user must be a member of the root organization.
-
+  
   @require <root> Authenticated user must be a root.
   """
   recoverApplicationSettings: recoverApplicationSettingsPayload
@@ -688,18 +688,18 @@ type Mutation {
   """
   Force delete all translations for a given locale, may be useful to restore the
   corrupted file.
-
+  
   @require <organization(root)> Authenticated user must be a member of the root organization.
-
+  
   @require <root> Authenticated user must be a root.
   """
   recoverApplicationTranslations(input: RecoverApplicationTranslationsInput!): RecoverApplicationTranslationsPayload
 
   """
   Force delete all custom settings, may be useful to restore the corrupted file.
-
+  
   @require <organization(root)> Authenticated user must be a member of the root organization.
-
+  
   @require <root> Authenticated user must be a root.
   """
   recoverClientSettings: RecoverClientSettingsPayload
@@ -707,9 +707,9 @@ type Mutation {
   """
   Force delete all client translations for a given locale, may be useful to
   restore the corrupted file.
-
+  
   @require <organization(root)> Authenticated user must be a member of the root organization.
-
+  
   @require <root> Authenticated user must be a root.
   """
   recoverClientTranslations(input: RecoverClientTranslationsInput!): RecoverClientTranslationsPayload
@@ -717,28 +717,28 @@ type Mutation {
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
-
+  
   @require <root> Authenticated user must be a root.
   """
   updateApplicationSettings(input: [UpdateApplicationSettingsInput!]!): UpdateApplicationSettingsPayload
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
-
+  
   @require <root> Authenticated user must be a root.
   """
   updateApplicationTranslations(input: UpdateApplicationTranslationsInput!): UpdateApplicationTranslationsPayload
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
-
+  
   @require <root> Authenticated user must be a root.
   """
   updateClientSettings(input: [UpdateClientSettingsInput!]!): UpdateClientSettingsPayload
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
-
+  
   @require <root> Authenticated user must be a root.
   """
   updateClientTranslations(input: UpdateClientTranslationsInput!): UpdateClientTranslationsPayload
@@ -750,42 +750,42 @@ type Mutation {
 
   """
   Finish the Sign In for Organization.
-
+  
   @require <guest> Current visitor must be a guest.
   """
   authorizeOrganization(input: AuthorizeOrganizationInput): AuthorizeOrganizationPayload
 
   """
   Reset password.
-
+  
   @require <guest> Current visitor must be a guest.
   """
   resetPassword(input: ResetPasswordInput): ResetPasswordPayload
 
   """
   Send reset password link if local user with given email exists.
-
+  
   @require <guest> Current visitor must be a guest.
   """
   sendResetPasswordLink(input: SendResetPasswordLinkInput): SendResetPasswordLinkPayload
 
   """
   Sign In for local users.
-
+  
   @require <guest> Current visitor must be a guest.
   """
   signIn(input: SignInInput): SignInPayload
 
   """
   Begins the Sign In for Organization.
-
+  
   @require <guest> Current visitor must be a guest.
   """
   signInOrganization(input: SignInOrganizationInput): SignInOrganizationPayload
 
   """
   Sign Out.
-
+  
   @require <me> User must be authenticated.
   """
   signOut: SignOutPayload
@@ -979,36 +979,36 @@ type Query {
 
   """
   Customer.
-
+  
   @require <organization> Authenticated user must be a member of the current organization.
-
+  
   @require <me(["view-customers"])> User must be authenticated and have any of these permissions.
   """
   customer(id: ID!): Customer
 
   """
   Asset.
-
+  
   @require <organization> Authenticated user must be a member of the current organization.
-
+  
   @require <me(["view-assets","view-customers"])> User must be authenticated and have any of these permissions.
   """
   asset(id: ID!): Asset
 
   """
   Contract.
-
+  
   @require <organization> Authenticated user must be a member of the current organization.
-
+  
   @require <me(["view-contracts","view-customers"])> User must be authenticated and have any of these permissions.
   """
   contract(id: ID!): Document
 
   """
   Quote.
-
+  
   @require <organization> Authenticated user must be a member of the current organization.
-
+  
   @require <me(["view-customers","view-quotes"])> User must be authenticated and have any of these permissions.
   """
   quote(id: ID!): Document
@@ -1018,9 +1018,9 @@ type Query {
 
   """
   List of Customers.
-
+  
   @require <organization> Authenticated user must be a member of the current organization.
-
+  
   @require <me(["view-customers"])> User must be authenticated and have any of these permissions.
   """
   customers(
@@ -1036,9 +1036,9 @@ type Query {
 
   """
   List of all assets
-
+  
   @require <organization> Authenticated user must be a member of the current organization.
-
+  
   @require <me(["view-assets","view-customers"])> User must be authenticated and have any of these permissions.
   """
   assets(
@@ -1054,9 +1054,9 @@ type Query {
 
   """
   List of all contracts.
-
+  
   @require <organization> Authenticated user must be a member of the current organization.
-
+  
   @require <me(["view-contracts","view-customers"])> User must be authenticated and have any of these permissions.
   """
   contracts(
@@ -1072,9 +1072,9 @@ type Query {
 
   """
   List of all quotes.
-
+  
   @require <organization> Authenticated user must be a member of the current organization.
-
+  
   @require <me(["view-customers","view-quotes"])> User must be authenticated and have any of these permissions.
   """
   quotes(
@@ -1090,9 +1090,9 @@ type Query {
 
   """
   List of all organizations.
-
+  
   @require <organization(root)> Authenticated user must be a member of the root organization.
-
+  
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
   organizations(
