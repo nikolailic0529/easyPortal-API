@@ -111,7 +111,7 @@ class DocumentFactory extends ModelFactory {
         // Get/Create/Update
         $model   = null;
         $product = $this->factory(function () use ($document): ?Product {
-            return $this->assetDocumentObjectProduct($document);
+            return $this->assetDocumentObjectSupport($document);
         });
         $entries = $this->factory(function (DocumentModel $model) use ($document) {
             return $this->assetDocumentObjectEntries($model, $document);
@@ -127,7 +127,7 @@ class DocumentFactory extends ModelFactory {
                     $model->id       = $this->normalizer->string($document->document->documentNumber);
                     $model->oem      = $document->asset->oem;
                     $model->type     = $this->type(new DocumentModel(), '??');
-                    $model->product  = $product($model);
+                    $model->support  = $product($model);
                     $model->reseller = $this->resellers->create($document);
                     $model->customer = $this->customers->create($document);
                     $model->currency = $this->currencies->create($document);
@@ -161,7 +161,7 @@ class DocumentFactory extends ModelFactory {
         return $model;
     }
 
-    protected function assetDocumentObjectProduct(AssetDocumentObject $document): ?Product {
+    protected function assetDocumentObjectSupport(AssetDocumentObject $document): ?Product {
         $product = null;
         $package = $document->document->supportPackage ?? null;
         $desc    = $document->document->supportPackageDescription ?? null;
@@ -218,14 +218,16 @@ class DocumentFactory extends ModelFactory {
         DocumentModel $document,
         AssetDocument $assetDocument,
     ): DocumentEntry {
-        $entry             = new DocumentEntry();
-        $entry->asset      = $asset;
-        $entry->currency   = $this->currencies->create($assetDocument);
-        $entry->net_price  = $this->normalizer->number($assetDocument->netPrice);
-        $entry->list_price = $this->normalizer->number($assetDocument->listPrice);
-        $entry->discount   = $this->normalizer->number($assetDocument->discount);
-        $entry->renewal    = $this->normalizer->number($assetDocument->estimatedValueRenewal);
-        $entry->product    = $this->product(
+        $entry                = new DocumentEntry();
+        $entry->asset         = $asset;
+        $entry->product       = $asset->product;
+        $entry->serial_number = $asset->serial_number;
+        $entry->currency      = $this->currencies->create($assetDocument);
+        $entry->net_price     = $this->normalizer->number($assetDocument->netPrice);
+        $entry->list_price    = $this->normalizer->number($assetDocument->listPrice);
+        $entry->discount      = $this->normalizer->number($assetDocument->discount);
+        $entry->renewal       = $this->normalizer->number($assetDocument->estimatedValueRenewal);
+        $entry->service       = $this->product(
             $document->oem,
             ProductType::service(),
             $assetDocument->skuNumber,
@@ -240,11 +242,11 @@ class DocumentFactory extends ModelFactory {
     protected function compareDocumentEntries(DocumentEntry $a, DocumentEntry $b): int {
         return $a->currency_id <=> $b->currency_id
             ?: $a->net_price <=> $b->net_price
-                ?: $a->list_price <=> $b->list_price
-                    ?: $a->discount <=> $b->discount
-                        ?: $a->renewal <=> $b->renewal
-                            ?: $a->product_id <=> $b->product_id
-                                ?: 0;
+            ?: $a->list_price <=> $b->list_price
+            ?: $a->discount <=> $b->discount
+            ?: $a->renewal <=> $b->renewal
+            ?: $a->service_id <=> $b->service_id
+            ?: 0;
     }
     // </editor-fold>
 
@@ -269,7 +271,7 @@ class DocumentFactory extends ModelFactory {
                 $model->id       = $this->normalizer->uuid($document->id);
                 $model->oem      = $this->documentOem($document);
                 $model->type     = $this->documentType($document);
-                $model->product  = $product ? $product($model) : null;
+                $model->support  = $product ? $product($model) : null;
                 $model->reseller = $this->resellers->create($document);
                 $model->customer = $this->customers->create($document);
                 $model->currency = $this->currencies->create($document);

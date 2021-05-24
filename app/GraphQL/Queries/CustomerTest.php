@@ -192,7 +192,6 @@ class CustomerTest extends TestCase {
                                 }
                                 warranties {
                                     id
-                                    asset_id
                                     reseller_id
                                     customer_id
                                     document_id
@@ -212,7 +211,7 @@ class CustomerTest extends TestCase {
                                             name
                                         }
                                     }
-                                    package {
+                                    support {
                                         id
                                         name
                                         oem_id
@@ -335,7 +334,7 @@ class CustomerTest extends TestCase {
                             data {
                                 id
                                 oem_id
-                                product_id
+                                support_id
                                 type_id
                                 customer_id
                                 reseller_id
@@ -350,7 +349,7 @@ class CustomerTest extends TestCase {
                                     abbr
                                     name
                                 }
-                                product {
+                                support {
                                     id
                                     name
                                     oem_id
@@ -412,13 +411,27 @@ class CustomerTest extends TestCase {
                                 entries {
                                     id
                                     document_id
-                                    asset_id
-                                    product_id
+                                    service_id
                                     net_price
                                     list_price
                                     discount
                                     renewal
+                                    serial_number
+                                    product_id
                                     product {
+                                        id
+                                        name
+                                        oem_id
+                                        sku
+                                        eol
+                                        eos
+                                        oem {
+                                            id
+                                            abbr
+                                            name
+                                        }
+                                    }
+                                    service {
                                         id
                                         name
                                         oem_id
@@ -499,7 +512,7 @@ class CustomerTest extends TestCase {
                             data {
                                 id
                                 oem_id
-                                product_id
+                                support_id
                                 type_id
                                 customer_id
                                 reseller_id
@@ -514,7 +527,7 @@ class CustomerTest extends TestCase {
                                     abbr
                                     name
                                 }
-                                product {
+                                support {
                                     id
                                     name
                                     oem_id
@@ -576,13 +589,27 @@ class CustomerTest extends TestCase {
                                 entries {
                                     id
                                     document_id
-                                    asset_id
-                                    product_id
+                                    service_id
                                     net_price
                                     list_price
                                     discount
                                     renewal
+                                    serial_number
+                                    product_id
                                     product {
+                                        id
+                                        name
+                                        oem_id
+                                        sku
+                                        eol
+                                        eos
+                                        oem {
+                                            id
+                                            abbr
+                                            name
+                                        }
+                                    }
+                                    service {
                                         id
                                         name
                                         oem_id
@@ -725,7 +752,6 @@ class CustomerTest extends TestCase {
                                         'warranties'     => [
                                             [
                                                 'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                                                'asset_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                                 'reseller_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                                 'customer_id' => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                                 'document_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
@@ -772,7 +798,7 @@ class CustomerTest extends TestCase {
                                                         ],
                                                     ],
                                                 ],
-                                                'package'     => [
+                                                'support'     => [
                                                     'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24998',
                                                     'name'   => 'Product2',
                                                     'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -912,7 +938,7 @@ class CustomerTest extends TestCase {
                                 'key'         => 'active',
                                 'object_type' => (new Asset())->getMorphClass(),
                             ]);
-                            // Product creation for package
+                            // Product creation for support
                             $product2 = Product::factory()->create([
                                 'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24998',
                                 'name'   => 'Product2',
@@ -921,13 +947,13 @@ class CustomerTest extends TestCase {
                                 'eol'    => '2022-12-30',
                                 'eos'    => '2022-01-01',
                             ]);
-                            // Document creation for package
+                            // Document creation for support
                             $document = Document::factory()
                                 ->for($reseller)
                                 ->for($customer)
                                 ->create([
                                     'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                    'product_id' => $product2,
+                                    'support_id' => $product2,
                                 ]);
                             // Coverages belongs to
                             $coverage = AssetCoverage::factory()->create([
@@ -961,6 +987,7 @@ class CustomerTest extends TestCase {
                                 'document_id' => $document,
                                 'asset_id'    => $asset,
                                 'product_id'  => $product,
+                                'service_id'  => $product,
                             ]);
 
                             AssetWarranty::factory()
@@ -1177,14 +1204,14 @@ class CustomerTest extends TestCase {
                                         [
                                             'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                             'oem_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                            'product_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                            'support_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                             'customer_id' => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                             'type_id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                             'reseller_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                             'currency_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                             'language_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24991',
                                             'number'      => '1323',
-                                            'price'       => '100.00',
+                                            'price'       => 100,
                                             'start'       => '2021-01-01',
                                             'end'         => '2024-01-01',
                                             'oem'         => [
@@ -1192,7 +1219,7 @@ class CustomerTest extends TestCase {
                                                 'abbr' => 'abbr',
                                                 'name' => 'oem1',
                                             ],
-                                            'product'     => [
+                                            'support'     => [
                                                 'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                                 'name'   => 'Product1',
                                                 'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -1259,15 +1286,29 @@ class CustomerTest extends TestCase {
                                             ],
                                             'entries'     => [
                                                 [
-                                                    'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                                    'asset_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                                    'product_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                                    'document_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                                    'net_price'   => '123.00',
-                                                    'list_price'  => '67.12',
-                                                    'discount'    => null,
-                                                    'renewal'     => '24.20',
-                                                    'product'     => [
+                                                    'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                                                    'service_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                                    'document_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                                    'net_price'     => 123,
+                                                    'list_price'    => 67.12,
+                                                    'discount'      => null,
+                                                    'renewal'       => 24.20,
+                                                    'serial_number' => null,
+                                                    'product_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                                    'product'       => [
+                                                        'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                                        'name'   => 'Product1',
+                                                        'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                                        'sku'    => 'SKU#123',
+                                                        'eol'    => '2022-12-30',
+                                                        'eos'    => '2022-01-01',
+                                                        'oem'    => [
+                                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                                            'abbr' => 'abbr',
+                                                            'name' => 'oem1',
+                                                        ],
+                                                    ],
+                                                    'service'       => [
                                                         'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                                         'name'   => 'Product1',
                                                         'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -1390,22 +1431,24 @@ class CustomerTest extends TestCase {
                             ]);
                             Document::factory()
                                 ->for($oem)
-                                ->for($product)
+                                ->for($product, 'support')
                                 ->for($customer)
                                 ->for($type)
                                 ->for($reseller)
                                 ->for($currency)
                                 ->for($language)
                                 ->hasEntries(1, [
-                                    'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                    'asset_id'   => Asset::factory()->create([
+                                    'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                                    'asset_id'      => Asset::factory()->create([
                                         'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                     ]),
-                                    'product_id' => $product,
-                                    'net_price'  => '123',
-                                    'list_price' => '67.12',
-                                    'discount'   => null,
-                                    'renewal'    => '24.20',
+                                    'serial_number' => null,
+                                    'product_id'    => $product,
+                                    'service_id'    => $product,
+                                    'net_price'     => 123,
+                                    'list_price'    => 67.12,
+                                    'discount'      => null,
+                                    'renewal'       => 24.20,
                                 ])
                                 ->hasContacts(1, [
                                     'name'        => 'contact3',
@@ -1415,7 +1458,7 @@ class CustomerTest extends TestCase {
                                 ->create([
                                     'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                     'number' => '1323',
-                                    'price'  => '100',
+                                    'price'  => 100,
                                     'start'  => '2021-01-01',
                                     'end'    => '2024-01-01',
                                 ]);
@@ -1591,22 +1634,24 @@ class CustomerTest extends TestCase {
             ]);
             Document::factory()
                 ->for($oem)
-                ->for($product)
+                ->for($product, 'support')
                 ->for($customer)
                 ->for($type)
                 ->for($reseller)
                 ->for($currency)
                 ->for($language)
                 ->hasEntries(1, [
-                    'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                    'asset_id'   => Asset::factory()->create([
+                    'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                    'asset_id'      => Asset::factory()->create([
                         'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                     ]),
-                    'product_id' => $product,
-                    'net_price'  => '123',
-                    'list_price' => '67.12',
-                    'discount'   => null,
-                    'renewal'    => '24.20',
+                    'serial_number' => null,
+                    'product_id'    => $product,
+                    'service_id'    => $product,
+                    'net_price'     => 123,
+                    'list_price'    => 67.12,
+                    'discount'      => null,
+                    'renewal'       => 24.20,
                 ])
                 ->hasContacts(1, [
                     'name'        => 'contact3',
@@ -1616,7 +1661,7 @@ class CustomerTest extends TestCase {
                 ->create([
                     'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                     'number' => '1323',
-                    'price'  => '100',
+                    'price'  => 100,
                     'start'  => '2021-01-01',
                     'end'    => '2024-01-01',
                 ]);
@@ -1629,14 +1674,14 @@ class CustomerTest extends TestCase {
                     [
                         'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                         'oem_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                        'product_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                        'support_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                         'customer_id' => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                         'type_id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                         'reseller_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                         'currency_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                         'language_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24991',
                         'number'      => '1323',
-                        'price'       => '100.00',
+                        'price'       => 100,
                         'start'       => '2021-01-01',
                         'end'         => '2024-01-01',
                         'oem'         => [
@@ -1644,7 +1689,7 @@ class CustomerTest extends TestCase {
                             'abbr' => 'abbr',
                             'name' => 'oem1',
                         ],
-                        'product'     => [
+                        'support'     => [
                             'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                             'name'   => 'Product1',
                             'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -1711,15 +1756,29 @@ class CustomerTest extends TestCase {
                         ],
                         'entries'     => [
                             [
-                                'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                'asset_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                'product_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                'document_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                'net_price'   => '123.00',
-                                'list_price'  => '67.12',
-                                'discount'    => null,
-                                'renewal'     => '24.20',
-                                'product'     => [
+                                'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                                'service_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                'document_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                'net_price'     => 123.00,
+                                'list_price'    => 67.12,
+                                'discount'      => null,
+                                'renewal'       => 24.20,
+                                'serial_number' => null,
+                                'product_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                'product'       => [
+                                    'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                    'name'   => 'Product1',
+                                    'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                    'sku'    => 'SKU#123',
+                                    'eol'    => '2022-12-30',
+                                    'eos'    => '2022-01-01',
+                                    'oem'    => [
+                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                        'abbr' => 'abbr',
+                                        'name' => 'oem1',
+                                    ],
+                                ],
+                                'service'       => [
                                     'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                     'name'   => 'Product1',
                                     'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',

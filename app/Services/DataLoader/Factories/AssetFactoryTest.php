@@ -165,8 +165,8 @@ class AssetFactoryTest extends TestCase {
             $created->warranties
                 ->map(static function (AssetWarranty $warranty): array {
                     return [
-                        'sku'      => $warranty->package?->sku,
-                        'package'  => $warranty->package?->name,
+                        'sku'      => $warranty->support?->sku,
+                        'package'  => $warranty->support?->name,
                         'services' => $warranty->services
                             ->map(static function (Product $product): array {
                                 return [
@@ -563,10 +563,12 @@ class AssetFactoryTest extends TestCase {
         ]);
         $entryA   = DocumentEntry::factory()->create([
             'asset_id'    => $asset,
+            'product_id'  => $asset->product_id,
             'document_id' => $docA,
         ]);
         $entryB   = DocumentEntry::factory()->create([
             'asset_id'    => $asset,
+            'product_id'  => $asset->product_id,
             'document_id' => $docB,
         ]);
 
@@ -596,8 +598,8 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($docA->getKey(), $a->document_id);
         $this->assertEquals($asset->getKey(), $a->asset_id);
         $this->assertEquals(1, $a->services->count());
-        $this->assertEquals($entryA->product_id, $a->services()->first()->getKey());
-        $this->assertEquals($entryA->product_id, $a->services->first()->getKey());
+        $this->assertEquals($entryA->service_id, $a->services()->first()->getKey());
+        $this->assertEquals($entryA->service_id, $a->services->first()->getKey());
 
         // Not existing - created
         $b = $warranties->first(static function (AssetWarranty $warranty) use ($docB): bool {
@@ -611,8 +613,8 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($docB->getKey(), $b->document_id);
         $this->assertEquals($asset->getKey(), $b->asset_id);
         $this->assertEquals(1, $b->services->count());
-        $this->assertEquals($entryB->product_id, $b->services()->first()->getKey());
-        $this->assertEquals($entryB->product_id, $b->services->first()->getKey());
+        $this->assertEquals($entryB->service_id, $b->services()->first()->getKey());
+        $this->assertEquals($entryB->service_id, $b->services->first()->getKey());
 
         // If existing warranty related to another customer it should be updated
         $c = $warranties->first(static function (AssetWarranty $warranty) use ($docC): bool {

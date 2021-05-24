@@ -33,7 +33,7 @@ use Illuminate\Support\Collection;
  * @property \App\Models\Reseller|null                                     $reseller
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Product> $services
  * @property-read int|null                                                 $services_count
- * @property \App\Models\Product                                           $package
+ * @property \App\Models\Product|null                                      $support
  * @method static \Database\Factories\AssetWarrantyFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarranty newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetWarranty newQuery()
@@ -86,10 +86,10 @@ class AssetWarranty extends Model {
     }
 
     public function services(): BelongsToMany {
-        $pivot = new AssetWarrantyProduct();
+        $pivot = new AssetWarrantyService();
 
         return $this
-            ->belongsToMany(Product::class, $pivot->getTable())
+            ->belongsToMany(Product::class, $pivot->getTable(), null, 'service_id')
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->withTimestamps();
@@ -102,14 +102,14 @@ class AssetWarranty extends Model {
         $this->syncBelongsToMany('services', $services);
     }
 
-    public function package(): HasOneThrough {
+    public function support(): HasOneThrough {
         return $this->hasOneThrough(
             Product::class,
             Document::class,
             'id',
             'id',
             'document_id',
-            'product_id',
+            'support_id',
         );
     }
 }

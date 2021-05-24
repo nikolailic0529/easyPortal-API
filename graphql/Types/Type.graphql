@@ -1,4 +1,5 @@
 type Type {
   id: ID!
+  key: String!
   name: String! @translate
 }

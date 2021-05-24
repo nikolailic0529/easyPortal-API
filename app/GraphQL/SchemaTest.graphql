@@ -144,6 +144,7 @@ type Asset {
 
 type AssetCoverage {
   id: ID!
+  key: String!
   name: String!
 }
 
@@ -162,35 +163,33 @@ type AssetPaginator {
 
 input AssetWarrantiesQuery {
   id: ID!
-  asset_id: ID!
-  reseller_id: ID!
-  customer_id: ID!
-  document_id: ID!
   start: Date
   end: Date!
   note: String
   asset: AssetsQuery
+  customer_id: ID!
   customer: CustomersQuery
+  document_id: ID!
   document: DocumentsQuery
+  reseller_id: ID
   reseller: ResellersQuery
   services: ProductsQuery
-  package: ProductsQuery
+  support: ProductsQuery
 }
 
 type AssetWarranty {
   id: ID!
-  asset_id: ID!
-  reseller_id: ID!
-  customer_id: ID!
-  document_id: ID
   start: Date
   end: Date!
   note: String
+  customer_id: ID!
   customer: Customer!
+  document_id: ID
   document: Document
-  reseller: Reseller!
+  reseller_id: ID
+  reseller: Reseller
   services: [Product!]!
-  package: Product
+  support: Product
 }
 
 input AssetsQuery {
@@ -308,12 +307,6 @@ input CreateMeSearchInput {
 
 type CreateMeSearchPayload {
   created: MeSearch!
-}
-
-input CurrenciesQuery {
-  id: ID!
-  code: String!
-  name: String!
 }
 
 type Currency {
@@ -469,20 +462,18 @@ type Document {
   oem_id: ID!
   type_id: ID!
   customer_id: ID!
-  reseller_id: ID!
   number: String!
-
-  """Support package"""
-  product_id: ID
   start: Date!
   end: Date!
-  price: String
+  price: Float
   currency_id: ID
   currency: Currency
   customer: Customer!
   oem: Oem!
-  product: Product
-  reseller: Reseller!
+  support_id: ID
+  support: Product
+  reseller_id: ID
+  reseller: Reseller
   type: Type!
   entries(where: SearchByConditionDocumentEntriesQuery): [DocumentEntry!]!
   language_id: ID
@@ -493,30 +484,31 @@ type Document {
 input DocumentEntriesQuery {
   id: ID!
   document_id: ID!
-  asset_id: ID!
+  net_price: Float
+  list_price: Float
+  discount: Float
+  renewal: Float
+  serial_number: String
   product_id: ID!
-  currency_id: ID
-  net_price: String
-  list_price: String
-  discount: String
-  renewal: String
-  asset: AssetsQuery
   product: ProductsQuery
-  currency: CurrenciesQuery
+  service_id: ID!
+  service: ProductsQuery
+  currency_id: ID
 }
 
 type DocumentEntry {
   id: ID!
   document_id: ID!
-  asset_id: ID!
+  net_price: Float
+  list_price: Float
+  discount: Float
+  renewal: Float
+  serial_number: String
   product_id: ID!
-  currency_id: ID
-  net_price: String
-  list_price: String
-  discount: String
-  renewal: String
-  asset: Asset!
   product: Product!
+  service_id: ID!
+  service: Product!
+  currency_id: ID
   currency: Currency
 }
 
@@ -533,23 +525,26 @@ input DocumentsQuery {
   id: ID!
   oem_id: ID!
   type_id: ID!
-  customer_id: ID!
-  reseller_id: ID!
   number: String!
-  product_id: ID
   start: Date!
   end: Date!
-  price: String!
+  price: Float
+  serial_number: String
+  product_id: ID!
+  product: ProductsQuery!
   currency_id: ID
+  customer_id: ID!
   customer: CustomersQuery
-  product: ProductsQuery
+  service_id: ID
+  service: ProductsQuery
+  reseller_id: ID
   reseller: ResellersQuery
 }
 
 input DocumentsSort {
   start: Date!
   end: Date!
-  price: String!
+  price: Float
 }
 
 type Language {
@@ -1168,18 +1163,6 @@ input SearchByConditionAssetWarrantiesQuery {
   id: SearchByScalarID
 
   """Property condition."""
-  asset_id: SearchByScalarID
-
-  """Property condition."""
-  reseller_id: SearchByScalarID
-
-  """Property condition."""
-  customer_id: SearchByScalarID
-
-  """Property condition."""
-  document_id: SearchByScalarID
-
-  """Property condition."""
   start: SearchByScalarDateOrNull
 
   """Property condition."""
@@ -1192,10 +1175,19 @@ input SearchByConditionAssetWarrantiesQuery {
   asset: SearchByRelationAssetsQuery
 
   """Property condition."""
+  customer_id: SearchByScalarID
+
+  """Property condition."""
   customer: SearchByRelationCustomersQuery
 
   """Property condition."""
+  document_id: SearchByScalarID
+
+  """Property condition."""
   document: SearchByRelationDocumentsQuery
+
+  """Property condition."""
+  reseller_id: SearchByScalarIDOrNull
 
   """Property condition."""
   reseller: SearchByRelationResellersQuery
@@ -1204,7 +1196,7 @@ input SearchByConditionAssetWarrantiesQuery {
   services: SearchByRelationProductsQuery
 
   """Property condition."""
-  package: SearchByRelationProductsQuery
+  support: SearchByRelationProductsQuery
 }
 
 """
@@ -1339,29 +1331,6 @@ input SearchByConditionCountriesQuery {
 }
 
 """
-Available conditions for input CurrenciesQuery (only one property allowed at a time).
-"""
-input SearchByConditionCurrenciesQuery {
-  """All of the conditions must be true."""
-  allOf: [SearchByConditionCurrenciesQuery!]
-
-  """Any of the conditions must be true."""
-  anyOf: [SearchByConditionCurrenciesQuery!]
-
-  """Not."""
-  not: SearchByFlag
-
-  """Property condition."""
-  id: SearchByScalarID
-
-  """Property condition."""
-  code: SearchByScalarString
-
-  """Property condition."""
-  name: SearchByScalarString
-}
-
-"""
 Available conditions for input CustomersQuery (only one property allowed at a time).
 """
 input SearchByConditionCustomersQuery {
@@ -1422,34 +1391,34 @@ input SearchByConditionDocumentEntriesQuery {
   document_id: SearchByScalarID
 
   """Property condition."""
-  asset_id: SearchByScalarID
+  net_price: SearchByScalarFloatOrNull
+
+  """Property condition."""
+  list_price: SearchByScalarFloatOrNull
+
+  """Property condition."""
+  discount: SearchByScalarFloatOrNull
+
+  """Property condition."""
+  renewal: SearchByScalarFloatOrNull
+
+  """Property condition."""
+  serial_number: SearchByScalarStringOrNull
 
   """Property condition."""
   product_id: SearchByScalarID
 
   """Property condition."""
-  currency_id: SearchByScalarIDOrNull
-
-  """Property condition."""
-  net_price: SearchByScalarStringOrNull
-
-  """Property condition."""
-  list_price: SearchByScalarStringOrNull
-
-  """Property condition."""
-  discount: SearchByScalarStringOrNull
-
-  """Property condition."""
-  renewal: SearchByScalarStringOrNull
-
-  """Property condition."""
-  asset: SearchByRelationAssetsQuery
-
-  """Property condition."""
   product: SearchByRelationProductsQuery
 
   """Property condition."""
-  currency: SearchByRelationCurrenciesQuery
+  service_id: SearchByScalarID
+
+  """Property condition."""
+  service: SearchByRelationProductsQuery
+
+  """Property condition."""
+  currency_id: SearchByScalarIDOrNull
 }
 
 """
@@ -1475,16 +1444,7 @@ input SearchByConditionDocumentsQuery {
   type_id: SearchByScalarID
 
   """Property condition."""
-  customer_id: SearchByScalarID
-
-  """Property condition."""
-  reseller_id: SearchByScalarID
-
-  """Property condition."""
   number: SearchByScalarString
-
-  """Property condition."""
-  product_id: SearchByScalarIDOrNull
 
   """Property condition."""
   start: SearchByScalarDate
@@ -1493,16 +1453,34 @@ input SearchByConditionDocumentsQuery {
   end: SearchByScalarDate
 
   """Property condition."""
-  price: SearchByScalarString
+  price: SearchByScalarFloatOrNull
+
+  """Property condition."""
+  serial_number: SearchByScalarStringOrNull
+
+  """Property condition."""
+  product_id: SearchByScalarID
+
+  """Property condition."""
+  product: SearchByRelationProductsQuery
 
   """Property condition."""
   currency_id: SearchByScalarIDOrNull
 
   """Property condition."""
+  customer_id: SearchByScalarID
+
+  """Property condition."""
   customer: SearchByRelationCustomersQuery
 
   """Property condition."""
-  product: SearchByRelationProductsQuery
+  service_id: SearchByScalarIDOrNull
+
+  """Property condition."""
+  service: SearchByRelationProductsQuery
+
+  """Property condition."""
+  reseller_id: SearchByScalarIDOrNull
 
   """Property condition."""
   reseller: SearchByRelationResellersQuery
@@ -1798,30 +1776,6 @@ input SearchByRelationCountriesQuery {
   not: SearchByFlag
 }
 
-"""Relation condition for input CurrenciesQuery."""
-input SearchByRelationCurrenciesQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionCurrenciesQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
 """Relation condition for input CustomersQuery."""
 input SearchByRelationCustomersQuery {
   """Conditions for the related objects."""
@@ -2078,6 +2032,43 @@ input SearchByScalarDateTime {
 input SearchByScalarDateTimeOperatorBetween {
   min: DateTime!
   max: DateTime!
+}
+
+input SearchByScalarFloatOperatorBetween {
+  min: Float!
+  max: Float!
+}
+
+"""
+Available operators for scalar Float (only one operator allowed at a time).
+"""
+input SearchByScalarFloatOrNull {
+  """Equal (`=`)."""
+  eq: Float
+
+  """Less than (`<`)."""
+  lt: Float
+
+  """Less than or equal to (`<=`)."""
+  lte: Float
+
+  """Greater than (`>`)."""
+  gt: Float
+
+  """Greater than or equal to (`>=`)."""
+  gte: Float
+
+  """Within a set of values."""
+  in: [Float!]
+
+  """Within a range."""
+  between: SearchByScalarFloatOperatorBetween
+
+  """Is NULL?"""
+  isNull: SearchByFlag
+
+  """Not."""
+  not: SearchByFlag
 }
 
 """
@@ -2439,6 +2430,7 @@ enum SortOrder {
 
 type Status {
   id: ID!
+  key: String!
   name: String!
 }
 
@@ -2458,6 +2450,7 @@ input TranslationInput {
 
 type Type {
   id: ID!
+  key: String!
   name: String!
 }
 

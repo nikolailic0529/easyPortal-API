@@ -9,7 +9,6 @@ use App\Models\Concerns\HasProduct;
 use App\Models\Concerns\HasReseller;
 use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
-use App\Models\Enums\ProductType;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -54,6 +53,7 @@ use function sprintf;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereContactsCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereCoverageId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereCustomerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereId($value)
@@ -120,13 +120,6 @@ class Asset extends Model {
 
     public function warranties(): HasMany {
         return $this->hasMany(AssetWarranty::class);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function getValidProductTypes(): array {
-        return [ProductType::asset()];
     }
 
     public function coverage(): BelongsTo {

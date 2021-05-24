@@ -20,6 +20,7 @@ class DocumentTest extends TestCase {
 
         DocumentEntry::factory(4)->create([
             'document_id' => $document,
+            'product_id'  => Product::factory()->create(),
         ]);
 
         $document->delete();

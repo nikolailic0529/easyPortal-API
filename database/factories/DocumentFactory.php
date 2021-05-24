@@ -48,7 +48,7 @@ class DocumentFactory extends Factory {
             },
             'entries_count'  => 0,
             'contacts_count' => 0,
-            'product_id'     => null,
+            'support_id'     => null,
             'number'         => $this->faker->uuid,
             'start'          => $this->faker->dateTime,
             'end'            => $this->faker->dateTime,

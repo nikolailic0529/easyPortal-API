@@ -2,15 +2,18 @@ input DocumentsQuery {
   id: ID!
   oem_id: ID!
   type_id: ID!
-  customer_id: ID!
-  reseller_id: ID!
   number: String!
-  product_id: ID
   start: Date!
   end: Date!
-  price: String!
+  price: Float
+  serial_number: String
+  product_id: ID!
+  product: ProductsQuery!
   currency_id: ID
+  customer_id: ID!
   customer: CustomersQuery
-  product: ProductsQuery
+  service_id: ID
+  service: ProductsQuery
+  reseller_id: ID
   reseller: ResellersQuery
 }

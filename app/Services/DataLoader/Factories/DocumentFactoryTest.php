@@ -117,10 +117,10 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals('MultiNational Quote', $created->type->key);
         $this->assertEquals('CUR', $created->currency->code);
         $this->assertEquals('fr', $created->language->code);
-        $this->assertEquals('H7J34AC', $created->product->sku);
-        $this->assertEquals('HPE Foundation Care 24x7 SVC', $created->product->name);
-        $this->assertEquals(ProductType::support(), $created->product->type);
-        $this->assertEquals('HPE', $created->product->oem->abbr);
+        $this->assertEquals('H7J34AC', $created->support->sku);
+        $this->assertEquals('HPE Foundation Care 24x7 SVC', $created->support->name);
+        $this->assertEquals(ProductType::support(), $created->support->type);
+        $this->assertEquals('HPE', $created->support->oem->abbr);
         $this->assertEquals('HPE', $created->oem->abbr);
         $this->assertEquals(6, $created->entries_count);
         $this->assertEquals(1, $created->contacts_count);
@@ -138,10 +138,10 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals('-2.05', $e->discount);
         $this->assertEquals($created->getKey(), $e->document_id);
         $this->assertEquals($asset->id, $e->asset_id);
-        $this->assertEquals('HA151AC', $e->product->sku);
-        $this->assertEquals('HPE Hardware Maintenance Onsite Support', $e->product->name);
-        $this->assertEquals(ProductType::service(), $e->product->type);
-        $this->assertEquals('HPE', $e->product->oem->abbr);
+        $this->assertEquals('HA151AC', $e->service->sku);
+        $this->assertEquals('HPE Hardware Maintenance Onsite Support', $e->service->name);
+        $this->assertEquals(ProductType::service(), $e->service->type);
+        $this->assertEquals('HPE', $e->service->oem->abbr);
         $this->assertEquals('145.00', $e->renewal);
 
         // Changed
@@ -212,10 +212,10 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals('??', $created->type->key);
         $this->assertEquals('CUR', $created->currency->code);
         $this->assertEquals('fr', $created->language->code);
-        $this->assertEquals('H7J34AC', $created->product->sku);
-        $this->assertEquals('HPE Foundation Care 24x7 SVC', $created->product->name);
-        $this->assertEquals(ProductType::support(), $created->product->type);
-        $this->assertEquals($model->oem->abbr, $created->product->oem->abbr);
+        $this->assertEquals('H7J34AC', $created->support->sku);
+        $this->assertEquals('HPE Foundation Care 24x7 SVC', $created->support->name);
+        $this->assertEquals(ProductType::support(), $created->support->type);
+        $this->assertEquals($model->oem->abbr, $created->support->oem->abbr);
 
         $this->assertCount(2, $created->entries);
 
@@ -229,16 +229,16 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals('-2.05', $e->discount);
         $this->assertEquals($created->getKey(), $e->document_id);
         $this->assertEquals($asset->id, $e->asset_id);
-        $this->assertEquals('HA151AC', $e->product->sku);
-        $this->assertEquals('HPE Hardware Maintenance Onsite Support', $e->product->name);
-        $this->assertEquals(ProductType::service(), $e->product->type);
-        $this->assertEquals($model->oem->abbr, $e->product->oem->abbr);
+        $this->assertEquals('HA151AC', $e->service->sku);
+        $this->assertEquals('HPE Hardware Maintenance Onsite Support', $e->service->name);
+        $this->assertEquals(ProductType::service(), $e->service->type);
+        $this->assertEquals($model->oem->abbr, $e->service->oem->abbr);
     }
 
     /**
-     * @covers ::assetDocumentObjectProduct
+     * @covers ::assetDocumentObjectSupport
      */
-    public function testAssetDocumentObjectProduct(): void {
+    public function testAssetDocumentObjectSupport(): void {
         $oem      = Oem::factory()->make();
         $type     = ProductType::support();
         $document = AssetDocumentObject::create([
@@ -274,7 +274,7 @@ class DocumentFactoryTest extends TestCase {
             ->once()
             ->andReturns();
 
-        $factory->assetDocumentObjectProduct($document);
+        $factory->assetDocumentObjectSupport($document);
     }
 
     /**
@@ -284,7 +284,7 @@ class DocumentFactoryTest extends TestCase {
         // Prepare
         $asset      = AssetModel::factory()->create();
         $document   = DocumentModel::factory()->create([
-            'product_id' => static function (): Product {
+            'support_id' => static function (): Product {
                 return Product::factory()->create([
                     'type' => ProductType::support(),
                 ]);
@@ -292,11 +292,13 @@ class DocumentFactoryTest extends TestCase {
         ]);
         $another    = DocumentEntryModel::factory(2)->create([
             'document_id' => $document,
+            'product_id'  => $asset->product_id,
         ]);
         $properties = [
             'document_id' => $document,
             'asset_id'    => $asset,
-            'product_id'  => static function () use ($document): Product {
+            'product_id'  => $asset->product_id,
+            'service_id'  => static function () use ($document): Product {
                 return Product::factory()->create([
                     'type'   => ProductType::service(),
                     'oem_id' => $document->oem_id,
@@ -311,10 +313,10 @@ class DocumentFactoryTest extends TestCase {
             'asset'   => $asset,
             'entries' => [
                 [
-                    'skuNumber'                 => $a->product->sku,
-                    'skuDescription'            => $a->product->name,
-                    'supportPackage'            => $document->product->sku,
-                    'supportPackageDescription' => $document->product->name,
+                    'skuNumber'                 => $a->service->sku,
+                    'skuDescription'            => $a->service->name,
+                    'supportPackage'            => $document->support->sku,
+                    'supportPackageDescription' => $document->support->name,
                     'currencyCode'              => $a->currency->code,
                     'netPrice'                  => $a->net_price,
                     'discount'                  => $a->discount,
@@ -322,10 +324,10 @@ class DocumentFactoryTest extends TestCase {
                     'estimatedValueRenewal'     => $a->renewal,
                 ],
                 [
-                    'skuNumber'                 => $b->product->sku,
-                    'skuDescription'            => $b->product->name,
-                    'supportPackage'            => $document->product->sku,
-                    'supportPackageDescription' => $document->product->name,
+                    'skuNumber'                 => $b->service->sku,
+                    'skuDescription'            => $b->service->name,
+                    'supportPackage'            => $document->support->sku,
+                    'supportPackageDescription' => $document->support->name,
                     'currencyCode'              => $a->currency->code,
                     'netPrice'                  => $b->net_price,
                     'discount'                  => $b->discount,
@@ -333,10 +335,10 @@ class DocumentFactoryTest extends TestCase {
                     'estimatedValueRenewal'     => $b->renewal,
                 ],
                 [
-                    'skuNumber'                 => $b->product->sku,
-                    'skuDescription'            => $b->product->name,
-                    'supportPackage'            => $document->product->sku,
-                    'supportPackageDescription' => $document->product->name,
+                    'skuNumber'                 => $b->service->sku,
+                    'skuDescription'            => $b->service->name,
+                    'supportPackage'            => $document->support->sku,
+                    'supportPackageDescription' => $document->support->name,
                     'currencyCode'              => null,
                     'netPrice'                  => null,
                     'discount'                  => null,
@@ -408,7 +410,8 @@ class DocumentFactoryTest extends TestCase {
      */
     public function testAssetDocumentEntry(): void {
         $asset          = AssetModel::factory()->make([
-            'id' => $this->faker->uuid,
+            'id'            => $this->faker->uuid,
+            'serial_number' => $this->faker->uuid,
         ]);
         $skuNumber      = $this->faker->word;
         $skuDescription = $this->faker->sentence;
@@ -457,13 +460,15 @@ class DocumentFactoryTest extends TestCase {
         $this->assertInstanceOf(DocumentEntryModel::class, $entry);
         $this->assertEquals($asset->getKey(), $entry->asset_id);
         $this->assertNull($entry->document_id);
-        $this->assertNotNull($entry->product_id);
-        $this->assertSame($document->oem, $entry->product->oem);
-        $this->assertEquals(ProductType::service(), $entry->product->type);
-        $this->assertEquals($skuNumber, $entry->product->sku);
-        $this->assertEquals($skuDescription, $entry->product->name);
-        $this->assertNull($entry->product->eos);
-        $this->assertNull($entry->product->eol);
+        $this->assertEquals($asset->serial_number, $entry->serial_number);
+        $this->assertSame($asset->product, $entry->product);
+        $this->assertNotNull($entry->service_id);
+        $this->assertSame($document->oem, $entry->service->oem);
+        $this->assertEquals(ProductType::service(), $entry->service->type);
+        $this->assertEquals($skuNumber, $entry->service->sku);
+        $this->assertEquals($skuDescription, $entry->service->name);
+        $this->assertNull($entry->service->eos);
+        $this->assertNull($entry->service->eol);
         $this->assertEquals($currencyCode, $entry->currency->code);
         $this->assertEquals($netPrice, $entry->net_price);
         $this->assertEquals($listPrice, $entry->list_price);
@@ -498,7 +503,7 @@ class DocumentFactoryTest extends TestCase {
         $a->list_price  = $b->list_price;
         $a->discount    = $b->discount;
         $a->renewal     = $b->renewal;
-        $a->product_id  = $b->product_id;
+        $a->service_id  = $b->service_id;
 
         $this->assertEquals(0, $factory->compareDocumentEntries($a, $b));
     }
@@ -534,7 +539,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($document->document->type, $created->type->key);
         $this->assertEquals('CUR', $created->currency->code);
         $this->assertEquals('en', $created->language->code);
-        $this->assertNull($created->product);
+        $this->assertNull($created->support);
         $this->assertEquals(
             $this->getModelContacts($created),
             $this->getContacts($document->document),
@@ -556,7 +561,7 @@ class DocumentFactoryTest extends TestCase {
             $updated->price,
         );
         $this->assertEquals($document->document->documentNumber, $updated->number);
-        $this->assertNull($updated->product);
+        $this->assertNull($updated->support);
     }
 
     /**
@@ -713,8 +718,8 @@ class DocumentFactoryTest_Factory extends DocumentFactory {
         return parent::documentType($document);
     }
 
-    public function assetDocumentObjectProduct(AssetDocumentObject $document): Product {
-        return parent::assetDocumentObjectProduct($document);
+    public function assetDocumentObjectSupport(AssetDocumentObject $document): Product {
+        return parent::assetDocumentObjectSupport($document);
     }
 
     public function createFromDocument(

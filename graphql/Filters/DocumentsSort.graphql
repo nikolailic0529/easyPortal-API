@@ -1,5 +1,5 @@
 input DocumentsSort {
   start: Date!
   end: Date!
-  price: String!
+  price: Float
 }

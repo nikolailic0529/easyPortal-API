@@ -415,7 +415,7 @@
                 "customer_id",
                 "reseller_id",
                 "number",
-                "product_id",
+                "support_id",
                 "start",
                 "end",
                 "price",
@@ -423,7 +423,7 @@
                 "currency",
                 "customer",
                 "oem",
-                "product",
+                "support",
                 "reseller",
                 "type",
                 "entries",
@@ -445,12 +445,19 @@
                     "$ref": "#/definitions/ID"
                 },
                 "reseller_id": {
-                    "$ref": "#/definitions/ID"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "number": {
                     "type": "string"
                 },
-                "product_id": {
+                "support_id": {
                     "oneOf": [
                         {
                             "$ref": "#/definitions/ID"
@@ -471,7 +478,7 @@
                 "price": {
                     "type": [
                         "null",
-                        "string"
+                        "number"
                     ]
                 },
                 "currency_id": {
@@ -500,7 +507,7 @@
                 "oem": {
                     "$ref": "#/definitions/Oem"
                 },
-                "product": {
+                "support": {
                     "oneOf": [
                         {
                             "$ref": "#/definitions/Product"
@@ -511,7 +518,14 @@
                     ]
                 },
                 "reseller": {
-                    "$ref": "#/definitions/Reseller"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Reseller"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "type": {
                     "$ref": "#/definitions/Type"
@@ -535,14 +549,13 @@
             "type": "object",
             "required": [
                 "id",
-                "asset_id",
                 "reseller_id",
                 "customer_id",
                 "document_id",
                 "start",
                 "end",
                 "services",
-                "package",
+                "support",
                 "customer",
                 "reseller"
             ],
@@ -550,11 +563,15 @@
                 "id": {
                     "$ref": "#/definitions/ID"
                 },
-                "asset_id": {
-                    "$ref": "#/definitions/ID"
-                },
                 "reseller_id": {
-                    "$ref": "#/definitions/ID"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "customer_id": {
                     "$ref": "#/definitions/ID"
@@ -589,7 +606,14 @@
                     "$ref": "#/definitions/Document"
                 },
                 "reseller": {
-                    "$ref": "#/definitions/Reseller"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Reseller"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "services": {
                     "type": "array",
@@ -597,7 +621,7 @@
                         "$ref": "#/definitions/Product"
                     }
                 },
-                "package": {
+                "support": {
                     "$ref": "#/definitions/Product"
                 },
                 "language_id": {
@@ -614,13 +638,15 @@
             "required": [
                 "id",
                 "document_id",
-                "asset_id",
-                "product_id",
-                "product",
+                "service_id",
+                "service",
                 "net_price",
                 "list_price",
                 "discount",
-                "renewal"
+                "renewal",
+                "serial_number",
+                "product_id",
+                "product"
             ],
             "properties": {
                 "id": {
@@ -629,10 +655,7 @@
                 "document_id": {
                     "$ref": "#/definitions/ID"
                 },
-                "asset_id": {
-                    "$ref": "#/definitions/ID"
-                },
-                "product_id": {
+                "service_id": {
                     "$ref": "#/definitions/ID"
                 },
                 "asset": {
@@ -641,31 +664,57 @@
                 "document": {
                     "$ref": "#/definitions/Document"
                 },
-                "product": {
+                "service": {
                     "$ref": "#/definitions/Product"
                 },
                 "net_price": {
                     "type": [
                         "null",
-                        "string"
+                        "number"
                     ]
                 },
                 "list_price": {
                     "type": [
                         "null",
-                        "string"
+                        "number"
                     ]
                 },
                 "discount": {
                     "type": [
                         "null",
-                        "string"
+                        "number"
                     ]
                 },
                 "renewal": {
                     "type": [
                         "null",
+                        "number"
+                    ]
+                },
+                "serial_number": {
+                    "type": [
+                        "null",
                         "string"
+                    ]
+                },
+                "product_id": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "product": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Product"
+                        },
+                        {
+                            "type": "null"
+                        }
                     ]
                 }
             }
