@@ -162,16 +162,15 @@ type AssetPaginator {
 
 input AssetWarrantiesQuery {
   id: ID!
-  asset_id: ID!
-  reseller_id: ID!
-  customer_id: ID!
-  document_id: ID!
   start: Date
   end: Date!
   note: String
   asset: AssetsQuery
+  customer_id: ID!
   customer: CustomersQuery
+  document_id: ID!
   document: DocumentsQuery
+  reseller_id: ID
   reseller: ResellersQuery
   services: ProductsQuery
   package: ProductsQuery
@@ -179,16 +178,15 @@ input AssetWarrantiesQuery {
 
 type AssetWarranty {
   id: ID!
-  asset_id: ID!
-  reseller_id: ID!
-  customer_id: ID!
-  document_id: ID
   start: Date
   end: Date!
   note: String
+  customer_id: ID!
   customer: Customer!
+  document_id: ID
   document: Document
-  reseller: Reseller!
+  reseller_id: ID
+  reseller: Reseller
   services: [Product!]!
   package: Product
 }
@@ -463,7 +461,6 @@ type Document {
   oem_id: ID!
   type_id: ID!
   customer_id: ID!
-  reseller_id: ID!
   number: String!
   start: Date!
   end: Date!
@@ -474,7 +471,8 @@ type Document {
   oem: Oem!
   support_id: ID
   support: Product
-  reseller: Reseller!
+  reseller_id: ID
+  reseller: Reseller
   type: Type!
   entries(where: SearchByConditionDocumentEntriesQuery): [DocumentEntry!]!
   language_id: ID
@@ -533,7 +531,7 @@ input DocumentsQuery {
   customer: CustomersQuery
   service_id: ID
   service: ProductsQuery
-  reseller_id: ID!
+  reseller_id: ID
   reseller: ResellersQuery
 }
 
@@ -1159,18 +1157,6 @@ input SearchByConditionAssetWarrantiesQuery {
   id: SearchByScalarID
 
   """Property condition."""
-  asset_id: SearchByScalarID
-
-  """Property condition."""
-  reseller_id: SearchByScalarID
-
-  """Property condition."""
-  customer_id: SearchByScalarID
-
-  """Property condition."""
-  document_id: SearchByScalarID
-
-  """Property condition."""
   start: SearchByScalarDateOrNull
 
   """Property condition."""
@@ -1183,10 +1169,19 @@ input SearchByConditionAssetWarrantiesQuery {
   asset: SearchByRelationAssetsQuery
 
   """Property condition."""
+  customer_id: SearchByScalarID
+
+  """Property condition."""
   customer: SearchByRelationCustomersQuery
 
   """Property condition."""
+  document_id: SearchByScalarID
+
+  """Property condition."""
   document: SearchByRelationDocumentsQuery
+
+  """Property condition."""
+  reseller_id: SearchByScalarIDOrNull
 
   """Property condition."""
   reseller: SearchByRelationResellersQuery
@@ -1467,7 +1462,7 @@ input SearchByConditionDocumentsQuery {
   service: SearchByRelationProductsQuery
 
   """Property condition."""
-  reseller_id: SearchByScalarID
+  reseller_id: SearchByScalarIDOrNull
 
   """Property condition."""
   reseller: SearchByRelationResellersQuery

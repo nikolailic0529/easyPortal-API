@@ -11,6 +11,6 @@ input DocumentsQuery {
   customer: CustomersQuery
   service_id: ID
   service: ProductsQuery
-  reseller_id: ID!
+  reseller_id: ID
   reseller: ResellersQuery
 }

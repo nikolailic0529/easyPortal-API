@@ -445,7 +445,14 @@
                     "$ref": "#/definitions/ID"
                 },
                 "reseller_id": {
-                    "$ref": "#/definitions/ID"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "number": {
                     "type": "string"
@@ -511,7 +518,14 @@
                     ]
                 },
                 "reseller": {
-                    "$ref": "#/definitions/Reseller"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Reseller"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "type": {
                     "$ref": "#/definitions/Type"
@@ -554,7 +568,14 @@
                     "$ref": "#/definitions/ID"
                 },
                 "reseller_id": {
-                    "$ref": "#/definitions/ID"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "customer_id": {
                     "$ref": "#/definitions/ID"
@@ -589,7 +610,14 @@
                     "$ref": "#/definitions/Document"
                 },
                 "reseller": {
-                    "$ref": "#/definitions/Reseller"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Reseller"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "services": {
                     "type": "array",

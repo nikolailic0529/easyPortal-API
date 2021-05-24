@@ -1,15 +1,14 @@
 input AssetWarrantiesQuery {
   id: ID!
-  asset_id: ID!
-  reseller_id: ID!
-  customer_id: ID!
-  document_id: ID!
   start: Date
   end: Date!
   note: String
   asset: AssetsQuery
+  customer_id: ID!
   customer: CustomersQuery
+  document_id: ID!
   document: DocumentsQuery
+  reseller_id: ID
   reseller: ResellersQuery
   services: ProductsQuery
   package: ProductsQuery
