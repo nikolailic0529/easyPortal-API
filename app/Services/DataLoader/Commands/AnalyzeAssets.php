@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Commands;
 
+use App\Exceptions\Contextable;
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\DataLoader\Commands\Concerns\WithBooleanOptions;
 use App\Services\DataLoader\DataLoaderService;
@@ -12,6 +13,7 @@ use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Facades\Date;
@@ -52,20 +54,33 @@ class AnalyzeAssets extends Command {
         ResellerResolver $resellerResolver,
         CustomerResolver $customerResolver,
     ): int {
-        $this->callWithoutGlobalScopes([OwnedByOrganizationScope::class], function () use (
-            $config,
-            $service,
-            $assetResolver,
-            $resellerResolver,
-            $customerResolver,
-        ): void {
-            $this->process($config, $service, $assetResolver, $resellerResolver, $customerResolver);
-        });
+        $logger = $this->getLogger();
+
+        try {
+            $this->callWithoutGlobalScopes([OwnedByOrganizationScope::class], function () use (
+                $logger,
+                $config,
+                $service,
+                $assetResolver,
+                $resellerResolver,
+                $customerResolver,
+            ): void {
+                $this->process($logger, $config, $service, $assetResolver, $resellerResolver, $customerResolver);
+            });
+        } catch (Exception $exception) {
+            $logger->error('Failed', [
+                'exception' => $exception,
+                'context'   => $exception instanceof Contextable
+                    ? $exception->context()
+                    : null,
+            ]);
+        }
 
         return self::SUCCESS;
     }
 
     protected function process(
+        LoggerInterface $logger,
         Repository $config,
         DataLoaderService $service,
         AssetResolver $assetResolver,
@@ -77,7 +92,6 @@ class AnalyzeAssets extends Command {
         $client    = $service->getClient();
         $offset    = ((int) $this->option('offset')) ?: 0;
         $chunk     = ((int) $this->option('chunk')) ?: $config->get('ep.data_loader.chunk');
-        $logger    = $this->getLogger();
         $iterator  = $client
             ->iterator(
                 'getAssets',
