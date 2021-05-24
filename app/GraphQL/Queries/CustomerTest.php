@@ -211,7 +211,7 @@ class CustomerTest extends TestCase {
                                             name
                                         }
                                     }
-                                    package {
+                                    support {
                                         id
                                         name
                                         oem_id
@@ -770,7 +770,7 @@ class CustomerTest extends TestCase {
                                                         ],
                                                     ],
                                                 ],
-                                                'package'     => [
+                                                'support'     => [
                                                     'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24998',
                                                     'name'   => 'Product2',
                                                     'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -910,7 +910,7 @@ class CustomerTest extends TestCase {
                                 'key'         => 'active',
                                 'object_type' => (new Asset())->getMorphClass(),
                             ]);
-                            // Product creation for package
+                            // Product creation for support
                             $product2 = Product::factory()->create([
                                 'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24998',
                                 'name'   => 'Product2',
@@ -919,7 +919,7 @@ class CustomerTest extends TestCase {
                                 'eol'    => '2022-12-30',
                                 'eos'    => '2022-01-01',
                             ]);
-                            // Document creation for package
+                            // Document creation for support
                             $document = Document::factory()
                                 ->for($reseller)
                                 ->for($customer)

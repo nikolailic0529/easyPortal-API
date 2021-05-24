@@ -140,7 +140,7 @@ class AssetsTest extends TestCase {
                                         name
                                     }
                                 }
-                                package {
+                                support {
                                     id
                                     name
                                     oem_id
@@ -356,7 +356,7 @@ class AssetsTest extends TestCase {
                                                 ],
                                             ],
                                         ],
-                                        'package'     => [
+                                        'support'     => [
                                             'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24998',
                                             'name'   => 'Product2',
                                             'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -486,7 +486,7 @@ class AssetsTest extends TestCase {
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                 'name' => 'name aaa',
                             ]);
-                            // Product creation for package
+                            // Product creation for support
                             $product2 = Product::factory()->create([
                                 'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24998',
                                 'name'   => 'Product2',
@@ -495,7 +495,7 @@ class AssetsTest extends TestCase {
                                 'eol'    => '2022-12-30',
                                 'eos'    => '2022-01-01',
                             ]);
-                            // Document creation for package
+                            // Document creation for support
                             $document = Document::factory()->create([
                                 'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                 'support_id' => $product2,

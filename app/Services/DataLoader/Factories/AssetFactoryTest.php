@@ -165,8 +165,8 @@ class AssetFactoryTest extends TestCase {
             $created->warranties
                 ->map(static function (AssetWarranty $warranty): array {
                     return [
-                        'sku'      => $warranty->package?->sku,
-                        'package'  => $warranty->package?->name,
+                        'sku'      => $warranty->support?->sku,
+                        'package'  => $warranty->support?->name,
                         'services' => $warranty->services
                             ->map(static function (Product $product): array {
                                 return [

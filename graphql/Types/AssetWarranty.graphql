@@ -10,5 +10,5 @@ type AssetWarranty {
   reseller_id: ID
   reseller: Reseller @belongsTo
   services: [Product!]! @hasMany
-  package: Product @hasOne
+  support: Product @hasOne
 }

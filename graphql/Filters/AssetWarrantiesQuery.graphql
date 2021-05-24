@@ -11,5 +11,5 @@ input AssetWarrantiesQuery {
   reseller_id: ID
   reseller: ResellersQuery
   services: ProductsQuery
-  package: ProductsQuery
+  support: ProductsQuery
 }

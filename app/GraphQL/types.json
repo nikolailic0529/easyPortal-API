@@ -555,7 +555,7 @@
                 "start",
                 "end",
                 "services",
-                "package",
+                "support",
                 "customer",
                 "reseller"
             ],
@@ -621,7 +621,7 @@
                         "$ref": "#/definitions/Product"
                     }
                 },
-                "package": {
+                "support": {
                     "$ref": "#/definitions/Product"
                 },
                 "language_id": {
