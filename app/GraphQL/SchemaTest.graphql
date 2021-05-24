@@ -144,6 +144,7 @@ type Asset {
 
 type AssetCoverage {
   id: ID!
+  key: String!
   name: String!
 }
 
@@ -2429,6 +2430,7 @@ enum SortOrder {
 
 type Status {
   id: ID!
+  key: String!
   name: String!
 }
 
@@ -2448,6 +2450,7 @@ input TranslationInput {
 
 type Type {
   id: ID!
+  key: String!
   name: String!
 }
 
