@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Commands;
 
 use App\Services\DataLoader\Commands\Concerns\WithBooleanOptions;
 use App\Services\DataLoader\DataLoaderService;
+use App\Services\DataLoader\Exceptions\GraphQLQueryFailed;
 use Illuminate\Console\Command;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -59,10 +60,12 @@ class Customer extends Command {
             } catch (Throwable $exception) {
                 $this->warn(" Failed #{$id}: {$exception->getMessage()}");
 
-                $logger->warning(__METHOD__, [
-                    'id'        => $id,
-                    'exception' => $exception,
-                ]);
+                if (!($exception instanceof GraphQLQueryFailed)) {
+                    $logger->warning(__METHOD__, [
+                        'id'        => $id,
+                        'exception' => $exception,
+                    ]);
+                }
 
                 $result = static::FAILURE;
             }

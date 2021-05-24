@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Client;
 
+use App\Services\DataLoader\Exceptions\GraphQLQueryFailed;
 use Closure;
 use Generator;
 use IteratorAggregate;
@@ -79,6 +80,8 @@ class QueryIterator implements IteratorAggregate {
             $items  = array_map(function (mixed $item) use ($retriever): mixed {
                 try {
                     return $retriever($item);
+                } catch (GraphQLQueryFailed $exception) {
+                    throw $exception;
                 } catch (Throwable $exception) {
                     $this->logger->warning(__METHOD__, [
                         'item'      => $item,
