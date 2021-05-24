@@ -1,14 +1,14 @@
 type DocumentEntry {
   id: ID!
   document_id: ID!
-  asset_id: ID!
-  product_id: ID!
-  currency_id: ID
   net_price: String
   list_price: String
   discount: String
   renewal: String
+  asset_id: ID!
   asset: Asset! @belongsTo
-  product: Product! @belongsTo
+  service_id: ID!
+  service: Product! @belongsTo
+  currency_id: ID
   currency: Currency @belongsTo
 }

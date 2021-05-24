@@ -225,7 +225,7 @@ class DocumentFactory extends ModelFactory {
         $entry->list_price = $this->normalizer->number($assetDocument->listPrice);
         $entry->discount   = $this->normalizer->number($assetDocument->discount);
         $entry->renewal    = $this->normalizer->number($assetDocument->estimatedValueRenewal);
-        $entry->product    = $this->product(
+        $entry->service    = $this->product(
             $document->oem,
             ProductType::service(),
             $assetDocument->skuNumber,
@@ -240,11 +240,11 @@ class DocumentFactory extends ModelFactory {
     protected function compareDocumentEntries(DocumentEntry $a, DocumentEntry $b): int {
         return $a->currency_id <=> $b->currency_id
             ?: $a->net_price <=> $b->net_price
-                ?: $a->list_price <=> $b->list_price
-                    ?: $a->discount <=> $b->discount
-                        ?: $a->renewal <=> $b->renewal
-                            ?: $a->product_id <=> $b->product_id
-                                ?: 0;
+            ?: $a->list_price <=> $b->list_price
+            ?: $a->discount <=> $b->discount
+            ?: $a->renewal <=> $b->renewal
+            ?: $a->service_id <=> $b->service_id
+            ?: 0;
     }
     // </editor-fold>
 

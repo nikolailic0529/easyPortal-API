@@ -315,7 +315,7 @@ class AssetFactory extends ModelFactory {
                     return $entry->asset_id === $asset->getKey();
                 })
                 ->map(static function (DocumentEntry $entry): Product {
-                    return $entry->product;
+                    return $entry->service;
                 });
             $warranty->save();
         }

@@ -1,14 +1,13 @@
 input DocumentEntriesQuery {
   id: ID!
   document_id: ID!
-  asset_id: ID!
-  product_id: ID!
-  currency_id: ID
   net_price: String
   list_price: String
   discount: String
   renewal: String
+  asset_id: ID!
   asset: AssetsQuery
-  product: ProductsQuery
-  currency: CurrenciesQuery
+  service_id: ID!
+  service: ProductsQuery
+  currency_id: ID
 }

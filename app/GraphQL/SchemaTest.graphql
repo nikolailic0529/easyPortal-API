@@ -310,12 +310,6 @@ type CreateMeSearchPayload {
   created: MeSearch!
 }
 
-input CurrenciesQuery {
-  id: ID!
-  code: String!
-  name: String!
-}
-
 type Currency {
   id: ID!
   code: String!
@@ -493,30 +487,29 @@ type Document {
 input DocumentEntriesQuery {
   id: ID!
   document_id: ID!
-  asset_id: ID!
-  product_id: ID!
-  currency_id: ID
   net_price: String
   list_price: String
   discount: String
   renewal: String
+  asset_id: ID!
   asset: AssetsQuery
-  product: ProductsQuery
-  currency: CurrenciesQuery
+  service_id: ID!
+  service: ProductsQuery
+  currency_id: ID
 }
 
 type DocumentEntry {
   id: ID!
   document_id: ID!
-  asset_id: ID!
-  product_id: ID!
-  currency_id: ID
   net_price: String
   list_price: String
   discount: String
   renewal: String
+  asset_id: ID!
   asset: Asset!
-  product: Product!
+  service_id: ID!
+  service: Product!
+  currency_id: ID
   currency: Currency
 }
 
@@ -533,16 +526,16 @@ input DocumentsQuery {
   id: ID!
   oem_id: ID!
   type_id: ID!
-  customer_id: ID!
-  reseller_id: ID!
   number: String!
-  product_id: ID
   start: Date!
   end: Date!
   price: String!
   currency_id: ID
+  customer_id: ID!
   customer: CustomersQuery
-  product: ProductsQuery
+  service_id: ID
+  service: ProductsQuery
+  reseller_id: ID!
   reseller: ResellersQuery
 }
 
@@ -1339,29 +1332,6 @@ input SearchByConditionCountriesQuery {
 }
 
 """
-Available conditions for input CurrenciesQuery (only one property allowed at a time).
-"""
-input SearchByConditionCurrenciesQuery {
-  """All of the conditions must be true."""
-  allOf: [SearchByConditionCurrenciesQuery!]
-
-  """Any of the conditions must be true."""
-  anyOf: [SearchByConditionCurrenciesQuery!]
-
-  """Not."""
-  not: SearchByFlag
-
-  """Property condition."""
-  id: SearchByScalarID
-
-  """Property condition."""
-  code: SearchByScalarString
-
-  """Property condition."""
-  name: SearchByScalarString
-}
-
-"""
 Available conditions for input CustomersQuery (only one property allowed at a time).
 """
 input SearchByConditionCustomersQuery {
@@ -1422,15 +1392,6 @@ input SearchByConditionDocumentEntriesQuery {
   document_id: SearchByScalarID
 
   """Property condition."""
-  asset_id: SearchByScalarID
-
-  """Property condition."""
-  product_id: SearchByScalarID
-
-  """Property condition."""
-  currency_id: SearchByScalarIDOrNull
-
-  """Property condition."""
   net_price: SearchByScalarStringOrNull
 
   """Property condition."""
@@ -1443,13 +1404,19 @@ input SearchByConditionDocumentEntriesQuery {
   renewal: SearchByScalarStringOrNull
 
   """Property condition."""
+  asset_id: SearchByScalarID
+
+  """Property condition."""
   asset: SearchByRelationAssetsQuery
 
   """Property condition."""
-  product: SearchByRelationProductsQuery
+  service_id: SearchByScalarID
 
   """Property condition."""
-  currency: SearchByRelationCurrenciesQuery
+  service: SearchByRelationProductsQuery
+
+  """Property condition."""
+  currency_id: SearchByScalarIDOrNull
 }
 
 """
@@ -1475,16 +1442,7 @@ input SearchByConditionDocumentsQuery {
   type_id: SearchByScalarID
 
   """Property condition."""
-  customer_id: SearchByScalarID
-
-  """Property condition."""
-  reseller_id: SearchByScalarID
-
-  """Property condition."""
   number: SearchByScalarString
-
-  """Property condition."""
-  product_id: SearchByScalarIDOrNull
 
   """Property condition."""
   start: SearchByScalarDate
@@ -1499,10 +1457,19 @@ input SearchByConditionDocumentsQuery {
   currency_id: SearchByScalarIDOrNull
 
   """Property condition."""
+  customer_id: SearchByScalarID
+
+  """Property condition."""
   customer: SearchByRelationCustomersQuery
 
   """Property condition."""
-  product: SearchByRelationProductsQuery
+  service_id: SearchByScalarIDOrNull
+
+  """Property condition."""
+  service: SearchByRelationProductsQuery
+
+  """Property condition."""
+  reseller_id: SearchByScalarID
 
   """Property condition."""
   reseller: SearchByRelationResellersQuery
@@ -1778,30 +1745,6 @@ input SearchByRelationContactsQuery {
 input SearchByRelationCountriesQuery {
   """Conditions for the related objects."""
   where: SearchByConditionCountriesQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input CurrenciesQuery."""
-input SearchByRelationCurrenciesQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionCurrenciesQuery!
 
   """Equal (`=`)."""
   eq: Int

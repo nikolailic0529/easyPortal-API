@@ -493,7 +493,7 @@ class AssetTest extends TestCase {
                                 'asset_id'    => Asset::factory()->create([
                                     'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
                                 ]),
-                                'product_id'  => $product,
+                                'service_id'  => $product,
                             ]);
                             $reseller = Reseller::factory()
                                 ->hasLocations(1, [

@@ -5,8 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\HasAsset;
 use App\Models\Concerns\HasCurrency;
 use App\Models\Concerns\HasDocument;
-use App\Models\Concerns\HasProduct;
-use App\Models\Enums\ProductType;
+use App\Models\Concerns\HasService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -15,7 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                       $id
  * @property string                       $document_id
  * @property string                       $asset_id
- * @property string                       $product_id Service
+ * @property string                       $service_id
  * @property string|null                  $currency_id
  * @property string|null                  $net_price
  * @property string|null                  $list_price
@@ -27,7 +26,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \App\Models\Asset            $asset
  * @property \App\Models\Currency|null    $currency
  * @property \App\Models\Document         $document
- * @property \App\Models\Product          $product
+ * @property \App\Models\Product          $service
  * @method static \Database\Factories\DocumentEntryFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry newQuery()
@@ -48,7 +47,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class DocumentEntry extends Model {
     use HasFactory;
     use HasAsset;
-    use HasProduct;
+    use HasService;
     use HasDocument;
     use HasCurrency;
 
@@ -58,11 +57,4 @@ class DocumentEntry extends Model {
      * @var string
      */
     protected $table = 'document_entries';
-
-    /**
-     * @inheritdoc
-     */
-    protected function getValidProductTypes(): array {
-        return [ProductType::service()];
-    }
 }

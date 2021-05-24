@@ -122,13 +122,6 @@ class Asset extends Model {
         return $this->hasMany(AssetWarranty::class);
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function getValidProductTypes(): array {
-        return [ProductType::asset()];
-    }
-
     public function coverage(): BelongsTo {
         return $this->belongsTo(AssetCoverage::class);
     }

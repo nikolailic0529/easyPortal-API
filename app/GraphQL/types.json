@@ -615,8 +615,8 @@
                 "id",
                 "document_id",
                 "asset_id",
-                "product_id",
-                "product",
+                "service_id",
+                "service",
                 "net_price",
                 "list_price",
                 "discount",
@@ -632,7 +632,7 @@
                 "asset_id": {
                     "$ref": "#/definitions/ID"
                 },
-                "product_id": {
+                "service_id": {
                     "$ref": "#/definitions/ID"
                 },
                 "asset": {
@@ -641,7 +641,7 @@
                 "document": {
                     "$ref": "#/definitions/Document"
                 },
-                "product": {
+                "service": {
                     "$ref": "#/definitions/Product"
                 },
                 "net_price": {

@@ -12,13 +12,13 @@ use function sprintf;
 /**
  * @mixin \App\Models\Model
  */
-trait HasProduct {
-    public function product(): BelongsTo {
+trait HasService {
+    public function service(): BelongsTo {
         return $this->belongsTo(Product::class);
     }
 
-    public function setProductAttribute(Product $product): void {
-        if ($product->type !== ProductType::asset()) {
+    public function setServiceAttribute(?Product $product): void {
+        if ($product->type !== ProductType::service()) {
             throw new InvalidArgumentException(sprintf(
                 'The product must be type `%s`, `%s` given.',
                 ProductType::asset(),
@@ -26,6 +26,6 @@ trait HasProduct {
             ));
         }
 
-        $this->product()->associate($product);
+        $this->service()->associate($product);
     }
 }

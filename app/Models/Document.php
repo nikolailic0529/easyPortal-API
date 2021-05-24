@@ -8,13 +8,12 @@ use App\Models\Concerns\HasCurrency;
 use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasLanguage;
 use App\Models\Concerns\HasOem;
-use App\Models\Concerns\HasProduct;
 use App\Models\Concerns\HasReseller;
 use App\Models\Concerns\HasType;
 use App\Models\Concerns\SyncHasMany;
-use App\Models\Enums\ProductType;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
@@ -83,9 +82,6 @@ class Document extends Model implements CascadeDeletable {
     use HasLanguage;
     use HasContacts;
     use SyncHasMany;
-    use HasProduct {
-        setProductAttribute as protected setProduct;
-    }
 
     protected const CASTS = [
         'start' => 'date',
@@ -120,19 +116,12 @@ class Document extends Model implements CascadeDeletable {
         $this->entries_count = count($entries);
     }
 
-    public function setProductAttribute(?Product $product): void {
-        if ($product) {
-            $this->setProduct($product);
-        } else {
-            $this->product()->associate(null);
-        }
+    public function product(): BelongsTo {
+        return $this->belongsTo(Product::class);
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function getValidProductTypes(): array {
-        return [ProductType::support()];
+    public function setProductAttribute(?Product $product): void {
+        $this->product()->associate($product);
     }
 
     public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {
