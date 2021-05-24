@@ -117,10 +117,10 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals('MultiNational Quote', $created->type->key);
         $this->assertEquals('CUR', $created->currency->code);
         $this->assertEquals('fr', $created->language->code);
-        $this->assertEquals('H7J34AC', $created->product->sku);
-        $this->assertEquals('HPE Foundation Care 24x7 SVC', $created->product->name);
-        $this->assertEquals(ProductType::support(), $created->product->type);
-        $this->assertEquals('HPE', $created->product->oem->abbr);
+        $this->assertEquals('H7J34AC', $created->support->sku);
+        $this->assertEquals('HPE Foundation Care 24x7 SVC', $created->support->name);
+        $this->assertEquals(ProductType::support(), $created->support->type);
+        $this->assertEquals('HPE', $created->support->oem->abbr);
         $this->assertEquals('HPE', $created->oem->abbr);
         $this->assertEquals(6, $created->entries_count);
         $this->assertEquals(1, $created->contacts_count);
@@ -212,10 +212,10 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals('??', $created->type->key);
         $this->assertEquals('CUR', $created->currency->code);
         $this->assertEquals('fr', $created->language->code);
-        $this->assertEquals('H7J34AC', $created->product->sku);
-        $this->assertEquals('HPE Foundation Care 24x7 SVC', $created->product->name);
-        $this->assertEquals(ProductType::support(), $created->product->type);
-        $this->assertEquals($model->oem->abbr, $created->product->oem->abbr);
+        $this->assertEquals('H7J34AC', $created->support->sku);
+        $this->assertEquals('HPE Foundation Care 24x7 SVC', $created->support->name);
+        $this->assertEquals(ProductType::support(), $created->support->type);
+        $this->assertEquals($model->oem->abbr, $created->support->oem->abbr);
 
         $this->assertCount(2, $created->entries);
 
@@ -236,9 +236,9 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::assetDocumentObjectProduct
+     * @covers ::assetDocumentObjectSupport
      */
-    public function testAssetDocumentObjectProduct(): void {
+    public function testAssetDocumentObjectSupport(): void {
         $oem      = Oem::factory()->make();
         $type     = ProductType::support();
         $document = AssetDocumentObject::create([
@@ -274,7 +274,7 @@ class DocumentFactoryTest extends TestCase {
             ->once()
             ->andReturns();
 
-        $factory->assetDocumentObjectProduct($document);
+        $factory->assetDocumentObjectSupport($document);
     }
 
     /**
@@ -284,7 +284,7 @@ class DocumentFactoryTest extends TestCase {
         // Prepare
         $asset      = AssetModel::factory()->create();
         $document   = DocumentModel::factory()->create([
-            'product_id' => static function (): Product {
+            'support_id' => static function (): Product {
                 return Product::factory()->create([
                     'type' => ProductType::support(),
                 ]);
@@ -313,8 +313,8 @@ class DocumentFactoryTest extends TestCase {
                 [
                     'skuNumber'                 => $a->service->sku,
                     'skuDescription'            => $a->service->name,
-                    'supportPackage'            => $document->product->sku,
-                    'supportPackageDescription' => $document->product->name,
+                    'supportPackage'            => $document->support->sku,
+                    'supportPackageDescription' => $document->support->name,
                     'currencyCode'              => $a->currency->code,
                     'netPrice'                  => $a->net_price,
                     'discount'                  => $a->discount,
@@ -324,8 +324,8 @@ class DocumentFactoryTest extends TestCase {
                 [
                     'skuNumber'                 => $b->service->sku,
                     'skuDescription'            => $b->service->name,
-                    'supportPackage'            => $document->product->sku,
-                    'supportPackageDescription' => $document->product->name,
+                    'supportPackage'            => $document->support->sku,
+                    'supportPackageDescription' => $document->support->name,
                     'currencyCode'              => $a->currency->code,
                     'netPrice'                  => $b->net_price,
                     'discount'                  => $b->discount,
@@ -335,8 +335,8 @@ class DocumentFactoryTest extends TestCase {
                 [
                     'skuNumber'                 => $b->service->sku,
                     'skuDescription'            => $b->service->name,
-                    'supportPackage'            => $document->product->sku,
-                    'supportPackageDescription' => $document->product->name,
+                    'supportPackage'            => $document->support->sku,
+                    'supportPackageDescription' => $document->support->name,
                     'currencyCode'              => null,
                     'netPrice'                  => null,
                     'discount'                  => null,
@@ -534,7 +534,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($document->document->type, $created->type->key);
         $this->assertEquals('CUR', $created->currency->code);
         $this->assertEquals('en', $created->language->code);
-        $this->assertNull($created->product);
+        $this->assertNull($created->support);
         $this->assertEquals(
             $this->getModelContacts($created),
             $this->getContacts($document->document),
@@ -556,7 +556,7 @@ class DocumentFactoryTest extends TestCase {
             $updated->price,
         );
         $this->assertEquals($document->document->documentNumber, $updated->number);
-        $this->assertNull($updated->product);
+        $this->assertNull($updated->support);
     }
 
     /**
@@ -713,8 +713,8 @@ class DocumentFactoryTest_Factory extends DocumentFactory {
         return parent::documentType($document);
     }
 
-    public function assetDocumentObjectProduct(AssetDocumentObject $document): Product {
-        return parent::assetDocumentObjectProduct($document);
+    public function assetDocumentObjectSupport(AssetDocumentObject $document): Product {
+        return parent::assetDocumentObjectSupport($document);
     }
 
     public function createFromDocument(

@@ -9,11 +9,11 @@ use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasLanguage;
 use App\Models\Concerns\HasOem;
 use App\Models\Concerns\HasReseller;
+use App\Models\Concerns\HasSupport;
 use App\Models\Concerns\HasType;
 use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
@@ -29,7 +29,7 @@ use function count;
  * @property string                                                              $customer_id
  * @property string|null                                                         $reseller_id
  * @property string                                                              $number     Internal Number
- * @property string|null                                                         $product_id Support Level
+ * @property string|null                                                         $support_id Support Level
  * @property \Carbon\CarbonImmutable                                             $start
  * @property \Carbon\CarbonImmutable                                             $end
  * @property string|null                                                         $price
@@ -46,7 +46,7 @@ use function count;
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
  * @property int                                                                 $contacts_count
  * @property \App\Models\Oem                                                     $oem
- * @property \App\Models\Product|null                                            $product
+ * @property \App\Models\Product|null                                            $support
  * @property \App\Models\Reseller|null                                           $reseller
  * @property \App\Models\Type                                                    $type
  * @method static \Database\Factories\DocumentFactory factory(...$parameters)
@@ -64,7 +64,7 @@ use function count;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereOemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document wherePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereSupportId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereResellerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereStart($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereTypeId($value)
@@ -76,6 +76,7 @@ class Document extends Model implements CascadeDeletable {
     use HasFactory;
     use HasOem;
     use HasType;
+    use HasSupport;
     use HasReseller;
     use HasCustomer;
     use HasCurrency;
@@ -114,14 +115,6 @@ class Document extends Model implements CascadeDeletable {
     public function setEntriesAttribute(Collection|array $entries): void {
         $this->syncHasMany('entries', $entries);
         $this->entries_count = count($entries);
-    }
-
-    public function product(): BelongsTo {
-        return $this->belongsTo(Product::class);
-    }
-
-    public function setProductAttribute(?Product $product): void {
-        $this->product()->associate($product);
     }
 
     public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {

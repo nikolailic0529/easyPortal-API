@@ -465,9 +465,6 @@ type Document {
   customer_id: ID!
   reseller_id: ID!
   number: String!
-
-  """Support package"""
-  product_id: ID
   start: Date!
   end: Date!
   price: String
@@ -475,7 +472,8 @@ type Document {
   currency: Currency
   customer: Customer!
   oem: Oem!
-  product: Product
+  support_id: ID
+  support: Product
   reseller: Reseller!
   type: Type!
   entries(where: SearchByConditionDocumentEntriesQuery): [DocumentEntry!]!

@@ -109,7 +109,7 @@ class AssetWarranty extends Model {
             'id',
             'id',
             'document_id',
-            'product_id',
+            'support_id',
         );
     }
 }

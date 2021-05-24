@@ -415,7 +415,7 @@
                 "customer_id",
                 "reseller_id",
                 "number",
-                "product_id",
+                "support_id",
                 "start",
                 "end",
                 "price",
@@ -423,7 +423,7 @@
                 "currency",
                 "customer",
                 "oem",
-                "product",
+                "support",
                 "reseller",
                 "type",
                 "entries",
@@ -450,7 +450,7 @@
                 "number": {
                     "type": "string"
                 },
-                "product_id": {
+                "support_id": {
                     "oneOf": [
                         {
                             "$ref": "#/definitions/ID"
@@ -500,7 +500,7 @@
                 "oem": {
                     "$ref": "#/definitions/Oem"
                 },
-                "product": {
+                "support": {
                     "oneOf": [
                         {
                             "$ref": "#/definitions/Product"

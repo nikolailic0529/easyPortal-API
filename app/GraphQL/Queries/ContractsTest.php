@@ -69,7 +69,7 @@ class ContractsTest extends TestCase {
                         data {
                             id
                             oem_id
-                            product_id
+                            support_id
                             type_id
                             customer_id
                             reseller_id
@@ -84,7 +84,7 @@ class ContractsTest extends TestCase {
                                 abbr
                                 name
                             }
-                            product {
+                            support {
                                 id
                                 name
                                 oem_id
@@ -273,7 +273,7 @@ class ContractsTest extends TestCase {
                             [
                                 'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                 'oem_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                'product_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                'support_id'  => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                 'customer_id' => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                 'type_id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                 'reseller_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
@@ -288,7 +288,7 @@ class ContractsTest extends TestCase {
                                     'abbr' => 'abbr',
                                     'name' => 'oem1',
                                 ],
-                                'product'     => [
+                                'support'     => [
                                     'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                     'name'   => 'Product1',
                                     'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -473,7 +473,7 @@ class ContractsTest extends TestCase {
                             ]);
                             Document::factory()
                                 ->for($oem)
-                                ->for($product)
+                                ->for($product, 'support')
                                 ->for($customer)
                                 ->for($type)
                                 ->for($reseller)

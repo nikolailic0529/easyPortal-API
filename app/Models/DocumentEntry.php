@@ -40,7 +40,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereListPrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereNetPrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereServiceId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry whereUpdatedAt($value)
  * @mixin \Eloquent
  */

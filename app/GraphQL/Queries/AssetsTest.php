@@ -500,7 +500,7 @@ class AssetsTest extends TestCase {
                             // Document creation for package
                             $document = Document::factory()->create([
                                 'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                'product_id' => $product2,
+                                'support_id' => $product2,
                             ]);
                             // Document entry creation for services
                             DocumentEntry::factory()->create([
