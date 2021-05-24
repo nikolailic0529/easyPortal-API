@@ -52,6 +52,15 @@ Sync the Reseller with Cosmos.
 Sync the Customer with Cosmos.
 
 
+### `php artisan ep:data-loader-analyze-assets`
+
+Search assets which
+
+- not in the database
+- without `reseller` or `customer`
+- `reseller` or `customer` has an invalid type
+
+
 ## Limitations/Issues/Notes
 
 0. Every time we need to load all data from Cosmos, this is slow and not optimal (just for note, cold run: started 2021-03-16 10:43:29 and finished 2021-03-16 11:29:13 = ~50 min).
