@@ -135,7 +135,7 @@ class Client {
     /**
      * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Asset>
      */
-    public function getAssetsWithDocumentsByCustomerId(string $id, int $limit = null, int $offset = 0): QueryIterator {
+    public function getAssetsByCustomerIdWithDocuments(string $id, int $limit = null, int $offset = 0): QueryIterator {
         return $this
             ->iterator(
                 'getAssetsByCustomerId',
@@ -194,7 +194,7 @@ class Client {
     /**
      * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Asset>
      */
-    public function getAssetsWithDocumentsByResellerId(string $id, int $limit = null, int $offset = 0): QueryIterator {
+    public function getAssetsByResellerIdWithDocuments(string $id, int $limit = null, int $offset = 0): QueryIterator {
         return $this
             ->iterator(
                 'getAssetsByResellerId',

@@ -87,7 +87,7 @@ class CustomerLoader extends Loader {
     // =========================================================================
     protected function getCurrentAssets(Model $owner): QueryIterator {
         return $this->isWithAssetsDocuments()
-            ? $this->client->getAssetsWithDocumentsByCustomerId($owner->getKey())
+            ? $this->client->getAssetsByCustomerIdWithDocuments($owner->getKey())
             : $this->client->getAssetsByCustomerId($owner->getKey());
     }
 
