@@ -14,6 +14,7 @@ use App\Models\Concerns\HasType;
 use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
@@ -35,6 +36,7 @@ use function count;
  * @property string|null                                                         $price
  * @property string|null                                                         $currency_id
  * @property string|null                                                         $language_id
+ * @property string|null                                                         $distributor_id
  * @property \Carbon\CarbonImmutable                                             $created_at
  * @property \Carbon\CarbonImmutable                                             $updated_at
  * @property \Carbon\CarbonImmutable|null                                        $deleted_at
@@ -48,6 +50,7 @@ use function count;
  * @property \App\Models\Oem                                                     $oem
  * @property \App\Models\Product|null                                            $support
  * @property \App\Models\Reseller|null                                           $reseller
+ * @property \App\Models\Distributor|null                                        $distributor
  * @property \App\Models\Type                                                    $type
  * @method static \Database\Factories\DocumentFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newModelQuery()
@@ -120,5 +123,13 @@ class Document extends Model implements CascadeDeletable {
 
     public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {
         return $name === 'entries';
+    }
+
+    public function distributor(): BelongsTo {
+        return $this->belongsTo(Distributor::class);
+    }
+
+    public function setDistributorAttribute(?Distributor $distributor): void {
+        $this->distributor()->associate($distributor);
     }
 }

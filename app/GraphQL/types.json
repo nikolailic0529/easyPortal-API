@@ -429,7 +429,9 @@
                 "entries",
                 "language_id",
                 "language",
-                "contacts"
+                "contacts",
+                "distributor_id",
+                "distributor"
             ],
             "properties": {
                 "id": {
@@ -541,6 +543,26 @@
                     "items": {
                         "$ref": "#/definitions/Contact"
                     }
+                },
+                "distributor_id": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "$ref":"#/definitions/ID"
+                        }
+                    ]
+                },
+                "distributor": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "$ref":"../Types/Distributor.json"
+                        }
+                    ]
                 }
             }
         },

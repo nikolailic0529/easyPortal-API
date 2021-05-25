@@ -22,4 +22,6 @@ type Document {
   language_id: ID
   language: Language @belongsTo
   contacts: [Contact!]! @morphMany
+  distributor_id: ID
+  distributor: Distributor
 }

@@ -457,6 +457,11 @@ type DispatchApplicationServicePayload {
   result: Boolean!
 }
 
+type Distributor {
+  id: ID!
+  name: String!
+}
+
 type Document {
   id: ID!
   oem_id: ID!
@@ -479,6 +484,8 @@ type Document {
   language_id: ID
   language: Language
   contacts: [Contact!]!
+  distributor_id: ID
+  distributor: Distributor
 }
 
 input DocumentEntriesQuery {
