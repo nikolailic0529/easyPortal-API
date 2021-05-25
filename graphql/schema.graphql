@@ -32,24 +32,20 @@ type Query {
   "List of all currencies."
   currencies: [Currency!]!
   @all
-  @orderBy(column: "code")
 
   "List of all languages."
   languages: [Language!]!
   @all
-  @orderBy(column: "code")
 
   "List of all countries."
   countries: [Country!]!
   @all
-  @orderBy(column: "code")
 
   "List of all cities."
   cities(
     where: CitiesQuery @searchBy
   ): [City!]!
   @all
-  @orderBy(column: "id")
 
   "List of all possible customer statuses."
   customerStatuses: [Status!]!

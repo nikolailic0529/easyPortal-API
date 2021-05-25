@@ -25,7 +25,7 @@ class SchemaTest extends TestCase {
     /**
      * @dataProvider dataProviderForbiddenDirectives
      */
-    public function testForbiddenDirectives(string $directive, string $replacement): void {
+    public function testForbiddenDirectives(string $directive, ?string $replacement): void {
         $path   = $this->app->make(Repository::class)->get('lighthouse.schema.register');
         $path   = dirname($path);
         $name   = preg_quote($directive, '/');
@@ -37,7 +37,9 @@ class SchemaTest extends TestCase {
         }
 
         if ($replacement) {
-            $replacement = "Directive {$directive} is deprecated, {$replacement} should be used instead.";
+            $replacement = "Directive {$directive} is forbidden, {$replacement} should be used instead.";
+        } else {
+            $replacement = "Directive {$directive} is forbidden.";
         }
 
         $this->assertEquals([], $usages, $replacement);
@@ -52,6 +54,7 @@ class SchemaTest extends TestCase {
     public function dataProviderForbiddenDirectives(): array {
         return [
             ['@guard', '@me'],
+            ['@orderBy', '@sortBy'],
         ];
     }
     //</editor-fold>

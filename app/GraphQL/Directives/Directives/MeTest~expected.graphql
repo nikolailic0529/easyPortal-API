@@ -1,12 +1,3 @@
-"""Allows ordering a list of records."""
-input OrderByClause {
-  """The column that is used for ordering."""
-  column: String!
-
-  """The direction that is used for ordering."""
-  order: SortOrder!
-}
-
 """Pagination information about the corresponding list of items."""
 type PageInfo {
   """When paginating forwards, are there more items?"""
@@ -87,15 +78,6 @@ type SimplePaginatorInfo {
 
   """Number of items per page in the collection."""
   perPage: Int!
-}
-
-"""The available directions for ordering a list of records."""
-enum SortOrder {
-  """Sort records in ascending order."""
-  ASC
-
-  """Sort records in descending order."""
-  DESC
 }
 
 """
