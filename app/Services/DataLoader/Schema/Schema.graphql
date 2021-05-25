@@ -52,6 +52,8 @@ type AssetDocument {
 
 type Company {
   id: ID
+  keycloakGroupId: String
+  keycloakClientScopeName: String
   companyContactPersons: [CompanyContactPerson]
   vendorSpecificField: [VendorSpecificField]
   companyTypes: [CompanyType]

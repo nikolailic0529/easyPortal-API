@@ -5,6 +5,8 @@ namespace App\Services\DataLoader\Schema;
 class Company extends Type {
     public string $id;
     public string $name;
+    public ?string $keycloakName;
+    public ?string $keycloakGroupId;
     /**
      * @var array<\App\Services\DataLoader\Schema\CompanyContactPerson>
      */

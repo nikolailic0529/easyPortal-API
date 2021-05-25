@@ -1,6 +1,8 @@
 {
     "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
     "name": "Weber, Gusikowski and Simonis",
+    "keycloakName": "virtualcomputersa_3",
+    "keycloakGroupId": "virtualcomputersa_3",
     "companyContactPersons": [
         {
             "phoneNumber": "+49 (591) 12345-67",

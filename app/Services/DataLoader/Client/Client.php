@@ -342,6 +342,8 @@ class Client {
         return <<<'GRAPHQL'
             id
             name
+            keycloakGroupId
+            keycloakName
             companyContactPersons {
                 phoneNumber
                 name

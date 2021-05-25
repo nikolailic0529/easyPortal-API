@@ -4,20 +4,9 @@ namespace App\Services\Organization\Listeners;
 
 use App\Events\Subscriber;
 use App\Models\Organization;
-use App\Models\Reseller;
 use App\Services\DataLoader\Events\ResellerUpdated;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
-
-use function filter_var;
-use function is_int;
-use function mb_strtolower;
-use function preg_replace;
-use function str_replace;
-use function str_starts_with;
-use function trim;
-
-use const FILTER_VALIDATE_INT;
 
 class OrganizationUpdater implements Subscriber {
     public function subscribe(Dispatcher $events): void {
@@ -25,8 +14,31 @@ class OrganizationUpdater implements Subscriber {
     }
 
     public function handle(ResellerUpdated $event): void {
-        // Get or Create
-        $reseller     = $event->getReseller();
+        // Prepare
+        $reseller = $event->getReseller();
+        $company  = $event->getCompany();
+
+        // Used?
+        $existing = Organization::query()
+            ->where(static function (Builder $query) use ($company): void {
+                $query->orWhere('keycloak_scope', '=', $company->keycloakName);
+                $query->orWhere('keycloak_group_id', '=', $company->keycloakGroupId);
+            })
+            ->get();
+
+        foreach ($existing as $organization) {
+            if ($organization->keycloak_scope === $company->keycloakName) {
+                $organization->keycloak_scope = null;
+            }
+
+            if ($organization->keycloak_group_id === $company->keycloakGroupId) {
+                $organization->keycloak_group_id = null;
+            }
+
+            $organization->save();
+        }
+
+        // Update
         $organization = Organization::query()
             ->whereKey($reseller->getKey())
             ->withTrashed()
@@ -39,58 +51,12 @@ class OrganizationUpdater implements Subscriber {
         } else {
             $organization                                = new Organization();
             $organization->{$organization->getKeyName()} = $reseller->getKey();
-            $organization->keycloak_scope                = $this->getKeycloakScope($reseller);
         }
 
         // Update
-        $organization->name = $reseller->name;
+        $organization->name              = $reseller->name;
+        $organization->keycloak_scope    = $company->keycloakName;
+        $organization->keycloak_group_id = $company->keycloakGroupId;
         $organization->save();
-    }
-
-    protected function getKeycloakScope(Reseller $reseller): string {
-        $scope = $this->normalizeKeycloakScope($reseller->name);
-        $last  = Organization::query()
-            ->where(static function (Builder $builder) use ($scope): void {
-                $builder->orWhere('keycloak_scope', '=', $scope);
-                $builder->orWhere('keycloak_scope', 'like', "{$scope}_%");
-            })
-            ->withTrashed()
-            ->get()
-            ->map(static function (Organization $organization): string {
-                return $organization->keycloak_scope;
-            })
-            ->filter(static function (string $value) use ($scope): bool {
-                return str_starts_with($value, $scope);
-            })
-            ->map(static function (string $value) use ($scope): int|bool {
-                $value = str_replace("{$scope}_", '', $value);
-                $value = str_replace($scope, '', $value);
-
-                if ($value !== '') {
-                    $value = filter_var($value, FILTER_VALIDATE_INT);
-                } else {
-                    $value = 0;
-                }
-
-                return $value;
-            })
-            ->filter(static function (int|bool $value): bool {
-                return $value !== false;
-            })
-            ->sort()
-            ->last();
-
-        if (is_int($last)) {
-            $scope = $scope.'_'.($last + 1);
-        }
-
-        return $scope;
-    }
-
-    protected function normalizeKeycloakScope(string $scope): string {
-        $scope = trim(mb_strtolower($scope));
-        $scope = preg_replace('/[^\p{L}\p{Nd}]+/ui', '', $scope);
-
-        return $scope;
     }
 }

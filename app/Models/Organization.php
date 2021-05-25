@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                                                         $id
  * @property string                                                         $name
  * @property string|null                                                    $keycloak_scope
+ * @property string|null                                                    $keycloak_group_id
  * @property string|null                                                    $locale
  * @property string|null                                                    $currency_id
  * @property bool|null                                                      $branding_dark_theme
