@@ -625,9 +625,6 @@ input MeSearchSort {
 }
 
 type Mutation {
-  """Set Locale"""
-  locale(locale: String!): Boolean! @deprecated(reason: "use setApplicationLocale instead")
-
   """
   Set Organization properties
   

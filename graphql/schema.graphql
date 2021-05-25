@@ -169,11 +169,6 @@ type Query {
 }
 
 type Mutation {
-  "Set Locale"
-  locale(
-    locale: String! @rules(apply: ["App\\Rules\\Locale"])
-  ): Boolean! @deprecated(reason: "use setApplicationLocale instead")
-
   "Set Organization properties"
   organization(
     locale: String
