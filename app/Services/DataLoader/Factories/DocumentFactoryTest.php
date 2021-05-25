@@ -565,6 +565,60 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::createFromDocument
+     */
+    public function testCreateFromDocumentDocumentWithNumberExists(): void {
+        // Prepare
+        $factory  = $this->app->make(DocumentFactoryTest_Factory::class);
+        $json     = $this->getTestData()->json('~document-full.json');
+        $document = AssetDocument::create($json);
+        $model    = DocumentModel::factory()->create([
+            'id'     => $document->document->documentNumber,
+            'number' => $document->document->documentNumber,
+        ]);
+
+        // Pretest
+        $this->assertEquals(1, DocumentModel::query()->count());
+
+        // Test
+        $created = $factory->createFromDocument($document->document);
+
+        $this->assertNotNull($created);
+        $this->assertEquals($document->document->id, $created->getKey());
+        $this->assertNull(DocumentModel::query()->find($model->getKey()));
+        $this->assertEquals(1, DocumentModel::query()->withoutGlobalScopes()->count());
+    }
+
+    /**
+     * @covers ::createFromDocument
+     */
+    public function testCreateFromDocumentDocumentsWithNumberAndIdExists(): void {
+        // Prepare
+        $factory  = $this->app->make(DocumentFactoryTest_Factory::class);
+        $json     = $this->getTestData()->json('~document-full.json');
+        $document = AssetDocument::create($json);
+
+        DocumentModel::factory()->create([
+            'id'     => $document->document->documentNumber,
+            'number' => $document->document->documentNumber,
+        ]);
+        DocumentModel::factory()->create([
+            'id'     => $document->document->id,
+            'number' => $document->document->documentNumber,
+        ]);
+
+        // Pretest
+        $this->assertEquals(2, DocumentModel::query()->count());
+
+        // Test
+        $created = $factory->createFromDocument($document->document);
+
+        $this->assertNotNull($created);
+        $this->assertEquals($document->document->id, $created->getKey());
+        $this->assertEquals(2, DocumentModel::query()->withoutGlobalScopes()->count());
+    }
+
+    /**
      * @covers ::documentOem
      */
     public function testDocumentOem(): void {
