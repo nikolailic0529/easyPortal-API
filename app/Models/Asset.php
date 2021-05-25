@@ -9,10 +9,12 @@ use App\Models\Concerns\HasProduct;
 use App\Models\Concerns\HasReseller;
 use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
+use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
 use function in_array;
@@ -22,31 +24,31 @@ use function sprintf;
 /**
  * Asset.
  *
- * @property string                                                                   $id
- * @property string                                                                   $oem_id
- * @property string                                                                   $product_id
- * @property string                                                                   $type_id
- * @property string|null                                                              $reseller_id current
- * @property string|null                                                              $customer_id current
- * @property string|null                                                              $location_id current
- * @property string|null                                                              $serial_number
- * @property string|null                                                              $status_id
- * @property string|null                                                              $coverage_id
- * @property int                                                                      $contacts_count
- * @property \Carbon\CarbonImmutable                                                  $created_at
- * @property \Carbon\CarbonImmutable                                                  $updated_at
- * @property \Carbon\CarbonImmutable|null                                             $deleted_at
- * @property \App\Models\Customer|null                                                $customer
- * @property \App\Models\Location|null                                                $location
- * @property \App\Models\Oem                                                          $oem
- * @property \App\Models\Product                                                      $product
- * @property \App\Models\Reseller|null                                                $reseller
- * @property \App\Models\Type                                                         $type
- * @property \App\Models\Status                                                       $status
- * @property \App\Models\AssetCoverage                                                $coverage
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $warranties
- * @property-read int|null                                                            $warranties_count
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>            $contacts
+ * @property string                                                              $id
+ * @property string                                                              $oem_id
+ * @property string                                                              $product_id
+ * @property string                                                              $type_id
+ * @property string|null                                                         $reseller_id current
+ * @property string|null                                                         $customer_id current
+ * @property string|null                                                         $location_id current
+ * @property string|null                                                         $serial_number
+ * @property string|null                                                         $status_id
+ * @property string|null                                                         $coverage_id
+ * @property int                                                                 $contacts_count
+ * @property \Carbon\CarbonImmutable                                             $created_at
+ * @property \Carbon\CarbonImmutable                                             $updated_at
+ * @property \Carbon\CarbonImmutable|null                                        $deleted_at
+ * @property \App\Models\Customer|null                                           $customer
+ * @property \App\Models\Location|null                                           $location
+ * @property \App\Models\Oem                                                     $oem
+ * @property \App\Models\Product                                                 $product
+ * @property \App\Models\Reseller|null                                           $reseller
+ * @property \App\Models\Type                                                    $type
+ * @property \App\Models\Status                                                  $status
+ * @property \App\Models\AssetCoverage                                           $coverage
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $warranties
+ * @property-read int|null                                                       $warranties_count
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
  * @method static \Database\Factories\AssetFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newQuery()
@@ -70,6 +72,7 @@ use function sprintf;
 class Asset extends Model {
     use OwnedByOrganization;
     use HasFactory;
+    use SyncHasMany;
     use HasOem;
     use HasType;
     use HasProduct;
@@ -120,6 +123,13 @@ class Asset extends Model {
 
     public function warranties(): HasMany {
         return $this->hasMany(AssetWarranty::class);
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\AssetWarranty>|array<\App\Models\AssetWarranty> $entries
+     */
+    public function setWarrantiesAttribute(Collection|array $warranties): void {
+        $this->syncHasMany('warranties', $warranties);
     }
 
     public function coverage(): BelongsTo {

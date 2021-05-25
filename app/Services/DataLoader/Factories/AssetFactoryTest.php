@@ -185,6 +185,7 @@ class AssetFactoryTest extends TestCase {
             return is_null($warranty->document_id);
         });
 
+        $this->assertNotNull($initial);
         $this->assertEquals($initial->asset_id, $created->getKey());
         $this->assertNull($initial->document_id);
         $this->assertEquals($created->customer_id, $initial->customer_id);
@@ -432,6 +433,37 @@ class AssetFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::assetWarranties
+     */
+    public function testAssetWarranties(): void {
+        $a         = AssetWarranty::factory()->make();
+        $b         = AssetWarranty::factory()->make();
+        $model     = AssetModel::factory()->make();
+        $asset     = new Asset();
+        $documents = new Collection([Document::factory()->make()]);
+        $factory   = Mockery::mock(AssetFactory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('assetDocuments')
+            ->with($model, $asset)
+            ->once()
+            ->andReturn($documents);
+        $factory
+            ->shouldReceive('assetInitialWarranties')
+            ->with($model, $asset, $documents)
+            ->once()
+            ->andReturn([$a]);
+        $factory
+            ->shouldReceive('assetExtendedWarranties')
+            ->with($model, $documents)
+            ->once()
+            ->andReturn([$b]);
+
+        $this->assertEquals([$a, $b], $factory->assetWarranties($model, $asset));
+    }
+
+    /**
      * @covers ::assetInitialWarranties
      */
     public function testAssetInitialWarranties(): void {
@@ -445,7 +477,10 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            public function assetInitialWarranties(AssetModel $model, Asset $asset, Collection $documents): Collection {
+            /**
+             * @inheritDoc
+             */
+            public function assetInitialWarranties(AssetModel $model, Asset $asset, Collection $documents): array {
                 return parent::assetInitialWarranties($model, $asset, $documents);
             }
         };
@@ -467,21 +502,22 @@ class AssetFactoryTest extends TestCase {
             'end'         => $date->subYear(),
             'asset_id'    => $model,
             'customer_id' => $docC->customer_id,
+            'reseller_id' => $docC->reseller_id,
             'document_id' => null,
         ]);
         $asset    = Asset::create([
             'id'            => $model->getKey(),
             'assetDocument' => [
                 [
-                    'documentNumber'  => $docA->getKey(),
+                    'documentNumber'  => $docA->number,
                     'warrantyEndDate' => null,
                 ],
                 [
-                    'documentNumber'  => $docB->getKey(),
+                    'documentNumber'  => $docB->number,
                     'warrantyEndDate' => $this->getDatetime($date),
                 ],
                 [
-                    'documentNumber'  => $docC->getKey(),
+                    'documentNumber'  => $docC->number,
                     'warrantyEndDate' => $this->getDatetime($date),
                 ],
                 [
@@ -493,6 +529,7 @@ class AssetFactoryTest extends TestCase {
 
         // Test
         $warranties = $factory->assetInitialWarranties($model, $asset, new Collection([$docA, $docB, $docC]));
+        $warranties = new Collection($warranties);
 
         $this->assertCount(2, $warranties);
 
@@ -502,7 +539,8 @@ class AssetFactoryTest extends TestCase {
         // Should be created for DocB Customer
         /** @var \App\Models\AssetWarranty $b */
         $b = $warranties->first(static function (AssetWarranty $warranty) use ($docB): bool {
-            return $warranty->customer_id === $docB->customer_id;
+            return $warranty->customer_id === $docB->customer_id
+                && $warranty->reseller_id === $docB->reseller_id;
         });
 
         $this->assertNotNull($b);
@@ -515,7 +553,8 @@ class AssetFactoryTest extends TestCase {
         // Should be updated for DocC Customer
         /** @var \App\Models\AssetWarranty $c */
         $c = $warranties->first(static function (AssetWarranty $warranty) use ($docC): bool {
-            return $warranty->customer_id === $docC->customer_id;
+            return $warranty->customer_id === $docC->customer_id
+                && $warranty->reseller_id === $docC->reseller_id;
         });
 
         $this->assertNotNull($c);
@@ -537,7 +576,10 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            public function assetExtendedWarranties(AssetModel $asset, Collection $documents): Collection {
+            /**
+             * @inheritDoc
+             */
+            public function assetExtendedWarranties(AssetModel $asset, Collection $documents): array {
                 return parent::assetExtendedWarranties($asset, $documents);
             }
         };
@@ -582,6 +624,7 @@ class AssetFactoryTest extends TestCase {
 
         // Test
         $warranties = $factory->assetExtendedWarranties($asset, new Collection([$docA, $docB, $docC]));
+        $warranties = new Collection($warranties);
 
         $this->assertCount(3, $warranties);
 
