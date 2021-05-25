@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Distributor.
  *
- * @property string                                                              $id
- * @property string                                                              $name
- * @property \Carbon\CarbonImmutable                                             $created_at
- * @property \Carbon\CarbonImmutable                                             $updated_at
- * @property \Carbon\CarbonImmutable|null                                        $deleted_at
+ * @property string                       $id
+ * @property string                       $name
+ * @property \Carbon\CarbonImmutable      $created_at
+ * @property \Carbon\CarbonImmutable      $updated_at
+ * @property \Carbon\CarbonImmutable|null $deleted_at
  * @method static \Database\Factories\DistributorFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor newQuery()

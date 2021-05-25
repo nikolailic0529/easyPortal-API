@@ -23,4 +23,7 @@ class Document extends Type {
 
     public ?Company $reseller;
     public ?Company $customer;
+
+    public ?string  $distributorId;
+    public ?Company $distributor;
 }

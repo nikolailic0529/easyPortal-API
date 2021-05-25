@@ -48,6 +48,7 @@ type AssetDocument {
   discount: String
   listPrice: String
   estimatedValueRenewal: String
+  distributor: Company
 }
 
 type Company {
@@ -145,6 +146,8 @@ type Document {
   currencyCode: String
   languageCode: String
   contactPersons: [CompanyContactPerson]
+  distributorId: ID
+  distributor: Company
 }
 
 type DocumentEntry {

@@ -61,6 +61,7 @@ use function count;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereCurrencyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereCustomerId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereDistributorId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereEnd($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereEntriesCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereId($value)
