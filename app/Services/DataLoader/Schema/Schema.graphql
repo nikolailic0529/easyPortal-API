@@ -28,6 +28,8 @@ type Asset {
   countryCode: String
   status: String
   latestContactPersons: [CompanyContactPerson]
+  status: String
+  assetCoverage: String
 }
 
 type AssetDocument {
@@ -42,13 +44,15 @@ type AssetDocument {
   equipmentNumber: String
   startDate: String
   document: Document
-  currencyCode: String
   languageCode: String
+  currencyCode: String
   netPrice: String
   discount: String
   listPrice: String
-  estimatedValueRenewal: String
   distributor: Company
+  customer: Company
+  reseller: Company
+  estimatedValueRenewal: String
 }
 
 type Company {
@@ -64,6 +68,9 @@ type Company {
   assets: [Asset]
   documents: [Document]
   updatedAt: String
+  keycloakGroupId: String
+  keycloakName: String
+  keycloakClientScopeName: String
 }
 
 type CompanyContactPerson {
@@ -142,18 +149,24 @@ type Document {
   startDate: String
   sourceDocument: [SourceDocument]
   updatedAt: String
+  languageCode: String
   totalNetPrice: String
   currencyCode: String
-  languageCode: String
-  contactPersons: [CompanyContactPerson]
-  distributorId: ID
+  distributorId: String
+  customer: Company
+  reseller: Company
   distributor: Company
+  contactPersons: [CompanyContactPerson]
 }
 
 type DocumentEntry {
   serialNumber: String
   assetId: String
   asset: Asset
+  currencyCode: String
+  netPrice: String
+  discount: String
+  listPrice: String
 }
 
 type DocumentVendorSpecificField {
