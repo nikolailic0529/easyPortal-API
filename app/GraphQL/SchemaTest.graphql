@@ -1005,9 +1005,6 @@ type Query {
   """
   quote(id: ID!): Document
 
-  """Get Locale"""
-  locale: String! @deprecated(reason: "use Application.locale instead")
-
   """
   List of Customers.
   

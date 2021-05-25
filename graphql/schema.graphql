@@ -160,12 +160,6 @@ type Query {
   @organization(root: true)
   @me(permissions: ["administer"])
   @paginate
-
-  # Deprecated
-  # ============================================================================
-  "Get Locale"
-  locale: String!
-  @deprecated(reason:"use Application.locale instead")
 }
 
 type Mutation {
