@@ -75,22 +75,22 @@ class AppServiceProvider extends ServiceProvider {
     protected function bootMorphMap(): void {
         Relation::morphMap([
             // Used in database
-            'customer'     => Customer::class,
-            'contact'      => Contact::class,
-            'location'     => Location::class,
-            'asset'        => Asset::class,
-            'reseller'     => Reseller::class,
-            'document'     => Document::class,
-            'organization' => Organization::class,
+            'customer'       => Customer::class,
+            'contact'        => Contact::class,
+            'location'       => Location::class,
+            'asset'          => Asset::class,
+            'reseller'       => Reseller::class,
+            'document'       => Document::class,
+            'organization'   => Organization::class,
 
             // Used only for translation
-            'type'         => Type::class,
-            'status'       => Status::class,
-            'country'      => Country::class,
-            'city'         => City::class,
-            'currency'     => Currency::class,
-            'language'     => Language::class,
-            'coverage'     => AssetCoverage::class,
+            'type'           => Type::class,
+            'status'         => Status::class,
+            'country'        => Country::class,
+            'city'           => City::class,
+            'currency'       => Currency::class,
+            'language'       => Language::class,
+            'asset-coverage' => AssetCoverage::class,
         ]);
     }
 }

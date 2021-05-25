@@ -260,14 +260,24 @@ class DocumentFactory extends ModelFactory {
         // WARNING: Document and Document.entries doesn't contains all required
         //      information to create Document.
 
-        // FIXME: We can have a document that was created with ID = number,
-        //      now we know its ID and probably should remove or update it.
-
         // Get/Create
         $created = false;
         $factory = $this->factory(
             function (DocumentModel $model) use (&$created, $document, $product, $entries): DocumentModel {
-                $created         = !$model->exists;
+                // We can have a document that was created with ID = number,
+                // now we know its ID and can update or remove it.
+                $existing = $this->documents->get($document->documentNumber);
+                $created  = !$model->exists;
+
+                if ($existing) {
+                    if ($model->exists) {
+                        $existing->delete();
+                    } else {
+                        $model = $existing;
+                    }
+                }
+
+                // Update
                 $model->id       = $this->normalizer->uuid($document->id);
                 $model->oem      = $this->documentOem($document);
                 $model->type     = $this->documentType($document);
@@ -284,6 +294,7 @@ class DocumentFactory extends ModelFactory {
                 $model->entries  = $entries ? $entries($model) : [/** TODO */];
                 $model->save();
 
+                // Return
                 return $model;
             },
         );

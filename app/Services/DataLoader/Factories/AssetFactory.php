@@ -39,8 +39,8 @@ use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
 use function array_map;
+use function array_merge;
 use function array_unique;
-use function is_null;
 use function sprintf;
 
 class AssetFactory extends ModelFactory {
@@ -142,16 +142,7 @@ class AssetFactory extends ModelFactory {
     // <editor-fold desc="Functions">
     // =========================================================================
     protected function createFromAsset(Asset $asset): ?AssetModel {
-        $model = $this->assetAsset($asset);
-
-        if (!$this->isSearchMode() && $this->getDocumentFactory() && isset($asset->assetDocument)) {
-            $documents = $this->assetDocuments($model, $asset);
-
-            $this->assetInitialWarranties($model, $asset, $documents);
-            $this->assetExtendedWarranties($model, $documents);
-        }
-
-        return $model;
+        return $this->assetAsset($asset);
     }
 
     protected function assetAsset(Asset $asset): AssetModel {
@@ -174,6 +165,10 @@ class AssetFactory extends ModelFactory {
             $model->serial_number = $this->normalizer->string($asset->serialNumber);
             $model->contacts      = $this->objectContacts($model, $asset->latestContactPersons);
             $model->coverage      = $this->coverages->create($asset);
+
+            if ($this->getDocumentFactory() && isset($asset->assetDocument)) {
+                $model->warranties = $this->assetWarranties($model, $asset);
+            }
 
             $model->save();
 
@@ -227,19 +222,37 @@ class AssetFactory extends ModelFactory {
     }
 
     /**
+     * @return array<\App\Models\AssetWarranty>
+     */
+    protected function assetWarranties(AssetModel $model, Asset $asset): array {
+        $documents  = $this->assetDocuments($model, $asset);
+        $warranties = array_merge(
+            $this->assetInitialWarranties($model, $asset, $documents),
+            $this->assetExtendedWarranties($model, $documents),
+        );
+
+        return $warranties;
+    }
+
+    /**
      * @param \Illuminate\Support\Collection<\App\Models\Document> $documents
      *
-     * @return \Illuminate\Support\Collection<\App\Models\AssetWarranty>
+     * @return array<\App\Models\AssetWarranty>
      */
-    protected function assetInitialWarranties(AssetModel $model, Asset $asset, Collection $documents): Collection {
+    protected function assetInitialWarranties(AssetModel $model, Asset $asset, Collection $documents): array {
         // @LastDragon: If I understand correctly, after purchasing the Asset
         // has an initial warranty up to "warrantyEndDate" and then the user
         // can buy additional warranty.
 
-        $warranties = new Collection();
-        $documents  = $documents->keyBy(static function (DocumentModel $document): string {
-            return $document->getKey();
-        });
+        $warranties = [];
+        $documents  = $documents
+            ->keyBy(static function (DocumentModel $document): string {
+                return $document->number;
+            });
+        $existing   = $model->warranties
+            ->filter(static function (AssetWarranty $warranty): bool {
+                return $warranty->document_id === null;
+            });
 
         foreach ($asset->assetDocument as $assetDocument) {
             // Warranty exists?
@@ -257,17 +270,16 @@ class AssetFactory extends ModelFactory {
                 continue;
             }
 
-            // Add new/Update
+            // Create/Update
             /** @var \App\Models\AssetWarranty|null $warranty */
-            $warranty = $model->warranties->first(static function (AssetWarranty $warranty) use ($document): bool {
-                return is_null($warranty->document_id)
-                    && $warranty->customer_id === $document->customer_id;
-            });
+            $warranty = $existing
+                ->first(static function (AssetWarranty $warranty) use ($document): bool {
+                    return $warranty->customer_id === $document->customer_id
+                        && $warranty->reseller_id === $document->reseller_id;
+                });
 
             if (!$warranty) {
                 $warranty = new AssetWarranty();
-
-                $model->warranties->add($warranty);
             }
 
             $warranty->start    = null;
@@ -279,7 +291,8 @@ class AssetFactory extends ModelFactory {
 
             $warranty->save();
 
-            $warranties->add($warranty);
+            // Store
+            $warranties[] = $warranty;
         }
 
         // Return
@@ -289,19 +302,25 @@ class AssetFactory extends ModelFactory {
     /**
      * @param \Illuminate\Support\Collection<\App\Models\Document> $documents
      *
-     * @return \Illuminate\Support\Collection<\App\Models\AssetWarranty>
+     * @return array<\App\Models\AssetWarranty>
      */
-    protected function assetExtendedWarranties(AssetModel $asset, Collection $documents): Collection {
-        /** @var \App\Models\Document $document */
-        foreach ($documents as $document) {
-            $warranty = $asset->warranties->first(static function (AssetWarranty $warranty) use ($document): bool {
-                return $warranty->document_id === $document->getKey();
+    protected function assetExtendedWarranties(AssetModel $asset, Collection $documents): array {
+        $warranties = [];
+        $existing   = $asset->warranties
+            ->filter(static function (AssetWarranty $warranty): bool {
+                return (bool) $warranty->document_id;
+            })
+            ->keyBy(static function (AssetWarranty $warranty): string {
+                return $warranty->getKey();
             });
+
+        foreach ($documents as $document) {
+            // Create/Update
+            /** @var \App\Models\Document $document */
+            $warranty = $existing->get($document->getKey());
 
             if (!$warranty) {
                 $warranty = new AssetWarranty();
-
-                $asset->warranties->add($warranty);
             }
 
             $warranty->start    = $document->start;
@@ -318,9 +337,12 @@ class AssetFactory extends ModelFactory {
                     return $entry->service;
                 });
             $warranty->save();
+
+            // Store
+            $warranties[] = $warranty;
         }
 
-        return $asset->warranties;
+        return $warranties;
     }
 
     protected function assetOem(Asset $asset): Oem {

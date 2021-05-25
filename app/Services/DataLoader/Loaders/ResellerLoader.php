@@ -84,7 +84,7 @@ class ResellerLoader extends Loader {
     // =========================================================================
     protected function getCurrentAssets(Model $owner): QueryIterator {
         return $this->isWithAssetsDocuments()
-            ? $this->client->getAssetsWithDocumentsByResellerId($owner->getKey())
+            ? $this->client->getAssetsByResellerIdWithDocuments($owner->getKey())
             : $this->client->getAssetsByResellerId($owner->getKey());
     }
 
