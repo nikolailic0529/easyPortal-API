@@ -625,13 +625,6 @@ input MeSearchSort {
 }
 
 type Mutation {
-  """
-  Set Organization properties
-  
-  @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
-  """
-  organization(locale: String, currency_id: ID, branding_dark_theme: Boolean, branding_primary_color: String, branding_secondary_color: String, branding_logo: Upload, branding_favicon: Upload, website_url: String, email: String): Boolean! @deprecated(reason: "use updateOrganization instead")
-
   """@require <me> User must be authenticated."""
   createMeSearch(input: CreateMeSearchInput!): CreateMeSearchPayload
 

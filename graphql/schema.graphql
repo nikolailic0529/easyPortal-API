@@ -161,21 +161,3 @@ type Query {
   @me(permissions: ["administer"])
   @paginate
 }
-
-type Mutation {
-  "Set Organization properties"
-  organization(
-    locale: String
-    currency_id: ID
-    branding_dark_theme: Boolean
-    branding_primary_color: String  # TODO [GraphQL] Color type needed
-    branding_secondary_color: String# TODO [GraphQL] Color type needed
-    branding_logo: Upload
-    branding_favicon: Upload
-    website_url: String             # TODO [GraphQL] URL type needed
-    email: String                   # TODO [GraphQL] Email type needed
-  ): Boolean!
-  @deprecated(reason:"use updateOrganization instead")
-  @me(permissions: ["edit-organization"])
-  @validator
-}
