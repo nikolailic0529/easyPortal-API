@@ -36,43 +36,50 @@ class UserProvider implements UserProviderContract {
     protected const CLAIM_LOCALE                = 'locale';
 
     /**
-     * @var array<string,string>
+     * @var array<string,array{property:string,required:boolean,default:mixed,if:string|null}>
      */
     protected array $map = [
         self::CLAIM_EMAIL                 => [
             'property' => 'email',
             'required' => true,
             'default'  => null,
+            'if'       => null,
         ],
         self::CLAIM_EMAIL_VERIFIED        => [
             'property' => 'email_verified',
             'required' => false,
             'default'  => false,
+            'if'       => null,
         ],
         self::CLAIM_GIVEN_NAME            => [
             'property' => 'given_name',
             'required' => true,
             'default'  => null,
+            'if'       => null,
         ],
         self::CLAIM_FAMILY_NAME           => [
             'property' => 'family_name',
             'required' => true,
             'default'  => null,
+            'if'       => null,
         ],
         self::CLAIM_PHONE_NUMBER          => [
             'property' => 'phone',
-            'required' => true,
+            'required' => false,
             'default'  => null,
+            'if'       => null,
         ],
         self::CLAIM_PHONE_NUMBER_VERIFIED => [
             'property' => 'phone_verified',
             'required' => false,
-            'default'  => false,
+            'default'  => null,
+            'if'       => self::CLAIM_PHONE_NUMBER,
         ],
         self::CLAIM_LOCALE                => [
             'property' => 'locale',
             'required' => false,
             'default'  => null,
+            'if'       => null,
         ],
     ];
 
@@ -241,8 +248,10 @@ class UserProvider implements UserProviderContract {
         foreach ($this->map as $claim => $property) {
             if ($property['required'] && !$claims->has($claim)) {
                 $missed[] = $claim;
-            } else {
+            } elseif ($property['if'] === null || $claims->has($property['if'])) {
                 $properties[$property['property']] = $claims->get($claim, $property['default']);
+            } else {
+                $properties[$property['property']] = null;
             }
         }
 

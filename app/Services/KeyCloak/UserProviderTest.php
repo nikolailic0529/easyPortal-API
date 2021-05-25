@@ -6,6 +6,7 @@ use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Exceptions\AnotherUserExists;
+use App\Services\KeyCloak\Exceptions\InsufficientData;
 use Closure;
 use Exception;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -145,12 +146,25 @@ class UserProviderTest extends TestCase {
 
     /**
      * @covers ::getProperties
+     *
+     * @dataProvider dataProviderGetProperties
      */
-    public function testGetProperties(): void {
+    public function testGetProperties(Exception|Closure $expected, Closure $claims): void {
+        // Error?
+        if ($expected instanceof Exception) {
+            $this->expectExceptionObject($expected);
+        }
+
+        // Prepare
         $clientId     = $this->faker->word;
         $organization = Organization::factory()->create([
             'keycloak_scope' => $this->faker->word,
         ]);
+        $claims       = $claims($clientId, $organization);
+
+        if ($expected instanceof Closure) {
+            $expected = $expected($clientId, $organization);
+        }
 
         $keycloak = Mockery::mock(KeyCloak::class);
         $keycloak
@@ -167,49 +181,11 @@ class UserProviderTest extends TestCase {
             ->once()
             ->andReturn($keycloak);
 
-        $token = $this->getToken([
-            'typ'                => 'Bearer',
-            'resource_access'    => [
-                $clientId => [
-                    'roles' => [
-                        'test_role_1',
-                        'test_role_2',
-                    ],
-                ],
-            ],
-            'scope'              => 'openid profile email',
-            'email_verified'     => true,
-            'name'               => 'Tesg Test',
-            'groups'             => [
-                '/access-requested',
-                '/resellers/reseller2',
-                'offline_access',
-                'uma_authorization',
-            ],
-            'phone_number'       => '12345678',
-            'preferred_username' => 'dun00101@eoopy.com',
-            'given_name'         => 'Tesg',
-            'family_name'        => 'Test',
-            'email'              => 'dun00101@eoopy.com',
-            'reseller_access'    => [
-                $organization->keycloak_scope => true,
-            ],
-        ]);
+        // Test
+        $token  = $this->getToken($claims);
+        $actual = $provider->getProperties($token);
 
-        $this->assertEquals([
-            'email'          => 'dun00101@eoopy.com',
-            'email_verified' => true,
-            'given_name'     => 'Tesg',
-            'family_name'    => 'Test',
-            'phone'          => '12345678',
-            'phone_verified' => false,
-            'locale'         => null,
-            'permissions'    => [
-                'test_role_1',
-                'test_role_2',
-            ],
-            'organization'   => $organization,
-        ], $provider->getProperties($token));
+        $this->assertEquals($expected, $actual);
     }
 
     /**
@@ -228,13 +204,15 @@ class UserProviderTest extends TestCase {
             ->shouldReceive('getProperties')
             ->once()
             ->andReturn([
-                'given_name'   => '123',
-                'family_name'  => '456',
-                'permissions'  => [
+                'phone'          => null,
+                'phone_verified' => null,
+                'given_name'     => '123',
+                'family_name'    => '456',
+                'permissions'    => [
                     'test_role_1',
                     'test_role_2',
                 ],
-                'organization' => $organization,
+                'organization'   => $organization,
             ]);
 
         // Test
@@ -488,6 +466,142 @@ class UserProviderTest extends TestCase {
                 static function (TestCase $test) {
                     return [
                         UserProvider::CREDENTIAL_PASSWORD => 'invalid',
+                    ];
+                },
+            ],
+        ];
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderGetProperties(): array {
+        return [
+            'all'                                        => [
+                static function (string $client, Organization $organization): array {
+                    return [
+                        'email'          => 'dun00101@eoopy.com',
+                        'email_verified' => true,
+                        'given_name'     => 'Tesg',
+                        'family_name'    => 'Test',
+                        'phone'          => '12345678',
+                        'phone_verified' => true,
+                        'locale'         => null,
+                        'permissions'    => [
+                            'test_role_1',
+                            'test_role_2',
+                        ],
+                        'organization'   => $organization,
+                    ];
+                },
+                static function (string $client, Organization $organization): array {
+                    return [
+                        'typ'                   => 'Bearer',
+                        'resource_access'       => [
+                            $client => [
+                                'roles' => [
+                                    'test_role_1',
+                                    'test_role_2',
+                                ],
+                            ],
+                        ],
+                        'scope'                 => 'openid profile email',
+                        'email_verified'        => true,
+                        'name'                  => 'Tesg Test',
+                        'groups'                => [
+                            '/access-requested',
+                            '/resellers/reseller2',
+                            'offline_access',
+                            'uma_authorization',
+                        ],
+                        'phone_number'          => '12345678',
+                        'phone_number_verified' => true,
+                        'preferred_username'    => 'dun00101@eoopy.com',
+                        'given_name'            => 'Tesg',
+                        'family_name'           => 'Test',
+                        'email'                 => 'dun00101@eoopy.com',
+                        'reseller_access'       => [
+                            $organization->keycloak_scope => true,
+                        ],
+                    ];
+                },
+            ],
+            'phone_number without phone_number_verified' => [
+                static function (string $client, Organization $organization): array {
+                    return [
+                        'email'          => 'dun00101@eoopy.com',
+                        'email_verified' => true,
+                        'given_name'     => 'Tesg',
+                        'family_name'    => 'Test',
+                        'phone'          => '12345678',
+                        'phone_verified' => null,
+                        'locale'         => null,
+                        'organization'   => $organization,
+                        'permissions'    => [],
+                    ];
+                },
+                static function (string $client, Organization $organization): array {
+                    return [
+                        'typ'                => 'Bearer',
+                        'scope'              => 'openid profile email',
+                        'email_verified'     => true,
+                        'name'               => 'Tesg Test',
+                        'phone_number'       => '12345678',
+                        'preferred_username' => 'dun00101@eoopy.com',
+                        'given_name'         => 'Tesg',
+                        'family_name'        => 'Test',
+                        'email'              => 'dun00101@eoopy.com',
+                        'reseller_access'    => [
+                            $organization->keycloak_scope => true,
+                        ],
+                    ];
+                },
+            ],
+            'no phone_number but phone_number_verified'  => [
+                static function (string $client, Organization $organization): array {
+                    return [
+                        'email'          => 'dun00101@eoopy.com',
+                        'email_verified' => true,
+                        'given_name'     => 'Tesg',
+                        'family_name'    => 'Test',
+                        'phone'          => null,
+                        'phone_verified' => null,
+                        'locale'         => null,
+                        'organization'   => $organization,
+                        'permissions'    => [],
+                    ];
+                },
+                static function (string $client, Organization $organization): array {
+                    return [
+                        'typ'                   => 'Bearer',
+                        'scope'                 => 'openid profile email',
+                        'email_verified'        => true,
+                        'name'                  => 'Tesg Test',
+                        'phone_number_verified' => true,
+                        'preferred_username'    => 'dun00101@eoopy.com',
+                        'given_name'            => 'Tesg',
+                        'family_name'           => 'Test',
+                        'email'                 => 'dun00101@eoopy.com',
+                        'reseller_access'       => [
+                            $organization->keycloak_scope => true,
+                        ],
+                    ];
+                },
+            ],
+            'required claim missed'                      => [
+                new InsufficientData(['email']),
+                static function (string $client, Organization $organization): array {
+                    return [
+                        'typ'                   => 'Bearer',
+                        'scope'                 => 'openid profile email',
+                        'name'                  => 'Tesg Test',
+                        'phone_number_verified' => true,
+                        'preferred_username'    => 'dun00101@eoopy.com',
+                        'given_name'            => 'Tesg',
+                        'family_name'           => 'Test',
+                        'reseller_access'       => [
+                            $organization->keycloak_scope => true,
+                        ],
                     ];
                 },
             ],
