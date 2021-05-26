@@ -29,7 +29,7 @@ abstract class Me extends AuthDirective {
                 User must be authenticated and have any of these permissions.
                 """
                 permissions: [String!]
-            ) on FIELD_DEFINITION | OBJECT
+            ) repeatable on FIELD_DEFINITION | OBJECT
             GRAPHQL;
     }
 
