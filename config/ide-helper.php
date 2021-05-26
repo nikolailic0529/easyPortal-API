@@ -59,7 +59,7 @@ return [
     |
     */
 
-    'write_model_magic_where'               => true,
+    'write_model_magic_where'               => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ return [
     |
     */
 
-    'write_model_relation_count_properties' => true,
+    'write_model_relation_count_properties' => false,
 
     /*
     |--------------------------------------------------------------------------
@@ -273,7 +273,7 @@ return [
     | or there is an import (use className) of a given class
     |
     */
-    'force_fqn'                             => false,
+    'force_fqn'                             => true,
 
     /*
     |--------------------------------------------------------------------------
