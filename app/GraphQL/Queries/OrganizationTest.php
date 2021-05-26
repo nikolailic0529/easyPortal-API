@@ -24,6 +24,7 @@ class OrganizationTest extends TestCase {
     /**
      * @covers ::__invoke
      * @covers ::root
+     * @covers ::branding
      *
      * @dataProvider dataProviderInvoke
      */
@@ -49,13 +50,9 @@ class OrganizationTest extends TestCase {
                 name
                 root
                 locale
-                branding_dark_theme
-                branding_primary_color
-                branding_secondary_color
-                branding_logo
-                branding_favicon
                 website_url
                 email
+                analytics_code
                 currency_id
                 currency {
                     id
@@ -70,6 +67,20 @@ class OrganizationTest extends TestCase {
                     line_two
                     latitude
                     longitude
+                }
+                branding {
+                    dark_theme
+                    main_color
+                    secondary_color
+                    logo_url
+                    favicon_url
+                    default_main_color
+                    default_secondary_color
+                    default_logo_url
+                    default_favicon_url
+                    welcome_image_url
+                    welcome_heading
+                    welcome_underline
                 }
             }
         }')->assertThat($expected);
@@ -114,14 +125,24 @@ class OrganizationTest extends TestCase {
                                     'longitude' => '-2.26318359',
                                 ])
                                 ->create([
-                                    'id'                       => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                    'name'                     => 'org1',
-                                    'locale'                   => 'en',
-                                    'branding_dark_theme'      => false,
-                                    'branding_primary_color'   => '#FFFFFF',
-                                    'branding_secondary_color' => '#000000',
-                                    'website_url'              => 'https://www.example.com',
-                                    'email'                    => 'test@example.com',
+                                    'id'                               => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                                    'name'                             => 'org1',
+                                    'locale'                           => 'en',
+                                    'website_url'                      => 'https://www.example.com',
+                                    'email'                            => 'test@example.com',
+                                    'analytics_code'                   => 'analytics_code',
+                                    'branding_dark_theme'              => true,
+                                    'branding_main_color'              => '#00000F',
+                                    'branding_secondary_color'         => '#0000F0',
+                                    'branding_logo_url'                => 'https://www.example.com/logo.png',
+                                    'branding_favicon_url'             => 'https://www.example.com/favicon.png',
+                                    'branding_default_main_color'      => '#000F00',
+                                    'branding_default_secondary_color' => '#00F000',
+                                    'branding_default_logo_url'        => 'https://www.example.com/logo-default.png',
+                                    'branding_default_favicon_url'     => 'https://www.example.com/favicon-default.png',
+                                    'branding_welcome_image_url'       => 'https://www.example.com/welcome-image.png',
+                                    'branding_welcome_heading'         => 'heading',
+                                    'branding_welcome_underline'       => 'underline',
                                 ]);
 
                             return $organization;
@@ -132,24 +153,20 @@ class OrganizationTest extends TestCase {
                 new ArrayDataProvider([
                     'ok'   => [
                         new GraphQLSuccess('organization', Organization::class, [
-                            'id'                       => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'name'                     => 'org1',
-                            'root'                     => false,
-                            'locale'                   => 'en',
-                            'branding_dark_theme'      => false,
-                            'branding_primary_color'   => '#FFFFFF',
-                            'branding_secondary_color' => '#000000',
-                            'branding_logo'            => null,
-                            'branding_favicon'         => null,
-                            'website_url'              => 'https://www.example.com',
-                            'email'                    => 'test@example.com',
-                            'currency_id'              => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
-                            'currency'                 => [
+                            'id'             => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                            'name'           => 'org1',
+                            'root'           => false,
+                            'locale'         => 'en',
+                            'website_url'    => 'https://www.example.com',
+                            'email'          => 'test@example.com',
+                            'analytics_code' => 'analytics_code',
+                            'currency_id'    => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
+                            'currency'       => [
                                 'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                                 'name' => 'currency1',
                                 'code' => 'CUR',
                             ],
-                            'locations'                => [
+                            'locations'      => [
                                 [
                                     'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
                                     'state'     => 'state1',
@@ -159,6 +176,20 @@ class OrganizationTest extends TestCase {
                                     'latitude'  => '47.91634204',
                                     'longitude' => '-2.26318359',
                                 ],
+                            ],
+                            'branding'       => [
+                                'dark_theme'              => true,
+                                'main_color'              => '#00000F',
+                                'secondary_color'         => '#0000F0',
+                                'logo_url'                => 'https://www.example.com/logo.png',
+                                'favicon_url'             => 'https://www.example.com/favicon.png',
+                                'default_main_color'      => '#000F00',
+                                'default_secondary_color' => '#00F000',
+                                'default_logo_url'        => 'https://www.example.com/logo-default.png',
+                                'default_favicon_url'     => 'https://www.example.com/favicon-default.png',
+                                'welcome_image_url'       => 'https://www.example.com/welcome-image.png',
+                                'welcome_heading'         => 'heading',
+                                'welcome_underline'       => 'underline',
                             ],
                         ]),
                         false,

@@ -27,8 +27,8 @@ class OrganizationValidator extends Validator {
             'locale'                   => [new Locale() ],
             'currency_id'              => ['nullable', new CurrencyId()],
             'branding_dark_theme'      => ['nullable', 'boolean'],
-            'branding_primary_color'   => ['nullable', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
-            'branding_secondary_color' => ['nullable', 'regex:/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/'],
+            'branding_primary_color'   => ['nullable', 'regex:/^#[A-Fa-f0-9]{6}$/'],
+            'branding_secondary_color' => ['nullable', 'regex:/^#[A-Fa-f0-9]{6}$/'],
             'website_url'              => ['url'],
             'email'                    => ['email'],
             'branding_logo'            => [

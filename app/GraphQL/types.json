@@ -10,6 +10,10 @@
             "format": "uri",
             "pattern": "^(https?)://"
         },
+        "color": {
+            "type": "string",
+            "pattern": "^#[A-Fa-f0-9]{6}$"
+        },
         "Status": {
             "type": "object",
             "required": [
@@ -550,7 +554,7 @@
                             "type": "null"
                         },
                         {
-                            "$ref":"#/definitions/ID"
+                            "$ref": "#/definitions/ID"
                         }
                     ]
                 },
@@ -560,7 +564,7 @@
                             "type": "null"
                         },
                         {
-                            "$ref":"../Types/Distributor.json"
+                            "$ref": "../Types/Distributor.json"
                         }
                     ]
                 }
@@ -749,16 +753,13 @@
                 "name",
                 "root",
                 "locale",
-                "branding_dark_theme",
-                "branding_primary_color",
-                "branding_secondary_color",
-                "branding_logo",
-                "branding_favicon",
                 "website_url",
                 "email",
+                "analytics_code",
                 "currency",
                 "currency_id",
-                "locations"
+                "locations",
+                "branding"
             ],
             "properties": {
                 "id": {
@@ -776,34 +777,14 @@
                         "null"
                     ]
                 },
-                "branding_primary_color": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "branding_secondary_color": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "branding_logo": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "branding_favicon": {
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
                 "website_url": {
-                    "type": [
-                        "string",
-                        "null"
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "$ref": "#/definitions/url"
+                        }
                     ]
                 },
                 "email": {
@@ -811,12 +792,6 @@
                         "string",
                         "null"
                     ]
-                },
-                "assets": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Asset"
-                    }
                 },
                 "currency": {
                     "$ref": "#/definitions/Currency"
@@ -832,6 +807,150 @@
                     "items": {
                         "$ref": "#/definitions/Location"
                     }
+                },
+                "analytics_code": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "branding": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/OrganizationBranding"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                }
+            }
+        },
+        "OrganizationBranding": {
+            "type": "object",
+            "additionProperties": false,
+            "required": [
+                "dark_theme",
+                "main_color",
+                "secondary_color",
+                "logo_url",
+                "favicon_url",
+                "default_main_color",
+                "default_secondary_color",
+                "default_logo_url",
+                "default_favicon_url",
+                "welcome_image_url",
+                "welcome_heading",
+                "welcome_underline"
+            ],
+            "properties": {
+                "dark_theme": {
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "main_color": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/color"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "secondary_color": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/color"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "logo_url": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "$ref": "#/definitions/url"
+                        }
+                    ]
+                },
+                "favicon_url": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/url"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "default_main_color": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/color"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "default_secondary_color": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/color"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "default_logo_url": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/url"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "default_favicon_url": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/url"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "welcome_image_url": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/url"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "welcome_heading": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "welcome_underline": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 }
             }
         },
