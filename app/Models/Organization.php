@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null                                                    $keycloak_group_id
  * @property string|null                                                    $locale
  * @property string|null                                                    $currency_id
+ * @property string|null                                                    $website_url
+ * @property string|null                                                    $email
  * @property bool|null                                                      $branding_dark_theme
  * @property string|null                                                    $branding_main_color
  * @property string|null                                                    $branding_secondary_color
@@ -28,8 +30,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null                                                    $branding_welcome_image_url
  * @property string|null                                                    $branding_welcome_heading
  * @property string|null                                                    $branding_welcome_underline
- * @property string|null                                                    $website_url
- * @property string|null                                                    $email
+ * @property string|null                                                    $analytics_code
  * @property \Carbon\CarbonImmutable                                        $created_at
  * @property \Carbon\CarbonImmutable                                        $updated_at
  * @property \Carbon\CarbonImmutable|null                                   $deleted_at

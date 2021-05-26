@@ -14,6 +14,10 @@ ALTER TABLE `organizations`
     CHANGE COLUMN `branding_logo` `branding_logo_url`               VARCHAR(2048) NULL DEFAULT NULL,
     CHANGE COLUMN `branding_favicon` `branding_default_favicon_url` VARCHAR(2048) NULL DEFAULT NULL;
 
+ALTER TABLE `organizations`
+    CHANGE COLUMN `website_url` `website_url` VARCHAR(2048) NULL DEFAULT NULL AFTER `currency_id`,
+    CHANGE COLUMN `email` `email`             VARCHAR(255)  NULL DEFAULT NULL AFTER `website_url`,
+    ADD COLUMN `analytics_code`               VARCHAR(255)  NULL DEFAULT NULL AFTER `email`;
 
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;

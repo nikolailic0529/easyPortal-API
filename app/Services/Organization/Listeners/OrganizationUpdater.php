@@ -68,6 +68,7 @@ class OrganizationUpdater implements Subscriber {
         if (isset($company->brandingData)) {
             $branding                                       = $company->brandingData;
             $normalizer                                     = $this->normalizer;
+            $organization->analytics_code                   = $normalizer->string($branding->resellerAnalyticsCode);
             $organization->branding_dark_theme              = $normalizer->boolean($branding->brandingMode);
             $organization->branding_main_color              = $normalizer->string($branding->mainColor);
             $organization->branding_secondary_color         = $normalizer->string($branding->secondaryColor);
@@ -81,6 +82,7 @@ class OrganizationUpdater implements Subscriber {
             $organization->branding_welcome_heading         = $normalizer->string($branding->mainHeadingText);
             $organization->branding_welcome_underline       = $normalizer->string($branding->underlineText);
         } else {
+            $organization->analytics_code                   = null;
             $organization->branding_dark_theme              = null;
             $organization->branding_main_color              = null;
             $organization->branding_secondary_color         = null;

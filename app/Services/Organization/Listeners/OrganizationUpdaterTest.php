@@ -164,6 +164,7 @@ class OrganizationUpdaterTest extends TestCase {
                 'secondaryColorDefault' => " {$this->faker->hexColor} ",
                 'underlineText'         => " {$this->faker->text} ",
                 'useDefaultFavIcon'     => " {$this->faker->url} ",
+                'resellerAnalyticsCode' => " {$this->faker->word} ",
             ],
         ]);
         $event    = new ResellerUpdated($reseller, $company);
@@ -223,6 +224,10 @@ class OrganizationUpdaterTest extends TestCase {
             $normalizer->string($branding->useDefaultFavIcon),
             $organization->branding_default_favicon_url,
         );
+        $this->assertEquals(
+            $normalizer->string($branding->resellerAnalyticsCode),
+            $organization->analytics_code,
+        );
 
         // Without branding
         $company = Company::create([
@@ -248,5 +253,6 @@ class OrganizationUpdaterTest extends TestCase {
         $this->assertNull($organization->branding_default_secondary_color);
         $this->assertNull($organization->branding_welcome_underline);
         $this->assertNull($organization->branding_default_favicon_url);
+        $this->assertNull($organization->analytics_code);
     }
 }
