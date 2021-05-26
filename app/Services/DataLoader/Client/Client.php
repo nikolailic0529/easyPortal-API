@@ -6,6 +6,7 @@ use App\Services\DataLoader\Exceptions\DataLoaderException;
 use App\Services\DataLoader\Exceptions\GraphQLQueryFailed;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\CompanyBrandingData;
 use Closure;
 use Exception;
 use GraphQL\Type\Introspection;
@@ -230,6 +231,23 @@ class Client {
     }
     // </editor-fold>
 
+    // <editor-fold desc="Mutations">
+    // =========================================================================
+    public function updateBrandingData(CompanyBrandingData $input): bool {
+        return (bool) $this->call(
+            'data.updateBrandingData',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query updateBrandingData(\$input: CompanyBrandingData!) {
+                updateBrandingData(id: \$input)
+            }
+            GRAPHQL,
+            [
+                'input' => $input,
+            ],
+        );
+    }
+    // </editor-fold>
+
     // <editor-fold desc="API">
     // =========================================================================
     public function isEnabled(): bool {
@@ -258,7 +276,7 @@ class Client {
      * @return array<mixed>|null
      */
     public function get(string $selector, string $graphql, array $params = []): ?array {
-        $results = $this->call("data.{$selector}", $graphql, $params);
+        $results = (array) $this->call("data.{$selector}", $graphql, $params);
         $item    = reset($results) ?: null;
 
         return $item;
@@ -266,10 +284,8 @@ class Client {
 
     /**
      * @param array<mixed> $params
-     *
-     * @return array<mixed>|null
      */
-    public function call(string $selector, string $graphql, array $params = []): ?array {
+    public function call(string $selector, string $graphql, array $params = []): mixed {
         // Enabled?
         if (!$this->isEnabled()) {
             throw new DataLoaderException('DataLoader is disabled.');
@@ -319,7 +335,7 @@ class Client {
         // Error?
         $json   = $response->json();
         $errors = Arr::get($json, 'errors', Arr::get($json, 'error.errors'));
-        $result = Arr::get($json, $selector, []) ?: [];
+        $result = Arr::get($json, $selector);
 
         if ($errors) {
             $error = new GraphQLQueryFailed($graphql, $params, $errors);
