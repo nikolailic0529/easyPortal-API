@@ -2,8 +2,11 @@
 
 namespace App\Utils;
 
+use JsonSerializable;
 use ReflectionClass;
 use ReflectionNamedType;
+
+use ReflectionObject;
 
 use function array_map;
 use function is_object;
@@ -18,11 +21,10 @@ use function str_contains;
  *
  * Features/Limitations (and TODOs)
  * - Type unions not supported;
- * - If the field is an array that `null` will be converted to an empty array.
  *
  * @internal
  */
-abstract class JsonFactory {
+abstract class JsonObject implements JsonSerializable {
     /**
      * Contains factories for properties that should be an instance of class or
      * an array of classes (this data extracted from type-hints and comments).
@@ -44,6 +46,22 @@ abstract class JsonFactory {
                     : $value;
             }
         }
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function jsonSerialize(): array {
+        $properties = (new ReflectionObject($this))->getProperties();
+        $json       = [];
+
+        foreach ($properties as $property) {
+            if (!$property->isStatic() && $property->isInitialized($this)) {
+                $json[$property->getName()] = $property->getValue($this);
+            }
+        }
+
+        return $json;
     }
 
     /**
@@ -88,12 +106,12 @@ abstract class JsonFactory {
                 if (str_contains($class, '\\')) {
                     $factory = static function (object|array|null $json) use ($class): ?object {
                         /** @var static $class */
-                        return is_object($json) ? $json : ($json ? new $class($json) : null);
+                        return is_object($json) ? $json : ($json !== null ? new $class($json) : null);
                     };
 
                     if ($isArray) {
-                        $factory = static function (array|null $json) use ($factory): array {
-                            return array_map($factory, (array) $json);
+                        $factory = static function (array|null $json) use ($factory): ?array {
+                            return $json !== null ? array_map($factory, $json) : null;
                         };
                     }
                 }

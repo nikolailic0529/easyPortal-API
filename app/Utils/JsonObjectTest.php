@@ -8,14 +8,14 @@ use function tap;
 
 /**
  * @internal
- * @coversDefaultClass \App\Utils\JsonFactory
+ * @coversDefaultClass \App\Utils\JsonObject
  */
-class JsonFactoryTest extends TestCase {
+class JsonObjectTest extends TestCase {
     /**
      * @covers ::__construct
      */
     public function testConstruct(): void {
-        $expected = tap(new JsonFactoryTest_Parent(), static function (JsonFactoryTest_Parent $parent): void {
+        $expected = tap(new JsonObjectTest_Parent(), static function (JsonObjectTest_Parent $parent): void {
             $parent->i        = 123;
             $parent->b        = true;
             $parent->f        = 1.2;
@@ -28,13 +28,13 @@ class JsonFactoryTest extends TestCase {
                 's' => '123',
             ];
             $parent->children = [
-                tap(new JsonFactoryTest_Child(), static function (JsonFactoryTest_Child $child): void {
+                tap(new JsonObjectTest_Child(), static function (JsonObjectTest_Child $child): void {
                     $child->i        = 345;
                     $child->b        = false;
                     $child->f        = 3.5;
                     $child->s        = '345';
                     $child->children = [
-                        tap(new JsonFactoryTest_Child(), static function (JsonFactoryTest_Child $child): void {
+                        tap(new JsonObjectTest_Child(), static function (JsonObjectTest_Child $child): void {
                             $child->i = 345;
                             $child->b = false;
                             $child->f = 3.5;
@@ -42,16 +42,16 @@ class JsonFactoryTest extends TestCase {
                         }),
                     ];
                 }),
-                tap(new JsonFactoryTest_Child(), static function (JsonFactoryTest_Child $child): void {
+                tap(new JsonObjectTest_Child(), static function (JsonObjectTest_Child $child): void {
                     $child->i        = 567;
                     $child->b        = true;
                     $child->f        = 5.7;
                     $child->s        = '567';
-                    $child->children = [];
+                    $child->children = null;
                 }),
             ];
         });
-        $actual   = new JsonFactoryTest_Parent([
+        $actual   = new JsonObjectTest_Parent([
             'i'        => 123,
             'b'        => true,
             'f'        => 1.2,
@@ -90,6 +90,26 @@ class JsonFactoryTest extends TestCase {
 
         $this->assertEquals($expected, $actual);
     }
+
+    /**
+     * @covers ::jsonSerialize
+     */
+    public function testJsonSerialize(): void {
+        $object          = new JsonObjectTest_Child([
+            'i' => 567,
+            'b' => true,
+        ]);
+        $object->dynamic = 'value';
+
+        $this->assertEquals(
+            [
+                'i'       => 567,
+                'b'       => true,
+                'dynamic' => 'value',
+            ],
+            $object->jsonSerialize(),
+        );
+    }
 }
 
 // @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
@@ -99,7 +119,7 @@ class JsonFactoryTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class JsonFactoryTest_Parent extends JsonFactory {
+class JsonObjectTest_Parent extends JsonObject {
     public int    $i;
     public bool   $b;
     public float  $f;
@@ -111,7 +131,7 @@ class JsonFactoryTest_Parent extends JsonFactory {
     public array $array;
 
     /**
-     * @var array<\App\Utils\JsonFactoryTest_Child>
+     * @var array<\App\Utils\JsonObjectTest_Child>
      */
     public array $children;
 
@@ -125,14 +145,14 @@ class JsonFactoryTest_Parent extends JsonFactory {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class JsonFactoryTest_Child extends JsonFactory {
+class JsonObjectTest_Child extends JsonObject {
     public int    $i;
     public bool   $b;
     public float  $f;
     public string $s;
 
     /**
-     * @var array<int, \App\Utils\JsonFactoryTest_Child>
+     * @var array<int, \App\Utils\JsonObjectTest_Child>
      */
-    public array $children;
+    public array|null $children;
 }
