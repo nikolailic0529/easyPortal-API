@@ -3,8 +3,8 @@
 namespace App\Services\DataLoader\Schema;
 
 class Company extends Type {
-    public string $id;
-    public string $name;
+    public string  $id;
+    public string  $name;
     public ?string $keycloakName;
     public ?string $keycloakGroupId;
     /**
@@ -23,4 +23,6 @@ class Company extends Type {
      * @var array<\App\Services\DataLoader\Schema\Asset>
      */
     public array $assets;
+
+    public ?BrandingData $brandingData;
 }

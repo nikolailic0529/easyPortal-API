@@ -55,10 +55,24 @@ type AssetDocument {
   estimatedValueRenewal: String
 }
 
+type BrandingData {
+  mainColor: String
+  secondaryColor: String
+  defaultMainColor: String
+  secondaryColorDefault: String
+  defaultLogoUrl: String
+  favIconUrl: String
+  useDefaultFavIcon: String
+  resellerAnalyticsCode: String
+  brandingMode: String
+  mainImageOnTheRight: String
+  mainHeadingText: String
+  underlineText: String
+  logoUrl: String
+}
+
 type Company {
   id: ID
-  keycloakGroupId: String
-  keycloakClientScopeName: String
   companyContactPersons: [CompanyContactPerson]
   vendorSpecificField: [VendorSpecificField]
   companyTypes: [CompanyType]
@@ -68,6 +82,7 @@ type Company {
   assets: [Asset]
   documents: [Document]
   updatedAt: String
+  brandingData: BrandingData
   keycloakGroupId: String
   keycloakName: String
   keycloakClientScopeName: String
