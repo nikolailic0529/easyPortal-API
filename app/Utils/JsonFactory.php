@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Utils;
+namespace App\Utils;
 
 use ReflectionClass;
 use ReflectionNamedType;
@@ -31,24 +31,19 @@ abstract class JsonFactory {
      */
     private static array $properties = [];
 
-    public function __construct() {
-        // empty
-    }
-
     /**
      * @param array<mixed> $json
      */
-    public static function create(array $json): static {
-        $object     = new static();
-        $properties = self::getProperties();
+    public function __construct(array $json = []) {
+        if ($json) {
+            $properties = self::getProperties();
 
-        foreach ($json as $property => $value) {
-            $object->{$property} = isset($properties[$property])
-                ? $properties[$property]($value)
-                : $value;
+            foreach ($json as $property => $value) {
+                $this->{$property} = isset($properties[$property])
+                    ? $properties[$property]($value)
+                    : $value;
+            }
         }
-
-        return $object;
     }
 
     /**
@@ -93,7 +88,7 @@ abstract class JsonFactory {
                 if (str_contains($class, '\\')) {
                     $factory = static function (object|array|null $json) use ($class): ?object {
                         /** @var static $class */
-                        return is_object($json) ? $json : ($json ? $class::create($json) : null);
+                        return is_object($json) ? $json : ($json ? new $class($json) : null);
                     };
 
                     if ($isArray) {

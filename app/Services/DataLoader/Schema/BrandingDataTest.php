@@ -17,7 +17,7 @@ class BrandingDataTest extends TestCase {
      */
     public function testCreate(): void {
         $json       = $this->getTestData()->json();
-        $actual     = BrandingData::create($json);
+        $actual     = new BrandingData($json);
         $properties = BrandingData::getPropertiesNames();
 
         $this->assertEqualsCanonicalizing(array_keys($json), $properties);

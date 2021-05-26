@@ -17,7 +17,7 @@ class CompanyTypeTest extends TestCase {
      */
     public function testCreate(): void {
         $json       = $this->getTestData()->json();
-        $actual     = CompanyType::create($json);
+        $actual     = new CompanyType($json);
         $properties = CompanyType::getPropertiesNames();
 
         $this->assertEquals(array_keys($json), $properties);

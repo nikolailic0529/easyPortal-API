@@ -28,7 +28,7 @@ class CurrencyFactoryTest extends TestCase {
      */
     public function testFind(): void {
         $factory = $this->app->make(CurrencyFactory::class);
-        $entry   = DocumentEntry::create([
+        $entry   = new DocumentEntry([
             'currencyCode' => $this->faker->currencyCode,
         ]);
 
@@ -66,7 +66,7 @@ class CurrencyFactoryTest extends TestCase {
      * @covers ::createFromAssetDocumentObject
      */
     public function testCreateFromAssetDocumentObject(): void {
-        $document = AssetDocumentObject::create([
+        $document = new AssetDocumentObject([
             'document' => [
                 'currencyCode' => $this->faker->currencyCode,
                 'document'     => [
@@ -97,7 +97,7 @@ class CurrencyFactoryTest extends TestCase {
      */
     public function testCreateFromAssetDocument(): void {
         $code     = $this->faker->currencyCode;
-        $document = AssetDocument::create([
+        $document = new AssetDocument([
             'currencyCode' => $code,
         ]);
 
@@ -117,7 +117,7 @@ class CurrencyFactoryTest extends TestCase {
      */
     public function testCreateFromDocument(): void {
         $code     = $this->faker->currencyCode;
-        $document = Document::create([
+        $document = new Document([
             'currencyCode' => $code,
         ]);
 
@@ -137,7 +137,7 @@ class CurrencyFactoryTest extends TestCase {
      */
     public function testCreateFromDocumentEntry(): void {
         $code     = $this->faker->currencyCode;
-        $document = DocumentEntry::create([
+        $document = new DocumentEntry([
             'currencyCode' => $code,
         ]);
 

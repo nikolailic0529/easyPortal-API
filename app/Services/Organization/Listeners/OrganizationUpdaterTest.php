@@ -7,6 +7,7 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Schema\Company;
+use App\Utils\JsonFactory;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
@@ -29,7 +30,7 @@ class OrganizationUpdaterTest extends TestCase {
     public function testHandle(): void {
         $reseller = Reseller::factory()->make();
         $updater  = $this->app->make(OrganizationUpdater::class);
-        $company  = Company::create([
+        $company  = new Company([
             'keycloakName'    => $this->faker->word,
             'keycloakGroupId' => $this->faker->word,
         ]);
@@ -53,7 +54,7 @@ class OrganizationUpdaterTest extends TestCase {
     public function testHandleOrganizationExists(): void {
         $reseller = Reseller::factory()->make();
         $updater  = $this->app->make(OrganizationUpdater::class);
-        $company  = Company::create([
+        $company  = new Company([
             'keycloakName'    => $this->faker->word,
             'keycloakGroupId' => $this->faker->word,
         ]);
@@ -81,7 +82,7 @@ class OrganizationUpdaterTest extends TestCase {
     public function testHandleSoftDeleteOrganizationExists(): void {
         $reseller = Reseller::factory()->create(['name' => 'Test Reseller']);
         $updater  = $this->app->make(OrganizationUpdater::class);
-        $company  = Company::create([
+        $company  = new Company([
             'keycloakName'    => $this->faker->word,
             'keycloakGroupId' => $this->faker->word,
         ]);
@@ -115,7 +116,7 @@ class OrganizationUpdaterTest extends TestCase {
     public function testHandleScopeAndGroutIsUsedByAnotherOrganization(): void {
         $reseller          = Reseller::factory()->make();
         $updater           = $this->app->make(OrganizationUpdater::class);
-        $company           = Company::create([
+        $company           = new Company([
             'keycloakName'    => $this->faker->word,
             'keycloakGroupId' => $this->faker->word,
         ]);
@@ -148,7 +149,7 @@ class OrganizationUpdaterTest extends TestCase {
         // With Branding
         $reseller = Reseller::factory()->make();
         $updater  = $this->app->make(OrganizationUpdater::class);
-        $company  = Company::create([
+        $company  = new Company([
             'keycloakName'    => $this->faker->word,
             'keycloakGroupId' => $this->faker->word,
             'brandingData'    => [
@@ -230,7 +231,7 @@ class OrganizationUpdaterTest extends TestCase {
         );
 
         // Without branding
-        $company = Company::create([
+        $company = new Company([
             'keycloakName'    => $this->faker->word,
             'keycloakGroupId' => $this->faker->word,
         ]);

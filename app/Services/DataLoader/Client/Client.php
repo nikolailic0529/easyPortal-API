@@ -47,7 +47,7 @@ class Client {
                 GRAPHQL,
                 [],
                 static function (array $data): Company {
-                    return Company::create($data);
+                    return new Company($data);
                 },
             )
             ->limit($limit)
@@ -70,7 +70,7 @@ class Client {
         );
 
         if ($company) {
-            $company = Company::create($company);
+            $company = new Company($company);
         }
 
         return $company;
@@ -98,7 +98,7 @@ class Client {
         );
 
         if ($asset) {
-            $asset = Asset::create($asset);
+            $asset = new Asset($asset);
         }
 
         return $asset;
@@ -125,7 +125,7 @@ class Client {
                     'id' => $id,
                 ],
                 static function (array $data): Asset {
-                    return Asset::create($data);
+                    return new Asset($data);
                 },
             )
             ->limit($limit)
@@ -156,7 +156,7 @@ class Client {
                     'id' => $id,
                 ],
                 static function (array $data): Asset {
-                    return Asset::create($data);
+                    return new Asset($data);
                 },
             )
             ->limit($limit)
@@ -184,7 +184,7 @@ class Client {
                     'id' => $id,
                 ],
                 static function (array $data): Asset {
-                    return Asset::create($data);
+                    return new Asset($data);
                 },
             )
             ->limit($limit)
@@ -215,7 +215,7 @@ class Client {
                     'id' => $id,
                 ],
                 static function (array $data): Asset {
-                    return Asset::create($data);
+                    return new Asset($data);
                 },
             )
             ->limit($limit)

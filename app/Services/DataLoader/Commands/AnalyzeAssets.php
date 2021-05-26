@@ -114,7 +114,7 @@ class AnalyzeAssets extends Command {
                 GRAPHQL,
                 [],
                 static function (array $data): Asset {
-                    return Asset::create($data);
+                    return new Asset($data);
                 },
             )
             ->offset($offset)

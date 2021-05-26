@@ -17,7 +17,7 @@ class DocumentVendorSpecificFieldTest extends TestCase {
      */
     public function testCreate(): void {
         $json       = $this->getTestData()->json();
-        $actual     = DocumentVendorSpecificField::create($json);
+        $actual     = new DocumentVendorSpecificField($json);
         $properties = DocumentVendorSpecificField::getPropertiesNames();
 
         $this->assertEquals(array_keys($json), $properties);

@@ -48,7 +48,7 @@ class DocumentFactoryTest extends TestCase {
     public function testFind(): void {
         $factory  = $this->app->make(DocumentFactory::class);
         $json     = $this->getTestData()->json('~document-full.json');
-        $document = AssetDocumentObject::create([
+        $document = new AssetDocumentObject([
             'document' => $json,
         ]);
 
@@ -95,11 +95,11 @@ class DocumentFactoryTest extends TestCase {
         // Create
         // ---------------------------------------------------------------------
         $json    = $this->getTestData()->json('~asset-document-full.json');
-        $asset   = Asset::create($json);
+        $asset   = new Asset($json);
         $model   = AssetModel::factory()->create([
             'id' => $asset->id,
         ]);
-        $object  = AssetDocumentObject::create([
+        $object  = new AssetDocumentObject([
             'asset'    => $model,
             'document' => reset($asset->assetDocument),
             'entries'  => $asset->assetDocument,
@@ -147,8 +147,8 @@ class DocumentFactoryTest extends TestCase {
         // Changed
         // ---------------------------------------------------------------------
         $json    = $this->getTestData()->json('~asset-document-changed.json');
-        $asset   = Asset::create($json);
-        $object  = AssetDocumentObject::create([
+        $asset   = new Asset($json);
+        $object  = new AssetDocumentObject([
             'asset'    => $model,
             'document' => reset($asset->assetDocument),
             'entries'  => $asset->assetDocument,
@@ -188,11 +188,11 @@ class DocumentFactoryTest extends TestCase {
         // Create
         // ---------------------------------------------------------------------
         $json    = $this->getTestData()->json('~asset-document-no-document.json');
-        $asset   = Asset::create($json);
+        $asset   = new Asset($json);
         $model   = AssetModel::factory()->create([
             'id' => $asset->id,
         ]);
-        $object  = AssetDocumentObject::create([
+        $object  = new AssetDocumentObject([
             'asset'    => $model,
             'document' => reset($asset->assetDocument),
             'entries'  => $asset->assetDocument,
@@ -241,7 +241,7 @@ class DocumentFactoryTest extends TestCase {
     public function testAssetDocumentObjectSupport(): void {
         $oem      = Oem::factory()->make();
         $type     = ProductType::support();
-        $document = AssetDocumentObject::create([
+        $document = new AssetDocumentObject([
             'document' => [
                 'document'                  => [
                     'vendorSpecificFields' => [
@@ -309,7 +309,7 @@ class DocumentFactoryTest extends TestCase {
         $b          = DocumentEntryModel::factory()->create($properties);
         $c          = DocumentEntryModel::factory()->create($properties);
         $d          = DocumentEntryModel::factory()->create($properties);
-        $object     = AssetDocumentObject::create([
+        $object     = new AssetDocumentObject([
             'asset'   => $asset,
             'entries' => [
                 [
@@ -420,7 +420,7 @@ class DocumentFactoryTest extends TestCase {
         $discount       = number_format($this->faker->randomFloat(2), 2, '.', '');
         $listPrice      = number_format($this->faker->randomFloat(2), 2, '.', '');
         $renewal        = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $assetDocument  = AssetDocument::create([
+        $assetDocument  = new AssetDocument([
             'skuNumber'             => " {$skuNumber} ",
             'skuDescription'        => " {$skuDescription} ",
             'netPrice'              => " {$netPrice} ",
@@ -519,7 +519,7 @@ class DocumentFactoryTest extends TestCase {
 
         // Test
         $json     = $this->getTestData()->json('~document-full.json');
-        $document = AssetDocument::create($json);
+        $document = new AssetDocument($json);
         $created  = $factory->createFromDocument($document->document);
 
         $this->assertNotNull($created);
@@ -547,7 +547,7 @@ class DocumentFactoryTest extends TestCase {
 
         // Customer should be updated
         $json     = $this->getTestData()->json('~document-changed.json');
-        $document = AssetDocument::create($json);
+        $document = new AssetDocument($json);
         $updated  = $factory->createFromDocument($document->document);
 
         $this->assertNotNull($updated);
@@ -571,7 +571,7 @@ class DocumentFactoryTest extends TestCase {
         // Prepare
         $factory  = $this->app->make(DocumentFactoryTest_Factory::class);
         $json     = $this->getTestData()->json('~document-full.json');
-        $document = AssetDocument::create($json);
+        $document = new AssetDocument($json);
         $model    = DocumentModel::factory()->create([
             'id'     => $document->document->documentNumber,
             'number' => $document->document->documentNumber,
@@ -596,7 +596,7 @@ class DocumentFactoryTest extends TestCase {
         // Prepare
         $factory  = $this->app->make(DocumentFactoryTest_Factory::class);
         $json     = $this->getTestData()->json('~document-full.json');
-        $document = AssetDocument::create($json);
+        $document = new AssetDocument($json);
 
         DocumentModel::factory()->create([
             'id'     => $document->document->documentNumber,
@@ -622,7 +622,7 @@ class DocumentFactoryTest extends TestCase {
      * @covers ::documentOem
      */
     public function testDocumentOem(): void {
-        $document = Document::create([
+        $document = new Document([
             'vendorSpecificFields' => [
                 'vendor' => $this->faker->word,
             ],
@@ -647,7 +647,7 @@ class DocumentFactoryTest extends TestCase {
      * @covers ::documentType
      */
     public function testDocumentType(): void {
-        $document = Document::create([
+        $document = new Document([
             'type' => $this->faker->word,
         ]);
         $factory  = Mockery::mock(DocumentFactoryTest_Factory::class);
@@ -701,13 +701,13 @@ class DocumentFactoryTest extends TestCase {
 
         $factory->prefetch(
             [
-                Asset::create([
+                new Asset([
                     'assetDocument' => [$a, $b],
                 ]),
-                Asset::create([
+                new Asset([
                     'assetDocument' => [$c],
                 ]),
-                Asset::create([
+                new Asset([
                     // should pass
                 ]),
             ],
@@ -719,13 +719,13 @@ class DocumentFactoryTest extends TestCase {
 
         $this->flushQueryLog();
 
-        $factory->find(AssetDocumentObject::create([
+        $factory->find(new AssetDocumentObject([
             'document' => $a,
         ]));
-        $factory->find(AssetDocumentObject::create([
+        $factory->find(new AssetDocumentObject([
             'document' => $b,
         ]));
-        $factory->find(AssetDocumentObject::create([
+        $factory->find(new AssetDocumentObject([
             'document' => $c,
         ]));
 

@@ -27,7 +27,7 @@ class LanguageFactoryTest extends TestCase {
      */
     public function testFind(): void {
         $factory = $this->app->make(LanguageFactory::class);
-        $entry   = Document::create([
+        $entry   = new Document([
             'languageCode' => $this->faker->languageCode,
         ]);
 
@@ -65,7 +65,7 @@ class LanguageFactoryTest extends TestCase {
      * @covers ::createFromAssetDocumentObject
      */
     public function testCreateFromAssetDocumentObject(): void {
-        $document = AssetDocumentObject::create([
+        $document = new AssetDocumentObject([
             'document' => [
                 'languageCode' => $this->faker->languageCode,
                 'document'     => [
@@ -96,7 +96,7 @@ class LanguageFactoryTest extends TestCase {
      */
     public function testCreateFromAssetDocument(): void {
         $code     = $this->faker->languageCode;
-        $document = AssetDocument::create([
+        $document = new AssetDocument([
             'languageCode' => $code,
         ]);
 
@@ -117,7 +117,7 @@ class LanguageFactoryTest extends TestCase {
      */
     public function testCreateFromDocument(): void {
         $code     = $this->faker->languageCode;
-        $document = Document::create([
+        $document = new Document([
             'languageCode' => $code,
         ]);
 

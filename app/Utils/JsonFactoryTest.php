@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Utils;
+namespace App\Utils;
 
 use PHPUnit\Framework\TestCase;
 
@@ -8,13 +8,13 @@ use function tap;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Utils\JsonFactory
+ * @coversDefaultClass \App\Utils\JsonFactory
  */
 class JsonFactoryTest extends TestCase {
     /**
-     * @covers ::create
+     * @covers ::__construct
      */
-    public function testCreate(): void {
+    public function testConstruct(): void {
         $expected = tap(new JsonFactoryTest_Parent(), static function (JsonFactoryTest_Parent $parent): void {
             $parent->i        = 123;
             $parent->b        = true;
@@ -51,7 +51,7 @@ class JsonFactoryTest extends TestCase {
                 }),
             ];
         });
-        $actual   = JsonFactoryTest_Parent::create([
+        $actual   = new JsonFactoryTest_Parent([
             'i'        => 123,
             'b'        => true,
             'f'        => 1.2,
@@ -111,7 +111,7 @@ class JsonFactoryTest_Parent extends JsonFactory {
     public array $array;
 
     /**
-     * @var array<\App\Services\DataLoader\Utils\JsonFactoryTest_Child>
+     * @var array<\App\Utils\JsonFactoryTest_Child>
      */
     public array $children;
 
@@ -132,7 +132,7 @@ class JsonFactoryTest_Child extends JsonFactory {
     public string $s;
 
     /**
-     * @var array<int, \App\Services\DataLoader\Utils\JsonFactoryTest_Child>
+     * @var array<int, \App\Utils\JsonFactoryTest_Child>
      */
     public array $children;
 }

@@ -17,7 +17,7 @@ class CompanyContactPersonTest extends TestCase {
      */
     public function testCreate(): void {
         $json       = $this->getTestData()->json();
-        $actual     = CompanyContactPerson::create($json);
+        $actual     = new CompanyContactPerson($json);
         $properties = CompanyContactPerson::getPropertiesNames();
 
         $this->assertEquals(array_keys($json), $properties);
