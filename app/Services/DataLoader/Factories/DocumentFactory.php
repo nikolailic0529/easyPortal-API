@@ -51,6 +51,7 @@ class DocumentFactory extends ModelFactory {
         protected CurrencyFactory $currencies,
         protected DocumentResolver $documents,
         protected LanguageFactory $languages,
+        protected DistributorFactory $distributors,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -123,21 +124,22 @@ class DocumentFactory extends ModelFactory {
             $created = false;
             $factory = $this->factory(
                 function (DocumentModel $model) use (&$created, $document, $product, $entries): DocumentModel {
-                    $created         = !$model->exists;
-                    $model->id       = $this->normalizer->string($document->document->documentNumber);
-                    $model->oem      = $document->asset->oem;
-                    $model->type     = $this->type(new DocumentModel(), '??');
-                    $model->support  = $product($model);
-                    $model->reseller = $this->resellers->create($document);
-                    $model->customer = $this->customers->create($document);
-                    $model->currency = $this->currencies->create($document);
-                    $model->language = $this->languages->create($document);
-                    $model->price    = null;
-                    $model->number   = $this->normalizer->string($document->document->documentNumber);
-                    $model->start    = $this->normalizer->datetime($document->document->startDate);
-                    $model->end      = $this->normalizer->datetime($document->document->endDate);
-                    $model->contacts = [];
-                    $model->entries  = $entries($model);
+                    $created            = !$model->exists;
+                    $model->id          = $this->normalizer->string($document->document->documentNumber);
+                    $model->oem         = $document->asset->oem;
+                    $model->type        = $this->type(new DocumentModel(), '??');
+                    $model->support     = $product($model);
+                    $model->reseller    = $this->resellers->create($document);
+                    $model->customer    = $this->customers->create($document);
+                    $model->currency    = $this->currencies->create($document);
+                    $model->language    = $this->languages->create($document);
+                    $model->distributor = $this->distributors->create($document);
+                    $model->price       = null;
+                    $model->number      = $this->normalizer->string($document->document->documentNumber);
+                    $model->start       = $this->normalizer->datetime($document->document->startDate);
+                    $model->end         = $this->normalizer->datetime($document->document->endDate);
+                    $model->contacts    = [];
+                    $model->entries     = $entries($model);
 
                     $model->save();
 
@@ -278,20 +280,21 @@ class DocumentFactory extends ModelFactory {
                 }
 
                 // Update
-                $model->id       = $this->normalizer->uuid($document->id);
-                $model->oem      = $this->documentOem($document);
-                $model->type     = $this->documentType($document);
-                $model->support  = $product ? $product($model) : null;
-                $model->reseller = $this->resellers->create($document);
-                $model->customer = $this->customers->create($document);
-                $model->currency = $this->currencies->create($document);
-                $model->language = $this->languages->create($document);
-                $model->start    = $this->normalizer->datetime($document->startDate);
-                $model->end      = $this->normalizer->datetime($document->endDate);
-                $model->price    = $this->normalizer->number($document->totalNetPrice);
-                $model->number   = $this->normalizer->string($document->documentNumber);
-                $model->contacts = $this->objectContacts($model, $document->contactPersons);
-                $model->entries  = $entries ? $entries($model) : [/** TODO */];
+                $model->id          = $this->normalizer->uuid($document->id);
+                $model->oem         = $this->documentOem($document);
+                $model->type        = $this->documentType($document);
+                $model->support     = $product ? $product($model) : null;
+                $model->reseller    = $this->resellers->create($document);
+                $model->customer    = $this->customers->create($document);
+                $model->currency    = $this->currencies->create($document);
+                $model->language    = $this->languages->create($document);
+                $model->distributor = $this->distributors->create($document);
+                $model->start       = $this->normalizer->datetime($document->startDate);
+                $model->end         = $this->normalizer->datetime($document->endDate);
+                $model->price       = $this->normalizer->number($document->totalNetPrice);
+                $model->number      = $this->normalizer->string($document->documentNumber);
+                $model->contacts    = $this->objectContacts($model, $document->contactPersons);
+                $model->entries     = $entries ? $entries($model) : [/** TODO */];
                 $model->save();
 
                 // Return

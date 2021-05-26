@@ -447,6 +447,10 @@ class Client {
                 reseller {
                   {$this->getCompanyPropertiesGraphQL()}
                 }
+
+                distributor {
+                    {$this->getCompanyPropertiesGraphQL()}
+                }
             }
 
             skuNumber
@@ -465,6 +469,10 @@ class Client {
 
             reseller {
               {$this->getCompanyPropertiesGraphQL()}
+            }
+
+            distributor {
+                {$this->getCompanyPropertiesGraphQL()}
             }
             GRAPHQL;
     }
