@@ -5,6 +5,7 @@ namespace App\Services\Organization\Listeners;
 use App\Models\Organization;
 use App\Models\Reseller;
 use App\Services\DataLoader\Events\ResellerUpdated;
+use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Schema\Company;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Event;
@@ -27,7 +28,7 @@ class OrganizationUpdaterTest extends TestCase {
      */
     public function testHandle(): void {
         $reseller = Reseller::factory()->make();
-        $updater  = new OrganizationUpdater();
+        $updater  = $this->app->make(OrganizationUpdater::class);
         $company  = Company::create([
             'keycloakName'    => $this->faker->word,
             'keycloakGroupId' => $this->faker->word,
@@ -51,7 +52,7 @@ class OrganizationUpdaterTest extends TestCase {
      */
     public function testHandleOrganizationExists(): void {
         $reseller = Reseller::factory()->make();
-        $updater  = new OrganizationUpdater();
+        $updater  = $this->app->make(OrganizationUpdater::class);
         $company  = Company::create([
             'keycloakName'    => $this->faker->word,
             'keycloakGroupId' => $this->faker->word,
@@ -79,7 +80,7 @@ class OrganizationUpdaterTest extends TestCase {
      */
     public function testHandleSoftDeleteOrganizationExists(): void {
         $reseller = Reseller::factory()->create(['name' => 'Test Reseller']);
-        $updater  = new OrganizationUpdater();
+        $updater  = $this->app->make(OrganizationUpdater::class);
         $company  = Company::create([
             'keycloakName'    => $this->faker->word,
             'keycloakGroupId' => $this->faker->word,
@@ -113,7 +114,7 @@ class OrganizationUpdaterTest extends TestCase {
      */
     public function testHandleScopeAndGroutIsUsedByAnotherOrganization(): void {
         $reseller          = Reseller::factory()->make();
-        $updater           = new OrganizationUpdater();
+        $updater           = $this->app->make(OrganizationUpdater::class);
         $company           = Company::create([
             'keycloakName'    => $this->faker->word,
             'keycloakGroupId' => $this->faker->word,
@@ -138,5 +139,114 @@ class OrganizationUpdaterTest extends TestCase {
         $this->assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
         $this->assertNull($scopeOrganization->fresh()->keycloak_scope);
         $this->assertNull($groupOrganization->fresh()->keycloak_group_id);
+    }
+
+    /**
+     * @covers ::handle
+     */
+    public function testHandleUpdateBranding(): void {
+        // With Branding
+        $reseller = Reseller::factory()->make();
+        $updater  = $this->app->make(OrganizationUpdater::class);
+        $company  = Company::create([
+            'keycloakName'    => $this->faker->word,
+            'keycloakGroupId' => $this->faker->word,
+            'brandingData'    => [
+                'brandingMode'          => $this->faker->randomElement([' true ', ' false ']),
+                'defaultLogoUrl'        => " {$this->faker->url} ",
+                'defaultMainColor'      => " {$this->faker->hexColor} ",
+                'favIconUrl'            => " {$this->faker->url} ",
+                'logoUrl'               => " {$this->faker->url} ",
+                'mainColor'             => " {$this->faker->hexColor} ",
+                'mainHeadingText'       => " {$this->faker->sentence} ",
+                'mainImageOnTheRight'   => " {$this->faker->url} ",
+                'secondaryColor'        => " {$this->faker->hexColor} ",
+                'secondaryColorDefault' => " {$this->faker->hexColor} ",
+                'underlineText'         => " {$this->faker->text} ",
+                'useDefaultFavIcon'     => " {$this->faker->url} ",
+            ],
+        ]);
+        $event    = new ResellerUpdated($reseller, $company);
+
+        $updater->handle($event);
+
+        $organization = Organization::query()->whereKey($reseller->getKey())->first();
+        $normalizer   = $this->app->make(Normalizer::class);
+        $branding     = $company->brandingData;
+
+        $this->assertNotNull($organization);
+        $this->assertEquals(
+            $normalizer->boolean($branding->brandingMode),
+            $organization->branding_dark_theme,
+        );
+        $this->assertEquals(
+            $normalizer->string($branding->defaultLogoUrl),
+            $organization->branding_default_logo_url,
+        );
+        $this->assertEquals(
+            $normalizer->string($branding->defaultMainColor),
+            $organization->branding_default_main_color,
+        );
+        $this->assertEquals(
+            $normalizer->string($branding->favIconUrl),
+            $organization->branding_favicon_url,
+        );
+        $this->assertEquals(
+            $normalizer->string($branding->logoUrl),
+            $organization->branding_logo_url,
+        );
+        $this->assertEquals(
+            $normalizer->string($branding->mainColor),
+            $organization->branding_main_color,
+        );
+        $this->assertEquals(
+            $normalizer->string($branding->mainHeadingText),
+            $organization->branding_welcome_heading,
+        );
+        $this->assertEquals(
+            $normalizer->string($branding->mainImageOnTheRight),
+            $organization->branding_welcome_image_url,
+        );
+        $this->assertEquals(
+            $normalizer->string($branding->secondaryColor),
+            $organization->branding_secondary_color,
+        );
+        $this->assertEquals(
+            $normalizer->string($branding->secondaryColorDefault),
+            $organization->branding_default_secondary_color,
+        );
+        $this->assertEquals(
+            $normalizer->string($branding->underlineText),
+            $organization->branding_welcome_underline,
+        );
+        $this->assertEquals(
+            $normalizer->string($branding->useDefaultFavIcon),
+            $organization->branding_default_favicon_url,
+        );
+
+        // Without branding
+        $company = Company::create([
+            'keycloakName'    => $this->faker->word,
+            'keycloakGroupId' => $this->faker->word,
+        ]);
+        $event   = new ResellerUpdated($reseller, $company);
+
+        $updater->handle($event);
+
+        $organization = Organization::query()->whereKey($reseller->getKey())->first();
+
+        $this->assertNotNull($organization);
+        $this->assertNull($organization->branding_dark_theme);
+        $this->assertNull($organization->branding_default_logo_url);
+        $this->assertNull($organization->branding_default_main_color);
+        $this->assertNull($organization->branding_favicon_url);
+        $this->assertNull($organization->branding_logo_url);
+        $this->assertNull($organization->branding_main_color);
+        $this->assertNull($organization->branding_welcome_heading);
+        $this->assertNull($organization->branding_welcome_image_url);
+        $this->assertNull($organization->branding_secondary_color);
+        $this->assertNull($organization->branding_default_secondary_color);
+        $this->assertNull($organization->branding_welcome_underline);
+        $this->assertNull($organization->branding_default_favicon_url);
     }
 }

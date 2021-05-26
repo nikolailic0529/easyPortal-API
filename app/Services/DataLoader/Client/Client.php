@@ -364,6 +364,21 @@ class Client {
                 address
                 locationType
             }
+            brandingData {
+                brandingMode
+                defaultLogoUrl
+                defaultMainColor
+                favIconUrl
+                logoUrl
+                mainColor
+                mainHeadingText
+                mainImageOnTheRight
+                resellerAnalyticsCode
+                secondaryColor
+                secondaryColorDefault
+                underlineText
+                useDefaultFavIcon
+            }
             GRAPHQL;
     }
 
