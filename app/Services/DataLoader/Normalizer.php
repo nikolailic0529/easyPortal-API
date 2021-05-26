@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader;
 
+use App\Services\DataLoader\Normalizers\BoolNormalizer;
 use App\Services\DataLoader\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizers\KeyNormalizer;
 use App\Services\DataLoader\Normalizers\NumberNormalizer;
@@ -16,6 +17,7 @@ class Normalizer {
         protected StringNormalizer $string,
         protected DateTimeNormalizer $datetime,
         protected NumberNormalizer $number,
+        protected BoolNormalizer $boolean,
     ) {
         // empty
     }
@@ -38,6 +40,10 @@ class Normalizer {
 
     public function number(mixed $value): ?string {
         return $this->number->normalize($value);
+    }
+
+    public function boolean(mixed $value): ?bool {
+        return $this->boolean->normalize($value);
     }
 
     public function coordinate(mixed $value): ?string {
