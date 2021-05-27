@@ -94,6 +94,29 @@ class JsonObjectTest extends TestCase {
     }
 
     /**
+     * @covers ::getProperties
+     */
+    public function testGetProperties(): void {
+        $child  = new JsonObjectTest_Child([
+            'i' => 123,
+        ]);
+        $object = new JsonObjectTest_Child([
+            'i'        => 567,
+            'b'        => true,
+            'children' => [$child],
+        ]);
+
+        $this->assertEquals(
+            [
+                'i'        => 567,
+                'b'        => true,
+                'children' => [$child],
+            ],
+            $object->getProperties(),
+        );
+    }
+
+    /**
      * @covers ::jsonSerialize
      */
     public function testJsonSerialize(): void {
@@ -147,27 +170,49 @@ class JsonObjectTest extends TestCase {
      * @covers ::__get
      */
     public function testGetDynamicProperties(): void {
+        $object = new class() extends JsonObject {
+            // empty
+        };
+
         $this->expectExceptionObject(new InvalidArgumentException(sprintf(
             'Property `%s::$%s` doesn\'t exist.',
-            JsonObjectTest_Child::class,
+            $object::class,
             'unknown',
         )));
 
-        $this->assertNotNull((new JsonObjectTest_Child())->unknown);
+        $this->assertNotNull($object->unknown);
     }
 
     /**
      * @cover ::__set
      */
     public function testSetDynamicProperties(): void {
+        $object = new class() extends JsonObject {
+            // empty
+        };
+
         $this->expectExceptionObject(new InvalidArgumentException(sprintf(
             'Property `%s::$%s` doesn\'t exist.',
-            JsonObjectTest_Child::class,
+            $object::class,
             'unknown',
         )));
 
-        $object          = new JsonObjectTest_Child();
         $object->unknown = 'value';
+    }
+
+    /**
+     * @covers ::isEmpty
+     */
+    public function testIsEmpty(): void {
+        $empty  = new class() extends JsonObject {
+            public string $property;
+        };
+        $object = new class(['property' => 'value']) extends JsonObject {
+            public string $property;
+        };
+
+        $this->assertTrue($empty->isEmpty());
+        $this->assertFalse($object->isEmpty());
     }
 }
 

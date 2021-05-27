@@ -10,6 +10,7 @@ use ReflectionNamedType;
 use ReflectionObject;
 
 use function array_map;
+use function count;
 use function is_array;
 use function is_object;
 use function preg_match;
@@ -41,7 +42,7 @@ abstract class JsonObject implements JsonSerializable, Arrayable {
      */
     public function __construct(array $json = []) {
         if ($json) {
-            $properties = self::getProperties();
+            $properties = self::getDefinedProperties();
 
             foreach ($json as $property => $value) {
                 $this->{$property} = isset($properties[$property])
@@ -51,12 +52,16 @@ abstract class JsonObject implements JsonSerializable, Arrayable {
         }
     }
 
-    // <editor-fold desc="JsonSerializable">
+    // <editor-fold desc="API">
     // =========================================================================
+    public function isEmpty(): bool {
+        return count($this->getProperties()) === 0;
+    }
+
     /**
      * @return array<string,mixed>
      */
-    public function jsonSerialize(): array {
+    public function getProperties(): array {
         $properties = (new ReflectionObject($this))->getProperties();
         $json       = [];
 
@@ -70,13 +75,23 @@ abstract class JsonObject implements JsonSerializable, Arrayable {
     }
     // </editor-fold>
 
+    // <editor-fold desc="JsonSerializable">
+    // =========================================================================
+    /**
+     * @return array<string,mixed>
+     */
+    public function jsonSerialize(): array {
+        return $this->getProperties();
+    }
+    // </editor-fold>
+
     // <editor-fold desc="Arrayable">
     // =========================================================================
     /**
      * @return array<string,mixed>
      */
     public function toArray(): array {
-        return $this->toArrayProcess($this->jsonSerialize());
+        return $this->toArrayProcess($this->getProperties());
     }
 
     /**
@@ -121,7 +136,7 @@ abstract class JsonObject implements JsonSerializable, Arrayable {
     /**
      * @return array<string, callable>
      */
-    private static function getProperties(): array {
+    private static function getDefinedProperties(): array {
         if (!isset(self::$properties[static::class])) {
             $properties                      = (new ReflectionClass(static::class))->getProperties();
             self::$properties[static::class] = [];
