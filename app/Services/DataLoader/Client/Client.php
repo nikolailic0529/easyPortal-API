@@ -11,11 +11,13 @@ use App\Services\DataLoader\Schema\UpdateCompanyLogo;
 use Closure;
 use Exception;
 use GraphQL\Type\Introspection;
+use GuzzleHttp\Psr7\Utils;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Arr;
 use Psr\Log\LoggerInterface;
+use SplFileInfo;
 
 use function explode;
 use function json_encode;
@@ -334,9 +336,14 @@ class Client {
 
             foreach ($files as $variable) {
                 $name       = 'file'.($index++);
+                $file       = Arr::get($params, $variable);
                 $map[$name] = ["variables.{$variable}"];
 
-                $request->attach($name, Arr::get($params, $variable));
+                if ($file instanceof SplFileInfo) {
+                    $file = Utils::streamFor(Utils::tryFopen($file->getPathname(), 'r'));
+                }
+
+                $request->attach($name, $file);
 
                 Arr::set($variables, $variable, null);
             }
