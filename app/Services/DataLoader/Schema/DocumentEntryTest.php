@@ -17,7 +17,7 @@ class DocumentEntryTest extends TestCase {
      */
     public function testCreate(): void {
         $json       = $this->getTestData()->json();
-        $actual     = DocumentEntry::create($json);
+        $actual     = new DocumentEntry($json);
         $properties = DocumentEntry::getPropertiesNames();
 
         $this->assertEquals(array_keys($json), $properties);

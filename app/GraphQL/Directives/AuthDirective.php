@@ -93,7 +93,7 @@ abstract class AuthDirective extends BaseDirective implements
     }
     // </editor-fold>
 
-    // <editor-fold desc="Description">
+    // <editor-fold desc="Manipulate">
     // =========================================================================
     public function manipulateFieldDefinition(
         DocumentAST &$documentAST,

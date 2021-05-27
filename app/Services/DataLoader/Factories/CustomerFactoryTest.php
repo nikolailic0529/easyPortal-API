@@ -46,7 +46,7 @@ class CustomerFactoryTest extends TestCase {
             ->setLocationFactory($this->app->make(LocationFactory::class))
             ->setContactsFactory($this->app->make(ContactFactory::class));
         $json    = $this->getTestData()->json('~customer-full.json');
-        $company = Company::create($json);
+        $company = new Company($json);
 
         $this->flushQueryLog();
 
@@ -82,7 +82,7 @@ class CustomerFactoryTest extends TestCase {
      * @covers ::createFromAssetDocumentObject
      */
     public function testCreateFromAssetDocumentObject(): void {
-        $document = AssetDocumentObject::create([
+        $document = new AssetDocumentObject([
             'document' => [
                 'customer' => [
                     'id' => $this->faker->uuid,
@@ -116,7 +116,7 @@ class CustomerFactoryTest extends TestCase {
      * @covers ::createFromAssetDocument
      */
     public function testCreateFromAssetDocument(): void {
-        $document = AssetDocument::create([
+        $document = new AssetDocument([
             'customer' => [
                 'id' => $this->faker->uuid,
             ],
@@ -138,7 +138,7 @@ class CustomerFactoryTest extends TestCase {
      * @covers ::createFromDocument
      */
     public function testCreateFromDocument(): void {
-        $document = Document::create([
+        $document = new Document([
             'customer' => [
                 'id' => $this->faker->uuid,
             ],
@@ -170,7 +170,7 @@ class CustomerFactoryTest extends TestCase {
         // Test
         $file     = $this->faker->randomElement(['~customer-full.json', '~reseller.json']);
         $json     = $this->getTestData()->json($file);
-        $company  = Company::create($json);
+        $company  = new Company($json);
         $customer = $factory->create($company);
 
         $this->assertNotNull($customer);
@@ -193,7 +193,7 @@ class CustomerFactoryTest extends TestCase {
 
         // Customer should be updated
         $json    = $this->getTestData()->json('~customer-changed.json');
-        $company = Company::create($json);
+        $company = new Company($json);
         $updated = $factory->create($company);
 
         $this->assertNotNull($updated);
@@ -223,7 +223,7 @@ class CustomerFactoryTest extends TestCase {
 
         // Test
         $json     = $this->getTestData()->json('~customer-only.json');
-        $company  = Company::create($json);
+        $company  = new Company($json);
         $customer = $factory->create($company);
 
         $this->assertNotNull($customer);
@@ -316,10 +316,10 @@ class CustomerFactoryTest extends TestCase {
      * @covers ::prefetch
      */
     public function testPrefetch(): void {
-        $a          = Company::create([
+        $a          = new Company([
             'id' => $this->faker->uuid,
         ]);
-        $b          = Company::create([
+        $b          = new Company([
             'id' => $this->faker->uuid,
         ]);
         $resolver   = $this->app->make(CustomerResolver::class);
@@ -339,8 +339,8 @@ class CustomerFactoryTest extends TestCase {
 
         $factory->prefetch(
             [
-                Asset::create(['customerId' => $a->id]),
-                Asset::create(['customerId' => $b->id]),
+                new Asset(['customerId' => $a->id]),
+                new Asset(['customerId' => $b->id]),
             ],
             false,
             Closure::fromCallable($callback),

@@ -57,7 +57,7 @@ class AssetFactoryTest extends TestCase {
     public function testFind(): void {
         $factory = $this->app->make(AssetFactory::class);
         $json    = $this->getTestData()->json('~asset-full.json');
-        $asset   = Asset::create($json);
+        $asset   = new Asset($json);
 
         $this->flushQueryLog();
 
@@ -112,7 +112,7 @@ class AssetFactoryTest extends TestCase {
 
         // Test
         $json    = $this->getTestData()->json('~asset-full.json');
-        $asset   = Asset::create($json);
+        $asset   = new Asset($json);
         $created = $factory->create($asset);
 
         $this->assertNotNull($created);
@@ -205,7 +205,7 @@ class AssetFactoryTest extends TestCase {
 
         // Customer should be updated
         $json    = $this->getTestData()->json('~asset-changed.json');
-        $asset   = Asset::create($json);
+        $asset   = new Asset($json);
         $updated = $factory->create($asset);
 
         $this->assertNotNull($updated);
@@ -243,7 +243,7 @@ class AssetFactoryTest extends TestCase {
 
         // Test
         $json    = $this->getTestData()->json('~asset-only.json');
-        $asset   = Asset::create($json);
+        $asset   = new Asset($json);
         $created = $factory->create($asset);
 
         $this->assertNotNull($created);
@@ -281,7 +281,7 @@ class AssetFactoryTest extends TestCase {
 
         // Test
         $json  = $this->getTestData()->json('~asset-full.json');
-        $asset = Asset::create($json);
+        $asset = new Asset($json);
 
         $this->expectException(CustomerNotFoundException::class);
 
@@ -298,7 +298,7 @@ class AssetFactoryTest extends TestCase {
 
         // Test
         $json  = $this->getTestData()->json('~asset-invalid-address.json');
-        $asset = Asset::create($json);
+        $asset = new Asset($json);
 
         Customer::factory()->create([
             'id' => $asset->customerId,
@@ -321,7 +321,7 @@ class AssetFactoryTest extends TestCase {
 
         // Test
         $json  = $this->getTestData()->json('~asset-nozip-address.json');
-        $asset = Asset::create($json);
+        $asset = new Asset($json);
 
         Customer::factory()->create([
             'id' => $asset->customerId,
@@ -349,7 +349,7 @@ class AssetFactoryTest extends TestCase {
 
         // Test
         $json    = $this->getTestData()->json('~asset-reseller-location.json');
-        $asset   = Asset::create($json);
+        $asset   = new Asset($json);
         $created = $factory->create($asset);
 
         $this->assertNotNull($created);
@@ -378,7 +378,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetDocuments(): void {
         $model     = AssetModel::factory()->make();
-        $asset     = Asset::create([
+        $asset     = new Asset([
             'assetDocument' => [
                 [
                     'documentNumber' => 'a',
@@ -505,7 +505,7 @@ class AssetFactoryTest extends TestCase {
             'reseller_id' => $docC->reseller_id,
             'document_id' => null,
         ]);
-        $asset    = Asset::create([
+        $asset    = new Asset([
             'id'            => $model->getKey(),
             'assetDocument' => [
                 [
@@ -672,7 +672,7 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetOem
      */
     public function testAssetOem(): void {
-        $asset   = Asset::create(['vendor' => $this->faker->word]);
+        $asset   = new Asset(['vendor' => $this->faker->word]);
         $factory = Mockery::mock(AssetFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
@@ -690,7 +690,7 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetType
      */
     public function testAssetType(): void {
-        $asset   = Asset::create(['assetType' => $this->faker->word]);
+        $asset   = new Asset(['assetType' => $this->faker->word]);
         $factory = Mockery::mock(AssetFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
@@ -710,7 +710,7 @@ class AssetFactoryTest extends TestCase {
     public function testAssetProduct(): void {
         $oem   = Oem::factory()->make();
         $type  = ProductType::asset();
-        $asset = Asset::create([
+        $asset = new Asset([
             'vendor'             => $this->faker->word,
             'sku'                => $this->faker->word,
             'eolDate'            => "{$this->faker->unixTime}000",
@@ -759,12 +759,12 @@ class AssetFactoryTest extends TestCase {
             }
         };
 
-        $this->assertEquals($reseller, $factory->assetReseller(Asset::create([
+        $this->assertEquals($reseller, $factory->assetReseller(new Asset([
             'id'         => $this->faker->uuid,
             'resellerId' => $reseller->getKey(),
         ])));
 
-        $this->assertEquals($reseller, $factory->assetReseller(Asset::create([
+        $this->assertEquals($reseller, $factory->assetReseller(new Asset([
             'id'       => $this->faker->uuid,
             'reseller' => [
                 'id' => $reseller->getKey(),
@@ -793,7 +793,7 @@ class AssetFactoryTest extends TestCase {
             }
         };
 
-        $this->assertNull($factory->assetReseller(Asset::create([
+        $this->assertNull($factory->assetReseller(new Asset([
             'id' => $this->faker->uuid,
         ])));
     }
@@ -803,7 +803,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetResellerResellerNotFound(): void {
         $reseller = Reseller::factory()->make();
-        $asset    = Asset::create([
+        $asset    = new Asset([
             'id'       => $this->faker->uuid,
             'reseller' => [
                 'id' => $reseller->getKey(),
@@ -837,7 +837,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetResellerExistsThroughFactory(): void {
         $reseller = Reseller::factory()->make();
-        $asset    = Asset::create([
+        $asset    = new Asset([
             'id'       => $this->faker->uuid,
             'reseller' => [
                 'id' => $reseller->getKey(),
@@ -878,7 +878,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetResellerNotFoundThroughFactory(): void {
         $reseller = Reseller::factory()->make();
-        $asset    = Asset::create([
+        $asset    = new Asset([
             'id'       => $this->faker->uuid,
             'reseller' => [
                 'id' => $reseller->getKey(),
@@ -940,12 +940,12 @@ class AssetFactoryTest extends TestCase {
             }
         };
 
-        $this->assertEquals($customer, $factory->assetCustomer(Asset::create([
+        $this->assertEquals($customer, $factory->assetCustomer(new Asset([
             'id'         => $this->faker->uuid,
             'customerId' => $customer->getKey(),
         ])));
 
-        $this->assertEquals($customer, $factory->assetCustomer(Asset::create([
+        $this->assertEquals($customer, $factory->assetCustomer(new Asset([
             'id'       => $this->faker->uuid,
             'customer' => [
                 'id' => $customer->getKey(),
@@ -974,7 +974,7 @@ class AssetFactoryTest extends TestCase {
             }
         };
 
-        $this->assertNull($factory->assetCustomer(Asset::create([
+        $this->assertNull($factory->assetCustomer(new Asset([
             'id' => $this->faker->uuid,
         ])));
     }
@@ -984,7 +984,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetCustomerCustomerNotFound(): void {
         $customer = Customer::factory()->make();
-        $asset    = Asset::create([
+        $asset    = new Asset([
             'id'       => $this->faker->uuid,
             'customer' => [
                 'id' => $customer->getKey(),
@@ -1018,7 +1018,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetCustomerExistsThroughFactory(): void {
         $customer = Customer::factory()->make();
-        $asset    = Asset::create([
+        $asset    = new Asset([
             'id'       => $this->faker->uuid,
             'customer' => [
                 'id' => $customer->getKey(),
@@ -1059,7 +1059,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetCustomerNotFoundThroughFactory(): void {
         $customer = Customer::factory()->make();
-        $asset    = Asset::create([
+        $asset    = new Asset([
             'id'       => $this->faker->uuid,
             'customer' => [
                 'id' => $customer->getKey(),
@@ -1102,9 +1102,9 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetLocation(): void {
         $customer  = Customer::factory()->make();
-        $asset     = Asset::create([
-            'id'          => $this->faker->uuid,
-            'customer_id' => $customer->getKey(),
+        $asset     = new Asset([
+            'id'         => $this->faker->uuid,
+            'customerId' => $customer->getKey(),
         ]);
         $location  = Location::factory()->create([
             'object_type' => $customer->getMorphClass(),
@@ -1140,9 +1140,9 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetLocationNoCustomer(): void {
         $reseller  = Reseller::factory()->make();
-        $asset     = Asset::create([
-            'id'          => $this->faker->uuid,
-            'reseller_id' => $reseller->getKey(),
+        $asset     = new Asset([
+            'id'         => $this->faker->uuid,
+            'resellerId' => $reseller->getKey(),
         ]);
         $location  = Location::factory()->create([
             'object_type' => $reseller->getMorphClass(),
@@ -1197,9 +1197,9 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetLocationNoLocation(): void {
         $customer  = Customer::factory()->make();
-        $asset     = Asset::create([
-            'id'          => $this->faker->uuid,
-            'customer_id' => $customer->getKey(),
+        $asset     = new Asset([
+            'id'         => $this->faker->uuid,
+            'customerId' => $customer->getKey(),
         ]);
         $locations = Mockery::mock(LocationFactory::class);
         $locations->makePartial();
@@ -1227,11 +1227,11 @@ class AssetFactoryTest extends TestCase {
      * @covers ::prefetch
      */
     public function testPrefetch(): void {
-        $a          = Asset::create([
+        $a          = new Asset([
             'id'           => $this->faker->uuid,
             'serialNumber' => $this->faker->uuid,
         ]);
-        $b          = Asset::create([
+        $b          = new Asset([
             'id'           => $this->faker->uuid,
             'serialNumber' => $this->faker->uuid,
         ]);
@@ -1266,7 +1266,7 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetStatus
      */
     public function testAssetStatus(): void {
-        $asset   = Asset::create(['status' => $this->faker->word]);
+        $asset   = new Asset(['status' => $this->faker->word]);
         $factory = Mockery::mock(AssetFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();

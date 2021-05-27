@@ -72,7 +72,7 @@ class QueryIterator implements IteratorAggregate {
             };
 
         do {
-            $items  = $this->client->call($this->selector, $this->graphql, array_merge($this->params, [
+            $items  = (array) $this->client->call($this->selector, $this->graphql, array_merge($this->params, [
                 'limit'  => $chunk,
                 'offset' => $offset,
             ]));

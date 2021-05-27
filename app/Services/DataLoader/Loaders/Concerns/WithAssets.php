@@ -132,7 +132,7 @@ trait WithAssets {
             $reseller = null;
 
             if ($resellerId) {
-                $reseller = $this->resellers->find(Company::create([
+                $reseller = $this->resellers->find(new Company([
                     'id' => $resellerId,
                 ]));
             }
@@ -141,7 +141,7 @@ trait WithAssets {
             $customers = array_filter($customers);
 
             foreach ($customers as $customerId) {
-                $customer = $this->customers->find(Company::create([
+                $customer = $this->customers->find(new Company([
                     'id' => $customerId,
                 ]));
 

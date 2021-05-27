@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader;
 
+use App\Services\DataLoader\Normalizers\BoolNormalizer;
 use App\Services\DataLoader\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizers\KeyNormalizer;
 use App\Services\DataLoader\Normalizers\NumberNormalizer;
@@ -28,6 +29,7 @@ class NormalizerTest extends TestCase {
             new StringNormalizer(),
             new DateTimeNormalizer($config),
             new NumberNormalizer(),
+            new BoolNormalizer(),
         );
 
         $key->shouldReceive('normalize')->once()->andReturns();
@@ -47,6 +49,7 @@ class NormalizerTest extends TestCase {
             new StringNormalizer(),
             new DateTimeNormalizer($config),
             new NumberNormalizer(),
+            new BoolNormalizer(),
         );
 
         $uuid->shouldReceive('normalize')->once()->andReturns();
@@ -66,6 +69,7 @@ class NormalizerTest extends TestCase {
             $string,
             new DateTimeNormalizer($config),
             new NumberNormalizer(),
+            new BoolNormalizer(),
         );
 
         $string->shouldReceive('normalize')->once()->andReturns();
@@ -84,6 +88,7 @@ class NormalizerTest extends TestCase {
             new StringNormalizer(),
             $datetime,
             new NumberNormalizer(),
+            new BoolNormalizer(),
         );
 
         $datetime->shouldReceive('normalize')->once()->andReturns();
@@ -103,11 +108,32 @@ class NormalizerTest extends TestCase {
             new StringNormalizer(),
             new DateTimeNormalizer($config),
             $number,
+            new BoolNormalizer(),
         );
 
         $number->shouldReceive('normalize')->once()->andReturns();
 
         $normalizer->number('value');
+    }
+
+    /**
+     * @covers ::boolean
+     */
+    public function testBoolean(): void {
+        $boolean    = Mockery::mock(BoolNormalizer::class);
+        $config     = new Repository();
+        $normalizer = new Normalizer(
+            new KeyNormalizer(),
+            new UuidNormalizer(),
+            new StringNormalizer(),
+            new DateTimeNormalizer($config),
+            new NumberNormalizer(),
+            $boolean,
+        );
+
+        $boolean->shouldReceive('normalize')->once()->andReturns();
+
+        $normalizer->boolean('value');
     }
 
     /**
@@ -122,6 +148,7 @@ class NormalizerTest extends TestCase {
             $string,
             new DateTimeNormalizer($config),
             new NumberNormalizer(),
+            new BoolNormalizer(),
         );
 
         $string->shouldReceive('normalize')->once()->andReturns();

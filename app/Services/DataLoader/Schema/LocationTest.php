@@ -17,7 +17,7 @@ class LocationTest extends TestCase {
      */
     public function testCreate(): void {
         $json       = $this->getTestData()->json();
-        $actual     = Location::create($json);
+        $actual     = new Location($json);
         $properties = Location::getPropertiesNames();
 
         $this->assertEquals(array_keys($json), $properties);

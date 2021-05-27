@@ -34,7 +34,7 @@ class LocationFactoryTest extends TestCase {
     public function testFind(): void {
         $factory  = $this->app->make(LocationFactory::class);
         $customer = Customer::factory()->make();
-        $location = Location::create([
+        $location = new Location([
             'zip'         => $this->faker->postcode,
             'address'     => $this->faker->streetAddress,
             'city'        => $this->faker->city,
@@ -86,7 +86,7 @@ class LocationFactoryTest extends TestCase {
         $city      = City::factory()->make([
             'country_id' => $country,
         ]);
-        $location  = Location::create([
+        $location  = new Location([
             'zip'         => $this->faker->postcode,
             'address'     => $this->faker->streetAddress,
             'city'        => $this->faker->city,
@@ -140,7 +140,7 @@ class LocationFactoryTest extends TestCase {
         ]);
         $state     = $this->faker->state;
         $cityName  = $this->faker->city;
-        $location  = Location::create([
+        $location  = new Location([
             'zip'         => $this->faker->postcode,
             'address'     => $this->faker->streetAddress,
             'city'        => "{$cityName},  {$state}",
@@ -188,7 +188,7 @@ class LocationFactoryTest extends TestCase {
         $customer = Customer::factory()->make();
         $state    = $this->faker->state;
         $cityName = $this->faker->city;
-        $location = Location::create([
+        $location = new Location([
             'zip'     => null,
             'address' => $this->faker->streetAddress,
             'city'    => "{$cityName},  {$state}",
@@ -210,7 +210,7 @@ class LocationFactoryTest extends TestCase {
         $city      = City::factory()->make([
             'country_id' => $country,
         ]);
-        $assert    = Asset::create([
+        $assert    = new Asset([
             'zip'         => $this->faker->postcode,
             'address'     => $this->faker->streetAddress,
             'city'        => $this->faker->city,
@@ -264,7 +264,7 @@ class LocationFactoryTest extends TestCase {
         ]);
         $state     = $this->faker->state;
         $cityName  = $this->faker->city;
-        $assert    = Asset::create([
+        $assert    = new Asset([
             'zip'         => $this->faker->postcode,
             'address'     => $this->faker->streetAddress,
             'city'        => "{$cityName},  {$state}",

@@ -21,8 +21,6 @@
     ],
     "companyTypes": [
         {
-            "vendorSpecificId": "12345",
-            "vendor": "HPE",
             "type": "CUSTOMER",
             "status": "ACTIVE"
         }
@@ -51,5 +49,20 @@
             "address": "Maddison Path Suite 820 Apt. 898",
             "address2": "TODO"
         }
-    ]
+    ],
+    "brandingData": {
+        "brandingMode": "true",
+        "defaultLogoUrl": null,
+        "defaultMainColor": null,
+        "favIconUrl": null,
+        "logoUrl": "https://example.com/logo.png",
+        "mainColor": null,
+        "mainHeadingText": null,
+        "mainImageOnTheRight": null,
+        "resellerAnalyticsCode": null,
+        "secondaryColor": null,
+        "secondaryColorDefault": null,
+        "underlineText": null,
+        "useDefaultFavIcon": null
+    }
 }

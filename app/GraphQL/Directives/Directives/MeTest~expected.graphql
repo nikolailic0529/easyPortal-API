@@ -108,6 +108,8 @@ type TestPermissions {
   one: String!
 
   """
+  @require <me(["a","b","c"])> User must be authenticated and have any of these permissions.
+  
   @require <me(["a","b"])> User must be authenticated and have any of these permissions.
   """
   two: String!

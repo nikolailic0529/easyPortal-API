@@ -32,7 +32,7 @@ class DistributorFactoryTest extends TestCase {
     public function testFind(): void {
         $factory = $this->app->make(DistributorFactory::class);
         $json    = $this->getTestData()->json('~distributor-full.json');
-        $company = Company::create($json);
+        $company = new Company($json);
 
         $this->flushQueryLog();
 
@@ -68,7 +68,7 @@ class DistributorFactoryTest extends TestCase {
      * @covers ::createFromAssetDocumentObject
      */
     public function testCreateFromAssetDocumentObject(): void {
-        $document = AssetDocumentObject::create([
+        $document = new AssetDocumentObject([
             'document' => [
                 'distributor' => [
                     'id' => $this->faker->uuid,
@@ -102,7 +102,7 @@ class DistributorFactoryTest extends TestCase {
      * @covers ::createFromAssetDocument
      */
     public function testCreateFromAssetDocument(): void {
-        $document = AssetDocument::create([
+        $document = new AssetDocument([
             'distributor' => [
                 'id' => $this->faker->uuid,
             ],
@@ -124,7 +124,7 @@ class DistributorFactoryTest extends TestCase {
      * @covers ::createFromDocument
      */
     public function testCreateFromDocument(): void {
-        $document = Document::create([
+        $document = new Document([
             'distributor' => [
                 'id' => $this->faker->uuid,
             ],
@@ -152,7 +152,7 @@ class DistributorFactoryTest extends TestCase {
 
         // Test
         $json        = $this->getTestData()->json('~distributor-full.json');
-        $company     = Company::create($json);
+        $company     = new Company($json);
         $distributor = $factory->create($company);
 
         $this->assertNotNull($distributor);
@@ -162,7 +162,7 @@ class DistributorFactoryTest extends TestCase {
 
         // Distributor should be updated
         $json    = $this->getTestData()->json('~distributor-changed.json');
-        $company = Company::create($json);
+        $company = new Company($json);
         $updated = $factory->create($company);
 
         $this->assertNotNull($updated);
@@ -175,10 +175,10 @@ class DistributorFactoryTest extends TestCase {
      * @covers ::prefetch
      */
     public function testPrefetch(): void {
-        $a          = Company::create([
+        $a          = new Company([
             'id' => $this->faker->uuid,
         ]);
-        $b          = Company::create([
+        $b          = new Company([
             'id' => $this->faker->uuid,
         ]);
         $resolver   = $this->app->make(DistributorResolver::class);

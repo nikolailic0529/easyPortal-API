@@ -210,7 +210,7 @@ class AssetFactory extends ModelFactory {
                 return $document->documentNumber;
             })
             ->map(function (Collection $entries) use ($model): ?DocumentModel {
-                return $this->getDocumentFactory()->create(AssetDocumentObject::create([
+                return $this->getDocumentFactory()->create(new AssetDocumentObject([
                     'asset'    => $model,
                     'document' => $entries->first(),
                     'entries'  => $entries->all(),

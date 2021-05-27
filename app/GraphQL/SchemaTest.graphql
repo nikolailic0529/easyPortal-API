@@ -738,7 +738,7 @@ type Mutation {
   """
   @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
   """
-  updateOrganization(input: updateOrganizationInput!): updateOrganizationPayload
+  updateOrganization(input: UpdateOrganizationInput!): UpdateOrganizationPayload
 
   """
   Finish the Sign In for Organization.
@@ -794,16 +794,28 @@ type Organization {
   name: String!
   root: Boolean!
   locale: String
-  branding_dark_theme: Boolean
-  branding_primary_color: String
-  branding_secondary_color: String
-  branding_logo: String
-  branding_favicon: String
   website_url: String
   email: String
   currency_id: ID
   currency: Currency
   locations: [Location!]
+  analytics_code: String
+  branding: OrganizationBranding
+}
+
+type OrganizationBranding {
+  dark_theme: Boolean
+  main_color: String
+  secondary_color: String
+  logo_url: String
+  favicon_url: String
+  default_main_color: String
+  default_secondary_color: String
+  default_logo_url: String
+  default_favicon_url: String
+  welcome_image_url: String
+  welcome_heading: String
+  welcome_underline: String
 }
 
 """A paginated list of Organization items."""
@@ -2474,6 +2486,31 @@ type UpdateClientTranslationsPayload {
   updated: [Translation!]!
 }
 
+input UpdateOrganizationBranding {
+  dark_theme: Boolean
+  main_color: String
+  secondary_color: String
+  logo: Upload!
+  favicon: Upload
+  welcome_image: Upload
+  welcome_heading: String
+  welcome_underline: String
+}
+
+input UpdateOrganizationInput {
+  locale: String
+  currency_id: ID
+  website_url: String
+  email: String
+  analytics_code: String
+  branding: UpdateOrganizationBranding
+}
+
+type UpdateOrganizationPayload {
+  result: Boolean!
+  organization: Organization!
+}
+
 """
 Can be used as an argument to upload files using https://github.com/jaydenseric/graphql-multipart-request-spec
 """
@@ -2486,21 +2523,5 @@ type User {
 }
 
 type recoverApplicationSettingsPayload {
-  result: Boolean!
-}
-
-input updateOrganizationInput {
-  locale: String
-  currency_id: ID
-  branding_dark_theme: Boolean
-  branding_primary_color: String
-  branding_secondary_color: String
-  branding_logo: Upload
-  branding_favicon: Upload
-  website_url: String
-  email: String
-}
-
-type updateOrganizationPayload {
   result: Boolean!
 }

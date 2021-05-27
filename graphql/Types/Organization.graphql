@@ -1,16 +1,17 @@
 type Organization {
-    id: ID!
-    name: String!
-    root: Boolean! @field(resolver: "App\\GraphQL\\Queries\\Organization@root")
-    locale: String
-    branding_dark_theme: Boolean
-    branding_primary_color: String
-    branding_secondary_color: String
-    branding_logo: String
-    branding_favicon: String
-    website_url: String
-    email: String
-    currency_id: ID
-    currency: Currency @belongsTo
-    locations: [Location!] @morphMany
+  id: ID!
+  name: String!
+  root: Boolean!
+  @field(resolver: "App\\GraphQL\\Queries\\Organization@root")
+
+  locale: String
+  website_url: String
+  email: String
+  currency_id: ID
+  currency: Currency @belongsTo
+  locations: [Location!] @morphMany
+  analytics_code: String
+
+  branding: OrganizationBranding
+  @field(resolver: "App\\GraphQL\\Queries\\Organization@branding")
 }

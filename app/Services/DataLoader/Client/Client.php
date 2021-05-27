@@ -6,15 +6,21 @@ use App\Services\DataLoader\Exceptions\DataLoaderException;
 use App\Services\DataLoader\Exceptions\GraphQLQueryFailed;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Schema\CompanyBrandingData;
+use App\Services\DataLoader\Schema\UpdateCompanyLogo;
 use Closure;
 use Exception;
 use GraphQL\Type\Introspection;
+use GuzzleHttp\Psr7\Utils;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Arr;
 use Psr\Log\LoggerInterface;
+use SplFileInfo;
 
+use function explode;
+use function json_encode;
 use function reset;
 use function time;
 
@@ -47,7 +53,7 @@ class Client {
                 GRAPHQL,
                 [],
                 static function (array $data): Company {
-                    return Company::create($data);
+                    return new Company($data);
                 },
             )
             ->limit($limit)
@@ -70,7 +76,7 @@ class Client {
         );
 
         if ($company) {
-            $company = Company::create($company);
+            $company = new Company($company);
         }
 
         return $company;
@@ -98,7 +104,7 @@ class Client {
         );
 
         if ($asset) {
-            $asset = Asset::create($asset);
+            $asset = new Asset($asset);
         }
 
         return $asset;
@@ -125,7 +131,7 @@ class Client {
                     'id' => $id,
                 ],
                 static function (array $data): Asset {
-                    return Asset::create($data);
+                    return new Asset($data);
                 },
             )
             ->limit($limit)
@@ -156,7 +162,7 @@ class Client {
                     'id' => $id,
                 ],
                 static function (array $data): Asset {
-                    return Asset::create($data);
+                    return new Asset($data);
                 },
             )
             ->limit($limit)
@@ -184,7 +190,7 @@ class Client {
                     'id' => $id,
                 ],
                 static function (array $data): Asset {
-                    return Asset::create($data);
+                    return new Asset($data);
                 },
             )
             ->limit($limit)
@@ -215,7 +221,7 @@ class Client {
                     'id' => $id,
                 ],
                 static function (array $data): Asset {
-                    return Asset::create($data);
+                    return new Asset($data);
                 },
             )
             ->limit($limit)
@@ -227,6 +233,40 @@ class Client {
      */
     public function getIntrospection(): array {
         return $this->call('data', Introspection::getIntrospectionQuery());
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Mutations">
+    // =========================================================================
+    public function updateBrandingData(CompanyBrandingData $input): bool {
+        return (bool) $this->call(
+            'data.updateBrandingData',
+            /** @lang GraphQL */ <<<GRAPHQL
+            mutation updateBrandingData(\$input: CompanyBrandingData!) {
+                updateBrandingData(input: \$input)
+            }
+            GRAPHQL,
+            [
+                'input' => $input,
+            ],
+        );
+    }
+
+    public function updateCompanyLogo(UpdateCompanyLogo $input): string {
+        return $this->call(
+            'data.updateCompanyLogo',
+            /** @lang GraphQL */ <<<GRAPHQL
+            mutation updateCompanyLogo(\$input: UpdateCompanyLogo!) {
+                updateCompanyLogo(input: \$input)
+            }
+            GRAPHQL,
+            [
+                'input' => $input->toArray(),
+            ],
+            [
+                'input.logo',
+            ],
+        );
     }
     // </editor-fold>
 
@@ -258,24 +298,23 @@ class Client {
      * @return array<mixed>|null
      */
     public function get(string $selector, string $graphql, array $params = []): ?array {
-        $results = $this->call("data.{$selector}", $graphql, $params);
+        $results = (array) $this->call("data.{$selector}", $graphql, $params);
         $item    = reset($results) ?: null;
 
         return $item;
     }
 
     /**
-     * @param array<mixed> $params
-     *
-     * @return array<mixed>|null
+     * @param array<mixed>  $params
+     * @param array<string> $files
      */
-    public function call(string $selector, string $graphql, array $params = []): ?array {
+    public function call(string $selector, string $graphql, array $params = [], array $files = []): mixed {
         // Enabled?
         if (!$this->isEnabled()) {
             throw new DataLoaderException('DataLoader is disabled.');
         }
 
-        // Call
+        // Prepare
         $url     = $this->config->get('ep.data_loader.endpoint') ?: $this->config->get('ep.data_loader.url');
         $timeout = $this->config->get('ep.data_loader.timeout') ?: 5 * 60;
         $data    = [
@@ -286,13 +325,52 @@ class Client {
             'Accept'        => 'application/json',
             'Authorization' => "Bearer {$this->token->getAccessToken()}",
         ];
-        $begin   = time();
+        $request = $this->client
+            ->timeout($timeout)
+            ->withHeaders($headers);
+
+        if ($files) {
+            $map       = [];
+            $index     = 0;
+            $variables = $params;
+
+            foreach ($files as $variable) {
+                $name       = 'file'.($index++);
+                $file       = Arr::get($params, $variable);
+                $map[$name] = ["variables.{$variable}"];
+
+                if ($file instanceof SplFileInfo) {
+                    $file = Utils::streamFor(Utils::tryFopen($file->getPathname(), 'r'));
+                }
+
+                $request->attach($name, $file);
+
+                Arr::set($variables, $variable, null);
+            }
+
+            $data = [
+                [
+                    'name'     => 'operations',
+                    'headers'  => ['Content-Type' => 'application/json'],
+                    'contents' => json_encode([
+                        'query'         => $graphql,
+                        'variables'     => $variables,
+                        'operationName' => Arr::last(explode('.', $selector)),
+                    ]),
+                ],
+                [
+                    'name'     => 'map',
+                    'headers'  => ['Content-Type' => 'application/json'],
+                    'contents' => json_encode($map),
+                ],
+            ];
+        }
+
+        // Call
+        $begin = time();
 
         try {
-            $response = $this->client
-                ->timeout($timeout)
-                ->withHeaders($headers)
-                ->post($url, $data);
+            $response = $request->post($url, $data);
 
             $response->throw();
         } catch (Exception $exception) {
@@ -319,7 +397,7 @@ class Client {
         // Error?
         $json   = $response->json();
         $errors = Arr::get($json, 'errors', Arr::get($json, 'error.errors'));
-        $result = Arr::get($json, $selector, []) ?: [];
+        $result = Arr::get($json, $selector);
 
         if ($errors) {
             $error = new GraphQLQueryFailed($graphql, $params, $errors);
@@ -363,6 +441,21 @@ class Client {
                 zip
                 address
                 locationType
+            }
+            brandingData {
+                brandingMode
+                defaultLogoUrl
+                defaultMainColor
+                favIconUrl
+                logoUrl
+                mainColor
+                mainHeadingText
+                mainImageOnTheRight
+                resellerAnalyticsCode
+                secondaryColor
+                secondaryColorDefault
+                underlineText
+                useDefaultFavIcon
             }
             GRAPHQL;
     }

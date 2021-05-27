@@ -16,39 +16,30 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null                                                    $keycloak_group_id
  * @property string|null                                                    $locale
  * @property string|null                                                    $currency_id
- * @property bool|null                                                      $branding_dark_theme
- * @property string|null                                                    $branding_primary_color
- * @property string|null                                                    $branding_secondary_color
- * @property string|null                                                    $branding_logo
- * @property string|null                                                    $branding_favicon
  * @property string|null                                                    $website_url
  * @property string|null                                                    $email
+ * @property bool|null                                                      $branding_dark_theme
+ * @property string|null                                                    $branding_main_color
+ * @property string|null                                                    $branding_secondary_color
+ * @property string|null                                                    $branding_logo_url
+ * @property string|null                                                    $branding_favicon_url
+ * @property string|null                                                    $branding_default_main_color
+ * @property string|null                                                    $branding_default_secondary_color
+ * @property string|null                                                    $branding_default_logo_url
+ * @property string|null                                                    $branding_default_favicon_url
+ * @property string|null                                                    $branding_welcome_image_url
+ * @property string|null                                                    $branding_welcome_heading
+ * @property string|null                                                    $branding_welcome_underline
+ * @property string|null                                                    $analytics_code
  * @property \Carbon\CarbonImmutable                                        $created_at
  * @property \Carbon\CarbonImmutable                                        $updated_at
  * @property \Carbon\CarbonImmutable|null                                   $deleted_at
  * @property \App\Models\Currency|null                                      $currency
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location> $locations
- * @property-read int|null                                                  $locations_count
  * @method static \Database\Factories\OrganizationFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereBrandingDarkTheme($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereBrandingFavicon($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereBrandingLogo($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereBrandingPrimaryColor($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereBrandingSecondaryColor($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereCurrencyId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereKeycloakScope($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereLocale($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereSubdomain($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization whereWebsiteUrl($value)
  * @mixin \Eloquent
  */
 class Organization extends Model implements HasLocalePreference {

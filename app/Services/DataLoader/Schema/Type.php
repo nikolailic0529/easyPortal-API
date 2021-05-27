@@ -2,11 +2,22 @@
 
 namespace App\Services\DataLoader\Schema;
 
-use App\Services\DataLoader\Utils\JsonFactory;
+use App\Utils\JsonObject;
 use ReflectionClass;
 
-abstract class Type extends JsonFactory {
+abstract class Type extends JsonObject {
     /**
+     * @deprecated Please use `new MyType([])` instead.
+     *
+     * @param array<mixed> $json
+     */
+    public static function create(array $json): static {
+        return new static($json);
+    }
+
+    /**
+     * @deprecated Please use `jsonSerialize()` or `toArray()` instead.
+     *
      * @return array<string>
      */
     public static function getPropertiesNames(): array {

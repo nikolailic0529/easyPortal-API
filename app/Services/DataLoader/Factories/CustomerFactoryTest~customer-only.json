@@ -3,8 +3,6 @@
     "name": "Weber, Gusikowski and Simonis",
     "companyTypes": [
         {
-            "vendorSpecificId": "12345",
-            "vendor": "HPE",
             "type": "CUSTOMER",
             "status": "ACTIVE"
         }

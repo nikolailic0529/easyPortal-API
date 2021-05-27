@@ -28,7 +28,7 @@ class ContactFactoryTest extends TestCase {
      */
     public function testFind(): void {
         $customer = Customer::factory()->make();
-        $contact  = CompanyContactPerson::create([
+        $contact  = new CompanyContactPerson([
             'phoneNumber' => '+495921234554',
             'vendor'      => 'HPE',
             'name'        => null,
@@ -73,7 +73,7 @@ class ContactFactoryTest extends TestCase {
      */
     public function testCreateFromPerson(): void {
         $customer = Customer::factory()->make();
-        $contact  = CompanyContactPerson::create([
+        $contact  = new CompanyContactPerson([
             'phoneNumber' => '+495921234554',
             'vendor'      => 'HPE',
             'name'        => null,

@@ -8,7 +8,6 @@ use function is_int;
 use function is_null;
 use function is_string;
 use function number_format;
-use function round;
 
 use const FILTER_FLAG_ALLOW_THOUSAND;
 use const FILTER_VALIDATE_FLOAT;
@@ -21,7 +20,7 @@ class NumberNormalizer implements Normalizer {
     public function normalize(mixed $value): ?string {
         // Parse
         if (is_int($value) || is_float($value)) {
-            $value = round($value, 2);
+            // nothing to do
         } elseif (is_string($value)) {
             $value = filter_var($value, FILTER_VALIDATE_FLOAT, [
                 'flags' => FILTER_FLAG_ALLOW_THOUSAND,

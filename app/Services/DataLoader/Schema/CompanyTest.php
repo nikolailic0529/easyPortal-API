@@ -18,7 +18,7 @@ class CompanyTest extends TestCase {
      */
     public function testCreate(): void {
         $json       = $this->getTestData()->json();
-        $actual     = Company::create($json);
+        $actual     = new Company($json);
         $properties = Company::getPropertiesNames();
 
         $this->assertEquals(array_keys($json), $properties);
@@ -30,6 +30,7 @@ class CompanyTest extends TestCase {
         $this->assertInstanceOf(Location::class, reset($actual->locations));
         $this->assertCount(1, $actual->assets);
         $this->assertInstanceOf(Asset::class, reset($actual->assets));
+        $this->assertInstanceOf(BrandingData::class, $actual->brandingData);
         $this->assertJsonStringEqualsJsonString(
             json_encode($json),
             json_encode($actual),

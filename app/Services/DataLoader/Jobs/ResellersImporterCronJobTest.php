@@ -35,9 +35,9 @@ class ResellersImporterCronJobTest extends TestCase {
         Queue::fake();
 
         $o       = Reseller::factory()->create();
-        $a       = Company::create(['id' => $o->getKey()]);
-        $b       = Company::create(['id' => $this->faker->uuid]);
-        $c       = Company::create(['id' => $this->faker->uuid]);
+        $a       = new Company(['id' => $o->getKey()]);
+        $b       = new Company(['id' => $this->faker->uuid]);
+        $c       = new Company(['id' => $this->faker->uuid]);
         $items   = [$a, $b, $c];
         $logger  = $this->app->make(LoggerInterface::class);
         $factory = $this->app->make(ResellerFactory::class);

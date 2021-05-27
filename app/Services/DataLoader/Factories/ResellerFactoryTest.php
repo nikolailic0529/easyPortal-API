@@ -32,7 +32,7 @@ class ResellerFactoryTest extends TestCase {
      * @covers ::find
      */
     public function testFind(): void {
-        $company = Company::create([
+        $company = new Company([
             'id'           => $this->faker->uuid,
             'name'         => $this->faker->company,
             'companyTypes' => [['type' => 'RESELLER']],
@@ -73,7 +73,7 @@ class ResellerFactoryTest extends TestCase {
      * @covers ::createFromAssetDocumentObject
      */
     public function testCreateFromAssetDocumentObject(): void {
-        $document = AssetDocumentObject::create([
+        $document = new AssetDocumentObject([
             'document' => [
                 'reseller' => [
                     'id' => $this->faker->uuid,
@@ -107,7 +107,7 @@ class ResellerFactoryTest extends TestCase {
      * @covers ::createFromAssetDocument
      */
     public function testCreateFromAssetDocument(): void {
-        $document = AssetDocument::create([
+        $document = new AssetDocument([
             'reseller' => [
                 'id' => $this->faker->uuid,
             ],
@@ -129,7 +129,7 @@ class ResellerFactoryTest extends TestCase {
      * @covers ::createFromDocument
      */
     public function testCreateFromDocument(): void {
-        $document = Document::create([
+        $document = new Document([
             'reseller' => [
                 'id' => $this->faker->uuid,
             ],
@@ -162,7 +162,7 @@ class ResellerFactoryTest extends TestCase {
 
         // Test
         $json     = $this->getTestData()->json('~reseller-full.json');
-        $company  = Company::create($json);
+        $company  = new Company($json);
         $reseller = $factory->create($company);
 
         $this->assertNotNull($reseller);
@@ -178,7 +178,7 @@ class ResellerFactoryTest extends TestCase {
 
         // Reseller should be updated
         $json    = $this->getTestData()->json('~reseller-changed.json');
-        $company = Company::create($json);
+        $company = new Company($json);
         $updated = $factory->create($company);
 
         $this->assertNotNull($updated);
@@ -208,7 +208,7 @@ class ResellerFactoryTest extends TestCase {
 
         // Test
         $json     = $this->getTestData()->json('~reseller-only.json');
-        $company  = Company::create($json);
+        $company  = new Company($json);
         $reseller = $factory->create($company);
 
         $this->assertNotNull($reseller);
@@ -231,7 +231,7 @@ class ResellerFactoryTest extends TestCase {
         // Prepare
         $factory = $this->app->make(ResellerFactory::class);
         $json    = $this->getTestData()->json('~customer.json');
-        $company = Company::create($json);
+        $company = new Company($json);
 
         // Test
         $this->assertNotNull($factory->create($company));
@@ -244,10 +244,10 @@ class ResellerFactoryTest extends TestCase {
      * @covers ::prefetch
      */
     public function testPrefetch(): void {
-        $a          = Company::create([
+        $a          = new Company([
             'id' => $this->faker->uuid,
         ]);
-        $b          = Company::create([
+        $b          = new Company([
             'id' => $this->faker->uuid,
         ]);
         $resolver   = $this->app->make(ResellerResolver::class);

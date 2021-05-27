@@ -26,7 +26,7 @@ class AssetCoverageFactoryTest extends TestCase {
      */
     public function testFind(): void {
         $factory = $this->app->make(AssetCoverageFactory::class);
-        $entry   = Asset::create([
+        $entry   = new Asset([
             'assetCoverage' => $this->faker->word,
         ]);
 
@@ -65,7 +65,7 @@ class AssetCoverageFactoryTest extends TestCase {
      */
     public function testCreateFromAsset(): void {
         $key   = $this->faker->word;
-        $asset = Asset::create([
+        $asset = new Asset([
             'assetCoverage' => $key,
         ]);
 

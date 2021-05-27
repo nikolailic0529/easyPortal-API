@@ -62,7 +62,7 @@ class UpdateOrganizationTest extends TestCase {
             }
         }
 
-        $query = /** @lang GraphQL */'mutation updateOrganization($input: updateOrganizationInput!){
+        $query = /** @lang GraphQL */'mutation updateOrganization($input: UpdateOrganizationInput!){
             updateOrganization(input: $input){
               result
             }
