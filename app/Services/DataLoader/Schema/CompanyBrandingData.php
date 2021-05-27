@@ -16,5 +16,4 @@ class CompanyBrandingData extends Input {
     public ?string $mainImageOnTheRight;
     public ?string $mainHeadingText;
     public ?string $underlineText;
-    public ?string $logoUrl;
 }

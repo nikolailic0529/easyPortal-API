@@ -2,15 +2,18 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Models\Organization;
+use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Schema\CompanyBrandingData;
+use App\Services\DataLoader\Schema\UpdateCompanyLogo;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Filesystem\Factory;
-
-use function array_key_exists;
-use function is_null;
+use Illuminate\Http\UploadedFile;
 
 class UpdateOrganization {
     public function __construct(
         protected CurrentOrganization $organization,
+        protected Client $client,
         protected Factory $storage,
     ) {
         // empty
@@ -23,64 +26,136 @@ class UpdateOrganization {
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
+        // Prepare
         $organization = $this->organization->get();
+        $mutation     = new CompanyBrandingData([
+            'id' => $organization->getKey(),
+        ]);
 
-        if (array_key_exists('locale', $args['input'])) {
-            $organization->locale = $args['input']['locale'];
+        // Update properties
+        $this->updateProperties($organization, $mutation, $args['input']);
+
+        // Update Cosmos
+        if (!$mutation->isEmpty()) {
+            $this->client->updateBrandingData($mutation);
         }
 
-        if (array_key_exists('currency_id', $args['input'])) {
-            $organization->currency_id = $args['input']['currency_id'];
-        }
+        // Return
+        return [
+            'result' => $organization->save(),
+        ];
+    }
 
-        if (array_key_exists('branding_dark_theme', $args['input'])) {
-            $organization->branding_dark_theme = $args['input']['branding_dark_theme'];
-        }
-
-        if (array_key_exists('branding_primary_color', $args['input'])) {
-            $organization->branding_primary_color = $args['input']['branding_primary_color'];
-        }
-
-        if (array_key_exists('branding_secondary_color', $args['input'])) {
-            $organization->branding_secondary_color = $args['input']['branding_secondary_color'];
-        }
-
-        if (array_key_exists('website_url', $args['input'])) {
-            $organization->website_url = $args['input']['website_url'];
-        }
-
-        if (array_key_exists('email', $args['input'])) {
-            $organization->email = $args['input']['email'];
-        }
-
-        if (array_key_exists('branding_logo', $args['input'])) {
-            if ($this->storage->disk('local')->exists($organization->branding_logo)) {
-                $this->storage->disk('local')->delete($organization->branding_logo);
-            }
-
-            $file = $args['input']['branding_logo'];
-            if (is_null($file)) {
-                $organization->branding_logo = $file;
-            } else {
-                $organization->branding_logo = $file->storePublicly('uploads');
-            }
-        }
-
-        if (array_key_exists('branding_favicon', $args['input'])) {
-            if ($this->storage->disk('local')->exists($organization->branding_favicon)) {
-                $this->storage->disk('local')->delete($organization->branding_favicon);
-            }
-
-            $file = $args['input']['branding_favicon'];
-            if (is_null($file)) {
-                $organization->branding_favicon = $file;
-            } else {
-                $organization->branding_favicon = $file->storePublicly('uploads');
+    /**
+     * @param array<mixed> $properties
+     */
+    protected function updateProperties(
+        Organization $organization,
+        CompanyBrandingData $branding,
+        array $properties,
+    ): void {
+        foreach ($properties as $property => $value) {
+            switch ($property) {
+                case 'analytics_code':
+                    $organization->analytics_code    = $value;
+                    $branding->resellerAnalyticsCode = $value;
+                    break;
+                case 'branding':
+                    $this->updateBranding($organization, $branding, $value);
+                    break;
+                case 'welcome':
+                    $this->updateWelcome($organization, $branding, $value);
+                    break;
+                default:
+                    $organization->{$property} = $value;
+                    break;
             }
         }
+    }
 
-        $result = $organization->save();
+    /**
+     * @param array<mixed> $properties
+     */
+    protected function updateBranding(
+        Organization $organization,
+        CompanyBrandingData $branding,
+        array $properties,
+    ): void {
+        foreach ($properties as $property => $value) {
+            switch ($property) {
+                case 'dark_theme':
+                    $organization->branding_dark_theme = $value;
+                    $branding->brandingMode            = $value ? 'true' : 'false';
+                    break;
+                case 'main_color':
+                    $organization->branding_main_color = $value;
+                    $branding->mainColor               = $value;
+                    break;
+                case 'secondary_color':
+                    $organization->branding_secondary_color = $value;
+                    $branding->secondaryColor               = $value;
+                    break;
+                case 'logo':
+                    $organization->branding_logo_url = $this->client->updateCompanyLogo(new UpdateCompanyLogo([
+                        'companyId' => $organization->getKey(),
+                        'logo'      => $value,
+                    ]));
+                    break;
+                case 'favicon':
+                    if ($value instanceof UploadedFile) {
+                        $organization->branding_favicon_url = $this->store($organization, $value);
+                        $branding->favIconUrl               = $organization->branding_favicon_url;
+                    } else {
+                        $organization->branding_welcome_image_url = null;
+                        $branding->mainImageOnTheRight            = null;
+                    }
+                    break;
+                default:
+                    $organization->{$property} = $value;
+                    break;
+            }
+        }
+    }
 
-        return ['result' => $result];
+    /**
+     * @param array<mixed> $properties
+     */
+    protected function updateWelcome(
+        Organization $organization,
+        CompanyBrandingData $branding,
+        array $properties,
+    ): void {
+        foreach ($properties as $property => $value) {
+            switch ($property) {
+                case 'heading':
+                    $organization->branding_welcome_heading = $value;
+                    $branding->mainHeadingText              = $value;
+                    break;
+                case 'underline':
+                    $organization->branding_welcome_underline = $value;
+                    $branding->underlineText                  = $value;
+                    break;
+                case 'image':
+                    if ($value instanceof UploadedFile) {
+                        $organization->branding_welcome_image_url = $this->store($organization, $value);
+                        $branding->mainImageOnTheRight            = $organization->branding_welcome_image_url;
+                    } else {
+                        $organization->branding_welcome_image_url = null;
+                        $branding->mainImageOnTheRight            = null;
+                    }
+                    break;
+                default:
+                    $organization->{$property} = $value;
+                    break;
+            }
+        }
+    }
+
+    protected function store(Organization $organization, UploadedFile $file): string {
+        $disk = 'public';
+        $path = $file->storePublicly("{$organization->getMorphClass()}/{$organization->getKey()}", $disk);
+        $url  = $this->storage->disk($disk)->url($path);
+
+        return $url;
     }
 }

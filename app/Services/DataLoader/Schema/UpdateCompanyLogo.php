@@ -2,9 +2,9 @@
 
 namespace App\Services\DataLoader\Schema;
 
-use Psr\Http\Message\StreamInterface;
+use SplFileInfo;
 
 class UpdateCompanyLogo extends Input {
-    public string          $companyId;
-    public StreamInterface $logo;
+    public string      $companyId;
+    public SplFileInfo $logo;
 }
