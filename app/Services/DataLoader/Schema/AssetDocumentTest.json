@@ -9,8 +9,6 @@
         "id": "6e002dbc-fbc9-42bd-b3af-4076fca1663e",
         "type": "Quote renewal",
         "documentNumber": "1234567890",
-        "resellerId": "ef6d9171-c3d2-468c-ac7a-0daf4ebded4f",
-        "customerId": "0d20b3db-7aa5-463f-bf43-cb07df148df8",
         "startDate": "2020-04-01",
         "endDate": "2021-03-31",
         "currencyCode": "EUR",

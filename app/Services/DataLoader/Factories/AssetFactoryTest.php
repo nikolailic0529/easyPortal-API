@@ -1103,8 +1103,8 @@ class AssetFactoryTest extends TestCase {
     public function testAssetLocation(): void {
         $customer  = Customer::factory()->make();
         $asset     = new Asset([
-            'id'          => $this->faker->uuid,
-            'customer_id' => $customer->getKey(),
+            'id'         => $this->faker->uuid,
+            'customerId' => $customer->getKey(),
         ]);
         $location  = Location::factory()->create([
             'object_type' => $customer->getMorphClass(),
@@ -1141,8 +1141,8 @@ class AssetFactoryTest extends TestCase {
     public function testAssetLocationNoCustomer(): void {
         $reseller  = Reseller::factory()->make();
         $asset     = new Asset([
-            'id'          => $this->faker->uuid,
-            'reseller_id' => $reseller->getKey(),
+            'id'         => $this->faker->uuid,
+            'resellerId' => $reseller->getKey(),
         ]);
         $location  = Location::factory()->create([
             'object_type' => $reseller->getMorphClass(),
@@ -1198,8 +1198,8 @@ class AssetFactoryTest extends TestCase {
     public function testAssetLocationNoLocation(): void {
         $customer  = Customer::factory()->make();
         $asset     = new Asset([
-            'id'          => $this->faker->uuid,
-            'customer_id' => $customer->getKey(),
+            'id'         => $this->faker->uuid,
+            'customerId' => $customer->getKey(),
         ]);
         $locations = Mockery::mock(LocationFactory::class);
         $locations->makePartial();

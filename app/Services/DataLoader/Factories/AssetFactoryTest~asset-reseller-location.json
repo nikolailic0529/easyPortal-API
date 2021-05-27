@@ -25,8 +25,6 @@
         "keycloakName": "virtualcomputersa_3",
         "companyTypes": [
             {
-                "vendorSpecificId": "12345",
-                "vendor": "HPE",
                 "type": "RESELLER",
                 "status": "ACTIVE"
             }
@@ -69,8 +67,6 @@
         ],
         "companyTypes": [
             {
-                "vendorSpecificId": "12345",
-                "vendor": "HPE",
                 "type": "CUSTOMER",
                 "status": "ACTIVE"
             }

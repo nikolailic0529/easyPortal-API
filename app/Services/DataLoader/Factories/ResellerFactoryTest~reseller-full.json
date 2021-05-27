@@ -4,8 +4,6 @@
     "companyContactPersons": [],
     "companyTypes": [
         {
-            "vendorSpecificId": "123456",
-            "vendor": "HPE",
             "type": "RESELLER",
             "status": "ACTIVE"
         }
