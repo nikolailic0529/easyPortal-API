@@ -88,6 +88,22 @@ type Company {
   keycloakClientScopeName: String
 }
 
+input CompanyBrandingData {
+  id: String
+  mainColor: String
+  secondaryColor: String
+  defaultMainColor: String
+  secondaryColorDefault: String
+  defaultLogoUrl: String
+  favIconUrl: String
+  useDefaultFavIcon: String
+  resellerAnalyticsCode: String
+  brandingMode: String
+  mainImageOnTheRight: String
+  mainHeadingText: String
+  underlineText: String
+}
+
 type CompanyContactPerson {
   phoneNumber: String
   vendor: String
@@ -225,24 +241,17 @@ type Location {
 
 type Mutation {
   addDefaultImportSchema(input: DefaultImportSchema): Boolean
+  updateBrandingData(input: CompanyBrandingData): Boolean
+  updateCompanyLogo(input: UpdateCompanyLogo): String
 }
 
 type Query {
   getAssetsBySerialNumber(serialNumber: String): Asset
   getAssetsByCustomerId(customerId: String!, limit: Int, offset: Int): [Asset]!
   getAssetsByResellerId(resellerId: String!, limit: Int, offset: Int): [Asset]!
-  getAssetsByDistributorId(
-    distributorId: String!
-    limit: Int
-    offset: Int
-  ): [Asset]!
+  getAssetsByDistributorId(distributorId: String!, limit: Int, offset: Int): [Asset]!
   getAssetsByVendor(vendor: String!, limit: Int, offset: Int): [Asset]!
-  getDocumentsByCostumer(
-    customerId: String!
-    type: String
-    limit: Int
-    offset: Int
-  ): [Document]!
+  getDocumentsByCostumer(customerId: String!, type: String, limit: Int, offset: Int): [Document]!
   getAssets(args: [KeyValuePair], limit: Int, offset: Int): [Asset]!
   getCompanyById(id: String): [Company]!
   assets(limit: Int, offset: Int): [Asset]!
@@ -254,6 +263,40 @@ type Query {
 type SourceDocument {
   id: String
   timestamp: String
+}
+
+input UpdateCompanyLogo {
+  companyId: String!
+  logo: Upload!
+}
+
+scalar Upload
+
+input UploadInvoice {
+  invoiceNumber: String!
+  invoiceDate: String
+  invoiceCity: String
+  customerName: String
+  customerAddress: String
+  customerZip: String
+  customerCity: String
+  customerCountry: String
+  salesPersonName: String
+  renewalContactPhoneNumber: String
+  renewalContactEmailAddress: String
+  resellerName: String
+  resellerAddress: String
+  resellerZip: String
+  resellerCity: String
+  resellerCountry: String
+  orderNumber: String
+  contractGroup: String
+  contractStartDate: String
+  contractEndDate: String
+  endCustomer: String
+  invoiceStartDate: String
+  invoiceEndDate: String
+  invoice: Upload!
 }
 
 type VendorSpecificField {

@@ -2,10 +2,10 @@
 
 namespace App\Services\DataLoader\Schema;
 
-use App\Utils\JsonFactory;
+use App\Utils\JsonObject;
 use ReflectionClass;
 
-abstract class Type extends JsonFactory {
+abstract class Type extends JsonObject {
     /**
      * @deprecated Please use `new MyType([])` instead.
      *
@@ -16,6 +16,8 @@ abstract class Type extends JsonFactory {
     }
 
     /**
+     * @deprecated Please use `jsonSerialize()` or `toArray()` instead.
+     *
      * @return array<string>
      */
     public static function getPropertiesNames(): array {

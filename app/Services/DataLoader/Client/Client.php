@@ -7,6 +7,7 @@ use App\Services\DataLoader\Exceptions\GraphQLQueryFailed;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
+use App\Services\DataLoader\Schema\UpdateCompanyLogo;
 use Closure;
 use Exception;
 use GraphQL\Type\Introspection;
@@ -16,6 +17,8 @@ use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Arr;
 use Psr\Log\LoggerInterface;
 
+use function explode;
+use function json_encode;
 use function reset;
 use function time;
 
@@ -237,12 +240,29 @@ class Client {
         return (bool) $this->call(
             'data.updateBrandingData',
             /** @lang GraphQL */ <<<GRAPHQL
-            query updateBrandingData(\$input: CompanyBrandingData!) {
-                updateBrandingData(id: \$input)
+            mutation updateBrandingData(\$input: CompanyBrandingData!) {
+                updateBrandingData(input: \$input)
             }
             GRAPHQL,
             [
                 'input' => $input,
+            ],
+        );
+    }
+
+    public function updateCompanyLogo(UpdateCompanyLogo $input): string {
+        return $this->call(
+            'data.updateCompanyLogo',
+            /** @lang GraphQL */ <<<GRAPHQL
+            mutation updateCompanyLogo(\$input: UpdateCompanyLogo!) {
+                updateCompanyLogo(input: \$input)
+            }
+            GRAPHQL,
+            [
+                'input' => $input->toArray(),
+            ],
+            [
+                'input.logo',
             ],
         );
     }
@@ -283,15 +303,16 @@ class Client {
     }
 
     /**
-     * @param array<mixed> $params
+     * @param array<mixed>  $params
+     * @param array<string> $files
      */
-    public function call(string $selector, string $graphql, array $params = []): mixed {
+    public function call(string $selector, string $graphql, array $params = [], array $files = []): mixed {
         // Enabled?
         if (!$this->isEnabled()) {
             throw new DataLoaderException('DataLoader is disabled.');
         }
 
-        // Call
+        // Prepare
         $url     = $this->config->get('ep.data_loader.endpoint') ?: $this->config->get('ep.data_loader.url');
         $timeout = $this->config->get('ep.data_loader.timeout') ?: 5 * 60;
         $data    = [
@@ -302,13 +323,47 @@ class Client {
             'Accept'        => 'application/json',
             'Authorization' => "Bearer {$this->token->getAccessToken()}",
         ];
-        $begin   = time();
+        $request = $this->client
+            ->timeout($timeout)
+            ->withHeaders($headers);
+
+        if ($files) {
+            $map       = [];
+            $index     = 0;
+            $variables = $params;
+
+            foreach ($files as $variable) {
+                $name       = 'file'.($index++);
+                $map[$name] = ["variables.{$variable}"];
+
+                $request->attach($name, Arr::get($params, $variable));
+
+                Arr::set($variables, $variable, null);
+            }
+
+            $data = [
+                [
+                    'name'     => 'operations',
+                    'headers'  => ['Content-Type' => 'application/json'],
+                    'contents' => json_encode([
+                        'query'         => $graphql,
+                        'variables'     => $variables,
+                        'operationName' => Arr::last(explode('.', $selector)),
+                    ]),
+                ],
+                [
+                    'name'     => 'map',
+                    'headers'  => ['Content-Type' => 'application/json'],
+                    'contents' => json_encode($map),
+                ],
+            ];
+        }
+
+        // Call
+        $begin = time();
 
         try {
-            $response = $this->client
-                ->timeout($timeout)
-                ->withHeaders($headers)
-                ->post($url, $data);
+            $response = $request->post($url, $data);
 
             $response->throw();
         } catch (Exception $exception) {
