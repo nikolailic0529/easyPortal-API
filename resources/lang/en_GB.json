@@ -106,6 +106,7 @@
     "validation.cron": "The :attribute is not a valid cron expression.",
     "validation.currency_id": "Unknown currency",
     "validation.organization_id": "Unknown organization",
+    "validation.color": "Color should be in #RRGGBB format.",
     "errors.message": ":message (:code)",
     "errors.unauthenticated": "Unauthenticated.",
     "errors.unauthorized": "Unauthorized.",
