@@ -2,8 +2,10 @@
 
 namespace App\Utils;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
+use function sprintf;
 use function tap;
 
 /**
@@ -95,20 +97,77 @@ class JsonObjectTest extends TestCase {
      * @covers ::jsonSerialize
      */
     public function testJsonSerialize(): void {
-        $object          = new JsonObjectTest_Child([
-            'i' => 567,
-            'b' => true,
+        $child  = new JsonObjectTest_Child([
+            'i' => 123,
         ]);
-        $object->dynamic = 'value';
+        $object = new JsonObjectTest_Child([
+            'i'        => 567,
+            'b'        => true,
+            'children' => [$child],
+        ]);
 
         $this->assertEquals(
             [
-                'i'       => 567,
-                'b'       => true,
-                'dynamic' => 'value',
+                'i'        => 567,
+                'b'        => true,
+                'children' => [$child],
             ],
             $object->jsonSerialize(),
         );
+    }
+
+    /**
+     * @covers ::toArray
+     */
+    public function testToArray(): void {
+        $child  = new JsonObjectTest_Child([
+            'i' => 123,
+        ]);
+        $object = new JsonObjectTest_Child([
+            'i'        => 567,
+            'b'        => true,
+            'children' => [$child],
+        ]);
+
+        $this->assertEquals(
+            [
+                'i'        => 567,
+                'b'        => true,
+                'children' => [
+                    [
+                        'i' => 123,
+                    ],
+                ],
+            ],
+            $object->toArray(),
+        );
+    }
+
+    /**
+     * @covers ::__get
+     */
+    public function testGetDynamicProperties(): void {
+        $this->expectExceptionObject(new InvalidArgumentException(sprintf(
+            'Property `%s::$%s` doesn\'t exist.',
+            JsonObjectTest_Child::class,
+            'unknown',
+        )));
+
+        $this->assertNotNull((new JsonObjectTest_Child())->unknown);
+    }
+
+    /**
+     * @cover ::__set
+     */
+    public function testSetDynamicProperties(): void {
+        $this->expectExceptionObject(new InvalidArgumentException(sprintf(
+            'Property `%s::$%s` doesn\'t exist.',
+            JsonObjectTest_Child::class,
+            'unknown',
+        )));
+
+        $object          = new JsonObjectTest_Child();
+        $object->unknown = 'value';
     }
 }
 

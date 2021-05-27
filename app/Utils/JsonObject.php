@@ -2,15 +2,18 @@
 
 namespace App\Utils;
 
+use Illuminate\Contracts\Support\Arrayable;
+use InvalidArgumentException;
 use JsonSerializable;
 use ReflectionClass;
 use ReflectionNamedType;
-
 use ReflectionObject;
 
 use function array_map;
+use function is_array;
 use function is_object;
 use function preg_match;
+use function sprintf;
 use function str_contains;
 
 /**
@@ -24,7 +27,7 @@ use function str_contains;
  *
  * @internal
  */
-abstract class JsonObject implements JsonSerializable {
+abstract class JsonObject implements JsonSerializable, Arrayable {
     /**
      * Contains factories for properties that should be an instance of class or
      * an array of classes (this data extracted from type-hints and comments).
@@ -48,8 +51,10 @@ abstract class JsonObject implements JsonSerializable {
         }
     }
 
+    // <editor-fold desc="JsonSerializable">
+    // =========================================================================
     /**
-     * @return array<mixed>
+     * @return array<string,mixed>
      */
     public function jsonSerialize(): array {
         $properties = (new ReflectionObject($this))->getProperties();
@@ -63,7 +68,56 @@ abstract class JsonObject implements JsonSerializable {
 
         return $json;
     }
+    // </editor-fold>
 
+    // <editor-fold desc="Arrayable">
+    // =========================================================================
+    /**
+     * @return array<string,mixed>
+     */
+    public function toArray(): array {
+        return $this->toArrayProcess($this->jsonSerialize());
+    }
+
+    /**
+     * @param array<string,mixed> $properties
+     *
+     * @return array<string,mixed>
+     */
+    private function toArrayProcess(array $properties): array {
+        foreach ($properties as $name => $value) {
+            if ($value instanceof Arrayable) {
+                $value = $value->toArray();
+            }
+
+            if (is_array($value)) {
+                $properties[$name] = $this->toArrayProcess($value);
+            } else {
+                $properties[$name] = $value;
+            }
+        }
+
+        return $properties;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Magic">
+    // =========================================================================
+    public function __get(string $name): mixed {
+        throw new InvalidArgumentException(sprintf(
+            'Property `%s::$%s` doesn\'t exist.',
+            $this::class,
+            $name,
+        ));
+    }
+
+    public function __set(string $name, mixed $value): void {
+        $this->__get($name);
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Functions">
+    // =========================================================================
     /**
      * @return array<string, callable>
      */
@@ -125,4 +179,5 @@ abstract class JsonObject implements JsonSerializable {
 
         return self::$properties[static::class];
     }
+    // </editor-fold>
 }
