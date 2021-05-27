@@ -30,19 +30,19 @@ class UpdateOrganizationInputValidator extends Validator {
         ];
 
         return [
-            'locale'                   => ['nullable', new Locale()],
-            'currency_id'              => ['nullable', new CurrencyId()],
-            'website_url'              => ['nullable', 'url'],
-            'email'                    => ['nullable', 'email'],
-            'analytics_code'           => ['nullable'],
-            'branding.dark_theme'      => ['nullable'],
-            'branding.main_color'      => ['nullable', new Color()],
-            'branding.secondary_color' => ['nullable', new Color()],
-            'branding.logo'            => [...$upload],
-            'branding.favicon'         => ['nullable', ...$upload],
-            'welcome.image'            => ['nullable', ...$upload],
-            'welcome.heading'          => ['nullable'],
-            'welcome.underline'        => ['nullable'],
+            'locale'                     => ['nullable', new Locale()],
+            'currency_id'                => ['nullable', new CurrencyId()],
+            'website_url'                => ['nullable', 'url'],
+            'email'                      => ['nullable', 'email'],
+            'analytics_code'             => ['nullable'],
+            'branding.dark_theme'        => ['nullable'],
+            'branding.main_color'        => ['nullable', new Color()],
+            'branding.secondary_color'   => ['nullable', new Color()],
+            'branding.logo'              => [...$upload],
+            'branding.favicon'           => ['nullable', ...$upload],
+            'branding.welcome_image'     => ['nullable', ...$upload],
+            'branding.welcome_heading'   => ['nullable'],
+            'branding.welcome_underline' => ['nullable'],
         ];
     }
 }

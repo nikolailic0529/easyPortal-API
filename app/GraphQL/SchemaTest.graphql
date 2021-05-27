@@ -2492,6 +2492,9 @@ input UpdateOrganizationBranding {
   secondary_color: String
   logo: Upload!
   favicon: Upload
+  welcome_image: Upload
+  welcome_heading: String
+  welcome_underline: String
 }
 
 input UpdateOrganizationInput {
@@ -2501,18 +2504,11 @@ input UpdateOrganizationInput {
   email: String
   analytics_code: String
   branding: UpdateOrganizationBranding
-  welcome: UpdateOrganizationWelcome
 }
 
 type UpdateOrganizationPayload {
   result: Boolean!
   organization: Organization!
-}
-
-input UpdateOrganizationWelcome {
-  image_url: Upload
-  heading: String
-  underline: String
 }
 
 """

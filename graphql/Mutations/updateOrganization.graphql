@@ -5,14 +5,13 @@ extend type Mutation {
   @me(permissions: ["edit-organization"])
 }
 
-input UpdateOrganizationInput @validator {
+input UpdateOrganizationInput {
   locale: String
   currency_id: ID
   website_url: String               # TODO [GraphQL] URL type needed
   email: String                     # TODO [GraphQL] Email type needed
   analytics_code: String
   branding: UpdateOrganizationBranding
-  welcome: UpdateOrganizationWelcome
 }
 
 input UpdateOrganizationBranding {
@@ -21,12 +20,9 @@ input UpdateOrganizationBranding {
   secondary_color: String           # TODO [GraphQL] Color type needed
   logo: Upload!
   favicon: Upload
-}
-
-input UpdateOrganizationWelcome {
-  image_url: Upload
-  heading: String
-  underline: String
+  welcome_image: Upload
+  welcome_heading: String
+  welcome_underline: String
 }
 
 type UpdateOrganizationPayload {

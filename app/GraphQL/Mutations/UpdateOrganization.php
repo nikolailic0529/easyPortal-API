@@ -63,9 +63,6 @@ class UpdateOrganization {
                 case 'branding':
                     $this->updateBranding($organization, $branding, $value);
                     break;
-                case 'welcome':
-                    $this->updateWelcome($organization, $branding, $value);
-                    break;
                 default:
                     $organization->{$property} = $value;
                     break;
@@ -110,32 +107,15 @@ class UpdateOrganization {
                         $branding->mainImageOnTheRight            = null;
                     }
                     break;
-                default:
-                    $organization->{$property} = $value;
-                    break;
-            }
-        }
-    }
-
-    /**
-     * @param array<mixed> $properties
-     */
-    protected function updateWelcome(
-        Organization $organization,
-        CompanyBrandingData $branding,
-        array $properties,
-    ): void {
-        foreach ($properties as $property => $value) {
-            switch ($property) {
-                case 'heading':
+                case 'welcome_heading':
                     $organization->branding_welcome_heading = $value;
                     $branding->mainHeadingText              = $value;
                     break;
-                case 'underline':
+                case 'welcome_underline':
                     $organization->branding_welcome_underline = $value;
                     $branding->underlineText                  = $value;
                     break;
-                case 'image':
+                case 'welcome_image':
                     if ($value instanceof UploadedFile) {
                         $organization->branding_welcome_image_url = $this->store($organization, $value);
                         $branding->mainImageOnTheRight            = $organization->branding_welcome_image_url;
