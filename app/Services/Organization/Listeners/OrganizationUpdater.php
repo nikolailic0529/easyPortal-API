@@ -63,7 +63,9 @@ class OrganizationUpdater implements Subscriber {
         // Update
         $organization->name              = $reseller->name;
         $organization->keycloak_scope    = $this->normalizer->string($company->keycloakName);
-        $organization->keycloak_group_id = $this->normalizer->uuid($company->keycloakGroupId);
+        $organization->keycloak_group_id = $company->keycloakGroupId
+            ? $this->normalizer->uuid($company->keycloakGroupId)
+            : null;
 
         if (isset($company->brandingData)) {
             $branding                                       = $company->brandingData;

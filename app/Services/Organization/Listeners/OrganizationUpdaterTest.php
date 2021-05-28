@@ -7,7 +7,6 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Schema\Company;
-use App\Utils\JsonObject;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
@@ -46,6 +45,27 @@ class OrganizationUpdaterTest extends TestCase {
         $this->assertEquals($reseller->name, $organization->name);
         $this->assertEquals($company->keycloakName, $organization->keycloak_scope);
         $this->assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
+    }
+
+    /**
+     * @covers ::handle
+     */
+    public function testHandleKeycloakGroupIdIsNull(): void {
+        $reseller = Reseller::factory()->make();
+        $updater  = $this->app->make(OrganizationUpdater::class);
+        $company  = new Company([
+            'keycloakName'    => null,
+            'keycloakGroupId' => null,
+        ]);
+        $event    = new ResellerUpdated($reseller, $company);
+
+        $updater->handle($event);
+
+        $organization = Organization::query()->whereKey($reseller->getKey())->first();
+
+        $this->assertNotNull($organization);
+        $this->assertNull($organization->keycloak_scope);
+        $this->assertNull($organization->keycloak_group_id);
     }
 
     /**
