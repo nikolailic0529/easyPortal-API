@@ -5,6 +5,7 @@ namespace App\Utils;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
+use function count;
 use function sprintf;
 use function tap;
 
@@ -213,6 +214,21 @@ class JsonObjectTest extends TestCase {
 
         $this->assertTrue($empty->isEmpty());
         $this->assertFalse($object->isEmpty());
+    }
+
+    /**
+     * @covers ::count
+     */
+    public function testCount(): void {
+        $empty  = new class() extends JsonObject {
+            public string $property;
+        };
+        $object = new class(['property' => 'value']) extends JsonObject {
+            public string $property;
+        };
+
+        $this->assertEquals(0, count($empty));
+        $this->assertEquals(1, count($object));
     }
 }
 

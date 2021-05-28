@@ -2,6 +2,7 @@
 
 namespace App\Utils;
 
+use Countable;
 use Illuminate\Contracts\Support\Arrayable;
 use InvalidArgumentException;
 use JsonSerializable;
@@ -28,7 +29,7 @@ use function str_contains;
  *
  * @internal
  */
-abstract class JsonObject implements JsonSerializable, Arrayable {
+abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
     /**
      * Contains factories for properties that should be an instance of class or
      * an array of classes (this data extracted from type-hints and comments).
@@ -55,7 +56,7 @@ abstract class JsonObject implements JsonSerializable, Arrayable {
     // <editor-fold desc="API">
     // =========================================================================
     public function isEmpty(): bool {
-        return count($this->getProperties()) === 0;
+        return $this->count() === 0;
     }
 
     /**
@@ -72,6 +73,13 @@ abstract class JsonObject implements JsonSerializable, Arrayable {
         }
 
         return $json;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Countable">
+    // =========================================================================
+    public function count(): int {
+        return count($this->getProperties());
     }
     // </editor-fold>
 
