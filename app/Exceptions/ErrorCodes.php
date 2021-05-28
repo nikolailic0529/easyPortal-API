@@ -6,6 +6,9 @@ use App\GraphQL\Mutations\DispatchApplicationServiceFailed;
 use App\GraphQL\Mutations\DispatchApplicationServiceNotFoundException;
 use App\Http\Controllers\ExportGraphQLQueryEmpty;
 use App\Http\Controllers\ExportGraphQLQueryInvalid;
+use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled as DataLoaderDataLoaderDisabled;
+use App\Services\DataLoader\Client\Exceptions\DataLoaderUnavailable as DataLoaderDataLoaderUnavailable;
+use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed as DataLoaderGraphQLRequestFailed;
 use App\Services\Filesystem\StorageFileCorrupted as FilesystemStorageFileCorrupted;
 use App\Services\Filesystem\StorageFileDeleteFailed as FilesystemStorageFileDeleteFailed;
 use App\Services\Filesystem\StorageFileSaveFailed as FilesystemStorageFileSaveFailed;
@@ -43,6 +46,9 @@ class ErrorCodes {
         KeyCloakAnotherUserExists::class                   => 'ERR15',
         TokensInvalidCredentials::class                    => 'ERR16',
         ExportGraphQLQueryEmpty::class                     => 'ERR17',
+        DataLoaderDataLoaderDisabled::class                => 'ERR18',
+        DataLoaderDataLoaderUnavailable::class             => 'ERR19',
+        DataLoaderGraphQLRequestFailed::class              => 'ERR20',
     ];
 
     public static function getCode(Throwable $throwable): string|int {

@@ -2,8 +2,9 @@
 
 namespace App\Services\DataLoader\Client;
 
-use App\Services\DataLoader\Exceptions\DataLoaderException;
-use App\Services\DataLoader\Exceptions\GraphQLQueryFailed;
+use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled;
+use App\Services\DataLoader\Client\Exceptions\DataLoaderUnavailable;
+use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
@@ -14,6 +15,7 @@ use GraphQL\Type\Introspection;
 use GuzzleHttp\Psr7\Utils;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Arr;
 use Psr\Log\LoggerInterface;
@@ -311,7 +313,7 @@ class Client {
     public function call(string $selector, string $graphql, array $params = [], array $files = []): mixed {
         // Enabled?
         if (!$this->isEnabled()) {
-            throw new DataLoaderException('DataLoader is disabled.');
+            throw new DataLoaderDisabled();
         }
 
         // Prepare
@@ -373,8 +375,10 @@ class Client {
             $response = $request->post($url, $data);
 
             $response->throw();
+        } catch (ConnectionException $exception) {
+            throw new DataLoaderUnavailable($exception);
         } catch (Exception $exception) {
-            $error = new GraphQLQueryFailed($graphql, $params, [], $exception);
+            $error = new GraphQLRequestFailed($graphql, $params, [], $exception);
 
             $this->handler->report($error);
 
@@ -400,7 +404,7 @@ class Client {
         $result = Arr::get($json, $selector);
 
         if ($errors) {
-            $error = new GraphQLQueryFailed($graphql, $params, $errors);
+            $error = new GraphQLRequestFailed($graphql, $params, $errors);
 
             $this->handler->report($error);
 

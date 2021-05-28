@@ -2,9 +2,9 @@
 
 namespace App\Services\DataLoader\Commands;
 
+use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use App\Services\DataLoader\Commands\Concerns\WithBooleanOptions;
 use App\Services\DataLoader\DataLoaderService;
-use App\Services\DataLoader\Exceptions\GraphQLQueryFailed;
 use Illuminate\Console\Command;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -57,7 +57,7 @@ class Reseller extends Command {
             } catch (Throwable $exception) {
                 $this->warn(" Failed #{$id}: {$exception->getMessage()}");
 
-                if (!($exception instanceof GraphQLQueryFailed)) {
+                if (!($exception instanceof GraphQLRequestFailed)) {
                     $logger->warning(__METHOD__, [
                         'id'        => $id,
                         'exception' => $exception,
