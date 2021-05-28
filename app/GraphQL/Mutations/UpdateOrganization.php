@@ -42,7 +42,8 @@ class UpdateOrganization {
 
         // Return
         return [
-            'result' => $organization->save(),
+            'result'       => $organization->save(),
+            'organization' => $organization,
         ];
     }
 
