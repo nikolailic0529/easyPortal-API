@@ -19,7 +19,7 @@ class Document extends Type {
     /**
      * @var array<\App\Services\DataLoader\Schema\CompanyContactPerson>
      */
-    public array $contactPersons;
+    public ?array $contactPersons;
 
     public ?Company $reseller;
     public ?Company $customer;
