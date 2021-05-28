@@ -1,11 +1,13 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Exceptions;
+namespace App\Services\DataLoader\Client\Exceptions;
 
 use App\Exceptions\Contextable;
 use Throwable;
 
-class GraphQLQueryFailed extends ClientException implements Contextable {
+use function __;
+
+class GraphQLRequestFailed extends ClientException implements Contextable {
     /**
      * @param array<mixed> $variables
      * @param array<mixed> $errors
@@ -17,6 +19,10 @@ class GraphQLQueryFailed extends ClientException implements Contextable {
         Throwable $previous = null,
     ) {
         parent::__construct('GraphQL request failed.', 0, $previous);
+    }
+
+    public function getErrorMessage(): string {
+        return __('dataloader.client.request_failed');
     }
 
     /**
