@@ -36,13 +36,14 @@ class UpdateOrganization {
         $this->updateProperties($organization, $mutation, $args['input']);
 
         // Update Cosmos
-        if (!$mutation->isEmpty()) {
+        if ($mutation->count() > 1) {
             $this->client->updateBrandingData($mutation);
         }
 
         // Return
         return [
-            'result' => $organization->save(),
+            'result'       => $organization->save(),
+            'organization' => $organization,
         ];
     }
 

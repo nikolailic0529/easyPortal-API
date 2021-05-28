@@ -5,7 +5,7 @@ extend type Mutation {
   @me(permissions: ["edit-organization"])
 }
 
-input UpdateOrganizationInput {
+input UpdateOrganizationInput @validator {
   locale: String
   currency_id: ID
   website_url: String               # TODO [GraphQL] URL type needed
@@ -18,7 +18,7 @@ input UpdateOrganizationBranding {
   dark_theme: Boolean
   main_color: String                # TODO [GraphQL] Color type needed
   secondary_color: String           # TODO [GraphQL] Color type needed
-  logo: Upload!
+  logo: Upload
   favicon: Upload
   welcome_image: Upload
   welcome_heading: String
