@@ -619,6 +619,25 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::createFromDocument
+     */
+    public function testCreateFromDocumentContactPersonsIsNull(): void {
+        // Prepare
+        $factory  = $this->app->make(DocumentFactoryTest_Factory::class);
+        $json     = $this->getTestData()->json('~document-full.json');
+        $document = new AssetDocument($json);
+
+        // Set property to null
+        $document->document->contactPersons = null;
+
+        // Test
+        $created = $factory->createFromDocument($document->document);
+
+        $this->assertNotNull($created);
+        $this->assertCount(0, $created->contacts);
+    }
+
+    /**
      * @covers ::documentOem
      */
     public function testDocumentOem(): void {

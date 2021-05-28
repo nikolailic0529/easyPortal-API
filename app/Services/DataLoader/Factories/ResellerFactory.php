@@ -18,6 +18,7 @@ use Illuminate\Contracts\Events\Dispatcher;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
+use function array_filter;
 use function array_map;
 use function array_unique;
 use function implode;
@@ -58,7 +59,7 @@ class ResellerFactory extends ModelFactory {
      * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
      */
     public function prefetch(array $resellers, bool $reset = false, Closure|null $callback = null): static {
-        $keys = array_unique(array_map(static function (Company|Asset $model): string {
+        $keys = array_unique(array_filter(array_map(static function (Company|Asset $model): ?string {
             if ($model instanceof Company) {
                 return $model->id;
             } elseif ($model instanceof Asset) {
@@ -66,7 +67,7 @@ class ResellerFactory extends ModelFactory {
             } else {
                 return null;
             }
-        }, $resellers));
+        }, $resellers)));
 
         $this->resellers->prefetch($keys, $reset, $callback);
 

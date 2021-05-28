@@ -293,7 +293,7 @@ class DocumentFactory extends ModelFactory {
                 $model->end         = $this->normalizer->datetime($document->endDate);
                 $model->price       = $this->normalizer->number($document->totalNetPrice);
                 $model->number      = $this->normalizer->string($document->documentNumber);
-                $model->contacts    = $this->objectContacts($model, $document->contactPersons);
+                $model->contacts    = $this->objectContacts($model, (array) $document->contactPersons);
                 $model->entries     = $entries ? $entries($model) : [/** TODO */];
                 $model->save();
 

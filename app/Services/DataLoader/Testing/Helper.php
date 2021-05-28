@@ -215,7 +215,7 @@ trait Helper {
         $persons  = [];
 
         if ($object instanceof Document) {
-            $persons = $object->contactPersons;
+            $persons = (array) $object->contactPersons;
         } elseif ($object instanceof Company) {
             $persons = $object->companyContactPersons;
         } elseif ($object instanceof Asset) {
