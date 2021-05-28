@@ -8,4 +8,7 @@ input CustomersQuery {
   locations: LocationsQuery
   contacts_count: Int!
   contacts: ContactsQuery
+  assets: AssetsQuery
+  contracts: DocumentsQuery
+  quotes: DocumentsQuery
 }
