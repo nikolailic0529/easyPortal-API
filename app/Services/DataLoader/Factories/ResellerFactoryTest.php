@@ -11,6 +11,7 @@ use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
+use App\Utils\JsonObject;
 use Closure;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Facades\Event;
@@ -269,7 +270,11 @@ class ResellerFactoryTest extends TestCase {
             $this->assertCount(0, $collection);
         });
 
-        $factory->prefetch([$a, $asset], false, Closure::fromCallable($callback));
+        $factory->prefetch(
+            [$a, $asset, new Asset(['resellerId' => null])],
+            false,
+            Closure::fromCallable($callback),
+        );
 
         $callback->shouldHaveBeenCalled()->once();
 
