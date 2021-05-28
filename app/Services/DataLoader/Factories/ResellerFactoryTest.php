@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Factories;
 use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Document;
@@ -250,6 +251,9 @@ class ResellerFactoryTest extends TestCase {
         $b          = new Company([
             'id' => $this->faker->uuid,
         ]);
+        $asset      = new Asset([
+            'resellerId' => $b->id,
+        ]);
         $resolver   = $this->app->make(ResellerResolver::class);
         $normalizer = $this->app->make(Normalizer::class);
 
@@ -265,7 +269,7 @@ class ResellerFactoryTest extends TestCase {
             $this->assertCount(0, $collection);
         });
 
-        $factory->prefetch([$a, $b], false, Closure::fromCallable($callback));
+        $factory->prefetch([$a, $asset], false, Closure::fromCallable($callback));
 
         $callback->shouldHaveBeenCalled()->once();
 

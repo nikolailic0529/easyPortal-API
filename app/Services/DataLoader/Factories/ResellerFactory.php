@@ -8,6 +8,7 @@ use App\Services\DataLoader\Factories\Concerns\WithLocations;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
+use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Document;
@@ -18,6 +19,7 @@ use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
 use function array_map;
+use function array_unique;
 use function implode;
 use function sprintf;
 
@@ -52,13 +54,19 @@ class ResellerFactory extends ModelFactory {
     // <editor-fold desc="Prefetch">
     // =========================================================================
     /**
-     * @param array<\App\Services\DataLoader\Schema\Company> $resellers
+     * @param array<\App\Services\DataLoader\Schema\Company|\App\Services\DataLoader\Schema\Asset> $resellers
      * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
      */
     public function prefetch(array $resellers, bool $reset = false, Closure|null $callback = null): static {
-        $keys = array_map(static function (Company $reseller): string {
-            return $reseller->id;
-        }, $resellers);
+        $keys = array_unique(array_map(static function (Company|Asset $model): string {
+            if ($model instanceof Company) {
+                return $model->id;
+            } elseif ($model instanceof Asset) {
+                return $model->resellerId;
+            } else {
+                return null;
+            }
+        }, $resellers));
 
         $this->resellers->prefetch($keys, $reset, $callback);
 

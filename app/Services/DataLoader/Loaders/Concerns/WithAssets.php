@@ -67,6 +67,13 @@ trait WithAssets {
             $factory->getCustomerFactory()?->prefetch($assets, false, static function (Collection $customers): void {
                 $customers->loadMissing('locations');
             });
+            $factory->getResellerFactory()?->prefetch(
+                $assets,
+                false,
+                static function (Collection $resellers): void {
+                    $resellers->loadMissing('locations');
+                },
+            );
             $factory->getDocumentFactory()?->prefetch($assets, false, static function (Collection $documents): void {
                 $documents->loadMissing('entries');
                 $documents->loadMissing('entries.product');
