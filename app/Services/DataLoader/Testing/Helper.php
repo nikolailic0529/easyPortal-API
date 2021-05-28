@@ -51,6 +51,44 @@ trait Helper {
 
         return $contacts;
     }
+
+    /**
+     * @return array<mixed>
+     */
+    protected function getModelTags(Model $model): array {
+        $tags = [];
+
+        foreach ($model->tags as $tag) {
+            $tags["{$tag->name}"] = [
+                'name' => $tag->name,
+            ];
+        }
+
+        return $tags;
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    protected function getTags(Asset $object): array {
+        $output = [];
+        $tags   = [];
+
+        if ($object instanceof Asset) {
+            $tags = [$object->assetTag];
+        } else {
+            // empty
+        }
+
+        foreach ($tags as $tag) {
+            // Add to array
+            $output[$tag] = [
+                'name'  => $tag,
+            ];
+        }
+
+        return $output;
+    }
     // </editor-fold>
 
     // <editor-fold desc="Company">

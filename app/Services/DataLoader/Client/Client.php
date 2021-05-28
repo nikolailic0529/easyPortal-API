@@ -243,9 +243,9 @@ class Client {
     public function updateBrandingData(CompanyBrandingData $input): bool {
         return (bool) $this->call(
             'data.updateBrandingData',
-            /** @lang GraphQL */ <<<GRAPHQL
-            mutation updateBrandingData(\$input: CompanyBrandingData!) {
-                updateBrandingData(input: \$input)
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            mutation updateBrandingData($input: CompanyBrandingData!) {
+                updateBrandingData(input: $input)
             }
             GRAPHQL,
             [
@@ -257,9 +257,9 @@ class Client {
     public function updateCompanyLogo(UpdateCompanyLogo $input): string {
         return $this->call(
             'data.updateCompanyLogo',
-            /** @lang GraphQL */ <<<GRAPHQL
-            mutation updateCompanyLogo(\$input: UpdateCompanyLogo!) {
-                updateCompanyLogo(input: \$input)
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            mutation updateCompanyLogo($input: UpdateCompanyLogo!) {
+                updateCompanyLogo(input: $input)
             }
             GRAPHQL,
             [

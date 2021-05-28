@@ -8,6 +8,7 @@ use App\Models\Concerns\HasOem;
 use App\Models\Concerns\HasProduct;
 use App\Models\Concerns\HasReseller;
 use App\Models\Concerns\HasStatus;
+use App\Models\Concerns\HasTags;
 use App\Models\Concerns\HasType;
 use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
@@ -49,6 +50,7 @@ use function sprintf;
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $warranties
  * @property-read int|null                                                       $warranties_count
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Tag>      $tags
  * @method static \Database\Factories\AssetFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newQuery()
@@ -80,6 +82,7 @@ class Asset extends Model {
     use HasCustomer;
     use HasStatus;
     use HasContacts;
+    use HasTags;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -138,5 +141,9 @@ class Asset extends Model {
 
     public function setCoverageAttribute(?AssetCoverage $coverage): void {
         $this->coverage()->associate($coverage);
+    }
+
+    protected function getTagsPivot(): Pivot {
+        return new AssetTag();
     }
 }

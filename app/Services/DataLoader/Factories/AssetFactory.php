@@ -21,6 +21,7 @@ use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
 use App\Services\DataLoader\Factories\Concerns\WithStatus;
+use App\Services\DataLoader\Factories\Concerns\WithTag;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
@@ -29,6 +30,7 @@ use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\StatusResolver;
+use App\Services\DataLoader\Resolvers\TagResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
@@ -49,6 +51,7 @@ class AssetFactory extends ModelFactory {
     use WithProduct;
     use WithStatus;
     use WithContacts;
+    use WithTag;
 
     protected ?CustomerFactory $customerFactory = null;
     protected ?ResellerFactory $resellerFactory = null;
@@ -67,6 +70,7 @@ class AssetFactory extends ModelFactory {
         protected LocationFactory $locations,
         protected StatusResolver $statuses,
         protected AssetCoverageFactory $coverages,
+        protected TagResolver $tags,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -164,6 +168,7 @@ class AssetFactory extends ModelFactory {
             $model->location      = $location;
             $model->serial_number = $this->normalizer->string($asset->serialNumber);
             $model->contacts      = $this->objectContacts($model, $asset->latestContactPersons);
+            $model->tags          = $this->assetTags($asset);
             $model->coverage      = $this->coverages->create($asset);
 
             if ($this->getDocumentFactory() && isset($asset->assetDocument)) {
@@ -444,6 +449,13 @@ class AssetFactory extends ModelFactory {
 
     protected function assetStatus(Asset $asset): Status {
         return $this->status(new AssetModel(), $asset->status);
+    }
+
+    /**
+     * @return array<\App\Models\Tag>
+     */
+    protected function assetTags(Asset $asset): array {
+        return [$this->tag($asset->assetTag)];
     }
     // </editor-fold>
 }

@@ -27,6 +27,7 @@
     "countryCode": "GB",
     "status": "Active",
     "assetCoverage": "COVERED_ON_CONTRACT",
+    "assetTag": "Hardware",
     "assetDocument": [
         {
             "document": {

@@ -18,6 +18,7 @@
     "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
     "status": "Active",
     "assetCoverage": "COVERED_ON_SOMETHING",
+    "assetTag": "Hardware",
     "latestContactPersons": [
         {
             "phoneNumber": "+49 (591) 12345-68",

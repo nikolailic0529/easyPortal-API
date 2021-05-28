@@ -17,6 +17,7 @@
     "address2": "TODO",
     "status": "ACTIVE",
     "assetCoverage": "COVERED_ON_CONTRACT",
+    "assetTag": "Software",
     "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a",
     "reseller": {
         "id": "97292d03-7919-406c-a15b-39bf029e6d5a",

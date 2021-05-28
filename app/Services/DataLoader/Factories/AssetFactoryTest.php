@@ -139,6 +139,10 @@ class AssetFactoryTest extends TestCase {
             $this->getModelContacts($created),
             $this->getContacts($asset),
         );
+        $this->assertEquals(
+            $this->getModelTags($created),
+            $this->getTags($asset),
+        );
 
         // Documents
         $this->assertEquals(1, Document::query()->count());
@@ -229,6 +233,10 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals(
             $this->getModelContacts($updated),
             $this->getContacts($asset),
+        );
+        $this->assertEquals(
+            $this->getModelTags($updated),
+            $this->getTags($asset),
         );
     }
 
