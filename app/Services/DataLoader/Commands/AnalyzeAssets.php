@@ -121,7 +121,7 @@ class AnalyzeAssets extends Command {
             ->chunk($chunk);
         $prefetch  = static function (array $assets) use (
             $logger,
-            $processed,
+            &$processed,
             $assetResolver,
             $resellerResolver,
             $customerResolver,
