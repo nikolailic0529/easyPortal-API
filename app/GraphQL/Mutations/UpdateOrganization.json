@@ -2,11 +2,16 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "required": [
-        "result"
+        "result",
+        "organization"
     ],
     "properties": {
         "result": {
             "type": "boolean"
+        },
+        "organization": {
+            "type": "object",
+            "$ref": "../types.json#/definitions/Organization"
         }
     }
 }
