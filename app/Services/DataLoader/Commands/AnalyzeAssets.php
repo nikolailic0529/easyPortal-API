@@ -121,7 +121,7 @@ class AnalyzeAssets extends Command {
             ->chunk($chunk);
         $prefetch  = static function (array $assets) use (
             $logger,
-            $processed,
+            &$processed,
             $assetResolver,
             $resellerResolver,
             $customerResolver,
@@ -148,7 +148,7 @@ class AnalyzeAssets extends Command {
 
             $customerResolver->prefetch(
                 array_filter(array_unique(array_map(static function (Asset $asset): ?string {
-                    return $asset->customers->id ?? null;
+                    return $asset->customer->id ?? null;
                 }, $assets))),
                 true,
             );
