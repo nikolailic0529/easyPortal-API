@@ -140,6 +140,7 @@ type Asset {
   contacts_count: Int!
   coverage_id: ID
   coverage: AssetCoverage
+  tags: [Tag!]!
 }
 
 type AssetCoverage {
@@ -569,8 +570,8 @@ type Location {
   state: String!
   line_one: String!
   line_two: String!
-  latitude: String
-  longitude: String
+  latitude: Float
+  longitude: Float
   city: City!
   city_id: ID!
   country: Country!
@@ -584,8 +585,8 @@ input LocationsQuery {
   state: String!
   line_one: String!
   line_two: String!
-  latitude: String
-  longitude: String
+  latitude: Float
+  longitude: Float
   city: CitiesQuery
   city_id: ID!
   country: CountriesQuery
@@ -1524,10 +1525,10 @@ input SearchByConditionLocationsQuery {
   line_two: SearchByScalarString
 
   """Property condition."""
-  latitude: SearchByScalarStringOrNull
+  latitude: SearchByScalarFloatOrNull
 
   """Property condition."""
-  longitude: SearchByScalarStringOrNull
+  longitude: SearchByScalarFloatOrNull
 
   """Property condition."""
   city: SearchByRelationCitiesQuery
@@ -2435,6 +2436,11 @@ type Status {
 }
 
 input StatusSort {
+  name: String!
+}
+
+type Tag {
+  id: ID!
   name: String!
 }
 

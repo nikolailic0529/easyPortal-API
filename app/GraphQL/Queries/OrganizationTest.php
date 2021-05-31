@@ -173,8 +173,8 @@ class OrganizationTest extends TestCase {
                                     'postcode'  => '19911',
                                     'line_one'  => 'line_one_data',
                                     'line_two'  => 'line_two_data',
-                                    'latitude'  => '47.91634204',
-                                    'longitude' => '-2.26318359',
+                                    'latitude'  => 47.91634204,
+                                    'longitude' => -2.26318359,
                                 ],
                             ],
                             'branding'       => [

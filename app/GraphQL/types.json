@@ -110,13 +110,13 @@
                 },
                 "latitude": {
                     "type": [
-                        "string",
+                        "number",
                         "null"
                     ]
                 },
                 "longitude": {
                     "type": [
-                        "string",
+                        "number",
                         "null"
                     ]
                 }
