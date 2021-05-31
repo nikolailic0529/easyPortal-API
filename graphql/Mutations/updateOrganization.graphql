@@ -18,9 +18,9 @@ input UpdateOrganizationBranding {
   dark_theme: Boolean
   main_color: String                # TODO [GraphQL] Color type needed
   secondary_color: String           # TODO [GraphQL] Color type needed
-  logo: Upload
-  favicon: Upload
-  welcome_image: Upload
+  logo_url: Upload
+  favicon_url: Upload
+  welcome_image_url: Upload
   welcome_heading: String
   welcome_underline: String
 }

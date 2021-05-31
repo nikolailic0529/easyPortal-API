@@ -391,6 +391,9 @@ input CustomersQuery {
   locations: LocationsQuery
   contacts_count: Int!
   contacts: ContactsQuery
+  assets: AssetsQuery
+  contracts: DocumentsQuery
+  quotes: DocumentsQuery
 }
 
 input CustomersSort {
@@ -1366,6 +1369,15 @@ input SearchByConditionCustomersQuery {
 
   """Property condition."""
   contacts: SearchByRelationContactsQuery
+
+  """Property condition."""
+  assets: SearchByRelationAssetsQuery
+
+  """Property condition."""
+  contracts: SearchByRelationDocumentsQuery
+
+  """Property condition."""
+  quotes: SearchByRelationDocumentsQuery
 }
 
 """
@@ -2490,9 +2502,9 @@ input UpdateOrganizationBranding {
   dark_theme: Boolean
   main_color: String
   secondary_color: String
-  logo: Upload!
-  favicon: Upload
-  welcome_image: Upload
+  logo_url: Upload
+  favicon_url: Upload
+  welcome_image_url: Upload
   welcome_heading: String
   welcome_underline: String
 }

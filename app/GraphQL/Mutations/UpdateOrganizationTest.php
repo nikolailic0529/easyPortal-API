@@ -6,6 +6,7 @@ use App\Models\Currency;
 use App\Services\DataLoader\Client\Client;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -20,7 +21,7 @@ use Tests\TestCase;
 
 use function __;
 use function array_key_exists;
-use function is_null;
+use function str_replace;
 
 /**
  * @internal
@@ -44,38 +45,38 @@ class UpdateOrganizationTest extends TestCase {
 
         $this->setUser($userFactory, $organization);
 
-        $data = [];
-        $map  = [];
-        $file = [];
+        $input = [];
+        $data  = [];
+        $map   = [];
+        $file  = [];
 
         if ($dataFactory) {
-            $data = $dataFactory($this);
+            $data  = $dataFactory($this);
+            $input = $data;
 
-            if (array_key_exists('branding', $data)) {
-                if (array_key_exists('logo', $data['branding']) && !is_null($data['branding']['logo'])) {
-                    $map['0']                 = ['variables.input.branding.logo'];
-                    $file['0']                = $data['branding']['logo'];
-                    $data['branding']['logo'] = null;
+            if (array_key_exists('branding', $input)) {
+                if (isset($input['branding']['logo_url'])) {
+                    $map['0']                      = ['variables.input.branding.logo_url'];
+                    $file['0']                     = $input['branding']['logo_url'];
+                    $input['branding']['logo_url'] = null;
                 }
 
-                if (array_key_exists('favicon', $data['branding']) && !is_null($data['branding']['favicon'])) {
-                    $map['1']                    = ['variables.input.branding.favicon'];
-                    $file['1']                   = $data['branding']['favicon'];
-                    $data['branding']['favicon'] = null;
+                if (isset($input['branding']['favicon_url'])) {
+                    $map['1']                         = ['variables.input.branding.favicon_url'];
+                    $file['1']                        = $input['branding']['favicon_url'];
+                    $input['branding']['favicon_url'] = null;
                 }
 
-                if (
-                    array_key_exists('welcome_image', $data['branding'])&&
-                    !is_null($data['branding']['welcome_image'])
-                ) {
-                    $map['1']                          = ['variables.input.branding.welcome_image'];
-                    $file['1']                         = $data['branding']['welcome_image'];
-                    $data['branding']['welcome_image'] = null;
+                if (isset($input['branding']['welcome_image_url'])) {
+                    $map['2']                               = ['variables.input.branding.welcome_image_url'];
+                    $file['2']                              = $input['branding']['welcome_image_url'];
+                    $input['branding']['welcome_image_url'] = null;
                 }
             }
         }
 
-        $query = /** @lang GraphQL */'mutation updateOrganization($input: UpdateOrganizationInput!){
+        $query = /** @lang GraphQL */
+            'mutation updateOrganization($input: UpdateOrganizationInput!){
             updateOrganization(input: $input){
               result
               organization {
@@ -122,15 +123,20 @@ class UpdateOrganizationTest extends TestCase {
         $operations = [
             'operationName' => 'updateOrganization',
             'query'         => $query,
-            'variables'     => ['input' => $data ],
+            'variables'     => ['input' => $input],
         ];
 
         // Fake
-        Storage::fake('local');
+        $disc = Storage::fake('public');
 
         // Mocks
+        $client = Mockery::mock(Client::class);
+
+        $this->app->bind(Client::class, static function () use ($client) {
+            return $client;
+        });
+
         if ($expected instanceof GraphQLSuccess) {
-            $client = Mockery::mock(Client::class);
             $client
                 ->shouldReceive('updateBrandingData')
                 ->once()
@@ -139,26 +145,38 @@ class UpdateOrganizationTest extends TestCase {
                 ->shouldReceive('updateCompanyLogo')
                 ->once()
                 ->andReturn('https://example.com/logo.png');
-            $this->app->bind(Client::class, static function () use ($client) {
-                return $client;
-            });
         }
 
+        // Test
         $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
+            $url          = $this->app->make(UrlGenerator::class);
+            $prefix       = $url->to($disc->url(''));
             $organization = $organization->fresh();
+
             $this->assertEquals($data['locale'], $organization->locale);
             $this->assertEquals($data['currency_id'], $organization->currency_id);
             $this->assertEquals($data['website_url'], $organization->website_url);
             $this->assertEquals($data['email'], $organization->email);
             $this->assertEquals($data['analytics_code'], $organization->analytics_code);
+            $this->assertEquals('https://example.com/logo.png', $organization->branding_logo_url);
+
             if (array_key_exists('branding', $data)) {
                 $this->assertEquals($data['branding']['dark_theme'], $organization->branding_dark_theme);
                 $this->assertEquals($data['branding']['main_color'], $organization->branding_main_color);
                 $this->assertEquals($data['branding']['secondary_color'], $organization->branding_secondary_color);
+
+                if (isset($data['branding']['favicon_url'])) {
+                    $this->assertNotNull($organization->branding_favicon_url);
+                    $disc->assertExists(str_replace($prefix, '', $organization->branding_favicon_url));
+                }
+
+                if (isset($data['branding']['welcome_image_url'])) {
+                    $this->assertNotNull($organization->branding_welcome_image_url);
+                    $disc->assertExists(str_replace($prefix, '', $organization->branding_welcome_image_url));
+                }
             }
-            $this->assertEquals('https://example.com/logo.png', $organization->branding_logo_url);
         }
     }
     // </editor-fold>
@@ -179,6 +197,7 @@ class UpdateOrganizationTest extends TestCase {
                     new GraphQLSuccess('updateOrganization', UpdateOrganization::class),
                     static function (): array {
                         $currency = Currency::factory()->create();
+
                         return [
                             'locale'         => 'en',
                             'currency_id'    => $currency->getKey(),
@@ -189,9 +208,9 @@ class UpdateOrganizationTest extends TestCase {
                                 'dark_theme'        => false,
                                 'main_color'        => '#ffffff',
                                 'secondary_color'   => '#ffffff',
-                                'logo'              => UploadedFile::fake()->create('branding_logo.jpg', 20),
-                                'favicon'           => UploadedFile::fake()->create('branding_favicon.jpg', 100),
-                                'welcome_image'     => null,
+                                'logo_url'          => UploadedFile::fake()->create('branding_logo.jpg', 20),
+                                'favicon_url'       => UploadedFile::fake()->create('branding_favicon.jpg', 100),
+                                'welcome_image_url' => UploadedFile::fake()->create('branding_welcome.jpg', 100),
                                 'welcome_heading'   => 'heading',
                                 'welcome_underline' => 'underline',
                             ],
@@ -239,6 +258,7 @@ class UpdateOrganizationTest extends TestCase {
                             'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                         ]);
                         $currency->delete();
+
                         return [
                             'currency_id' => $currency->id,
                         ];
@@ -253,10 +273,11 @@ class UpdateOrganizationTest extends TestCase {
                         $maxSize = 2000;
                         $config->set('ep.image.max_size', $maxSize);
                         $config->set('ep.image.formats', ['png']);
+
                         return [
                             'branding' => [
-                                'logo'    => UploadedFile::fake()->create('branding_logo.jpg', 200),
-                                'favicon' => UploadedFile::fake()->create('branding_favicon.jpg', 200),
+                                'logo_url'    => UploadedFile::fake()->create('branding_logo.jpg', 200),
+                                'favicon_url' => UploadedFile::fake()->create('branding_favicon.jpg', 200),
                             ],
                         ];
                     },
@@ -270,10 +291,11 @@ class UpdateOrganizationTest extends TestCase {
                         $maxSize = 2000;
                         $config->set('ep.image.max_size', $maxSize);
                         $config->set('ep.image.formats', ['png']);
+
                         return [
                             'branding' => [
-                                'logo'    => UploadedFile::fake()->create('logo.png', $maxSize + 1024),
-                                'favicon' => UploadedFile::fake()
+                                'logo_url'    => UploadedFile::fake()->create('logo.png', $maxSize + 1024),
+                                'favicon_url' => UploadedFile::fake()
                                     ->create('favicon.jpg', $maxSize + 1024),
                             ],
                         ];
@@ -303,6 +325,7 @@ class UpdateOrganizationTest extends TestCase {
                     new GraphQLSuccess('updateOrganization', UpdateOrganization::class),
                     static function (): array {
                         $currency = Currency::factory()->create();
+
                         return [
                             'locale'         => 'en',
                             'currency_id'    => $currency->getKey(),
@@ -311,12 +334,12 @@ class UpdateOrganizationTest extends TestCase {
                             'analytics_code' => 'analytics_code',
                             'branding'       => [
                                 // Logo cannot be null
-                                'logo'              => UploadedFile::fake()->create('branding_logo.jpg', 200),
+                                'logo_url'          => UploadedFile::fake()->create('branding_logo.jpg', 200),
                                 'dark_theme'        => false,
                                 'main_color'        => null,
                                 'secondary_color'   => null,
-                                'favicon'           => null,
-                                'welcome_image'     => null,
+                                'favicon_url'       => null,
+                                'welcome_image_url' => null,
                                 'welcome_heading'   => null,
                                 'welcome_underline' => null,
                             ],

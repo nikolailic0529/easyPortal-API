@@ -38,9 +38,9 @@ class UpdateOrganizationInputValidator extends Validator {
             'branding.dark_theme'        => ['nullable'],
             'branding.main_color'        => ['nullable', new Color()],
             'branding.secondary_color'   => ['nullable', new Color()],
-            'branding.logo'              => [...$upload],
-            'branding.favicon'           => ['nullable', ...$upload],
-            'branding.welcome_image'     => ['nullable', ...$upload],
+            'branding.logo_url'          => [...$upload],
+            'branding.favicon_url'       => ['nullable', ...$upload],
+            'branding.welcome_image_url' => ['nullable', ...$upload],
             'branding.welcome_heading'   => ['nullable'],
             'branding.welcome_underline' => ['nullable'],
         ];

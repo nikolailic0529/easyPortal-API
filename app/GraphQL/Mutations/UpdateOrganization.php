@@ -8,6 +8,7 @@ use App\Services\DataLoader\Schema\CompanyBrandingData;
 use App\Services\DataLoader\Schema\UpdateCompanyLogo;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Filesystem\Factory;
+use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Http\UploadedFile;
 
 class UpdateOrganization {
@@ -15,6 +16,7 @@ class UpdateOrganization {
         protected CurrentOrganization $organization,
         protected Client $client,
         protected Factory $storage,
+        protected UrlGenerator $url,
     ) {
         // empty
     }
@@ -93,13 +95,13 @@ class UpdateOrganization {
                     $organization->branding_secondary_color = $value;
                     $branding->secondaryColor               = $value;
                     break;
-                case 'logo':
+                case 'logo_url':
                     $organization->branding_logo_url = $this->client->updateCompanyLogo(new UpdateCompanyLogo([
                         'companyId' => $organization->getKey(),
                         'logo'      => $value,
                     ]));
                     break;
-                case 'favicon':
+                case 'favicon_url':
                     if ($value instanceof UploadedFile) {
                         $organization->branding_favicon_url = $this->store($organization, $value);
                         $branding->favIconUrl               = $organization->branding_favicon_url;
@@ -116,7 +118,7 @@ class UpdateOrganization {
                     $organization->branding_welcome_underline = $value;
                     $branding->underlineText                  = $value;
                     break;
-                case 'welcome_image':
+                case 'welcome_image_url':
                     if ($value instanceof UploadedFile) {
                         $organization->branding_welcome_image_url = $this->store($organization, $value);
                         $branding->mainImageOnTheRight            = $organization->branding_welcome_image_url;
@@ -136,6 +138,7 @@ class UpdateOrganization {
         $disk = 'public';
         $path = $file->storePublicly("{$organization->getMorphClass()}/{$organization->getKey()}", $disk);
         $url  = $this->storage->disk($disk)->url($path);
+        $url  = $this->url->to($url);
 
         return $url;
     }
