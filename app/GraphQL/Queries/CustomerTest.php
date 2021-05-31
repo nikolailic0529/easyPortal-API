@@ -278,6 +278,10 @@ class CustomerTest extends TestCase {
                                     id
                                     name
                                 }
+                                tags {
+                                    id
+                                    name
+                                }
                             }
                             paginatorInfo {
                                 count
@@ -857,6 +861,12 @@ class CustomerTest extends TestCase {
                                             'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
                                             'name' => 'COVERED_ON_CONTRACT',
                                         ],
+                                        'tags'           => [
+                                            [
+                                                'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20950',
+                                                'name' => 'Software',
+                                            ],
+                                        ],
                                     ],
                                 ],
                                 'paginatorInfo' => [
@@ -982,6 +992,10 @@ class CustomerTest extends TestCase {
                                 ->for($reseller)
                                 ->for($status)
                                 ->for($coverage, 'coverage')
+                                ->hasTags(1, [
+                                    'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20950',
+                                    'name' => 'Software',
+                                ])
                                 ->hasContacts(1, [
                                     'name'        => 'contact2',
                                     'email'       => 'contact2@test.com',

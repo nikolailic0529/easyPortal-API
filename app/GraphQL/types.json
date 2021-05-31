@@ -233,7 +233,8 @@
                 "contacts_count",
                 "contacts",
                 "coverage",
-                "coverage_id"
+                "coverage_id",
+                "tags"
             ],
             "properties": {
                 "oem_id": {
@@ -289,6 +290,12 @@
                 },
                 "coverage_id": {
                     "$ref": "#/definitions/ID"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "../Types/Tag.json"
+                    }
                 }
             }
         },
