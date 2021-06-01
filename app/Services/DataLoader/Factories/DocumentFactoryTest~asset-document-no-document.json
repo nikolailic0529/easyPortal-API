@@ -37,7 +37,13 @@
                 "id": "97292d03-7919-406c-a15b-39bf029e6d5a",
                 "name": "Gusikowski and Simonis",
                 "keycloakGroupId": "ee27ff63-d1dd-43dc-bd63-d3709f1ed2e4",
-                "keycloakName": "virtualcomputersa_3"
+                "keycloakName": "virtualcomputersa_3",
+                "companyTypes": [
+                    {
+                        "type": "RESELLER",
+                        "status": "ACTIVE"
+                    }
+                ]
             },
             "customer": {
                 "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
@@ -69,7 +75,13 @@
                 "id": "97292d03-7919-406c-a15b-39bf029e6d5a",
                 "name": "Gusikowski and Simonis",
                 "keycloakGroupId": "ee27ff63-d1dd-43dc-bd63-d3709f1ed2e4",
-                "keycloakName": "virtualcomputersa_3"
+                "keycloakName": "virtualcomputersa_3",
+                "companyTypes": [
+                    {
+                        "type": "RESELLER",
+                        "status": "ACTIVE"
+                    }
+                ]
             },
             "customer": {
                 "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",

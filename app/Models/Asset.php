@@ -51,7 +51,7 @@ use function sprintf;
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $warranties
  * @property-read int|null                                                       $warranties_count
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Tag>      $tags
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Tag>           $tags
  * @method static \Database\Factories\AssetFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newQuery()

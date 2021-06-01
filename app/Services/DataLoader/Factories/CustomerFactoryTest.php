@@ -2,29 +2,21 @@
 
 namespace App\Services\DataLoader\Factories;
 
-use App\Models\Model;
-use App\Models\Status as StatusModel;
-use App\Models\Type as TypeModel;
-use App\Services\DataLoader\Exceptions\DataLoaderException;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
-use Exception;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 use Tests\WithoutOrganizationScope;
-
-use function tap;
 
 /**
  * @internal
@@ -233,86 +225,6 @@ class CustomerFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::customerType
-     *
-     * @dataProvider dataProviderCustomerType
-     */
-    public function testCustomerType(string|Exception $expected, Closure $typesFactory): void {
-        // Prepare
-        $factory = new class() extends CustomerFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
-            }
-
-            /**
-             * @inheritdoc
-             */
-            public function customerType(array $names): TypeModel {
-                return parent::customerType($names);
-            }
-
-            protected function type(Model $model, string $type): TypeModel {
-                return TypeModel::factory()->make([
-                    'object_type' => $model,
-                    'key'         => $type,
-                ]);
-            }
-        };
-
-        // Test
-        if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
-        }
-
-        $types  = $typesFactory($this);
-        $actual = $factory->customerType($types);
-
-        $this->assertNotNull($actual);
-        $this->assertEquals($expected, $actual->key);
-    }
-
-    /**
-     * @covers ::customerStatus
-     *
-     * @dataProvider dataProviderCustomerStatus
-     */
-    public function testCustomerStatus(string|Exception $expected, Closure $statusesFactory): void {
-        // Prepare
-        $factory = new class() extends CustomerFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
-            }
-
-            /**
-             * @inheritdoc
-             */
-            public function customerStatus(array $statuses): StatusModel {
-                return parent::customerStatus($statuses);
-            }
-
-            protected function status(Model $model, string $status): StatusModel {
-                return StatusModel::factory()->make([
-                    'object_type' => $model,
-                    'key'         => $status,
-                ]);
-            }
-        };
-
-        // Test
-        if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
-        }
-
-        $statuses = $statusesFactory($this);
-        $actual   = $factory->customerStatus($statuses);
-
-        $this->assertNotNull($actual);
-        $this->assertEquals($expected, $actual->key);
-    }
-
-    /**
      * @covers ::prefetch
      */
     public function testPrefetch(): void {
@@ -372,106 +284,6 @@ class CustomerFactoryTest extends TestCase {
                 null,
                 new class() extends Type {
                     // empty
-                },
-            ],
-        ];
-    }
-
-    /**
-     * @return array<mixed>
-     */
-    public function dataProviderCustomerType(): array {
-        return [
-            'one value'                => [
-                'value',
-                static function (): array {
-                    return [
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->type = 'value';
-                        }),
-                    ];
-                },
-            ],
-            'several values, but same' => [
-                'value',
-                static function (): array {
-                    return [
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->type = 'value';
-                        }),
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->type = 'value';
-                        }),
-                    ];
-                },
-            ],
-            'several values'           => [
-                new DataLoaderException('Multiple type.'),
-                static function (): array {
-                    return [
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->type = 'value a';
-                        }),
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->type = 'value b';
-                        }),
-                    ];
-                },
-            ],
-            'empty'                    => [
-                new DataLoaderException('Type is missing.'),
-                static function (): array {
-                    return [];
-                },
-            ],
-        ];
-    }
-
-    /**
-     * @return array<mixed>
-     */
-    public function dataProviderCustomerStatus(): array {
-        return [
-            'one value'                => [
-                'value',
-                static function (): array {
-                    return [
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->status = 'value';
-                        }),
-                    ];
-                },
-            ],
-            'several values, but same' => [
-                'value',
-                static function (): array {
-                    return [
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->status = 'value';
-                        }),
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->status = 'value';
-                        }),
-                    ];
-                },
-            ],
-            'several values'           => [
-                new DataLoaderException('Multiple status.'),
-                static function (): array {
-                    return [
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->status = 'value a';
-                        }),
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->status = 'value b';
-                        }),
-                    ];
-                },
-            ],
-            'empty'                    => [
-                new DataLoaderException('Status is missing.'),
-                static function (): array {
-                    return [];
                 },
             ],
         ];

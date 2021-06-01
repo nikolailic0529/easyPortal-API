@@ -51,7 +51,9 @@ class ResellerResolverTest extends TestCase {
         $uuid    = $this->faker->uuid;
         $spy     = Mockery::spy(static function () use ($uuid): Reseller {
             return Reseller::factory()->make([
-                'id' => $uuid,
+                'id'        => $uuid,
+                'type_id'   => $uuid,
+                'status_id' => $uuid,
             ]);
         });
         $created = $provider->get($uuid, Closure::fromCallable($spy));

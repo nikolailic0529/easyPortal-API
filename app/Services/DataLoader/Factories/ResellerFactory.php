@@ -4,9 +4,12 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\Reseller;
 use App\Services\DataLoader\Events\ResellerUpdated;
+use App\Services\DataLoader\Factories\Concerns\Company as ConcernsCompany;
 use App\Services\DataLoader\Factories\Concerns\WithLocations;
+use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
@@ -26,6 +29,8 @@ use function sprintf;
 
 class ResellerFactory extends ModelFactory {
     use WithLocations;
+    use WithType;
+    use ConcernsCompany;
 
     protected ?LocationFactory $locations = null;
 
@@ -35,6 +40,7 @@ class ResellerFactory extends ModelFactory {
         protected TypeResolver $types,
         protected ResellerResolver $resellers,
         protected Dispatcher $events,
+        protected StatusResolver $statuses,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -141,9 +147,11 @@ class ResellerFactory extends ModelFactory {
         // Get/Create
         $created  = false;
         $factory  = $this->factory(function (Reseller $reseller) use (&$created, $company): Reseller {
-            $created        = !$reseller->exists;
-            $reseller->id   = $this->normalizer->uuid($company->id);
-            $reseller->name = $this->normalizer->string($company->name);
+            $created          = !$reseller->exists;
+            $reseller->id     = $this->normalizer->uuid($company->id);
+            $reseller->name   = $this->normalizer->string($company->name);
+            $reseller->type   = $this->companyType($reseller, $company->companyTypes);
+            $reseller->status = $this->companyStatus($reseller, $company->companyTypes);
 
             if ($this->locations) {
                 $reseller->locations = $this->objectLocations($reseller, $company->locations);

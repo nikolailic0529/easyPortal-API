@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasLocations;
+use App\Models\Concerns\HasStatus;
+use App\Models\Concerns\HasType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -39,6 +41,8 @@ class Reseller extends Model {
     use HasFactory;
     use HasAssets;
     use HasLocations;
+    use HasType;
+    use HasStatus;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

@@ -66,7 +66,7 @@ class TagResolverTest extends TestCase {
 
         $this->assertNotNull($created);
         $this->assertEquals('unKnown', $created->name);
-        $this->assertCount(2, $this->getQueryLog());
+        $this->assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 

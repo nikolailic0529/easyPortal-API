@@ -3,9 +3,7 @@
 namespace App\Services\DataLoader\Factories;
 
 use App\Models\Customer;
-use App\Models\Status as StatusModel;
-use App\Models\Type as TypeModel;
-use App\Services\DataLoader\Exceptions\DataLoaderException;
+use App\Services\DataLoader\Factories\Concerns\Company as ConcernsCompany;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithLocations;
 use App\Services\DataLoader\Factories\Concerns\WithStatus;
@@ -17,7 +15,6 @@ use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use Closure;
@@ -26,9 +23,7 @@ use Psr\Log\LoggerInterface;
 
 use function array_map;
 use function array_unique;
-use function count;
 use function implode;
-use function reset;
 use function sprintf;
 
 // TODO [DataLoader] Customer can be a CUSTOMER or RESELLER or any other type.
@@ -39,6 +34,7 @@ class CustomerFactory extends ModelFactory {
     use WithStatus;
     use WithContacts;
     use WithLocations;
+    use ConcernsCompany;
 
     public function __construct(
         LoggerInterface $logger,
@@ -136,8 +132,8 @@ class CustomerFactory extends ModelFactory {
             $created          = !$customer->exists;
             $customer->id     = $this->normalizer->uuid($company->id);
             $customer->name   = $this->normalizer->string($company->name);
-            $customer->type   = $this->customerType($company->companyTypes);
-            $customer->status = $this->customerStatus($company->companyTypes);
+            $customer->type   = $this->companyType($customer, $company->companyTypes);
+            $customer->status = $this->companyStatus($customer, $company->companyTypes);
 
             if ($this->contacts) {
                 $customer->contacts = $this->objectContacts($customer, $company->companyContactPersons);
@@ -162,46 +158,6 @@ class CustomerFactory extends ModelFactory {
 
         // Return
         return $customer;
-    }
-
-    /**
-     * @param array<\App\Services\DataLoader\Schema\CompanyType> $types
-     */
-    protected function customerType(array $types): TypeModel {
-        $type  = null;
-        $names = array_unique(array_map(static function (CompanyType $type): string {
-            return $type->type;
-        }, $types));
-
-        if (count($names) > 1) {
-            throw new DataLoaderException('Multiple type.');
-        } elseif (count($names) < 1) {
-            throw new DataLoaderException('Type is missing.');
-        } else {
-            $type = $this->type(new Customer(), reset($names));
-        }
-
-        return $type;
-    }
-
-    /**
-     * @param array<\App\Services\DataLoader\Schema\CompanyType> $statuses
-     */
-    protected function customerStatus(array $statuses): StatusModel {
-        $status = null;
-        $names  = array_unique(array_map(static function (CompanyType $type): string {
-            return $type->status;
-        }, $statuses));
-
-        if (count($names) > 1) {
-            throw new DataLoaderException('Multiple status.');
-        } elseif (count($names) < 1) {
-            throw new DataLoaderException('Status is missing.');
-        } else {
-            $status = $this->status(new Customer(), reset($names));
-        }
-
-        return $status;
     }
     //</editor-fold>
 }
