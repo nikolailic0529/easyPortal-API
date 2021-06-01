@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasAssets;
+use App\Models\Concerns\HasContacts;
 use App\Models\Concerns\HasLocations;
 use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
@@ -45,6 +46,7 @@ class Reseller extends Model {
     use HasLocations;
     use HasType;
     use HasStatus;
+    use HasContacts;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

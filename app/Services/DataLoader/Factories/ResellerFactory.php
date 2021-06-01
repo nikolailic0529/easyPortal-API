@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Reseller;
 use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Factories\Concerns\Company as ConcernsCompany;
+use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithLocations;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
@@ -30,6 +31,7 @@ use function sprintf;
 class ResellerFactory extends ModelFactory {
     use WithLocations;
     use WithType;
+    use WithContacts;
     use ConcernsCompany;
 
     protected ?LocationFactory $locations = null;
@@ -155,6 +157,10 @@ class ResellerFactory extends ModelFactory {
 
             if ($this->locations) {
                 $reseller->locations = $this->objectLocations($reseller, $company->locations);
+            }
+
+            if ($this->contacts) {
+                $reseller->contacts = $this->objectContacts($reseller, $company->companyContactPersons);
             }
 
             $reseller->save();

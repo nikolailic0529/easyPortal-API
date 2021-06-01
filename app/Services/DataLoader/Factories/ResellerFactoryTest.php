@@ -38,7 +38,9 @@ class ResellerFactoryTest extends TestCase {
             'name'         => $this->faker->company,
             'companyTypes' => [['type' => 'RESELLER']],
         ]);
-        $factory = $this->app->make(ResellerFactory::class);
+        $factory = $this->app->make(ResellerFactory::class)
+            ->setLocationFactory($this->app->make(LocationFactory::class))
+            ->setContactsFactory($this->app->make(ContactFactory::class));
 
         $this->flushQueryLog();
 
@@ -159,7 +161,8 @@ class ResellerFactoryTest extends TestCase {
         // Prepare
         $factory = $this->app
             ->make(ResellerFactory::class)
-            ->setLocationFactory($this->app->make(LocationFactory::class));
+            ->setLocationFactory($this->app->make(LocationFactory::class))
+            ->setContactsFactory($this->app->make(ContactFactory::class));
 
         // Test
         $json     = $this->getTestData()->json('~reseller-full.json');
@@ -176,6 +179,12 @@ class ResellerFactoryTest extends TestCase {
             $this->getCompanyLocations($company),
             $this->getResellerLocations($reseller),
         );
+        $this->assertCount(4, $reseller->contacts);
+        $this->assertEquals(4, $reseller->contacts_count);
+        $this->assertEquals(
+            $this->getContacts($company),
+            $this->getModelContacts($reseller),
+        );
 
         // Reseller should be updated
         $json    = $this->getTestData()->json('~reseller-changed.json');
@@ -190,6 +199,11 @@ class ResellerFactoryTest extends TestCase {
         $this->assertEqualsCanonicalizing(
             $this->getCompanyLocations($company),
             $this->getResellerLocations($updated),
+        );
+        $this->assertCount(1, $updated->contacts);
+        $this->assertEquals(
+            $this->getContacts($company),
+            $this->getModelContacts($updated),
         );
 
         // Events
