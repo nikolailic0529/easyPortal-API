@@ -499,6 +499,7 @@ class Client {
             }
 
             assetCoverage
+            dataQualityScore
             GRAPHQL;
     }
 

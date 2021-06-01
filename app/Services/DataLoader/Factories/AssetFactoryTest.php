@@ -120,6 +120,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->id, $created->getKey());
         $this->assertEquals($asset->resellerId, $created->reseller_id);
         $this->assertEquals($asset->serialNumber, $created->serial_number);
+        $this->assertEquals($asset->dataQualityScore, $created->data_quality);
         $this->assertEquals($asset->vendor, $created->oem->abbr);
         $this->assertEquals(ProductType::asset(), $created->product->type);
         $this->assertEquals($asset->productDescription, $created->product->name);
@@ -217,6 +218,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->id, $updated->getKey());
         $this->assertNull($updated->ogranization_id);
         $this->assertEquals($asset->serialNumber, $updated->serial_number);
+        $this->assertEquals($asset->dataQualityScore, $updated->data_quality);
         $this->assertEquals($asset->vendor, $updated->oem->abbr);
         $this->assertEquals(ProductType::asset(), $updated->product->type);
         $this->assertEquals($created->product->name, $updated->product->name);
@@ -258,6 +260,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertTrue($created->wasRecentlyCreated);
         $this->assertEquals($asset->id, $created->getKey());
         $this->assertEquals($asset->serialNumber, $created->serial_number);
+        $this->assertEquals($asset->dataQualityScore, $created->data_quality);
         $this->assertEquals($asset->vendor, $created->oem->abbr);
         $this->assertEquals(ProductType::asset(), $created->product->type);
         $this->assertEquals($asset->productDescription, $created->product->name);
@@ -365,6 +368,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->id, $created->getKey());
         $this->assertEquals($asset->resellerId, $created->reseller_id);
         $this->assertEquals($asset->serialNumber, $created->serial_number);
+        $this->assertEquals($asset->dataQualityScore, $created->data_quality);
         $this->assertEquals($asset->vendor, $created->oem->abbr);
         $this->assertEquals(ProductType::asset(), $created->product->type);
         $this->assertEquals($asset->productDescription, $created->product->name);

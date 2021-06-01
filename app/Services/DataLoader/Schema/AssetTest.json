@@ -12,6 +12,7 @@
     },
     "serialNumber": "CZ12345678L",
     "productDescription": "HP 3PAR 7000 4-pt 8Gb/s FC Adapter",
+    "assetTag": "Hardware",
     "assetType": "Hardware",
     "vendor": "HPE",
     "sku": "QR123A",
@@ -27,7 +28,7 @@
     "countryCode": "GB",
     "status": "Active",
     "assetCoverage": "COVERED_ON_CONTRACT",
-    "assetTag": "Hardware",
+    "dataQualityScore": "130",
     "assetDocument": [
         {
             "document": {

@@ -29,6 +29,7 @@ type Asset {
   status: String
   latestContactPersons: [CompanyContactPerson]
   status: String
+  dataQualityScore: String
   assetCoverage: String
 }
 

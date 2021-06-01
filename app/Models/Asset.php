@@ -33,6 +33,7 @@ use function sprintf;
  * @property string|null                                                         $customer_id current
  * @property string|null                                                         $location_id current
  * @property string|null                                                         $serial_number
+ * @property string|null                                                         $data_quality
  * @property string|null                                                         $status_id
  * @property string|null                                                         $coverage_id
  * @property int                                                                 $contacts_count

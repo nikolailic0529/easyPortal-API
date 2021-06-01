@@ -167,6 +167,7 @@ class AssetFactory extends ModelFactory {
             $model->customer      = $customer;
             $model->location      = $location;
             $model->serial_number = $this->normalizer->string($asset->serialNumber);
+            $model->data_quality  = $this->normalizer->string($asset->dataQualityScore);
             $model->contacts      = $this->objectContacts($model, $asset->latestContactPersons);
             $model->tags          = $this->assetTags($asset);
             $model->coverage      = $this->coverages->create($asset);

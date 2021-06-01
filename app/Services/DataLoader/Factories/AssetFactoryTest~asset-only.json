@@ -10,6 +10,7 @@
     "status": "Active",
     "assetCoverage": "COVERED_ON_CONTRACT",
     "assetTag": "Software",
+    "dataQualityScore": "120",
     "latestContactPersons": [
         {
             "phoneNumber": "+49 (591) 12345-67",

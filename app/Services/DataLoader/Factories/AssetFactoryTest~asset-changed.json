@@ -19,6 +19,7 @@
     "status": "Active",
     "assetCoverage": "COVERED_ON_SOMETHING",
     "assetTag": "Hardware",
+    "dataQualityScore": "130",
     "latestContactPersons": [
         {
             "phoneNumber": "+49 (591) 12345-68",
