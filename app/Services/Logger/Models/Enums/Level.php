@@ -4,6 +4,9 @@ namespace App\Services\Logger\Models\Enums;
 
 use LastDragon_ru\LaraASP\Eloquent\Enum;
 
+/**
+ * @see \Psr\Log\LogLevel
+ */
 class Level extends Enum {
     public static function emergency(): static {
         return static::make(__FUNCTION__);

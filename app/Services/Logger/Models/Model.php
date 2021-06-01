@@ -45,4 +45,13 @@ abstract class Model extends LaraASPModel {
      * @var array<string>
      */
     protected $casts = self::CASTS;
+
+    /**
+     * @inheritDoc
+     */
+    public function save(array $options = []) {
+        return static::withoutEvents(function () use ($options) {
+            return parent::save($options);
+        });
+    }
 }

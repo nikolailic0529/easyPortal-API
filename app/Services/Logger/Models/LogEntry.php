@@ -3,12 +3,14 @@
 namespace App\Services\Logger\Models;
 
 use App\Services\Logger\Models\Enums\Level;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Log Entry.
  *
  * @property string                                  $id
  * @property string                                  $log_id
+ * @property int                                     $index
  * @property \App\Services\Logger\Models\Enums\Level $level
  * @property string                                  $event
  * @property string|null                             $object_type
@@ -16,6 +18,7 @@ use App\Services\Logger\Models\Enums\Level;
  * @property \Carbon\CarbonImmutable                 $created_at
  * @property \Carbon\CarbonImmutable                 $updated_at
  * @property array|null                              $context
+ * @property \App\Services\Logger\Models\Log         $log
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Services\Logger\Models\LogEntry newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Services\Logger\Models\LogEntry newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Services\Logger\Models\LogEntry query()
@@ -42,4 +45,12 @@ class LogEntry extends Model {
      * @var array<string>
      */
     protected $casts = self::CASTS + parent::CASTS;
+
+    public function log(): BelongsTo {
+        return $this->belongsTo(Log::class);
+    }
+
+    public function setLogAttribute(?Log $log): void {
+        $this->log()->associate($log);
+    }
 }
