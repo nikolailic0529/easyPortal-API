@@ -6,6 +6,7 @@ use App\Models\Concerns\HasCurrency;
 use App\Models\Concerns\HasLocations;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 /**
  * Organization.
@@ -36,6 +37,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Carbon\CarbonImmutable|null                                   $deleted_at
  * @property \App\Models\Currency|null                                      $currency
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location> $locations
+ * @property \App\Models\Status                                             $status
  * @method static \Database\Factories\OrganizationFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization newQuery()
@@ -69,5 +71,9 @@ class Organization extends Model implements HasLocalePreference {
 
     public function preferredLocale(): ?string {
         return $this->locale;
+    }
+
+    public function status(): HasOneThrough {
+        return $this->hasOneThrough(Status::class, Reseller::class, 'id', 'id', 'id', 'status_id');
     }
 }

@@ -766,7 +766,8 @@
                 "currency",
                 "currency_id",
                 "locations",
-                "branding"
+                "branding",
+                "status"
             ],
             "properties": {
                 "id": {
@@ -825,6 +826,16 @@
                     "oneOf": [
                         {
                             "$ref": "#/definitions/OrganizationBranding"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "status": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Status"
                         },
                         {
                             "type": "null"

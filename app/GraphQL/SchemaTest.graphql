@@ -805,6 +805,7 @@ type Organization {
   locations: [Location!]
   analytics_code: String
   branding: OrganizationBranding
+  status: Status
 }
 
 type OrganizationBranding {
@@ -836,10 +837,14 @@ input OrganizationsQuery {
   name: String!
   website_url: String
   email: String
+  status_id: ID
 }
 
 input OrganizationsSort {
   name: String!
+  website_url: String
+  email: String
+  status: StatusSort!
 }
 
 """Pagination information about the corresponding list of items."""
@@ -1596,6 +1601,9 @@ input SearchByConditionOrganizationsQuery {
 
   """Property condition."""
   email: SearchByScalarStringOrNull
+
+  """Property condition."""
+  status_id: SearchByScalarIDOrNull
 }
 
 """
@@ -2385,6 +2393,15 @@ Sort clause for input OrganizationsSort (only one property allowed at a time).
 input SortByClauseOrganizationsSort {
   """Property clause."""
   name: SortByDirection
+
+  """Property clause."""
+  website_url: SortByDirection
+
+  """Property clause."""
+  email: SortByDirection
+
+  """Property clause."""
+  status: SortByClauseStatusSort
 }
 
 """

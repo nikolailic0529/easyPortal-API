@@ -1,3 +1,6 @@
 input OrganizationsSort {
   name: String!
+  website_url: String
+  email: String
+  status: StatusSort!
 }

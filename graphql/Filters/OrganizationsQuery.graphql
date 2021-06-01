@@ -3,4 +3,5 @@ input OrganizationsQuery {
   name: String!
   website_url: String
   email: String
+  status_id: ID
 }

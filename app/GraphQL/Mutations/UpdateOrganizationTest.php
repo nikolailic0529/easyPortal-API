@@ -116,6 +116,10 @@ class UpdateOrganizationTest extends TestCase {
                     welcome_heading
                     welcome_underline
                   }
+                  status {
+                      id
+                      name
+                  }
               }
             }
           }';

@@ -17,12 +17,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property int|null                                                            $customers_count
  * @property int|null                                                            $locations_count
  * @property int|null                                                            $assets_count
+ * @property int|null                                                            $status_id
  * @property \Carbon\CarbonImmutable                                             $created_at
  * @property \Carbon\CarbonImmutable                                             $updated_at
  * @property \Carbon\CarbonImmutable|null                                        $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer> $customers
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>      $locations
+ * @property \App\Models\Status                                                  $status
  * @method static \Database\Factories\ResellerFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller newQuery()

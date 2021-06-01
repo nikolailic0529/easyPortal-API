@@ -4,6 +4,8 @@ namespace App\GraphQL\Queries;
 
 use App\Models\Currency;
 use App\Models\Organization as ModelsOrganization;
+use App\Models\Reseller;
+use App\Models\Status;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -82,6 +84,10 @@ class OrganizationTest extends TestCase {
                     welcome_heading
                     welcome_underline
                 }
+                status {
+                    id
+                    name
+                }
             }
         }')->assertThat($expected);
     }
@@ -113,6 +119,17 @@ class OrganizationTest extends TestCase {
                                 'name' => 'currency1',
                                 'code' => 'CUR',
                             ]);
+                            $status       = Status::factory()->create([
+                                'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
+                                'name'        => 'active',
+                                'key'         => 'active',
+                                'object_type' => (new Reseller())->getMorphClass(),
+                            ]);
+                            $reseller     = Reseller::factory()
+                                ->for($status)
+                                ->create([
+                                    'id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                                ]);
                             $organization = ModelsOrganization::factory()
                                 ->for($currency)
                                 ->hasLocations(1, [
@@ -125,7 +142,7 @@ class OrganizationTest extends TestCase {
                                     'longitude' => '-2.26318359',
                                 ])
                                 ->create([
-                                    'id'                               => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                                    'id'                               => $reseller->getKey(),
                                     'name'                             => 'org1',
                                     'locale'                           => 'en',
                                     'website_url'                      => 'https://www.example.com',
@@ -144,7 +161,6 @@ class OrganizationTest extends TestCase {
                                     'branding_welcome_heading'         => 'heading',
                                     'branding_welcome_underline'       => 'underline',
                                 ]);
-
                             return $organization;
                         },
                     ],
@@ -190,6 +206,10 @@ class OrganizationTest extends TestCase {
                                 'welcome_image_url'       => 'https://www.example.com/welcome-image.png',
                                 'welcome_heading'         => 'heading',
                                 'welcome_underline'       => 'underline',
+                            ],
+                            'status'         => [
+                                'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
+                                'name' => 'active',
                             ],
                         ]),
                         false,
