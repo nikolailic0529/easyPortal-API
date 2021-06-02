@@ -168,9 +168,11 @@ return [
         Nuwave\Lighthouse\LighthouseServiceProvider::class,
         Nuwave\Lighthouse\Pagination\PaginationServiceProvider::class,
         Nuwave\Lighthouse\Validation\ValidationServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
+        App\Services\Logger\Provider::class,
         App\Services\Passwords\Provider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
