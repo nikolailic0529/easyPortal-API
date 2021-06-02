@@ -2,7 +2,6 @@
 
 namespace App\Services\Logger;
 
-use App\Services\Logger\Models\Enums\Level;
 use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Enums\Type;
 use App\Services\Logger\Models\Log;
@@ -12,7 +11,6 @@ use Illuminate\Support\Facades\Date;
 use LogicException;
 
 use function array_column;
-use function array_merge;
 use function array_shift;
 use function array_unshift;
 use function microtime;
@@ -37,7 +35,7 @@ class Logger {
     /**
      * @param array<mixed>|null $context
      */
-    public function start(Type $type, Level $level, string $action, array $context = null): string {
+    public function start(Type $type, string $action, array $context = null): string {
         // Stack
         $index  = null;
         $parent = null;
@@ -57,7 +55,6 @@ class Logger {
         $this->start        = microtime(true);
         $this->index        = 0;
         $this->log          = new Log();
-        $this->log->level   = $level;
         $this->log->type    = $type;
         $this->log->action  = $action;
         $this->log->index   = $index;
@@ -90,7 +87,6 @@ class Logger {
      * @param array<string,int> $countable
      */
     public function event(
-        Level $level,
         string $action,
         Model $object = null,
         array $context = null,
@@ -118,9 +114,7 @@ class Logger {
         $entry->save();
 
         // Update countable
-        $this->count(array_merge($countable, [
-            "levels_{$level}" => 1,
-        ]));
+        $this->count($countable);
     }
 
     /**

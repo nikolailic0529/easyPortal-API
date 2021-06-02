@@ -3,7 +3,6 @@
 namespace App\Services\Logger\Models;
 
 use App\Services\Logger\Models\Casts\Statistics;
-use App\Services\Logger\Models\Enums\Level;
 use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Enums\Type;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +12,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Log.
  *
  * @property string                                                                         $id
- * @property \App\Services\Logger\Models\Enums\Level                                        $level
  * @property \App\Services\Logger\Models\Enums\Type                                         $type
  * @property string                                                                         $action
  * @property \App\Services\Logger\Models\Enums\Status|null                                  $status
@@ -43,7 +41,6 @@ class Log extends Model {
     protected $table = 'logs';
 
     protected const CASTS = [
-        'level'       => Level::class,
         'type'        => Type::class,
         'status'      => Status::class,
         'finished_at' => 'datetime',

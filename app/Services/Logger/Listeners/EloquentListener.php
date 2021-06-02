@@ -4,7 +4,6 @@ namespace App\Services\Logger\Listeners;
 
 use App\Events\Subscriber;
 use App\Services\Logger\Logger;
-use App\Services\Logger\Models\Enums\Level;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,48 +19,32 @@ class EloquentListener implements Subscriber {
     }
 
     public function subscribe(Dispatcher $dispatcher): void {
-        /** @var array<string,array{level:\App\Services\Logger\Models\Enums\Level,countable:array<string>}> $events */
+        /** @var array<string,array<string,int>> $events */
         $events = [
             'eloquent.created'      => [
-                'level'     => Level::info(),
-                'countable' => [
-                    'models_created' => 1,
-                ],
+                'models_created' => 1,
             ],
             'eloquent.updated'      => [
-                'level'     => Level::info(),
-                'countable' => [
-                    'models_updated' => 1,
-                ],
+                'models_updated' => 1,
             ],
             'eloquent.restored'     => [
-                'level'     => Level::info(),
-                'countable' => [
-                    'models_restored' => 1,
-                ],
+                'models_restored' => 1,
             ],
             'eloquent.deleted'      => [
-                'level'     => Level::notice(),
-                'countable' => [
-                    'models_deleted' => 1,
-                ],
+                'models_deleted' => 1,
             ],
             'eloquent.forceDeleted' => [
-                'level'     => Level::warning(),
-                'countable' => [
-                    'models_force_deleted' => 1,
-                ],
+                'models_force_deleted' => 1,
             ],
         ];
 
-        foreach ($events as $event => $settings) {
-            $dispatcher->listen("{$event}: *", function (Model $model) use ($event, $settings): void {
+        foreach ($events as $event => $countable) {
+            $dispatcher->listen("{$event}: *", function (Model $model) use ($event, $countable): void {
                 $this->logger->event(
-                    $settings['level'],
                     $event,
                     $model,
                     $this->getContext($model),
-                    $settings['countable'],
+                    $countable,
                 );
             });
         }
