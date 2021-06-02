@@ -100,7 +100,7 @@ class Logger {
         array $countable = [],
     ): void {
         // Recording?
-        if (!$this->log) {
+        if (!$this->isRecording()) {
             return;
         }
 
@@ -120,7 +120,9 @@ class Logger {
         $entry->save();
 
         // Update countable
-        $this->count($level, $countable);
+        $this->count($level, array_merge($countable, [
+            "entries_{$level}",
+        ]));
     }
 
     /**
@@ -128,15 +130,12 @@ class Logger {
      */
     public function count(Level $level, array $countable = []): void {
         // Recording?
-        if (!$this->log) {
+        if (!$this->isRecording()) {
             return;
         }
 
         // Update
-        $logs      = [$this->log, array_column($this->stack, 'log')];
-        $countable = array_merge($countable, [
-            "entries_{$level}",
-        ]);
+        $logs = [$this->log, array_column($this->stack, 'log')];
 
         foreach ($logs as $log) {
             foreach ($countable as $property) {
@@ -150,7 +149,7 @@ class Logger {
      */
     protected function end(string $transaction, Status $status, array $context = []): void {
         // Recording?
-        if (!$this->log) {
+        if (!$this->isRecording()) {
             return;
         }
 
@@ -162,7 +161,7 @@ class Logger {
         // Search required
         $this->log->status      = $status;
         $this->log->context     = $this->mergeLogContext($this->log, $context);
-        $this->log->duration    = round((microtime(true) - $this->start) * 1000);
+        $this->log->duration    = $this->getDuration();
         $this->log->finished_at = Date::now();
 
         $this->log->save();
@@ -200,5 +199,15 @@ class Logger {
         // TODO [Logger] Serialize exceptions
 
         return $context ?: null;
+    }
+
+    protected function isRecording(): bool {
+        return (bool) $this->log;
+    }
+
+    public function getDuration(): ?float {
+        return $this->isRecording()
+            ? round((microtime(true) - $this->start) * 1000)
+            : null;
     }
 }
