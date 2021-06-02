@@ -9,11 +9,13 @@ type Organization {
   email: String
   currency_id: ID
   currency: Currency @belongsTo
-  locations: [Location!] @morphMany
   analytics_code: String
 
   branding: OrganizationBranding
   @field(resolver: "App\\GraphQL\\Queries\\Organization@branding")
 
   status: Status @hasOne
+  locations: [Location!]!
+  contacts: [Contact!]!
+  headquarter: Location
 }

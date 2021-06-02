@@ -767,7 +767,9 @@
                 "currency_id",
                 "locations",
                 "branding",
-                "status"
+                "status",
+                "contacts",
+                "headquarter"
             ],
             "properties": {
                 "id": {
@@ -836,6 +838,22 @@
                     "oneOf": [
                         {
                             "$ref": "#/definitions/Status"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "contacts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Contact"
+                    }
+                },
+                "headquarter": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Location"
                         },
                         {
                             "type": "null"

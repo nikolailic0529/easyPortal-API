@@ -120,6 +120,20 @@ class UpdateOrganizationTest extends TestCase {
                       id
                       name
                   }
+                  contacts {
+                    name
+                    email
+                    phone_valid
+                  }
+                  headquarter {
+                    id
+                    state
+                    postcode
+                    line_one
+                    line_two
+                    latitude
+                    longitude
+                  }
               }
             }
           }';

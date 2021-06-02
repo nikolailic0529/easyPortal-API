@@ -4,4 +4,7 @@ input OrganizationsQuery {
   website_url: String
   email: String
   status_id: ID
+  contacts: ContactsQuery
+  locations: LocationsQuery
+  headquarter: LocationsQuery
 }

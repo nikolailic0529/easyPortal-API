@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Currency;
+use App\Models\Location;
 use App\Models\Organization as ModelsOrganization;
 use App\Models\Reseller;
 use App\Models\Status;
@@ -28,6 +29,8 @@ class OrganizationTest extends TestCase {
      * @covers ::root
      * @covers ::branding
      *
+     * @param array<mixed> $settings
+     *
      * @dataProvider dataProviderInvoke
      */
     public function testInvoke(
@@ -35,6 +38,7 @@ class OrganizationTest extends TestCase {
         Closure $organizationFactory,
         Closure $userFactory = null,
         bool $isRootOrganization = false,
+        array $settings = [],
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
@@ -44,6 +48,8 @@ class OrganizationTest extends TestCase {
         if ($isRootOrganization) {
             $this->setRootOrganization($organization);
         }
+
+        $this->setSettings($settings);
 
         // Test
         $this->graphQL(/** @lang GraphQL */ '{
@@ -88,6 +94,20 @@ class OrganizationTest extends TestCase {
                     id
                     name
                 }
+                contacts {
+                    name
+                    email
+                    phone_valid
+                }
+                headquarter {
+                    id
+                    state
+                    postcode
+                    line_one
+                    line_two
+                    latitude
+                    longitude
+                }
             }
         }')->assertThat($expected);
     }
@@ -114,33 +134,45 @@ class OrganizationTest extends TestCase {
                     'organization' => [
                         new Unknown(),
                         static function (TestCase $test): ?ModelsOrganization {
-                            $currency     = Currency::factory()->create([
+                            $currency = Currency::factory()->create([
                                 'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                                 'name' => 'currency1',
                                 'code' => 'CUR',
                             ]);
-                            $status       = Status::factory()->create([
+                            $status   = Status::factory()->create([
                                 'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
                                 'name'        => 'active',
                                 'key'         => 'active',
                                 'object_type' => (new Reseller())->getMorphClass(),
                             ]);
-                            $reseller     = Reseller::factory()
+                            $reseller = Reseller::factory()
                                 ->for($status)
+                                ->hasContacts(1, [
+                                    'name'        => 'contact1',
+                                    'email'       => 'contact1@test.com',
+                                    'phone_valid' => false,
+                                ])
                                 ->create([
                                     'id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                                 ]);
+                            Location::factory()
+                                ->hasTypes(1, [
+                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                    'name' => 'headquarter',
+                                ])
+                                ->create([
+                                    'id'          => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                    'state'       => 'state1',
+                                    'postcode'    => '19911',
+                                    'line_one'    => 'line_one_data',
+                                    'line_two'    => 'line_two_data',
+                                    'latitude'    => '47.91634204',
+                                    'longitude'   => '-2.26318359',
+                                    'object_type' => $reseller->getMorphClass(),
+                                    'object_id'   => $reseller->getKey(),
+                                ]);
                             $organization = ModelsOrganization::factory()
                                 ->for($currency)
-                                ->hasLocations(1, [
-                                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
-                                    'state'     => 'state1',
-                                    'postcode'  => '19911',
-                                    'line_one'  => 'line_one_data',
-                                    'line_two'  => 'line_two_data',
-                                    'latitude'  => '47.91634204',
-                                    'longitude' => '-2.26318359',
-                                ])
                                 ->create([
                                     'id'                               => $reseller->getKey(),
                                     'name'                             => 'org1',
@@ -193,6 +225,22 @@ class OrganizationTest extends TestCase {
                                     'longitude' => -2.26318359,
                                 ],
                             ],
+                            'contacts'       => [
+                                [
+                                    'name'        => 'contact1',
+                                    'email'       => 'contact1@test.com',
+                                    'phone_valid' => false,
+                                ],
+                            ],
+                            'headquarter'    => [
+                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                'state'     => 'state1',
+                                'postcode'  => '19911',
+                                'line_one'  => 'line_one_data',
+                                'line_two'  => 'line_two_data',
+                                'latitude'  => 47.91634204,
+                                'longitude' => -2.26318359,
+                            ],
                             'branding'       => [
                                 'dark_theme'              => true,
                                 'main_color'              => '#00000F',
@@ -213,6 +261,9 @@ class OrganizationTest extends TestCase {
                             ],
                         ]),
                         false,
+                        [
+                            'ep.headquarter_type' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                        ],
                     ],
                     'root' => [
                         new GraphQLSuccess('organization', Organization::class, new JsonFragment('root', true)),

@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasCurrency;
-use App\Models\Concerns\HasLocations;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+
+use function app;
 
 /**
  * Organization.
@@ -47,7 +50,6 @@ use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 class Organization extends Model implements HasLocalePreference {
     use HasFactory;
     use HasCurrency;
-    use HasLocations;
 
     protected const CASTS = [
         'branding_dark_theme' => 'bool',
@@ -75,5 +77,28 @@ class Organization extends Model implements HasLocalePreference {
 
     public function status(): HasOneThrough {
         return $this->hasOneThrough(Status::class, Reseller::class, 'id', 'id', 'id', 'status_id');
+    }
+
+    public function contacts(): HasManyThrough {
+        [$type, $id] = $this->getMorphs('object', null, null);
+        return $this->hasManyThrough(Contact::class, Reseller::class, 'id', $id)
+            ->where($type, '=', (new Reseller())->getMorphClass());
+    }
+
+    public function locations(): HasManyThrough {
+        [$type, $id] = $this->getMorphs('object', null, null);
+        return $this->hasManyThrough(Location::class, Reseller::class, 'id', $id)
+            ->where($type, '=', (new Reseller())->getMorphClass());
+    }
+
+    public function headquarter(): HasOneThrough {
+        $type             = app()->make(Repository::class)->get('ep.headquarter_type');
+        [$morphType, $id] = $this->getMorphs('object', null, null);
+        return $this
+            ->hasOneThrough(Location::class, Reseller::class, 'id', $id)
+            ->where($morphType, '=', (new Reseller())->getMorphClass())
+            ->whereHas('types', static function ($query) use ($type) {
+                return $query->whereKey($type);
+            });
     }
 }

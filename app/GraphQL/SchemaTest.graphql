@@ -802,10 +802,12 @@ type Organization {
   email: String
   currency_id: ID
   currency: Currency
-  locations: [Location!]
   analytics_code: String
   branding: OrganizationBranding
   status: Status
+  locations: [Location!]!
+  contacts: [Contact!]!
+  headquarter: Location
 }
 
 type OrganizationBranding {
@@ -838,6 +840,9 @@ input OrganizationsQuery {
   website_url: String
   email: String
   status_id: ID
+  contacts: ContactsQuery
+  locations: LocationsQuery
+  headquarter: LocationsQuery
 }
 
 input OrganizationsSort {
@@ -1604,6 +1609,15 @@ input SearchByConditionOrganizationsQuery {
 
   """Property condition."""
   status_id: SearchByScalarIDOrNull
+
+  """Property condition."""
+  contacts: SearchByRelationContactsQuery
+
+  """Property condition."""
+  locations: SearchByRelationLocationsQuery
+
+  """Property condition."""
+  headquarter: SearchByRelationLocationsQuery
 }
 
 """
