@@ -6,7 +6,6 @@ use App\Services\Logger\Models\Enums\Level;
 use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Enums\Type;
 use App\Services\Logger\Models\Log;
-use App\Services\Logger\Models\LogEntry;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
@@ -20,13 +19,12 @@ use function microtime;
 use function round;
 
 class Logger {
-    protected ?Log  $log        = null;
-    protected float $start      = 0;
-    protected int   $logIndex   = 0;
-    protected int   $entryIndex = 0;
+    protected ?Log  $log   = null;
+    protected float $start = 0;
+    protected int   $index = 0;
 
     /**
-     * @var array<array{log:\App\Services\Logger\Models\Log,start:float,logIndex:int,entryIndex:int}>
+     * @var array<array{log:\App\Services\Logger\Models\Log,start:float,index:int}>
      */
     protected array $stack = [];
 
@@ -39,34 +37,33 @@ class Logger {
     /**
      * @param array<mixed>|null $context
      */
-    public function start(Type $type, string $action, array $context = null): string {
+    public function start(Type $type, Level $level, string $action, array $context = null): string {
         // Stack
         $index  = null;
         $parent = null;
 
         if ($this->log) {
-            $index  = $this->entryIndex++;
+            $index  = $this->index++;
             $parent = $this->log;
 
             array_unshift($this->stack, [
-                'log'        => $this->log,
-                'start'      => $this->start,
-                'logIndex'   => $this->logIndex,
-                'entryIndex' => $this->entryIndex,
+                'log'   => $this->log,
+                'start' => $this->start,
+                'index' => $this->index,
             ]);
         }
 
         // Create
         $this->start        = microtime(true);
-        $this->logIndex     = 0;
-        $this->entryIndex   = 0;
+        $this->index        = 0;
         $this->log          = new Log();
+        $this->log->level   = $level;
         $this->log->type    = $type;
         $this->log->action  = $action;
         $this->log->index   = $index;
         $this->log->parent  = $parent;
         $this->log->status  = Status::active();
-        $this->log->context = $this->mergeLogContext($this->log, $context);
+        $this->log->context = $this->mergeContext($context);
 
         $this->log->save();
 
@@ -90,11 +87,11 @@ class Logger {
 
     /**
      * @param array<mixed>|null $context
-     * @param array<string>     $countable
+     * @param array<string,int> $countable
      */
     public function event(
         Level $level,
-        string $event,
+        string $action,
         Model $object = null,
         array $context = null,
         array $countable = [],
@@ -105,12 +102,13 @@ class Logger {
         }
 
         // Create entry
-        $entry          = new LogEntry();
-        $entry->log     = $this->log;
-        $entry->index   = $this->entryIndex++;
-        $entry->level   = $level;
-        $entry->event   = $event;
-        $entry->context = $this->prepareContext($context);
+        $entry          = new Log();
+        $entry->type    = Type::event();
+        $entry->action  = $action;
+        $entry->index   = $this->index++;
+        $entry->parent  = $this->log;
+        $entry->status  = null;
+        $entry->context = $context;
 
         if ($object) {
             $entry->object_type = $object->getMorphClass();
@@ -120,15 +118,15 @@ class Logger {
         $entry->save();
 
         // Update countable
-        $this->count($level, array_merge($countable, [
-            "entries_{$level}",
+        $this->count(array_merge($countable, [
+            "levels_{$level}" => 1,
         ]));
     }
 
     /**
-     * @param array<string> $countable
+     * @param array<string,int> $countable
      */
-    public function count(Level $level, array $countable = []): void {
+    public function count(array $countable = []): void {
         // Recording?
         if (!$this->isRecording()) {
             return;
@@ -138,8 +136,8 @@ class Logger {
         $logs = [$this->log, array_column($this->stack, 'log')];
 
         foreach ($logs as $log) {
-            foreach ($countable as $property) {
-                $log->{$property}++;
+            foreach ($countable as $property => $value) {
+                $log->statistic->{$property} += $value;
             }
         }
     }
@@ -160,18 +158,17 @@ class Logger {
 
         // Search required
         $this->log->status      = $status;
-        $this->log->context     = $this->mergeLogContext($this->log, $context);
+        $this->log->context     = $this->mergeContext($context);
         $this->log->duration    = $this->getDuration();
         $this->log->finished_at = Date::now();
 
         $this->log->save();
 
         // Reset
-        $parent           = array_shift($this->stack);
-        $this->log        = $parent['log'] ?? null;
-        $this->start      = $parent['start'] ?? 0;
-        $this->logIndex   = $parent['logIndex'] ?? 0;
-        $this->entryIndex = $parent['entryIndex'] ?? 0;
+        $parent      = array_shift($this->stack);
+        $this->log   = $parent['log'] ?? null;
+        $this->start = $parent['start'] ?? 0;
+        $this->index = $parent['index'] ?? 0;
     }
 
     /**
@@ -179,10 +176,10 @@ class Logger {
      *
      * @return array<mixed>|null
      */
-    protected function mergeLogContext(Log $log, array|null $context): ?array {
-        $current   = $log->context ?: [];
+    protected function mergeContext(array|null $context): ?array {
+        $current   = $this->log->context ?: [];
         $current[] = [
-            'status'  => $log->status,
+            'status'  => $this->log->status,
             'context' => $context,
         ];
         $current   = $this->prepareContext($current);

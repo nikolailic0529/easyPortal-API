@@ -86,13 +86,18 @@ class QueueListener implements Subscriber {
             null,
             $this->getContext($job),
             [
-                'jobs_dispatched',
+                'jobs_dispatched' => 1,
             ],
         );
     }
 
     protected function started(JobProcessing $event): void {
-        $this->stack[] = $this->logger->start(Type::job(), $event->job->getName(), $this->getContext($event->job));
+        $this->stack[] = $this->logger->start(
+            Type::job(),
+            Level::info(),
+            $event->job->getName(),
+            $this->getContext($event->job),
+        );
     }
 
     protected function success(JobProcessed $event): void {

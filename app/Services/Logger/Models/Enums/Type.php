@@ -8,4 +8,8 @@ class Type extends Enum {
     public static function job(): static {
         return static::make(__FUNCTION__);
     }
+
+    public static function event(): static {
+        return static::make(__FUNCTION__);
+    }
 }

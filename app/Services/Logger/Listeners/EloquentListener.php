@@ -25,31 +25,31 @@ class EloquentListener implements Subscriber {
             'eloquent.created'      => [
                 'level'     => Level::info(),
                 'countable' => [
-                    'models_created',
+                    'models_created' => 1,
                 ],
             ],
             'eloquent.updated'      => [
                 'level'     => Level::info(),
                 'countable' => [
-                    'models_updated',
+                    'models_updated' => 1,
                 ],
             ],
             'eloquent.restored'     => [
                 'level'     => Level::info(),
                 'countable' => [
-                    'models_restored',
+                    'models_restored' => 1,
                 ],
             ],
             'eloquent.deleted'      => [
                 'level'     => Level::notice(),
                 'countable' => [
-                    'models_deleted',
+                    'models_deleted' => 1,
                 ],
             ],
             'eloquent.forceDeleted' => [
                 'level'     => Level::warning(),
                 'countable' => [
-                    'models_force_deleted',
+                    'models_force_deleted' => 1,
                 ],
             ],
         ];
