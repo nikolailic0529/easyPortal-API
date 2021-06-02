@@ -13,4 +13,5 @@ input AssetsQuery {
   customer: CustomersQuery
   product: ProductsQuery
   warranties: AssetWarrantiesQuery
+  tags: TagsQuery
 }
