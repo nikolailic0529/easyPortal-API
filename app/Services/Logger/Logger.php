@@ -163,6 +163,13 @@ class Logger {
         $this->log   = $parent['log'] ?? null;
         $this->start = $parent['start'] ?? 0;
         $this->index = $parent['index'] ?? 0;
+
+        // Count
+        if ($status === Status::failed()) {
+            $this->count([
+                'actions_failed' => 1,
+            ]);
+        }
     }
 
     /**
