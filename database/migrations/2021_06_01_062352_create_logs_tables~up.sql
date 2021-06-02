@@ -7,8 +7,6 @@ CREATE TABLE IF NOT EXISTS `logs` (
     `type`                 VARCHAR(64)                          NOT NULL,
     `action`               VARCHAR(255)                         NOT NULL,
     `status`               ENUM ('active', 'success', 'failed') NOT NULL,
-    `guard`                VARCHAR(45)                          NULL     DEFAULT NULL,
-    `auth_id`              CHAR(36)                             NULL     DEFAULT NULL,
     `parent_id`            CHAR(36)                             NULL     DEFAULT NULL,
     `index`                SMALLINT(5) UNSIGNED                 NULL     DEFAULT NULL,
     `duration`             INT(11)                              NULL     DEFAULT NULL,

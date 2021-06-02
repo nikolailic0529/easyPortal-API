@@ -14,8 +14,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \App\Services\Logger\Models\Enums\Type                                              $type
  * @property string                                                                              $action
  * @property \App\Services\Logger\Models\Enums\Status                                            $status
- * @property string|null                                                                         $guard
- * @property string|null                                                                         $auth_id
  * @property string|null                                                                         $parent_id
  * @property int|null                                                                            $index
  * @property int|null                                                                            $duration
