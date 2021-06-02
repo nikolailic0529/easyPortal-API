@@ -4,10 +4,10 @@ namespace App\Services\DataLoader\Client\Events;
 
 class RequestStarted {
     /**
-     * @param array<mixed> $data
+     * @param array<mixed> $request
      */
     public function __construct(
-        protected array $data,
+        protected array $request,
     ) {
         // empty
     }
@@ -15,7 +15,7 @@ class RequestStarted {
     /**
      * @return array<mixed>
      */
-    public function getData(): array {
-        return $this->data;
+    public function getRequest(): array {
+        return $this->request;
     }
 }

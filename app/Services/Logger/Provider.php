@@ -2,6 +2,8 @@
 
 namespace App\Services\Logger;
 
+use App\Services\Logger\Listeners\DataLoaderListener;
+use App\Services\Logger\Listeners\EloquentListener;
 use App\Services\Logger\Listeners\QueueListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 
@@ -15,6 +17,8 @@ class Provider extends EventServiceProvider {
      */
     protected $subscribe = [
         QueueListener::class,
+        EloquentListener::class,
+        DataLoaderListener::class,
     ];
 
     public function register(): void {

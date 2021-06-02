@@ -12,4 +12,8 @@ class Type extends Enum {
     public static function event(): static {
         return static::make(__FUNCTION__);
     }
+
+    public static function dataLoader(): static {
+        return static::make(__FUNCTION__);
+    }
 }

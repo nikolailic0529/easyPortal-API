@@ -4,11 +4,11 @@ namespace App\Services\DataLoader\Client\Events;
 
 class RequestSuccessful {
     /**
-     * @param array<mixed> $data
+     * @param array<mixed> $request
      */
     public function __construct(
-        protected array $data,
-        protected mixed $json,
+        protected array $request,
+        protected mixed $response,
     ) {
         // empty
     }
@@ -16,11 +16,11 @@ class RequestSuccessful {
     /**
      * @return array<mixed>
      */
-    public function getData(): array {
-        return $this->data;
+    public function getRequest(): array {
+        return $this->request;
     }
 
-    public function getJson(): mixed {
-        return $this->json;
+    public function getResponse(): mixed {
+        return $this->response;
     }
 }
