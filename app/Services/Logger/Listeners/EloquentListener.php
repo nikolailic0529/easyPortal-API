@@ -22,19 +22,19 @@ class EloquentListener implements Subscriber {
         /** @var array<string,array<string,int>> $events */
         $events = [
             'eloquent.created'      => [
-                'models_created' => 1,
+                'models.created' => 1,
             ],
             'eloquent.updated'      => [
-                'models_updated' => 1,
+                'models.updated' => 1,
             ],
             'eloquent.restored'     => [
-                'models_restored' => 1,
+                'models.restored' => 1,
             ],
             'eloquent.deleted'      => [
-                'models_deleted' => 1,
+                'models.deleted_soft' => 1,
             ],
             'eloquent.forceDeleted' => [
-                'models_force_deleted' => 1,
+                'models.deleted_force' => 1,
             ],
         ];
 

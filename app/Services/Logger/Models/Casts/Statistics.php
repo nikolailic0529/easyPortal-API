@@ -4,6 +4,7 @@ namespace App\Services\Logger\Models\Casts;
 
 use Illuminate\Contracts\Database\Eloquent\Castable;
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
+use Illuminate\Support\Arr;
 use JsonSerializable;
 
 use function json_encode;
@@ -19,15 +20,11 @@ class Statistics implements JsonSerializable, Castable {
     }
 
     public function __get(string $name): ?int {
-        return $this->data[$name] ?? null;
+        return Arr::get($this->data, $name);
     }
 
     public function __set(string $name, int $value): void {
-        $this->data[$name] = $value;
-    }
-
-    public function __isset(string $name): bool {
-        return isset($this->data[$name]);
+        Arr::set($this->data, $name, $value);
     }
 
     public function jsonSerialize(): mixed {

@@ -84,7 +84,7 @@ class QueueListener implements Subscriber {
             null,
             $this->getContext($job),
             [
-                'jobs_dispatched' => 1,
+                'jobs.dispatched' => 1,
             ],
         );
     }

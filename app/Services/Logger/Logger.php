@@ -167,7 +167,7 @@ class Logger {
         // Count
         if ($status === Status::failed()) {
             $this->count([
-                'actions_failed' => 1,
+                'actions.failed' => 1,
             ]);
         }
     }
