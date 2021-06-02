@@ -986,6 +986,9 @@ type Query {
   """List of all possible asset coverages."""
   assetCoverages: [AssetCoverage!]!
 
+  """List of all possible tags."""
+  tags(where: SearchByConditionTagsQuery, order: [SortByClauseTagsSort!]): [Tag!]!
+
   """
   Customer.
   
@@ -1655,6 +1658,26 @@ input SearchByConditionResellersQuery {
 
   """Any of the conditions must be true."""
   anyOf: [SearchByConditionResellersQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  name: SearchByScalarString
+}
+
+"""
+Available conditions for input TagsQuery (only one property allowed at a time).
+"""
+input SearchByConditionTagsQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionTagsQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionTagsQuery!]
 
   """Not."""
   not: SearchByFlag
@@ -2446,6 +2469,12 @@ input SortByClauseStatusSort {
   name: SortByDirection
 }
 
+"""Sort clause for input TagsSort (only one property allowed at a time)."""
+input SortByClauseTagsSort {
+  """Property clause."""
+  name: SortByDirection
+}
+
 """
 Sort clause for input TypesSort (only one property allowed at a time).
 """
@@ -2472,6 +2501,15 @@ input StatusSort {
 
 type Tag {
   id: ID!
+  name: String!
+}
+
+input TagsQuery {
+  id: ID!
+  name: String!
+}
+
+input TagsSort {
   name: String!
 }
 

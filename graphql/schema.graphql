@@ -74,6 +74,12 @@ type Query {
   "List of all possible asset coverages."
   assetCoverages: [AssetCoverage!]! @all
 
+  "List of all possible tags."
+  tags (
+    where: TagsQuery @searchBy
+    order: TagsSort @sortBy
+  ): [Tag!]! @all
+
   # Customers
   # ============================================================================
   "List of Customers."
