@@ -33,7 +33,6 @@ use App\Models\User;
 use App\Models\UserSearch;
 use App\Services\KeyCloak\KeyCloak;
 use App\Services\KeyCloak\UserProvider;
-use App\Services\Settings\Bootstraper;
 use Carbon\CarbonImmutable;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -55,16 +54,9 @@ class AppServiceProvider extends ServiceProvider {
      * Bootstrap any application services.
      */
     public function boot(Dispatcher $dispatcher): void {
-        $this->bootConfig();
         $this->bootMorphMap();
         $this->bootKeyCloak();
         $this->bootGraphQL($dispatcher);
-    }
-
-    protected function bootConfig(): void {
-        $this->app->booted(static function (Application $app): void {
-            $app->make(Bootstraper::class)->bootstrap();
-        });
     }
 
     protected function bootKeyCloak(): void {
