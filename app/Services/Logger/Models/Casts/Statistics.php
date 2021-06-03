@@ -39,15 +39,17 @@ class Statistics implements JsonSerializable, Castable {
             /**
              * @inheritDoc
              */
-            public function get($model, string $key, mixed $value, array $attributes): Statistics {
-                return new Statistics($value);
+            public function get($model, string $key, mixed $value, array $attributes): ?Statistics {
+                return $value !== null ? new Statistics((array) $value) : null;
             }
 
             /**
              * @inheritDoc
              */
             public function set($model, string $key, $value, array $attributes): mixed {
-                return [$key => json_encode($value)];
+                return [
+                    $key => $value !== null ? json_encode($value) : null,
+                ];
             }
         };
     }

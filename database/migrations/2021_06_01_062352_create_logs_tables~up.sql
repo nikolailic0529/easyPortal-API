@@ -8,10 +8,10 @@ CREATE TABLE IF NOT EXISTS `logs` (
     `action`      VARCHAR(255)                         NOT NULL,
     `status`      ENUM ('active', 'success', 'failed') NULL     DEFAULT NULL,
     `parent_id`   CHAR(36)                             NULL     DEFAULT NULL,
-    `index`       SMALLINT(5) UNSIGNED                 NOT NULL,
+    `index`       SMALLINT(5) UNSIGNED                 NULL     DEFAULT NULL,
     `object_type` VARCHAR(255)                         NULL     DEFAULT NULL,
     `object_id`   CHAR(36)                             NULL     DEFAULT NULL,
-    `duration`    INT(11)                              NULL     DEFAULT NULL,
+    `duration`    INT(10) UNSIGNED                     NULL     DEFAULT NULL,
     `created_at`  TIMESTAMP                            NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at`  TIMESTAMP                            NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `finished_at` TIMESTAMP                            NULL     DEFAULT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `logs` (
     `context`     JSON                                 NULL     DEFAULT NULL,
     PRIMARY KEY (`id`),
     INDEX `fk_logs_logs1_idx`(`parent_id` ASC) VISIBLE,
-    INDEX `idx__action__category`(`action` ASC, `category` ASC) VISIBLE,
+    INDEX `idx__action__category`(`category` ASC, `action` ASC) VISIBLE,
     INDEX `idx__object_id__object_type`(`object_id` ASC, `object_type` ASC) INVISIBLE,
     CONSTRAINT `fk_logs_logs1`
         FOREIGN KEY (`parent_id`)

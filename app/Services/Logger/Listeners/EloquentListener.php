@@ -9,7 +9,9 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Model;
 
 use function array_filter;
+use function array_intersect_key;
 use function mb_strlen;
+use function reset;
 use function str_pad;
 use function str_replace;
 
@@ -41,7 +43,9 @@ class EloquentListener implements Subscriber {
         ];
 
         foreach ($events as $event => $countable) {
-            $dispatcher->listen("{$event}: *", function (Model $model) use ($event, $countable): void {
+            $dispatcher->listen("{$event}: *", function (string $name, array $args) use ($event, $countable): void {
+                $model = reset($args);
+
                 $this->logger->event(
                     Category::eloquent(),
                     str_replace('eloquent.', 'model.', $event),
@@ -54,16 +58,17 @@ class EloquentListener implements Subscriber {
     }
 
     /**
-     * @return array<mixed>
+     * @return array<mixed>|null
      */
-    protected function getContext(Model $model): array {
+    protected function getContext(Model $model): ?array {
+        $changes = $model->getChanges();
         $context = [
-            'changes'   => $this->hideProperties($model, $model->getChanges()),
-            'originals' => $this->hideProperties($model, $model->getRawOriginal()),
+            'changes'   => $this->hideProperties($model, $changes),
+            'originals' => $this->hideProperties($model, array_intersect_key($model->getRawOriginal(), $changes)),
         ];
 
         if (!array_filter($context)) {
-            $context = [];
+            $context = null;
         }
 
         return $context;

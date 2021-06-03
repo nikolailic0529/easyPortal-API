@@ -2,6 +2,7 @@
 
 namespace App\Services\Logger;
 
+use App\Services\Logger\Models\Casts\Statistics;
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Log;
@@ -108,7 +109,7 @@ class Logger {
         $entry->action   = $action;
         $entry->index    = $this->index++;
         $entry->parent   = $this->log;
-        $entry->context  = $context;
+        $entry->context  = $context ?: null;
 
         if ($object) {
             $entry->object_type = $object->getMorphClass();
@@ -131,20 +132,24 @@ class Logger {
         }
 
         // Update
-        $logs = [$this->log, array_column($this->stack, 'log')];
+        $logs = [$this->log, ...array_column($this->stack, 'log')];
 
         foreach ($logs as $log) {
+            $statistics = $log->statistics ?? new Statistics();
+
             foreach ($countable as $property => $value) {
-                $log->statistic->{$property} += $value;
+                $statistics->{$property} = $statistics->{$property} + $value;
             }
+
+            $log->statistics = $statistics;
         }
     }
 
     /**
-     * @param array<mixed>      $context
+     * @param array<mixed>|null $context
      * @param array<string,int> $countable
      */
-    protected function end(string $transaction, Status $status, array $context = [], array $countable = []): void {
+    protected function end(string $transaction, Status $status, array $context = null, array $countable = []): void {
         // Recording?
         if (!$this->isRecording()) {
             return;
@@ -183,12 +188,16 @@ class Logger {
      * @return array<mixed>|null
      */
     protected function mergeContext(array|null $context): ?array {
-        $current   = $this->log->context ?: [];
-        $current[] = [
-            'status'  => $this->log->status,
-            'context' => $context,
-        ];
-        $current   = $this->prepareContext($current);
+        $current = null;
+
+        if ($context) {
+            $current   = $this->log->context ?: [];
+            $current[] = [
+                'status'  => $this->log->status,
+                'context' => $context,
+            ];
+            $current   = $this->prepareContext($current);
+        }
 
         return $current;
     }

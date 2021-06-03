@@ -44,11 +44,13 @@ class QueueListener implements Subscriber {
         Queue::createPayloadUsing(function (string $connection, string $queue, array $payload): array {
             $this->dispatched(new class($connection, $queue, $payload) extends Job implements JobContract {
                 /**
+                 * @inheritDoc
+                 *
                  * @param array<mixed> $payload
                  */
                 public function __construct(
-                    protected string $connectionName,
-                    protected string $queue,
+                    protected $connectionName,
+                    protected $queue,
                     protected array $payload,
                 ) {
                     // empty
@@ -81,7 +83,7 @@ class QueueListener implements Subscriber {
     protected function dispatched(JobContract $job): void {
         $this->logger->event(
             Category::queue(),
-            "job.dispatched: {$job->getName()}",
+            "job.dispatched: {$this->getName($job)}",
             null,
             $this->getContext($job),
             [
@@ -93,19 +95,27 @@ class QueueListener implements Subscriber {
     protected function started(JobProcessing $event): void {
         $this->stack[] = $this->logger->start(
             Category::queue(),
-            "job.processed: {$event->job->getName()}",
+            "job.processed: {$this->getName($event->job)}",
             $this->getContext($event->job),
         );
     }
 
     protected function success(JobProcessed $event): void {
-        $this->logger->success(array_pop($this->stack));
+        $transaction = array_pop($this->stack);
+
+        if ($transaction) {
+            $this->logger->success($transaction);
+        }
     }
 
     protected function failed(JobExceptionOccurred $event): void {
-        $this->logger->fail(array_pop($this->stack), [
-            'exception' => $event->exception,
-        ]);
+        $transaction = array_pop($this->stack);
+
+        if ($transaction) {
+            $this->logger->fail(array_pop($this->stack), [
+                'exception' => $event->exception,
+            ]);
+        }
     }
 
     /**
@@ -114,10 +124,14 @@ class QueueListener implements Subscriber {
     protected function getContext(JobContract $job): array {
         return [
             'id'         => $job->uuid(),
-            'name'       => $job->getName(),
+            'name'       => $this->getName($job),
             'connection' => $job->getConnectionName(),
             'queue'      => $job->getQueue(),
             'payload'    => $job->payload(),
         ];
+    }
+
+    protected function getName(JobContract $job): string {
+        return ($job->payload()['displayName'] ?? '') ?: $job->getName();
     }
 }
