@@ -74,7 +74,7 @@ trait Helper {
         $output = [];
         $tags   = [];
 
-        if ($object instanceof Asset) {
+        if ($object instanceof Asset && $object->assetTag) {
             $tags = [$object->assetTag];
         } else {
             // empty

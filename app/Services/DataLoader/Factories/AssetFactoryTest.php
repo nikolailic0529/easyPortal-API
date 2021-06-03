@@ -1291,6 +1291,38 @@ class AssetFactoryTest extends TestCase {
 
         $factory->assetStatus($asset);
     }
+
+    /**
+     * @covers ::assetTags
+     */
+    public function testAssetTags(): void {
+        $factory = new class(
+            $this->app->make(Normalizer::class),
+        ) extends AssetFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Normalizer $normalizer,
+            ) {
+                // empty
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function assetTags(Asset $asset): array {
+                return parent::assetTags($asset);
+            }
+        };
+        // Null tag
+        $asset = new Asset([ 'assetTag' => null ]);
+        $factory->assetTags($asset);
+        $this->assertEmpty($factory->assetTags($asset));
+
+        // Normalized empty
+        $asset = new Asset([ 'assetTag' => ' ' ]);
+        $factory->assetTags($asset);
+        $this->assertEmpty($factory->assetTags($asset));
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">

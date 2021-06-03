@@ -208,6 +208,7 @@ input AssetsQuery {
   customer: CustomersQuery
   product: ProductsQuery
   warranties: AssetWarrantiesQuery
+  tags: TagsQuery
 }
 
 input AssetsSort {
@@ -1267,6 +1268,9 @@ input SearchByConditionAssetsQuery {
 
   """Property condition."""
   warranties: SearchByRelationAssetWarrantiesQuery
+
+  """Property condition."""
+  tags: SearchByRelationTagsQuery
 }
 
 """
@@ -1931,6 +1935,30 @@ input SearchByRelationProductsQuery {
 input SearchByRelationResellersQuery {
   """Conditions for the related objects."""
   where: SearchByConditionResellersQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""Relation condition for input TagsQuery."""
+input SearchByRelationTagsQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionTagsQuery!
 
   """Equal (`=`)."""
   eq: Int

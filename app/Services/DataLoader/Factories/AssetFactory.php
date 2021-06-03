@@ -456,7 +456,12 @@ class AssetFactory extends ModelFactory {
      * @return array<\App\Models\Tag>
      */
     protected function assetTags(Asset $asset): array {
-        return [$this->tag($asset->assetTag)];
+        $name = $this->normalizer->string($asset->assetTag);
+        if ($name) {
+            return [$this->tag($name)];
+        }
+
+        return [];
     }
     // </editor-fold>
 }
