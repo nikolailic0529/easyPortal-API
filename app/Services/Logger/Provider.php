@@ -6,37 +6,34 @@ use App\Services\Logger\Listeners\DataLoaderListener;
 use App\Services\Logger\Listeners\EloquentListener;
 use App\Services\Logger\Listeners\LogListener;
 use App\Services\Logger\Listeners\QueueListener;
-use Illuminate\Foundation\Support\Providers\EventServiceProvider;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Support\ServiceProvider;
 
-class Provider extends EventServiceProvider {
-    /**
-     * The subscriber classes to register.
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<class-string<\App\Events\Subscriber>>
-     */
-    protected $subscribe = [
-        LogListener::class,
-        QueueListener::class,
-        EloquentListener::class,
-        DataLoaderListener::class,
-    ];
-
+class Provider extends ServiceProvider {
     public function register(): void {
-        // Logs not needed while tests
-        if ($this->app->runningUnitTests()) {
-            return;
-        }
-
-        // Register events
         parent::register();
 
-        // and other classes
         $this->registerLogger();
+        $this->registerListeners();
     }
 
     protected function registerLogger(): void {
         $this->app->singleton(Logger::class);
+    }
+
+    protected function registerListeners(): void {
+        $this->booting(static function (Repository $config, Dispatcher $dispatcher): void {
+            // Enabled?
+            if (!$config->get('ep.logger.enabled')) {
+                return;
+            }
+
+            // Subscribe
+            $dispatcher->subscribe(LogListener::class);
+            $dispatcher->subscribe(QueueListener::class);
+            $dispatcher->subscribe(EloquentListener::class);
+            $dispatcher->subscribe(DataLoaderListener::class);
+        });
     }
 }

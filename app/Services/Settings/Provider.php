@@ -9,7 +9,7 @@ class Provider extends ServiceProvider {
     public function register(): void {
         parent::register();
 
-        $this->app->booting(static function (Application $app): void {
+        $this->booting(static function (Application $app): void {
             $app->make(Bootstraper::class)->bootstrap();
         });
     }

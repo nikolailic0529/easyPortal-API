@@ -213,6 +213,17 @@ interface Constants {
     // </editor-fold>
     // </editor-fold>
 
+    // <editor-fold desc="EP_LOGGER">
+    // =========================================================================
+    /**
+     * Logger enabled?
+     */
+    #[Setting('ep.logger.enabled')]
+    #[Group('logger')]
+    #[Internal]
+    public const EP_LOGGER_ENABLED = false;
+    //</editor-fold>
+
     // <editor-fold desc="DATA_LOADER">
     // =========================================================================
     /**
