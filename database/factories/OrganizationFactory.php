@@ -32,6 +32,7 @@ class OrganizationFactory extends Factory {
             'keycloak_scope'                   => null,
             'keycloak_group_id'                => null,
             'locale'                           => null,
+            'timezone'                         => null,
             'currency_id'                      => null,
             'website_url'                      => null,
             'email'                            => null,

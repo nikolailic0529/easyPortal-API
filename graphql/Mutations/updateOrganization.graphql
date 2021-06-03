@@ -12,6 +12,7 @@ input UpdateOrganizationInput @validator {
   email: String                     # TODO [GraphQL] Email type needed
   analytics_code: String
   branding: UpdateOrganizationBranding
+  timezone: String
 }
 
 input UpdateOrganizationBranding {

@@ -34,6 +34,7 @@ class UpdateOrganizationInputValidator extends Validator {
             'currency_id'                => ['nullable', new CurrencyId()],
             'website_url'                => ['nullable', 'url'],
             'email'                      => ['nullable', 'email'],
+            'timezone'                   => ['nullable', 'timezone'],
             'analytics_code'             => ['nullable'],
             'branding.dark_theme'        => ['nullable'],
             'branding.main_color'        => ['nullable', new Color()],

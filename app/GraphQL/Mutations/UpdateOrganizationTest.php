@@ -87,6 +87,7 @@ class UpdateOrganizationTest extends TestCase {
                   locale
                   website_url
                   analytics_code
+                  timezone
                   currency_id
                   currency {
                     id
@@ -222,6 +223,7 @@ class UpdateOrganizationTest extends TestCase {
                             'website_url'    => 'https://www.example.com',
                             'email'          => 'test@example.com',
                             'analytics_code' => 'code',
+                            'timezone'       => 'Europe/London',
                             'branding'       => [
                                 'dark_theme'        => false,
                                 'main_color'        => '#ffffff',
@@ -339,6 +341,16 @@ class UpdateOrganizationTest extends TestCase {
                         ];
                     },
                 ],
+                'invalid request/Invalid timezone' => [
+                    new GraphQLError('updateOrganization', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    static function (TestCase $test): array {
+                        return [
+                            'timezone' => 'Europe/Unknown',
+                        ];
+                    },
+                ],
                 'nullable branding'                => [
                     new GraphQLSuccess('updateOrganization', UpdateOrganization::class),
                     static function (): array {
@@ -350,6 +362,7 @@ class UpdateOrganizationTest extends TestCase {
                             'website_url'    => 'https://www.example.com',
                             'email'          => 'test@example.com',
                             'analytics_code' => 'analytics_code',
+                            'timezone'       => 'Europe/London',
                             'branding'       => [
                                 // Logo cannot be null
                                 'logo_url'          => UploadedFile::fake()->create('branding_logo.jpg', 200),

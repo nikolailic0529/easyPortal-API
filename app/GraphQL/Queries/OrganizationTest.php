@@ -62,6 +62,7 @@ class OrganizationTest extends TestCase {
                 email
                 analytics_code
                 currency_id
+                timezone
                 currency {
                     id
                     name
@@ -192,6 +193,7 @@ class OrganizationTest extends TestCase {
                                     'branding_welcome_image_url'       => 'https://www.example.com/welcome-image.png',
                                     'branding_welcome_heading'         => 'heading',
                                     'branding_welcome_underline'       => 'underline',
+                                    'timezone'                         => 'Europe/London',
                                 ]);
                             return $organization;
                         },
@@ -209,6 +211,7 @@ class OrganizationTest extends TestCase {
                             'email'          => 'test@example.com',
                             'analytics_code' => 'analytics_code',
                             'currency_id'    => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
+                            'timezone'       => 'Europe/London',
                             'currency'       => [
                                 'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                                 'name' => 'currency1',

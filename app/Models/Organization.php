@@ -35,6 +35,7 @@ use function app;
  * @property string|null                                                    $branding_welcome_heading
  * @property string|null                                                    $branding_welcome_underline
  * @property string|null                                                    $analytics_code
+ * @property string|null                                                    $timezone
  * @property \Carbon\CarbonImmutable                                        $created_at
  * @property \Carbon\CarbonImmutable                                        $updated_at
  * @property \Carbon\CarbonImmutable|null                                   $deleted_at

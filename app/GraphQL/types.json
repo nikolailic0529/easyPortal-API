@@ -769,7 +769,8 @@
                 "branding",
                 "status",
                 "contacts",
-                "headquarter"
+                "headquarter",
+                "timezone"
             ],
             "properties": {
                 "id": {
@@ -858,6 +859,12 @@
                         {
                             "type": "null"
                         }
+                    ]
+                },
+                "timezone": {
+                    "type": [
+                        "string",
+                        "null"
                     ]
                 }
             }

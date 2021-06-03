@@ -10,6 +10,7 @@ type Organization {
   currency_id: ID
   currency: Currency @belongsTo
   analytics_code: String
+  timezone: String
 
   branding: OrganizationBranding
   @field(resolver: "App\\GraphQL\\Queries\\Organization@branding")
