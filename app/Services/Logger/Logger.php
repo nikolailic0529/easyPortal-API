@@ -17,6 +17,8 @@ use function microtime;
 use function round;
 
 class Logger {
+    public const CONNECTION = 'logs';
+
     protected ?Log  $log   = null;
     protected float $start = 0;
     protected int   $index = 0;

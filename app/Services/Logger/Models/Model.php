@@ -3,12 +3,11 @@
 namespace App\Services\Logger\Models;
 
 use App\Models\Concerns\UuidAsPrimaryKey;
+use App\Services\Logger\Logger;
 use LastDragon_ru\LaraASP\Eloquent\Model as LaraASPModel;
 
 abstract class Model extends LaraASPModel {
     use UuidAsPrimaryKey;
-
-    public const CONNECTION = 'logs';
 
     protected const CASTS = [
         // empty
@@ -19,7 +18,7 @@ abstract class Model extends LaraASPModel {
      *
      * @var string
      */
-    protected $connection = self::CONNECTION;
+    protected $connection = Logger::CONNECTION;
 
     /**
      * Primary Key always UUID.
