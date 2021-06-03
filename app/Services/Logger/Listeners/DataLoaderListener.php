@@ -70,7 +70,7 @@ class DataLoaderListener implements Subscriber {
             [
                 'request'   => $event->getRequest(),
                 'response'  => $event->getResponse(),
-                'exception' => $event->getException(),
+                'exception' => $event->getException()?->getMessage(),
             ],
             [
                 'data-loader.requests.failed' => 1,

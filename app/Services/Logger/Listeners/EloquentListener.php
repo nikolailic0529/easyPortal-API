@@ -61,11 +61,19 @@ class EloquentListener implements Subscriber {
      * @return array<mixed>|null
      */
     protected function getContext(Model $model): ?array {
-        $changes = $model->getChanges();
-        $context = [
-            'changes'   => $this->hideProperties($model, $changes),
-            'originals' => $this->hideProperties($model, array_intersect_key($model->getRawOriginal(), $changes)),
-        ];
+        $context = [];
+
+        if ($model->wasRecentlyCreated) {
+            $context = [
+                'properties' => $model->getAttributes(),
+            ];
+        } else {
+            $changes = $model->getChanges();
+            $context = [
+                'changes'   => $this->hideProperties($model, $changes),
+                'originals' => $this->hideProperties($model, array_intersect_key($model->getRawOriginal(), $changes)),
+            ];
+        }
 
         if (!array_filter($context)) {
             $context = null;

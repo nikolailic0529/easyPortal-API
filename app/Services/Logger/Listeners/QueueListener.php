@@ -113,7 +113,7 @@ class QueueListener implements Subscriber {
 
         if ($transaction) {
             $this->logger->fail(array_pop($this->stack), [
-                'exception' => $event->exception,
+                'exception' => $event->exception?->getMessage(),
             ]);
         }
     }
