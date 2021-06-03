@@ -7,7 +7,7 @@ use App\Services\DataLoader\Client\Events\RequestFailed;
 use App\Services\DataLoader\Client\Events\RequestStarted;
 use App\Services\DataLoader\Client\Events\RequestSuccessful;
 use App\Services\Logger\Logger;
-use App\Services\Logger\Models\Enums\Type;
+use App\Services\Logger\Models\Enums\Category;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
 
@@ -52,7 +52,7 @@ class DataLoaderListener implements Subscriber {
         }
 
         $this->stack[] = $this->logger->start(
-            Type::dataLoader(),
+            Category::dataLoader(),
             $action,
             $context,
         );

@@ -4,14 +4,14 @@ SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABL
 
 CREATE TABLE IF NOT EXISTS `logs` (
     `id`          CHAR(36)                             NOT NULL,
-    `type`        VARCHAR(64)                          NOT NULL,
+    `category`    VARCHAR(64)                          NOT NULL,
     `action`      VARCHAR(255)                         NOT NULL,
     `status`      ENUM ('active', 'success', 'failed') NULL     DEFAULT NULL,
     `parent_id`   CHAR(36)                             NULL     DEFAULT NULL,
     `index`       SMALLINT(5) UNSIGNED                 NOT NULL,
     `object_type` VARCHAR(255)                         NULL     DEFAULT NULL,
     `object_id`   CHAR(36)                             NULL     DEFAULT NULL,
-    `duration`    INT(11)                              NOT NULL,
+    `duration`    INT(11)                              NULL     DEFAULT NULL,
     `created_at`  TIMESTAMP                            NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_at`  TIMESTAMP                            NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `finished_at` TIMESTAMP                            NULL     DEFAULT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `logs` (
     `context`     JSON                                 NULL     DEFAULT NULL,
     PRIMARY KEY (`id`),
     INDEX `fk_logs_logs1_idx`(`parent_id` ASC) VISIBLE,
-    INDEX `idx__type__action`(`type` ASC, `action` ASC) VISIBLE,
+    INDEX `idx__action__category`(`action` ASC, `category` ASC) VISIBLE,
     INDEX `idx__object_id__object_type`(`object_id` ASC, `object_type` ASC) INVISIBLE,
     CONSTRAINT `fk_logs_logs1`
         FOREIGN KEY (`parent_id`)

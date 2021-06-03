@@ -4,7 +4,7 @@ namespace App\Services\Logger\Listeners;
 
 use App\Events\Subscriber;
 use App\Services\Logger\Logger;
-use App\Services\Logger\Models\Enums\Type;
+use App\Services\Logger\Models\Enums\Category;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Queue\Job as JobContract;
 use Illuminate\Queue\Events\JobFailed;
@@ -91,7 +91,7 @@ class QueueListener implements Subscriber {
 
     protected function started(JobProcessing $event): void {
         $this->stack[] = $this->logger->start(
-            Type::job(),
+            Category::jobs(),
             $event->job->getName(),
             $this->getContext($event->job),
         );

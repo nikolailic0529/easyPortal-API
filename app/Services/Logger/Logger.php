@@ -2,8 +2,8 @@
 
 namespace App\Services\Logger;
 
+use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
-use App\Services\Logger\Models\Enums\Type;
 use App\Services\Logger\Models\Log;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Database\Eloquent\Model;
@@ -35,7 +35,7 @@ class Logger {
     /**
      * @param array<mixed>|null $context
      */
-    public function start(Type $type, string $action, array $context = null): string {
+    public function start(Category $type, string $action, array $context = null): string {
         // Stack
         $index  = null;
         $parent = null;
@@ -52,15 +52,15 @@ class Logger {
         }
 
         // Create
-        $this->start        = microtime(true);
-        $this->index        = 0;
-        $this->log          = new Log();
-        $this->log->type    = $type;
-        $this->log->action  = $action;
-        $this->log->index   = $index;
-        $this->log->parent  = $parent;
-        $this->log->status  = Status::active();
-        $this->log->context = $this->mergeContext($context);
+        $this->start         = microtime(true);
+        $this->index         = 0;
+        $this->log           = new Log();
+        $this->log->category = $type;
+        $this->log->action   = $action;
+        $this->log->index    = $index;
+        $this->log->parent   = $parent;
+        $this->log->status   = Status::active();
+        $this->log->context  = $this->mergeContext($context);
 
         $this->log->save();
 
@@ -98,13 +98,12 @@ class Logger {
         }
 
         // Create entry
-        $entry          = new Log();
-        $entry->type    = Type::event();
-        $entry->action  = $action;
-        $entry->index   = $this->index++;
-        $entry->parent  = $this->log;
-        $entry->status  = null;
-        $entry->context = $context;
+        $entry           = new Log();
+        $entry->category = Category::events();
+        $entry->action   = $action;
+        $entry->index    = $this->index++;
+        $entry->parent   = $this->log;
+        $entry->context  = $context;
 
         if ($object) {
             $entry->object_type = $object->getMorphClass();

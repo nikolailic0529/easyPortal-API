@@ -3,8 +3,8 @@
 namespace App\Services\Logger\Models;
 
 use App\Services\Logger\Models\Casts\Statistics;
+use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
-use App\Services\Logger\Models\Enums\Type;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -12,14 +12,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Log.
  *
  * @property string                                                                         $id
- * @property \App\Services\Logger\Models\Enums\Type                                         $type
+ * @property \App\Services\Logger\Models\Enums\Category                                     $category
  * @property string                                                                         $action
  * @property \App\Services\Logger\Models\Enums\Status|null                                  $status
  * @property string|null                                                                    $parent_id
  * @property int                                                                            $index
  * @property string|null                                                                    $object_type
  * @property string|null                                                                    $object_id
- * @property int                                                                            $duration
+ * @property int|null                                                                       $duration
  * @property \Carbon\CarbonImmutable                                                        $created_at
  * @property \Carbon\CarbonImmutable                                                        $updated_at
  * @property \Carbon\CarbonImmutable|null                                                   $finished_at
@@ -41,7 +41,7 @@ class Log extends Model {
     protected $table = 'logs';
 
     protected const CASTS = [
-        'type'        => Type::class,
+        'category'    => Category::class,
         'status'      => Status::class,
         'finished_at' => 'datetime',
         'statistics'  => Statistics::class,
