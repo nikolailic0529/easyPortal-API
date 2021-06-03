@@ -5,12 +5,12 @@ namespace App\Services\Logger\Models\Enums;
 use LastDragon_ru\LaraASP\Eloquent\Enum;
 
 class Category extends Enum {
-    public static function jobs(): static {
-        return static::make('jobs');
+    public static function queue(): static {
+        return static::make('queue');
     }
 
-    public static function events(): static {
-        return static::make('events');
+    public static function eloquent(): static {
+        return static::make('eloquent');
     }
 
     public static function dataLoader(): static {

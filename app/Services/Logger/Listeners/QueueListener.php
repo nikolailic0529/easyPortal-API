@@ -7,7 +7,7 @@ use App\Services\Logger\Logger;
 use App\Services\Logger\Models\Enums\Category;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Queue\Job as JobContract;
-use Illuminate\Queue\Events\JobFailed;
+use Illuminate\Queue\Events\JobExceptionOccurred;
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Queue\Jobs\Job;
@@ -37,7 +37,7 @@ class QueueListener implements Subscriber {
             $this->success($event);
         });
 
-        $dispatcher->listen(JobFailed::class, function (JobFailed $event): void {
+        $dispatcher->listen(JobExceptionOccurred::class, function (JobExceptionOccurred $event): void {
             $this->failed($event);
         });
 
@@ -80,7 +80,8 @@ class QueueListener implements Subscriber {
 
     protected function dispatched(JobContract $job): void {
         $this->logger->event(
-            'job:dispatched',
+            Category::queue(),
+            "job.dispatched: {$job->getName()}",
             null,
             $this->getContext($job),
             [
@@ -91,8 +92,8 @@ class QueueListener implements Subscriber {
 
     protected function started(JobProcessing $event): void {
         $this->stack[] = $this->logger->start(
-            Category::jobs(),
-            $event->job->getName(),
+            Category::queue(),
+            "job.processed: {$event->job->getName()}",
             $this->getContext($event->job),
         );
     }
@@ -101,7 +102,7 @@ class QueueListener implements Subscriber {
         $this->logger->success(array_pop($this->stack));
     }
 
-    protected function failed(JobFailed $event): void {
+    protected function failed(JobExceptionOccurred $event): void {
         $this->logger->fail(array_pop($this->stack), [
             'exception' => $event->exception,
         ]);

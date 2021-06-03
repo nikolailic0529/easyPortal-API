@@ -4,12 +4,14 @@ namespace App\Services\Logger\Listeners;
 
 use App\Events\Subscriber;
 use App\Services\Logger\Logger;
+use App\Services\Logger\Models\Enums\Category;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Model;
 
 use function array_filter;
 use function mb_strlen;
 use function str_pad;
+use function str_replace;
 
 class EloquentListener implements Subscriber {
     public function __construct(
@@ -41,7 +43,8 @@ class EloquentListener implements Subscriber {
         foreach ($events as $event => $countable) {
             $dispatcher->listen("{$event}: *", function (Model $model) use ($event, $countable): void {
                 $this->logger->event(
-                    $event,
+                    Category::eloquent(),
+                    str_replace('eloquent.', 'model.', $event),
                     $model,
                     $this->getContext($model),
                     $countable,

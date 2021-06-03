@@ -43,11 +43,11 @@ class DataLoaderListener implements Subscriber {
     }
 
     protected function started(RequestStarted $event): void {
-        $action  = 'query';
+        $action  = 'graphql.query';
         $context = null;
 
         if ($this->isMutation($event->getRequest())) {
-            $action  = 'mutation';
+            $action  = 'graphql.mutation';
             $context = $event->getRequest();
         }
 

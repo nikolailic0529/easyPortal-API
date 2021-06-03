@@ -35,7 +35,7 @@ class Logger {
     /**
      * @param array<mixed>|null $context
      */
-    public function start(Category $type, string $action, array $context = null): string {
+    public function start(Category $category, string $action, array $context = null): string {
         // Stack
         $index  = null;
         $parent = null;
@@ -55,7 +55,7 @@ class Logger {
         $this->start         = microtime(true);
         $this->index         = 0;
         $this->log           = new Log();
-        $this->log->category = $type;
+        $this->log->category = $category;
         $this->log->action   = $action;
         $this->log->index    = $index;
         $this->log->parent   = $parent;
@@ -87,6 +87,7 @@ class Logger {
      * @param array<string,int> $countable
      */
     public function event(
+        Category $category,
         string $action,
         Model $object = null,
         array $context = null,
@@ -99,7 +100,7 @@ class Logger {
 
         // Create entry
         $entry           = new Log();
-        $entry->category = Category::events();
+        $entry->category = $category;
         $entry->action   = $action;
         $entry->index    = $this->index++;
         $entry->parent   = $this->log;
