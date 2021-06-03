@@ -4,6 +4,7 @@ namespace App\Services\Logger;
 
 use App\Services\Logger\Listeners\DataLoaderListener;
 use App\Services\Logger\Listeners\EloquentListener;
+use App\Services\Logger\Listeners\LogListener;
 use App\Services\Logger\Listeners\QueueListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider;
 
@@ -16,6 +17,7 @@ class Provider extends EventServiceProvider {
      * @var array<class-string<\App\Events\Subscriber>>
      */
     protected $subscribe = [
+        LogListener::class,
         QueueListener::class,
         EloquentListener::class,
         DataLoaderListener::class,

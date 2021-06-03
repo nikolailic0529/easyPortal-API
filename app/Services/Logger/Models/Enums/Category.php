@@ -5,6 +5,10 @@ namespace App\Services\Logger\Models\Enums;
 use LastDragon_ru\LaraASP\Eloquent\Enum;
 
 class Category extends Enum {
+    public static function log(): static {
+        return static::make('log');
+    }
+
     public static function queue(): static {
         return static::make('queue');
     }
