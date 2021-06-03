@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\CascadeDeletes\CascadeDeletes;
+use App\Models\Concerns\MorphMapRequired;
 use App\Models\Concerns\UuidAsPrimaryKey;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LastDragon_ru\LaraASP\Eloquent\Pivot as LaraASPPivot;
@@ -11,6 +12,7 @@ abstract class Pivot extends LaraASPPivot {
     use UuidAsPrimaryKey;
     use SoftDeletes;
     use CascadeDeletes;
+    use MorphMapRequired;
 
     protected const CASTS = [
         // empty
