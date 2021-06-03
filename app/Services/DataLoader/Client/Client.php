@@ -92,10 +92,10 @@ class Client {
                 getAssets(args: [{key: "id", value: \$id}]) {
                     {$this->getAssetPropertiesGraphQL()}
                     reseller {
-                        {$this->getCompanyPropertiesGraphQL()}
+                        {$this->getResellerPropertiesGraphQL()}
                     }
                     customer {
-                        {$this->getCompanyPropertiesGraphQL()}
+                        {$this->getCustomerPropertiesGraphQL()}
                     }
                 }
             }
@@ -124,7 +124,7 @@ class Client {
                     getAssetsByCustomerId(customerId: \$id, limit: \$limit, offset: \$offset) {
                         {$this->getAssetPropertiesGraphQL()}
                         reseller {
-                            {$this->getCompanyPropertiesGraphQL()}
+                            {$this->getResellerPropertiesGraphQL()}
                         }
                     }
                 }
@@ -152,7 +152,7 @@ class Client {
                     getAssetsByCustomerId(customerId: \$id, limit: \$limit, offset: \$offset) {
                         {$this->getAssetPropertiesGraphQL()}
                         reseller {
-                            {$this->getCompanyPropertiesGraphQL()}
+                            {$this->getResellerPropertiesGraphQL()}
                         }
                         assetDocument {
                             {$this->getAssetDocumentsPropertiesGraphQL()}
@@ -183,7 +183,7 @@ class Client {
                     getAssetsByResellerId(resellerId: \$id, limit: \$limit, offset: \$offset) {
                         {$this->getAssetPropertiesGraphQL()}
                         customer {
-                            {$this->getCompanyPropertiesGraphQL()}
+                            {$this->getCustomerPropertiesGraphQL()}
                         }
                     }
                 }
@@ -211,7 +211,7 @@ class Client {
                     getAssetsByResellerId(resellerId: \$id, limit: \$limit, offset: \$offset) {
                         {$this->getAssetPropertiesGraphQL()}
                         customer {
-                            {$this->getCompanyPropertiesGraphQL()}
+                            {$this->getCustomerPropertiesGraphQL()}
                         }
                         assetDocument {
                             {$this->getAssetDocumentsPropertiesGraphQL()}
@@ -464,6 +464,44 @@ class Client {
             GRAPHQL;
     }
 
+    protected function getResellerPropertiesGraphQL(): string {
+        return <<<'GRAPHQL'
+            id
+            name
+            companyContactPersons {
+                phoneNumber
+                name
+                type
+                mail
+            }
+            companyTypes {
+                type
+                status
+            }
+            locations {
+                country
+                countryCode
+                latitude
+                longitude
+                city
+                zip
+                address
+                locationType
+            }
+            GRAPHQL;
+    }
+
+    protected function getCustomerPropertiesGraphQL(): string {
+        return $this->getResellerPropertiesGraphQL();
+    }
+
+    protected function getDistributorPropertiesGraphQL(): string {
+        return <<<'GRAPHQL'
+            id
+            name
+            GRAPHQL;
+    }
+
     protected function getAssetPropertiesGraphQL(): string {
         return <<<'GRAPHQL'
             id
@@ -539,15 +577,15 @@ class Client {
                 }
 
                 customer {
-                  {$this->getCompanyPropertiesGraphQL()}
+                  {$this->getCustomerPropertiesGraphQL()}
                 }
 
                 reseller {
-                  {$this->getCompanyPropertiesGraphQL()}
+                  {$this->getResellerPropertiesGraphQL()}
                 }
 
                 distributor {
-                    {$this->getCompanyPropertiesGraphQL()}
+                    {$this->getDistributorPropertiesGraphQL()}
                 }
             }
 
@@ -562,15 +600,15 @@ class Client {
             estimatedValueRenewal
 
             customer {
-              {$this->getCompanyPropertiesGraphQL()}
+              {$this->getCustomerPropertiesGraphQL()}
             }
 
             reseller {
-              {$this->getCompanyPropertiesGraphQL()}
+              {$this->getResellerPropertiesGraphQL()}
             }
 
             distributor {
-                {$this->getCompanyPropertiesGraphQL()}
+                {$this->getDistributorPropertiesGraphQL()}
             }
             GRAPHQL;
     }

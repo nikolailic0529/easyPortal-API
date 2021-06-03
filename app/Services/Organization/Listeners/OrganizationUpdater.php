@@ -26,23 +26,30 @@ class OrganizationUpdater implements Subscriber {
         $company  = $event->getCompany();
 
         // Used?
-        $existing = Organization::query()
-            ->where(static function (Builder $query) use ($company): void {
-                $query->orWhere('keycloak_scope', '=', $company->keycloakName);
-                $query->orWhere('keycloak_group_id', '=', $company->keycloakGroupId);
-            })
-            ->get();
+        if (isset($company->keycloakName) || isset($company->keycloakGroupId)) {
+            $existing = Organization::query()
+                ->where(static function (Builder $query) use ($company): void {
+                    if (isset($company->keycloakName)) {
+                        $query->orWhere('keycloak_scope', '=', $company->keycloakName);
+                    }
 
-        foreach ($existing as $organization) {
-            if ($organization->keycloak_scope === $company->keycloakName) {
-                $organization->keycloak_scope = null;
+                    if (isset($company->keycloakGroupId)) {
+                        $query->orWhere('keycloak_group_id', '=', $company->keycloakGroupId);
+                    }
+                })
+                ->get();
+
+            foreach ($existing as $organization) {
+                if ($organization->keycloak_scope === ($company->keycloakName ?? null)) {
+                    $organization->keycloak_scope = null;
+                }
+
+                if ($organization->keycloak_group_id === ($company->keycloakGroupId ?? null)) {
+                    $organization->keycloak_group_id = null;
+                }
+
+                $organization->save();
             }
-
-            if ($organization->keycloak_group_id === $company->keycloakGroupId) {
-                $organization->keycloak_group_id = null;
-            }
-
-            $organization->save();
         }
 
         // Update
@@ -61,11 +68,15 @@ class OrganizationUpdater implements Subscriber {
         }
 
         // Update
-        $organization->name              = $reseller->name;
-        $organization->keycloak_scope    = $this->normalizer->string($company->keycloakName);
-        $organization->keycloak_group_id = $company->keycloakGroupId
-            ? $this->normalizer->uuid($company->keycloakGroupId)
-            : null;
+        $organization->name = $reseller->name;
+
+        if (isset($company->keycloakName)) {
+            $organization->keycloak_scope = $this->normalizer->string($company->keycloakName);
+        }
+
+        if (isset($company->keycloakGroupId)) {
+            $organization->keycloak_group_id = $this->normalizer->uuid($company->keycloakGroupId);
+        }
 
         if (isset($company->brandingData)) {
             $branding                                       = $company->brandingData;
@@ -83,20 +94,6 @@ class OrganizationUpdater implements Subscriber {
             $organization->branding_welcome_image_url       = $normalizer->string($branding->mainImageOnTheRight);
             $organization->branding_welcome_heading         = $normalizer->string($branding->mainHeadingText);
             $organization->branding_welcome_underline       = $normalizer->string($branding->underlineText);
-        } else {
-            $organization->analytics_code                   = null;
-            $organization->branding_dark_theme              = null;
-            $organization->branding_main_color              = null;
-            $organization->branding_secondary_color         = null;
-            $organization->branding_logo_url                = null;
-            $organization->branding_favicon_url             = null;
-            $organization->branding_default_main_color      = null;
-            $organization->branding_default_secondary_color = null;
-            $organization->branding_default_logo_url        = null;
-            $organization->branding_default_favicon_url     = null;
-            $organization->branding_welcome_image_url       = null;
-            $organization->branding_welcome_heading         = null;
-            $organization->branding_welcome_underline       = null;
         }
 
         // Save

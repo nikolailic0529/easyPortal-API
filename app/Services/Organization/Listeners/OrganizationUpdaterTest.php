@@ -7,6 +7,7 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Schema\Company;
+use App\Utils\JsonObject;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
@@ -94,6 +95,34 @@ class OrganizationUpdaterTest extends TestCase {
         $this->assertEquals($reseller->name, $organization->name);
         $this->assertEquals($company->keycloakName, $organization->keycloak_scope);
         $this->assertEquals($company->keycloakGroupId, $organization->keycloak_group_id);
+    }
+
+    /**
+     * @covers ::handle
+     */
+    public function testHandleKeyCloakPropertiesCannotBeReset(): void {
+        $reseller = Reseller::factory()->make();
+        $updater  = $this->app->make(OrganizationUpdater::class);
+        $company  = new Company([
+            'keycloakName'    => null,
+            'keycloakGroupId' => null,
+        ]);
+        $event    = new ResellerUpdated($reseller, $company);
+
+        Organization::factory()->create([
+            'id'                => $reseller->getKey(),
+            'keycloak_scope'    => 'anothertestreseller',
+            'keycloak_group_id' => 'anothertestgroup',
+        ]);
+
+        $updater->handle($event);
+
+        $organization = Organization::query()->whereKey($reseller->getKey())->first();
+
+        $this->assertNotNull($organization);
+        $this->assertEquals($reseller->name, $organization->name);
+        $this->assertEquals('anothertestreseller', $organization->keycloak_scope);
+        $this->assertEquals('anothertestgroup', $organization->keycloak_group_id);
     }
 
     /**
@@ -251,10 +280,7 @@ class OrganizationUpdaterTest extends TestCase {
         );
 
         // Without branding
-        $company = new Company([
-            'keycloakName'    => $this->faker->word,
-            'keycloakGroupId' => $this->faker->word,
-        ]);
+        $company = new Company();
         $event   = new ResellerUpdated($reseller, $company);
 
         $updater->handle($event);
@@ -262,18 +288,18 @@ class OrganizationUpdaterTest extends TestCase {
         $organization = Organization::query()->whereKey($reseller->getKey())->first();
 
         $this->assertNotNull($organization);
-        $this->assertNull($organization->branding_dark_theme);
-        $this->assertNull($organization->branding_default_logo_url);
-        $this->assertNull($organization->branding_default_main_color);
-        $this->assertNull($organization->branding_favicon_url);
-        $this->assertNull($organization->branding_logo_url);
-        $this->assertNull($organization->branding_main_color);
-        $this->assertNull($organization->branding_welcome_heading);
-        $this->assertNull($organization->branding_welcome_image_url);
-        $this->assertNull($organization->branding_secondary_color);
-        $this->assertNull($organization->branding_default_secondary_color);
-        $this->assertNull($organization->branding_welcome_underline);
-        $this->assertNull($organization->branding_default_favicon_url);
-        $this->assertNull($organization->analytics_code);
+        $this->assertNotNull($organization->branding_dark_theme);
+        $this->assertNotNull($organization->branding_default_logo_url);
+        $this->assertNotNull($organization->branding_default_main_color);
+        $this->assertNotNull($organization->branding_favicon_url);
+        $this->assertNotNull($organization->branding_logo_url);
+        $this->assertNotNull($organization->branding_main_color);
+        $this->assertNotNull($organization->branding_welcome_heading);
+        $this->assertNotNull($organization->branding_welcome_image_url);
+        $this->assertNotNull($organization->branding_secondary_color);
+        $this->assertNotNull($organization->branding_default_secondary_color);
+        $this->assertNotNull($organization->branding_welcome_underline);
+        $this->assertNotNull($organization->branding_default_favicon_url);
+        $this->assertNotNull($organization->analytics_code);
     }
 }
