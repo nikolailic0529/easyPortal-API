@@ -59,15 +59,23 @@ class DataLoaderListener implements Subscriber {
     }
 
     protected function success(RequestSuccessful $event): void {
-        $this->logger->success(array_pop($this->stack));
+        $this->logger->success(array_pop($this->stack), [], [
+            'data-loader.requests.success' => 1,
+        ]);
     }
 
     protected function failed(RequestFailed $event): void {
-        $this->logger->fail(array_pop($this->stack), [
-            'request'   => $event->getRequest(),
-            'response'  => $event->getResponse(),
-            'exception' => $event->getException(),
-        ]);
+        $this->logger->fail(
+            array_pop($this->stack),
+            [
+                'request'   => $event->getRequest(),
+                'response'  => $event->getResponse(),
+                'exception' => $event->getException(),
+            ],
+            [
+                'data-loader.requests.failed' => 1,
+            ],
+        );
     }
 
     /**

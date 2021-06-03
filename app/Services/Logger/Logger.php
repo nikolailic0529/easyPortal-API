@@ -70,16 +70,18 @@ class Logger {
 
     /**
      * @param array<mixed>|null $context
+     * @param array<string,int> $countable
      */
-    public function success(string $transaction, array $context = null): void {
-        $this->end($transaction, Status::success(), $context);
+    public function success(string $transaction, array $context = null, array $countable = []): void {
+        $this->end($transaction, Status::success(), $context, $countable);
     }
 
     /**
      * @param array<mixed>|null $context
+     * @param array<string,int> $countable
      */
-    public function fail(string $transaction, array $context = null): void {
-        $this->end($transaction, Status::failed(), $context);
+    public function fail(string $transaction, array $context = null, array $countable = []): void {
+        $this->end($transaction, Status::failed(), $context, $countable);
     }
 
     /**
@@ -121,8 +123,8 @@ class Logger {
      * @param array<string,int> $countable
      */
     public function count(array $countable = []): void {
-        // Recording?
-        if (!$this->isRecording()) {
+        // Recording or empty?
+        if (!$countable || !$this->isRecording()) {
             return;
         }
 
@@ -137,9 +139,10 @@ class Logger {
     }
 
     /**
-     * @param array<mixed> $context
+     * @param array<mixed>      $context
+     * @param array<string,int> $countable
      */
-    protected function end(string $transaction, Status $status, array $context = []): void {
+    protected function end(string $transaction, Status $status, array $context = [], array $countable = []): void {
         // Recording?
         if (!$this->isRecording()) {
             return;
@@ -166,10 +169,10 @@ class Logger {
 
         // Count
         if ($status === Status::failed()) {
-            $this->count([
-                'actions.failed' => 1,
-            ]);
+            $countable['actions.failed'] = 1;
         }
+
+        $this->count($countable);
     }
 
     /**
