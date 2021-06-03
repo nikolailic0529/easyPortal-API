@@ -188,10 +188,10 @@ class Logger {
      * @return array<mixed>|null
      */
     protected function mergeContext(array|null $context): ?array {
-        $current = null;
+        $current = $this->log->context;
 
         if ($context) {
-            $current   = $this->log->context ?: [];
+            $current   = $current ?: [];
             $current[] = [
                 'status'  => $this->log->status,
                 'context' => $context,
