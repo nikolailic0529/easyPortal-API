@@ -14,31 +14,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * Reseller.
  *
  * @property string                                                              $id
+ * @property string|null                                                         $type_id
+ * @property string|null                                                         $status_id
  * @property string                                                              $name
- * @property int|null                                                            $customers_count
- * @property int|null                                                            $locations_count
- * @property int|null                                                            $assets_count
- * @property int|null                                                            $status_id
+ * @property int                                                                 $customers_count
+ * @property int                                                                 $locations_count
+ * @property int                                                                 $assets_count
+ * @property int                                                                 $contacts_count
  * @property \Carbon\CarbonImmutable                                             $created_at
  * @property \Carbon\CarbonImmutable                                             $updated_at
  * @property \Carbon\CarbonImmutable|null                                        $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer> $customers
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>      $locations
- * @property \App\Models\Status                                                  $status
- * @property-read \App\Models\Location|null                                      $headquarter
+ * @property \App\Models\Status|null                                             $status
+ * @property \App\Models\Type|null                                               $type
  * @method static \Database\Factories\ResellerFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller whereAssetsCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller whereCustomersCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller whereLocationsCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Reseller extends Model {

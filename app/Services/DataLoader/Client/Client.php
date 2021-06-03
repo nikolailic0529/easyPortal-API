@@ -2,6 +2,9 @@
 
 namespace App\Services\DataLoader\Client;
 
+use App\Services\DataLoader\Client\Events\RequestFailed;
+use App\Services\DataLoader\Client\Events\RequestStarted;
+use App\Services\DataLoader\Client\Events\RequestSuccessful;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderUnavailable;
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
@@ -15,6 +18,7 @@ use GraphQL\Type\Introspection;
 use GuzzleHttp\Psr7\Utils;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Arr;
@@ -30,6 +34,7 @@ class Client {
     public function __construct(
         protected ExceptionHandler $handler,
         protected LoggerInterface $logger,
+        protected Dispatcher $dispatcher,
         protected Repository $config,
         protected Factory $client,
         protected Token $token,
@@ -372,14 +377,19 @@ class Client {
         $begin = time();
 
         try {
+            $this->dispatcher->dispatch(new RequestStarted($data));
+
             $response = $request->post($url, $data);
 
             $response->throw();
         } catch (ConnectionException $exception) {
+            $this->dispatcher->dispatch(new RequestFailed($data, null, $exception));
+
             throw new DataLoaderUnavailable($exception);
         } catch (Exception $exception) {
             $error = new GraphQLRequestFailed($graphql, $params, [], $exception);
 
+            $this->dispatcher->dispatch(new RequestFailed($data, null, $exception));
             $this->handler->report($error);
 
             throw $error;
@@ -406,11 +416,14 @@ class Client {
         if ($errors) {
             $error = new GraphQLRequestFailed($graphql, $params, $errors);
 
+            $this->dispatcher->dispatch(new RequestFailed($data, $json));
             $this->handler->report($error);
 
             if (!$result) {
                 throw $error;
             }
+        } else {
+            $this->dispatcher->dispatch(new RequestSuccessful($data, $json));
         }
 
         // Return

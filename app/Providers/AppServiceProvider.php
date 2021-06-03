@@ -5,21 +5,34 @@ namespace App\Providers;
 use App\Exceptions\GraphQLHandler;
 use App\Models\Asset;
 use App\Models\AssetCoverage;
+use App\Models\AssetTag;
+use App\Models\AssetWarranty;
+use App\Models\AssetWarrantyService;
 use App\Models\City;
 use App\Models\Contact;
+use App\Models\ContactType;
 use App\Models\Country;
 use App\Models\Currency;
 use App\Models\Customer;
+use App\Models\Distributor;
 use App\Models\Document;
+use App\Models\DocumentEntry;
 use App\Models\Language;
 use App\Models\Location;
+use App\Models\LocationType;
+use App\Models\Oem;
 use App\Models\Organization;
+use App\Models\PasswordReset;
+use App\Models\Product;
 use App\Models\Reseller;
+use App\Models\ResellerCustomer;
 use App\Models\Status;
+use App\Models\Tag;
 use App\Models\Type;
+use App\Models\User;
+use App\Models\UserSearch;
 use App\Services\KeyCloak\KeyCloak;
 use App\Services\KeyCloak\UserProvider;
-use App\Services\Settings\Bootstraper;
 use Carbon\CarbonImmutable;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -41,16 +54,9 @@ class AppServiceProvider extends ServiceProvider {
      * Bootstrap any application services.
      */
     public function boot(Dispatcher $dispatcher): void {
-        $this->bootConfig();
         $this->bootMorphMap();
         $this->bootKeyCloak();
         $this->bootGraphQL($dispatcher);
-    }
-
-    protected function bootConfig(): void {
-        $this->app->booted(static function (Application $app): void {
-            $app->make(Bootstraper::class)->bootstrap();
-        });
     }
 
     protected function bootKeyCloak(): void {
@@ -74,23 +80,34 @@ class AppServiceProvider extends ServiceProvider {
 
     protected function bootMorphMap(): void {
         Relation::morphMap([
-            // Used in database
-            'customer'       => Customer::class,
-            'contact'        => Contact::class,
-            'location'       => Location::class,
-            'asset'          => Asset::class,
-            'reseller'       => Reseller::class,
-            'document'       => Document::class,
-            'organization'   => Organization::class,
-
-            // Used only for translation
-            'type'           => Type::class,
-            'status'         => Status::class,
-            'country'        => Country::class,
-            'city'           => City::class,
-            'currency'       => Currency::class,
-            'language'       => Language::class,
-            'asset-coverage' => AssetCoverage::class,
+            'asset'                  => Asset::class,
+            'asset-coverage'         => AssetCoverage::class,
+            'asset-tag'              => AssetTag::class,
+            'asset-warranty'         => AssetWarranty::class,
+            'asset-warranty-service' => AssetWarrantyService::class,
+            'city'                   => City::class,
+            'contact'                => Contact::class,
+            'contact-type'           => ContactType::class,
+            'country'                => Country::class,
+            'currency'               => Currency::class,
+            'customer'               => Customer::class,
+            'distributor'            => Distributor::class,
+            'document'               => Document::class,
+            'document-entry'         => DocumentEntry::class,
+            'language'               => Language::class,
+            'location'               => Location::class,
+            'location-type'          => LocationType::class,
+            'oem'                    => Oem::class,
+            'organization'           => Organization::class,
+            'password-reset'         => PasswordReset::class,
+            'product'                => Product::class,
+            'reseller'               => Reseller::class,
+            'reseller-customer'      => ResellerCustomer::class,
+            'status'                 => Status::class,
+            'tag'                    => Tag::class,
+            'type'                   => Type::class,
+            'user'                   => User::class,
+            'user-search'            => UserSearch::class,
         ]);
     }
 }

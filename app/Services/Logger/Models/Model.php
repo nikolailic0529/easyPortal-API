@@ -1,22 +1,24 @@
 <?php declare(strict_types = 1);
 
-namespace App\Models;
+namespace App\Services\Logger\Models;
 
-use App\Models\Concerns\CascadeDeletes\CascadeDeletes;
-use App\Models\Concerns\MorphMapRequired;
 use App\Models\Concerns\UuidAsPrimaryKey;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use LastDragon_ru\LaraASP\Eloquent\Pivot as LaraASPPivot;
+use App\Services\Logger\Logger;
+use LastDragon_ru\LaraASP\Eloquent\Model as LaraASPModel;
 
-abstract class Pivot extends LaraASPPivot {
+abstract class Model extends LaraASPModel {
     use UuidAsPrimaryKey;
-    use SoftDeletes;
-    use CascadeDeletes;
-    use MorphMapRequired;
 
     protected const CASTS = [
         // empty
     ];
+
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var string
+     */
+    protected $connection = Logger::CONNECTION;
 
     /**
      * Primary Key always UUID.
@@ -42,4 +44,13 @@ abstract class Pivot extends LaraASPPivot {
      * @var array<string>
      */
     protected $casts = self::CASTS;
+
+    /**
+     * @inheritDoc
+     */
+    public function save(array $options = []) {
+        return static::withoutEvents(function () use ($options) {
+            return parent::save($options);
+        });
+    }
 }

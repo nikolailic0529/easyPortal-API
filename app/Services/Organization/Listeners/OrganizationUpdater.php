@@ -16,8 +16,8 @@ class OrganizationUpdater implements Subscriber {
         // empty
     }
 
-    public function subscribe(Dispatcher $events): void {
-        $events->listen(ResellerUpdated::class, $this::class);
+    public function subscribe(Dispatcher $dispatcher): void {
+        $dispatcher->listen(ResellerUpdated::class, $this::class);
     }
 
     public function handle(ResellerUpdated $event): void {

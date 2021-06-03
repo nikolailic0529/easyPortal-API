@@ -5,5 +5,5 @@ namespace App\Events;
 use Illuminate\Contracts\Events\Dispatcher;
 
 interface Subscriber {
-    public function subscribe(Dispatcher $events): void;
+    public function subscribe(Dispatcher $dispatcher): void;
 }
