@@ -54,7 +54,8 @@ class DataLoaderListener extends Listener {
 
     protected function success(RequestSuccessful $event): void {
         $this->logger->success(array_pop($this->stack), [], [
-            'data-loader.requests.success' => 1,
+            'data-loader.requests.duration' => $this->logger->getDuration(),
+            'data-loader.requests.success'  => 1,
         ]);
     }
 
@@ -67,7 +68,8 @@ class DataLoaderListener extends Listener {
                 'exception' => $event->getException()?->getMessage(),
             ],
             [
-                'data-loader.requests.failed' => 1,
+                'data-loader.requests.duration' => $this->logger->getDuration(),
+                'data-loader.requests.failed'   => 1,
             ],
         );
     }
