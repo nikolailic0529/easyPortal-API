@@ -11,10 +11,14 @@ use Illuminate\Support\Facades\Date;
 use LogicException;
 
 use function array_column;
-use function array_shift;
+use function array_pop;
+use function array_reverse;
+use function array_slice;
 use function array_unshift;
+use function count;
 use function microtime;
 use function round;
+use function sprintf;
 
 class Logger {
     public const CONNECTION = 'logs';
@@ -47,12 +51,11 @@ class Logger {
         $parent = null;
 
         if ($this->log) {
-            $parent = $this->log;
-
-            array_unshift($this->stack, [
+            $parent        = $this->log;
+            $this->stack[] = [
                 'log'   => $this->log,
                 'start' => $this->start,
-            ]);
+            ];
         }
 
         // Create
@@ -160,12 +163,54 @@ class Logger {
             return;
         }
 
-        // Valid?
-        if ($this->log->getKey() !== $transaction) {
-            throw new LogicException();
+        // If some of the "end" call missed we should interrupt all children.
+        $children = [];
+
+        foreach ($this->stack as $item) {
+            if ($children || $item['log']->getKey() === $transaction) {
+                $children[] = $item['log']->getKey();
+            }
         }
 
-        // Search required
+        $children[] = $this->log->getKey();
+
+        if (count($children) > 1) {
+            $children = array_slice($children, 1);
+            $children = array_reverse($children);
+
+            foreach ($children as $child) {
+                $this->finish($child, Status::unknown());
+            }
+        } elseif (!$children) {
+            // TODO [Logger] Should we log it?
+            return;
+        }
+
+        // Finish
+        $this->finish($transaction, $status, $context);
+
+        // Count
+        if ($status === Status::failed()) {
+            $countable['actions.failed'] = 1;
+        }
+
+        $this->count($countable);
+    }
+
+    /**
+     * @param array<mixed>|null $context
+     */
+    private function finish(string $transaction, Status $status, array $context = null): void {
+        // Valid?
+        if ($this->log->getKey() !== $transaction) {
+            throw new LogicException(sprintf(
+                'Transaction id not match: `%s` !== `%s`',
+                $this->log->getKey(),
+                $transaction,
+            ));
+        }
+
+        // Update
         $this->log->status      = $status;
         $this->log->context     = $this->mergeContext($context);
         $this->log->duration    = $this->getDuration();
@@ -174,20 +219,13 @@ class Logger {
         $this->log->save();
 
         // Reset
-        $parent      = array_shift($this->stack);
+        $parent      = array_pop($this->stack);
         $this->log   = $parent['log'] ?? null;
         $this->start = $parent['start'] ?? 0;
 
         if ($this->log === null) {
             $this->index = 0;
         }
-
-        // Count
-        if ($status === Status::failed()) {
-            $countable['actions.failed'] = 1;
-        }
-
-        $this->count($countable);
     }
 
     /**
