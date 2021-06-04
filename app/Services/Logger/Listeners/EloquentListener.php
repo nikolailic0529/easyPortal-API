@@ -2,8 +2,6 @@
 
 namespace App\Services\Logger\Listeners;
 
-use App\Events\Subscriber;
-use App\Services\Logger\Logger;
 use App\Services\Logger\Models\Enums\Category;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Model;
@@ -15,13 +13,7 @@ use function reset;
 use function str_pad;
 use function str_replace;
 
-class EloquentListener implements Subscriber {
-    public function __construct(
-        protected Logger $logger,
-    ) {
-        // empty
-    }
-
+class EloquentListener extends Listener {
     public function subscribe(Dispatcher $dispatcher): void {
         /** @var array<string,array<string,int>> $events */
         $events = [
@@ -43,17 +35,20 @@ class EloquentListener implements Subscriber {
         ];
 
         foreach ($events as $event => $countable) {
-            $dispatcher->listen("{$event}: *", function (string $name, array $args) use ($event, $countable): void {
-                $model = reset($args);
+            $dispatcher->listen(
+                "{$event}: *",
+                $this->getSafeListener(function (string $name, array $args) use ($event, $countable): void {
+                    $model = reset($args);
 
-                $this->logger->event(
-                    Category::eloquent(),
-                    str_replace('eloquent.', 'model.', $event),
-                    $model,
-                    $this->getContext($model),
-                    $countable,
-                );
-            });
+                    $this->logger->event(
+                        Category::eloquent(),
+                        str_replace('eloquent.', 'model.', $event),
+                        $model,
+                        $this->getContext($model),
+                        $countable,
+                    );
+                }),
+            );
         }
     }
 

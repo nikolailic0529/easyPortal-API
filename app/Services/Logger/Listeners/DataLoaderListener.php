@@ -2,11 +2,9 @@
 
 namespace App\Services\Logger\Listeners;
 
-use App\Events\Subscriber;
 use App\Services\DataLoader\Client\Events\RequestFailed;
 use App\Services\DataLoader\Client\Events\RequestStarted;
 use App\Services\DataLoader\Client\Events\RequestSuccessful;
-use App\Services\Logger\Logger;
 use App\Services\Logger\Models\Enums\Category;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
@@ -16,30 +14,24 @@ use function mb_strtolower;
 use function str_starts_with;
 use function trim;
 
-class DataLoaderListener implements Subscriber {
+class DataLoaderListener extends Listener {
     /**
      * @var array<string>
      */
     protected array $stack = [];
 
-    public function __construct(
-        protected Logger $logger,
-    ) {
-        // empty
-    }
-
     public function subscribe(Dispatcher $dispatcher): void {
-        $dispatcher->listen(RequestStarted::class, function (RequestStarted $event): void {
+        $dispatcher->listen(RequestStarted::class, $this->getSafeListener(function (RequestStarted $event): void {
             $this->started($event);
-        });
+        }));
 
-        $dispatcher->listen(RequestSuccessful::class, function (RequestSuccessful $event): void {
+        $dispatcher->listen(RequestSuccessful::class, $this->getSafeListener(function (RequestSuccessful $event): void {
             $this->success($event);
-        });
+        }));
 
-        $dispatcher->listen(RequestFailed::class, function (RequestFailed $event): void {
+        $dispatcher->listen(RequestFailed::class, $this->getSafeListener(function (RequestFailed $event): void {
             $this->failed($event);
-        });
+        }));
     }
 
     protected function started(RequestStarted $event): void {
