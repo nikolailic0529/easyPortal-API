@@ -66,9 +66,9 @@ class EloquentListener extends Listener {
 
         if ($action === 'model.deleted') {
             if ($this->isSoftDeletable($model)) {
-                $action = 'model.softDeleted';
+                $action = 'model.soft-deleted';
             } else {
-                $action = 'model.forceDeleted';
+                $action = 'model.force-deleted';
             }
         }
 
