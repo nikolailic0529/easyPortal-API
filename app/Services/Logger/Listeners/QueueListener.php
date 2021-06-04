@@ -8,11 +8,9 @@ use Illuminate\Contracts\Queue\Job as JobContract;
 use Illuminate\Queue\Events\JobExceptionOccurred;
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
-use Illuminate\Queue\Jobs\Job;
 use Illuminate\Queue\Queue;
 
 use function array_pop;
-use function json_encode;
 
 class QueueListener extends Listener {
     /**
@@ -42,45 +40,13 @@ class QueueListener extends Listener {
             }),
         );
 
-        Queue::createPayloadUsing(
-            $this->getSafeListener(function (string $connection, string $queue, array $payload): array {
-                $this->dispatched(new class($connection, $queue, $payload) extends Job implements JobContract {
-                    /**
-                     * @inheritDoc
-                     *
-                     * @param array<mixed> $payload
-                     */
-                    public function __construct(
-                        protected $connectionName,
-                        protected $queue,
-                        protected array $payload,
-                    ) {
-                        // empty
-                    }
+        Queue::createPayloadUsing(function (string $connection, string $queue, array $payload): array {
+            $this->getSafeListener(function () use ($connection, $queue, $payload): void {
+                $this->dispatched(new QueueJob($connection, $queue, $payload));
+            })();
 
-                    /**
-                     * @return array<mixed>
-                     */
-                    public function payload(): array {
-                        return $this->payload;
-                    }
-
-                    public function getJobId(): string|null {
-                        return $this->payload()['id'] ?? null;
-                    }
-
-                    public function getRawBody(): string {
-                        return json_encode($this->payload());
-                    }
-
-                    public function attempts(): int {
-                        return ($this->payload()['attempts'] ?? 0) + 1;
-                    }
-                });
-
-                return [];
-            }),
-        );
+            return [];
+        });
     }
 
     protected function dispatched(JobContract $job): void {
