@@ -52,7 +52,7 @@ class EloquentListener extends Listener {
                     $this->logger->event(
                         Category::eloquent(),
                         $action,
-                        $model,
+                        new EloquentObject($model),
                         $this->getContext($model),
                         $countable,
                     );

@@ -7,7 +7,6 @@ use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Log;
 use Illuminate\Contracts\Auth\Factory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LogicException;
 
@@ -38,7 +37,12 @@ class Logger {
     /**
      * @param array<mixed>|null $context
      */
-    public function start(Category $category, string $action, array $context = null): string {
+    public function start(
+        Category $category,
+        string $action,
+        LoggerObject $object = null,
+        array $context = null,
+    ): string {
         // Stack
         $parent = null;
 
@@ -60,6 +64,11 @@ class Logger {
         $this->log->parent   = $parent;
         $this->log->status   = Status::active();
         $this->log->context  = $this->mergeContext($context);
+
+        if ($object) {
+            $this->log->object_type = $object->getType();
+            $this->log->object_id   = $object->getId();
+        }
 
         $this->log->save();
 
@@ -90,7 +99,7 @@ class Logger {
     public function event(
         Category $category,
         string $action,
-        Model $object = null,
+        LoggerObject $object = null,
         array $context = null,
         array $countable = [],
     ): void {
@@ -108,8 +117,8 @@ class Logger {
         $entry->context  = $context ?: null;
 
         if ($object) {
-            $entry->object_type = $object->getMorphClass();
-            $entry->object_id   = $object->getKey();
+            $entry->object_id   = $object->getId();
+            $entry->object_type = $object->getType();
         }
 
         $entry->save();

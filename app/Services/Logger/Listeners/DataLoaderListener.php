@@ -36,6 +36,7 @@ class DataLoaderListener extends Listener {
 
     protected function started(RequestStarted $event): void {
         $action  = 'graphql.query';
+        $object  = null;
         $context = null;
 
         if ($this->isMutation($event->getRequest())) {
@@ -46,6 +47,7 @@ class DataLoaderListener extends Listener {
         $this->stack[] = $this->logger->start(
             Category::dataLoader(),
             $action,
+            $object,
             $context,
         );
     }

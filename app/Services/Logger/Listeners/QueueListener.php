@@ -61,8 +61,8 @@ class QueueListener extends Listener {
     protected function dispatched(JobContract $job): void {
         $this->logger->event(
             Category::queue(),
-            "job.dispatched: {$this->getName($job)}",
-            null,
+            'job.dispatched',
+            new QueueObject($job),
             $this->getContext($job),
             [
                 'jobs.dispatched' => 1,
@@ -75,7 +75,8 @@ class QueueListener extends Listener {
             $event->job->uuid(),
             $this->logger->start(
                 Category::queue(),
-                "job.processed: {$this->getName($event->job)}",
+                'job.processed',
+                new QueueObject($event->job),
                 $this->getContext($event->job),
             ),
         ];
@@ -109,14 +110,9 @@ class QueueListener extends Listener {
     protected function getContext(JobContract $job): array {
         return [
             'id'         => $job->uuid(),
-            'name'       => $this->getName($job),
             'connection' => $job->getConnectionName(),
             'queue'      => $job->getQueue(),
             'payload'    => $job->payload(),
         ];
-    }
-
-    protected function getName(JobContract $job): string {
-        return ($job->payload()['displayName'] ?? '') ?: $job->getName();
     }
 }
