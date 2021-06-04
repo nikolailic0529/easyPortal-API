@@ -1028,6 +1028,15 @@ type Query {
   quote(id: ID!): Document
 
   """
+  getOrganization.
+  
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  getOrganization(id: ID!): Organization
+
+  """
   List of Customers.
   
   @require <organization> Authenticated user must be a member of the current organization.

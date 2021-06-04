@@ -162,4 +162,10 @@ type Query {
   @organization(root: true)
   @me(permissions: ["administer"])
   @paginate
+
+  "getOrganization."
+  getOrganization(id: ID! @eq): Organization
+  @organization(root: true)
+  @me(permissions: ["administer"])
+  @find
 }
