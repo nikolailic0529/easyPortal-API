@@ -25,7 +25,7 @@ class Logger {
     protected int   $index = 0;
 
     /**
-     * @var array<array{log:\App\Services\Logger\Models\Log,start:float,index:int}>
+     * @var array<array{log:\App\Services\Logger\Models\Log,start:float}>
      */
     protected array $stack = [];
 
@@ -40,27 +40,23 @@ class Logger {
      */
     public function start(Category $category, string $action, array $context = null): string {
         // Stack
-        $index  = null;
         $parent = null;
 
         if ($this->log) {
-            $index  = $this->index++;
             $parent = $this->log;
 
             array_unshift($this->stack, [
                 'log'   => $this->log,
                 'start' => $this->start,
-                'index' => $this->index,
             ]);
         }
 
         // Create
         $this->start         = microtime(true);
-        $this->index         = 0;
         $this->log           = new Log();
         $this->log->category = $category;
         $this->log->action   = $action;
-        $this->log->index    = $index;
+        $this->log->index    = $this->index++;
         $this->log->parent   = $parent;
         $this->log->status   = Status::active();
         $this->log->context  = $this->mergeContext($context);
@@ -172,7 +168,10 @@ class Logger {
         $parent      = array_shift($this->stack);
         $this->log   = $parent['log'] ?? null;
         $this->start = $parent['start'] ?? 0;
-        $this->index = $parent['index'] ?? 0;
+
+        if ($this->log === null) {
+            $this->index = 0;
+        }
 
         // Count
         if ($status === Status::failed()) {
@@ -208,7 +207,7 @@ class Logger {
      * @return array<mixed>|null
      */
     protected function prepareContext(array|null $context): ?array {
-        // TODO [Logger] Serialize exceptions
+        // TODO [Logger] Serialize exceptions?
 
         return $context ?: null;
     }
