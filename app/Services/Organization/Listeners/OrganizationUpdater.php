@@ -28,6 +28,7 @@ class OrganizationUpdater implements Subscriber {
         // Used?
         if (isset($company->keycloakName) || isset($company->keycloakGroupId)) {
             $existing = Organization::query()
+                ->whereKeyNot($reseller->getKey())
                 ->where(static function (Builder $query) use ($company): void {
                     if (isset($company->keycloakName)) {
                         $query->orWhere('keycloak_scope', '=', $company->keycloakName);

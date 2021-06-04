@@ -7,15 +7,18 @@ use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Log;
 use Illuminate\Contracts\Auth\Factory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Date;
 use LogicException;
 
 use function array_column;
-use function array_shift;
+use function array_pop;
+use function array_reverse;
+use function array_slice;
 use function array_unshift;
+use function count;
 use function microtime;
 use function round;
+use function sprintf;
 
 class Logger {
     public const CONNECTION = 'logs';
@@ -25,7 +28,7 @@ class Logger {
     protected int   $index = 0;
 
     /**
-     * @var array<array{log:\App\Services\Logger\Models\Log,start:float,index:int}>
+     * @var array<array{log:\App\Services\Logger\Models\Log,start:float}>
      */
     protected array $stack = [];
 
@@ -38,32 +41,37 @@ class Logger {
     /**
      * @param array<mixed>|null $context
      */
-    public function start(Category $category, string $action, array $context = null): string {
+    public function start(
+        Category $category,
+        string $action,
+        LoggerObject $object = null,
+        array $context = null,
+    ): string {
         // Stack
-        $index  = null;
         $parent = null;
 
         if ($this->log) {
-            $index  = $this->index++;
-            $parent = $this->log;
-
-            array_unshift($this->stack, [
+            $parent        = $this->log;
+            $this->stack[] = [
                 'log'   => $this->log,
                 'start' => $this->start,
-                'index' => $this->index,
-            ]);
+            ];
         }
 
         // Create
         $this->start         = microtime(true);
-        $this->index         = 0;
         $this->log           = new Log();
         $this->log->category = $category;
         $this->log->action   = $action;
-        $this->log->index    = $index;
+        $this->log->index    = $this->index++;
         $this->log->parent   = $parent;
         $this->log->status   = Status::active();
         $this->log->context  = $this->mergeContext($context);
+
+        if ($object) {
+            $this->log->object_type = $object->getType();
+            $this->log->object_id   = $object->getId();
+        }
 
         $this->log->save();
 
@@ -94,7 +102,7 @@ class Logger {
     public function event(
         Category $category,
         string $action,
-        Model $object = null,
+        LoggerObject $object = null,
         array $context = null,
         array $countable = [],
     ): void {
@@ -112,8 +120,8 @@ class Logger {
         $entry->context  = $context ?: null;
 
         if ($object) {
-            $entry->object_type = $object->getMorphClass();
-            $entry->object_id   = $object->getKey();
+            $entry->object_id   = $object->getId();
+            $entry->object_type = $object->getType();
         }
 
         $entry->save();
@@ -155,12 +163,54 @@ class Logger {
             return;
         }
 
-        // Valid?
-        if ($this->log->getKey() !== $transaction) {
-            throw new LogicException();
+        // If some of the "end" call missed we should interrupt all children.
+        $children = [];
+
+        foreach ($this->stack as $item) {
+            if ($children || $item['log']->getKey() === $transaction) {
+                $children[] = $item['log']->getKey();
+            }
         }
 
-        // Search required
+        $children[] = $this->log->getKey();
+
+        if (count($children) > 1) {
+            $children = array_slice($children, 1);
+            $children = array_reverse($children);
+
+            foreach ($children as $child) {
+                $this->finish($child, Status::unknown());
+            }
+        } elseif (!$children) {
+            // TODO [Logger] Should we log it?
+            return;
+        }
+
+        // Finish
+        $this->finish($transaction, $status, $context);
+
+        // Count
+        if ($status === Status::failed()) {
+            $countable['actions.failed'] = 1;
+        }
+
+        $this->count($countable);
+    }
+
+    /**
+     * @param array<mixed>|null $context
+     */
+    private function finish(string $transaction, Status $status, array $context = null): void {
+        // Valid?
+        if ($this->log->getKey() !== $transaction) {
+            throw new LogicException(sprintf(
+                'Transaction id not match: `%s` !== `%s`',
+                $this->log->getKey(),
+                $transaction,
+            ));
+        }
+
+        // Update
         $this->log->status      = $status;
         $this->log->context     = $this->mergeContext($context);
         $this->log->duration    = $this->getDuration();
@@ -169,17 +219,13 @@ class Logger {
         $this->log->save();
 
         // Reset
-        $parent      = array_shift($this->stack);
+        $parent      = array_pop($this->stack);
         $this->log   = $parent['log'] ?? null;
         $this->start = $parent['start'] ?? 0;
-        $this->index = $parent['index'] ?? 0;
 
-        // Count
-        if ($status === Status::failed()) {
-            $countable['actions.failed'] = 1;
+        if ($this->log === null) {
+            $this->index = 0;
         }
-
-        $this->count($countable);
     }
 
     /**
@@ -208,7 +254,7 @@ class Logger {
      * @return array<mixed>|null
      */
     protected function prepareContext(array|null $context): ?array {
-        // TODO [Logger] Serialize exceptions
+        // TODO [Logger] Serialize exceptions?
 
         return $context ?: null;
     }

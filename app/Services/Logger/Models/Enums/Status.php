@@ -16,4 +16,8 @@ class Status extends Enum {
     public static function failed(): static {
         return static::make(__FUNCTION__);
     }
+
+    public static function unknown(): static {
+        return static::make(__FUNCTION__);
+    }
 }
