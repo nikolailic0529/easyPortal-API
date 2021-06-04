@@ -6,15 +6,17 @@ use App\Services\Logger\Models\Enums\Category;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Queue\Job as JobContract;
 use Illuminate\Queue\Events\JobExceptionOccurred;
+use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Queue\Queue;
 
 use function array_pop;
+use function last;
 
 class QueueListener extends Listener {
     /**
-     * @var array<string>
+     * @var array<array<string,string>>
      */
     protected array $stack = [];
 
@@ -30,6 +32,13 @@ class QueueListener extends Listener {
             JobProcessed::class,
             $this->getSafeListener(function (JobProcessed $event): void {
                 $this->success($event);
+            }),
+        );
+
+        $dispatcher->listen(
+            JobFailed::class,
+            $this->getSafeListener(function (JobFailed $event): void {
+                $this->failed($event);
             }),
         );
 
@@ -62,26 +71,33 @@ class QueueListener extends Listener {
     }
 
     protected function started(JobProcessing $event): void {
-        $this->stack[] = $this->logger->start(
-            Category::queue(),
-            "job.processed: {$this->getName($event->job)}",
-            $this->getContext($event->job),
-        );
+        $this->stack[] = [
+            $event->job->uuid(),
+            $this->logger->start(
+                Category::queue(),
+                "job.processed: {$this->getName($event->job)}",
+                $this->getContext($event->job),
+            ),
+        ];
     }
 
     protected function success(JobProcessed $event): void {
-        $transaction = array_pop($this->stack);
+        [$id, $transaction] = last($this->stack);
 
-        if ($transaction) {
+        if ($id === $event->job->uuid() && $transaction) {
+            array_pop($this->stack);
+
             $this->logger->success($transaction);
         }
     }
 
-    protected function failed(JobExceptionOccurred $event): void {
-        $transaction = array_pop($this->stack);
+    protected function failed(JobExceptionOccurred|JobFailed $event): void {
+        [$id, $transaction] = last($this->stack);
 
-        if ($transaction) {
-            $this->logger->fail(array_pop($this->stack), [
+        if ($id === $event->job->uuid() && $transaction) {
+            array_pop($this->stack);
+
+            $this->logger->fail($transaction, [
                 'exception' => $event->exception?->getMessage(),
             ]);
         }
