@@ -12,7 +12,7 @@ class EloquentObject implements LoggerObject {
         // empty
     }
 
-    public function getId(): string {
+    public function getId(): ?string {
         return $this->model->getKey();
     }
 
