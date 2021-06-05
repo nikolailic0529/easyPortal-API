@@ -23,36 +23,31 @@ class EloquentListener extends Listener {
     private array $softDeletable = [];
 
     public function subscribe(Dispatcher $dispatcher): void {
-        /** @var array<string,array<string,int>> $events */
+        /** @var array<string,string> $events */
         $events = [
-            'eloquent.created'      => [
-                'models.created' => 1,
-            ],
-            'eloquent.updated'      => [
-                'models.updated' => 1,
-            ],
-            'eloquent.restored'     => [
-                'models.restored' => 1,
-            ],
-            'eloquent.deleted'      => [
-                'models.deleted_soft' => 1,
-            ],
-            'eloquent.forceDeleted' => [
-                'models.deleted_force' => 1,
-            ],
+            'eloquent.created'      => 'created',
+            'eloquent.updated'      => 'updated',
+            'eloquent.restored'     => 'restored',
+            'eloquent.deleted'      => 'soft-deleted',
+            'eloquent.forceDeleted' => 'force-deleted',
         ];
 
-        foreach ($events as $event => $countable) {
+        foreach ($events as $event => $property) {
             $dispatcher->listen(
                 "{$event}: *",
-                $this->getSafeListener(function (string $name, array $args) use ($event, $countable): void {
-                    $model  = reset($args);
-                    $action = $this->getAction($model, $event);
+                $this->getSafeListener(function (string $name, array $args) use ($event, $property): void {
+                    $model     = reset($args);
+                    $object    = new EloquentObject($model);
+                    $action    = $this->getAction($model, $event);
+                    $countable = [
+                        "models.total.{$property}"                       => 1,
+                        "models.models.{$object->getType()}.{$property}" => 1,
+                    ];
 
                     $this->logger->event(
                         Category::eloquent(),
                         $action,
-                        new EloquentObject($model),
+                        $object,
                         $this->getContext($model),
                         $countable,
                     );
