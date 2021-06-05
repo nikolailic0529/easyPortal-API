@@ -7,12 +7,8 @@ use App\Services\DataLoader\Client\Events\RequestStarted;
 use App\Services\DataLoader\Client\Events\RequestSuccessful;
 use App\Services\Logger\Models\Enums\Category;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\Arr;
 
 use function array_pop;
-use function mb_strtolower;
-use function str_starts_with;
-use function trim;
 
 class DataLoaderListener extends Listener {
     /**
@@ -36,16 +32,19 @@ class DataLoaderListener extends Listener {
 
     protected function started(RequestStarted $event): void {
         $action  = 'graphql.query';
-        $object  = null;
-        $context = null;
+        $context = $event->getParams();
+        $object  = new DataLoaderObject($event);
 
-        if ($this->isMutation($event->getRequest())) {
-            $action  = 'graphql.mutation';
-            $context = $event->getRequest();
+        if ($object->isMutation()) {
+            $action = 'graphql.mutation';
         }
 
+        $this->logger->count([
+            "{$this->getCategory()}.total.requests.requests" => 1,
+        ]);
+
         $this->stack[] = $this->logger->start(
-            Category::dataLoader(),
+            $this->getCategory(),
             $action,
             $object,
             $context,
@@ -53,49 +52,40 @@ class DataLoaderListener extends Listener {
     }
 
     protected function success(RequestSuccessful $event): void {
+        $object   = new DataLoaderObject($event);
+        $duration = $this->logger->getDuration();
+
         $this->logger->success(array_pop($this->stack), [], [
-            'data-loader.requests.duration' => $this->logger->getDuration(),
-            'data-loader.requests.success'  => 1,
+            "{$this->getCategory()}.total.requests.success"                 => 1,
+            "{$this->getCategory()}.total.requests.duration"                => $duration,
+            "{$this->getCategory()}.requests.{$object->getType()}.success"  => 1,
+            "{$this->getCategory()}.requests.{$object->getType()}.results"  => $object->getCount(),
+            "{$this->getCategory()}.requests.{$object->getType()}.duration" => $duration,
         ]);
     }
 
     protected function failed(RequestFailed $event): void {
+        $object   = new DataLoaderObject($event);
+        $duration = $this->logger->getDuration();
+
         $this->logger->fail(
             array_pop($this->stack),
             [
-                'request'   => $event->getRequest(),
+                'params'    => $event->getParams(),
                 'response'  => $event->getResponse(),
                 'exception' => $event->getException()?->getMessage(),
             ],
             [
-                'data-loader.requests.duration' => $this->logger->getDuration(),
-                'data-loader.requests.failed'   => 1,
+                "{$this->getCategory()}.total.requests.failed"                  => 1,
+                "{$this->getCategory()}.total.requests.duration"                => $duration,
+                "{$this->getCategory()}.requests.{$object->getType()}.failed"   => 1,
+                "{$this->getCategory()}.requests.{$object->getType()}.results"  => $object->getCount(),
+                "{$this->getCategory()}.requests.{$object->getType()}.duration" => $duration,
             ],
         );
     }
 
-    /**
-     * @param array<mixed> $data
-     */
-    protected function isMutation(array $data): bool {
-        return str_starts_with(mb_strtolower(trim((string) $this->getQuery($data))), 'mutation ');
-    }
-
-    /**
-     * @param array<mixed> $data
-     */
-    protected function getQuery(array $data): ?string {
-        // Multipart?
-        if (!isset($data['query'])) {
-            $data = Arr::first($data, static function (mixed $value): bool {
-                return isset($value['name']) && $value['name'] === 'operations';
-            });
-        }
-
-        // Get query
-        $query = $data['query'] ?? null;
-
-        // Return
-        return $query;
+    protected function getCategory(): Category {
+        return Category::dataLoader();
     }
 }

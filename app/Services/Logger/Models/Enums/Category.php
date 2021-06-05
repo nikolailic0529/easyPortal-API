@@ -6,18 +6,26 @@ use LastDragon_ru\LaraASP\Eloquent\Enum;
 
 class Category extends Enum {
     public static function log(): static {
-        return static::make('log');
+        return static::make('Log');
     }
 
     public static function queue(): static {
-        return static::make('queue');
+        return static::make('Queue');
     }
 
     public static function eloquent(): static {
-        return static::make('eloquent');
+        return static::make('Eloquent');
     }
 
     public static function dataLoader(): static {
-        return static::make('data-loader');
+        return static::make('DataLoader');
+    }
+
+    public static function logger(): static {
+        return static::make('Logger');
+    }
+
+    public static function database(): static {
+        return static::make('Database');
     }
 }

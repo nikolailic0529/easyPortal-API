@@ -12,7 +12,7 @@ class QueueObject implements LoggerObject {
         // empty
     }
 
-    public function getId(): string {
+    public function getId(): ?string {
         return $this->job->uuid();
     }
 

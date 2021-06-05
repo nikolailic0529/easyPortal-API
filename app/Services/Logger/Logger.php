@@ -14,7 +14,6 @@ use function array_column;
 use function array_pop;
 use function array_reverse;
 use function array_slice;
-use function array_unshift;
 use function count;
 use function microtime;
 use function round;
@@ -140,7 +139,7 @@ class Logger {
         }
 
         // Update
-        $logs = [$this->log, ...array_column($this->stack, 'log')];
+        $logs = [...array_column($this->stack, 'log'), $this->log];
 
         foreach ($logs as $log) {
             $statistics = $log->statistics ?? new Statistics();
@@ -190,8 +189,9 @@ class Logger {
         $this->finish($transaction, $status, $context);
 
         // Count
-        if ($status === Status::failed()) {
-            $countable['actions.failed'] = 1;
+        if ($status !== Status::active()) {
+            $countable["{$this->getCategory()}.total.actions"]     = 1;
+            $countable["{$this->getCategory()}.actions.{$status}"] = 1;
         }
 
         $this->count($countable);
@@ -267,5 +267,9 @@ class Logger {
         return $this->isRecording()
             ? round((microtime(true) - $this->start) * 1000)
             : null;
+    }
+
+    protected function getCategory(): Category {
+        return Category::logger();
     }
 }

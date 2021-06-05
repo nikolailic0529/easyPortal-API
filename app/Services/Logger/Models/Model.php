@@ -50,7 +50,16 @@ abstract class Model extends LaraASPModel {
      */
     public function save(array $options = []) {
         return static::withoutEvents(function () use ($options) {
-            return parent::save($options);
+            $connection = $this->getConnection();
+            $dispatcher = $connection->getEventDispatcher();
+
+            try {
+                $connection->unsetEventDispatcher();
+
+                return parent::save($options);
+            } finally {
+                $connection->setEventDispatcher($dispatcher);
+            }
         });
     }
 }

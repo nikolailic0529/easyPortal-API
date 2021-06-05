@@ -4,6 +4,7 @@ namespace App\Services\Logger\Listeners;
 
 use App\Events\Subscriber;
 use App\Services\Logger\Logger;
+use App\Services\Logger\Models\Enums\Category;
 use Closure;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -17,6 +18,8 @@ abstract class Listener implements Subscriber {
     ) {
         // empty
     }
+
+    abstract protected function getCategory(): Category;
 
     protected function getSafeListener(Closure $closure): Closure {
         return function (mixed ...$args) use ($closure): void {

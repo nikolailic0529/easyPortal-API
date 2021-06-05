@@ -2,6 +2,7 @@
 
 namespace App\Services\Logger\Listeners;
 
+use App\Services\Logger\Models\Enums\Category;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Log\Events\MessageLogged;
 
@@ -14,7 +15,12 @@ class LogListener extends Listener {
 
     protected function log(MessageLogged $event): void {
         $this->logger->count([
-            "logs.{$event->level}" => 1,
+            "{$this->getCategory()}.total.levels"           => 1,
+            "{$this->getCategory()}.levels.{$event->level}" => 1,
         ]);
+    }
+
+    protected function getCategory(): Category {
+        return Category::log();
     }
 }

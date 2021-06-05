@@ -377,19 +377,19 @@ class Client {
         $begin = time();
 
         try {
-            $this->dispatcher->dispatch(new RequestStarted($data));
+            $this->dispatcher->dispatch(new RequestStarted($selector, $graphql, $params));
 
             $response = $request->post($url, $data);
 
             $response->throw();
         } catch (ConnectionException $exception) {
-            $this->dispatcher->dispatch(new RequestFailed($data, null, $exception));
+            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $params, null, $exception));
 
             throw new DataLoaderUnavailable($exception);
         } catch (Exception $exception) {
             $error = new GraphQLRequestFailed($graphql, $params, [], $exception);
 
-            $this->dispatcher->dispatch(new RequestFailed($data, null, $exception));
+            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $params, null, $exception));
             $this->handler->report($error);
 
             throw $error;
@@ -416,14 +416,14 @@ class Client {
         if ($errors) {
             $error = new GraphQLRequestFailed($graphql, $params, $errors);
 
-            $this->dispatcher->dispatch(new RequestFailed($data, $json));
+            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $params, $json));
             $this->handler->report($error);
 
             if (!$result) {
                 throw $error;
             }
         } else {
-            $this->dispatcher->dispatch(new RequestSuccessful($data, $json));
+            $this->dispatcher->dispatch(new RequestSuccessful($selector, $graphql, $params, $json));
         }
 
         // Return
