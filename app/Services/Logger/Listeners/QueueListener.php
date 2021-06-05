@@ -59,13 +59,16 @@ class QueueListener extends Listener {
     }
 
     protected function dispatched(JobContract $job): void {
+        $object = new QueueObject($job);
+
         $this->logger->event(
             Category::queue(),
             'job.dispatched',
-            new QueueObject($job),
+            $object,
             $this->getContext($job),
             [
-                'jobs.dispatched' => 1,
+                'jobs.total.dispatched'                     => 1,
+                "jobs.jobs.{$object->getType()}.dispatched" => 1,
             ],
         );
     }
