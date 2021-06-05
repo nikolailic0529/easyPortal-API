@@ -9,9 +9,6 @@ use App\Services\Logger\Models\Enums\Category;
 use Illuminate\Contracts\Events\Dispatcher;
 
 use function array_pop;
-use function mb_strtolower;
-use function str_starts_with;
-use function trim;
 
 class DataLoaderListener extends Listener {
     /**
@@ -38,16 +35,16 @@ class DataLoaderListener extends Listener {
         $context = $event->getParams();
         $object  = new DataLoaderObject($event);
 
-        if ($this->isMutation($event->getQuery())) {
+        if ($object->isMutation()) {
             $action = 'graphql.mutation';
         }
 
         $this->logger->count([
-            'data-loader.requests.total.requests' => 1,
+            "{$this->getCategory()}.requests.total.requests" => 1,
         ]);
 
         $this->stack[] = $this->logger->start(
-            Category::dataLoader(),
+            $this->getCategory(),
             $action,
             $object,
             $context,
@@ -58,10 +55,10 @@ class DataLoaderListener extends Listener {
         $object = new DataLoaderObject($event);
 
         $this->logger->success(array_pop($this->stack), [], [
-            'data-loader.requests.total.duration'                        => $this->logger->getDuration(),
-            'data-loader.requests.total.success'                         => 1,
-            "data-loader.requests.requests.{$object->getType()}.success" => 1,
-            "data-loader.requests.requests.{$object->getType()}.results" => $object->getCount(),
+            "{$this->getCategory()}.requests.total.duration"                        => $this->logger->getDuration(),
+            "{$this->getCategory()}.requests.total.success"                         => 1,
+            "{$this->getCategory()}.requests.requests.{$object->getType()}.success" => 1,
+            "{$this->getCategory()}.requests.requests.{$object->getType()}.results" => $object->getCount(),
         ]);
     }
 
@@ -76,15 +73,15 @@ class DataLoaderListener extends Listener {
                 'exception' => $event->getException()?->getMessage(),
             ],
             [
-                'data-loader.requests.total.duration'                        => $this->logger->getDuration(),
-                'data-loader.requests.total.failed'                          => 1,
-                "data-loader.requests.requests.{$object->getType()}.failed"  => 1,
-                "data-loader.requests.requests.{$object->getType()}.results" => $object->getCount(),
+                "{$this->getCategory()}.requests.total.duration"                        => $this->logger->getDuration(),
+                "{$this->getCategory()}.requests.total.failed"                          => 1,
+                "{$this->getCategory()}.requests.requests.{$object->getType()}.failed"  => 1,
+                "{$this->getCategory()}.requests.requests.{$object->getType()}.results" => $object->getCount(),
             ],
         );
     }
 
-    protected function isMutation(string $query): bool {
-        return str_starts_with(mb_strtolower(trim($query)), 'mutation ');
+    protected function getCategory(): Category {
+        return Category::dataLoader();
     }
 }

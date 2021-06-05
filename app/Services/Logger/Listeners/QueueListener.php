@@ -62,13 +62,13 @@ class QueueListener extends Listener {
         $object = new QueueObject($job);
 
         $this->logger->event(
-            Category::queue(),
+            $this->getCategory(),
             'job.dispatched',
             $object,
             $this->getContext($job),
             [
-                'jobs.total.dispatched'                     => 1,
-                "jobs.jobs.{$object->getType()}.dispatched" => 1,
+                "{$this->getCategory()}.total.dispatched"                     => 1,
+                "{$this->getCategory()}.jobs.{$object->getType()}.dispatched" => 1,
             ],
         );
     }
@@ -77,7 +77,7 @@ class QueueListener extends Listener {
         $this->stack[] = [
             $event->job->uuid(),
             $this->logger->start(
-                Category::queue(),
+                $this->getCategory(),
                 'job.processed',
                 new QueueObject($event->job),
                 $this->getContext($event->job),
@@ -117,5 +117,9 @@ class QueueListener extends Listener {
             'queue'      => $job->getQueue(),
             'payload'    => $job->payload(),
         ];
+    }
+
+    protected function getCategory(): Category {
+        return Category::queue();
     }
 }

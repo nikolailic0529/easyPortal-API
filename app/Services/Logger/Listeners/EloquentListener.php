@@ -28,8 +28,8 @@ class EloquentListener extends Listener {
             'eloquent.created'      => 'created',
             'eloquent.updated'      => 'updated',
             'eloquent.restored'     => 'restored',
-            'eloquent.deleted'      => 'soft-deleted',
-            'eloquent.forceDeleted' => 'force-deleted',
+            'eloquent.deleted'      => 'softDeleted',
+            'eloquent.forceDeleted' => 'forceDeleted',
         ];
 
         foreach ($events as $event => $property) {
@@ -40,12 +40,12 @@ class EloquentListener extends Listener {
                     $object    = new EloquentObject($model);
                     $action    = $this->getAction($model, $event);
                     $countable = [
-                        "models.total.{$property}"                       => 1,
-                        "models.models.{$object->getType()}.{$property}" => 1,
+                        "{$this->getCategory()}.total.{$property}"                       => 1,
+                        "{$this->getCategory()}.models.{$object->getType()}.{$property}" => 1,
                     ];
 
                     $this->logger->event(
-                        Category::eloquent(),
+                        $this->getCategory(),
                         $action,
                         $object,
                         $this->getContext($model),
@@ -61,9 +61,9 @@ class EloquentListener extends Listener {
 
         if ($action === 'model.deleted') {
             if ($this->isSoftDeletable($model)) {
-                $action = 'model.soft-deleted';
+                $action = 'model.softDeleted';
             } else {
-                $action = 'model.force-deleted';
+                $action = 'model.forceDeleted';
             }
         }
 
@@ -118,5 +118,9 @@ class EloquentListener extends Listener {
         }
 
         return $this->softDeletable[$model::class];
+    }
+
+    protected function getCategory(): Category {
+        return Category::eloquent();
     }
 }

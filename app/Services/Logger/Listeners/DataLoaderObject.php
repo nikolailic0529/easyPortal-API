@@ -52,7 +52,7 @@ class DataLoaderObject implements LoggerObject {
         return $count;
     }
 
-    protected function isMutation(): bool {
+    public function isMutation(): bool {
         return str_starts_with(mb_strtolower(trim($this->event->getQuery())), 'mutation ');
     }
 }

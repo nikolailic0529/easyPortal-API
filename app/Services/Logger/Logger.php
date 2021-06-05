@@ -190,8 +190,8 @@ class Logger {
         $this->finish($transaction, $status, $context);
 
         // Count
-        if ($status === Status::failed()) {
-            $countable['actions.failed'] = 1;
+        if ($status !== Status::active()) {
+            $countable["{$this->getCategory()}.actions.{$status}}"] = 1;
         }
 
         $this->count($countable);
@@ -267,5 +267,9 @@ class Logger {
         return $this->isRecording()
             ? round((microtime(true) - $this->start) * 1000)
             : null;
+    }
+
+    protected function getCategory(): Category {
+        return Category::logger();
     }
 }
