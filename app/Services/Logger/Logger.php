@@ -191,7 +191,7 @@ class Logger {
 
         // Count
         if ($status !== Status::active()) {
-            $countable["{$this->getCategory()}.actions.{$status}}"] = 1;
+            $countable["{$this->getCategory()}.actions.{$status}"] = 1;
         }
 
         $this->count($countable);
