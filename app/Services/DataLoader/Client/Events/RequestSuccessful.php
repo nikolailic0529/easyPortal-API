@@ -2,22 +2,17 @@
 
 namespace App\Services\DataLoader\Client\Events;
 
-class RequestSuccessful {
+class RequestSuccessful extends RequestEvent {
     /**
-     * @param array<mixed> $request
+     * @param array<mixed> $params
      */
     public function __construct(
-        protected array $request,
+        string $selector,
+        string $query,
+        array $params,
         protected mixed $response,
     ) {
-        // empty
-    }
-
-    /**
-     * @return array<mixed>
-     */
-    public function getRequest(): array {
-        return $this->request;
+        parent::__construct($selector, $query, $params);
     }
 
     public function getResponse(): mixed {

@@ -4,23 +4,18 @@ namespace App\Services\DataLoader\Client\Events;
 
 use Throwable;
 
-class RequestFailed {
+class RequestFailed extends RequestEvent {
     /**
-     * @param array<mixed> $request
+     * @param array<mixed> $params
      */
     public function __construct(
-        protected array $request,
+        string $selector,
+        string $query,
+        array $params,
         protected mixed $response,
         protected Throwable|null $exception = null,
     ) {
-        // empty
-    }
-
-    /**
-     * @return array<mixed>
-     */
-    public function getRequest(): array {
-        return $this->request;
+        parent::__construct($selector, $query, $params);
     }
 
     public function getResponse(): mixed {
