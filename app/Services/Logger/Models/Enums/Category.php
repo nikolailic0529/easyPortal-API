@@ -24,4 +24,8 @@ class Category extends Enum {
     public static function logger(): static {
         return static::make('Logger');
     }
+
+    public static function database(): static {
+        return static::make('Database');
+    }
 }

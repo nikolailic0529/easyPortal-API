@@ -2,6 +2,7 @@
 
 namespace App\Services\Logger;
 
+use App\Services\Logger\Listeners\DatabaseListener;
 use App\Services\Logger\Listeners\DataLoaderListener;
 use App\Services\Logger\Listeners\EloquentListener;
 use App\Services\Logger\Listeners\LogListener;
@@ -32,6 +33,7 @@ class Provider extends ServiceProvider {
             // Subscribe
             $dispatcher->subscribe(LogListener::class);
             $dispatcher->subscribe(QueueListener::class);
+            $dispatcher->subscribe(DatabaseListener::class);
             $dispatcher->subscribe(EloquentListener::class);
             $dispatcher->subscribe(DataLoaderListener::class);
         });
