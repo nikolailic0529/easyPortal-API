@@ -12,7 +12,6 @@ use Illuminate\Support\Arr;
 use function count;
 use function explode;
 use function is_array;
-use function is_null;
 use function mb_strtolower;
 use function str_contains;
 use function str_starts_with;
