@@ -40,7 +40,7 @@ class DataLoaderListener extends Listener {
         }
 
         $this->logger->count([
-            "{$this->getCategory()}.requests.total.requests" => 1,
+            "{$this->getCategory()}.total.requests.requests" => 1,
         ]);
 
         $this->stack[] = $this->logger->start(
@@ -52,18 +52,21 @@ class DataLoaderListener extends Listener {
     }
 
     protected function success(RequestSuccessful $event): void {
-        $object = new DataLoaderObject($event);
+        $object   = new DataLoaderObject($event);
+        $duration = $this->logger->getDuration();
 
         $this->logger->success(array_pop($this->stack), [], [
-            "{$this->getCategory()}.requests.total.duration"                        => $this->logger->getDuration(),
-            "{$this->getCategory()}.requests.total.success"                         => 1,
-            "{$this->getCategory()}.requests.requests.{$object->getType()}.success" => 1,
-            "{$this->getCategory()}.requests.requests.{$object->getType()}.results" => $object->getCount(),
+            "{$this->getCategory()}.total.requests.success"                 => 1,
+            "{$this->getCategory()}.total.requests.duration"                => $duration,
+            "{$this->getCategory()}.requests.{$object->getType()}.success"  => 1,
+            "{$this->getCategory()}.requests.{$object->getType()}.results"  => $object->getCount(),
+            "{$this->getCategory()}.requests.{$object->getType()}.duration" => $duration,
         ]);
     }
 
     protected function failed(RequestFailed $event): void {
-        $object = new DataLoaderObject($event);
+        $object   = new DataLoaderObject($event);
+        $duration = $this->logger->getDuration();
 
         $this->logger->fail(
             array_pop($this->stack),
@@ -73,10 +76,11 @@ class DataLoaderListener extends Listener {
                 'exception' => $event->getException()?->getMessage(),
             ],
             [
-                "{$this->getCategory()}.requests.total.duration"                        => $this->logger->getDuration(),
-                "{$this->getCategory()}.requests.total.failed"                          => 1,
-                "{$this->getCategory()}.requests.requests.{$object->getType()}.failed"  => 1,
-                "{$this->getCategory()}.requests.requests.{$object->getType()}.results" => $object->getCount(),
+                "{$this->getCategory()}.total.requests.failed"                  => 1,
+                "{$this->getCategory()}.total.requests.duration"                => $duration,
+                "{$this->getCategory()}.requests.{$object->getType()}.failed"   => 1,
+                "{$this->getCategory()}.requests.{$object->getType()}.results"  => $object->getCount(),
+                "{$this->getCategory()}.requests.{$object->getType()}.duration" => $duration,
             ],
         );
     }
