@@ -15,7 +15,7 @@ class LogListener extends Listener {
 
     protected function log(MessageLogged $event): void {
         $this->logger->count([
-            "{$this->getCategory()}.total"                  => 1,
+            "{$this->getCategory()}.total.levels"           => 1,
             "{$this->getCategory()}.levels.{$event->level}" => 1,
         ]);
     }

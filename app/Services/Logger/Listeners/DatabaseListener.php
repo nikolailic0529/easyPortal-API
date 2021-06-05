@@ -18,7 +18,7 @@ class DatabaseListener extends Listener {
 
     protected function query(QueryExecuted $event): void {
         $this->logger->count([
-            "{$this->getCategory()}.total"                                 => 1,
+            "{$this->getCategory()}.total.queries"                         => 1,
             "{$this->getCategory()}.queries.{$this->getType($event->sql)}" => 1,
         ]);
     }

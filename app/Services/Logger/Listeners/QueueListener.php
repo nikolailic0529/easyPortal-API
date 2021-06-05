@@ -67,8 +67,8 @@ class QueueListener extends Listener {
             $object,
             $this->getContext($job),
             [
-                "{$this->getCategory()}.total.dispatched"                     => 1,
-                "{$this->getCategory()}.jobs.{$object->getType()}.dispatched" => 1,
+                "{$this->getCategory()}.total.dispatched"                => 1,
+                "{$this->getCategory()}.dispatched.{$object->getType()}" => 1,
             ],
         );
     }

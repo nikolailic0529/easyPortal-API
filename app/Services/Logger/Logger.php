@@ -14,7 +14,6 @@ use function array_column;
 use function array_pop;
 use function array_reverse;
 use function array_slice;
-use function array_unshift;
 use function count;
 use function microtime;
 use function round;
@@ -191,6 +190,7 @@ class Logger {
 
         // Count
         if ($status !== Status::active()) {
+            $countable["{$this->getCategory()}.total.actions"]     = 1;
             $countable["{$this->getCategory()}.actions.{$status}"] = 1;
         }
 

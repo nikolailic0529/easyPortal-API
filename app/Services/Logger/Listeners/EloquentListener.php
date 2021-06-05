@@ -40,7 +40,7 @@ class EloquentListener extends Listener {
                     $object    = new EloquentObject($model);
                     $action    = $this->getAction($model, $event);
                     $countable = [
-                        "{$this->getCategory()}.total.{$property}"                       => 1,
+                        "{$this->getCategory()}.total.models.{$property}"                => 1,
                         "{$this->getCategory()}.models.{$object->getType()}.{$property}" => 1,
                     ];
 
