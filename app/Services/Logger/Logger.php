@@ -139,7 +139,7 @@ class Logger {
         }
 
         // Update
-        $logs = [$this->log, ...array_column($this->stack, 'log')];
+        $logs = [...array_column($this->stack, 'log'), $this->log];
 
         foreach ($logs as $log) {
             $statistics = $log->statistics ?? new Statistics();
