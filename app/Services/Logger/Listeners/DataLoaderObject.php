@@ -46,7 +46,7 @@ class DataLoaderObject implements LoggerObject {
 
         if ($this->event instanceof RequestSuccessful || $this->event instanceof RequestFailed) {
             $result = Arr::get($this->event->getResponse(), $this->event->getSelector());
-            $count  = is_array($result) ? count($result) : (int) is_null($result);
+            $count  = is_array($result) ? count($result) : (int) ($result !== null);
         }
 
         return $count;
