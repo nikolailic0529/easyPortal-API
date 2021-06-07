@@ -60,7 +60,7 @@ class ResellerLoader extends Loader {
 
         try {
             if ($company) {
-                $resellers = $this->getResellerFactory();
+                $resellers = $this->getResellersFactory();
                 $reseller  = $resellers->create($company);
 
                 if ($this->isWithAssets()) {
@@ -102,7 +102,7 @@ class ResellerLoader extends Loader {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-    protected function getResellerFactory(): ResellerFactory {
+    protected function getResellersFactory(): ResellerFactory {
         return $this->resellers
             ->setLocationFactory(
                 $this->isWithLocations() ? $this->locations : null,

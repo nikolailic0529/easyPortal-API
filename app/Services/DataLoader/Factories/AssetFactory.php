@@ -54,7 +54,6 @@ class AssetFactory extends ModelFactory {
     use WithTag;
 
     protected ?CustomerFactory $customerFactory = null;
-    protected ?ResellerFactory $resellerFactory = null;
     protected ?DocumentFactory $documentFactory = null;
     protected ?ContactFactory  $contactFactory  = null;
 
@@ -66,7 +65,7 @@ class AssetFactory extends ModelFactory {
         protected TypeResolver $types,
         protected ProductResolver $products,
         protected CustomerResolver $customerResolver,
-        protected ResellerResolver $resellerResolver,
+        protected ResellerResolver $resellers,
         protected LocationFactory $locations,
         protected StatusResolver $statuses,
         protected AssetCoverageFactory $coverages,
@@ -83,16 +82,6 @@ class AssetFactory extends ModelFactory {
 
     public function setCustomersFactory(?CustomerFactory $factory): static {
         $this->customerFactory = $factory;
-
-        return $this;
-    }
-
-    public function getResellerFactory(): ?ResellerFactory {
-        return $this->resellerFactory;
-    }
-
-    public function setResellerFactory(?ResellerFactory $factory): static {
-        $this->resellerFactory = $factory;
 
         return $this;
     }
@@ -376,23 +365,15 @@ class AssetFactory extends ModelFactory {
     }
 
     protected function assetReseller(Asset $asset): ?Reseller {
-        $id       = $asset->resellerId ?? (isset($asset->reseller) ? $asset->reseller->id : null);
+        $id       = $asset->resellerId ?? null;
         $reseller = null;
 
         if ($id) {
-            $reseller = $this->resellerResolver->get($id);
-        }
-
-        if ($id && !$reseller && $this->resellerFactory) {
-            $reseller = $this->resellerFactory->create($asset->reseller);
+            $reseller = $this->resellers->get($id);
         }
 
         if ($id && !$reseller) {
-            throw new ResellerNotFoundException(sprintf(
-                'Reseller `%s` not found (asset `%s`).',
-                $id,
-                $asset->id,
-            ));
+            throw new ResellerNotFoundException($id, $asset);
         }
 
         return $reseller;

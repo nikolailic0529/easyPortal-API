@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Schema;
 class Asset extends Type {
     public string   $id;
     public ?string  $resellerId;
-    public ?Company $reseller;
     public ?string  $customerId;
     public ?Company $customer;
     public ?string  $serialNumber;

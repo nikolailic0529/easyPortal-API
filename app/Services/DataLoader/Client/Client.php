@@ -96,9 +96,6 @@ class Client {
             query getAssets(\$id: String!) {
                 getAssets(args: [{key: "id", value: \$id}]) {
                     {$this->getAssetPropertiesGraphQL()}
-                    reseller {
-                        {$this->getResellerPropertiesGraphQL()}
-                    }
                     customer {
                         {$this->getCustomerPropertiesGraphQL()}
                     }
@@ -128,9 +125,6 @@ class Client {
                 query items(\$id: String!, \$limit: Int, \$offset: Int) {
                     getAssetsByCustomerId(customerId: \$id, limit: \$limit, offset: \$offset) {
                         {$this->getAssetPropertiesGraphQL()}
-                        reseller {
-                            {$this->getResellerPropertiesGraphQL()}
-                        }
                     }
                 }
                 GRAPHQL,
@@ -156,9 +150,6 @@ class Client {
                 query items(\$id: String!, \$limit: Int, \$offset: Int) {
                     getAssetsByCustomerId(customerId: \$id, limit: \$limit, offset: \$offset) {
                         {$this->getAssetPropertiesGraphQL()}
-                        reseller {
-                            {$this->getResellerPropertiesGraphQL()}
-                        }
                         assetDocument {
                             {$this->getAssetDocumentsPropertiesGraphQL()}
                         }

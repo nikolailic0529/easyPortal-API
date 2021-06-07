@@ -67,7 +67,7 @@ trait WithAssets {
             $factory->getCustomerFactory()?->prefetch($assets, false, static function (Collection $customers): void {
                 $customers->loadMissing('locations');
             });
-            $factory->getResellerFactory()?->prefetch(
+            $this->getResellersFactory()?->prefetch(
                 $assets,
                 false,
                 static function (Collection $resellers): void {
@@ -139,7 +139,7 @@ trait WithAssets {
             $reseller = null;
 
             if ($resellerId) {
-                $reseller = $this->resellers->find(new Company([
+                $reseller = $this->getResellersFactory()->find(new Company([
                     'id' => $resellerId,
                 ]));
             }
@@ -203,20 +203,25 @@ trait WithAssets {
     }
 
     protected function getAssetsFactory(): AssetFactory {
+        $this
+            ->getResellersFactory()
+            ->setLocationFactory($this->locations);
+
         $customers = $this->customers
             ->setLocationFactory($this->locations)
             ->setContactsFactory($this->contacts);
-        $resellers = $this->resellers
-            ->setLocationFactory($this->locations);
         $documents = $this->isWithAssetsDocuments()
             ? $this->documents->setContactsFactory($this->contacts)
             : null;
         $factory   = $this->assets
-            ->setResellerFactory($resellers)
             ->setCustomersFactory($customers)
             ->setDocumentFactory($documents)
             ->setContactsFactory($this->contacts);
 
         return $factory;
+    }
+
+    protected function getResellersFactory(): ResellerFactory {
+        return $this->resellers;
     }
 }
