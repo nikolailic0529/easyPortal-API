@@ -141,6 +141,7 @@ type Asset {
   coverage_id: ID
   coverage: AssetCoverage
   tags: [Tag!]!
+  data_quality: String
 }
 
 type AssetCoverage {

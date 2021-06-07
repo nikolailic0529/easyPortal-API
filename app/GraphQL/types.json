@@ -234,7 +234,8 @@
                 "contacts",
                 "coverage",
                 "coverage_id",
-                "tags"
+                "tags",
+                "data_quality"
             ],
             "properties": {
                 "oem_id": {
@@ -296,6 +297,9 @@
                     "items": {
                         "$ref": "../Types/Tag.json"
                     }
+                },
+                "data_quality": {
+                    "type": "string"
                 }
             }
         },

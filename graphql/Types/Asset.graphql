@@ -20,4 +20,5 @@ type Asset {
   coverage_id: ID
   coverage: AssetCoverage @belongsTo
   tags: [Tag!]! @belongsToMany
+  data_quality: String
 }

@@ -67,6 +67,7 @@ class AssetsTest extends TestCase {
                             location_id
                             serial_number
                             contacts_count
+                            data_quality
                             oem {
                                 id
                                 abbr
@@ -280,6 +281,7 @@ class AssetsTest extends TestCase {
                                 'coverage_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
                                 'serial_number'  => '#PRODUCT_SERIAL_323',
                                 'contacts_count' => 1,
+                                'data_quality'   => '130',
                                 'oem'            => [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                     'abbr' => 'abbr',
@@ -572,6 +574,7 @@ class AssetsTest extends TestCase {
                                     'reseller_id'    => $reseller,
                                     'serial_number'  => '#PRODUCT_SERIAL_323',
                                     'contacts_count' => 1,
+                                    'data_quality'   => '130',
                                 ]);
 
                             AssetWarranty::factory()
