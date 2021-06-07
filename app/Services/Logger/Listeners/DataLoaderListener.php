@@ -37,7 +37,8 @@ class DataLoaderListener extends Listener {
         $context   = $event->getParams();
         $enabled   = $this->config->get('ep.logger.data_loader.queries');
         $countable = [
-            "{$this->getCategory()}.total.requests.requests" => 1,
+            "{$this->getCategory()}.total.requests.requests"                => 1,
+            "{$this->getCategory()}.requests.{$object->getType()}.requests" => 1,
         ];
 
         if ($object->isMutation()) {
