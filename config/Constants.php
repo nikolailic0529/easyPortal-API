@@ -223,11 +223,18 @@ interface Constants {
     public const EP_LOGGER_ENABLED = false;
 
     /**
-     * Log models changes?
+     * Log DataLoader queries?
      */
-    #[Setting('ep.logger.eloquent.models')]
+    #[Setting('ep.logger.data_loader.queries')]
     #[Group('logger')]
-    public const EP_LOGGER_ELOQUENT_MODELS = false;
+    public const EP_LOGGER_DATA_LOADER_QUERIES = false;
+
+    /**
+     * Log DataLoader mutations?
+     */
+    #[Setting('ep.logger.data_loader.mutations')]
+    #[Group('logger')]
+    public const EP_LOGGER_DATA_LOADER_MUTATIONS = false;
     //</editor-fold>
 
     // <editor-fold desc="DATA_LOADER">

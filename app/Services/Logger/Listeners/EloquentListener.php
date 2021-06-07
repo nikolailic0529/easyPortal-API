@@ -3,6 +3,7 @@
 namespace App\Services\Logger\Listeners;
 
 use App\Services\Logger\Models\Enums\Category;
+use App\Services\Logger\Models\Enums\Status;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -50,6 +51,7 @@ class EloquentListener extends Listener {
                         $this->logger->event(
                             $this->getCategory(),
                             $action,
+                            Status::success(),
                             $object,
                             $this->getContext($model),
                             $countable,
