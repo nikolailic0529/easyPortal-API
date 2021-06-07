@@ -279,8 +279,9 @@ class AssetFactory extends ModelFactory {
             // Create/Update
             /** @var \App\Models\AssetWarranty|null $warranty */
             $warranty = $existing
-                ->first(static function (AssetWarranty $warranty) use ($document): bool {
-                    return $warranty->customer_id === $document->customer_id
+                ->first(static function (AssetWarranty $warranty) use ($document, $end): bool {
+                    return $warranty->end->equalTo($end)
+                        && $warranty->customer_id === $document->customer_id
                         && $warranty->reseller_id === $document->reseller_id;
                 });
 
@@ -317,7 +318,7 @@ class AssetFactory extends ModelFactory {
                 return (bool) $warranty->document_id;
             })
             ->keyBy(static function (AssetWarranty $warranty): string {
-                return $warranty->getKey();
+                return $warranty->document_id;
             });
 
         foreach ($documents as $document) {

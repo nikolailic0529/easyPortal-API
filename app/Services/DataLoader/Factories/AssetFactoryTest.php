@@ -497,7 +497,7 @@ class AssetFactoryTest extends TestCase {
             }
         };
 
-        $date     = Date::now();
+        $date     = Date::now()->startOfDay();
         $customer = Customer::factory()->create();
         $model    = AssetModel::factory()->create([
             'customer_id' => $customer,
@@ -550,8 +550,9 @@ class AssetFactoryTest extends TestCase {
 
         // Should be created for DocB Customer
         /** @var \App\Models\AssetWarranty $b */
-        $b = $warranties->first(static function (AssetWarranty $warranty) use ($docB): bool {
-            return $warranty->customer_id === $docB->customer_id
+        $b = $warranties->first(static function (AssetWarranty $warranty) use ($docB, $date): bool {
+            return $warranty->end->equalTo($date)
+                && $warranty->customer_id === $docB->customer_id
                 && $warranty->reseller_id === $docB->reseller_id;
         });
 
@@ -559,10 +560,11 @@ class AssetFactoryTest extends TestCase {
         $this->assertTrue($b->wasRecentlyCreated);
         $this->assertNull($b->document_id);
         $this->assertNull($b->start);
-        $this->assertEquals($date->startOfDay(), $b->end);
+        $this->assertEquals($date, $b->end);
         $this->assertEquals($model->getKey(), $b->asset_id);
 
-        // Should be updated for DocC Customer
+        // The existing warranty should be removed because `end` dates mismatch
+        // + a new warranty should be created.
         /** @var \App\Models\AssetWarranty $c */
         $c = $warranties->first(static function (AssetWarranty $warranty) use ($docC): bool {
             return $warranty->customer_id === $docC->customer_id
@@ -570,11 +572,11 @@ class AssetFactoryTest extends TestCase {
         });
 
         $this->assertNotNull($c);
-        $this->assertEquals($existing->getKey(), $c->getKey());
-        $this->assertFalse($c->wasRecentlyCreated);
+        $this->assertNotEquals($existing->getKey(), $c->getKey());
+        $this->assertTrue($c->wasRecentlyCreated);
         $this->assertNull($c->document_id);
         $this->assertNull($c->start);
-        $this->assertEquals($date->startOfDay(), $c->end);
+        $this->assertEquals($date, $c->end);
         $this->assertEquals($model->getKey(), $c->asset_id);
     }
 

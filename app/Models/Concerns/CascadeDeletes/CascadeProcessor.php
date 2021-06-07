@@ -4,7 +4,9 @@ namespace App\Models\Concerns\CascadeDeletes;
 
 use Exception;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -12,6 +14,8 @@ use ReflectionClass;
 use ReflectionMethod;
 use ReflectionNamedType;
 
+use function array_filter;
+use function array_map;
 use function is_a;
 use function str_starts_with;
 
@@ -49,7 +53,7 @@ class CascadeProcessor {
     protected function isRelation(Model $model, string $name, Relation $relation): bool {
         $cascade = false;
 
-        if ($relation instanceof MorphMany) {
+        if ($relation instanceof MorphMany || $this->isBelongsToMany($model, $name, $relation)) {
             $cascade = true;
         } else {
             // When: items - item_types
@@ -92,6 +96,17 @@ class CascadeProcessor {
             // empty
         }
 
+        if ($values && $this->isBelongsToMany($model, $name, $relation)) {
+            $accessor = $relation->getPivotAccessor();
+            $values   = array_filter(array_map(static function (Model $model) use ($accessor): ?Model {
+                return $model->{$accessor};
+            }, $values));
+        }
+
         return $values;
+    }
+
+    protected function isBelongsToMany(Model $model, string $name, Relation $relation): bool {
+        return $relation instanceof BelongsToMany && (!$relation instanceof MorphToMany);
     }
 }
