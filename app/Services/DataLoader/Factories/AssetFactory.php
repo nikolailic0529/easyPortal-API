@@ -317,7 +317,7 @@ class AssetFactory extends ModelFactory {
                 return (bool) $warranty->document_id;
             })
             ->keyBy(static function (AssetWarranty $warranty): string {
-                return $warranty->getKey();
+                return $warranty->document_id;
             });
 
         foreach ($documents as $document) {
