@@ -24,18 +24,19 @@ class EloquentListener extends Listener {
 
     public function subscribe(Dispatcher $dispatcher): void {
         /** @var array<string,string> $events */
-        $events = [
+        $events  = [
             'eloquent.created'      => 'created',
             'eloquent.updated'      => 'updated',
             'eloquent.restored'     => 'restored',
             'eloquent.deleted'      => 'softDeleted',
             'eloquent.forceDeleted' => 'forceDeleted',
         ];
+        $changes = $this->config->get('ep.logger.eloquent.models');
 
         foreach ($events as $event => $property) {
             $dispatcher->listen(
                 "{$event}: *",
-                $this->getSafeListener(function (string $name, array $args) use ($event, $property): void {
+                $this->getSafeListener(function (string $name, array $args) use ($changes, $event, $property): void {
                     $model     = reset($args);
                     $object    = new EloquentObject($model);
                     $action    = $this->getAction($model, $event);
@@ -45,13 +46,17 @@ class EloquentListener extends Listener {
                         "{$this->getCategory()}.models.{$object->getType()}.{$property}" => 1,
                     ];
 
-                    $this->logger->event(
-                        $this->getCategory(),
-                        $action,
-                        $object,
-                        $this->getContext($model),
-                        $countable,
-                    );
+                    if ($changes) {
+                        $this->logger->event(
+                            $this->getCategory(),
+                            $action,
+                            $object,
+                            $this->getContext($model),
+                            $countable,
+                        );
+                    } else {
+                        $this->logger->count($countable);
+                    }
                 }),
             );
         }
