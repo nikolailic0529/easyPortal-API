@@ -2,11 +2,14 @@
 
 namespace App\Models\Concerns\CascadeDeletes;
 
+use App\Models\Pivot;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 use Mockery;
@@ -183,6 +186,58 @@ class CascadeProcessorTest extends TestCase {
         $this->assertEquals([$item], $processor->getRelatedObjects($model, 'model', $relation));
         $this->assertEquals([], $processor->getRelatedObjects($model, 'null', $relation));
     }
+
+    /**
+     * @covers ::getRelatedObjects
+     */
+    public function testGetRelatedObjectsBelongsToMany(): void {
+        $processor = new class() extends CascadeProcessor {
+            /**
+             * @inheritDoc
+             */
+            public function getRelatedObjects(Model $model, string $name, Relation $relation): array {
+                return parent::getRelatedObjects($model, $name, $relation);
+            }
+        };
+        $pivot     = new class() extends Pivot {
+            //
+        };
+
+        $relation = Mockery::mock(BelongsToMany::class);
+        $relation
+            ->shouldReceive('getPivotAccessor')
+            ->once()
+            ->andReturn('pivot');
+
+        $item = Mockery::mock(Model::class);
+        $item->makePartial();
+        $item
+            ->shouldReceive('getRelationValue')
+            ->with('pivot')
+            ->once()
+            ->andReturn($pivot);
+
+        $model = Mockery::mock(Model::class);
+        $model
+            ->shouldReceive('getRelationValue')
+            ->with('collection')
+            ->once()
+            ->andReturn(new Collection([$item]));
+        $model
+            ->shouldReceive('getRelationValue')
+            ->with('model')
+            ->once()
+            ->andReturn($item);
+        $model
+            ->shouldReceive('getRelationValue')
+            ->with('null')
+            ->once()
+            ->andReturn(null);
+
+        $this->assertEquals([$pivot], $processor->getRelatedObjects($model, 'collection', $relation));
+        $this->assertEquals([$pivot], $processor->getRelatedObjects($model, 'model', $relation));
+        $this->assertEquals([], $processor->getRelatedObjects($model, 'null', $relation));
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -310,6 +365,51 @@ class CascadeProcessorTest extends TestCase {
                              * @var string
                              */
                             protected $table = 'item_objects';
+                        });
+
+                    return $relation;
+                },
+            ],
+            'Model + BelongsToMany'        => [
+                true,
+                static function (): Model {
+                    return new class() extends Model {
+                        /**
+                         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+                         *
+                         * @var string
+                         */
+                        protected $table = 'items';
+                    };
+                },
+                static function (): Relation {
+                    return Mockery::mock(BelongsToMany::class);
+                },
+            ],
+            'Model + MorphToMany'          => [
+                false,
+                static function (): Model {
+                    return new class() extends Model {
+                        /**
+                         * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+                         *
+                         * @var string
+                         */
+                        protected $table = 'items';
+                    };
+                },
+                static function (): Relation {
+                    $relation = Mockery::mock(MorphToMany::class);
+                    $relation
+                        ->shouldReceive('newModelInstance')
+                        ->once()
+                        ->andReturn(new class() extends Model {
+                            /**
+                             * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+                             *
+                             * @var string
+                             */
+                            protected $table = 'objects';
                         });
 
                     return $relation;
