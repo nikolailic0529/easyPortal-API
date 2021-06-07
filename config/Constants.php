@@ -223,6 +223,13 @@ interface Constants {
     public const EP_LOGGER_ENABLED = false;
 
     /**
+     * Log models changes?
+     */
+    #[Setting('ep.logger.eloquent.models')]
+    #[Group('logger')]
+    public const EP_LOGGER_ELOQUENT_MODELS = false;
+
+    /**
      * Log DataLoader queries?
      */
     #[Setting('ep.logger.data_loader.queries')]
