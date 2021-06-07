@@ -80,7 +80,7 @@ class QueueListener extends Listener {
             $event->job->uuid(),
             $this->logger->start(
                 $this->getCategory(),
-                'job.processed',
+                'job.run',
                 new QueueObject($event->job),
                 $this->getContext($event->job),
             ),
