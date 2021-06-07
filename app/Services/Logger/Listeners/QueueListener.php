@@ -3,6 +3,7 @@
 namespace App\Services\Logger\Listeners;
 
 use App\Services\Logger\Models\Enums\Category;
+use App\Services\Logger\Models\Enums\Status;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Queue\Job as JobContract;
 use Illuminate\Queue\Events\JobExceptionOccurred;
@@ -64,6 +65,7 @@ class QueueListener extends Listener {
         $this->logger->event(
             $this->getCategory(),
             'job.dispatched',
+            Status::success(),
             $object,
             $this->getContext($job),
             [
@@ -78,7 +80,7 @@ class QueueListener extends Listener {
             $event->job->uuid(),
             $this->logger->start(
                 $this->getCategory(),
-                'job.processed',
+                'job.run',
                 new QueueObject($event->job),
                 $this->getContext($event->job),
             ),

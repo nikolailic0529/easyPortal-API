@@ -65,7 +65,7 @@ class Logger {
         $this->log->index    = $this->index++;
         $this->log->parent   = $parent;
         $this->log->status   = Status::active();
-        $this->log->context  = $this->mergeContext($context);
+        $this->log->context  = $this->mergeContext($this->log, $context);
 
         if ($object) {
             $this->log->object_type = $object->getType();
@@ -101,6 +101,7 @@ class Logger {
     public function event(
         Category $category,
         string $action,
+        Status $status = null,
         LoggerObject $object = null,
         array $context = null,
         array $countable = [],
@@ -114,9 +115,10 @@ class Logger {
         $entry           = new Log();
         $entry->category = $category;
         $entry->action   = $action;
+        $entry->status   = $status;
         $entry->index    = $this->index++;
         $entry->parent   = $this->log;
-        $entry->context  = $context ?: null;
+        $entry->context  = $this->mergeContext($entry, $context);
 
         if ($object) {
             $entry->object_id   = $object->getId();
@@ -212,7 +214,7 @@ class Logger {
 
         // Update
         $this->log->status      = $status;
-        $this->log->context     = $this->mergeContext($context);
+        $this->log->context     = $this->mergeContext($this->log, $context);
         $this->log->duration    = $this->getDuration();
         $this->log->finished_at = Date::now();
 
@@ -233,13 +235,13 @@ class Logger {
      *
      * @return array<mixed>|null
      */
-    protected function mergeContext(array|null $context): ?array {
-        $current = $this->log->context;
+    protected function mergeContext(Log $log, array|null $context): ?array {
+        $current = $log->context;
 
         if ($context) {
             $current   = $current ?: [];
             $current[] = [
-                'status'  => $this->log->status,
+                'status'  => $log->status,
                 'context' => $context,
             ];
             $current   = $this->prepareContext($current);
