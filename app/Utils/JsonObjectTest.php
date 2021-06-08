@@ -202,6 +202,18 @@ class JsonObjectTest extends TestCase {
     }
 
     /**
+     * @cover ::__isset
+     */
+    public function testIssetDynamicProperties(): void {
+        $object = new class() extends JsonObject {
+            public string $known = 'value';
+        };
+
+        $this->assertTrue(isset($object->known));
+        $this->assertFalse(isset($object->unknown));
+    }
+
+    /**
      * @covers ::isEmpty
      */
     public function testIsEmpty(): void {
