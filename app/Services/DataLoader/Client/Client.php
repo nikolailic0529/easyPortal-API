@@ -468,7 +468,7 @@ class Client {
             GRAPHQL;
     }
 
-    protected function getResellerPropertiesGraphQL(): string {
+    protected function getCustomerPropertiesGraphQL(): string {
         return <<<'GRAPHQL'
             id
             name
@@ -493,10 +493,6 @@ class Client {
                 locationType
             }
             GRAPHQL;
-    }
-
-    protected function getCustomerPropertiesGraphQL(): string {
-        return $this->getResellerPropertiesGraphQL();
     }
 
     protected function getDistributorPropertiesGraphQL(): string {
