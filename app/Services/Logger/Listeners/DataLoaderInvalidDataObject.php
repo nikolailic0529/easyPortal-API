@@ -15,11 +15,16 @@ class DataLoaderInvalidDataObject implements LoggerObject {
     }
 
     public function getId(): ?string {
+        $id   = null;
         $data = $this->event->getData();
 
-        return $data instanceof ResellerNotFoundException
-            ? $data->getId()
-            : null;
+        if ($data instanceof ResellerNotFoundException) {
+            $id = $data->getId();
+        } else {
+            // empty
+        }
+
+        return $id;
     }
 
     public function getType(): string {
