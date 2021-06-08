@@ -584,9 +584,7 @@ class Client {
                   {$this->getCustomerPropertiesGraphQL()}
                 }
 
-                reseller {
-                  {$this->getResellerPropertiesGraphQL()}
-                }
+                resellerId
 
                 distributor {
                     {$this->getDistributorPropertiesGraphQL()}
@@ -608,7 +606,7 @@ class Client {
             }
 
             reseller {
-              {$this->getResellerPropertiesGraphQL()}
+              id
             }
 
             distributor {

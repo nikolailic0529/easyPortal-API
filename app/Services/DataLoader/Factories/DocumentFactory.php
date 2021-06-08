@@ -12,11 +12,13 @@ use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
+use App\Services\DataLoader\Factories\Concerns\WithReseller;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
+use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
@@ -39,13 +41,14 @@ class DocumentFactory extends ModelFactory {
     use WithType;
     use WithProduct;
     use WithContacts;
+    use WithReseller;
 
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
         protected OemResolver $oems,
         protected TypeResolver $types,
-        protected ResellerFactory $resellers,
+        protected ResellerResolver $resellers,
         protected CustomerFactory $customers,
         protected ProductResolver $products,
         protected CurrencyFactory $currencies,
@@ -60,6 +63,13 @@ class DocumentFactory extends ModelFactory {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return parent::find($type);
     }
+
+    // <editor-fold desc="Getters / Setters">
+    // =========================================================================
+    protected function getResellerResolver(): ResellerResolver {
+        return $this->resellers;
+    }
+    // </editor-fold>
 
     // <editor-fold desc="Factory">
     // =========================================================================
@@ -129,7 +139,7 @@ class DocumentFactory extends ModelFactory {
                     $model->oem         = $document->asset->oem;
                     $model->type        = $this->type(new DocumentModel(), '??');
                     $model->support     = $product($model);
-                    $model->reseller    = $this->resellers->create($document);
+                    $model->reseller    = $this->reseller($document->document);
                     $model->customer    = $this->customers->create($document);
                     $model->currency    = $this->currencies->create($document);
                     $model->language    = $this->languages->create($document);
@@ -284,7 +294,7 @@ class DocumentFactory extends ModelFactory {
                 $model->oem         = $this->documentOem($document);
                 $model->type        = $this->documentType($document);
                 $model->support     = $product ? $product($model) : null;
-                $model->reseller    = $this->resellers->create($document);
+                $model->reseller    = $this->reseller($document);
                 $model->customer    = $this->customers->create($document);
                 $model->currency    = $this->currencies->create($document);
                 $model->language    = $this->languages->create($document);

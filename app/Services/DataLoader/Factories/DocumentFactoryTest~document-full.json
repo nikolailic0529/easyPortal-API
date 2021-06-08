@@ -20,18 +20,7 @@
                 "mail": "alice@hpe.com"
             }
         ],
-        "reseller": {
-            "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
-            "name": "Gusikowski and Simonis",
-            "keycloakGroupId": "ee27ff63-d1dd-43dc-bd63-d3709f1ed2e4",
-            "keycloakName": "virtualcomputersa_3",
-            "companyTypes": [
-                {
-                    "type": "RESELLER",
-                    "status": "ACTIVE"
-                }
-            ]
-        },
+        "resellerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
         "customer": {
             "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
             "name": "Weber, Gusikowski and Simonis",

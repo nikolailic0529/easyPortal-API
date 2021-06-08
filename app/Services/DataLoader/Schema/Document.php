@@ -21,6 +21,11 @@ class Document extends Type {
      */
     public ?array $contactPersons;
 
+    public ?string $resellerId;
+
+    /**
+     * @deprecated
+     */
     public ?Company $reseller;
     public ?Company $customer;
 
