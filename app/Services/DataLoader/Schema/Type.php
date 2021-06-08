@@ -6,6 +6,10 @@ use App\Utils\JsonObject;
 use ReflectionClass;
 
 abstract class Type extends JsonObject {
+    public function getName(): string {
+        return (new ReflectionClass($this))->getShortName();
+    }
+
     /**
      * @deprecated Please use `new MyType([])` instead.
      *

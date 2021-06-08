@@ -14,7 +14,7 @@ use App\Models\Product;
 use App\Models\Reseller;
 use App\Models\Status;
 use App\Models\Type as TypeModel;
-use App\Services\DataLoader\Events\InvalidDataFound;
+use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\InvalidData;
 use App\Services\DataLoader\Exceptions\LocationNotFoundException;
@@ -36,6 +36,7 @@ use App\Services\DataLoader\Resolvers\TagResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use Closure;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -214,7 +215,7 @@ class AssetFactory extends ModelFactory {
             ->groupBy(static function (AssetDocument $document): string {
                 return $document->documentNumber;
             })
-            ->map(function (Collection $entries) use ($model, $asset): ?DocumentModel {
+            ->map(function (Collection $entries) use ($model): ?DocumentModel {
                 try {
                     return $this->getDocumentFactory()->create(new AssetDocumentObject([
                         'asset'    => $model,
@@ -222,7 +223,7 @@ class AssetFactory extends ModelFactory {
                         'entries'  => $entries->all(),
                     ]));
                 } catch (InvalidData $exception) {
-                    $this->dispatcher->dispatch(new InvalidDataFound($exception, $asset));
+                    $this->dispatcher->dispatch(new ObjectSkipped($entries->first(), $exception));
                 } catch (Throwable $exception) {
                     $this->logger->error('Failed to process AssetDocument.', [
                         'asset'     => $model,

@@ -10,11 +10,14 @@ use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Support\Facades\Date;
 use LogicException;
 
+use Throwable;
+
 use function array_column;
 use function array_pop;
 use function array_reverse;
 use function array_slice;
 use function count;
+use function is_array;
 use function microtime;
 use function round;
 use function sprintf;
@@ -256,7 +259,19 @@ class Logger {
      * @return array<mixed>|null
      */
     protected function prepareContext(array|null $context): ?array {
-        // TODO [Logger] Serialize exceptions?
+        // TODO [Logger] We should use the same method as Laravel's Logger
+
+        if (is_array($context)) {
+            foreach ($context as $key => $value) {
+                if ($value instanceof Throwable) {
+                    $context[$key] = $value->getMessage();
+                } elseif (is_array($value)) {
+                    $context[$key] = $this->prepareContext($value);
+                } else {
+                    // no action
+                }
+            }
+        }
 
         return $context ?: null;
     }

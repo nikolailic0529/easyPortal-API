@@ -6,7 +6,7 @@ use App\Models\Customer;
 use App\Models\Model;
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\QueryIterator;
-use App\Services\DataLoader\Events\InvalidDataFound;
+use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\InvalidData;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
@@ -71,13 +71,7 @@ trait WithAssets {
             $factory->getCustomerFactory()?->prefetch($assets, false, static function (Collection $customers): void {
                 $customers->loadMissing('locations');
             });
-            $this->getResellersFactory()?->prefetch(
-                $assets,
-                false,
-                static function (Collection $resellers): void {
-                    $resellers->loadMissing('locations');
-                },
-            );
+            $this->getResellersFactory()?->prefetch($assets, false);
             $factory->getDocumentFactory()?->prefetch($assets, false, static function (Collection $documents): void {
                 $documents->loadMissing('entries');
                 $documents->loadMissing('entries.product');
@@ -86,16 +80,16 @@ trait WithAssets {
 
         foreach ($this->getCurrentAssets($owner)->each($prefetch) as $asset) {
             try {
-                $asset = $factory->create($asset);
+                $model = $factory->create($asset);
 
-                if ($asset) {
-                    $resellerId                          = (string) $asset->reseller_id;
-                    $customerId                          = (string) $asset->customer_id;
-                    $updated[]                           = $asset->getKey();
+                if ($model) {
+                    $resellerId                          = (string) $model->reseller_id;
+                    $customerId                          = (string) $model->customer_id;
+                    $updated[]                           = $model->getKey();
                     $resellers[$resellerId][$customerId] = $customerId;
                 }
             } catch (InvalidData $exception) {
-                $this->dispatcher->dispatch(new InvalidDataFound($exception, $asset));
+                $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
             } catch (Throwable $exception) {
                 $this->logger->warning('Failed to process Asset.', [
                     'asset'     => $asset,
@@ -115,15 +109,15 @@ trait WithAssets {
 
             if ($asset) {
                 try {
-                    $asset = $factory->create($asset);
+                    $model = $factory->create($asset);
 
-                    if ($asset) {
-                        $resellerId                          = (string) $asset->reseller_id;
-                        $customerId                          = (string) $asset->customer_id;
+                    if ($model) {
+                        $resellerId                          = (string) $model->reseller_id;
+                        $customerId                          = (string) $model->customer_id;
                         $resellers[$resellerId][$customerId] = $customerId;
                     }
                 } catch (InvalidData $exception) {
-                    $this->dispatcher->dispatch(new InvalidDataFound($exception, $asset));
+                    $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
                 } catch (Throwable $exception) {
                     $this->logger->warning('Failed to process Asset.', [
                         'asset'     => $asset,

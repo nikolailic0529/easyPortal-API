@@ -2,8 +2,6 @@
 
 namespace App\Services\DataLoader\Exceptions;
 
-use App\Exceptions\Contextable;
-
-abstract class InvalidData extends DataLoaderException implements Contextable {
+abstract class InvalidData extends DataLoaderException {
     // empty
 }

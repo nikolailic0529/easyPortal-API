@@ -5,7 +5,7 @@ namespace App\Services\Logger\Listeners;
 use App\Services\DataLoader\Client\Events\RequestFailed;
 use App\Services\DataLoader\Client\Events\RequestStarted;
 use App\Services\DataLoader\Client\Events\RequestSuccessful;
-use App\Services\DataLoader\Events\InvalidDataFound;
+use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -32,8 +32,8 @@ class DataLoaderListener extends Listener {
             $this->requestFailed($event);
         }));
 
-        $dispatcher->listen(InvalidDataFound::class, $this->getSafeListener(function (InvalidDataFound $event): void {
-            $this->invalidData($event);
+        $dispatcher->listen(ObjectSkipped::class, $this->getSafeListener(function (ObjectSkipped $event): void {
+            $this->objectSkipped($event);
         }));
     }
 
@@ -100,7 +100,7 @@ class DataLoaderListener extends Listener {
         $context   = [
             'params'    => $event->getParams(),
             'response'  => $event->getResponse(),
-            'exception' => $event->getException()?->getMessage(),
+            'exception' => $event->getException(),
         ];
         $countable = [
             "{$this->getCategory()}.total.requests.failed"                  => 1,
@@ -128,20 +128,19 @@ class DataLoaderListener extends Listener {
         }
     }
 
-    protected function invalidData(InvalidDataFound $event): void {
-        $object    = new DataLoaderInvalidDataObject($event);
+    protected function objectSkipped(ObjectSkipped $event): void {
+        $object    = new DataLoaderSkippedObject($event);
         $context   = [
-            'object'  => $event->getObject(),
-            'context' => $event->getContext(),
+            'reason' => $event->getReason(),
         ];
         $countable = [
-            "{$this->getCategory()}.total.invalid"                => 1,
-            "{$this->getCategory()}.invalid.{$object->getType()}" => 1,
+            "{$this->getCategory()}.total.skipped"                => 1,
+            "{$this->getCategory()}.skipped.{$object->getType()}" => 1,
         ];
 
         $this->logger->event(
             $this->getCategory(),
-            'invalid',
+            'skipped',
             null,
             $object,
             $context,

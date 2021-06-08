@@ -15,7 +15,7 @@ use App\Models\Reseller;
 use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Container\Container;
-use App\Services\DataLoader\Events\InvalidDataFound;
+use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Normalizer;
@@ -493,7 +493,7 @@ class AssetFactoryTest extends TestCase {
         // Test
         $this->assertCount(0, $factory->assetDocuments($model, $asset));
 
-        Event::assertDispatched(InvalidDataFound::class);
+        Event::assertDispatched(ObjectSkipped::class);
     }
 
     /**
