@@ -23,24 +23,24 @@ class ResellersImporterCronJob extends CronJob implements ShouldBeUnique, NamedJ
         Container $container,
         LoggerInterface $logger,
         DataLoaderService $service,
-        ResellerFactory $resolver,
+        ResellerFactory $factory,
     ): void {
         $client   = $service->getClient();
-        $prefetch = static function (array $resellers) use ($resolver): void {
-            $resolver->prefetch($resellers);
+        $prefetch = static function (array $resellers) use ($factory): void {
+            $factory->prefetch($resellers);
         };
 
         foreach ($client->getResellers()->each($prefetch) as $reseller) {
             // If reseller exists we just skip it.
-            if ($resolver->find($reseller)) {
+            if ($factory->find($reseller)) {
                 continue;
             }
 
-            // If not - we dispatch a job to import it.
+            // If not - we create it and dispatch the job to update assets/documents
             try {
                 $container
                     ->make(ResellerUpdate::class)
-                    ->initialize($reseller->id)
+                    ->initialize($factory->create($reseller)->getKey())
                     ->dispatch();
             } catch (Throwable $exception) {
                 $logger->warning(__METHOD__, [
