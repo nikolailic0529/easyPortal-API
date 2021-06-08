@@ -14,12 +14,14 @@ use App\Models\Product;
 use App\Models\Reseller;
 use App\Models\Status;
 use App\Models\Type as TypeModel;
+use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
+use App\Services\DataLoader\Exceptions\InvalidData;
 use App\Services\DataLoader\Exceptions\LocationNotFoundException;
-use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
+use App\Services\DataLoader\Factories\Concerns\WithReseller;
 use App\Services\DataLoader\Factories\Concerns\WithStatus;
 use App\Services\DataLoader\Factories\Concerns\WithTag;
 use App\Services\DataLoader\Factories\Concerns\WithType;
@@ -34,11 +36,14 @@ use App\Services\DataLoader\Resolvers\TagResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
+use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use Closure;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
+use Throwable;
 
 use function array_map;
 use function array_merge;
@@ -46,6 +51,7 @@ use function array_unique;
 use function sprintf;
 
 class AssetFactory extends ModelFactory {
+    use WithReseller;
     use WithOem;
     use WithType;
     use WithProduct;
@@ -54,19 +60,19 @@ class AssetFactory extends ModelFactory {
     use WithTag;
 
     protected ?CustomerFactory $customerFactory = null;
-    protected ?ResellerFactory $resellerFactory = null;
     protected ?DocumentFactory $documentFactory = null;
     protected ?ContactFactory  $contactFactory  = null;
 
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
+        protected Dispatcher $dispatcher,
         protected AssetResolver $assets,
         protected OemResolver $oems,
         protected TypeResolver $types,
         protected ProductResolver $products,
         protected CustomerResolver $customerResolver,
-        protected ResellerResolver $resellerResolver,
+        protected ResellerResolver $resellers,
         protected LocationFactory $locations,
         protected StatusResolver $statuses,
         protected AssetCoverageFactory $coverages,
@@ -75,24 +81,18 @@ class AssetFactory extends ModelFactory {
         parent::__construct($logger, $normalizer);
     }
 
-    // <editor-fold desc="Settings">
+    // <editor-fold desc="Getters / Setters">
     // =========================================================================
+    protected function getResellerResolver(): ResellerResolver {
+        return $this->resellers;
+    }
+
     public function getCustomerFactory(): ?CustomerFactory {
         return $this->customerFactory;
     }
 
     public function setCustomersFactory(?CustomerFactory $factory): static {
         $this->customerFactory = $factory;
-
-        return $this;
-    }
-
-    public function getResellerFactory(): ?ResellerFactory {
-        return $this->resellerFactory;
-    }
-
-    public function setResellerFactory(?ResellerFactory $factory): static {
-        $this->resellerFactory = $factory;
 
         return $this;
     }
@@ -153,7 +153,7 @@ class AssetFactory extends ModelFactory {
         // Get/Create
         $created = false;
         $factory = $this->factory(function (AssetModel $model) use (&$created, $asset): AssetModel {
-            $reseller = $this->assetReseller($asset);
+            $reseller = $this->reseller($asset);
             $customer = $this->assetCustomer($asset);
             $location = $this->assetLocation($asset, $customer, $reseller);
 
@@ -216,11 +216,23 @@ class AssetFactory extends ModelFactory {
                 return $document->documentNumber;
             })
             ->map(function (Collection $entries) use ($model): ?DocumentModel {
-                return $this->getDocumentFactory()->create(new AssetDocumentObject([
-                    'asset'    => $model,
-                    'document' => $entries->first(),
-                    'entries'  => $entries->all(),
-                ]));
+                try {
+                    return $this->getDocumentFactory()->create(new AssetDocumentObject([
+                        'asset'    => $model,
+                        'document' => $entries->first(),
+                        'entries'  => $entries->all(),
+                    ]));
+                } catch (InvalidData $exception) {
+                    $this->dispatcher->dispatch(new ObjectSkipped($entries->first(), $exception));
+                } catch (Throwable $exception) {
+                    $this->logger->error('Failed to process AssetDocument.', [
+                        'asset'     => $model,
+                        'entries'   => $entries->all(),
+                        'exception' => $exception,
+                    ]);
+                }
+
+                return null;
             })
             ->filter(static function (?DocumentModel $document): bool {
                 return (bool) $document;
@@ -373,29 +385,6 @@ class AssetFactory extends ModelFactory {
         );
 
         return $product;
-    }
-
-    protected function assetReseller(Asset $asset): ?Reseller {
-        $id       = $asset->resellerId ?? (isset($asset->reseller) ? $asset->reseller->id : null);
-        $reseller = null;
-
-        if ($id) {
-            $reseller = $this->resellerResolver->get($id);
-        }
-
-        if ($id && !$reseller && $this->resellerFactory) {
-            $reseller = $this->resellerFactory->create($asset->reseller);
-        }
-
-        if ($id && !$reseller) {
-            throw new ResellerNotFoundException(sprintf(
-                'Reseller `%s` not found (asset `%s`).',
-                $id,
-                $asset->id,
-            ));
-        }
-
-        return $reseller;
     }
 
     protected function assetCustomer(Asset $asset): ?Customer {

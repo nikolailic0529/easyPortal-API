@@ -13,9 +13,7 @@ use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Asset;
-use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use Closure;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -93,21 +91,12 @@ class ResellerFactory extends ModelFactory {
     public function create(Type $type): ?Reseller {
         $model = null;
 
-        if ($type instanceof AssetDocumentObject) {
-            $model = $this->createFromAssetDocumentObject($type);
-        } elseif ($type instanceof AssetDocument) {
-            $model = $this->createFromAssetDocument($type);
-        } elseif ($type instanceof Document) {
-            $model = $this->createFromDocument($type);
-        } elseif ($type instanceof Company) {
+        if ($type instanceof Company) {
             $model = $this->createFromCompany($type);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
                 implode('`, `', [
-                    AssetDocumentObject::class,
-                    AssetDocument::class,
-                    Document::class,
                     Company::class,
                 ]),
             ));
@@ -119,32 +108,6 @@ class ResellerFactory extends ModelFactory {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-    protected function createFromAssetDocumentObject(AssetDocumentObject $document): ?Reseller {
-        $reseller = null;
-
-        if (isset($document->document->document)) {
-            $reseller = $this->createFromDocument($document->document->document);
-        }
-
-        if (!$reseller) {
-            $reseller = $this->createFromAssetDocument($document->document);
-        }
-
-        return $reseller;
-    }
-
-    protected function createFromAssetDocument(AssetDocument $document): ?Reseller {
-        return isset($document->reseller) && $document->reseller
-            ? $this->createFromCompany($document->reseller)
-            : null;
-    }
-
-    protected function createFromDocument(Document $document): ?Reseller {
-        return isset($document->reseller) && $document->reseller
-            ? $this->createFromCompany($document->reseller)
-            : null;
-    }
-
     protected function createFromCompany(Company $company): ?Reseller {
         // Get/Create
         $created  = false;

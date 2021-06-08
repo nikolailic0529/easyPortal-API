@@ -17,7 +17,7 @@ use function str_contains;
 use function str_starts_with;
 use function trim;
 
-class DataLoaderObject implements LoggerObject {
+class DataLoaderRequestObject implements LoggerObject {
     public function __construct(
         protected RequestEvent $event,
     ) {

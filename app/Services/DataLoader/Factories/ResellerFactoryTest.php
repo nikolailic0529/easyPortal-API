@@ -6,9 +6,7 @@ use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Asset;
-use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
@@ -70,84 +68,6 @@ class ResellerFactoryTest extends TestCase {
         }
 
         $factory->create($type);
-    }
-
-    /**
-     * @covers ::createFromAssetDocumentObject
-     */
-    public function testCreateFromAssetDocumentObject(): void {
-        $document = new AssetDocumentObject([
-            'document' => [
-                'reseller' => [
-                    'id' => $this->faker->uuid,
-                ],
-                'document' => [
-                    'reseller' => [
-                        'id' => $this->faker->uuid,
-                    ],
-                ],
-            ],
-        ]);
-
-        $factory = Mockery::mock(ResellerFactory::class);
-        $factory->makePartial();
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory
-            ->shouldReceive('createFromDocument')
-            ->once()
-            ->with($document->document->document)
-            ->andReturn(null);
-        $factory
-            ->shouldReceive('createFromAssetDocument')
-            ->once()
-            ->with($document->document)
-            ->andReturn(null);
-
-        $factory->create($document);
-    }
-
-    /**
-     * @covers ::createFromAssetDocument
-     */
-    public function testCreateFromAssetDocument(): void {
-        $document = new AssetDocument([
-            'reseller' => [
-                'id' => $this->faker->uuid,
-            ],
-        ]);
-
-        $factory = Mockery::mock(ResellerFactory::class);
-        $factory->makePartial();
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory
-            ->shouldReceive('createFromCompany')
-            ->once()
-            ->with($document->reseller)
-            ->andReturn(null);
-
-        $factory->create($document);
-    }
-
-    /**
-     * @covers ::createFromDocument
-     */
-    public function testCreateFromDocument(): void {
-        $document = new Document([
-            'reseller' => [
-                'id' => $this->faker->uuid,
-            ],
-        ]);
-
-        $factory = Mockery::mock(ResellerFactory::class);
-        $factory->makePartial();
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory
-            ->shouldReceive('createFromCompany')
-            ->once()
-            ->with($document->reseller)
-            ->andReturn(null);
-
-        $factory->create($document);
     }
 
     /**
@@ -307,11 +227,8 @@ class ResellerFactoryTest extends TestCase {
      */
     public function dataProviderCreate(): array {
         return [
-            AssetDocumentObject::class => ['createFromAssetDocumentObject', new AssetDocumentObject()],
-            AssetDocument::class       => ['createFromAssetDocument', new AssetDocument()],
-            Document::class            => ['createFromDocument', new Document()],
-            Company::class             => ['createFromCompany', new Company()],
-            'Unknown'                  => [
+            Company::class => ['createFromCompany', new Company()],
+            'Unknown'      => [
                 null,
                 new class() extends Type {
                     // empty

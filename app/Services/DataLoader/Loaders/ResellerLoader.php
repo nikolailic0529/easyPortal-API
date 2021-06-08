@@ -7,6 +7,7 @@ use App\Models\Model;
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\QueryIterator;
+use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
@@ -17,8 +18,8 @@ use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\Concerns\WithAssets;
 use App\Services\DataLoader\Loaders\Concerns\WithContacts;
 use App\Services\DataLoader\Loaders\Concerns\WithLocations;
-use App\Services\DataLoader\Schema\Company;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 use Psr\Log\LoggerInterface;
 
@@ -31,6 +32,7 @@ class ResellerLoader extends Loader {
     public function __construct(
         LoggerInterface $logger,
         Client $client,
+        protected Dispatcher $dispatcher,
         protected ResellerFactory $resellers,
         protected CustomerFactory $customers,
         protected LocationFactory $locations,
@@ -44,27 +46,31 @@ class ResellerLoader extends Loader {
     // <editor-fold desc="API">
     // =========================================================================
     public function load(string $id): bool {
-        // Load company
-        $company = $this->client->getCompanyById($id);
-
-        $this->callWithoutGlobalScopes([OwnedByOrganizationScope::class], function () use ($id, $company): void {
-            $this->process($id, $company);
+        // Process
+        $this->callWithoutGlobalScopes([OwnedByOrganizationScope::class], function () use ($id): void {
+            $this->process($id);
         });
 
         // Return
         return true;
     }
 
-    protected function process(string $id, ?Company $company): void {
+    protected function process(string $id): void {
         $reseller = null;
 
         try {
-            if ($company) {
-                $resellers = $this->getResellerFactory();
-                $reseller  = $resellers->create($company);
+            $company = $this->client->getCompanyById($id);
 
-                if ($this->isWithAssets()) {
-                    $this->loadAssets($reseller);
+            if ($company) {
+                $factory  = $this->getResellersFactory();
+                $reseller = $factory->find($company);
+
+                if ($reseller) {
+                    $reseller = $factory->create($company);
+
+                    if ($this->isWithAssets()) {
+                        $this->loadAssets($reseller);
+                    }
                 }
             } else {
                 $reseller = Reseller::query()->whereKey($id)->first();
@@ -74,6 +80,10 @@ class ResellerLoader extends Loader {
                         'id' => $id,
                     ]);
                 }
+            }
+
+            if (!$reseller) {
+                throw new ResellerNotFoundException($id, $company);
             }
         } finally {
             if ($reseller) {
@@ -102,7 +112,7 @@ class ResellerLoader extends Loader {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-    protected function getResellerFactory(): ResellerFactory {
+    protected function getResellersFactory(): ResellerFactory {
         return $this->resellers
             ->setLocationFactory(
                 $this->isWithLocations() ? $this->locations : null,

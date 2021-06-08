@@ -5,6 +5,7 @@ namespace App\Services\Logger\Listeners;
 use App\Services\DataLoader\Client\Events\RequestFailed;
 use App\Services\DataLoader\Client\Events\RequestStarted;
 use App\Services\DataLoader\Client\Events\RequestSuccessful;
+use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -20,20 +21,24 @@ class DataLoaderListener extends Listener {
 
     public function subscribe(Dispatcher $dispatcher): void {
         $dispatcher->listen(RequestStarted::class, $this->getSafeListener(function (RequestStarted $event): void {
-            $this->started($event);
+            $this->requestStarted($event);
         }));
 
         $dispatcher->listen(RequestSuccessful::class, $this->getSafeListener(function (RequestSuccessful $event): void {
-            $this->success($event);
+            $this->requestSuccess($event);
         }));
 
         $dispatcher->listen(RequestFailed::class, $this->getSafeListener(function (RequestFailed $event): void {
-            $this->failed($event);
+            $this->requestFailed($event);
+        }));
+
+        $dispatcher->listen(ObjectSkipped::class, $this->getSafeListener(function (ObjectSkipped $event): void {
+            $this->objectSkipped($event);
         }));
     }
 
-    protected function started(RequestStarted $event): void {
-        $object    = new DataLoaderObject($event);
+    protected function requestStarted(RequestStarted $event): void {
+        $object    = new DataLoaderRequestObject($event);
         $context   = $event->getParams();
         $enabled   = $this->config->get('ep.logger.data_loader.queries');
         $countable = [
@@ -57,7 +62,7 @@ class DataLoaderListener extends Listener {
         if ($enabled) {
             $this->stack[] = new DataLoaderRequest($object, $this->logger->start(
                 $this->getCategory(),
-                $this->getAction($object),
+                $this->getRequestAction($object),
                 $object,
                 $context,
             ));
@@ -66,10 +71,13 @@ class DataLoaderListener extends Listener {
         }
     }
 
-    protected function success(RequestSuccessful $event): void {
-        $object    = new DataLoaderObject($event);
+    protected function requestSuccess(RequestSuccessful $event): void {
+        $object    = new DataLoaderRequestObject($event);
         $request   = array_pop($this->stack);
         $duration  = $request->getDuration();
+        $context   = [
+            'objects' => $object->getCount(),
+        ];
         $countable = [
             "{$this->getCategory()}.total.requests.success"                 => 1,
             "{$this->getCategory()}.total.requests.duration"                => $duration,
@@ -79,20 +87,20 @@ class DataLoaderListener extends Listener {
         ];
 
         if ($request->getTransaction()) {
-            $this->logger->success($request->getTransaction(), [], $countable);
+            $this->logger->success($request->getTransaction(), $context, $countable);
         } else {
             $this->logger->count($countable);
         }
     }
 
-    protected function failed(RequestFailed $event): void {
-        $object    = new DataLoaderObject($event);
+    protected function requestFailed(RequestFailed $event): void {
+        $object    = new DataLoaderRequestObject($event);
         $request   = array_pop($this->stack);
         $duration  = $request->getDuration();
         $context   = [
             'params'    => $event->getParams(),
             'response'  => $event->getResponse(),
-            'exception' => $event->getException()?->getMessage(),
+            'exception' => $event->getException(),
         ];
         $countable = [
             "{$this->getCategory()}.total.requests.failed"                  => 1,
@@ -111,7 +119,7 @@ class DataLoaderListener extends Listener {
         } else {
             $this->logger->event(
                 $this->getCategory(),
-                $this->getAction($object),
+                $this->getRequestAction($object),
                 Status::failed(),
                 $object,
                 $context,
@@ -120,7 +128,27 @@ class DataLoaderListener extends Listener {
         }
     }
 
-    protected function getAction(DataLoaderObject $object): string {
+    protected function objectSkipped(ObjectSkipped $event): void {
+        $object    = new DataLoaderSkippedObject($event);
+        $context   = [
+            'reason' => $event->getReason(),
+        ];
+        $countable = [
+            "{$this->getCategory()}.total.skipped"                => 1,
+            "{$this->getCategory()}.skipped.{$object->getType()}" => 1,
+        ];
+
+        $this->logger->event(
+            $this->getCategory(),
+            'skipped',
+            null,
+            $object,
+            $context,
+            $countable,
+        );
+    }
+
+    protected function getRequestAction(DataLoaderRequestObject $object): string {
         return $object->isMutation() ? 'graphql.mutation' : 'graphql.query';
     }
 

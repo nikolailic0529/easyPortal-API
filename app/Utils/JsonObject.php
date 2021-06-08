@@ -137,6 +137,10 @@ abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
     public function __set(string $name, mixed $value): void {
         $this->__get($name);
     }
+
+    public function __isset(string $name): bool {
+        return isset($this->{$name});
+    }
     // </editor-fold>
 
     // <editor-fold desc="Functions">

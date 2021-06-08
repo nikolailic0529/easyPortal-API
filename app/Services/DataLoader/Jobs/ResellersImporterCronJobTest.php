@@ -40,7 +40,46 @@ class ResellersImporterCronJobTest extends TestCase {
         $c       = new Company(['id' => $this->faker->uuid]);
         $items   = [$a, $b, $c];
         $logger  = $this->app->make(LoggerInterface::class);
-        $factory = $this->app->make(ResellerFactory::class);
+        $closure = static function (Company $company) {
+            return Reseller::factory()->make([
+                'id' => $company->id,
+            ]);
+        };
+
+        $factory = Mockery::mock(ResellerFactory::class);
+        $factory->makePartial();
+
+        $factory
+            ->shouldReceive('find')
+            ->with($a)
+            ->once()
+            ->andReturn($o);
+        $factory
+            ->shouldReceive('create')
+            ->with($a)
+            ->never();
+
+        $factory
+            ->shouldReceive('find')
+            ->with($b)
+            ->once()
+            ->andReturn(null);
+        $factory
+            ->shouldReceive('create')
+            ->with($b)
+            ->once()
+            ->andReturnUsing($closure);
+
+        $factory
+            ->shouldReceive('find')
+            ->with($c)
+            ->once()
+            ->andReturn(null);
+        $factory
+            ->shouldReceive('create')
+            ->with($c)
+            ->once()
+            ->andReturnUsing($closure);
 
         $client = Mockery::mock(Client::class);
         $client

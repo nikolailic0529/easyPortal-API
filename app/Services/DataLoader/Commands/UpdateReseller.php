@@ -12,7 +12,7 @@ use Throwable;
 use function array_unique;
 use function count;
 
-class Reseller extends Command {
+class UpdateReseller extends Command {
     use WithBooleanOptions;
 
     /**
@@ -20,8 +20,8 @@ class Reseller extends Command {
      *
      * @var string
      */
-    protected $signature = 'ep:data-loader-reseller
-        {id* : The ID of the company}
+    protected $signature = 'ep:data-loader-update-reseller
+        {id* : The ID of the reseller}
         {--l|locations : Load locations (default)}
         {--L|no-locations : Skip locations}
         {--a|assets : Load assets}

@@ -96,9 +96,6 @@ class Client {
             query getAssets(\$id: String!) {
                 getAssets(args: [{key: "id", value: \$id}]) {
                     {$this->getAssetPropertiesGraphQL()}
-                    reseller {
-                        {$this->getResellerPropertiesGraphQL()}
-                    }
                     customer {
                         {$this->getCustomerPropertiesGraphQL()}
                     }
@@ -128,9 +125,6 @@ class Client {
                 query items(\$id: String!, \$limit: Int, \$offset: Int) {
                     getAssetsByCustomerId(customerId: \$id, limit: \$limit, offset: \$offset) {
                         {$this->getAssetPropertiesGraphQL()}
-                        reseller {
-                            {$this->getResellerPropertiesGraphQL()}
-                        }
                     }
                 }
                 GRAPHQL,
@@ -156,9 +150,6 @@ class Client {
                 query items(\$id: String!, \$limit: Int, \$offset: Int) {
                     getAssetsByCustomerId(customerId: \$id, limit: \$limit, offset: \$offset) {
                         {$this->getAssetPropertiesGraphQL()}
-                        reseller {
-                            {$this->getResellerPropertiesGraphQL()}
-                        }
                         assetDocument {
                             {$this->getAssetDocumentsPropertiesGraphQL()}
                         }
@@ -477,7 +468,7 @@ class Client {
             GRAPHQL;
     }
 
-    protected function getResellerPropertiesGraphQL(): string {
+    protected function getCustomerPropertiesGraphQL(): string {
         return <<<'GRAPHQL'
             id
             name
@@ -502,10 +493,6 @@ class Client {
                 locationType
             }
             GRAPHQL;
-    }
-
-    protected function getCustomerPropertiesGraphQL(): string {
-        return $this->getResellerPropertiesGraphQL();
     }
 
     protected function getDistributorPropertiesGraphQL(): string {
@@ -593,9 +580,7 @@ class Client {
                   {$this->getCustomerPropertiesGraphQL()}
                 }
 
-                reseller {
-                  {$this->getResellerPropertiesGraphQL()}
-                }
+                resellerId
 
                 distributor {
                     {$this->getDistributorPropertiesGraphQL()}
@@ -617,7 +602,7 @@ class Client {
             }
 
             reseller {
-              {$this->getResellerPropertiesGraphQL()}
+              id
             }
 
             distributor {

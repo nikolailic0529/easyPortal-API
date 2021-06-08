@@ -6,6 +6,8 @@ use App\Models\Customer;
 use App\Models\Model;
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\QueryIterator;
+use App\Services\DataLoader\Events\ObjectSkipped;
+use App\Services\DataLoader\Exceptions\InvalidData;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
@@ -13,6 +15,7 @@ use App\Services\DataLoader\Factories\DocumentFactory;
 use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Schema\Company;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Throwable;
@@ -23,6 +26,7 @@ use function array_filter;
  * @mixin \App\Services\DataLoader\Loader
  */
 trait WithAssets {
+    protected Dispatcher      $dispatcher;
     protected ResellerFactory $resellers;
     protected CustomerFactory $customers;
     protected LocationFactory $locations;
@@ -67,13 +71,7 @@ trait WithAssets {
             $factory->getCustomerFactory()?->prefetch($assets, false, static function (Collection $customers): void {
                 $customers->loadMissing('locations');
             });
-            $factory->getResellerFactory()?->prefetch(
-                $assets,
-                false,
-                static function (Collection $resellers): void {
-                    $resellers->loadMissing('locations');
-                },
-            );
+            $this->getResellersFactory()?->prefetch($assets, false);
             $factory->getDocumentFactory()?->prefetch($assets, false, static function (Collection $documents): void {
                 $documents->loadMissing('entries');
                 $documents->loadMissing('entries.product');
@@ -82,16 +80,18 @@ trait WithAssets {
 
         foreach ($this->getCurrentAssets($owner)->each($prefetch) as $asset) {
             try {
-                $asset = $factory->create($asset);
+                $model = $factory->create($asset);
 
-                if ($asset) {
-                    $resellerId                          = (string) $asset->reseller_id;
-                    $customerId                          = (string) $asset->customer_id;
-                    $updated[]                           = $asset->getKey();
+                if ($model) {
+                    $resellerId                          = (string) $model->reseller_id;
+                    $customerId                          = (string) $model->customer_id;
+                    $updated[]                           = $model->getKey();
                     $resellers[$resellerId][$customerId] = $customerId;
                 }
+            } catch (InvalidData $exception) {
+                $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
             } catch (Throwable $exception) {
-                $this->logger->warning(__METHOD__, [
+                $this->logger->warning('Failed to process Asset.', [
                     'asset'     => $asset,
                     'exception' => $exception,
                 ]);
@@ -109,15 +109,17 @@ trait WithAssets {
 
             if ($asset) {
                 try {
-                    $asset = $factory->create($asset);
+                    $model = $factory->create($asset);
 
-                    if ($asset) {
-                        $resellerId                          = (string) $asset->reseller_id;
-                        $customerId                          = (string) $asset->customer_id;
+                    if ($model) {
+                        $resellerId                          = (string) $model->reseller_id;
+                        $customerId                          = (string) $model->customer_id;
                         $resellers[$resellerId][$customerId] = $customerId;
                     }
+                } catch (InvalidData $exception) {
+                    $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
                 } catch (Throwable $exception) {
-                    $this->logger->warning(__METHOD__, [
+                    $this->logger->warning('Failed to process Asset.', [
                         'asset'     => $asset,
                         'exception' => $exception,
                     ]);
@@ -139,7 +141,7 @@ trait WithAssets {
             $reseller = null;
 
             if ($resellerId) {
-                $reseller = $this->resellers->find(new Company([
+                $reseller = $this->getResellersFactory()->find(new Company([
                     'id' => $resellerId,
                 ]));
             }
@@ -203,20 +205,25 @@ trait WithAssets {
     }
 
     protected function getAssetsFactory(): AssetFactory {
+        $this
+            ->getResellersFactory()
+            ->setLocationFactory($this->locations);
+
         $customers = $this->customers
             ->setLocationFactory($this->locations)
             ->setContactsFactory($this->contacts);
-        $resellers = $this->resellers
-            ->setLocationFactory($this->locations);
         $documents = $this->isWithAssetsDocuments()
             ? $this->documents->setContactsFactory($this->contacts)
             : null;
         $factory   = $this->assets
-            ->setResellerFactory($resellers)
             ->setCustomersFactory($customers)
             ->setDocumentFactory($documents)
             ->setContactsFactory($this->contacts);
 
         return $factory;
+    }
+
+    protected function getResellersFactory(): ResellerFactory {
+        return $this->resellers;
     }
 }

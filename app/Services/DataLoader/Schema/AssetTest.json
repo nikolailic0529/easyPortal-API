@@ -1,10 +1,6 @@
 {
     "id": "4fcd6fd9-c220-4857-bc77-333a9c63dd09",
     "resellerId": "5c74df1c-5022-4074-a441-052b6a144b0a",
-    "reseller": {
-        "id": "5c74df1c-5022-4074-a441-052b6a144b0a",
-        "name": "Simonis"
-    },
     "customerId": "ee27ff63-d1dd-43dc-bd63-d3709f1ed2e4",
     "customer": {
         "id": "ee27ff63-d1dd-43dc-bd63-d3709f1ed2e4",

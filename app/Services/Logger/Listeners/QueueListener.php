@@ -104,7 +104,7 @@ class QueueListener extends Listener {
             array_pop($this->stack);
 
             $this->logger->fail($transaction, [
-                'exception' => $event->exception?->getMessage(),
+                'exception' => $event->exception,
             ]);
         }
     }
