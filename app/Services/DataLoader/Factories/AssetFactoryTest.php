@@ -16,11 +16,9 @@ use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
-use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
-use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Type;
@@ -751,94 +749,6 @@ class AssetFactoryTest extends TestCase {
             ->andReturns();
 
         $factory->assetProduct($asset);
-    }
-
-    /**
-     * @covers ::assetReseller
-     */
-    public function testAssetResellerExistsThroughProvider(): void {
-        $reseller = Reseller::factory()->make();
-        $resolver = Mockery::mock(ResellerResolver::class);
-
-        $resolver
-            ->shouldReceive('get')
-            ->with($reseller->getKey())
-            ->once()
-            ->andReturn($reseller);
-
-        $factory = new class($resolver) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(ResellerResolver $resolver) {
-                $this->resellers = $resolver;
-            }
-
-            public function assetReseller(Asset $asset): ?Reseller {
-                return parent::assetReseller($asset);
-            }
-        };
-
-        $this->assertEquals($reseller, $factory->assetReseller(new Asset([
-            'id'         => $this->faker->uuid,
-            'resellerId' => $reseller->getKey(),
-        ])));
-    }
-
-    /**
-     * @covers ::assetReseller
-     */
-    public function testAssetResellerAssetWithoutReseller(): void {
-        $reseller = Mockery::mock(ResellerResolver::class);
-
-        $reseller
-            ->shouldReceive('get')
-            ->never();
-
-        $factory = new class($reseller) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(ResellerResolver $resolver) {
-                $this->resellers = $resolver;
-            }
-
-            public function assetReseller(Asset $asset): ?Reseller {
-                return parent::assetReseller($asset);
-            }
-        };
-
-        $this->assertNull($factory->assetReseller(new Asset([
-            'id' => $this->faker->uuid,
-        ])));
-    }
-
-    /**
-     * @covers ::assetReseller
-     */
-    public function testAssetResellerResellerNotFound(): void {
-        $reseller = Reseller::factory()->make();
-        $asset    = new Asset([
-            'id'         => $this->faker->uuid,
-            'resellerId' => $reseller->getKey(),
-        ]);
-        $resolver = Mockery::mock(ResellerResolver::class);
-        $resolver
-            ->shouldReceive('get')
-            ->with($reseller->getKey())
-            ->once()
-            ->andReturn(null);
-
-        $factory = new class($resolver) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(ResellerResolver $resolver) {
-                $this->resellers = $resolver;
-            }
-
-            public function assetReseller(Asset $asset): ?Reseller {
-                return parent::assetReseller($asset);
-            }
-        };
-
-        $this->expectException(ResellerNotFoundException::class);
-
-        $this->assertEquals($reseller, $factory->assetReseller($asset));
     }
 
     /**

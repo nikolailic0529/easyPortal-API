@@ -16,10 +16,10 @@ use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\LocationNotFoundException;
-use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
+use App\Services\DataLoader\Factories\Concerns\WithReseller;
 use App\Services\DataLoader\Factories\Concerns\WithStatus;
 use App\Services\DataLoader\Factories\Concerns\WithTag;
 use App\Services\DataLoader\Factories\Concerns\WithType;
@@ -46,6 +46,7 @@ use function array_unique;
 use function sprintf;
 
 class AssetFactory extends ModelFactory {
+    use WithReseller;
     use WithOem;
     use WithType;
     use WithProduct;
@@ -74,8 +75,12 @@ class AssetFactory extends ModelFactory {
         parent::__construct($logger, $normalizer);
     }
 
-    // <editor-fold desc="Settings">
+    // <editor-fold desc="Getters / Setters">
     // =========================================================================
+    protected function getResellerResolver(): ResellerResolver {
+        return $this->resellers;
+    }
+
     public function getCustomerFactory(): ?CustomerFactory {
         return $this->customerFactory;
     }
@@ -142,7 +147,7 @@ class AssetFactory extends ModelFactory {
         // Get/Create
         $created = false;
         $factory = $this->factory(function (AssetModel $model) use (&$created, $asset): AssetModel {
-            $reseller = $this->assetReseller($asset);
+            $reseller = $this->reseller($asset);
             $customer = $this->assetCustomer($asset);
             $location = $this->assetLocation($asset, $customer, $reseller);
 
@@ -362,21 +367,6 @@ class AssetFactory extends ModelFactory {
         );
 
         return $product;
-    }
-
-    protected function assetReseller(Asset $asset): ?Reseller {
-        $id       = $asset->resellerId ?? null;
-        $reseller = null;
-
-        if ($id) {
-            $reseller = $this->resellers->get($id);
-        }
-
-        if ($id && !$reseller) {
-            throw new ResellerNotFoundException($id, $asset);
-        }
-
-        return $reseller;
     }
 
     protected function assetCustomer(Asset $asset): ?Customer {
