@@ -38,7 +38,7 @@ class DataLoaderListener extends Listener {
     }
 
     protected function requestStarted(RequestStarted $event): void {
-        $object    = new DataLoaderObject($event);
+        $object    = new DataLoaderRequestObject($event);
         $context   = $event->getParams();
         $enabled   = $this->config->get('ep.logger.data_loader.queries');
         $countable = [
@@ -72,7 +72,7 @@ class DataLoaderListener extends Listener {
     }
 
     protected function requestSuccess(RequestSuccessful $event): void {
-        $object    = new DataLoaderObject($event);
+        $object    = new DataLoaderRequestObject($event);
         $request   = array_pop($this->stack);
         $duration  = $request->getDuration();
         $context   = [
@@ -94,7 +94,7 @@ class DataLoaderListener extends Listener {
     }
 
     protected function requestFailed(RequestFailed $event): void {
-        $object    = new DataLoaderObject($event);
+        $object    = new DataLoaderRequestObject($event);
         $request   = array_pop($this->stack);
         $duration  = $request->getDuration();
         $context   = [
@@ -149,7 +149,7 @@ class DataLoaderListener extends Listener {
         );
     }
 
-    protected function getRequestAction(DataLoaderObject $object): string {
+    protected function getRequestAction(DataLoaderRequestObject $object): string {
         return $object->isMutation() ? 'graphql.mutation' : 'graphql.query';
     }
 

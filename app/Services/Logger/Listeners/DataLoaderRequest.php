@@ -9,13 +9,13 @@ class DataLoaderRequest {
     protected float $start;
 
     public function __construct(
-        protected DataLoaderObject $object,
+        protected DataLoaderRequestObject $object,
         protected ?string $transaction = null,
     ) {
         $this->start = microtime(true);
     }
 
-    public function getObject(): DataLoaderObject {
+    public function getObject(): DataLoaderRequestObject {
         return $this->object;
     }
 
