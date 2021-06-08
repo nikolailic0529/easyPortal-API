@@ -19,4 +19,7 @@ type Organization {
   locations: [Location!]!
   contacts: [Contact!]!
   headquarter: Location
+
+  users: [OrganizationUser!]!
+  @field(resolver: "App\\GraphQL\\Queries\\Organization@users")
 }

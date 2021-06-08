@@ -8,7 +8,9 @@ use App\Services\DataLoader\Client\Client;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Http\Client\Factory;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -42,7 +44,29 @@ class UpdateOrganizationTest extends TestCase {
         Closure $dataFactory = null,
     ): void {
         // Prepare
-        $organization = $this->setOrganization($organizationFactory($this));
+
+        $organization = null;
+
+        if ($organizationFactory) {
+            $organization = $organizationFactory($this);
+        }
+
+        if ($organization) {
+            if (!$organization->keycloak_group_id) {
+                $organization->keycloak_group_id = $this->faker->uuid();
+            }
+
+            if (!$organization->reseller) {
+                Reseller::factory()->create([
+                    'id' => $organization->getKey(),
+                ]);
+            }
+
+            $organization->save();
+            $organization = $organization->fresh();
+        }
+
+        $organization = $this->setOrganization($organization);
 
         $this->setUser($userFactory, $organization);
 
@@ -136,6 +160,15 @@ class UpdateOrganizationTest extends TestCase {
                     latitude
                     longitude
                   }
+                  users {
+                    id
+                    username
+                    firstName
+                    lastName
+                    email
+                    enabled
+                    emailVerified
+                  }
               }
             }
           }';
@@ -155,6 +188,28 @@ class UpdateOrganizationTest extends TestCase {
         $this->app->bind(Client::class, static function () use ($client) {
             return $client;
         });
+
+        $http = Http::fake([
+            '*' => Http::response(
+                [
+                    [
+                        'id'                         => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                        'username'                   => 'virtualcomputersa_3@tesedi.com',
+                        'enabled'                    => true,
+                        'emailVerified'              => true,
+                        'notBefore'                  => 0,
+                        'totp'                       => false,
+                        'firstName'                  => 'Reseller',
+                        'lastName'                   => 'virtualcomputersa_3',
+                        'email'                      => 'virtualcomputersa_3@tesedi.com',
+                        'disableableCredentialTypes' => [],
+                        'requiredActions'            => [],
+                    ],
+                ],
+                200,
+            ),
+        ]);
+        $this->app->instance(Factory::class, $http);
 
         if ($expected instanceof GraphQLSuccess) {
             if ($organization->reseller) {

@@ -8,6 +8,8 @@ use App\Models\Organization as OrganizationModel;
 use App\Models\Reseller;
 use App\Models\Status;
 use Closure;
+use Illuminate\Http\Client\Factory;
+use Illuminate\Support\Facades\Http;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -41,6 +43,28 @@ class GetOrganizationTest extends TestCase {
         if ($prepare) {
             $organizationId = $prepare($this)->getKey();
         }
+
+        $client = Http::fake([
+            '*' => Http::response(
+                [
+                    [
+                        'id'                         => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                        'username'                   => 'virtualcomputersa_3@tesedi.com',
+                        'enabled'                    => true,
+                        'emailVerified'              => true,
+                        'notBefore'                  => 0,
+                        'totp'                       => false,
+                        'firstName'                  => 'Reseller',
+                        'lastName'                   => 'virtualcomputersa_3',
+                        'email'                      => 'virtualcomputersa_3@tesedi.com',
+                        'disableableCredentialTypes' => [],
+                        'requiredActions'            => [],
+                    ],
+                ],
+                200,
+            ),
+        ]);
+        $this->app->instance(Factory::class, $client);
 
         // Test
         $this
@@ -101,6 +125,15 @@ class GetOrganizationTest extends TestCase {
                           line_two
                           latitude
                           longitude
+                        }
+                        users {
+                            id
+                            username
+                            firstName
+                            lastName
+                            email
+                            enabled
+                            emailVerified
                         }
                     }
                 }
@@ -181,6 +214,17 @@ class GetOrganizationTest extends TestCase {
                             'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
                             'name' => 'active',
                         ],
+                        'users'          => [
+                            [
+                                'id'            => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                'username'      => 'virtualcomputersa_3@tesedi.com',
+                                'enabled'       => true,
+                                'emailVerified' => true,
+                                'firstName'     => 'Reseller',
+                                'lastName'      => 'virtualcomputersa_3',
+                                'email'         => 'virtualcomputersa_3@tesedi.com',
+                            ],
+                        ],
                     ]),
                     [
                         'ep.headquarter_type' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -245,6 +289,7 @@ class GetOrganizationTest extends TestCase {
                                 'branding_welcome_heading'         => 'heading',
                                 'branding_welcome_underline'       => 'underline',
                                 'timezone'                         => 'Europe/London',
+                                'keycloak_group_id'                => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945',
                             ]);
                         return $organization;
                     },

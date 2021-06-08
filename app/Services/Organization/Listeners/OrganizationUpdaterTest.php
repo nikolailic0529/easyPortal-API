@@ -7,7 +7,6 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Schema\Company;
-use App\Utils\JsonObject;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;

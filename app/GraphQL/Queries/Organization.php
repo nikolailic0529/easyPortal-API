@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Organization as ModelsOrganization;
+use App\Services\KeyCloak\Client\Client;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\RootOrganization;
 
@@ -10,6 +11,7 @@ class Organization {
     public function __construct(
         protected RootOrganization $root,
         protected CurrentOrganization $current,
+        protected Client $client,
     ) {
         // empty
     }
@@ -46,5 +48,12 @@ class Organization {
             'welcome_heading'         => $organization->branding_welcome_heading,
             'welcome_underline'       => $organization->branding_welcome_underline,
         ];
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function users(ModelsOrganization $organization): array {
+        return $this->client->users($organization);
     }
 }

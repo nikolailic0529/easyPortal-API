@@ -12,6 +12,9 @@ use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed as DataLoader
 use App\Services\Filesystem\StorageFileCorrupted as FilesystemStorageFileCorrupted;
 use App\Services\Filesystem\StorageFileDeleteFailed as FilesystemStorageFileDeleteFailed;
 use App\Services\Filesystem\StorageFileSaveFailed as FilesystemStorageFileSaveFailed;
+use App\Services\KeyCloak\Client\Exceptions\EndpointException as KeyCloakEndpointException;
+use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakGroup;
+use App\Services\KeyCloak\Client\Exceptions\KeyCloakDisabled;
 use App\Services\KeyCloak\Exceptions\AnotherUserExists as KeyCloakAnotherUserExists;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailed as KeyCloakAuthorizationFailed;
 use App\Services\KeyCloak\Exceptions\InsufficientData as KeyCloakInsufficientData;
@@ -49,6 +52,9 @@ class ErrorCodes {
         DataLoaderDataLoaderDisabled::class                => 'ERR18',
         DataLoaderDataLoaderUnavailable::class             => 'ERR19',
         DataLoaderGraphQLRequestFailed::class              => 'ERR20',
+        KeyCloakEndpointException::class                   => 'ERR21',
+        InvalidKeyCloakGroup::class                        => 'ERR22',
+        KeyCloakDisabled::class                            => 'ERR23',
     ];
 
     public static function getCode(Throwable $throwable): string|int {

@@ -774,7 +774,8 @@
                 "status",
                 "contacts",
                 "headquarter",
-                "timezone"
+                "timezone",
+                "users"
             ],
             "properties": {
                 "id": {
@@ -870,6 +871,12 @@
                         "string",
                         "null"
                     ]
+                },
+                "users" : {
+                    "type": "array",
+                    "items": {
+                        "$ref": "../Types/OrganizationUser.json"
+                    }
                 }
             }
         },

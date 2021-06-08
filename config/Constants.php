@@ -189,6 +189,13 @@ interface Constants {
     #[Group('keycloak')]
     #[Type(Duration::class)]
     public const EP_KEYCLOAK_LEEWAY = null;
+
+    /**
+     * Default timeout for http requests (in seconds).
+     */
+    #[Setting('ep.keycloak.timeout')]
+    #[Group('keycloak')]
+    public const EP_KEYCLOAK_TIMEOUT = 5 * 60;
     // </editor-fold>
 
     // <editor-fold desc="EP_SETTINGS">

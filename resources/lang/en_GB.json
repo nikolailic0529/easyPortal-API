@@ -154,5 +154,10 @@
     "tokens.invalid_credentials": "Invalid client credentials (impossible to obtain access token)",
     "dataloader.client.disabled": "Data Loader Client disabled.",
     "dataloader.client.unavailable": "Data Loader Service temporarily unavailable, please try again later.",
-    "dataloader.client.request_failed": "Unknown error."
+    "dataloader.client.request_failed": "Unknown error.",
+    "keycloak.client.unavailable": "KeyCloak Service temporarily unavailable, please try again later.",
+    "keycloak.client.endpoint_failure": "KeyCloak invalid response.",
+    "keycloak.client.disabled": "KeyCloak Client disabled.",
+    "keycloak.client.invalid_group": "Invalid Keycloak group"
+
 }

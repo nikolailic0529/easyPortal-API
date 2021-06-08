@@ -811,6 +811,7 @@ type Organization {
   locations: [Location!]!
   contacts: [Contact!]!
   headquarter: Location
+  users: [OrganizationUser!]!
 }
 
 type OrganizationBranding {
@@ -826,6 +827,16 @@ type OrganizationBranding {
   welcome_image_url: String
   welcome_heading: String
   welcome_underline: String
+}
+
+type OrganizationUser {
+  id: ID!
+  username: String!
+  enabled: Boolean!
+  emailVerified: Boolean!
+  firstName: String
+  lastName: String
+  email: String
 }
 
 """A paginated list of Organization items."""

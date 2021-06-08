@@ -1,0 +1,9 @@
+type OrganizationUser {
+    id: ID!
+    username: String!
+    enabled: Boolean!
+    emailVerified: Boolean!
+    firstName: String
+    lastName: String
+    email: String
+}
