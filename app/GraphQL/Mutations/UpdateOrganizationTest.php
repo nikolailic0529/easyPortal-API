@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\Currency;
+use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
@@ -156,14 +157,20 @@ class UpdateOrganizationTest extends TestCase {
         });
 
         if ($expected instanceof GraphQLSuccess) {
-            $client
-                ->shouldReceive('updateBrandingData')
-                ->once()
-                ->andReturn(true);
-            $client
-                ->shouldReceive('updateCompanyLogo')
-                ->once()
-                ->andReturn('https://example.com/logo.png');
+            if ($organization->reseller) {
+                $client
+                    ->shouldReceive('updateBrandingData')
+                    ->once()
+                    ->andReturn(true);
+                $client
+                    ->shouldReceive('updateCompanyLogo')
+                    ->once()
+                    ->andReturn('https://example.com/logo.png');
+            } else {
+                $client
+                    ->shouldNotReceive('updateCompanyLogo')
+                    ->shouldNotReceive('updateBrandingData');
+            }
         }
 
         // Test
@@ -179,7 +186,9 @@ class UpdateOrganizationTest extends TestCase {
             $this->assertEquals($data['website_url'], $organization->website_url);
             $this->assertEquals($data['email'], $organization->email);
             $this->assertEquals($data['analytics_code'], $organization->analytics_code);
-            $this->assertEquals('https://example.com/logo.png', $organization->branding_logo_url);
+            if ($organization->reseller) {
+                $this->assertEquals('https://example.com/logo.png', $organization->branding_logo_url);
+            }
 
             if (array_key_exists('branding', $data)) {
                 $this->assertEquals($data['branding']['dark_theme'], $organization->branding_dark_theme);
@@ -216,7 +225,9 @@ class UpdateOrganizationTest extends TestCase {
                     new GraphQLSuccess('updateOrganization', UpdateOrganization::class),
                     static function (): array {
                         $currency = Currency::factory()->create();
-
+                        Reseller::factory()->create([
+                            'id' => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
+                        ]);
                         return [
                             'locale'         => 'en',
                             'currency_id'    => $currency->getKey(),
@@ -355,7 +366,9 @@ class UpdateOrganizationTest extends TestCase {
                     new GraphQLSuccess('updateOrganization', UpdateOrganization::class),
                     static function (): array {
                         $currency = Currency::factory()->create();
-
+                        Reseller::factory()->create([
+                            'id' => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
+                        ]);
                         return [
                             'locale'         => 'en',
                             'currency_id'    => $currency->getKey(),
@@ -373,6 +386,30 @@ class UpdateOrganizationTest extends TestCase {
                                 'welcome_image_url' => null,
                                 'welcome_heading'   => null,
                                 'welcome_underline' => null,
+                            ],
+                        ];
+                    },
+                ],
+                'no reseller organization'         => [
+                    new GraphQLSuccess('updateOrganization', UpdateOrganization::class),
+                    static function (): array {
+                        $currency = Currency::factory()->create();
+                        return [
+                            'locale'         => 'en',
+                            'currency_id'    => $currency->getKey(),
+                            'website_url'    => 'https://www.example.com',
+                            'email'          => 'test@example.com',
+                            'analytics_code' => 'code',
+                            'timezone'       => 'Europe/London',
+                            'branding'       => [
+                                'dark_theme'        => false,
+                                'main_color'        => '#ffffff',
+                                'secondary_color'   => '#ffffff',
+                                'logo_url'          => UploadedFile::fake()->create('branding_logo.jpg', 20),
+                                'favicon_url'       => UploadedFile::fake()->create('branding_favicon.jpg', 100),
+                                'welcome_image_url' => UploadedFile::fake()->create('branding_welcome.jpg', 100),
+                                'welcome_heading'   => 'heading',
+                                'welcome_underline' => 'underline',
                             ],
                         ];
                     },

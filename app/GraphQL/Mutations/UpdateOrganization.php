@@ -38,7 +38,7 @@ class UpdateOrganization {
         $this->updateProperties($organization, $mutation, $args['input']);
 
         // Update Cosmos
-        if ($mutation->count() > 1) {
+        if ($mutation->count() > 1 && $organization->reseller) {
             $this->client->updateBrandingData($mutation);
         }
 
@@ -96,10 +96,14 @@ class UpdateOrganization {
                     $branding->secondaryColor               = $value;
                     break;
                 case 'logo_url':
-                    $organization->branding_logo_url = $this->client->updateCompanyLogo(new UpdateCompanyLogo([
-                        'companyId' => $organization->getKey(),
-                        'logo'      => $value,
-                    ]));
+                    if ($organization->reseller) {
+                        $organization->branding_logo_url = $this->client->updateCompanyLogo(new UpdateCompanyLogo([
+                            'companyId' => $organization->getKey(),
+                            'logo'      => $value,
+                        ]));
+                    } else {
+                        $organization->branding_logo_url = $this->store($organization, $value);
+                    }
                     break;
                 case 'favicon_url':
                     if ($value instanceof UploadedFile) {
