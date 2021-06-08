@@ -20,19 +20,19 @@ class DataLoaderListener extends Listener {
 
     public function subscribe(Dispatcher $dispatcher): void {
         $dispatcher->listen(RequestStarted::class, $this->getSafeListener(function (RequestStarted $event): void {
-            $this->started($event);
+            $this->requestStarted($event);
         }));
 
         $dispatcher->listen(RequestSuccessful::class, $this->getSafeListener(function (RequestSuccessful $event): void {
-            $this->success($event);
+            $this->requestSuccess($event);
         }));
 
         $dispatcher->listen(RequestFailed::class, $this->getSafeListener(function (RequestFailed $event): void {
-            $this->failed($event);
+            $this->requestFailed($event);
         }));
     }
 
-    protected function started(RequestStarted $event): void {
+    protected function requestStarted(RequestStarted $event): void {
         $object    = new DataLoaderObject($event);
         $context   = $event->getParams();
         $enabled   = $this->config->get('ep.logger.data_loader.queries');
@@ -66,7 +66,7 @@ class DataLoaderListener extends Listener {
         }
     }
 
-    protected function success(RequestSuccessful $event): void {
+    protected function requestSuccess(RequestSuccessful $event): void {
         $object    = new DataLoaderObject($event);
         $request   = array_pop($this->stack);
         $duration  = $request->getDuration();
@@ -85,7 +85,7 @@ class DataLoaderListener extends Listener {
         }
     }
 
-    protected function failed(RequestFailed $event): void {
+    protected function requestFailed(RequestFailed $event): void {
         $object    = new DataLoaderObject($event);
         $request   = array_pop($this->stack);
         $duration  = $request->getDuration();
