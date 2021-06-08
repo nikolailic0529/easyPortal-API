@@ -19,4 +19,14 @@ class ResellerNotFoundException extends InvalidData {
             $id,
         ));
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function context(): array {
+        return [
+            'id'     => $this->id,
+            'object' => $this->object,
+        ];
+    }
 }

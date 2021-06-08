@@ -6,6 +6,8 @@ use App\Models\Customer;
 use App\Models\Model;
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\QueryIterator;
+use App\Services\DataLoader\Events\InvalidDataFound;
+use App\Services\DataLoader\Exceptions\InvalidData;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
@@ -13,6 +15,7 @@ use App\Services\DataLoader\Factories\DocumentFactory;
 use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Schema\Company;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Throwable;
@@ -23,6 +26,7 @@ use function array_filter;
  * @mixin \App\Services\DataLoader\Loader
  */
 trait WithAssets {
+    protected Dispatcher      $dispatcher;
     protected ResellerFactory $resellers;
     protected CustomerFactory $customers;
     protected LocationFactory $locations;
@@ -90,8 +94,10 @@ trait WithAssets {
                     $updated[]                           = $asset->getKey();
                     $resellers[$resellerId][$customerId] = $customerId;
                 }
+            } catch (InvalidData $exception) {
+                $this->dispatcher->dispatch(new InvalidDataFound($exception, $asset));
             } catch (Throwable $exception) {
-                $this->logger->warning(__METHOD__, [
+                $this->logger->warning('Failed to process Asset.', [
                     'asset'     => $asset,
                     'exception' => $exception,
                 ]);
@@ -116,8 +122,10 @@ trait WithAssets {
                         $customerId                          = (string) $asset->customer_id;
                         $resellers[$resellerId][$customerId] = $customerId;
                     }
+                } catch (InvalidData $exception) {
+                    $this->dispatcher->dispatch(new InvalidDataFound($exception, $asset));
                 } catch (Throwable $exception) {
-                    $this->logger->warning(__METHOD__, [
+                    $this->logger->warning('Failed to process Asset.', [
                         'asset'     => $asset,
                         'exception' => $exception,
                     ]);

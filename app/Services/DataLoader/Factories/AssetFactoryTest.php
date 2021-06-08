@@ -15,7 +15,9 @@ use App\Models\Reseller;
 use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Container\Container;
+use App\Services\DataLoader\Events\InvalidDataFound;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
+use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
@@ -24,9 +26,11 @@ use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Event;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -444,6 +448,52 @@ class AssetFactoryTest extends TestCase {
         };
 
         $this->assertCount(1, $factory->assetDocuments($model, $asset));
+    }
+
+    /**
+     * @covers ::assetDocuments
+     */
+    public function testAssetDocumentsInvalidData(): void {
+        // Fake
+        Event::fake();
+
+        // Prepare
+        $model      = AssetModel::factory()->make();
+        $asset      = new Asset([
+            'assetDocument' => [
+                [
+                    'documentNumber' => 'a',
+                    'startDate'      => '09/07/2020',
+                    'endDate'        => '09/07/2021',
+                ],
+            ],
+        ]);
+        $dispatcher = $this->app->make(Dispatcher::class);
+        $documents  = Mockery::mock(DocumentFactory::class);
+        $documents
+            ->shouldReceive('create')
+            ->once()
+            ->andReturnUsing(function (Type $type): ?Document {
+                throw new ResellerNotFoundException($this->faker->uuid);
+            });
+        $factory = new class($dispatcher, $documents) extends AssetFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Dispatcher $dispatcher,
+                protected ?DocumentFactory $documentFactory,
+            ) {
+                // empty
+            }
+
+            public function assetDocuments(AssetModel $model, Asset $asset): Collection {
+                return parent::assetDocuments($model, $asset);
+            }
+        };
+
+        // Test
+        $this->assertCount(0, $factory->assetDocuments($model, $asset));
+
+        Event::assertDispatched(InvalidDataFound::class);
     }
 
     /**

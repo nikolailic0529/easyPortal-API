@@ -19,6 +19,7 @@ use App\Services\DataLoader\Loaders\Concerns\WithAssets;
 use App\Services\DataLoader\Loaders\Concerns\WithContacts;
 use App\Services\DataLoader\Loaders\Concerns\WithLocations;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 use Psr\Log\LoggerInterface;
 
@@ -31,6 +32,7 @@ class ResellerLoader extends Loader {
     public function __construct(
         LoggerInterface $logger,
         Client $client,
+        protected Dispatcher $dispatcher,
         protected ResellerFactory $resellers,
         protected CustomerFactory $customers,
         protected LocationFactory $locations,
