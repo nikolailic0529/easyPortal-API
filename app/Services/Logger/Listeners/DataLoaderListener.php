@@ -5,6 +5,7 @@ namespace App\Services\Logger\Listeners;
 use App\Services\DataLoader\Client\Events\RequestFailed;
 use App\Services\DataLoader\Client\Events\RequestStarted;
 use App\Services\DataLoader\Client\Events\RequestSuccessful;
+use App\Services\DataLoader\Events\InvalidDataFound;
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -29,6 +30,10 @@ class DataLoaderListener extends Listener {
 
         $dispatcher->listen(RequestFailed::class, $this->getSafeListener(function (RequestFailed $event): void {
             $this->requestFailed($event);
+        }));
+
+        $dispatcher->listen(InvalidDataFound::class, $this->getSafeListener(function (InvalidDataFound $event): void {
+            $this->invalidData($event);
         }));
     }
 
@@ -57,7 +62,7 @@ class DataLoaderListener extends Listener {
         if ($enabled) {
             $this->stack[] = new DataLoaderRequest($object, $this->logger->start(
                 $this->getCategory(),
-                $this->getAction($object),
+                $this->getRequestAction($object),
                 $object,
                 $context,
             ));
@@ -70,6 +75,9 @@ class DataLoaderListener extends Listener {
         $object    = new DataLoaderObject($event);
         $request   = array_pop($this->stack);
         $duration  = $request->getDuration();
+        $context   = [
+            'objects' => $object->getCount(),
+        ];
         $countable = [
             "{$this->getCategory()}.total.requests.success"                 => 1,
             "{$this->getCategory()}.total.requests.duration"                => $duration,
@@ -79,7 +87,7 @@ class DataLoaderListener extends Listener {
         ];
 
         if ($request->getTransaction()) {
-            $this->logger->success($request->getTransaction(), [], $countable);
+            $this->logger->success($request->getTransaction(), $context, $countable);
         } else {
             $this->logger->count($countable);
         }
@@ -111,7 +119,7 @@ class DataLoaderListener extends Listener {
         } else {
             $this->logger->event(
                 $this->getCategory(),
-                $this->getAction($object),
+                $this->getRequestAction($object),
                 Status::failed(),
                 $object,
                 $context,
@@ -120,7 +128,28 @@ class DataLoaderListener extends Listener {
         }
     }
 
-    protected function getAction(DataLoaderObject $object): string {
+    protected function invalidData(InvalidDataFound $event): void {
+        $object    = new DataLoaderInvalidDataObject($event);
+        $context   = [
+            'object'  => $event->getObject(),
+            'context' => $event->getContext(),
+        ];
+        $countable = [
+            "{$this->getCategory()}.total.invalid"                => 1,
+            "{$this->getCategory()}.invalid.{$object->getType()}" => 1,
+        ];
+
+        $this->logger->event(
+            $this->getCategory(),
+            'invalid',
+            null,
+            $object,
+            $context,
+            $countable,
+        );
+    }
+
+    protected function getRequestAction(DataLoaderObject $object): string {
         return $object->isMutation() ? 'graphql.mutation' : 'graphql.query';
     }
 

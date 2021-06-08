@@ -20,6 +20,10 @@ class ResellerNotFoundException extends InvalidData {
         ));
     }
 
+    public function getId(): string {
+        return $this->id;
+    }
+
     /**
      * @inheritDoc
      */
