@@ -23,10 +23,6 @@ class Document extends Type {
 
     public ?string $resellerId;
 
-    /**
-     * @deprecated
-     */
-    public ?Company $reseller;
     public ?Company $customer;
 
     public ?string  $distributorId;
