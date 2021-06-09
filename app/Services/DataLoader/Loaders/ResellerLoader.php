@@ -87,7 +87,7 @@ class ResellerLoader extends Loader {
             }
         } finally {
             if ($reseller) {
-                $this->updateResellerCountable($reseller);
+                $this->updateResellerCalculatedProperties($reseller);
             }
         }
     }
