@@ -16,7 +16,6 @@ use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
-use App\Services\DataLoader\Exceptions\InvalidData;
 use App\Services\DataLoader\Exceptions\LocationNotFoundException;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
@@ -36,7 +35,6 @@ use App\Services\DataLoader\Resolvers\TagResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\AssetDocument;
-use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
 use Closure;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -222,9 +220,8 @@ class AssetFactory extends ModelFactory {
                         'document' => $entries->first(),
                         'entries'  => $entries->all(),
                     ]));
-                } catch (InvalidData $exception) {
-                    $this->dispatcher->dispatch(new ObjectSkipped($entries->first(), $exception));
                 } catch (Throwable $exception) {
+                    $this->dispatcher->dispatch(new ObjectSkipped($entries->first(), $exception));
                     $this->logger->error('Failed to process AssetDocument.', [
                         'asset'     => $model,
                         'entries'   => $entries->all(),
