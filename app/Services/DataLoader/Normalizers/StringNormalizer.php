@@ -11,7 +11,7 @@ class StringNormalizer implements Normalizer {
         if (!is_null($value)) {
             $value = (string) $value;
             $value = trim($value);
-            $value = preg_replace('/[\s]+/ui', ' ', $value);
+            $value = preg_replace('/[\s\x00]+/ui', ' ', $value);
         }
 
         return $value;
