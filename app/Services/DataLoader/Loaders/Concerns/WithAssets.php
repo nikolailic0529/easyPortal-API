@@ -90,9 +90,8 @@ trait WithAssets {
                     $updated[]                           = $model->getKey();
                     $resellers[$resellerId][$customerId] = $customerId;
                 }
-            } catch (InvalidData $exception) {
-                $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
             } catch (Throwable $exception) {
+                $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
                 $this->logger->warning('Failed to process Asset.', [
                     'asset'     => $asset,
                     'exception' => $exception,
@@ -118,9 +117,8 @@ trait WithAssets {
                         $customerId                          = (string) $model->customer_id;
                         $resellers[$resellerId][$customerId] = $customerId;
                     }
-                } catch (InvalidData $exception) {
-                    $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
                 } catch (Throwable $exception) {
+                    $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
                     $this->logger->warning('Failed to process Asset.', [
                         'asset'     => $asset,
                         'exception' => $exception,

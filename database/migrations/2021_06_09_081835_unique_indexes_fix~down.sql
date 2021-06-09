@@ -43,7 +43,7 @@ ALTER TABLE `organizations`
 ALTER TABLE `products`
     DROP COLUMN `deleted_not`,
     ADD UNIQUE INDEX `unique__sku__oem_id__deleted_at`(`sku` ASC, `oem_id` ASC, `deleted_at` ASC) VISIBLE,
-    DROP INDEX `unique__sku__oem_id__deleted_not`;
+    DROP INDEX `unique__sku__oem_id__type__deleted_not`;
 
 ALTER TABLE `tags`
     DROP COLUMN `deleted_not`,

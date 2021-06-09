@@ -43,7 +43,7 @@ ALTER TABLE `organizations`
 ALTER TABLE `products`
     ADD COLUMN `deleted_not` TINYINT(1) GENERATED ALWAYS AS (If((`deleted_at` is null), 1, NULL)) STORED AFTER `deleted_at`,
     DROP INDEX `unique__sku__oem_id__deleted_at`,
-    ADD UNIQUE INDEX `unique__sku__oem_id__deleted_not`(`sku` ASC, `oem_id` ASC, `deleted_not` ASC) VISIBLE;
+    ADD UNIQUE INDEX `unique__sku__oem_id__type__deleted_not`(`sku` ASC, `oem_id` ASC, `type` ASC, `deleted_not` ASC) VISIBLE;
 
 ALTER TABLE `tags`
     ADD COLUMN `deleted_not` TINYINT(1) GENERATED ALWAYS AS (If((`deleted_at` is null), 1, NULL)) STORED AFTER `deleted_at`,

@@ -2,13 +2,13 @@
 
 namespace App\Services\DataLoader\Events;
 
-use App\Services\DataLoader\Exceptions\InvalidData;
 use App\Services\DataLoader\Schema\Type;
+use Throwable;
 
 class ObjectSkipped {
     public function __construct(
         protected Type $object,
-        protected InvalidData|null $reason = null,
+        protected Throwable|null $reason = null,
     ) {
         // empty
     }
@@ -17,7 +17,7 @@ class ObjectSkipped {
         return $this->object;
     }
 
-    public function getReason(): ?InvalidData {
+    public function getReason(): ?Throwable {
         return $this->reason;
     }
 }
