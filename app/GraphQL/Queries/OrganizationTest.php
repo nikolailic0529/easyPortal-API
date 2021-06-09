@@ -90,6 +90,14 @@ class OrganizationTest extends TestCase {
                         'email'                      => 'virtualcomputersa_3@tesedi.com',
                         'disableableCredentialTypes' => [],
                         'requiredActions'            => [],
+                        'attributes'                 => [
+                            'locale' => [
+                                'de',
+                            ],
+                            'phone'  => [
+                                '12345678',
+                            ],
+                        ],
                     ],
                 ],
                 200,

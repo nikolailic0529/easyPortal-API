@@ -25,4 +25,24 @@ class User extends JsonObject {
      * @var array<string>
      */
     public array $requiredActions;
+
+    /**
+     * @var array<string>
+     */
+    public array $attributes;
+
+    /**
+     * @var array<string>
+     */
+    public array $access;
+
+    /**
+     * @var array<string>
+     */
+    public array $clientRoles;
+
+    /**
+     * @var array<string>
+     */
+    public array $groups;
 }
