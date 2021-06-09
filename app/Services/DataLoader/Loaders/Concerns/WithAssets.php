@@ -2,7 +2,9 @@
 
 namespace App\Services\DataLoader\Loaders\Concerns;
 
+use App\Models\Asset;
 use App\Models\Customer;
+use App\Models\Document;
 use App\Models\Model;
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\QueryIterator;
@@ -74,7 +76,7 @@ trait WithAssets {
             $this->getResellersFactory()?->prefetch($assets, false);
             $factory->getDocumentFactory()?->prefetch($assets, false, static function (Collection $documents): void {
                 $documents->loadMissing('entries');
-                $documents->loadMissing('entries.product');
+                $documents->loadMissing('entries.service');
             });
         };
 
@@ -155,20 +157,13 @@ trait WithAssets {
                 ]));
 
                 if ($customer) {
-                    $this->updateCustomerCountable($customer);
+                    $this->updateCustomerCalculatedProperties($customer);
                 }
-            }
-
-            // Add new customers to Reseller
-            if ($reseller) {
-                $reseller->customers()->syncWithoutDetaching($customers);
-
-                unset($reseller->customers);
             }
 
             // Update Reseller
             if ($reseller) {
-                $this->updateResellerCountable($reseller);
+                $this->updateResellerCalculatedProperties($reseller);
             }
         }
 
@@ -190,17 +185,32 @@ trait WithAssets {
      */
     abstract protected function getMissedAssets(Model $owner, array $current): ?Builder;
 
-    protected function updateCustomerCountable(Customer $customer): void {
-        $customer->locations_count = $customer->locations()->count();
-        $customer->contacts_count  = $customer->contacts()->count();
-        $customer->assets_count    = $customer->assets()->count();
+    protected function updateCustomerCalculatedProperties(Customer $customer): void {
+        $customer->assets_count = $customer->assets()->count();
         $customer->save();
     }
 
-    protected function updateResellerCountable(Reseller $reseller): void {
-        $reseller->locations_count = $reseller->locations()->count();
-        $reseller->customers_count = $reseller->customers()->count();
-        $reseller->assets_count    = $reseller->assets()->count();
+    protected function updateResellerCalculatedProperties(Reseller $reseller): void {
+        $assetsCustomers   = Asset::query()
+            ->toBase()
+            ->distinct()
+            ->select('customer_id')
+            ->where('reseller_id', '=', $reseller->getKey());
+        $documentsCustomer = Document::query()
+            ->toBase()
+            ->distinct()
+            ->select('customer_id')
+            ->where('reseller_id', '=', $reseller->getKey());
+        $ids               = $assetsCustomers
+            ->union($documentsCustomer)
+            ->get()
+            ->pluck('customer_id');
+        $customers         = Customer::query()
+            ->whereIn((new Customer())->getKeyName(), $ids)
+            ->get();
+
+        $reseller->customers    = $customers;
+        $reseller->assets_count = $reseller->assets()->count();
         $reseller->save();
     }
 

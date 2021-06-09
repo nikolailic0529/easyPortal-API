@@ -79,7 +79,7 @@ class CustomerLoader extends Loader {
             }
         } finally {
             if ($customer) {
-                $this->updateCustomerCountable($customer);
+                $this->updateCustomerCalculatedProperties($customer);
             }
         }
     }

@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 use function app;
 
@@ -55,10 +56,10 @@ use function app;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property-read int|null $contracts_count
- * @property-read \App\Models\Location|null $headquarter
- * @property-read int|null $quotes_count
- * @property-read int|null $resellers_count
+ * @property-read int|null                                                       $contracts_count
+ * @property-read \App\Models\Location|null                                      $headquarter
+ * @property-read int|null                                                       $quotes_count
+ * @property-read int|null                                                       $resellers_count
  */
 class Customer extends Model {
     use OwnedByOrganization;
@@ -115,11 +116,11 @@ class Customer extends Model {
     // <editor-fold desc="OwnedByOrganization">
     // =========================================================================
     public function getQualifiedOrganizationColumn(): string {
-        return $this->getOrganizationThrough()->getQualifiedRelatedPivotKeyName();
+        return $this->getOrganizationThrough()->getModel()->qualifyColumn('reseller_id');
     }
 
-    public function getOrganizationThrough(): ?BelongsToMany {
-        return $this->resellers();
+    public function getOrganizationThrough(): ?Relation {
+        return $this->hasMany(ResellerCustomer::class);
     }
     // </editor-fold>
 }
