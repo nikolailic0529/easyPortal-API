@@ -76,7 +76,7 @@ trait WithAssets {
             $this->getResellersFactory()?->prefetch($assets, false);
             $factory->getDocumentFactory()?->prefetch($assets, false, static function (Collection $documents): void {
                 $documents->loadMissing('entries');
-                $documents->loadMissing('entries.product');
+                $documents->loadMissing('entries.service');
             });
         };
 
