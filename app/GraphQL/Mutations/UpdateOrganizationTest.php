@@ -56,12 +56,6 @@ class UpdateOrganizationTest extends TestCase {
                 $organization->keycloak_group_id = $this->faker->uuid();
             }
 
-            if (!$organization->reseller) {
-                Reseller::factory()->create([
-                    'id' => $organization->getKey(),
-                ]);
-            }
-
             $organization->save();
             $organization = $organization->fresh();
         }

@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Schema;
 
 use SplFileInfo;
 
-class UpdateCompanyLogo extends Input {
+class UpdateCompanyFile extends Input {
     public string      $companyId;
-    public SplFileInfo $logo;
+    public SplFileInfo $file;
 }
