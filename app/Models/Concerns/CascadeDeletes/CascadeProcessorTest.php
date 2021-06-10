@@ -200,7 +200,7 @@ class CascadeProcessorTest extends TestCase {
             }
         };
         $pivot     = new class() extends Pivot {
-            //
+            // empty
         };
 
         $relation = Mockery::mock(BelongsToMany::class);

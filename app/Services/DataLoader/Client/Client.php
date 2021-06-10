@@ -370,8 +370,9 @@ class Client {
             $variables = $params;
 
             foreach ($files as $variable) {
-                $name       = 'file'.($index++);
+                $name       = 'file'.$index;
                 $file       = Arr::get($params, $variable);
+                $index      = $index + 1;
                 $map[$name] = ["variables.{$variable}"];
 
                 if ($file instanceof SplFileInfo) {

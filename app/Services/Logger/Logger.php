@@ -9,7 +9,6 @@ use App\Services\Logger\Models\Log;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Support\Facades\Date;
 use LogicException;
-
 use Throwable;
 
 use function array_column;
