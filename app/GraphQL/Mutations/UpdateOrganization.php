@@ -106,12 +106,15 @@ class UpdateOrganization {
                     }
                     break;
                 case 'favicon_url':
-                    if ($value instanceof UploadedFile) {
-                        $organization->branding_favicon_url = $this->store($organization, $value);
-                        $branding->favIconUrl               = $organization->branding_favicon_url;
+                    if ($organization->reseller) {
+                        $organization->branding_favicon_url = $this->client->updateCompanyFavicon(
+                            new UpdateCompanyFile([
+                                'companyId' => $organization->getKey(),
+                                'file'      => $value,
+                            ]),
+                        );
                     } else {
-                        $organization->branding_welcome_image_url = null;
-                        $branding->mainImageOnTheRight            = null;
+                        $organization->branding_favicon_url = $this->store($organization, $value);
                     }
                     break;
                 case 'welcome_heading':

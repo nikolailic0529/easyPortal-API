@@ -215,6 +215,10 @@ class UpdateOrganizationTest extends TestCase {
                     ->shouldReceive('updateCompanyLogo')
                     ->once()
                     ->andReturn('https://example.com/logo.png');
+                $client
+                    ->shouldReceive('updateCompanyFavicon')
+                    ->once()
+                    ->andReturn('https://example.com/favicon.png');
             } else {
                 $client
                     ->shouldNotReceive('updateCompanyLogo')
@@ -237,17 +241,13 @@ class UpdateOrganizationTest extends TestCase {
             $this->assertEquals($data['analytics_code'], $organization->analytics_code);
             if ($organization->reseller) {
                 $this->assertEquals('https://example.com/logo.png', $organization->branding_logo_url);
+                $this->assertEquals('https://example.com/favicon.png', $organization->branding_favicon_url);
             }
 
             if (array_key_exists('branding', $data)) {
                 $this->assertEquals($data['branding']['dark_theme'], $organization->branding_dark_theme);
                 $this->assertEquals($data['branding']['main_color'], $organization->branding_main_color);
                 $this->assertEquals($data['branding']['secondary_color'], $organization->branding_secondary_color);
-
-                if (isset($data['branding']['favicon_url'])) {
-                    $this->assertNotNull($organization->branding_favicon_url);
-                    $disc->assertExists(str_replace($prefix, '', $organization->branding_favicon_url));
-                }
 
                 if (isset($data['branding']['welcome_image_url'])) {
                     $this->assertNotNull($organization->branding_welcome_image_url);

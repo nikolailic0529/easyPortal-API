@@ -244,6 +244,7 @@ type Mutation {
   addDefaultImportSchema(input: DefaultImportSchema): Boolean
   updateBrandingData(input: CompanyBrandingData): Boolean
   updateCompanyLogo(input: UpdateCompanyFile): String
+  updateCompanyFavicon(input: UpdateCompanyFile): String
 }
 
 type Query {
@@ -268,7 +269,7 @@ type SourceDocument {
 
 input UpdateCompanyFile {
   companyId: String!
-  file: Upload!
+  file: Upload
 }
 
 scalar Upload

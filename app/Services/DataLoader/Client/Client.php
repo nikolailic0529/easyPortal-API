@@ -266,6 +266,23 @@ class Client {
             ],
         );
     }
+
+    public function updateCompanyFavicon(UpdateCompanyFile $input): ?string {
+        return $this->call(
+            'data.updateCompanyFavicon',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            mutation updateCompanyFavicon($input: UpdateCompanyFavicon!) {
+                updateCompanyFavicon(input: $input)
+            }
+            GRAPHQL,
+            [
+                'input' => $input->toArray(),
+            ],
+            [
+                'input.logo',
+            ],
+        );
+    }
     // </editor-fold>
 
     // <editor-fold desc="API">
