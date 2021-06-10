@@ -17,6 +17,7 @@ use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\LocationNotFoundException;
+use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
@@ -205,7 +206,9 @@ class AssetFactory extends ModelFactory {
         return (new Collection($asset->assetDocument))
             ->filter(function (ViewAssetDocument $document): bool {
                 if (!isset($document->document->id)) {
-                    $this->dispatcher->dispatch(new ObjectSkipped($document));
+                    $this->dispatcher->dispatch(
+                        new ObjectSkipped($document, new ViewAssetDocumentNoDocument($document)),
+                    );
 
                     return false;
                 }

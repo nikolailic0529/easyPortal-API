@@ -9,6 +9,7 @@ use App\Models\Enums\ProductType;
 use App\Models\Oem;
 use App\Models\Product;
 use App\Models\Type as TypeModel;
+use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
@@ -118,55 +119,47 @@ class DocumentFactory extends ModelFactory {
 
     // <editor-fold desc="AssetDocumentObject">
     // =========================================================================
-    protected function createFromAssetDocumentObject(AssetDocumentObject $document): ?DocumentModel {
+    protected function createFromAssetDocumentObject(AssetDocumentObject $object): ?DocumentModel {
+        // Document exists?
+        if (!isset($object->document->document->id)) {
+            throw new ViewAssetDocumentNoDocument($object->document);
+        }
+
         // Get/Create/Update
-        $model   = null;
-        $product = $this->factory(function () use ($document): ?Product {
-            return $this->assetDocumentObjectSupport($document);
-        });
-        $entries = $this->factory(function (DocumentModel $model) use ($document) {
-            return $this->assetDocumentObjectEntries($model, $document);
-        });
-
-        if (isset($document->document->document)) {
-            $model = $this->createFromDocument($document->document->document, $product, $entries);
-        } else {
-            $created = false;
-            $factory = $this->factory(
-                function (DocumentModel $model) use (&$created, $document, $product, $entries): DocumentModel {
-                    $created            = !$model->exists;
-                    $model->id          = $this->normalizer->string($document->document->documentNumber);
-                    $model->oem         = $document->asset->oem;
-                    $model->type        = $this->type(new DocumentModel(), '??');
-                    $model->support     = $product($model);
-                    $model->reseller    = $this->reseller($document->document);
-                    $model->customer    = $this->customers->create($document);
-                    $model->currency    = $this->currencies->create($document);
-                    $model->language    = $this->languages->create($document);
-                    $model->distributor = $this->distributors->create($document);
-                    $model->price       = null;
-                    $model->number      = $this->normalizer->string($document->document->documentNumber);
-                    $model->start       = $this->normalizer->datetime($document->document->startDate);
-                    $model->end         = $this->normalizer->datetime($document->document->endDate);
-                    $model->contacts    = [];
-                    $model->entries     = $entries($model);
-
-                    $model->save();
-
-                    return $model;
-                },
-            );
-            $model   = $this->documents->get(
-                $document->document->documentNumber,
-                static function () use ($factory): DocumentModel {
-                    return $factory(new DocumentModel());
-                },
-            );
-
+        $created = false;
+        $factory = $this->factory(function (DocumentModel $model) use (&$created, $object): DocumentModel {
             // Update
-            if (!$created && !$this->isSearchMode()) {
-                $factory($model);
-            }
+            $created            = !$model->exists;
+            $model->id          = $this->normalizer->uuid($object->document->document->id);
+            $model->oem         = $this->documentOem($object->document->document);
+            $model->type        = $this->documentType($object->document->document);
+            $model->support     = $this->assetDocumentObjectSupport($object);
+            $model->reseller    = $this->reseller($object->document->document);
+            $model->customer    = $this->customers->create($object);
+            $model->currency    = $this->currencies->create($object);
+            $model->language    = $this->languages->create($object);
+            $model->distributor = $this->distributors->create($object);
+            $model->start       = $this->normalizer->datetime($object->document->document->startDate);
+            $model->end         = $this->normalizer->datetime($object->document->document->endDate);
+            $model->price       = $this->normalizer->number($object->document->document->totalNetPrice);
+            $model->number      = $this->normalizer->string($object->document->document->documentNumber);
+            $model->contacts    = $this->objectContacts($model, (array) $object->document->document->contactPersons);
+            $model->entries     = $this->assetDocumentObjectEntries($model, $object);
+            $model->save();
+
+            // Return
+            return $model;
+        });
+        $model   = $this->documents->get(
+            $object->document->document->id,
+            static function () use ($factory): DocumentModel {
+                return $factory(new DocumentModel());
+            },
+        );
+
+        // Update
+        if (!$created && !$this->isSearchMode()) {
+            $factory($model);
         }
 
         // Return
@@ -264,69 +257,6 @@ class DocumentFactory extends ModelFactory {
 
     // <editor-fold desc="Document">
     // =========================================================================
-    protected function createFromDocument(
-        ViewDocument $document,
-        Closure $product = null,
-        Closure $entries = null,
-    ): ?DocumentModel {
-        // WARNING: Document and Document.entries doesn't contains all required
-        //      information to create Document.
-
-        // Get/Create
-        $created = false;
-        $factory = $this->factory(
-            function (DocumentModel $model) use (&$created, $document, $product, $entries): DocumentModel {
-                // We can have a document that was created with ID = number,
-                // now we know its ID and can update or remove it.
-                $existing = $this->documents->get($document->documentNumber);
-                $created  = !$model->exists;
-
-                if ($existing) {
-                    if ($model->exists) {
-                        $existing->delete();
-                    } else {
-                        $model = $existing;
-                    }
-                }
-
-                // Update
-                $model->id          = $this->normalizer->uuid($document->id);
-                $model->oem         = $this->documentOem($document);
-                $model->type        = $this->documentType($document);
-                $model->support     = $product ? $product($model) : null;
-                $model->reseller    = $this->reseller($document);
-                $model->customer    = $this->customers->create($document);
-                $model->currency    = $this->currencies->create($document);
-                $model->language    = $this->languages->create($document);
-                $model->distributor = $this->distributors->create($document);
-                $model->start       = $this->normalizer->datetime($document->startDate);
-                $model->end         = $this->normalizer->datetime($document->endDate);
-                $model->price       = $this->normalizer->number($document->totalNetPrice);
-                $model->number      = $this->normalizer->string($document->documentNumber);
-                $model->contacts    = $this->objectContacts($model, (array) $document->contactPersons);
-                $model->entries     = $entries ? $entries($model) : [/** TODO */];
-                $model->save();
-
-                // Return
-                return $model;
-            },
-        );
-        $model   = $this->documents->get(
-            $document->id,
-            static function () use ($factory): DocumentModel {
-                return $factory(new DocumentModel());
-            },
-        );
-
-        // Update
-        if (!$created && !$this->isSearchMode()) {
-            $factory($model);
-        }
-
-        // Return
-        return $model;
-    }
-
     protected function documentOem(ViewDocument $document): Oem {
         return $this->oem(
             $document->vendorSpecificFields->vendor,

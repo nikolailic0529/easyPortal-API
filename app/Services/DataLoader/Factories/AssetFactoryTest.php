@@ -18,6 +18,7 @@ use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
+use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
@@ -492,7 +493,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertCount(0, $factory->assetDocuments($model, $asset));
 
         Event::assertDispatched(ObjectSkipped::class, function (ObjectSkipped $event): bool {
-            return $event->getReason() === null;
+            return $event->getReason() instanceof ViewAssetDocumentNoDocument;
         });
     }
 
