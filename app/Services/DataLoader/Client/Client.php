@@ -262,7 +262,7 @@ class Client {
                 'input' => $input->toArray(),
             ],
             [
-                'input.logo',
+                'input.file',
             ],
         );
     }
@@ -279,7 +279,7 @@ class Client {
                 'input' => $input->toArray(),
             ],
             [
-                'input.logo',
+                'input.file',
             ],
         );
     }
@@ -296,7 +296,7 @@ class Client {
                 'input' => $input->toArray(),
             ],
             [
-                'input.logo',
+                'input.file',
             ],
         );
     }
