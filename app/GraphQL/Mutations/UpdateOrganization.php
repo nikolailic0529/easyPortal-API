@@ -5,7 +5,7 @@ namespace App\GraphQL\Mutations;
 use App\Models\Organization;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
-use App\Services\DataLoader\Schema\UpdateCompanyLogo;
+use App\Services\DataLoader\Schema\UpdateCompanyFile;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Contracts\Routing\UrlGenerator;
@@ -97,9 +97,9 @@ class UpdateOrganization {
                     break;
                 case 'logo_url':
                     if ($organization->reseller) {
-                        $organization->branding_logo_url = $this->client->updateCompanyLogo(new UpdateCompanyLogo([
+                        $organization->branding_logo_url = $this->client->updateCompanyLogo(new UpdateCompanyFile([
                             'companyId' => $organization->getKey(),
-                            'logo'      => $value,
+                            'file'      => $value,
                         ]));
                     } else {
                         $organization->branding_logo_url = $this->store($organization, $value);

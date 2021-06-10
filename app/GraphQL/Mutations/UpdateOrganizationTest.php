@@ -56,12 +56,6 @@ class UpdateOrganizationTest extends TestCase {
                 $organization->keycloak_group_id = $this->faker->uuid();
             }
 
-            if (!$organization->reseller) {
-                Reseller::factory()->create([
-                    'id' => $organization->getKey(),
-                ]);
-            }
-
             $organization->save();
             $organization = $organization->fresh();
         }
@@ -432,8 +426,7 @@ class UpdateOrganizationTest extends TestCase {
                             'analytics_code' => 'analytics_code',
                             'timezone'       => 'Europe/London',
                             'branding'       => [
-                                // Logo cannot be null
-                                'logo_url'          => UploadedFile::fake()->create('branding_logo.jpg', 200),
+                                'logo_url'          => null,
                                 'dark_theme'        => false,
                                 'main_color'        => null,
                                 'secondary_color'   => null,
