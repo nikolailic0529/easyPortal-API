@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Schema;
 
-class AssetDocument extends Type {
+class ViewAssetDocument extends Type {
     public string $skuNumber;
     public string $skuDescription;
 
@@ -11,9 +11,9 @@ class AssetDocument extends Type {
 
     public ?string $warrantyEndDate;
 
-    public string    $documentNumber;
-    public ?Document $document;
-    public string    $startDate;
+    public string        $documentNumber;
+    public ?ViewDocument $document;
+    public string        $startDate;
     public string    $endDate;
 
     public ?string $currencyCode;

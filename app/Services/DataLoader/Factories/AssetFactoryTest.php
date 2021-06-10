@@ -21,9 +21,9 @@ use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
-use App\Services\DataLoader\Schema\Asset;
-use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\ViewAsset;
+use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -60,7 +60,7 @@ class AssetFactoryTest extends TestCase {
     public function testFind(): void {
         $factory = $this->app->make(AssetFactory::class);
         $json    = $this->getTestData()->json('~asset-full.json');
-        $asset   = new Asset($json);
+        $asset   = new ViewAsset($json);
 
         $this->flushQueryLog();
 
@@ -112,7 +112,7 @@ class AssetFactoryTest extends TestCase {
 
         // Load
         $json  = $this->getTestData()->json('~asset-full.json');
-        $asset = new Asset($json);
+        $asset = new ViewAsset($json);
 
         Reseller::factory()->create([
             'id' => $asset->resellerId,
@@ -216,7 +216,7 @@ class AssetFactoryTest extends TestCase {
 
         // Customer should be updated
         $json    = $this->getTestData()->json('~asset-changed.json');
-        $asset   = new Asset($json);
+        $asset   = new ViewAsset($json);
         $updated = $factory->create($asset);
 
         $this->assertNotNull($updated);
@@ -259,7 +259,7 @@ class AssetFactoryTest extends TestCase {
 
         // Test
         $json    = $this->getTestData()->json('~asset-only.json');
-        $asset   = new Asset($json);
+        $asset   = new ViewAsset($json);
         $created = $factory->create($asset);
 
         $this->assertNotNull($created);
@@ -291,7 +291,7 @@ class AssetFactoryTest extends TestCase {
         // Prepare
         $factory = $this->app->make(AssetFactory::class);
         $json    = $this->getTestData()->json('~asset-full.json');
-        $asset   = new Asset($json);
+        $asset   = new ViewAsset($json);
 
         Reseller::factory()->create([
             'id' => $asset->resellerId,
@@ -313,7 +313,7 @@ class AssetFactoryTest extends TestCase {
 
         // Test
         $json  = $this->getTestData()->json('~asset-invalid-address.json');
-        $asset = new Asset($json);
+        $asset = new ViewAsset($json);
 
         Customer::factory()->create([
             'id' => $asset->customerId,
@@ -336,7 +336,7 @@ class AssetFactoryTest extends TestCase {
 
         // Test
         $json  = $this->getTestData()->json('~asset-nozip-address.json');
-        $asset = new Asset($json);
+        $asset = new ViewAsset($json);
 
         Customer::factory()->create([
             'id' => $asset->customerId,
@@ -361,7 +361,7 @@ class AssetFactoryTest extends TestCase {
 
         // Load
         $json  = $this->getTestData()->json('~asset-reseller-location.json');
-        $asset = new Asset($json);
+        $asset = new ViewAsset($json);
 
         Reseller::factory()->create([
             'id' => $asset->resellerId,
@@ -397,7 +397,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetDocuments(): void {
         $model     = AssetModel::factory()->make();
-        $asset     = new Asset([
+        $asset     = new ViewAsset([
             'assetDocument' => [
                 [
                     'documentNumber' => 'a',
@@ -420,12 +420,12 @@ class AssetFactoryTest extends TestCase {
         $documents
             ->shouldReceive('create')
             ->with(Mockery::on(static function (AssetDocumentObject $object) use ($model): bool {
-                $ids = array_unique(array_map(static function (AssetDocument $d): string {
+                $ids = array_unique(array_map(static function (ViewAssetDocument $d): string {
                     return $d->documentNumber;
                 }, $object->entries));
 
                 return $object->asset === $model
-                    && $object->document instanceof AssetDocument
+                    && $object->document instanceof ViewAssetDocument
                     && $object->document->startDate === '09/01/2020'
                     && count($ids) === 1;
             }))
@@ -443,7 +443,7 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            public function assetDocuments(AssetModel $model, Asset $asset): Collection {
+            public function assetDocuments(AssetModel $model, ViewAsset $asset): Collection {
                 return parent::assetDocuments($model, $asset);
             }
         };
@@ -460,7 +460,7 @@ class AssetFactoryTest extends TestCase {
 
         // Prepare
         $model      = AssetModel::factory()->make();
-        $asset      = new Asset([
+        $asset      = new ViewAsset([
             'assetDocument' => [
                 [
                     'documentNumber' => 'a',
@@ -488,7 +488,7 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            public function assetDocuments(AssetModel $model, Asset $asset): Collection {
+            public function assetDocuments(AssetModel $model, ViewAsset $asset): Collection {
                 return parent::assetDocuments($model, $asset);
             }
         };
@@ -506,7 +506,7 @@ class AssetFactoryTest extends TestCase {
         $a         = AssetWarranty::factory()->make();
         $b         = AssetWarranty::factory()->make();
         $model     = AssetModel::factory()->make();
-        $asset     = new Asset();
+        $asset     = new ViewAsset();
         $documents = new Collection([Document::factory()->make()]);
         $factory   = Mockery::mock(AssetFactory::class);
         $factory->shouldAllowMockingProtectedMethods();
@@ -547,7 +547,7 @@ class AssetFactoryTest extends TestCase {
             /**
              * @inheritDoc
              */
-            public function assetInitialWarranties(AssetModel $model, Asset $asset, Collection $documents): array {
+            public function assetInitialWarranties(AssetModel $model, ViewAsset $asset, Collection $documents): array {
                 return parent::assetInitialWarranties($model, $asset, $documents);
             }
         };
@@ -572,7 +572,7 @@ class AssetFactoryTest extends TestCase {
             'reseller_id' => $docC->reseller_id,
             'document_id' => null,
         ]);
-        $asset    = new Asset([
+        $asset    = new ViewAsset([
             'id'            => $model->getKey(),
             'assetDocument' => [
                 [
@@ -741,7 +741,7 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetOem
      */
     public function testAssetOem(): void {
-        $asset   = new Asset(['vendor' => $this->faker->word]);
+        $asset   = new ViewAsset(['vendor' => $this->faker->word]);
         $factory = Mockery::mock(AssetFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
@@ -759,7 +759,7 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetType
      */
     public function testAssetType(): void {
-        $asset   = new Asset(['assetType' => $this->faker->word]);
+        $asset   = new ViewAsset(['assetType' => $this->faker->word]);
         $factory = Mockery::mock(AssetFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
@@ -779,7 +779,7 @@ class AssetFactoryTest extends TestCase {
     public function testAssetProduct(): void {
         $oem   = Oem::factory()->make();
         $type  = ProductType::asset();
-        $asset = new Asset([
+        $asset = new ViewAsset([
             'vendor'             => $this->faker->word,
             'sku'                => $this->faker->word,
             'eolDate'            => "{$this->faker->unixTime}000",
@@ -823,17 +823,17 @@ class AssetFactoryTest extends TestCase {
                 $this->customerResolver = $resolver;
             }
 
-            public function assetCustomer(Asset $asset): ?Customer {
+            public function assetCustomer(ViewAsset $asset): ?Customer {
                 return parent::assetCustomer($asset);
             }
         };
 
-        $this->assertEquals($customer, $factory->assetCustomer(new Asset([
+        $this->assertEquals($customer, $factory->assetCustomer(new ViewAsset([
             'id'         => $this->faker->uuid,
             'customerId' => $customer->getKey(),
         ])));
 
-        $this->assertEquals($customer, $factory->assetCustomer(new Asset([
+        $this->assertEquals($customer, $factory->assetCustomer(new ViewAsset([
             'id'       => $this->faker->uuid,
             'customer' => [
                 'id' => $customer->getKey(),
@@ -857,12 +857,12 @@ class AssetFactoryTest extends TestCase {
                 $this->customerResolver = $resolver;
             }
 
-            public function assetCustomer(Asset $asset): ?Customer {
+            public function assetCustomer(ViewAsset $asset): ?Customer {
                 return parent::assetCustomer($asset);
             }
         };
 
-        $this->assertNull($factory->assetCustomer(new Asset([
+        $this->assertNull($factory->assetCustomer(new ViewAsset([
             'id' => $this->faker->uuid,
         ])));
     }
@@ -872,7 +872,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetCustomerCustomerNotFound(): void {
         $customer = Customer::factory()->make();
-        $asset    = new Asset([
+        $asset    = new ViewAsset([
             'id'       => $this->faker->uuid,
             'customer' => [
                 'id' => $customer->getKey(),
@@ -891,7 +891,7 @@ class AssetFactoryTest extends TestCase {
                 $this->customerResolver = $resolver;
             }
 
-            public function assetCustomer(Asset $asset): ?Customer {
+            public function assetCustomer(ViewAsset $asset): ?Customer {
                 return parent::assetCustomer($asset);
             }
         };
@@ -906,7 +906,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetCustomerExistsThroughFactory(): void {
         $customer = Customer::factory()->make();
-        $asset    = new Asset([
+        $asset    = new ViewAsset([
             'id'       => $this->faker->uuid,
             'customer' => [
                 'id' => $customer->getKey(),
@@ -932,7 +932,7 @@ class AssetFactoryTest extends TestCase {
                 $this->customerResolver = $resolver;
             }
 
-            public function assetCustomer(Asset $asset): ?Customer {
+            public function assetCustomer(ViewAsset $asset): ?Customer {
                 return parent::assetCustomer($asset);
             }
         };
@@ -947,7 +947,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetCustomerNotFoundThroughFactory(): void {
         $customer = Customer::factory()->make();
-        $asset    = new Asset([
+        $asset    = new ViewAsset([
             'id'       => $this->faker->uuid,
             'customer' => [
                 'id' => $customer->getKey(),
@@ -973,7 +973,7 @@ class AssetFactoryTest extends TestCase {
                 $this->customerResolver = $resolver;
             }
 
-            public function assetCustomer(Asset $asset): ?Customer {
+            public function assetCustomer(ViewAsset $asset): ?Customer {
                 return parent::assetCustomer($asset);
             }
         };
@@ -990,7 +990,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetLocation(): void {
         $customer  = Customer::factory()->make();
-        $asset     = new Asset([
+        $asset     = new ViewAsset([
             'id'         => $this->faker->uuid,
             'customerId' => $customer->getKey(),
         ]);
@@ -1015,7 +1015,7 @@ class AssetFactoryTest extends TestCase {
                 $this->locations = $locations;
             }
 
-            public function assetLocation(Asset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
+            public function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
                 return parent::assetLocation($asset, $customer, $reseller);
             }
         };
@@ -1028,7 +1028,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetLocationNoCustomer(): void {
         $reseller  = Reseller::factory()->make();
-        $asset     = new Asset([
+        $asset     = new ViewAsset([
             'id'         => $this->faker->uuid,
             'resellerId' => $reseller->getKey(),
         ]);
@@ -1053,7 +1053,7 @@ class AssetFactoryTest extends TestCase {
                 $this->locations = $locations;
             }
 
-            public function assetLocation(Asset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
+            public function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
                 return parent::assetLocation($asset, $customer, $reseller);
             }
         };
@@ -1072,12 +1072,12 @@ class AssetFactoryTest extends TestCase {
                 $this->locations = $factory;
             }
 
-            public function assetLocation(Asset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
+            public function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
                 return parent::assetLocation($asset, $customer, $reseller);
             }
         };
 
-        $this->assertNull($factory->assetLocation(new Asset(), null, null));
+        $this->assertNull($factory->assetLocation(new ViewAsset(), null, null));
     }
 
     /**
@@ -1085,7 +1085,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetLocationNoLocation(): void {
         $customer  = Customer::factory()->make();
-        $asset     = new Asset([
+        $asset     = new ViewAsset([
             'id'         => $this->faker->uuid,
             'customerId' => $customer->getKey(),
         ]);
@@ -1103,7 +1103,7 @@ class AssetFactoryTest extends TestCase {
                 $this->locations = $locations;
             }
 
-            public function assetLocation(Asset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
+            public function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
                 return parent::assetLocation($asset, $customer, $reseller);
             }
         };
@@ -1115,11 +1115,11 @@ class AssetFactoryTest extends TestCase {
      * @covers ::prefetch
      */
     public function testPrefetch(): void {
-        $a          = new Asset([
+        $a          = new ViewAsset([
             'id'           => $this->faker->uuid,
             'serialNumber' => $this->faker->uuid,
         ]);
-        $b          = new Asset([
+        $b          = new ViewAsset([
             'id'           => $this->faker->uuid,
             'serialNumber' => $this->faker->uuid,
         ]);
@@ -1154,7 +1154,7 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetStatus
      */
     public function testAssetStatus(): void {
-        $asset   = new Asset(['status' => $this->faker->word]);
+        $asset   = new ViewAsset(['status' => $this->faker->word]);
         $factory = Mockery::mock(AssetFactoryTest_Factory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
@@ -1185,17 +1185,17 @@ class AssetFactoryTest extends TestCase {
             /**
              * @inheritDoc
              */
-            public function assetTags(Asset $asset): array {
+            public function assetTags(ViewAsset $asset): array {
                 return parent::assetTags($asset);
             }
         };
         // Null tag
-        $asset = new Asset(['assetTag' => null]);
+        $asset = new ViewAsset(['assetTag' => null]);
         $factory->assetTags($asset);
         $this->assertEmpty($factory->assetTags($asset));
 
         // Normalized empty
-        $asset = new Asset(['assetTag' => ' ']);
+        $asset = new ViewAsset(['assetTag' => ' ']);
         $factory->assetTags($asset);
         $this->assertEmpty($factory->assetTags($asset));
     }
@@ -1208,8 +1208,8 @@ class AssetFactoryTest extends TestCase {
      */
     public function dataProviderCreate(): array {
         return [
-            Asset::class => ['createFromAsset', new Asset()],
-            'Unknown'    => [
+            ViewAsset::class => ['createFromAsset', new ViewAsset()],
+            'Unknown'        => [
                 null,
                 new class() extends Type {
                     // empty
@@ -1230,19 +1230,19 @@ class AssetFactoryTest extends TestCase {
 class AssetFactoryTest_Factory extends AssetFactory {
     // TODO [tests] Remove after https://youtrack.jetbrains.com/issue/WI-25253
 
-    public function assetOem(Asset $asset): Oem {
+    public function assetOem(ViewAsset $asset): Oem {
         return parent::assetOem($asset);
     }
 
-    public function assetType(Asset $asset): TypeModel {
+    public function assetType(ViewAsset $asset): TypeModel {
         return parent::assetType($asset);
     }
 
-    public function assetProduct(Asset $asset): Product {
+    public function assetProduct(ViewAsset $asset): Product {
         return parent::assetProduct($asset);
     }
 
-    public function assetStatus(Asset $asset): Status {
+    public function assetStatus(ViewAsset $asset): Status {
         return parent::assetStatus($asset);
     }
 }

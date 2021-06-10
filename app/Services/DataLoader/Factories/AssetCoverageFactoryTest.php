@@ -5,8 +5,8 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\AssetCoverage;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetCoverageResolver;
-use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\ViewAsset;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -26,7 +26,7 @@ class AssetCoverageFactoryTest extends TestCase {
      */
     public function testFind(): void {
         $factory = $this->app->make(AssetCoverageFactory::class);
-        $entry   = new Asset([
+        $entry   = new ViewAsset([
             'assetCoverage' => $this->faker->word,
         ]);
 
@@ -65,7 +65,7 @@ class AssetCoverageFactoryTest extends TestCase {
      */
     public function testCreateFromAsset(): void {
         $key   = $this->faker->word;
-        $asset = new Asset([
+        $asset = new ViewAsset([
             'assetCoverage' => $key,
         ]);
 
@@ -129,8 +129,8 @@ class AssetCoverageFactoryTest extends TestCase {
      */
     public function dataProviderCreate(): array {
         return [
-            Asset::class => ['createFromAsset', new Asset()],
-            'Unknown'    => [
+            ViewAsset::class => ['createFromAsset', new ViewAsset()],
+            'Unknown'        => [
                 null,
                 new class() extends Type {
                     // empty

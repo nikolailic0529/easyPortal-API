@@ -12,9 +12,9 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
-use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\ViewAsset;
 use Closure;
 use Illuminate\Contracts\Events\Dispatcher;
 use InvalidArgumentException;
@@ -61,14 +61,14 @@ class ResellerFactory extends ModelFactory {
     // <editor-fold desc="Prefetch">
     // =========================================================================
     /**
-     * @param array<\App\Services\DataLoader\Schema\Company|\App\Services\DataLoader\Schema\Asset> $resellers
+     * @param array<\App\Services\DataLoader\Schema\Company|\App\Services\DataLoader\Schema\ViewAsset> $resellers
      * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
      */
     public function prefetch(array $resellers, bool $reset = false, Closure|null $callback = null): static {
-        $keys = array_unique(array_filter(array_map(static function (Company|Asset $model): ?string {
+        $keys = array_unique(array_filter(array_map(static function (Company|ViewAsset $model): ?string {
             if ($model instanceof Company) {
                 return $model->id;
-            } elseif ($model instanceof Asset) {
+            } elseif ($model instanceof ViewAsset) {
                 return $model->resellerId;
             } else {
                 return null;

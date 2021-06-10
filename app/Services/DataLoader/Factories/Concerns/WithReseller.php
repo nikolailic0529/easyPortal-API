@@ -5,18 +5,18 @@ namespace App\Services\DataLoader\Factories\Concerns;
 use App\Models\Reseller;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
-use App\Services\DataLoader\Schema\Asset;
-use App\Services\DataLoader\Schema\AssetDocument;
-use App\Services\DataLoader\Schema\Document;
+use App\Services\DataLoader\Schema\ViewAsset;
+use App\Services\DataLoader\Schema\ViewAssetDocument;
+use App\Services\DataLoader\Schema\ViewDocument;
 
 trait WithReseller {
     abstract protected function getResellerResolver(): ResellerResolver;
 
-    protected function reseller(Asset|Document|AssetDocument $object): ?Reseller {
+    protected function reseller(ViewAsset|ViewDocument|ViewAssetDocument $object): ?Reseller {
         // Id
         $id = null;
 
-        if ($object instanceof AssetDocument) {
+        if ($object instanceof ViewAssetDocument) {
             $id = $object->reseller->id ?? null;
         } else {
             $id = $object->resellerId ?? null;

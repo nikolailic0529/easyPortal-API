@@ -11,9 +11,9 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CityResolver;
 use App\Services\DataLoader\Resolvers\CountryResolver;
 use App\Services\DataLoader\Resolvers\LocationResolver;
-use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\ViewAsset;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -210,7 +210,7 @@ class LocationFactoryTest extends TestCase {
         $city      = City::factory()->make([
             'country_id' => $country,
         ]);
-        $assert    = new Asset([
+        $assert    = new ViewAsset([
             'zip'         => $this->faker->postcode,
             'address'     => $this->faker->streetAddress,
             'city'        => $this->faker->city,
@@ -264,7 +264,7 @@ class LocationFactoryTest extends TestCase {
         ]);
         $state     = $this->faker->state;
         $cityName  = $this->faker->city;
-        $assert    = new Asset([
+        $assert    = new ViewAsset([
             'zip'         => $this->faker->postcode,
             'address'     => $this->faker->streetAddress,
             'city'        => "{$cityName},  {$state}",
@@ -518,9 +518,9 @@ class LocationFactoryTest extends TestCase {
      */
     public function dataProviderCreate(): array {
         return [
-            Location::class => ['createFromLocation', new Location()],
-            Asset::class    => ['createFromAsset', new Asset()],
-            'Unknown'       => [
+            Location::class  => ['createFromLocation', new Location()],
+            ViewAsset::class => ['createFromAsset', new ViewAsset()],
+            'Unknown'        => [
                 null,
                 new class() extends Type {
                     // empty

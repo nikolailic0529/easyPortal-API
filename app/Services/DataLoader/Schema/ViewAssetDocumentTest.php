@@ -9,20 +9,20 @@ use function json_encode;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Schema\Document
+ * @coversDefaultClass \App\Services\DataLoader\Schema\ViewAssetDocument
  */
-class DocumentTest extends TestCase {
+class ViewAssetDocumentTest extends TestCase {
     /**
      * @covers ::create
      */
     public function testCreate(): void {
         $json       = $this->getTestData()->json();
-        $actual     = new Document($json);
-        $properties = Document::getPropertiesNames();
+        $actual     = new ViewAssetDocument($json);
+        $properties = ViewAssetDocument::getPropertiesNames();
 
         $this->assertEquals(array_keys($json), $properties);
-        $this->assertInstanceOf(DocumentVendorSpecificField::class, $actual->vendorSpecificFields);
-        $this->assertInstanceOf(DocumentEntry::class, $actual->documentEntries[0]);
+        $this->assertInstanceOf(ViewDocument::class, $actual->document);
+        $this->assertInstanceOf(Company::class, $actual->reseller);
         $this->assertInstanceOf(Company::class, $actual->customer);
         $this->assertJsonStringEqualsJsonString(
             json_encode($json),

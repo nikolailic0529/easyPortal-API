@@ -10,9 +10,9 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CityResolver;
 use App\Services\DataLoader\Resolvers\CountryResolver;
 use App\Services\DataLoader\Resolvers\LocationResolver;
-use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\ViewAsset;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
@@ -44,7 +44,7 @@ class LocationFactory extends DependentModelFactory {
 
         if ($type instanceof Location) {
             $model = $this->createFromLocation($object, $type);
-        } elseif ($type instanceof Asset) {
+        } elseif ($type instanceof ViewAsset) {
             $model = $this->createFromAsset($object, $type);
         } else {
             throw new InvalidArgumentException(sprintf(
@@ -56,7 +56,7 @@ class LocationFactory extends DependentModelFactory {
         return $model;
     }
 
-    public function isEmpty(Location|Asset $location): bool {
+    public function isEmpty(Location|ViewAsset $location): bool {
         return !($location->zip ?? null) || !($location->city ?? null);
     }
 
@@ -103,7 +103,7 @@ class LocationFactory extends DependentModelFactory {
         return $object;
     }
 
-    protected function createFromAsset(Model $object, Asset $asset): ?LocationModel {
+    protected function createFromAsset(Model $object, ViewAsset $asset): ?LocationModel {
         // TODO [DataLoader] Today Asset::address2 is always equal `TODO` (I
         //      guess because it the same as the customer's location that
         //      doesn't have it), so we ignore it. We will need review this

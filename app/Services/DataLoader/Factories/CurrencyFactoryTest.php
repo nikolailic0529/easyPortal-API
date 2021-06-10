@@ -5,10 +5,10 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Currency;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CurrencyResolver;
-use App\Services\DataLoader\Schema\AssetDocument;
-use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\ViewAssetDocument;
+use App\Services\DataLoader\Schema\ViewDocument;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -97,7 +97,7 @@ class CurrencyFactoryTest extends TestCase {
      */
     public function testCreateFromAssetDocument(): void {
         $code     = $this->faker->currencyCode;
-        $document = new AssetDocument([
+        $document = new ViewAssetDocument([
             'currencyCode' => $code,
         ]);
 
@@ -117,7 +117,7 @@ class CurrencyFactoryTest extends TestCase {
      */
     public function testCreateFromDocument(): void {
         $code     = $this->faker->currencyCode;
-        $document = new Document([
+        $document = new ViewDocument([
             'currencyCode' => $code,
         ]);
 
@@ -202,8 +202,8 @@ class CurrencyFactoryTest extends TestCase {
     public function dataProviderCreate(): array {
         return [
             AssetDocumentObject::class => ['createFromAssetDocumentObject', new AssetDocumentObject()],
-            AssetDocument::class       => ['createFromAssetDocument', new AssetDocument()],
-            Document::class            => ['createFromDocument', new Document()],
+            ViewAssetDocument::class   => ['createFromAssetDocument', new ViewAssetDocument()],
+            ViewDocument::class        => ['createFromDocument', new ViewDocument()],
             DocumentEntry::class       => ['createFromDocumentEntry', new DocumentEntry()],
             'Unknown'                  => [
                 null,
