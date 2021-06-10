@@ -34,6 +34,7 @@ use Illuminate\Support\Facades\Event;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
+use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 use Tests\WithoutOrganizationScope;
 
@@ -468,6 +469,7 @@ class AssetFactoryTest extends TestCase {
                 ],
             ],
         ]);
+        $logger     = $this->app->make(LoggerInterface::class);
         $dispatcher = $this->app->make(Dispatcher::class);
         $documents  = Mockery::mock(DocumentFactory::class);
         $documents
@@ -476,9 +478,10 @@ class AssetFactoryTest extends TestCase {
             ->andReturnUsing(function (Type $type): ?Document {
                 throw new ResellerNotFoundException($this->faker->uuid);
             });
-        $factory = new class($dispatcher, $documents) extends AssetFactory {
+        $factory = new class($logger, $dispatcher, $documents) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
+                protected LoggerInterface $logger,
                 protected Dispatcher $dispatcher,
                 protected ?DocumentFactory $documentFactory,
             ) {
