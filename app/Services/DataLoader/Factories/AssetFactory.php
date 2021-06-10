@@ -204,11 +204,15 @@ class AssetFactory extends ModelFactory {
         // information (that is not available in Document and DocumentEntry)
 
         return (new Collection($asset->assetDocument))
-            ->filter(function (ViewAssetDocument $document): bool {
+            ->filter(function (ViewAssetDocument $document) use ($model): bool {
                 if (!isset($document->document->id)) {
                     $this->dispatcher->dispatch(
                         new ObjectSkipped($document, new ViewAssetDocumentNoDocument($document)),
                     );
+                    $this->logger->error('Failed to process ViewAssetDocument: document is null.', [
+                        'asset'    => $model,
+                        'document' => $document,
+                    ]);
 
                     return false;
                 }

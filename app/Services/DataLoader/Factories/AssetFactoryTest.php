@@ -476,9 +476,11 @@ class AssetFactoryTest extends TestCase {
             ],
         ]);
         $dispatcher = $this->app->make(Dispatcher::class);
-        $factory    = new class($dispatcher) extends AssetFactory {
+        $logger     = $this->app->make(LoggerInterface::class);
+        $factory    = new class($logger, $dispatcher) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
+                protected LoggerInterface $logger,
                 protected Dispatcher $dispatcher,
             ) {
                 // empty
