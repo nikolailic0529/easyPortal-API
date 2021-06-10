@@ -13,6 +13,7 @@ use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
 use App\Services\DataLoader\Schema\UpdateCompanyFile;
 use Closure;
+use DateTimeInterface;
 use Exception;
 use GraphQL\Type\Introspection;
 use GuzzleHttp\Psr7\Utils;
@@ -47,18 +48,20 @@ class Client {
     /**
      * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Company>
      */
-    public function getResellers(int $limit = null, int $offset = 0): QueryIterator {
+    public function getResellers(DateTimeInterface $from = null, int $limit = null, int $offset = 0): QueryIterator {
         return $this
             ->iterator(
                 'getResellers',
                 /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$limit: Int, \$offset: Int) {
-                    getResellers(limit: \$limit, offset: \$offset) {
+                query items(\$limit: Int, \$offset: Int, \$from: String) {
+                    getResellers(limit: \$limit, offset: \$offset, fromTimestamp: \$from) {
                         {$this->getCompanyPropertiesGraphQL()}
                     }
                 }
                 GRAPHQL,
-                [],
+                [
+                    'from' => $this->datetime($from),
+                ],
                 static function (array $data): Company {
                     return new Company($data);
                 },
@@ -453,6 +456,12 @@ class Client {
 
         // Return
         return $result;
+    }
+
+    protected function datetime(?DateTimeInterface $datetime): ?string {
+        return $datetime
+            ? "{$datetime->getTimestamp()}{$datetime->format('v')}"
+            : null;
     }
     // </editor-fold>
 

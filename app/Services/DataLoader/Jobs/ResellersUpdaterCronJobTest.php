@@ -2,9 +2,14 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Models\Reseller;
+use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Client\QueryIterator;
+use App\Services\DataLoader\Schema\Company;
+use DateTimeInterface;
+use Generator;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Queue;
+use Mockery;
 use Tests\TestCase;
 
 /**
@@ -25,17 +30,36 @@ class ResellersUpdaterCronJobTest extends TestCase {
     public function testHandle(): void {
         // Prepare
         Queue::fake();
+        Date::setTestNow('2021-06-10T00:00:00.000+00:00');
 
-        $d = Date::now();
-        $a = Reseller::factory()->create(['updated_at' => $d->subWeek()]);
+        // Client
+        $expire   = 'P5D';
+        $company  = new Company(['id' => $this->faker->uuid]);
+        $iterator = Mockery::mock(QueryIterator::class);
+        $iterator
+            ->shouldReceive('getIterator')
+            ->once()
+            ->andReturnUsing(static function () use ($company): Generator {
+                yield from [$company];
+            });
 
-        Reseller::factory()->create(['updated_at' => $d]);
-        Reseller::factory()->create(['updated_at' => $d->addWeek()]);
+        $client = Mockery::mock(Client::class);
+        $client
+            ->shouldReceive('getResellers')
+            ->withArgs(static function (DateTimeInterface|null $from) use ($expire): bool {
+                return Date::now()->sub($expire)->equalTo($from);
+            })
+            ->once()
+            ->andReturn($iterator);
+
+        $this->app->bind(Client::class, static function () use ($client): Client {
+            return $client;
+        });
 
         // Settings
         $this->setQueueableConfig(ResellersUpdaterCronJob::class, [
             'settings' => [
-                'expire' => '5 days',
+                'expire' => $expire,
             ],
         ]);
 
@@ -44,13 +68,8 @@ class ResellersUpdaterCronJobTest extends TestCase {
 
         // Test
         Queue::assertPushed(ResellerUpdate::class, 1);
-        Queue::assertPushed(ResellerUpdate::class, static function (ResellerUpdate $job) use ($a): bool {
-            return $job->getResellerId() === $a->getKey();
+        Queue::assertPushed(ResellerUpdate::class, static function (ResellerUpdate $job) use ($company): bool {
+            return $job->getResellerId() === $company->id;
         });
-
-        // Second run should not emit new jobs
-        $this->app->call([$this->app->make(ResellersUpdaterCronJob::class), 'handle']);
-
-        Queue::assertPushed(ResellerUpdate::class, 1);
     }
 }

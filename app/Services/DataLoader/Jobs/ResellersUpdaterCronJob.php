@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Jobs\NamedJob;
-use App\Models\Reseller;
+use App\Services\DataLoader\Client\Client;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Support\Facades\Date;
@@ -29,22 +29,18 @@ class ResellersUpdaterCronJob extends CronJob implements ShouldBeUnique, NamedJo
             ] + parent::getQueueConfig();
     }
 
-    public function handle(Container $container, QueueableConfigurator $configurator): void {
+    public function handle(Container $container, QueueableConfigurator $configurator, Client $client): void {
         $config   = $configurator->config($this);
         $expire   = $config->setting('expire');
         $expire   = Date::now()->sub($expire);
-        $outdated = Reseller::query()
-            ->where('updated_at', '<', $expire)
-            ->get();
+        $outdated = $client->getResellers($expire);
 
         foreach ($outdated as $reseller) {
+            /** @var \App\Services\DataLoader\Schema\Company $reseller */
             $container
                 ->make(ResellerUpdate::class)
-                ->initialize($reseller->getKey())
+                ->initialize($reseller->id)
                 ->dispatch();
-
-            $reseller->updated_at = Date::now();
-            $reseller->save();
         }
     }
 }

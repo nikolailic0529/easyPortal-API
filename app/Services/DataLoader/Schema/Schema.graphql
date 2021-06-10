@@ -26,10 +26,9 @@ type Asset {
   longitude: String
   country: String
   countryCode: String
-  status: String
+  dataQualityScore: String
   latestContactPersons: [CompanyContactPerson]
   status: String
-  dataQualityScore: String
   assetCoverage: String
 }
 
@@ -258,7 +257,7 @@ type Query {
   getAssets(args: [KeyValuePair], limit: Int, offset: Int): [Asset]!
   getCompanyById(id: String): [Company]!
   assets(limit: Int, offset: Int): [Asset]!
-  getResellers(limit: Int, offset: Int): [Company]!
+  getResellers(limit: Int, offset: Int, fromTimestamp: String): [Company]!
   getDistributors(limit: Int, offset: Int): [Company]!
   getDocumentTypes: [String]!
 }
