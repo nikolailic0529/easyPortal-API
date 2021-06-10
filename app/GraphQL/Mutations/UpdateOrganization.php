@@ -126,12 +126,19 @@ class UpdateOrganization {
                     $branding->underlineText                  = $value;
                     break;
                 case 'welcome_image_url':
-                    if ($value instanceof UploadedFile) {
-                        $organization->branding_welcome_image_url = $this->store($organization, $value);
-                        $branding->mainImageOnTheRight            = $organization->branding_welcome_image_url;
+                    if ($organization->reseller) {
+                        $imageOnTheRight                          = $this->client->updateCompanyMainImageOnTheRight(
+                            new UpdateCompanyFile([
+                                'companyId' => $organization->getKey(),
+                                'file'      => $value,
+                            ]),
+                        );
+                        $organization->branding_welcome_image_url = $imageOnTheRight;
+                        $branding->mainImageOnTheRight            = $imageOnTheRight;
                     } else {
-                        $organization->branding_welcome_image_url = null;
-                        $branding->mainImageOnTheRight            = null;
+                        $imageOnTheRight                          = $this->store($organization, $value);
+                        $organization->branding_welcome_image_url = $imageOnTheRight;
+                        $branding->mainImageOnTheRight            = $imageOnTheRight;
                     }
                     break;
                 default:

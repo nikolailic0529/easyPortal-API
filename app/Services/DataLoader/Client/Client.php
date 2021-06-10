@@ -283,6 +283,23 @@ class Client {
             ],
         );
     }
+
+    public function updateCompanyMainImageOnTheRight(UpdateCompanyFile $input): ?string {
+        return $this->call(
+            'data.updateCompanyMainImageOnTheRight',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            mutation updateCompanyMainImageOnTheRight($input: UpdateCompanyMainImageOnTheRight!) {
+                updateCompanyMainImageOnTheRight(input: $input)
+            }
+            GRAPHQL,
+            [
+                'input' => $input->toArray(),
+            ],
+            [
+                'input.logo',
+            ],
+        );
+    }
     // </editor-fold>
 
     // <editor-fold desc="API">

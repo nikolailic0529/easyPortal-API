@@ -7,11 +7,9 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Storage;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -24,7 +22,6 @@ use Tests\TestCase;
 
 use function __;
 use function array_key_exists;
-use function str_replace;
 
 /**
  * @internal
@@ -173,9 +170,6 @@ class UpdateOrganizationTest extends TestCase {
             'variables'     => ['input' => $input],
         ];
 
-        // Fake
-        $disc = Storage::fake('public');
-
         // Mocks
         $client = Mockery::mock(Client::class);
 
@@ -219,9 +213,15 @@ class UpdateOrganizationTest extends TestCase {
                     ->shouldReceive('updateCompanyFavicon')
                     ->once()
                     ->andReturn('https://example.com/favicon.png');
+                $client
+                    ->shouldReceive('updateCompanyMainImageOnTheRight')
+                    ->once()
+                    ->andReturn('https://example.com/imageOnTheRight.png');
             } else {
                 $client
                     ->shouldNotReceive('updateCompanyLogo')
+                    ->shouldNotReceive('updateCompanyFavicon')
+                    ->shouldNotReceive('updateCompanyMainImageOnTheRight')
                     ->shouldNotReceive('updateBrandingData');
             }
         }
@@ -230,8 +230,6 @@ class UpdateOrganizationTest extends TestCase {
         $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            $url          = $this->app->make(UrlGenerator::class);
-            $prefix       = $url->to($disc->url(''));
             $organization = $organization->fresh();
 
             $this->assertEquals($data['locale'], $organization->locale);
@@ -242,17 +240,16 @@ class UpdateOrganizationTest extends TestCase {
             if ($organization->reseller) {
                 $this->assertEquals('https://example.com/logo.png', $organization->branding_logo_url);
                 $this->assertEquals('https://example.com/favicon.png', $organization->branding_favicon_url);
+                $this->assertEquals(
+                    'https://example.com/imageOnTheRight.png',
+                    $organization->branding_welcome_image_url,
+                );
             }
 
             if (array_key_exists('branding', $data)) {
                 $this->assertEquals($data['branding']['dark_theme'], $organization->branding_dark_theme);
                 $this->assertEquals($data['branding']['main_color'], $organization->branding_main_color);
                 $this->assertEquals($data['branding']['secondary_color'], $organization->branding_secondary_color);
-
-                if (isset($data['branding']['welcome_image_url'])) {
-                    $this->assertNotNull($organization->branding_welcome_image_url);
-                    $disc->assertExists(str_replace($prefix, '', $organization->branding_welcome_image_url));
-                }
             }
         }
     }

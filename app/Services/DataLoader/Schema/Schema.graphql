@@ -245,6 +245,7 @@ type Mutation {
   updateBrandingData(input: CompanyBrandingData): Boolean
   updateCompanyLogo(input: UpdateCompanyFile): String
   updateCompanyFavicon(input: UpdateCompanyFile): String
+  updateCompanyMainImageOnTheRight(input: UpdateCompanyFile): String
 }
 
 type Query {
