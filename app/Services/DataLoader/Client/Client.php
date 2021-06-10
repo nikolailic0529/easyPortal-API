@@ -12,7 +12,6 @@ use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
 use App\Services\DataLoader\Schema\UpdateCompanyFile;
-use App\Services\DataLoader\Schema\UpdateCompanyLogo;
 use Closure;
 use Exception;
 use GraphQL\Type\Introspection;
@@ -251,7 +250,7 @@ class Client {
         );
     }
 
-    public function updateCompanyLogo(UpdateCompanyFile $input): string {
+    public function updateCompanyLogo(UpdateCompanyFile $input): ?string {
         return $this->call(
             'data.updateCompanyLogo',
             /** @lang GraphQL */ <<<'GRAPHQL'

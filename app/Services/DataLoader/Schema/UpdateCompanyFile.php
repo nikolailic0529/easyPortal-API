@@ -5,6 +5,6 @@ namespace App\Services\DataLoader\Schema;
 use SplFileInfo;
 
 class UpdateCompanyFile extends Input {
-    public string      $companyId;
-    public SplFileInfo $file;
+    public string       $companyId;
+    public ?SplFileInfo $file;
 }
