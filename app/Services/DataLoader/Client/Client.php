@@ -257,7 +257,7 @@ class Client {
         return $this->call(
             'data.updateCompanyLogo',
             /** @lang GraphQL */ <<<'GRAPHQL'
-            mutation updateCompanyLogo($input: UpdateCompanyLogo!) {
+            mutation updateCompanyLogo($input: UpdateCompanyFile!) {
                 updateCompanyLogo(input: $input)
             }
             GRAPHQL,
@@ -274,7 +274,7 @@ class Client {
         return $this->call(
             'data.updateCompanyFavicon',
             /** @lang GraphQL */ <<<'GRAPHQL'
-            mutation updateCompanyFavicon($input: UpdateCompanyFavicon!) {
+            mutation updateCompanyFavicon($input: UpdateCompanyFile!) {
                 updateCompanyFavicon(input: $input)
             }
             GRAPHQL,
@@ -291,7 +291,7 @@ class Client {
         return $this->call(
             'data.updateCompanyMainImageOnTheRight',
             /** @lang GraphQL */ <<<'GRAPHQL'
-            mutation updateCompanyMainImageOnTheRight($input: UpdateCompanyMainImageOnTheRight!) {
+            mutation updateCompanyMainImageOnTheRight($input: UpdateCompanyFile!) {
                 updateCompanyMainImageOnTheRight(input: $input)
             }
             GRAPHQL,
