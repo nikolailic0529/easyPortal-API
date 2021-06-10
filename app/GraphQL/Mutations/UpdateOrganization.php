@@ -127,18 +127,14 @@ class UpdateOrganization {
                     break;
                 case 'welcome_image_url':
                     if ($organization->reseller) {
-                        $imageOnTheRight                          = $this->client->updateCompanyMainImageOnTheRight(
+                        $organization->branding_welcome_image_url = $this->client->updateCompanyMainImageOnTheRight(
                             new UpdateCompanyFile([
                                 'companyId' => $organization->getKey(),
                                 'file'      => $value,
                             ]),
                         );
-                        $organization->branding_welcome_image_url = $imageOnTheRight;
-                        $branding->mainImageOnTheRight            = $imageOnTheRight;
                     } else {
-                        $imageOnTheRight                          = $this->store($organization, $value);
-                        $organization->branding_welcome_image_url = $imageOnTheRight;
-                        $branding->mainImageOnTheRight            = $imageOnTheRight;
+                        $organization->branding_welcome_image_url = $this->store($organization, $value);
                     }
                     break;
                 default:
