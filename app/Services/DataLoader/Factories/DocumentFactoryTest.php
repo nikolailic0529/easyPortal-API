@@ -10,6 +10,7 @@ use App\Models\Oem;
 use App\Models\Product;
 use App\Models\Reseller as ResellerModel;
 use App\Models\Type as TypeModel;
+use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
@@ -48,9 +49,12 @@ class DocumentFactoryTest extends TestCase {
      */
     public function testFind(): void {
         $factory  = $this->app->make(DocumentFactory::class);
-        $json     = $this->getTestData()->json('~document-full.json');
         $document = new AssetDocumentObject([
-            'document' => $json,
+            'document' => [
+                'document' => [
+                    'id' => $this->faker->uuid,
+                ],
+            ],
         ]);
 
         $this->flushQueryLog();
@@ -191,55 +195,20 @@ class DocumentFactoryTest extends TestCase {
 
         // Create
         // ---------------------------------------------------------------------
-        $json     = $this->getTestData()->json('~asset-document-no-document.json');
-        $asset    = new ViewAsset($json);
-        $model    = AssetModel::factory()->create([
+        $json   = $this->getTestData()->json('~asset-document-no-document.json');
+        $asset  = new ViewAsset($json);
+        $model  = AssetModel::factory()->create([
             'id' => $asset->id,
         ]);
-        $object   = new AssetDocumentObject([
+        $object = new AssetDocumentObject([
             'asset'    => $model,
             'document' => reset($asset->assetDocument),
             'entries'  => $asset->assetDocument,
         ]);
-        $reseller = ResellerModel::factory()->create([
-            'id' => $asset->resellerId,
-        ]);
-        $created  = $factory->createFromAssetDocumentObject($object);
 
-        // Test
-        // ---------------------------------------------------------------------
-        $this->assertNotNull($created);
-        $this->assertEquals($asset->customerId, $created->customer_id);
-        $this->assertEquals($reseller->getKey(), $created->reseller_id);
-        $this->assertEquals('688b9621-3244-464b-9468-3cd74f5eaacf', $created->number);
-        $this->assertEquals(null, $created->price);
-        $this->assertEquals('1583020800000', $this->getDatetime($created->start));
-        $this->assertEquals('1614470400000', $this->getDatetime($created->end));
-        $this->assertEquals($model->oem->abbr, $created->oem->abbr);
-        $this->assertEquals('??', $created->type->key);
-        $this->assertEquals('CUR', $created->currency->code);
-        $this->assertEquals('fr', $created->language->code);
-        $this->assertEquals('H7J34AC', $created->support->sku);
-        $this->assertEquals('HPE Foundation Care 24x7 SVC', $created->support->name);
-        $this->assertEquals(ProductType::support(), $created->support->type);
-        $this->assertEquals($model->oem->abbr, $created->support->oem->abbr);
+        $this->expectExceptionObject(new ViewAssetDocumentNoDocument($object->document));
 
-        $this->assertCount(2, $created->entries);
-
-        /** @var \App\Models\DocumentEntry $e */
-        $e = $created->entries->first(static function (DocumentEntryModel $entry): bool {
-            return $entry->renewal === '145.00';
-        });
-
-        $this->assertEquals('23.40', $e->net_price);
-        $this->assertEquals('48.00', $e->list_price);
-        $this->assertEquals('-2.05', $e->discount);
-        $this->assertEquals($created->getKey(), $e->document_id);
-        $this->assertEquals($asset->id, $e->asset_id);
-        $this->assertEquals('HA151AC', $e->service->sku);
-        $this->assertEquals('HPE Hardware Maintenance Onsite Support', $e->service->name);
-        $this->assertEquals(ProductType::service(), $e->service->type);
-        $this->assertEquals($model->oem->abbr, $e->service->oem->abbr);
+        $factory->createFromAssetDocumentObject($object);
     }
 
     /**
@@ -516,143 +485,31 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::createFromDocument
+     * @covers ::createFromAssetDocumentObject
      */
-    public function testCreateFromDocument(): void {
+    public function testCreateFromAssetDocumentObjectContactPersonsIsNull(): void {
         // Prepare
-        $contacts   = $this->app->make(ContactFactory::class);
-        $normalizer = $this->app->make(Normalizer::class);
-        $factory    = $this->app->make(DocumentFactoryTest_Factory::class)->setContactsFactory($contacts);
-
-        // Test
-        $json     = $this->getTestData()->json('~document-full.json');
-        $document = new ViewAssetDocument($json);
-        $reseller = ResellerModel::factory()->create([
-            'id' => $document->document->resellerId,
+        $factory = $this->app->make(DocumentFactoryTest_Factory::class);
+        $json    = $this->getTestData()->json('~asset-document-full.json');
+        $asset   = new ViewAsset($json);
+        $model   = AssetModel::factory()->create([
+            'id' => $asset->id,
         ]);
-        $created  = $factory->createFromDocument($document->document);
-
-        $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertEquals($document->document->id, $created->getKey());
-        $this->assertEquals($reseller->getKey(), $created->reseller_id);
-        $this->assertEquals($document->document->customer->id, $created->customer_id);
-        $this->assertEquals($document->document->vendorSpecificFields->vendor, $created->oem->abbr);
-        $this->assertNotNull($created->price);
-        $this->assertEquals(
-            $normalizer->number($document->document->totalNetPrice),
-            $created->price,
-        );
-        $this->assertEquals($document->document->documentNumber, $created->number);
-        $this->assertEquals($document->document->startDate, $this->getDatetime($created->start));
-        $this->assertEquals($document->document->endDate, $this->getDatetime($created->end));
-        $this->assertEquals($document->document->type, $created->type->key);
-        $this->assertEquals('CUR', $created->currency->code);
-        $this->assertEquals('en', $created->language->code);
-        $this->assertNull($created->support);
-        $this->assertEquals(
-            $this->getModelContacts($created),
-            $this->getContacts($document->document),
-        );
-
-        // Customer should be updated
-        $json     = $this->getTestData()->json('~document-changed.json');
-        $document = new ViewAssetDocument($json);
-        $updated  = $factory->createFromDocument($document->document);
-
-        $this->assertNotNull($updated);
-        $this->assertSame($created, $updated);
-        $this->assertEquals($document->document->id, $updated->getKey());
-        $this->assertNotNull($updated->price);
-        $this->assertEquals('EUR', $updated->currency->code);
-        $this->assertNull($updated->language);
-        $this->assertEquals(
-            $normalizer->number($document->document->totalNetPrice),
-            $updated->price,
-        );
-        $this->assertEquals($document->document->documentNumber, $updated->number);
-        $this->assertNull($updated->support);
-    }
-
-    /**
-     * @covers ::createFromDocument
-     */
-    public function testCreateFromDocumentDocumentWithNumberExists(): void {
-        // Prepare
-        $factory  = $this->app->make(DocumentFactoryTest_Factory::class);
-        $json     = $this->getTestData()->json('~document-full.json');
-        $document = new ViewAssetDocument($json);
-        $model    = DocumentModel::factory()->create([
-            'id'     => $document->document->documentNumber,
-            'number' => $document->document->documentNumber,
+        $object  = new AssetDocumentObject([
+            'asset'    => $model,
+            'document' => reset($asset->assetDocument),
+            'entries'  => $asset->assetDocument,
         ]);
 
         ResellerModel::factory()->create([
-            'id' => $document->document->resellerId,
-        ]);
-
-        // Pretest
-        $this->assertEquals(1, DocumentModel::query()->count());
-
-        // Test
-        $created = $factory->createFromDocument($document->document);
-
-        $this->assertNotNull($created);
-        $this->assertEquals($document->document->id, $created->getKey());
-        $this->assertNull(DocumentModel::query()->find($model->getKey()));
-        $this->assertEquals(1, DocumentModel::query()->withoutGlobalScopes()->count());
-    }
-
-    /**
-     * @covers ::createFromDocument
-     */
-    public function testCreateFromDocumentDocumentsWithNumberAndIdExists(): void {
-        // Prepare
-        $factory  = $this->app->make(DocumentFactoryTest_Factory::class);
-        $json     = $this->getTestData()->json('~document-full.json');
-        $document = new ViewAssetDocument($json);
-
-        DocumentModel::factory()->create([
-            'id'     => $document->document->documentNumber,
-            'number' => $document->document->documentNumber,
-        ]);
-        DocumentModel::factory()->create([
-            'id'     => $document->document->id,
-            'number' => $document->document->documentNumber,
-        ]);
-        ResellerModel::factory()->create([
-            'id' => $document->document->resellerId,
-        ]);
-
-        // Pretest
-        $this->assertEquals(2, DocumentModel::query()->count());
-
-        // Test
-        $created = $factory->createFromDocument($document->document);
-
-        $this->assertNotNull($created);
-        $this->assertEquals($document->document->id, $created->getKey());
-        $this->assertEquals(2, DocumentModel::query()->withoutGlobalScopes()->count());
-    }
-
-    /**
-     * @covers ::createFromDocument
-     */
-    public function testCreateFromDocumentContactPersonsIsNull(): void {
-        // Prepare
-        $factory  = $this->app->make(DocumentFactoryTest_Factory::class);
-        $json     = $this->getTestData()->json('~document-full.json');
-        $document = new ViewAssetDocument($json);
-
-        ResellerModel::factory()->create([
-            'id' => $document->document->resellerId,
+            'id' => $object->document->document->resellerId,
         ]);
 
         // Set property to null
-        $document->document->contactPersons = null;
+        $object->document->document->contactPersons = null;
 
         // Test
-        $created = $factory->createFromDocument($document->document);
+        $created = $factory->createFromAssetDocumentObject($object);
 
         $this->assertNotNull($created);
         $this->assertCount(0, $created->contacts);
@@ -824,7 +681,7 @@ class DocumentFactoryTest_Factory extends DocumentFactory {
         return parent::createFromDocument($document, $product, $entries);
     }
 
-    public function createFromAssetDocumentObject(AssetDocumentObject $document): ?DocumentModel {
-        return parent::createFromAssetDocumentObject($document);
+    public function createFromAssetDocumentObject(AssetDocumentObject $object): ?DocumentModel {
+        return parent::createFromAssetDocumentObject($object);
     }
 }

@@ -17,6 +17,7 @@ use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\LocationNotFoundException;
+use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
@@ -203,15 +204,27 @@ class AssetFactory extends ModelFactory {
         // information (that is not available in Document and DocumentEntry)
 
         return (new Collection($asset->assetDocument))
-            ->filter(static function (ViewAssetDocument $document): bool {
-                return (bool) $document->documentNumber;
+            ->filter(function (ViewAssetDocument $document) use ($model): bool {
+                if (!isset($document->document->id)) {
+                    $this->dispatcher->dispatch(
+                        new ObjectSkipped($document, new ViewAssetDocumentNoDocument($document)),
+                    );
+                    $this->logger->error('Failed to process ViewAssetDocument: document is null.', [
+                        'asset'    => $model,
+                        'document' => $document,
+                    ]);
+
+                    return false;
+                }
+
+                return true;
             })
             ->sort(static function (ViewAssetDocument $a, ViewAssetDocument $b): int {
                 return $a->startDate <=> $b->startDate
                     ?: $a->endDate <=> $b->endDate;
             })
             ->groupBy(static function (ViewAssetDocument $document): string {
-                return $document->documentNumber;
+                return $document->document->id;
             })
             ->map(function (Collection $entries) use ($model): ?DocumentModel {
                 try {
@@ -262,7 +275,7 @@ class AssetFactory extends ModelFactory {
         $warranties = [];
         $documents  = $documents
             ->keyBy(static function (DocumentModel $document): string {
-                return $document->number;
+                return $document->getKey();
             });
         $existing   = $model->warranties
             ->filter(static function (AssetWarranty $warranty): bool {
@@ -279,7 +292,7 @@ class AssetFactory extends ModelFactory {
 
             // Document exists?
             /** @var \App\Models\Document $document */
-            $document = $documents->get($assetDocument->documentNumber);
+            $document = $documents->get($assetDocument->document->id ?? null);
 
             if (!$document) {
                 continue;

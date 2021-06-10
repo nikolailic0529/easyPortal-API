@@ -18,6 +18,7 @@ use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
+use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
@@ -396,23 +397,27 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetDocuments
      */
     public function testAssetDocuments(): void {
+        // Fake
+        Event::fake();
+
+        // Prepare
         $model     = AssetModel::factory()->make();
         $asset     = new ViewAsset([
             'assetDocument' => [
                 [
-                    'documentNumber' => 'a',
-                    'startDate'      => '09/07/2020',
-                    'endDate'        => '09/07/2021',
+                    'document'  => ['id' => 'a'],
+                    'startDate' => '09/07/2020',
+                    'endDate'   => '09/07/2021',
                 ],
                 [
-                    'documentNumber' => 'a',
-                    'startDate'      => '09/01/2020',
-                    'endDate'        => '09/07/2021',
+                    'document'  => ['id' => 'a'],
+                    'startDate' => '09/01/2020',
+                    'endDate'   => '09/07/2021',
                 ],
                 [
-                    'documentNumber' => 'b',
-                    'startDate'      => '09/01/2020',
-                    'endDate'        => '09/07/2021',
+                    'document'  => ['id' => 'b'],
+                    'startDate' => '09/01/2020',
+                    'endDate'   => '09/07/2021',
                 ],
             ],
         ]);
@@ -421,7 +426,7 @@ class AssetFactoryTest extends TestCase {
             ->shouldReceive('create')
             ->with(Mockery::on(static function (AssetDocumentObject $object) use ($model): bool {
                 $ids = array_unique(array_map(static function (ViewAssetDocument $d): string {
-                    return $d->documentNumber;
+                    return $d->document->id;
                 }, $object->entries));
 
                 return $object->asset === $model
@@ -431,7 +436,7 @@ class AssetFactoryTest extends TestCase {
             }))
             ->twice()
             ->andReturnUsing(static function (Type $type): ?Document {
-                return $type instanceof AssetDocumentObject && $type->document->documentNumber === 'a'
+                return $type instanceof AssetDocumentObject && $type->document->document->id === 'a'
                     ? new Document()
                     : null;
             });
@@ -449,12 +454,14 @@ class AssetFactoryTest extends TestCase {
         };
 
         $this->assertCount(1, $factory->assetDocuments($model, $asset));
+
+        Event::assertNotDispatched(ObjectSkipped::class);
     }
 
     /**
      * @covers ::assetDocuments
      */
-    public function testAssetDocumentsInvalidData(): void {
+    public function testAssetDocumentsNoDocumentId(): void {
         // Fake
         Event::fake();
 
@@ -463,9 +470,50 @@ class AssetFactoryTest extends TestCase {
         $asset      = new ViewAsset([
             'assetDocument' => [
                 [
-                    'documentNumber' => 'a',
-                    'startDate'      => '09/07/2020',
-                    'endDate'        => '09/07/2021',
+                    'startDate' => '09/07/2020',
+                    'endDate'   => '09/07/2021',
+                ],
+            ],
+        ]);
+        $dispatcher = $this->app->make(Dispatcher::class);
+        $logger     = $this->app->make(LoggerInterface::class);
+        $factory    = new class($logger, $dispatcher) extends AssetFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected LoggerInterface $logger,
+                protected Dispatcher $dispatcher,
+            ) {
+                // empty
+            }
+
+            public function assetDocuments(AssetModel $model, ViewAsset $asset): Collection {
+                return parent::assetDocuments($model, $asset);
+            }
+        };
+
+        // Test
+        $this->assertCount(0, $factory->assetDocuments($model, $asset));
+
+        Event::assertDispatched(ObjectSkipped::class, function (ObjectSkipped $event): bool {
+            return $event->getReason() instanceof ViewAssetDocumentNoDocument;
+        });
+    }
+
+    /**
+     * @covers ::assetDocuments
+     */
+    public function testAssetDocumentsFailedCreateDocument(): void {
+        // Fake
+        Event::fake();
+
+        // Prepare
+        $model      = AssetModel::factory()->make();
+        $asset      = new ViewAsset([
+            'assetDocument' => [
+                [
+                    'document'  => ['id' => 'a'],
+                    'startDate' => '09/07/2020',
+                    'endDate'   => '09/07/2021',
                 ],
             ],
         ]);
@@ -496,7 +544,9 @@ class AssetFactoryTest extends TestCase {
         // Test
         $this->assertCount(0, $factory->assetDocuments($model, $asset));
 
-        Event::assertDispatched(ObjectSkipped::class);
+        Event::assertDispatched(ObjectSkipped::class, function (ObjectSkipped $event): bool {
+            return $event->getReason() instanceof ResellerNotFoundException;
+        });
     }
 
     /**
@@ -576,19 +626,19 @@ class AssetFactoryTest extends TestCase {
             'id'            => $model->getKey(),
             'assetDocument' => [
                 [
-                    'documentNumber'  => $docA->number,
+                    'document'        => ['id' => $docA->getKey()],
                     'warrantyEndDate' => null,
                 ],
                 [
-                    'documentNumber'  => $docB->number,
+                    'document'        => ['id' => $docB->getKey()],
                     'warrantyEndDate' => $this->getDatetime($date),
                 ],
                 [
-                    'documentNumber'  => $docC->number,
+                    'document'        => ['id' => $docC->getKey()],
                     'warrantyEndDate' => $this->getDatetime($date),
                 ],
                 [
-                    'documentNumber'  => '9e602148-7767-448e-b593-ba6bcff00cac',
+                    'document'        => ['id' => '9e602148-7767-448e-b593-ba6bcff00cac'],
                     'warrantyEndDate' => $this->getDatetime($date),
                 ],
             ],
