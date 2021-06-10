@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\CascadeDeletes\CascadeDeletes;
+use App\Models\Concerns\HideDeletedNot;
 use App\Models\Concerns\MorphMapRequired;
 use App\Models\Concerns\UuidAsPrimaryKey;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,6 +14,7 @@ abstract class Model extends LaraASPModel {
     use CascadeDeletes;
     use UuidAsPrimaryKey;
     use MorphMapRequired;
+    use HideDeletedNot;
 
     protected const CASTS = [
         // empty
