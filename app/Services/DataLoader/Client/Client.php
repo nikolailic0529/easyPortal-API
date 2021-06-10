@@ -262,7 +262,41 @@ class Client {
                 'input' => $input->toArray(),
             ],
             [
-                'input.logo',
+                'input.file',
+            ],
+        );
+    }
+
+    public function updateCompanyFavicon(UpdateCompanyFile $input): ?string {
+        return $this->call(
+            'data.updateCompanyFavicon',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            mutation updateCompanyFavicon($input: UpdateCompanyFavicon!) {
+                updateCompanyFavicon(input: $input)
+            }
+            GRAPHQL,
+            [
+                'input' => $input->toArray(),
+            ],
+            [
+                'input.file',
+            ],
+        );
+    }
+
+    public function updateCompanyMainImageOnTheRight(UpdateCompanyFile $input): ?string {
+        return $this->call(
+            'data.updateCompanyMainImageOnTheRight',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            mutation updateCompanyMainImageOnTheRight($input: UpdateCompanyMainImageOnTheRight!) {
+                updateCompanyMainImageOnTheRight(input: $input)
+            }
+            GRAPHQL,
+            [
+                'input' => $input->toArray(),
+            ],
+            [
+                'input.file',
             ],
         );
     }

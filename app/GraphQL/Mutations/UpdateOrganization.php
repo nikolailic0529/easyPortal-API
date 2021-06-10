@@ -106,12 +106,15 @@ class UpdateOrganization {
                     }
                     break;
                 case 'favicon_url':
-                    if ($value instanceof UploadedFile) {
-                        $organization->branding_favicon_url = $this->store($organization, $value);
-                        $branding->favIconUrl               = $organization->branding_favicon_url;
+                    if ($organization->reseller) {
+                        $organization->branding_favicon_url = $this->client->updateCompanyFavicon(
+                            new UpdateCompanyFile([
+                                'companyId' => $organization->getKey(),
+                                'file'      => $value,
+                            ]),
+                        );
                     } else {
-                        $organization->branding_welcome_image_url = null;
-                        $branding->mainImageOnTheRight            = null;
+                        $organization->branding_favicon_url = $this->store($organization, $value);
                     }
                     break;
                 case 'welcome_heading':
@@ -123,12 +126,15 @@ class UpdateOrganization {
                     $branding->underlineText                  = $value;
                     break;
                 case 'welcome_image_url':
-                    if ($value instanceof UploadedFile) {
-                        $organization->branding_welcome_image_url = $this->store($organization, $value);
-                        $branding->mainImageOnTheRight            = $organization->branding_welcome_image_url;
+                    if ($organization->reseller) {
+                        $organization->branding_welcome_image_url = $this->client->updateCompanyMainImageOnTheRight(
+                            new UpdateCompanyFile([
+                                'companyId' => $organization->getKey(),
+                                'file'      => $value,
+                            ]),
+                        );
                     } else {
-                        $organization->branding_welcome_image_url = null;
-                        $branding->mainImageOnTheRight            = null;
+                        $organization->branding_welcome_image_url = $this->store($organization, $value);
                     }
                     break;
                 default:
