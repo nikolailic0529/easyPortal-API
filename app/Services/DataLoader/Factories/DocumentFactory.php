@@ -20,10 +20,10 @@ use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
-use App\Services\DataLoader\Schema\Asset;
-use App\Services\DataLoader\Schema\AssetDocument;
-use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\ViewAsset;
+use App\Services\DataLoader\Schema\ViewAssetDocument;
+use App\Services\DataLoader\Schema\ViewDocument;
 use Closure;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
@@ -83,7 +83,7 @@ class DocumentFactory extends ModelFactory {
                 'The `$type` must be instance of `%s`.',
                 implode('`, `', [
                     AssetDocumentObject::class,
-                    Document::class,
+                    ViewDocument::class,
                 ]),
             ));
         }
@@ -95,13 +95,13 @@ class DocumentFactory extends ModelFactory {
     // <editor-fold desc="Prefetch">
     // =========================================================================
     /**
-     * @param array<\App\Services\DataLoader\Schema\Asset> $assets
+     * @param array<\App\Services\DataLoader\Schema\ViewAsset> $assets
      * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
      */
     public function prefetch(array $assets, bool $reset = false, Closure|null $callback = null): static {
         $keys = (new Collection($assets))
-            ->map(static function (Asset $asset): array {
-                return array_map(static function (AssetDocument $document): string {
+            ->map(static function (ViewAsset $asset): array {
+                return array_map(static function (ViewAssetDocument $document): string {
                     return $document->document->id ?? $document->documentNumber;
                 }, $asset->assetDocument ?? []);
             })
@@ -214,7 +214,7 @@ class DocumentFactory extends ModelFactory {
         $compare = function (DocumentEntry $a, DocumentEntry $b): int {
             return $this->compareDocumentEntries($a, $b);
         };
-        $entries = array_map(function (AssetDocument $entry) use ($model, $document) {
+        $entries = array_map(function (ViewAssetDocument $entry) use ($model, $document) {
             return $this->assetDocumentEntry($document->asset, $model, $entry);
         }, $document->entries);
         $keep    = array_uintersect($existing, $entries, $compare);
@@ -228,7 +228,7 @@ class DocumentFactory extends ModelFactory {
     protected function assetDocumentEntry(
         AssetModel $asset,
         DocumentModel $document,
-        AssetDocument $assetDocument,
+        ViewAssetDocument $assetDocument,
     ): DocumentEntry {
         $entry                = new DocumentEntry();
         $entry->asset         = $asset;
@@ -265,7 +265,7 @@ class DocumentFactory extends ModelFactory {
     // <editor-fold desc="Document">
     // =========================================================================
     protected function createFromDocument(
-        Document $document,
+        ViewDocument $document,
         Closure $product = null,
         Closure $entries = null,
     ): ?DocumentModel {
@@ -327,14 +327,14 @@ class DocumentFactory extends ModelFactory {
         return $model;
     }
 
-    protected function documentOem(Document $document): Oem {
+    protected function documentOem(ViewDocument $document): Oem {
         return $this->oem(
             $document->vendorSpecificFields->vendor,
             $document->vendorSpecificFields->vendor,
         );
     }
 
-    protected function documentType(Document $document): TypeModel {
+    protected function documentType(ViewDocument $document): TypeModel {
         return $this->type(new DocumentModel(), $document->type);
     }
     // </editor-fold>

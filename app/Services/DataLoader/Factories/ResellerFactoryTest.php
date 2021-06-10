@@ -5,9 +5,9 @@ namespace App\Services\DataLoader\Factories;
 use App\Services\DataLoader\Events\ResellerUpdated;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
-use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -185,7 +185,7 @@ class ResellerFactoryTest extends TestCase {
         $b          = new Company([
             'id' => $this->faker->uuid,
         ]);
-        $asset      = new Asset([
+        $asset      = new ViewAsset([
             'resellerId' => $b->id,
         ]);
         $resolver   = $this->app->make(ResellerResolver::class);
@@ -204,7 +204,7 @@ class ResellerFactoryTest extends TestCase {
         });
 
         $factory->prefetch(
-            [$a, $asset, new Asset(['resellerId' => null])],
+            [$a, $asset, new ViewAsset(['resellerId' => null])],
             false,
             Closure::fromCallable($callback),
         );

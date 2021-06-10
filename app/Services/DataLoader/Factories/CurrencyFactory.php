@@ -5,10 +5,10 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Currency;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CurrencyResolver;
-use App\Services\DataLoader\Schema\AssetDocument;
-use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\DocumentEntry;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\ViewAssetDocument;
+use App\Services\DataLoader\Schema\ViewDocument;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
@@ -34,9 +34,9 @@ class CurrencyFactory extends ModelFactory {
 
         if ($type instanceof AssetDocumentObject) {
             $model = $this->createFromAssetDocumentObject($type);
-        } elseif ($type instanceof AssetDocument) {
+        } elseif ($type instanceof ViewAssetDocument) {
             $model = $this->createFromAssetDocument($type);
-        } elseif ($type instanceof Document) {
+        } elseif ($type instanceof ViewDocument) {
             $model = $this->createFromDocument($type);
         } elseif ($type instanceof DocumentEntry) {
             $model = $this->createFromDocumentEntry($type);
@@ -45,8 +45,8 @@ class CurrencyFactory extends ModelFactory {
                 'The `$type` must be instance of `%s`.',
                 implode('`, `', [
                     AssetDocumentObject::class,
-                    AssetDocument::class,
-                    Document::class,
+                    ViewAssetDocument::class,
+                    ViewDocument::class,
                     DocumentEntry::class,
                 ]),
             ));
@@ -69,11 +69,11 @@ class CurrencyFactory extends ModelFactory {
         return $currency;
     }
 
-    protected function createFromAssetDocument(AssetDocument $document): ?Currency {
+    protected function createFromAssetDocument(ViewAssetDocument $document): ?Currency {
         return $this->currency($document->currencyCode);
     }
 
-    protected function createFromDocument(Document $document): ?Currency {
+    protected function createFromDocument(ViewDocument $document): ?Currency {
         return $this->currency($document->currencyCode);
     }
 

@@ -12,11 +12,11 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
-use App\Services\DataLoader\Schema\Asset;
-use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\ViewAsset;
+use App\Services\DataLoader\Schema\ViewAssetDocument;
+use App\Services\DataLoader\Schema\ViewDocument;
 use Closure;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
@@ -58,9 +58,9 @@ class CustomerFactory extends ModelFactory {
 
         if ($type instanceof AssetDocumentObject) {
             $model = $this->createFromAssetDocumentObject($type);
-        } elseif ($type instanceof AssetDocument) {
+        } elseif ($type instanceof ViewAssetDocument) {
             $model = $this->createFromAssetDocument($type);
-        } elseif ($type instanceof Document) {
+        } elseif ($type instanceof ViewDocument) {
             $model = $this->createFromDocument($type);
         } elseif ($type instanceof Company) {
             $model = $this->createFromCompany($type);
@@ -69,8 +69,8 @@ class CustomerFactory extends ModelFactory {
                 'The `$type` must be instance of `%s`.',
                 implode('`, `', [
                     AssetDocumentObject::class,
-                    AssetDocument::class,
-                    Document::class,
+                    ViewAssetDocument::class,
+                    ViewDocument::class,
                     Company::class,
                 ]),
             ));
@@ -83,11 +83,11 @@ class CustomerFactory extends ModelFactory {
     // <editor-fold desc="Prefetch">
     // =========================================================================
     /**
-     * @param array<\App\Services\DataLoader\Schema\Asset> $assets
+     * @param array<\App\Services\DataLoader\Schema\ViewAsset> $assets
      * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
      */
     public function prefetch(array $assets, bool $reset = false, Closure|null $callback = null): static {
-        $keys = array_unique(array_map(static function (Asset $asset): string {
+        $keys = array_unique(array_map(static function (ViewAsset $asset): string {
             return $asset->customerId;
         }, $assets));
 
@@ -113,13 +113,13 @@ class CustomerFactory extends ModelFactory {
         return $customer;
     }
 
-    protected function createFromAssetDocument(AssetDocument $document): ?Customer {
+    protected function createFromAssetDocument(ViewAssetDocument $document): ?Customer {
         return isset($document->customer) && $document->customer
             ? $this->createFromCompany($document->customer)
             : null;
     }
 
-    protected function createFromDocument(Document $document): ?Customer {
+    protected function createFromDocument(ViewDocument $document): ?Customer {
         return isset($document->customer) && $document->customer
             ? $this->createFromCompany($document->customer)
             : null;

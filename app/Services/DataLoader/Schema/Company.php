@@ -20,7 +20,7 @@ class Company extends Type {
      */
     public array $locations;
     /**
-     * @var array<\App\Services\DataLoader\Schema\Asset>
+     * @var array<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public array $assets;
 

@@ -33,9 +33,9 @@ use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TagResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
-use App\Services\DataLoader\Schema\Asset;
-use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\ViewAsset;
+use App\Services\DataLoader\Schema\ViewAssetDocument;
 use Closure;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Collection;
@@ -111,12 +111,12 @@ class AssetFactory extends ModelFactory {
     public function create(Type $type): ?AssetModel {
         $model = null;
 
-        if ($type instanceof Asset) {
+        if ($type instanceof ViewAsset) {
             $model = $this->createFromAsset($type);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
-                Asset::class,
+                ViewAsset::class,
             ));
         }
 
@@ -127,11 +127,11 @@ class AssetFactory extends ModelFactory {
     // <editor-fold desc="Prefetch">
     // =========================================================================
     /**
-     * @param array<\App\Services\DataLoader\Schema\Asset> $assets
+     * @param array<\App\Services\DataLoader\Schema\ViewAsset> $assets
      * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
      */
     public function prefetch(array $assets, bool $reset = false, Closure|null $callback = null): static {
-        $keys = array_unique(array_map(static function (Asset $asset): string {
+        $keys = array_unique(array_map(static function (ViewAsset $asset): string {
             return $asset->id;
         }, $assets));
 
@@ -143,11 +143,11 @@ class AssetFactory extends ModelFactory {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-    protected function createFromAsset(Asset $asset): ?AssetModel {
+    protected function createFromAsset(ViewAsset $asset): ?AssetModel {
         return $this->assetAsset($asset);
     }
 
-    protected function assetAsset(Asset $asset): AssetModel {
+    protected function assetAsset(ViewAsset $asset): AssetModel {
         // Get/Create
         $created = false;
         $factory = $this->factory(function (AssetModel $model) use (&$created, $asset): AssetModel {
@@ -197,20 +197,20 @@ class AssetFactory extends ModelFactory {
     /**
      * @return \Illuminate\Support\Collection<\App\Models\Document>
      */
-    protected function assetDocuments(AssetModel $model, Asset $asset): Collection {
+    protected function assetDocuments(AssetModel $model, ViewAsset $asset): Collection {
         // Asset.assetDocument is not a document but an array of entries where
         // each entry is the mixin of Document, DocumentEntry, and additional
         // information (that is not available in Document and DocumentEntry)
 
         return (new Collection($asset->assetDocument))
-            ->filter(static function (AssetDocument $document): bool {
+            ->filter(static function (ViewAssetDocument $document): bool {
                 return (bool) $document->documentNumber;
             })
-            ->sort(static function (AssetDocument $a, AssetDocument $b): int {
+            ->sort(static function (ViewAssetDocument $a, ViewAssetDocument $b): int {
                 return $a->startDate <=> $b->startDate
                     ?: $a->endDate <=> $b->endDate;
             })
-            ->groupBy(static function (AssetDocument $document): string {
+            ->groupBy(static function (ViewAssetDocument $document): string {
                 return $document->documentNumber;
             })
             ->map(function (Collection $entries) use ($model): ?DocumentModel {
@@ -222,7 +222,7 @@ class AssetFactory extends ModelFactory {
                     ]));
                 } catch (Throwable $exception) {
                     $this->dispatcher->dispatch(new ObjectSkipped($entries->first(), $exception));
-                    $this->logger->error('Failed to process AssetDocument.', [
+                    $this->logger->error('Failed to process ViewAssetDocument.', [
                         'asset'     => $model,
                         'entries'   => $entries->all(),
                         'exception' => $exception,
@@ -239,7 +239,7 @@ class AssetFactory extends ModelFactory {
     /**
      * @return array<\App\Models\AssetWarranty>
      */
-    protected function assetWarranties(AssetModel $model, Asset $asset): array {
+    protected function assetWarranties(AssetModel $model, ViewAsset $asset): array {
         $documents  = $this->assetDocuments($model, $asset);
         $warranties = array_merge(
             $this->assetInitialWarranties($model, $asset, $documents),
@@ -254,7 +254,7 @@ class AssetFactory extends ModelFactory {
      *
      * @return array<\App\Models\AssetWarranty>
      */
-    protected function assetInitialWarranties(AssetModel $model, Asset $asset, Collection $documents): array {
+    protected function assetInitialWarranties(AssetModel $model, ViewAsset $asset, Collection $documents): array {
         // @LastDragon: If I understand correctly, after purchasing the Asset
         // has an initial warranty up to "warrantyEndDate" and then the user
         // can buy additional warranty.
@@ -361,15 +361,15 @@ class AssetFactory extends ModelFactory {
         return $warranties;
     }
 
-    protected function assetOem(Asset $asset): Oem {
+    protected function assetOem(ViewAsset $asset): Oem {
         return $this->oem($asset->vendor, $asset->vendor);
     }
 
-    protected function assetType(Asset $asset): TypeModel {
+    protected function assetType(ViewAsset $asset): TypeModel {
         return $this->type(new AssetModel(), $asset->assetType);
     }
 
-    protected function assetProduct(Asset $asset): Product {
+    protected function assetProduct(ViewAsset $asset): Product {
         $oem     = $this->assetOem($asset);
         $type    = ProductType::asset();
         $product = $this->product(
@@ -384,7 +384,7 @@ class AssetFactory extends ModelFactory {
         return $product;
     }
 
-    protected function assetCustomer(Asset $asset): ?Customer {
+    protected function assetCustomer(ViewAsset $asset): ?Customer {
         $id       = $asset->customerId ?? (isset($asset->customer) ? $asset->customer->id : null);
         $customer = null;
 
@@ -407,7 +407,7 @@ class AssetFactory extends ModelFactory {
         return $customer;
     }
 
-    protected function assetLocation(Asset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
+    protected function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
         $location = null;
         $required = !$this->locations->isEmpty($asset);
 
@@ -435,14 +435,14 @@ class AssetFactory extends ModelFactory {
         return $location;
     }
 
-    protected function assetStatus(Asset $asset): Status {
+    protected function assetStatus(ViewAsset $asset): Status {
         return $this->status(new AssetModel(), $asset->status);
     }
 
     /**
      * @return array<\App\Models\Tag>
      */
-    protected function assetTags(Asset $asset): array {
+    protected function assetTags(ViewAsset $asset): array {
         $name = $this->normalizer->string($asset->assetTag);
         if ($name) {
             return [$this->tag($name)];

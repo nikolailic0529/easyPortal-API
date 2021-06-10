@@ -5,9 +5,9 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Language;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\LanguageResolver;
-use App\Services\DataLoader\Schema\AssetDocument;
-use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\ViewAssetDocument;
+use App\Services\DataLoader\Schema\ViewDocument;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
@@ -33,17 +33,17 @@ class LanguageFactory extends ModelFactory {
 
         if ($type instanceof AssetDocumentObject) {
             $model = $this->createFromAssetDocumentObject($type);
-        } elseif ($type instanceof AssetDocument) {
+        } elseif ($type instanceof ViewAssetDocument) {
             $model = $this->createFromAssetDocument($type);
-        } elseif ($type instanceof Document) {
+        } elseif ($type instanceof ViewDocument) {
             $model = $this->createFromDocument($type);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
                 implode('`, `', [
                     AssetDocumentObject::class,
-                    AssetDocument::class,
-                    Document::class,
+                    ViewAssetDocument::class,
+                    ViewDocument::class,
                 ]),
             ));
         }
@@ -65,11 +65,11 @@ class LanguageFactory extends ModelFactory {
         return $language;
     }
 
-    protected function createFromAssetDocument(AssetDocument $document): ?Language {
+    protected function createFromAssetDocument(ViewAssetDocument $document): ?Language {
         return $this->language($document->languageCode);
     }
 
-    protected function createFromDocument(Document $document): ?Language {
+    protected function createFromDocument(ViewDocument $document): ?Language {
         return $this->language($document->languageCode);
     }
 

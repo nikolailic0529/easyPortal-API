@@ -8,10 +8,10 @@ use App\Services\DataLoader\Client\Events\RequestSuccessful;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderUnavailable;
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
-use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
 use App\Services\DataLoader\Schema\UpdateCompanyFile;
+use App\Services\DataLoader\Schema\ViewAsset;
 use Closure;
 use DateTimeInterface;
 use Exception;
@@ -92,7 +92,7 @@ class Client {
         return $company;
     }
 
-    public function getAssetById(string $id): ?Asset {
+    public function getAssetById(string $id): ?ViewAsset {
         $asset = $this->get(
             'getAssets',
             /** @lang GraphQL */ <<<GRAPHQL
@@ -111,14 +111,14 @@ class Client {
         );
 
         if ($asset) {
-            $asset = new Asset($asset);
+            $asset = new ViewAsset($asset);
         }
 
         return $asset;
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Asset>
+     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssetsByCustomerId(string $id, int $limit = null, int $offset = 0): QueryIterator {
         return $this
@@ -134,8 +134,8 @@ class Client {
                 [
                     'id' => $id,
                 ],
-                static function (array $data): Asset {
-                    return new Asset($data);
+                static function (array $data): ViewAsset {
+                    return new ViewAsset($data);
                 },
             )
             ->limit($limit)
@@ -143,7 +143,7 @@ class Client {
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Asset>
+     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssetsByCustomerIdWithDocuments(string $id, int $limit = null, int $offset = 0): QueryIterator {
         return $this
@@ -162,8 +162,8 @@ class Client {
                 [
                     'id' => $id,
                 ],
-                static function (array $data): Asset {
-                    return new Asset($data);
+                static function (array $data): ViewAsset {
+                    return new ViewAsset($data);
                 },
             )
             ->limit($limit)
@@ -171,7 +171,7 @@ class Client {
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Asset>
+     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssetsByResellerId(string $id, int $limit = null, int $offset = 0): QueryIterator {
         return $this
@@ -190,8 +190,8 @@ class Client {
                 [
                     'id' => $id,
                 ],
-                static function (array $data): Asset {
-                    return new Asset($data);
+                static function (array $data): ViewAsset {
+                    return new ViewAsset($data);
                 },
             )
             ->limit($limit)
@@ -199,7 +199,7 @@ class Client {
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Asset>
+     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssetsByResellerIdWithDocuments(string $id, int $limit = null, int $offset = 0): QueryIterator {
         return $this
@@ -221,8 +221,8 @@ class Client {
                 [
                     'id' => $id,
                 ],
-                static function (array $data): Asset {
-                    return new Asset($data);
+                static function (array $data): ViewAsset {
+                    return new ViewAsset($data);
                 },
             )
             ->limit($limit)
@@ -370,8 +370,9 @@ class Client {
             $variables = $params;
 
             foreach ($files as $variable) {
-                $name       = 'file'.($index++);
+                $name       = 'file'.$index;
                 $file       = Arr::get($params, $variable);
+                $index      = $index + 1;
                 $map[$name] = ["variables.{$variable}"];
 
                 if ($file instanceof SplFileInfo) {

@@ -3,15 +3,15 @@
 namespace App\Services\DataLoader\Factories;
 
 use App\Models\Asset;
-use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\ViewAssetDocument;
 
 class AssetDocumentObject extends Type {
-    public Asset         $asset;
-    public AssetDocument $document;
+    public Asset             $asset;
+    public ViewAssetDocument $document;
 
     /**
-     * @var array<\App\Services\DataLoader\Schema\AssetDocument>
+     * @var array<\App\Services\DataLoader\Schema\ViewAssetDocument>
      */
     public array $entries;
 }

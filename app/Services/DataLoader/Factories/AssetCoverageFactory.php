@@ -5,8 +5,8 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\AssetCoverage;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetCoverageResolver;
-use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\ViewAsset;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
@@ -30,13 +30,13 @@ class AssetCoverageFactory extends ModelFactory {
     public function create(Type $type): ?AssetCoverage {
         $model = null;
 
-        if ($type instanceof Asset) {
+        if ($type instanceof ViewAsset) {
             $model = $this->createFromAsset($type);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
                 implode('`, `', [
-                    Asset::class,
+                    ViewAsset::class,
                 ]),
             ));
         }
@@ -44,7 +44,7 @@ class AssetCoverageFactory extends ModelFactory {
         return $model;
     }
 
-    protected function createFromAsset(Asset $asset): ?AssetCoverage {
+    protected function createFromAsset(ViewAsset $asset): ?AssetCoverage {
         return $this->assetCoverage($asset->assetCoverage);
     }
 

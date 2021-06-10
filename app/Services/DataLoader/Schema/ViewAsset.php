@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Schema;
 
-class Asset extends Type {
+class ViewAsset extends Type {
     public string   $id;
     public ?string  $resellerId;
     public ?string  $customerId;
@@ -28,7 +28,7 @@ class Asset extends Type {
     public string   $dataQualityScore;
 
     /**
-     * @var array<\App\Services\DataLoader\Schema\AssetDocument>
+     * @var array<\App\Services\DataLoader\Schema\ViewAssetDocument>
      */
     public array $assetDocument;
 

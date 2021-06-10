@@ -306,3 +306,82 @@ type VendorSpecificField {
   groupID: String
   said: String
 }
+
+type ViewAsset {
+  id: ID
+  productDescription: String
+  serialNumber: String
+  assetDocument: [ViewAssetDocument]
+  zip: String
+  sourceDocument: [SourceDocument]
+  eolDate: String
+  address: String
+  eosDate: String
+  lifecycleStatus: String
+  city: String
+  address2: String
+  assetTag: String
+  assetType: String
+  resellerId: String
+  vendor: String
+  serialNumberIsGenerated: String
+  sku: String
+  vendorSpecificField: [VendorSpecificField]
+  customerId: String
+  customer: Company
+  reseller: Company
+  updatedAt: String
+  latitude: String
+  longitude: String
+  country: String
+  countryCode: String
+  dataQualityScore: String
+  latestContactPersons: [CompanyContactPerson]
+  status: String
+  assetCoverage: String
+}
+
+type ViewAssetDocument {
+  skuNumber: String
+  endDate: String
+  productLineDescription: String
+  supportPackage: String
+  documentNumber: String
+  skuDescription: String
+  warrantyEndDate: String
+  supportPackageDescription: String
+  equipmentNumber: String
+  startDate: String
+  document: ViewDocument
+  languageCode: String
+  currencyCode: String
+  netPrice: String
+  discount: String
+  listPrice: String
+  distributor: Company
+  customer: Company
+  reseller: Company
+  estimatedValueRenewal: String
+}
+
+type ViewDocument {
+  id: ID
+  resellerId: String
+  documentEntries: [DocumentEntry]
+  endDate: String
+  vendorSpecificFields: DocumentVendorSpecificField
+  customerId: String
+  documentNumber: String
+  type: String
+  startDate: String
+  sourceDocument: [SourceDocument]
+  updatedAt: String
+  languageCode: String
+  totalNetPrice: String
+  currencyCode: String
+  distributorId: String
+  customer: Company
+  reseller: Company
+  distributor: Company
+  contactPersons: [CompanyContactPerson]
+}

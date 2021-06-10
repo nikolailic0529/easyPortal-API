@@ -9,9 +9,9 @@ use App\Services\DataLoader\DataLoaderService;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
-use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
+use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Exception;
 use Illuminate\Console\Command;
@@ -113,8 +113,8 @@ class AnalyzeAssets extends Command {
                 }
                 GRAPHQL,
                 [],
-                static function (array $data): Asset {
-                    return new Asset($data);
+                static function (array $data): ViewAsset {
+                    return new ViewAsset($data);
                 },
             )
             ->offset($offset)
@@ -133,21 +133,21 @@ class AnalyzeAssets extends Command {
 
             // Prefetch
             $assetResolver->prefetch(
-                array_filter(array_unique(array_map(static function (Asset $asset): string {
+                array_filter(array_unique(array_map(static function (ViewAsset $asset): string {
                     return $asset->id;
                 }, $assets))),
                 true,
             );
 
             $resellerResolver->prefetch(
-                array_filter(array_unique(array_map(static function (Asset $asset): ?string {
+                array_filter(array_unique(array_map(static function (ViewAsset $asset): ?string {
                     return $asset->reseller->id ?? null;
                 }, $assets))),
                 true,
             );
 
             $customerResolver->prefetch(
-                array_filter(array_unique(array_map(static function (Asset $asset): ?string {
+                array_filter(array_unique(array_map(static function (ViewAsset $asset): ?string {
                     return $asset->customer->id ?? null;
                 }, $assets))),
                 true,
@@ -160,7 +160,7 @@ class AnalyzeAssets extends Command {
         ]);
 
         foreach ($iterator->each($prefetch) as $asset) {
-            /** @var \App\Services\DataLoader\Schema\Asset $asset */
+            /** @var \App\Services\DataLoader\Schema\ViewAsset $asset */
 
             // Analize
             $id    = $asset->id;

@@ -4,11 +4,11 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
-use App\Services\DataLoader\Schema\Asset;
-use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\ViewAsset;
+use App\Services\DataLoader\Schema\ViewAssetDocument;
+use App\Services\DataLoader\Schema\ViewDocument;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -108,7 +108,7 @@ class CustomerFactoryTest extends TestCase {
      * @covers ::createFromAssetDocument
      */
     public function testCreateFromAssetDocument(): void {
-        $document = new AssetDocument([
+        $document = new ViewAssetDocument([
             'customer' => [
                 'id' => $this->faker->uuid,
             ],
@@ -130,7 +130,7 @@ class CustomerFactoryTest extends TestCase {
      * @covers ::createFromDocument
      */
     public function testCreateFromDocument(): void {
-        $document = new Document([
+        $document = new ViewDocument([
             'customer' => [
                 'id' => $this->faker->uuid,
             ],
@@ -251,8 +251,8 @@ class CustomerFactoryTest extends TestCase {
 
         $factory->prefetch(
             [
-                new Asset(['customerId' => $a->id]),
-                new Asset(['customerId' => $b->id]),
+                new ViewAsset(['customerId' => $a->id]),
+                new ViewAsset(['customerId' => $b->id]),
             ],
             false,
             Closure::fromCallable($callback),
@@ -277,8 +277,8 @@ class CustomerFactoryTest extends TestCase {
     public function dataProviderCreate(): array {
         return [
             AssetDocumentObject::class => ['createFromAssetDocumentObject', new AssetDocumentObject()],
-            AssetDocument::class       => ['createFromAssetDocument', new AssetDocument()],
-            Document::class            => ['createFromDocument', new Document()],
+            ViewAssetDocument::class   => ['createFromAssetDocument', new ViewAssetDocument()],
+            ViewDocument::class        => ['createFromDocument', new ViewDocument()],
             Company::class             => ['createFromCompany', new Company()],
             'Unknown'                  => [
                 null,

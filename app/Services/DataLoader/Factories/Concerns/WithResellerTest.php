@@ -5,9 +5,9 @@ namespace App\Services\DataLoader\Factories\Concerns;
 use App\Models\Reseller;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
-use App\Services\DataLoader\Schema\Asset;
-use App\Services\DataLoader\Schema\AssetDocument;
-use App\Services\DataLoader\Schema\Document;
+use App\Services\DataLoader\Schema\ViewAsset;
+use App\Services\DataLoader\Schema\ViewAssetDocument;
+use App\Services\DataLoader\Schema\ViewDocument;
 use Closure;
 use Mockery;
 use Tests\TestCase;
@@ -65,7 +65,7 @@ class WithResellerTest extends TestCase {
      * @covers ::reseller
      */
     public function testResellerAssetWithoutReseller(): void {
-        $object   = new Asset();
+        $object   = new ViewAsset();
         $resolver = Mockery::mock(ResellerResolver::class);
         $resolver
             ->shouldReceive('get')
@@ -84,25 +84,25 @@ class WithResellerTest extends TestCase {
      */
     public function dataProviderReseller(): array {
         return [
-            AssetDocument::class => [
+            ViewAssetDocument::class => [
                 static function (TestCase $test, Reseller $reseller) {
-                    return new AssetDocument([
+                    return new ViewAssetDocument([
                         'reseller' => [
                             'id' => $reseller->getKey(),
                         ],
                     ]);
                 },
             ],
-            Document::class      => [
+            ViewDocument::class      => [
                 static function (TestCase $test, Reseller $reseller) {
-                    return new Document([
+                    return new ViewDocument([
                         'resellerId' => $reseller->getKey(),
                     ]);
                 },
             ],
-            Asset::class         => [
+            ViewAsset::class         => [
                 static function (TestCase $test, Reseller $reseller) {
-                    return new Asset([
+                    return new ViewAsset([
                         'resellerId' => $reseller->getKey(),
                     ]);
                 },

@@ -6,10 +6,10 @@ use App\Models\Distributor;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
-use App\Services\DataLoader\Schema\AssetDocument;
 use App\Services\DataLoader\Schema\Company;
-use App\Services\DataLoader\Schema\Document;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\ViewAssetDocument;
+use App\Services\DataLoader\Schema\ViewDocument;
 use Closure;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
@@ -55,9 +55,9 @@ class DistributorFactory extends ModelFactory {
 
         if ($type instanceof AssetDocumentObject) {
             $model = $this->createFromAssetDocumentObject($type);
-        } elseif ($type instanceof AssetDocument) {
+        } elseif ($type instanceof ViewAssetDocument) {
             $model = $this->createFromAssetDocument($type);
-        } elseif ($type instanceof Document) {
+        } elseif ($type instanceof ViewDocument) {
             $model = $this->createFromDocument($type);
         } elseif ($type instanceof Company) {
             $model = $this->createFromCompany($type);
@@ -66,9 +66,9 @@ class DistributorFactory extends ModelFactory {
                 'The `$type` must be instance of `%s`.',
                 implode('`, `', [
                     AssetDocumentObject::class,
-                    AssetDocument::class,
+                    ViewAssetDocument::class,
                     Company::class,
-                    Document::class,
+                    ViewDocument::class,
                 ]),
             ));
         }
@@ -92,13 +92,13 @@ class DistributorFactory extends ModelFactory {
         return $distributor;
     }
 
-    protected function createFromAssetDocument(AssetDocument $document): ?Distributor {
+    protected function createFromAssetDocument(ViewAssetDocument $document): ?Distributor {
         return isset($document->distributor) && $document->distributor
             ? $this->createFromCompany($document->distributor)
             : null;
     }
 
-    protected function createFromDocument(Document $document): ?Distributor {
+    protected function createFromDocument(ViewDocument $document): ?Distributor {
         return isset($document->distributor) && $document->distributor
             ? $this->createFromCompany($document->distributor)
             : null;

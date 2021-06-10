@@ -7,10 +7,10 @@ use App\Models\Location;
 use App\Models\Model;
 use App\Models\Reseller;
 use App\Models\Type as TypeModel;
-use App\Services\DataLoader\Schema\Asset;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
-use App\Services\DataLoader\Schema\Document;
+use App\Services\DataLoader\Schema\ViewAsset;
+use App\Services\DataLoader\Schema\ViewDocument;
 use DateTimeInterface;
 use libphonenumber\NumberParseException;
 use Propaganistas\LaravelPhone\PhoneNumber;
@@ -70,11 +70,11 @@ trait Helper {
     /**
      * @return array<mixed>
      */
-    protected function getTags(Asset $object): array {
+    protected function getTags(ViewAsset $object): array {
         $output = [];
         $tags   = [];
 
-        if ($object instanceof Asset && $object->assetTag) {
+        if ($object instanceof ViewAsset && $object->assetTag) {
             $tags = [$object->assetTag];
         } else {
             // empty
@@ -192,7 +192,7 @@ trait Helper {
     /**
      * @return array<mixed>
      */
-    protected function getAssetLocation(Asset $asset): ?array {
+    protected function getAssetLocation(ViewAsset $asset): ?array {
         return $asset->zip && $asset->city ? [
             'types'       => [],
             'country'     => $asset->country,
@@ -210,15 +210,15 @@ trait Helper {
     /**
      * @return array<mixed>
      */
-    protected function getContacts(Asset|Company|Document $object): array {
+    protected function getContacts(ViewAsset|Company|ViewDocument $object): array {
         $contacts = [];
         $persons  = [];
 
-        if ($object instanceof Document) {
+        if ($object instanceof ViewDocument) {
             $persons = (array) $object->contactPersons;
         } elseif ($object instanceof Company) {
             $persons = $object->companyContactPersons;
-        } elseif ($object instanceof Asset) {
+        } elseif ($object instanceof ViewAsset) {
             $persons = $object->latestContactPersons;
         } else {
             // empty
