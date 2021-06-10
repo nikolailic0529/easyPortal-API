@@ -154,7 +154,7 @@ return [
     */
 
     'model_hooks'                           => [
-        // App\Support\IdeHelper\MyModelHook::class
+        App\Dev\IdeHelper\HideDeletedNotModelHook::class,
     ],
 
     /*
