@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Model;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\QueryIterator;
+use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
@@ -61,12 +62,18 @@ class CustomerLoader extends Loader {
         $customer = null;
 
         try {
-            if ($company) {
-                $customers = $this->getCustomersFactory();
-                $customer  = $customers->create($company);
+            $company = $this->client->getCompanyById($id);
 
-                if ($this->isWithAssets()) {
-                    $this->loadAssets($customer);
+            if ($company) {
+                $factory  = $this->getCustomersFactory();
+                $customer = $factory->find($company);
+
+                if ($customer) {
+                    $customer = $factory->create($company);
+
+                    if ($this->isWithAssets()) {
+                        $this->loadAssets($customer);
+                    }
                 }
             } else {
                 $customer = Customer::query()->whereKey($id)->first();
@@ -76,6 +83,10 @@ class CustomerLoader extends Loader {
                         'id' => $id,
                     ]);
                 }
+            }
+
+            if (!$customer) {
+                throw new CustomerNotFoundException($id, $company);
             }
         } finally {
             if ($customer) {
