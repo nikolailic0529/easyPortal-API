@@ -47,9 +47,9 @@ While the import, some locations may become unused, this job removes them from t
 Sync the Reseller properties with Cosmos. Please note that reseller will not be created.
 
 
-### `php artisan ep:data-loader-customer`
+### `php artisan ep:data-loader-update-customer`
 
-Sync the Customer with Cosmos.
+Sync the Customer properties with Cosmos. Please note that reseller will not be created.
 
 
 ### `php artisan ep:data-loader-analyze-assets`

@@ -12,7 +12,7 @@ use Throwable;
 use function array_unique;
 use function count;
 
-class Customer extends Command {
+class UpdateCustomer extends Command {
     use WithBooleanOptions;
 
     /**
@@ -20,7 +20,7 @@ class Customer extends Command {
      *
      * @var string
      */
-    protected $signature = 'ep:data-loader-customer
+    protected $signature = 'ep:data-loader-update-customer
         {id* : The ID of the company}
         {--l|locations : Load locations (default)}
         {--L|no-locations : Skip locations}
