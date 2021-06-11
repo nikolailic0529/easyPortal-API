@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Factories;
 
 use App\Models\Distributor;
+use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
@@ -18,7 +19,7 @@ use function array_map;
 use function implode;
 use function sprintf;
 
-class DistributorFactory extends ModelFactory {
+class DistributorFactory extends ModelFactory implements FactoryPrefetchable {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,

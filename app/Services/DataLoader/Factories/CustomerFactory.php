@@ -8,6 +8,7 @@ use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithLocations;
 use App\Services\DataLoader\Factories\Concerns\WithStatus;
 use App\Services\DataLoader\Factories\Concerns\WithType;
+use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\StatusResolver;
@@ -27,7 +28,7 @@ use function sprintf;
 // TODO [DataLoader] Customer can be a CUSTOMER or RESELLER or any other type.
 //      If this is not true we need to update this factory and its tests.
 
-class CustomerFactory extends ModelFactory {
+class CustomerFactory extends ModelFactory implements FactoryPrefetchable  {
     use WithType;
     use WithStatus;
     use WithContacts;

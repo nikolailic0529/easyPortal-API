@@ -25,6 +25,7 @@ use App\Services\DataLoader\Factories\Concerns\WithReseller;
 use App\Services\DataLoader\Factories\Concerns\WithStatus;
 use App\Services\DataLoader\Factories\Concerns\WithTag;
 use App\Services\DataLoader\Factories\Concerns\WithType;
+use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
@@ -49,7 +50,7 @@ use function array_merge;
 use function array_unique;
 use function sprintf;
 
-class AssetFactory extends ModelFactory {
+class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     use WithReseller;
     use WithCustomer;
     use WithOem;

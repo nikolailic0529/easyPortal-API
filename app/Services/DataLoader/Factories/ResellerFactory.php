@@ -8,6 +8,7 @@ use App\Services\DataLoader\Factories\Concerns\Company as ConcernsCompany;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithLocations;
 use App\Services\DataLoader\Factories\Concerns\WithType;
+use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\StatusResolver;
@@ -26,7 +27,7 @@ use function array_unique;
 use function implode;
 use function sprintf;
 
-class ResellerFactory extends ModelFactory {
+class ResellerFactory extends ModelFactory implements FactoryPrefetchable {
     use WithLocations;
     use WithType;
     use WithContacts;

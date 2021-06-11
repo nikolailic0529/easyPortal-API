@@ -16,6 +16,7 @@ use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
 use App\Services\DataLoader\Factories\Concerns\WithReseller;
 use App\Services\DataLoader\Factories\Concerns\WithType;
+use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
@@ -39,7 +40,7 @@ use function array_uintersect;
 use function implode;
 use function sprintf;
 
-class DocumentFactory extends ModelFactory {
+class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     use WithOem;
     use WithType;
     use WithProduct;
