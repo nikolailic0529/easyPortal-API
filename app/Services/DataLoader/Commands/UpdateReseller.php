@@ -35,7 +35,7 @@ class UpdateReseller extends Command {
      *
      * @var string
      */
-    protected $description = 'Load the reseller(s) with given ID(s).';
+    protected $description = 'Update reseller(s) with given ID(s).';
 
     public function handle(DataLoaderService $service, LoggerInterface $logger): int {
         $result = static::SUCCESS;

@@ -37,7 +37,7 @@ class UpdateCustomer extends Command {
      *
      * @var string
      */
-    protected $description = 'Load the customer(s) with given ID(s).';
+    protected $description = 'Update customer(s) with given ID(s).';
 
     public function handle(DataLoaderService $service, LoggerInterface $logger): int {
         $result = static::SUCCESS;
