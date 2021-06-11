@@ -119,7 +119,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($reseller->getKey(), $created->reseller_id);
         $this->assertEquals('0056523287', $created->number);
         $this->assertEquals('1292.16', $created->price);
-        $this->assertEquals('1583020800000', $this->getDatetime($created->start));
+        $this->assertNull($this->getDatetime($created->start));
         $this->assertEquals('1614470400000', $this->getDatetime($created->end));
         $this->assertEquals('HPE', $created->oem->abbr);
         $this->assertEquals('MultiNational Quote', $created->type->key);

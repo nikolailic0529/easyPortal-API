@@ -6,8 +6,8 @@ class ViewDocument extends Type {
     public string                      $id;
     public string                      $type;
     public string                      $documentNumber;
-    public string                      $startDate;
-    public string                      $endDate;
+    public ?string                     $startDate;
+    public ?string                     $endDate;
     public ?string                     $currencyCode;
     public ?string                     $totalNetPrice;
     public ?string                     $languageCode;

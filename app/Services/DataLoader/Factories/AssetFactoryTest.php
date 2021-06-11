@@ -716,6 +716,12 @@ class AssetFactoryTest extends TestCase {
             'customer_id' => $customer,
         ]);
         $docC     = Document::factory()->create();
+        $docD     = Document::factory()->create([
+            'start' => null,
+        ]);
+        $docE     = Document::factory()->create([
+            'end' => null,
+        ]);
         $warranty = AssetWarranty::factory()->create([
             'start'       => $date->subYear(),
             'end'         => $date,
@@ -742,7 +748,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertNotEquals($docA->customer_id, $warranty->customer_id);
 
         // Test
-        $warranties = $factory->assetExtendedWarranties($asset, new Collection([$docA, $docB, $docC]));
+        $warranties = $factory->assetExtendedWarranties($asset, new Collection([$docA, $docB, $docC, $docD, $docE]));
         $warranties = new Collection($warranties);
 
         $this->assertCount(3, $warranties);

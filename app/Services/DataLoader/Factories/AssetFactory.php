@@ -344,6 +344,11 @@ class AssetFactory extends ModelFactory {
             });
 
         foreach ($documents as $document) {
+            // Dates?
+            if (!$document->start || !$document->end) {
+                continue;
+            }
+
             // Create/Update
             /** @var \App\Models\Document $document */
             $warranty = $existing->get($document->getKey());
