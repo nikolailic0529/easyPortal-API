@@ -2,20 +2,19 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Jobs\NamedJob;
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
-use App\Models\Customer;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Models\Model;
+use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Client\QueryIterator;
+use App\Services\DataLoader\Schema\Company;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Support\Facades\Date;
-use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
-use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
+use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
  * Search for outdated customers and update it.
  */
-class CustomersUpdaterCronJob extends CronJob implements ShouldBeUnique, NamedJob {
+class CustomersUpdaterCronJob extends CustomersImporterCronJob {
     use GlobalScopes;
 
     public function displayName(): string {
@@ -33,24 +32,15 @@ class CustomersUpdaterCronJob extends CronJob implements ShouldBeUnique, NamedJo
             ] + parent::getQueueConfig();
     }
 
-    public function handle(Container $container, QueueableConfigurator $configurator): void {
-        $config   = $configurator->config($this);
+    protected function getCompanies(Client $client, QueueableConfig $config): QueryIterator {
         $expire   = $config->setting('expire');
         $expire   = Date::now()->sub($expire);
-        $outdated = $this->callWithoutGlobalScopes([OwnedByOrganizationScope::class], static function () use ($expire) {
-            return Customer::query()
-                ->where('updated_at', '<', $expire)
-                ->get();
-        });
+        $outdated = $client->getCustomers($expire);
 
-        foreach ($outdated as $customer) {
-            $container
-                ->make(CustomerUpdate::class)
-                ->initialize($customer->getKey())
-                ->dispatch();
+        return $outdated;
+    }
 
-            $customer->updated_at = Date::now();
-            $customer->save();
-        }
+    protected function updateExistingCompany(Container $container, Company $company, Model $model): void {
+        parent::updateCreatedCompany($container, $company, $model);
     }
 }
