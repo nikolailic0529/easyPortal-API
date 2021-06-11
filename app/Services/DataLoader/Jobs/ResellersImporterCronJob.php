@@ -2,52 +2,39 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Jobs\NamedJob;
-use App\Services\DataLoader\DataLoaderService;
+use App\Models\Model;
+use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Factories\ResellerFactory;
+use App\Services\DataLoader\Factory;
+use App\Services\DataLoader\Schema\Company;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
-use Psr\Log\LoggerInterface;
-use Throwable;
+use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
  * Imports reseller list.
  */
-class ResellersImporterCronJob extends CronJob implements ShouldBeUnique, NamedJob {
+class ResellersImporterCronJob extends CompanyUpdaterCronJob {
     public function displayName(): string {
         return 'ep-data-loader-resellers-importer';
     }
 
-    public function handle(
-        Container $container,
-        LoggerInterface $logger,
-        DataLoaderService $service,
-        ResellerFactory $factory,
-    ): void {
-        $client   = $service->getClient();
-        $prefetch = static function (array $resellers) use ($factory): void {
-            $factory->prefetch($resellers);
-        };
+    protected function getFactory(Container $container): Factory {
+        return $container->make(ResellerFactory::class);
+    }
 
-        foreach ($client->getResellers()->each($prefetch) as $reseller) {
-            // If reseller exists we just skip it.
-            if ($factory->find($reseller)) {
-                continue;
-            }
+    protected function getCompanies(Client $client, QueueableConfig $config): QueryIterator {
+        return $client->getResellers();
+    }
 
-            // If not - we create it and dispatch the job to update assets/documents
-            try {
-                $container
-                    ->make(ResellerUpdate::class)
-                    ->initialize($factory->create($reseller)->getKey())
-                    ->dispatch();
-            } catch (Throwable $exception) {
-                $logger->warning(__METHOD__, [
-                    'reseller'  => $reseller,
-                    'exception' => $exception,
-                ]);
-            }
-        }
+    protected function updateCreatedCompany(Container $container, Company $company, Model $model): void {
+        $container
+            ->make(ResellerUpdate::class)
+            ->initialize($model->getKey())
+            ->dispatch();
+    }
+
+    protected function updateExistingCompany(Container $container, Company $company, Model $model): void {
+        // no action
     }
 }
