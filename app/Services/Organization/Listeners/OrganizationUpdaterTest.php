@@ -203,7 +203,7 @@ class OrganizationUpdaterTest extends TestCase {
             'brandingData'    => [
                 'brandingMode'          => $this->faker->randomElement([' true ', ' false ']),
                 'defaultLogoUrl'        => " {$this->faker->url} ",
-                'defaultMainColor'      => " {$this->faker->hexColor} ",
+                'defaultMainColor'      => ' not a color ',
                 'favIconUrl'            => " {$this->faker->url} ",
                 'logoUrl'               => " {$this->faker->url} ",
                 'mainColor'             => " {$this->faker->hexColor} ",
@@ -234,7 +234,7 @@ class OrganizationUpdaterTest extends TestCase {
             $organization->branding_default_logo_url,
         );
         $this->assertEquals(
-            $normalizer->string($branding->defaultMainColor),
+            $normalizer->color($branding->defaultMainColor),
             $organization->branding_default_main_color,
         );
         $this->assertEquals(
@@ -246,7 +246,7 @@ class OrganizationUpdaterTest extends TestCase {
             $organization->branding_logo_url,
         );
         $this->assertEquals(
-            $normalizer->string($branding->mainColor),
+            $normalizer->color($branding->mainColor),
             $organization->branding_main_color,
         );
         $this->assertEquals(
@@ -258,11 +258,11 @@ class OrganizationUpdaterTest extends TestCase {
             $organization->branding_welcome_image_url,
         );
         $this->assertEquals(
-            $normalizer->string($branding->secondaryColor),
+            $normalizer->color($branding->secondaryColor),
             $organization->branding_secondary_color,
         );
         $this->assertEquals(
-            $normalizer->string($branding->secondaryColorDefault),
+            $normalizer->color($branding->secondaryColorDefault),
             $organization->branding_default_secondary_color,
         );
         $this->assertEquals(
@@ -289,7 +289,7 @@ class OrganizationUpdaterTest extends TestCase {
         $this->assertNotNull($organization);
         $this->assertNotNull($organization->branding_dark_theme);
         $this->assertNotNull($organization->branding_default_logo_url);
-        $this->assertNotNull($organization->branding_default_main_color);
+        $this->assertNull($organization->branding_default_main_color);
         $this->assertNotNull($organization->branding_favicon_url);
         $this->assertNotNull($organization->branding_logo_url);
         $this->assertNotNull($organization->branding_main_color);
