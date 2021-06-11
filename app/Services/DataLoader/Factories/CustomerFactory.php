@@ -20,6 +20,7 @@ use Closure;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
+use function array_filter;
 use function array_map;
 use function array_unique;
 use function implode;
@@ -28,7 +29,7 @@ use function sprintf;
 // TODO [DataLoader] Customer can be a CUSTOMER or RESELLER or any other type.
 //      If this is not true we need to update this factory and its tests.
 
-class CustomerFactory extends ModelFactory implements FactoryPrefetchable  {
+class CustomerFactory extends ModelFactory implements FactoryPrefetchable {
     use WithType;
     use WithStatus;
     use WithContacts;
@@ -73,13 +74,19 @@ class CustomerFactory extends ModelFactory implements FactoryPrefetchable  {
     // <editor-fold desc="Prefetch">
     // =========================================================================
     /**
-     * @param array<\App\Services\DataLoader\Schema\ViewAsset> $assets
+     * @param array<\App\Services\DataLoader\Schema\Company|\App\Services\DataLoader\Schema\ViewAsset> $objects
      * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
      */
-    public function prefetch(array $assets, bool $reset = false, Closure|null $callback = null): static {
-        $keys = array_unique(array_map(static function (ViewAsset $asset): string {
-            return $asset->customerId;
-        }, $assets));
+    public function prefetch(array $objects, bool $reset = false, Closure|null $callback = null): static {
+        $keys = array_unique(array_filter(array_map(static function (Company|ViewAsset $model): ?string {
+            if ($model instanceof Company) {
+                return $model->id;
+            } elseif ($model instanceof ViewAsset) {
+                return $model->customerId;
+            } else {
+                return null;
+            }
+        }, $objects)));
 
         $this->customers->prefetch($keys, $reset, $callback);
 

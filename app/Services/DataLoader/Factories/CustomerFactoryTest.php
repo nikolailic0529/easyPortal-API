@@ -154,6 +154,9 @@ class CustomerFactoryTest extends TestCase {
         $b          = new Company([
             'id' => $this->faker->uuid,
         ]);
+        $asset      = new ViewAsset([
+            'customerId' => $b->id,
+        ]);
         $resolver   = $this->app->make(CustomerResolver::class);
         $normalizer = $this->app->make(Normalizer::class);
 
@@ -170,10 +173,7 @@ class CustomerFactoryTest extends TestCase {
         });
 
         $factory->prefetch(
-            [
-                new ViewAsset(['customerId' => $a->id]),
-                new ViewAsset(['customerId' => $b->id]),
-            ],
+            [$a, $asset, new ViewAsset(['customerId' => $b->id])],
             false,
             Closure::fromCallable($callback),
         );
