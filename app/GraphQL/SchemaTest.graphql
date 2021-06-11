@@ -474,8 +474,8 @@ type Document {
   type_id: ID!
   customer_id: ID!
   number: String!
-  start: Date!
-  end: Date!
+  start: Date
+  end: Date
   price: Float
   currency_id: ID
   currency: Currency
@@ -829,6 +829,15 @@ type OrganizationBranding {
   welcome_underline: String
 }
 
+"""A paginated list of Organization items."""
+type OrganizationPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of Organization items."""
+  data: [Organization!]!
+}
+
 type OrganizationUser {
   id: ID!
   username: String!
@@ -837,15 +846,6 @@ type OrganizationUser {
   firstName: String
   lastName: String
   email: String
-}
-
-"""A paginated list of Organization items."""
-type OrganizationPaginator {
-  """Pagination information about the list of items."""
-  paginatorInfo: PaginatorInfo!
-
-  """A list of Organization items."""
-  data: [Organization!]!
 }
 
 input OrganizationsQuery {

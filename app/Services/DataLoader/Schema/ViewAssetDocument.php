@@ -13,8 +13,8 @@ class ViewAssetDocument extends Type {
 
     public string        $documentNumber;
     public ?ViewDocument $document;
-    public string        $startDate;
-    public string    $endDate;
+    public ?string       $startDate;
+    public ?string       $endDate;
 
     public ?string $currencyCode;
     public ?string $languageCode;

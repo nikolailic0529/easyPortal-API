@@ -4,8 +4,8 @@ type Document {
   type_id: ID!
   customer_id: ID!
   number: String!
-  start: Date!
-  end: Date!
+  start: Date
+  end: Date
   price: Float
   currency_id: ID
   currency: Currency @belongsTo
