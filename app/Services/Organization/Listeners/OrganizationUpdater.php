@@ -61,6 +61,8 @@ class OrganizationUpdater implements Subscriber {
 
         if ($organization) {
             if ($organization->trashed()) {
+                $organization->keycloak_scope    = null;
+                $organization->keycloak_group_id = null;
                 $organization->restore();
             }
         } else {
