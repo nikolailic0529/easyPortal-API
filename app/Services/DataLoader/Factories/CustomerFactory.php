@@ -15,8 +15,6 @@ use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
-use App\Services\DataLoader\Schema\ViewAssetDocument;
-use App\Services\DataLoader\Schema\ViewDocument;
 use Closure;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
@@ -56,21 +54,12 @@ class CustomerFactory extends ModelFactory {
     public function create(Type $type): ?Customer {
         $model = null;
 
-        if ($type instanceof AssetDocumentObject) {
-            $model = $this->createFromAssetDocumentObject($type);
-        } elseif ($type instanceof ViewAssetDocument) {
-            $model = $this->createFromAssetDocument($type);
-        } elseif ($type instanceof ViewDocument) {
-            $model = $this->createFromDocument($type);
-        } elseif ($type instanceof Company) {
+        if ($type instanceof Company) {
             $model = $this->createFromCompany($type);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
                 implode('`, `', [
-                    AssetDocumentObject::class,
-                    ViewAssetDocument::class,
-                    ViewDocument::class,
                     Company::class,
                 ]),
             ));
@@ -99,32 +88,6 @@ class CustomerFactory extends ModelFactory {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-    protected function createFromAssetDocumentObject(AssetDocumentObject $document): ?Customer {
-        $customer = null;
-
-        if (isset($document->document->document)) {
-            $customer = $this->createFromDocument($document->document->document);
-        }
-
-        if (!$customer) {
-            $customer = $this->createFromAssetDocument($document->document);
-        }
-
-        return $customer;
-    }
-
-    protected function createFromAssetDocument(ViewAssetDocument $document): ?Customer {
-        return isset($document->customer) && $document->customer
-            ? $this->createFromCompany($document->customer)
-            : null;
-    }
-
-    protected function createFromDocument(ViewDocument $document): ?Customer {
-        return isset($document->customer) && $document->customer
-            ? $this->createFromCompany($document->customer)
-            : null;
-    }
-
     protected function createFromCompany(Company $company): ?Customer {
         // Get/Create customer
         $created  = false;

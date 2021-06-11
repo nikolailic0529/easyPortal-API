@@ -15,10 +15,10 @@ use App\Models\Reseller;
 use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Events\ObjectSkipped;
-use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\LocationNotFoundException;
 use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
+use App\Services\DataLoader\Factories\Concerns\WithCustomer;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
 use App\Services\DataLoader\Factories\Concerns\WithReseller;
@@ -51,6 +51,7 @@ use function sprintf;
 
 class AssetFactory extends ModelFactory {
     use WithReseller;
+    use WithCustomer;
     use WithOem;
     use WithType;
     use WithProduct;
@@ -58,7 +59,6 @@ class AssetFactory extends ModelFactory {
     use WithContacts;
     use WithTag;
 
-    protected ?CustomerFactory $customerFactory = null;
     protected ?DocumentFactory $documentFactory = null;
     protected ?ContactFactory  $contactFactory  = null;
 
@@ -70,7 +70,7 @@ class AssetFactory extends ModelFactory {
         protected OemResolver $oems,
         protected TypeResolver $types,
         protected ProductResolver $products,
-        protected CustomerResolver $customerResolver,
+        protected CustomerResolver $customers,
         protected ResellerResolver $resellers,
         protected LocationFactory $locations,
         protected StatusResolver $statuses,
@@ -86,14 +86,8 @@ class AssetFactory extends ModelFactory {
         return $this->resellers;
     }
 
-    public function getCustomerFactory(): ?CustomerFactory {
-        return $this->customerFactory;
-    }
-
-    public function setCustomersFactory(?CustomerFactory $factory): static {
-        $this->customerFactory = $factory;
-
-        return $this;
+    protected function getCustomerResolver(): CustomerResolver {
+        return $this->customers;
     }
 
     public function getDocumentFactory(): ?DocumentFactory {
@@ -153,7 +147,7 @@ class AssetFactory extends ModelFactory {
         $created = false;
         $factory = $this->factory(function (AssetModel $model) use (&$created, $asset): AssetModel {
             $reseller = $this->reseller($asset);
-            $customer = $this->assetCustomer($asset);
+            $customer = $this->customer($asset);
             $location = $this->assetLocation($asset, $customer, $reseller);
 
             $created              = !$model->exists;
@@ -400,29 +394,6 @@ class AssetFactory extends ModelFactory {
         );
 
         return $product;
-    }
-
-    protected function assetCustomer(ViewAsset $asset): ?Customer {
-        $id       = $asset->customerId ?? (isset($asset->customer) ? $asset->customer->id : null);
-        $customer = null;
-
-        if ($id) {
-            $customer = $this->customerResolver->get($id);
-        }
-
-        if ($id && !$customer && $this->customerFactory) {
-            $customer = $this->customerFactory->create($asset->customer);
-        }
-
-        if ($id && !$customer) {
-            throw new CustomerNotFoundException(sprintf(
-                'Customer `%s` not found (asset `%s`).',
-                $id,
-                $asset->id,
-            ));
-        }
-
-        return $customer;
     }
 
     protected function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {

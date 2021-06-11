@@ -69,9 +69,7 @@ trait WithAssets {
                     $assets->loadMissing('warranties.services');
                 }
             });
-            $factory->getCustomerFactory()?->prefetch($assets, false, static function (Collection $customers): void {
-                $customers->loadMissing('locations');
-            });
+            $this->getCustomersFactory()?->prefetch($assets, false);
             $this->getResellersFactory()?->prefetch($assets, false);
             $factory->getDocumentFactory()?->prefetch($assets, false, static function (Collection $documents): void {
                 $documents->loadMissing('entries');
@@ -214,16 +212,17 @@ trait WithAssets {
     protected function getAssetsFactory(): AssetFactory {
         $this
             ->getResellersFactory()
-            ->setLocationFactory($this->locations);
-
-        $customers = $this->customers
             ->setLocationFactory($this->locations)
             ->setContactsFactory($this->contacts);
+        $this
+            ->getResellersFactory()
+            ->setLocationFactory($this->locations)
+            ->setContactsFactory($this->contacts);
+
         $documents = $this->isWithAssetsDocuments()
             ? $this->documents->setContactsFactory($this->contacts)
             : null;
         $factory   = $this->assets
-            ->setCustomersFactory($customers)
             ->setDocumentFactory($documents)
             ->setContactsFactory($this->contacts);
 
@@ -232,5 +231,9 @@ trait WithAssets {
 
     protected function getResellersFactory(): ResellerFactory {
         return $this->resellers;
+    }
+
+    protected function getCustomersFactory(): CustomerFactory {
+        return $this->customers;
     }
 }

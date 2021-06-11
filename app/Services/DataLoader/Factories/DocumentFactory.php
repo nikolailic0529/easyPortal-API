@@ -11,11 +11,13 @@ use App\Models\Product;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
+use App\Services\DataLoader\Factories\Concerns\WithCustomer;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
 use App\Services\DataLoader\Factories\Concerns\WithReseller;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
@@ -43,6 +45,7 @@ class DocumentFactory extends ModelFactory {
     use WithProduct;
     use WithContacts;
     use WithReseller;
+    use WithCustomer;
 
     public function __construct(
         LoggerInterface $logger,
@@ -50,7 +53,7 @@ class DocumentFactory extends ModelFactory {
         protected OemResolver $oems,
         protected TypeResolver $types,
         protected ResellerResolver $resellers,
-        protected CustomerFactory $customers,
+        protected CustomerResolver $customers,
         protected ProductResolver $products,
         protected CurrencyFactory $currencies,
         protected DocumentResolver $documents,
@@ -70,6 +73,10 @@ class DocumentFactory extends ModelFactory {
     protected function getResellerResolver(): ResellerResolver {
         return $this->resellers;
     }
+
+    protected function getCustomerResolver(): CustomerResolver {
+        return $this->customers;
+    }
     // </editor-fold>
 
     // <editor-fold desc="Factory">
@@ -84,7 +91,6 @@ class DocumentFactory extends ModelFactory {
                 'The `$type` must be instance of `%s`.',
                 implode('`, `', [
                     AssetDocumentObject::class,
-                    ViewDocument::class,
                 ]),
             ));
         }
@@ -135,7 +141,7 @@ class DocumentFactory extends ModelFactory {
             $model->type        = $this->documentType($object->document->document);
             $model->support     = $this->assetDocumentObjectSupport($object);
             $model->reseller    = $this->reseller($object->document->document);
-            $model->customer    = $this->customers->create($object);
+            $model->customer    = $this->customer($object->document->document);
             $model->currency    = $this->currencies->create($object);
             $model->language    = $this->languages->create($object);
             $model->distributor = $this->distributors->create($object);

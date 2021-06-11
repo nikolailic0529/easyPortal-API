@@ -70,6 +70,31 @@ class Client {
             ->offset($offset);
     }
 
+    /**
+     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Company>
+     */
+    public function getCustomers(DateTimeInterface $from = null, int $limit = null, int $offset = 0): QueryIterator {
+        return $this
+            ->iterator(
+                'getCustomers',
+                /** @lang GraphQL */ <<<GRAPHQL
+                query items(\$limit: Int, \$offset: Int, \$from: String) {
+                    getCustomers(limit: \$limit, offset: \$offset, fromTimestamp: \$from) {
+                        {$this->getCustomerPropertiesGraphQL()}
+                    }
+                }
+                GRAPHQL,
+                [
+                    'from' => $this->datetime($from),
+                ],
+                static function (array $data): Company {
+                    return new Company($data);
+                },
+            )
+            ->limit($limit)
+            ->offset($offset);
+    }
+
     public function getCompanyById(string $id): ?Company {
         $company = $this->get(
             'getCompanyById',
@@ -99,9 +124,6 @@ class Client {
             query getAssets(\$id: String!) {
                 getAssets(args: [{key: "id", value: \$id}]) {
                     {$this->getAssetPropertiesGraphQL()}
-                    customer {
-                        {$this->getCustomerPropertiesGraphQL()}
-                    }
                 }
             }
             GRAPHQL,
@@ -181,9 +203,6 @@ class Client {
                 query items(\$id: String!, \$limit: Int, \$offset: Int) {
                     getAssetsByResellerId(resellerId: \$id, limit: \$limit, offset: \$offset) {
                         {$this->getAssetPropertiesGraphQL()}
-                        customer {
-                            {$this->getCustomerPropertiesGraphQL()}
-                        }
                     }
                 }
                 GRAPHQL,
@@ -209,9 +228,6 @@ class Client {
                 query items(\$id: String!, \$limit: Int, \$offset: Int) {
                     getAssetsByResellerId(resellerId: \$id, limit: \$limit, offset: \$offset) {
                         {$this->getAssetPropertiesGraphQL()}
-                        customer {
-                            {$this->getCustomerPropertiesGraphQL()}
-                        }
                         assetDocument {
                             {$this->getAssetDocumentsPropertiesGraphQL()}
                         }
@@ -620,10 +636,7 @@ class Client {
                     mail
                 }
 
-                customer {
-                  {$this->getCustomerPropertiesGraphQL()}
-                }
-
+                customerId
                 resellerId
 
                 distributor {
@@ -642,7 +655,7 @@ class Client {
             estimatedValueRenewal
 
             customer {
-              {$this->getCustomerPropertiesGraphQL()}
+              id
             }
 
             reseller {

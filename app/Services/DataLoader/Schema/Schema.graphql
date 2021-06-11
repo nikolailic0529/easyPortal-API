@@ -245,19 +245,21 @@ type Mutation {
   updateCompanyLogo(input: UpdateCompanyFile): String
   updateCompanyFavicon(input: UpdateCompanyFile): String
   updateCompanyMainImageOnTheRight(input: UpdateCompanyFile): String
+  uploadInvoice(input: UploadInvoice): String
 }
 
 type Query {
-  getAssetsBySerialNumber(serialNumber: String): Asset
-  getAssetsByCustomerId(customerId: String!, limit: Int, offset: Int): [Asset]!
-  getAssetsByResellerId(resellerId: String!, limit: Int, offset: Int): [Asset]!
-  getAssetsByDistributorId(distributorId: String!, limit: Int, offset: Int): [Asset]!
-  getAssetsByVendor(vendor: String!, limit: Int, offset: Int): [Asset]!
+  getAssetsBySerialNumber(serialNumber: String): ViewAsset
+  getAssetsByCustomerId(customerId: String!, limit: Int, offset: Int, fromTimestamp: String): [ViewAsset]!
+  getAssetsByResellerId(resellerId: String!, limit: Int, offset: Int, fromTimestamp: String): [ViewAsset]!
+  getAssetsByDistributorId(distributorId: String!, limit: Int, offset: Int): [ViewAsset]!
+  getAssetsByVendor(vendor: String!, limit: Int, offset: Int): [ViewAsset]!
   getDocumentsByCostumer(customerId: String!, type: String, limit: Int, offset: Int): [Document]!
-  getAssets(args: [KeyValuePair], limit: Int, offset: Int): [Asset]!
+  getAssets(args: [KeyValuePair], limit: Int, offset: Int, lastId: String, fromTimestamp: String): [ViewAsset]!
   getCompanyById(id: String): [Company]!
-  assets(limit: Int, offset: Int): [Asset]!
+  assets(limit: Int, offset: Int): [ViewAsset]!
   getResellers(limit: Int, offset: Int, fromTimestamp: String): [Company]!
+  getCustomers(limit: Int, offset: Int, fromTimestamp: String): [Company]!
   getDistributors(limit: Int, offset: Int): [Company]!
   getDocumentTypes: [String]!
 }
