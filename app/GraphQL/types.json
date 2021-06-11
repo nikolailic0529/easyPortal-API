@@ -485,12 +485,26 @@
                     ]
                 },
                 "start": {
-                    "type": "string",
-                    "format": "date"
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "format": "date"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "end": {
-                    "type": "string",
-                    "format": "date"
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "format": "date"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "price": {
                     "type": [
