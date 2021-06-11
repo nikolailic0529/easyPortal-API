@@ -3,12 +3,12 @@
 namespace App\Services\DataLoader;
 
 use App\Services\DataLoader\Normalizers\BoolNormalizer;
+use App\Services\DataLoader\Normalizers\ColorNormalizer;
 use App\Services\DataLoader\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizers\KeyNormalizer;
 use App\Services\DataLoader\Normalizers\NumberNormalizer;
 use App\Services\DataLoader\Normalizers\StringNormalizer;
 use App\Services\DataLoader\Normalizers\UuidNormalizer;
-use Illuminate\Config\Repository;
 use Mockery;
 use Tests\TestCase;
 
@@ -22,15 +22,14 @@ class NormalizerTest extends TestCase {
      */
     public function testKey(): void {
         $key        = Mockery::mock(KeyNormalizer::class);
-        $config     = new Repository();
-        $normalizer = new Normalizer(
-            $key,
-            new UuidNormalizer(),
-            new StringNormalizer(),
-            new DateTimeNormalizer($config),
-            new NumberNormalizer(),
-            new BoolNormalizer(),
-        );
+        $normalizer = new class($key) extends Normalizer {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected KeyNormalizer $key,
+            ) {
+                // empty
+            }
+        };
 
         $key->shouldReceive('normalize')->once()->andReturns();
 
@@ -42,15 +41,14 @@ class NormalizerTest extends TestCase {
      */
     public function testUuid(): void {
         $uuid       = Mockery::mock(UuidNormalizer::class);
-        $config     = new Repository();
-        $normalizer = new Normalizer(
-            new KeyNormalizer(),
-            $uuid,
-            new StringNormalizer(),
-            new DateTimeNormalizer($config),
-            new NumberNormalizer(),
-            new BoolNormalizer(),
-        );
+        $normalizer = new class($uuid) extends Normalizer {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected UuidNormalizer $uuid,
+            ) {
+                // empty
+            }
+        };
 
         $uuid->shouldReceive('normalize')->once()->andReturns();
 
@@ -62,15 +60,14 @@ class NormalizerTest extends TestCase {
      */
     public function testString(): void {
         $string     = Mockery::mock(StringNormalizer::class);
-        $config     = new Repository();
-        $normalizer = new Normalizer(
-            new KeyNormalizer(),
-            new UuidNormalizer(),
-            $string,
-            new DateTimeNormalizer($config),
-            new NumberNormalizer(),
-            new BoolNormalizer(),
-        );
+        $normalizer = new class($string) extends Normalizer {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected StringNormalizer $string,
+            ) {
+                // empty
+            }
+        };
 
         $string->shouldReceive('normalize')->once()->andReturns();
 
@@ -82,14 +79,14 @@ class NormalizerTest extends TestCase {
      */
     public function testDatetime(): void {
         $datetime   = Mockery::mock(DateTimeNormalizer::class);
-        $normalizer = new Normalizer(
-            new KeyNormalizer(),
-            new UuidNormalizer(),
-            new StringNormalizer(),
-            $datetime,
-            new NumberNormalizer(),
-            new BoolNormalizer(),
-        );
+        $normalizer = new class($datetime) extends Normalizer {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected DateTimeNormalizer $datetime,
+            ) {
+                // empty
+            }
+        };
 
         $datetime->shouldReceive('normalize')->once()->andReturns();
 
@@ -101,15 +98,14 @@ class NormalizerTest extends TestCase {
      */
     public function testNumber(): void {
         $number     = Mockery::mock(NumberNormalizer::class);
-        $config     = new Repository();
-        $normalizer = new Normalizer(
-            new KeyNormalizer(),
-            new UuidNormalizer(),
-            new StringNormalizer(),
-            new DateTimeNormalizer($config),
-            $number,
-            new BoolNormalizer(),
-        );
+        $normalizer = new class($number) extends Normalizer {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected NumberNormalizer $number,
+            ) {
+                // empty
+            }
+        };
 
         $number->shouldReceive('normalize')->once()->andReturns();
 
@@ -121,15 +117,14 @@ class NormalizerTest extends TestCase {
      */
     public function testBoolean(): void {
         $boolean    = Mockery::mock(BoolNormalizer::class);
-        $config     = new Repository();
-        $normalizer = new Normalizer(
-            new KeyNormalizer(),
-            new UuidNormalizer(),
-            new StringNormalizer(),
-            new DateTimeNormalizer($config),
-            new NumberNormalizer(),
-            $boolean,
-        );
+        $normalizer = new class($boolean) extends Normalizer {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected BoolNormalizer $boolean,
+            ) {
+                // empty
+            }
+        };
 
         $boolean->shouldReceive('normalize')->once()->andReturns();
 
@@ -141,18 +136,36 @@ class NormalizerTest extends TestCase {
      */
     public function testCoordinate(): void {
         $string     = Mockery::mock(StringNormalizer::class);
-        $config     = new Repository();
-        $normalizer = new Normalizer(
-            new KeyNormalizer(),
-            new UuidNormalizer(),
-            $string,
-            new DateTimeNormalizer($config),
-            new NumberNormalizer(),
-            new BoolNormalizer(),
-        );
+        $normalizer = new class($string) extends Normalizer {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected StringNormalizer $string,
+            ) {
+                // empty
+            }
+        };
 
         $string->shouldReceive('normalize')->once()->andReturns();
 
         $normalizer->coordinate('value');
+    }
+
+    /**
+     * @covers ::color
+     */
+    public function testColor(): void {
+        $color      = Mockery::mock(ColorNormalizer::class);
+        $normalizer = new class($color) extends Normalizer {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected ColorNormalizer $color,
+            ) {
+                // empty
+            }
+        };
+
+        $color->shouldReceive('normalize')->once()->andReturns();
+
+        $normalizer->color('value');
     }
 }
