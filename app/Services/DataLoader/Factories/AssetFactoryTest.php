@@ -21,7 +21,6 @@ use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
-use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
@@ -99,15 +98,11 @@ class AssetFactoryTest extends TestCase {
     public function testCreateFromAsset(): void {
         // Prepare
         $container = $this->app->make(Container::class);
-        $locations = $container->make(LocationFactory::class);
-        $customers = $container->make(CustomerFactory::class)
-            ->setLocationFactory($locations);
         $documents = $container->make(DocumentFactory::class);
         $contacts  = $container->make(ContactFactory::class);
 
         /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
         $factory = $container->make(AssetFactory::class)
-            ->setCustomersFactory($customers)
             ->setDocumentFactory($documents)
             ->setContactsFactory($contacts);
 
@@ -117,6 +112,10 @@ class AssetFactoryTest extends TestCase {
 
         Reseller::factory()->create([
             'id' => $asset->resellerId,
+        ]);
+
+        Customer::factory()->create([
+            'id' => $asset->customerId,
         ]);
 
         // Test
@@ -354,11 +353,7 @@ class AssetFactoryTest extends TestCase {
     public function testCreateFromAssetOnResellerLocation(): void {
         // Prepare
         $container = $this->app->make(Container::class);
-        $locations = $container->make(LocationFactory::class);
-        $customers = $container->make(CustomerFactory::class)
-            ->setLocationFactory($locations);
-        $factory   = $container->make(AssetFactory::class)
-            ->setCustomersFactory($customers);
+        $factory   = $container->make(AssetFactory::class);
 
         // Load
         $json  = $this->getTestData()->json('~asset-reseller-location.json');
@@ -366,6 +361,10 @@ class AssetFactoryTest extends TestCase {
 
         Reseller::factory()->create([
             'id' => $asset->resellerId,
+        ]);
+
+        Customer::factory()->create([
+            'id' => $asset->customerId,
         ]);
 
         // Test
@@ -858,187 +857,6 @@ class AssetFactoryTest extends TestCase {
             ->andReturns();
 
         $factory->assetProduct($asset);
-    }
-
-    /**
-     * @covers ::assetCustomer
-     */
-    public function testAssetCustomerExistsThroughProvider(): void {
-        $customer = Customer::factory()->make();
-        $resolver = Mockery::mock(CustomerResolver::class);
-
-        $resolver
-            ->shouldReceive('get')
-            ->with($customer->getKey())
-            ->twice()
-            ->andReturn($customer);
-
-        $factory = new class($resolver) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerResolver $resolver) {
-                $this->customerResolver = $resolver;
-            }
-
-            public function assetCustomer(ViewAsset $asset): ?Customer {
-                return parent::assetCustomer($asset);
-            }
-        };
-
-        $this->assertEquals($customer, $factory->assetCustomer(new ViewAsset([
-            'id'         => $this->faker->uuid,
-            'customerId' => $customer->getKey(),
-        ])));
-
-        $this->assertEquals($customer, $factory->assetCustomer(new ViewAsset([
-            'id'       => $this->faker->uuid,
-            'customer' => [
-                'id' => $customer->getKey(),
-            ],
-        ])));
-    }
-
-    /**
-     * @covers ::assetCustomer
-     */
-    public function testAssetCustomerAssetWithoutCustomer(): void {
-        $resolver = Mockery::mock(CustomerResolver::class);
-
-        $resolver
-            ->shouldReceive('get')
-            ->never();
-
-        $factory = new class($resolver) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerResolver $resolver) {
-                $this->customerResolver = $resolver;
-            }
-
-            public function assetCustomer(ViewAsset $asset): ?Customer {
-                return parent::assetCustomer($asset);
-            }
-        };
-
-        $this->assertNull($factory->assetCustomer(new ViewAsset([
-            'id' => $this->faker->uuid,
-        ])));
-    }
-
-    /**
-     * @covers ::assetCustomer
-     */
-    public function testAssetCustomerCustomerNotFound(): void {
-        $customer = Customer::factory()->make();
-        $asset    = new ViewAsset([
-            'id'       => $this->faker->uuid,
-            'customer' => [
-                'id' => $customer->getKey(),
-            ],
-        ]);
-        $resolver = Mockery::mock(CustomerResolver::class);
-        $resolver
-            ->shouldReceive('get')
-            ->with($customer->getKey())
-            ->once()
-            ->andReturn(null);
-
-        $factory = new class($resolver) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerResolver $resolver) {
-                $this->customerResolver = $resolver;
-            }
-
-            public function assetCustomer(ViewAsset $asset): ?Customer {
-                return parent::assetCustomer($asset);
-            }
-        };
-
-        $this->expectException(CustomerNotFoundException::class);
-
-        $this->assertEquals($customer, $factory->assetCustomer($asset));
-    }
-
-    /**
-     * @covers ::assetCustomer
-     */
-    public function testAssetCustomerExistsThroughFactory(): void {
-        $customer = Customer::factory()->make();
-        $asset    = new ViewAsset([
-            'id'       => $this->faker->uuid,
-            'customer' => [
-                'id' => $customer->getKey(),
-            ],
-        ]);
-        $resolver = Mockery::mock(CustomerResolver::class);
-        $resolver
-            ->shouldReceive('get')
-            ->with($customer->getKey())
-            ->once()
-            ->andReturn(null);
-
-        $customers = Mockery::mock(CustomerFactory::class);
-        $customers
-            ->shouldReceive('create')
-            ->with($asset->customer)
-            ->once()
-            ->andReturn($customer);
-
-        $factory = new class($resolver) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerResolver $resolver) {
-                $this->customerResolver = $resolver;
-            }
-
-            public function assetCustomer(ViewAsset $asset): ?Customer {
-                return parent::assetCustomer($asset);
-            }
-        };
-
-        $factory->setCustomersFactory($customers);
-
-        $this->assertEquals($customer, $factory->assetCustomer($asset));
-    }
-
-    /**
-     * @covers ::assetCustomer
-     */
-    public function testAssetCustomerNotFoundThroughFactory(): void {
-        $customer = Customer::factory()->make();
-        $asset    = new ViewAsset([
-            'id'       => $this->faker->uuid,
-            'customer' => [
-                'id' => $customer->getKey(),
-            ],
-        ]);
-        $resolver = Mockery::mock(CustomerResolver::class);
-        $resolver
-            ->shouldReceive('get')
-            ->with($customer->getKey())
-            ->once()
-            ->andReturn(null);
-
-        $customers = Mockery::mock(CustomerFactory::class);
-        $customers
-            ->shouldReceive('create')
-            ->with($asset->customer)
-            ->once()
-            ->andReturn(null);
-
-        $factory = new class($resolver) extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(CustomerResolver $resolver) {
-                $this->customerResolver = $resolver;
-            }
-
-            public function assetCustomer(ViewAsset $asset): ?Customer {
-                return parent::assetCustomer($asset);
-            }
-        };
-
-        $factory->setCustomersFactory($customers);
-
-        $this->expectException(CustomerNotFoundException::class);
-
-        $this->assertEquals($customer, $factory->assetCustomer($asset));
     }
 
     /**

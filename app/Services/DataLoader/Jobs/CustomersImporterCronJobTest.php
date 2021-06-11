@@ -2,11 +2,11 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Models\Reseller;
+use App\Models\Customer;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\DataLoaderService;
-use App\Services\DataLoader\Factories\ResellerFactory;
+use App\Services\DataLoader\Factories\CustomerFactory;
 use App\Services\DataLoader\Schema\Company;
 use Generator;
 use Illuminate\Support\Facades\Queue;
@@ -17,14 +17,14 @@ use function in_array;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Jobs\ResellersImporterCronJob
+ * @coversDefaultClass \App\Services\DataLoader\Jobs\CustomersImporterCronJob
  */
-class ResellersImporterCronJobTest extends TestCase {
+class CustomersImporterCronJobTest extends TestCase {
     /**
      * @coversNothing
      */
     public function testRegistration(): void {
-        $this->assertCronableRegistered(ResellersImporterCronJob::class);
+        $this->assertCronableRegistered(CustomersImporterCronJob::class);
     }
 
     /**
@@ -35,18 +35,18 @@ class ResellersImporterCronJobTest extends TestCase {
         Queue::fake();
 
         // Prepare
-        $o       = Reseller::factory()->create();
+        $o       = Customer::factory()->create();
         $a       = new Company(['id' => $o->getKey()]);
         $b       = new Company(['id' => $this->faker->uuid]);
         $c       = new Company(['id' => $this->faker->uuid]);
         $items   = [$a, $b, $c];
         $closure = static function (Company $company) {
-            return Reseller::factory()->make([
+            return Customer::factory()->make([
                 'id' => $company->id,
             ]);
         };
 
-        $factory = Mockery::mock(ResellerFactory::class);
+        $factory = Mockery::mock(CustomerFactory::class);
         $factory->makePartial();
 
         $factory
@@ -83,7 +83,7 @@ class ResellersImporterCronJobTest extends TestCase {
 
         $client = Mockery::mock(Client::class);
         $client
-            ->shouldReceive('getResellers')
+            ->shouldReceive('getCustomers')
             ->once()
             ->andReturnUsing(static function () use ($items): QueryIterator {
                 return new class($items) extends QueryIterator {
@@ -120,16 +120,16 @@ class ResellersImporterCronJobTest extends TestCase {
         $this->app->bind(DataLoaderService::class, static function () use ($service) {
             return $service;
         });
-        $this->app->bind(ResellerFactory::class, static function () use ($factory) {
+        $this->app->bind(CustomerFactory::class, static function () use ($factory) {
             return $factory;
         });
 
         // Test
-        $this->app->call([$this->app->make(ResellersImporterCronJob::class), 'handle']);
+        $this->app->call([$this->app->make(CustomersImporterCronJob::class), 'handle']);
 
-        Queue::assertPushed(ResellerUpdate::class, 2);
-        Queue::assertPushed(ResellerUpdate::class, static function (ResellerUpdate $job) use ($b, $c): bool {
-            return in_array($job->getResellerId(), [$b->id, $c->id], true);
+        Queue::assertPushed(CustomerUpdate::class, 2);
+        Queue::assertPushed(CustomerUpdate::class, static function (CustomerUpdate $job) use ($b, $c): bool {
+            return in_array($job->getCustomerId(), [$b->id, $c->id], true);
         });
     }
 }

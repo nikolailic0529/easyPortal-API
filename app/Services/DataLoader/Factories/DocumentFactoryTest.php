@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Factories;
 
 use App\Models\Asset as AssetModel;
+use App\Models\Customer as CustomerModel;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\Enums\ProductType;
@@ -112,10 +113,13 @@ class DocumentFactoryTest extends TestCase {
         $reseller = ResellerModel::factory()->create([
             'id' => $asset->resellerId,
         ]);
+        $customer = CustomerModel::factory()->create([
+            'id' => $asset->customerId,
+        ]);
         $created  = $factory->createFromAssetDocumentObject($object);
 
         $this->assertNotNull($created);
-        $this->assertEquals($asset->customerId, $created->customer_id);
+        $this->assertEquals($customer->getKey(), $created->customer_id);
         $this->assertEquals($reseller->getKey(), $created->reseller_id);
         $this->assertEquals('0056523287', $created->number);
         $this->assertEquals('1292.16', $created->price);
@@ -505,6 +509,10 @@ class DocumentFactoryTest extends TestCase {
             'id' => $object->document->document->resellerId,
         ]);
 
+        CustomerModel::factory()->create([
+            'id' => $object->document->document->customerId,
+        ]);
+
         // Set property to null
         $object->document->document->contactPersons = null;
 
@@ -638,8 +646,6 @@ class DocumentFactoryTest extends TestCase {
     public function dataProviderCreate(): array {
         return [
             AssetDocumentObject::class => ['createFromAssetDocumentObject', new AssetDocumentObject()],
-            ViewAssetDocument::class   => [null, new ViewAssetDocument()],
-            ViewDocument::class        => [null, new ViewDocument()],
             'Unknown'                  => [
                 null,
                 new class() extends Type {

@@ -3,8 +3,9 @@
 namespace App\Console;
 
 use App\Services\DataLoader\Commands\AnalyzeAssets;
-use App\Services\DataLoader\Commands\Customer;
+use App\Services\DataLoader\Commands\UpdateCustomer;
 use App\Services\DataLoader\Commands\UpdateReseller;
+use App\Services\DataLoader\Jobs\CustomersImporterCronJob;
 use App\Services\DataLoader\Jobs\CustomersUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
@@ -25,7 +26,7 @@ class Kernel extends ConsoleKernel {
      */
     protected $commands = [
         UpdateReseller::class,
-        Customer::class,
+        UpdateCustomer::class,
         AnalyzeAssets::class,
     ];
 
@@ -37,6 +38,7 @@ class Kernel extends ConsoleKernel {
     protected array $schedule = [
         ResellersImporterCronJob::class,
         ResellersUpdaterCronJob::class,
+        CustomersImporterCronJob::class,
         CustomersUpdaterCronJob::class,
     ];
 

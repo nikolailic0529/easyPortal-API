@@ -7,8 +7,6 @@ use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
-use App\Services\DataLoader\Schema\ViewAssetDocument;
-use App\Services\DataLoader\Schema\ViewDocument;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -68,84 +66,6 @@ class CustomerFactoryTest extends TestCase {
         }
 
         $factory->create($type);
-    }
-
-    /**
-     * @covers ::createFromAssetDocumentObject
-     */
-    public function testCreateFromAssetDocumentObject(): void {
-        $document = new AssetDocumentObject([
-            'document' => [
-                'customer' => [
-                    'id' => $this->faker->uuid,
-                ],
-                'document' => [
-                    'customer' => [
-                        'id' => $this->faker->uuid,
-                    ],
-                ],
-            ],
-        ]);
-
-        $factory = Mockery::mock(CustomerFactory::class);
-        $factory->makePartial();
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory
-            ->shouldReceive('createFromDocument')
-            ->once()
-            ->with($document->document->document)
-            ->andReturn(null);
-        $factory
-            ->shouldReceive('createFromAssetDocument')
-            ->once()
-            ->with($document->document)
-            ->andReturn(null);
-
-        $factory->create($document);
-    }
-
-    /**
-     * @covers ::createFromAssetDocument
-     */
-    public function testCreateFromAssetDocument(): void {
-        $document = new ViewAssetDocument([
-            'customer' => [
-                'id' => $this->faker->uuid,
-            ],
-        ]);
-
-        $factory = Mockery::mock(CustomerFactory::class);
-        $factory->makePartial();
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory
-            ->shouldReceive('createFromCompany')
-            ->once()
-            ->with($document->customer)
-            ->andReturn(null);
-
-        $factory->create($document);
-    }
-
-    /**
-     * @covers ::createFromDocument
-     */
-    public function testCreateFromDocument(): void {
-        $document = new ViewDocument([
-            'customer' => [
-                'id' => $this->faker->uuid,
-            ],
-        ]);
-
-        $factory = Mockery::mock(CustomerFactory::class);
-        $factory->makePartial();
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory
-            ->shouldReceive('createFromCompany')
-            ->once()
-            ->with($document->customer)
-            ->andReturn(null);
-
-        $factory->create($document);
     }
 
     /**
@@ -234,6 +154,9 @@ class CustomerFactoryTest extends TestCase {
         $b          = new Company([
             'id' => $this->faker->uuid,
         ]);
+        $asset      = new ViewAsset([
+            'customerId' => $b->id,
+        ]);
         $resolver   = $this->app->make(CustomerResolver::class);
         $normalizer = $this->app->make(Normalizer::class);
 
@@ -250,10 +173,7 @@ class CustomerFactoryTest extends TestCase {
         });
 
         $factory->prefetch(
-            [
-                new ViewAsset(['customerId' => $a->id]),
-                new ViewAsset(['customerId' => $b->id]),
-            ],
+            [$a, $asset, new ViewAsset(['customerId' => $b->id])],
             false,
             Closure::fromCallable($callback),
         );
@@ -276,11 +196,8 @@ class CustomerFactoryTest extends TestCase {
      */
     public function dataProviderCreate(): array {
         return [
-            AssetDocumentObject::class => ['createFromAssetDocumentObject', new AssetDocumentObject()],
-            ViewAssetDocument::class   => ['createFromAssetDocument', new ViewAssetDocument()],
-            ViewDocument::class        => ['createFromDocument', new ViewDocument()],
-            Company::class             => ['createFromCompany', new Company()],
-            'Unknown'                  => [
+            Company::class => ['createFromCompany', new Company()],
+            'Unknown'      => [
                 null,
                 new class() extends Type {
                     // empty

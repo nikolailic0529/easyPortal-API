@@ -22,8 +22,7 @@ class ViewDocument extends Type {
     public ?array $contactPersons;
 
     public ?string $resellerId;
-
-    public ?Company $customer;
+    public ?string $customerId;
 
     public ?string  $distributorId;
     public ?Company $distributor;

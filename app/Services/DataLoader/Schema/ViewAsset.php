@@ -6,7 +6,6 @@ class ViewAsset extends Type {
     public string   $id;
     public ?string  $resellerId;
     public ?string  $customerId;
-    public ?Company $customer;
     public ?string  $serialNumber;
     public string   $productDescription;
     public ?string  $assetTag;

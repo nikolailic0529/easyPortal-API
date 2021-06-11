@@ -2,18 +2,18 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Jobs\NamedJob;
+use App\Models\Model;
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Client\QueryIterator;
+use App\Services\DataLoader\Schema\Company;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Support\Facades\Date;
-use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
-use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
+use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 
 /**
  * Search for outdated resellers and update it.
  */
-class ResellersUpdaterCronJob extends CronJob implements ShouldBeUnique, NamedJob {
+class ResellersUpdaterCronJob extends ResellersImporterCronJob {
     public function displayName(): string {
         return 'ep-data-loader-resellers-updater';
     }
@@ -29,18 +29,15 @@ class ResellersUpdaterCronJob extends CronJob implements ShouldBeUnique, NamedJo
             ] + parent::getQueueConfig();
     }
 
-    public function handle(Container $container, QueueableConfigurator $configurator, Client $client): void {
-        $config   = $configurator->config($this);
+    protected function getCompanies(Client $client, QueueableConfig $config): QueryIterator {
         $expire   = $config->setting('expire');
         $expire   = Date::now()->sub($expire);
         $outdated = $client->getResellers($expire);
 
-        foreach ($outdated as $reseller) {
-            /** @var \App\Services\DataLoader\Schema\Company $reseller */
-            $container
-                ->make(ResellerUpdate::class)
-                ->initialize($reseller->id)
-                ->dispatch();
-        }
+        return $outdated;
+    }
+
+    protected function updateExistingCompany(Container $container, Company $company, Model $model): void {
+        parent::updateCreatedCompany($container, $company, $model);
     }
 }

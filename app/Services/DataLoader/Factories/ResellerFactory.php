@@ -8,6 +8,7 @@ use App\Services\DataLoader\Factories\Concerns\Company as ConcernsCompany;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithLocations;
 use App\Services\DataLoader\Factories\Concerns\WithType;
+use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Resolvers\StatusResolver;
@@ -26,7 +27,7 @@ use function array_unique;
 use function implode;
 use function sprintf;
 
-class ResellerFactory extends ModelFactory {
+class ResellerFactory extends ModelFactory implements FactoryPrefetchable {
     use WithLocations;
     use WithType;
     use WithContacts;
@@ -61,10 +62,10 @@ class ResellerFactory extends ModelFactory {
     // <editor-fold desc="Prefetch">
     // =========================================================================
     /**
-     * @param array<\App\Services\DataLoader\Schema\Company|\App\Services\DataLoader\Schema\ViewAsset> $resellers
+     * @param array<\App\Services\DataLoader\Schema\Company|\App\Services\DataLoader\Schema\ViewAsset> $objects
      * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
      */
-    public function prefetch(array $resellers, bool $reset = false, Closure|null $callback = null): static {
+    public function prefetch(array $objects, bool $reset = false, Closure|null $callback = null): static {
         $keys = array_unique(array_filter(array_map(static function (Company|ViewAsset $model): ?string {
             if ($model instanceof Company) {
                 return $model->id;
@@ -73,7 +74,7 @@ class ResellerFactory extends ModelFactory {
             } else {
                 return null;
             }
-        }, $resellers)));
+        }, $objects)));
 
         $this->resellers->prefetch($keys, $reset, $callback);
 
