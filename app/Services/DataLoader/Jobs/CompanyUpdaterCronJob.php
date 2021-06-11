@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Jobs\NamedJob;
+use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Model;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\QueryIterator;
@@ -10,6 +11,7 @@ use App\Services\DataLoader\DataLoaderService;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Schema\Company;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
@@ -21,7 +23,23 @@ use Throwable;
 use function sprintf;
 
 abstract class CompanyUpdaterCronJob extends CronJob implements ShouldBeUnique, NamedJob {
+    use GlobalScopes;
+
     public function handle(
+        Container $container,
+        LoggerInterface $logger,
+        DataLoaderService $service,
+        QueueableConfigurator $configurator,
+    ): void {
+        $this->callWithoutGlobalScopes(
+            [OwnedByOrganizationScope::class],
+            function () use ($container, $logger, $service, $configurator): void {
+                $this->process($container, $logger, $service, $configurator);
+            },
+        );
+    }
+
+    protected function process(
         Container $container,
         LoggerInterface $logger,
         DataLoaderService $service,
