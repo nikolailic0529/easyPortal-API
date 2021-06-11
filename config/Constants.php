@@ -3,6 +3,7 @@
 namespace Config;
 
 use App\Jobs\Queues;
+use App\Services\DataLoader\Jobs\CustomersImporterCronJob;
 use App\Services\DataLoader\Jobs\CustomersUpdaterCronJob;
 use App\Services\DataLoader\Jobs\CustomerUpdate;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
@@ -367,6 +368,31 @@ interface Constants {
     #[Group('data_loader')]
     #[Type(Duration::class)]
     public const EP_DATA_LOADER_RESELLERS_UPDATER_EXPIRE = 'PT24H';
+    // </editor-fold>
+
+    // <editor-fold desc="DATA_LOADER_CUSTOMERS_IMPORTER">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(CustomersImporterCronJob::class, 'enabled')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_ENABLED = self::EP_DATA_LOADER_ENABLED;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(CustomersImporterCronJob::class, 'cron')]
+    #[Group('data_loader')]
+    #[Type(CronExpression::class)]
+    public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_CRON = '0 0 * * *';
+
+    /**
+     * Queue name.
+     */
+    #[Service(CustomersImporterCronJob::class, 'queue')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_QUEUE = Queues::DATA_LOADER_DEFAULT;
     // </editor-fold>
 
     // <editor-fold desc="DATA_LOADER_RESELLER_UPDATE">
