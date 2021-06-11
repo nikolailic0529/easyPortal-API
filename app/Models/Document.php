@@ -31,8 +31,8 @@ use function count;
  * @property string|null                                                         $reseller_id
  * @property string                                                              $number     Internal Number
  * @property string|null                                                         $support_id Support Level
- * @property \Carbon\CarbonImmutable                                             $start
- * @property \Carbon\CarbonImmutable                                             $end
+ * @property \Carbon\CarbonImmutable|null                                        $start
+ * @property \Carbon\CarbonImmutable|null                                        $end
  * @property string|null                                                         $price
  * @property string|null                                                         $currency_id
  * @property string|null                                                         $language_id
