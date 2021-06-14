@@ -82,7 +82,7 @@ abstract class QueryIterator implements IteratorAggregate {
                 }
             }, $items);
 
-            $this->onChunkLoaded($items);
+            $this->chunkLoaded($items);
 
             foreach ($items as $item) {
                 yield $index++ => $item;
@@ -90,6 +90,10 @@ abstract class QueryIterator implements IteratorAggregate {
                 if ($limit && $index >= $limit) {
                     break 2;
                 }
+            }
+
+            if (!$this->chunkProcessed($items)) {
+                break;
             }
         } while ($items);
     }
@@ -102,9 +106,14 @@ abstract class QueryIterator implements IteratorAggregate {
     /**
      * @param array<mixed> $items
      */
-    protected function onChunkLoaded(array $items): void {
+    protected function chunkLoaded(array $items): void {
         if ($this->each) {
             ($this->each)($items);
         }
     }
+
+    /**
+     * @param array<mixed> $items
+     */
+    abstract protected function chunkProcessed(array $items): bool;
 }

@@ -25,9 +25,9 @@ class OffsetBasedIterator extends QueryIterator {
     /**
      * @inheritDoc
      */
-    protected function onChunkLoaded(array $items): void {
+    protected function chunkProcessed(array $items): bool {
         $this->offset($this->offset + count($items));
 
-        parent::onChunkLoaded($items);
+        return true;
     }
 }

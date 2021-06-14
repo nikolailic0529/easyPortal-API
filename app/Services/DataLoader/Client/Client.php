@@ -349,6 +349,24 @@ class Client {
     }
 
     /**
+     * @template T
+     *
+     * @param array<mixed> $params
+     * @param \Closure(array<mixed>):T $reriever
+     *
+     * @return \App\Services\DataLoader\Client\LastIdBasedIterator<T>
+     */
+    public function getLastIdBasedIterator(
+        string $selector,
+        string $graphql,
+        array $params,
+        Closure $retriever,
+    ): LastIdBasedIterator {
+        return (new LastIdBasedIterator($this->logger, $this, "data.{$selector}", $graphql, $params, $retriever))
+            ->chunk($this->config->get('ep.data_loader.chunk'));
+    }
+
+    /**
      * @param array<mixed> $params
      *
      * @return array<mixed>|null
