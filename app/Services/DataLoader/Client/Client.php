@@ -50,7 +50,7 @@ class Client {
      */
     public function getResellers(DateTimeInterface $from = null, int $limit = null, int $offset = 0): OffsetBasedIterator {
         return $this
-            ->iterator(
+            ->getOffsetBasedIterator(
                 'getResellers',
                 /** @lang GraphQL */ <<<GRAPHQL
                 query items(\$limit: Int, \$offset: Int, \$from: String) {
@@ -75,7 +75,7 @@ class Client {
      */
     public function getCustomers(DateTimeInterface $from = null, int $limit = null, int $offset = 0): OffsetBasedIterator {
         return $this
-            ->iterator(
+            ->getOffsetBasedIterator(
                 'getCustomers',
                 /** @lang GraphQL */ <<<GRAPHQL
                 query items(\$limit: Int, \$offset: Int, \$from: String) {
@@ -144,7 +144,7 @@ class Client {
      */
     public function getAssetsByCustomerId(string $id, int $limit = null, int $offset = 0): OffsetBasedIterator {
         return $this
-            ->iterator(
+            ->getOffsetBasedIterator(
                 'getAssetsByCustomerId',
                 /** @lang GraphQL */ <<<GRAPHQL
                 query items(\$id: String!, \$limit: Int, \$offset: Int) {
@@ -169,7 +169,7 @@ class Client {
      */
     public function getAssetsByCustomerIdWithDocuments(string $id, int $limit = null, int $offset = 0): OffsetBasedIterator {
         return $this
-            ->iterator(
+            ->getOffsetBasedIterator(
                 'getAssetsByCustomerId',
                 /** @lang GraphQL */ <<<GRAPHQL
                 query items(\$id: String!, \$limit: Int, \$offset: Int) {
@@ -197,7 +197,7 @@ class Client {
      */
     public function getAssetsByResellerId(string $id, int $limit = null, int $offset = 0): OffsetBasedIterator {
         return $this
-            ->iterator(
+            ->getOffsetBasedIterator(
                 'getAssetsByResellerId',
                 /** @lang GraphQL */ <<<GRAPHQL
                 query items(\$id: String!, \$limit: Int, \$offset: Int) {
@@ -222,7 +222,7 @@ class Client {
      */
     public function getAssetsByResellerIdWithDocuments(string $id, int $limit = null, int $offset = 0): OffsetBasedIterator {
         return $this
-            ->iterator(
+            ->getOffsetBasedIterator(
                 'getAssetsByResellerId',
                 /** @lang GraphQL */ <<<GRAPHQL
                 query items(\$id: String!, \$limit: Int, \$offset: Int) {
@@ -338,7 +338,12 @@ class Client {
      *
      * @return \App\Services\DataLoader\Client\OffsetBasedIterator<T>
      */
-    public function iterator(string $selector, string $graphql, array $params, Closure $retriever): OffsetBasedIterator {
+    public function getOffsetBasedIterator(
+        string $selector,
+        string $graphql,
+        array $params,
+        Closure $retriever,
+    ): OffsetBasedIterator {
         return (new OffsetBasedIterator($this->logger, $this, "data.{$selector}", $graphql, $params, $retriever))
             ->chunk($this->config->get('ep.data_loader.chunk'));
     }
