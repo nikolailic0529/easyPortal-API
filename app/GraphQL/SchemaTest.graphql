@@ -812,6 +812,10 @@ type Organization {
   contacts: [Contact!]!
   headquarter: Location
   users: [OrganizationUser!]!
+
+  """
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
   keycloak_scope: String
 }
 

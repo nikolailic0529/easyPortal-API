@@ -26,20 +26,7 @@ class OrganizationsTest extends TestCase {
         Closure $prepare = null,
     ): void {
         // Prepare
-        $organization = null;
-
-        if ($organizationFactory) {
-            $organization = $organizationFactory($this);
-        }
-
-        // For current organization
-        if ($organization) {
-            $organization->keycloak_scope = $this->faker->word();
-            $organization->save();
-            $organization = $organization->fresh();
-        }
-
-        $this->setUser($userFactory, $organization);
+        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
         if ($prepare) {
             $prepare($this);

@@ -24,4 +24,5 @@ type Organization {
   @field(resolver: "App\\GraphQL\\Queries\\Organization@users")
 
   keycloak_scope: String
+  @me(permissions: ["administer"])
 }
