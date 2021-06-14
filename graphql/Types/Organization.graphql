@@ -22,4 +22,6 @@ type Organization {
 
   users: [OrganizationUser!]!
   @field(resolver: "App\\GraphQL\\Queries\\Organization@users")
+
+  keycloak_scope: String
 }

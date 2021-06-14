@@ -812,6 +812,7 @@ type Organization {
   contacts: [Contact!]!
   headquarter: Location
   users: [OrganizationUser!]!
+  keycloak_scope: String
 }
 
 type OrganizationBranding {

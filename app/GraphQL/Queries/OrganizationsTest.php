@@ -26,7 +26,20 @@ class OrganizationsTest extends TestCase {
         Closure $prepare = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $organization = null;
+
+        if ($organizationFactory) {
+            $organization = $organizationFactory($this);
+        }
+
+        // For current organization
+        if ($organization) {
+            $organization->keycloak_scope = $this->faker->word();
+            $organization->save();
+            $organization = $organization->fresh();
+        }
+
+        $this->setUser($userFactory, $organization);
 
         if ($prepare) {
             $prepare($this);
@@ -41,6 +54,7 @@ class OrganizationsTest extends TestCase {
                       id
                       name
                       root
+                      keycloak_scope
                     }
                     paginatorInfo {
                       count
@@ -73,7 +87,9 @@ class OrganizationsTest extends TestCase {
                 'ok' => [
                     new GraphQLPaginated('organizations', self::class),
                     static function (): void {
-                        Organization::factory()->create();
+                        Organization::factory()->create([
+                            'keycloak_scope' => 'test',
+                        ]);
                     },
                 ],
             ]),
