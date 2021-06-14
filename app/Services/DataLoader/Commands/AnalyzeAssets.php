@@ -12,6 +12,7 @@ use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
+use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Closure;
@@ -77,9 +78,8 @@ class AnalyzeAssets extends Command {
 
         if ($lastId) {
             $this->info("Continued from #{$lastId}.");
+            $this->newLine();
         }
-
-        $this->newLine();
 
         // Process
         $this->callWithoutGlobalScopes([OwnedByOrganizationScope::class], function () use (
@@ -101,7 +101,6 @@ class AnalyzeAssets extends Command {
         });
 
         // Done
-        $this->newLine();
         $this->info('Done.');
 
         // Return
@@ -137,6 +136,12 @@ class AnalyzeAssets extends Command {
             // Prefetch
             $prefetcher($assets);
         };
+
+        // @phpcs:disable Generic.Files.LineLength.TooLong
+        $this->info(
+            'Chunk #         : From                                 ... To                                   -   Invalid in chunk      Analyzed /    Invalid',
+        );
+        // @phpcs:enable
 
         foreach ($iterator->each($each) as $item) {
             /** @var \App\Services\DataLoader\Schema\ViewAsset $item */
@@ -222,8 +227,8 @@ class AnalyzeAssets extends Command {
         $invalid      = str_pad((string) $assetsInvalid, $length, ' ', STR_PAD_LEFT);
         $chunkInvalid = str_pad((string) ($assetsInvalid - $chunk['invalid']), $length, ' ', STR_PAD_LEFT);
         $index        = str_pad((string) $chunk['index'], $length, ' ', STR_PAD_LEFT);
-        $first        = $chunk['first']?->id;
-        $last         = $chunk['last']?->id;
+        $first        = str_pad($chunk['first'] instanceof Type ? $chunk['first']->id : 'null', 36, ' ', STR_PAD_LEFT);
+        $last         = str_pad($chunk['last'] instanceof Type ? $chunk['last']->id : 'null', 36, ' ', STR_PAD_LEFT);
         $message      = "Chunk {$index}: {$first} ... {$last} - {$chunkInvalid} invalid   ({$analyzed} / {$invalid})";
 
         if ($assetsInvalid - $chunk['invalid'] > 0) {

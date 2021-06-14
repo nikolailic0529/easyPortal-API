@@ -493,7 +493,7 @@ class AssetFactoryTest extends TestCase {
         // Test
         $this->assertCount(0, $factory->assetDocuments($model, $asset));
 
-        Event::assertDispatched(ObjectSkipped::class, function (ObjectSkipped $event): bool {
+        Event::assertDispatched(ObjectSkipped::class, static function (ObjectSkipped $event): bool {
             return $event->getReason() instanceof ViewAssetDocumentNoDocument;
         });
     }
@@ -543,7 +543,7 @@ class AssetFactoryTest extends TestCase {
         // Test
         $this->assertCount(0, $factory->assetDocuments($model, $asset));
 
-        Event::assertDispatched(ObjectSkipped::class, function (ObjectSkipped $event): bool {
+        Event::assertDispatched(ObjectSkipped::class, static function (ObjectSkipped $event): bool {
             return $event->getReason() instanceof ResellerNotFoundException;
         });
     }
