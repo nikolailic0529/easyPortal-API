@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Cache;
 
-use App\Models\Model;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 class Cache {
@@ -10,7 +10,7 @@ class Cache {
 
     protected Normalizer $normalizer;
     /**
-     * @var array<\Illuminate\Support\Collection<\App\Models\Model>>
+     * @var array<\Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model>>
      */
     protected array $items;
     /**
@@ -19,8 +19,8 @@ class Cache {
     protected array $retrievers;
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\Model>  $models
-     * @param array<\App\Services\DataLoader\Cache\KeyRetriever> $retrievers
+     * @param \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model> $models
+     * @param array<\App\Services\DataLoader\Cache\KeyRetriever>                  $retrievers
      */
     public function __construct(Collection $models, array $retrievers) {
         $this->normalizer = new Normalizer();
@@ -72,7 +72,7 @@ class Cache {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\Model> $models
+     * @param \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model> $models
      */
     public function putAll(Collection $models): static {
         foreach ($models as $model) {
