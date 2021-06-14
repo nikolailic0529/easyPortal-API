@@ -48,7 +48,11 @@ class Client {
     /**
      * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\Company>
      */
-    public function getResellers(DateTimeInterface $from = null, int $limit = null, int $offset = 0): OffsetBasedIterator {
+    public function getResellers(
+        DateTimeInterface $from = null,
+        int $limit = null,
+        int $offset = 0,
+    ): OffsetBasedIterator {
         return $this
             ->getOffsetBasedIterator(
                 'getResellers',
@@ -73,7 +77,11 @@ class Client {
     /**
      * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\Company>
      */
-    public function getCustomers(DateTimeInterface $from = null, int $limit = null, int $offset = 0): OffsetBasedIterator {
+    public function getCustomers(
+        DateTimeInterface $from = null,
+        int $limit = null,
+        int $offset = 0,
+    ): OffsetBasedIterator {
         return $this
             ->getOffsetBasedIterator(
                 'getCustomers',
@@ -167,7 +175,11 @@ class Client {
     /**
      * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
-    public function getAssetsByCustomerIdWithDocuments(string $id, int $limit = null, int $offset = 0): OffsetBasedIterator {
+    public function getAssetsByCustomerIdWithDocuments(
+        string $id,
+        int $limit = null,
+        int $offset = 0,
+    ): OffsetBasedIterator {
         return $this
             ->getOffsetBasedIterator(
                 'getAssetsByCustomerId',
@@ -220,7 +232,11 @@ class Client {
     /**
      * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
-    public function getAssetsByResellerIdWithDocuments(string $id, int $limit = null, int $offset = 0): OffsetBasedIterator {
+    public function getAssetsByResellerIdWithDocuments(
+        string $id,
+        int $limit = null,
+        int $offset = 0,
+    ): OffsetBasedIterator {
         return $this
             ->getOffsetBasedIterator(
                 'getAssetsByResellerId',
