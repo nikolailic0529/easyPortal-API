@@ -2,13 +2,13 @@
 
 namespace App\Services\DataLoader;
 
-use App\Models\Model;
 use App\Services\DataLoader\Cache\Cache;
 use App\Services\DataLoader\Cache\ModelKey;
 use App\Services\DataLoader\Container\Singleton;
 use App\Services\DataLoader\Exceptions\FactoryObjectNotFoundException;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Pure;
 use LogicException;

@@ -7,7 +7,7 @@ use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Model;
 use App\Models\Reseller;
-use App\Services\DataLoader\Client\QueryIterator;
+use App\Services\DataLoader\Client\OffsetBasedIterator;
 use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
@@ -169,9 +169,9 @@ trait WithAssets {
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
-    abstract protected function getCurrentAssets(Model $owner): QueryIterator;
+    abstract protected function getCurrentAssets(Model $owner): OffsetBasedIterator;
 
     /**
      * @param array<string> $current

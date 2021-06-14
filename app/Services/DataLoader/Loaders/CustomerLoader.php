@@ -6,7 +6,7 @@ use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Customer;
 use App\Models\Model;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Client\QueryIterator;
+use App\Services\DataLoader\Client\OffsetBasedIterator;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
@@ -98,7 +98,7 @@ class CustomerLoader extends Loader {
 
     // <editor-fold desc="WithAssets">
     // =========================================================================
-    protected function getCurrentAssets(Model $owner): QueryIterator {
+    protected function getCurrentAssets(Model $owner): OffsetBasedIterator {
         return $this->isWithAssetsDocuments()
             ? $this->client->getAssetsByCustomerIdWithDocuments($owner->getKey())
             : $this->client->getAssetsByCustomerId($owner->getKey());

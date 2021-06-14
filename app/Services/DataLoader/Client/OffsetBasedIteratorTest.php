@@ -12,9 +12,9 @@ use function range;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Client\QueryIterator
+ * @coversDefaultClass \App\Services\DataLoader\Client\OffsetBasedIterator
  */
-class QueryIteratorTest extends TestCase {
+class OffsetBasedIteratorTest extends TestCase {
     /**
      * @covers ::getIterator
      */
@@ -32,7 +32,7 @@ class QueryIteratorTest extends TestCase {
             });
 
         $expected = $data;
-        $actual   = iterator_to_array((new QueryIterator($logger, $client, '', ''))->chunk(5));
+        $actual   = iterator_to_array((new OffsetBasedIterator($logger, $client, '', ''))->chunk(5));
 
         $this->assertEquals($expected, $actual);
     }
@@ -54,7 +54,9 @@ class QueryIteratorTest extends TestCase {
             });
 
         $expected = [6, 7];
-        $actual   = iterator_to_array((new QueryIterator($logger, $client, '', ''))->offset(5)->limit(2)->chunk(5));
+        $actual   = iterator_to_array(
+            (new OffsetBasedIterator($logger, $client, '', ''))->offset(5)->limit(2)->chunk(5),
+        );
 
         $this->assertEquals($expected, $actual);
     }
@@ -78,7 +80,7 @@ class QueryIteratorTest extends TestCase {
             });
 
         $expected = $data;
-        $actual   = iterator_to_array((new QueryIterator($logger, $client, '', ''))->limit(10)->chunk(2));
+        $actual   = iterator_to_array((new OffsetBasedIterator($logger, $client, '', ''))->limit(10)->chunk(2));
 
         $this->assertEquals($expected, $actual);
     }
@@ -102,7 +104,7 @@ class QueryIteratorTest extends TestCase {
             });
 
         $expected = [1, 2];
-        $actual   = iterator_to_array((new QueryIterator($logger, $client, '', ''))->limit(2)->chunk(50));
+        $actual   = iterator_to_array((new OffsetBasedIterator($logger, $client, '', ''))->limit(2)->chunk(50));
 
         $this->assertEquals($expected, $actual);
     }

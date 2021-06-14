@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Model;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Client\QueryIterator;
+use App\Services\DataLoader\Client\OffsetBasedIterator;
 use App\Services\DataLoader\Schema\Company;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Facades\Date;
@@ -29,7 +29,7 @@ class ResellersUpdaterCronJob extends ResellersImporterCronJob {
             ] + parent::getQueueConfig();
     }
 
-    protected function getCompanies(Client $client, QueueableConfig $config): QueryIterator {
+    protected function getCompanies(Client $client, QueueableConfig $config): OffsetBasedIterator {
         $expire   = $config->setting('expire');
         $expire   = Date::now()->sub($expire);
         $outdated = $client->getResellers($expire);

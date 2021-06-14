@@ -35,4 +35,7 @@ class ViewAsset extends Type {
      * @var array<\App\Services\DataLoader\Schema\CompanyContactPerson>
      */
     public array $latestContactPersons;
+
+    public ?Company $reseller;
+    public ?Company $customer;
 }

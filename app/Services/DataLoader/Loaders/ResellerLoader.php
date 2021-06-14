@@ -6,7 +6,7 @@ use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Model;
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Client\QueryIterator;
+use App\Services\DataLoader\Client\OffsetBasedIterator;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
@@ -94,7 +94,7 @@ class ResellerLoader extends Loader {
     // </editor-fold>
 
     // =========================================================================
-    protected function getCurrentAssets(Model $owner): QueryIterator {
+    protected function getCurrentAssets(Model $owner): OffsetBasedIterator {
         return $this->isWithAssetsDocuments()
             ? $this->client->getAssetsByResellerIdWithDocuments($owner->getKey())
             : $this->client->getAssetsByResellerId($owner->getKey());

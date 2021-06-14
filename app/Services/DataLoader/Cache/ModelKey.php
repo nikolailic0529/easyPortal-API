@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Cache;
 
-use App\Models\Model;
+use Illuminate\Database\Eloquent\Model;
 
 class ModelKey implements KeyRetriever {
     public function get(Model $model): string|int {
