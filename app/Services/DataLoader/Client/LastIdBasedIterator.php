@@ -9,8 +9,8 @@ use function end;
 class LastIdBasedIterator extends QueryIterator {
     protected ?string $lastId = null;
 
-    public function lastId(string $offset): static {
-        $this->lastId = $offset;
+    public function lastId(?string $lastId): static {
+        $this->lastId = $lastId;
 
         return $this;
     }
