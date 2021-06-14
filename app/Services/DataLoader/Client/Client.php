@@ -46,9 +46,9 @@ class Client {
     // <editor-fold desc="Queries">
     // =========================================================================
     /**
-     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Company>
+     * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\Company>
      */
-    public function getResellers(DateTimeInterface $from = null, int $limit = null, int $offset = 0): QueryIterator {
+    public function getResellers(DateTimeInterface $from = null, int $limit = null, int $offset = 0): OffsetBasedIterator {
         return $this
             ->iterator(
                 'getResellers',
@@ -71,9 +71,9 @@ class Client {
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Company>
+     * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\Company>
      */
-    public function getCustomers(DateTimeInterface $from = null, int $limit = null, int $offset = 0): QueryIterator {
+    public function getCustomers(DateTimeInterface $from = null, int $limit = null, int $offset = 0): OffsetBasedIterator {
         return $this
             ->iterator(
                 'getCustomers',
@@ -140,9 +140,9 @@ class Client {
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
-    public function getAssetsByCustomerId(string $id, int $limit = null, int $offset = 0): QueryIterator {
+    public function getAssetsByCustomerId(string $id, int $limit = null, int $offset = 0): OffsetBasedIterator {
         return $this
             ->iterator(
                 'getAssetsByCustomerId',
@@ -165,9 +165,9 @@ class Client {
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
-    public function getAssetsByCustomerIdWithDocuments(string $id, int $limit = null, int $offset = 0): QueryIterator {
+    public function getAssetsByCustomerIdWithDocuments(string $id, int $limit = null, int $offset = 0): OffsetBasedIterator {
         return $this
             ->iterator(
                 'getAssetsByCustomerId',
@@ -193,9 +193,9 @@ class Client {
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
-    public function getAssetsByResellerId(string $id, int $limit = null, int $offset = 0): QueryIterator {
+    public function getAssetsByResellerId(string $id, int $limit = null, int $offset = 0): OffsetBasedIterator {
         return $this
             ->iterator(
                 'getAssetsByResellerId',
@@ -218,9 +218,9 @@ class Client {
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
-    public function getAssetsByResellerIdWithDocuments(string $id, int $limit = null, int $offset = 0): QueryIterator {
+    public function getAssetsByResellerIdWithDocuments(string $id, int $limit = null, int $offset = 0): OffsetBasedIterator {
         return $this
             ->iterator(
                 'getAssetsByResellerId',
@@ -336,10 +336,10 @@ class Client {
      * @param array<mixed> $params
      * @param \Closure(array<mixed>):T $reriever
      *
-     * @return \App\Services\DataLoader\Client\QueryIterator<T>
+     * @return \App\Services\DataLoader\Client\OffsetBasedIterator<T>
      */
-    public function iterator(string $selector, string $graphql, array $params, Closure $retriever): QueryIterator {
-        return (new QueryIterator($this->logger, $this, "data.{$selector}", $graphql, $params, $retriever))
+    public function iterator(string $selector, string $graphql, array $params, Closure $retriever): OffsetBasedIterator {
+        return (new OffsetBasedIterator($this->logger, $this, "data.{$selector}", $graphql, $params, $retriever))
             ->chunk($this->config->get('ep.data_loader.chunk'));
     }
 

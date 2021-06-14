@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Client\QueryIterator;
+use App\Services\DataLoader\Client\OffsetBasedIterator;
 use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Schema\Company;
 use DateTimeInterface;
@@ -41,7 +41,7 @@ class ResellersUpdaterCronJobTest extends TestCase {
         $creator  = static function (Company $company) {
             return Reseller::factory()->make(['id' => $company->id]);
         };
-        $iterator = Mockery::mock(QueryIterator::class);
+        $iterator = Mockery::mock(OffsetBasedIterator::class);
         $iterator
             ->shouldReceive('getIterator')
             ->once()

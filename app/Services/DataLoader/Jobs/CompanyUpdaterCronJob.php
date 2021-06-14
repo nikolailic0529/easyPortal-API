@@ -6,7 +6,7 @@ use App\Jobs\NamedJob;
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Model;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Client\QueryIterator;
+use App\Services\DataLoader\Client\OffsetBasedIterator;
 use App\Services\DataLoader\DataLoaderService;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\FactoryPrefetchable;
@@ -77,9 +77,9 @@ abstract class CompanyUpdaterCronJob extends CronJob implements ShouldBeUnique, 
     abstract protected function getFactory(Container $container): Factory;
 
     /**
-     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\Company>
+     * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\Company>
      */
-    abstract protected function getCompanies(Client $client, QueueableConfig $config): QueryIterator;
+    abstract protected function getCompanies(Client $client, QueueableConfig $config): OffsetBasedIterator;
 
     abstract protected function updateCreatedCompany(Container $container, Company $company, Model $model): void;
 

@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Client\QueryIterator;
+use App\Services\DataLoader\Client\OffsetBasedIterator;
 use App\Services\DataLoader\DataLoaderService;
 use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Schema\Company;
@@ -85,8 +85,8 @@ class ResellersImporterCronJobTest extends TestCase {
         $client
             ->shouldReceive('getResellers')
             ->once()
-            ->andReturnUsing(static function () use ($items): QueryIterator {
-                return new class($items) extends QueryIterator {
+            ->andReturnUsing(static function () use ($items): OffsetBasedIterator {
+                return new class($items) extends OffsetBasedIterator {
                     /**
                      * @var array<\App\Services\DataLoader\Schema\Company>
                      */

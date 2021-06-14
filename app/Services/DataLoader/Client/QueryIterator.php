@@ -11,11 +11,12 @@ use Throwable;
 
 use function array_map;
 use function array_merge;
-use function count;
 use function min;
 
-class QueryIterator implements IteratorAggregate {
-    protected ?Closure $each = null;
+abstract class QueryIterator implements IteratorAggregate {
+    protected ?Closure $each  = null;
+    protected ?int     $limit = null;
+    protected int      $chunk = 1000;
 
     /**
      * @param array<mixed> $params
@@ -27,21 +28,12 @@ class QueryIterator implements IteratorAggregate {
         protected string $graphql,
         protected array $params = [],
         protected ?Closure $retriever = null,
-        protected ?int $limit = null,
-        protected int $offset = 0,
-        protected int $chunk = 1000,
     ) {
         // empty
     }
 
     public function limit(?int $limit): static {
         $this->limit = $limit;
-
-        return $this;
-    }
-
-    public function offset(int $offset): static {
-        $this->offset = $offset;
 
         return $this;
     }
@@ -65,18 +57,16 @@ class QueryIterator implements IteratorAggregate {
         $index     = 0;
         $chunk     = $this->limit ? min($this->limit, $this->chunk) : $this->chunk;
         $limit     = $this->limit;
-        $offset    = $this->offset;
         $retriever = $this->retriever
             ?: static function (mixed $item) {
                 return $item;
             };
 
         do {
-            $items  = (array) $this->client->call($this->selector, $this->graphql, array_merge($this->params, [
-                'limit'  => $chunk,
-                'offset' => $offset,
-            ]));
-            $offset = $offset + count($items);
+            $params = array_merge($this->params, $this->getQueryParams(), [
+                'limit' => $chunk,
+            ]);
+            $items  = (array) $this->client->call($this->selector, $this->graphql, $params);
             $items  = array_map(function (mixed $item) use ($retriever): mixed {
                 try {
                     return $retriever($item);
@@ -92,9 +82,7 @@ class QueryIterator implements IteratorAggregate {
                 }
             }, $items);
 
-            if ($this->each) {
-                ($this->each)($items);
-            }
+            $this->onChunkLoaded($items);
 
             foreach ($items as $item) {
                 yield $index++ => $item;
@@ -104,5 +92,19 @@ class QueryIterator implements IteratorAggregate {
                 }
             }
         } while ($items);
+    }
+
+    /**
+     * @return array<string,mixed>
+     */
+    abstract protected function getQueryParams(): array;
+
+    /**
+     * @param array<mixed> $items
+     */
+    protected function onChunkLoaded(array $items): void {
+        if ($this->each) {
+            ($this->each)($items);
+        }
     }
 }

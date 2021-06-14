@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Jobs;
 
 use App\Models\Model;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Client\QueryIterator;
+use App\Services\DataLoader\Client\OffsetBasedIterator;
 use App\Services\DataLoader\Factories\CustomerFactory;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Schema\Company;
@@ -23,7 +23,7 @@ class CustomersImporterCronJob extends CompanyUpdaterCronJob {
         return $container->make(CustomerFactory::class);
     }
 
-    protected function getCompanies(Client $client, QueueableConfig $config): QueryIterator {
+    protected function getCompanies(Client $client, QueueableConfig $config): OffsetBasedIterator {
         return $client->getCustomers();
     }
 
