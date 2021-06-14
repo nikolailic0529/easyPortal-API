@@ -5,7 +5,8 @@
     "required": [
         "id",
         "name",
-        "root"
+        "root",
+        "keycloak_scope"
     ],
     "properties": {
         "id": {
@@ -16,6 +17,12 @@
         },
         "root": {
             "type": "boolean"
+        },
+        "keycloak_scope" : {
+            "type": [
+                "string",
+                "null"
+            ]
         }
     }
 }

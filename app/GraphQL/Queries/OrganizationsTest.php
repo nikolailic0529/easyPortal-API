@@ -41,6 +41,7 @@ class OrganizationsTest extends TestCase {
                       id
                       name
                       root
+                      keycloak_scope
                     }
                     paginatorInfo {
                       count
@@ -73,7 +74,9 @@ class OrganizationsTest extends TestCase {
                 'ok' => [
                     new GraphQLPaginated('organizations', self::class),
                     static function (): void {
-                        Organization::factory()->create();
+                        Organization::factory()->create([
+                            'keycloak_scope' => 'test',
+                        ]);
                     },
                 ],
             ]),
