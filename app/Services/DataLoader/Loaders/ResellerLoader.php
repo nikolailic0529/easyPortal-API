@@ -16,8 +16,6 @@ use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\Concerns\WithAssets;
-use App\Services\DataLoader\Loaders\Concerns\WithContacts;
-use App\Services\DataLoader\Loaders\Concerns\WithLocations;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
@@ -25,9 +23,7 @@ use Psr\Log\LoggerInterface;
 
 class ResellerLoader extends Loader {
     use GlobalScopes;
-    use WithLocations;
     use WithAssets;
-    use WithContacts;
 
     public function __construct(
         LoggerInterface $logger,
@@ -113,13 +109,7 @@ class ResellerLoader extends Loader {
     // <editor-fold desc="Functions">
     // =========================================================================
     protected function getResellersFactory(): ResellerFactory {
-        return $this->resellers
-            ->setLocationFactory(
-                $this->isWithLocations() ? $this->locations : null,
-            )
-            ->setContactsFactory(
-                $this->isWithContacts() ? $this->contacts : null,
-            );
+        return $this->resellers;
     }
     // </editor-fold>
 }

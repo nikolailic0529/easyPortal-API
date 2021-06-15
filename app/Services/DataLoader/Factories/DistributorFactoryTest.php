@@ -38,7 +38,7 @@ class DistributorFactoryTest extends TestCase {
 
         $factory->find($company);
 
-        $this->assertCount(1, $this->getQueryLog());
+        $this->assertCount(2, $this->getQueryLog());
     }
 
     /**

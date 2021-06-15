@@ -22,8 +22,6 @@ class UpdateReseller extends Command {
      */
     protected $signature = 'ep:data-loader-update-reseller
         {id* : The ID of the reseller}
-        {--l|locations : Load locations (default)}
-        {--L|no-locations : Skip locations}
         {--a|assets : Load assets}
         {--A|no-assets : Skip assets (default)}
         {--ad|assets-documents : Load assets documents (and warranties), required --a|assets (default)}
@@ -43,7 +41,6 @@ class UpdateReseller extends Command {
         $ids    = array_unique($this->argument('id'));
         $bar    = $this->output->createProgressBar(count($ids));
 
-        $loader->setWithLocations($this->getBooleanOption('locations', true));
         $loader->setWithAssets($this->getBooleanOption('assets', false));
         $loader->setWithAssetsDocuments($this->getBooleanOption('assets-documents', true));
 

@@ -36,9 +36,7 @@ class ResellerFactoryTest extends TestCase {
             'name'         => $this->faker->company,
             'companyTypes' => [['type' => 'RESELLER']],
         ]);
-        $factory = $this->app->make(ResellerFactory::class)
-            ->setLocationFactory($this->app->make(LocationFactory::class))
-            ->setContactsFactory($this->app->make(ContactFactory::class));
+        $factory = $this->app->make(ResellerFactory::class);
 
         $this->flushQueryLog();
 
@@ -79,10 +77,7 @@ class ResellerFactoryTest extends TestCase {
         Event::fake();
 
         // Prepare
-        $factory = $this->app
-            ->make(ResellerFactory::class)
-            ->setLocationFactory($this->app->make(LocationFactory::class))
-            ->setContactsFactory($this->app->make(ContactFactory::class));
+        $factory = $this->app->make(ResellerFactory::class);
 
         // Test
         $json     = $this->getTestData()->json('~reseller-full.json');

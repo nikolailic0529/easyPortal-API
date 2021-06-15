@@ -53,7 +53,7 @@ class CountryResolverTest extends TestCase {
 
         // If value not found the new object should be created
         $spy     = Mockery::spy(static function (): Country {
-            return Country::factory()->create([
+            return Country::factory()->make([
                 'code' => 'UN',
                 'name' => 'unknown name',
             ]);
@@ -72,5 +72,13 @@ class CountryResolverTest extends TestCase {
         // The created object should be in cache
         $this->assertSame($created, $provider->get('Un', $factory));
         $this->assertCount(0, $this->getQueryLog());
+
+        // Created object should be found
+        $c = Country::factory()->create();
+
+        $this->flushQueryLog();
+        $this->assertEquals($c->getKey(), $provider->get($c->getKey())?->getKey());
+        $this->assertCount(1, $this->getQueryLog());
+        $this->flushQueryLog();
     }
 }

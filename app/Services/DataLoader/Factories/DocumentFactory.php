@@ -60,6 +60,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         protected DocumentResolver $documents,
         protected LanguageFactory $languages,
         protected DistributorFactory $distributors,
+        protected ContactFactory $contacts,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -77,6 +78,10 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
 
     protected function getCustomerResolver(): CustomerResolver {
         return $this->customers;
+    }
+
+    protected function getContactsFactory(): ContactFactory {
+        return $this->contacts;
     }
     // </editor-fold>
 

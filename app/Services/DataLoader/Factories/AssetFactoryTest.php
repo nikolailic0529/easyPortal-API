@@ -99,12 +99,9 @@ class AssetFactoryTest extends TestCase {
         // Prepare
         $container = $this->app->make(Container::class);
         $documents = $container->make(DocumentFactory::class);
-        $contacts  = $container->make(ContactFactory::class);
 
         /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
-        $factory = $container->make(AssetFactory::class)
-            ->setDocumentFactory($documents)
-            ->setContactsFactory($contacts);
+        $factory = $container->make(AssetFactory::class)->setDocumentFactory($documents);
 
         // Load
         $json  = $this->getTestData()->json('~asset-full.json');
@@ -254,8 +251,7 @@ class AssetFactoryTest extends TestCase {
     public function testCreateFromAssetAssetOnly(): void {
         // Prepare
         $container = $this->app->make(Container::class);
-        $contacts  = $container->make(ContactFactory::class);
-        $factory   = $container->make(AssetFactory::class)->setContactsFactory($contacts);
+        $factory   = $container->make(AssetFactory::class);
 
         // Test
         $json    = $this->getTestData()->json('~asset-only.json');
@@ -469,8 +465,9 @@ class AssetFactoryTest extends TestCase {
         $asset      = new ViewAsset([
             'assetDocument' => [
                 [
-                    'startDate' => '09/07/2020',
-                    'endDate'   => '09/07/2021',
+                    'documentNumber' => '12345678',
+                    'startDate'      => '09/07/2020',
+                    'endDate'        => '09/07/2021',
                 ],
             ],
         ]);

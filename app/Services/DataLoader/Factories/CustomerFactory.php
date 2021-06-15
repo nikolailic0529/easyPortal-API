@@ -42,9 +42,22 @@ class CustomerFactory extends ModelFactory implements FactoryPrefetchable {
         protected TypeResolver $types,
         protected StatusResolver $statuses,
         protected CustomerResolver $customers,
+        protected ContactFactory $contacts,
+        protected LocationFactory $locations,
     ) {
         parent::__construct($logger, $normalizer);
     }
+
+    // <editor-fold desc="Getters / Setters">
+    // =========================================================================
+    protected function getContactsFactory(): ContactFactory {
+        return $this->contacts;
+    }
+
+    protected function getLocationFactory(): LocationFactory {
+        return $this->locations;
+    }
+    // </editor-fold>
 
     // <editor-fold desc="Factory">
     // =========================================================================
@@ -100,19 +113,13 @@ class CustomerFactory extends ModelFactory implements FactoryPrefetchable {
         // Get/Create customer
         $created  = false;
         $factory  = $this->factory(function (Customer $customer) use (&$created, $company): Customer {
-            $created          = !$customer->exists;
-            $customer->id     = $this->normalizer->uuid($company->id);
-            $customer->name   = $this->normalizer->string($company->name);
-            $customer->type   = $this->companyType($customer, $company->companyTypes);
-            $customer->status = $this->companyStatus($customer, $company->companyTypes);
-
-            if ($this->contacts) {
-                $customer->contacts = $this->objectContacts($customer, $company->companyContactPersons);
-            }
-
-            if ($this->locations) {
-                $customer->locations = $this->objectLocations($customer, $company->locations);
-            }
+            $created             = !$customer->exists;
+            $customer->id        = $this->normalizer->uuid($company->id);
+            $customer->name      = $this->normalizer->string($company->name);
+            $customer->type      = $this->companyType($customer, $company->companyTypes);
+            $customer->status    = $this->companyStatus($customer, $company->companyTypes);
+            $customer->contacts  = $this->objectContacts($customer, $company->companyContactPersons);
+            $customer->locations = $this->objectLocations($customer, $company->locations);
 
             $customer->save();
 

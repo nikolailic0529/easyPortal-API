@@ -48,6 +48,7 @@ use Throwable;
 use function array_map;
 use function array_merge;
 use function array_unique;
+use function count;
 use function sprintf;
 
 class AssetFactory extends ModelFactory implements FactoryPrefetchable {
@@ -61,7 +62,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     use WithTag;
 
     protected ?DocumentFactory $documentFactory = null;
-    protected ?ContactFactory  $contactFactory  = null;
 
     public function __construct(
         LoggerInterface $logger,
@@ -74,6 +74,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         protected CustomerResolver $customers,
         protected ResellerResolver $resellers,
         protected LocationFactory $locations,
+        protected ContactFactory $contacts,
         protected StatusResolver $statuses,
         protected AssetCoverageFactory $coverages,
         protected TagResolver $tags,
@@ -89,6 +90,10 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
 
     protected function getCustomerResolver(): CustomerResolver {
         return $this->customers;
+    }
+
+    protected function getContactsFactory(): ContactFactory {
+        return $this->contacts;
     }
 
     public function getDocumentFactory(): ?DocumentFactory {
@@ -198,21 +203,31 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         // each entry is the mixin of Document, DocumentEntry, and additional
         // information (that is not available in Document and DocumentEntry)
 
+        // Log assets were document is missed
+        (new Collection($asset->assetDocument))
+            ->filter(static function (ViewAssetDocument $document): bool {
+                return !isset($document->document->id);
+            })
+            ->groupBy(static function (ViewAssetDocument $document): string {
+                return $document->documentNumber;
+            })
+            ->each(function (Collection $entries) use ($model): void {
+                $document = $entries->first();
+
+                $this->dispatcher->dispatch(
+                    new ObjectSkipped($document, new ViewAssetDocumentNoDocument($document)),
+                );
+                $this->logger->notice('Failed to process ViewAssetDocument: document is null.', [
+                    'asset'    => $model,
+                    'document' => $document,
+                    'entries'  => count($entries),
+                ]);
+            });
+
+        // Create documents
         return (new Collection($asset->assetDocument))
-            ->filter(function (ViewAssetDocument $document) use ($model): bool {
-                if (!isset($document->document->id)) {
-                    $this->dispatcher->dispatch(
-                        new ObjectSkipped($document, new ViewAssetDocumentNoDocument($document)),
-                    );
-                    $this->logger->error('Failed to process ViewAssetDocument: document is null.', [
-                        'asset'    => $model,
-                        'document' => $document,
-                    ]);
-
-                    return false;
-                }
-
-                return true;
+            ->filter(static function (ViewAssetDocument $document): bool {
+                return isset($document->document->id);
             })
             ->sort(static function (ViewAssetDocument $a, ViewAssetDocument $b): int {
                 return $a->startDate <=> $b->startDate
@@ -230,7 +245,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                     ]));
                 } catch (Throwable $exception) {
                     $this->dispatcher->dispatch(new ObjectSkipped($entries->first(), $exception));
-                    $this->logger->error('Failed to process ViewAssetDocument.', [
+                    $this->logger->notice('Failed to process ViewAssetDocument.', [
                         'asset'     => $model,
                         'entries'   => $entries->all(),
                         'exception' => $exception,

@@ -31,10 +31,7 @@ class CustomerFactoryTest extends TestCase {
      * @covers ::find
      */
     public function testFind(): void {
-        $factory = $this->app
-            ->make(CustomerFactory::class)
-            ->setLocationFactory($this->app->make(LocationFactory::class))
-            ->setContactsFactory($this->app->make(ContactFactory::class));
+        $factory = $this->app->make(CustomerFactory::class);
         $json    = $this->getTestData()->json('~customer-full.json');
         $company = new Company($json);
 
@@ -74,10 +71,7 @@ class CustomerFactoryTest extends TestCase {
      */
     public function testCreateFromCompany(): void {
         // Prepare
-        $factory = $this->app
-            ->make(CustomerFactory::class)
-            ->setLocationFactory($this->app->make(LocationFactory::class))
-            ->setContactsFactory($this->app->make(ContactFactory::class));
+        $factory = $this->app->make(CustomerFactory::class);
 
         // Test
         $file     = $this->faker->randomElement(['~customer-full.json', '~reseller.json']);

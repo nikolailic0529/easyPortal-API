@@ -39,8 +39,8 @@ class WithContactsTest extends TestCase {
         $factory = new class(
             $this->app->make(LoggerInterface::class),
             $this->app->make(Normalizer::class),
-            $this->app->make(ContactFactory::class),
             $this->app->make(TypeResolver::class),
+            $this->app->make(ContactFactory::class),
         ) extends ModelFactory {
             use WithContacts {
                 objectContacts as public;
@@ -50,17 +50,20 @@ class WithContactsTest extends TestCase {
             public function __construct(
                 LoggerInterface $logger,
                 Normalizer $normalizer,
-                ContactFactory $contacts,
                 TypeResolver $types,
+                protected ContactFactory $contacts,
             ) {
                 $this->logger     = $logger;
                 $this->normalizer = $normalizer;
-                $this->contacts   = $contacts;
                 $this->types      = $types;
             }
 
             public function create(Type $type): ?Model {
                 return null;
+            }
+
+            protected function getContactsFactory(): ContactFactory {
+                return $this->contacts;
             }
         };
 
@@ -114,12 +117,18 @@ class WithContactsTest extends TestCase {
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(ContactFactory $contacts) {
-                $this->contacts = $contacts;
+            public function __construct(
+                protected ContactFactory $contacts,
+            ) {
+                // empty
             }
 
             public function create(Type $type): ?Model {
                 return null;
+            }
+
+            protected function getContactsFactory(): ContactFactory {
+                return $this->contacts;
             }
         };
 

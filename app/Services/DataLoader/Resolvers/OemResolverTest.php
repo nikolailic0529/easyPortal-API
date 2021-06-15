@@ -52,7 +52,7 @@ class OemResolverTest extends TestCase {
 
         // If value not found the new object should be created
         $spy     = Mockery::spy(static function (): Oem {
-            return Oem::factory()->create([
+            return Oem::factory()->make([
                 'abbr' => 'unKnown',
                 'name' => 'unKnown',
             ]);
@@ -71,5 +71,13 @@ class OemResolverTest extends TestCase {
         // The created object should be in cache
         $this->assertSame($created, $provider->get('unknoWn', $factory));
         $this->assertCount(0, $this->getQueryLog());
+
+        // Created object should be found
+        $c = Oem::factory()->create();
+
+        $this->flushQueryLog();
+        $this->assertEquals($c->getKey(), $provider->get($c->getKey())?->getKey());
+        $this->assertCount(1, $this->getQueryLog());
+        $this->flushQueryLog();
     }
 }

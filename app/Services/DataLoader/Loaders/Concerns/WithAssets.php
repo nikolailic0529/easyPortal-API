@@ -89,7 +89,7 @@ trait WithAssets {
                 }
             } catch (Throwable $exception) {
                 $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
-                $this->logger->warning('Failed to process Asset.', [
+                $this->logger->notice('Failed to process Asset.', [
                     'asset'     => $asset,
                     'exception' => $exception,
                 ]);
@@ -116,7 +116,7 @@ trait WithAssets {
                     }
                 } catch (Throwable $exception) {
                     $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
-                    $this->logger->warning('Failed to process Asset.', [
+                    $this->logger->notice('Failed to process Asset.', [
                         'asset'     => $asset,
                         'exception' => $exception,
                     ]);
@@ -210,23 +210,13 @@ trait WithAssets {
     }
 
     protected function getAssetsFactory(): AssetFactory {
-        $this
-            ->getResellersFactory()
-            ->setLocationFactory($this->locations)
-            ->setContactsFactory($this->contacts);
-        $this
-            ->getResellersFactory()
-            ->setLocationFactory($this->locations)
-            ->setContactsFactory($this->contacts);
+        if ($this->isWithAssetsDocuments()) {
+            $this->assets->setDocumentFactory($this->documents);
+        } else {
+            $this->assets->setDocumentFactory(null);
+        }
 
-        $documents = $this->isWithAssetsDocuments()
-            ? $this->documents->setContactsFactory($this->contacts)
-            : null;
-        $factory   = $this->assets
-            ->setDocumentFactory($documents)
-            ->setContactsFactory($this->contacts);
-
-        return $factory;
+        return $this->assets;
     }
 
     protected function getResellersFactory(): ResellerFactory {

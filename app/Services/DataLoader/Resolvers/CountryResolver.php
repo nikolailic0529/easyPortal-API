@@ -6,6 +6,7 @@ use App\Models\Country;
 use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Resolver;
 use Closure;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class CountryResolver extends Resolver {
@@ -16,6 +17,10 @@ class CountryResolver extends Resolver {
 
     protected function getPreloadedItems(): Collection {
         return Country::query()->get();
+    }
+
+    protected function getFindQuery(): ?Builder {
+        return Country::query();
     }
 
     /**

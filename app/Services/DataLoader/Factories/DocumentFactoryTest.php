@@ -93,10 +93,7 @@ class DocumentFactoryTest extends TestCase {
      */
     public function testCreateFromAssetDocumentObject(): void {
         // Factory
-        $contacts = $this->app->make(ContactFactory::class);
-        $factory  = $this->app
-            ->make(DocumentFactoryTest_Factory::class)
-            ->setContactsFactory($contacts);
+        $factory = $this->app->make(DocumentFactoryTest_Factory::class);
 
         // Create
         // ---------------------------------------------------------------------

@@ -34,7 +34,7 @@ class AssetCoverageFactoryTest extends TestCase {
 
         $factory->find($entry);
 
-        $this->assertCount(1, $this->getQueryLog());
+        $this->assertCount(2, $this->getQueryLog());
     }
 
     /**
@@ -118,7 +118,7 @@ class AssetCoverageFactoryTest extends TestCase {
         $this->assertTrue($created->wasRecentlyCreated);
         $this->assertEquals('COVERED_ON_CONTRACT', $created->key);
         $this->assertEquals('COVERED_ON_CONTRACT', $created->name);
-        $this->assertCount(1, $this->getQueryLog());
+        $this->assertCount(2, $this->getQueryLog());
     }
     // </editor-fold>
 
