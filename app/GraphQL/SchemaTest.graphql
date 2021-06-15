@@ -959,7 +959,7 @@ type Query {
   me: Me
 
   """Current organization."""
-  organization: Organization
+  org: Organization
 
   """Application information."""
   application: Application!
@@ -1049,13 +1049,13 @@ type Query {
   quote(id: ID!): Document
 
   """
-  getOrganization.
+  Organization.
   
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
-  getOrganization(id: ID!): Organization
+  organization(id: ID!): Organization
 
   """
   List of Customers.

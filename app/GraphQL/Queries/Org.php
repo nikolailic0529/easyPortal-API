@@ -7,7 +7,7 @@ use App\Services\KeyCloak\Client\Client;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\RootOrganization;
 
-class Organization {
+class Org {
     public function __construct(
         protected RootOrganization $root,
         protected CurrentOrganization $current,

@@ -12,7 +12,7 @@ type Query {
   me: Me
 
   "Current organization."
-  organization: Organization
+  org: Organization
 
   "Application information."
   application: Application!
@@ -163,8 +163,8 @@ type Query {
   @me(permissions: ["administer"])
   @paginate
 
-  "getOrganization."
-  getOrganization(id: ID! @eq): Organization
+  "Organization."
+  organization(id: ID! @eq): Organization
   @organization(root: true)
   @me(permissions: ["administer"])
   @find
