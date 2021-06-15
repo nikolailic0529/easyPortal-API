@@ -13,4 +13,8 @@ class StringType extends Type {
     public function getValidationRules(): array {
         return [];
     }
+
+    public function getName(): string {
+        return 'String';
+    }
 }

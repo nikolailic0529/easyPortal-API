@@ -24,4 +24,8 @@ class FloatType extends Type {
     public function getValidationRules(): array {
         return [new FloatNumber()];
     }
+
+    public function getName(): string {
+        return 'Float';
+    }
 }

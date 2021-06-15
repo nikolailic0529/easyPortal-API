@@ -21,7 +21,7 @@ use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\DocumentType;
 use App\Services\Settings\Types\Duration;
 use App\Services\Settings\Types\LocationType;
-use App\Services\Settings\Types\OrganizationIdType;
+use App\Services\Settings\Types\Organization;
 use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Text;
 use App\Services\Settings\Types\Url;
@@ -95,7 +95,7 @@ interface Constants {
      */
     #[Setting('ep.root_organization')]
     #[Group('ep')]
-    #[Type(OrganizationIdType::class)]
+    #[Type(Organization::class)]
     public const EP_ROOT_ORGANIZATION = '40765bbb-4736-4d2f-8964-1c3fd4e59aac';
     // </editor-fold>
 

@@ -17,4 +17,8 @@ class IntType extends Type {
     public function getValidationRules(): array {
         return ['integer'];
     }
+
+    public function getName(): string {
+        return 'Int';
+    }
 }

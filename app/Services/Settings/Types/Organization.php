@@ -4,7 +4,7 @@ namespace App\Services\Settings\Types;
 
 use App\Rules\OrganizationId;
 
-class OrganizationIdType extends Type {
+class Organization extends Type {
     /**
      * @inheritDoc
      */

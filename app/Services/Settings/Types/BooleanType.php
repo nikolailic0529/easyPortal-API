@@ -19,4 +19,8 @@ class BooleanType extends Type {
     public function getValidationRules(): array {
         return [new Boolean()];
     }
+
+    public function getName(): string {
+        return 'Boolean';
+    }
 }

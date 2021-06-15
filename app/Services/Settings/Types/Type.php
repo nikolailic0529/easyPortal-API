@@ -6,28 +6,14 @@ use Illuminate\Support\Collection;
 use ReflectionClass;
 
 use function is_null;
-use function mb_strlen;
-use function mb_substr;
 use function preg_match;
-use function str_ends_with;
 
 /**
  * Assign setting type to GraphQL scalar type.
  */
 abstract class Type {
     public function getName(): string {
-        $name   = (new ReflectionClass($this))->getShortName();
-        $suffix = 'Type';
-
-        if (str_ends_with($name, $suffix)) {
-            $length = mb_strlen($name) - mb_strlen($suffix);
-
-            if ($length > 0) {
-                $name = mb_substr($name, 0, $length);
-            }
-        }
-
-        return $name;
+        return (new ReflectionClass($this))->getShortName();
     }
 
     public function fromString(string $value): mixed {
