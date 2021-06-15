@@ -57,6 +57,6 @@ class WithOemTest extends TestCase {
         $this->assertTrue($created->wasRecentlyCreated);
         $this->assertEquals('newabbr', $created->abbr);
         $this->assertEquals('New Oem Name', $created->name);
-        $this->assertCount(1, $this->getQueryLog());
+        $this->assertCount(2, $this->getQueryLog());
     }
 }

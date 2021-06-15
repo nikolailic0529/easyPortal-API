@@ -63,6 +63,6 @@ class WithStatusTest extends TestCase {
         $this->assertEquals($customer->getMorphClass(), $created->object_type);
         $this->assertEquals('New Status', $created->key);
         $this->assertEquals('New Status', $created->name);
-        $this->assertCount(1, $this->getQueryLog());
+        $this->assertCount(2, $this->getQueryLog());
     }
 }

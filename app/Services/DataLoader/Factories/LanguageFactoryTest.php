@@ -35,7 +35,7 @@ class LanguageFactoryTest extends TestCase {
 
         $factory->find($entry);
 
-        $this->assertCount(1, $this->getQueryLog());
+        $this->assertCount(2, $this->getQueryLog());
     }
 
     /**
@@ -170,7 +170,7 @@ class LanguageFactoryTest extends TestCase {
         $this->assertTrue($created->wasRecentlyCreated);
         $this->assertEquals('CD', $created->code);
         $this->assertEquals('CD', $created->name);
-        $this->assertCount(1, $this->getQueryLog());
+        $this->assertCount(2, $this->getQueryLog());
     }
     // </editor-fold>
 
