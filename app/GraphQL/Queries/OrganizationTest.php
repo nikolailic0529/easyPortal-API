@@ -4,7 +4,7 @@ namespace App\GraphQL\Queries;
 
 use App\Models\Currency;
 use App\Models\Location;
-use App\Models\Organization as OrganizationModel;
+use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\Status;
 use Closure;
@@ -16,13 +16,19 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
 
 /**
  * @internal
+ * @coversDefaultClass \App\GraphQL\Queries\Organization
  */
 class OrganizationTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
+     * @coversNothing
+     *
      * @dataProvider dataProviderQuery
      *
      * @param array<mixed> $settings
@@ -137,7 +143,82 @@ class OrganizationTest extends TestCase {
                         }
                     }
                 }
-            ', [ 'id' => $organizationId ])->assertThat($expected);
+            ', ['id' => $organizationId])->assertThat($expected);
+    }
+
+    /**
+     * @covers ::users
+     *
+     * @dataProvider dataProviderUsers
+     */
+    public function testUsers(
+        Response $expected,
+        Closure $organizationFactory,
+        Closure $userFactory = null,
+        Closure $prepare = null,
+    ): void {
+        // Prepare
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
+
+        if ($prepare) {
+            $prepare($this, $organization, $user);
+        }
+
+        $client = Http::fake([
+            '*' => Http::response(
+                [
+                    [
+                        'id'                         => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                        'username'                   => 'virtualcomputersa_3@tesedi.com',
+                        'enabled'                    => true,
+                        'emailVerified'              => true,
+                        'notBefore'                  => 0,
+                        'totp'                       => false,
+                        'firstName'                  => 'Reseller',
+                        'lastName'                   => 'virtualcomputersa_3',
+                        'email'                      => 'virtualcomputersa_3@tesedi.com',
+                        'disableableCredentialTypes' => [],
+                        'requiredActions'            => [],
+                        'attributes'                 => [
+                            'locale' => [
+                                'de',
+                            ],
+                            'phone'  => [
+                                '12345678',
+                            ],
+                        ],
+                    ],
+                ],
+                200,
+            ),
+        ]);
+        $this->app->instance(Factory::class, $client);
+
+        // Test
+        $this
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                query organization($id: ID!) {
+                    organization(id: $id) {
+                        users {
+                            id
+                            username
+                            firstName
+                            lastName
+                            email
+                            enabled
+                            emailVerified
+                        }
+                    }
+                }
+                GRAPHQL,
+                [
+                    'id' => $organization?->getKey() ?: $this->faker->uuid,
+                ],
+            )
+            ->assertThat($expected);
     }
     // </editor-fold>
 
@@ -229,7 +310,7 @@ class OrganizationTest extends TestCase {
                     [
                         'ep.headquarter_type' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                     ],
-                    static function (): OrganizationModel {
+                    static function (): Organization {
                         $currency = Currency::factory()->create([
                             'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                             'name' => 'currency1',
@@ -267,7 +348,7 @@ class OrganizationTest extends TestCase {
                                 'object_type' => $reseller->getMorphClass(),
                                 'object_id'   => $reseller->getKey(),
                             ]);
-                        $organization = OrganizationModel::factory()
+                        $organization = Organization::factory()
                             ->for($currency)
                             ->create([
                                 'id'                               => $reseller->getKey(),
@@ -291,7 +372,44 @@ class OrganizationTest extends TestCase {
                                 'timezone'                         => 'Europe/London',
                                 'keycloak_group_id'                => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945',
                             ]);
+
                         return $organization;
+                    },
+                ],
+            ]),
+        ))->getData();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderUsers(): array {
+        return (new CompositeDataProvider(
+            new RootOrganizationDataProvider('organization'),
+            new UserDataProvider('organization', [
+                'administer',
+            ]),
+            new ArrayDataProvider([
+                'ok' => [
+                    new GraphQLSuccess('organization', self::class, new JsonFragment('users', [
+                        [
+                            'id'            => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                            'username'      => 'virtualcomputersa_3@tesedi.com',
+                            'enabled'       => true,
+                            'emailVerified' => true,
+                            'firstName'     => 'Reseller',
+                            'lastName'      => 'virtualcomputersa_3',
+                            'email'         => 'virtualcomputersa_3@tesedi.com',
+                        ],
+                    ])),
+                    static function (TestCase $test, Organization $organization): void {
+                        $organization->keycloak_group_id = 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945';
+
+                        Reseller::factory()->create([
+                            'id' => $organization->getKey(),
+                        ]);
+
+                        $organization->save();
                     },
                 ],
             ]),

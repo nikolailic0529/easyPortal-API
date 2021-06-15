@@ -2,7 +2,7 @@ type Organization {
   id: ID!
   name: String!
   root: Boolean!
-  @field(resolver: "App\\GraphQL\\Queries\\Org@root")
+  @field(resolver: "App\\GraphQL\\Queries\\Organization@root")
 
   locale: String
   website_url: String
@@ -13,7 +13,7 @@ type Organization {
   timezone: String
 
   branding: OrganizationBranding
-  @field(resolver: "App\\GraphQL\\Queries\\Org@branding")
+  @field(resolver: "App\\GraphQL\\Queries\\Organization@branding")
 
   status: Status @hasOne
   locations: [Location!]!
@@ -22,7 +22,7 @@ type Organization {
 
   users: [OrganizationUser!]!
   @me(permissions: ["administer"])
-  @field(resolver: "App\\GraphQL\\Queries\\Org@users")
+  @field(resolver: "App\\GraphQL\\Queries\\Organization@users")
 
   keycloak_scope: String
   @me(permissions: ["administer"])

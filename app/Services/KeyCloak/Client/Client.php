@@ -70,6 +70,7 @@ class Client {
         if (!$this->isEnabled()) {
             throw new KeyCloakDisabled();
         }
+
         $timeout     = $this->config->get('ep.keycloak.timeout') ?: 5 * 60;
         $accessToken = $this->token->getAccessToken();
         $headers     = [

@@ -24,10 +24,12 @@ use Tests\TestCase;
  * @coversDefaultClass \App\GraphQL\Queries\Org
  */
 class OrgTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @covers ::__invoke
-     * @covers ::root
-     * @covers ::branding
+     * @covers \App\GraphQL\Queries\Organization::root
+     * @covers \App\GraphQL\Queries\Organization::branding
      *
      * @param array<mixed> $settings
      *

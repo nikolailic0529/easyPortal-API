@@ -25,8 +25,4 @@ class Token extends OAuth2Token {
     protected function getProvider(): Provider {
         return $this->keyCloak->getProvider();
     }
-
-    protected function getRealm(): string {
-        return $this->config->get('ep.keycloak.realm');
-    }
 }
