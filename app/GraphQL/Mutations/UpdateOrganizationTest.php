@@ -66,6 +66,10 @@ class UpdateOrganizationTest extends TestCase {
         $map   = [];
         $file  = [];
 
+        $hasLogo    = false;
+        $hasFavicon = false;
+        $hasWelcome = false;
+
         if ($dataFactory) {
             $data  = $dataFactory($this);
             $input = $data;
@@ -75,18 +79,21 @@ class UpdateOrganizationTest extends TestCase {
                     $map['0']                      = ['variables.input.branding.logo_url'];
                     $file['0']                     = $input['branding']['logo_url'];
                     $input['branding']['logo_url'] = null;
+                    $hasLogo                       = true;
                 }
 
                 if (isset($input['branding']['favicon_url'])) {
                     $map['1']                         = ['variables.input.branding.favicon_url'];
                     $file['1']                        = $input['branding']['favicon_url'];
                     $input['branding']['favicon_url'] = null;
+                    $hasFavicon                       = true;
                 }
 
                 if (isset($input['branding']['welcome_image_url'])) {
                     $map['2']                               = ['variables.input.branding.welcome_image_url'];
                     $file['2']                              = $input['branding']['welcome_image_url'];
                     $input['branding']['welcome_image_url'] = null;
+                    $hasWelcome                             = true;
                 }
             }
         }
@@ -205,18 +212,23 @@ class UpdateOrganizationTest extends TestCase {
                     ->shouldReceive('updateBrandingData')
                     ->once()
                     ->andReturn(true);
+                $new_logo_url = $hasLogo ? 'https://example.com/logo.png' : null;
                 $client
                     ->shouldReceive('updateCompanyLogo')
                     ->once()
-                    ->andReturn('https://example.com/logo.png');
+                    ->andReturn($new_logo_url);
+
+                $new_favicon_url = $hasFavicon ? 'https://example.com/favicon.png' : null;
                 $client
                     ->shouldReceive('updateCompanyFavicon')
                     ->once()
-                    ->andReturn('https://example.com/favicon.png');
+                    ->andReturn($new_favicon_url);
+
+                $new_welcome_url = $hasWelcome ? 'https://example.com/imageOnTheRight.png' : null;
                 $client
                     ->shouldReceive('updateCompanyMainImageOnTheRight')
                     ->once()
-                    ->andReturn('https://example.com/imageOnTheRight.png');
+                    ->andReturn($new_welcome_url);
             } else {
                 $client
                     ->shouldNotReceive('updateCompanyLogo')
@@ -237,14 +249,22 @@ class UpdateOrganizationTest extends TestCase {
             $this->assertEquals($data['website_url'], $organization->website_url);
             $this->assertEquals($data['email'], $organization->email);
             $this->assertEquals($data['analytics_code'], $organization->analytics_code);
+
             if ($organization->reseller) {
-                $this->assertEquals('https://example.com/logo.png', $organization->branding_logo_url);
-                $this->assertEquals('https://example.com/favicon.png', $organization->branding_favicon_url);
-                $this->assertEquals(
+                $hasLogo && $this->assertEquals('https://example.com/logo.png', $organization->branding_logo_url);
+                $hasFavicon && $this->assertEquals(
+                    'https://example.com/favicon.png',
+                    $organization->branding_favicon_url,
+                );
+                $hasWelcome && $this->assertEquals(
                     'https://example.com/imageOnTheRight.png',
                     $organization->branding_welcome_image_url,
                 );
             }
+
+            !$hasLogo && $this->assertNull($organization->branding_logo_url);
+            !$hasFavicon && $this->assertNull($organization->branding_favicon_url);
+            !$hasWelcome && $this->assertNull($organization->branding_welcome_image_url);
 
             if (array_key_exists('branding', $data)) {
                 $this->assertEquals($data['branding']['dark_theme'], $organization->branding_dark_theme);
@@ -453,6 +473,30 @@ class UpdateOrganizationTest extends TestCase {
                                 'logo_url'          => UploadedFile::fake()->create('branding_logo.jpg', 20),
                                 'favicon_url'       => UploadedFile::fake()->create('branding_favicon.jpg', 100),
                                 'welcome_image_url' => UploadedFile::fake()->create('branding_welcome.jpg', 100),
+                                'welcome_heading'   => 'heading',
+                                'welcome_underline' => 'underline',
+                            ],
+                        ];
+                    },
+                ],
+                'no reseller organization/null'    => [
+                    new GraphQLSuccess('updateOrganization', UpdateOrganization::class),
+                    static function (): array {
+                        $currency = Currency::factory()->create();
+                        return [
+                            'locale'         => 'en',
+                            'currency_id'    => $currency->getKey(),
+                            'website_url'    => 'https://www.example.com',
+                            'email'          => 'test@example.com',
+                            'analytics_code' => 'code',
+                            'timezone'       => 'Europe/London',
+                            'branding'       => [
+                                'dark_theme'        => false,
+                                'main_color'        => '#ffffff',
+                                'secondary_color'   => '#ffffff',
+                                'logo_url'          => null,
+                                'favicon_url'       => null,
+                                'welcome_image_url' => null,
                                 'welcome_heading'   => 'heading',
                                 'welcome_underline' => 'underline',
                             ],

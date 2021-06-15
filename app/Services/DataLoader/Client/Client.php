@@ -425,18 +425,21 @@ class Client {
             $variables = $params;
 
             foreach ($files as $variable) {
-                $name       = 'file'.$index;
-                $file       = Arr::get($params, $variable);
-                $index      = $index + 1;
-                $map[$name] = ["variables.{$variable}"];
+                $name = 'file'.$index;
+                $file = Arr::get($params, $variable);
+                
+                if ($file) {
+                    $index      = $index + 1;
+                    $map[$name] = ["variables.{$variable}"];
 
-                if ($file instanceof SplFileInfo) {
-                    $file = Utils::streamFor(Utils::tryFopen($file->getPathname(), 'r'));
+                    if ($file instanceof SplFileInfo) {
+                        $file = Utils::streamFor(Utils::tryFopen($file->getPathname(), 'r'));
+                    }
+
+                    $request->attach($name, $file);
+
+                    Arr::set($variables, $variable, null);
                 }
-
-                $request->attach($name, $file);
-
-                Arr::set($variables, $variable, null);
             }
 
             $data = [
@@ -452,7 +455,7 @@ class Client {
                 [
                     'name'     => 'map',
                     'headers'  => ['Content-Type' => 'application/json'],
-                    'contents' => json_encode($map),
+                    'contents' => $map ? json_encode($map) ? null,
                 ],
             ];
         }

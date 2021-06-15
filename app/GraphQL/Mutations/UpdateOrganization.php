@@ -144,7 +144,11 @@ class UpdateOrganization {
         }
     }
 
-    protected function store(Organization $organization, UploadedFile $file): string {
+    protected function store(Organization $organization, ?UploadedFile $file): ?string {
+        if (!$file) {
+            return null;
+        }
+
         $disk = 'public';
         $path = $file->storePublicly("{$organization->getMorphClass()}/{$organization->getKey()}", $disk);
         $url  = $this->storage->disk($disk)->url($path);
