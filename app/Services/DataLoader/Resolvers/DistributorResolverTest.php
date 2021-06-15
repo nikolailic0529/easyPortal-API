@@ -69,7 +69,7 @@ class DistributorResolverTest extends TestCase {
         $this->assertSame($created, $provider->get($uuid, $factory));
         $this->assertCount(0, $this->getQueryLog());
 
-        // Created value should be found
+        // Created object should be found
         $c = Distributor::factory()->create();
 
         $this->flushQueryLog();

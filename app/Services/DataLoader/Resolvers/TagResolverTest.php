@@ -56,7 +56,7 @@ class TagResolverTest extends TestCase {
 
         // If not, the new object should be created
         $spy     = Mockery::spy(static function (): Tag {
-            return Tag::factory()->create([
+            return Tag::factory()->make([
                 'name' => 'unKnown',
             ]);
         });
@@ -73,5 +73,13 @@ class TagResolverTest extends TestCase {
         // The created object should be in cache
         $this->assertSame($created, $provider->get(' unknown ', $factory));
         $this->assertCount(0, $this->getQueryLog());
+
+        // Created object should be found
+        $c = Tag::factory()->create();
+
+        $this->flushQueryLog();
+        $this->assertEquals($c->getKey(), $provider->get($c->name)?->getKey());
+        $this->assertCount(1, $this->getQueryLog());
+        $this->flushQueryLog();
     }
 }

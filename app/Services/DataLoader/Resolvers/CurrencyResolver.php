@@ -6,6 +6,7 @@ use App\Models\Currency;
 use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Resolver;
 use Closure;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class CurrencyResolver extends Resolver {
@@ -16,6 +17,10 @@ class CurrencyResolver extends Resolver {
 
     protected function getPreloadedItems(): Collection {
         return Currency::query()->get();
+    }
+
+    protected function getFindQuery(): ?Builder {
+        return Currency::query();
     }
 
     /**

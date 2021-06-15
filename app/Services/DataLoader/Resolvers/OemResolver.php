@@ -6,6 +6,7 @@ use App\Models\Oem;
 use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Resolver;
 use Closure;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class OemResolver extends Resolver {
@@ -16,6 +17,10 @@ class OemResolver extends Resolver {
 
     protected function getPreloadedItems(): Collection {
         return Oem::query()->get();
+    }
+
+    protected function getFindQuery(): ?Builder {
+        return Oem::query();
     }
 
     /**

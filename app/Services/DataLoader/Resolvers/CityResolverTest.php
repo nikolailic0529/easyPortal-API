@@ -73,7 +73,7 @@ class CityResolverTest extends TestCase {
 
         // If value not found the new object should be created
         $spy     = Mockery::spy(static function () use ($countryB): City {
-            return City::factory()->create([
+            return City::factory()->make([
                 'name'       => 'unKnown',
                 'country_id' => $countryB,
             ]);
@@ -91,5 +91,15 @@ class CityResolverTest extends TestCase {
         // The created object should be in cache
         $this->assertSame($created, $provider->get($countryB, 'unknoWn', $factory));
         $this->assertCount(0, $this->getQueryLog());
+
+        // Created object should be found
+        $c = City::factory()->create([
+            'country_id' => $countryA,
+        ]);
+
+        $this->flushQueryLog();
+        $this->assertEquals($c->getKey(), $provider->get($countryA, $c->name)?->getKey());
+        $this->assertCount(1, $this->getQueryLog());
+        $this->flushQueryLog();
     }
 }

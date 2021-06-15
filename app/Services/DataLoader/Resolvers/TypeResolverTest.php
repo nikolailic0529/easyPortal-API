@@ -67,7 +67,7 @@ class TypeResolverTest extends TestCase {
 
         // If value not found the new object should be created
         $spy     = Mockery::spy(static function () use ($model): Type {
-            return Type::factory()->create([
+            return Type::factory()->make([
                 'object_type' => $model->getMorphClass(),
                 'key'         => 'unKnown',
                 'name'        => 'unKnown',
@@ -87,5 +87,15 @@ class TypeResolverTest extends TestCase {
         // The created object should be in cache
         $this->assertSame($created, $provider->get($model, 'unknoWn', $factory));
         $this->assertCount(0, $this->getQueryLog());
+
+        // Created object should be found
+        $c = Type::factory()->create([
+            'object_type' => $model->getMorphClass(),
+        ]);
+
+        $this->flushQueryLog();
+        $this->assertEquals($c->getKey(), $provider->get($model, $c->key)?->getKey());
+        $this->assertCount(1, $this->getQueryLog());
+        $this->flushQueryLog();
     }
 }

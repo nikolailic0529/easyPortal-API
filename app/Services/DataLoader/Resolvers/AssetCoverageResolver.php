@@ -6,6 +6,7 @@ use App\Models\AssetCoverage;
 use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Resolver;
 use Closure;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class AssetCoverageResolver extends Resolver {
@@ -16,6 +17,10 @@ class AssetCoverageResolver extends Resolver {
 
     protected function getPreloadedItems(): Collection {
         return AssetCoverage::query()->get();
+    }
+
+    protected function getFindQuery(): ?Builder {
+        return AssetCoverage::query();
     }
 
     /**

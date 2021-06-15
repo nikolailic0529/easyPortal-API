@@ -6,6 +6,7 @@ use App\Models\Language;
 use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Resolver;
 use Closure;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class LanguageResolver extends Resolver {
@@ -16,6 +17,10 @@ class LanguageResolver extends Resolver {
 
     protected function getPreloadedItems(): Collection {
         return Language::query()->get();
+    }
+
+    protected function getFindQuery(): ?Builder {
+        return Language::query();
     }
 
     /**
