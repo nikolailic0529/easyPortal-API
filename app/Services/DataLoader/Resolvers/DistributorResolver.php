@@ -6,11 +6,16 @@ use App\Models\Distributor;
 use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class DistributorResolver extends Resolver {
     public function get(string|int $id, Closure $factory = null): ?Distributor {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($id, $factory);
+    }
+
+    protected function getPreloadedItems(): Collection {
+        return Distributor::query()->get();
     }
 
     protected function getFindQuery(): ?Builder {
