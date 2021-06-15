@@ -465,8 +465,9 @@ class AssetFactoryTest extends TestCase {
         $asset      = new ViewAsset([
             'assetDocument' => [
                 [
-                    'startDate' => '09/07/2020',
-                    'endDate'   => '09/07/2021',
+                    'documentNumber' => '12345678',
+                    'startDate'      => '09/07/2020',
+                    'endDate'        => '09/07/2021',
                 ],
             ],
         ]);
