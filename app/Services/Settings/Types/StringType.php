@@ -15,6 +15,6 @@ class StringType extends Type {
     }
 
     public function getName(): string {
-        return 'String';
+        return $this::class === self::class ? 'String' : parent::getName();
     }
 }
