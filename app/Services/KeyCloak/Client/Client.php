@@ -7,7 +7,6 @@ use App\Services\KeyCloak\Client\Exceptions\EndpointException;
 use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakGroup;
 use App\Services\KeyCloak\Client\Exceptions\KeyCloakDisabled;
 use App\Services\KeyCloak\Client\Types\User;
-use App\Services\KeyCloak\Provider;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -30,7 +29,7 @@ class Client {
     // <editor-fold desc="endpoints">
     // =========================================================================
     /**
-     * @return array<\App\Services\KeyCloak\Types\User>
+     * @return array<\App\Services\KeyCloak\Client\Types\User>
      */
     public function users(Organization $organization): array {
         // GET {realm}/groups/{id}/members
@@ -94,21 +93,5 @@ class Client {
         return $response->json();
     }
 
-    // </editor-fold>
-
-    // <editor-fold desc="Authorization">
-    // =========================================================================
-    protected function getProvider(): Provider {
-        if (!isset($this->provider)) {
-            $this->provider = new Provider([
-                'url'          => $this->config->get('ep.keycloak.url'),
-                'realm'        => $this->config->get('ep.keycloak.realm'),
-                'clientId'     => $this->config->get('ep.keycloak.client_id'),
-                'clientSecret' => $this->config->get('ep.keycloak.client_secret'),
-            ]);
-        }
-
-        return $this->provider;
-    }
     // </editor-fold>
 }

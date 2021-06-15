@@ -169,7 +169,7 @@ class KeyCloak {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-    protected function getProvider(): Provider {
+    public function getProvider(): Provider {
         if (!isset($this->provider)) {
             $this->provider = new Provider([
                 'url'          => $this->config->get('ep.keycloak.url'),

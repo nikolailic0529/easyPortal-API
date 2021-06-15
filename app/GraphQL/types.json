@@ -788,8 +788,7 @@
                 "status",
                 "contacts",
                 "headquarter",
-                "timezone",
-                "users"
+                "timezone"
             ],
             "properties": {
                 "id": {

@@ -8,8 +8,6 @@ use App\Models\Organization as ModelsOrganization;
 use App\Models\Reseller;
 use App\Models\Status;
 use Closure;
-use Illuminate\Http\Client\Factory;
-use Illuminate\Support\Facades\Http;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -41,31 +39,9 @@ class OrganizationTest extends TestCase {
         Closure $userFactory = null,
         bool $isRootOrganization = false,
         array $settings = [],
-        bool $addDefaults = true,
     ): void {
         // Prepare
-
-        $organization = null;
-
-        if ($organizationFactory) {
-            $organization = $organizationFactory($this);
-        }
-
-        if ($organization && $addDefaults) {
-            if (!$organization->keycloak_group_id) {
-                $organization->keycloak_group_id = $this->faker->uuid();
-            }
-
-            if (!$organization->reseller) {
-                Reseller::factory()->create([
-                    'id' => $organization->getKey(),
-                ]);
-            }
-
-            $organization->save();
-            $organization = $organization->fresh();
-        }
-        $organization = $this->setOrganization($organization);
+        $organization = $this->setOrganization($organizationFactory);
 
         $this->setUser($userFactory, $organization);
 
@@ -75,35 +51,6 @@ class OrganizationTest extends TestCase {
 
         $this->setSettings($settings);
 
-        $client = Http::fake([
-            '*' => Http::response(
-                [
-                    [
-                        'id'                         => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                        'username'                   => 'virtualcomputersa_3@tesedi.com',
-                        'enabled'                    => true,
-                        'emailVerified'              => true,
-                        'notBefore'                  => 0,
-                        'totp'                       => false,
-                        'firstName'                  => 'Reseller',
-                        'lastName'                   => 'virtualcomputersa_3',
-                        'email'                      => 'virtualcomputersa_3@tesedi.com',
-                        'disableableCredentialTypes' => [],
-                        'requiredActions'            => [],
-                        'attributes'                 => [
-                            'locale' => [
-                                'de',
-                            ],
-                            'phone'  => [
-                                '12345678',
-                            ],
-                        ],
-                    ],
-                ],
-                200,
-            ),
-        ]);
-        $this->app->instance(Factory::class, $client);
         // Test
         $this->graphQL(/** @lang GraphQL */ '{
             organization {
@@ -161,15 +108,6 @@ class OrganizationTest extends TestCase {
                     line_two
                     latitude
                     longitude
-                }
-                users {
-                    id
-                    username
-                    firstName
-                    lastName
-                    email
-                    enabled
-                    emailVerified
                 }
             }
         }')->assertThat($expected);
@@ -324,17 +262,6 @@ class OrganizationTest extends TestCase {
                             'status'         => [
                                 'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
                                 'name' => 'active',
-                            ],
-                            'users'          => [
-                                [
-                                    'id'            => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                                    'username'      => 'virtualcomputersa_3@tesedi.com',
-                                    'enabled'       => true,
-                                    'emailVerified' => true,
-                                    'firstName'     => 'Reseller',
-                                    'lastName'      => 'virtualcomputersa_3',
-                                    'email'         => 'virtualcomputersa_3@tesedi.com',
-                                ],
                             ],
                         ]),
                         false,

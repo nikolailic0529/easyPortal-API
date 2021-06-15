@@ -811,6 +811,10 @@ type Organization {
   locations: [Location!]!
   contacts: [Contact!]!
   headquarter: Location
+
+  """
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
   users: [OrganizationUser!]!
 
   """
