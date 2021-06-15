@@ -39,8 +39,8 @@ class WithLocationsTest extends TestCase {
         $factory = new class(
             $this->app->make(LoggerInterface::class),
             $this->app->make(Normalizer::class),
-            $this->app->make(LocationFactory::class),
             $this->app->make(TypeResolver::class),
+            $this->app->make(LocationFactory::class),
         ) extends ModelFactory {
             use WithLocations {
                 objectLocations as public;
@@ -50,17 +50,20 @@ class WithLocationsTest extends TestCase {
             public function __construct(
                 LoggerInterface $logger,
                 Normalizer $normalizer,
-                LocationFactory $locations,
                 TypeResolver $types,
+                protected LocationFactory $locations,
             ) {
                 $this->logger     = $logger;
                 $this->normalizer = $normalizer;
-                $this->locations  = $locations;
                 $this->types      = $types;
             }
 
             public function create(Type $type): ?Model {
                 return null;
+            }
+
+            protected function getLocationFactory(): LocationFactory {
+                return $this->locations;
             }
         };
 
@@ -132,12 +135,18 @@ class WithLocationsTest extends TestCase {
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(LocationFactory $locations) {
-                $this->locations = $locations;
+            public function __construct(
+                protected LocationFactory $locations,
+            ) {
+                // empty
             }
 
             public function create(Type $type): ?Model {
                 return null;
+            }
+
+            protected function getLocationFactory(): LocationFactory {
+                return $this->locations;
             }
         };
 

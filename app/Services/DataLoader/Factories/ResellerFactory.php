@@ -33,8 +33,6 @@ class ResellerFactory extends ModelFactory implements FactoryPrefetchable {
     use WithContacts;
     use ConcernsCompany;
 
-    protected ?LocationFactory $locations = null;
-
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
@@ -43,6 +41,7 @@ class ResellerFactory extends ModelFactory implements FactoryPrefetchable {
         protected Dispatcher $events,
         protected StatusResolver $statuses,
         protected ContactFactory $contacts,
+        protected LocationFactory $locations,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -52,18 +51,9 @@ class ResellerFactory extends ModelFactory implements FactoryPrefetchable {
     protected function getContactsFactory(): ContactFactory {
         return $this->contacts;
     }
-    // </editor-fold>
 
-    // <editor-fold desc="Settings">
-    // =========================================================================
-    public function setLocationFactory(?LocationFactory $factory): static {
-        $this->locations = $factory;
-
-        return $this;
-    }
-
-    protected function shouldUpdateLocations(): bool {
-        return (bool) $this->locations;
+    protected function getLocationFactory(): LocationFactory {
+        return $this->locations;
     }
     // </editor-fold>
 
@@ -121,16 +111,13 @@ class ResellerFactory extends ModelFactory implements FactoryPrefetchable {
         // Get/Create
         $created  = false;
         $factory  = $this->factory(function (Reseller $reseller) use (&$created, $company): Reseller {
-            $created            = !$reseller->exists;
-            $reseller->id       = $this->normalizer->uuid($company->id);
-            $reseller->name     = $this->normalizer->string($company->name);
-            $reseller->type     = $this->companyType($reseller, $company->companyTypes);
-            $reseller->status   = $this->companyStatus($reseller, $company->companyTypes);
-            $reseller->contacts = $this->objectContacts($reseller, $company->companyContactPersons);
-
-            if ($this->locations) {
-                $reseller->locations = $this->objectLocations($reseller, $company->locations);
-            }
+            $created             = !$reseller->exists;
+            $reseller->id        = $this->normalizer->uuid($company->id);
+            $reseller->name      = $this->normalizer->string($company->name);
+            $reseller->type      = $this->companyType($reseller, $company->companyTypes);
+            $reseller->status    = $this->companyStatus($reseller, $company->companyTypes);
+            $reseller->contacts  = $this->objectContacts($reseller, $company->companyContactPersons);
+            $reseller->locations = $this->objectLocations($reseller, $company->locations);
 
             $reseller->save();
 

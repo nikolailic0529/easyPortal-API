@@ -10,13 +10,7 @@ use App\Services\DataLoader\Schema\Location;
 trait WithLocations {
     use Polymorphic;
 
-    protected ?LocationFactory $locations = null;
-
-    public function setLocationFactory(?LocationFactory $factory): static {
-        $this->locations = $factory;
-
-        return $this;
-    }
+    abstract protected function getLocationFactory(): LocationFactory;
 
     /**
      * @param array<\App\Services\DataLoader\Schema\Location> $locations
@@ -37,8 +31,6 @@ trait WithLocations {
     }
 
     protected function location(Model $owner, Location $location): ?LocationModel {
-        return $this->locations
-            ? $this->locations->create($owner, $location)
-            : null;
+        return $this->getLocationFactory()->create($owner, $location);
     }
 }

@@ -210,20 +210,13 @@ trait WithAssets {
     }
 
     protected function getAssetsFactory(): AssetFactory {
-        $this
-            ->getResellersFactory()
-            ->setLocationFactory($this->locations);
-        $this
-            ->getResellersFactory()
-            ->setLocationFactory($this->locations);
+        if ($this->isWithAssetsDocuments()) {
+            $this->assets->setDocumentFactory($this->documents);
+        } else {
+            $this->assets->setDocumentFactory(null);
+        }
 
-        $documents = $this->isWithAssetsDocuments()
-            ? $this->documents
-            : null;
-        $factory   = $this->assets
-            ->setDocumentFactory($documents);
-
-        return $factory;
+        return $this->assets;
     }
 
     protected function getResellersFactory(): ResellerFactory {
