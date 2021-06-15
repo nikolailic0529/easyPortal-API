@@ -50,5 +50,7 @@
             "name": "Alice Marks",
             "type": "HARDWARE_CONTACT"
         }
-    ]
+    ],
+    "reseller": null,
+    "customer": null
 }

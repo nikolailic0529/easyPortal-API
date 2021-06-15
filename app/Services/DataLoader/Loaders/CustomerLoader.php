@@ -16,7 +16,6 @@ use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\Concerns\WithAssets;
-use App\Services\DataLoader\Loaders\Concerns\WithContacts;
 use App\Services\DataLoader\Loaders\Concerns\WithLocations;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
@@ -27,7 +26,6 @@ use Psr\Log\LoggerInterface;
 class CustomerLoader extends Loader {
     use GlobalScopes;
     use WithLocations;
-    use WithContacts;
     use WithAssets;
 
     public function __construct(
@@ -120,9 +118,6 @@ class CustomerLoader extends Loader {
         return $this->customers
             ->setLocationFactory(
                 $this->isWithLocations() ? $this->locations : null,
-            )
-            ->setContactsFactory(
-                $this->isWithContacts() ? $this->contacts : null,
             );
     }
     // </editor-fold>

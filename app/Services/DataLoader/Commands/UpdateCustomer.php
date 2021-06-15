@@ -24,8 +24,6 @@ class UpdateCustomer extends Command {
         {id* : The ID of the company}
         {--l|locations : Load locations (default)}
         {--L|no-locations : Skip locations}
-        {--c|contacts : Load contacts (default)}
-        {--C|no-contacts : Skip contacts}
         {--a|assets : Load assets}
         {--A|no-assets : Skip assets (default)}
         {--ad|assets-documents : Load assets documents (and warranties), required --a|assets (default)}
@@ -46,7 +44,6 @@ class UpdateCustomer extends Command {
         $bar    = $this->output->createProgressBar(count($ids));
 
         $loader->setWithLocations($this->getBooleanOption('locations', true));
-        $loader->setWithContacts($this->getBooleanOption('contacts', true));
         $loader->setWithAssets($this->getBooleanOption('assets', false));
         $loader->setWithAssetsDocuments($this->getBooleanOption('assets-documents', true));
 

@@ -61,7 +61,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     use WithTag;
 
     protected ?DocumentFactory $documentFactory = null;
-    protected ?ContactFactory  $contactFactory  = null;
 
     public function __construct(
         LoggerInterface $logger,
@@ -74,6 +73,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         protected CustomerResolver $customers,
         protected ResellerResolver $resellers,
         protected LocationFactory $locations,
+        protected ContactFactory $contacts,
         protected StatusResolver $statuses,
         protected AssetCoverageFactory $coverages,
         protected TagResolver $tags,
@@ -89,6 +89,10 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
 
     protected function getCustomerResolver(): CustomerResolver {
         return $this->customers;
+    }
+
+    protected function getContactsFactory(): ContactFactory {
+        return $this->contacts;
     }
 
     public function getDocumentFactory(): ?DocumentFactory {

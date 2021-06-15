@@ -43,7 +43,8 @@
                         "phoneNumber": "+49 (591) 12345-68",
                         "vendor": "HPA",
                         "name": "Alice Mark",
-                        "type": "SOFTWARE_CONTACT"
+                        "type": "SOFTWARE_CONTACT",
+                        "mail": "alice@example.com"
                     }
                 ]
             },

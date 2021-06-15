@@ -10,13 +10,7 @@ use App\Services\DataLoader\Schema\CompanyContactPerson;
 trait WithContacts {
     use Polymorphic;
 
-    protected ?ContactFactory $contacts = null;
-
-    public function setContactsFactory(?ContactFactory $factory): static {
-        $this->contacts = $factory;
-
-        return $this;
-    }
+    abstract protected function getContactsFactory(): ContactFactory;
 
     /**
      * @param array<\App\Services\DataLoader\Schema\CompanyContactPerson> $persons
@@ -37,8 +31,6 @@ trait WithContacts {
     }
 
     protected function contact(Model $owner, CompanyContactPerson $person): ?Contact {
-        return $this->contacts
-            ? $this->contacts->create($owner, $person)
-            : null;
+        return $this->getContactsFactory()->create($owner, $person);
     }
 }

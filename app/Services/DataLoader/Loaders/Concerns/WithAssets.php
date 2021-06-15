@@ -212,19 +212,16 @@ trait WithAssets {
     protected function getAssetsFactory(): AssetFactory {
         $this
             ->getResellersFactory()
-            ->setLocationFactory($this->locations)
-            ->setContactsFactory($this->contacts);
+            ->setLocationFactory($this->locations);
         $this
             ->getResellersFactory()
-            ->setLocationFactory($this->locations)
-            ->setContactsFactory($this->contacts);
+            ->setLocationFactory($this->locations);
 
         $documents = $this->isWithAssetsDocuments()
-            ? $this->documents->setContactsFactory($this->contacts)
+            ? $this->documents
             : null;
         $factory   = $this->assets
-            ->setDocumentFactory($documents)
-            ->setContactsFactory($this->contacts);
+            ->setDocumentFactory($documents);
 
         return $factory;
     }
