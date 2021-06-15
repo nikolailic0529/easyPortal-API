@@ -427,7 +427,7 @@ class Client {
             foreach ($files as $variable) {
                 $name = 'file'.$index;
                 $file = Arr::get($params, $variable);
-                
+
                 if ($file) {
                     $index      = $index + 1;
                     $map[$name] = ["variables.{$variable}"];
@@ -455,7 +455,7 @@ class Client {
                 [
                     'name'     => 'map',
                     'headers'  => ['Content-Type' => 'application/json'],
-                    'contents' => $map ? json_encode($map) ? null,
+                    'contents' => $map ? json_encode($map) : null,
                 ],
             ];
         }
