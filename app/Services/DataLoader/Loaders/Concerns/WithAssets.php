@@ -89,7 +89,7 @@ trait WithAssets {
                 }
             } catch (Throwable $exception) {
                 $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
-                $this->logger->warning('Failed to process Asset.', [
+                $this->logger->notice('Failed to process Asset.', [
                     'asset'     => $asset,
                     'exception' => $exception,
                 ]);
@@ -116,7 +116,7 @@ trait WithAssets {
                     }
                 } catch (Throwable $exception) {
                     $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
-                    $this->logger->warning('Failed to process Asset.', [
+                    $this->logger->notice('Failed to process Asset.', [
                         'asset'     => $asset,
                         'exception' => $exception,
                     ]);

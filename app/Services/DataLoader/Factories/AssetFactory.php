@@ -208,7 +208,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                     $this->dispatcher->dispatch(
                         new ObjectSkipped($document, new ViewAssetDocumentNoDocument($document)),
                     );
-                    $this->logger->error('Failed to process ViewAssetDocument: document is null.', [
+                    $this->logger->notice('Failed to process ViewAssetDocument: document is null.', [
                         'asset'    => $model,
                         'document' => $document,
                     ]);
@@ -234,7 +234,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                     ]));
                 } catch (Throwable $exception) {
                     $this->dispatcher->dispatch(new ObjectSkipped($entries->first(), $exception));
-                    $this->logger->error('Failed to process ViewAssetDocument.', [
+                    $this->logger->notice('Failed to process ViewAssetDocument.', [
                         'asset'     => $model,
                         'entries'   => $entries->all(),
                         'exception' => $exception,
