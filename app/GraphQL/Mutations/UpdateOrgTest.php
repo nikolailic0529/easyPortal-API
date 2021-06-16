@@ -23,9 +23,9 @@ use function array_key_exists;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\UpdateOrganization
+ * @coversDefaultClass \App\GraphQL\Mutations\UpdateOrg
  */
-class UpdateOrganizationTest extends TestCase {
+class UpdateOrgTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -80,8 +80,8 @@ class UpdateOrganizationTest extends TestCase {
         }
 
         $query = /** @lang GraphQL */
-            'mutation updateOrganization($input: UpdateOrganizationInput!){
-            updateOrganization(input: $input){
+            'mutation updateOrg($input: UpdateOrgInput!){
+            updateOrg(input: $input){
               result
               organization {
                   id
@@ -144,7 +144,7 @@ class UpdateOrganizationTest extends TestCase {
           }';
 
         $operations = [
-            'operationName' => 'updateOrganization',
+            'operationName' => 'updateOrg',
             'query'         => $query,
             'variables'     => ['input' => $input],
         ];
@@ -232,13 +232,13 @@ class UpdateOrganizationTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('updateOrganization', '439a0a06-d98a-41f0-b8e5-4e5722518e01'),
-            new UserDataProvider('updateOrganization', [
+            new OrganizationDataProvider('updateOrg', '439a0a06-d98a-41f0-b8e5-4e5722518e01'),
+            new UserDataProvider('updateOrg', [
                 'edit-organization',
             ]),
             new ArrayDataProvider([
                 'ok'                               => [
-                    new GraphQLSuccess('updateOrganization', UpdateOrganization::class),
+                    new GraphQLSuccess('updateOrg', UpdateOrg::class),
                     static function (): array {
                         $currency = Currency::factory()->create();
                         Reseller::factory()->create([
@@ -265,7 +265,7 @@ class UpdateOrganizationTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid color'    => [
-                    new GraphQLError('updateOrganization', static function (): array {
+                    new GraphQLError('updateOrg', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     static function (): array {
@@ -277,7 +277,7 @@ class UpdateOrganizationTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid locale'   => [
-                    new GraphQLError('updateOrganization', static function (): array {
+                    new GraphQLError('updateOrg', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     static function (): array {
@@ -287,7 +287,7 @@ class UpdateOrganizationTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid currency' => [
-                    new GraphQLError('updateOrganization', static function (): array {
+                    new GraphQLError('updateOrg', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     static function (): array {
@@ -297,7 +297,7 @@ class UpdateOrganizationTest extends TestCase {
                     },
                 ],
                 'invalid request/deleted currency' => [
-                    new GraphQLError('updateOrganization', static function (): array {
+                    new GraphQLError('updateOrg', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     static function (): array {
@@ -312,7 +312,7 @@ class UpdateOrganizationTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid format'   => [
-                    new GraphQLError('updateOrganization', static function (): array {
+                    new GraphQLError('updateOrg', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     static function (TestCase $test): array {
@@ -330,7 +330,7 @@ class UpdateOrganizationTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid size'     => [
-                    new GraphQLError('updateOrganization', static function (): array {
+                    new GraphQLError('updateOrg', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     static function (TestCase $test): array {
@@ -349,7 +349,7 @@ class UpdateOrganizationTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid url'      => [
-                    new GraphQLError('updateOrganization', static function (): array {
+                    new GraphQLError('updateOrg', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     static function (TestCase $test): array {
@@ -359,7 +359,7 @@ class UpdateOrganizationTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid email'    => [
-                    new GraphQLError('updateOrganization', static function (): array {
+                    new GraphQLError('updateOrg', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     static function (TestCase $test): array {
@@ -369,7 +369,7 @@ class UpdateOrganizationTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid timezone' => [
-                    new GraphQLError('updateOrganization', static function (): array {
+                    new GraphQLError('updateOrg', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     static function (TestCase $test): array {
@@ -379,7 +379,7 @@ class UpdateOrganizationTest extends TestCase {
                     },
                 ],
                 'nullable branding'                => [
-                    new GraphQLSuccess('updateOrganization', UpdateOrganization::class),
+                    new GraphQLSuccess('updateOrg', UpdateOrg::class),
                     static function (): array {
                         $currency = Currency::factory()->create();
                         Reseller::factory()->create([
@@ -406,7 +406,7 @@ class UpdateOrganizationTest extends TestCase {
                     },
                 ],
                 'no reseller organization'         => [
-                    new GraphQLSuccess('updateOrganization', UpdateOrganization::class),
+                    new GraphQLSuccess('updateOrg', UpdateOrg::class),
                     static function (): array {
                         $currency = Currency::factory()->create();
                         return [
@@ -430,7 +430,7 @@ class UpdateOrganizationTest extends TestCase {
                     },
                 ],
                 'no reseller organization/null'    => [
-                    new GraphQLSuccess('updateOrganization', UpdateOrganization::class),
+                    new GraphQLSuccess('updateOrg', UpdateOrg::class),
                     static function (): array {
                         $currency = Currency::factory()->create();
                         return [

@@ -1,21 +1,22 @@
 extend type Mutation {
-  updateOrganization(
-    input: UpdateOrganizationInput!
-  ): UpdateOrganizationPayload
+  updateOrg(
+    input: UpdateOrgInput!
+  ): UpdateOrgPayload
+  @organization
   @me(permissions: ["edit-organization"])
 }
 
-input UpdateOrganizationInput @validator {
+input UpdateOrgInput @validator {
   locale: String
   currency_id: ID
   website_url: String               # TODO [GraphQL] URL type needed
   email: String                     # TODO [GraphQL] Email type needed
   analytics_code: String
-  branding: UpdateOrganizationBranding
+  branding: UpdateOrgBranding
   timezone: String
 }
 
-input UpdateOrganizationBranding {
+input UpdateOrgBranding {
   dark_theme: Boolean
   main_color: String                # TODO [GraphQL] Color type needed
   secondary_color: String           # TODO [GraphQL] Color type needed
@@ -26,7 +27,7 @@ input UpdateOrganizationBranding {
   welcome_underline: String
 }
 
-type UpdateOrganizationPayload {
+type UpdateOrgPayload {
   result: Boolean!
   organization: Organization!
 }

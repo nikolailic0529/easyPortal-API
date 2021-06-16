@@ -744,7 +744,7 @@ type Mutation {
   """
   @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
   """
-  updateOrganization(input: UpdateOrganizationInput!): UpdateOrganizationPayload
+  updateOrg(input: UpdateOrgInput!): UpdateOrgPayload
 
   """
   Finish the Sign In for Organization.
@@ -2632,7 +2632,7 @@ type UpdateClientTranslationsPayload {
   updated: [Translation!]!
 }
 
-input UpdateOrganizationBranding {
+input UpdateOrgBranding {
   dark_theme: Boolean
   main_color: String
   secondary_color: String
@@ -2643,17 +2643,17 @@ input UpdateOrganizationBranding {
   welcome_underline: String
 }
 
-input UpdateOrganizationInput {
+input UpdateOrgInput {
   locale: String
   currency_id: ID
   website_url: String
   email: String
   analytics_code: String
-  branding: UpdateOrganizationBranding
+  branding: UpdateOrgBranding
   timezone: String
 }
 
-type UpdateOrganizationPayload {
+type UpdateOrgPayload {
   result: Boolean!
   organization: Organization!
 }

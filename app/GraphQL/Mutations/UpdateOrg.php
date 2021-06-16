@@ -11,7 +11,7 @@ use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Http\UploadedFile;
 
-class UpdateOrganization {
+class UpdateOrg {
     public function __construct(
         protected CurrentOrganization $organization,
         protected Client $client,
