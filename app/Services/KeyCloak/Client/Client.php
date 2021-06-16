@@ -206,6 +206,9 @@ class Client {
     public function permissions(): array {
         // GET /{realm}/clients/{id}/roles
         $clientId = (string) $this->config->get('ep.keycloak.client_uuid');
+        if (!$clientId) {
+            throw new InvalidKeyCloakClient();
+        }
         $endpoint = "clients/{$clientId}/roles";
         $result   = $this->call($endpoint);
         $result   = array_map(static function ($item) {
