@@ -11,6 +11,7 @@ use App\Services\KeyCloak\Client\Exceptions\KeyCloakDisabled;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role;
 use App\Services\KeyCloak\Client\Types\Permission;
+use App\Services\KeyCloak\Client\Types\Role;
 use App\Services\KeyCloak\Client\Types\User;
 use App\Services\KeyCloak\Client\Types\UserInput;
 use Closure;
@@ -201,9 +202,9 @@ class Client {
     }
 
     /**
-     * @return array<\App\Services\KeyCloak\Client\Types\Permission>
+     * @return array<\App\Services\KeyCloak\Client\Types\Role>
      */
-    public function permissions(): array {
+    public function getRoles(): array {
         // GET /{realm}/clients/{id}/roles
         $clientId = (string) $this->config->get('ep.keycloak.client_uuid');
         if (!$clientId) {
@@ -212,7 +213,7 @@ class Client {
         $endpoint = "clients/{$clientId}/roles";
         $result   = $this->call($endpoint);
         $result   = array_map(static function ($item) {
-            return new Permission($item);
+            return new Role($item);
         }, $result);
         return $result;
     }
