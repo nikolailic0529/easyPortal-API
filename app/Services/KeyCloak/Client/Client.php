@@ -201,23 +201,6 @@ class Client {
         return true;
     }
 
-    /**
-     * @return array<\App\Services\KeyCloak\Client\Types\Role>
-     */
-    public function getRoles(): array {
-        // GET /{realm}/clients/{id}/roles
-        $clientId = (string) $this->config->get('ep.keycloak.client_uuid');
-        if (!$clientId) {
-            throw new InvalidKeyCloakClient();
-        }
-        $endpoint = "clients/{$clientId}/roles";
-        $result   = $this->call($endpoint);
-        $result   = array_map(static function ($item) {
-            return new Role($item);
-        }, $result);
-        return $result;
-    }
-
     // </editor-fold>
 
     // <editor-fold desc="API">
