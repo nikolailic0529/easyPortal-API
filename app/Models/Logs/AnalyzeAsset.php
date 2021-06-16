@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null             $customer_unknown
  * @property \Carbon\CarbonImmutable $created_at
  * @property \Carbon\CarbonImmutable $updated_at
+ * @method static \Database\Factories\Logs\AnalyzeAssetFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Logs\AnalyzeAsset newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Logs\AnalyzeAsset newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Logs\AnalyzeAsset query()

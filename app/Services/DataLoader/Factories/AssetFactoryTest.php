@@ -150,6 +150,7 @@ class AssetFactoryTest extends TestCase {
 
         // Documents
         $this->assertEquals(1, Document::query()->count());
+        $this->assertEquals(1, DocumentEntry::query()->count());
 
         // Warranties
         $this->assertEquals(
@@ -243,6 +244,10 @@ class AssetFactoryTest extends TestCase {
             $this->getModelTags($updated),
             $this->getTags($asset),
         );
+
+        // Documents
+        $this->assertEquals(1, Document::query()->count());
+        $this->assertEquals(0, DocumentEntry::query()->count());
     }
 
     /**
@@ -560,8 +565,7 @@ class AssetFactoryTest extends TestCase {
         $factory
             ->shouldReceive('assetDocuments')
             ->with($model, $asset)
-            ->once()
-            ->andReturn($documents);
+            ->never();
         $factory
             ->shouldReceive('assetInitialWarranties')
             ->with($model, $asset, $documents)
@@ -573,7 +577,7 @@ class AssetFactoryTest extends TestCase {
             ->once()
             ->andReturn([$b]);
 
-        $this->assertEquals([$a, $b], $factory->assetWarranties($model, $asset));
+        $this->assertEquals([$a, $b], $factory->assetWarranties($model, $asset, $documents));
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Asset as AssetModel;
 use App\Models\AssetWarranty;
 use App\Models\Customer;
+use App\Models\Document;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry;
 use App\Models\Enums\ProductType;
@@ -172,7 +173,13 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $model->coverage      = $this->coverages->create($asset);
 
             if ($this->getDocumentFactory() && isset($asset->assetDocument)) {
-                $model->warranties = $this->assetWarranties($model, $asset);
+                $documents              = $this->assetDocuments($model, $asset);
+                $model->warranties      = $this->assetWarranties($model, $asset, $documents);
+                $model->documentEntries = $documents
+                    ->map(static function (Document $document): Collection {
+                        return $document->entries;
+                    })
+                    ->flatten();
             }
 
             $model->save();
@@ -260,10 +267,11 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     }
 
     /**
+     * @param \Illuminate\Support\Collection<\App\Models\Document>
+     *
      * @return array<\App\Models\AssetWarranty>
      */
-    protected function assetWarranties(AssetModel $model, ViewAsset $asset): array {
-        $documents  = $this->assetDocuments($model, $asset);
+    protected function assetWarranties(AssetModel $model, ViewAsset $asset, Collection $documents): array {
         $warranties = array_merge(
             $this->assetInitialWarranties($model, $asset, $documents),
             $this->assetExtendedWarranties($model, $documents),
