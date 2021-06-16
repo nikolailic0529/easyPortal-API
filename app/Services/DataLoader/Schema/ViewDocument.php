@@ -23,7 +23,5 @@ class ViewDocument extends Type {
 
     public ?string $resellerId;
     public ?string $customerId;
-
-    public ?string  $distributorId;
-    public ?Company $distributor;
+    public ?string $distributorId;
 }

@@ -12,6 +12,7 @@ use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithCustomer;
+use App\Services\DataLoader\Factories\Concerns\WithDistributor;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
 use App\Services\DataLoader\Factories\Concerns\WithReseller;
@@ -19,6 +20,7 @@ use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
@@ -47,6 +49,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     use WithContacts;
     use WithReseller;
     use WithCustomer;
+    use WithDistributor;
 
     public function __construct(
         LoggerInterface $logger,
@@ -59,7 +62,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         protected CurrencyFactory $currencies,
         protected DocumentResolver $documents,
         protected LanguageFactory $languages,
-        protected DistributorFactory $distributors,
+        protected DistributorResolver $distributors,
         protected ContactFactory $contacts,
     ) {
         parent::__construct($logger, $normalizer);
@@ -72,6 +75,10 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
+    protected function getDistributorResolver(): DistributorResolver {
+        return $this->distributors;
+    }
+
     protected function getResellerResolver(): ResellerResolver {
         return $this->resellers;
     }
@@ -150,7 +157,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
             $model->customer    = $this->customer($object->document->document);
             $model->currency    = $this->currencies->create($object);
             $model->language    = $this->languages->create($object);
-            $model->distributor = $this->distributors->create($object);
+            $model->distributor = $this->distributor($object->document->document);
             $model->start       = $this->normalizer->datetime($object->document->document->startDate);
             $model->end         = $this->normalizer->datetime($object->document->document->endDate);
             $model->price       = $this->normalizer->number($object->document->document->totalNetPrice);

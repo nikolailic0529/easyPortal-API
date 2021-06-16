@@ -680,10 +680,7 @@ class Client {
 
                 customerId
                 resellerId
-
-                distributor {
-                    {$this->getDistributorPropertiesGraphQL()}
-                }
+                distributorId
             }
 
             skuNumber
@@ -702,10 +699,6 @@ class Client {
 
             reseller {
               id
-            }
-
-            distributor {
-                {$this->getDistributorPropertiesGraphQL()}
             }
             GRAPHQL;
     }

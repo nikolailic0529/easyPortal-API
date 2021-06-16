@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\Asset as AssetModel;
 use App\Models\Customer as CustomerModel;
+use App\Models\Distributor as DistributorModel;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\Enums\ProductType;
@@ -97,27 +98,31 @@ class DocumentFactoryTest extends TestCase {
 
         // Create
         // ---------------------------------------------------------------------
-        $json     = $this->getTestData()->json('~asset-document-full.json');
-        $asset    = new ViewAsset($json);
-        $model    = AssetModel::factory()->create([
+        $json        = $this->getTestData()->json('~asset-document-full.json');
+        $asset       = new ViewAsset($json);
+        $model       = AssetModel::factory()->create([
             'id' => $asset->id,
         ]);
-        $object   = new AssetDocumentObject([
+        $object      = new AssetDocumentObject([
             'asset'    => $model,
             'document' => reset($asset->assetDocument),
             'entries'  => $asset->assetDocument,
         ]);
-        $reseller = ResellerModel::factory()->create([
+        $reseller    = ResellerModel::factory()->create([
             'id' => $asset->resellerId,
         ]);
-        $customer = CustomerModel::factory()->create([
+        $customer    = CustomerModel::factory()->create([
             'id' => $asset->customerId,
         ]);
-        $created  = $factory->createFromAssetDocumentObject($object);
+        $distributor = DistributorModel::factory()->create([
+            'id' => $object->document->document->distributorId,
+        ]);
+        $created     = $factory->createFromAssetDocumentObject($object);
 
         $this->assertNotNull($created);
         $this->assertEquals($customer->getKey(), $created->customer_id);
         $this->assertEquals($reseller->getKey(), $created->reseller_id);
+        $this->assertEquals($distributor->getKey(), $created->distributor_id);
         $this->assertEquals('0056523287', $created->number);
         $this->assertEquals('1292.16', $created->price);
         $this->assertNull($this->getDatetime($created->start));
@@ -166,6 +171,7 @@ class DocumentFactoryTest extends TestCase {
 
         $this->assertEquals($model->getKey(), $asset->id);
         $this->assertNotNull($changed);
+        $this->assertNull($created->distributor_id);
         $this->assertEquals('3292.16', $changed->price);
         $this->assertEquals('EUR', $changed->currency->code);
         $this->assertEquals('en', $changed->language->code);
@@ -508,6 +514,10 @@ class DocumentFactoryTest extends TestCase {
 
         CustomerModel::factory()->create([
             'id' => $object->document->document->customerId,
+        ]);
+
+        DistributorModel::factory()->create([
+            'id' => $object->document->document->distributorId,
         ]);
 
         // Set property to null
