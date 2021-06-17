@@ -11,6 +11,7 @@ use App\Services\DataLoader\Jobs\DistributorsImporterCronJob;
 use App\Services\DataLoader\Jobs\DistributorsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
+use App\Services\KeyCloak\Jobs\SyncPermissions;
 use App\Services\Settings\Attributes\Group;
 use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Job;
@@ -217,6 +218,25 @@ interface Constants {
     #[Setting('ep.keycloak.timeout')]
     #[Group('keycloak')]
     public const EP_KEYCLOAK_TIMEOUT = 5 * 60;
+
+    // <editor-fold desc="KEYCLOAK_SYNC_PERMISSIONS">
+    // -------------------------------------------------------------------------
+    /**
+     * Cron expression.
+     */
+    #[Service(SyncPermissions::class, 'cron')]
+    #[Group('keycloak')]
+    #[Type(CronExpression::class)]
+    public const KEYCLOAK_SYNC_PERMISSIONS = '0 0 * * *';
+
+    /**
+     * Queue name.
+     */
+    #[Service(SyncPermissions::class, 'queue')]
+    #[Group('keycloak')]
+    public const KEYCLOAK_SYNC_PERMISSIONS_QUEUE = Queues::KEYCLOAK_SYNC;
+    // </editor-fold>
+
     // </editor-fold>
 
     // <editor-fold desc="EP_SETTINGS">
