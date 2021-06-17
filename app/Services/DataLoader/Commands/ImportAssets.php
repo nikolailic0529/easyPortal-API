@@ -8,8 +8,6 @@ use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Commands\Concerns\WithBooleanOptions;
 use App\Services\DataLoader\DataLoaderService;
 use App\Services\DataLoader\Factories\AssetFactory;
-use App\Services\DataLoader\Factories\CustomerFactory;
-use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Loaders\Concerns\CalculatedProperties;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
