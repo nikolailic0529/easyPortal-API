@@ -29,6 +29,8 @@ use function array_filter;
  * @mixin \App\Services\DataLoader\Loader
  */
 trait WithAssets {
+    use CalculatedProperties;
+
     protected bool $withAssets          = false;
     protected bool $withAssetsDocuments = false;
 
@@ -188,35 +190,6 @@ trait WithAssets {
      * @return \Illuminate\Database\Eloquent\Builder<\App\Models\Asset>|null
      */
     abstract protected function getMissedAssets(Model $owner, array $current): ?Builder;
-
-    protected function updateCustomerCalculatedProperties(Customer $customer): void {
-        $customer->assets_count = $customer->assets()->count();
-        $customer->save();
-    }
-
-    protected function updateResellerCalculatedProperties(Reseller $reseller): void {
-        $assetsCustomers   = Asset::query()
-            ->toBase()
-            ->distinct()
-            ->select('customer_id')
-            ->where('reseller_id', '=', $reseller->getKey());
-        $documentsCustomer = Document::query()
-            ->toBase()
-            ->distinct()
-            ->select('customer_id')
-            ->where('reseller_id', '=', $reseller->getKey());
-        $ids               = $assetsCustomers
-            ->union($documentsCustomer)
-            ->get()
-            ->pluck('customer_id');
-        $customers         = Customer::query()
-            ->whereIn((new Customer())->getKeyName(), $ids)
-            ->get();
-
-        $reseller->customers    = $customers;
-        $reseller->assets_count = $reseller->assets()->count();
-        $reseller->save();
-    }
 
     protected function getAssetsFactory(): AssetFactory {
         if ($this->isWithAssetsDocuments()) {

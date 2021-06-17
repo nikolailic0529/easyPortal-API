@@ -9,12 +9,16 @@ use App\Services\DataLoader\DataLoaderService;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
 use App\Services\DataLoader\Factories\ResellerFactory;
+use App\Services\DataLoader\Loaders\Concerns\CalculatedProperties;
+use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Collection;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -26,6 +30,7 @@ use const STR_PAD_LEFT;
 
 class ImportAssets extends Command {
     use GlobalScopes;
+    use CalculatedProperties;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -105,6 +110,7 @@ class ImportAssets extends Command {
         $each      = function (
             array $assets,
         ) use (
+            $logger,
             $container,
             &$service,
             &$loader,
@@ -112,6 +118,11 @@ class ImportAssets extends Command {
             &$processed,
             &$failed,
         ): void {
+            // Update calculated
+            if ($previous) {
+                $this->updateCalculatedProperties($logger, $service);
+            }
+
             // Reset loader & Prefetch
             if ($previous) {
                 $service = $container->make(DataLoaderService::class);
@@ -120,7 +131,7 @@ class ImportAssets extends Command {
 
             $service->getContainer()
                 ->make(AssetFactory::class)
-                ->prefetch($assets, true, static function (Collection $assets): void {
+                ->prefetch($assets, true, static function (EloquentCollection $assets): void {
                     $assets->loadMissing('documentEntries');
                     $assets->loadMissing('warranties');
                     $assets->loadMissing('warranties.services');
@@ -172,6 +183,7 @@ class ImportAssets extends Command {
         }
 
         // Last chunk
+        $this->updateCalculatedProperties($logger, $service);
         $this->dump($previous, $processed, $failed);
 
         // Finalizing
@@ -206,5 +218,39 @@ class ImportAssets extends Command {
         } else {
             $this->info($message);
         }
+    }
+
+    protected function updateResellersCalculatedProperties(LoggerInterface $logger, Collection $resellers): void {
+        foreach ($resellers as $reseller) {
+            try {
+                $this->updateResellerCalculatedProperties($reseller);
+            } catch (Throwable $exception) {
+                $logger->warning(__METHOD__, [
+                    'reseller'  => $reseller,
+                    'exception' => $exception,
+                ]);
+            }
+        }
+    }
+
+    protected function updateCustomersCalculatedProperties(LoggerInterface $logger, Collection $customers): void {
+        foreach ($customers as $customer) {
+            try {
+                $this->updateCustomerCalculatedProperties($customer);
+            } catch (Throwable $exception) {
+                $logger->warning(__METHOD__, [
+                    'customer'  => $customer,
+                    'exception' => $exception,
+                ]);
+            }
+        }
+    }
+
+    protected function updateCalculatedProperties(LoggerInterface $logger, mixed $service): void {
+        $resellers = $service->getContainer()->make(ResellerResolver::class)->getResolved();
+        $customers = $service->getContainer()->make(CustomerResolver::class)->getResolved();
+
+        $this->updateResellersCalculatedProperties($logger, $resellers);
+        $this->updateCustomersCalculatedProperties($logger, $customers);
     }
 }
