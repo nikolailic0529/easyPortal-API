@@ -175,6 +175,29 @@ class ResolverTest extends TestCase {
 
         $resolver->prefetch([1, 2, 3]);
     }
+
+    /**
+     * @covers ::getResolved
+     */
+    public function testGetResolved(): void {
+        $items = new Collection();
+        $cache = Mockery::mock(Cache::class);
+        $cache
+            ->shouldReceive('getAll')
+            ->once()
+            ->andReturn($items);
+
+        $resolver = Mockery::mock(Resolver::class);
+        $resolver->shouldAllowMockingProtectedMethods();
+        $resolver->makePartial();
+        $resolver
+            ->shouldReceive('getCache')
+            ->withNoArgs()
+            ->once()
+            ->andReturn($cache);
+
+        $this->assertSame($items, $resolver->getResolved());
+    }
 }
 
 // @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses

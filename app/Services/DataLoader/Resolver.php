@@ -33,6 +33,13 @@ abstract class Resolver implements Singleton {
         $this->normalizer = $normalizer;
     }
 
+    /**
+     * @return \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model>
+     */
+    public function getResolved(): Collection {
+        return $this->getCache()->getAll();
+    }
+
     protected function resolve(mixed $key, Closure $factory = null): ?Model {
         // Model already in cache or can be found?
         $key   = $this->normalizer->key($key);
@@ -64,7 +71,6 @@ abstract class Resolver implements Singleton {
     }
 
     protected function find(mixed $key): ?Model {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->getFindQuery()?->where(function (Builder $builder) use ($key): Builder {
             return $this->getFindWhere($builder, $key);
         })->first();
