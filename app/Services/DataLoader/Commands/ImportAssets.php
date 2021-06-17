@@ -5,11 +5,13 @@ namespace App\Services\DataLoader\Commands;
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\QueryIterator;
+use App\Services\DataLoader\Commands\Concerns\WithBooleanOptions;
 use App\Services\DataLoader\DataLoaderService;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
 use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Loaders\Concerns\CalculatedProperties;
+use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Type;
@@ -30,6 +32,7 @@ use const STR_PAD_LEFT;
 
 class ImportAssets extends Command {
     use GlobalScopes;
+    use WithBooleanOptions;
     use CalculatedProperties;
 
     /**
@@ -38,6 +41,8 @@ class ImportAssets extends Command {
      * @var string
      */
     protected $signature = 'ep:data-loader-import-assets
+        {--u|update : Update asset if exists}
+        {--U|no-update : Do not update asset if exists (default)}
         {--from= : start processing from given asset}
         {--limit= : max assets to process}
         {--chunk= : chunk size}
@@ -56,8 +61,9 @@ class ImportAssets extends Command {
         Repository $config,
         Client $client,
     ): int {
-        // Iterator
+        // Settings
         $iterator = $client->getAssetsWithDocuments();
+        $update   = $this->getBooleanOption('update', false);
         $chunk    = ((int) $this->option('chunk')) ?: $config->get('ep.data_loader.chunk');
         $limit    = (int) $this->option('limit');
         $from     = $this->option('from');
@@ -84,8 +90,8 @@ class ImportAssets extends Command {
         // Process
         $this->callWithoutGlobalScopes(
             [OwnedByOrganizationScope::class],
-            function () use ($logger, $container, $iterator): void {
-                $this->process($logger, $container, $iterator);
+            function () use ($logger, $container, $iterator, $update): void {
+                $this->process($logger, $container, $iterator, $update);
             },
         );
 
@@ -100,12 +106,14 @@ class ImportAssets extends Command {
         LoggerInterface $logger,
         Container $container,
         QueryIterator $iterator,
+        bool $update,
     ): void {
         /** @var array{index:int,first:string,last:string,failed:int} $previous */
         $previous  = null;
         $processed = 0;
         $failed    = 0;
         $service   = $container->make(DataLoaderService::class);
+        $resolver  = $service->getContainer()->make(AssetResolver::class);
         $loader    = $service->getAssetLoader();
         $each      = function (
             array $assets,
@@ -114,6 +122,7 @@ class ImportAssets extends Command {
             $container,
             &$service,
             &$loader,
+            &$resolver,
             &$previous,
             &$processed,
             &$failed,
@@ -125,8 +134,9 @@ class ImportAssets extends Command {
 
             // Reset loader & Prefetch
             if ($previous) {
-                $service = $container->make(DataLoaderService::class);
-                $loader  = $service->getAssetLoader();
+                $service  = $container->make(DataLoaderService::class);
+                $loader   = $service->getAssetLoader();
+                $resolver = $service->getContainer()->make(AssetResolver::class);
             }
 
             $service->getContainer()
@@ -138,12 +148,6 @@ class ImportAssets extends Command {
                     $assets->loadMissing('contacts');
                     $assets->loadMissing('tags');
                 });
-            $service->getContainer()
-                ->make(ResellerFactory::class)
-                ->prefetch($assets, true);
-            $service->getContainer()
-                ->make(CustomerFactory::class)
-                ->prefetch($assets, true);
 
             // Dump
             if ($previous) {
@@ -168,7 +172,9 @@ class ImportAssets extends Command {
         foreach ($iterator->each($each) as $asset) {
             /** @var \App\Services\DataLoader\Schema\ViewAsset $asset */
             try {
-                $loader->create($asset);
+                if ($update || !$resolver->get($asset->id)) {
+                    $loader->create($asset);
+                }
             } catch (Throwable $exception) {
                 $failed++;
 
