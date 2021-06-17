@@ -4,11 +4,13 @@ namespace App\Services\DataLoader\Commands;
 
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Container\Container as DataLoaderContainer;
 use App\Services\DataLoader\Loaders\AssetLoader;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -28,9 +30,10 @@ class ImportAssets extends Command {
      * @var string
      */
     protected $signature = 'ep:data-loader-import-assets
-        {--continue= : }
-        {--limit= : }
-        {--chunk= : chunk size}';
+        {--from= : start processing from given asset}
+        {--limit= : max assets to process}
+        {--chunk= : chunk size}
+    ';
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -42,13 +45,39 @@ class ImportAssets extends Command {
     public function handle(
         LoggerInterface $logger,
         Container $container,
+        Repository $config,
         Client $client,
     ): int {
+        // Iterator
+        $iterator = $client->getAssetsWithDocuments();
+        $chunk    = ((int) $this->option('chunk')) ?: $config->get('ep.data_loader.chunk');
+        $limit    = (int) $this->option('limit');
+        $from     = $this->option('from');
+
+        if ($chunk) {
+            $this->output->write("Chunk: {$chunk}; ");
+            $iterator->chunk($chunk);
+        }
+
+        if ($limit) {
+            $this->output->write("Limit: {$limit}; ");
+            $iterator->limit($limit);
+        }
+
+        if ($from) {
+            $this->output->write("From: #{$from}; ");
+            $iterator->lastId($from);
+        }
+
+        if ($chunk || $limit || $from) {
+            $this->newLine(2);
+        }
+
         // Process
         $this->callWithoutGlobalScopes(
             [OwnedByOrganizationScope::class],
-            function () use ($logger, $container, $client): void {
-                $this->process($logger, $container, $client);
+            function () use ($logger, $container, $iterator): void {
+                $this->process($logger, $container, $iterator);
             },
         );
 
@@ -62,14 +91,13 @@ class ImportAssets extends Command {
     protected function process(
         LoggerInterface $logger,
         Container $container,
-        Client $client,
+        QueryIterator $iterator,
     ): void {
         /** @var array{index:int,first:string,last:string,failed:int} $previous */
         $previous  = null;
         $processed = 0;
         $failed    = 0;
         $loader    = $container->make(DataLoaderContainer::class)->make(AssetLoader::class);
-        $iterator  = $client->getAssetsWithDocuments();
         $each      = function (array $assets) use ($container, &$loader, &$previous, &$processed, &$failed): void {
             // Reset loader
             if ($previous) {
@@ -91,7 +119,7 @@ class ImportAssets extends Command {
         };
 
         // @phpcs:disable Generic.Files.LineLength.TooLong
-        $this->info(
+        $this->line(
             'Chunk #         : From                                 ... To                                   -   Failed in chunk      Processed /     Failed',
         );
         // @phpcs:enable
