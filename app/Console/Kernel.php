@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Services\DataLoader\Commands\AnalyzeAssets;
 use App\Services\DataLoader\Commands\LoadCustomer;
+use App\Services\DataLoader\Commands\LoadDistributor;
 use App\Services\DataLoader\Commands\LoadReseller;
 use App\Services\DataLoader\Jobs\CustomersImporterCronJob;
 use App\Services\DataLoader\Jobs\CustomersUpdaterCronJob;
@@ -25,6 +26,7 @@ class Kernel extends ConsoleKernel {
      * @var array<string>
      */
     protected $commands = [
+        LoadDistributor::class,
         LoadReseller::class,
         LoadCustomer::class,
         AnalyzeAssets::class,
