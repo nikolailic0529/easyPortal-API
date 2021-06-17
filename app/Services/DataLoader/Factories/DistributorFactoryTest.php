@@ -6,8 +6,6 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\ViewAssetDocument;
-use App\Services\DataLoader\Schema\ViewDocument;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -62,84 +60,6 @@ class DistributorFactoryTest extends TestCase {
         }
 
         $factory->create($type);
-    }
-
-    /**
-     * @covers ::createFromAssetDocumentObject
-     */
-    public function testCreateFromAssetDocumentObject(): void {
-        $document = new AssetDocumentObject([
-            'document' => [
-                'distributor' => [
-                    'id' => $this->faker->uuid,
-                ],
-                'document'    => [
-                    'distributor' => [
-                        'id' => $this->faker->uuid,
-                    ],
-                ],
-            ],
-        ]);
-
-        $factory = Mockery::mock(DistributorFactory::class);
-        $factory->makePartial();
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory
-            ->shouldReceive('createFromDocument')
-            ->once()
-            ->with($document->document->document)
-            ->andReturn(null);
-        $factory
-            ->shouldReceive('createFromAssetDocument')
-            ->once()
-            ->with($document->document)
-            ->andReturn(null);
-
-        $factory->create($document);
-    }
-
-    /**
-     * @covers ::createFromAssetDocument
-     */
-    public function testCreateFromAssetDocument(): void {
-        $document = new ViewAssetDocument([
-            'distributor' => [
-                'id' => $this->faker->uuid,
-            ],
-        ]);
-
-        $factory = Mockery::mock(DistributorFactory::class);
-        $factory->makePartial();
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory
-            ->shouldReceive('createFromCompany')
-            ->once()
-            ->with($document->distributor)
-            ->andReturn(null);
-
-        $factory->create($document);
-    }
-
-    /**
-     * @covers ::createFromDocument
-     */
-    public function testCreateFromDocument(): void {
-        $document = new ViewDocument([
-            'distributor' => [
-                'id' => $this->faker->uuid,
-            ],
-        ]);
-
-        $factory = Mockery::mock(DistributorFactory::class);
-        $factory->makePartial();
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory
-            ->shouldReceive('createFromCompany')
-            ->once()
-            ->with($document->distributor)
-            ->andReturn(null);
-
-        $factory->create($document);
     }
 
     /**
@@ -216,11 +136,8 @@ class DistributorFactoryTest extends TestCase {
      */
     public function dataProviderCreate(): array {
         return [
-            AssetDocumentObject::class => ['createFromAssetDocumentObject', new AssetDocumentObject()],
-            ViewAssetDocument::class   => ['createFromAssetDocument', new ViewAssetDocument()],
-            ViewDocument::class        => ['createFromDocument', new ViewDocument()],
-            Company::class             => ['createFromCompany', new Company()],
-            'Unknown'                  => [
+            Company::class => ['createFromCompany', new Company()],
+            'Unknown'      => [
                 null,
                 new class() extends Type {
                     // empty

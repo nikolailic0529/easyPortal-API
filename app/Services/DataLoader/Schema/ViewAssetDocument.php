@@ -26,6 +26,4 @@ class ViewAssetDocument extends Type {
 
     public ?Company $reseller;
     public ?Company $customer;
-
-    public ?Company $distributor;
 }

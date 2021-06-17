@@ -9,8 +9,6 @@ use App\Services\DataLoader\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
-use App\Services\DataLoader\Schema\ViewAssetDocument;
-use App\Services\DataLoader\Schema\ViewDocument;
 use Closure;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
@@ -54,22 +52,13 @@ class DistributorFactory extends ModelFactory implements FactoryPrefetchable {
     public function create(Type $type): ?Distributor {
         $model = null;
 
-        if ($type instanceof AssetDocumentObject) {
-            $model = $this->createFromAssetDocumentObject($type);
-        } elseif ($type instanceof ViewAssetDocument) {
-            $model = $this->createFromAssetDocument($type);
-        } elseif ($type instanceof ViewDocument) {
-            $model = $this->createFromDocument($type);
-        } elseif ($type instanceof Company) {
+        if ($type instanceof Company) {
             $model = $this->createFromCompany($type);
         } else {
             throw new InvalidArgumentException(sprintf(
                 'The `$type` must be instance of `%s`.',
                 implode('`, `', [
-                    AssetDocumentObject::class,
-                    ViewAssetDocument::class,
                     Company::class,
-                    ViewDocument::class,
                 ]),
             ));
         }
@@ -79,32 +68,6 @@ class DistributorFactory extends ModelFactory implements FactoryPrefetchable {
 
     // <editor-fold desc="Functions">
     // =========================================================================
-    protected function createFromAssetDocumentObject(AssetDocumentObject $document): ?Distributor {
-        $distributor = null;
-
-        if (isset($document->document->document)) {
-            $distributor = $this->createFromDocument($document->document->document);
-        }
-
-        if (!$distributor) {
-            $distributor = $this->createFromAssetDocument($document->document);
-        }
-
-        return $distributor;
-    }
-
-    protected function createFromAssetDocument(ViewAssetDocument $document): ?Distributor {
-        return isset($document->distributor) && $document->distributor
-            ? $this->createFromCompany($document->distributor)
-            : null;
-    }
-
-    protected function createFromDocument(ViewDocument $document): ?Distributor {
-        return isset($document->distributor) && $document->distributor
-            ? $this->createFromCompany($document->distributor)
-            : null;
-    }
-
     protected function createFromCompany(Company $company): ?Distributor {
         // Get/Create
         $created     = false;

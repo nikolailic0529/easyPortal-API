@@ -133,4 +133,14 @@ class Cache {
 
         return $this;
     }
+
+    public function getAll(): Collection {
+        $all = new Collection();
+
+        foreach ($this->items as $items) {
+            $all = $all->merge($items);
+        }
+
+        return $all->uniqueStrict()->filter()->values();
+    }
 }
