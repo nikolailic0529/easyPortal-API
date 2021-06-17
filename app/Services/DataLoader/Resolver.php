@@ -150,7 +150,11 @@ abstract class Resolver implements Singleton {
         }
 
         // Fill cache
-        $this->getCache()->putNulls($keys)->putAll($items);
+        if ($this->getFinder() === null) {
+            $this->getCache()->putNulls($keys);
+        }
+
+        $this->getCache()->putAll($items);
 
         // Return
         return $this;
