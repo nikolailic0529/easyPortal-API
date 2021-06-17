@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Schema;
 
-class ViewAsset extends Type {
+class ViewAsset extends Type implements TypeWithId {
     public string   $id;
     public ?string  $resellerId;
     public ?string  $customerId;
