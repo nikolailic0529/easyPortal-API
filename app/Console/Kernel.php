@@ -3,10 +3,10 @@
 namespace App\Console;
 
 use App\Services\DataLoader\Commands\AnalyzeAssets;
-use App\Services\DataLoader\Commands\LoadAsset;
-use App\Services\DataLoader\Commands\LoadCustomer;
-use App\Services\DataLoader\Commands\LoadDistributor;
-use App\Services\DataLoader\Commands\LoadReseller;
+use App\Services\DataLoader\Commands\UpdateAsset;
+use App\Services\DataLoader\Commands\UpdateCustomer;
+use App\Services\DataLoader\Commands\UpdateDistributor;
+use App\Services\DataLoader\Commands\UpdateReseller;
 use App\Services\DataLoader\Jobs\CustomersImporterCronJob;
 use App\Services\DataLoader\Jobs\CustomersUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
@@ -27,10 +27,10 @@ class Kernel extends ConsoleKernel {
      * @var array<string>
      */
     protected $commands = [
-        LoadDistributor::class,
-        LoadReseller::class,
-        LoadCustomer::class,
-        LoadAsset::class,
+        UpdateDistributor::class,
+        UpdateReseller::class,
+        UpdateCustomer::class,
+        UpdateAsset::class,
         AnalyzeAssets::class,
     ];
 

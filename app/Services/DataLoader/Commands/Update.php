@@ -7,7 +7,7 @@ use Illuminate\Console\Command;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-abstract class Load extends Command {
+abstract class Update extends Command {
     /**
      * @param array<string> $ids
      */

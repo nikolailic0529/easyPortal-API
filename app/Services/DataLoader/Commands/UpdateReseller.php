@@ -8,7 +8,7 @@ use Psr\Log\LoggerInterface;
 
 use function array_unique;
 
-class LoadAsset extends Load {
+class UpdateReseller extends Update {
     use WithBooleanOptions;
 
     /**
@@ -16,12 +16,14 @@ class LoadAsset extends Load {
      *
      * @var string
      */
-    protected $signature = 'ep:data-loader-load-asset
-        {id* : The ID of the asset}
-        {--c|create : Create asset if not exists}
-        {--C|no-create : Do not create asset if not exists (default)}
-        {--d|documents : Load asset documents (and warranties) (default)}
-        {--D|no-documents : Skip asset documents}
+    protected $signature = 'ep:data-loader-update-reseller
+        {id* : The ID of the reseller}
+        {--c|create : Create reseller if not exists}
+        {--C|no-create : Do not create reseller if not exists (default)}
+        {--a|assets : Load assets}
+        {--A|no-assets : Skip assets (default)}
+        {--ad|assets-documents : Load assets documents (and warranties), required --a|assets (default)}
+        {--AD|no-assets-documents : Skip assets documents}
     ';
 
     /**
@@ -29,14 +31,15 @@ class LoadAsset extends Load {
      *
      * @var string
      */
-    protected $description = 'Update asset(s) with given ID(s).';
+    protected $description = 'Update reseller(s) with given ID(s).';
 
     public function handle(DataLoaderService $service, LoggerInterface $logger): int {
-        $loader = $service->getAssetLoader();
+        $loader = $service->getResellerLoader();
         $create = $this->getBooleanOption('create', false);
         $ids    = array_unique($this->argument('id'));
 
-        $loader->setWithDocuments($this->getBooleanOption('documents', true));
+        $loader->setWithAssets($this->getBooleanOption('assets', false));
+        $loader->setWithAssetsDocuments($this->getBooleanOption('assets-documents', true));
 
         return $this->process($logger, $loader, $ids, $create);
     }

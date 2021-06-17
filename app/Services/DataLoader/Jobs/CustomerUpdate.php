@@ -36,7 +36,7 @@ class CustomerUpdate extends Job implements ShouldBeUnique, NamedJob, Initializa
     }
 
     public function handle(Kernel $artisan): void {
-        $artisan->call('ep:data-loader-load-customer', [
+        $artisan->call('ep:data-loader-update-customer', [
             'id'       => [$this->getCustomerId()],
             '--assets' => true,
         ]);

@@ -8,7 +8,7 @@ use Psr\Log\LoggerInterface;
 
 use function array_unique;
 
-class LoadDistributor extends Load {
+class UpdateAsset extends Update {
     use WithBooleanOptions;
 
     /**
@@ -16,10 +16,12 @@ class LoadDistributor extends Load {
      *
      * @var string
      */
-    protected $signature = 'ep:data-loader-load-distributor
-        {id* : The ID of the distributor}
-        {--c|create : Create distributor if not exists}
-        {--C|no-create : Do not create distributor if not exists (default)}
+    protected $signature = 'ep:data-loader-update-asset
+        {id* : The ID of the asset}
+        {--c|create : Create asset if not exists}
+        {--C|no-create : Do not create asset if not exists (default)}
+        {--d|documents : Load asset documents (and warranties) (default)}
+        {--D|no-documents : Skip asset documents}
     ';
 
     /**
@@ -27,12 +29,14 @@ class LoadDistributor extends Load {
      *
      * @var string
      */
-    protected $description = 'Update distributor(s) with given ID(s).';
+    protected $description = 'Update asset(s) with given ID(s).';
 
     public function handle(DataLoaderService $service, LoggerInterface $logger): int {
-        $loader = $service->getDistributorLoader();
+        $loader = $service->getAssetLoader();
         $create = $this->getBooleanOption('create', false);
         $ids    = array_unique($this->argument('id'));
+
+        $loader->setWithDocuments($this->getBooleanOption('documents', true));
 
         return $this->process($logger, $loader, $ids, $create);
     }
