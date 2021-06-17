@@ -27,8 +27,9 @@ use function is_array;
  * @internal
  */
 abstract class Resolver implements Singleton {
-    protected ResolverFinder|null $finder = null;
-    protected Cache|null          $cache  = null;
+    protected ResolverFinder|null $finder   = null;
+    protected bool                $isFinder = false;
+    protected Cache|null          $cache    = null;
     protected Normalizer          $normalizer;
 
     public function __construct(Normalizer $normalizer) {
@@ -40,7 +41,7 @@ abstract class Resolver implements Singleton {
     }
 
     public function setFinder(ResolverFinder $finder): void {
-        if ($this->getFinder() && $this->getFinder() !== $finder) {
+        if ($this->finder && $this->finder !== $finder) {
             throw new InvalidArgumentException('Finder already set.');
         }
 
@@ -85,9 +86,28 @@ abstract class Resolver implements Singleton {
     }
 
     protected function find(mixed $key): ?Model {
-        return $this->getFindQuery()?->where(function (Builder $builder) use ($key): Builder {
+        // Inside Finder?
+        if ($this->isFinder) {
+            return null;
+        }
+
+        // Search in Database
+        $model = $this->getFindQuery()?->where(function (Builder $builder) use ($key): Builder {
             return $this->getFindWhere($builder, $key);
-        })->first() ?: $this->getFinder()?->find($key);
+        })->first();
+
+        // Search through Finder
+        if (!$model && $this->getFinder()) {
+            try {
+                $this->isFinder = true;
+                $model          = $this->getFinder()->find($key);
+            } finally {
+                $this->isFinder = false;
+            }
+        }
+
+        // Return
+        return $model;
     }
 
     /**
