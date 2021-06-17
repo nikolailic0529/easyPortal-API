@@ -2,93 +2,45 @@
 
 namespace App\Services\DataLoader\Loaders;
 
-use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Model;
 use App\Models\Reseller;
-use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\OffsetBasedIterator;
-use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
-use App\Services\DataLoader\Factories\AssetFactory;
-use App\Services\DataLoader\Factories\ContactFactory;
-use App\Services\DataLoader\Factories\CustomerFactory;
-use App\Services\DataLoader\Factories\DocumentFactory;
-use App\Services\DataLoader\Factories\LocationFactory;
-use App\Services\DataLoader\Factories\ResellerFactory;
-use App\Services\DataLoader\Loader;
+use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Loaders\Concerns\WithAssets;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
-use Illuminate\Contracts\Events\Dispatcher;
+use App\Services\DataLoader\Schema\Type;
 use Illuminate\Database\Eloquent\Builder;
-use Psr\Log\LoggerInterface;
 
-class ResellerLoader extends Loader {
-    use GlobalScopes;
+class ResellerLoader extends CompanyLoader {
     use WithAssets;
-
-    public function __construct(
-        LoggerInterface $logger,
-        Client $client,
-        protected Dispatcher $dispatcher,
-        protected ResellerFactory $resellers,
-        protected CustomerFactory $customers,
-        protected LocationFactory $locations,
-        protected ContactFactory $contacts,
-        protected AssetFactory $assets,
-        protected DocumentFactory $documents,
-    ) {
-        parent::__construct($logger, $client);
-    }
 
     // <editor-fold desc="API">
     // =========================================================================
-    public function load(string $id): bool {
+    protected function process(?Type $object): ?Model {
         // Process
-        $this->callWithoutGlobalScopes([OwnedByOrganizationScope::class], function () use ($id): void {
-            $this->process($id);
-        });
-
-        // Return
-        return true;
-    }
-
-    protected function process(string $id): void {
-        $reseller = null;
+        $company = null;
 
         try {
-            $company = $this->client->getCompanyById($id);
+            $company = parent::process($object);
 
-            if ($company) {
-                $factory  = $this->getResellersFactory();
-                $reseller = $factory->find($company);
-
-                if ($reseller) {
-                    $reseller = $factory->create($company);
-
-                    if ($this->isWithAssets()) {
-                        $this->loadAssets($reseller);
-                    }
-                }
-            } else {
-                $reseller = Reseller::query()->whereKey($id)->first();
-
-                if ($reseller) {
-                    $this->logger->warning('Reseller found in database but not found in Cosmos.', [
-                        'id' => $id,
-                    ]);
-                }
-            }
-
-            if (!$reseller) {
-                throw new ResellerNotFoundException($id, $company);
+            if ($this->isWithAssets() && $company) {
+                $this->loadAssets($company);
             }
         } finally {
-            if ($reseller) {
-                $this->updateResellerCalculatedProperties($reseller);
+            if ($company instanceof Reseller) {
+                $this->updateResellerCalculatedProperties($company);
             }
         }
+
+        // Return
+        return $company;
+    }
+
+    protected function getCompanyFactory(): Factory {
+        return $this->getResellersFactory();
     }
     // </editor-fold>
 
+    // <editor-fold desc="WithAssets">
     // =========================================================================
     protected function getCurrentAssets(Model $owner): OffsetBasedIterator {
         return $this->isWithAssetsDocuments()
@@ -105,11 +57,4 @@ class ResellerLoader extends Loader {
             : null;
     }
     //</editor-fold>
-
-    // <editor-fold desc="Functions">
-    // =========================================================================
-    protected function getResellersFactory(): ResellerFactory {
-        return $this->resellers;
-    }
-    // </editor-fold>
 }

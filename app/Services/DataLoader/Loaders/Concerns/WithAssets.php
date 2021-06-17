@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Model;
 use App\Models\Reseller;
+use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\OffsetBasedIterator;
 use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Factories\AssetFactory;
@@ -19,6 +20,7 @@ use App\Services\DataLoader\Schema\Company;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Psr\Log\LoggerInterface;
 use Throwable;
 
 use function array_filter;
@@ -27,15 +29,22 @@ use function array_filter;
  * @mixin \App\Services\DataLoader\Loader
  */
 trait WithAssets {
-    protected Dispatcher      $dispatcher;
-    protected ResellerFactory $resellers;
-    protected CustomerFactory $customers;
-    protected LocationFactory $locations;
-    protected ContactFactory  $contacts;
-    protected AssetFactory    $assets;
-    protected DocumentFactory $documents;
-    protected bool            $withAssets          = false;
-    protected bool            $withAssetsDocuments = false;
+    protected bool $withAssets          = false;
+    protected bool $withAssetsDocuments = false;
+
+    public function __construct(
+        LoggerInterface $logger,
+        Client $client,
+        protected Dispatcher $dispatcher,
+        protected ResellerFactory $resellers,
+        protected CustomerFactory $customers,
+        protected LocationFactory $locations,
+        protected ContactFactory $contacts,
+        protected AssetFactory $assets,
+        protected DocumentFactory $documents,
+    ) {
+        parent::__construct($logger, $client);
+    }
 
     public function isWithAssets(): bool {
         return $this->withAssets;

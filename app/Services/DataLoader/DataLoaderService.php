@@ -5,6 +5,7 @@ namespace App\Services\DataLoader;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Loaders\CustomerLoader;
+use App\Services\DataLoader\Loaders\DistributorLoader;
 use App\Services\DataLoader\Loaders\ResellerLoader;
 
 class DataLoaderService {
@@ -12,6 +13,10 @@ class DataLoaderService {
         protected Container $container,
     ) {
         // empty
+    }
+
+    public function getDistributorLoader(): DistributorLoader {
+        return $this->container->make(DistributorLoader::class);
     }
 
     public function getResellerLoader(): ResellerLoader {
