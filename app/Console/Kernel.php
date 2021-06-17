@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Services\DataLoader\Commands\AnalyzeAssets;
+use App\Services\DataLoader\Commands\LoadAsset;
 use App\Services\DataLoader\Commands\LoadCustomer;
 use App\Services\DataLoader\Commands\LoadDistributor;
 use App\Services\DataLoader\Commands\LoadReseller;
@@ -29,6 +30,7 @@ class Kernel extends ConsoleKernel {
         LoadDistributor::class,
         LoadReseller::class,
         LoadCustomer::class,
+        LoadAsset::class,
         AnalyzeAssets::class,
     ];
 
