@@ -23,7 +23,7 @@ abstract class Load extends Command {
                 if ($model) {
                     $this->info('OK');
                 } else {
-                    $this->warn('null');
+                    $this->warn('not found in cosmos');
                 }
             } catch (Throwable $exception) {
                 $this->warn($exception->getMessage());
