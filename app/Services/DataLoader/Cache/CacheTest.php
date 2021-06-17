@@ -198,6 +198,15 @@ class CacheTest extends TestCase {
         $this->assertFalse($this->cache->has($a->getKey()));
         $this->assertFalse($this->cache->has($b->getKey()));
     }
+
+    /**
+     * @covers ::getAll
+     */
+    public function testGetAll(): void {
+        $this->cache->putNull($this->item()->getKey());
+
+        $this->assertEquals($this->items, $this->cache->getAll());
+    }
     // </editor-fold>
 
     // <editor-fold desc="Helpers">
