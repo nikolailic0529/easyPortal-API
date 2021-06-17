@@ -52,7 +52,7 @@ class LoaderTest extends TestCase {
     /**
      * @covers ::update
      */
-    public function testUpdateByArray(): void {
+    public function testUpdateByType(): void {
         // Prepare
         $value  = ['id' => $this->faker->uuid];
         $type   = new class($value) extends Type implements TypeWithId {
@@ -69,9 +69,7 @@ class LoaderTest extends TestCase {
             ->andReturn($model);
         $loader
             ->shouldReceive('getObject')
-            ->with($value)
-            ->once()
-            ->andReturn($type);
+            ->never();
         $loader
             ->shouldReceive('isModelExists')
             ->with($type->id)
@@ -79,7 +77,7 @@ class LoaderTest extends TestCase {
             ->andReturn(true);
 
         // Test
-        $this->assertEquals($model, $loader->update($value));
+        $this->assertEquals($model, $loader->update($type));
     }
 
     /**
@@ -124,7 +122,7 @@ class LoaderTest extends TestCase {
     /**
      * @covers ::update
      */
-    public function testUpdateByArrayModelNotExists(): void {
+    public function testUpdateByTypeModelNotExists(): void {
         // Prepare
         $e      = new Exception(__METHOD__);
         $value  = ['id' => $this->faker->uuid];
@@ -140,9 +138,7 @@ class LoaderTest extends TestCase {
             ->never();
         $loader
             ->shouldReceive('getObject')
-            ->with($value)
-            ->once()
-            ->andReturn($type);
+            ->never();
         $loader
             ->shouldReceive('isModelExists')
             ->with($type->id)
@@ -156,7 +152,7 @@ class LoaderTest extends TestCase {
 
         // Test
         $this->expectExceptionObject($e);
-        $this->assertEquals($model, $loader->update($value));
+        $this->assertEquals($model, $loader->update($type));
     }
 
     /**
@@ -195,7 +191,7 @@ class LoaderTest extends TestCase {
     /**
      * @covers ::update
      */
-    public function testUpdateByArrayTypeWithoutId(): void {
+    public function testUpdateByTypeTypeWithoutId(): void {
         // Prepare
         $value  = ['id' => $this->faker->uuid];
         $type   = new class($value) extends Type {
@@ -212,15 +208,13 @@ class LoaderTest extends TestCase {
             ->andReturn($model);
         $loader
             ->shouldReceive('getObject')
-            ->with($value)
-            ->once()
-            ->andReturn($type);
+            ->never();
         $loader
             ->shouldReceive('isModelExists')
             ->never();
 
         // Test
-        $this->assertEquals($model, $loader->update($value));
+        $this->assertEquals($model, $loader->update($type));
     }
 
     /**
@@ -257,7 +251,7 @@ class LoaderTest extends TestCase {
     /**
      * @covers ::create
      */
-    public function testCreateByArray(): void {
+    public function testCreateByType(): void {
         // Prepare
         $value  = ['id' => $this->faker->uuid];
         $type   = new class($value) extends Type {
@@ -274,9 +268,7 @@ class LoaderTest extends TestCase {
             ->andReturn($model);
         $loader
             ->shouldReceive('getObject')
-            ->with($value)
-            ->once()
-            ->andReturn($type);
+            ->never();
         $loader
             ->shouldReceive('getObjectById')
             ->never();
@@ -285,6 +277,6 @@ class LoaderTest extends TestCase {
             ->never();
 
         // Test
-        $this->assertEquals($model, $loader->update($value));
+        $this->assertEquals($model, $loader->update($type));
     }
 }

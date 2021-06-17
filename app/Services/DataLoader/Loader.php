@@ -13,7 +13,6 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Exception;
 use Psr\Log\LoggerInterface;
 
-use function is_array;
 use function is_string;
 
 /**
@@ -48,10 +47,7 @@ abstract class Loader implements Isolated {
 
     // <editor-fold desc="Load">
     // =========================================================================
-    /**
-     * @param string|array<string,mixed> $object
-     */
-    public function update(string|array $object): ?Model {
+    public function update(Type|string $object): ?Model {
         return $this->callWithoutGlobalScopes([OwnedByOrganizationScope::class], function () use ($object): ?Model {
             if (is_string($object)) {
                 if ($this->getObject([]) instanceof TypeWithId && !$this->isModelExists($object)) {
@@ -60,8 +56,6 @@ abstract class Loader implements Isolated {
                     $object = $this->getObjectById($object);
                 }
             } else {
-                $object = $this->getObject($object);
-
                 if ($object instanceof TypeWithId && !$this->isModelExists($object->id)) {
                     throw $this->getModelNotFoundException($object->id);
                 }
@@ -71,12 +65,9 @@ abstract class Loader implements Isolated {
         });
     }
 
-    /**
-     * @param string|array<string,mixed> $object
-     */
-    public function create(string|array $object): ?Model {
+    public function create(Type|string $object): ?Model {
         return $this->callWithoutGlobalScopes([OwnedByOrganizationScope::class], function () use ($object): ?Model {
-            $object = is_array($object) ? $this->getObject($object) : $this->getObjectById($object);
+            $object = is_string($object) ? $this->getObjectById($object) : $object;
             $model  = $this->process($object);
 
             return $model;
