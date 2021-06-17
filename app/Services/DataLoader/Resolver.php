@@ -10,6 +10,7 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use InvalidArgumentException;
 use JetBrains\PhpStorm\Pure;
 use LogicException;
 
@@ -26,11 +27,24 @@ use function is_array;
  * @internal
  */
 abstract class Resolver implements Singleton {
-    protected Cache|null $cache = null;
-    protected Normalizer $normalizer;
+    protected ResolverFinder|null $finder = null;
+    protected Cache|null          $cache  = null;
+    protected Normalizer          $normalizer;
 
     public function __construct(Normalizer $normalizer) {
         $this->normalizer = $normalizer;
+    }
+
+    protected function getFinder(): ?ResolverFinder {
+        return $this->finder;
+    }
+
+    public function setFinder(ResolverFinder $finder): void {
+        if ($this->getFinder() && $this->getFinder() !== $finder) {
+            throw new InvalidArgumentException('Finder already set.');
+        }
+
+        $this->finder = $finder;
     }
 
     /**
@@ -73,7 +87,7 @@ abstract class Resolver implements Singleton {
     protected function find(mixed $key): ?Model {
         return $this->getFindQuery()?->where(function (Builder $builder) use ($key): Builder {
             return $this->getFindWhere($builder, $key);
-        })->first();
+        })->first() ?: $this->getFinder()?->find($key);
     }
 
     /**
