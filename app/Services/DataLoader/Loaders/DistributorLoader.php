@@ -3,8 +3,10 @@
 namespace App\Services\DataLoader\Loaders;
 
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Exceptions\DistributorNotFoundException;
 use App\Services\DataLoader\Factories\DistributorFactory;
-use App\Services\DataLoader\Factory;
+use App\Services\DataLoader\Factories\ModelFactory;
+use Exception;
 use Psr\Log\LoggerInterface;
 
 class DistributorLoader extends CompanyLoader {
@@ -16,7 +18,11 @@ class DistributorLoader extends CompanyLoader {
         parent::__construct($logger, $client);
     }
 
-    protected function getCompanyFactory(): Factory {
+    protected function getObjectFactory(): ModelFactory {
         return $this->distributors;
+    }
+
+    protected function getModelNotFoundException(string $id): Exception {
+        return new DistributorNotFoundException($id);
     }
 }

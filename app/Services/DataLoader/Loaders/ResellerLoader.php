@@ -5,9 +5,11 @@ namespace App\Services\DataLoader\Loaders;
 use App\Models\Model;
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\OffsetBasedIterator;
-use App\Services\DataLoader\Factory;
+use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
+use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\Loaders\Concerns\WithAssets;
 use App\Services\DataLoader\Schema\Type;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 
 class ResellerLoader extends CompanyLoader {
@@ -35,8 +37,12 @@ class ResellerLoader extends CompanyLoader {
         return $company;
     }
 
-    protected function getCompanyFactory(): Factory {
+    protected function getObjectFactory(): ModelFactory {
         return $this->getResellersFactory();
+    }
+
+    protected function getModelNotFoundException(string $id): Exception {
+        return new ResellerNotFoundException($id);
     }
     // </editor-fold>
 
