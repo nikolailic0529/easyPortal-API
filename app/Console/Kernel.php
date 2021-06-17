@@ -3,8 +3,8 @@
 namespace App\Console;
 
 use App\Services\DataLoader\Commands\AnalyzeAssets;
-use App\Services\DataLoader\Commands\UpdateCustomer;
-use App\Services\DataLoader\Commands\UpdateReseller;
+use App\Services\DataLoader\Commands\LoadCustomer;
+use App\Services\DataLoader\Commands\LoadReseller;
 use App\Services\DataLoader\Jobs\CustomersImporterCronJob;
 use App\Services\DataLoader\Jobs\CustomersUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
@@ -25,8 +25,8 @@ class Kernel extends ConsoleKernel {
      * @var array<string>
      */
     protected $commands = [
-        UpdateReseller::class,
-        UpdateCustomer::class,
+        LoadReseller::class,
+        LoadCustomer::class,
         AnalyzeAssets::class,
     ];
 

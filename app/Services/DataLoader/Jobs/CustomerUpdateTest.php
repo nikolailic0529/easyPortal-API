@@ -22,7 +22,7 @@ class CustomerUpdateTest extends TestCase {
         $kernel
             ->shouldReceive('call')
             ->with(
-                'ep:data-loader-update-customer',
+                'ep:data-loader-load-customer',
                 [
                     'id'       => [$id],
                     '--assets' => true,

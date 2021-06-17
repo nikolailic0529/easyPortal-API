@@ -22,7 +22,7 @@ class ResellerUpdateTest extends TestCase {
         $kernel
             ->shouldReceive('call')
             ->with(
-                'ep:data-loader-update-reseller',
+                'ep:data-loader-load-reseller',
                 [
                     'id'       => [$id],
                     '--assets' => true,

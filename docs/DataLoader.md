@@ -28,7 +28,7 @@
 | --------------------- | --------- |
 | data-loader-reseller  | Yes       |
 
-1. Update the Reseller (= run `php artisan ep:data-loader-update-reseller <id> --assets`)
+1. Update the Reseller (= run `php artisan ep:data-loader-load-reseller <id> --assets`)
 
 
 ### LocationsCleanupCronJob
@@ -42,12 +42,12 @@ While the import, some locations may become unused, this job removes them from t
 
 ## Commands
 
-### `php artisan ep:data-loader-update-reseller`
+### `php artisan ep:data-loader-load-reseller`
 
 Sync the Reseller properties with Cosmos. Please note that reseller will not be created.
 
 
-### `php artisan ep:data-loader-update-customer`
+### `php artisan ep:data-loader-load-customer`
 
 Sync the Customer properties with Cosmos. Please note that reseller will not be created.
 
