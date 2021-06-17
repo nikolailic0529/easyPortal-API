@@ -66,6 +66,8 @@ class AnalyzeAssets extends Command {
 
             $this->info('Done.');
             $this->newLine();
+
+            return self::SUCCESS;
         }
 
         // Continue?
