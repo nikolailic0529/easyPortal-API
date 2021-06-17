@@ -5,13 +5,16 @@ namespace App\Services\DataLoader\Commands;
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\QueryIterator;
-use App\Services\DataLoader\Container\Container as DataLoaderContainer;
-use App\Services\DataLoader\Loaders\AssetLoader;
+use App\Services\DataLoader\DataLoaderService;
+use App\Services\DataLoader\Factories\AssetFactory;
+use App\Services\DataLoader\Factories\CustomerFactory;
+use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Database\Eloquent\Collection;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -97,12 +100,39 @@ class ImportAssets extends Command {
         $previous  = null;
         $processed = 0;
         $failed    = 0;
-        $loader    = $container->make(DataLoaderContainer::class)->make(AssetLoader::class);
-        $each      = function (array $assets) use ($container, &$loader, &$previous, &$processed, &$failed): void {
-            // Reset loader
+        $service   = $container->make(DataLoaderService::class);
+        $loader    = $service->getAssetLoader();
+        $each      = function (
+            array $assets,
+        ) use (
+            $container,
+            &$service,
+            &$loader,
+            &$previous,
+            &$processed,
+            &$failed,
+        ): void {
+            // Reset loader & Prefetch
             if ($previous) {
-                $loader = $container->make(DataLoaderContainer::class)->make(AssetLoader::class);
+                $service = $container->make(DataLoaderService::class);
+                $loader  = $service->getAssetLoader();
             }
+
+            $service->getContainer()
+                ->make(AssetFactory::class)
+                ->prefetch($assets, true, static function (Collection $assets): void {
+                    $assets->loadMissing('documentEntries');
+                    $assets->loadMissing('warranties');
+                    $assets->loadMissing('warranties.services');
+                    $assets->loadMissing('contacts');
+                    $assets->loadMissing('tags');
+                });
+            $service->getContainer()
+                ->make(ResellerFactory::class)
+                ->prefetch($assets, true);
+            $service->getContainer()
+                ->make(CustomerFactory::class)
+                ->prefetch($assets, true);
 
             // Dump
             if ($previous) {

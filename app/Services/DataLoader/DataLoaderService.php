@@ -35,4 +35,8 @@ class DataLoaderService {
     public function getClient(): Client {
         return $this->container->make(Client::class);
     }
+
+    public function getContainer(): Container {
+        return $this->container;
+    }
 }
