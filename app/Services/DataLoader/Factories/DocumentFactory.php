@@ -251,14 +251,16 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         $entry->list_price    = $this->normalizer->number($assetDocument->listPrice);
         $entry->discount      = $this->normalizer->number($assetDocument->discount);
         $entry->renewal       = $this->normalizer->number($assetDocument->estimatedValueRenewal);
-        $entry->service       = $this->product(
-            $document->oem,
-            ProductType::service(),
-            $assetDocument->skuNumber,
-            $assetDocument->skuDescription,
-            null,
-            null,
-        );
+        $entry->service       = $assetDocument->skuNumber && $assetDocument->skuDescription
+            ? $this->product(
+                $document->oem,
+                ProductType::service(),
+                $assetDocument->skuNumber,
+                $assetDocument->skuDescription,
+                null,
+                null,
+            )
+            : null;
 
         return $entry;
     }

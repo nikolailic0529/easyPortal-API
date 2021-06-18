@@ -136,9 +136,9 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals(ProductType::support(), $created->support->type);
         $this->assertEquals('HPE', $created->support->oem->abbr);
         $this->assertEquals('HPE', $created->oem->abbr);
-        $this->assertEquals(6, $created->entries_count);
+        $this->assertEquals(7, $created->entries_count);
         $this->assertEquals(1, $created->contacts_count);
-        $this->assertCount(6, $created->entries);
+        $this->assertCount(7, $created->entries);
         $this->assertCount(1, $created->contacts);
 
         /** @var \App\Models\DocumentEntry $e */
@@ -457,6 +457,60 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($listPrice, $entry->list_price);
         $this->assertEquals($discount, $entry->discount);
         $this->assertEquals($renewal, $entry->renewal);
+    }
+
+    /**
+     * @covers ::assetDocumentEntry
+     */
+    public function testAssetDocumentEntrySkuNumberNull(): void {
+        $asset         = AssetModel::factory()->make([
+            'id'            => $this->faker->uuid,
+            'serial_number' => $this->faker->uuid,
+        ]);
+        $assetDocument = new ViewAssetDocument([
+            'skuNumber'             => null,
+            'skuDescription'        => null,
+            'netPrice'              => number_format($this->faker->randomFloat(2), 2, '.', ''),
+            'discount'              => number_format($this->faker->randomFloat(2), 2, '.', ''),
+            'listPrice'             => number_format($this->faker->randomFloat(2), 2, '.', ''),
+            'estimatedValueRenewal' => number_format($this->faker->randomFloat(2), 2, '.', ''),
+            'currencyCode'          => $this->faker->currencyCode,
+        ]);
+        $document      = DocumentModel::factory()->make();
+        $factory       = new class(
+            $this->app->make(Normalizer::class),
+            $this->app->make(ProductResolver::class),
+            $this->app->make(OemResolver::class),
+            $this->app->make(CurrencyFactory::class),
+        ) extends DocumentFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected ProductResolver $products,
+                protected OemResolver $oems,
+                protected CurrencyFactory $currencies,
+            ) {
+                // empty
+            }
+
+            public function assetDocumentEntry(
+                AssetModel $asset,
+                DocumentModel $document,
+                ViewAssetDocument $assetDocument,
+            ): DocumentEntryModel {
+                return parent::assetDocumentEntry($asset, $document, $assetDocument);
+            }
+        };
+
+        $entry = $factory->assetDocumentEntry($asset, $document, $assetDocument);
+
+        $this->assertInstanceOf(DocumentEntryModel::class, $entry);
+        $this->assertEquals($asset->getKey(), $entry->asset_id);
+        $this->assertNull($entry->document_id);
+        $this->assertEquals($asset->serial_number, $entry->serial_number);
+        $this->assertSame($asset->product, $entry->product);
+        $this->assertNull($entry->service_id);
+        $this->assertNull($entry->service);
     }
 
     /**
