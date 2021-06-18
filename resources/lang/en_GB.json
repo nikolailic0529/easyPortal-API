@@ -159,5 +159,6 @@
     "keycloak.client.unavailable": "KeyCloak Service temporarily unavailable, please try again later.",
     "keycloak.client.endpoint_failure": "KeyCloak invalid response.",
     "keycloak.client.disabled": "KeyCloak Client disabled.",
-    "keycloak.client.invalid_group": "Invalid Keycloak group"
+    "keycloak.client.invalid_group": "Invalid Keycloak group",
+    "keycloak.client.invalid_client": "Invalid Keycloak Client UUID"
 }

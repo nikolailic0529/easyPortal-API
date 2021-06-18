@@ -13,6 +13,7 @@ use App\Services\Filesystem\StorageFileCorrupted as FilesystemStorageFileCorrupt
 use App\Services\Filesystem\StorageFileDeleteFailed as FilesystemStorageFileDeleteFailed;
 use App\Services\Filesystem\StorageFileSaveFailed as FilesystemStorageFileSaveFailed;
 use App\Services\KeyCloak\Client\Exceptions\EndpointException as KeyCloakEndpointException;
+use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakClient;
 use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakGroup;
 use App\Services\KeyCloak\Client\Exceptions\KeyCloakDisabled;
 use App\Services\KeyCloak\Exceptions\AnotherUserExists as KeyCloakAnotherUserExists;
@@ -55,6 +56,7 @@ class ErrorCodes {
         KeyCloakEndpointException::class                   => 'ERR21',
         InvalidKeyCloakGroup::class                        => 'ERR22',
         KeyCloakDisabled::class                            => 'ERR23',
+        InvalidKeyCloakClient::class                       => 'ERR24',
     ];
 
     public static function getCode(Throwable $throwable): string|int {

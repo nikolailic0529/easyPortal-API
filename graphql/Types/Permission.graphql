@@ -1,0 +1,5 @@
+type Permission {
+  id: ID!
+  key: String!
+  name: String! @translate
+}

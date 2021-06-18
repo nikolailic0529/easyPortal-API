@@ -142,6 +142,14 @@ interface Constants {
     public const EP_KEYCLOAK_CLIENT_ID = null;
 
     /**
+     * Keycloak client uuid.
+     */
+    #[Setting('ep.keycloak.client_uuid')]
+    #[Group('keycloak')]
+    #[Type(StringType::class)]
+    public const EP_KEYCLOAK_CLIENT_UUID = null;
+
+    /**
      * Client Secret.
      */
     #[Setting('ep.keycloak.client_secret')]

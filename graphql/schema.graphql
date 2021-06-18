@@ -168,4 +168,9 @@ type Query {
   @organization(root: true)
   @me(permissions: ["administer"])
   @find
+
+  permissions: [Permission!]!
+  @organization
+  @me(permissions: ["edit-organization"])
+  @all
 }

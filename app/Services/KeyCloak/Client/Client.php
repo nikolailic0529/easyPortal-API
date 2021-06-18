@@ -4,8 +4,10 @@ namespace App\Services\KeyCloak\Client;
 
 use App\Models\Organization;
 use App\Services\KeyCloak\Client\Exceptions\EndpointException;
+use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakClient;
 use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakGroup;
 use App\Services\KeyCloak\Client\Exceptions\KeyCloakDisabled;
+use App\Services\KeyCloak\Client\Types\Role;
 use App\Services\KeyCloak\Client\Types\User;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
@@ -43,6 +45,23 @@ class Client {
             return new User($item);
         }, $result);
 
+        return $result;
+    }
+
+    /**
+     * @return array<\App\Services\KeyCloak\Client\Types\Role>
+     */
+    public function getRoles(): array {
+        // GET /{realm}/clients/{id}/roles
+        $clientId = (string) $this->config->get('ep.keycloak.client_uuid');
+        if (!$clientId) {
+            throw new InvalidKeyCloakClient();
+        }
+        $endpoint = "clients/{$clientId}/roles";
+        $result   = $this->call($endpoint);
+        $result   = array_map(static function ($item) {
+            return new Role($item);
+        }, $result);
         return $result;
     }
 
