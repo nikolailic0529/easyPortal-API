@@ -206,7 +206,7 @@ class Client {
         $keycloak = rtrim($this->config->get('ep.keycloak.url'), '/');
         $realm    = $this->config->get('ep.keycloak.realm');
 
-        return " {$keycloak}/auth/admin/realms/{$realm}";
+        return "{$keycloak}/auth/admin/realms/{$realm}";
     }
 
     protected function isEnabled(): bool {
