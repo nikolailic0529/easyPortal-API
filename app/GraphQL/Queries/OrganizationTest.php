@@ -144,7 +144,6 @@ class OrganizationTest extends TestCase {
                         roles {
                             id
                             name
-                            organization_id
                           }
                     }
                 }
@@ -314,9 +313,8 @@ class OrganizationTest extends TestCase {
                         ],
                         'roles'          => [
                             [
-                                'id'              => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20946',
-                                'name'            => 'role1',
-                                'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00'
+                                'id'   => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20946',
+                                'name' => 'role1',
                             ],
                         ],
                     ]),

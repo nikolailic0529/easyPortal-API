@@ -69,7 +69,6 @@ class CreateOrgRoleTest extends TestCase {
                     created {
                         id
                         name
-                        organization_id
                     }
                 }
             }', ['input' => $data])
@@ -112,9 +111,8 @@ class CreateOrgRoleTest extends TestCase {
                 'ok'           => [
                     new GraphQLSuccess('createOrgRole', CreateOrgRole::class, [
                         'created' => [
-                            'id'              => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-                            'name'            => 'subgroup',
-                            'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                            'id'   => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                            'name' => 'subgroup',
                         ],
                     ]),
                     [

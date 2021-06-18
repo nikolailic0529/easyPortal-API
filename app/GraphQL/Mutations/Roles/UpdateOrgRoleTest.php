@@ -61,7 +61,6 @@ class UpdateOrgRoleTest extends TestCase {
                     updated {
                         id
                         name
-                        organization_id
                     }
                 }
             }', ['input' => $data])
@@ -96,9 +95,8 @@ class UpdateOrgRoleTest extends TestCase {
                 'ok'                     => [
                     new GraphQLSuccess('updateOrgRole', UpdateOrgRole::class, [
                         'updated' => [
-                            'id'              => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-                            'name'            => 'change',
-                            'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                            'id'   => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                            'name' => 'change',
                         ],
                     ]),
                     $factory,
