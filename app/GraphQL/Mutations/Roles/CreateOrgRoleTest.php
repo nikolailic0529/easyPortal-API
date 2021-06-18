@@ -109,7 +109,7 @@ class CreateOrgRoleTest extends TestCase {
                 'edit-organization',
             ]),
             new ArrayDataProvider([
-                'ok'                            => [
+                'ok'           => [
                     new GraphQLSuccess('createOrgRole', CreateOrgRole::class, [
                         'created' => [
                             'id'              => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
@@ -122,7 +122,7 @@ class CreateOrgRoleTest extends TestCase {
                     ],
                     $requests,
                 ],
-                'invalid request/Invalid color' => [
+                'Invalid name' => [
                     new GraphQLError('createOrgRole', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
