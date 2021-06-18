@@ -17,4 +17,9 @@ class Role extends JsonObject {
      * @var array<string>
      */
     public array $attributes;
+
+    /**
+     * @var array<\App\Services\KeyCloak\Client\Types\RoleComposite>
+     */
+    public array $composites;
 }

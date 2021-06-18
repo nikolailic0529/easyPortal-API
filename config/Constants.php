@@ -97,6 +97,14 @@ interface Constants {
     #[Group('ep')]
     #[Type(Organization::class)]
     public const EP_ROOT_ORGANIZATION = '40765bbb-4736-4d2f-8964-1c3fd4e59aac';
+
+    /**
+     * Dashboard url.
+     */
+    #[Setting('ep.dashboard_url')]
+    #[Group('ep')]
+    #[Type(StringType::class)]
+    public const EP_DASHBOARD_URL = '';
     // </editor-fold>
 
     // <editor-fold desc="EP_CLIENT">
