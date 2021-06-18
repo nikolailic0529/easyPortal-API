@@ -504,7 +504,7 @@ input DocumentEntriesQuery {
   serial_number: String
   product_id: ID!
   product: ProductsQuery
-  service_id: ID!
+  service_id: ID
   service: ProductsQuery
   currency_id: ID
 }
@@ -519,8 +519,8 @@ type DocumentEntry {
   serial_number: String
   product_id: ID!
   product: Product!
-  service_id: ID!
-  service: Product!
+  service_id: ID
+  service: Product
   currency_id: ID
   currency: Currency
 }
@@ -1470,7 +1470,7 @@ input SearchByConditionDocumentEntriesQuery {
   product: SearchByRelationProductsQuery
 
   """Property condition."""
-  service_id: SearchByScalarID
+  service_id: SearchByScalarIDOrNull
 
   """Property condition."""
   service: SearchByRelationProductsQuery

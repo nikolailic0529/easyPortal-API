@@ -8,7 +8,7 @@ input DocumentEntriesQuery {
   serial_number: String
   product_id: ID!
   product: ProductsQuery
-  service_id: ID!
+  service_id: ID
   service: ProductsQuery
   currency_id: ID
 }

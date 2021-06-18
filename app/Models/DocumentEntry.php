@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                       $id
  * @property string                       $document_id
  * @property string                       $asset_id
- * @property string                       $service_id
+ * @property string|null                  $service_id
  * @property string                       $product_id
  * @property string|null                  $serial_number
  * @property string|null                  $currency_id
@@ -30,7 +30,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \App\Models\Currency|null    $currency
  * @property \App\Models\Document         $document
  * @property \App\Models\Product          $product
- * @property \App\Models\Product          $service
+ * @property \App\Models\Product|null     $service
  * @method static \Database\Factories\DocumentEntryFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry newQuery()
