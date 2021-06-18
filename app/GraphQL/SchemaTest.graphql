@@ -37,6 +37,7 @@ type Application {
   """
   translations(locale: String!): [Translation!]!
   locale: String!
+  permissions: [String!]
 }
 
 type ApplicationJob {
@@ -312,6 +313,14 @@ type CreateMeSearchPayload {
   created: MeSearch!
 }
 
+input CreateOrgRoleInput {
+  name: String!
+}
+
+type CreateOrgRolePayload {
+  created: Role!
+}
+
 type Currency {
   id: ID!
   code: String!
@@ -449,6 +458,14 @@ input DeleteMeSearchInput {
 
 type DeleteMeSearchPayload {
   deleted: Boolean!
+}
+
+input DeleteOrgRoleInput {
+  id: ID!
+}
+
+type DeleteOrgRolePayload {
+  deleted: String!
 }
 
 input DispatchApplicationServiceInput {
@@ -742,6 +759,8 @@ type Mutation {
   updateClientTranslations(input: UpdateClientTranslationsInput!): UpdateClientTranslationsPayload
 
   """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
   @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
   """
   updateOrg(input: UpdateOrgInput!): UpdateOrgPayload
@@ -787,6 +806,27 @@ type Mutation {
   @require <me> User must be authenticated.
   """
   signOut: SignOutPayload
+
+  """
+  Create Organization Role.
+  
+  @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
+  """
+  createOrgRole(input: CreateOrgRoleInput): CreateOrgRolePayload
+
+  """
+  DELETE Organization Role.
+  
+  @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
+  """
+  deleteOrgRole(input: DeleteOrgRoleInput): DeleteOrgRolePayload
+
+  """
+  Update Organization Role.
+  
+  @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
+  """
+  updateOrgRole(input: UpdateOrgRoleInput): UpdateOrgRolePayload
 }
 
 type Oem {
@@ -821,6 +861,11 @@ type Organization {
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
   keycloak_scope: String
+
+  """
+  @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
+  """
+  roles: [Role!]!
 }
 
 type OrganizationBranding {
@@ -1203,6 +1248,12 @@ input ResetPasswordInput {
 
 type ResetPasswordPayload {
   result: Boolean!
+}
+
+type Role {
+  id: ID!
+  organization_id: ID!
+  name: String!
 }
 
 """
@@ -2669,6 +2720,15 @@ input UpdateOrgInput {
 type UpdateOrgPayload {
   result: Boolean!
   organization: Organization!
+}
+
+input UpdateOrgRoleInput {
+  id: ID!
+  name: String!
+}
+
+type UpdateOrgRolePayload {
+  updated: Role!
 }
 
 """

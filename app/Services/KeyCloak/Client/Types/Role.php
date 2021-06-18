@@ -11,6 +11,7 @@ class Role extends JsonObject {
     public string $description;
     public bool   $clientRole;
     public bool   $composite;
+    public string $path;
 
     /**
      * @var array<string>

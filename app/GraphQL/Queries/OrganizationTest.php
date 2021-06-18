@@ -141,6 +141,11 @@ class OrganizationTest extends TestCase {
                             enabled
                             emailVerified
                         }
+                        roles {
+                            id
+                            name
+                            organization_id
+                          }
                     }
                 }
             ', ['id' => $organizationId])->assertThat($expected);
@@ -232,6 +237,7 @@ class OrganizationTest extends TestCase {
             new RootOrganizationDataProvider('organization'),
             new UserDataProvider('organization', [
                 'administer',
+                'edit-organization',
             ]),
             new ArrayDataProvider([
                 'ok' => [
@@ -306,6 +312,13 @@ class OrganizationTest extends TestCase {
                                 'email'         => 'virtualcomputersa_3@tesedi.com',
                             ],
                         ],
+                        'roles'          => [
+                            [
+                                'id'              => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20946',
+                                'name'            => 'role1',
+                                'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00'
+                            ],
+                        ],
                     ]),
                     [
                         'ep.headquarter_type' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -350,6 +363,10 @@ class OrganizationTest extends TestCase {
                             ]);
                         $organization = Organization::factory()
                             ->for($currency)
+                            ->hasRoles(1, [
+                                'id'   => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20946',
+                                'name' => 'role1',
+                            ])
                             ->create([
                                 'id'                               => $reseller->getKey(),
                                 'name'                             => 'org1',

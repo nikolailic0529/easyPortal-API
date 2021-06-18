@@ -1,0 +1,16 @@
+extend type Mutation {
+  "Create Organization Role."
+  createOrgRole(
+    input: CreateOrgRoleInput
+  ): CreateOrgRolePayload
+    @field(resolver: "App\\GraphQL\\Mutations\\Roles\\CreateOrgRole")
+    @me(permissions: ["edit-organization"])
+}
+
+input CreateOrgRoleInput {
+  name: String!
+}
+
+type CreateOrgRolePayload {
+  created: Role!
+}

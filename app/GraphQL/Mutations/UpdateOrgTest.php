@@ -139,6 +139,11 @@ class UpdateOrgTest extends TestCase {
                     latitude
                     longitude
                   }
+                  roles {
+                    id
+                    name
+                    organization_id
+                  }
               }
             }
           }';

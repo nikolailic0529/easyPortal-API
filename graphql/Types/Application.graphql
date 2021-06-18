@@ -32,4 +32,7 @@ type Application {
 
   locale: String!
   @field(resolver: "App\\GraphQL\\Queries\\Application\\Locale")
+
+  permissions: [String!]
+  @field(resolver: "App\\GraphQL\\Queries\\Application\\Permissions")
 }

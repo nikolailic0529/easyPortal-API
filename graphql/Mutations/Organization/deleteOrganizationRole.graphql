@@ -1,0 +1,16 @@
+extend type Mutation {
+  "DELETE Organization Role."
+  deleteOrgRole(
+    input: DeleteOrgRoleInput
+  ): DeleteOrgRolePayload
+    @field(resolver: "App\\GraphQL\\Mutations\\Roles\\DeleteOrgRole")
+    @me(permissions: ["edit-organization"])
+}
+
+input DeleteOrgRoleInput {
+  id: ID!
+}
+
+type DeleteOrgRolePayload {
+  deleted: String!
+}
