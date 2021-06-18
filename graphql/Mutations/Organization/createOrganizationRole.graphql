@@ -7,7 +7,7 @@ extend type Mutation {
     @me(permissions: ["edit-organization"])
 }
 
-input CreateOrgRoleInput {
+input CreateOrgRoleInput @validator {
   name: String!
 }
 
