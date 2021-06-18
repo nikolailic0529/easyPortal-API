@@ -12,6 +12,13 @@ use Tests\TestCase;
  */
 class SyncPermissionsTest extends TestCase {
     /**
+     * @coversNothing
+     */
+    public function testRegistration(): void {
+        $this->assertCronableRegistered(SyncPermissions::class);
+    }
+
+    /**
      * @covers ::handle
      */
     public function testHandle(): void {

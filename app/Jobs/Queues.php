@@ -14,7 +14,7 @@ interface Queues {
     /**
      * Default queue.
      */
-    public const DEFAULT       = 'default';
+    public const DEFAULT          = 'default';
 
     /**
      * Default queue for Data Loader
@@ -24,5 +24,5 @@ interface Queues {
     /**
      * Default queue for Data Loader Update jobs.
      */
-    public const KEYCLOAK_SYNC = 'keycloak-sync';
+    public const KEYCLOAK_DEFAULT = self::DEFAULT;
 }

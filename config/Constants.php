@@ -219,22 +219,29 @@ interface Constants {
     #[Group('keycloak')]
     public const EP_KEYCLOAK_TIMEOUT = 5 * 60;
 
-    // <editor-fold desc="KEYCLOAK_SYNC_PERMISSIONS">
+    // <editor-fold desc="EP_KEYCLOAK_SYNC_PERMISSIONS">
     // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(SyncPermissions::class, 'enabled')]
+    #[Group('keycloak')]
+    public const EP_KEYCLOAK_SYNC_PERMISSIONS_ENABLED = true;
+
     /**
      * Cron expression.
      */
     #[Service(SyncPermissions::class, 'cron')]
     #[Group('keycloak')]
     #[Type(CronExpression::class)]
-    public const KEYCLOAK_SYNC_PERMISSIONS = '0 0 * * *';
+    public const EP_KEYCLOAK_SYNC_PERMISSIONS_CRON = '0 0 * * *';
 
     /**
      * Queue name.
      */
     #[Service(SyncPermissions::class, 'queue')]
     #[Group('keycloak')]
-    public const KEYCLOAK_SYNC_PERMISSIONS_QUEUE = Queues::KEYCLOAK_SYNC;
+    public const EP_KEYCLOAK_SYNC_PERMISSIONS_QUEUE = Queues::KEYCLOAK_DEFAULT;
     // </editor-fold>
 
     // </editor-fold>
