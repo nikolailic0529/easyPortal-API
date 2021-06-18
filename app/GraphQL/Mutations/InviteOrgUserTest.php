@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Mail\InviteOrganizationUser as MailInviteOrganizationUser;
+use App\Mail\InviteOrganizationUser;
 use App\Models\Organization;
 use Closure;
 use Illuminate\Http\Client\Factory;
@@ -18,9 +18,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\InviteOrganizationUser
+ * @coversDefaultClass \App\GraphQL\Mutations\InviteOrgUser
  */
-class InviteOrganizationUserTest extends TestCase {
+class InviteOrgUserTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -57,15 +57,15 @@ class InviteOrganizationUserTest extends TestCase {
 
         // Test
         $this
-            ->graphQL(/** @lang GraphQL */ 'mutation inviteOrganizationUser($input: inviteOrganizationUserInput!) {
-                inviteOrganizationUser(input:$input) {
+            ->graphQL(/** @lang GraphQL */ 'mutation inviteOrgUser($input: inviteOrgUserInput!) {
+                inviteOrgUser(input:$input) {
                     result
                 }
             }', ['input' => $data])
             ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
-            Mail::assertSent(MailInviteOrganizationUser::class);
+            Mail::assertSent(InviteOrganizationUser::class);
         }
     }
     // </editor-fold>
@@ -77,19 +77,20 @@ class InviteOrganizationUserTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('inviteOrganizationUser'),
-            new UserDataProvider('inviteOrganizationUser', [
+            new OrganizationDataProvider('inviteOrgUser'),
+            new UserDataProvider('inviteOrgUser', [
                 'edit-organization',
             ]),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('inviteOrganizationUser', InviteOrganizationUser::class),
+                    new GraphQLSuccess('inviteOrgUser', InviteOrgUser::class),
                     static function (TestCase $test, Organization $organization): Organization {
                         if ($organization && !$organization->keycloak_group_id) {
                             $organization->keycloak_group_id = $test->faker->uuid();
                             $organization->save();
                             $organization = $organization->fresh();
                         }
+
                         return $organization;
                     },
                     [

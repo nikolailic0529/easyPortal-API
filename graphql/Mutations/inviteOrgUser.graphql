@@ -1,0 +1,16 @@
+extend type Mutation {
+  inviteOrgUser(
+    input: inviteOrgUserInput!
+  ): inviteOrgUserPayload
+  @organization
+  @me(permissions: ["edit-organization"])
+}
+
+input inviteOrgUserInput {
+  email: String! @rules(apply: ["email"])
+  role: String!
+}
+
+type inviteOrgUserPayload {
+  result: Boolean!
+}

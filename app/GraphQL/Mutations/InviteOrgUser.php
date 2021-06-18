@@ -2,12 +2,12 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Mail\InviteOrganizationUser as MailInviteOrganizationUser;
+use App\Mail\InviteOrganizationUser;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Mail\Mailer;
 
-class InviteOrganizationUser {
+class InviteOrgUser {
     public function __construct(
         protected Client $client,
         protected Mailer $mailer,
@@ -25,7 +25,7 @@ class InviteOrganizationUser {
     public function __invoke($_, array $args): array {
         $organization = $this->organization->get();
         $this->client->inviteUser($organization, $args['input']['email']);
-        $this->mailer->to($args['input']['email'])->send(new MailInviteOrganizationUser($organization));
+        $this->mailer->to($args['input']['email'])->send(new InviteOrganizationUser($organization));
         return ['result' => true ];
     }
 }

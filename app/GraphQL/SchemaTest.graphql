@@ -692,9 +692,11 @@ type Mutation {
   dispatchApplicationService(input: DispatchApplicationServiceInput!): DispatchApplicationServicePayload
 
   """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
   @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
   """
-  inviteOrganizationUser(input: inviteOrganizationUserInput!): inviteOrganizationUserPayload
+  inviteOrgUser(input: inviteOrgUserInput!): inviteOrgUserPayload
 
   """
   Force delete all custom settings, may be useful to restore the corrupted file.
@@ -2748,12 +2750,12 @@ type User {
   family_name: String!
 }
 
-input inviteOrganizationUserInput {
+input inviteOrgUserInput {
   email: String!
   role: String!
 }
 
-type inviteOrganizationUserPayload {
+type inviteOrgUserPayload {
   result: Boolean!
 }
 
