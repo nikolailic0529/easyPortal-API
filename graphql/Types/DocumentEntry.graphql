@@ -8,8 +8,8 @@ type DocumentEntry {
   serial_number: String
   product_id: ID!
   product: Product!
-  service_id: ID!
-  service: Product! @belongsTo
+  service_id: ID
+  service: Product @belongsTo
   currency_id: ID
   currency: Currency @belongsTo
 }

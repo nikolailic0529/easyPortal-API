@@ -48,6 +48,8 @@ use function sprintf;
  * @property \App\Models\Type                                                    $type
  * @property \App\Models\Status                                                  $status
  * @property \App\Models\AssetCoverage                                           $coverage
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $documentEntries
+ * @property-write int|null                                                      $document_entries
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $warranties
  * @property-read int|null                                                       $warranties_count
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
@@ -142,6 +144,17 @@ class Asset extends Model {
 
     public function setCoverageAttribute(?AssetCoverage $coverage): void {
         $this->coverage()->associate($coverage);
+    }
+
+    public function documentEntries(): HasMany {
+        return $this->hasMany(DocumentEntry::class);
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\DocumentEntry>|array<\App\Models\DocumentEntry> $entries
+     */
+    public function setDocumentEntriesAttribute(Collection|array $entries): void {
+        $this->syncHasMany('documentEntries', $entries);
     }
 
     protected function getTagsPivot(): Pivot {

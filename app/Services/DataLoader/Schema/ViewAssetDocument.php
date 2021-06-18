@@ -3,8 +3,8 @@
 namespace App\Services\DataLoader\Schema;
 
 class ViewAssetDocument extends Type {
-    public string $skuNumber;
-    public string $skuDescription;
+    public ?string $skuNumber;
+    public ?string $skuDescription;
 
     public ?string $supportPackage;
     public ?string $supportPackageDescription;
@@ -26,6 +26,4 @@ class ViewAssetDocument extends Type {
 
     public ?Company $reseller;
     public ?Company $customer;
-
-    public ?Company $distributor;
 }

@@ -10,6 +10,7 @@ use Closure;
 use Exception;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
+use InvalidArgumentException;
 use LogicException;
 use Mockery;
 use Tests\TestCase;
@@ -100,6 +101,39 @@ class ResolverTest extends TestCase {
     }
 
     /**
+     * @covers ::resolve
+     */
+    public function testResolveWithFinder(): void {
+        // Prepare
+        $normalizer = $this->app->make(Normalizer::class);
+        $provider   = new class($normalizer) extends Resolver {
+            public function resolve(mixed $key, Closure $factory = null): ?Model {
+                return parent::resolve($key, $factory);
+            }
+        };
+
+        $id    = $this->faker->uuid;
+        $model = Mockery::mock(Model::class);
+        $model
+            ->shouldReceive('getKey')
+            ->twice()
+            ->andReturn($id);
+
+        $finder = Mockery::mock(ResolverFinder::class);
+        $finder
+            ->shouldReceive('find')
+            ->with($id)
+            ->once()
+            ->andReturn($model);
+
+        $provider->setFinder($finder);
+
+        // Value should be found through Finder
+        $this->assertSame($model, $provider->resolve($id));
+        $this->assertSame($model, $provider->resolve($id));
+    }
+
+    /**
      * @covers ::prefetch
      */
     public function testPrefetch(): void {
@@ -174,6 +208,44 @@ class ResolverTest extends TestCase {
         );
 
         $resolver->prefetch([1, 2, 3]);
+    }
+
+    /**
+     * @covers ::getResolved
+     */
+    public function testGetResolved(): void {
+        $items = new Collection();
+        $cache = Mockery::mock(Cache::class);
+        $cache
+            ->shouldReceive('getAll')
+            ->once()
+            ->andReturn($items);
+
+        $resolver = Mockery::mock(Resolver::class);
+        $resolver->shouldAllowMockingProtectedMethods();
+        $resolver->makePartial();
+        $resolver
+            ->shouldReceive('getCache')
+            ->withNoArgs()
+            ->once()
+            ->andReturn($cache);
+
+        $this->assertSame($items, $resolver->getResolved());
+    }
+
+    /**
+     * @covers ::setFinder
+     */
+    public function testSetFinder(): void {
+        $finder   = Mockery::mock(ResolverFinder::class);
+        $resolver = $this->app->make(ResolverTest_Resolver::class);
+
+        $resolver->setFinder($finder);
+        $resolver->setFinder($finder);
+
+        $this->expectExceptionObject(new InvalidArgumentException('Finder already set.'));
+
+        $resolver->setFinder(Mockery::mock(ResolverFinder::class));
     }
 }
 

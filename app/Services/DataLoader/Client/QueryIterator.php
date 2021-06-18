@@ -9,6 +9,7 @@ use IteratorAggregate;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
+use function array_filter;
 use function array_map;
 use function array_merge;
 use function min;
@@ -67,20 +68,20 @@ abstract class QueryIterator implements IteratorAggregate {
                 'limit' => $chunk,
             ]);
             $items  = (array) $this->client->call($this->selector, $this->graphql, $params);
-            $items  = array_map(function (mixed $item) use ($retriever): mixed {
+            $items  = array_filter(array_map(function (mixed $item) use ($retriever): mixed {
                 try {
                     return $retriever($item);
                 } catch (GraphQLRequestFailed $exception) {
                     throw $exception;
                 } catch (Throwable $exception) {
-                    $this->logger->warning(__METHOD__, [
+                    $this->logger->error(__METHOD__, [
                         'item'      => $item,
                         'exception' => $exception,
                     ]);
-
-                    throw $exception;
                 }
-            }, $items);
+
+                return null;
+            }, $items));
 
             $this->chunkLoaded($items);
 

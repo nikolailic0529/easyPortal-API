@@ -147,6 +147,31 @@ class Client {
         return $asset;
     }
 
+    public function getAssetByIdWithDocuments(string $id): ?ViewAsset {
+        $asset = $this->get(
+            'getAssets',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query getAssets(\$id: String!) {
+                getAssets(args: [{key: "id", value: \$id}]) {
+                    {$this->getAssetPropertiesGraphQL()}
+                    assetDocument {
+                        {$this->getAssetDocumentsPropertiesGraphQL()}
+                    }
+                }
+            }
+            GRAPHQL,
+            [
+                'id' => $id,
+            ],
+        );
+
+        if ($asset) {
+            $asset = new ViewAsset($asset);
+        }
+
+        return $asset;
+    }
+
     /**
      * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
@@ -259,6 +284,61 @@ class Client {
             )
             ->limit($limit)
             ->offset($offset);
+    }
+
+    /**
+     * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     */
+    public function getAssets(
+        int $limit = null,
+        string $lastId = null,
+    ): LastIdBasedIterator {
+        return $this
+            ->getLastIdBasedIterator(
+                'getAssets',
+                /** @lang GraphQL */ <<<GRAPHQL
+                query items(\$limit: Int, \$lastId: String) {
+                    getAssets(limit: \$limit, lastId: \$lastId) {
+                        {$this->getAssetPropertiesGraphQL()}
+                    }
+                }
+                GRAPHQL,
+                [],
+                static function (array $data): ViewAsset {
+                    return new ViewAsset($data);
+                },
+            )
+            ->limit($limit)
+            ->lastId($lastId);
+    }
+
+    /**
+     * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     */
+    public function getAssetsWithDocuments(
+        int $limit = null,
+        string $lastId = null,
+    ): LastIdBasedIterator {
+        return $this
+            ->getLastIdBasedIterator(
+                'getAssets',
+                /** @lang GraphQL */ <<<GRAPHQL
+                query items(\$limit: Int, \$lastId: String) {
+                    getAssets(limit: \$limit, lastId: \$lastId) {
+                        {$this->getAssetPropertiesGraphQL()}
+                        assetDocument {
+                            {$this->getAssetDocumentsPropertiesGraphQL()}
+                        }
+                    }
+                }
+                GRAPHQL,
+                [],
+                static function (array $data): ViewAsset {
+                    return new ViewAsset($data);
+                },
+            )
+            ->limit($limit)
+            ->lastId($lastId);
     }
 
     /**
@@ -680,10 +760,7 @@ class Client {
 
                 customerId
                 resellerId
-
-                distributor {
-                    {$this->getDistributorPropertiesGraphQL()}
-                }
+                distributorId
             }
 
             skuNumber
@@ -702,10 +779,6 @@ class Client {
 
             reseller {
               id
-            }
-
-            distributor {
-                {$this->getDistributorPropertiesGraphQL()}
             }
             GRAPHQL;
     }

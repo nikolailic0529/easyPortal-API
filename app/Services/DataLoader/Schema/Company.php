@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Schema;
 
-class Company extends Type {
+class Company extends Type implements TypeWithId {
     public string  $id;
     public string  $name;
     public ?string $keycloakName;

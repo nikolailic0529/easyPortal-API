@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Asset as AssetModel;
 use App\Models\AssetWarranty;
 use App\Models\Customer;
+use App\Models\Document;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry;
 use App\Models\Enums\ProductType;
@@ -48,7 +49,9 @@ use Throwable;
 use function array_map;
 use function array_merge;
 use function array_unique;
+use function array_values;
 use function count;
+use function implode;
 use function sprintf;
 
 class AssetFactory extends ModelFactory implements FactoryPrefetchable {
@@ -172,7 +175,13 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $model->coverage      = $this->coverages->create($asset);
 
             if ($this->getDocumentFactory() && isset($asset->assetDocument)) {
-                $model->warranties = $this->assetWarranties($model, $asset);
+                $documents              = $this->assetDocuments($model, $asset);
+                $model->warranties      = $this->assetWarranties($model, $asset, $documents);
+                $model->documentEntries = $documents
+                    ->map(static function (Document $document): Collection {
+                        return $document->entries;
+                    })
+                    ->flatten();
             }
 
             $model->save();
@@ -260,10 +269,11 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     }
 
     /**
+     * @param \Illuminate\Support\Collection<\App\Models\Document>
+     *
      * @return array<\App\Models\AssetWarranty>
      */
-    protected function assetWarranties(AssetModel $model, ViewAsset $asset): array {
-        $documents  = $this->assetDocuments($model, $asset);
+    protected function assetWarranties(AssetModel $model, ViewAsset $asset, Collection $documents): array {
         $warranties = array_merge(
             $this->assetInitialWarranties($model, $asset, $documents),
             $this->assetExtendedWarranties($model, $documents),
@@ -308,6 +318,13 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 continue;
             }
 
+            // Already added?
+            $key = implode('|', [$end->getTimestamp(), $document->reseller_id, $document->customer_id]);
+
+            if (isset($warranties[$key])) {
+                continue;
+            }
+
             // Create/Update
             /** @var \App\Models\AssetWarranty|null $warranty */
             $warranty = $existing
@@ -331,11 +348,11 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $warranty->save();
 
             // Store
-            $warranties[] = $warranty;
+            $warranties[$key] = $warranty;
         }
 
         // Return
-        return $warranties;
+        return array_values($warranties);
     }
 
     /**
@@ -375,7 +392,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $warranty->document = $document;
             $warranty->services = $document->entries
                 ->filter(static function (DocumentEntry $entry) use ($asset): bool {
-                    return $entry->asset_id === $asset->getKey();
+                    return $entry->asset_id === $asset->getKey() && $entry->service;
                 })
                 ->map(static function (DocumentEntry $entry): Product {
                     return $entry->service;

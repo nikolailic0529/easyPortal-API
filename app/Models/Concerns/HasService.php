@@ -17,8 +17,8 @@ trait HasService {
         return $this->belongsTo(Product::class);
     }
 
-    public function setServiceAttribute(Product $product): void {
-        if ($product->type !== ProductType::service()) {
+    public function setServiceAttribute(?Product $product): void {
+        if ($product && $product->type !== ProductType::service()) {
             throw new InvalidArgumentException(sprintf(
                 'The product must be type `%s`, `%s` given.',
                 ProductType::asset(),

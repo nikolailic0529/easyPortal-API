@@ -3,10 +3,13 @@
 namespace App\Services\DataLoader\Container;
 
 use App\Services\DataLoader\Client\Client;
+use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolver;
+use App\Services\DataLoader\Schema\Type;
+use Exception;
 use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
@@ -118,6 +121,25 @@ class ContainerTest_Loader extends Loader {
         public ContainerTest_Singleton $singleton,
     ) {
         parent::__construct($logger, $client);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getObject(array $properties): ?Type {
+        return null;
+    }
+
+    protected function getObjectById(string $id): ?Type {
+        return null;
+    }
+
+    protected function getObjectFactory(): ModelFactory {
+        throw new Exception();
+    }
+
+    protected function getModelNotFoundException(string $id): Exception {
+        throw new Exception();
     }
 }
 
