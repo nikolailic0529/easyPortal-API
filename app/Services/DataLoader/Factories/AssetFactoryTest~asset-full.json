@@ -60,6 +60,45 @@
             "listPrice": "48",
             "currencyCode": "EUR",
             "estimatedValueRenewal": "145"
+        },
+        {
+            "documentNumber": "0056523287",
+            "document": {
+                "id": "688b9621-3244-464b-9468-3cd74f5eaacf",
+                "type": "MultiNational Quote",
+                "startDate": "1583020800000",
+                "endDate": "1614470400000",
+                "totalNetPrice": "1,292.16",
+                "currencyCode": "CUR",
+                "languageCode": "fr",
+                "vendorSpecificFields": {
+                    "vendor": "HPE"
+                },
+                "documentNumber": "0056523287",
+                "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
+                "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a",
+                "contactPersons": [
+                    {
+                        "phoneNumber": "+49 (591) 12345-68",
+                        "vendor": "HPA",
+                        "name": "Alice Mark",
+                        "type": "SOFTWARE_CONTACT",
+                        "mail": "alice@example.com"
+                    }
+                ]
+            },
+            "skuNumber": null,
+            "skuDescription": null,
+            "supportPackage": "H7J34AC",
+            "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
+            "startDate": "1583020800000",
+            "endDate": "1614470400000",
+            "warrantyEndDate": "1614470400000",
+            "netPrice": "22.4",
+            "discount": "0",
+            "listPrice": "8",
+            "currencyCode": "EUR",
+            "estimatedValueRenewal": "123"
         }
     ],
     "latestContactPersons": [
