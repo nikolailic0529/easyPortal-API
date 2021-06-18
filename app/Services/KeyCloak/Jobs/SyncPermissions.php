@@ -12,7 +12,7 @@ use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
  */
 class SyncPermissions extends CronJob implements ShouldBeUnique, NamedJob {
     public function displayName(): string {
-        return 'ep:keycloak-sync-permissions';
+        return 'ep-keycloak-sync-permissions';
     }
 
     public function handle(Kernel $artisan): void {
