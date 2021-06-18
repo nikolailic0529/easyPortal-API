@@ -150,7 +150,7 @@ class AssetFactoryTest extends TestCase {
 
         // Documents
         $this->assertEquals(1, Document::query()->count());
-        $this->assertEquals(1, DocumentEntry::query()->count());
+        $this->assertEquals(2, DocumentEntry::query()->count());
 
         // Warranties
         $this->assertEquals(

@@ -49,7 +49,9 @@ use Throwable;
 use function array_map;
 use function array_merge;
 use function array_unique;
+use function array_values;
 use function count;
+use function implode;
 use function sprintf;
 
 class AssetFactory extends ModelFactory implements FactoryPrefetchable {
@@ -316,6 +318,13 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 continue;
             }
 
+            // Already added?
+            $key = implode('|', [$end->getTimestamp(), $document->reseller_id, $document->customer_id]);
+
+            if (isset($warranties[$key])) {
+                continue;
+            }
+
             // Create/Update
             /** @var \App\Models\AssetWarranty|null $warranty */
             $warranty = $existing
@@ -339,11 +348,11 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $warranty->save();
 
             // Store
-            $warranties[] = $warranty;
+            $warranties[$key] = $warranty;
         }
 
         // Return
-        return $warranties;
+        return array_values($warranties);
     }
 
     /**
@@ -383,7 +392,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $warranty->document = $document;
             $warranty->services = $document->entries
                 ->filter(static function (DocumentEntry $entry) use ($asset): bool {
-                    return $entry->asset_id === $asset->getKey();
+                    return $entry->asset_id === $asset->getKey() && $entry->service;
                 })
                 ->map(static function (DocumentEntry $entry): Product {
                     return $entry->service;
