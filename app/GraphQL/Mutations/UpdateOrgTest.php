@@ -239,7 +239,6 @@ class UpdateOrgTest extends TestCase {
             new OrganizationDataProvider('updateOrg', '439a0a06-d98a-41f0-b8e5-4e5722518e01'),
             new UserDataProvider('updateOrg', [
                 'edit-organization',
-                'administer',
             ]),
             new ArrayDataProvider([
                 'ok'                               => [
