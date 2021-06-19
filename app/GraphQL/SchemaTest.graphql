@@ -37,7 +37,6 @@ type Application {
   """
   translations(locale: String!): [Translation!]!
   locale: String!
-  permissions: [String!]
 }
 
 type ApplicationJob {
@@ -2732,6 +2731,7 @@ type UpdateOrgPayload {
 input UpdateOrgRoleInput {
   id: ID!
   name: String!
+  permissions: [ID!]!
 }
 
 type UpdateOrgRolePayload {
