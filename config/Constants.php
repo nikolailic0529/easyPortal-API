@@ -109,7 +109,7 @@ interface Constants {
     #[Setting('ep.dashboard_url')]
     #[Group('ep')]
     #[Type(StringType::class)]
-    public const EP_DASHBOARD_URL = '';
+    public const EP_CLIENT_ORGANIZATION_SIGNIN_URI = '';
     // </editor-fold>
 
     // <editor-fold desc="EP_CLIENT">

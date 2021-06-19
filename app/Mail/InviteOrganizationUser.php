@@ -4,7 +4,7 @@ namespace App\Mail;
 
 use App\Models\Organization;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -25,12 +25,9 @@ class InviteOrganizationUser extends Mailable {
      * @return $this
      */
     public function build() {
-        $config = app()->make(Repository::class);
-        $base   = (string) $config->get('ep.dashboard_url');
-        $base   = rtrim($base, '/');
-        $url    = "{$base}/{$this->organization->getKey()}";
+        $url = app()->make(UrlGenerator::class);
         return $this->markdown('invite_user', [
-            'url' => $url,
+            'url' => $url->to("auth/organizations/{$this->organization->getKey()}")
         ]);
     }
 }
