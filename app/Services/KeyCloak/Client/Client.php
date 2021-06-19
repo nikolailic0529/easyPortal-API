@@ -130,23 +130,17 @@ class Client {
         $result   = $this->call($endpoint, 'POST', ['json' => $input->toArray()]);
         $group    = new Group($result);
 
-        if (!empty($roles)) {
-            $this->addRolesToGroup($group, $roles);
-        }
-
         return $group;
     }
 
     /**
      * @param array<\App\Services\KeyCloak\Client\Types\Role> $roles
      */
-    public function editSubGroup(RoleModel $role, string $name, array $roles = []): void {
+    public function editSubGroup(RoleModel $role, string $name): void {
         // PUT /{realm}/groups/{id}
         $endpoint = "groups/{$role->id}";
         $input    = new Group(['name' => $name]);
         $this->call($endpoint, 'PUT', ['json' => $input->toArray()]);
-
-        // Sync Roles
     }
 
     public function deleteGroup(RoleModel $role): void {
@@ -156,16 +150,13 @@ class Client {
     }
 
     /**
-     * @param array<\App\Services\KeyCloak\Client\Types\Role> $roles
+     * @param array<\App\Services\KeyCloak\Client\Types\Role> $permissions
      */
-    protected function addRolesToGroup(Group $group, array $roles = []): Group {
+    public function addRolesToGroup(RoleModel $role, array $permissions): void {
         // GET {realm}/groups/{groupId}/role-mappings/clients/{clientId}/
         $clientId = $this->config->get('ep.keycloak.client_uuid');
-        $endpoint = "groups/{$group->id}/role-mappings/clients/{$clientId}";
-        $result   = $this->call($endpoint, 'POST', ['json' => $roles]);
-        $result   = new Group($result);
-
-        return $result;
+        $endpoint = "groups/{$role->id}/role-mappings/clients/{$clientId}";
+        $this->call($endpoint, 'POST', ['json' => $permissions]);
     }
 
     /**
@@ -216,7 +207,6 @@ class Client {
 
         return true;
     }
-
     // </editor-fold>
 
     // <editor-fold desc="API">

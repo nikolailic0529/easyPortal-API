@@ -142,7 +142,6 @@ class UpdateOrgTest extends TestCase {
                   roles {
                     id
                     name
-                    organization_id
                   }
               }
             }
