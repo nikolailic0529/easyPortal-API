@@ -156,32 +156,43 @@ class Client {
     /**
      * @return array<\App\Services\KeyCloak\Client\Types\Role>
      */
-    public function group(Organization $organization): Group {
+    public function group(Organization|RoleModel $object): ?Group {
         // GET /{realm}/groups/{id}
-        if (!$organization->keycloak_group_id) {
-            throw new InvalidKeyCloakGroup();
+        $id = null;
+
+        if ($object instanceof Organization) {
+            $id = $object->keycloak_group_id;
+        } elseif ($object instanceof RoleModel) {
+            $id = $object->getKey();
         }
 
-        $endpoint = "groups/{$organization->keycloak_group_id}";
+        if (!$id) {
+            return null;
+        }
+
+        $endpoint = "groups/{$id}";
         $result   = $this->call($endpoint);
         $result   = new Group($result);
 
         return $result;
     }
 
-    public function inviteUser(Organization $organization, string $email): bool {
-        if (!$organization->keycloak_group_id) {
-            throw new InvalidKeyCloakGroup();
-        }
-
+    public function inviteUser(RoleModel $role, string $email): bool {
         // POST /{realm}/users
         $endpoint = 'users';
 
-        $input  = new UserInput([
-            'email'  => $email,
-            'groups' => ["resellers/{$organization->keycloak_scope}"],
-        ]);
+        // Get Group path
+        $group = $this->group($role);
 
+        if (!$group) {
+            return false;
+        }
+
+        $input        = new UserInput([
+            'email'           => $email,
+            'groups'          => [$group->path],
+            'requiredActions' => $this->config->get('ep.keycloak.signup_actions'),
+        ]);
         $errorHandler = function (Exception $exception) use ($endpoint): bool {
             if ($exception instanceof RequestException) {
                 if ($exception->getCode() === Response::HTTP_CONFLICT) {

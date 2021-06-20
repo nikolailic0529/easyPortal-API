@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property \App\Models\Organization     $organization
  * @method static \Database\Factories\RoleFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role newQuery()
