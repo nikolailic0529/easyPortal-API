@@ -10,8 +10,6 @@ use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakGroup;
 use App\Services\KeyCloak\Client\Exceptions\KeyCloakDisabled;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role;
-use App\Services\KeyCloak\Client\Types\Permission;
-use App\Services\KeyCloak\Client\Types\Role;
 use App\Services\KeyCloak\Client\Types\User;
 use App\Services\KeyCloak\Client\Types\UserInput;
 use Closure;
