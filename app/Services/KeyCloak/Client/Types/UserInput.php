@@ -13,5 +13,5 @@ class UserInput extends Input {
     /**
      * @var array<string>
      */
-    public array $clientRoles;
+    public array $requiredActions;
 }
