@@ -27,11 +27,11 @@ class OffsetBasedIterator extends QueryIterator {
     }
 
     /**
-     * @inheritDoc
+     * @param array<mixed> $items
      */
-    protected function isLastChunk(array $items): bool {
+    protected function chunkProcessed(array $items): bool {
         $this->offset($this->offset + count($items));
 
-        return false;
+        return parent::chunkProcessed($items);
     }
 }

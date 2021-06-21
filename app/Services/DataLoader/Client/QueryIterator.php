@@ -88,9 +88,7 @@ abstract class QueryIterator implements IteratorAggregate {
                 }
             }
 
-            $this->chunkProcessed($items);
-
-            if ($this->isLastChunk($items)) {
+            if (!$this->chunkProcessed($items)) {
                 break;
             }
         } while ($items);
@@ -141,7 +139,7 @@ abstract class QueryIterator implements IteratorAggregate {
     /**
      * @param array<mixed> $items
      */
-    protected function chunkProcessed(array $items): void {
+    protected function chunkProcessed(array $items): bool {
         try {
             if ($this->afterChunk) {
                 ($this->afterChunk)($items);
@@ -151,10 +149,7 @@ abstract class QueryIterator implements IteratorAggregate {
                 'exception' => $exception,
             ]);
         }
-    }
 
-    /**
-     * @param array<mixed> $items
-     */
-    abstract protected function isLastChunk(array $items): bool;
+        return true;
+    }
 }
