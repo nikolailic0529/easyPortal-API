@@ -2,11 +2,7 @@
 
 namespace App\Services\DataLoader\Loaders\Concerns;
 
-use App\Models\Asset;
-use App\Models\Customer;
-use App\Models\Document;
 use App\Models\Model;
-use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\OffsetBasedIterator;
 use App\Services\DataLoader\Events\ObjectSkipped;

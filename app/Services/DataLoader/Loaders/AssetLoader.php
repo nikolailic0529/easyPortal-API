@@ -12,7 +12,6 @@ use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use Exception;
-use Illuminate\Contracts\Events\Dispatcher;
 use Psr\Log\LoggerInterface;
 
 class AssetLoader extends Loader {
@@ -21,7 +20,6 @@ class AssetLoader extends Loader {
     public function __construct(
         LoggerInterface $logger,
         Client $client,
-        protected Dispatcher $dispatcher,
         protected AssetFactory $assets,
         protected DocumentFactory $documents,
     ) {

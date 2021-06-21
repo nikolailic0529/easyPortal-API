@@ -31,6 +31,10 @@ abstract class Loader implements Isolated {
         // empty
     }
 
+    protected function getLogger(): LoggerInterface {
+        return $this->logger;
+    }
+
     // <editor-fold desc="Abstract">
     // =========================================================================
     /**
