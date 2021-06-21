@@ -194,6 +194,13 @@ class Client {
 
         return true;
     }
+
+    public function getUserById(string $id): User {
+        // GET /{realm}/users/{id}
+        $endpoint = "users/{$id}";
+        $result   = $this->call($endpoint);
+        return new User($result);
+    }
     // </editor-fold>
 
     // <editor-fold desc="API">

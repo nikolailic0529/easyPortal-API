@@ -13,4 +13,7 @@ type Me {
     order: MeSearchSort @sortBy
   ): [MeSearch!]!
   @hasMany
+
+  profile: profile
+  @field(resolver: "App\\GraphQL\\Queries\\Me@profile")
 }
