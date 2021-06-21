@@ -27,16 +27,16 @@ class LastIdBasedIterator extends QueryIterator {
     /**
      * @inheritDoc
      */
-    protected function chunkProcessed(array $items): bool {
-        $last     = end($items);
-        $continue = false;
+    protected function isLastChunk(array $items): bool {
+        $last   = end($items);
+        $isLast = true;
 
         if ($last instanceof Type && isset($last->id)) {
             $this->lastId($last->id);
 
-            $continue = true;
+            $isLast = false;
         }
 
-        return $continue;
+        return $isLast;
     }
 }

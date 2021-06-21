@@ -25,9 +25,9 @@ class OffsetBasedIterator extends QueryIterator {
     /**
      * @inheritDoc
      */
-    protected function chunkProcessed(array $items): bool {
+    protected function isLastChunk(array $items): bool {
         $this->offset($this->offset + count($items));
 
-        return true;
+        return false;
     }
 }

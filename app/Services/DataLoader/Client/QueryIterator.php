@@ -15,9 +15,10 @@ use function array_merge;
 use function min;
 
 abstract class QueryIterator implements IteratorAggregate {
-    protected ?Closure $each  = null;
-    protected ?int     $limit = null;
-    protected int      $chunk = 1000;
+    protected ?Closure $beforeChunk = null;
+    protected ?Closure $afterChunk  = null;
+    protected ?int     $limit       = null;
+    protected int      $chunk       = 1000;
 
     /**
      * @param array<mixed> $params
@@ -48,40 +49,32 @@ abstract class QueryIterator implements IteratorAggregate {
     /**
      * Sets the closure that will be called after received each chunk.
      */
-    public function each(?Closure $each): static {
-        $this->each = $each;
+    public function beforeChunk(?Closure $closure): static {
+        $this->beforeChunk = $closure;
+
+        return $this;
+    }
+
+    /**
+     * Sets the closure that will be called after chunk processed.
+     */
+    public function afterChunk(?Closure $closure): static {
+        $this->afterChunk = $closure;
 
         return $this;
     }
 
     public function getIterator(): Generator {
-        $index     = 0;
-        $chunk     = $this->limit ? min($this->limit, $this->chunk) : $this->chunk;
-        $limit     = $this->limit;
-        $retriever = $this->retriever
-            ?: static function (mixed $item) {
-                return $item;
-            };
+        $index = 0;
+        $chunk = $this->limit ? min($this->limit, $this->chunk) : $this->chunk;
+        $limit = $this->limit;
 
         do {
             $params = array_merge($this->params, $this->getQueryParams(), [
                 'limit' => $chunk,
             ]);
             $items  = (array) $this->client->call($this->selector, $this->graphql, $params);
-            $items  = array_filter(array_map(function (mixed $item) use ($retriever): mixed {
-                try {
-                    return $retriever($item);
-                } catch (GraphQLRequestFailed $exception) {
-                    throw $exception;
-                } catch (Throwable $exception) {
-                    $this->logger->error(__METHOD__, [
-                        'item'      => $item,
-                        'exception' => $exception,
-                    ]);
-                }
-
-                return null;
-            }, $items));
+            $items  = $this->chunkPrepare($items);
 
             $this->chunkLoaded($items);
 
@@ -93,7 +86,9 @@ abstract class QueryIterator implements IteratorAggregate {
                 }
             }
 
-            if (!$this->chunkProcessed($items)) {
+            $this->chunkProcessed($items);
+
+            if ($this->isLastChunk($items)) {
                 break;
             }
         } while ($items);
@@ -106,15 +101,58 @@ abstract class QueryIterator implements IteratorAggregate {
 
     /**
      * @param array<mixed> $items
+     *
+     * @return array<mixed>
+     */
+    protected function chunkPrepare(array $items): array {
+        return $this->retriever ? array_filter(array_map(function (mixed $item): mixed {
+            try {
+                return ($this->retriever)($item);
+            } catch (GraphQLRequestFailed $exception) {
+                throw $exception;
+            } catch (Throwable $exception) {
+                $this->logger->error(__METHOD__, [
+                    'item'      => $item,
+                    'exception' => $exception,
+                ]);
+            }
+
+            return null;
+        }, $items)) : $items;
+    }
+
+    /**
+     * @param array<mixed> $items
      */
     protected function chunkLoaded(array $items): void {
-        if ($this->each) {
-            ($this->each)($items);
+        try {
+            if ($this->beforeChunk) {
+                ($this->beforeChunk)($items);
+            }
+        } catch (Throwable $exception) {
+            $this->logger->error(__METHOD__, [
+                'exception' => $exception,
+            ]);
         }
     }
 
     /**
      * @param array<mixed> $items
      */
-    abstract protected function chunkProcessed(array $items): bool;
+    protected function chunkProcessed(array $items): void {
+        try {
+            if ($this->afterChunk) {
+                ($this->afterChunk)($items);
+            }
+        } catch (Throwable $exception) {
+            $this->logger->error(__METHOD__, [
+                'exception' => $exception,
+            ]);
+        }
+    }
+
+    /**
+     * @param array<mixed> $items
+     */
+    abstract protected function isLastChunk(array $items): bool;
 }

@@ -167,7 +167,7 @@ class ImportAssets extends Command {
         );
         // @phpcs:enable
 
-        foreach ($iterator->each($each) as $asset) {
+        foreach ($iterator->beforeChunk($each) as $asset) {
             /** @var \App\Services\DataLoader\Schema\ViewAsset $asset */
             try {
                 if ($update || !$resolver->get($asset->id)) {

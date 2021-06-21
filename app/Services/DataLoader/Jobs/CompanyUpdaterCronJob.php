@@ -48,7 +48,7 @@ abstract class CompanyUpdaterCronJob extends CronJob implements ShouldBeUnique, 
         $client    = $service->getClient();
         $config    = $configurator->config($this);
         $factory   = $this->getFactory($container);
-        $companies = $this->getCompanies($client, $config)->each(
+        $companies = $this->getCompanies($client, $config)->beforeChunk(
             static function (array $companies) use ($factory): void {
                 if ($factory instanceof FactoryPrefetchable) {
                     $factory->prefetch($companies, true);
