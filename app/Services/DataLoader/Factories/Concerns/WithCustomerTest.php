@@ -4,6 +4,9 @@ namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Customer;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
+use App\Services\DataLoader\Factory;
+use App\Services\DataLoader\Finders\CustomerFinder;
+use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
@@ -29,11 +32,39 @@ class WithCustomerTest extends TestCase {
         $resolver = Mockery::mock(CustomerResolver::class);
         $resolver
             ->shouldReceive('get')
-            ->with($customer->getKey())
+            ->with($customer->getKey(), Mockery::any())
             ->once()
             ->andReturn($customer);
 
         $factory = new WithCustomerTestObject($resolver);
+        $object  = $objectFactory($this, $customer);
+
+        $this->assertEquals($customer, $factory->customer($object));
+    }
+
+    /**
+     * @covers ::customer
+     *
+     * @dataProvider dataProviderCustomer
+     */
+    public function testCustomerExistsThroughFinder(Closure $objectFactory): void {
+        $customer = Customer::factory()->make();
+        $resolver = Mockery::mock(CustomerResolver::class, [$this->app->make(Normalizer::class)]);
+        $resolver->shouldAllowMockingProtectedMethods();
+        $resolver->makePartial();
+        $resolver
+            ->shouldReceive('find')
+            ->with($customer->getKey())
+            ->once()
+            ->andReturn(null);
+        $finder = Mockery::mock(CustomerFinder::class);
+        $finder
+            ->shouldReceive('find')
+            ->with($customer->getKey())
+            ->once()
+            ->andReturn($customer);
+
+        $factory = new WithCustomerTestObject($resolver, $finder);
         $object  = $objectFactory($this, $customer);
 
         $this->assertEquals($customer, $factory->customer($object));
@@ -49,7 +80,7 @@ class WithCustomerTest extends TestCase {
         $resolver = Mockery::mock(CustomerResolver::class);
         $resolver
             ->shouldReceive('get')
-            ->with($customer->getKey())
+            ->with($customer->getKey(), Mockery::any())
             ->once()
             ->andReturn(null);
 
@@ -119,18 +150,24 @@ class WithCustomerTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class WithCustomerTestObject {
+class WithCustomerTestObject extends Factory {
     use WithCustomer {
         customer as public;
     }
 
+    /** @noinspection PhpMissingParentConstructorInspection */
     public function __construct(
         protected CustomerResolver $resolver,
+        protected ?CustomerFinder $finder = null,
     ) {
         // empty
     }
 
     protected function getCustomerResolver(): CustomerResolver {
         return $this->resolver;
+    }
+
+    protected function getCustomerFinder(): ?CustomerFinder {
+        return $this->finder;
     }
 }

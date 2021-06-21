@@ -4,10 +4,16 @@ namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Distributor;
 use App\Services\DataLoader\Exceptions\DistributorNotFoundException;
+use App\Services\DataLoader\Finders\DistributorFinder;
 use App\Services\DataLoader\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Schema\ViewDocument;
 
+/**
+ * @mixin \App\Services\DataLoader\Factory
+ */
 trait WithDistributor {
+    abstract protected function getDistributorFinder(): ?DistributorFinder;
+
     abstract protected function getDistributorResolver(): DistributorResolver;
 
     protected function distributor(ViewDocument $object): ?Distributor {
@@ -18,7 +24,11 @@ trait WithDistributor {
         $distributor = null;
 
         if ($id) {
-            $distributor = $this->getDistributorResolver()->get($id);
+            $distributor = $this->getDistributorResolver()->get($id, $this->factory(
+                function () use ($id): ?Distributor {
+                    return $this->getDistributorFinder()?->find($id);
+                },
+            ));
         }
 
         // Found?

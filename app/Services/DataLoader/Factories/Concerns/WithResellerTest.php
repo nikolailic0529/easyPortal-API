@@ -4,6 +4,9 @@ namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Reseller;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
+use App\Services\DataLoader\Factory;
+use App\Services\DataLoader\Finders\ResellerFinder;
+use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
@@ -29,11 +32,39 @@ class WithResellerTest extends TestCase {
         $resolver = Mockery::mock(ResellerResolver::class);
         $resolver
             ->shouldReceive('get')
-            ->with($reseller->getKey())
+            ->with($reseller->getKey(), Mockery::any())
             ->once()
             ->andReturn($reseller);
 
         $factory = new WithResellerTestObject($resolver);
+        $object  = $objectFactory($this, $reseller);
+
+        $this->assertEquals($reseller, $factory->reseller($object));
+    }
+
+    /**
+     * @covers ::reseller
+     *
+     * @dataProvider dataProviderReseller
+     */
+    public function testResellerExistsThroughFinder(Closure $objectFactory): void {
+        $reseller = Reseller::factory()->make();
+        $resolver = Mockery::mock(ResellerResolver::class, [$this->app->make(Normalizer::class)]);
+        $resolver->shouldAllowMockingProtectedMethods();
+        $resolver->makePartial();
+        $resolver
+            ->shouldReceive('find')
+            ->with($reseller->getKey())
+            ->once()
+            ->andReturn(null);
+        $finder = Mockery::mock(ResellerFinder::class);
+        $finder
+            ->shouldReceive('find')
+            ->with($reseller->getKey())
+            ->once()
+            ->andReturn($reseller);
+
+        $factory = new WithResellerTestObject($resolver, $finder);
         $object  = $objectFactory($this, $reseller);
 
         $this->assertEquals($reseller, $factory->reseller($object));
@@ -49,7 +80,7 @@ class WithResellerTest extends TestCase {
         $resolver = Mockery::mock(ResellerResolver::class);
         $resolver
             ->shouldReceive('get')
-            ->with($reseller->getKey())
+            ->with($reseller->getKey(), Mockery::any())
             ->once()
             ->andReturn(null);
 
@@ -68,7 +99,7 @@ class WithResellerTest extends TestCase {
         $object   = new ViewAsset();
         $resolver = Mockery::mock(ResellerResolver::class);
         $resolver
-            ->shouldReceive('get')
+            ->shouldReceive('get', Mockery::any())
             ->never();
 
         $factory = new WithResellerTestObject($resolver);
@@ -119,18 +150,24 @@ class WithResellerTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class WithResellerTestObject {
+class WithResellerTestObject extends Factory {
     use WithReseller {
         reseller as public;
     }
 
+    /** @noinspection PhpMissingParentConstructorInspection */
     public function __construct(
         protected ResellerResolver $resolver,
+        protected ?ResellerFinder $finder = null,
     ) {
         // empty
     }
 
     protected function getResellerResolver(): ResellerResolver {
         return $this->resolver;
+    }
+
+    protected function getResellerFinder(): ?ResellerFinder {
+        return $this->finder;
     }
 }
