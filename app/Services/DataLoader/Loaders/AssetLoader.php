@@ -9,9 +9,6 @@ use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\DocumentFactory;
 use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\Loader;
-use App\Services\DataLoader\Resolvers\CustomerResolver;
-use App\Services\DataLoader\Resolvers\DistributorResolver;
-use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use Exception;
@@ -27,18 +24,8 @@ class AssetLoader extends Loader {
         protected Dispatcher $dispatcher,
         protected AssetFactory $assets,
         protected DocumentFactory $documents,
-        protected ResellerResolver $resellerResolver,
-        protected ResellerLoader $resellerLoader,
-        protected CustomerResolver $customerResolver,
-        protected CustomerLoader $customerLoader,
-        protected DistributorResolver $distributorResolver,
-        protected DistributorLoader $distributorLoader,
     ) {
         parent::__construct($logger, $client);
-
-        $this->resellerResolver->setFinder($this->resellerLoader);
-        $this->customerResolver->setFinder($this->customerLoader);
-        $this->distributorResolver->setFinder($this->distributorLoader);
     }
 
     public function isWithDocuments(): bool {
