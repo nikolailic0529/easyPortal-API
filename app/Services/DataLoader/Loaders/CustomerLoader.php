@@ -7,12 +7,13 @@ use App\Models\Model;
 use App\Services\DataLoader\Client\OffsetBasedIterator;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Factories\ModelFactory;
+use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Loaders\Concerns\WithAssets;
 use App\Services\DataLoader\Schema\Type;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 
-class CustomerLoader extends CompanyLoader {
+class CustomerLoader extends CompanyLoader implements CustomerFinder {
     use WithAssets;
 
     // <editor-fold desc="API">
@@ -61,6 +62,14 @@ class CustomerLoader extends CompanyLoader {
         return $owner instanceof Customer
             ? $owner->assets()->whereNotIn('id', $current)->getQuery()
             : null;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="CustomerFinder">
+    // =========================================================================
+    public function find(string $key): ?Customer {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return $this->create($key);
     }
     // </editor-fold>
 }
