@@ -3,35 +3,24 @@
 namespace App\Services\DataLoader\Commands;
 
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
-use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Commands\Concerns\WithBooleanOptions;
-use App\Services\DataLoader\DataLoaderService;
-use App\Services\DataLoader\Factories\AssetFactory;
-use App\Services\DataLoader\Loaders\Concerns\CalculatedProperties;
-use App\Services\DataLoader\Resolvers\AssetResolver;
-use App\Services\DataLoader\Resolvers\CustomerResolver;
-use App\Services\DataLoader\Resolvers\ResellerResolver;
-use App\Services\DataLoader\Schema\Type;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\DataLoader\Importers\AssetsImporter;
+use App\Services\DataLoader\Importers\Status;
+use App\Services\DataLoader\Schema\TypeWithId;
 use Illuminate\Console\Command;
-use Illuminate\Contracts\Container\Container;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
-use Psr\Log\LoggerInterface;
-use Throwable;
 
 use function end;
+use function filter_var;
 use function reset;
 use function str_pad;
 
+use const FILTER_VALIDATE_INT;
 use const STR_PAD_LEFT;
 
 class ImportAssets extends Command {
     use GlobalScopes;
     use WithBooleanOptions;
-    use CalculatedProperties;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -55,9 +44,7 @@ class ImportAssets extends Command {
     protected $description = 'Import all assets.';
 
     public function handle(
-        LoggerInterface $logger,
-        Container $container,
-        Client $client,
+        AssetsImporter $importer,
     ): int {
         // Settings
         $from     = $this->option('from');
@@ -66,216 +53,96 @@ class ImportAssets extends Command {
         $update   = $this->getBooleanOption('update', false);
         $continue = $this->option('continue');
 
-        $this->info('Importing assets...');
-        $this->newLine();
+        $this->line('Settings:');
 
         if ($from) {
             $from = Date::make($from);
 
-            $this->line("    From:     {$from->toISOString()}");
+            $this->line("    From:      {$from->toISOString()}");
         }
 
         if ($chunk) {
-            $this->line("    Chunk:    {$chunk}");
+            $chunk = (int) $chunk;
+            $this->line("    Chunk:     {$chunk}");
         }
 
         if ($limit) {
-            $this->line("    Limit:    {$limit}");
+            $limit = (int) $limit;
+            $this->line("    Limit:     {$limit}");
         }
 
         if ($continue) {
-            $this->line("    Continue: {$continue}");
+            if (filter_var($continue, FILTER_VALIDATE_INT)) {
+                $continue = (int) $continue;
+            }
+
+            $this->line("    Continue:  {$continue}");
         }
 
         if ($chunk || $limit || $continue) {
             $this->newLine();
         }
 
-        // Create Iterator
-        $iterator = $client->getAssetsWithDocuments($from);
-
-        if ($chunk) {
-            $iterator->chunk((int) $chunk);
-        }
-
-        if ($limit) {
-            $iterator->limit((int) $limit);
-        }
-
-        if ($continue) {
-            $iterator->lastId($continue);
-        }
+        // Begin
+        $this->line(
+            'Chunk #   : From                                 ... To                                   -  Processed',
+        );
+        $this->line(
+            '            C:    created;        U:    updated;     F:     failed;',
+        );
 
         // Process
-        $this->callWithoutGlobalScopes(
-            [OwnedByOrganizationScope::class],
-            function () use ($logger, $container, $iterator, $update): void {
-                $this->process($logger, $container, $iterator, $update);
-            },
-        );
+        $length   = 10;
+        $previous = new Status();
+
+        $importer
+            ->onChange(function (array $items, Status $status) use (&$previous, $length): void {
+                $chunk        = str_pad((string) $status->chunk, $length, '0', STR_PAD_LEFT);
+                $chunkFailed  = str_pad((string) ($status->failed - $previous->failed), $length, ' ', STR_PAD_LEFT);
+                $chunkCreated = str_pad((string) ($status->created - $previous->created), $length, ' ', STR_PAD_LEFT);
+                $chunkUpdated = str_pad((string) ($status->updated - $previous->updated), $length, ' ', STR_PAD_LEFT);
+                $processed    = str_pad((string) $status->processed, $length, ' ', STR_PAD_LEFT);
+                $first        = reset($items);
+                $first        = str_pad($first instanceof TypeWithId ? $first->id : 'null', 36, ' ', STR_PAD_LEFT);
+                $last         = end($items);
+                $last         = str_pad($last instanceof TypeWithId ? $last->id : 'null', 36, ' ', STR_PAD_LEFT);
+                $lineOne      = "{$chunk}: {$first} ... {$last} - {$processed}";
+                $lineTwo      = "            C: {$chunkCreated};        U: {$chunkUpdated};     F: {$chunkFailed};";
+
+                if ($status->failed - $previous->failed > 0) {
+                    $this->warn($lineOne);
+                    $this->warn($lineTwo);
+                } else {
+                    $this->info($lineOne);
+                    $this->info($lineTwo);
+                }
+            })
+            ->onFinish(function (Status $status) use ($length): void {
+                $this->newLine();
+
+                $processed = str_pad((string) $status->processed, $length, ' ', STR_PAD_LEFT);
+                $created   = str_pad((string) $status->created, $length, ' ', STR_PAD_LEFT);
+                $updated   = str_pad((string) $status->updated, $length, ' ', STR_PAD_LEFT);
+                $failed    = str_pad((string) $status->failed, $length, ' ', STR_PAD_LEFT);
+
+                $this->line("Processed: {$processed}");
+                $this->line("Created:   {$created}");
+                $this->line("Updated:   {$updated}");
+
+                if ($status->failed) {
+                    $this->warn("Failed:    {$failed}");
+                } else {
+                    $this->line("Failed:    {$failed}");
+                }
+
+                $this->newLine();
+            })
+            ->import($update, $from, $chunk, $limit, $continue);
 
         // Done
         $this->info('Done.');
 
         // Return
         return self::SUCCESS;
-    }
-
-    protected function process(
-        LoggerInterface $logger,
-        Container $container,
-        QueryIterator $iterator,
-        bool $update,
-    ): void {
-        /** @var array{index:int,first:string,last:string,failed:int} $previous */
-        $previous  = null;
-        $processed = 0;
-        $failed    = 0;
-        $service   = $container->make(DataLoaderService::class);
-        $resolver  = $service->getContainer()->make(AssetResolver::class);
-        $loader    = $service->getAssetLoader();
-        $each      = function (
-            array $assets,
-        ) use (
-            $logger,
-            $container,
-            &$service,
-            &$loader,
-            &$resolver,
-            &$previous,
-            &$processed,
-            &$failed,
-        ): void {
-            // Update calculated
-            if ($previous) {
-                $this->updateCalculatedProperties($logger, $service);
-            }
-
-            // Reset loader & Prefetch
-            if ($previous) {
-                $service  = $container->make(DataLoaderService::class);
-                $loader   = $service->getAssetLoader();
-                $resolver = $service->getContainer()->make(AssetResolver::class);
-            }
-
-            $service->getContainer()
-                ->make(AssetFactory::class)
-                ->prefetch($assets, true, static function (EloquentCollection $assets): void {
-                    $assets->loadMissing('documentEntries');
-                    $assets->loadMissing('warranties');
-                    $assets->loadMissing('warranties.services');
-                    $assets->loadMissing('contacts');
-                    $assets->loadMissing('tags');
-                });
-
-            // Dump
-            if ($previous) {
-                $this->dump($previous, $processed, $failed);
-            }
-
-            // Update
-            $previous = [
-                'index'  => ($previous['index'] ?? 0) + 1,
-                'first'  => reset($assets),
-                'last'   => end($assets),
-                'failed' => $failed,
-            ];
-        };
-
-        // @phpcs:disable Generic.Files.LineLength.TooLong
-        $this->line(
-            'Chunk #         : From                                 ... To                                   -   Failed in chunk      Processed /     Failed',
-        );
-        // @phpcs:enable
-
-        foreach ($iterator->beforeChunk($each) as $asset) {
-            /** @var \App\Services\DataLoader\Schema\ViewAsset $asset */
-            try {
-                if ($update || !$resolver->get($asset->id)) {
-                    $loader->create($asset);
-                }
-            } catch (Throwable $exception) {
-                $failed++;
-
-                $logger->warning('Failed to import asset.', [
-                    'asset'     => $asset,
-                    'exception' => $exception,
-                ]);
-            }
-
-            // Count
-            $processed++;
-        }
-
-        // Last chunk
-        $this->updateCalculatedProperties($logger, $service);
-        $this->dump($previous, $processed, $failed);
-
-        // Finalizing
-        $this->newLine();
-
-        $message = "Processed: {$processed}, Failed: {$failed}";
-
-        if ($failed) {
-            $this->warn($message);
-        } else {
-            $this->info($message);
-        }
-
-        $this->newLine();
-    }
-
-    /**
-     * @param array{index:int,first:string,last:string,failed:int} $chunk
-     */
-    protected function dump(array $chunk, int $assetsProcessed, int $assetsFailed): void {
-        $length      = 10;
-        $processed   = str_pad((string) $assetsProcessed, $length, ' ', STR_PAD_LEFT);
-        $failed      = str_pad((string) $assetsFailed, $length, ' ', STR_PAD_LEFT);
-        $chunkFailed = str_pad((string) ($assetsFailed - $chunk['failed']), $length, ' ', STR_PAD_LEFT);
-        $index       = str_pad((string) $chunk['index'], $length, ' ', STR_PAD_LEFT);
-        $first       = str_pad($chunk['first'] instanceof Type ? $chunk['first']->id : 'null', 36, ' ', STR_PAD_LEFT);
-        $last        = str_pad($chunk['last'] instanceof Type ? $chunk['last']->id : 'null', 36, ' ', STR_PAD_LEFT);
-        $message     = "Chunk {$index}: {$first} ... {$last} - {$chunkFailed} failed    ({$processed} / {$failed})";
-
-        if ($assetsFailed - $chunk['failed'] > 0) {
-            $this->warn($message);
-        } else {
-            $this->info($message);
-        }
-    }
-
-    protected function updateResellersCalculatedProperties(LoggerInterface $logger, Collection $resellers): void {
-        foreach ($resellers as $reseller) {
-            try {
-                $this->updateResellerCalculatedProperties($reseller);
-            } catch (Throwable $exception) {
-                $logger->warning(__METHOD__, [
-                    'reseller'  => $reseller,
-                    'exception' => $exception,
-                ]);
-            }
-        }
-    }
-
-    protected function updateCustomersCalculatedProperties(LoggerInterface $logger, Collection $customers): void {
-        foreach ($customers as $customer) {
-            try {
-                $this->updateCustomerCalculatedProperties($customer);
-            } catch (Throwable $exception) {
-                $logger->warning(__METHOD__, [
-                    'customer'  => $customer,
-                    'exception' => $exception,
-                ]);
-            }
-        }
-    }
-
-    protected function updateCalculatedProperties(LoggerInterface $logger, mixed $service): void {
-        $resellers = $service->getContainer()->make(ResellerResolver::class)->getResolved();
-        $customers = $service->getContainer()->make(CustomerResolver::class)->getResolved();
-
-        $this->updateResellersCalculatedProperties($logger, $resellers);
-        $this->updateCustomersCalculatedProperties($logger, $customers);
     }
 }

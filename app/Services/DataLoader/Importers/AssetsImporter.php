@@ -1,0 +1,84 @@
+<?php declare(strict_types = 1);
+
+namespace App\Services\DataLoader\Importers;
+
+use App\Services\DataLoader\Client\QueryIterator;
+use App\Services\DataLoader\Factories\AssetFactory;
+use App\Services\DataLoader\Factories\CustomerFactory;
+use App\Services\DataLoader\Factories\ResellerFactory;
+use App\Services\DataLoader\Loader;
+use App\Services\DataLoader\Loaders\AssetLoader;
+use App\Services\DataLoader\Loaders\Concerns\CalculatedProperties;
+use App\Services\DataLoader\Resolver;
+use App\Services\DataLoader\Resolvers\AssetResolver;
+use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\ResellerResolver;
+use DateTimeInterface;
+use Illuminate\Database\Eloquent\Collection;
+
+class AssetsImporter extends Importer {
+    use CalculatedProperties;
+
+    /**
+     * @param array<mixed> $items
+     */
+    protected function onBeforeChunk(array $items, Status $status): void {
+        // Parent
+        parent::onBeforeChunk($items, $status);
+
+        // Prefetch
+        $this->container
+            ->make(AssetFactory::class)
+            ->prefetch($items, true, static function (Collection $assets): void {
+                $assets->loadMissing('documentEntries');
+                $assets->loadMissing('warranties');
+                $assets->loadMissing('warranties.services');
+                $assets->loadMissing('contacts');
+                $assets->loadMissing('tags');
+            });
+
+        $this->container
+            ->make(ResellerFactory::class)
+            ->prefetch($items, true, static function (Collection $assets): void {
+                $assets->loadMissing('locations');
+                $assets->loadMissing('contacts');
+                $assets->loadMissing('contacts.types');
+            });
+
+        $this->container
+            ->make(CustomerFactory::class)
+            ->prefetch($items, true, static function (Collection $assets): void {
+                $assets->loadMissing('locations');
+                $assets->loadMissing('contacts');
+                $assets->loadMissing('contacts.types');
+            });
+    }
+
+    /**
+     * @param array<mixed> $items
+     */
+    protected function onAfterChunk(array $items, Status $status): void {
+        // Update calculated properties
+        $this->updateCalculatedProperties(
+            $this->container->make(ResellerResolver::class),
+            $this->container->make(CustomerResolver::class),
+        );
+
+        // Parent
+        parent::onAfterChunk($items, $status);
+    }
+
+    protected function makeIterator(
+        DateTimeInterface $from = null,
+    ): QueryIterator {
+        return $this->client->getAssetsWithDocuments($from);
+    }
+
+    protected function makeLoader(): Loader {
+        return $this->container->make(AssetLoader::class);
+    }
+
+    protected function makeResolver(): Resolver {
+        return $this->container->make(AssetResolver::class);
+    }
+}
