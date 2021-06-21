@@ -3,9 +3,11 @@
 namespace App\Services\KeyCloak\Commands;
 
 use App\Models\Permission;
+use App\Services\Auth\Auth;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Role;
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
 
 class SyncPermissions extends Command {
     /**
@@ -22,7 +24,10 @@ class SyncPermissions extends Command {
      */
     protected $description = 'Sync keycloak permissions';
 
-    public function __construct(protected Client $client) {
+    public function __construct(
+        protected Auth $auth,
+        protected Client $client,
+    ) {
         parent::__construct();
     }
 
@@ -32,19 +37,37 @@ class SyncPermissions extends Command {
      * @return mixed
      */
     public function handle(): void {
+        // auth permissions
+        $authPermissions = $this->auth->getPermissions();
+
         // Get all permissions
-        $permissions = Permission::all()->keyBy((new Permission())->getKeyName());
+        $permissions = Permission::query()
+            ->withTrashed()
+            ->get()
+            ->keyBy((new Permission())->getKeyName());
 
         // Get all keycloak roles
-        $roles = $this->client->getRoles();
-        foreach ($roles as $role) {
+        $roles = (new Collection($this->client->getRoles()))->keyBy('name');
+
+        foreach ($authPermissions as $authPermission) {
+            $role = null;
+            if (!$roles->has($authPermission)) {
+                $role = $this->createRole($authPermission);
+            } else {
+                $role = $roles->get($authPermission);
+                // to be deleted from keycloak
+                $roles->forget($authPermission);
+            }
+
             $permission = null;
             if (!$permissions->has($role->id)) {
                 $permission = new Permission();
             } else {
                 $permission = $permissions->get($role->id);
+                if ($permission->trashed()) {
+                    $permission->restore();
+                }
             }
-
             $this->savePermission($permission, $role);
 
             // remove it from permissions to delete the rest
@@ -54,6 +77,16 @@ class SyncPermissions extends Command {
         foreach ($permissions as $permission) {
             $permission->delete();
         }
+
+        foreach ($roles as $role) {
+            // Should we delete keycloak role ?
+            // $this->client->deleteRoleByName($role);
+        }
+    }
+
+    protected function createRole(string $name): Role {
+        $input = new Role(['name' => $name]);
+        return $this->client->createRole($input);
     }
 
     protected function savePermission(Permission $permission, Role $role): void {

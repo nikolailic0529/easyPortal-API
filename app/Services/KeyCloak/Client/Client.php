@@ -86,6 +86,29 @@ class Client {
         return $result;
     }
 
+    public function createRole(Role $role): Role {
+        // POST /{realm}/clients/{id}/roles
+
+        $clientId = (string) $this->config->get('ep.keycloak.client_uuid');
+        if (!$clientId) {
+            throw new InvalidKeyCloakClient();
+        }
+
+        $endpoint = "clients/{$clientId}/roles";
+        $result   = $this->call($endpoint, 'POST', ['json' => $role->toArray()]);
+        return new Role($result);
+    }
+
+    public function deleteRoleByName(Role $role): void {
+        // DELETE /{realm}/clients/{id}/roles/{role-name}
+        $clientId = (string) $this->config->get('ep.keycloak.client_uuid');
+        if (!$clientId) {
+            throw new InvalidKeyCloakClient();
+        }
+
+        $endpoint = "clients/{$clientId}/roles/{$role->name}";
+        $this->call($endpoint, 'DELETE');
+    }
     /**
      * @param array<\App\Services\KeyCloak\Client\Types\Role> $roles
      */
@@ -177,7 +200,7 @@ class Client {
         // POST /{realm}/users
         $endpoint = 'users';
 
-        $input  = new UserInput([
+        $input = new UserInput([
             'email'  => $email,
             'groups' => ["resellers/{$organization->keycloak_scope}"],
         ]);
