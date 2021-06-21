@@ -7,6 +7,10 @@ use function count;
 class OffsetBasedIterator extends QueryIterator {
     protected int $offset = 0;
 
+    public function getOffset(): int {
+        return $this->offset;
+    }
+
     public function offset(int $offset): static {
         $this->offset = $offset;
 

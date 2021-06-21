@@ -9,6 +9,10 @@ use function end;
 class LastIdBasedIterator extends QueryIterator {
     protected ?string $lastId = null;
 
+    public function getLastId(): ?string {
+        return $this->lastId;
+    }
+
     public function lastId(?string $lastId): static {
         $this->lastId = $lastId;
 

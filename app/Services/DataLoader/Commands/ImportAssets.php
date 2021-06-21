@@ -137,7 +137,7 @@ class ImportAssets extends Command {
 
                 $this->newLine();
             })
-            ->import($update, $from, $chunk, $limit, $continue);
+            ->import($update, $from, $continue, $chunk, $limit);
 
         // Done
         $this->info('Done.');

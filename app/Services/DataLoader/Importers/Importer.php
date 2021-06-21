@@ -54,18 +54,18 @@ abstract class Importer {
     public function import(
         bool $update = false,
         DateTimeInterface $from = null,
+        string|int $continue = null,
         int $chunk = null,
         int $limit = null,
-        string|int $continue = null,
     ): void {
-        $status   = new Status();
+        $status   = new Status($from, $continue);
         $iterator = $this
             ->getIterator($from, $chunk, $limit, $continue)
             ->beforeChunk(function (array $items) use ($status): void {
                 $this->onBeforeChunk($items, $status);
             })
-            ->afterChunk(function (array $items) use ($status): void {
-                $this->onAfterChunk($items, $status);
+            ->afterChunk(function (array $items) use (&$iterator, $status): void {
+                $this->onAfterChunk($items, $status, $this->getContinue($iterator));
             });
 
         $this->callWithoutGlobalScopes(
@@ -98,6 +98,20 @@ abstract class Importer {
         );
 
         $this->onAfterImport($status);
+    }
+
+    protected function getContinue(QueryIterator $iterator): string|int|null {
+        $continue = null;
+
+        if ($iterator instanceof OffsetBasedIterator) {
+            $continue = $iterator->getOffset();
+        } elseif ($iterator instanceof LastIdBasedIterator) {
+            $continue = $iterator->getLastId();
+        } else {
+            // empty
+        }
+
+        return $continue;
     }
 
     protected function getIterator(
@@ -141,8 +155,9 @@ abstract class Importer {
     /**
      * @param array<mixed> $items
      */
-    protected function onAfterChunk(array $items, Status $status): void {
-        // Update chunk number
+    protected function onAfterChunk(array $items, Status $status, string|int|null $continue): void {
+        // Update status
+        $status->continue = $continue;
         $status->chunk++;
 
         // Call callback

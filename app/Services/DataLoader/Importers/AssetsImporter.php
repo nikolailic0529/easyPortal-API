@@ -57,7 +57,7 @@ class AssetsImporter extends Importer {
     /**
      * @param array<mixed> $items
      */
-    protected function onAfterChunk(array $items, Status $status): void {
+    protected function onAfterChunk(array $items, Status $status, string|int|null $continue): void {
         // Update calculated properties
         $this->updateCalculatedProperties(
             $this->container->make(ResellerResolver::class),
@@ -65,7 +65,7 @@ class AssetsImporter extends Importer {
         );
 
         // Parent
-        parent::onAfterChunk($items, $status);
+        parent::onAfterChunk($items, $status, $continue);
     }
 
     protected function makeIterator(
