@@ -11,7 +11,6 @@ use App\Services\KeyCloak\Client\Exceptions\KeyCloakDisabled;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role;
 use App\Services\KeyCloak\Client\Types\User;
-use App\Services\KeyCloak\Client\Types\UserInput;
 use Closure;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
@@ -188,9 +187,10 @@ class Client {
             return false;
         }
 
-        $input        = new UserInput([
+        $input        = new User([
             'email'           => $email,
             'groups'          => [$group->path],
+            'enabled'         => true,
             'requiredActions' => $this->config->get('ep.keycloak.signup_actions'),
         ]);
         $errorHandler = function (Exception $exception) use ($endpoint): bool {
