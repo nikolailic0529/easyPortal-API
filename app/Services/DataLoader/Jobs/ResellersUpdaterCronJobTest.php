@@ -49,7 +49,7 @@ class ResellersUpdaterCronJobTest extends TestCase {
                 yield from [$known, $unknown];
             });
         $iterator
-            ->shouldReceive('each')
+            ->shouldReceive('beforeChunk')
             ->once()
             ->andReturnSelf();
 
