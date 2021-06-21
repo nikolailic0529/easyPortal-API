@@ -290,6 +290,7 @@ class Client {
      * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssets(
+        DateTimeInterface $from = null,
         int $limit = null,
         string $lastId = null,
     ): LastIdBasedIterator {
@@ -297,13 +298,15 @@ class Client {
             ->getLastIdBasedIterator(
                 'getAssets',
                 /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$limit: Int, \$lastId: String) {
-                    getAssets(limit: \$limit, lastId: \$lastId) {
+                query items(\$limit: Int, \$lastId: String, \$from: String) {
+                    getAssets(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
                         {$this->getAssetPropertiesGraphQL()}
                     }
                 }
                 GRAPHQL,
-                [],
+                [
+                    'from' => $this->datetime($from),
+                ],
                 static function (array $data): ViewAsset {
                     return new ViewAsset($data);
                 },
@@ -316,6 +319,7 @@ class Client {
      * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssetsWithDocuments(
+        DateTimeInterface $from = null,
         int $limit = null,
         string $lastId = null,
     ): LastIdBasedIterator {
@@ -323,8 +327,8 @@ class Client {
             ->getLastIdBasedIterator(
                 'getAssets',
                 /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$limit: Int, \$lastId: String) {
-                    getAssets(limit: \$limit, lastId: \$lastId) {
+                query items(\$limit: Int, \$lastId: String, \$from: String) {
+                    getAssets(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
                         {$this->getAssetPropertiesGraphQL()}
                         assetDocument {
                             {$this->getAssetDocumentsPropertiesGraphQL()}
@@ -332,7 +336,9 @@ class Client {
                     }
                 }
                 GRAPHQL,
-                [],
+                [
+                    'from' => $this->datetime($from),
+                ],
                 static function (array $data): ViewAsset {
                     return new ViewAsset($data);
                 },
