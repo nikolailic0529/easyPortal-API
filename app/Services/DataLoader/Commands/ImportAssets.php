@@ -15,10 +15,10 @@ use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Illuminate\Console\Command;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Date;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -41,7 +41,8 @@ class ImportAssets extends Command {
     protected $signature = 'ep:data-loader-import-assets
         {--u|update : Update asset if exists}
         {--U|no-update : Do not update asset if exists (default)}
-        {--from= : start processing from given asset}
+        {--continue= : continue processing from given asset}
+        {--from= : start processing from given datetime}
         {--limit= : max assets to process}
         {--chunk= : chunk size}
     ';
@@ -56,33 +57,53 @@ class ImportAssets extends Command {
     public function handle(
         LoggerInterface $logger,
         Container $container,
-        Repository $config,
         Client $client,
     ): int {
         // Settings
-        $iterator = $client->getAssetsWithDocuments();
-        $update   = $this->getBooleanOption('update', false);
-        $chunk    = ((int) $this->option('chunk')) ?: $config->get('ep.data_loader.chunk');
-        $limit    = (int) $this->option('limit');
         $from     = $this->option('from');
+        $chunk    = $this->option('chunk');
+        $limit    = $this->option('limit');
+        $update   = $this->getBooleanOption('update', false);
+        $continue = $this->option('continue');
+
+        $this->info('Importing assets...');
+        $this->newLine();
+
+        if ($from) {
+            $from = Date::make($from);
+
+            $this->line("    From:     {$from->toISOString()}");
+        }
 
         if ($chunk) {
-            $this->output->write("Chunk: {$chunk}; ");
-            $iterator->chunk($chunk);
+            $this->line("    Chunk:    {$chunk}");
         }
 
         if ($limit) {
-            $this->output->write("Limit: {$limit}; ");
-            $iterator->limit($limit);
+            $this->line("    Limit:    {$limit}");
         }
 
-        if ($from) {
-            $this->output->write("From: #{$from}; ");
-            $iterator->lastId($from);
+        if ($continue) {
+            $this->line("    Continue: {$continue}");
         }
 
-        if ($chunk || $limit || $from) {
-            $this->newLine(2);
+        if ($chunk || $limit || $continue) {
+            $this->newLine();
+        }
+
+        // Create Iterator
+        $iterator = $client->getAssetsWithDocuments($from);
+
+        if ($chunk) {
+            $iterator->chunk((int) $chunk);
+        }
+
+        if ($limit) {
+            $iterator->limit((int) $limit);
+        }
+
+        if ($continue) {
+            $iterator->lastId($continue);
         }
 
         // Process
