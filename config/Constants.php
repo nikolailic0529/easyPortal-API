@@ -3,6 +3,7 @@
 namespace Config;
 
 use App\Jobs\Queues;
+use App\Services\DataLoader\Jobs\AssetsImporterCronJob;
 use App\Services\DataLoader\Jobs\CustomersImporterCronJob;
 use App\Services\DataLoader\Jobs\CustomersUpdaterCronJob;
 use App\Services\DataLoader\Jobs\CustomerUpdate;
@@ -446,6 +447,45 @@ interface Constants {
     #[Job(CustomerUpdate::class, 'queue')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_CUSTOMER_UPDATE_QUEUE = Queues::DATA_LOADER_UPDATE;
+    // </editor-fold>
+
+    // <editor-fold desc="DATA_LOADER_ASSETS_IMPORTER">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(AssetsImporterCronJob::class, 'enabled')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_ASSETS_IMPORTER_ENABLED = false;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(AssetsImporterCronJob::class, 'cron')]
+    #[Group('data_loader')]
+    #[Type(CronExpression::class)]
+    public const EP_DATA_LOADER_ASSETS_IMPORTER_CRON = '0 0 * * *';
+
+    /**
+     * Queue name.
+     */
+    #[Service(AssetsImporterCronJob::class, 'queue')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_ASSETS_IMPORTER_QUEUE = Queues::DATA_LOADER_DEFAULT;
+
+    /**
+     * Number of seconds the job can run.
+     */
+    #[Service(AssetsImporterCronJob::class, 'timeout')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_ASSETS_IMPORTER_TIMEOUT = 6 * 60 * 60;
+
+    /**
+     * Number of times the job may be attempted.
+     */
+    #[Service(AssetsImporterCronJob::class, 'tries')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_ASSETS_IMPORTER_TRIES = 8;
     // </editor-fold>
     // </editor-fold>
 }

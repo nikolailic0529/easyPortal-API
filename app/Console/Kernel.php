@@ -8,6 +8,7 @@ use App\Services\DataLoader\Commands\UpdateAsset;
 use App\Services\DataLoader\Commands\UpdateCustomer;
 use App\Services\DataLoader\Commands\UpdateDistributor;
 use App\Services\DataLoader\Commands\UpdateReseller;
+use App\Services\DataLoader\Jobs\AssetsImporterCronJob;
 use App\Services\DataLoader\Jobs\CustomersImporterCronJob;
 use App\Services\DataLoader\Jobs\CustomersUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
@@ -46,6 +47,7 @@ class Kernel extends ConsoleKernel {
         ResellersUpdaterCronJob::class,
         CustomersImporterCronJob::class,
         CustomersUpdaterCronJob::class,
+        AssetsImporterCronJob::class,
     ];
 
     /**
