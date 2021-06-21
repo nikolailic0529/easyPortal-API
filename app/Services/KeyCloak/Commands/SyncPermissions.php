@@ -92,10 +92,6 @@ class SyncPermissions extends Command {
     protected function savePermission(Permission $permission, Role $role): void {
         $permission->id  = $role->id;
         $permission->key = $role->name;
-        $keycloak_fields = $role->getProperties();
-        unset($keycloak_fields['id']);
-        unset($keycloak_fields['name']);
-        $permission->keycloak_fields = $keycloak_fields;
         $permission->save();
     }
 }

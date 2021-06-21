@@ -27,12 +27,11 @@ class PermissionFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'              => $this->faker->uuid,
-            'key'             => $this->faker->word,
-            'keycloak_fields' => [],
-            'created_at'      => Date::now(),
-            'updated_at'      => Date::now(),
-            'deleted_at'      => null,
+            'id'         => $this->faker->uuid,
+            'key'        => $this->faker->word,
+            'created_at' => Date::now(),
+            'updated_at' => Date::now(),
+            'deleted_at' => null,
         ];
     }
 }

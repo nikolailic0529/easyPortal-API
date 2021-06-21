@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property string                       $id
  * @property string                       $key
- * @property array                        $keycloak_fields
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
@@ -30,25 +29,12 @@ class Permission extends Model implements Translatable {
     use HasFactory;
     use TranslateProperties;
 
-    protected const CASTS = [
-        'keycloak_fields' => 'array',
-    ];
-
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
      */
     protected $table = 'permissions';
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
-     */
-    protected $casts = self::CASTS + parent::CASTS;
 
     /**
      * @inheritdoc
