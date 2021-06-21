@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Client;
 
+use Closure;
 use Mockery;
 use Psr\Log\LoggerInterface;
 use Tests\TestCase;
@@ -53,12 +54,26 @@ class OffsetBasedIteratorTest extends TestCase {
                 return array_slice($data, $params['offset'], $params['limit']);
             });
 
+        $onBeforeChunk = Mockery::spy(static function (): void {
+            // empty
+        });
+        $onAfterChunk  = Mockery::spy(static function (): void {
+            // empty
+        });
+        $iterator      = (new OffsetBasedIterator($logger, $client, '', ''))
+            ->beforeChunk(Closure::fromCallable($onBeforeChunk))
+            ->afterChunk(Closure::fromCallable($onAfterChunk))
+            ->offset(5)
+            ->limit(2)
+            ->chunk(5);
+
         $expected = [6, 7];
-        $actual   = iterator_to_array(
-            (new OffsetBasedIterator($logger, $client, '', ''))->offset(5)->limit(2)->chunk(5),
-        );
+        $actual   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
+
+        $onBeforeChunk->shouldHaveBeenCalled();
+        $onAfterChunk->shouldHaveBeenCalled();
     }
 
     /**

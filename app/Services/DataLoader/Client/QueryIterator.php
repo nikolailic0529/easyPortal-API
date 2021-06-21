@@ -82,6 +82,8 @@ abstract class QueryIterator implements IteratorAggregate {
                 yield $index++ => $item;
 
                 if ($limit && $index >= $limit) {
+                    $this->chunkProcessed($items);
+
                     break 2;
                 }
             }
