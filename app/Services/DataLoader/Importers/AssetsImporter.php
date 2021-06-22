@@ -6,6 +6,12 @@ use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
 use App\Services\DataLoader\Factories\ResellerFactory;
+use App\Services\DataLoader\Finders\CustomerFinder;
+use App\Services\DataLoader\Finders\CustomerLoaderFinder;
+use App\Services\DataLoader\Finders\DistributorFinder;
+use App\Services\DataLoader\Finders\DistributorLoaderFinder;
+use App\Services\DataLoader\Finders\ResellerFinder;
+use App\Services\DataLoader\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\AssetLoader;
 use App\Services\DataLoader\Loaders\Concerns\CalculatedProperties;
@@ -18,6 +24,14 @@ use Illuminate\Database\Eloquent\Collection;
 
 class AssetsImporter extends Importer {
     use CalculatedProperties;
+
+    protected function onRegister(): void {
+        parent::onRegister();
+
+        $this->container->bind(DistributorFinder::class, DistributorLoaderFinder::class);
+        $this->container->bind(ResellerFinder::class, ResellerLoaderFinder::class);
+        $this->container->bind(CustomerFinder::class, CustomerLoaderFinder::class);
+    }
 
     /**
      * @param array<mixed> $items
@@ -75,7 +89,7 @@ class AssetsImporter extends Importer {
     }
 
     protected function makeLoader(): Loader {
-        return $this->container->make(AssetLoader::class);
+        return $this->container->make(AssetLoader::class)->setWithDocuments(true);
     }
 
     protected function makeResolver(): Resolver {

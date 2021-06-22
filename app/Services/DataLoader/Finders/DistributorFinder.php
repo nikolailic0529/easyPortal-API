@@ -3,7 +3,8 @@
 namespace App\Services\DataLoader\Finders;
 
 use App\Models\Distributor;
+use App\Services\DataLoader\Container\Isolated;
 
-interface DistributorFinder {
+interface DistributorFinder extends Isolated {
     public function find(string $key): ?Distributor;
 }

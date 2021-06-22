@@ -116,6 +116,8 @@ class ImportAssets extends Command {
                     $this->info($lineOne);
                     $this->info($lineTwo);
                 }
+
+                $previous = clone $status;
             })
             ->onFinish(function (Status $status) use ($length): void {
                 $this->newLine();

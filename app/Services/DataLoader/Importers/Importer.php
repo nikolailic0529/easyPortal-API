@@ -7,13 +7,13 @@ use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\LastIdBasedIterator;
 use App\Services\DataLoader\Client\OffsetBasedIterator;
 use App\Services\DataLoader\Client\QueryIterator;
-use App\Services\DataLoader\DataLoaderService;
+use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Resolver;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Closure;
 use DateTimeInterface;
-use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Container\Container as ContainerContract;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -21,16 +21,16 @@ use Throwable;
 abstract class Importer {
     use GlobalScopes;
 
-    protected Container $container;
-    protected Loader    $loader;
-    protected Resolver  $resolver;
-    protected ?Closure  $onChange = null;
-    protected ?Closure  $onFinish = null;
+    protected ContainerContract $container;
+    protected Loader            $loader;
+    protected Resolver          $resolver;
+    protected ?Closure          $onChange = null;
+    protected ?Closure          $onFinish = null;
 
     public function __construct(
         protected LoggerInterface $logger,
         protected Client $client,
-        private Container $appContainer,
+        private ContainerContract $root,
     ) {
         // empty
     }
@@ -147,9 +147,14 @@ abstract class Importer {
      * @param array<mixed> $items
      */
     protected function onBeforeChunk(array $items, Status $status): void {
-        $this->container = $this->appContainer->make(DataLoaderService::class)->getContainer();
-        $this->resolver  = $this->makeResolver();
-        $this->loader    = $this->makeLoader();
+        // Reset container
+        $this->container = $this->root->make(Container::class);
+
+        $this->onRegister();
+
+        // Reset objects
+        $this->resolver = $this->makeResolver();
+        $this->loader   = $this->makeLoader();
     }
 
     /**
@@ -172,8 +177,8 @@ abstract class Importer {
         }
     }
 
-    protected function makeService(): DataLoaderService {
-        return $this->appContainer->make(DataLoaderService::class);
+    protected function onRegister(): void {
+        // empty
     }
 
     abstract protected function makeIterator(

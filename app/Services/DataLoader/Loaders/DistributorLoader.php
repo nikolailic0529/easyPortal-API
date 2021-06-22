@@ -2,16 +2,14 @@
 
 namespace App\Services\DataLoader\Loaders;
 
-use App\Models\Distributor;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Exceptions\DistributorNotFoundException;
 use App\Services\DataLoader\Factories\DistributorFactory;
 use App\Services\DataLoader\Factories\ModelFactory;
-use App\Services\DataLoader\Finders\DistributorFinder;
 use Exception;
 use Psr\Log\LoggerInterface;
 
-class DistributorLoader extends CompanyLoader implements DistributorFinder {
+class DistributorLoader extends CompanyLoader {
     public function __construct(
         LoggerInterface $logger,
         Client $client,
@@ -27,12 +25,4 @@ class DistributorLoader extends CompanyLoader implements DistributorFinder {
     protected function getModelNotFoundException(string $id): Exception {
         return new DistributorNotFoundException($id);
     }
-
-    // <editor-fold desc="DistributorFinder">
-    // =========================================================================
-    public function find(string $key): ?Distributor {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->create($key);
-    }
-    // </editor-fold>
 }
