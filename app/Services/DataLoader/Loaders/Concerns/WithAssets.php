@@ -6,12 +6,14 @@ use App\Models\Model;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\OffsetBasedIterator;
 use App\Services\DataLoader\Events\ObjectSkipped;
+use App\Services\DataLoader\Exceptions\AssetNotFoundException;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
 use App\Services\DataLoader\Factories\DocumentFactory;
 use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Factories\ResellerFactory;
+use App\Services\DataLoader\Loaders\AssetLoader;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -39,7 +41,8 @@ trait WithAssets {
         protected CustomerResolver $customerResolver,
         protected LocationFactory $locations,
         protected ContactFactory $contacts,
-        protected AssetFactory $assets,
+        protected AssetFactory $assetFactory,
+        protected AssetLoader $assetLoader,
         protected DocumentFactory $documents,
     ) {
         parent::__construct($logger, $client);
@@ -101,31 +104,24 @@ trait WithAssets {
         }
 
         // Update missed
+        $loader   = $this->getAssetLoader();
         $iterator = $this->getMissedAssets($owner, $updated)?->iterator()->safe() ?? [];
 
         unset($updated);
 
         foreach ($iterator as $missed) {
             /** @var \App\Models\Asset $missed */
-            $asset = $this->client->getAssetById($missed->getKey());
-
-            if ($asset) {
-                try {
-                    $factory->create($asset);
-                } catch (Throwable $exception) {
-                    $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
-                    $this->logger->notice('Failed to process Asset.', [
-                        'asset'     => $asset,
-                        'exception' => $exception,
-                    ]);
-                }
-            } else {
-                $missed->customer = null;
-                $missed->reseller = null;
-                $missed->save();
-
+            try {
+                $loader->update($missed->getKey());
+            } catch (AssetNotFoundException $exception) {
                 $this->logger->error('Asset found in database but not found in Cosmos.', [
-                    'id' => $missed->getKey(),
+                    'asset'     => $missed->getKey(),
+                    'exception' => $exception,
+                ]);
+            } catch (Throwable $exception) {
+                $this->logger->notice('Failed to update Asset.', [
+                    'asset'     => $missed->getKey(),
+                    'exception' => $exception,
                 ]);
             }
         }
@@ -148,12 +144,16 @@ trait WithAssets {
 
     protected function getAssetsFactory(): AssetFactory {
         if ($this->isWithAssetsDocuments()) {
-            $this->assets->setDocumentFactory($this->documents);
+            $this->assetFactory->setDocumentFactory($this->documents);
         } else {
-            $this->assets->setDocumentFactory(null);
+            $this->assetFactory->setDocumentFactory(null);
         }
 
-        return $this->assets;
+        return $this->assetFactory;
+    }
+
+    protected function getAssetLoader(): AssetLoader {
+        return $this->assetLoader;
     }
 
     protected function getResellersFactory(): ResellerFactory {
