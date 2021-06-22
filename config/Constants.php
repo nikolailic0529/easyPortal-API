@@ -4,6 +4,7 @@ namespace Config;
 
 use App\Jobs\Queues;
 use App\Services\DataLoader\Jobs\AssetsImporterCronJob;
+use App\Services\DataLoader\Jobs\AssetsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\CustomersImporterCronJob;
 use App\Services\DataLoader\Jobs\CustomersUpdaterCronJob;
 use App\Services\DataLoader\Jobs\CustomerUpdate;
@@ -504,6 +505,69 @@ interface Constants {
     #[Group('data_loader')]
     #[Type(BooleanType::class)]
     public const EP_DATA_LOADER_ASSETS_IMPORTER_UPDATE = false;
+    // </editor-fold>
+
+    // <editor-fold desc="EP_DATA_LOADER_ASSETS_UPDATER">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(AssetsUpdaterCronJob::class, 'enabled')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_ASSETS_UPDATER_ENABLED = true;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(AssetsUpdaterCronJob::class, 'cron')]
+    #[Group('data_loader')]
+    #[Type(CronExpression::class)]
+    public const EP_DATA_LOADER_ASSETS_UPDATER_CRON = '0 0 * * *';
+
+    /**
+     * Queue name.
+     */
+    #[Service(AssetsUpdaterCronJob::class, 'queue')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_ASSETS_UPDATER_QUEUE = Queues::DATA_LOADER_DEFAULT;
+
+    /**
+     * Number of seconds the job can run.
+     */
+    #[Service(AssetsUpdaterCronJob::class, 'timeout')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_ASSETS_UPDATER_TIMEOUT = 6 * 60 * 60;
+
+    /**
+     * Number of times the job may be attempted.
+     */
+    #[Service(AssetsUpdaterCronJob::class, 'tries')]
+    #[Group('data_loader')]
+    public const EP_DATA_LOADER_ASSETS_UPDATER_TRIES = 8;
+
+    /**
+     * Chunk size.
+     */
+    #[Service(AssetsUpdaterCronJob::class, 'settings.chunk')]
+    #[Group('data_loader')]
+    #[Type(IntType::class)]
+    public const EP_DATA_LOADER_ASSETS_UPDATER_CHUNK = 500;
+
+    /**
+     * Update existing objects?
+     */
+    #[Service(AssetsUpdaterCronJob::class, 'settings.update')]
+    #[Group('data_loader')]
+    #[Type(BooleanType::class)]
+    public const EP_DATA_LOADER_ASSETS_UPDATER_UPDATE = true;
+
+    /**
+     * Expiration interval.
+     */
+    #[Service(AssetsUpdaterCronJob::class, 'settings.expire')]
+    #[Group('data_loader')]
+    #[Type(Duration::class)]
+    public const EP_DATA_LOADER_ASSETS_UPDATER_EXPIRE = 'PT24H';
     // </editor-fold>
     // </editor-fold>
 }
