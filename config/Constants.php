@@ -7,12 +7,10 @@ use App\Services\DataLoader\Jobs\AssetsImporterCronJob;
 use App\Services\DataLoader\Jobs\AssetsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\CustomersImporterCronJob;
 use App\Services\DataLoader\Jobs\CustomersUpdaterCronJob;
-use App\Services\DataLoader\Jobs\CustomerUpdate;
 use App\Services\DataLoader\Jobs\DistributorsImporterCronJob;
 use App\Services\DataLoader\Jobs\DistributorsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
-use App\Services\DataLoader\Jobs\ResellerUpdate;
 use App\Services\Settings\Attributes\Group;
 use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Job;
@@ -489,16 +487,6 @@ interface Constants {
     public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_UPDATE = false;
     // </editor-fold>
 
-    // <editor-fold desc="EP_DATA_LOADER_RESELLER_UPDATE">
-    // -------------------------------------------------------------------------
-    /**
-     * Queue name.
-     */
-    #[Job(ResellerUpdate::class, 'queue')]
-    #[Group('data_loader')]
-    public const EP_DATA_LOADER_RESELLER_UPDATE_QUEUE = Queues::DATA_LOADER_UPDATE;
-    // </editor-fold>
-
     // <editor-fold desc="EP_DATA_LOADER_CUSTOMERS_UPDATER">
     // -------------------------------------------------------------------------
     /**
@@ -554,16 +542,6 @@ interface Constants {
     #[Group('data_loader')]
     #[Type(Duration::class)]
     public const EP_DATA_LOADER_CUSTOMERS_UPDATER_EXPIRE = 'PT24H';
-    // </editor-fold>
-
-    // <editor-fold desc="EP_DATA_LOADER_CUSTOMER_UPDATE">
-    // -------------------------------------------------------------------------
-    /**
-     * Queue name.
-     */
-    #[Job(CustomerUpdate::class, 'queue')]
-    #[Group('data_loader')]
-    public const EP_DATA_LOADER_CUSTOMER_UPDATE_QUEUE = Queues::DATA_LOADER_UPDATE;
     // </editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER_ASSETS_IMPORTER">
