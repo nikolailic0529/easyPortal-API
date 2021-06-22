@@ -19,7 +19,7 @@ class AssetsUpdaterCronJob extends AssetsImporterCronJob {
         return [
                 'settings' => [
                     'chunk'  => Constants::EP_DATA_LOADER_ASSETS_UPDATER_CHUNK,
-                    'update' => Constants::EP_DATA_LOADER_ASSETS_UPDATER_UPDATE,
+                    'update' => true,
                     'expire' => Constants::EP_DATA_LOADER_ASSETS_UPDATER_EXPIRE,
                 ],
             ] + parent::getQueueConfig();

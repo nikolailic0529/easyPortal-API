@@ -5,15 +5,12 @@ namespace App\Services\DataLoader\Importers;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Factories\DistributorFactory;
 use App\Services\DataLoader\Loader;
-use App\Services\DataLoader\Loaders\Concerns\CalculatedProperties;
 use App\Services\DataLoader\Loaders\DistributorLoader;
 use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Resolvers\DistributorResolver;
 use DateTimeInterface;
 
 class DistributorsImporter extends Importer {
-    use CalculatedProperties;
-
     /**
      * @param array<mixed> $items
      */

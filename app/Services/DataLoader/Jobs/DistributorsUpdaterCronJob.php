@@ -19,7 +19,7 @@ class DistributorsUpdaterCronJob extends DistributorsImporterCronJob {
         return [
                 'settings' => [
                     'chunk'  => Constants::EP_DATA_LOADER_DISTRIBUTORS_UPDATER_CHUNK,
-                    'update' => Constants::EP_DATA_LOADER_DISTRIBUTORS_UPDATER_UPDATE,
+                    'update' => true,
                     'expire' => Constants::EP_DATA_LOADER_DISTRIBUTORS_UPDATER_EXPIRE,
                 ],
             ] + parent::getQueueConfig();

@@ -556,14 +556,6 @@ interface Constants {
     public const EP_DATA_LOADER_ASSETS_UPDATER_CHUNK = 500;
 
     /**
-     * Update existing objects?
-     */
-    #[Service(AssetsUpdaterCronJob::class, 'settings.update')]
-    #[Group('data_loader')]
-    #[Type(BooleanType::class)]
-    public const EP_DATA_LOADER_ASSETS_UPDATER_UPDATE = true;
-
-    /**
      * Expiration interval.
      */
     #[Service(AssetsUpdaterCronJob::class, 'settings.expire')]
@@ -676,14 +668,6 @@ interface Constants {
     #[Group('data_loader')]
     #[Type(IntType::class)]
     public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_CHUNK = self::EP_DATA_LOADER_CHUNK;
-
-    /**
-     * Update existing objects?
-     */
-    #[Service(DistributorsUpdaterCronJob::class, 'settings.update')]
-    #[Group('data_loader')]
-    #[Type(BooleanType::class)]
-    public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_UPDATE = true;
 
     /**
      * Expiration interval.
