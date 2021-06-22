@@ -292,7 +292,7 @@ interface Constants {
      */
     #[Setting('ep.data_loader.chunk')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_CHUNK = 100;
+    public const EP_DATA_LOADER_CHUNK = 250;
 
     /**
      * Default timeout for http requests (in seconds).
