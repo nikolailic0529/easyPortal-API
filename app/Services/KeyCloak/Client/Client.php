@@ -54,13 +54,21 @@ class Client {
         return $result;
     }
 
-    public function getOrganizationGroup(Organization $organization): Group {
+    public function getGroup(Organization|RoleModel $object): Group {
         // GET /{realm}/groups/{id}
-        if (!$organization->keycloak_group_id) {
-            throw new InvalidKeyCloakGroup();
+        $id = null;
+
+        if ($object instanceof Organization) {
+            $id = $object->keycloak_group_id;
+        } elseif ($object instanceof RoleModel) {
+            $id = $object->getKey();
         }
 
-        $endpoint = "groups/{$organization->keycloak_group_id}";
+        if (!$id) {
+            return null;
+        }
+
+        $endpoint = "groups/{$id}";
         $result   = $this->call($endpoint);
         $result   = new Group($result);
 
@@ -176,36 +184,12 @@ class Client {
         return $result;
     }
 
-    /**
-     * @return array<\App\Services\KeyCloak\Client\Types\Role>
-     */
-    public function group(Organization|RoleModel $object): ?Group {
-        // GET /{realm}/groups/{id}
-        $id = null;
-
-        if ($object instanceof Organization) {
-            $id = $object->keycloak_group_id;
-        } elseif ($object instanceof RoleModel) {
-            $id = $object->getKey();
-        }
-
-        if (!$id) {
-            return null;
-        }
-
-        $endpoint = "groups/{$id}";
-        $result   = $this->call($endpoint);
-        $result   = new Group($result);
-
-        return $result;
-    }
-
     public function inviteUser(RoleModel $role, string $email): bool {
         // POST /{realm}/users
         $endpoint = 'users';
 
         // Get Group path
-        $group = $this->group($role);
+        $group = $this->getGroup($role);
 
         if (!$group) {
             throw new InvalidKeyCloakGroup();
