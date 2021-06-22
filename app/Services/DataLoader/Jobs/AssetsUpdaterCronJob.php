@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Jobs;
 use Config\Constants;
 
 /**
- * Update assets.
+ * Search for outdated assets and update it.
  */
 class AssetsUpdaterCronJob extends AssetsImporterCronJob {
     public function displayName(): string {

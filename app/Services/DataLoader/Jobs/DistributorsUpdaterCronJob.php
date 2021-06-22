@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Jobs;
 use Config\Constants;
 
 /**
- * Update distributors.
+ * Search for outdated distributors and update it.
  */
 class DistributorsUpdaterCronJob extends DistributorsImporterCronJob {
     public function displayName(): string {
