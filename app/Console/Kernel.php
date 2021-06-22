@@ -20,7 +20,7 @@ use App\Services\DataLoader\Jobs\DistributorsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\KeyCloak\Commands\SyncPermissions;
-use App\Services\KeyCloak\Jobs\SyncPermissions as SyncPermissionsCronJob;
+use App\Services\KeyCloak\Jobs\SyncPermissionsCronJob;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use LastDragon_ru\LaraASP\Queue\Concerns\ConsoleKernelWithSchedule;
 

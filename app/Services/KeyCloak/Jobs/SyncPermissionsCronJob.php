@@ -8,9 +8,9 @@ use Illuminate\Contracts\Queue\ShouldBeUnique;
 use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
 
 /**
- * Update customer.
+ * Sync application permissions with KeyCloak.
  */
-class SyncPermissions extends CronJob implements ShouldBeUnique, NamedJob {
+class SyncPermissionsCronJob extends CronJob implements ShouldBeUnique, NamedJob {
     public function displayName(): string {
         return 'ep-keycloak-sync-permissions';
     }

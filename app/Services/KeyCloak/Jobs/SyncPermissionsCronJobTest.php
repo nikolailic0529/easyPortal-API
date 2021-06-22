@@ -8,21 +8,21 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\KeyCloak\Jobs\SyncPermissions
+ * @coversDefaultClass \App\Services\KeyCloak\Jobs\SyncPermissionsCronJob
  */
-class SyncPermissionsTest extends TestCase {
+class SyncPermissionsCronJobTest extends TestCase {
     /**
      * @coversNothing
      */
     public function testRegistration(): void {
-        $this->assertCronableRegistered(SyncPermissions::class);
+        $this->assertCronableRegistered(SyncPermissionsCronJob::class);
     }
 
     /**
      * @covers ::handle
      */
     public function testHandle(): void {
-        $job    = $this->app->make(SyncPermissions::class);
+        $job    = $this->app->make(SyncPermissionsCronJob::class);
         $kernel = Mockery::mock(Kernel::class);
 
         $kernel
