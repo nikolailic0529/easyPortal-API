@@ -18,9 +18,11 @@ use App\Services\Settings\Attributes\Service;
 use App\Services\Settings\Attributes\Setting;
 use App\Services\Settings\Attributes\Type;
 use App\Services\Settings\Jobs\ConfigUpdate;
+use App\Services\Settings\Types\BooleanType;
 use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\DocumentType;
 use App\Services\Settings\Types\Duration;
+use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\LocationType;
 use App\Services\Settings\Types\Organization;
 use App\Services\Settings\Types\StringType;
@@ -449,7 +451,7 @@ interface Constants {
     public const EP_DATA_LOADER_CUSTOMER_UPDATE_QUEUE = Queues::DATA_LOADER_UPDATE;
     // </editor-fold>
 
-    // <editor-fold desc="DATA_LOADER_ASSETS_IMPORTER">
+    // <editor-fold desc="EP_DATA_LOADER_ASSETS_IMPORTER">
     // -------------------------------------------------------------------------
     /**
      * Enabled?
@@ -486,6 +488,22 @@ interface Constants {
     #[Service(AssetsImporterCronJob::class, 'tries')]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_ASSETS_IMPORTER_TRIES = 8;
+
+    /**
+     * Chunk size.
+     */
+    #[Service(AssetsImporterCronJob::class, 'settings.chunk')]
+    #[Group('data_loader')]
+    #[Type(IntType::class)]
+    public const EP_DATA_LOADER_ASSETS_IMPORTER_CHUNK = 500;
+
+    /**
+     * Update existing objects?
+     */
+    #[Service(AssetsImporterCronJob::class, 'settings.update')]
+    #[Group('data_loader')]
+    #[Type(BooleanType::class)]
+    public const EP_DATA_LOADER_ASSETS_IMPORTER_UPDATE = false;
     // </editor-fold>
     // </editor-fold>
 }
