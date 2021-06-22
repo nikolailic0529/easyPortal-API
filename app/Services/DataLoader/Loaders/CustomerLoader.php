@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Loaders;
 
 use App\Models\Customer;
 use App\Models\Model;
-use App\Services\DataLoader\Client\OffsetBasedIterator;
+use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\LoaderRecalculable;
@@ -41,7 +41,7 @@ class CustomerLoader extends CompanyLoader implements LoaderRecalculable {
 
     // <editor-fold desc="WithAssets">
     // =========================================================================
-    protected function getCurrentAssets(Model $owner): OffsetBasedIterator {
+    protected function getCurrentAssets(Model $owner): QueryIterator {
         return $this->isWithAssetsDocuments()
             ? $this->client->getAssetsByCustomerIdWithDocuments($owner->getKey())
             : $this->client->getAssetsByCustomerId($owner->getKey());

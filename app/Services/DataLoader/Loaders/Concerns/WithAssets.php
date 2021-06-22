@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Loaders\Concerns;
 
 use App\Models\Model;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Client\OffsetBasedIterator;
+use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\AssetNotFoundException;
 use App\Services\DataLoader\Factories\AssetFactory;
@@ -131,9 +131,9 @@ trait WithAssets {
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
-    abstract protected function getCurrentAssets(Model $owner): OffsetBasedIterator;
+    abstract protected function getCurrentAssets(Model $owner): QueryIterator;
 
     /**
      * @param array<string> $current

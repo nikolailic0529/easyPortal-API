@@ -4,7 +4,7 @@ namespace App\Services\DataLoader\Loaders;
 
 use App\Models\Model;
 use App\Models\Reseller;
-use App\Services\DataLoader\Client\OffsetBasedIterator;
+use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\LoaderRecalculable;
@@ -41,7 +41,7 @@ class ResellerLoader extends CompanyLoader implements LoaderRecalculable {
 
     // <editor-fold desc="WithAssets">
     // =========================================================================
-    protected function getCurrentAssets(Model $owner): OffsetBasedIterator {
+    protected function getCurrentAssets(Model $owner): QueryIterator {
         return $this->isWithAssetsDocuments()
             ? $this->client->getAssetsByResellerIdWithDocuments($owner->getKey())
             : $this->client->getAssetsByResellerId($owner->getKey());
