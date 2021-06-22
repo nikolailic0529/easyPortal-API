@@ -19,6 +19,7 @@ use App\Services\DataLoader\Jobs\DistributorsImporterCronJob;
 use App\Services\DataLoader\Jobs\DistributorsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
+use App\Services\KeyCloak\Commands\SyncPermissions;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use LastDragon_ru\LaraASP\Queue\Concerns\ConsoleKernelWithSchedule;
 
@@ -44,6 +45,7 @@ class Kernel extends ConsoleKernel {
         UpdateCustomer::class,
         UpdateAsset::class,
         AnalyzeAssets::class,
+        SyncPermissions::class,
     ];
 
     /**
