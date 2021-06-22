@@ -199,7 +199,7 @@ class Client {
             'email'           => $email,
             'groups'          => [$group->path],
             'enabled'         => true,
-            'requiredActions' => $this->config->get('ep.keycloak.signup_actions'),
+            'requiredActions' => $this->config->get('ep.keycloak.invite_actions'),
         ]);
         $errorHandler = function (Exception $exception) use ($endpoint, $email): void {
             if ($exception instanceof RequestException) {
