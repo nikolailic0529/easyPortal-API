@@ -104,19 +104,19 @@ class Client {
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\Company>
+     * @return \App\Services\DataLoader\Client\LastIdBasedIterator<\App\Services\DataLoader\Schema\Company>
      */
     public function getCustomers(
         DateTimeInterface $from = null,
         int $limit = null,
-        int $offset = 0,
-    ): OffsetBasedIterator {
+        string $lastId = null,
+    ): LastIdBasedIterator {
         return $this
-            ->getOffsetBasedIterator(
+            ->getLastIdBasedIterator(
                 'getCustomers',
                 /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$limit: Int, \$offset: Int, \$from: String) {
-                    getCustomers(limit: \$limit, offset: \$offset, fromTimestamp: \$from) {
+                query items(\$limit: Int, \$lastId: String, \$from: String) {
+                    getCustomers(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
                         {$this->getCustomerPropertiesGraphQL()}
                     }
                 }
@@ -129,7 +129,7 @@ class Client {
                 },
             )
             ->limit($limit)
-            ->offset($offset);
+            ->lastId($lastId);
     }
 
     public function getCompanyById(string $id): ?Company {

@@ -10,6 +10,8 @@ use LastDragon_ru\LaraASP\Queue\Queueables\Job;
 
 /**
  * Update customer.
+ *
+ * @deprecated
  */
 class CustomerUpdate extends Job implements ShouldBeUnique, NamedJob, Initializable {
     /**
