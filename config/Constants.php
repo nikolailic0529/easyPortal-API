@@ -109,7 +109,7 @@ interface Constants {
     #[Setting('ep.dashboard_url')]
     #[Group('ep')]
     #[Type(StringType::class)]
-    public const EP_CLIENT_ORGANIZATION_SIGNIN_URI = '';
+    public const EP_CLIENT_ORGANIZATION_SIGNIN_URI = 'auth/organizations/{organizationId}';
     // </editor-fold>
 
     // <editor-fold desc="EP_CLIENT">
