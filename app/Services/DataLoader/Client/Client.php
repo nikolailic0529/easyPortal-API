@@ -759,7 +759,7 @@ class Client {
     }
 
     protected function getAssetDocumentsPropertiesGraphQL(): string {
-        return <<<GRAPHQL
+        return <<<'GRAPHQL'
             startDate
             endDate
             documentNumber
