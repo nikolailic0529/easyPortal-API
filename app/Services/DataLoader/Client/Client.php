@@ -48,6 +48,35 @@ class Client {
     /**
      * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\Company>
      */
+    public function getDistributors(
+        DateTimeInterface $from = null,
+        int $limit = null,
+        string $lastId = null,
+    ): LastIdBasedIterator {
+        return $this
+            ->getLastIdBasedIterator(
+                'getDistributors',
+                /** @lang GraphQL */ <<<GRAPHQL
+                query items(\$limit: Int, \$lastId: String, \$from: String) {
+                    getDistributors(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                        {$this->getDistributorPropertiesGraphQL()}
+                    }
+                }
+                GRAPHQL,
+                [
+                    'from' => $this->datetime($from),
+                ],
+                static function (array $data): Company {
+                    return new Company($data);
+                },
+            )
+            ->limit($limit)
+            ->lastId($lastId);
+    }
+
+    /**
+     * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\Company>
+     */
     public function getResellers(
         DateTimeInterface $from = null,
         int $limit = null,
