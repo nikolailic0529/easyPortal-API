@@ -27,6 +27,8 @@ use App\Services\DataLoader\Factories\Concerns\WithStatus;
 use App\Services\DataLoader\Factories\Concerns\WithTag;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\FactoryPrefetchable;
+use App\Services\DataLoader\Finders\CustomerFinder;
+use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
@@ -74,13 +76,15 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         protected OemResolver $oems,
         protected TypeResolver $types,
         protected ProductResolver $products,
-        protected CustomerResolver $customers,
-        protected ResellerResolver $resellers,
+        protected CustomerResolver $customerResolver,
+        protected ResellerResolver $resellerResolver,
         protected LocationFactory $locations,
         protected ContactFactory $contacts,
         protected StatusResolver $statuses,
         protected AssetCoverageFactory $coverages,
         protected TagResolver $tags,
+        protected ?ResellerFinder $resellerFinder = null,
+        protected ?CustomerFinder $customerFinder = null,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -88,11 +92,19 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
     protected function getResellerResolver(): ResellerResolver {
-        return $this->resellers;
+        return $this->resellerResolver;
+    }
+
+    protected function getResellerFinder(): ?ResellerFinder {
+        return $this->resellerFinder;
     }
 
     protected function getCustomerResolver(): CustomerResolver {
-        return $this->customers;
+        return $this->customerResolver;
+    }
+
+    protected function getCustomerFinder(): ?CustomerFinder {
+        return $this->customerFinder;
     }
 
     protected function getContactsFactory(): ContactFactory {

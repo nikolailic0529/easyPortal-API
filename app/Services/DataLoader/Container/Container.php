@@ -53,6 +53,8 @@ class Container extends IlluminateContainer {
             $resolved = parent::resolve($abstract, $parameters, $raiseEvents);
         } elseif (is_a($abstract, Isolated::class, true)) {
             $resolved = parent::resolve($abstract, $parameters, $raiseEvents);
+        } elseif ($abstract === self::class) {
+            $resolved = $this;
         } else {
             // For external objects, we use the standard container, but there
             // is one potential pitfall: if the standard object injects our

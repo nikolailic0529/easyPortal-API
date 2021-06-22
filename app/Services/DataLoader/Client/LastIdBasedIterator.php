@@ -9,6 +9,10 @@ use function end;
 class LastIdBasedIterator extends QueryIterator {
     protected ?string $lastId = null;
 
+    public function getLastId(): ?string {
+        return $this->lastId;
+    }
+
     public function lastId(?string $lastId): static {
         $this->lastId = $lastId;
 
@@ -25,7 +29,7 @@ class LastIdBasedIterator extends QueryIterator {
     }
 
     /**
-     * @inheritDoc
+     * @param array<mixed> $items
      */
     protected function chunkProcessed(array $items): bool {
         $last     = end($items);
@@ -37,6 +41,7 @@ class LastIdBasedIterator extends QueryIterator {
             $continue = true;
         }
 
-        return $continue;
+        return parent::chunkProcessed($items)
+            && $continue;
     }
 }

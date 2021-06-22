@@ -54,15 +54,29 @@ class LastIdBasedIteratorTest extends TestCase {
             ->times(1)
             ->andReturnUsing($this->getRetriever($data));
 
+        $onBeforeChunk = Mockery::spy(static function (): void {
+            // empty
+        });
+        $onAfterChunk  = Mockery::spy(static function (): void {
+            // empty
+        });
+        $iterator      = (new LastIdBasedIterator($logger, $client, '', ''))
+            ->beforeChunk(Closure::fromCallable($onBeforeChunk))
+            ->afterChunk(Closure::fromCallable($onAfterChunk))
+            ->lastId('5')
+            ->limit(2)
+            ->chunk(5);
+
         $expected = ['6', '7'];
-        $actual   = iterator_to_array(
-            (new LastIdBasedIterator($logger, $client, '', ''))->lastId('5')->limit(2)->chunk(5),
-        );
+        $actual   = iterator_to_array($iterator);
         $actual   = array_map(static function (Type $type): ?string {
             return $type->id ?? null;
         }, $actual);
 
         $this->assertEquals($expected, $actual);
+
+        $onBeforeChunk->shouldHaveBeenCalled();
+        $onAfterChunk->shouldHaveBeenCalled();
     }
 
     /**

@@ -3,7 +3,9 @@
 namespace App\Services\DataLoader\Commands;
 
 use App\Services\DataLoader\Commands\Concerns\WithBooleanOptions;
-use App\Services\DataLoader\DataLoaderService;
+use App\Services\DataLoader\Container\Container;
+use App\Services\DataLoader\Loader;
+use App\Services\DataLoader\Loaders\CustomerLoader;
 use Psr\Log\LoggerInterface;
 
 use function array_unique;
@@ -33,14 +35,16 @@ class UpdateCustomer extends Update {
      */
     protected $description = 'Update customer(s) with given ID(s).';
 
-    public function handle(DataLoaderService $service, LoggerInterface $logger): int {
-        $loader = $service->getCustomerLoader();
+    public function handle(LoggerInterface $logger, Container $container): int {
         $create = $this->getBooleanOption('create', false);
         $ids    = array_unique($this->argument('id'));
 
-        $loader->setWithAssets($this->getBooleanOption('assets', false));
-        $loader->setWithAssetsDocuments($this->getBooleanOption('assets-documents', true));
+        return $this->process($logger, $container, $ids, $create);
+    }
 
-        return $this->process($logger, $loader, $ids, $create);
+    protected function makeLoader(Container $container): Loader {
+        return $container->make(CustomerLoader::class)
+            ->setWithAssets($this->getBooleanOption('assets', false))
+            ->setWithAssetsDocuments($this->getBooleanOption('assets-documents', true));
     }
 }

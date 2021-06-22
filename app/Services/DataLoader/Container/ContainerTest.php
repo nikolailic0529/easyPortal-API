@@ -83,6 +83,29 @@ class ContainerTest extends TestCase {
         $this->assertSame($a, $b);
         $this->assertNotSame($a, $s);
     }
+
+    /**
+     * @covers ::resolve
+     */
+    public function testResolveSelf(): void {
+        // Container should be a singleton too
+        $c = $this->app->make(Container::class);
+        $a = $c->resolve(Container::class);
+        $b = $c->resolve(Container::class);
+
+        $this->assertNotNull($a);
+        $this->assertNotNull($b);
+        $this->assertSame($a, $b);
+        $this->assertSame($a, $c);
+
+        // But only inside themself
+        $d = $this->app->make(Container::class);
+        $e = $d->resolve(Container::class);
+
+        $this->assertSame($d, $e);
+        $this->assertNotSame($d, $c);
+        $this->assertNotSame($e, $a);
+    }
 }
 
 // @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
