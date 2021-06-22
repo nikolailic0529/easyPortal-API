@@ -4,12 +4,18 @@ namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Reseller;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
+use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
 
+/**
+ * @mixin \App\Services\DataLoader\Factory
+ */
 trait WithReseller {
+    abstract protected function getResellerFinder(): ?ResellerFinder;
+
     abstract protected function getResellerResolver(): ResellerResolver;
 
     protected function reseller(ViewAsset|ViewDocument|ViewAssetDocument $object): ?Reseller {
@@ -26,7 +32,11 @@ trait WithReseller {
         $reseller = null;
 
         if ($id) {
-            $reseller = $this->getResellerResolver()->get($id);
+            $reseller = $this->getResellerResolver()->get($id, $this->factory(
+                function () use ($id): ?Reseller {
+                    return $this->getResellerFinder()?->find($id);
+                },
+            ));
         }
 
         // Found?

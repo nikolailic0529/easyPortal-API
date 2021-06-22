@@ -31,6 +31,10 @@ abstract class Loader implements Isolated {
         // empty
     }
 
+    protected function getLogger(): LoggerInterface {
+        return $this->logger;
+    }
+
     // <editor-fold desc="Abstract">
     // =========================================================================
     /**
@@ -61,17 +65,27 @@ abstract class Loader implements Isolated {
                 }
             }
 
-            return $this->process($object);
+            return $this->run($object);
         });
     }
 
     public function create(Type|string $object): ?Model {
         return $this->callWithoutGlobalScopes([OwnedByOrganizationScope::class], function () use ($object): ?Model {
             $object = is_string($object) ? $this->getObjectById($object) : $object;
-            $model  = $this->process($object);
+            $model  = $this->run($object);
 
             return $model;
         });
+    }
+
+    private function run(?Type $object): ?Model {
+        try {
+            return $this->process($object);
+        } finally {
+            if ($this instanceof LoaderRecalculable) {
+                $this->recalculate();
+            }
+        }
     }
 
     protected function process(?Type $object): ?Model {

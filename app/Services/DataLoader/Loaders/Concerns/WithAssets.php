@@ -2,34 +2,31 @@
 
 namespace App\Services\DataLoader\Loaders\Concerns;
 
-use App\Models\Asset;
-use App\Models\Customer;
-use App\Models\Document;
 use App\Models\Model;
-use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Client\OffsetBasedIterator;
+use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Events\ObjectSkipped;
+use App\Services\DataLoader\Exceptions\AssetNotFoundException;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
 use App\Services\DataLoader\Factories\DocumentFactory;
 use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Factories\ResellerFactory;
-use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Loaders\AssetLoader;
+use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\ResellerResolver;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-use function array_filter;
-
 /**
  * @mixin \App\Services\DataLoader\Loader
  */
 trait WithAssets {
-    use CalculatedProperties;
+    use WithCalculatedProperties;
 
     protected bool $withAssets          = false;
     protected bool $withAssetsDocuments = false;
@@ -38,11 +35,14 @@ trait WithAssets {
         LoggerInterface $logger,
         Client $client,
         protected Dispatcher $dispatcher,
-        protected ResellerFactory $resellers,
-        protected CustomerFactory $customers,
+        protected ResellerFactory $resellerFactory,
+        protected ResellerResolver $resellerResolver,
+        protected CustomerFactory $customerFactory,
+        protected CustomerResolver $customerResolver,
         protected LocationFactory $locations,
         protected ContactFactory $contacts,
-        protected AssetFactory $assets,
+        protected AssetFactory $assetFactory,
+        protected AssetLoader $assetLoader,
         protected DocumentFactory $documents,
     ) {
         parent::__construct($logger, $client);
@@ -70,10 +70,9 @@ trait WithAssets {
 
     protected function loadAssets(Model $owner): bool {
         // Update assets
-        $factory   = $this->getAssetsFactory();
-        $updated   = [];
-        $resellers = [];
-        $prefetch  = function (array $assets) use ($factory): void {
+        $factory  = $this->getAssetsFactory();
+        $updated  = [];
+        $prefetch = function (array $assets) use ($factory): void {
             $factory->prefetch($assets, true, function (Collection $assets): void {
                 if ($this->isWithAssetsDocuments()) {
                     $assets->loadMissing('warranties');
@@ -88,15 +87,12 @@ trait WithAssets {
             });
         };
 
-        foreach ($this->getCurrentAssets($owner)->each($prefetch) as $asset) {
+        foreach ($this->getCurrentAssets($owner)->beforeChunk($prefetch) as $asset) {
             try {
                 $model = $factory->create($asset);
 
                 if ($model) {
-                    $resellerId                          = (string) $model->reseller_id;
-                    $customerId                          = (string) $model->customer_id;
-                    $updated[]                           = $model->getKey();
-                    $resellers[$resellerId][$customerId] = $customerId;
+                    $updated[] = $model->getKey();
                 }
             } catch (Throwable $exception) {
                 $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
@@ -108,81 +104,36 @@ trait WithAssets {
         }
 
         // Update missed
+        $loader   = $this->getAssetLoader();
         $iterator = $this->getMissedAssets($owner, $updated)?->iterator()->safe() ?? [];
 
         unset($updated);
 
         foreach ($iterator as $missed) {
             /** @var \App\Models\Asset $missed */
-            $asset = $this->client->getAssetById($missed->getKey());
-
-            if ($asset) {
-                try {
-                    $model = $factory->create($asset);
-
-                    if ($model) {
-                        $resellerId                          = (string) $model->reseller_id;
-                        $customerId                          = (string) $model->customer_id;
-                        $resellers[$resellerId][$customerId] = $customerId;
-                    }
-                } catch (Throwable $exception) {
-                    $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
-                    $this->logger->notice('Failed to process Asset.', [
-                        'asset'     => $asset,
-                        'exception' => $exception,
-                    ]);
-                }
-            } else {
-                $missed->customer = null;
-                $missed->reseller = null;
-                $missed->save();
-
+            try {
+                $loader->update($missed->getKey());
+            } catch (AssetNotFoundException $exception) {
                 $this->logger->error('Asset found in database but not found in Cosmos.', [
-                    'id' => $missed->getKey(),
+                    'asset'     => $missed->getKey(),
+                    'exception' => $exception,
+                ]);
+            } catch (Throwable $exception) {
+                $this->logger->notice('Failed to update Asset.', [
+                    'asset'     => $missed->getKey(),
+                    'exception' => $exception,
                 ]);
             }
         }
-
-        // Update Resellers/Customers
-        foreach ($resellers as $resellerId => $customers) {
-            // Get Reseller
-            $reseller = null;
-
-            if ($resellerId) {
-                $reseller = $this->getResellersFactory()->find(new Company([
-                    'id' => $resellerId,
-                ]));
-            }
-
-            // Update Customers
-            $customers = array_filter($customers);
-
-            foreach ($customers as $customerId) {
-                $customer = $this->customers->find(new Company([
-                    'id' => $customerId,
-                ]));
-
-                if ($customer) {
-                    $this->updateCustomerCalculatedProperties($customer);
-                }
-            }
-
-            // Update Reseller
-            if ($reseller) {
-                $this->updateResellerCalculatedProperties($reseller);
-            }
-        }
-
-        unset($resellers);
 
         // Return
         return true;
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
-    abstract protected function getCurrentAssets(Model $owner): OffsetBasedIterator;
+    abstract protected function getCurrentAssets(Model $owner): QueryIterator;
 
     /**
      * @param array<string> $current
@@ -193,19 +144,33 @@ trait WithAssets {
 
     protected function getAssetsFactory(): AssetFactory {
         if ($this->isWithAssetsDocuments()) {
-            $this->assets->setDocumentFactory($this->documents);
+            $this->assetFactory->setDocumentFactory($this->documents);
         } else {
-            $this->assets->setDocumentFactory(null);
+            $this->assetFactory->setDocumentFactory(null);
         }
 
-        return $this->assets;
+        return $this->assetFactory;
+    }
+
+    protected function getAssetLoader(): AssetLoader {
+        return $this->assetLoader;
     }
 
     protected function getResellersFactory(): ResellerFactory {
-        return $this->resellers;
+        return $this->resellerFactory;
     }
 
     protected function getCustomersFactory(): CustomerFactory {
-        return $this->customers;
+        return $this->customerFactory;
     }
+
+    // <editor-fold desc="WithCalculatedProperties">
+    // =========================================================================
+    /**
+     * @inheritDoc
+     */
+    protected function getResolversToRecalculate(): array {
+        return [$this->resellerResolver, $this->customerResolver];
+    }
+    // </editor-fold>
 }

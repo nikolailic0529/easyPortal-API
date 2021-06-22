@@ -4,6 +4,9 @@ namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Distributor;
 use App\Services\DataLoader\Exceptions\DistributorNotFoundException;
+use App\Services\DataLoader\Factory;
+use App\Services\DataLoader\Finders\DistributorFinder;
+use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Schema\ViewDocument;
 use Closure;
@@ -27,11 +30,39 @@ class WithDistributorTest extends TestCase {
         $resolver    = Mockery::mock(DistributorResolver::class);
         $resolver
             ->shouldReceive('get')
-            ->with($distributor->getKey())
+            ->with($distributor->getKey(), Mockery::any())
             ->once()
             ->andReturn($distributor);
 
         $factory = new WithDistributorTestObject($resolver);
+        $object  = $objectFactory($this, $distributor);
+
+        $this->assertEquals($distributor, $factory->distributor($object));
+    }
+
+    /**
+     * @covers ::distributor
+     *
+     * @dataProvider dataProviderDistributor
+     */
+    public function testDistributorExistsThroughFinder(Closure $objectFactory): void {
+        $distributor = Distributor::factory()->make();
+        $resolver    = Mockery::mock(DistributorResolver::class, [$this->app->make(Normalizer::class)]);
+        $resolver->shouldAllowMockingProtectedMethods();
+        $resolver->makePartial();
+        $resolver
+            ->shouldReceive('find')
+            ->with($distributor->getKey())
+            ->once()
+            ->andReturn(null);
+        $finder = Mockery::mock(DistributorFinder::class);
+        $finder
+            ->shouldReceive('find')
+            ->with($distributor->getKey())
+            ->once()
+            ->andReturn($distributor);
+
+        $factory = new WithDistributorTestObject($resolver, $finder);
         $object  = $objectFactory($this, $distributor);
 
         $this->assertEquals($distributor, $factory->distributor($object));
@@ -47,7 +78,7 @@ class WithDistributorTest extends TestCase {
         $resolver    = Mockery::mock(DistributorResolver::class);
         $resolver
             ->shouldReceive('get')
-            ->with($distributor->getKey())
+            ->with($distributor->getKey(), Mockery::any())
             ->once()
             ->andReturn(null);
 
@@ -86,18 +117,24 @@ class WithDistributorTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class WithDistributorTestObject {
+class WithDistributorTestObject extends Factory {
     use WithDistributor {
         distributor as public;
     }
 
+    /** @noinspection PhpMissingParentConstructorInspection */
     public function __construct(
         protected DistributorResolver $resolver,
+        protected ?DistributorFinder $finder = null,
     ) {
         // empty
     }
 
     protected function getDistributorResolver(): DistributorResolver {
         return $this->resolver;
+    }
+
+    protected function getDistributorFinder(): ?DistributorFinder {
+        return $this->finder;
     }
 }

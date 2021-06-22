@@ -145,7 +145,7 @@ class AnalyzeAssets extends Command {
         );
         // @phpcs:enable
 
-        foreach ($iterator->each($each) as $item) {
+        foreach ($iterator->beforeChunk($each) as $item) {
             /** @var \App\Services\DataLoader\Schema\ViewAsset $item */
             $id      = $item->id;
             $analyze = $analyzeResolver->get($id);

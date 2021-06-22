@@ -4,14 +4,23 @@ namespace App\Console;
 
 use App\Services\DataLoader\Commands\AnalyzeAssets;
 use App\Services\DataLoader\Commands\ImportAssets;
+use App\Services\DataLoader\Commands\ImportCustomers;
+use App\Services\DataLoader\Commands\ImportDistributors;
+use App\Services\DataLoader\Commands\ImportResellers;
 use App\Services\DataLoader\Commands\UpdateAsset;
 use App\Services\DataLoader\Commands\UpdateCustomer;
 use App\Services\DataLoader\Commands\UpdateDistributor;
 use App\Services\DataLoader\Commands\UpdateReseller;
+use App\Services\DataLoader\Jobs\AssetsImporterCronJob;
+use App\Services\DataLoader\Jobs\AssetsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\CustomersImporterCronJob;
 use App\Services\DataLoader\Jobs\CustomersUpdaterCronJob;
+use App\Services\DataLoader\Jobs\DistributorsImporterCronJob;
+use App\Services\DataLoader\Jobs\DistributorsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
+use App\Services\KeyCloak\Commands\SyncPermissions;
+use App\Services\KeyCloak\Jobs\SyncPermissionsCronJob;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use LastDragon_ru\LaraASP\Queue\Concerns\ConsoleKernelWithSchedule;
 
@@ -28,12 +37,16 @@ class Kernel extends ConsoleKernel {
      * @var array<string>
      */
     protected $commands = [
+        ImportDistributors::class,
+        ImportResellers::class,
+        ImportCustomers::class,
         ImportAssets::class,
         UpdateDistributor::class,
         UpdateReseller::class,
         UpdateCustomer::class,
         UpdateAsset::class,
         AnalyzeAssets::class,
+        SyncPermissions::class,
     ];
 
     /**
@@ -42,10 +55,15 @@ class Kernel extends ConsoleKernel {
      * @var array<class-string<\LastDragon_ru\LaraASP\Queue\Contracts\Cronable>>
      */
     protected array $schedule = [
+        DistributorsImporterCronJob::class,
+        DistributorsUpdaterCronJob::class,
         ResellersImporterCronJob::class,
         ResellersUpdaterCronJob::class,
         CustomersImporterCronJob::class,
         CustomersUpdaterCronJob::class,
+        AssetsImporterCronJob::class,
+        AssetsUpdaterCronJob::class,
+        SyncPermissionsCronJob::class,
     ];
 
     /**

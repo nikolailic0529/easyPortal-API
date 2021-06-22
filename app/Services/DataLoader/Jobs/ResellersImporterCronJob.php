@@ -2,39 +2,37 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Models\Model;
-use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Client\OffsetBasedIterator;
-use App\Services\DataLoader\Factories\ResellerFactory;
-use App\Services\DataLoader\Factory;
-use App\Services\DataLoader\Schema\Company;
-use Illuminate\Contracts\Container\Container;
-use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
+use App\Services\DataLoader\Importers\ResellersImporter;
+use Config\Constants;
+use Illuminate\Contracts\Cache\Repository;
+use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 
 /**
- * Imports reseller list.
+ * Imports resellers.
  */
-class ResellersImporterCronJob extends CompanyUpdaterCronJob {
+class ResellersImporterCronJob extends ImporterCronJob {
     public function displayName(): string {
         return 'ep-data-loader-resellers-importer';
     }
 
-    protected function getFactory(Container $container): Factory {
-        return $container->make(ResellerFactory::class);
+    /**
+     * @return array<mixed>
+     */
+    public function getQueueConfig(): array {
+        return [
+                'settings' => [
+                    'chunk'  => Constants::EP_DATA_LOADER_RESELLERS_IMPORTER_CHUNK,
+                    'update' => Constants::EP_DATA_LOADER_RESELLERS_IMPORTER_UPDATE,
+                    'expire' => null,
+                ],
+            ] + parent::getQueueConfig();
     }
 
-    protected function getCompanies(Client $client, QueueableConfig $config): OffsetBasedIterator {
-        return $client->getResellers();
-    }
-
-    protected function updateCreatedCompany(Container $container, Company $company, Model $model): void {
-        $container
-            ->make(ResellerUpdate::class)
-            ->initialize($model->getKey())
-            ->dispatch();
-    }
-
-    protected function updateExistingCompany(Container $container, Company $company, Model $model): void {
-        // no action
+    public function handle(
+        Repository $cache,
+        ResellersImporter $importer,
+        QueueableConfigurator $configurator,
+    ): void {
+        $this->process($cache, $importer, $configurator);
     }
 }

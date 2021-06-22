@@ -10,7 +10,6 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use InvalidArgumentException;
 use JetBrains\PhpStorm\Pure;
 use LogicException;
 
@@ -27,25 +26,11 @@ use function is_array;
  * @internal
  */
 abstract class Resolver implements Singleton {
-    protected ResolverFinder|null $finder   = null;
-    protected bool                $isFinder = false;
-    protected Cache|null          $cache    = null;
-    protected Normalizer          $normalizer;
+    protected Cache|null $cache = null;
+    protected Normalizer $normalizer;
 
     public function __construct(Normalizer $normalizer) {
         $this->normalizer = $normalizer;
-    }
-
-    protected function getFinder(): ?ResolverFinder {
-        return $this->finder;
-    }
-
-    public function setFinder(ResolverFinder $finder): void {
-        if ($this->finder && $this->finder !== $finder) {
-            throw new InvalidArgumentException('Finder already set.');
-        }
-
-        $this->finder = $finder;
     }
 
     /**
@@ -86,28 +71,9 @@ abstract class Resolver implements Singleton {
     }
 
     protected function find(mixed $key): ?Model {
-        // Inside Finder?
-        if ($this->isFinder) {
-            return null;
-        }
-
-        // Search in Database
-        $model = $this->getFindQuery()?->where(function (Builder $builder) use ($key): Builder {
+        return $this->getFindQuery()?->where(function (Builder $builder) use ($key): Builder {
             return $this->getFindWhere($builder, $key);
         })->first();
-
-        // Search through Finder
-        if (!$model && $this->getFinder()) {
-            try {
-                $this->isFinder = true;
-                $model          = $this->getFinder()->find($key);
-            } finally {
-                $this->isFinder = false;
-            }
-        }
-
-        // Return
-        return $model;
     }
 
     /**
@@ -150,11 +116,7 @@ abstract class Resolver implements Singleton {
         }
 
         // Fill cache
-        if ($this->getFinder() === null) {
-            $this->getCache()->putNulls($keys);
-        }
-
-        $this->getCache()->putAll($items);
+        $this->getCache()->putNulls($keys)->putAll($items);
 
         // Return
         return $this;

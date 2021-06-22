@@ -18,6 +18,9 @@ use App\Services\DataLoader\Factories\Concerns\WithProduct;
 use App\Services\DataLoader\Factories\Concerns\WithReseller;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\FactoryPrefetchable;
+use App\Services\DataLoader\Finders\CustomerFinder;
+use App\Services\DataLoader\Finders\DistributorFinder;
+use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\DistributorResolver;
@@ -56,14 +59,17 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         Normalizer $normalizer,
         protected OemResolver $oems,
         protected TypeResolver $types,
-        protected ResellerResolver $resellers,
-        protected CustomerResolver $customers,
+        protected ResellerResolver $resellerResolver,
+        protected CustomerResolver $customerResolver,
         protected ProductResolver $products,
         protected CurrencyFactory $currencies,
         protected DocumentResolver $documents,
         protected LanguageFactory $languages,
-        protected DistributorResolver $distributors,
+        protected DistributorResolver $distributorResolver,
         protected ContactFactory $contacts,
+        protected ?DistributorFinder $distributorFinder = null,
+        protected ?ResellerFinder $resellerFinder = null,
+        protected ?CustomerFinder $customerFinder = null,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -76,15 +82,27 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
     protected function getDistributorResolver(): DistributorResolver {
-        return $this->distributors;
+        return $this->distributorResolver;
+    }
+
+    protected function getDistributorFinder(): ?DistributorFinder {
+        return $this->distributorFinder;
     }
 
     protected function getResellerResolver(): ResellerResolver {
-        return $this->resellers;
+        return $this->resellerResolver;
+    }
+
+    protected function getResellerFinder(): ?ResellerFinder {
+        return $this->resellerFinder;
     }
 
     protected function getCustomerResolver(): CustomerResolver {
-        return $this->customers;
+        return $this->customerResolver;
+    }
+
+    protected function getCustomerFinder(): ?CustomerFinder {
+        return $this->customerFinder;
     }
 
     protected function getContactsFactory(): ContactFactory {
