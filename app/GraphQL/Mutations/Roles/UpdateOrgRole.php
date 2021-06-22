@@ -51,14 +51,13 @@ class UpdateOrgRole {
      */
     protected function syncRoles(Role $role, array $permissions): void {
         // Get Current keycloak roles
-        $group        = $this->client->getOrganizationGroup($role);
+        $group        = $this->client->getGroup($role);
         $clientId     = (string) $this->config->get('ep.keycloak.client_id');
         $clientRoles  = $group->clientRoles;
         $currentRoles = [];
         if (array_key_exists($clientId, $clientRoles)) {
             $currentRoles = $clientRoles[$clientId];
         }
-        $currentRoles = $group->clientRoles;
 
         $permissions = Permission::whereIn((new Permission())->getKeyName(), $permissions)
             ->get()
@@ -69,10 +68,10 @@ class UpdateOrgRole {
 
         $added = [];
         foreach ($permissions as $permission) {
-            if (in_array($permission->id, $currentRoles, true)) {
-                unset($currentRoles[$permission->key]);
+            if (in_array($permission->name, $currentRoles, true)) {
+                unset($currentRoles[$permission->name]);
             } else {
-                array_push($added, $permission);
+                array_push($added, $permission->toArray());
             }
         }
 
