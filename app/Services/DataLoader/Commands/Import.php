@@ -66,7 +66,9 @@ abstract class Import extends Command {
         $update   = $this->getBooleanOption('update', false);
         $continue = $this->option('continue');
 
-        $this->line('Settings:');
+        if ($from || $chunk || $limit || $continue) {
+            $this->line('Settings:');
+        }
 
         if ($from) {
             $from = Date::make($from);
@@ -92,7 +94,7 @@ abstract class Import extends Command {
             $this->line("    Continue:  {$continue}");
         }
 
-        if ($chunk || $limit || $continue) {
+        if ($from || $chunk || $limit || $continue) {
             $this->newLine();
         }
 

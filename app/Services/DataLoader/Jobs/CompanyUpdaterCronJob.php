@@ -22,6 +22,9 @@ use Throwable;
 
 use function sprintf;
 
+/**
+ * @deprecated
+ */
 abstract class CompanyUpdaterCronJob extends CronJob implements ShouldBeUnique, NamedJob {
     use GlobalScopes;
 

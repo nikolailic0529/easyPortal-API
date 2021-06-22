@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Services\DataLoader\Commands\AnalyzeAssets;
 use App\Services\DataLoader\Commands\ImportAssets;
 use App\Services\DataLoader\Commands\ImportDistributors;
+use App\Services\DataLoader\Commands\ImportResellers;
 use App\Services\DataLoader\Commands\UpdateAsset;
 use App\Services\DataLoader\Commands\UpdateCustomer;
 use App\Services\DataLoader\Commands\UpdateDistributor;
@@ -34,6 +35,7 @@ class Kernel extends ConsoleKernel {
      */
     protected $commands = [
         ImportDistributors::class,
+        ImportResellers::class,
         ImportAssets::class,
         UpdateDistributor::class,
         UpdateReseller::class,

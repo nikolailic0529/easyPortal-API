@@ -10,6 +10,8 @@ use LastDragon_ru\LaraASP\Queue\Queueables\Job;
 
 /**
  * Update reseller.
+ *
+ * @deprecated
  */
 class ResellerUpdate extends Job implements ShouldBeUnique, NamedJob, Initializable {
     /**
