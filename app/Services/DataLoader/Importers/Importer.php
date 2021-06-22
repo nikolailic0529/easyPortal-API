@@ -9,6 +9,7 @@ use App\Services\DataLoader\Client\OffsetBasedIterator;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Loader;
+use App\Services\DataLoader\LoaderRecalculable;
 use App\Services\DataLoader\Resolver;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Closure;
@@ -156,6 +157,11 @@ abstract class Importer {
         // Reset objects
         $this->resolver = $this->makeResolver();
         $this->loader   = $this->makeLoader();
+
+        // Configure
+        if ($this->loader instanceof LoaderRecalculable) {
+            $this->loader->setRecalculate(false);
+        }
     }
 
     /**
@@ -165,6 +171,11 @@ abstract class Importer {
         // Update status
         $status->continue = $continue;
         $status->chunk++;
+
+        // Update calculated properties
+        if ($this->loader instanceof LoaderRecalculable) {
+            $this->loader->recalculate(true);
+        }
 
         // Call callback
         if ($this->onChange) {

@@ -9,12 +9,18 @@ use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\DocumentFactory;
 use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\Loader;
+use App\Services\DataLoader\LoaderRecalculable;
+use App\Services\DataLoader\Loaders\Concerns\WithCalculatedProperties;
+use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use Exception;
 use Psr\Log\LoggerInterface;
 
-class AssetLoader extends Loader {
+class AssetLoader extends Loader implements LoaderRecalculable {
+    use WithCalculatedProperties;
+
     protected bool $withDocuments = false;
 
     public function __construct(
@@ -22,6 +28,8 @@ class AssetLoader extends Loader {
         Client $client,
         protected AssetFactory $assets,
         protected DocumentFactory $documents,
+        protected ResellerResolver $resellers,
+        protected CustomerResolver $customers,
     ) {
         parent::__construct($logger, $client);
     }
@@ -65,7 +73,14 @@ class AssetLoader extends Loader {
         try {
             return parent::process($object);
         } finally {
-            // todo: Calculated properties
+            $this->recalculate();
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getResolversToRecalculate(): array {
+        return [$this->resellers, $this->customers];
     }
 }

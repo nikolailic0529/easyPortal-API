@@ -17,8 +17,6 @@ use App\Services\DataLoader\Loaders\AssetLoader;
 use App\Services\DataLoader\Loaders\Concerns\CalculatedProperties;
 use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Resolvers\AssetResolver;
-use App\Services\DataLoader\Resolvers\CustomerResolver;
-use App\Services\DataLoader\Resolvers\ResellerResolver;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -68,23 +66,7 @@ class AssetsImporter extends Importer {
             });
     }
 
-    /**
-     * @param array<mixed> $items
-     */
-    protected function onAfterChunk(array $items, Status $status, string|int|null $continue): void {
-        // Update calculated properties
-        $this->updateCalculatedProperties(
-            $this->container->make(ResellerResolver::class),
-            $this->container->make(CustomerResolver::class),
-        );
-
-        // Parent
-        parent::onAfterChunk($items, $status, $continue);
-    }
-
-    protected function makeIterator(
-        DateTimeInterface $from = null,
-    ): QueryIterator {
+    protected function makeIterator(DateTimeInterface $from = null): QueryIterator {
         return $this->client->getAssetsWithDocuments($from);
     }
 
