@@ -86,8 +86,9 @@ abstract class Importer {
                     } catch (Throwable $exception) {
                         $status->failed++;
 
-                        $this->logger->warning('Failed to import asset.', [
-                            'asset'     => $item,
+                        $this->logger->warning('Failed to import object.', [
+                            'importer'  => $this::class,
+                            'object'    => $item,
                             'exception' => $exception,
                         ]);
                     } finally {
@@ -181,9 +182,7 @@ abstract class Importer {
         // empty
     }
 
-    abstract protected function makeIterator(
-        DateTimeInterface $from = null,
-    ): QueryIterator;
+    abstract protected function makeIterator(DateTimeInterface $from = null): QueryIterator;
 
     abstract protected function makeLoader(): Loader;
 
