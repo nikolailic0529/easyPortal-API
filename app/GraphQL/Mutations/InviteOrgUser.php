@@ -26,12 +26,11 @@ class InviteOrgUser {
         $organization = $this->organization->get();
         $role         = $organization->roles()->whereKey($args['input']['role_id'])->first();
         if (!$role) {
-            return false;
+            throw new InviteOrgUserInvalidRole();
         }
-        $result = $this->client->inviteUser($role, $args['input']['email']);
-        if ($result) {
-            $this->mailer->to($args['input']['email'])->send(new InviteOrganizationUser($organization));
-        }
+        $email  = $args['input']['email'];
+        $result = $this->client->inviteUser($role, $email);
+        $this->mailer->to($email)->send(new InviteOrganizationUser($organization));
         return ['result' => $result ];
     }
 }

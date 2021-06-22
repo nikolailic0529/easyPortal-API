@@ -8,6 +8,7 @@ use App\Services\KeyCloak\Client\Exceptions\EndpointException;
 use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakClient;
 use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakGroup;
 use App\Services\KeyCloak\Client\Exceptions\KeyCloakDisabled;
+use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role;
 use App\Services\KeyCloak\Client\Types\User;
@@ -207,7 +208,7 @@ class Client {
         $group = $this->group($role);
 
         if (!$group) {
-            return false;
+            throw new InvalidKeyCloakGroup();
         }
 
         $input        = new User([
@@ -216,10 +217,10 @@ class Client {
             'enabled'         => true,
             'requiredActions' => $this->config->get('ep.keycloak.signup_actions'),
         ]);
-        $errorHandler = function (Exception $exception) use ($endpoint): bool {
+        $errorHandler = function (Exception $exception) use ($endpoint, $email): void {
             if ($exception instanceof RequestException) {
                 if ($exception->getCode() === Response::HTTP_CONFLICT) {
-                    return false;
+                    throw new UserAlreadyExists($email);
                 }
             }
             $this->endpointException($exception, $endpoint);

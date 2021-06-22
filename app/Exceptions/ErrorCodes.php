@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use App\GraphQL\Mutations\DispatchApplicationServiceFailed;
 use App\GraphQL\Mutations\DispatchApplicationServiceNotFoundException;
+use App\GraphQL\Mutations\InviteOrgUserInvalidRole;
 use App\Http\Controllers\ExportGraphQLQueryEmpty;
 use App\Http\Controllers\ExportGraphQLQueryInvalid;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled as DataLoaderDataLoaderDisabled;
@@ -16,6 +17,7 @@ use App\Services\KeyCloak\Client\Exceptions\EndpointException as KeyCloakEndpoin
 use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakClient;
 use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakGroup;
 use App\Services\KeyCloak\Client\Exceptions\KeyCloakDisabled;
+use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists as KeyCloakUserAlreadyExists;
 use App\Services\KeyCloak\Exceptions\AnotherUserExists as KeyCloakAnotherUserExists;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailed as KeyCloakAuthorizationFailed;
 use App\Services\KeyCloak\Exceptions\InsufficientData as KeyCloakInsufficientData;
@@ -57,6 +59,8 @@ class ErrorCodes {
         InvalidKeyCloakGroup::class                        => 'ERR22',
         KeyCloakDisabled::class                            => 'ERR23',
         InvalidKeyCloakClient::class                       => 'ERR24',
+        KeyCloakUserAlreadyExists::class                   => 'ERR25',
+        InviteOrgUserInvalidRole::class                    => 'ERR26',
     ];
 
     public static function getCode(Throwable $throwable): string|int {
