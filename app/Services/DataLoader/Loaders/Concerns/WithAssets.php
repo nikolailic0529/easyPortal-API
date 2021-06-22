@@ -12,20 +12,19 @@ use App\Services\DataLoader\Factories\CustomerFactory;
 use App\Services\DataLoader\Factories\DocumentFactory;
 use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Factories\ResellerFactory;
-use App\Services\DataLoader\Schema\Company;
+use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\ResellerResolver;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
-use function array_filter;
-
 /**
  * @mixin \App\Services\DataLoader\Loader
  */
 trait WithAssets {
-    use CalculatedProperties;
+    use WithCalculatedProperties;
 
     protected bool $withAssets          = false;
     protected bool $withAssetsDocuments = false;
@@ -34,8 +33,10 @@ trait WithAssets {
         LoggerInterface $logger,
         Client $client,
         protected Dispatcher $dispatcher,
-        protected ResellerFactory $resellers,
-        protected CustomerFactory $customers,
+        protected ResellerFactory $resellerFactory,
+        protected ResellerResolver $resellerResolver,
+        protected CustomerFactory $customerFactory,
+        protected CustomerResolver $customerResolver,
         protected LocationFactory $locations,
         protected ContactFactory $contacts,
         protected AssetFactory $assets,
@@ -66,10 +67,9 @@ trait WithAssets {
 
     protected function loadAssets(Model $owner): bool {
         // Update assets
-        $factory   = $this->getAssetsFactory();
-        $updated   = [];
-        $resellers = [];
-        $prefetch  = function (array $assets) use ($factory): void {
+        $factory  = $this->getAssetsFactory();
+        $updated  = [];
+        $prefetch = function (array $assets) use ($factory): void {
             $factory->prefetch($assets, true, function (Collection $assets): void {
                 if ($this->isWithAssetsDocuments()) {
                     $assets->loadMissing('warranties');
@@ -89,10 +89,7 @@ trait WithAssets {
                 $model = $factory->create($asset);
 
                 if ($model) {
-                    $resellerId                          = (string) $model->reseller_id;
-                    $customerId                          = (string) $model->customer_id;
-                    $updated[]                           = $model->getKey();
-                    $resellers[$resellerId][$customerId] = $customerId;
+                    $updated[] = $model->getKey();
                 }
             } catch (Throwable $exception) {
                 $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
@@ -114,13 +111,7 @@ trait WithAssets {
 
             if ($asset) {
                 try {
-                    $model = $factory->create($asset);
-
-                    if ($model) {
-                        $resellerId                          = (string) $model->reseller_id;
-                        $customerId                          = (string) $model->customer_id;
-                        $resellers[$resellerId][$customerId] = $customerId;
-                    }
+                    $factory->create($asset);
                 } catch (Throwable $exception) {
                     $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
                     $this->logger->notice('Failed to process Asset.', [
@@ -138,38 +129,6 @@ trait WithAssets {
                 ]);
             }
         }
-
-        // Update Resellers/Customers
-        foreach ($resellers as $resellerId => $customers) {
-            // Get Reseller
-            $reseller = null;
-
-            if ($resellerId) {
-                $reseller = $this->getResellersFactory()->find(new Company([
-                    'id' => $resellerId,
-                ]));
-            }
-
-            // Update Customers
-            $customers = array_filter($customers);
-
-            foreach ($customers as $customerId) {
-                $customer = $this->customers->find(new Company([
-                    'id' => $customerId,
-                ]));
-
-                if ($customer) {
-                    $this->updateCustomerCalculatedProperties($customer);
-                }
-            }
-
-            // Update Reseller
-            if ($reseller) {
-                $this->updateResellerCalculatedProperties($reseller);
-            }
-        }
-
-        unset($resellers);
 
         // Return
         return true;
@@ -198,10 +157,20 @@ trait WithAssets {
     }
 
     protected function getResellersFactory(): ResellerFactory {
-        return $this->resellers;
+        return $this->resellerFactory;
     }
 
     protected function getCustomersFactory(): CustomerFactory {
-        return $this->customers;
+        return $this->customerFactory;
     }
+
+    // <editor-fold desc="WithCalculatedProperties">
+    // =========================================================================
+    /**
+     * @inheritDoc
+     */
+    protected function getResolversToRecalculate(): array {
+        return [$this->resellerResolver, $this->customerResolver];
+    }
+    // </editor-fold>
 }

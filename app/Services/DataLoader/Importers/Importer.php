@@ -173,7 +173,7 @@ abstract class Importer {
         $status->chunk++;
 
         // Update calculated properties
-        if ($this->loader instanceof LoaderRecalculable) {
+        if ($this->loader instanceof LoaderRecalculable && ($status->created || $status->updated || $status->failed)) {
             $this->loader->recalculate(true);
         }
 

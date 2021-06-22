@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Reseller;
 use App\Services\DataLoader\Resolver;
+use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -60,9 +61,13 @@ trait CalculatedProperties {
             ->union($documentsCustomer)
             ->get()
             ->pluck('customer_id');
-        $customers         = Customer::query()
-            ->whereIn((new Customer())->getKeyName(), $ids)
-            ->get();
+        $customers         = new Collection();
+
+        if (!$ids->isEmpty()) {
+            $customers = Customer::query()
+                ->whereIn((new Customer())->getKeyName(), $ids)
+                ->get();
+        }
 
         $reseller->customers    = $customers;
         $reseller->assets_count = $reseller->assets()->count();
