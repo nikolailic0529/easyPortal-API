@@ -1,0 +1,5 @@
+type Role {
+    id: ID!
+    organization_id: ID!
+    name: String!
+}

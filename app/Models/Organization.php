@@ -6,6 +6,7 @@ use App\Models\Concerns\HasCurrency;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
@@ -46,6 +47,7 @@ use function app;
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>     $locations
  * @property \App\Models\Status                                                 $status
  * @property \App\Models\Reseller                                               $reseller
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Role>         $roles
  * @method static \Database\Factories\OrganizationFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization newQuery()
@@ -109,5 +111,9 @@ class Organization extends Model implements HasLocalePreference {
 
     public function reseller(): HasOne {
         return $this->hasOne(Reseller::class, (new Reseller())->getKeyName());
+    }
+
+    public function roles(): HasMany {
+        return $this->hasMany(Role::class);
     }
 }

@@ -26,4 +26,7 @@ type Organization {
 
   keycloak_scope: String
   @me(permissions: ["administer"])
+
+  roles: [Role!]! @hasMany
+  @me(permissions: ["edit-organization"])
 }

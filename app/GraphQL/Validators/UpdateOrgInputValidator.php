@@ -10,7 +10,7 @@ use Nuwave\Lighthouse\Validation\Validator;
 
 use function implode;
 
-class UpdateOrganizationInputValidator extends Validator {
+class UpdateOrgInputValidator extends Validator {
     public function __construct(
         protected Repository $config,
     ) {

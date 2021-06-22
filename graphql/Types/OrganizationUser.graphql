@@ -6,4 +6,5 @@ type OrganizationUser {
     firstName: String
     lastName: String
     email: String
+    groups: [String!]!
 }

@@ -147,6 +147,7 @@
     "settings.groups.client": "Client Application",
     "settings.groups.keycloak": "KeyCloak",
     "settings.groups.data_loader": "Data Loader",
+    "settings.groups.logger": "Logger",
     "settings.errors.failed_to_load_env": "Impossible to load env file: :file. Corrupted?",
     "export.errors.graphql_query_invalid": "GraphQL query is invalid.",
     "export.errors.graphql_query_empty": "GraphQL query has empty result.",
@@ -158,6 +159,6 @@
     "keycloak.client.unavailable": "KeyCloak Service temporarily unavailable, please try again later.",
     "keycloak.client.endpoint_failure": "KeyCloak invalid response.",
     "keycloak.client.disabled": "KeyCloak Client disabled.",
-    "keycloak.client.invalid_group": "Invalid Keycloak group"
-
+    "keycloak.client.invalid_group": "Invalid Keycloak group",
+    "keycloak.client.invalid_client": "Invalid Keycloak Client UUID"
 }

@@ -37,6 +37,7 @@ type Application {
   """
   translations(locale: String!): [Translation!]!
   locale: String!
+  permissions: [String!]
 }
 
 type ApplicationJob {
@@ -312,6 +313,14 @@ type CreateMeSearchPayload {
   created: MeSearch!
 }
 
+input CreateOrgRoleInput {
+  name: String!
+}
+
+type CreateOrgRolePayload {
+  created: Role!
+}
+
 type Currency {
   id: ID!
   code: String!
@@ -449,6 +458,14 @@ input DeleteMeSearchInput {
 
 type DeleteMeSearchPayload {
   deleted: Boolean!
+}
+
+input DeleteOrgRoleInput {
+  id: ID!
+}
+
+type DeleteOrgRolePayload {
+  deleted: String!
 }
 
 input DispatchApplicationServiceInput {
@@ -675,6 +692,13 @@ type Mutation {
   dispatchApplicationService(input: DispatchApplicationServiceInput!): DispatchApplicationServicePayload
 
   """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
+  """
+  inviteOrgUser(input: inviteOrgUserInput!): inviteOrgUserPayload
+
+  """
   Force delete all custom settings, may be useful to restore the corrupted file.
   
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -742,9 +766,11 @@ type Mutation {
   updateClientTranslations(input: UpdateClientTranslationsInput!): UpdateClientTranslationsPayload
 
   """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
   @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
   """
-  updateOrganization(input: UpdateOrganizationInput!): UpdateOrganizationPayload
+  updateOrg(input: UpdateOrgInput!): UpdateOrgPayload
 
   """
   Finish the Sign In for Organization.
@@ -787,6 +813,27 @@ type Mutation {
   @require <me> User must be authenticated.
   """
   signOut: SignOutPayload
+
+  """
+  Create Organization Role.
+  
+  @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
+  """
+  createOrgRole(input: CreateOrgRoleInput): CreateOrgRolePayload
+
+  """
+  DELETE Organization Role.
+  
+  @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
+  """
+  deleteOrgRole(input: DeleteOrgRoleInput): DeleteOrgRolePayload
+
+  """
+  Update Organization Role.
+  
+  @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
+  """
+  updateOrgRole(input: UpdateOrgRoleInput): UpdateOrgRolePayload
 }
 
 type Oem {
@@ -821,6 +868,11 @@ type Organization {
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
   keycloak_scope: String
+
+  """
+  @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
+  """
+  roles: [Role!]!
 }
 
 type OrganizationBranding {
@@ -855,6 +907,7 @@ type OrganizationUser {
   firstName: String
   lastName: String
   email: String
+  groups: [String!]!
 }
 
 input OrganizationsQuery {
@@ -929,6 +982,12 @@ type PaginatorInfo {
   total: Int!
 }
 
+type Permission {
+  id: ID!
+  key: String!
+  name: String!
+}
+
 type Product {
   id: ID!
   oem_id: ID!
@@ -959,7 +1018,7 @@ type Query {
   me: Me
 
   """Current organization."""
-  organization: Organization
+  org: Organization
 
   """Application information."""
   application: Application!
@@ -1049,13 +1108,20 @@ type Query {
   quote(id: ID!): Document
 
   """
-  getOrganization.
+  Organization.
   
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
-  getOrganization(id: ID!): Organization
+  organization(id: ID!): Organization
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
+  """
+  permissions: [Permission!]!
 
   """
   List of Customers.
@@ -1190,6 +1256,12 @@ input ResetPasswordInput {
 
 type ResetPasswordPayload {
   result: Boolean!
+}
+
+type Role {
+  id: ID!
+  organization_id: ID!
+  name: String!
 }
 
 """
@@ -2632,7 +2704,7 @@ type UpdateClientTranslationsPayload {
   updated: [Translation!]!
 }
 
-input UpdateOrganizationBranding {
+input UpdateOrgBranding {
   dark_theme: Boolean
   main_color: String
   secondary_color: String
@@ -2643,19 +2715,28 @@ input UpdateOrganizationBranding {
   welcome_underline: String
 }
 
-input UpdateOrganizationInput {
+input UpdateOrgInput {
   locale: String
   currency_id: ID
   website_url: String
   email: String
   analytics_code: String
-  branding: UpdateOrganizationBranding
+  branding: UpdateOrgBranding
   timezone: String
 }
 
-type UpdateOrganizationPayload {
+type UpdateOrgPayload {
   result: Boolean!
   organization: Organization!
+}
+
+input UpdateOrgRoleInput {
+  id: ID!
+  name: String!
+}
+
+type UpdateOrgRolePayload {
+  updated: Role!
 }
 
 """
@@ -2667,6 +2748,15 @@ type User {
   id: ID!
   given_name: String!
   family_name: String!
+}
+
+input inviteOrgUserInput {
+  email: String!
+  role: String!
+}
+
+type inviteOrgUserPayload {
+  result: Boolean!
 }
 
 type recoverApplicationSettingsPayload {
