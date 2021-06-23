@@ -19,7 +19,7 @@ use Illuminate\Support\Collection;
  * @property string                                                        $id
  * @property string                                                        $asset_id
  * @property string|null                                                   $reseller_id
- * @property string                                                        $customer_id
+ * @property string|null                                                   $customer_id
  * @property string|null                                                   $document_id
  * @property \Carbon\CarbonImmutable|null                                  $start
  * @property \Carbon\CarbonImmutable                                       $end
@@ -28,7 +28,7 @@ use Illuminate\Support\Collection;
  * @property \Carbon\CarbonImmutable|null                                  $deleted_at
  * @property string|null                                                   $note
  * @property \App\Models\Asset                                             $asset
- * @property \App\Models\Customer                                          $customer
+ * @property \App\Models\Customer|null                                     $customer
  * @property \App\Models\Document|null                                     $document
  * @property \App\Models\Reseller|null                                     $reseller
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Product> $services
