@@ -6,11 +6,11 @@ use App\Models\Concerns\HasAsset;
 use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasDocument;
 use App\Models\Concerns\HasReseller;
+use App\Models\Concerns\HasSupport;
 use App\Models\Concerns\SyncBelongsToMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Collection;
 
 /**
@@ -55,6 +55,7 @@ class AssetWarranty extends Model {
     use OwnedByOrganization;
     use HasFactory;
     use HasAsset;
+    use HasSupport;
     use HasReseller;
     use HasCustomer;
     use HasDocument;
@@ -100,16 +101,5 @@ class AssetWarranty extends Model {
      */
     public function setServicesAttribute(Collection|array $services): void {
         $this->syncBelongsToMany('services', $services);
-    }
-
-    public function support(): HasOneThrough {
-        return $this->hasOneThrough(
-            Product::class,
-            Document::class,
-            'id',
-            'id',
-            'document_id',
-            'support_id',
-        );
     }
 }
