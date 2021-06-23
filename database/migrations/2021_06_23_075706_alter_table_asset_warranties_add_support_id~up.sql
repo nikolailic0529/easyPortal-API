@@ -9,6 +9,13 @@ ALTER TABLE `asset_warranties`
     ADD INDEX `fk_asset_warranties_products1_idx`(`support_id` ASC) VISIBLE;
 
 ALTER TABLE `asset_warranties`
+    ADD COLUMN `document_number` VARCHAR(64) NULL DEFAULT NULL AFTER `document_id`,
+    DROP INDEX `unique__asset_id__document_id__deleted_not`;
+
+ALTER TABLE `asset_warranties`
+    CHANGE COLUMN `end` `end` DATE NULL DEFAULT NULL;
+
+ALTER TABLE `asset_warranties`
     ADD CONSTRAINT `fk_asset_warranties_products1`
         FOREIGN KEY (`support_id`)
             REFERENCES `products`(`id`)
@@ -20,7 +27,13 @@ ALTER TABLE `asset_warranties`
 UPDATE `asset_warranties` aw
     LEFT JOIN `documents` d ON d.`id` = aw.`document_id`
     LEFT JOIN `products` p ON p.`id` = d.`support_id`
-SET aw.`support_id` = p.`id`;
+SET aw.`support_id` = p.`id`, aw.`document_number` = d.`number`;
+
+-- Add unique index
+
+ALTER TABLE `asset_warranties`
+    ADD UNIQUE INDEX `unique__asset_id__document_id__document_number__deleted_not`(`asset_id` ASC, `document_id` ASC, `document_number` ASC, `deleted_not` ASC) VISIBLE;
+
 
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;

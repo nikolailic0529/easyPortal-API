@@ -9,6 +9,14 @@ ALTER TABLE `asset_warranties`
     DROP INDEX `fk_asset_warranties_products1_idx`,
     DROP COLUMN `support_id`;
 
+ALTER TABLE `asset_warranties`
+    CHANGE COLUMN `end` `end` DATE NOT NULL;
+
+ALTER TABLE `asset_warranties`
+    DROP INDEX `unique__asset_id__document_id__document_number__deleted_not`,
+    DROP COLUMN `document_number`,
+    ADD UNIQUE INDEX `unique__asset_id__document_id__deleted_not`(`asset_id` ASC, `document_id` ASC, `deleted_not` ASC) VISIBLE;
+
 
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
