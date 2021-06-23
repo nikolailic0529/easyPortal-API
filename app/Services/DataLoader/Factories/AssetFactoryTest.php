@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Factories;
 
-use App\Models\Asset as AssetModel;
+use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\Customer;
 use App\Models\Document;
@@ -18,7 +18,6 @@ use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
-use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
@@ -403,7 +402,7 @@ class AssetFactoryTest extends TestCase {
         Event::fake();
 
         // Prepare
-        $model     = AssetModel::factory()->make();
+        $model     = Asset::factory()->make();
         $asset     = new ViewAsset([
             'assetDocument' => [
                 [
@@ -450,7 +449,7 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            public function assetDocuments(AssetModel $model, ViewAsset $asset): Collection {
+            public function assetDocuments(Asset $model, ViewAsset $asset): Collection {
                 return parent::assetDocuments($model, $asset);
             }
         };
@@ -464,11 +463,8 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetDocuments
      */
     public function testAssetDocumentsNoDocumentId(): void {
-        // Fake
-        Event::fake();
-
         // Prepare
-        $model      = AssetModel::factory()->make();
+        $model      = Asset::factory()->make();
         $asset      = new ViewAsset([
             'assetDocument' => [
                 [
@@ -489,17 +485,13 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            public function assetDocuments(AssetModel $model, ViewAsset $asset): Collection {
+            public function assetDocuments(Asset $model, ViewAsset $asset): Collection {
                 return parent::assetDocuments($model, $asset);
             }
         };
 
         // Test
         $this->assertCount(0, $factory->assetDocuments($model, $asset));
-
-        Event::assertDispatched(ObjectSkipped::class, static function (ObjectSkipped $event): bool {
-            return $event->getReason() instanceof ViewAssetDocumentNoDocument;
-        });
     }
 
     /**
@@ -510,7 +502,7 @@ class AssetFactoryTest extends TestCase {
         Event::fake();
 
         // Prepare
-        $model      = AssetModel::factory()->make();
+        $model      = Asset::factory()->make();
         $asset      = new ViewAsset([
             'assetDocument' => [
                 [
@@ -539,7 +531,7 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            public function assetDocuments(AssetModel $model, ViewAsset $asset): Collection {
+            public function assetDocuments(Asset $model, ViewAsset $asset): Collection {
                 return parent::assetDocuments($model, $asset);
             }
         };
@@ -558,7 +550,7 @@ class AssetFactoryTest extends TestCase {
     public function testAssetWarranties(): void {
         $a         = AssetWarranty::factory()->make();
         $b         = AssetWarranty::factory()->make();
-        $model     = AssetModel::factory()->make();
+        $model     = Asset::factory()->make();
         $asset     = new ViewAsset();
         $documents = new Collection([Document::factory()->make()]);
         $factory   = Mockery::mock(AssetFactory::class);
@@ -605,13 +597,13 @@ class AssetFactoryTest extends TestCase {
                 $this->customerFinder = null;
             }
 
-            public function assetInitialWarranties(AssetModel $model, ViewAsset $asset): array {
+            public function assetInitialWarranties(Asset $model, ViewAsset $asset): array {
                 return parent::assetInitialWarranties($model, $asset);
             }
         };
 
         $date      = Date::now()->startOfDay();
-        $model     = AssetModel::factory()->create();
+        $model     = Asset::factory()->create();
         $resellerA = Reseller::factory()->create();
         $resellerB = Reseller::factory()->create();
         $customerA = Customer::factory()->create();
@@ -630,7 +622,7 @@ class AssetFactoryTest extends TestCase {
             'reseller_id' => $resellerB,
             'document_id' => null,
         ]);
-        $asset    = new ViewAsset([
+        $asset     = new ViewAsset([
             'id'            => $model->getKey(),
             'assetDocument' => [
                 // Should be added
@@ -776,18 +768,74 @@ class AssetFactoryTest extends TestCase {
                 // empty
             }
 
-            /**
-             * @inheritDoc
-             */
-            public function assetExtendedWarranties(AssetModel $model, Collection $documents): array {
-                return parent::assetExtendedWarranties($model, $documents);
+            public function assetExtendedWarranties(Asset $model, ViewAsset $asset): array {
+                return parent::assetExtendedWarranties($model, $asset);
             }
         };
+
+        $date      = Date::now();
+        $model     = Asset::factory()->create();
+        $resellerA = Reseller::factory()->create();
+        $resellerB = Reseller::factory()->create();
+        $customerA = Customer::factory()->create();
+        $customerB = Customer::factory()->create();
+        $documentA = Document::factory()->create([
+            'reseller_id' => $resellerA,
+            'customer_id' => $customerA,
+        ]);
+        $documentB = Document::factory()->create([
+            'reseller_id' => $resellerB,
+            'customer_id' => $customerB,
+        ]);
+        $asset     = new ViewAsset([
+            'id'            => $model->getKey(),
+            'assetDocument' => [
+                // Should be created
+                [
+                    'start'          => $this->getDatetime($date),
+                    'end'            => $this->getDatetime($date),
+                    'skuNumber'      => '',
+                    'skuDescription' => '',
+                    'supportPackage' => '',
+                    'reseller'       => [
+                        'id' => $resellerB->getKey(),
+                    ],
+                    'customer'       => [
+                        'id' => $customerB->getKey(),
+                    ],
+                ],
+
+                // Only one of should be create
+
+                // Services should be merged
+
+                // No service is OK
+
+                // Only one service should be saved
+
+                // Should be created even if document null
+
+                // Should be created - another reseller
+
+                // Should be created - another customer
+
+                // Should be skipped - no end date
+
+                // Should be skipped - no start date
+
+                // Should be skipped - reseller not found
+
+                // Should be skipped - customer not found
+            ],
+        ]);
+
+        // Existing should be updated
+
 
         $date     = Date::now();
         $customer = Customer::factory()->create();
         $service  = Product::factory()->create();
-        $asset    = AssetModel::factory()->create([
+        $asset    = Asset::factory()->create([
             'customer_id' => $customer,
         ]);
         $docA     = Document::factory()->create([
@@ -872,6 +920,272 @@ class AssetFactoryTest extends TestCase {
 
         $this->assertNotNull($b);
         $this->assertEquals($docC->customer_id, $c->customer_id);
+    }
+
+    /**
+     * @covers ::assetDocumentOem
+     */
+    public function testAssetDocumentOemWithDocument(): void {
+        $asset         = Asset::factory()->make();
+        $document      = Document::factory()->make();
+        $assetDocument = new ViewAssetDocument([
+            'document' => [
+                'id' => $this->faker->uuid,
+            ],
+        ]);
+        $documents     = Mockery::mock(DocumentFactory::class);
+        $documents
+            ->shouldReceive('find')
+            ->withArgs(static function (mixed $object) use ($asset, $assetDocument): bool {
+                return $object instanceof AssetDocumentObject
+                    && $object->document === $assetDocument
+                    && $object->asset === $asset;
+            })
+            ->once()
+            ->andReturn($document);
+
+        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('getDocumentFactory')
+            ->once()
+            ->andReturn($documents);
+
+        $this->assertSame($document->oem, $factory->assetDocumentOem($asset, $assetDocument));
+    }
+
+    /**
+     * @covers ::assetDocumentOem
+     */
+    public function testAssetDocumentOemWithoutDocument(): void {
+        $asset         = Asset::factory()->make();
+        $assetDocument = new ViewAssetDocument();
+        $factory       = Mockery::mock(AssetFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('getDocumentFactory')
+            ->never();
+
+        $this->assertSame($asset->oem, $factory->assetDocumentOem($asset, $assetDocument));
+    }
+
+    /**
+     * @covers ::assetDocumentDocument
+     */
+    public function testAssetDocumentDocumentWithDocument(): void {
+        $asset         = Asset::factory()->make();
+        $document      = Document::factory()->make();
+        $assetDocument = new ViewAssetDocument([
+            'document' => [
+                'id' => $this->faker->uuid,
+            ],
+        ]);
+        $documents     = Mockery::mock(DocumentFactory::class);
+        $documents
+            ->shouldReceive('find')
+            ->withArgs(static function (mixed $object) use ($asset, $assetDocument): bool {
+                return $object instanceof AssetDocumentObject
+                    && $object->document === $assetDocument
+                    && $object->asset === $asset;
+            })
+            ->once()
+            ->andReturn($document);
+
+        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('getDocumentFactory')
+            ->once()
+            ->andReturn($documents);
+
+        $this->assertSame($document, $factory->assetDocumentDocument($asset, $assetDocument));
+    }
+
+    /**
+     * @covers ::assetDocumentDocument
+     */
+    public function testAssetDocumentDocumentWithoutDocument(): void {
+        $asset    = Asset::factory()->make();
+        $document = new ViewAssetDocument();
+        $factory  = Mockery::mock(AssetFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('getDocumentFactory')
+            ->never();
+
+        $this->assertNull($factory->assetDocumentDocument($asset, $document));
+    }
+
+    /**
+     * @covers ::assetDocumentService
+     */
+    public function testAssetDocumentServiceWithDocument(): void {
+        $product       = Product::factory()->make();
+        $asset         = Asset::factory()->make();
+        $document      = Document::factory()->make();
+        $assetDocument = new ViewAssetDocument([
+            'skuNumber'      => $this->faker->word,
+            'skuDescription' => $this->faker->sentence,
+            'document'       => [
+                'id' => $this->faker->uuid,
+            ],
+        ]);
+        $documents     = Mockery::mock(DocumentFactory::class);
+        $documents
+            ->shouldReceive('find')
+            ->withArgs(static function (mixed $object) use ($asset, $assetDocument): bool {
+                return $object instanceof AssetDocumentObject
+                    && $object->document === $assetDocument
+                    && $object->asset === $asset;
+            })
+            ->once()
+            ->andReturn($document);
+
+        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('getDocumentFactory')
+            ->once()
+            ->andReturn($documents);
+        $factory
+            ->shouldReceive('product')
+            ->with(
+                $document->oem,
+                ProductType::service(),
+                $assetDocument->skuNumber,
+                $assetDocument->skuDescription,
+                null,
+                null,
+            )
+            ->once()
+            ->andReturn($product);
+
+        $this->assertNotSame($asset->oem, $document->oem);
+        $this->assertSame($product, $factory->assetDocumentService($asset, $assetDocument));
+    }
+
+    /**
+     * @covers ::assetDocumentService
+     */
+    public function testAssetDocumentServiceWithoutDocument(): void {
+        $product       = Product::factory()->make();
+        $asset         = Asset::factory()->make();
+        $document      = Document::factory()->make();
+        $assetDocument = new ViewAssetDocument([
+            'skuNumber'      => $this->faker->word,
+            'skuDescription' => $this->faker->sentence,
+        ]);
+
+        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('getDocumentFactory')
+            ->never();
+        $factory
+            ->shouldReceive('product')
+            ->with(
+                $asset->oem,
+                ProductType::service(),
+                $assetDocument->skuNumber,
+                $assetDocument->skuDescription,
+                null,
+                null,
+            )
+            ->once()
+            ->andReturn($product);
+
+        $this->assertNotSame($asset->oem, $document->oem);
+        $this->assertSame($product, $factory->assetDocumentService($asset, $assetDocument));
+    }
+
+    /**
+     * @covers ::assetDocumentSupport
+     */
+    public function testAssetDocumentSupportWithDocument(): void {
+        $product       = Product::factory()->make();
+        $asset         = Asset::factory()->make();
+        $document      = Document::factory()->make();
+        $assetDocument = new ViewAssetDocument([
+            'supportPackage'            => $this->faker->word,
+            'supportPackageDescription' => $this->faker->sentence,
+            'document'                  => [
+                'id' => $this->faker->uuid,
+            ],
+        ]);
+        $documents     = Mockery::mock(DocumentFactory::class);
+        $documents
+            ->shouldReceive('find')
+            ->withArgs(static function (mixed $object) use ($asset, $assetDocument): bool {
+                return $object instanceof AssetDocumentObject
+                    && $object->document === $assetDocument
+                    && $object->asset === $asset;
+            })
+            ->once()
+            ->andReturn($document);
+
+        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('getDocumentFactory')
+            ->once()
+            ->andReturn($documents);
+        $factory
+            ->shouldReceive('product')
+            ->with(
+                $document->oem,
+                ProductType::support(),
+                $assetDocument->supportPackage,
+                $assetDocument->supportPackageDescription,
+                null,
+                null,
+            )
+            ->once()
+            ->andReturn($product);
+
+        $this->assertNotSame($asset->oem, $document->oem);
+        $this->assertSame($product, $factory->assetDocumentSupport($asset, $assetDocument));
+    }
+
+    /**
+     * @covers ::assetDocumentSupport
+     */
+    public function testAssetDocumentSupportWithoutDocument(): void {
+        $product       = Product::factory()->make();
+        $asset         = Asset::factory()->make();
+        $document      = Document::factory()->make();
+        $assetDocument = new ViewAssetDocument([
+            'supportPackage'            => $this->faker->word,
+            'supportPackageDescription' => $this->faker->sentence,
+        ]);
+
+        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('getDocumentFactory')
+            ->never();
+        $factory
+            ->shouldReceive('product')
+            ->with(
+                $asset->oem,
+                ProductType::support(),
+                $assetDocument->supportPackage,
+                $assetDocument->supportPackageDescription,
+                null,
+                null,
+            )
+            ->once()
+            ->andReturn($product);
+
+        $this->assertNotSame($asset->oem, $document->oem);
+        $this->assertSame($product, $factory->assetDocumentSupport($asset, $assetDocument));
     }
 
     /**
@@ -1200,5 +1514,21 @@ class AssetFactoryTest_Factory extends AssetFactory {
 
     public function assetStatus(ViewAsset $asset): Status {
         return parent::assetStatus($asset);
+    }
+
+    public function assetDocumentOem(Asset $model, ViewAssetDocument $assetDocument): Oem {
+        return parent::assetDocumentOem($model, $assetDocument);
+    }
+
+    public function assetDocumentDocument(Asset $model, ViewAssetDocument $assetDocument): ?Document {
+        return parent::assetDocumentDocument($model, $assetDocument);
+    }
+
+    public function assetDocumentService(Asset $model, ViewAssetDocument $assetDocument): ?Product {
+        return parent::assetDocumentService($model, $assetDocument);
+    }
+
+    public function assetDocumentSupport(Asset $model, ViewAssetDocument $assetDocument): ?Product {
+        return parent::assetDocumentSupport($model, $assetDocument);
     }
 }

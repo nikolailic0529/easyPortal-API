@@ -7,7 +7,6 @@ use App\Models\AssetWarranty;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Document as DocumentModel;
-use App\Models\DocumentEntry;
 use App\Models\Enums\ProductType;
 use App\Models\Location;
 use App\Models\Oem;
@@ -47,12 +46,15 @@ use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
+use function array_filter;
 use function array_map;
 use function array_merge;
 use function array_unique;
 use function array_values;
 use function implode;
 use function sprintf;
+
+use const SORT_REGULAR;
 
 class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     use WithReseller;
@@ -186,7 +188,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
 
             if ($this->getDocumentFactory() && isset($asset->assetDocument)) {
                 $documents              = $this->assetDocuments($model, $asset);
-                $model->warranties      = $this->assetWarranties($model, $asset, $documents);
+                $model->warranties      = $this->assetWarranties($model, $asset);
                 $model->documentEntries = $documents
                     ->map(static function (Document $document): Collection {
                         return $document->entries;
@@ -258,14 +260,12 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\Document>
-     *
      * @return array<\App\Models\AssetWarranty>
      */
-    protected function assetWarranties(AssetModel $model, ViewAsset $asset, Collection $documents): array {
+    protected function assetWarranties(AssetModel $model, ViewAsset $asset): array {
         $warranties = array_merge(
             $this->assetInitialWarranties($model, $asset),
-            $this->assetExtendedWarranties($model, $documents),
+            $this->assetExtendedWarranties($model, $asset),
         );
 
         return $warranties;
@@ -282,7 +282,10 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         $warranties = [];
         $existing   = $model->warranties
             ->filter(static function (AssetWarranty $warranty): bool {
-                return $warranty->document_id === null && $warranty->start === null;
+                return $warranty->document_number === null;
+            })
+            ->keyBy(static function (AssetWarranty $warranty): string {
+                return implode('|', [$warranty->end?->getTimestamp(), $warranty->reseller_id, $warranty->customer_id]);
             });
 
         foreach ($asset->assetDocument as $assetDocument) {
@@ -305,12 +308,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
 
                 // Create/Update
                 /** @var \App\Models\AssetWarranty|null $warranty */
-                $warranty = $existing
-                    ->first(static function (AssetWarranty $warranty) use ($end, $reseller, $customer): bool {
-                        return $warranty->end->equalTo($end)
-                            && $warranty->customer_id === $customer?->getKey()
-                            && $warranty->reseller_id === $reseller?->getKey();
-                    });
+                $warranty = $existing->get($key);
 
                 if (!$warranty) {
                     $warranty = new AssetWarranty();
@@ -342,54 +340,160 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\Document> $documents
-     *
      * @return array<\App\Models\AssetWarranty>
      */
-    protected function assetExtendedWarranties(AssetModel $asset, Collection $documents): array {
+    protected function assetExtendedWarranties(AssetModel $model, ViewAsset $asset): array {
+        // documentNumber && (start || end) && (support || service)
+
+        // Prepare
         $warranties = [];
-        $existing   = $asset->warranties
+        $services   = [];
+        $existing   = $model->warranties
             ->filter(static function (AssetWarranty $warranty): bool {
-                return (bool) $warranty->document_id;
+                return $warranty->document_number !== null;
             })
             ->keyBy(static function (AssetWarranty $warranty): string {
-                return $warranty->document_id;
+                return implode('|', [
+                    $warranty->document_id,
+                    $warranty->reseller_id,
+                    $warranty->customer_id,
+                    $warranty->start->getTimestamp(),
+                    $warranty->end->getTimestamp(),
+                ]);
             });
 
-        foreach ($documents as $document) {
-            // Dates?
-            if (!$document->start || !$document->end) {
-                continue;
+        // Warranties
+        foreach ($asset->assetDocument as $assetDocument) {
+            try {
+                // Dates?
+                $start = $this->normalizer->datetime($assetDocument->startDate);
+                $end   = $this->normalizer->datetime($assetDocument->endDate);
+
+                if (!$start || !$end) {
+                    continue;
+                }
+
+                // Prepare
+                $document = $this->assetDocumentDocument($model, $assetDocument);
+                $reseller = $this->reseller($assetDocument);
+                $customer = $this->customer($assetDocument);
+                $key      = implode('|', [
+                    $document?->getKey(),
+                    $reseller?->getKey(),
+                    $customer?->getKey(),
+                    $start->getTimestamp(),
+                    $end->getTimestamp(),
+                ]);
+
+                // Add service
+                $services[$key][] = $this->assetDocumentService($model, $assetDocument);
+
+                // Already added?
+                if (isset($warranties[$key])) {
+                    continue;
+                }
+
+                // Create/Update
+                /** @var \App\Models\AssetWarranty|null $warranty */
+                $warranty = $existing->get($key);
+
+                if (!$warranty) {
+                    $warranty = new AssetWarranty();
+                }
+
+                $warranty->start    = $start;
+                $warranty->end      = $end;
+                $warranty->asset    = $model;
+                $warranty->support  = $this->assetDocumentSupport($model, $assetDocument);
+                $warranty->customer = $customer;
+                $warranty->reseller = $reseller;
+                $warranty->document = $document;
+
+                $warranty->save();
+
+                // Store
+                $warranties[$key] = $warranty;
+            } catch (Throwable $exception) {
+                $this->dispatcher->dispatch(new ObjectSkipped($assetDocument, $exception));
+                $this->logger->notice('Failed to create Warranty for ViewAssetDocument.', [
+                    'asset'     => $model,
+                    'entry'     => $assetDocument,
+                    'exception' => $exception,
+                ]);
             }
-
-            // Create/Update
-            /** @var \App\Models\Document $document */
-            $warranty = $existing->get($document->getKey());
-
-            if (!$warranty) {
-                $warranty = new AssetWarranty();
-            }
-
-            $warranty->start    = $document->start;
-            $warranty->end      = $document->end;
-            $warranty->asset    = $asset;
-            $warranty->customer = $document->customer;
-            $warranty->reseller = $document->reseller;
-            $warranty->document = $document;
-            $warranty->services = $document->entries
-                ->filter(static function (DocumentEntry $entry) use ($asset): bool {
-                    return $entry->asset_id === $asset->getKey() && $entry->service;
-                })
-                ->map(static function (DocumentEntry $entry): Product {
-                    return $entry->service;
-                });
-            $warranty->save();
-
-            // Store
-            $warranties[] = $warranty;
         }
 
-        return $warranties;
+        // Update services
+        foreach ($warranties as $key => $warranty) {
+            $warranty->services = array_filter(array_unique($services[$key] ?? [], SORT_REGULAR));
+            $warranty->save();
+        }
+
+        // Return
+        return array_values($warranties);
+    }
+
+    protected function assetDocumentOem(AssetModel $model, ViewAssetDocument $assetDocument): Oem {
+        $oem = $model->oem;
+
+        if (isset($assetDocument->document)) {
+            $object = new AssetDocumentObject([
+                'asset'    => $model,
+                'document' => $assetDocument,
+            ]);
+            $oem    = $this->getDocumentFactory()->find($object)?->oem;
+        }
+
+        return $oem;
+    }
+
+    protected function assetDocumentDocument(AssetModel $model, ViewAssetDocument $assetDocument): ?Document {
+        $document = null;
+
+        if (isset($assetDocument->document)) {
+            $document = $this->getDocumentFactory()->find(new AssetDocumentObject([
+                'asset'    => $model,
+                'document' => $assetDocument,
+            ]));
+        }
+
+        return $document;
+    }
+
+    protected function assetDocumentService(AssetModel $model, ViewAssetDocument $assetDocument): ?Product {
+        $oem     = $this->assetDocumentOem($model, $assetDocument);
+        $service = null;
+
+        if ($assetDocument->skuNumber && $assetDocument->skuDescription) {
+            $service = $this->product(
+                $oem,
+                ProductType::service(),
+                $assetDocument->skuNumber,
+                $assetDocument->skuDescription,
+                null,
+                null,
+            );
+        }
+
+        return $service;
+    }
+
+    protected function assetDocumentSupport(AssetModel $model, ViewAssetDocument $assetDocument): ?Product {
+        $oem     = $this->assetDocumentOem($model, $assetDocument);
+        $support = null;
+
+        if ($assetDocument->supportPackage && $assetDocument->supportPackageDescription) {
+            $support = $this->product(
+                $oem,
+                ProductType::support(),
+                $assetDocument->supportPackage,
+                $assetDocument->supportPackageDescription,
+                null,
+                null,
+            );
+        }
+
+        return $support;
     }
 
     protected function assetOem(ViewAsset $asset): Oem {
@@ -458,5 +562,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
 
         return [];
     }
+
     // </editor-fold>
 }
