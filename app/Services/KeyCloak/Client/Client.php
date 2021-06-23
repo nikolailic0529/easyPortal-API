@@ -54,7 +54,7 @@ class Client {
         return $result;
     }
 
-    public function getGroup(Organization|RoleModel $object): Group {
+    public function getGroup(Organization|RoleModel $object): ?Group {
         // GET /{realm}/groups/{id}
         $id = null;
 
