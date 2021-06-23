@@ -21,7 +21,32 @@ class SyncPermissionsTest extends TestCase {
      */
     public function testHandle(): void {
         // prepare
-        $requests = $this->requests($this);
+        $client   = $this->app->make(Client::class);
+        $baseUrl  = $client->getBaseUrl();
+        $clientId = (string) $this->app->make(Repository::class)->get('ep.keycloak.client_uuid');
+        $requests = [
+            "{$baseUrl}/clients/{$clientId}/roles" => function (Request $request) {
+                switch ($request->method()) {
+                    case 'GET':
+                        return Http::response([
+                            [
+                                'id'   => '70a74596-08f2-48d1-b3f9-0e4f339bc1b2',
+                                'name' => 'role',
+                            ],
+                        ], 200);
+                    case 'POST':
+                        $data = $request->data();
+                        return Http::response([
+                            'id'   => $this->faker->uuid(),
+                            'name' => $data['name'],
+                        ], 201);
+                    default:
+                        // empty
+                        return;
+                }
+            },
+            '*'                                    => Http::response([], 200),
+        ];
         $client   = Http::fake($requests);
         $this->app->instance(Factory::class, $client);
         $auth    = $this->app->make(Auth::class);
@@ -32,39 +57,6 @@ class SyncPermissionsTest extends TestCase {
         $command->handle();
 
         $this->assertFalse(Permission::whereKey($permission->getKey())->exists());
-        $this->assertCount(Permission::count(), $auth->getPermissions());
-    }
-
-    /**
-     * @return array<string,\GuzzleHttp\Promise\PromiseInterface>
-     */
-    public function requests(TestCase $test): array {
-        $client   = $test->app->make(Client::class);
-        $baseUrl  = $client->getBaseUrl();
-        $clientId = (string) $test->app->make(Repository::class)->get('ep.keycloak.client_uuid');
-        return [
-            "{$baseUrl}/clients/{$clientId}/roles" => static function (Request $request) use ($test) {
-                if ($request->method() === 'POST') {
-                    $data = $request->data();
-                    return Http::response([
-                        'id'   => $test->faker->uuid(),
-                        'name' => $data['name'],
-                    ], 201);
-                } elseif ($request->method() === 'GET') {
-                    return Http::response(
-                        [
-                            [
-                                'id'   => '70a74596-08f2-48d1-b3f9-0e4f339bc1b2',
-                                'name' => 'role',
-                            ],
-                        ],
-                        200,
-                    );
-                } else {
-                    // empty
-                }
-            },
-            '*'                                    => Http::response([], 200),
-        ];
+        $this->assertEqualsCanonicalizing(Permission::pluck('key')->all(), $auth->getPermissions());
     }
 }

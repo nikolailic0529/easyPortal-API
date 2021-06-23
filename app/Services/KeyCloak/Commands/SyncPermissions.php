@@ -79,8 +79,9 @@ class SyncPermissions extends Command {
         }
 
         foreach ($roles as $role) {
-            // Should we delete keycloak role ?
-            // $this->client->deleteRoleByName($role);
+            $old = $role->name;
+            $new = "(deleted) {$old}";
+            $this->client->updateRoleName($old, $new);
         }
     }
 

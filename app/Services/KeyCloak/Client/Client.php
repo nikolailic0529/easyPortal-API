@@ -107,15 +107,14 @@ class Client {
         return new Role($result);
     }
 
-    public function deleteRoleByName(Role $role): void {
-        // DELETE /{realm}/clients/{id}/roles/{role-name}
-        $clientId = (string) $this->config->get('ep.keycloak.client_uuid');
-        if (!$clientId) {
-            throw new InvalidKeyCloakClient();
-        }
-
-        $endpoint = "clients/{$clientId}/roles/{$role->name}";
-        $this->call($endpoint, 'DELETE');
+    public function updateRoleName(string $old, string $new): void {
+        // PUT /{realm}/roles/{role-name}
+        $endpoint = "roles/{$old}";
+        $this->call(
+            $endpoint,
+            'PUT',
+            ['json' => ['name' => $new]],
+        );
     }
     /**
      * @param array<\App\Services\KeyCloak\Client\Types\Role> $roles
