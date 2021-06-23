@@ -17,7 +17,6 @@ use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\LocationNotFoundException;
-use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithCustomer;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
@@ -52,7 +51,6 @@ use function array_map;
 use function array_merge;
 use function array_unique;
 use function array_values;
-use function count;
 use function implode;
 use function sprintf;
 
@@ -266,7 +264,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
      */
     protected function assetWarranties(AssetModel $model, ViewAsset $asset, Collection $documents): array {
         $warranties = array_merge(
-            $this->assetInitialWarranties($model, $asset, $documents),
+            $this->assetInitialWarranties($model, $asset),
             $this->assetExtendedWarranties($model, $documents),
         );
 
@@ -274,72 +272,69 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     }
 
     /**
-     * @param \Illuminate\Support\Collection<\App\Models\Document> $documents
-     *
      * @return array<\App\Models\AssetWarranty>
      */
-    protected function assetInitialWarranties(AssetModel $model, ViewAsset $asset, Collection $documents): array {
+    protected function assetInitialWarranties(AssetModel $model, ViewAsset $asset): array {
         // @LastDragon: If I understand correctly, after purchasing the Asset
         // has an initial warranty up to "warrantyEndDate" and then the user
         // can buy additional warranty.
 
         $warranties = [];
-        $documents  = $documents
-            ->keyBy(static function (DocumentModel $document): string {
-                return $document->getKey();
-            });
         $existing   = $model->warranties
             ->filter(static function (AssetWarranty $warranty): bool {
-                return $warranty->document_id === null;
+                return $warranty->document_id === null && $warranty->start === null;
             });
 
         foreach ($asset->assetDocument as $assetDocument) {
-            // Warranty exists?
-            $end = $this->normalizer->datetime($assetDocument->warrantyEndDate);
+            try {
+                // Warranty exists?
+                $end = $this->normalizer->datetime($assetDocument->warrantyEndDate);
 
-            if (!$end) {
-                continue;
+                if (!$end) {
+                    continue;
+                }
+
+                // Already added?
+                $reseller = $this->reseller($assetDocument);
+                $customer = $this->customer($assetDocument);
+                $key      = implode('|', [$end->getTimestamp(), $reseller?->getKey(), $customer?->getKey()]);
+
+                if (isset($warranties[$key])) {
+                    continue;
+                }
+
+                // Create/Update
+                /** @var \App\Models\AssetWarranty|null $warranty */
+                $warranty = $existing
+                    ->first(static function (AssetWarranty $warranty) use ($end, $reseller, $customer): bool {
+                        return $warranty->end->equalTo($end)
+                            && $warranty->customer_id === $customer?->getKey()
+                            && $warranty->reseller_id === $reseller?->getKey();
+                    });
+
+                if (!$warranty) {
+                    $warranty = new AssetWarranty();
+                }
+
+                $warranty->start    = null;
+                $warranty->end      = $end;
+                $warranty->asset    = $model;
+                $warranty->customer = $customer;
+                $warranty->reseller = $reseller;
+                $warranty->document = null;
+
+                $warranty->save();
+
+                // Store
+                $warranties[$key] = $warranty;
+            } catch (Throwable $exception) {
+                $this->dispatcher->dispatch(new ObjectSkipped($assetDocument, $exception));
+                $this->logger->notice('Failed to create Initial Warranty for ViewAssetDocument.', [
+                    'asset'     => $model,
+                    'entry'     => $assetDocument,
+                    'exception' => $exception,
+                ]);
             }
-
-            // Document exists?
-            /** @var \App\Models\Document $document */
-            $document = $documents->get($assetDocument->document->id ?? null);
-
-            if (!$document) {
-                continue;
-            }
-
-            // Already added?
-            $key = implode('|', [$end->getTimestamp(), $document->reseller_id, $document->customer_id]);
-
-            if (isset($warranties[$key])) {
-                continue;
-            }
-
-            // Create/Update
-            /** @var \App\Models\AssetWarranty|null $warranty */
-            $warranty = $existing
-                ->first(static function (AssetWarranty $warranty) use ($document, $end): bool {
-                    return $warranty->end->equalTo($end)
-                        && $warranty->customer_id === $document->customer_id
-                        && $warranty->reseller_id === $document->reseller_id;
-                });
-
-            if (!$warranty) {
-                $warranty = new AssetWarranty();
-            }
-
-            $warranty->start    = null;
-            $warranty->end      = $end;
-            $warranty->asset    = $model;
-            $warranty->customer = $document->customer;
-            $warranty->reseller = $document->reseller;
-            $warranty->document = null;
-
-            $warranty->save();
-
-            // Store
-            $warranties[$key] = $warranty;
         }
 
         // Return

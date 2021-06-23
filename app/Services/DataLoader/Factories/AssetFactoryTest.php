@@ -21,6 +21,8 @@ use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
+use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
@@ -586,79 +588,158 @@ class AssetFactoryTest extends TestCase {
     public function testAssetInitialWarranties(): void {
         $factory = new class(
             $this->app->make(Normalizer::class),
+            $this->app->make(Dispatcher::class),
+            $this->app->make(LoggerInterface::class),
+            $this->app->make(ResellerResolver::class),
+            $this->app->make(CustomerResolver::class),
         ) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
+                protected Dispatcher $dispatcher,
+                protected LoggerInterface $logger,
+                protected ResellerResolver $resellerResolver,
+                protected CustomerResolver $customerResolver,
             ) {
-                // empty
+                $this->resellerFinder = null;
+                $this->customerFinder = null;
             }
 
-            /**
-             * @inheritDoc
-             */
-            public function assetInitialWarranties(AssetModel $model, ViewAsset $asset, Collection $documents): array {
-                return parent::assetInitialWarranties($model, $asset, $documents);
+            public function assetInitialWarranties(AssetModel $model, ViewAsset $asset): array {
+                return parent::assetInitialWarranties($model, $asset);
             }
         };
 
-        $date     = Date::now()->startOfDay();
-        $customer = Customer::factory()->create();
-        $model    = AssetModel::factory()->create([
-            'customer_id' => $customer,
-        ]);
-        $docA     = Document::factory()->create();
-        $docB     = Document::factory()->create();
-        $docC     = Document::factory()->create();
-        $warranty = AssetWarranty::factory()->create([
+        $date      = Date::now()->startOfDay();
+        $model     = AssetModel::factory()->create();
+        $resellerA = Reseller::factory()->create();
+        $resellerB = Reseller::factory()->create();
+        $customerA = Customer::factory()->create();
+        $customerB = Customer::factory()->create();
+        $document  = Document::factory()->create();
+        $warranty  = AssetWarranty::factory()->create([
             'end'         => $date->subYear(),
             'asset_id'    => $model,
-            'document_id' => $docB,
+            'document_id' => $document,
         ]);
-        $existing = AssetWarranty::factory()->create([
+        $existing  = AssetWarranty::factory()->create([
+            'start'       => null,
             'end'         => $date->subYear(),
             'asset_id'    => $model,
-            'customer_id' => $docC->customer_id,
-            'reseller_id' => $docC->reseller_id,
+            'customer_id' => $customerB,
+            'reseller_id' => $resellerB,
             'document_id' => null,
         ]);
         $asset    = new ViewAsset([
             'id'            => $model->getKey(),
             'assetDocument' => [
+                // Should be added
                 [
-                    'document'        => ['id' => $docA->getKey()],
+                    'warrantyEndDate' => $this->getDatetime($date),
+                    'reseller'        => [
+                        'id' => $resellerB->getKey(),
+                    ],
+                    'customer'        => [
+                        'id' => $customerB->getKey(),
+                    ],
+                ],
+                // Only one should be added
+                [
+                    'warrantyEndDate' => $this->getDatetime($date),
+                    'reseller'        => [
+                        'id' => $resellerA->getKey(),
+                    ],
+                    'customer'        => [
+                        'id' => $customerA->getKey(),
+                    ],
+                ],
+                [
+                    'warrantyEndDate' => $this->getDatetime($date),
+                    'reseller'        => [
+                        'id' => $resellerA->getKey(),
+                    ],
+                    'customer'        => [
+                        'id' => $customerA->getKey(),
+                    ],
+                ],
+                // Should be added - another date
+                [
+                    'warrantyEndDate' => $this->getDatetime($date->addDay()),
+                    'reseller'        => [
+                        'id' => $resellerA->getKey(),
+                    ],
+                    'customer'        => [
+                        'id' => $customerA->getKey(),
+                    ],
+                ],
+                // Should be added - another reseller
+                [
+                    'warrantyEndDate' => $this->getDatetime($date),
+                    'reseller'        => [
+                        'id' => $resellerB->getKey(),
+                    ],
+                    'customer'        => [
+                        'id' => $customerA->getKey(),
+                    ],
+                ],
+                // Should be added - another customer
+                [
+                    'warrantyEndDate' => $this->getDatetime($date),
+                    'reseller'        => [
+                        'id' => $resellerA->getKey(),
+                    ],
+                    'customer'        => [
+                        'id' => $customerB->getKey(),
+                    ],
+                ],
+                // Should be skipped - no end date
+                [
                     'warrantyEndDate' => null,
+                    'reseller'        => [
+                        'id' => $resellerA->getKey(),
+                    ],
+                    'customer'        => [
+                        'id' => $customerA->getKey(),
+                    ],
                 ],
+                // Should be skipped - reseller not found
                 [
-                    'document'        => ['id' => $docB->getKey()],
                     'warrantyEndDate' => $this->getDatetime($date),
+                    'reseller'        => [
+                        'id' => $this->faker->uuid,
+                    ],
+                    'customer'        => [
+                        'id' => $customerA->getKey(),
+                    ],
                 ],
+                // Should be skipped - customer not found
                 [
-                    'document'        => ['id' => $docC->getKey()],
                     'warrantyEndDate' => $this->getDatetime($date),
-                ],
-                [
-                    'document'        => ['id' => '9e602148-7767-448e-b593-ba6bcff00cac'],
-                    'warrantyEndDate' => $this->getDatetime($date),
+                    'reseller'        => [
+                        'id' => $resellerA->getKey(),
+                    ],
+                    'customer'        => [
+                        'id' => $this->faker->uuid,
+                    ],
                 ],
             ],
         ]);
 
         // Test
-        $warranties = $factory->assetInitialWarranties($model, $asset, new Collection([$docA, $docB, $docC]));
+        $warranties = $factory->assetInitialWarranties($model, $asset);
         $warranties = new Collection($warranties);
 
-        $this->assertCount(2, $warranties);
+        $this->assertCount(5, $warranties);
 
         // Should not be updated (because document is defined)
         $this->assertEquals($date->subYear()->startOfDay(), $warranty->refresh()->end);
 
-        // Should be created for DocB Customer
+        // Should be created for CustomerA / ResellerA
         /** @var \App\Models\AssetWarranty $b */
-        $b = $warranties->first(static function (AssetWarranty $warranty) use ($docB, $date): bool {
+        $b = $warranties->first(static function (AssetWarranty $warranty) use ($date, $resellerA, $customerA): bool {
             return $warranty->end->equalTo($date)
-                && $warranty->customer_id === $docB->customer_id
-                && $warranty->reseller_id === $docB->reseller_id;
+                && $warranty->customer_id === $customerA->getKey()
+                && $warranty->reseller_id === $resellerA->getKey();
         });
 
         $this->assertNotNull($b);
@@ -671,9 +752,9 @@ class AssetFactoryTest extends TestCase {
         // The existing warranty should be removed because `end` dates mismatch
         // + a new warranty should be created.
         /** @var \App\Models\AssetWarranty $c */
-        $c = $warranties->first(static function (AssetWarranty $warranty) use ($docC): bool {
-            return $warranty->customer_id === $docC->customer_id
-                && $warranty->reseller_id === $docC->reseller_id;
+        $c = $warranties->first(static function (AssetWarranty $warranty) use ($customerB, $resellerB): bool {
+            return $warranty->customer_id === $customerB->getKey()
+                && $warranty->reseller_id === $resellerB->getKey();
         });
 
         $this->assertNotNull($c);
@@ -698,8 +779,8 @@ class AssetFactoryTest extends TestCase {
             /**
              * @inheritDoc
              */
-            public function assetExtendedWarranties(AssetModel $asset, Collection $documents): array {
-                return parent::assetExtendedWarranties($asset, $documents);
+            public function assetExtendedWarranties(AssetModel $model, Collection $documents): array {
+                return parent::assetExtendedWarranties($model, $documents);
             }
         };
 
