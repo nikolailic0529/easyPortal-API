@@ -24,8 +24,13 @@ class InviteOrgUser {
      */
     public function __invoke($_, array $args): array {
         $organization = $this->organization->get();
-        $this->client->inviteUser($organization, $args['input']['email']);
-        $this->mailer->to($args['input']['email'])->send(new InviteOrganizationUser($organization));
-        return ['result' => true ];
+        $role         = $organization->roles()->whereKey($args['input']['role_id'])->first();
+        if (!$role) {
+            throw new InviteOrgUserInvalidRole();
+        }
+        $email  = $args['input']['email'];
+        $result = $this->client->inviteUser($role, $email);
+        $this->mailer->to($email)->send(new InviteOrganizationUser($organization));
+        return ['result' => $result ];
     }
 }

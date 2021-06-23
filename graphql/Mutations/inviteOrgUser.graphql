@@ -6,9 +6,9 @@ extend type Mutation {
   @me(permissions: ["edit-organization"])
 }
 
-input inviteOrgUserInput {
-  email: String! @rules(apply: ["email"])
-  role: String!
+input inviteOrgUserInput @validator {
+  email: String!
+  role_id: ID!
 }
 
 type inviteOrgUserPayload {

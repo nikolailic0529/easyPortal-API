@@ -106,6 +106,7 @@
     "validation.cron": "The :attribute is not a valid cron expression.",
     "validation.currency_id": "Unknown currency",
     "validation.organization_id": "Unknown organization",
+    "validation.role_id": "Unknown Role",
     "validation.color": "Color should be in #RRGGBB format.",
     "errors.message": ":message (:code)",
     "errors.unauthenticated": "Unauthenticated.",
@@ -124,6 +125,7 @@
     "errors.storage.file_save_failed": "Impossible to save storage file :file (disc: :disc).",
     "graphql.mutations.dispatchApplicationService.failed": "Service execution failed.",
     "graphql.mutations.dispatchApplicationService.not_found": "Service not found.",
+    "graphql.mutations.inviteOrgUser.invalid_role": "Invalid organization role.",
     "models.country.name.??": "Unknown Country",
     "models.currency.name.EUR": "Euro",
     "models.status.name.customer.ACTIVE": "Active",
@@ -160,5 +162,6 @@
     "keycloak.client.endpoint_failure": "KeyCloak invalid response.",
     "keycloak.client.disabled": "KeyCloak Client disabled.",
     "keycloak.client.invalid_group": "Invalid Keycloak group",
-    "keycloak.client.invalid_client": "Invalid Keycloak Client UUID"
+    "keycloak.client.invalid_client": "Invalid Keycloak Client UUID",
+    "keycloak.client.user_already_exists": "Keycloak user already exists"
 }

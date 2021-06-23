@@ -2752,7 +2752,7 @@ type User {
 
 input inviteOrgUserInput {
   email: String!
-  role: String!
+  role_id: ID!
 }
 
 type inviteOrgUserPayload {
