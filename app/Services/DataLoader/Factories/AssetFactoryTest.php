@@ -42,7 +42,6 @@ use Tests\WithoutOrganizationScope;
 use function array_map;
 use function array_unique;
 use function count;
-use function is_null;
 
 /**
  * @internal
@@ -192,19 +191,20 @@ class AssetFactoryTest extends TestCase {
 
         /** @var \App\Models\AssetWarranty $initial */
         $initial = $created->warranties->first(static function (AssetWarranty $warranty): bool {
-            return is_null($warranty->document_id);
+            return $warranty->document_number === null;
         });
 
         $this->assertNotNull($initial);
         $this->assertEquals($initial->asset_id, $created->getKey());
         $this->assertNull($initial->document_id);
+        $this->assertNull($initial->document_number);
         $this->assertEquals($created->customer_id, $initial->customer_id);
         $this->assertNull($initial->start);
         $this->assertEquals($asset->assetDocument[0]->warrantyEndDate, $this->getDatetime($initial->end));
 
         /** @var \App\Models\AssetWarranty $extended */
         $extended = $created->warranties->first(static function (AssetWarranty $warranty): bool {
-            return (bool) $warranty->document_id;
+            return $warranty->document_number !== null;
         });
 
         $this->assertEquals($extended->asset_id, $created->getKey());
@@ -562,16 +562,16 @@ class AssetFactoryTest extends TestCase {
             ->never();
         $factory
             ->shouldReceive('assetInitialWarranties')
-            ->with($model, $asset, $documents)
+            ->with($model, $asset)
             ->once()
             ->andReturn([$a]);
         $factory
             ->shouldReceive('assetExtendedWarranties')
-            ->with($model, $documents)
+            ->with($model, $asset)
             ->once()
             ->andReturn([$b]);
 
-        $this->assertEquals([$a, $b], $factory->assetWarranties($model, $asset, $documents));
+        $this->assertEquals([$a, $b], $factory->assetWarranties($model, $asset));
     }
 
     /**
@@ -762,164 +762,242 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetExtendedWarranties
      */
     public function testAssetExtendedWarranties(): void {
-        $factory = new class() extends AssetFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
-            }
-
-            public function assetExtendedWarranties(Asset $model, ViewAsset $asset): array {
-                return parent::assetExtendedWarranties($model, $asset);
-            }
-        };
-
-        $date      = Date::now();
-        $model     = Asset::factory()->create();
-        $resellerA = Reseller::factory()->create();
-        $resellerB = Reseller::factory()->create();
-        $customerA = Customer::factory()->create();
-        $customerB = Customer::factory()->create();
-        $documentA = Document::factory()->create([
+        $container          = $this->app->make(Container::class);
+        $documents          = $container->make(DocumentFactory::class);
+        $factory            = $container->make(AssetFactoryTest_Factory::class)->setDocumentFactory($documents);
+        $date               = Date::now();
+        $model              = Asset::factory()->create();
+        $resellerA          = Reseller::factory()->create();
+        $resellerB          = Reseller::factory()->create();
+        $customerA          = Customer::factory()->create();
+        $customerB          = Customer::factory()->create();
+        $documentA          = Document::factory()->create([
             'reseller_id' => $resellerA,
             'customer_id' => $customerA,
         ]);
-        $documentB = Document::factory()->create([
+        $documentB          = Document::factory()->create([
             'reseller_id' => $resellerB,
             'customer_id' => $customerB,
         ]);
-        $asset     = new ViewAsset([
+        $skuNumber          = $this->faker->uuid;
+        $skuDescription     = $this->faker->sentence;
+        $supportPackage     = $this->faker->uuid;
+        $supportDescription = $this->faker->sentence;
+        $warranty           = AssetWarranty::factory()->create([
+            'start'           => $date->subYear(),
+            'end'             => $date,
+            'asset_id'        => $model,
+            'reseller_id'     => $resellerA,    // should be changed to $resellerB
+            'customer_id'     => $customerA,    // should be changed to $customerB
+            'document_id'     => $documentB,
+            'document_number' => $documentB->number,
+        ]);
+        $asset              = new ViewAsset([
             'id'            => $model->getKey(),
             'assetDocument' => [
-                // Should be created
+                // Only one of should be created but Services should be merged
                 [
-                    'start'          => $this->getDatetime($date),
-                    'end'            => $this->getDatetime($date),
-                    'skuNumber'      => '',
-                    'skuDescription' => '',
-                    'supportPackage' => '',
-                    'reseller'       => [
-                        'id' => $resellerB->getKey(),
+                    'startDate'                 => $this->getDatetime($date),
+                    'endDate'                   => $this->getDatetime($date),
+                    'documentNumber'            => $documentA->number,
+                    'document'                  => [
+                        'id' => $documentA->getKey(),
                     ],
-                    'customer'       => [
-                        'id' => $customerB->getKey(),
+                    'reseller'                  => null,
+                    'customer'                  => null,
+                    'skuNumber'                 => $this->faker->uuid,
+                    'skuDescription'            => $this->faker->sentence,
+                    'supportPackage'            => $this->faker->uuid,
+                    'supportPackageDescription' => $this->faker->sentence,
+                ],
+                [
+                    'startDate'                 => $this->getDatetime($date),
+                    'endDate'                   => $this->getDatetime($date),
+                    'documentNumber'            => $documentA->number,
+                    'document'                  => [
+                        'id' => $documentA->getKey(),
                     ],
+                    'reseller'                  => null,
+                    'customer'                  => null,
+                    'skuNumber'                 => $skuNumber,
+                    'skuDescription'            => $skuDescription,
+                    'supportPackage'            => $supportPackage,
+                    'supportPackageDescription' => $supportDescription,
+                ],
+                [
+                    'startDate'                 => $this->getDatetime($date),
+                    'endDate'                   => $this->getDatetime($date),
+                    'documentNumber'            => $documentA->number,
+                    'document'                  => [
+                        'id' => $documentA->getKey(),
+                    ],
+                    'reseller'                  => null,
+                    'customer'                  => null,
+                    'skuNumber'                 => $skuNumber,
+                    'skuDescription'            => $skuDescription,
+                    'supportPackage'            => $supportPackage,
+                    'supportPackageDescription' => $supportDescription,
                 ],
 
-                // Only one of should be create
-
-                // Services should be merged
-
                 // No service is OK
-
-                // Only one service should be saved
+                [
+                    'startDate'                 => $this->getDatetime($date),
+                    'endDate'                   => $this->getDatetime($date),
+                    'documentNumber'            => $documentB->number,
+                    'document'                  => [
+                        'id' => $documentB->getKey(),
+                    ],
+                    'reseller'                  => [
+                        'id' => $documentB->reseller_id,
+                    ],
+                    'customer'                  => [
+                        'id' => $documentB->customer_id,
+                    ],
+                    'skuNumber'                 => null,
+                    'skuDescription'            => null,
+                    'supportPackage'            => $this->faker->uuid,
+                    'supportPackageDescription' => $this->faker->sentence,
+                ],
 
                 // Should be created even if document null
+                [
+                    'documentNumber'            => $documentA->number,
+                    'startDate'                 => $this->getDatetime($date),
+                    'endDate'                   => $this->getDatetime($date),
+                    'reseller'                  => null,
+                    'customer'                  => null,
+                    'skuNumber'                 => $this->faker->uuid,
+                    'skuDescription'            => $this->faker->sentence,
+                    'supportPackage'            => $supportPackage,
+                    'supportPackageDescription' => $supportDescription,
+                ],
 
-                // Should be created - another reseller
-
-                // Should be created - another customer
-
-                // Should be skipped - no end date
-
-                // Should be skipped - no start date
+                // Should be skipped - no start and end date
+                [
+                    'startDate'                 => null,
+                    'endDate'                   => null,
+                    'documentNumber'            => $documentB->number,
+                    'document'                  => [
+                        'id' => $documentB->getKey(),
+                    ],
+                    'reseller'                  => null,
+                    'customer'                  => null,
+                    'skuNumber'                 => null,
+                    'skuDescription'            => null,
+                    'supportPackage'            => $this->faker->uuid,
+                    'supportPackageDescription' => $this->faker->sentence,
+                ],
 
                 // Should be skipped - reseller not found
+                [
+                    'startDate'                 => $this->getDatetime($date),
+                    'endDate'                   => $this->getDatetime($date),
+                    'documentNumber'            => $documentB->number,
+                    'document'                  => [
+                        'id' => $documentB->getKey(),
+                    ],
+                    'reseller'                  => [
+                        'id' => $this->faker->uuid,
+                    ],
+                    'customer'                  => [
+                        'id' => $documentB->customer_id,
+                    ],
+                    'skuNumber'                 => null,
+                    'skuDescription'            => null,
+                    'supportPackage'            => $this->faker->uuid,
+                    'supportPackageDescription' => $this->faker->sentence,
+                ],
 
                 // Should be skipped - customer not found
+                [
+                    'startDate'                 => $this->getDatetime($date),
+                    'endDate'                   => $this->getDatetime($date),
+                    'documentNumber'            => $documentB->number,
+                    'document'                  => [
+                        'id' => $documentB->getKey(),
+                    ],
+                    'reseller'                  => [
+                        'id' => $documentB->reseller_id,
+                    ],
+                    'customer'                  => [
+                        'id' => $this->faker->uuid,
+                    ],
+                    'skuNumber'                 => null,
+                    'skuDescription'            => null,
+                    'supportPackage'            => $this->faker->uuid,
+                    'supportPackageDescription' => $this->faker->sentence,
+                ],
             ],
         ]);
 
-        // Existing should be updated
-
-
-        $date     = Date::now();
-        $customer = Customer::factory()->create();
-        $service  = Product::factory()->create();
-        $asset    = Asset::factory()->create([
-            'customer_id' => $customer,
-        ]);
-        $docA     = Document::factory()->create([
-            'customer_id' => $customer,
-        ]);
-        $docB     = Document::factory()->create([
-            'customer_id' => $customer,
-        ]);
-        $docC     = Document::factory()->create();
-        $docD     = Document::factory()->create([
-            'start' => null,
-        ]);
-        $docE     = Document::factory()->create([
-            'end' => null,
-        ]);
-        $warranty = AssetWarranty::factory()->create([
-            'start'       => $date->subYear(),
-            'end'         => $date,
-            'asset_id'    => $asset,
-            'document_id' => $docA,
-        ]);
-        $entryA   = DocumentEntry::factory()->create([
-            'asset_id'    => $asset,
-            'product_id'  => $asset->product_id,
-            'document_id' => $docA,
-        ]);
-        $entryB   = DocumentEntry::factory()->create([
-            'asset_id'    => $asset,
-            'product_id'  => $asset->product_id,
-            'document_id' => $docB,
-        ]);
-
-        $warranty->services()->sync($service->getKey());
-
-        Document::factory()->create();
-
         // Pre-test
-        $this->assertEquals(1, $asset->warranties()->count());
-        $this->assertNotEquals($docA->customer_id, $warranty->customer_id);
+        $this->assertEquals(1, $model->warranties()->count());
 
         // Test
-        $warranties = $factory->assetExtendedWarranties($asset, new Collection([$docA, $docB, $docC, $docD, $docE]));
+        $warranties = $factory->assetExtendedWarranties($model, $asset);
         $warranties = new Collection($warranties);
 
         $this->assertCount(3, $warranties);
 
         // Existing warranty should be updated
         /** @var \App\Models\AssetWarranty $a */
-        $a = $warranties->first(static function (AssetWarranty $warranty) use ($docA): bool {
-            return $warranty->document_id === $docA->getKey();
+        $a = $warranties->first(static function (AssetWarranty $warranty) use ($documentA): bool {
+            return $warranty->document_id === $documentA->getKey();
         });
 
         $this->assertNotNull($a);
-        $this->assertEquals($docA->start, $a->start);
-        $this->assertEquals($docA->end, $a->end);
-        $this->assertEquals($docA->customer_id, $a->customer_id);
-        $this->assertEquals($docA->getKey(), $a->document_id);
-        $this->assertEquals($asset->getKey(), $a->asset_id);
-        $this->assertEquals(1, $a->services->count());
-        $this->assertEquals($entryA->service_id, $a->services()->first()->getKey());
-        $this->assertEquals($entryA->service_id, $a->services->first()->getKey());
+        $this->assertEquals($date->startOfDay(), $a->start);
+        $this->assertEquals($date->startOfDay(), $a->end);
+        $this->assertNull($a->reseller_id);
+        $this->assertNull($a->customer_id);
+        $this->assertEquals($documentA->getKey(), $a->document_id);
+        $this->assertEquals($model->getKey(), $a->asset_id);
+        $this->assertEquals(2, $a->services->count());
 
-        // Not existing - created
-        $b = $warranties->first(static function (AssetWarranty $warranty) use ($docB): bool {
-            return $warranty->document_id === $docB->getKey();
+        $as = $a->services->first(static function (Product $service) use ($skuNumber, $skuDescription): bool {
+            return $service->sku === $skuNumber
+                && $service->name === $skuDescription;
+        });
+
+        $this->assertNotNull($as);
+
+        // Document null
+        /** @var \App\Models\AssetWarranty $b */
+        $b = $warranties->first(static function (AssetWarranty $warranty) use ($documentA): bool {
+            return $warranty->document_id === null
+                && $warranty->document_number === $documentA->number;
         });
 
         $this->assertNotNull($b);
-        $this->assertEquals($docB->start, $b->start);
-        $this->assertEquals($docB->end, $b->end);
-        $this->assertEquals($docB->customer_id, $b->customer_id);
-        $this->assertEquals($docB->getKey(), $b->document_id);
-        $this->assertEquals($asset->getKey(), $b->asset_id);
-        $this->assertEquals(1, $b->services->count());
-        $this->assertEquals($entryB->service_id, $b->services()->first()->getKey());
-        $this->assertEquals($entryB->service_id, $b->services->first()->getKey());
+        $this->assertEquals($b->support->sku, $supportPackage);
+        $this->assertEquals($b->support->name, $supportDescription);
+
+        // No service
+        /** @var \App\Models\AssetWarranty $c */
+        $c = $warranties->first(static function (AssetWarranty $warranty) use ($documentB): bool {
+            return $warranty->document_id === $documentB->getKey();
+        });
+
+        $this->assertNotNull($c);
+        $this->assertEquals($date->startOfDay(), $c->start);
+        $this->assertEquals($date->startOfDay(), $c->end);
+        $this->assertEquals($resellerB->getKey(), $c->reseller_id);
+        $this->assertEquals($customerB->getKey(), $c->customer_id);
+        $this->assertEquals($documentB->getKey(), $c->document_id);
+        $this->assertEquals($model->getKey(), $c->asset_id);
+        $this->assertEquals(0, $c->services->count());
 
         // If existing warranty related to another customer it should be updated
-        $c = $warranties->first(static function (AssetWarranty $warranty) use ($docC): bool {
-            return $warranty->document_id === $docC->getKey();
+        /** @var \App\Models\AssetWarranty $d */
+        $d = $warranties->first(static function (AssetWarranty $w) use ($warranty): bool {
+            return $w->getKey() === $warranty->getKey();
         });
 
-        $this->assertNotNull($b);
-        $this->assertEquals($docC->customer_id, $c->customer_id);
+        $this->assertNotNull($c);
+        $this->assertEquals($resellerA->getKey(), $warranty->reseller_id);
+        $this->assertEquals($customerA->getKey(), $warranty->customer_id);
+        $this->assertEquals($resellerB->getKey(), $d->reseller_id);
+        $this->assertEquals($customerB->getKey(), $d->customer_id);
     }
 
     /**
@@ -1530,5 +1608,9 @@ class AssetFactoryTest_Factory extends AssetFactory {
 
     public function assetDocumentSupport(Asset $model, ViewAssetDocument $assetDocument): ?Product {
         return parent::assetDocumentSupport($model, $assetDocument);
+    }
+
+    public function assetExtendedWarranties(Asset $model, ViewAsset $asset): array {
+        return parent::assetExtendedWarranties($model, $asset);
     }
 }

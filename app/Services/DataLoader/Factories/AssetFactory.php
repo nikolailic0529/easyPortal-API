@@ -308,18 +308,15 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
 
                 // Create/Update
                 /** @var \App\Models\AssetWarranty|null $warranty */
-                $warranty = $existing->get($key);
-
-                if (!$warranty) {
-                    $warranty = new AssetWarranty();
-                }
-
-                $warranty->start    = null;
-                $warranty->end      = $end;
-                $warranty->asset    = $model;
-                $warranty->customer = $customer;
-                $warranty->reseller = $reseller;
-                $warranty->document = null;
+                $warranty                  = $existing->get($key) ?: new AssetWarranty();
+                $warranty->start           = null;
+                $warranty->end             = $end;
+                $warranty->asset           = $model;
+                $warranty->support         = null;
+                $warranty->customer        = $customer;
+                $warranty->reseller        = $reseller;
+                $warranty->document        = null;
+                $warranty->document_number = null;
 
                 $warranty->save();
 
@@ -328,7 +325,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             } catch (Throwable $exception) {
                 $this->dispatcher->dispatch(new ObjectSkipped($assetDocument, $exception));
                 $this->logger->notice('Failed to create Initial Warranty for ViewAssetDocument.', [
-                    'asset'     => $model,
+                    'asset'     => $model->getKey(),
                     'entry'     => $assetDocument,
                     'exception' => $exception,
                 ]);
@@ -343,8 +340,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
      * @return array<\App\Models\AssetWarranty>
      */
     protected function assetExtendedWarranties(AssetModel $model, ViewAsset $asset): array {
-        // documentNumber && (start || end) && (support || service)
-
         // Prepare
         $warranties = [];
         $services   = [];
@@ -355,38 +350,40 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             ->keyBy(static function (AssetWarranty $warranty): string {
                 return implode('|', [
                     $warranty->document_id,
-                    $warranty->reseller_id,
-                    $warranty->customer_id,
-                    $warranty->start->getTimestamp(),
-                    $warranty->end->getTimestamp(),
+                    $warranty->document_number,
                 ]);
+            });
+        $documents  = (new Collection($asset->assetDocument))
+            ->filter(static function (ViewAssetDocument $document): bool {
+                return isset($document->documentNumber);
+            })
+            ->sort(static function (ViewAssetDocument $a, ViewAssetDocument $b): int {
+                return $a->startDate <=> $b->startDate
+                    ?: $a->endDate <=> $b->endDate;
             });
 
         // Warranties
-        foreach ($asset->assetDocument as $assetDocument) {
+        foreach ($documents as $assetDocument) {
             try {
-                // Dates?
-                $start = $this->normalizer->datetime($assetDocument->startDate);
-                $end   = $this->normalizer->datetime($assetDocument->endDate);
+                // Valid?
+                $document = $this->assetDocumentDocument($model, $assetDocument);
+                $number   = $assetDocument->documentNumber;
+                $support  = $this->assetDocumentSupport($model, $assetDocument);
+                $service  = $this->assetDocumentService($model, $assetDocument);
+                $start    = $this->normalizer->datetime($assetDocument->startDate);
+                $end      = $this->normalizer->datetime($assetDocument->endDate);
 
-                if (!$start || !$end) {
+                if (!($number && ($start || $end) && ($support || $service))) {
                     continue;
                 }
 
                 // Prepare
-                $document = $this->assetDocumentDocument($model, $assetDocument);
                 $reseller = $this->reseller($assetDocument);
                 $customer = $this->customer($assetDocument);
-                $key      = implode('|', [
-                    $document?->getKey(),
-                    $reseller?->getKey(),
-                    $customer?->getKey(),
-                    $start->getTimestamp(),
-                    $end->getTimestamp(),
-                ]);
+                $key      = implode('|', [$document?->getKey(), $number]);
 
                 // Add service
-                $services[$key][] = $this->assetDocumentService($model, $assetDocument);
+                $services[$key][] = $service;
 
                 // Already added?
                 if (isset($warranties[$key])) {
@@ -395,19 +392,15 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
 
                 // Create/Update
                 /** @var \App\Models\AssetWarranty|null $warranty */
-                $warranty = $existing->get($key);
-
-                if (!$warranty) {
-                    $warranty = new AssetWarranty();
-                }
-
-                $warranty->start    = $start;
-                $warranty->end      = $end;
-                $warranty->asset    = $model;
-                $warranty->support  = $this->assetDocumentSupport($model, $assetDocument);
-                $warranty->customer = $customer;
-                $warranty->reseller = $reseller;
-                $warranty->document = $document;
+                $warranty                  = $existing->get($key) ?: new AssetWarranty();
+                $warranty->start           = $start;
+                $warranty->end             = $end;
+                $warranty->asset           = $model;
+                $warranty->support         = $support;
+                $warranty->customer        = $customer;
+                $warranty->reseller        = $reseller;
+                $warranty->document        = $document;
+                $warranty->document_number = $number;
 
                 $warranty->save();
 
@@ -416,7 +409,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             } catch (Throwable $exception) {
                 $this->dispatcher->dispatch(new ObjectSkipped($assetDocument, $exception));
                 $this->logger->notice('Failed to create Warranty for ViewAssetDocument.', [
-                    'asset'     => $model,
+                    'asset'     => $model->getKey(),
                     'entry'     => $assetDocument,
                     'exception' => $exception,
                 ]);
