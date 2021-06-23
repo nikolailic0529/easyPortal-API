@@ -28,8 +28,8 @@ class InviteOrganizationUser extends Mailable {
     public function build() {
         $generator = app()->make(UrlGenerator::class);
         $config    = app()->make(Repository::class);
-        $url       = $generator->to(strtr($config->get('ep.dashboard_url'), [
-            '{organizationId}' => $this->organization->getKey(),
+        $url       = $generator->to(strtr($config->get('ep.client.organization_signin_uri'), [
+            '{organization}' => $this->organization->getKey(),
         ]));
         return $this->markdown('invite_user', [
             'url' => $url,

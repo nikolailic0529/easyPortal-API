@@ -42,14 +42,14 @@ class UpdateOrgRole {
         $role->save();
 
         // Sync permissions
-        $this->syncRoles($role, $permissions);
+        $this->syncPermissions($role, $permissions);
         return ['updated' => $role->fresh()];
     }
 
     /**
      * @param array<string> $permissions
      */
-    protected function syncRoles(Role $role, array $permissions): void {
+    protected function syncPermissions(Role $role, array $permissions): void {
         // Get Current keycloak roles
         $group        = $this->client->getGroup($role);
         $clientId     = (string) $this->config->get('ep.keycloak.client_id');
