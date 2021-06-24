@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
+use App\GraphQL\Mutations\UpdateOrg;
 use App\Models\User;
 use App\Services\Auth\Auth;
 use App\Services\KeyCloak\Client\Client;
@@ -14,6 +15,7 @@ class Me {
     public function __construct(
         protected Auth $auth,
         protected Client $client,
+        protected UpdateOrg $updateOrg,
     ) {
         // empty
     }
@@ -69,6 +71,7 @@ class Me {
             'contact_email',
             'department',
             'job_title',
+            'photo',
         ];
         $data         = [];
         foreach ($keys as $key) {

@@ -14,6 +14,6 @@ type Me {
   ): [MeSearch!]!
   @hasMany
 
-  profile: profile
+  profile: Profile
   @field(resolver: "App\\GraphQL\\Queries\\Me@profile")
 }

@@ -133,6 +133,9 @@ class MeTest extends TestCase {
                         'job_title'      => [
                             'manger',
                         ],
+                        'photo'          => [
+                            'http://example.com/photo.jpg',
+                        ],
                     ],
             ], 201),
         ]);
@@ -152,6 +155,7 @@ class MeTest extends TestCase {
                         contact_email
                         department
                         job_title
+                        photo
                     }
                 }
             }')->assertThat($expected);
@@ -261,6 +265,7 @@ class MeTest extends TestCase {
                         'contact_email'  => 'test@gmail.com',
                         'department'     => 'hr',
                         'job_title'      => 'manger',
+                        'photo'          => 'http://example.com/photo.jpg',
                     ])),
                     static function (): ?User {
                         return User::factory()->create();

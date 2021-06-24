@@ -1,4 +1,4 @@
-type profile {
+type Profile {
   first_name: String
   last_name: String
   title: String
@@ -8,4 +8,5 @@ type profile {
   contact_email: String
   department: String
   job_title: String
+  photo: String
 }
