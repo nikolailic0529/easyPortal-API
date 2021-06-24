@@ -783,12 +783,19 @@ class AssetFactoryTest extends TestCase {
         $skuDescription     = $this->faker->sentence;
         $supportPackage     = $this->faker->uuid;
         $supportDescription = $this->faker->sentence;
+        $support            = Product::factory()->create([
+            'type'   => ProductType::support(),
+            'sku'    => $supportPackage,
+            'name'   => $supportDescription,
+            'oem_id' => $documentB->oem_id,
+        ]);
         $warranty           = AssetWarranty::factory()->create([
-            'start'           => $date->subYear(),
+            'start'           => $date,
             'end'             => $date,
             'asset_id'        => $model,
-            'reseller_id'     => $resellerA,    // should be changed to $resellerB
-            'customer_id'     => $customerA,    // should be changed to $customerB
+            'support_id'      => $support,
+            'reseller_id'     => $resellerB,
+            'customer_id'     => $customerB,
             'document_id'     => $documentB,
             'document_number' => $documentB->number,
         ]);
@@ -807,8 +814,8 @@ class AssetFactoryTest extends TestCase {
                     'customer'                  => null,
                     'skuNumber'                 => $this->faker->uuid,
                     'skuDescription'            => $this->faker->sentence,
-                    'supportPackage'            => $this->faker->uuid,
-                    'supportPackageDescription' => $this->faker->sentence,
+                    'supportPackage'            => $supportPackage,
+                    'supportPackageDescription' => $supportDescription,
                 ],
                 [
                     'startDate'                 => $this->getDatetime($date),
@@ -839,6 +846,38 @@ class AssetFactoryTest extends TestCase {
                     'supportPackageDescription' => $supportDescription,
                 ],
 
+                // Should be created - support not same
+                [
+                    'startDate'                 => $this->getDatetime($date),
+                    'endDate'                   => $this->getDatetime($date),
+                    'documentNumber'            => $documentA->number,
+                    'document'                  => [
+                        'id' => $documentA->getKey(),
+                    ],
+                    'reseller'                  => null,
+                    'customer'                  => null,
+                    'skuNumber'                 => $this->faker->uuid,
+                    'skuDescription'            => $this->faker->sentence,
+                    'supportPackage'            => $this->faker->uuid,
+                    'supportPackageDescription' => $this->faker->sentence,
+                ],
+
+                // Should be created - date not same
+                [
+                    'startDate'                 => $this->getDatetime($date->subDay()),
+                    'endDate'                   => $this->getDatetime($date),
+                    'documentNumber'            => $documentA->number,
+                    'document'                  => [
+                        'id' => $documentA->getKey(),
+                    ],
+                    'reseller'                  => null,
+                    'customer'                  => null,
+                    'skuNumber'                 => $skuNumber,
+                    'skuDescription'            => $skuDescription,
+                    'supportPackage'            => $supportPackage,
+                    'supportPackageDescription' => $supportDescription,
+                ],
+
                 // No service is OK
                 [
                     'startDate'                 => $this->getDatetime($date),
@@ -855,8 +894,8 @@ class AssetFactoryTest extends TestCase {
                     ],
                     'skuNumber'                 => null,
                     'skuDescription'            => null,
-                    'supportPackage'            => $this->faker->uuid,
-                    'supportPackageDescription' => $this->faker->sentence,
+                    'supportPackage'            => $supportPackage,
+                    'supportPackageDescription' => $supportDescription,
                 ],
 
                 // Should be created even if document null
@@ -937,12 +976,13 @@ class AssetFactoryTest extends TestCase {
         $warranties = $factory->assetExtendedWarranties($model, $asset);
         $warranties = new Collection($warranties);
 
-        $this->assertCount(3, $warranties);
+        $this->assertCount(5, $warranties);
 
         // Existing warranty should be updated
         /** @var \App\Models\AssetWarranty $a */
-        $a = $warranties->first(static function (AssetWarranty $warranty) use ($documentA): bool {
-            return $warranty->document_id === $documentA->getKey();
+        $a = $warranties->first(static function (AssetWarranty $warranty) use ($documentA, $date): bool {
+            return $warranty->document_id === $documentA->getKey()
+                && $date->startOfDay()->equalTo($warranty->start);
         });
 
         $this->assertNotNull($a);
@@ -987,17 +1027,13 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($model->getKey(), $c->asset_id);
         $this->assertEquals(0, $c->services->count());
 
-        // If existing warranty related to another customer it should be updated
+        // Existing warranty should be updated
         /** @var \App\Models\AssetWarranty $d */
         $d = $warranties->first(static function (AssetWarranty $w) use ($warranty): bool {
             return $w->getKey() === $warranty->getKey();
         });
 
-        $this->assertNotNull($c);
-        $this->assertEquals($resellerA->getKey(), $warranty->reseller_id);
-        $this->assertEquals($customerA->getKey(), $warranty->customer_id);
-        $this->assertEquals($resellerB->getKey(), $d->reseller_id);
-        $this->assertEquals($customerB->getKey(), $d->customer_id);
+        $this->assertNotNull($d);
     }
 
     /**

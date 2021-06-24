@@ -42,6 +42,7 @@ use App\Services\DataLoader\Schema\ViewAssetDocument;
 use Closure;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -351,6 +352,11 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 return implode('|', [
                     $warranty->document_id,
                     $warranty->document_number,
+                    $warranty->reseller_id,
+                    $warranty->customer_id,
+                    $warranty->support_id,
+                    $warranty->start?->startOfDay(),
+                    $warranty->end?->startOfDay(),
                 ]);
             });
         $documents  = (new Collection($asset->assetDocument))
@@ -380,7 +386,15 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 // Prepare
                 $reseller = $this->reseller($assetDocument);
                 $customer = $this->customer($assetDocument);
-                $key      = implode('|', [$document?->getKey(), $number]);
+                $key      = implode('|', [
+                    $document?->getKey(),
+                    $number,
+                    $reseller?->getKey(),
+                    $customer?->getKey(),
+                    $support?->getKey(),
+                    Date::make($start)?->startOfDay(),
+                    Date::make($end)?->startOfDay(),
+                    ]);
 
                 // Add service
                 $services[$key][] = $service;
