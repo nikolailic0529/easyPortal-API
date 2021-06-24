@@ -10,8 +10,7 @@
             "type": "object",
             "required": [
                 "id",
-                "name",
-                "organization_id"
+                "name"
             ],
             "properties": {
                 "id": {
@@ -19,9 +18,6 @@
                 },
                 "name": {
                     "type": "string"
-                },
-                "organization_id": {
-                    "$ref": "../../types.json#/definitions/ID"
                 }
             }
         }

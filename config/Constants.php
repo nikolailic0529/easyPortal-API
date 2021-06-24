@@ -104,12 +104,16 @@ interface Constants {
     public const EP_ROOT_ORGANIZATION = '40765bbb-4736-4d2f-8964-1c3fd4e59aac';
 
     /**
-     * Dashboard url.
+     * The URI (can be relative) where user should be redirected to complete
+     * Access EP after invitation.
+     *
+     * Replacements:
+     * * `{organization}` - organization
      */
-    #[Setting('ep.dashboard_url')]
+    #[Setting('ep.client.organization_signin_uri')]
     #[Group('ep')]
     #[Type(StringType::class)]
-    public const EP_DASHBOARD_URL = '';
+    public const EP_CLIENT_ORGANIZATION_SIGNIN_URI = 'auth/organizations/{organization}';
     // </editor-fold>
 
     // <editor-fold desc="EP_CLIENT">
