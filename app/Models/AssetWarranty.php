@@ -6,11 +6,11 @@ use App\Models\Concerns\HasAsset;
 use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasDocument;
 use App\Models\Concerns\HasReseller;
+use App\Models\Concerns\HasSupport;
 use App\Models\Concerns\SyncBelongsToMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Collection;
 
 /**
@@ -19,16 +19,18 @@ use Illuminate\Support\Collection;
  * @property string                                                        $id
  * @property string                                                        $asset_id
  * @property string|null                                                   $reseller_id
- * @property string                                                        $customer_id
+ * @property string|null                                                   $customer_id
  * @property string|null                                                   $document_id
+ * @property string|null                                                   $document_number
+ * @property string|null                                                   $support_id
  * @property \Carbon\CarbonImmutable|null                                  $start
- * @property \Carbon\CarbonImmutable                                       $end
+ * @property \Carbon\CarbonImmutable|null                                  $end
  * @property \Carbon\CarbonImmutable                                       $created_at
  * @property \Carbon\CarbonImmutable                                       $updated_at
  * @property \Carbon\CarbonImmutable|null                                  $deleted_at
  * @property string|null                                                   $note
  * @property \App\Models\Asset                                             $asset
- * @property \App\Models\Customer                                          $customer
+ * @property \App\Models\Customer|null                                     $customer
  * @property \App\Models\Document|null                                     $document
  * @property \App\Models\Reseller|null                                     $reseller
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Product> $services
@@ -55,6 +57,7 @@ class AssetWarranty extends Model {
     use OwnedByOrganization;
     use HasFactory;
     use HasAsset;
+    use HasSupport;
     use HasReseller;
     use HasCustomer;
     use HasDocument;
@@ -100,16 +103,5 @@ class AssetWarranty extends Model {
      */
     public function setServicesAttribute(Collection|array $services): void {
         $this->syncBelongsToMany('services', $services);
-    }
-
-    public function support(): HasOneThrough {
-        return $this->hasOneThrough(
-            Product::class,
-            Document::class,
-            'id',
-            'id',
-            'document_id',
-            'support_id',
-        );
     }
 }
