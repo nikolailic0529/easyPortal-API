@@ -576,6 +576,15 @@ input DocumentsSort {
   price: Float
 }
 
+input InviteOrgUserInput {
+  email: String!
+  role_id: ID!
+}
+
+type InviteOrgUserPayload {
+  result: Boolean!
+}
+
 type Language {
   id: ID!
   code: String!
@@ -695,7 +704,7 @@ type Mutation {
   
   @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
   """
-  inviteOrgUser(input: inviteOrgUserInput!): inviteOrgUserPayload
+  inviteOrgUser(input: InviteOrgUserInput!): InviteOrgUserPayload
 
   """
   Force delete all custom settings, may be useful to restore the corrupted file.
@@ -2747,15 +2756,6 @@ type User {
   id: ID!
   given_name: String!
   family_name: String!
-}
-
-input inviteOrgUserInput {
-  email: String!
-  role_id: ID!
-}
-
-type inviteOrgUserPayload {
-  result: Boolean!
 }
 
 type recoverApplicationSettingsPayload {

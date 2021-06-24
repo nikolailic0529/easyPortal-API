@@ -80,7 +80,7 @@ class InviteOrgUserTest extends TestCase {
 
         // Test
         $this
-            ->graphQL(/** @lang GraphQL */ 'mutation inviteOrgUser($input: inviteOrgUserInput!) {
+            ->graphQL(/** @lang GraphQL */ 'mutation inviteOrgUser($input: InviteOrgUserInput!) {
                 inviteOrgUser(input:$input) {
                     result
                 }
