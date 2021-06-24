@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Client;
 
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\TypeWithId;
 use Closure;
 use Mockery;
 use Psr\Log\LoggerInterface;
@@ -63,7 +64,7 @@ class LastIdBasedIteratorTest extends TestCase {
         $iterator      = (new LastIdBasedIterator($logger, $client, '', ''))
             ->beforeChunk(Closure::fromCallable($onBeforeChunk))
             ->afterChunk(Closure::fromCallable($onAfterChunk))
-            ->lastId('5')
+            ->offset('5')
             ->limit(2)
             ->chunk(5);
 
@@ -138,7 +139,7 @@ class LastIdBasedIteratorTest extends TestCase {
      */
     protected function getData(): array {
         return array_map(static function (int $id): Type {
-            return new class(['id' => (string) $id]) extends Type {
+            return new class(['id' => (string) $id]) extends Type implements TypeWithId {
                 public string $id;
             };
         }, range(1, 10));

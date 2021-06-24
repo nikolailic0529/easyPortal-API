@@ -103,17 +103,7 @@ abstract class Importer {
     }
 
     protected function getContinue(QueryIterator $iterator): string|int|null {
-        $continue = null;
-
-        if ($iterator instanceof OffsetBasedIterator) {
-            $continue = $iterator->getOffset();
-        } elseif ($iterator instanceof LastIdBasedIterator) {
-            $continue = $iterator->getLastId();
-        } else {
-            // empty
-        }
-
-        return $continue;
+        return $iterator->getOffset();
     }
 
     protected function getIterator(
@@ -133,13 +123,7 @@ abstract class Importer {
         }
 
         if ($continue) {
-            if ($iterator instanceof OffsetBasedIterator) {
-                $iterator->offset($continue);
-            } elseif ($iterator instanceof LastIdBasedIterator) {
-                $iterator->lastId($continue);
-            } else {
-                throw new InvalidArgumentException('Iterator cannot be continued.');
-            }
+            $iterator->offset($continue);
         }
 
         return $iterator;

@@ -2,19 +2,28 @@
 
 namespace App\Services\DataLoader\Client;
 
+use InvalidArgumentException;
+
 use function count;
+use function gettype;
+use function is_int;
+use function is_null;
+use function sprintf;
 
 class OffsetBasedIterator extends QueryIterator {
-    protected int $offset = 0;
-
-    public function getOffset(): int {
-        return $this->offset;
+    public function getOffset(): int|null {
+        return parent::getOffset();
     }
 
-    public function offset(int $offset): static {
-        $this->offset = $offset;
+    public function offset(string|int|null $offset): static {
+        if (!is_int($offset) && !is_null($offset)) {
+            throw new InvalidArgumentException(sprintf(
+                'The `$offset` must be `int` or `null`, `%s` given',
+                gettype($offset),
+            ));
+        }
 
-        return $this;
+        return parent::offset($offset);
     }
 
     /**
@@ -22,7 +31,7 @@ class OffsetBasedIterator extends QueryIterator {
      */
     protected function getQueryParams(): array {
         return [
-            'offset' => $this->offset,
+            'offset' => $this->getOffset(),
         ];
     }
 
@@ -30,7 +39,7 @@ class OffsetBasedIterator extends QueryIterator {
      * @param array<mixed> $items
      */
     protected function chunkProcessed(array $items): bool {
-        $this->offset($this->offset + count($items));
+        $this->offset($this->getOffset() + count($items));
 
         return parent::chunkProcessed($items);
     }

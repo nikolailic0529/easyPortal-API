@@ -15,10 +15,11 @@ use function array_merge;
 use function min;
 
 abstract class QueryIterator implements IteratorAggregate {
-    protected ?Closure $beforeChunk = null;
-    protected ?Closure $afterChunk  = null;
-    protected ?int     $limit       = null;
-    protected int      $chunk       = 1000;
+    protected ?Closure        $beforeChunk = null;
+    protected ?Closure        $afterChunk  = null;
+    protected ?int            $limit       = null;
+    protected int             $chunk       = 1000;
+    protected string|int|null $offset      = null;
 
     /**
      * @param array<mixed> $params
@@ -42,6 +43,16 @@ abstract class QueryIterator implements IteratorAggregate {
 
     public function chunk(int $chunk): static {
         $this->chunk = $chunk;
+
+        return $this;
+    }
+
+    public function getOffset(): string|int|null {
+        return $this->offset;
+    }
+
+    public function offset(string|int|null $offset): static {
+        $this->offset = $offset;
 
         return $this;
     }

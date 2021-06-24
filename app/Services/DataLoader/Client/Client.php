@@ -71,7 +71,7 @@ class Client {
                 },
             )
             ->limit($limit)
-            ->lastId($lastId);
+            ->offset($lastId);
     }
 
     /**
@@ -100,7 +100,7 @@ class Client {
                 },
             )
             ->limit($limit)
-            ->lastId($lastId);
+            ->offset($lastId);
     }
 
     /**
@@ -129,7 +129,7 @@ class Client {
                 },
             )
             ->limit($limit)
-            ->lastId($lastId);
+            ->offset($lastId);
     }
 
     public function getCompanyById(string $id): ?Company {
@@ -223,7 +223,7 @@ class Client {
                 },
             )
             ->limit($limit)
-            ->lastId($lastId);
+            ->offset($lastId);
     }
 
     /**
@@ -255,7 +255,7 @@ class Client {
                 },
             )
             ->limit($limit)
-            ->lastId($lastId);
+            ->offset($lastId);
     }
 
     /**
@@ -280,7 +280,7 @@ class Client {
                 },
             )
             ->limit($limit)
-            ->lastId($lastId);
+            ->offset($lastId);
     }
 
     /**
@@ -312,7 +312,7 @@ class Client {
                 },
             )
             ->limit($limit)
-            ->lastId($lastId);
+            ->offset($lastId);
     }
 
     /**
@@ -341,7 +341,7 @@ class Client {
                 },
             )
             ->limit($limit)
-            ->lastId($lastId);
+            ->offset($lastId);
     }
 
     /**
@@ -373,7 +373,7 @@ class Client {
                 },
             )
             ->limit($limit)
-            ->lastId($lastId);
+            ->offset($lastId);
     }
 
     /**

@@ -284,7 +284,7 @@ class AnalyzeAssets extends Command {
                     return new ViewAsset($data);
                 },
             )
-            ->lastId($lastId)
+            ->offset($lastId)
             ->chunk($chunk);
     }
 

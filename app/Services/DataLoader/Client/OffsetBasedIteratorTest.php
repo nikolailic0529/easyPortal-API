@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Client;
 
 use Closure;
+use InvalidArgumentException;
 use Mockery;
 use Psr\Log\LoggerInterface;
 use Tests\TestCase;
@@ -29,7 +30,7 @@ class OffsetBasedIteratorTest extends TestCase {
             ->shouldReceive('call')
             ->times(3)
             ->andReturnUsing(static function (string $selector, string $graphql, array $params = []) use ($data) {
-                return array_slice($data, $params['offset'], $params['limit']);
+                return array_slice($data, $params['offset'] ?? 0, $params['limit']);
             });
 
         $expected = $data;
@@ -91,7 +92,7 @@ class OffsetBasedIteratorTest extends TestCase {
             ->andReturnUsing(function (string $selector, string $graphql, array $params = []) use ($data) {
                 $this->assertEquals(2, $params['limit']);
 
-                return array_slice($data, $params['offset'], $params['limit']);
+                return array_slice($data, $params['offset'] ?? 0, $params['limit']);
             });
 
         $expected = $data;
@@ -115,12 +116,24 @@ class OffsetBasedIteratorTest extends TestCase {
             ->andReturnUsing(function (string $selector, string $graphql, array $params = []) use ($data) {
                 $this->assertEquals(2, $params['limit']);
 
-                return array_slice($data, $params['offset'], $params['limit']);
+                return array_slice($data, $params['offset'] ?? 0, $params['limit']);
             });
 
         $expected = [1, 2];
         $actual   = iterator_to_array((new OffsetBasedIterator($logger, $client, '', ''))->limit(2)->chunk(50));
 
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers ::offset
+     */
+    public function testOffsetInvalidType(): void {
+        $this->expectException(InvalidArgumentException::class);
+
+        $logger = $this->app->make(LoggerInterface::class);
+        $client = Mockery::mock(Client::class);
+
+        (new OffsetBasedIterator($logger, $client, '', ''))->offset('invalid');
     }
 }
