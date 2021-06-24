@@ -62,10 +62,10 @@ abstract class Importer {
         $status   = new Status($from, $continue);
         $iterator = $this
             ->getIterator($from, $chunk, $limit, $continue)
-            ->beforeChunk(function (array $items) use ($status): void {
+            ->onBeforeChunk(function (array $items) use ($status): void {
                 $this->onBeforeChunk($items, $status);
             })
-            ->afterChunk(function (array $items) use (&$iterator, $status): void {
+            ->onAfterChunk(function (array $items) use (&$iterator, $status): void {
                 $this->onAfterChunk($items, $status, $this->getContinue($iterator));
             });
 
@@ -115,15 +115,15 @@ abstract class Importer {
         $iterator = $this->makeIterator($from);
 
         if ($chunk) {
-            $iterator->chunk($chunk);
+            $iterator->setChunkSize($chunk);
         }
 
         if ($limit) {
-            $iterator->limit($limit);
+            $iterator->setLimit($limit);
         }
 
         if ($continue) {
-            $iterator->offset($continue);
+            $iterator->setOffset($continue);
         }
 
         return $iterator;

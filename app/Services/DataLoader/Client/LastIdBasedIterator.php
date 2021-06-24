@@ -24,7 +24,7 @@ class LastIdBasedIterator extends QueryIterator {
         $continue = false;
 
         if ($last instanceof TypeWithId && isset($last->id)) {
-            $this->offset($last->id);
+            $this->setOffset($last->id);
 
             $continue = true;
         }

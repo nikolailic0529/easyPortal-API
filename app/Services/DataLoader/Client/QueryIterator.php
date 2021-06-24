@@ -35,13 +35,13 @@ abstract class QueryIterator implements IteratorAggregate {
         // empty
     }
 
-    public function limit(?int $limit): static {
+    public function setLimit(?int $limit): static {
         $this->limit = $limit;
 
         return $this;
     }
 
-    public function chunk(int $chunk): static {
+    public function setChunkSize(int $chunk): static {
         $this->chunk = $chunk;
 
         return $this;
@@ -51,7 +51,7 @@ abstract class QueryIterator implements IteratorAggregate {
         return $this->offset;
     }
 
-    public function offset(string|int|null $offset): static {
+    public function setOffset(string|int|null $offset): static {
         $this->offset = $offset;
 
         return $this;
@@ -60,7 +60,7 @@ abstract class QueryIterator implements IteratorAggregate {
     /**
      * Sets the closure that will be called after received each chunk.
      */
-    public function beforeChunk(?Closure $closure): static {
+    public function onBeforeChunk(?Closure $closure): static {
         $this->beforeChunk = $closure;
 
         return $this;
@@ -69,7 +69,7 @@ abstract class QueryIterator implements IteratorAggregate {
     /**
      * Sets the closure that will be called after chunk processed.
      */
-    public function afterChunk(?Closure $closure): static {
+    public function onAfterChunk(?Closure $closure): static {
         $this->afterChunk = $closure;
 
         return $this;

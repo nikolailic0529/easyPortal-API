@@ -36,7 +36,7 @@ class LastIdBasedIteratorTest extends TestCase {
             ->andReturnUsing($this->getRetriever($data));
 
         $expected = $data;
-        $actual   = iterator_to_array((new LastIdBasedIterator($logger, $client, '', ''))->chunk(5));
+        $actual   = iterator_to_array((new LastIdBasedIterator($logger, $client, '', ''))->setChunkSize(5));
 
         $this->assertEquals($expected, $actual);
     }
@@ -62,11 +62,11 @@ class LastIdBasedIteratorTest extends TestCase {
             // empty
         });
         $iterator      = (new LastIdBasedIterator($logger, $client, '', ''))
-            ->beforeChunk(Closure::fromCallable($onBeforeChunk))
-            ->afterChunk(Closure::fromCallable($onAfterChunk))
-            ->offset('5')
-            ->limit(2)
-            ->chunk(5);
+            ->onBeforeChunk(Closure::fromCallable($onBeforeChunk))
+            ->onAfterChunk(Closure::fromCallable($onAfterChunk))
+            ->setOffset('5')
+            ->setLimit(2)
+            ->setChunkSize(5);
 
         $expected = ['6', '7'];
         $actual   = iterator_to_array($iterator);
@@ -99,7 +99,8 @@ class LastIdBasedIteratorTest extends TestCase {
             });
 
         $expected = $data;
-        $actual   = iterator_to_array((new LastIdBasedIterator($logger, $client, '', ''))->limit(10)->chunk(2));
+        $iterator = (new LastIdBasedIterator($logger, $client, '', ''))->setLimit(10)->setChunkSize(2);
+        $actual   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
     }
@@ -123,7 +124,8 @@ class LastIdBasedIteratorTest extends TestCase {
             });
 
         $expected = ['1', '2'];
-        $actual   = iterator_to_array((new LastIdBasedIterator($logger, $client, '', ''))->limit(2)->chunk(50));
+        $iterator = (new LastIdBasedIterator($logger, $client, '', ''))->setLimit(2)->setChunkSize(50);
+        $actual   = iterator_to_array($iterator);
         $actual   = array_map(static function (Type $type): ?string {
             return $type->id ?? null;
         }, $actual);

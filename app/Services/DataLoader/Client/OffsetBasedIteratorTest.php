@@ -34,7 +34,7 @@ class OffsetBasedIteratorTest extends TestCase {
             });
 
         $expected = $data;
-        $actual   = iterator_to_array((new OffsetBasedIterator($logger, $client, '', ''))->chunk(5));
+        $actual   = iterator_to_array((new OffsetBasedIterator($logger, $client, '', ''))->setChunkSize(5));
 
         $this->assertEquals($expected, $actual);
     }
@@ -62,11 +62,11 @@ class OffsetBasedIteratorTest extends TestCase {
             // empty
         });
         $iterator      = (new OffsetBasedIterator($logger, $client, '', ''))
-            ->beforeChunk(Closure::fromCallable($onBeforeChunk))
-            ->afterChunk(Closure::fromCallable($onAfterChunk))
-            ->offset(5)
-            ->limit(2)
-            ->chunk(5);
+            ->onBeforeChunk(Closure::fromCallable($onBeforeChunk))
+            ->onAfterChunk(Closure::fromCallable($onAfterChunk))
+            ->setOffset(5)
+            ->setLimit(2)
+            ->setChunkSize(5);
 
         $expected = [6, 7];
         $actual   = iterator_to_array($iterator);
@@ -96,7 +96,8 @@ class OffsetBasedIteratorTest extends TestCase {
             });
 
         $expected = $data;
-        $actual   = iterator_to_array((new OffsetBasedIterator($logger, $client, '', ''))->limit(10)->chunk(2));
+        $iterator = (new OffsetBasedIterator($logger, $client, '', ''))->setLimit(10)->setChunkSize(2);
+        $actual   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
     }
@@ -120,20 +121,21 @@ class OffsetBasedIteratorTest extends TestCase {
             });
 
         $expected = [1, 2];
-        $actual   = iterator_to_array((new OffsetBasedIterator($logger, $client, '', ''))->limit(2)->chunk(50));
+        $iterator = (new OffsetBasedIterator($logger, $client, '', ''))->setLimit(2)->setChunkSize(50);
+        $actual   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
     }
 
     /**
-     * @covers ::offset
+     * @covers ::setOffset
      */
-    public function testOffsetInvalidType(): void {
+    public function testSetOffsetInvalidType(): void {
         $this->expectException(InvalidArgumentException::class);
 
         $logger = $this->app->make(LoggerInterface::class);
         $client = Mockery::mock(Client::class);
 
-        (new OffsetBasedIterator($logger, $client, '', ''))->offset('invalid');
+        (new OffsetBasedIterator($logger, $client, '', ''))->setOffset('invalid');
     }
 }

@@ -15,7 +15,7 @@ class OffsetBasedIterator extends QueryIterator {
         return parent::getOffset();
     }
 
-    public function offset(string|int|null $offset): static {
+    public function setOffset(string|int|null $offset): static {
         if (!is_int($offset) && !is_null($offset)) {
             throw new InvalidArgumentException(sprintf(
                 'The `$offset` must be `int` or `null`, `%s` given',
@@ -23,7 +23,7 @@ class OffsetBasedIterator extends QueryIterator {
             ));
         }
 
-        return parent::offset($offset);
+        return parent::setOffset($offset);
     }
 
     /**
@@ -39,7 +39,7 @@ class OffsetBasedIterator extends QueryIterator {
      * @param array<mixed> $items
      */
     protected function chunkProcessed(array $items): bool {
-        $this->offset($this->getOffset() + count($items));
+        $this->setOffset($this->getOffset() + count($items));
 
         return parent::chunkProcessed($items);
     }

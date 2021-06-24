@@ -87,7 +87,7 @@ trait WithAssets {
             });
         };
 
-        foreach ($this->getCurrentAssets($owner)->beforeChunk($prefetch) as $asset) {
+        foreach ($this->getCurrentAssets($owner)->onBeforeChunk($prefetch) as $asset) {
             try {
                 $model = $factory->create($asset);
 

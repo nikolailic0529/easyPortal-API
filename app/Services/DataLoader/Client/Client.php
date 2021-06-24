@@ -70,8 +70,8 @@ class Client {
                     return new Company($data);
                 },
             )
-            ->limit($limit)
-            ->offset($lastId);
+            ->setLimit($limit)
+            ->setOffset($lastId);
     }
 
     /**
@@ -99,8 +99,8 @@ class Client {
                     return new Company($data);
                 },
             )
-            ->limit($limit)
-            ->offset($lastId);
+            ->setLimit($limit)
+            ->setOffset($lastId);
     }
 
     /**
@@ -128,8 +128,8 @@ class Client {
                     return new Company($data);
                 },
             )
-            ->limit($limit)
-            ->offset($lastId);
+            ->setLimit($limit)
+            ->setOffset($lastId);
     }
 
     public function getCompanyById(string $id): ?Company {
@@ -222,8 +222,8 @@ class Client {
                     return new ViewAsset($data);
                 },
             )
-            ->limit($limit)
-            ->offset($lastId);
+            ->setLimit($limit)
+            ->setOffset($lastId);
     }
 
     /**
@@ -254,8 +254,8 @@ class Client {
                     return new ViewAsset($data);
                 },
             )
-            ->limit($limit)
-            ->offset($lastId);
+            ->setLimit($limit)
+            ->setOffset($lastId);
     }
 
     /**
@@ -279,8 +279,8 @@ class Client {
                     return new ViewAsset($data);
                 },
             )
-            ->limit($limit)
-            ->offset($lastId);
+            ->setLimit($limit)
+            ->setOffset($lastId);
     }
 
     /**
@@ -311,8 +311,8 @@ class Client {
                     return new ViewAsset($data);
                 },
             )
-            ->limit($limit)
-            ->offset($lastId);
+            ->setLimit($limit)
+            ->setOffset($lastId);
     }
 
     /**
@@ -340,8 +340,8 @@ class Client {
                     return new ViewAsset($data);
                 },
             )
-            ->limit($limit)
-            ->offset($lastId);
+            ->setLimit($limit)
+            ->setOffset($lastId);
     }
 
     /**
@@ -372,8 +372,8 @@ class Client {
                     return new ViewAsset($data);
                 },
             )
-            ->limit($limit)
-            ->offset($lastId);
+            ->setLimit($limit)
+            ->setOffset($lastId);
     }
 
     /**
@@ -476,7 +476,7 @@ class Client {
         Closure $retriever,
     ): OffsetBasedIterator {
         return (new OffsetBasedIterator($this->logger, $this, "data.{$selector}", $graphql, $params, $retriever))
-            ->chunk($this->config->get('ep.data_loader.chunk'));
+            ->setChunkSize($this->config->get('ep.data_loader.chunk'));
     }
 
     /**
@@ -494,7 +494,7 @@ class Client {
         Closure $retriever,
     ): LastIdBasedIterator {
         return (new LastIdBasedIterator($this->logger, $this, "data.{$selector}", $graphql, $params, $retriever))
-            ->chunk($this->config->get('ep.data_loader.chunk'));
+            ->setChunkSize($this->config->get('ep.data_loader.chunk'));
     }
 
     /**
