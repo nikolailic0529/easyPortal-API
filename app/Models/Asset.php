@@ -9,7 +9,7 @@ use App\Models\Concerns\HasProduct;
 use App\Models\Concerns\HasReseller;
 use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasTags;
-use App\Models\Concerns\HasType;
+use App\Models\Concerns\HasTypeNullable;
 use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,7 +28,7 @@ use function sprintf;
  * @property string                                                              $id
  * @property string                                                              $oem_id
  * @property string                                                              $product_id
- * @property string                                                              $type_id
+ * @property string|null                                                         $type_id
  * @property string|null                                                         $reseller_id current
  * @property string|null                                                         $customer_id current
  * @property string|null                                                         $location_id current
@@ -45,7 +45,7 @@ use function sprintf;
  * @property \App\Models\Oem                                                     $oem
  * @property \App\Models\Product                                                 $product
  * @property \App\Models\Reseller|null                                           $reseller
- * @property \App\Models\Type                                                    $type
+ * @property \App\Models\Type|null                                               $type
  * @property \App\Models\Status                                                  $status
  * @property \App\Models\AssetCoverage                                           $coverage
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $documentEntries
@@ -79,7 +79,7 @@ class Asset extends Model {
     use HasFactory;
     use SyncHasMany;
     use HasOem;
-    use HasType;
+    use HasTypeNullable;
     use HasProduct;
     use HasReseller;
     use HasCustomer;

@@ -2,7 +2,7 @@ type Asset {
   id: ID!
   oem_id: ID!,
   product_id: ID!
-  type_id: ID!
+  type_id: ID
   customer_id: ID
   location_id: ID
   reseller_id: ID!
@@ -11,7 +11,7 @@ type Asset {
   location: Location @belongsTo
   oem: Oem! @belongsTo
   product: Product! @belongsTo
-  type: Type! @belongsTo
+  type: Type @belongsTo
   warranties: [AssetWarranty!]! @hasMany
   reseller: Reseller! @belongsTo
   status: Status @belongsTo
