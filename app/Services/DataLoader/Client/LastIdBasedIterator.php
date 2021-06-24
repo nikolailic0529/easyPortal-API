@@ -6,7 +6,7 @@ use App\Services\DataLoader\Schema\TypeWithId;
 
 use function end;
 
-class LastIdBasedIterator extends QueryIterator {
+class LastIdBasedIterator extends QueryIteratorImpl {
     /**
      * @inheritDoc
      */

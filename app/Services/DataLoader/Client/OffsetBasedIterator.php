@@ -10,7 +10,7 @@ use function is_int;
 use function is_null;
 use function sprintf;
 
-class OffsetBasedIterator extends QueryIterator {
+class OffsetBasedIterator extends QueryIteratorImpl {
     public function getOffset(): int|null {
         return parent::getOffset();
     }
