@@ -1,7 +1,7 @@
 input AssetsQuery {
   id: ID!
   oem_id: ID!
-  type_id: ID!
+  type_id: ID
   product_id: ID!
   reseller_id: ID!
   customer_id: ID!

@@ -123,7 +123,7 @@ type Asset {
   id: ID!
   oem_id: ID!
   product_id: ID!
-  type_id: ID!
+  type_id: ID
   customer_id: ID
   location_id: ID
   reseller_id: ID!
@@ -132,7 +132,7 @@ type Asset {
   location: Location
   oem: Oem!
   product: Product!
-  type: Type!
+  type: Type
   warranties: [AssetWarranty!]!
   reseller: Reseller!
   status: Status
@@ -197,7 +197,7 @@ type AssetWarranty {
 input AssetsQuery {
   id: ID!
   oem_id: ID!
-  type_id: ID!
+  type_id: ID
   product_id: ID!
   reseller_id: ID!
   customer_id: ID!
@@ -1335,7 +1335,7 @@ input SearchByConditionAssetsQuery {
   oem_id: SearchByScalarID
 
   """Property condition."""
-  type_id: SearchByScalarID
+  type_id: SearchByScalarIDOrNull
 
   """Property condition."""
   product_id: SearchByScalarID

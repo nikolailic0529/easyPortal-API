@@ -395,6 +395,24 @@ class AssetFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::createFromAsset
+     */
+    public function testCreateFromAssetAssetTypeNull(): void {
+        // Prepare
+        $container = $this->app->make(Container::class);
+        $factory   = $container->make(AssetFactory::class);
+
+        // Test
+        $json    = $this->getTestData()->json('~asset-type-null.json');
+        $asset   = new ViewAsset($json);
+        $created = $factory->create($asset);
+
+        $this->assertNotNull($created);
+        $this->assertTrue($created->wasRecentlyCreated);
+        $this->assertNull($created->type);
+    }
+
+    /**
      * @covers ::assetDocuments
      */
     public function testAssetDocuments(): void {
@@ -548,12 +566,11 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetWarranties
      */
     public function testAssetWarranties(): void {
-        $a         = AssetWarranty::factory()->make();
-        $b         = AssetWarranty::factory()->make();
-        $model     = Asset::factory()->make();
-        $asset     = new ViewAsset();
-        $documents = new Collection([Document::factory()->make()]);
-        $factory   = Mockery::mock(AssetFactory::class);
+        $a       = AssetWarranty::factory()->make();
+        $b       = AssetWarranty::factory()->make();
+        $model   = Asset::factory()->make();
+        $asset   = new ViewAsset();
+        $factory = Mockery::mock(AssetFactory::class);
         $factory->shouldAllowMockingProtectedMethods();
         $factory->makePartial();
         $factory
@@ -597,6 +614,9 @@ class AssetFactoryTest extends TestCase {
                 $this->customerFinder = null;
             }
 
+            /**
+             * @inheritDoc
+             */
             public function assetInitialWarranties(Asset $model, ViewAsset $asset): array {
                 return parent::assetInitialWarranties($model, $asset);
             }
@@ -1339,6 +1359,22 @@ class AssetFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::assetType
+     */
+    public function testAssetTypeNull(): void {
+        $asset   = new ViewAsset();
+        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+
+        $factory
+            ->shouldReceive('type')
+            ->never();
+
+        $this->assertNull($factory->assetType($asset));
+    }
+
+    /**
      * @covers ::assetProduct
      */
     public function testAssetProduct(): void {
@@ -1618,7 +1654,7 @@ class AssetFactoryTest_Factory extends AssetFactory {
         return parent::assetOem($asset);
     }
 
-    public function assetType(ViewAsset $asset): TypeModel {
+    public function assetType(ViewAsset $asset): ?TypeModel {
         return parent::assetType($asset);
     }
 
@@ -1646,6 +1682,9 @@ class AssetFactoryTest_Factory extends AssetFactory {
         return parent::assetDocumentSupport($model, $assetDocument);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function assetExtendedWarranties(Asset $model, ViewAsset $asset): array {
         return parent::assetExtendedWarranties($model, $asset);
     }

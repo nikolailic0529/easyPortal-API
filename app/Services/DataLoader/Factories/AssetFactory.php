@@ -507,8 +507,10 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         return $this->oem($asset->vendor, $asset->vendor);
     }
 
-    protected function assetType(ViewAsset $asset): TypeModel {
-        return $this->type(new AssetModel(), $asset->assetType);
+    protected function assetType(ViewAsset $asset): ?TypeModel {
+        return isset($asset->assetType)
+            ? $this->type(new AssetModel(), $asset->assetType)
+            : null;
     }
 
     protected function assetProduct(ViewAsset $asset): Product {
