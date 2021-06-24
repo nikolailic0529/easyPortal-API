@@ -5,10 +5,13 @@ namespace App\Services\DataLoader\Client;
 use InvalidArgumentException;
 
 use function count;
+use function filter_var;
 use function gettype;
 use function is_int;
 use function is_null;
 use function sprintf;
+
+use const FILTER_VALIDATE_INT;
 
 class OffsetBasedIterator extends QueryIteratorImpl {
     public function getOffset(): int|null {
@@ -16,6 +19,10 @@ class OffsetBasedIterator extends QueryIteratorImpl {
     }
 
     public function setOffset(string|int|null $offset): static {
+        if (filter_var($offset, FILTER_VALIDATE_INT) !== false) {
+            $offset = (int) $offset;
+        }
+
         if (!is_int($offset) && !is_null($offset)) {
             throw new InvalidArgumentException(sprintf(
                 'The `$offset` must be `int` or `null`, `%s` given',

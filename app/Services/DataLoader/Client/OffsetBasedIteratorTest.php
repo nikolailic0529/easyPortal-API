@@ -130,6 +130,17 @@ class OffsetBasedIteratorTest extends TestCase {
     /**
      * @covers ::setOffset
      */
+    public function testSetOffset(): void {
+        $logger   = $this->app->make(LoggerInterface::class);
+        $client   = Mockery::mock(Client::class);
+        $iterator = new OffsetBasedIterator($logger, $client, '', '');
+
+        $this->assertNotNull($iterator->setOffset('123'));
+    }
+
+    /**
+     * @covers ::setOffset
+     */
     public function testSetOffsetInvalidType(): void {
         $this->expectException(InvalidArgumentException::class);
 
