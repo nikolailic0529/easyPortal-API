@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Client;
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use Closure;
 use EmptyIterator;
-use Generator;
 use Iterator;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -13,8 +12,6 @@ use Throwable;
 use function array_filter;
 use function array_map;
 use function array_merge;
-use function array_slice;
-use function count;
 use function min;
 
 abstract class QueryIteratorImpl implements QueryIterator {
@@ -99,19 +96,12 @@ abstract class QueryIteratorImpl implements QueryIterator {
 
         // Iterate
         do {
-            // Get
+            $chunk  = $limit ? min($chunk, $limit - $index) : $chunk;
             $params = array_merge($this->params, $this->getQueryParams(), [
                 'limit' => $chunk,
             ]);
             $items  = (array) $this->client->call($this->selector, $this->graphql, $params);
-
-            // Reduce to $limit
-            if ($limit && count($items) + $index >= $limit) {
-                $items = array_slice($items, 0, $limit - $index);
-            }
-
-            // Process
-            $items = $this->chunkPrepare($items);
+            $items  = $this->chunkPrepare($items);
 
             $this->chunkLoaded($items);
 
