@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations\Roles;
+namespace App\GraphQL\Mutations\Org;
 
 use App\Models\Permission;
 use App\Models\Role;
@@ -20,7 +20,7 @@ use Tests\TestCase;
 use function __;
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\UpdateOrgRole
+ * @coversDefaultClass \App\GraphQL\Mutations\Org\UpdateOrgRole
  */
 class UpdateOrgRoleTest extends TestCase {
     // <editor-fold desc="Tests">

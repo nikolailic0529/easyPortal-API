@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations\Roles;
+namespace App\GraphQL\Mutations\Org;
 
 use App\Models\Permission;
 use App\Models\Role;

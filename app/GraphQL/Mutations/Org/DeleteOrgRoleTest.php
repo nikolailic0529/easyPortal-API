@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations\Roles;
+namespace App\GraphQL\Mutations\Org;
 
 use App\Models\Role;
 use Closure;
@@ -16,7 +16,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\DeleteOrgRole
+ * @coversDefaultClass \App\GraphQL\Mutations\Org\DeleteOrgRole
  */
 class DeleteOrgRoleTest extends TestCase {
     // <editor-fold desc="Tests">

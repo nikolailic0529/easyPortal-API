@@ -11,7 +11,7 @@
         },
         "organization": {
             "type": "object",
-            "$ref": "../types.json#/definitions/Organization"
+            "$ref": "../../types.json#/definitions/Organization"
         }
     }
 }

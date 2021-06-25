@@ -700,13 +700,6 @@ type Mutation {
   dispatchApplicationService(input: DispatchApplicationServiceInput!): DispatchApplicationServicePayload
 
   """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
-  """
-  inviteOrgUser(input: InviteOrgUserInput!): InviteOrgUserPayload
-
-  """
   Force delete all custom settings, may be useful to restore the corrupted file.
   
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -774,13 +767,6 @@ type Mutation {
   updateClientTranslations(input: UpdateClientTranslationsInput!): UpdateClientTranslationsPayload
 
   """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
-  """
-  updateOrg(input: UpdateOrgInput!): UpdateOrgPayload
-
-  """
   Finish the Sign In for Organization.
   
   @require <guest> Current visitor must be a guest.
@@ -835,6 +821,20 @@ type Mutation {
   @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
   """
   deleteOrgRole(input: DeleteOrgRoleInput): DeleteOrgRolePayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
+  """
+  inviteOrgUser(input: InviteOrgUserInput!): InviteOrgUserPayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["edit-organization"])> User must be authenticated and have any of these permissions.
+  """
+  updateOrg(input: UpdateOrgInput!): UpdateOrgPayload
 
   """
   Update Organization Role.

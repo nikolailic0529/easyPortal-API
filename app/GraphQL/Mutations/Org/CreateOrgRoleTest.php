@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations\Roles;
+namespace App\GraphQL\Mutations\Org;
 
 use App\Models\Organization;
 use App\Services\KeyCloak\Client\Client;
@@ -20,7 +20,7 @@ use function __;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\CreateOrgRole
+ * @coversDefaultClass \App\GraphQL\Mutations\Org\CreateOrgRole
  */
 class CreateOrgRoleTest extends TestCase {
     // <editor-fold desc="Tests">

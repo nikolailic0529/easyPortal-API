@@ -3,6 +3,7 @@ extend type Mutation {
     input: UpdateOrgInput!
   ): UpdateOrgPayload
   @organization
+  @field(resolver: "App\\GraphQL\\Mutations\\Org\\UpdateOrg")
   @me(permissions: ["edit-organization"])
 }
 
