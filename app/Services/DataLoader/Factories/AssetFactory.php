@@ -29,7 +29,9 @@ use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
+use App\Services\DataLoader\Resolvers\ContactResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
@@ -80,10 +82,12 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         protected CustomerResolver $customerResolver,
         protected ResellerResolver $resellerResolver,
         protected LocationFactory $locations,
-        protected ContactFactory $contacts,
+        protected ContactFactory $contactFactory,
+        protected ContactResolver $contactResolver,
         protected StatusResolver $statuses,
         protected AssetCoverageFactory $coverages,
         protected TagResolver $tags,
+        protected DocumentResolver $documentResolver,
         protected ?ResellerFinder $resellerFinder = null,
         protected ?CustomerFinder $customerFinder = null,
     ) {
@@ -109,7 +113,15 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     }
 
     protected function getContactsFactory(): ContactFactory {
-        return $this->contacts;
+        return $this->contactFactory;
+    }
+
+    protected function getContactsResolver(): ContactResolver {
+        return $this->contactResolver;
+    }
+
+    public function getDocumentResolver(): ?DocumentResolver {
+        return $this->documentResolver;
     }
 
     public function getDocumentFactory(): ?DocumentFactory {
@@ -209,13 +221,27 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $model->coverage      = $this->coverages->create($asset);
 
             if ($this->getDocumentFactory() && isset($asset->assetDocument)) {
-                $documents              = $this->assetDocuments($model, $asset);
-                $model->warranties      = $this->assetWarranties($model, $asset);
-                $model->documentEntries = $documents
-                    ->map(static function (Document $document): Collection {
-                        return $document->entries;
-                    })
-                    ->flatten();
+                // Prefetch documents
+                $this->getDocumentFactory()->prefetch([$asset], false, function (Collection $documents): void {
+                    $documents->loadMissing('oem');
+                    $documents->loadMissing('entries');
+                    $documents->loadMissing('contacts');
+                    $documents->loadMissing('contacts.types');
+
+                    $this->getContactsResolver()->add($documents->pluck('contacts')->flatten());
+                });
+
+                try {
+                    $documents              = $this->assetDocuments($model, $asset);
+                    $model->warranties      = $this->assetWarranties($model, $asset);
+                    $model->documentEntries = $documents
+                        ->map(static function (Document $document): Collection {
+                            return $document->entries;
+                        })
+                        ->flatten();
+                } finally {
+                    $this->getDocumentResolver()->reset();
+                }
             }
 
             $model->save();
