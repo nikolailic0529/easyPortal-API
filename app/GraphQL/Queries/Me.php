@@ -2,14 +2,20 @@
 
 namespace App\GraphQL\Queries;
 
+use App\GraphQL\Mutations\UpdateOrg;
 use App\Models\User;
 use App\Services\Auth\Auth;
+use App\Services\KeyCloak\Client\Client;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
+
+use function array_key_exists;
 
 class Me {
     public function __construct(
         protected Auth $auth,
+        protected Client $client,
+        protected UpdateOrg $updateOrg,
     ) {
         // empty
     }
@@ -43,5 +49,38 @@ class Me {
         }
 
         return $me;
+    }
+
+    /**
+     * @return array<string,mixed>|null
+     */
+    public function profile(?User $user): ?array {
+        if (!$user) {
+            return null;
+        }
+
+        $keycloakUser = $this->client->getUserById($user->getKey());
+        $attributes   = $keycloakUser->attributes;
+        $keys         = [
+            'office_phone',
+            'contact_email',
+            'title',
+            'academic_title',
+            'office_phone',
+            'mobile_phone',
+            'contact_email',
+            'department',
+            'job_title',
+            'photo',
+        ];
+        $data         = [];
+        foreach ($keys as $key) {
+            if (array_key_exists($key, $attributes)) {
+                $data[$key] = $attributes[$key][0];
+            }
+        }
+        $data['first_name'] = $keycloakUser->firstName ?? null;
+        $data['last_name']  = $keycloakUser->lastName ?? null;
+        return $data;
     }
 }

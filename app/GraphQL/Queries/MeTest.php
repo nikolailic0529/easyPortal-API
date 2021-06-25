@@ -6,6 +6,8 @@ use App\Models\Enums\UserType;
 use App\Models\User;
 use App\Models\UserSearch;
 use Closure;
+use Illuminate\Http\Client\Factory;
+use Illuminate\Support\Facades\Http;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -86,6 +88,78 @@ class MeTest extends TestCase {
             }', ['key' => $key])
             ->assertThat($expected);
     }
+
+    /**
+     * @covers ::__invoke
+     *
+     * @dataProvider dataProviderProfile
+     */
+    public function testProfile(
+        Response $expected,
+        Closure $organizationFactory,
+        Closure $userFactory = null,
+    ): void {
+        // Prepare
+        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+
+        $client = Http::fake([
+            '*' => Http::response([
+                    'id'         => 'cc368aa8-5751-4d1d-9da0-dee3229c4474',
+                    'firstName'  => 'first',
+                    'lastName'   => 'last',
+                    'email'      => 'osama@test.com',
+                    'attributes' => [
+                        'office_phone'   => [
+                            '01000000000',
+                        ],
+                        'contact_email'  => [
+                            'test@gmail.com',
+                        ],
+                        'academic_title' => [
+                            'academic_title',
+                        ],
+                        'title'          => [
+                            'Mr',
+                        ],
+                        'office_phone'   => [
+                            '01000230232',
+                        ],
+                        'mobile_phone'   => [
+                            '0100023023232',
+                        ],
+                        'department'     => [
+                            'hr',
+                        ],
+                        'job_title'      => [
+                            'manger',
+                        ],
+                        'photo'          => [
+                            'http://example.com/photo.jpg',
+                        ],
+                    ],
+            ], 201),
+        ]);
+        $this->app->instance(Factory::class, $client);
+
+        // Test
+        $this->graphQL(/** @lang GraphQL */'
+            query profile {
+                me {
+                    profile {
+                        first_name
+                        last_name
+                        title
+                        academic_title
+                        office_phone
+                        mobile_phone
+                        contact_email
+                        department
+                        job_title
+                        photo
+                    }
+                }
+            }')->assertThat($expected);
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -161,6 +235,40 @@ class MeTest extends TestCase {
                         }
 
                         return 'key';
+                    },
+                ],
+            ]),
+        ))->getData();
+    }
+
+        /**
+     * @return array<mixed>
+     */
+    public function dataProviderProfile(): array {
+        return (new CompositeDataProvider(
+            new AnyOrganizationDataProvider('me'),
+            new ArrayDataProvider([
+                'guest is allowed' => [
+                    new GraphQLSuccess('me', self::class, 'null'),
+                    static function (): ?User {
+                        return null;
+                    },
+                ],
+                'user is allowed'  => [
+                    new GraphQLSuccess('me', self::class, new JsonFragment('profile', [
+                        'first_name'     => 'first',
+                        'last_name'      => 'last',
+                        'title'          => 'Mr',
+                        'academic_title' => 'academic_title',
+                        'office_phone'   => '01000230232',
+                        'mobile_phone'   => '0100023023232',
+                        'contact_email'  => 'test@gmail.com',
+                        'department'     => 'hr',
+                        'job_title'      => 'manger',
+                        'photo'          => 'http://example.com/photo.jpg',
+                    ])),
+                    static function (): ?User {
+                        return User::factory()->create();
                     },
                 ],
             ]),
