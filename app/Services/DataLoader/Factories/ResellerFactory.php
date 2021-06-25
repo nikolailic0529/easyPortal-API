@@ -36,7 +36,7 @@ class ResellerFactory extends ModelFactory implements FactoryPrefetchable {
         Normalizer $normalizer,
         protected TypeResolver $types,
         protected ResellerResolver $resellers,
-        protected Dispatcher $events,
+        protected Dispatcher $dispatcher,
         protected StatusResolver $statuses,
         protected ContactFactory $contacts,
         protected LocationFactory $locations,
@@ -46,6 +46,10 @@ class ResellerFactory extends ModelFactory implements FactoryPrefetchable {
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
+    protected function getDispatcher(): Dispatcher {
+        return $this->dispatcher;
+    }
+
     protected function getContactsFactory(): ContactFactory {
         return $this->contacts;
     }
@@ -135,7 +139,7 @@ class ResellerFactory extends ModelFactory implements FactoryPrefetchable {
 
             $reseller->save();
 
-            $this->events->dispatch(new ResellerUpdated($reseller, $company));
+            $this->getDispatcher()->dispatch(new ResellerUpdated($reseller, $company));
 
             return $reseller;
         });

@@ -40,6 +40,12 @@ abstract class Resolver implements Singleton {
         return $this->getCache()->getAll();
     }
 
+    public function reset(): static {
+        $this->getCache(false)->reset();
+
+        return $this;
+    }
+
     protected function resolve(mixed $key, Closure $factory = null): ?Model {
         // Model already in cache or can be found?
         $key   = $this->normalizer->key($key);
@@ -86,14 +92,14 @@ abstract class Resolver implements Singleton {
             throw new LogicException('Prefetch cannot be used with Resolver without the find query.');
         }
 
+        // Reset?
+        if ($reset) {
+            $this->reset();
+        }
+
         // Empty?
         if (!$keys) {
             return $this;
-        }
-
-        // Reset?
-        if ($reset) {
-            $this->getCache(false)->reset();
         }
 
         // Prefetch

@@ -198,6 +198,28 @@ class ResolverTest extends TestCase {
 
         $this->assertSame($items, $resolver->getResolved());
     }
+
+    /**
+     * @covers ::reset
+     */
+    public function testReset(): void {
+        $cache = Mockery::mock(Cache::class);
+        $cache
+            ->shouldReceive('reset')
+            ->once()
+            ->andReturnSelf();
+
+        $resolver = Mockery::mock(Resolver::class);
+        $resolver->shouldAllowMockingProtectedMethods();
+        $resolver->makePartial();
+        $resolver
+            ->shouldReceive('getCache')
+            ->with(false)
+            ->once()
+            ->andReturn($cache);
+
+        $resolver->reset();
+    }
 }
 
 // @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
