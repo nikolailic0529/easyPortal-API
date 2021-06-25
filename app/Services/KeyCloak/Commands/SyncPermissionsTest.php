@@ -11,6 +11,8 @@ use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
+use function basename;
+
 /**
  * @internal
  * @coversDefaultClass App\Services\KeyCloak\Commands\SyncPermissions
@@ -25,7 +27,7 @@ class SyncPermissionsTest extends TestCase {
         $baseUrl  = $client->getBaseUrl();
         $clientId = (string) $this->app->make(Repository::class)->get('ep.keycloak.client_uuid');
         $requests = [
-            "{$baseUrl}/clients/{$clientId}/roles" => function (Request $request) {
+            "{$baseUrl}/clients/{$clientId}/roles"   => function (Request $request) {
                 switch ($request->method()) {
                     case 'GET':
                         return Http::response([
@@ -45,7 +47,13 @@ class SyncPermissionsTest extends TestCase {
                         return;
                 }
             },
-            '*'                                    => Http::response([], 200),
+            "{$baseUrl}/clients/{$clientId}/roles/*" => function (Request $request) {
+                return Http::response([
+                    'id'   => $this->faker->uuid(),
+                    'name' => basename($request->url()),
+                ], 200);
+            },
+            '*'                                      => Http::response([], 200),
         ];
         $client   = Http::fake($requests);
         $this->app->instance(Factory::class, $client);

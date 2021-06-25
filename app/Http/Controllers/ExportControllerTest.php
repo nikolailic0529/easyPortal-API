@@ -160,7 +160,7 @@ class ExportControllerTest extends TestCase {
         return (new CompositeDataProvider(
             new OrganizationDataProvider(),
             new UserDataProvider([
-                'view-assets',
+                'assets-view',
             ]),
             new ArrayDataProvider([
                 'success-csv'         => [

@@ -92,13 +92,20 @@ class Client {
     public function createRole(Role $role): Role {
         // POST /{realm}/clients/{id}/roles
         $endpoint = "{$this->getClientUrl()}/roles";
-        $result   = $this->call($endpoint, 'POST', ['json' => $role->toArray()]);
+        $this->call($endpoint, 'POST', ['json' => $role->toArray()]);
+        return $this->getRoleByName($role->name);
+    }
+
+    public function getRoleByName(string $name): Role {
+        // GET /{realm}/clients/{id}/roles/{role-name}
+        $endpoint = "{$this->getClientUrl()}/roles/{$name}";
+        $result   = $this->call($endpoint, 'GET');
         return new Role($result);
     }
 
     public function updateRoleName(string $old, string $new): void {
-        // PUT /{realm}/roles/{role-name}
-        $endpoint = "roles/{$old}";
+        // PUT /{realm}/clients/{id}/roles/{role-name}
+        $endpoint = "{$this->getClientUrl()}/roles/{$old}";
         $this->call(
             $endpoint,
             'PUT',

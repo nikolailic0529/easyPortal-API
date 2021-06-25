@@ -17,7 +17,7 @@ type Customer {
     where: DocumentsQuery @searchBy
     order: DocumentsSort @sortBy
   ): [Document!]!
-  @me(permissions: ["view-contracts", "view-customers"])
+  @me(permissions: ["contracts-view", "customers-view"])
   @hasMany(type: PAGINATOR)
 
   # Quotes
@@ -25,7 +25,7 @@ type Customer {
     where: DocumentsQuery @searchBy
     order: DocumentsSort @sortBy
   ): [Document!]!
-  @me(permissions: ["view-quotes", "view-customers"])
+  @me(permissions: ["quotes-view", "customers-view"])
   @hasMany(type: PAGINATOR)
 
   # Assets
@@ -33,6 +33,6 @@ type Customer {
     where: AssetsQuery @searchBy
     order: AssetsSort @sortBy
   ): [Asset!]!
-  @me(permissions: ["view-assets", "view-customers"])
+  @me(permissions: ["assets-view", "customers-view"])
   @hasMany(type: PAGINATOR)
 }

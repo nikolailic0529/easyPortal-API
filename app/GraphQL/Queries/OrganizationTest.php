@@ -236,7 +236,7 @@ class OrganizationTest extends TestCase {
             new RootOrganizationDataProvider('organization'),
             new UserDataProvider('organization', [
                 'administer',
-                'edit-organization',
+                'org-administer',
             ]),
             new ArrayDataProvider([
                 'ok' => [

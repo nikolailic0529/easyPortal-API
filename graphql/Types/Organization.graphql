@@ -28,5 +28,5 @@ type Organization {
   @me(permissions: ["administer"])
 
   roles: [Role!]! @hasMany
-  @me(permissions: ["edit-organization"])
+  @me(permissions: ["org-administer"])
 }

@@ -86,7 +86,10 @@ class SyncPermissions extends Command {
     }
 
     protected function createRole(string $name): Role {
-        $input = new Role(['name' => $name]);
+        $input = new Role([
+            'name'        => $name,
+            'description' => $name,
+        ]);
         return $this->client->createRole($input);
     }
 

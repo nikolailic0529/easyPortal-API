@@ -42,6 +42,7 @@ class PermissionsTest extends TestCase {
                     id
                     name
                     key
+                    description
                 }
             }')
             ->assertThat($expected);
@@ -57,28 +58,30 @@ class PermissionsTest extends TestCase {
         return (new CompositeDataProvider(
             new OrganizationDataProvider('permissions'),
             new UserDataProvider('assets', [
-                'edit-organization',
+                'org-administer',
             ]),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('permissions', self::class, [
                         [
-                            'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'name' => 'translated',
-                            'key'  => 'view-assets',
+                            'id'          => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                            'name'        => 'translated-name',
+                            'key'         => 'assets-view',
+                            'description' => 'translated-description',
                         ],
                     ]),
                     static function (TestCase $test, string $locale): array {
                         return [
                             $locale => [
-                                'models.permission.name.view-assets' => 'translated',
+                                'models.permission.name.assets-view'        => 'translated-name',
+                                'models.permission.description.assets-view' => 'translated-description',
                             ],
                         ];
                     },
                     static function (): void {
                         Permission::factory()->create([
                             'id'  => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'key' => 'view-assets',
+                            'key' => 'assets-view',
                         ]);
                     },
                 ],

@@ -105,7 +105,7 @@ class CreateOrgRoleTest extends TestCase {
         return (new CompositeDataProvider(
             new OrganizationDataProvider('createOrgRole', '439a0a06-d98a-41f0-b8e5-4e5722518e00'),
             new UserDataProvider('createOrgRole', [
-                'edit-organization',
+                'org-administer',
             ]),
             new ArrayDataProvider([
                 'ok'           => [

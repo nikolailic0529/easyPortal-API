@@ -4,7 +4,7 @@ extend type Mutation {
     input: DeleteOrgRoleInput
   ): DeleteOrgRolePayload
     @field(resolver: "App\\GraphQL\\Mutations\\Org\\DeleteOrgRole")
-    @me(permissions: ["edit-organization"])
+    @me(permissions: ["org-administer"])
 }
 
 input DeleteOrgRoleInput {

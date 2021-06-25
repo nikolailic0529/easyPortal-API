@@ -678,7 +678,7 @@ class CustomerTest extends TestCase {
             'root'         => new CompositeDataProvider(
                 new RootOrganizationDataProvider('customer'),
                 new OrganizationUserDataProvider('customer', [
-                    'view-customers',
+                    'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
@@ -692,7 +692,7 @@ class CustomerTest extends TestCase {
             'organization' => new CompositeDataProvider(
                 new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
                 new UserDataProvider('customer', [
-                    'view-customers',
+                    'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok'          => [
@@ -1055,7 +1055,7 @@ class CustomerTest extends TestCase {
             'root'         => new CompositeDataProvider(
                 new RootOrganizationDataProvider('customer'),
                 new OrganizationUserDataProvider('customer', [
-                    'view-customers',
+                    'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
@@ -1070,7 +1070,7 @@ class CustomerTest extends TestCase {
             'organization' => new CompositeDataProvider(
                 new OrganizationDataProvider('customer'),
                 new UserDataProvider('customer', [
-                    'view-customers',
+                    'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
@@ -1202,7 +1202,7 @@ class CustomerTest extends TestCase {
             'root'         => new CompositeDataProvider(
                 new RootOrganizationDataProvider('customer'),
                 new OrganizationUserDataProvider('customer', [
-                    'view-customers',
+                    'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
@@ -1219,7 +1219,7 @@ class CustomerTest extends TestCase {
             'organization' => new CompositeDataProvider(
                 new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
                 new UserDataProvider('customer', [
-                    'view-customers',
+                    'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok'             => [
@@ -1891,7 +1891,7 @@ class CustomerTest extends TestCase {
             'root'         => new CompositeDataProvider(
                 new RootOrganizationDataProvider('customer'),
                 new OrganizationUserDataProvider('customer', [
-                    'view-customers',
+                    'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
@@ -1908,7 +1908,7 @@ class CustomerTest extends TestCase {
             'organization' => new CompositeDataProvider(
                 new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
                 new UserDataProvider('customer', [
-                    'view-customers',
+                    'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok'                                        => [

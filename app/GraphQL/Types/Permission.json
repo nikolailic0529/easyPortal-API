@@ -5,7 +5,8 @@
     "required": [
         "id",
         "key",
-        "name"
+        "name",
+        "description"
     ],
     "properties": {
         "id": {
@@ -15,6 +16,9 @@
             "type": "string"
         },
         "key": {
+            "type": "string"
+        },
+        "description": {
             "type": "string"
         }
     }

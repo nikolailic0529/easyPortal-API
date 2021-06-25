@@ -88,13 +88,13 @@ type Query {
     order: CustomersSort @sortBy
   ): [Customer!]!
   @organization
-  @me(permissions: ["view-customers"])
+  @me(permissions: ["customers-view"])
   @paginate
 
   "Customer."
   customer(id: ID! @eq): Customer
   @organization
-  @me(permissions: ["view-customers"])
+  @me(permissions: ["customers-view"])
   @find
 
   # Assets
@@ -105,13 +105,13 @@ type Query {
     order: AssetsSort @sortBy
   ): [Asset!]!
   @organization
-  @me(permissions: ["view-assets", "view-customers"])
+  @me(permissions: ["assets-view", "customers-view"])
   @paginate
 
   "Asset."
   asset(id: ID! @eq): Asset
   @organization
-  @me(permissions: ["view-assets", "view-customers"])
+  @me(permissions: ["assets-view", "customers-view"])
   @find
 
   # Contracts
@@ -122,14 +122,14 @@ type Query {
     order: DocumentsSort @sortBy
   ): [Document!]!
   @organization
-  @me(permissions: ["view-contracts", "view-customers"])
+  @me(permissions: ["contracts-view", "customers-view"])
   @builder(method: "App\\GraphQL\\Queries\\Contracts")
   @paginate
 
   "Contract."
   contract(id: ID! @eq): Document
   @organization
-  @me(permissions: ["view-contracts", "view-customers"])
+  @me(permissions: ["contracts-view", "customers-view"])
   @builder(method: "App\\GraphQL\\Queries\\Contracts")
   @find
 
@@ -141,14 +141,14 @@ type Query {
     order: DocumentsSort @sortBy
   ): [Document!]!
   @organization
-  @me(permissions: ["view-quotes", "view-customers"])
+  @me(permissions: ["quotes-view", "customers-view"])
   @builder(method: "App\\GraphQL\\Queries\\Quotes")
   @paginate
 
   "Quote."
   quote(id: ID! @eq): Document
   @organization
-  @me(permissions: ["view-quotes", "view-customers"])
+  @me(permissions: ["quotes-view", "customers-view"])
   @builder(method: "App\\GraphQL\\Queries\\Quotes")
   @find
 
@@ -171,6 +171,6 @@ type Query {
 
   permissions: [Permission!]!
   @organization
-  @me(permissions: ["edit-organization"])
+  @me(permissions: ["org-administer"])
   @all
 }

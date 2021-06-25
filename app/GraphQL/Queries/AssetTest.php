@@ -224,7 +224,7 @@ class AssetTest extends TestCase {
             'root'           => new CompositeDataProvider(
                 new RootOrganizationDataProvider('asset'),
                 new OrganizationUserDataProvider('asset', [
-                    'view-assets',
+                    'assets-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
@@ -235,10 +235,10 @@ class AssetTest extends TestCase {
                     ],
                 ]),
             ),
-            'view-customers' => new CompositeDataProvider(
+            'customers-view' => new CompositeDataProvider(
                 new OrganizationDataProvider('asset'),
                 new UserDataProvider('asset', [
-                    'view-customers',
+                    'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
@@ -252,7 +252,7 @@ class AssetTest extends TestCase {
             'organization'   => new CompositeDataProvider(
                 new OrganizationDataProvider('asset', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
                 new UserDataProvider('asset', [
-                    'view-assets',
+                    'assets-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [

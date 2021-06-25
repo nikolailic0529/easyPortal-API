@@ -490,7 +490,7 @@ class QuotesTest extends TestCase {
             'root'           => new CompositeDataProvider(
                 new RootOrganizationDataProvider('quotes'),
                 new OrganizationUserDataProvider('quotes', [
-                    'view-quotes',
+                    'quotes-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
@@ -513,10 +513,10 @@ class QuotesTest extends TestCase {
                     ],
                 ]),
             ),
-            'view-customers' => new CompositeDataProvider(
+            'customers-view' => new CompositeDataProvider(
                 new OrganizationDataProvider('quotes'),
                 new UserDataProvider('quotes', [
-                    'view-customers',
+                    'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
@@ -551,7 +551,7 @@ class QuotesTest extends TestCase {
             'organization'   => new CompositeDataProvider(
                 new OrganizationDataProvider('quotes', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
                 new UserDataProvider('quotes', [
-                    'view-quotes',
+                    'quotes-view',
                 ]),
                 new ArrayDataProvider([
                     'quote_types match'                         => [

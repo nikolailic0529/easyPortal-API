@@ -104,7 +104,7 @@ class CustomersTest extends TestCase {
             'root'         => new CompositeDataProvider(
                 new RootOrganizationDataProvider('customers'),
                 new OrganizationUserDataProvider('customers', [
-                    'view-customers',
+                    'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
@@ -119,7 +119,7 @@ class CustomersTest extends TestCase {
             'organization' => new CompositeDataProvider(
                 new OrganizationDataProvider('customers'),
                 new UserDataProvider('customers', [
-                    'view-customers',
+                    'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [

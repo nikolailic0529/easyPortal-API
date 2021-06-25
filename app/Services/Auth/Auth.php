@@ -21,11 +21,32 @@ class Auth {
      */
     public function getPermissions(): array {
         return [
-            'view-assets',
-            'view-contracts',
-            'view-quotes',
-            'view-customers',
-            'edit-organization',
+            // Assets
+            'assets-view',
+            'assets-support',
+            'assets-download',
+            // Contracts
+            'contracts-view',
+            'contracts-support',
+            'contracts-download',
+            // Customers
+            'customers-view',
+            'customers-support',
+            'customers-download',
+            // Quotes
+            'quotes-view',
+            'quotes-support',
+            'quotes-download',
+            // "+ Request" buttons
+            'requests-asset-add',
+            'requests-asset-change',
+            'requests-quote-add',
+            'requests-quote-change',
+            'requests-customer-change',
+            'requests-contract-change',
+            // Your Organization
+            'org-administer',
+            // Portal Administration
             'administer',
         ];
     }

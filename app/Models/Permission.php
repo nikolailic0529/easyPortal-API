@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property string                       $id
  * @property string                       $key
+ * @property-read string                  $name
+ * @property-read string                  $description
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
@@ -40,7 +42,7 @@ class Permission extends Model implements Translatable {
      * @inheritdoc
      */
     protected function getTranslatableProperties(): array {
-        return ['name'];
+        return ['name', 'description'];
     }
 
     /**
@@ -53,6 +55,10 @@ class Permission extends Model implements Translatable {
     }
 
     public function getNameAttribute(): string {
+        return $this->key;
+    }
+
+    public function getDescriptionAttribute(): string {
         return $this->key;
     }
 }

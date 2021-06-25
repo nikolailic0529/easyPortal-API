@@ -133,7 +133,7 @@ class InviteOrgUserTest extends TestCase {
         return (new CompositeDataProvider(
             new OrganizationDataProvider('inviteOrgUser'),
             new UserDataProvider('inviteOrgUser', [
-                'edit-organization',
+                'org-administer',
             ]),
             new ArrayDataProvider([
                 'ok'            => [
