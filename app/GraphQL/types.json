@@ -673,7 +673,14 @@
                     }
                 },
                 "support": {
-                    "$ref": "#/definitions/Product"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Product"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "language_id": {
                     "$ref": "#/definitions/ID"
