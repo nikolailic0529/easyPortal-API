@@ -139,8 +139,8 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     public function prefetch(array $assets, bool $reset = false, Closure|null $callback = null): static {
         $keys = (new Collection($assets))
             ->map(static function (ViewAsset $asset): array {
-                return array_map(static function (ViewAssetDocument $document): string {
-                    return $document->document->id ?? $document->documentNumber;
+                return array_map(static function (ViewAssetDocument $document): ?string {
+                    return $document->document->id ?? null;
                 }, $asset->assetDocument ?? []);
             })
             ->flatten()

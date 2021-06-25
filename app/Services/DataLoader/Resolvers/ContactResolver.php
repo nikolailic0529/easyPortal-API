@@ -8,12 +8,22 @@ use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Pure;
 
 class ContactResolver extends Resolver {
     public function get(Model $model, ?string $name, ?string $phone, ?string $mail, Closure $factory = null): ?Contact {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($this->getUniqueKey($model, $name, $phone, $mail), $factory);
+    }
+
+    /**
+     * @param \App\Models\Contact
+     *      |\Illuminate\Support\Collection<\App\Models\Contact>
+     *      |array<\App\Models\Contact> $object
+     */
+    public function add(Contact|Collection|array $object): void {
+        parent::put($object);
     }
 
     protected function getFindQuery(): ?Builder {

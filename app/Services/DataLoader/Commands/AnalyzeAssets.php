@@ -145,7 +145,7 @@ class AnalyzeAssets extends Command {
         );
         // @phpcs:enable
 
-        foreach ($iterator->beforeChunk($each) as $item) {
+        foreach ($iterator->onBeforeChunk($each) as $item) {
             /** @var \App\Services\DataLoader\Schema\ViewAsset $item */
             $id      = $item->id;
             $analyze = $analyzeResolver->get($id);
@@ -284,8 +284,8 @@ class AnalyzeAssets extends Command {
                     return new ViewAsset($data);
                 },
             )
-            ->lastId($lastId)
-            ->chunk($chunk);
+            ->setOffset($lastId)
+            ->setChunkSize($chunk);
     }
 
     protected function getPrefetcher(

@@ -9,6 +9,7 @@ use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Enums\ProductType;
 use App\Models\Location;
+use App\Models\Model;
 use App\Models\Oem;
 use App\Models\Product;
 use App\Models\Reseller;
@@ -21,6 +22,7 @@ use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
@@ -1485,8 +1487,23 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetLocation
      */
     public function testAssetLocationNoCustomerNoReseller(): void {
-        $locations = $this->app->make(LocationFactory::class);
-        $factory   = new class($locations) extends AssetFactory {
+        $asset     = new ViewAsset();
+        $location  = Location::factory()->make();
+        $locations = Mockery::mock(LocationFactory::class);
+        $locations->shouldAllowMockingProtectedMethods();
+        $locations
+            ->shouldReceive('isEmpty')
+            ->once()
+            ->andReturn(false);
+        $locations
+            ->shouldReceive('find')
+            ->withArgs(static function (Model $object, Type $type) use ($asset): bool {
+                return $object instanceof Asset && $type === $asset;
+            })
+            ->once()
+            ->andReturn($location);
+
+        $factory = new class($locations) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(LocationFactory $factory) {
                 $this->locations = $factory;
@@ -1497,17 +1514,15 @@ class AssetFactoryTest extends TestCase {
             }
         };
 
-        $this->assertNull($factory->assetLocation(new ViewAsset(), null, null));
+        $this->assertSame($location, $factory->assetLocation($asset, null, null));
     }
 
     /**
      * @covers ::assetLocation
      */
     public function testAssetLocationNoLocation(): void {
-        $customer  = Customer::factory()->make();
         $asset     = new ViewAsset([
-            'id'         => $this->faker->uuid,
-            'customerId' => $customer->getKey(),
+            'id' => $this->faker->uuid,
         ]);
         $locations = Mockery::mock(LocationFactory::class);
         $locations->makePartial();
@@ -1528,7 +1543,7 @@ class AssetFactoryTest extends TestCase {
             }
         };
 
-        $this->assertNull($factory->assetLocation($asset, $customer, null));
+        $this->assertNull($factory->assetLocation($asset, null, null));
     }
 
     /**
@@ -1545,12 +1560,26 @@ class AssetFactoryTest extends TestCase {
         ]);
         $resolver   = $this->app->make(AssetResolver::class);
         $normalizer = $this->app->make(Normalizer::class);
+        $products   = Mockery::mock(ProductResolver::class);
+        $products
+            ->shouldReceive('prefetch')
+            ->once()
+            ->andReturnSelf();
+        $locations = Mockery::mock(LocationFactory::class);
+        $locations
+            ->shouldReceive('prefetch')
+            ->once()
+            ->andReturnSelf();
 
-        $factory = new class($normalizer, $resolver) extends AssetFactory {
+        $factory = new class($normalizer, $resolver, $products, $locations) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, AssetResolver $resolver) {
-                $this->normalizer = $normalizer;
-                $this->assets     = $resolver;
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected AssetResolver $assets,
+                protected ProductResolver $products,
+                protected LocationFactory $locations,
+            ) {
+                // empty
             }
         };
 

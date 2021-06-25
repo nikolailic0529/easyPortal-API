@@ -10,8 +10,11 @@ use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use JetBrains\PhpStorm\Pure;
+
+use function is_array;
 
 class LocationResolver extends Resolver {
     public function get(
@@ -30,22 +33,47 @@ class LocationResolver extends Resolver {
         );
     }
 
+    /**
+     * @param \App\Models\Location
+     *      |\Illuminate\Support\Collection<\App\Models\Location>
+     *      |array<\App\Models\Location> $object
+     */
+    public function add(Location|Collection|array $object): void {
+        parent::put($object);
+    }
+
+    /**
+     * @param array<mixed> $keys
+     */
+    public function prefetch(array $keys, bool $reset = false, Closure|null $callback = null): static {
+        return parent::prefetch($keys, $reset, $callback);
+    }
+
     protected function getFindQuery(): ?Builder {
         return Location::query();
     }
 
     protected function getFindWhere(Builder $builder, mixed $key): Builder {
-        return $builder
-            ->where('object_type', '=', $key['object_type'])
-            ->where('object_id', '=', $key['object_id'])
-            ->where('country_id', '=', $key['country_id'])
-            ->where('city_id', '=', $key['city_id'])
-            ->where('postcode', '=', $key['postcode'])
-            ->where(
-                DB::raw("CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), ''))"),
-                '=',
-                $key['line'],
-            );
+        if (is_array($key)) {
+            foreach ($key as $property => $value) {
+                switch ($property) {
+                    case 'line':
+                        $builder->where(
+                            DB::raw("CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), ''))"),
+                            '=',
+                            $value,
+                        );
+                        break;
+                    default:
+                        $builder->where($property, '=', $value);
+                        break;
+                }
+            }
+        } else {
+            $builder = parent::getFindWhere($builder, $key);
+        }
+
+        return $builder;
     }
 
     /**

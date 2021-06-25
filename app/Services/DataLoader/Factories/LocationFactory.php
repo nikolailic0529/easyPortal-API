@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Factories;
 
+use App\Models\Asset;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Location as LocationModel;
@@ -13,6 +14,8 @@ use App\Services\DataLoader\Resolvers\LocationResolver;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
+use Closure;
+use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
@@ -34,6 +37,8 @@ class LocationFactory extends DependentModelFactory {
         parent::__construct($logger, $normalizer);
     }
 
+    // <editor-fold desc="Factory">
+    // =========================================================================
     public function find(Model $object, Type $type): ?LocationModel {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return parent::find($object, $type);
@@ -55,6 +60,34 @@ class LocationFactory extends DependentModelFactory {
 
         return $model;
     }
+    // </editor-fold>
+
+    // <editor-fold desc="Prefetch">
+    // =========================================================================
+    /**
+     * @param array<\App\Services\DataLoader\Schema\ViewAsset> $assets
+     * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
+     */
+    public function prefetch(array $assets, bool $reset = false, Closure|null $callback = null): static {
+        $keys = (new Collection($assets))
+            ->filter(static function (ViewAsset $asset): bool {
+                return isset($asset->zip);
+            })
+            ->map(static function (ViewAsset $asset): array {
+                return [
+                    'postcode'    => $asset->zip,
+                    'object_type' => (new Asset())->getMorphClass(),
+                ];
+            })
+            ->unique()
+            ->all();
+
+        $this->locations->prefetch($keys, $reset, $callback);
+
+        return $this;
+    }
+
+    // </editor-fold>
 
     public function isEmpty(Location|ViewAsset $location): bool {
         return !($location->zip ?? null) || !($location->city ?? null);
@@ -109,13 +142,13 @@ class LocationFactory extends DependentModelFactory {
         //      doesn't have it), so we ignore it. We will need review this
         //      method and tests when it will filled correctly.
         $location              = new Location();
-        $location->zip         = $asset->zip;
-        $location->city        = $asset->city;
-        $location->address     = $asset->address;
-        $location->country     = $asset->country;
-        $location->countryCode = $asset->countryCode;
-        $location->latitude    = $asset->latitude;
-        $location->longitude   = $asset->longitude;
+        $location->zip         = $asset->zip ?? null;
+        $location->city        = $asset->city ?? null;
+        $location->address     = $asset->address ?? null;
+        $location->country     = $asset->country ?? null;
+        $location->countryCode = $asset->countryCode ?? null;
+        $location->latitude    = $asset->latitude ?? null;
+        $location->longitude   = $asset->longitude ?? null;
 
         return $this->createFromLocation($object, $location);
     }

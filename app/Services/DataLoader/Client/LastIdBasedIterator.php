@@ -2,29 +2,17 @@
 
 namespace App\Services\DataLoader\Client;
 
-use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Schema\TypeWithId;
 
 use function end;
 
-class LastIdBasedIterator extends QueryIterator {
-    protected ?string $lastId = null;
-
-    public function getLastId(): ?string {
-        return $this->lastId;
-    }
-
-    public function lastId(?string $lastId): static {
-        $this->lastId = $lastId;
-
-        return $this;
-    }
-
+class LastIdBasedIterator extends QueryIteratorImpl {
     /**
      * @inheritDoc
      */
     protected function getQueryParams(): array {
         return [
-            'lastId' => $this->lastId,
+            'lastId' => $this->getOffset(),
         ];
     }
 
@@ -35,8 +23,8 @@ class LastIdBasedIterator extends QueryIterator {
         $last     = end($items);
         $continue = false;
 
-        if ($last instanceof Type && isset($last->id)) {
-            $this->lastId($last->id);
+        if ($last instanceof TypeWithId && isset($last->id)) {
+            $this->setOffset($last->id);
 
             $continue = true;
         }

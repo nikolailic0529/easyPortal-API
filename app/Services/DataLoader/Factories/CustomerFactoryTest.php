@@ -149,7 +149,17 @@ class CustomerFactoryTest extends TestCase {
             'id' => $this->faker->uuid,
         ]);
         $asset      = new ViewAsset([
-            'customerId' => $b->id,
+            'customerId'    => $b->id,
+            'assetDocument' => [
+                [
+                    'customer' => [
+                        'id' => $this->faker->uuid,
+                    ],
+                    'document' => [
+                        'customerId' => $this->faker->uuid,
+                    ],
+                ],
+            ],
         ]);
         $resolver   = $this->app->make(CustomerResolver::class);
         $normalizer = $this->app->make(Normalizer::class);
@@ -178,6 +188,8 @@ class CustomerFactoryTest extends TestCase {
 
         $factory->find($a);
         $factory->find($b);
+        $resolver->get($asset->assetDocument[0]->customer->id);
+        $resolver->get($asset->assetDocument[0]->document->customerId);
 
         $this->assertCount(0, $this->getQueryLog());
     }

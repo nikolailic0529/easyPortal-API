@@ -4,8 +4,6 @@ namespace App\Services\DataLoader\Importers;
 
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Client\LastIdBasedIterator;
-use App\Services\DataLoader\Client\OffsetBasedIterator;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Loader;
@@ -15,7 +13,6 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Closure;
 use DateTimeInterface;
 use Illuminate\Contracts\Container\Container as ContainerContract;
-use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -62,11 +59,11 @@ abstract class Importer {
         $status   = new Status($from, $continue);
         $iterator = $this
             ->getIterator($from, $chunk, $limit, $continue)
-            ->beforeChunk(function (array $items) use ($status): void {
+            ->onBeforeChunk(function (array $items) use ($status): void {
                 $this->onBeforeChunk($items, $status);
             })
-            ->afterChunk(function (array $items) use (&$iterator, $status): void {
-                $this->onAfterChunk($items, $status, $this->getContinue($iterator));
+            ->onAfterChunk(function (array $items) use (&$iterator, $status): void {
+                $this->onAfterChunk($items, $status, $iterator->getOffset());
             });
 
         $this->callWithoutGlobalScopes(
@@ -102,20 +99,6 @@ abstract class Importer {
         $this->onAfterImport($status);
     }
 
-    protected function getContinue(QueryIterator $iterator): string|int|null {
-        $continue = null;
-
-        if ($iterator instanceof OffsetBasedIterator) {
-            $continue = $iterator->getOffset();
-        } elseif ($iterator instanceof LastIdBasedIterator) {
-            $continue = $iterator->getLastId();
-        } else {
-            // empty
-        }
-
-        return $continue;
-    }
-
     protected function getIterator(
         ?DateTimeInterface $from,
         ?int $chunk,
@@ -125,21 +108,15 @@ abstract class Importer {
         $iterator = $this->makeIterator($from);
 
         if ($chunk) {
-            $iterator->chunk($chunk);
+            $iterator->setChunkSize($chunk);
         }
 
         if ($limit) {
-            $iterator->limit($limit);
+            $iterator->setLimit($limit);
         }
 
         if ($continue) {
-            if ($iterator instanceof OffsetBasedIterator) {
-                $iterator->offset($continue);
-            } elseif ($iterator instanceof LastIdBasedIterator) {
-                $iterator->lastId($continue);
-            } else {
-                throw new InvalidArgumentException('Iterator cannot be continued.');
-            }
+            $iterator->setOffset($continue);
         }
 
         return $iterator;

@@ -70,8 +70,8 @@ class Client {
                     return new Company($data);
                 },
             )
-            ->limit($limit)
-            ->lastId($lastId);
+            ->setLimit($limit)
+            ->setOffset($lastId);
     }
 
     /**
@@ -99,8 +99,8 @@ class Client {
                     return new Company($data);
                 },
             )
-            ->limit($limit)
-            ->lastId($lastId);
+            ->setLimit($limit)
+            ->setOffset($lastId);
     }
 
     /**
@@ -128,8 +128,8 @@ class Client {
                     return new Company($data);
                 },
             )
-            ->limit($limit)
-            ->lastId($lastId);
+            ->setLimit($limit)
+            ->setOffset($lastId);
     }
 
     public function getCompanyById(string $id): ?Company {
@@ -222,8 +222,8 @@ class Client {
                     return new ViewAsset($data);
                 },
             )
-            ->limit($limit)
-            ->lastId($lastId);
+            ->setLimit($limit)
+            ->setOffset($lastId);
     }
 
     /**
@@ -254,8 +254,8 @@ class Client {
                     return new ViewAsset($data);
                 },
             )
-            ->limit($limit)
-            ->lastId($lastId);
+            ->setLimit($limit)
+            ->setOffset($lastId);
     }
 
     /**
@@ -279,8 +279,8 @@ class Client {
                     return new ViewAsset($data);
                 },
             )
-            ->limit($limit)
-            ->lastId($lastId);
+            ->setLimit($limit)
+            ->setOffset($lastId);
     }
 
     /**
@@ -311,69 +311,108 @@ class Client {
                     return new ViewAsset($data);
                 },
             )
-            ->limit($limit)
-            ->lastId($lastId);
+            ->setLimit($limit)
+            ->setOffset($lastId);
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssets(
         DateTimeInterface $from = null,
         int $limit = null,
-        string $lastId = null,
-    ): LastIdBasedIterator {
-        return $this
-            ->getLastIdBasedIterator(
-                'getAssets',
-                /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$limit: Int, \$lastId: String, \$from: String) {
-                    getAssets(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                        {$this->getAssetPropertiesGraphQL()}
-                    }
+        string $offset = null,
+    ): QueryIterator {
+        $params                   = [
+            'from' => $this->datetime($from),
+        ];
+        $retriever                = static function (array $data): ViewAsset {
+            return new ViewAsset($data);
+        };
+        $getAssets                = $this->getLastIdBasedIterator(
+            'getAssets',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query items(\$limit: Int, \$lastId: String, \$from: String) {
+                getAssets(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                    {$this->getAssetPropertiesGraphQL()}
                 }
-                GRAPHQL,
-                [
-                    'from' => $this->datetime($from),
-                ],
-                static function (array $data): ViewAsset {
-                    return new ViewAsset($data);
-                },
-            )
-            ->limit($limit)
-            ->lastId($lastId);
+            }
+            GRAPHQL,
+            $params,
+            $retriever,
+        );
+        $getAssetsWithoutReseller = $this->getLastIdBasedIterator(
+            'getAssetsWithoutReseller',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query items(\$limit: Int, \$lastId: String, \$from: String) {
+                getAssetsWithoutReseller(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                    {$this->getAssetPropertiesGraphQL()}
+                }
+            }
+            GRAPHQL,
+            $params,
+            $retriever,
+        );
+
+        return (new QueryIteratorIterator([
+            'getAssets'                => $getAssets,
+            'getAssetsWithoutReseller' => $getAssetsWithoutReseller,
+        ]))
+            ->setLimit($limit)
+            ->setOffset($offset);
     }
 
     /**
-     * @return \App\Services\DataLoader\Client\OffsetBasedIterator<\App\Services\DataLoader\Schema\ViewAsset>
+     * @return \App\Services\DataLoader\Client\QueryIterator<\App\Services\DataLoader\Schema\ViewAsset>
      */
     public function getAssetsWithDocuments(
         DateTimeInterface $from = null,
         int $limit = null,
-        string $lastId = null,
-    ): LastIdBasedIterator {
-        return $this
-            ->getLastIdBasedIterator(
-                'getAssets',
-                /** @lang GraphQL */ <<<GRAPHQL
-                query items(\$limit: Int, \$lastId: String, \$from: String) {
-                    getAssets(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                        {$this->getAssetPropertiesGraphQL()}
-                        assetDocument {
-                            {$this->getAssetDocumentsPropertiesGraphQL()}
-                        }
+        string $offset = null,
+    ): QueryIterator {
+        $params                   = [
+            'from' => $this->datetime($from),
+        ];
+        $retriever                = static function (array $data): ViewAsset {
+            return new ViewAsset($data);
+        };
+        $getAssets                = $this->getLastIdBasedIterator(
+            'getAssets',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query items(\$limit: Int, \$lastId: String, \$from: String) {
+                getAssets(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                    {$this->getAssetPropertiesGraphQL()}
+                    assetDocument {
+                        {$this->getAssetDocumentsPropertiesGraphQL()}
                     }
                 }
-                GRAPHQL,
-                [
-                    'from' => $this->datetime($from),
-                ],
-                static function (array $data): ViewAsset {
-                    return new ViewAsset($data);
-                },
-            )
-            ->limit($limit)
-            ->lastId($lastId);
+            }
+            GRAPHQL,
+            $params,
+            $retriever,
+        );
+        $getAssetsWithoutReseller = $this->getLastIdBasedIterator(
+            'getAssetsWithoutReseller',
+            /** @lang GraphQL */ <<<GRAPHQL
+            query items(\$limit: Int, \$lastId: String, \$from: String) {
+                getAssetsWithoutReseller(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
+                    {$this->getAssetPropertiesGraphQL()}
+                    assetDocument {
+                        {$this->getAssetDocumentsPropertiesGraphQL()}
+                    }
+                }
+            }
+            GRAPHQL,
+            $params,
+            $retriever,
+        );
+
+        return (new QueryIteratorIterator([
+            'getAssets'                => $getAssets,
+            'getAssetsWithoutReseller' => $getAssetsWithoutReseller,
+        ]))
+            ->setLimit($limit)
+            ->setOffset($offset);
     }
 
     /**
@@ -476,7 +515,7 @@ class Client {
         Closure $retriever,
     ): OffsetBasedIterator {
         return (new OffsetBasedIterator($this->logger, $this, "data.{$selector}", $graphql, $params, $retriever))
-            ->chunk($this->config->get('ep.data_loader.chunk'));
+            ->setChunkSize($this->config->get('ep.data_loader.chunk'));
     }
 
     /**
@@ -494,7 +533,7 @@ class Client {
         Closure $retriever,
     ): LastIdBasedIterator {
         return (new LastIdBasedIterator($this->logger, $this, "data.{$selector}", $graphql, $params, $retriever))
-            ->chunk($this->config->get('ep.data_loader.chunk'));
+            ->setChunkSize($this->config->get('ep.data_loader.chunk'));
     }
 
     /**
