@@ -56,18 +56,10 @@ class AssetsImporter extends Importer {
                 $assets->loadMissing('location');
                 $assets->loadMissing('location.types');
                 $assets->loadMissing('tags');
+                $assets->loadMissing('oem');
 
                 $locations->add($assets->pluck('locations')->flatten());
                 $contacts->add($assets->pluck('contacts')->flatten());
-            });
-
-        $this->container
-            ->make(DocumentFactory::class)
-            ->prefetch($items, false, static function (Collection $documents) use ($contacts): void {
-                $documents->loadMissing('contacts');
-                $documents->loadMissing('contacts.types');
-
-                $contacts->add($documents->pluck('contacts')->flatten());
             });
 
         $this->container
