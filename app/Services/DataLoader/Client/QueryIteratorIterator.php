@@ -130,6 +130,8 @@ class QueryIteratorIterator implements QueryIterator {
         $index     = 0;
         $limit     = $this->getLimit();
         $chunk     = $limit ? min($limit, $this->getChunkSize()) : $this->getChunkSize();
+        $after     = $this->afterChunk;
+        $before    = $this->beforeChunk;
         $iterating = false;
 
         foreach ($this->iterators as $key => $iterator) {
@@ -144,17 +146,18 @@ class QueryIteratorIterator implements QueryIterator {
             $this->current = $key;
 
             // Prepare
+            $iterator->setLimit(null);
             $iterator->setChunkSize($chunk);
-            $iterator->onBeforeChunk($this->beforeChunk);
-            $iterator->onAfterChunk($this->afterChunk);
+            $iterator->onBeforeChunk($before);
+            $iterator->onAfterChunk($after);
+
+            if ($limit) {
+                $iterator->setLimit($limit - $index);
+            }
 
             // Iterate
             foreach ($iterator as $item) {
                 yield $index++ => $item;
-
-                if ($limit && $index >= $limit) {
-                    break 2;
-                }
             }
         }
     }

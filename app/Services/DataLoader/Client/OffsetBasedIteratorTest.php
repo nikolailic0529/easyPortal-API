@@ -128,6 +128,25 @@ class OffsetBasedIteratorTest extends TestCase {
     }
 
     /**
+     * @covers ::iterator
+     */
+    public function testIteratorLimitZero(): void {
+        $logger = $this->app->make(LoggerInterface::class);
+        $client = Mockery::mock(Client::class);
+        $client->shouldAllowMockingProtectedMethods();
+
+        $client
+            ->shouldReceive('call')
+            ->never();
+
+        $expected = [];
+        $iterator = (new OffsetBasedIterator($logger, $client, '', ''))->setLimit(0);
+        $actual   = iterator_to_array($iterator);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * @covers ::setOffset
      */
     public function testSetOffset(): void {

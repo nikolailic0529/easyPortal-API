@@ -53,13 +53,23 @@ class QueryIteratorIteratorTest extends TestCase {
         };
         $one    = Mockery::mock(QueryIterator::class);
         $one
+            ->shouldReceive('setLimit')
+            ->with(null)
+            ->once()
+            ->andReturnSelf();
+        $one
+            ->shouldReceive('setLimit')
+            ->with(7)
+            ->once()
+            ->andReturnSelf();
+        $one
             ->shouldReceive('setOffset')
             ->with(null)
             ->once()
             ->andReturnSelf();
         $one
             ->shouldReceive('setChunkSize')
-            ->with(5)
+            ->with(7)
             ->once()
             ->andReturnSelf();
         $one
@@ -79,14 +89,54 @@ class QueryIteratorIteratorTest extends TestCase {
                 yield from [1, 2, 3, 4, 5];
             });
 
+        $two = Mockery::mock(QueryIterator::class);
+        $two
+            ->shouldReceive('setLimit')
+            ->with(null)
+            ->once()
+            ->andReturnSelf();
+        $two
+            ->shouldReceive('setLimit')
+            ->with(2)
+            ->once()
+            ->andReturnSelf();
+        $two
+            ->shouldReceive('setOffset')
+            ->with(null)
+            ->once()
+            ->andReturnSelf();
+        $two
+            ->shouldReceive('setChunkSize')
+            ->with(7)
+            ->once()
+            ->andReturnSelf();
+        $two
+            ->shouldReceive('onBeforeChunk')
+            ->with($before)
+            ->once()
+            ->andReturnSelf();
+        $two
+            ->shouldReceive('onAfterChunk')
+            ->with($after)
+            ->once()
+            ->andReturnSelf();
+        $two
+            ->shouldReceive('getIterator')
+            ->once()
+            ->andReturnUsing(static function (): Generator {
+                yield from [6, 7];
+            });
 
-        $iterator = (new QueryIteratorIterator(['one' => $one]))
+        $iterator = (new QueryIteratorIterator([
+            'one' => $one,
+            'two' => $two,
+        ]))
             ->onBeforeChunk($before)
             ->onAfterChunk($after)
             ->setChunkSize(123)
-            ->setLimit(5);
+            ->setLimit(7);
 
-        $this->assertEquals([1, 2, 3, 4, 5], iterator_to_array($iterator));
+        $this->assertEquals([1, 2, 3, 4, 5, 6, 7], iterator_to_array($iterator));
     }
 
 

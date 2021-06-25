@@ -4,13 +4,17 @@ namespace App\Services\DataLoader\Client;
 
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
 use Closure;
+use EmptyIterator;
 use Generator;
+use Iterator;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
 use function array_filter;
 use function array_map;
 use function array_merge;
+use function array_slice;
+use function count;
 use function min;
 
 abstract class QueryIteratorImpl implements QueryIterator {
@@ -82,31 +86,40 @@ abstract class QueryIteratorImpl implements QueryIterator {
         return $this;
     }
 
-    public function getIterator(): Generator {
+    public function getIterator(): Iterator {
+        // Prepare
         $index = 0;
         $chunk = $this->limit ? min($this->limit, $this->chunk) : $this->chunk;
         $limit = $this->limit;
 
+        // Limit?
+        if ($limit === 0) {
+            return new EmptyIterator();
+        }
+
+        // Iterate
         do {
+            // Get
             $params = array_merge($this->params, $this->getQueryParams(), [
                 'limit' => $chunk,
             ]);
             $items  = (array) $this->client->call($this->selector, $this->graphql, $params);
-            $items  = $this->chunkPrepare($items);
+
+            // Reduce to $limit
+            if ($limit && count($items) + $index >= $limit) {
+                $items = array_slice($items, 0, $limit - $index);
+            }
+
+            // Process
+            $items = $this->chunkPrepare($items);
 
             $this->chunkLoaded($items);
 
             foreach ($items as $item) {
                 yield $index++ => $item;
-
-                if ($limit && $index >= $limit) {
-                    $this->chunkProcessed($items);
-
-                    break 2;
-                }
             }
 
-            if (!$this->chunkProcessed($items)) {
+            if (!$this->chunkProcessed($items) || ($limit && $index >= $limit)) {
                 break;
             }
         } while ($items);

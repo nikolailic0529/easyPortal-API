@@ -132,6 +132,25 @@ class LastIdBasedIteratorTest extends TestCase {
 
         $this->assertEquals($expected, $actual);
     }
+
+    /**
+     * @covers ::iterator
+     */
+    public function testIteratorLimitZero(): void {
+        $logger = $this->app->make(LoggerInterface::class);
+        $client = Mockery::mock(Client::class);
+        $client->shouldAllowMockingProtectedMethods();
+
+        $client
+            ->shouldReceive('call')
+            ->never();
+
+        $expected = [];
+        $iterator = (new LastIdBasedIterator($logger, $client, '', ''))->setLimit(0);
+        $actual   = iterator_to_array($iterator);
+
+        $this->assertEquals($expected, $actual);
+    }
     // </editor-fold>
 
     // <editor-fold desc="Helpers">
