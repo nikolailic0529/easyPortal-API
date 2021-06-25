@@ -256,6 +256,7 @@ type Query {
   getAssetsByVendor(vendor: String!, limit: Int, offset: Int, fromTimestamp: String, lastId: String): [ViewAsset]!
   getDocumentsByCustomer(customerId: String!, type: String, limit: Int, offset: Int): [Document]!
   getAssets(args: [KeyValuePair], limit: Int, offset: Int, lastId: String, fromTimestamp: String): [ViewAsset]!
+  getAssetsWithoutReseller(args: [KeyValuePair], limit: Int, offset: Int, lastId: String, fromTimestamp: String): [ViewAsset]!
   getCompanyById(id: String): [Company]!
   assets(limit: Int, offset: Int): [ViewAsset]!
   getResellers(limit: Int, offset: Int, fromTimestamp: String, lastId: String): [Company]!

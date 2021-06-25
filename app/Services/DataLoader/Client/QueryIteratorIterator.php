@@ -88,7 +88,7 @@ class QueryIteratorIterator implements QueryIterator {
         if ($offset !== null) {
             $parts      = explode('@', $offset, 2);
             $newCurrent = $parts[0];
-            $newOffset  = $parts[1] ?? null;
+            $newOffset  = ($parts[1] ?? null) ?: null;
 
             if (!isset($this->iterators[$newCurrent])) {
                 throw new InvalidArgumentException(sprintf(
