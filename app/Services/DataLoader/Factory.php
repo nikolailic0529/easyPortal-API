@@ -26,6 +26,10 @@ abstract class Factory implements Isolated {
         // empty
     }
 
+    protected function getLogger(): LoggerInterface {
+        return $this->logger;
+    }
+
     protected function isSearchMode(): bool {
         return $this->searchMode;
     }

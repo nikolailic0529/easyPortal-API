@@ -17,6 +17,7 @@ use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use Closure;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
@@ -37,6 +38,7 @@ class CustomerFactory extends ModelFactory implements FactoryPrefetchable {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
+        protected Dispatcher $dispatcher,
         protected TypeResolver $types,
         protected StatusResolver $statuses,
         protected CustomerResolver $customers,
@@ -48,6 +50,10 @@ class CustomerFactory extends ModelFactory implements FactoryPrefetchable {
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
+    protected function getDispatcher(): Dispatcher {
+        return $this->dispatcher;
+    }
+
     protected function getContactsFactory(): ContactFactory {
         return $this->contacts;
     }
