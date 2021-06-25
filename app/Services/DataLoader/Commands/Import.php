@@ -6,17 +6,12 @@ use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\DataLoader\Commands\Concerns\WithBooleanOptions;
 use App\Services\DataLoader\Importers\Importer;
 use App\Services\DataLoader\Importers\Status;
-use App\Services\DataLoader\Schema\TypeWithId;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Date;
 
-use function end;
-use function filter_var;
-use function reset;
 use function str_pad;
 use function strtr;
 
-use const FILTER_VALIDATE_INT;
 use const STR_PAD_LEFT;
 
 abstract class Import extends Command {
@@ -52,7 +47,6 @@ abstract class Import extends Command {
         parent::__construct();
     }
 
-
     /**
      * @return array<string,string>
      */
@@ -68,6 +62,10 @@ abstract class Import extends Command {
 
         if ($from || $chunk || $limit || $continue) {
             $this->line('Settings:');
+        }
+
+        if ($continue) {
+            $this->line("    Continue:  {$continue}");
         }
 
         if ($from) {
@@ -86,24 +84,19 @@ abstract class Import extends Command {
             $this->line("    Limit:     {$limit}");
         }
 
-        if ($continue) {
-            if (filter_var($continue, FILTER_VALIDATE_INT)) {
-                $continue = (int) $continue;
-            }
-
-            $this->line("    Continue:  {$continue}");
-        }
-
         if ($from || $chunk || $limit || $continue) {
             $this->newLine();
         }
 
         // Begin
         $this->line(
-            'Chunk #   : From                                 ... To                                   -  Processed',
+            '+------------+------------+------------+------------+------------+----------- +',
         );
         $this->line(
-            '            C:    created;        U:    updated;     F:     failed;',
+            '| Chunk      |  Processed |    Created |    Updated |     Failed |   Warnings |',
+        );
+        $this->line(
+            '+============+============+============+============+============+============+',
         );
 
         // Process
@@ -117,20 +110,22 @@ abstract class Import extends Command {
                 $chunkCreated = str_pad((string) ($status->created - $previous->created), $length, ' ', STR_PAD_LEFT);
                 $chunkUpdated = str_pad((string) ($status->updated - $previous->updated), $length, ' ', STR_PAD_LEFT);
                 $processed    = str_pad((string) $status->processed, $length, ' ', STR_PAD_LEFT);
-                $first        = reset($items);
-                $first        = str_pad($first instanceof TypeWithId ? $first->id : 'null', 36, ' ', STR_PAD_LEFT);
-                $last         = end($items);
-                $last         = str_pad($last instanceof TypeWithId ? $last->id : 'null', 36, ' ', STR_PAD_LEFT);
-                $lineOne      = "{$chunk}: {$first} ... {$last} - {$processed}";
-                $lineTwo      = "            C: {$chunkCreated};        U: {$chunkUpdated};     F: {$chunkFailed};";
+                $continue     = str_pad(" {$status->continue} ", $length * 5 + 5 * 2 + 4, '-', STR_PAD_LEFT);
+
+                // @phpcs:disable Generic.Files.LineLength.TooLong
+                $lineOne = "| {$chunk} | {$processed} | {$chunkCreated} | {$chunkUpdated} | {$chunkFailed} |            | ";
+                $lineTwo = "+------------+{$continue}+";
+                // @phpcs:enable
 
                 if ($status->failed - $previous->failed > 0) {
                     $this->warn($lineOne);
-                    $this->warn($lineTwo);
-                } else {
+                } elseif ($status->updated - $previous->updated > 0 || $status->created - $previous->created > 0) {
                     $this->info($lineOne);
-                    $this->info($lineTwo);
+                } else {
+                    $this->line($lineOne);
                 }
+
+                $this->line($lineTwo);
 
                 $previous = clone $status;
             })

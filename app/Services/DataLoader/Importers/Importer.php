@@ -4,8 +4,6 @@ namespace App\Services\DataLoader\Importers;
 
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Client\LastIdBasedIterator;
-use App\Services\DataLoader\Client\OffsetBasedIterator;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Loader;
@@ -15,7 +13,6 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Closure;
 use DateTimeInterface;
 use Illuminate\Contracts\Container\Container as ContainerContract;
-use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -66,7 +63,7 @@ abstract class Importer {
                 $this->onBeforeChunk($items, $status);
             })
             ->onAfterChunk(function (array $items) use (&$iterator, $status): void {
-                $this->onAfterChunk($items, $status, $this->getContinue($iterator));
+                $this->onAfterChunk($items, $status, $iterator->getOffset());
             });
 
         $this->callWithoutGlobalScopes(
@@ -100,10 +97,6 @@ abstract class Importer {
         );
 
         $this->onAfterImport($status);
-    }
-
-    protected function getContinue(QueryIterator $iterator): string|int|null {
-        return $iterator->getOffset();
     }
 
     protected function getIterator(
