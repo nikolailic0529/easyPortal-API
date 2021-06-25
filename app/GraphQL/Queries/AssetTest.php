@@ -562,6 +562,7 @@ class AssetTest extends TestCase {
                                 ]);
                             AssetWarranty::factory()
                                 ->hasAttached($product, [], 'services')
+                                ->for($product2, 'support')
                                 ->create([
                                     'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                     'asset_id'    => $asset,
