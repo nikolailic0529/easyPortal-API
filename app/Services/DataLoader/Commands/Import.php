@@ -90,32 +90,29 @@ abstract class Import extends Command {
 
         // Begin
         $this->line(
-            '+------------+------------+------------+------------+------------+----------- +',
+            '+------------+----------------+----------------+----------------+----------------+',
         );
         $this->line(
-            '| Chunk      |  Processed |    Created |    Updated |     Failed |   Warnings |',
+            '| Chunk      |      Processed |        Created |        Updated |         Failed |',
         );
         $this->line(
-            '+============+============+============+============+============+============+',
+            '+============+================+================+================+================+',
         );
 
         // Process
-        $length   = 10;
+        $length   = 14;
         $previous = new Status();
 
         $importer
             ->onChange(function (array $items, Status $status) use (&$previous, $length): void {
-                $chunk        = str_pad((string) $status->chunk, $length, '0', STR_PAD_LEFT);
+                $chunk        = str_pad((string) $status->chunk, 10, '0', STR_PAD_LEFT);
                 $chunkFailed  = str_pad((string) ($status->failed - $previous->failed), $length, ' ', STR_PAD_LEFT);
                 $chunkCreated = str_pad((string) ($status->created - $previous->created), $length, ' ', STR_PAD_LEFT);
                 $chunkUpdated = str_pad((string) ($status->updated - $previous->updated), $length, ' ', STR_PAD_LEFT);
                 $processed    = str_pad((string) $status->processed, $length, ' ', STR_PAD_LEFT);
-                $continue     = str_pad(" {$status->continue} ", $length * 5 + 5 * 2 + 4, '-', STR_PAD_LEFT);
-
-                // @phpcs:disable Generic.Files.LineLength.TooLong
-                $lineOne = "| {$chunk} | {$processed} | {$chunkCreated} | {$chunkUpdated} | {$chunkFailed} |            | ";
-                $lineTwo = "+------------+{$continue}+";
-                // @phpcs:enable
+                $continue     = str_pad(" {$status->continue} ", $length * 4 + 4 * 2 + 3, '-', STR_PAD_LEFT);
+                $lineOne      = "| {$chunk} | {$processed} | {$chunkCreated} | {$chunkUpdated} | {$chunkFailed} |";
+                $lineTwo      = "+------------+{$continue}+";
 
                 if ($status->failed - $previous->failed > 0) {
                     $this->warn($lineOne);
