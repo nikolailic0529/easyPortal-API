@@ -181,7 +181,17 @@ class ResellerFactoryTest extends TestCase {
             'id' => $this->faker->uuid,
         ]);
         $asset      = new ViewAsset([
-            'resellerId' => $b->id,
+            'resellerId'    => $b->id,
+            'assetDocument' => [
+                [
+                    'reseller' => [
+                        'id' => $this->faker->uuid,
+                    ],
+                    'document' => [
+                        'resellerId' => $this->faker->uuid,
+                    ],
+                ],
+            ],
         ]);
         $resolver   = $this->app->make(ResellerResolver::class);
         $normalizer = $this->app->make(Normalizer::class);
@@ -210,6 +220,8 @@ class ResellerFactoryTest extends TestCase {
 
         $factory->find($a);
         $factory->find($b);
+        $resolver->get($asset->assetDocument[0]->reseller->id);
+        $resolver->get($asset->assetDocument[0]->document->resellerId);
 
         $this->assertCount(0, $this->getQueryLog());
     }

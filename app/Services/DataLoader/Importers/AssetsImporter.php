@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Importers;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
+use App\Services\DataLoader\Factories\DocumentFactory;
 use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\CustomerLoaderFinder;
@@ -17,6 +18,8 @@ use App\Services\DataLoader\Loaders\AssetLoader;
 use App\Services\DataLoader\Loaders\Concerns\CalculatedProperties;
 use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Resolvers\AssetResolver;
+use App\Services\DataLoader\Resolvers\ContactResolver;
+use App\Services\DataLoader\Resolvers\LocationResolver;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -39,30 +42,57 @@ class AssetsImporter extends Importer {
         parent::onBeforeChunk($items, $status);
 
         // Prefetch
+        $contacts  = $this->container->make(ContactResolver::class);
+        $locations = $this->container->make(LocationResolver::class);
+
         $this->container
             ->make(AssetFactory::class)
-            ->prefetch($items, true, static function (Collection $assets): void {
+            ->prefetch($items, false, static function (Collection $assets) use ($locations, $contacts): void {
                 $assets->loadMissing('documentEntries');
                 $assets->loadMissing('warranties');
                 $assets->loadMissing('warranties.services');
                 $assets->loadMissing('contacts');
+                $assets->loadMissing('contacts.types');
+                $assets->loadMissing('location');
+                $assets->loadMissing('location.types');
                 $assets->loadMissing('tags');
+
+                $locations->add($assets->pluck('locations')->flatten());
+                $contacts->add($assets->pluck('contacts')->flatten());
+            });
+
+        $this->container
+            ->make(DocumentFactory::class)
+            ->prefetch($items, false, static function (Collection $documents) use ($contacts): void {
+                $documents->loadMissing('entries');
+                $documents->loadMissing('contacts');
+                $documents->loadMissing('contacts.types');
+
+                $contacts->add($documents->pluck('contacts')->flatten());
             });
 
         $this->container
             ->make(ResellerFactory::class)
-            ->prefetch($items, true, static function (Collection $assets): void {
-                $assets->loadMissing('locations');
-                $assets->loadMissing('contacts');
-                $assets->loadMissing('contacts.types');
+            ->prefetch($items, false, static function (Collection $resellers) use ($locations, $contacts): void {
+                $resellers->loadMissing('locations');
+                $resellers->loadMissing('locations.types');
+                $resellers->loadMissing('contacts');
+                $resellers->loadMissing('contacts.types');
+
+                $locations->add($resellers->pluck('locations')->flatten());
+                $contacts->add($resellers->pluck('contacts')->flatten());
             });
 
         $this->container
             ->make(CustomerFactory::class)
-            ->prefetch($items, true, static function (Collection $assets): void {
-                $assets->loadMissing('locations');
-                $assets->loadMissing('contacts');
-                $assets->loadMissing('contacts.types');
+            ->prefetch($items, false, static function (Collection $customers) use ($locations, $contacts): void {
+                $customers->loadMissing('locations');
+                $customers->loadMissing('locations.types');
+                $customers->loadMissing('contacts');
+                $customers->loadMissing('contacts.types');
+
+                $locations->add($customers->pluck('locations')->flatten());
+                $contacts->add($customers->pluck('contacts')->flatten());
             });
     }
 

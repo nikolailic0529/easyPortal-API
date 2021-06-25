@@ -43,10 +43,8 @@ abstract class Resolver implements Singleton {
     protected function resolve(mixed $key, Closure $factory = null): ?Model {
         // Model already in cache or can be found?
         $key   = $this->normalizer->key($key);
-        $model = $this->getCache()->has($key)
-            ? $this->getCache()->get($key)
-            : $this->find($key);
         $cache = $this->getCache();
+        $model = $cache->has($key) ? $cache->get($key) : $this->find($key);
 
         // Not found? Well, maybe we can create?
         if (!$model && $factory) {
@@ -120,6 +118,25 @@ abstract class Resolver implements Singleton {
 
         // Return
         return $this;
+    }
+
+    /**
+     * @param \Illuminate\Database\Eloquent\Model
+     *      |\Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model>
+     *      |array<\Illuminate\Database\Eloquent\Model> $object
+     */
+    protected function put(Model|Collection|array $object): void {
+        $cache = $this->getCache();
+
+        if ($object instanceof Collection || is_array($object)) {
+            foreach ($object as $model) {
+                if ($model !== null) {
+                    $cache->put($model);
+                }
+            }
+        } else {
+            $cache->put($object);
+        }
     }
 
     protected function getCache(bool $preload = true): Cache {

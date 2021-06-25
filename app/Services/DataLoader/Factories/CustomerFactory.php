@@ -17,12 +17,10 @@ use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use Closure;
+use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
-use function array_filter;
-use function array_map;
-use function array_unique;
 use function implode;
 use function sprintf;
 
@@ -91,15 +89,31 @@ class CustomerFactory extends ModelFactory implements FactoryPrefetchable {
      * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
      */
     public function prefetch(array $objects, bool $reset = false, Closure|null $callback = null): static {
-        $keys = array_unique(array_filter(array_map(static function (Company|ViewAsset $model): ?string {
-            if ($model instanceof Company) {
-                return $model->id;
-            } elseif ($model instanceof ViewAsset) {
-                return $model->customerId;
-            } else {
-                return null;
-            }
-        }, $objects)));
+        $keys = (new Collection($objects))
+            ->map(static function (Company|ViewAsset $model): array {
+                $keys = [];
+
+                if ($model instanceof Company) {
+                    $keys[] = $model->id;
+                } elseif ($model instanceof ViewAsset) {
+                    $keys[] = $model->customerId;
+
+                    if (isset($model->assetDocument)) {
+                        foreach ($model->assetDocument as $assetDocument) {
+                            $keys[] = $assetDocument->customer->id ?? null;
+                            $keys[] = $assetDocument->document->customerId ?? null;
+                        }
+                    }
+                } else {
+                    // empty
+                }
+
+                return $keys;
+            })
+            ->flatten()
+            ->unique()
+            ->filter()
+            ->all();
 
         $this->customers->prefetch($keys, $reset, $callback);
 

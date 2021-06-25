@@ -148,12 +148,33 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
      * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
      */
     public function prefetch(array $assets, bool $reset = false, Closure|null $callback = null): static {
+        // Assets
         $keys = array_unique(array_map(static function (ViewAsset $asset): string {
             return $asset->id;
         }, $assets));
 
         $this->assets->prefetch($keys, $reset, $callback);
 
+        // Products
+        $products = (new Collection($assets))
+            ->filter(static function (ViewAsset $asset): bool {
+                return isset($asset->sku);
+            })
+            ->map(function (ViewAsset $asset): array {
+                return [
+                    'type' => ProductType::asset(),
+                    'sku'  => $this->normalizer->string($asset->sku),
+                ];
+            })
+            ->unique()
+            ->all();
+
+        $this->products->prefetch($products, $reset);
+
+        // Locations
+        $this->locations->prefetch($assets);
+
+        // Return
         return $this;
     }
     // </editor-fold>
@@ -394,7 +415,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                     $support?->getKey(),
                     Date::make($start)?->startOfDay(),
                     Date::make($end)?->startOfDay(),
-                    ]);
+                ]);
 
                 // Add service
                 $services[$key][] = $service;
@@ -529,10 +550,10 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     }
 
     protected function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
-        $location = null;
+        $location = $this->locations->find(new AssetModel(), $asset);
         $required = !$this->locations->isEmpty($asset);
 
-        if ($customer) {
+        if ($customer && !$location) {
             $location = $this->locations->find($customer, $asset);
         }
 
