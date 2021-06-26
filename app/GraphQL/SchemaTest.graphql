@@ -166,12 +166,12 @@ type AssetPaginator {
 input AssetWarrantiesQuery {
   id: ID!
   start: Date
-  end: Date!
+  end: Date
   note: String
   asset: AssetsQuery
-  customer_id: ID!
+  customer_id: ID
   customer: CustomersQuery
-  document_id: ID!
+  document_id: ID
   document: DocumentsQuery
   reseller_id: ID
   reseller: ResellersQuery
@@ -182,10 +182,10 @@ input AssetWarrantiesQuery {
 type AssetWarranty {
   id: ID!
   start: Date
-  end: Date!
+  end: Date
   note: String
-  customer_id: ID!
-  customer: Customer!
+  customer_id: ID
+  customer: Customer
   document_id: ID
   document: Document
   reseller_id: ID
@@ -639,6 +639,7 @@ type Me {
   permissions: [String!]
   root: Boolean!
   searches(where: SearchByConditionMeSearchQuery, order: [SortByClauseMeSearchSort!]): [MeSearch!]!
+  profile: Profile
 }
 
 type MeSearch {
@@ -1022,6 +1023,19 @@ input ProductsSort {
   eos: Date
 }
 
+type Profile {
+  first_name: String
+  last_name: String
+  title: String
+  academic_title: String
+  office_phone: String
+  mobile_phone: String
+  contact_email: String
+  department: String
+  job_title: String
+  photo: String
+}
+
 type Query {
   """Authenticated user or `null` otherwise."""
   me: Me
@@ -1292,7 +1306,7 @@ input SearchByConditionAssetWarrantiesQuery {
   start: SearchByScalarDateOrNull
 
   """Property condition."""
-  end: SearchByScalarDate
+  end: SearchByScalarDateOrNull
 
   """Property condition."""
   note: SearchByScalarStringOrNull
@@ -1301,13 +1315,13 @@ input SearchByConditionAssetWarrantiesQuery {
   asset: SearchByRelationAssetsQuery
 
   """Property condition."""
-  customer_id: SearchByScalarID
+  customer_id: SearchByScalarIDOrNull
 
   """Property condition."""
   customer: SearchByRelationCustomersQuery
 
   """Property condition."""
-  document_id: SearchByScalarID
+  document_id: SearchByScalarIDOrNull
 
   """Property condition."""
   document: SearchByRelationDocumentsQuery

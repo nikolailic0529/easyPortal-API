@@ -14,6 +14,6 @@ class Contracts {
     }
 
     public function __invoke(Builder $builder): Builder {
-        return $this->types->prepare($builder, 'type_id');
+        return $this->types->prepare($builder);
     }
 }

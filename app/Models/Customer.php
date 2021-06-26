@@ -101,7 +101,7 @@ class Customer extends Model {
         return $this
             ->hasMany(Document::class)
             ->where(static function (Builder $builder) {
-                return app()->make(ContractTypes::class)->prepare($builder, 'type_id');
+                return app()->make(ContractTypes::class)->prepare($builder);
             });
     }
 
@@ -109,7 +109,7 @@ class Customer extends Model {
         return $this
             ->hasMany(Document::class)
             ->where(static function (Builder $builder): Builder {
-                return app()->make(QuoteTypes::class)->prepare($builder, 'type_id');
+                return app()->make(QuoteTypes::class)->prepare($builder);
             });
     }
 

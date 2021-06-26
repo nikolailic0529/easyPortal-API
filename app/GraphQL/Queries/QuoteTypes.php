@@ -28,7 +28,7 @@ class QuoteTypes {
         return $builder->get();
     }
 
-    public function prepare(Builder $builder, string $key): Builder {
+    public function prepare(Builder $builder, string $key = 'type_id'): Builder {
         // if empty quotes type we will use ids not represented in contracts
         $contractTypes = $this->config->get('ep.contract_types');
         $quoteTypes    = $this->config->get('ep.quote_types');

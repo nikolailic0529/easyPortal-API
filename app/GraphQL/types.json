@@ -625,21 +625,49 @@
                     ]
                 },
                 "customer_id": {
-                    "$ref": "#/definitions/ID"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "document_id": {
-                    "$ref": "#/definitions/ID"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "number": {
                     "type": "string"
                 },
                 "start": {
-                    "type": "string",
-                    "format": "date"
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "format": "date"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "end": {
-                    "type": "string",
-                    "format": "date"
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "format": "date"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "note": {
                     "type": [
@@ -651,10 +679,24 @@
                     "$ref": "#/definitions/Asset"
                 },
                 "customer": {
-                    "$ref": "#/definitions/Customer"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Customer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "document": {
-                    "$ref": "#/definitions/Document"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Document"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "reseller": {
                     "oneOf": [
@@ -892,7 +934,7 @@
                         "null"
                     ]
                 },
-                "users" : {
+                "users": {
                     "type": "array",
                     "items": {
                         "$ref": "../Types/OrganizationUser.json"
