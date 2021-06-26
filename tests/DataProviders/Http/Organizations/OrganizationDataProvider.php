@@ -6,7 +6,7 @@ use App\Models\Organization;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Unauthorized;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
-use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
+use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Tests\TestCase;
 
 class OrganizationDataProvider extends ArrayDataProvider {
@@ -19,7 +19,7 @@ class OrganizationDataProvider extends ArrayDataProvider {
                 },
             ],
             'normal organization is allowed' => [
-                new Unknown(),
+                new UnknownValue(),
                 static function (TestCase $test) use ($id): ?Organization {
                     return Organization::factory()->create($id ? ['id' => $id] : []);
                 },
