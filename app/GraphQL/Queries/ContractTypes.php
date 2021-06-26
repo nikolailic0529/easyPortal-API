@@ -28,7 +28,7 @@ class ContractTypes {
         return $builder->get();
     }
 
-    public function prepare(Builder $builder, string $key): Builder {
+    public function prepare(Builder $builder, string $key = 'type_id'): Builder {
         return $builder->whereIn($key, $this->config->get('ep.contract_types'));
     }
 }
