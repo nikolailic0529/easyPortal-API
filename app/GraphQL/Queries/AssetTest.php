@@ -17,6 +17,7 @@ use App\Models\Status;
 use App\Models\Type;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
+use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
@@ -32,18 +33,25 @@ use Tests\TestCase;
  * @coversNothing
  */
 class AssetTest extends TestCase {
+    use WithQueryLog;
+
     /**
      * @dataProvider dataProviderQuery
+     *
+     * @param array<string,mixed> $settings
      */
     public function testQuery(
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
+        array $settings = [],
         Closure $assetsFactory = null,
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
         $user         = $this->setUser($userFactory, $organization);
+
+        $this->setSettings($settings);
 
         $assetId = 'wrong';
 
@@ -229,6 +237,7 @@ class AssetTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('asset', null),
+                        [],
                         static function (TestCase $test, Organization $organization): Asset {
                             return Asset::factory()->create();
                         },
@@ -243,6 +252,7 @@ class AssetTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('asset', null),
+                        [],
                         static function (TestCase $test, Organization $organization): Asset {
                             return Asset::factory()->create();
                         },
@@ -324,6 +334,38 @@ class AssetTest extends TestCase {
                                 ],
                             ],
                             'warranties'     => [
+                                [
+                                    'id'          => 'e4a60a4f-492f-4e16-8fea-d9bd77ed2551',
+                                    'reseller_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                    'customer_id' => null,
+                                    'document_id' => null,
+                                    'start'       => '2021-01-01',
+                                    'end'         => '2022-01-01',
+                                    'note'        => 'note',
+                                    'services'    => [
+                                        // empty
+                                    ],
+                                    'support'     => null,
+                                    'customer'    => null,
+                                    'reseller'    => [
+                                        'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                        'name'            => 'reseller1',
+                                        'customers_count' => 0,
+                                        'locations_count' => 1,
+                                        'assets_count'    => 0,
+                                        'locations'       => [
+                                            [
+                                                'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
+                                                'state'     => 'state2',
+                                                'postcode'  => '19912',
+                                                'line_one'  => 'reseller_one_data',
+                                                'line_two'  => 'reseller_two_data',
+                                                'latitude'  => 49.91634204,
+                                                'longitude' => 90.26318359,
+                                            ],
+                                        ],
+                                    ],
+                                ],
                                 [
                                     'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                     'reseller_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
@@ -427,6 +469,11 @@ class AssetTest extends TestCase {
                                 ],
                             ],
                         ]),
+                        [
+                            'ep.contract_types' => [
+                                'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
+                            ],
+                        ],
                         static function (TestCase $test, Organization $organization): Asset {
                             // OEM Creation belongs to
                             $oem = Oem::factory()->create([
@@ -491,21 +538,8 @@ class AssetTest extends TestCase {
                                 'eol'    => '2022-12-30',
                                 'eos'    => '2022-01-01',
                             ]);
-                            // Document creation for support
-                            $document = Document::factory()->create([
-                                'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                'support_id' => $product2,
-                            ]);
-                            // Document entry creation for services
-                            DocumentEntry::factory()->create([
-                                'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                'document_id' => $document,
-                                'asset_id'    => Asset::factory()->create([
-                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
-                                ]),
-                                'product_id'  => $product,
-                                'service_id'  => $product,
-                            ]);
+
+                            // Reseller
                             $reseller = Reseller::factory()
                                 ->hasLocations(1, [
                                     'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
@@ -523,6 +557,30 @@ class AssetTest extends TestCase {
                                     'locations_count' => 1,
                                     'assets_count'    => 0,
                                 ]);
+
+                            $customer->resellers()->attach($reseller);
+
+                            // Document creation for support
+                            $documentType = Type::factory()->create([
+                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
+                            ]);
+                            $document     = Document::factory()->create([
+                                'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                'type_id'     => $documentType,
+                                'support_id'  => $product2,
+                                'reseller_id' => $reseller,
+                            ]);
+                            // Document entry creation for services
+                            DocumentEntry::factory()->create([
+                                'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                                'document_id' => $document,
+                                'asset_id'    => Asset::factory()->create([
+                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
+                                ]),
+                                'product_id'  => $product,
+                                'service_id'  => $product,
+                            ]);
+
                             // Status belongs to
                             $status = Status::factory()->create([
                                 'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
@@ -560,6 +618,8 @@ class AssetTest extends TestCase {
                                     'contacts_count' => 1,
                                     'data_quality'   => '130',
                                 ]);
+
+                            // Should be returned - document has valid type
                             AssetWarranty::factory()
                                 ->hasAttached($product, [], 'services')
                                 ->for($product2, 'support')
@@ -574,7 +634,31 @@ class AssetTest extends TestCase {
                                     'note'        => 'note',
                                 ]);
 
-                            $customer->resellers()->attach($reseller);
+                            // Should be returned - no document
+                            AssetWarranty::factory()
+                                ->create([
+                                    'id'          => 'e4a60a4f-492f-4e16-8fea-d9bd77ed2551',
+                                    'asset_id'    => $asset,
+                                    'reseller_id' => $reseller,
+                                    'customer_id' => null,
+                                    'document_id' => null,
+                                    'start'       => '2021-01-01',
+                                    'end'         => '2022-01-01',
+                                    'note'        => 'note',
+                                ]);
+
+                            // Should not be returned - document not a contract
+                            AssetWarranty::factory()
+                                ->create([
+                                    'id'          => 'ec0379a8-ecd0-4245-bdb2-71cf58f91b40',
+                                    'asset_id'    => $asset,
+                                    'reseller_id' => $reseller,
+                                    'customer_id' => null,
+                                    'document_id' => Document::factory()->create(),
+                                    'start'       => '2021-01-01',
+                                    'end'         => '2022-01-01',
+                                    'note'        => 'note',
+                                ]);
 
                             return $asset;
                         },

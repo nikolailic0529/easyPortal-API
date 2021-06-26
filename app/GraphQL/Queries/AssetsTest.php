@@ -36,16 +36,21 @@ class AssetsTest extends TestCase {
     // =========================================================================
     /**
      * @dataProvider dataProviderQuery
+     *
+     * @param array<string,mixed> $settings
      */
     public function testQuery(
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
+        array $settings = [],
         Closure $customerFactory = null,
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
         $user         = $this->setUser($userFactory, $organization);
+
+        $this->setSettings($settings);
 
         $customerId = 'wrong';
 
@@ -243,6 +248,7 @@ class AssetsTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLPaginated('assets', null),
+                        [],
                         static function (TestCase $test, Organization $organization): Customer {
                             return Customer::factory()->create();
                         },
@@ -257,6 +263,7 @@ class AssetsTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLPaginated('assets', null),
+                        [],
                         static function (TestCase $test, Organization $organization): Customer {
                             return Customer::factory()->create();
                         },
@@ -443,6 +450,11 @@ class AssetsTest extends TestCase {
                                 ],
                             ],
                         ]),
+                        [
+                            'ep.contract_types' => [
+                                'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
+                            ],
+                        ],
                         static function (TestCase $test, Organization $organization): Customer {
                             // OEM Creation belongs to
                             $oem = Oem::factory()->create([
@@ -507,21 +519,8 @@ class AssetsTest extends TestCase {
                                 'eol'    => '2022-12-30',
                                 'eos'    => '2022-01-01',
                             ]);
-                            // Document creation for support
-                            $document = Document::factory()->create([
-                                'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                'support_id' => $product2,
-                            ]);
-                            // Document entry creation for services
-                            DocumentEntry::factory()->create([
-                                'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                'document_id' => $document,
-                                'asset_id'    => Asset::factory()->create([
-                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
-                                ]),
-                                'product_id'  => $product,
-                                'service_id'  => $product,
-                            ]);
+
+                            // Reseller
                             $reseller = Reseller::factory()
                                 ->hasLocations(1, [
                                     'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
@@ -539,6 +538,29 @@ class AssetsTest extends TestCase {
                                     'locations_count' => 1,
                                     'assets_count'    => 0,
                                 ]);
+
+                            $customer->resellers()->attach($reseller);
+
+                            // Document creation for support
+                            $documentType = Type::factory()->create([
+                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
+                            ]);
+                            $document     = Document::factory()->create([
+                                'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                'type_id'     => $documentType,
+                                'support_id'  => $product2,
+                                'reseller_id' => $reseller,
+                            ]);
+                            // Document entry creation for services
+                            DocumentEntry::factory()->create([
+                                'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                                'document_id' => $document,
+                                'asset_id'    => Asset::factory()->create([
+                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
+                                ]),
+                                'product_id'  => $product,
+                                'service_id'  => $product,
+                            ]);
                             // Status belongs to
                             $status = Status::factory()->create([
                                 'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
@@ -590,8 +612,6 @@ class AssetsTest extends TestCase {
                                     'end'         => '2022-01-01',
                                     'note'        => 'note',
                                 ]);
-
-                            $customer->resellers()->attach($reseller);
 
                             return $customer;
                         },

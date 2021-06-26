@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\GraphQL\Queries\ContractTypes;
+use App\GraphQL\Queries\QuoteTypes;
 use App\Models\Concerns\HasContacts;
 use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasOem;
@@ -12,12 +14,14 @@ use App\Models\Concerns\HasTags;
 use App\Models\Concerns\HasTypeNullable;
 use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
+use function app;
 use function in_array;
 use function is_null;
 use function sprintf;
@@ -25,35 +29,36 @@ use function sprintf;
 /**
  * Asset.
  *
- * @property string                                                              $id
- * @property string                                                              $oem_id
- * @property string                                                              $product_id
- * @property string|null                                                         $type_id
- * @property string|null                                                         $reseller_id current
- * @property string|null                                                         $customer_id current
- * @property string|null                                                         $location_id current
- * @property string|null                                                         $serial_number
- * @property string|null                                                         $data_quality
- * @property string|null                                                         $status_id
- * @property string|null                                                         $coverage_id
- * @property int                                                                 $contacts_count
- * @property \Carbon\CarbonImmutable                                             $created_at
- * @property \Carbon\CarbonImmutable                                             $updated_at
- * @property \Carbon\CarbonImmutable|null                                        $deleted_at
- * @property \App\Models\Customer|null                                           $customer
- * @property \App\Models\Location|null                                           $location
- * @property \App\Models\Oem                                                     $oem
- * @property \App\Models\Product                                                 $product
- * @property \App\Models\Reseller|null                                           $reseller
- * @property \App\Models\Type|null                                               $type
- * @property \App\Models\Status                                                  $status
- * @property \App\Models\AssetCoverage                                           $coverage
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $documentEntries
- * @property-write int|null                                                      $document_entries
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $warranties
- * @property-read int|null                                                       $warranties_count
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Tag>           $tags
+ * @property string                                                                   $id
+ * @property string                                                                   $oem_id
+ * @property string                                                                   $product_id
+ * @property string|null                                                              $type_id
+ * @property string|null                                                              $reseller_id current
+ * @property string|null                                                              $customer_id current
+ * @property string|null                                                              $location_id current
+ * @property string|null                                                              $serial_number
+ * @property string|null                                                              $data_quality
+ * @property string|null                                                              $status_id
+ * @property string|null                                                              $coverage_id
+ * @property int                                                                      $contacts_count
+ * @property \Carbon\CarbonImmutable                                                  $created_at
+ * @property \Carbon\CarbonImmutable                                                  $updated_at
+ * @property \Carbon\CarbonImmutable|null                                             $deleted_at
+ * @property \App\Models\Customer|null                                                $customer
+ * @property \App\Models\Location|null                                                $location
+ * @property \App\Models\Oem                                                          $oem
+ * @property \App\Models\Product                                                      $product
+ * @property \App\Models\Reseller|null                                                $reseller
+ * @property \App\Models\Type|null                                                    $type
+ * @property \App\Models\Status                                                       $status
+ * @property \App\Models\AssetCoverage                                                $coverage
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry>      $documentEntries
+ * @property-write int|null                                                           $document_entries
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty>      $warranties
+ * @property-read int|null                                                            $warranties_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $contractWarranties
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>            $contacts
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Tag>                $tags
  * @method static \Database\Factories\AssetFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newQuery()
@@ -136,6 +141,19 @@ class Asset extends Model {
      */
     public function setWarrantiesAttribute(Collection|array $warranties): void {
         $this->syncHasMany('warranties', $warranties);
+    }
+
+    public function contractWarranties(): HasMany {
+        return $this->hasMany(AssetWarranty::class)->where(static function (Builder $builder): void {
+            $builder->orWhere(static function (Builder $builder): void {
+                $builder->whereNull('document_id');
+            });
+            $builder->orWhere(static function (Builder $builder): void {
+                $builder->whereHas('document', static function (Builder $builder): void {
+                    app()->make(ContractTypes::class)->prepare($builder);
+                });
+            });
+        });
     }
 
     public function coverage(): BelongsTo {

@@ -104,16 +104,20 @@ class CustomerTest extends TestCase {
     /**
      * @dataProvider dataProviderQueryAssets
      *
+     * @param array<string, mixed> $settings
      */
     public function testQueryAssets(
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
+        array $settings = [],
         Closure $customerFactory = null,
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
         $user         = $this->setUser($userFactory, $organization);
+
+        $this->setSettings($settings);
 
         $customerId = 'wrong';
 
@@ -683,6 +687,7 @@ class CustomerTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('customer', null),
+                        [],
                         static function (TestCase $test, Organization $organization): Customer {
                             return Customer::factory()->create();
                         },
@@ -883,6 +888,11 @@ class CustomerTest extends TestCase {
                                 ],
                             ],
                         ]),
+                        [
+                            'ep.contract_types' => [
+                                'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
+                            ],
+                        ],
                         static function (TestCase $test, Organization $organization): Customer {
                             $reseller = Reseller::factory()
                                 ->hasLocations(1, [
@@ -971,11 +981,15 @@ class CustomerTest extends TestCase {
                                 'eos'    => '2022-01-01',
                             ]);
                             // Document creation for support
-                            $document = Document::factory()
+                            $documentType = Type::factory()->create([
+                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
+                            ]);
+                            $document     = Document::factory()
                                 ->for($reseller)
                                 ->for($customer)
                                 ->create([
                                     'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                    'type_id'    => $documentType,
                                     'support_id' => $product2,
                                 ]);
                             // Coverages belongs to
@@ -1037,6 +1051,7 @@ class CustomerTest extends TestCase {
                     ],
                     'not allowed' => [
                         new GraphQLSuccess('customer', null, null),
+                        [],
                         static function (TestCase $test, Organization $organization): Customer {
                             $customer = Customer::factory()->create();
 

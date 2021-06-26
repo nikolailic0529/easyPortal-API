@@ -12,7 +12,7 @@ type Asset {
   oem: Oem! @belongsTo
   product: Product! @belongsTo
   type: Type @belongsTo
-  warranties: [AssetWarranty!]! @hasMany
+  warranties: [AssetWarranty!]! @hasMany(relation: "contractWarranties")
   reseller: Reseller! @belongsTo
   status: Status @belongsTo
   contacts: [Contact!]! @morphMany
