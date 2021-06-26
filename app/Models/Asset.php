@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\GraphQL\Queries\ContractTypes;
-use App\GraphQL\Queries\QuoteTypes;
 use App\Models\Concerns\HasContacts;
 use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasOem;
