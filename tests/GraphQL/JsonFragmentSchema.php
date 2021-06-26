@@ -3,6 +3,7 @@
 namespace Tests\GraphQL;
 
 use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonSchema;
+use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonSchemaFile;
 use LastDragon_ru\LaraASP\Testing\Utils\WithTestData;
 
 class JsonFragmentSchema {
@@ -36,6 +37,6 @@ class JsonFragmentSchema {
     }
 
     public function getJsonSchema(): JsonSchema {
-        return new JsonSchema($this->getTestData($this->getSchema())->json());
+        return new JsonSchemaFile($this->getTestData($this->getSchema())->file('.json'));
     }
 }

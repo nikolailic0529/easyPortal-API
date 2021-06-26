@@ -85,7 +85,6 @@ class GraphQLErrorsSchema implements JsonSerializable {
                 'errors' => [
                     'type'            => 'array',
                     'additionalItems' => false,
-                    'required'        => array_keys($items),
                     'items'           => $items,
                 ],
             ],

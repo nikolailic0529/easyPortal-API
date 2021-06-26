@@ -4,7 +4,7 @@ namespace Tests\GraphQL;
 
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonMatchesSchema;
-use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonSchema;
+use LastDragon_ru\LaraASP\Testing\Constraints\Json\JsonSchemaValue;
 use Throwable;
 
 class GraphQLError extends GraphQLResponse {
@@ -28,7 +28,7 @@ class GraphQLError extends GraphQLResponse {
     protected function getResponseConstraints(): array {
         return [
             $this->errors
-                ? new JsonMatchesSchema(new JsonSchema(new GraphQLErrorsSchema($this->errors)))
+                ? new JsonMatchesSchema(new JsonSchemaValue(new GraphQLErrorsSchema($this->errors)))
                 : null,
         ];
     }
