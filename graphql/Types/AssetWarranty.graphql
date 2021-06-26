@@ -1,10 +1,10 @@
 type AssetWarranty {
   id: ID!
   start: Date
-  end: Date!
+  end: Date
   note: String
-  customer_id: ID!
-  customer: Customer! @belongsTo
+  customer_id: ID
+  customer: Customer @belongsTo
   document_id: ID
   document: Document @belongsTo
   reseller_id: ID
