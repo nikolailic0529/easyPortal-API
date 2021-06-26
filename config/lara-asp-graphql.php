@@ -23,15 +23,5 @@ return [
             'Date'     => 'Int',
             'DateTime' => 'Date',
         ],
-
-        /**
-         * Scalar aliases
-         * ---------------------------------------------------------------------
-         *
-         * Allow redefine scalar type in conditions.
-         */
-        'aliases' => [
-            // empty
-        ],
     ],
 ];
