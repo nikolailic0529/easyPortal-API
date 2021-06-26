@@ -53,7 +53,7 @@ class CitiesTest extends TestCase {
         $this
             ->graphQL(/** @lang GraphQL */ '
                 query cities($country_id: ID!) {
-                    cities(where:{ country_id: { eq: $country_id } }) {
+                    cities(where:{ country_id: { equal: $country_id } }) {
                         id
                         name
                         country_id
@@ -69,7 +69,7 @@ class CitiesTest extends TestCase {
 
         // Eager Loading
         if ($expected instanceof GraphQLSuccess) {
-            $this->assertCount(3, $this->getQueryLog());
+            $this->assertCount(2, $this->getQueryLog());
         }
     }
     // </editor-fold>

@@ -47,10 +47,10 @@ type Application {
     where: SearchByConditionApplicationLogsQuery
     order: [SortByClauseApplicationLogsSort!]
 
-    """Limits number of fetched elements. Maximum allowed value: 100."""
+    """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
 
-    """The offset from which elements are returned."""
+    """The offset from which items are returned."""
     page: Int
   ): ApplicationLogPaginator
 }
@@ -508,10 +508,10 @@ type Customer {
     where: SearchByConditionDocumentsQuery
     order: [SortByClauseDocumentsSort!]
 
-    """Limits number of fetched elements. Maximum allowed value: 100."""
+    """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
 
-    """The offset from which elements are returned."""
+    """The offset from which items are returned."""
     page: Int
   ): DocumentPaginator
 
@@ -522,10 +522,10 @@ type Customer {
     where: SearchByConditionDocumentsQuery
     order: [SortByClauseDocumentsSort!]
 
-    """Limits number of fetched elements. Maximum allowed value: 100."""
+    """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
 
-    """The offset from which elements are returned."""
+    """The offset from which items are returned."""
     page: Int
   ): DocumentPaginator
 
@@ -536,10 +536,10 @@ type Customer {
     where: SearchByConditionAssetsQuery
     order: [SortByClauseAssetsSort!]
 
-    """Limits number of fetched elements. Maximum allowed value: 100."""
+    """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
 
-    """The offset from which elements are returned."""
+    """The offset from which items are returned."""
     page: Int
   ): AssetPaginator
 }
@@ -718,10 +718,10 @@ type Document {
     where: SearchByConditionNotesQuery
     order: [SortByClauseNotesSort!]
 
-    """Limits number of fetched elements. Maximum allowed value: 100."""
+    """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
 
-    """The offset from which elements are returned."""
+    """The offset from which items are returned."""
     page: Int
   ): NotePaginator
 }
@@ -1432,7 +1432,7 @@ input OrganizationsSort {
   email: String
 }
 
-"""Pagination information about the corresponding list of items."""
+"""Information about pagination using a Relay style cursor connection."""
 type PageInfo {
   """When paginating forwards, are there more items?"""
   hasNextPage: Boolean!
@@ -1440,49 +1440,49 @@ type PageInfo {
   """When paginating backwards, are there more items?"""
   hasPreviousPage: Boolean!
 
-  """When paginating backwards, the cursor to continue."""
+  """The cursor to continue paginating backwards."""
   startCursor: String
 
-  """When paginating forwards, the cursor to continue."""
+  """The cursor to continue paginating forwards."""
   endCursor: String
 
-  """Total number of node in connection."""
-  total: Int
+  """Total number of nodes in the paginated connection."""
+  total: Int!
 
-  """Count of nodes in current request."""
-  count: Int
-
-  """Current page of request."""
-  currentPage: Int
-
-  """Last page in connection."""
-  lastPage: Int
-}
-
-"""Pagination information about the corresponding list of items."""
-type PaginatorInfo {
-  """Count of available items in the page."""
+  """Number of nodes in the current page."""
   count: Int!
 
-  """Current pagination page."""
+  """Index of the current page."""
   currentPage: Int!
 
-  """Index of first item in the current page."""
+  """Index of the last available page."""
+  lastPage: Int!
+}
+
+"""Information about pagination using a fully featured paginator."""
+type PaginatorInfo {
+  """Number of items in the current page."""
+  count: Int!
+
+  """Index of the current page."""
+  currentPage: Int!
+
+  """Index of the first item in the current page."""
   firstItem: Int
 
-  """If collection has more pages."""
+  """Are there more pages after this one?"""
   hasMorePages: Boolean!
 
-  """Index of last item in the current page."""
+  """Index of the last item in the current page."""
   lastItem: Int
 
-  """Last page number of the collection."""
+  """Index of the last available page."""
   lastPage: Int!
 
-  """Number of items per page in the collection."""
+  """Number of items per page."""
   perPage: Int!
 
-  """Total items available in the collection."""
+  """Number of total available items."""
   total: Int!
 }
 
@@ -1792,10 +1792,10 @@ type Query {
     where: SearchByConditionCustomersQuery
     order: [SortByClauseCustomersSort!]
 
-    """Limits number of fetched elements. Maximum allowed value: 100."""
+    """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
 
-    """The offset from which elements are returned."""
+    """The offset from which items are returned."""
     page: Int
   ): CustomerPaginator
 
@@ -1810,10 +1810,10 @@ type Query {
     where: SearchByConditionAssetsQuery
     order: [SortByClauseAssetsSort!]
 
-    """Limits number of fetched elements. Maximum allowed value: 100."""
+    """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
 
-    """The offset from which elements are returned."""
+    """The offset from which items are returned."""
     page: Int
   ): AssetPaginator
 
@@ -1828,10 +1828,10 @@ type Query {
     where: SearchByConditionDocumentsQuery
     order: [SortByClauseDocumentsSort!]
 
-    """Limits number of fetched elements. Maximum allowed value: 100."""
+    """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
 
-    """The offset from which elements are returned."""
+    """The offset from which items are returned."""
     page: Int
   ): DocumentPaginator
 
@@ -1846,10 +1846,10 @@ type Query {
     where: SearchByConditionDocumentsQuery
     order: [SortByClauseDocumentsSort!]
 
-    """Limits number of fetched elements. Maximum allowed value: 100."""
+    """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
 
-    """The offset from which elements are returned."""
+    """The offset from which items are returned."""
     page: Int
   ): DocumentPaginator
 
@@ -1864,10 +1864,10 @@ type Query {
     where: SearchByConditionOrganizationsQuery
     order: [SortByClauseOrganizationsSort!]
 
-    """Limits number of fetched elements. Maximum allowed value: 100."""
+    """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
 
-    """The offset from which elements are returned."""
+    """The offset from which items are returned."""
     page: Int
   ): OrganizationPaginator
 }
@@ -2013,6 +2013,528 @@ type Role {
 }
 
 """
+Conditions for the related objects (`has()`/`doesntHave()`) for input AssetWarrantiesQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationAssetWarrantiesQuery {
+  """Additional conditions."""
+  where: SearchByConditionAssetWarrantiesQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Shortcut for `doesntHave()`, same as:
+  
+  ```
+  count: {
+    lt: 1
+  }
+  ```
+  """
+  not: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input AssetsQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationAssetsQuery {
+  """Additional conditions."""
+  where: SearchByConditionAssetsQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Shortcut for `doesntHave()`, same as:
+  
+  ```
+  count: {
+    lt: 1
+  }
+  ```
+  """
+  not: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input CitiesQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationCitiesQuery {
+  """Additional conditions."""
+  where: SearchByConditionCitiesQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Shortcut for `doesntHave()`, same as:
+  
+  ```
+  count: {
+    lt: 1
+  }
+  ```
+  """
+  not: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input ContactsQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationContactsQuery {
+  """Additional conditions."""
+  where: SearchByConditionContactsQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Shortcut for `doesntHave()`, same as:
+  
+  ```
+  count: {
+    lt: 1
+  }
+  ```
+  """
+  not: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input CountriesQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationCountriesQuery {
+  """Additional conditions."""
+  where: SearchByConditionCountriesQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Shortcut for `doesntHave()`, same as:
+  
+  ```
+  count: {
+    lt: 1
+  }
+  ```
+  """
+  not: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input CoveragesQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationCoveragesQuery {
+  """Additional conditions."""
+  where: SearchByConditionCoveragesQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Shortcut for `doesntHave()`, same as:
+  
+  ```
+  count: {
+    lt: 1
+  }
+  ```
+  """
+  not: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input CustomersQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationCustomersQuery {
+  """Additional conditions."""
+  where: SearchByConditionCustomersQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Shortcut for `doesntHave()`, same as:
+  
+  ```
+  count: {
+    lt: 1
+  }
+  ```
+  """
+  not: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input DistributorsQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationDistributorsQuery {
+  """Additional conditions."""
+  where: SearchByConditionDistributorsQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Shortcut for `doesntHave()`, same as:
+  
+  ```
+  count: {
+    lt: 1
+  }
+  ```
+  """
+  not: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input DocumentEntriesQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationDocumentEntriesQuery {
+  """Additional conditions."""
+  where: SearchByConditionDocumentEntriesQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Shortcut for `doesntHave()`, same as:
+  
+  ```
+  count: {
+    lt: 1
+  }
+  ```
+  """
+  not: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input DocumentsQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationDocumentsQuery {
+  """Additional conditions."""
+  where: SearchByConditionDocumentsQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Shortcut for `doesntHave()`, same as:
+  
+  ```
+  count: {
+    lt: 1
+  }
+  ```
+  """
+  not: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input LocationsQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationLocationsQuery {
+  """Additional conditions."""
+  where: SearchByConditionLocationsQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Shortcut for `doesntHave()`, same as:
+  
+  ```
+  count: {
+    lt: 1
+  }
+  ```
+  """
+  not: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input ProductsQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationProductsQuery {
+  """Additional conditions."""
+  where: SearchByConditionProductsQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Shortcut for `doesntHave()`, same as:
+  
+  ```
+  count: {
+    lt: 1
+  }
+  ```
+  """
+  not: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input ResellersQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationResellersQuery {
+  """Additional conditions."""
+  where: SearchByConditionResellersQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Shortcut for `doesntHave()`, same as:
+  
+  ```
+  count: {
+    lt: 1
+  }
+  ```
+  """
+  not: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input ServiceLevelsQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationServiceLevelsQuery {
+  """Additional conditions."""
+  where: SearchByConditionServiceLevelsQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Shortcut for `doesntHave()`, same as:
+  
+  ```
+  count: {
+    lt: 1
+  }
+  ```
+  """
+  not: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input StatusesQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationStatusesQuery {
+  """Additional conditions."""
+  where: SearchByConditionStatusesQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Shortcut for `doesntHave()`, same as:
+  
+  ```
+  count: {
+    lt: 1
+  }
+  ```
+  """
+  not: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input TagsQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationTagsQuery {
+  """Additional conditions."""
+  where: SearchByConditionTagsQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Shortcut for `doesntHave()`, same as:
+  
+  ```
+  count: {
+    lt: 1
+  }
+  ```
+  """
+  not: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input TypesQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationTypesQuery {
+  """Additional conditions."""
+  where: SearchByConditionTypesQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Shortcut for `doesntHave()`, same as:
+  
+  ```
+  count: {
+    lt: 1
+  }
+  ```
+  """
+  not: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
+Conditions for the related objects (`has()`/`doesntHave()`) for input UsersQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationUsersQuery {
+  """Additional conditions."""
+  where: SearchByConditionUsersQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Shortcut for `doesntHave()`, same as:
+  
+  ```
+  count: {
+    lt: 1
+  }
+  ```
+  """
+  not: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
 Available conditions for input ApplicationLogsQuery (only one property allowed at a time).
 """
 input SearchByConditionApplicationLogsQuery {
@@ -2023,7 +2545,7 @@ input SearchByConditionApplicationLogsQuery {
   anyOf: [SearchByConditionApplicationLogsQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionApplicationLogsQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2064,10 +2586,10 @@ input SearchByConditionAssetCoveragesQuery {
   anyOf: [SearchByConditionAssetCoveragesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionAssetCoveragesQuery
 
   """Property condition."""
-  assets: SearchByRelationAssetsQuery
+  assets: SearchByComplexRelationAssetsQuery
 }
 
 """
@@ -2081,10 +2603,10 @@ input SearchByConditionAssetStatusesQuery {
   anyOf: [SearchByConditionAssetStatusesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionAssetStatusesQuery
 
   """Property condition."""
-  assets: SearchByRelationAssetsQuery
+  assets: SearchByComplexRelationAssetsQuery
 }
 
 """
@@ -2098,10 +2620,10 @@ input SearchByConditionAssetTypesQuery {
   anyOf: [SearchByConditionAssetTypesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionAssetTypesQuery
 
   """Property condition."""
-  assets: SearchByRelationAssetsQuery
+  assets: SearchByComplexRelationAssetsQuery
 }
 
 """
@@ -2115,7 +2637,7 @@ input SearchByConditionAssetWarrantiesQuery {
   anyOf: [SearchByConditionAssetWarrantiesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionAssetWarrantiesQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2130,31 +2652,31 @@ input SearchByConditionAssetWarrantiesQuery {
   note: SearchByScalarStringOrNull
 
   """Property condition."""
-  asset: SearchByRelationAssetsQuery
+  asset: SearchByComplexRelationAssetsQuery
 
   """Property condition."""
   customer_id: SearchByScalarIDOrNull
 
   """Property condition."""
-  customer: SearchByRelationCustomersQuery
+  customer: SearchByComplexRelationCustomersQuery
 
   """Property condition."""
   document_id: SearchByScalarIDOrNull
 
   """Property condition."""
-  document: SearchByRelationDocumentsQuery
+  document: SearchByComplexRelationDocumentsQuery
 
   """Property condition."""
   reseller_id: SearchByScalarIDOrNull
 
   """Property condition."""
-  reseller: SearchByRelationResellersQuery
+  reseller: SearchByComplexRelationResellersQuery
 
   """Property condition."""
   service_group_id: SearchByScalarIDOrNull
 
   """Property condition."""
-  serviceLevels: SearchByRelationServiceLevelsQuery
+  serviceLevels: SearchByComplexRelationServiceLevelsQuery
 }
 
 """
@@ -2168,7 +2690,7 @@ input SearchByConditionAssetsQuery {
   anyOf: [SearchByConditionAssetsQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionAssetsQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2198,22 +2720,22 @@ input SearchByConditionAssetsQuery {
   serial_number: SearchByScalarString
 
   """Property condition."""
-  location: SearchByRelationLocationsQuery
+  location: SearchByComplexRelationLocationsQuery
 
   """Property condition."""
-  customer: SearchByRelationCustomersQuery
+  customer: SearchByComplexRelationCustomersQuery
 
   """Property condition."""
-  product: SearchByRelationProductsQuery
+  product: SearchByComplexRelationProductsQuery
 
   """Property condition."""
-  warranties: SearchByRelationAssetWarrantiesQuery
+  warranties: SearchByComplexRelationAssetWarrantiesQuery
 
   """Property condition."""
-  tags: SearchByRelationTagsQuery
+  tags: SearchByComplexRelationTagsQuery
 
   """Property condition."""
-  coverages: SearchByRelationCoveragesQuery
+  coverages: SearchByComplexRelationCoveragesQuery
 }
 
 """
@@ -2227,7 +2749,7 @@ input SearchByConditionCitiesQuery {
   anyOf: [SearchByConditionCitiesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionCitiesQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2239,10 +2761,10 @@ input SearchByConditionCitiesQuery {
   country_id: SearchByScalarID
 
   """Property condition."""
-  assets: SearchByRelationAssetsQuery
+  assets: SearchByComplexRelationAssetsQuery
 
   """Property condition."""
-  customers: SearchByRelationCustomersQuery
+  customers: SearchByComplexRelationCustomersQuery
 }
 
 """
@@ -2256,10 +2778,10 @@ input SearchByConditionContactTypesQuery {
   anyOf: [SearchByConditionContactTypesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionContactTypesQuery
 
   """Property condition."""
-  contacts: SearchByRelationContactsQuery
+  contacts: SearchByComplexRelationContactsQuery
 }
 
 """
@@ -2273,7 +2795,7 @@ input SearchByConditionContactsQuery {
   anyOf: [SearchByConditionContactsQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionContactsQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2291,13 +2813,13 @@ input SearchByConditionContactsQuery {
   phone_valid: SearchByScalarBooleanOrNull
 
   """Property condition."""
-  types: SearchByRelationTypesQuery
+  types: SearchByComplexRelationTypesQuery
 
   """Property condition."""
-  assets: SearchByRelationCustomersQuery
+  assets: SearchByComplexRelationCustomersQuery
 
   """Property condition."""
-  customers: SearchByRelationCustomersQuery
+  customers: SearchByComplexRelationCustomersQuery
 }
 
 """
@@ -2311,10 +2833,10 @@ input SearchByConditionContractTypesQuery {
   anyOf: [SearchByConditionContractTypesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionContractTypesQuery
 
   """Property condition."""
-  contracts: SearchByRelationDocumentsQuery
+  contracts: SearchByComplexRelationDocumentsQuery
 }
 
 """
@@ -2328,7 +2850,7 @@ input SearchByConditionCountriesQuery {
   anyOf: [SearchByConditionCountriesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionCountriesQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2340,13 +2862,13 @@ input SearchByConditionCountriesQuery {
   name: SearchByScalarString
 
   """Property condition."""
-  cities: SearchByRelationCitiesQuery
+  cities: SearchByComplexRelationCitiesQuery
 
   """Property condition."""
-  assets: SearchByRelationAssetsQuery
+  assets: SearchByComplexRelationAssetsQuery
 
   """Property condition."""
-  customers: SearchByRelationCustomersQuery
+  customers: SearchByComplexRelationCustomersQuery
 }
 
 """
@@ -2360,7 +2882,7 @@ input SearchByConditionCoveragesQuery {
   anyOf: [SearchByConditionCoveragesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionCoveragesQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2377,10 +2899,10 @@ input SearchByConditionCurrenciesQuery {
   anyOf: [SearchByConditionCurrenciesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionCurrenciesQuery
 
   """Property condition."""
-  documents: SearchByRelationDocumentsQuery
+  documents: SearchByComplexRelationDocumentsQuery
 }
 
 """
@@ -2394,10 +2916,10 @@ input SearchByConditionCustomerStatusesQuery {
   anyOf: [SearchByConditionCustomerStatusesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionCustomerStatusesQuery
 
   """Property condition."""
-  customers: SearchByRelationCustomersQuery
+  customers: SearchByComplexRelationCustomersQuery
 }
 
 """
@@ -2411,10 +2933,10 @@ input SearchByConditionCustomerTypesQuery {
   anyOf: [SearchByConditionCustomerTypesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionCustomerTypesQuery
 
   """Property condition."""
-  customers: SearchByRelationCustomersQuery
+  customers: SearchByComplexRelationCustomersQuery
 }
 
 """
@@ -2428,7 +2950,7 @@ input SearchByConditionCustomersQuery {
   anyOf: [SearchByConditionCustomersQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionCustomersQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2440,7 +2962,7 @@ input SearchByConditionCustomersQuery {
   type_id: SearchByScalarID
 
   """Property condition."""
-  statuses: SearchByRelationStatusesQuery
+  statuses: SearchByComplexRelationStatusesQuery
 
   """Property condition."""
   assets_count: SearchByScalarInt
@@ -2449,25 +2971,25 @@ input SearchByConditionCustomersQuery {
   locations_count: SearchByScalarInt
 
   """Property condition."""
-  locations: SearchByRelationLocationsQuery
+  locations: SearchByComplexRelationLocationsQuery
 
   """Property condition."""
-  headquarter: SearchByRelationLocationsQuery
+  headquarter: SearchByComplexRelationLocationsQuery
 
   """Property condition."""
   contacts_count: SearchByScalarInt
 
   """Property condition."""
-  contacts: SearchByRelationContactsQuery
+  contacts: SearchByComplexRelationContactsQuery
 
   """Property condition."""
-  assets: SearchByRelationAssetsQuery
+  assets: SearchByComplexRelationAssetsQuery
 
   """Property condition."""
-  contracts: SearchByRelationDocumentsQuery
+  contracts: SearchByComplexRelationDocumentsQuery
 
   """Property condition."""
-  quotes: SearchByRelationDocumentsQuery
+  quotes: SearchByComplexRelationDocumentsQuery
 }
 
 """
@@ -2481,7 +3003,7 @@ input SearchByConditionDistributorsQuery {
   anyOf: [SearchByConditionDistributorsQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionDistributorsQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2501,7 +3023,7 @@ input SearchByConditionDocumentEntriesQuery {
   anyOf: [SearchByConditionDocumentEntriesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionDocumentEntriesQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2513,7 +3035,7 @@ input SearchByConditionDocumentEntriesQuery {
   asset_id: SearchByScalarID
 
   """Property condition."""
-  asset: SearchByRelationAssetsQuery
+  asset: SearchByComplexRelationAssetsQuery
 
   """Property condition."""
   net_price: SearchByScalarFloatOrNull
@@ -2534,7 +3056,7 @@ input SearchByConditionDocumentEntriesQuery {
   product_id: SearchByScalarID
 
   """Property condition."""
-  product: SearchByRelationProductsQuery
+  product: SearchByComplexRelationProductsQuery
 
   """Property condition."""
   service_level_id: SearchByScalarIDOrNull
@@ -2554,7 +3076,7 @@ input SearchByConditionDocumentsQuery {
   anyOf: [SearchByConditionDocumentsQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionDocumentsQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2596,28 +3118,28 @@ input SearchByConditionDocumentsQuery {
   customer_id: SearchByScalarID
 
   """Property condition."""
-  customer: SearchByRelationCustomersQuery
+  customer: SearchByComplexRelationCustomersQuery
 
   """Property condition."""
   reseller_id: SearchByScalarIDOrNull
 
   """Property condition."""
-  reseller: SearchByRelationResellersQuery
+  reseller: SearchByComplexRelationResellersQuery
 
   """Property condition."""
   distributor_id: SearchByScalarIDOrNull
 
   """Property condition."""
-  distributor: SearchByRelationDistributorsQuery
+  distributor: SearchByComplexRelationDistributorsQuery
 
   """Property condition."""
-  entries: SearchByRelationDocumentEntriesQuery
+  entries: SearchByComplexRelationDocumentEntriesQuery
 
   """Property condition."""
   entries_count: SearchByScalarInt
 
   """Property condition."""
-  contacts: SearchByRelationContactsQuery
+  contacts: SearchByComplexRelationContactsQuery
 
   """Property condition."""
   contacts_count: SearchByScalarInt
@@ -2634,10 +3156,10 @@ input SearchByConditionLanguagesQuery {
   anyOf: [SearchByConditionLanguagesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionLanguagesQuery
 
   """Property condition."""
-  documents: SearchByRelationDocumentsQuery
+  documents: SearchByComplexRelationDocumentsQuery
 }
 
 """
@@ -2651,10 +3173,10 @@ input SearchByConditionLocationTypesQuery {
   anyOf: [SearchByConditionLocationTypesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionLocationTypesQuery
 
   """Property condition."""
-  locations: SearchByRelationLocationsQuery
+  locations: SearchByComplexRelationLocationsQuery
 }
 
 """
@@ -2668,7 +3190,7 @@ input SearchByConditionLocationsQuery {
   anyOf: [SearchByConditionLocationsQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionLocationsQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2692,25 +3214,25 @@ input SearchByConditionLocationsQuery {
   longitude: SearchByScalarFloatOrNull
 
   """Property condition."""
-  city: SearchByRelationCitiesQuery
+  city: SearchByComplexRelationCitiesQuery
 
   """Property condition."""
   city_id: SearchByScalarID
 
   """Property condition."""
-  country: SearchByRelationCountriesQuery
+  country: SearchByComplexRelationCountriesQuery
 
   """Property condition."""
   country_id: SearchByScalarID
 
   """Property condition."""
-  types: SearchByRelationTypesQuery
+  types: SearchByComplexRelationTypesQuery
 
   """Property condition."""
-  assets: SearchByRelationCustomersQuery
+  assets: SearchByComplexRelationCustomersQuery
 
   """Property condition."""
-  customers: SearchByRelationCustomersQuery
+  customers: SearchByComplexRelationCustomersQuery
 }
 
 """
@@ -2724,7 +3246,7 @@ input SearchByConditionMapQuery {
   anyOf: [SearchByConditionMapQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionMapQuery
 
   """Property condition."""
   latitude: SearchByScalarFloat
@@ -2744,7 +3266,7 @@ input SearchByConditionMeSearchQuery {
   anyOf: [SearchByConditionMeSearchQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionMeSearchQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2770,7 +3292,7 @@ input SearchByConditionNotesQuery {
   anyOf: [SearchByConditionNotesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionNotesQuery
 
   """Property condition."""
   note: SearchByScalarString
@@ -2782,7 +3304,7 @@ input SearchByConditionNotesQuery {
   user_id: SearchByScalarID
 
   """Property condition."""
-  user: SearchByRelationUsersQuery
+  user: SearchByComplexRelationUsersQuery
 }
 
 """
@@ -2796,13 +3318,13 @@ input SearchByConditionOemsQuery {
   anyOf: [SearchByConditionOemsQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionOemsQuery
 
   """Property condition."""
-  assets: SearchByRelationAssetsQuery
+  assets: SearchByComplexRelationAssetsQuery
 
   """Property condition."""
-  documents: SearchByRelationDocumentsQuery
+  documents: SearchByComplexRelationDocumentsQuery
 }
 
 """
@@ -2816,7 +3338,7 @@ input SearchByConditionOrganizationsQuery {
   anyOf: [SearchByConditionOrganizationsQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionOrganizationsQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2831,16 +3353,16 @@ input SearchByConditionOrganizationsQuery {
   email: SearchByScalarStringOrNull
 
   """Property condition."""
-  statuses: SearchByRelationStatusesQuery
+  statuses: SearchByComplexRelationStatusesQuery
 
   """Property condition."""
-  contacts: SearchByRelationContactsQuery
+  contacts: SearchByComplexRelationContactsQuery
 
   """Property condition."""
-  locations: SearchByRelationLocationsQuery
+  locations: SearchByComplexRelationLocationsQuery
 
   """Property condition."""
-  headquarter: SearchByRelationLocationsQuery
+  headquarter: SearchByComplexRelationLocationsQuery
 }
 
 """
@@ -2854,7 +3376,7 @@ input SearchByConditionProductsQuery {
   anyOf: [SearchByConditionProductsQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionProductsQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2880,10 +3402,10 @@ input SearchByConditionQuoteTypesQuery {
   anyOf: [SearchByConditionQuoteTypesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionQuoteTypesQuery
 
   """Property condition."""
-  quotes: SearchByRelationDocumentsQuery
+  quotes: SearchByComplexRelationDocumentsQuery
 }
 
 """
@@ -2897,7 +3419,7 @@ input SearchByConditionResellersQuery {
   anyOf: [SearchByConditionResellersQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionResellersQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2917,7 +3439,7 @@ input SearchByConditionServiceGroupsQuery {
   anyOf: [SearchByConditionServiceGroupsQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionServiceGroupsQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2929,7 +3451,7 @@ input SearchByConditionServiceGroupsQuery {
   sku: SearchByScalarString
 
   """Property condition."""
-  documentEntries: SearchByRelationDocumentEntriesQuery
+  documentEntries: SearchByComplexRelationDocumentEntriesQuery
 }
 
 """
@@ -2943,7 +3465,7 @@ input SearchByConditionServiceLevelsQuery {
   anyOf: [SearchByConditionServiceLevelsQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionServiceLevelsQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2958,7 +3480,7 @@ input SearchByConditionServiceLevelsQuery {
   sku: SearchByScalarString
 
   """Property condition."""
-  documentEntries: SearchByRelationDocumentEntriesQuery
+  documentEntries: SearchByComplexRelationDocumentEntriesQuery
 }
 
 """
@@ -2972,7 +3494,7 @@ input SearchByConditionStatusesQuery {
   anyOf: [SearchByConditionStatusesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionStatusesQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2989,7 +3511,7 @@ input SearchByConditionTagsQuery {
   anyOf: [SearchByConditionTagsQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionTagsQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -2998,7 +3520,7 @@ input SearchByConditionTagsQuery {
   name: SearchByScalarString
 
   """Property condition."""
-  assets: SearchByRelationAssetsQuery
+  assets: SearchByComplexRelationAssetsQuery
 }
 
 """
@@ -3012,7 +3534,7 @@ input SearchByConditionTypesQuery {
   anyOf: [SearchByConditionTypesQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionTypesQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -3029,7 +3551,7 @@ input SearchByConditionUsersQuery {
   anyOf: [SearchByConditionUsersQuery!]
 
   """Not."""
-  not: SearchByFlag
+  not: SearchByConditionUsersQuery
 
   """Property condition."""
   id: SearchByScalarID
@@ -3041,452 +3563,12 @@ input SearchByConditionUsersQuery {
   family_name: SearchByScalarString
 }
 
-"""Flag."""
-enum SearchByFlag {
-  yes
-}
-
-"""Relation condition for input AssetWarrantiesQuery."""
-input SearchByRelationAssetWarrantiesQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionAssetWarrantiesQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input AssetsQuery."""
-input SearchByRelationAssetsQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionAssetsQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input CitiesQuery."""
-input SearchByRelationCitiesQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionCitiesQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input ContactsQuery."""
-input SearchByRelationContactsQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionContactsQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input CountriesQuery."""
-input SearchByRelationCountriesQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionCountriesQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input CoveragesQuery."""
-input SearchByRelationCoveragesQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionCoveragesQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input CustomersQuery."""
-input SearchByRelationCustomersQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionCustomersQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input DistributorsQuery."""
-input SearchByRelationDistributorsQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionDistributorsQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input DocumentEntriesQuery."""
-input SearchByRelationDocumentEntriesQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionDocumentEntriesQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input DocumentsQuery."""
-input SearchByRelationDocumentsQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionDocumentsQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input LocationsQuery."""
-input SearchByRelationLocationsQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionLocationsQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input ProductsQuery."""
-input SearchByRelationProductsQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionProductsQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input ResellersQuery."""
-input SearchByRelationResellersQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionResellersQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input ServiceLevelsQuery."""
-input SearchByRelationServiceLevelsQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionServiceLevelsQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input StatusesQuery."""
-input SearchByRelationStatusesQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionStatusesQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input TagsQuery."""
-input SearchByRelationTagsQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionTagsQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input TypesQuery."""
-input SearchByRelationTypesQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionTypesQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
-"""Relation condition for input UsersQuery."""
-input SearchByRelationUsersQuery {
-  """Conditions for the related objects."""
-  where: SearchByConditionUsersQuery!
-
-  """Equal (`=`)."""
-  eq: Int
-
-  """Less than (`<`)."""
-  lt: Int
-
-  """Less than or equal to (`<=`)."""
-  lte: Int
-
-  """Greater than (`>`)."""
-  gt: Int
-
-  """Greater than or equal to (`>=`)."""
-  gte: Int
-
-  """Not."""
-  not: SearchByFlag
-}
-
 """
 Available operators for scalar Boolean! (only one operator allowed at a time).
 """
 input SearchByScalarBoolean {
   """Equal (`=`)."""
-  eq: Boolean
-
-  """Not."""
-  not: SearchByFlag
+  equal: Boolean
 }
 
 """
@@ -3494,13 +3576,13 @@ Available operators for scalar Boolean (only one operator allowed at a time).
 """
 input SearchByScalarBooleanOrNull {
   """Equal (`=`)."""
-  eq: Boolean
+  equal: Boolean
 
   """Is NULL?"""
-  isNull: SearchByFlag
+  isNull: SearchByTypeFlag
 
-  """Not."""
-  not: SearchByFlag
+  """Is NOT NULL?"""
+  isNotNull: SearchByTypeFlag
 }
 
 """
@@ -3508,7 +3590,10 @@ Available operators for scalar Date! (only one operator allowed at a time).
 """
 input SearchByScalarDate {
   """Equal (`=`)."""
-  eq: Date
+  equal: Date
+
+  """Not Equal (`!=`)."""
+  notEqual: Date
 
   """Less than (`<`)."""
   lt: Date
@@ -3525,16 +3610,14 @@ input SearchByScalarDate {
   """Within a set of values."""
   in: [Date!]
 
+  """Outside a set of values."""
+  notIn: [Date!]
+
   """Within a range."""
-  between: SearchByScalarDateOperatorBetween
+  between: SearchByTypeRangeDate
 
-  """Not."""
-  not: SearchByFlag
-}
-
-input SearchByScalarDateOperatorBetween {
-  min: Date!
-  max: Date!
+  """Outside a range."""
+  notBetween: SearchByTypeRangeDate
 }
 
 """
@@ -3542,7 +3625,10 @@ Available operators for scalar Date (only one operator allowed at a time).
 """
 input SearchByScalarDateOrNull {
   """Equal (`=`)."""
-  eq: Date
+  equal: Date
+
+  """Not Equal (`!=`)."""
+  notEqual: Date
 
   """Less than (`<`)."""
   lt: Date
@@ -3559,14 +3645,20 @@ input SearchByScalarDateOrNull {
   """Within a set of values."""
   in: [Date!]
 
+  """Outside a set of values."""
+  notIn: [Date!]
+
   """Within a range."""
-  between: SearchByScalarDateOperatorBetween
+  between: SearchByTypeRangeDate
+
+  """Outside a range."""
+  notBetween: SearchByTypeRangeDate
 
   """Is NULL?"""
-  isNull: SearchByFlag
+  isNull: SearchByTypeFlag
 
-  """Not."""
-  not: SearchByFlag
+  """Is NOT NULL?"""
+  isNotNull: SearchByTypeFlag
 }
 
 """
@@ -3574,7 +3666,10 @@ Available operators for scalar DateTime! (only one operator allowed at a time).
 """
 input SearchByScalarDateTime {
   """Equal (`=`)."""
-  eq: DateTime
+  equal: DateTime
+
+  """Not Equal (`!=`)."""
+  notEqual: DateTime
 
   """Less than (`<`)."""
   lt: DateTime
@@ -3591,16 +3686,14 @@ input SearchByScalarDateTime {
   """Within a set of values."""
   in: [DateTime!]
 
+  """Outside a set of values."""
+  notIn: [DateTime!]
+
   """Within a range."""
-  between: SearchByScalarDateTimeOperatorBetween
+  between: SearchByTypeRangeDateTime
 
-  """Not."""
-  not: SearchByFlag
-}
-
-input SearchByScalarDateTimeOperatorBetween {
-  min: DateTime!
-  max: DateTime!
+  """Outside a range."""
+  notBetween: SearchByTypeRangeDateTime
 }
 
 """
@@ -3608,7 +3701,10 @@ Available operators for scalar DateTime (only one operator allowed at a time).
 """
 input SearchByScalarDateTimeOrNull {
   """Equal (`=`)."""
-  eq: DateTime
+  equal: DateTime
+
+  """Not Equal (`!=`)."""
+  notEqual: DateTime
 
   """Less than (`<`)."""
   lt: DateTime
@@ -3625,14 +3721,20 @@ input SearchByScalarDateTimeOrNull {
   """Within a set of values."""
   in: [DateTime!]
 
+  """Outside a set of values."""
+  notIn: [DateTime!]
+
   """Within a range."""
-  between: SearchByScalarDateTimeOperatorBetween
+  between: SearchByTypeRangeDateTime
+
+  """Outside a range."""
+  notBetween: SearchByTypeRangeDateTime
 
   """Is NULL?"""
-  isNull: SearchByFlag
+  isNull: SearchByTypeFlag
 
-  """Not."""
-  not: SearchByFlag
+  """Is NOT NULL?"""
+  isNotNull: SearchByTypeFlag
 }
 
 """
@@ -3640,7 +3742,10 @@ Available operators for scalar Float! (only one operator allowed at a time).
 """
 input SearchByScalarFloat {
   """Equal (`=`)."""
-  eq: Float
+  equal: Float
+
+  """Not Equal (`!=`)."""
+  notEqual: Float
 
   """Less than (`<`)."""
   lt: Float
@@ -3657,16 +3762,14 @@ input SearchByScalarFloat {
   """Within a set of values."""
   in: [Float!]
 
+  """Outside a set of values."""
+  notIn: [Float!]
+
   """Within a range."""
-  between: SearchByScalarFloatOperatorBetween
+  between: SearchByTypeRangeFloat
 
-  """Not."""
-  not: SearchByFlag
-}
-
-input SearchByScalarFloatOperatorBetween {
-  min: Float!
-  max: Float!
+  """Outside a range."""
+  notBetween: SearchByTypeRangeFloat
 }
 
 """
@@ -3674,7 +3777,10 @@ Available operators for scalar Float (only one operator allowed at a time).
 """
 input SearchByScalarFloatOrNull {
   """Equal (`=`)."""
-  eq: Float
+  equal: Float
+
+  """Not Equal (`!=`)."""
+  notEqual: Float
 
   """Less than (`<`)."""
   lt: Float
@@ -3691,14 +3797,20 @@ input SearchByScalarFloatOrNull {
   """Within a set of values."""
   in: [Float!]
 
+  """Outside a set of values."""
+  notIn: [Float!]
+
   """Within a range."""
-  between: SearchByScalarFloatOperatorBetween
+  between: SearchByTypeRangeFloat
+
+  """Outside a range."""
+  notBetween: SearchByTypeRangeFloat
 
   """Is NULL?"""
-  isNull: SearchByFlag
+  isNull: SearchByTypeFlag
 
-  """Not."""
-  not: SearchByFlag
+  """Is NOT NULL?"""
+  isNotNull: SearchByTypeFlag
 }
 
 """
@@ -3706,13 +3818,16 @@ Available operators for scalar ID! (only one operator allowed at a time).
 """
 input SearchByScalarID {
   """Equal (`=`)."""
-  eq: ID
+  equal: ID
+
+  """Not Equal (`!=`)."""
+  notEqual: ID
 
   """Within a set of values."""
   in: [ID!]
 
-  """Not."""
-  not: SearchByFlag
+  """Outside a set of values."""
+  notIn: [ID!]
 }
 
 """
@@ -3720,16 +3835,22 @@ Available operators for scalar ID (only one operator allowed at a time).
 """
 input SearchByScalarIDOrNull {
   """Equal (`=`)."""
-  eq: ID
+  equal: ID
+
+  """Not Equal (`!=`)."""
+  notEqual: ID
 
   """Within a set of values."""
   in: [ID!]
 
-  """Is NULL?"""
-  isNull: SearchByFlag
+  """Outside a set of values."""
+  notIn: [ID!]
 
-  """Not."""
-  not: SearchByFlag
+  """Is NULL?"""
+  isNull: SearchByTypeFlag
+
+  """Is NOT NULL?"""
+  isNotNull: SearchByTypeFlag
 }
 
 """
@@ -3737,7 +3858,10 @@ Available operators for scalar Int! (only one operator allowed at a time).
 """
 input SearchByScalarInt {
   """Equal (`=`)."""
-  eq: Int
+  equal: Int
+
+  """Not Equal (`!=`)."""
+  notEqual: Int
 
   """Less than (`<`)."""
   lt: Int
@@ -3754,16 +3878,14 @@ input SearchByScalarInt {
   """Within a set of values."""
   in: [Int!]
 
+  """Outside a set of values."""
+  notIn: [Int!]
+
   """Within a range."""
-  between: SearchByScalarIntOperatorBetween
+  between: SearchByTypeRangeInt
 
-  """Not."""
-  not: SearchByFlag
-}
-
-input SearchByScalarIntOperatorBetween {
-  min: Int!
-  max: Int!
+  """Outside a range."""
+  notBetween: SearchByTypeRangeInt
 }
 
 """
@@ -3771,16 +3893,22 @@ Available operators for scalar String! (only one operator allowed at a time).
 """
 input SearchByScalarString {
   """Equal (`=`)."""
-  eq: String
+  equal: String
+
+  """Not Equal (`!=`)."""
+  notEqual: String
 
   """Like."""
   like: String
 
+  """Not like."""
+  notLike: String
+
   """Within a set of values."""
   in: [String!]
 
-  """Not."""
-  not: SearchByFlag
+  """Outside a set of values."""
+  notIn: [String!]
 }
 
 """
@@ -3788,19 +3916,52 @@ Available operators for scalar String (only one operator allowed at a time).
 """
 input SearchByScalarStringOrNull {
   """Equal (`=`)."""
-  eq: String
+  equal: String
+
+  """Not Equal (`!=`)."""
+  notEqual: String
 
   """Like."""
   like: String
 
+  """Not like."""
+  notLike: String
+
   """Within a set of values."""
   in: [String!]
 
-  """Is NULL?"""
-  isNull: SearchByFlag
+  """Outside a set of values."""
+  notIn: [String!]
 
-  """Not."""
-  not: SearchByFlag
+  """Is NULL?"""
+  isNull: SearchByTypeFlag
+
+  """Is NOT NULL?"""
+  isNotNull: SearchByTypeFlag
+}
+
+enum SearchByTypeFlag {
+  yes
+}
+
+input SearchByTypeRangeDate {
+  min: Date!
+  max: Date!
+}
+
+input SearchByTypeRangeDateTime {
+  min: DateTime!
+  max: DateTime!
+}
+
+input SearchByTypeRangeFloat {
+  min: Float!
+  max: Float!
+}
+
+input SearchByTypeRangeInt {
+  min: Int!
+  max: Int!
 }
 
 input SendResetPasswordLinkInput {
@@ -3885,21 +4046,21 @@ type SignUpByInvitePayload {
   url: String!
 }
 
-"""Pagination information about the corresponding list of items."""
+"""Information about pagination using a simple paginator."""
 type SimplePaginatorInfo {
-  """Count of available items in the page."""
+  """Number of items in the current page."""
   count: Int!
 
-  """Current pagination page."""
+  """Index of the current page."""
   currentPage: Int!
 
-  """Index of first item in the current page."""
+  """Index of the first item in the current page."""
   firstItem: Int
 
-  """Index of last item in the current page."""
+  """Index of the last item in the current page."""
   lastItem: Int
 
-  """Number of items per page in the collection."""
+  """Number of items per page."""
   perPage: Int!
 }
 
