@@ -103,13 +103,13 @@ class Client {
         return new Role($result);
     }
 
-    public function updateRoleName(string $old, string $new): void {
+    public function updateRoleByName(string $name, Role $role): void {
         // PUT /{realm}/clients/{id}/roles/{role-name}
-        $endpoint = "{$this->getClientUrl()}/roles/{$old}";
+        $endpoint = "{$this->getClientUrl()}/roles/{$name}";
         $this->call(
             $endpoint,
             'PUT',
-            ['json' => ['name' => $new]],
+            ['json' => $role->toArray()],
         );
     }
     /**

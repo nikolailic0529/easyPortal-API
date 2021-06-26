@@ -9,7 +9,12 @@ use App\Services\KeyCloak\Client\Types\Role;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
+use function str_contains;
+
 class SyncPermissions extends Command {
+
+    protected const DELETED_SUFFIX = '(deleted)';
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -79,9 +84,10 @@ class SyncPermissions extends Command {
         }
 
         foreach ($roles as $role) {
-            $old = $role->name;
-            $new = "(deleted) {$old}";
-            $this->client->updateRoleName($old, $new);
+            if (!str_contains($role->description, self::DELETED_SUFFIX)) {
+                $role->description = self::DELETED_SUFFIX.' '.$role->description;
+                $this->client->updateRoleByName($role->name, $role);
+            }
         }
     }
 

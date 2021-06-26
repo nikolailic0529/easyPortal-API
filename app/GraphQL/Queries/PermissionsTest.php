@@ -57,7 +57,7 @@ class PermissionsTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new OrganizationDataProvider('permissions'),
-            new UserDataProvider('assets', [
+            new UserDataProvider('permissions', [
                 'org-administer',
             ]),
             new ArrayDataProvider([
