@@ -84,7 +84,7 @@ class SyncPermissions extends Command {
         }
 
         foreach ($roles as $role) {
-            if (!str_contains($role->description, self::DELETED_SUFFIX)) {
+            if (!str_contains($role->description ?? '', self::DELETED_SUFFIX)) {
                 $role->description = self::DELETED_SUFFIX.' '.$role->description;
                 $this->client->updateRoleByName($role->name, $role);
             }
