@@ -2883,12 +2883,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-graphql.git",
-                "reference": "ee833b92d722478c3abba9e84d12d4e44c2208a3"
+                "reference": "e226afd401c2512aae8c4b19ee2f6df7b5b3cd73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/ee833b92d722478c3abba9e84d12d4e44c2208a3",
-                "reference": "ee833b92d722478c3abba9e84d12d4e44c2208a3",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/e226afd401c2512aae8c4b19ee2f6df7b5b3cd73",
+                "reference": "e226afd401c2512aae8c4b19ee2f6df7b5b3cd73",
                 "shasum": ""
             },
             "require": {
@@ -2944,7 +2944,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-06-26T11:19:43+00:00"
+            "time": "2021-06-26T12:26:06+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-migrator",
@@ -3283,16 +3283,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "1.6.4",
+            "version": "1.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "c3c8b7217c52572fb42aaf84211abccf75a151b2"
+                "reference": "44ffd8d3c4a9133e4bd0548622b09c55af39db5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/c3c8b7217c52572fb42aaf84211abccf75a151b2",
-                "reference": "c3c8b7217c52572fb42aaf84211abccf75a151b2",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/44ffd8d3c4a9133e4bd0548622b09c55af39db5f",
+                "reference": "44ffd8d3c4a9133e4bd0548622b09c55af39db5f",
                 "shasum": ""
             },
             "require": {
@@ -3380,7 +3380,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-06-19T20:08:14+00:00"
+            "time": "2021-06-26T11:57:13+00:00"
         },
         {
             "name": "league/flysystem",
