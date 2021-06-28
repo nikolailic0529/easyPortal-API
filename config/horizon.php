@@ -166,38 +166,39 @@ return [
     */
 
     'defaults'         => [
-        'supervisor-default'             => [
-            'connection'   => 'redis',
-            'queue'        => [Queues::DEFAULT],
-            'balance'      => 'auto',
-            'maxProcesses' => 1,
-            'memory'       => 256,
-            'tries'        => 1,
-            'nice'         => 0,
-        ],
-        'supervisor-data-loader-default' => [
-            'connection'   => 'redis',
-            'queue'        => [Queues::DATA_LOADER_DEFAULT],
-            'balance'      => 'auto',
-            'maxProcesses' => 1,
-            'memory'       => 1024,
-            'tries'        => 1,
-            'nice'         => 0,
-        ],
-        'supervisor-keycloak-default'    => [
-            'connection'   => 'redis',
-            'queue'        => [Queues::KEYCLOAK_DEFAULT],
-            'balance'      => 'auto',
-            'maxProcesses' => 1,
-            'memory'       => 256,
-            'tries'        => 1,
-            'nice'         => 0,
-        ],
+        // empty
     ],
 
     'environments'     => [
+        // this allow use same configuration for all environments
         env('APP_ENV', 'production') => [
-            // this allow use same configuration for all environments
+            'Default'    => [
+                'connection'   => 'redis',
+                'queue'        => [Queues::DEFAULT],
+                'balance'      => 'auto',
+                'maxProcesses' => 1,
+                'memory'       => 256,
+                'tries'        => 1,
+                'nice'         => 0,
+            ],
+            'DataLoader' => [
+                'connection'   => 'redis',
+                'queue'        => [Queues::DATA_LOADER_DEFAULT],
+                'balance'      => 'auto',
+                'maxProcesses' => 1,
+                'memory'       => 1024,
+                'tries'        => 1,
+                'nice'         => 0,
+            ],
+            'KeyCloak'   => [
+                'connection'   => 'redis',
+                'queue'        => [Queues::KEYCLOAK_DEFAULT],
+                'balance'      => 'auto',
+                'maxProcesses' => 1,
+                'memory'       => 256,
+                'tries'        => 1,
+                'nice'         => 0,
+            ],
         ],
     ],
 ];
