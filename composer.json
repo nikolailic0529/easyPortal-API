@@ -21,6 +21,7 @@
     "h4cc/wkhtmltopdf-amd64": "^0.12.4",
     "jetbrains/phpstorm-attributes": "^1.0",
     "laravel/framework": "8.36.0",
+    "laravel/horizon": "^5.7",
     "laravel/tinker": "^2.5",
     "lastdragon-ru/lara-asp-core": "dev-master",
     "lastdragon-ru/lara-asp-eloquent": "dev-master",
@@ -99,6 +100,9 @@
     ],
     "post-create-project-cmd": [
       "@php artisan key:generate --ansi"
+    ],
+    "post-update-cmd": [
+      "@php artisan horizon:publish --ansi"
     ],
     "ide-helper": [
       "@php artisan ide-helper:meta --filename .phpstorm.meta.php/meta.php",

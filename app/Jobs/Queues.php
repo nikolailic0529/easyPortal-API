@@ -7,11 +7,6 @@ namespace App\Jobs;
  */
 interface Queues {
     /**
-     * Sync queue.
-     */
-    public const SYNC = 'sync';
-
-    /**
      * Default queue.
      */
     public const DEFAULT          = 'default';
@@ -24,5 +19,5 @@ interface Queues {
     /**
      * Default queue for Data Loader Update jobs.
      */
-    public const KEYCLOAK_DEFAULT = self::DEFAULT;
+    public const KEYCLOAK_DEFAULT = 'keycloak-default';
 }

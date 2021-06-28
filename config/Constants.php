@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Jobs\HorizonSnapshotCronJob;
 use App\Jobs\Queues;
 use App\Services\DataLoader\Jobs\AssetsImporterCronJob;
 use App\Services\DataLoader\Jobs\AssetsUpdaterCronJob;
@@ -821,6 +822,34 @@ interface Constants {
     #[Group('data_loader')]
     #[Type(Duration::class)]
     public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_EXPIRE = 'PT24H';
+    // </editor-fold>
+    // </editor-fold>
+
+    // <editor-fold desc="EP_JOBS">
+    // =========================================================================
+    // <editor-fold desc="EP_JOBS_HORIZON_SNAPSHOT">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(HorizonSnapshotCronJob::class, 'enabled')]
+    #[Group('jobs')]
+    public const EP_JOBS_HORIZON_SNAPSHOT_ENABLED = true;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(HorizonSnapshotCronJob::class, 'cron')]
+    #[Group('jobs')]
+    #[Type(CronExpression::class)]
+    public const EP_JOBS_HORIZON_SNAPSHOT_CRON = '*/5 * * * *';
+
+    /**
+     * Queue name.
+     */
+    #[Service(HorizonSnapshotCronJob::class, 'queue')]
+    #[Group('jobs')]
+    public const EP_JOBS_HORIZON_SNAPSHOT_QUEUE = Queues::DEFAULT;
     // </editor-fold>
     // </editor-fold>
 }

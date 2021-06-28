@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\HorizonSnapshotCronJob;
 use App\Services\DataLoader\Commands\AnalyzeAssets;
 use App\Services\DataLoader\Commands\ImportAssets;
 use App\Services\DataLoader\Commands\ImportCustomers;
@@ -55,6 +56,7 @@ class Kernel extends ConsoleKernel {
      * @var array<class-string<\LastDragon_ru\LaraASP\Queue\Contracts\Cronable>>
      */
     protected array $schedule = [
+        HorizonSnapshotCronJob::class,
         DistributorsImporterCronJob::class,
         DistributorsUpdaterCronJob::class,
         ResellersImporterCronJob::class,
