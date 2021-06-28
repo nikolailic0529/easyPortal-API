@@ -178,6 +178,31 @@ class ResetPasswordTest extends TestCase {
                         ];
                     },
                 ],
+                'same password'                        => [
+                    new GraphQLSuccess('resetPassword', self::class, [
+                        'result' => false,
+                    ]),
+                    static function (TestCase $test): bool {
+                        User::factory()->create([
+                            'type'     => UserType::local(),
+                            'email'    => 'test@example.com',
+                            'password' => $test->app->make(Hasher::class)->make('12345678'),
+                        ]);
+                        PasswordReset::factory()->create([
+                            'email' => 'test@example.com',
+                            'token' => $test->app->make(Hasher::class)->make('12345678'),
+                        ]);
+
+                        return false;
+                    },
+                    static function () {
+                        return [
+                            'email'    => 'test@example.com',
+                            'token'    => '12345678',
+                            'password' => '12345678',
+                        ];
+                    },
+                ],
             ]),
         ))->getData();
     }

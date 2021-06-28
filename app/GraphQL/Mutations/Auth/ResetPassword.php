@@ -25,10 +25,18 @@ class ResetPassword {
      * @return array<string, mixed>
      */
     public function __invoke(mixed $_, array $args): array {
+        $email    = $args['input']['email'];
+        $password = $args['input']['password'];
+        $user     = User::where(UserProvider::CREDENTIAL_EMAIL, '=', $email)->first();
+        if ($user && $this->hasher->check($password, $user->password)) {
+            return [
+                'result' => false,
+            ];
+        }
         $result = $this->password->broker()->reset(
             [
-                UserProvider::CREDENTIAL_EMAIL => $args['input']['email'],
-                'password'                     => $args['input']['password'],
+                UserProvider::CREDENTIAL_EMAIL => $email,
+                'password'                     => $password,
                 'token'                        => $args['input']['token'],
             ],
             function (User $user, string $password): void {
@@ -38,6 +46,7 @@ class ResetPassword {
                 $this->events->dispatch(new PasswordReset($user));
             },
         );
+
         $result = $result === PasswordBroker::PASSWORD_RESET;
 
         return [
