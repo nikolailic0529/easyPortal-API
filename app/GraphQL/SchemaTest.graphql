@@ -464,7 +464,7 @@ input DeleteOrgRoleInput {
 }
 
 type DeleteOrgRolePayload {
-  deleted: String!
+  deleted: Boolean!
 }
 
 input DispatchApplicationServiceInput {

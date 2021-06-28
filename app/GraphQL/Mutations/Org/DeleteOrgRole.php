@@ -26,9 +26,10 @@ class DeleteOrgRole {
             ->whereKey($args['input']['id'])
             ->where('organization_id', '=', $organization->getKey())
             ->first();
-        $name         = $role->name;
-        $this->client->deleteGroup($role);
-        $role->delete();
-        return ['deleted' => $name ];
+        if ($role) {
+            $this->client->deleteGroup($role);
+            $role->delete();
+        }
+        return ['deleted' => (bool) $role ];
     }
 }
