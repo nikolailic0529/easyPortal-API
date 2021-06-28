@@ -1,5 +1,6 @@
 <?php declare(strict_types = 1);
 
+use App\Jobs\Queues;
 use Illuminate\Support\Str;
 
 return [
@@ -165,30 +166,36 @@ return [
     */
 
     'defaults'         => [
-        'supervisor-1' => [
+        'supervisor-default'             => [
             'connection'   => 'redis',
-            'queue'        => ['default'],
+            'queue'        => [Queues::DEFAULT],
             'balance'      => 'auto',
             'maxProcesses' => 1,
-            'memory'       => 128,
+            'memory'       => 256,
+            'tries'        => 1,
+            'nice'         => 0,
+        ],
+        'supervisor-data-loader-default' => [
+            'connection'   => 'redis',
+            'queue'        => [Queues::DATA_LOADER_DEFAULT],
+            'balance'      => 'auto',
+            'maxProcesses' => 1,
+            'memory'       => 1024,
+            'tries'        => 1,
+            'nice'         => 0,
+        ],
+        'supervisor-keycloak-default'    => [
+            'connection'   => 'redis',
+            'queue'        => [Queues::KEYCLOAK_DEFAULT],
+            'balance'      => 'auto',
+            'maxProcesses' => 1,
+            'memory'       => 256,
             'tries'        => 1,
             'nice'         => 0,
         ],
     ],
 
     'environments'     => [
-        'production' => [
-            'supervisor-1' => [
-                'maxProcesses'    => 10,
-                'balanceMaxShift' => 1,
-                'balanceCooldown' => 3,
-            ],
-        ],
-
-        'local'      => [
-            'supervisor-1' => [
-                'maxProcesses' => 3,
-            ],
-        ],
+        // empty
     ],
 ];
