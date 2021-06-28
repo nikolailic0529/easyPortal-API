@@ -149,7 +149,7 @@ class Client {
      * @param array<\App\Services\KeyCloak\Client\Types\Role> $permissions
      */
     public function addRolesToGroup(RoleModel $role, array $permissions): void {
-        // GET {realm}/groups/{groupId}/role-mappings/clients/{clientId}/
+        // POST /{realm}/groups/{id}/role-mappings/clients/{client}
         $endpoint = "groups/{$role->id}/role-mappings/{$this->getClientUrl()}";
         $this->call($endpoint, 'POST', ['json' => $permissions]);
     }
@@ -207,6 +207,15 @@ class Client {
         $endpoint = "users/{$id}";
         $result   = $this->call($endpoint);
         return new User($result);
+    }
+
+    /**
+     * @param array<string> $permissions
+     */
+    public function removeRolesFromGroup(RoleModel $role, array $permissions): void {
+        // DELETE /{realm}/groups/{id}/role-mappings/clients/{client}
+        $endpoint = "groups/{$role->id}/role-mappings/{$this->getClientUrl()}";
+        $this->call($endpoint, 'DELETE', ['json' => $permissions]);
     }
     // </editor-fold>
 

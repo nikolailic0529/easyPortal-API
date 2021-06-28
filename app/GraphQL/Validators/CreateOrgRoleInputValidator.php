@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Rules\PermissionId;
 use Nuwave\Lighthouse\Validation\Validator;
 
 class CreateOrgRoleInputValidator extends Validator {
@@ -10,7 +11,8 @@ class CreateOrgRoleInputValidator extends Validator {
      */
     public function rules(): array {
         return [
-            'name' => ['required','string'],
+            'name'          => ['required','string'],
+            'permissions.*' => ['required', new PermissionId()],
         ];
     }
 }

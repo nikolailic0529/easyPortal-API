@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations\Org;
 
 use App\Models\Organization;
+use App\Models\Permission;
 use App\Services\KeyCloak\Client\Client;
 use Closure;
 use Illuminate\Http\Client\Factory;
@@ -35,8 +36,10 @@ class CreateOrgRoleTest extends TestCase {
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
+        Closure $permissionFactory = null,
         array $data = [
-            'name' => 'wrong',
+            'name'        => 'wrong',
+            'permissions' => [],
         ],
         Closure $requests = null,
     ): void {
@@ -45,6 +48,10 @@ class CreateOrgRoleTest extends TestCase {
 
         if ($organizationFactory) {
             $organization = $organizationFactory($this);
+        }
+
+        if ($permissionFactory) {
+            $permissionFactory($this);
         }
 
         if ($organization && !$organization->keycloak_group_id) {
@@ -82,25 +89,28 @@ class CreateOrgRoleTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $requests = static function (TestCase $test, Organization $organization): array {
+        $requests          = static function (TestCase $test, Organization $organization): array {
             $client = $test->app->make(Client::class);
-            $url    = $organization && $organization->keycloak_group_id
-                ? "{$client->getBaseUrl()}/groups/{$organization->keycloak_group_id}/children"
-                : '*';
-            return [
-                $url => Http::response(
-                    [
-                        'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-                        'name'        => 'subgroup',
-                        'path'        => '/test/subgroup',
-                        'attributes'  => [],
-                        'realmRoles'  => [],
-                        'clientRoles' => [],
-                        'subGroups'   => [],
-                    ],
-                    201,
-                ),
-            ];
+            $output = [];
+            if ($organization && $organization->keycloak_group_id) {
+                $url          = "{$client->getBaseUrl()}/groups/{$organization->keycloak_group_id}/children";
+                $output[$url] = Http::response([
+                    'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                    'name'        => 'subgroup',
+                    'path'        => '/test/subgroup',
+                    'attributes'  => [],
+                    'realmRoles'  => [],
+                    'clientRoles' => [],
+                    'subGroups'   => [],
+                    ], 201);
+            }
+            $output['*'] = Http::response([], 200);
+            return $output;
+        };
+        $permissionFactory = static function (TestCase $test): void {
+            Permission::factory()->create([
+                'id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+            ]);
         };
         return (new CompositeDataProvider(
             new OrganizationDataProvider('createOrgRole', '439a0a06-d98a-41f0-b8e5-4e5722518e00'),
@@ -108,24 +118,45 @@ class CreateOrgRoleTest extends TestCase {
                 'org-administer',
             ]),
             new ArrayDataProvider([
-                'ok'           => [
+                'ok'                  => [
                     new GraphQLSuccess('createOrgRole', CreateOrgRole::class, [
                         'created' => [
                             'id'   => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                             'name' => 'subgroup',
                         ],
                     ]),
+                    $permissionFactory,
                     [
-                        'name' => 'subgroup',
+                        'name'        => 'subgroup',
+                        'permissions' => [
+                            'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                        ],
                     ],
                     $requests,
                 ],
-                'Invalid name' => [
+                'Invalid name'        => [
                     new GraphQLError('createOrgRole', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
+                    $permissionFactory,
                     [
-                        'name' => '',
+                        'name'        => '',
+                        'permissions' => [
+                            'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                        ],
+                    ],
+                    $requests,
+                ],
+                'Invalid permissions' => [
+                    new GraphQLError('createOrgRole', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    $permissionFactory,
+                    [
+                        'name'        => 'subgroup',
+                        'permissions' => [
+                            'fd421bad-069f-491c-ad5f-5841aa9a9dfd',
+                        ],
                     ],
                     $requests,
                 ],

@@ -314,6 +314,7 @@ type CreateMeSearchPayload {
 
 input CreateOrgRoleInput {
   name: String!
+  permissions: [ID!]!
 }
 
 type CreateOrgRolePayload {

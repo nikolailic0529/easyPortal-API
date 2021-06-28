@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations\Org;
 
+use App\Models\Permission;
 use App\Models\Role;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\Organization\CurrentOrganization;
@@ -28,6 +29,24 @@ class CreateOrgRole {
         $role->name            = $group->name;
         $role->organization_id = $organization->id;
         $role->save();
+        $role = $role->fresh();
+        // Add permissions
+        $this->addRolePermissions($role, $args['input']['permissions']);
         return ['created' => $role];
+    }
+    /**
+     * @param array<string> $permissions
+     */
+    protected function addRolePermissions(Role $role, array $permissions): void {
+        $permissions = Permission::whereIn((new Permission())->getKeyName(), $permissions)
+            ->get()
+            ->map(static function ($permission) {
+                return [
+                    'id'   => $permission->id,
+                    'name' => $permission->key,
+                ];
+            })
+            ->all();
+        $this->client->addRolesToGroup($role, $permissions);
     }
 }
