@@ -196,6 +196,8 @@ return [
     ],
 
     'environments'     => [
-        // empty
+        env('APP_ENV', 'production') => [
+            // this allow use same configuration for all environments
+        ],
     ],
 ];
