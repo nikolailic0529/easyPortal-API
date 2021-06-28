@@ -216,6 +216,7 @@ class Client {
         $this->call($endpoint, 'PUT', ['json' => $user->toArray()]);
 
         return true;
+    }
 
     /**
      * @param array<string> $permissions
