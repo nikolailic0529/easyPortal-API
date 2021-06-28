@@ -5,9 +5,12 @@ namespace App\GraphQL\Queries;
 use App\Models\Currency;
 use App\Models\Location;
 use App\Models\Organization;
+use App\Models\Permission;
 use App\Models\Reseller;
+use App\Models\Role;
 use App\Models\Status;
 use Closure;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Facades\Http;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -49,28 +52,6 @@ class OrganizationTest extends TestCase {
         if ($prepare) {
             $organizationId = $prepare($this)->getKey();
         }
-
-        $client = Http::fake([
-            '*' => Http::response(
-                [
-                    [
-                        'id'                         => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                        'username'                   => 'virtualcomputersa_3@tesedi.com',
-                        'enabled'                    => true,
-                        'emailVerified'              => true,
-                        'notBefore'                  => 0,
-                        'totp'                       => false,
-                        'firstName'                  => 'Reseller',
-                        'lastName'                   => 'virtualcomputersa_3',
-                        'email'                      => 'virtualcomputersa_3@tesedi.com',
-                        'disableableCredentialTypes' => [],
-                        'requiredActions'            => [],
-                    ],
-                ],
-                200,
-            ),
-        ]);
-        $this->app->instance(Factory::class, $client);
 
         // Test
         $this
@@ -132,19 +113,6 @@ class OrganizationTest extends TestCase {
                           latitude
                           longitude
                         }
-                        users {
-                            id
-                            username
-                            firstName
-                            lastName
-                            email
-                            enabled
-                            emailVerified
-                        }
-                        roles {
-                            id
-                            name
-                          }
                     }
                 }
             ', ['id' => $organizationId])->assertThat($expected);
@@ -224,6 +192,65 @@ class OrganizationTest extends TestCase {
             )
             ->assertThat($expected);
     }
+
+    /**
+     * @covers \App\GraphQL\Queries\RolePermissions::__invoke
+     *
+     * @dataProvider dataProviderRoles
+     */
+    public function testRoles(
+        Response $expected,
+        Closure $organizationFactory,
+        Closure $userFactory = null,
+        Closure $prepare = null,
+    ): void {
+        // Prepare
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
+
+        if ($prepare) {
+            $prepare($this, $organization, $user);
+        }
+
+        $config   = $this->app->make(Repository::class);
+        $clientId = (string) $config->get('ep.keycloak.client_id');
+        $client   = Http::fake([
+            '*' => Http::response(
+                [
+                    'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                    'name'        => 'test',
+                    'clientRoles' => [
+                        $clientId => [
+                            'permission',
+                        ],
+                    ],
+                ],
+                200,
+            ),
+        ]);
+        $this->app->instance(Factory::class, $client);
+
+        // Test
+        $this
+            ->graphQL(
+            /** @lang GraphQL */
+                <<<'GRAPHQL'
+                query organization($id: ID!) {
+                    organization(id: $id) {
+                        roles {
+                            id
+                            name
+                            permissions
+                        }
+                    }
+                }
+                GRAPHQL,
+                [
+                    'id' => $organization?->getKey() ?: $this->faker->uuid,
+                ],
+            )
+            ->assertThat($expected);
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -236,7 +263,6 @@ class OrganizationTest extends TestCase {
             new RootOrganizationDataProvider('organization'),
             new UserDataProvider('organization', [
                 'administer',
-                'org-administer',
             ]),
             new ArrayDataProvider([
                 'ok' => [
@@ -299,23 +325,6 @@ class OrganizationTest extends TestCase {
                         'status'         => [
                             'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
                             'name' => 'active',
-                        ],
-                        'users'          => [
-                            [
-                                'id'            => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                                'username'      => 'virtualcomputersa_3@tesedi.com',
-                                'enabled'       => true,
-                                'emailVerified' => true,
-                                'firstName'     => 'Reseller',
-                                'lastName'      => 'virtualcomputersa_3',
-                                'email'         => 'virtualcomputersa_3@tesedi.com',
-                            ],
-                        ],
-                        'roles'          => [
-                            [
-                                'id'   => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20946',
-                                'name' => 'role1',
-                            ],
                         ],
                     ]),
                     [
@@ -425,6 +434,43 @@ class OrganizationTest extends TestCase {
                         ]);
 
                         $organization->save();
+                    },
+                ],
+            ]),
+        ))->getData();
+    }
+
+        /**
+     * @return array<mixed>
+     */
+    public function dataProviderRoles(): array {
+        return (new CompositeDataProvider(
+            new RootOrganizationDataProvider('organization'),
+            new UserDataProvider('organization', [
+                'administer',
+                'org-administer',
+            ]),
+            new ArrayDataProvider([
+                'ok' => [
+                    new GraphQLSuccess('organization', self::class, new JsonFragment('roles', [
+                        [
+                            'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                            'name'        => 'role',
+                            'permissions' => [
+                                '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
+                            ],
+                        ],
+                    ])),
+                    static function (TestCase $test, Organization $organization): void {
+                        Role::factory()->create([
+                            'id'              => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                            'name'            => 'role',
+                            'organization_id' => $organization->getKey(),
+                        ]);
+                        Permission::factory()->create([
+                            'id'  => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
+                            'key' => 'permission',
+                        ]);
                     },
                 ],
             ]),

@@ -3,7 +3,6 @@
     "additionProperties": false,
     "type": "object",
     "required": [
-        "users"
     ],
     "properties": {
         "users" : {
