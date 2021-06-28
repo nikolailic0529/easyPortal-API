@@ -2,11 +2,19 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\Horizon\HomeController as AppHorizonHomeController;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Horizon\HorizonApplicationServiceProvider;
+use Laravel\Horizon\Http\Controllers\HomeController as HorizonHomeController;
 
 class HorizonServiceProvider extends HorizonApplicationServiceProvider {
+    public function register(): void {
+        parent::register();
+
+        $this->app->bind(HorizonHomeController::class, AppHorizonHomeController::class);
+    }
+
     /**
      * Bootstrap any application services.
      */
