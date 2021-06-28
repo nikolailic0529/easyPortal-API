@@ -6,6 +6,7 @@ use Error;
 use GraphQL\Error\Error as GraphQLError;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Database\RecordsNotFoundException;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Support\Arr;
@@ -17,7 +18,6 @@ use Symfony\Component\HttpFoundation\Exception\SuspiciousOperationException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Throwable;
 
-use function __;
 use function collect;
 use function is_null;
 use function rtrim;
@@ -39,6 +39,7 @@ class Helper {
 
     public function __construct(
         protected LoggerInterface|null $logger = null,
+        protected Translator|null $translator = null,
     ) {
         // empty
     }
@@ -48,7 +49,7 @@ class Helper {
         $code    = $this->getErrorCode($error);
 
         if ($code) {
-            $message = __('errors.message', [
+            $message = $this->translate('errors.message', [
                 'message' => rtrim(trim($message), '.'),
                 'code'    => $code,
             ]);
@@ -126,7 +127,7 @@ class Helper {
         ];
 
         foreach ($keys as $key) {
-            $string = $key ? __($key) : $key;
+            $string = $key ? $this->translate($key) : $key;
 
             if ($key !== $string) {
                 $message = $string;
@@ -135,7 +136,7 @@ class Helper {
         }
 
         if (is_null($message)) {
-            $message = __($default);
+            $message = $this->translate($default);
 
             $this->logger?->notice('Missing translation.', [
                 'keys'  => $keys,
@@ -163,5 +164,14 @@ class Helper {
         }
 
         return $code;
+    }
+
+    /**
+     * @param array<mixed> $replace
+     */
+    protected function translate(string $string, array $replace = []): string {
+        return $this->translator
+            ? $this->translator->get($string, $replace)
+            : $string;
     }
 }
