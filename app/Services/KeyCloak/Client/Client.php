@@ -209,6 +209,14 @@ class Client {
         return new User($result);
     }
 
+    public function updateUser(string $id, User $user): bool {
+        // PUT /{realm}/users/{id}
+        $endpoint = "users/{$id}";
+
+        $this->call($endpoint, 'PUT', ['json' => $user->toArray()]);
+
+        return true;
+
     /**
      * @param array<string> $permissions
      */
