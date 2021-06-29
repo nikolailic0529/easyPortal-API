@@ -2,18 +2,22 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\Telescope\HomeController as AppTelescopeHomeController;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Telescope\Http\Controllers\HomeController as TelescopeHomeController;
 use Laravel\Telescope\IncomingEntry;
 use Laravel\Telescope\Telescope;
 use Laravel\Telescope\TelescopeApplicationServiceProvider;
-
-use function in_array;
 
 class TelescopeServiceProvider extends TelescopeApplicationServiceProvider {
     /**
      * Register any application services.
      */
     public function register(): void {
+        parent::register();
+
+        $this->app->bind(TelescopeHomeController::class, AppTelescopeHomeController::class);
+
         // Telescope::night();
 
         $this->hideSensitiveRequestDetails();
@@ -55,9 +59,7 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider {
      */
     protected function gate(): void {
         Gate::define('viewTelescope', static function ($user): bool {
-            return in_array($user->email, [
-                // empty
-            ], true);
+            return false;
         });
     }
 }
