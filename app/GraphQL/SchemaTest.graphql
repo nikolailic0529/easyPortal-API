@@ -1042,6 +1042,8 @@ type Profile {
   contact_email: String
   department: String
   job_title: String
+  company: String
+  phone: String
   photo: String
 }
 

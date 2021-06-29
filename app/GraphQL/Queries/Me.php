@@ -64,11 +64,11 @@ class Me {
             'contact_email',
             'title',
             'academic_title',
-            'office_phone',
             'mobile_phone',
-            'contact_email',
             'department',
             'job_title',
+            'phone',
+            'company',
             'photo',
         ];
         $data         = [];

@@ -133,6 +133,12 @@ class MeTest extends TestCase {
                         'job_title'      => [
                             'manger',
                         ],
+                        'company'        => [
+                            'EP',
+                        ],
+                        'phone'          => [
+                            '0100023023235',
+                        ],
                         'photo'          => [
                             'http://example.com/photo.jpg',
                         ],
@@ -155,6 +161,8 @@ class MeTest extends TestCase {
                         contact_email
                         department
                         job_title
+                        company
+                        phone
                         photo
                     }
                 }
@@ -265,6 +273,8 @@ class MeTest extends TestCase {
                         'contact_email'  => 'test@gmail.com',
                         'department'     => 'hr',
                         'job_title'      => 'manger',
+                        'phone'          => '0100023023235',
+                        'company'        => 'EP',
                         'photo'          => 'http://example.com/photo.jpg',
                     ])),
                     static function (): ?User {
