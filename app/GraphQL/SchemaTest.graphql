@@ -288,6 +288,7 @@ input ContactsQuery {
 input CountriesQuery {
   id: ID!
   code: String!
+  name: String!
 }
 
 input CountriesSort {
@@ -1480,6 +1481,9 @@ input SearchByConditionCountriesQuery {
 
   """Property condition."""
   code: SearchByScalarString
+
+  """Property condition."""
+  name: SearchByScalarString
 }
 
 """
