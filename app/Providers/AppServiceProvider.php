@@ -27,6 +27,7 @@ use App\Models\Permission;
 use App\Models\Product;
 use App\Models\Reseller;
 use App\Models\ResellerCustomer;
+use App\Models\Role;
 use App\Models\Status;
 use App\Models\Tag;
 use App\Models\Type;
@@ -110,6 +111,7 @@ class AppServiceProvider extends ServiceProvider {
             'user'                   => User::class,
             'user-search'            => UserSearch::class,
             'permission'             => Permission::class,
+            'role'                   => Role::class,
         ]);
     }
 }
