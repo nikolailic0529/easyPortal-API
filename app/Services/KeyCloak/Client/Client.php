@@ -4,6 +4,7 @@ namespace App\Services\KeyCloak\Client;
 
 use App\Models\Organization;
 use App\Models\Role as RoleModel;
+use App\Models\User as UserModel;
 use App\Services\KeyCloak\Client\Exceptions\EndpointException;
 use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakClient;
 use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakGroup;
@@ -225,6 +226,16 @@ class Client {
         // DELETE /{realm}/groups/{id}/role-mappings/clients/{client}
         $endpoint = "groups/{$role->id}/role-mappings/{$this->getClientUrl()}";
         $this->call($endpoint, 'DELETE', ['json' => $permissions]);
+    }
+
+    public function resetPassword(UserModel $user, string $password): void {
+        // PUT /{realm}/users/{id}/reset-password
+        $endpoint = "users/{$user->id}/reset-password";
+        $this->call($endpoint, 'PUT', ['json' => [
+            'type'      => 'password',
+            'temporary' => false,
+            'value'     => $password,
+        ]]);
     }
     // </editor-fold>
 
