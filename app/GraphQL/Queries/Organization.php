@@ -3,13 +3,23 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Organization as ModelsOrganization;
+use App\Models\Permission;
 use App\Services\KeyCloak\Client\Client;
+use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\RootOrganization;
+use Illuminate\Contracts\Config\Repository;
+use Illuminate\Support\Collection;
+
+use function array_key_exists;
+use function array_push;
+use function in_array;
 
 class Organization {
     public function __construct(
         protected RootOrganization $root,
         protected Client $client,
+        protected Repository $config,
+        protected CurrentOrganization $currentOrganization,
     ) {
         // empty
     }
@@ -43,5 +53,42 @@ class Organization {
      */
     public function users(ModelsOrganization $organization): array {
         return $this->client->users($organization);
+    }
+
+    /**
+     * @return array<string,mixed>
+     */
+    public function roles(ModelsOrganization $organization): ?array {
+        $output = [];
+        $group  = $this->client->getGroup($organization);
+        if (!$group) {
+            return null;
+        }
+        $clientId    = (string) $this->config->get('ep.keycloak.client_id');
+        $permissions = Permission::all();
+        foreach ($group->subGroups as $subGroup) {
+            array_push($output, [
+                'id'          => $subGroup->id,
+                'name'        => $subGroup->name,
+                'permissions' => $this->transformPermission($subGroup->clientRoles, $clientId, $permissions),
+            ]);
+        }
+        return $output;
+    }
+    /**
+     * @param array<string> $clientRoles
+     *
+     * @return array<string>
+     */
+    protected function transformPermission(array $clientRoles, string $clientId, Collection $permissions): array {
+        $currentRoles = [];
+        if (array_key_exists($clientId, $clientRoles)) {
+            $currentRoles = $clientRoles[$clientId];
+        }
+        return $permissions->filter(static function ($permission) use ($currentRoles) {
+            return in_array($permission->key, $currentRoles, true);
+        })->map(static function ($permission) {
+            return $permission->id;
+        })->values()->all();
     }
 }

@@ -941,10 +941,17 @@
                     }
                 },
                 "roles": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "../Types/Role.json"
-                    }
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "array",
+                            "items": {
+                                "$ref": "../Types/Role.json"
+                            }
+                        }
+                    ]
                 }
             }
         },

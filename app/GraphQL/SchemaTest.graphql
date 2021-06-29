@@ -890,7 +890,7 @@ type Organization {
   """
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
-  roles: [Role!]!
+  roles: [Role!]
 }
 
 type OrganizationBranding {
