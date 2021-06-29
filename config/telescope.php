@@ -46,7 +46,7 @@ return [
 
     'storage'         => [
         'database' => [
-            'connection' => env('DB_CONNECTION', 'mysql'),
+            'connection' => env('EP_LOGGER_DB_DATABASE', 'mysql'),
             'chunk'      => 1000,
         ],
     ],
