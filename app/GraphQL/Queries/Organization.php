@@ -11,7 +11,6 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Collection;
 
 use function array_key_exists;
-use function array_push;
 use function in_array;
 
 class Organization {
@@ -67,14 +66,16 @@ class Organization {
         $clientId    = (string) $this->config->get('ep.keycloak.client_id');
         $permissions = Permission::all();
         foreach ($group->subGroups as $subGroup) {
-            array_push($output, [
+            $output[] = [
                 'id'          => $subGroup->id,
                 'name'        => $subGroup->name,
                 'permissions' => $this->transformPermission($subGroup->clientRoles, $clientId, $permissions),
-            ]);
+            ];
         }
+
         return $output;
     }
+
     /**
      * @param array<string> $clientRoles
      *
@@ -85,6 +86,7 @@ class Organization {
         if (array_key_exists($clientId, $clientRoles)) {
             $currentRoles = $clientRoles[$clientId];
         }
+
         return $permissions->filter(static function ($permission) use ($currentRoles) {
             return in_array($permission->key, $currentRoles, true);
         })->map(static function ($permission) {

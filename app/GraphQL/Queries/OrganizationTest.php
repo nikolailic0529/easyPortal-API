@@ -193,7 +193,7 @@ class OrganizationTest extends TestCase {
     }
 
     /**
-     * @covers \App\GraphQL\Queries\RolePermissions::__invoke
+     * @covers ::roles
      *
      * @dataProvider dataProviderRoles
      */
