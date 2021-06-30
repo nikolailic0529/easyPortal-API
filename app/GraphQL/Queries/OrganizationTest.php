@@ -7,7 +7,6 @@ use App\Models\Location;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Reseller;
-use App\Models\Role;
 use App\Models\Status;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
@@ -194,7 +193,7 @@ class OrganizationTest extends TestCase {
     }
 
     /**
-     * @covers \App\GraphQL\Queries\RolePermissions::__invoke
+     * @covers ::roles
      *
      * @dataProvider dataProviderRoles
      */
@@ -206,10 +205,10 @@ class OrganizationTest extends TestCase {
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
-        $user         = $this->setUser($userFactory, $organization);
+        $this->setUser($userFactory, $organization);
 
         if ($prepare) {
-            $prepare($this, $organization, $user);
+            $prepare($this, $organization);
         }
 
         $config   = $this->app->make(Repository::class);
@@ -217,11 +216,17 @@ class OrganizationTest extends TestCase {
         $client   = Http::fake([
             '*' => Http::response(
                 [
-                    'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                    'name'        => 'test',
-                    'clientRoles' => [
-                        $clientId => [
-                            'permission',
+                    'id'        => $organization->keycloak_group_id ?? $this->faker->uuid(),
+                    'name'      => 'test',
+                    'subGroups' => [
+                        [
+                            'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                            'name'        => 'subgroup1',
+                            'clientRoles' => [
+                                $clientId => [
+                                    'permission1',
+                                ],
+                            ],
                         ],
                     ],
                 ],
@@ -455,21 +460,21 @@ class OrganizationTest extends TestCase {
                     new GraphQLSuccess('organization', self::class, new JsonFragment('roles', [
                         [
                             'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                            'name'        => 'role',
+                            'name'        => 'subgroup1',
                             'permissions' => [
                                 '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
                             ],
                         ],
                     ])),
                     static function (TestCase $test, Organization $organization): void {
-                        Role::factory()->create([
-                            'id'              => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                            'name'            => 'role',
-                            'organization_id' => $organization->getKey(),
-                        ]);
+                        if (!$organization->keycloak_group_id) {
+                            $organization->keycloak_group_id = $test->faker->uuid();
+                            $organization->save();
+                        }
+
                         Permission::factory()->create([
                             'id'  => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
-                            'key' => 'permission',
+                            'key' => 'permission1',
                         ]);
                     },
                 ],

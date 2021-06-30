@@ -1,6 +1,5 @@
 type Role {
-    id: ID!
-    name: String!
-    permissions: [ID!]!
-    @field(resolver: "App\\GraphQL\\Queries\\RolePermissions")
+  id: ID!
+  name: String!
+  permissions: [ID!]!
 }
