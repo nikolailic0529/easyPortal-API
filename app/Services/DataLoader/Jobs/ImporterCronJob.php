@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Jobs;
 use App\Services\DataLoader\Importers\Importer;
 use App\Services\DataLoader\Importers\Status;
 use App\Services\Queue\CronJob;
+use App\Services\Queue\Progressable;
 use DateTimeInterface;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Facades\Date;
@@ -15,7 +16,7 @@ use Throwable;
 /**
  * Base Importer job.
  */
-abstract class ImporterCronJob extends CronJob {
+abstract class ImporterCronJob extends CronJob implements Progressable {
     /**
      * @return array<mixed>
      */
@@ -35,11 +36,17 @@ abstract class ImporterCronJob extends CronJob {
         QueueableConfigurator $configurator,
     ): void {
         $config   = $configurator->config($this);
-        $state    = $this->getState($cache, $config);
+        $state    = $this->getState($cache);
         $from     = Date::make($state->from);
         $chunk    = $config->setting('chunk');
         $update   = $config->setting('update');
         $continue = $state->continue;
+
+        if (!$state) {
+            $state = $this->getDefaultState($config);
+
+            $this->saveState($cache, $state);
+        }
 
         $importer
             ->onChange(function (array $items, Status $status) use ($cache, $state): void {
@@ -64,8 +71,8 @@ abstract class ImporterCronJob extends CronJob {
         ]);
     }
 
-    protected function getState(Repository $cache, QueueableConfig $config): ImporterState {
-        $state = $this->getDefaultState($config);
+    public function getState(Repository $cache): ?ImporterState {
+        $state = null;
 
         try {
             if ($cache->has($this->displayName())) {
@@ -79,14 +86,22 @@ abstract class ImporterCronJob extends CronJob {
     }
 
     protected function setState(Repository $cache, Status $status, ImporterState $initial): void {
-        $cache->set($this->displayName(), (new ImporterState([
+        $this->saveState($cache, new ImporterState([
             'from'      => $status->from?->format(DateTimeInterface::ATOM),
             'continue'  => $status->continue,
             'processed' => $initial->processed + $status->processed,
-        ]))->jsonSerialize());
+        ]));
+    }
+
+    protected function saveState(Repository $cache, ImporterState $state): void {
+        $cache->set($this->displayName(), $state->jsonSerialize());
     }
 
     protected function resetState(Repository $cache): void {
         $cache->forget($this->displayName());
+    }
+
+    public function getProgressProvider(): callable {
+        return new ImporterProgress($this);
     }
 }
