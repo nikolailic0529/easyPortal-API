@@ -4,8 +4,8 @@ namespace App\GraphQL\Mutations\Auth;
 
 use App\Models\User;
 use App\Services\KeyCloak\UserProvider;
+use App\Services\Passwords\PasswordBroker;
 use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Contracts\Auth\PasswordBrokerFactory;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Hashing\Hasher;
@@ -27,13 +27,7 @@ class ResetPassword {
     public function __invoke(mixed $_, array $args): array {
         $email    = $args['input']['email'];
         $password = $args['input']['password'];
-        $user     = User::where(UserProvider::CREDENTIAL_EMAIL, '=', $email)->first();
-        if ($user && $this->hasher->check($password, $user->password)) {
-            return [
-                'result' => false,
-            ];
-        }
-        $result = $this->password->broker()->reset(
+        $result   = $this->password->broker()->reset(
             [
                 UserProvider::CREDENTIAL_EMAIL => $email,
                 'password'                     => $password,
@@ -46,6 +40,9 @@ class ResetPassword {
                 $this->events->dispatch(new PasswordReset($user));
             },
         );
+        if ($result === PasswordBroker::INVALID_PASSWORD) {
+            throw new ResetPasswordSamePasswordException();
+        }
 
         $result = $result === PasswordBroker::PASSWORD_RESET;
 

@@ -15,6 +15,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
+use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -179,9 +180,7 @@ class ResetPasswordTest extends TestCase {
                     },
                 ],
                 'same password'                        => [
-                    new GraphQLSuccess('resetPassword', self::class, [
-                        'result' => false,
-                    ]),
+                    new GraphQLError('resetPassword'),
                     static function (TestCase $test): bool {
                         User::factory()->create([
                             'type'     => UserType::local(),
