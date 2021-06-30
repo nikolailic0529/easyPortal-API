@@ -49,10 +49,15 @@ class Helper {
         $code    = $this->getErrorCode($error);
 
         if ($code) {
-            $message = $this->translate('errors.message', [
+            $key    = 'errors.message';
+            $string = $this->translate($key, [
                 'message' => rtrim(trim($message), '.'),
                 'code'    => $code,
             ]);
+
+            if ($key !== $string) {
+                $message = $string;
+            }
         }
 
         return $message;
