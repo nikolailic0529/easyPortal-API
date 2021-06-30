@@ -33,9 +33,11 @@ class QueueTest extends TestCase {
             ->once()
             ->andReturn('b');
         $c
-            ->shouldReceive('getProgress')
+            ->shouldReceive('getProgressProvider')
             ->once()
-            ->andReturn($progress);
+            ->andReturn(static function () use ($progress): Progress {
+                return $progress;
+            });
 
         $qaa = new QueueJob([
             'id'          => $this->faker->uuid,
@@ -81,17 +83,9 @@ class QueueTest extends TestCase {
             ->andReturn([]);
 
         // Test
-        $actual   = (new Queue($repository))->getState([$a, $b, $c]);
+        $actual   = (new Queue($this->app, $repository))->getState([$a, $b, $c]);
         $expected = [
             $a::class => [
-                new State(
-                    $qaa->id,
-                    $qaa->name,
-                    true,
-                    null,
-                    Date::createFromTimestamp((float) $pushed),
-                    Date::createFromTimestamp((float) $reserved),
-                ),
                 new State(
                     $qab->id,
                     $qab->name,
@@ -99,6 +93,14 @@ class QueueTest extends TestCase {
                     null,
                     Date::createFromTimestamp((float) $pushed),
                     null,
+                ),
+                new State(
+                    $qaa->id,
+                    $qaa->name,
+                    true,
+                    null,
+                    Date::createFromTimestamp((float) $pushed),
+                    Date::createFromTimestamp((float) $reserved),
                 ),
             ],
             'b'       => [
@@ -127,7 +129,7 @@ class QueueTest extends TestCase {
             ->never();
 
         // Test
-        $actual   = (new Queue($repository))->getState([]);
+        $actual   = (new Queue($this->app, $repository))->getState([]);
         $expected = [];
 
         $this->assertEquals($expected, $actual);

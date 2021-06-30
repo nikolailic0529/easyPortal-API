@@ -3,5 +3,8 @@
 namespace App\Services\Queue;
 
 interface Progressable {
-    public function getProgress(): ?Progress;
+    /**
+     * @return callable(): \App\Services\Queue\Progress|null
+     */
+    public function getProgressProvider(): callable;
 }

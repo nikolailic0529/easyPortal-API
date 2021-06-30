@@ -4,6 +4,7 @@ namespace App\Services\Queue;
 
 use DateTimeInterface;
 use Generator;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Laravel\Horizon\Contracts\JobRepository;
@@ -17,6 +18,7 @@ use function json_decode;
 
 class Queue {
     public function __construct(
+        protected Container $container,
         protected JobRepository $repository,
     ) {
         // empty
@@ -78,7 +80,9 @@ class Queue {
     }
 
     protected function getProgress(Job $job): ?Progress {
-        return $job instanceof Progressable ? $job->getProgress() : null;
+        return $job instanceof Progressable
+            ? $this->container->call($job->getProgressProvider())
+            : null;
     }
 
     /**
