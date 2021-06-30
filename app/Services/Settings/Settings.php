@@ -131,7 +131,7 @@ class Settings {
     }
 
     /**
-     * @return array<class-string<\LastDragon_ru\LaraASP\Queue\Queueables\CronJob>>
+     * @return array<class-string<\App\Services\Queue\CronJob>>
      */
     public function getServices(): array {
         $settings = $this->getSettings();

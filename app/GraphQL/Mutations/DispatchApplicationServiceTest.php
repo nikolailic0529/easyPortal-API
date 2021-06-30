@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Jobs\NamedJob;
+use App\Services\Queue\CronJob;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Settings;
 use App\Services\Settings\Storage;
@@ -10,7 +10,6 @@ use Closure;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Facades\Queue;
-use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -133,7 +132,7 @@ class DispatchApplicationServiceTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class DispatchApplicationServiceTest_ServiceA extends CronJob implements NamedJob {
+class DispatchApplicationServiceTest_ServiceA extends CronJob {
     public function displayName(): string {
         return 'service-a';
     }
@@ -147,7 +146,7 @@ class DispatchApplicationServiceTest_ServiceA extends CronJob implements NamedJo
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class DispatchApplicationServiceTest_ServiceB extends CronJob implements NamedJob {
+class DispatchApplicationServiceTest_ServiceB extends CronJob {
     public function displayName(): string {
         return 'service-b';
     }

@@ -170,7 +170,7 @@ class Setting {
     }
 
     /**
-     * @return class-string<\LastDragon_ru\LaraASP\Queue\Queueables\CronJob>|null
+     * @return class-string<\App\Services\Queue\CronJob>|null
      */
     public function getService(): ?string {
         return $this->isService() && $this->definition instanceof ServiceAttribute

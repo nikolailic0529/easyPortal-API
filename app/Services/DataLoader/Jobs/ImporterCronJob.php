@@ -2,22 +2,20 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Jobs\NamedJob;
 use App\Services\DataLoader\Importers\Importer;
 use App\Services\DataLoader\Importers\Status;
+use App\Services\Queue\CronJob;
 use DateTimeInterface;
 use Illuminate\Contracts\Cache\Repository;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
-use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
 use Throwable;
 
 /**
  * Base Importer job.
  */
-abstract class ImporterCronJob extends CronJob implements ShouldBeUnique, NamedJob {
+abstract class ImporterCronJob extends CronJob {
     /**
      * @return array<mixed>
      */

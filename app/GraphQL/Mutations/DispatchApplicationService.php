@@ -4,10 +4,10 @@ namespace App\GraphQL\Mutations;
 
 use App\Exceptions\TranslatedException;
 use App\Jobs\NamedJob;
+use App\Services\Queue\CronJob;
 use App\Services\Settings\Settings;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
-use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
 
 use function is_null;
 

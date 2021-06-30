@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries\Application;
 
 use App\Jobs\NamedJob;
+use App\Services\Queue\CronJob;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
@@ -14,7 +15,6 @@ use Closure;
 use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
-use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
 use LastDragon_ru\LaraASP\Queue\Queueables\Job;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -117,7 +117,7 @@ class ServicesTest extends TestCase {
                     new GraphQLSuccess('application', self::class, [
                         'services' => [
                             [
-                                'name'        => ServicesTest_ServiceA::class,
+                                'name'        => 'test-cron-job',
                                 'enabled'     => true,
                                 'cron'        => '*/8 * * * *',
                                 'queue'       => 'queue-a',
@@ -197,7 +197,9 @@ class ServicesTest extends TestCase {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class ServicesTest_ServiceA extends CronJob {
-    // empty
+    public function displayName(): string {
+        return 'test-cron-job';
+    }
 }
 
 /**
