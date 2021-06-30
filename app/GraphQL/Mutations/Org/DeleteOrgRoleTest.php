@@ -79,7 +79,7 @@ class DeleteOrgRoleTest extends TestCase {
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('deleteOrgRole', DeleteOrgRole::class, [
-                        'deleted' => 'name',
+                        'deleted' => true,
                     ]),
                     static function (TestCase $test): Role {
                         return Role::factory()->create([

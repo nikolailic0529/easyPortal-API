@@ -7,7 +7,7 @@
     ],
     "properties": {
         "deleted": {
-            "type": "string"
+            "type": "boolean"
         }
     }
 }
