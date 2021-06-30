@@ -43,17 +43,32 @@ class GraphQLErrorsSchema implements JsonSerializable {
             }
 
             $items[] = [
-                'type'       => 'object',
-                'required'   => [
-                    'message',
-                    'debugMessage',
-                ],
-                'properties' => [
-                    'message'      => [
-                        'type' => 'string',
+                'oneOf' => [
+                    [
+                        'type'       => 'object',
+                        'required'   => [
+                            'message',
+                            'debugMessage',
+                        ],
+                        'properties' => [
+                            'message'      => [
+                                'type' => 'string',
+                            ],
+                            'debugMessage' => [
+                                'const' => $error,
+                            ],
+                        ],
                     ],
-                    'debugMessage' => [
-                        'const' => $error,
+                    [
+                        'type'       => 'object',
+                        'required'   => [
+                            'message',
+                        ],
+                        'properties' => [
+                            'message' => [
+                                'const' => $error,
+                            ],
+                        ],
                     ],
                 ],
             ];
