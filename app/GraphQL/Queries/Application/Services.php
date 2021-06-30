@@ -4,11 +4,9 @@ namespace App\GraphQL\Queries\Application;
 
 use App\Services\Queue\CronJob;
 use App\Services\Queue\Queue;
-use App\Services\Queue\State;
 use App\Services\Settings\Description;
 use App\Services\Settings\Settings as SettingsService;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Support\Collection;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 use ReflectionClass;
 
