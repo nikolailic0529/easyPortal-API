@@ -25,12 +25,10 @@ class ResetPassword {
      * @return array<string, mixed>
      */
     public function __invoke(mixed $_, array $args): array {
-        $email    = $args['input']['email'];
-        $password = $args['input']['password'];
-        $result   = $this->password->broker()->reset(
+        $result = $this->password->broker()->reset(
             [
-                UserProvider::CREDENTIAL_EMAIL => $email,
-                'password'                     => $password,
+                UserProvider::CREDENTIAL_EMAIL => $args['input']['email'],
+                'password'                     => $args['input']['password'],
                 'token'                        => $args['input']['token'],
             ],
             function (User $user, string $password): void {
@@ -40,7 +38,7 @@ class ResetPassword {
                 $this->events->dispatch(new PasswordReset($user));
             },
         );
-        if ($result === PasswordBroker::INVALID_PASSWORD) {
+        if ($result === PasswordBroker::INVALID_PASSWORD_SAMEPASSWORD) {
             throw new ResetPasswordSamePasswordException();
         }
 

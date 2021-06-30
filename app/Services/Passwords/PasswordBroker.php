@@ -2,19 +2,19 @@
 
 namespace App\Services\Passwords;
 
+use App\Models\User;
 use App\Services\KeyCloak\UserProvider;
 use Illuminate\Auth\Passwords\PasswordBroker as IlluminatePasswordBroker;
 use Illuminate\Auth\Passwords\TokenRepositoryInterface;
 use Illuminate\Contracts\Hashing\Hasher;
 
-use function is_null;
 
 class PasswordBroker extends IlluminatePasswordBroker {
     /**
-     * Constant representing an invalid password.
+     * ... message ...
      *
      */
-    public const INVALID_PASSWORD = 'passwords.password';
+    public const INVALID_PASSWORD_SAMEPASSWORD = 'passwords.same_password';
 
     public function __construct(
         TokenRepositoryInterface $tokens,
@@ -29,18 +29,10 @@ class PasswordBroker extends IlluminatePasswordBroker {
      * @inheritdoc
      */
     public function validateReset(array $credentials) {
-        $user = $this->getUser($credentials);
+        $user = parent::validateReset($credentials);
 
-        if (is_null($user)) {
-            return static::INVALID_USER;
-        }
-
-        if (! $this->tokens->exists($user, $credentials['token'])) {
-            return static::INVALID_TOKEN;
-        }
-
-        if ($user && $this->hasher->check($credentials['password'], $user->password)) {
-            return static::INVALID_PASSWORD;
+        if ($user instanceof User && $this->hasher->check($credentials['password'], $user->password)) {
+            return static::INVALID_PASSWORD_SAMEPASSWORD;
         }
 
         return $user;
