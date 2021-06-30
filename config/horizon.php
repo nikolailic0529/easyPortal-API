@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-use App\Jobs\Queues;
+use App\Services\Queue\Queues;
 use Illuminate\Support\Str;
 
 return [
