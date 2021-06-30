@@ -11,7 +11,7 @@ use Illuminate\Contracts\Config\Repository;
 
 use function array_key_exists;
 use function array_push;
-use function in_array;
+use function array_search;
 
 class UpdateOrgRole {
     public function __construct(
@@ -68,8 +68,9 @@ class UpdateOrgRole {
 
         $added = [];
         foreach ($permissions as $permission) {
-            if (in_array($permission->name, $currentRoles, true)) {
-                unset($currentRoles[$permission->name]);
+            $key = array_search($permission->name, $currentRoles, true);
+            if ($key !== false) {
+                unset($currentRoles[$key]);
             } else {
                 array_push($added, $permission->toArray());
             }
