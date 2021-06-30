@@ -50,6 +50,19 @@ type ApplicationJob {
   description: String
 }
 
+type ApplicationJobProgress {
+  total: Int
+  value: Int!
+}
+
+type ApplicationJobState {
+  id: ID!
+  running: Boolean!
+  progress: ApplicationJobProgress
+  pending_at: DateTime!
+  running_at: DateTime
+}
+
 type ApplicationService {
   name: String!
   enabled: Boolean!
@@ -63,6 +76,7 @@ type ApplicationService {
   """Settings related to this service."""
   settings: [String!]!
   description: String
+  state: ApplicationJobState
 }
 
 type ApplicationSetting {

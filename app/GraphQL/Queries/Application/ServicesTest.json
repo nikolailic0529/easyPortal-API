@@ -9,7 +9,7 @@
         "services": {
             "type": "array",
             "items": {
-                "$ref": "../../Types/ApplicationService.json"
+                "$ref": "../../types.json/#/definitions/ApplicationService"
             }
         }
     }

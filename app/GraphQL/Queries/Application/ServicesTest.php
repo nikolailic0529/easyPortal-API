@@ -4,6 +4,9 @@ namespace App\GraphQL\Queries\Application;
 
 use App\Services\Queue\CronJob;
 use App\Services\Queue\Job;
+use App\Services\Queue\Progress;
+use App\Services\Queue\Queue;
+use App\Services\Queue\State;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
@@ -15,9 +18,11 @@ use Closure;
 use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Mockery;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -41,6 +46,7 @@ class ServicesTest extends TestCase {
         Closure $userFactory = null,
         Closure $translationsFactory = null,
         object $store = null,
+        Closure $queueStateFactory = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
@@ -79,6 +85,21 @@ class ServicesTest extends TestCase {
             });
         }
 
+        // Queue
+        $queue = Mockery::mock(Queue::class);
+        $spy   = Mockery::spy(static function () use ($queue): Queue {
+            return $queue;
+        });
+
+        if ($queueStateFactory) {
+            $queue
+                ->shouldReceive('getState')
+                ->once()
+                ->andReturn($queueStateFactory($this));
+        }
+
+        $this->app->bind(Queue::class, Closure::fromCallable($spy));
+
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '
@@ -91,11 +112,23 @@ class ServicesTest extends TestCase {
                             queue
                             settings
                             description
+                            state {
+                              id
+                              running
+                              progress {
+                                total
+                                value
+                              }
+                              pending_at
+                              running_at
+                            }
                         }
                     }
                 }
             ')
             ->assertThat($expected);
+
+        $spy->shouldHaveBeenCalled();
     }
     // </editor-fold>
 
@@ -111,6 +144,11 @@ class ServicesTest extends TestCase {
             new ArrayDataProvider([
                 Constants::class => [
                     new GraphQLSuccess('application', self::class),
+                    null,
+                    null,
+                    static function (): array {
+                        return [];
+                    },
                 ],
                 'translated'     => [
                     new GraphQLSuccess('application', self::class, [
@@ -126,6 +164,7 @@ class ServicesTest extends TestCase {
                                     'SERVICE_A_CRON',
                                 ],
                                 'description' => 'Service description.',
+                                'state'       => null,
                             ],
                             [
                                 'name'        => 'service-b',
@@ -136,6 +175,16 @@ class ServicesTest extends TestCase {
                                     'SERVICE_B_ENABLED',
                                 ],
                                 'description' => 'Description description description.',
+                                'state'       => [
+                                    'id'         => 'a77d8197-bc62-4831-ab98-5629cb0656e7',
+                                    'running'    => true,
+                                    'progress'   => [
+                                        'total' => 100,
+                                        'value' => 25,
+                                    ],
+                                    'pending_at' => '2021-06-30T00:00:00+00:00',
+                                    'running_at' => null,
+                                ],
                             ],
                         ],
                     ]),
@@ -178,6 +227,28 @@ class ServicesTest extends TestCase {
                         // Job
                         #[JobAttribute(ServicesTest_Job::class, 'enabled')]
                         public const JOB = true;
+                    },
+                    static function (TestCase $test): array {
+                        return [
+                            'service-b' => [
+                                new State(
+                                    'a77d8197-bc62-4831-ab98-5629cb0656e7',
+                                    'service-b',
+                                    true,
+                                    new Progress(100, 25),
+                                    Date::make('2021-06-30T00:00:00+00:00'),
+                                    null,
+                                ),
+                                new State(
+                                    'id-b',
+                                    'service-b',
+                                    true,
+                                    null,
+                                    Date::make('2021-06-30T00:00:00+00:00'),
+                                    null,
+                                ),
+                            ],
+                        ];
                     },
                 ],
             ]),

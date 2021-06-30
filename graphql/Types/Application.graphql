@@ -7,7 +7,6 @@ type Application {
   @root
   @field(resolver: "App\\GraphQL\\Queries\\Application\\Settings")
 
-
   settingGroups: [ApplicationSettingGroup!]!
   @organization(root: true)
   @root
