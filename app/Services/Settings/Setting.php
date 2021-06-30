@@ -157,7 +157,7 @@ class Setting {
     }
 
     /**
-     * @return class-string<\LastDragon_ru\LaraASP\Queue\Queueables\Job>|null
+     * @return class-string<\App\Services\Queue\Job>|null
      */
     public function getJob(): ?string {
         return $this->isJob() && $this->definition instanceof JobAttribute

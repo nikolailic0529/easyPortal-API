@@ -5,12 +5,12 @@ namespace App\Services\Settings\Attributes;
 use Attribute;
 
 /**
- * Marks that setting related to {@link \LastDragon_ru\LaraASP\Queue\Queueables\Job}.
+ * Marks that setting related to {@link \App\Services\Queue\Job}.
  */
 #[Attribute(Attribute::TARGET_CLASS_CONSTANT)]
 class Job extends Setting {
     /**
-     * @param class-string<\LastDragon_ru\LaraASP\Queue\Queueables\Job> $class
+     * @param class-string<\App\Services\Queue\Job> $class
      */
     public function __construct(
         protected string $class,

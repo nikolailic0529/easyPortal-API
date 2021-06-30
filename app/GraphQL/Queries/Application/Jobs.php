@@ -3,11 +3,11 @@
 namespace App\GraphQL\Queries\Application;
 
 use App\Jobs\NamedJob;
+use App\Services\Queue\Job;
 use App\Services\Settings\Description;
 use App\Services\Settings\Settings as SettingsService;
 use Illuminate\Contracts\Foundation\Application;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
-use LastDragon_ru\LaraASP\Queue\Queueables\Job;
 use ReflectionClass;
 
 use function __;
