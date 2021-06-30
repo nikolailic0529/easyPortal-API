@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Queries\Application;
 
-use App\Jobs\NamedJob;
 use App\Services\Queue\CronJob;
 use App\Services\Queue\Job;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
@@ -191,7 +190,7 @@ class JobsTest_JobA extends Job {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class JobsTest_JobB extends Job implements NamedJob {
+class JobsTest_JobB extends Job {
     public function displayName(): string {
         return 'job-b';
     }

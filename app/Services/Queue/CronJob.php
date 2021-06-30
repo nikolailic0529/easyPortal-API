@@ -2,7 +2,6 @@
 
 namespace App\Services\Queue;
 
-use App\Jobs\NamedJob;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use LastDragon_ru\LaraASP\Queue\Queueables\CronJob as LaraASPCronJob;
 

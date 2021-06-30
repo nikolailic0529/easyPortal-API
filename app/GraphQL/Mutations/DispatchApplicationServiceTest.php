@@ -88,33 +88,25 @@ class DispatchApplicationServiceTest extends TestCase {
             new RootOrganizationDataProvider('dispatchApplicationService'),
             new RootUserDataProvider('dispatchApplicationService'),
             new ArrayDataProvider([
-                'no service'    => [
+                'no service' => [
                     new GraphQLError('dispatchApplicationService', new DispatchApplicationServiceNotFoundException()),
                     [
                         'name' => 'unknown-service',
                     ],
                 ],
-                'failed'        => [
+                'failed'     => [
                     new GraphQLError('dispatchApplicationService', new DispatchApplicationServiceFailed()),
                     [
                         'name'        => 'service-b',
                         'immediately' => true,
                     ],
                 ],
-                'ok (by name)'  => [
+                'ok'         => [
                     new GraphQLSuccess('dispatchApplicationService', DispatchApplicationService::class, [
                         'result' => true,
                     ]),
                     [
                         'name' => 'service-a',
-                    ],
-                ],
-                'ok (by class)' => [
-                    new GraphQLSuccess('dispatchApplicationService', DispatchApplicationService::class, [
-                        'result' => true,
-                    ]),
-                    [
-                        'name' => DispatchApplicationServiceTest_ServiceA::class,
                     ],
                 ],
             ]),

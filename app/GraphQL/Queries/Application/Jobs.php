@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Queries\Application;
 
-use App\Jobs\NamedJob;
 use App\Services\Queue\Job;
 use App\Services\Settings\Description;
 use App\Services\Settings\Settings as SettingsService;
@@ -60,9 +59,7 @@ class Jobs {
     }
 
     protected function getName(Job $job): string {
-        return $job instanceof NamedJob
-            ? $job->displayName()
-            : $job::class;
+        return $job->displayName();
     }
 
     protected function getDescription(Job $job): ?string {

@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Queries\Application;
 
-use App\Jobs\NamedJob;
 use App\Services\Queue\CronJob;
 use App\Services\Settings\Description;
 use App\Services\Settings\Settings as SettingsService;
@@ -62,9 +61,7 @@ class Services {
     }
 
     protected function getName(CronJob $service): string {
-        return $service instanceof NamedJob
-            ? $service->displayName()
-            : $service::class;
+        return $service->displayName();
     }
 
     protected function getDescription(CronJob $service): ?string {
