@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use App\Models\Organization;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Routing\UrlGenerator;
@@ -16,7 +15,7 @@ class InviteOrganizationUser extends Mailable {
     use Queueable;
     use SerializesModels;
 
-    public function __construct(protected Organization $organization, protected string $token) {
+    public function __construct(protected string $token) {
         // empty
     }
 
@@ -28,9 +27,8 @@ class InviteOrganizationUser extends Mailable {
     public function build() {
         $generator = app()->make(UrlGenerator::class);
         $config    = app()->make(Repository::class);
-        $url       = $generator->to(strtr($config->get('ep.client.organization_add_password_uri'), [
-            '{organization}' => $this->organization->getKey(),
-            '{token}'        => $this->token,
+        $url       = $generator->to(strtr($config->get('ep.client.invite_complete_uri'), [
+            '{token}' => $this->token,
         ]));
         return $this->markdown('invite_user', [
             'url' => $url,

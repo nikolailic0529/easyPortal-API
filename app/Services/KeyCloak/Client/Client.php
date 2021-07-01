@@ -180,9 +180,14 @@ class Client {
         }
 
         $input        = new User([
-            'email'   => $email,
-            'groups'  => [$group->path],
-            'enabled' => false,
+            'email'         => $email,
+            'groups'        => [$group->path],
+            'enabled'       => false,
+            'emailVerified' => false,
+            'attributes'    => [
+                'invited'                       => [true],
+                'added_password_through_invite' => [false],
+            ],
         ]);
         $errorHandler = function (Exception $exception) use ($endpoint, $email): void {
             if ($exception instanceof RequestException) {

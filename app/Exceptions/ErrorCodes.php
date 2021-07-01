@@ -6,8 +6,6 @@ use App\GraphQL\Mutations\Auth\ResetPasswordSamePasswordException;
 use App\GraphQL\Mutations\DispatchApplicationServiceFailed;
 use App\GraphQL\Mutations\DispatchApplicationServiceNotFoundException;
 use App\GraphQL\Mutations\InviteOrgUserInvalidRole;
-use App\GraphQL\Mutations\Org\UpdateOrgUserPasswordInvalidToken;
-use App\GraphQL\Mutations\Org\UpdateOrgUserPasswordInvalidUser;
 use App\Http\Controllers\ExportGraphQLQueryEmpty;
 use App\Http\Controllers\ExportGraphQLQueryInvalid;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled as DataLoaderDataLoaderDisabled;

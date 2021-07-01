@@ -32,8 +32,11 @@ class InviteOrgUser {
         }
         $email  = $args['input']['email'];
         $result = $this->client->inviteUser($role, $email);
-        $token  = $this->encrypter->encrypt($email);
-        $this->mailer->to($email)->send(new InviteOrganizationUser($organization, $token));
+        $token  = $this->encrypter->encrypt([
+            'email'        => $email,
+            'organization' => $organization->getKey(),
+        ]);
+        $this->mailer->to($email)->send(new InviteOrganizationUser($token));
         return ['result' => $result ];
     }
 }
