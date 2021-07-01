@@ -280,7 +280,7 @@ class Logger {
 
     public function getDuration(): ?float {
         return $this->isRecording()
-            ? microtime(true) - $this->start * 1000
+            ? microtime(true) - $this->start
             : null;
     }
 
