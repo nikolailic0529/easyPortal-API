@@ -19,6 +19,7 @@ abstract class TestCase extends BaseTestCase {
     use WithFaker {
         faker as public;
     }
+    use Override;
 
     public function app(): Application {
         return $this->app;
