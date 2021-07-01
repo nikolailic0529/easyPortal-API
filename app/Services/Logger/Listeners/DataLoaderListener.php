@@ -129,6 +129,7 @@ class DataLoaderListener extends Listener {
     }
 
     protected function objectSkipped(ObjectSkipped $event): void {
+        $enabled   = $this->config->get('ep.logger.data_loader.skipped');
         $object    = new DataLoaderSkippedObject($event);
         $context   = [
             'reason' => $event->getReason(),
@@ -138,14 +139,18 @@ class DataLoaderListener extends Listener {
             "{$this->getCategory()}.skipped.{$object->getType()}" => 1,
         ];
 
-        $this->logger->event(
-            $this->getCategory(),
-            'skipped',
-            null,
-            $object,
-            $context,
-            $countable,
-        );
+        if ($enabled) {
+            $this->logger->event(
+                $this->getCategory(),
+                'skipped',
+                null,
+                $object,
+                $context,
+                $countable,
+            );
+        } else {
+            $this->logger->count($countable);
+        }
     }
 
     protected function getRequestAction(DataLoaderRequestObject $object): string {
