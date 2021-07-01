@@ -36,21 +36,18 @@ abstract class ImporterCronJob extends CronJob implements Progressable {
         QueueableConfigurator $configurator,
     ): void {
         $config   = $configurator->config($this);
-        $state    = $this->getState($cache);
+        $state    = $this->getState($cache) ?: $this->getDefaultState($config);
         $from     = Date::make($state->from);
         $chunk    = $config->setting('chunk');
         $update   = $config->setting('update');
         $continue = $state->continue;
 
-        if (!$state) {
-            $state = $this->getDefaultState($config);
-
-            $this->saveState($cache, $state);
-        }
-
         $importer
+            ->onInit(function (Status $status) use ($cache, $state): void {
+                $this->updateState($cache, $state, $status);
+            })
             ->onChange(function (array $items, Status $status) use ($cache, $state): void {
-                $this->setState($cache, $status, $state);
+                $this->updateState($cache, $state, $status);
             })
             ->onFinish(function () use ($cache): void {
                 $this->resetState($cache);
@@ -85,10 +82,11 @@ abstract class ImporterCronJob extends CronJob implements Progressable {
         return $state;
     }
 
-    protected function setState(Repository $cache, Status $status, ImporterState $initial): void {
+    protected function updateState(Repository $cache, ImporterState $initial, Status $status): void {
         $this->saveState($cache, new ImporterState([
             'from'      => $status->from?->format(DateTimeInterface::ATOM),
             'continue'  => $status->continue,
+            'total'     => $status->total,
             'processed' => $initial->processed + $status->processed,
         ]));
     }
