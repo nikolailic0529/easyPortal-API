@@ -2,16 +2,16 @@
 
 namespace App\Services\Passwords;
 
-use App\Models\User;
 use App\Services\KeyCloak\UserProvider;
 use Illuminate\Auth\Passwords\PasswordBroker as IlluminatePasswordBroker;
 use Illuminate\Auth\Passwords\TokenRepositoryInterface;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Hashing\Hasher;
 
 
 class PasswordBroker extends IlluminatePasswordBroker {
     /**
-     * ... message ...
+     * Constant representing using the same password.
      *
      */
     public const INVALID_PASSWORD_SAMEPASSWORD = 'passwords.same_password';
@@ -31,7 +31,7 @@ class PasswordBroker extends IlluminatePasswordBroker {
     public function validateReset(array $credentials) {
         $user = parent::validateReset($credentials);
 
-        if ($user instanceof User && $this->hasher->check($credentials['password'], $user->password)) {
+        if ($user instanceof Authenticatable && $this->users->validateCredentials($user, $credentials)) {
             return static::INVALID_PASSWORD_SAMEPASSWORD;
         }
 

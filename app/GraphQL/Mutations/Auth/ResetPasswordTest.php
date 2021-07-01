@@ -180,7 +180,7 @@ class ResetPasswordTest extends TestCase {
                     },
                 ],
                 'same password'                        => [
-                    new GraphQLError('resetPassword'),
+                    new GraphQLError('resetPassword', new ResetPasswordSamePasswordException()),
                     static function (TestCase $test): bool {
                         User::factory()->create([
                             'type'     => UserType::local(),
