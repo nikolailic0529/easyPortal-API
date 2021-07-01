@@ -225,13 +225,6 @@ interface Constants {
     #[Group('keycloak')]
     public const EP_KEYCLOAK_TIMEOUT = 5 * 60;
 
-    /**
-     * KeyCloak actions for the invited user.
-     */
-    #[Setting('ep.keycloak.invite_actions')]
-    #[Group('keycloak')]
-    #[Type(StringType::class)]
-    public const EP_KEYCLOAK_INVITE_ACTIONS = ['UPDATE_PASSWORD', 'UPDATE_PROFILE'];
 
     // <editor-fold desc="EP_KEYCLOAK_SYNC_PERMISSIONS">
     // -------------------------------------------------------------------------

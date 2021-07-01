@@ -45,4 +45,9 @@ class User extends JsonObject {
      * @var array<string>
      */
     public array $groups;
+
+    /**
+     * @var array<\App\Services\KeyCloak\Client\Types\Credential>
+     */
+    public array $credentials;
 }

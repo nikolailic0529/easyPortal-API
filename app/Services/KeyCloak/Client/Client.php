@@ -4,7 +4,6 @@ namespace App\Services\KeyCloak\Client;
 
 use App\Models\Organization;
 use App\Models\Role as RoleModel;
-use App\Models\User as UserModel;
 use App\Services\KeyCloak\Client\Exceptions\EndpointException;
 use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakClient;
 use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakGroup;
@@ -181,10 +180,9 @@ class Client {
         }
 
         $input        = new User([
-            'email'           => $email,
-            'groups'          => [$group->path],
-            'enabled'         => true,
-            'requiredActions' => $this->config->get('ep.keycloak.invite_actions'),
+            'email'   => $email,
+            'groups'  => [$group->path],
+            'enabled' => false,
         ]);
         $errorHandler = function (Exception $exception) use ($endpoint, $email): void {
             if ($exception instanceof RequestException) {
@@ -228,16 +226,14 @@ class Client {
         $this->call($endpoint, 'DELETE', ['json' => $permissions]);
     }
 
-    public function resetPassword(UserModel $user, string $password): void {
-        // PUT /{realm}/users/{id}/reset-password
-        $endpoint = "users/{$user->id}/reset-password";
-        $this->call($endpoint, 'PUT', [
-            'json' => [
-                'type'      => 'password',
-                'temporary' => false,
-                'value'     => $password,
-            ],
-        ]);
+    public function getUserByEmail(string $email): ?User {
+        // GET /{realm}/users?email={email}
+        $endpoint = "users?email={$email}";
+        $users    = $this->call($endpoint, 'GET');
+        if (empty($users)) {
+            return null;
+        }
+        return new User($users[0]);
     }
     // </editor-fold>
 

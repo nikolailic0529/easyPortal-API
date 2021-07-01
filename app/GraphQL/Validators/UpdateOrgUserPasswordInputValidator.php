@@ -10,8 +10,10 @@ class UpdateOrgUserPasswordInputValidator extends Validator {
      */
     public function rules(): array {
         return [
-            'password' => ['required', 'confirmed'],
-            'token'    => ['required', 'string'],
+            'password'   => ['required', 'confirmed'],
+            'token'      => ['required', 'string'],
+            'first_name' => ['required', 'string'],
+            'last_name'  => ['required', 'string'],
         ];
     }
 }
