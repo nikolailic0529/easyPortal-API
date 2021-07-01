@@ -13,6 +13,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\JsonFragment;
 use Tests\GraphQL\JsonFragmentPaginatedSchema;
 use Tests\TestCase;
 
@@ -87,35 +88,33 @@ class LogsTest extends TestCase {
                     new GraphQLSuccess(
                         'application',
                         new JsonFragmentPaginatedSchema('logs', self::class),
-                        [
-                            'logs' => [
-                                'data'          => [
-                                    [
-                                        'id'          => '2cc07e2a-a482-4814-9697-314c0cec4e23',
-                                        'category'    => 'Queue',
-                                        'action'      => 'test',
-                                        'status'      => 'unknown',
-                                        'object_type' => null,
-                                        'object_id'   => null,
-                                        'duration'    => 1234,
-                                        'created_at'  => '2021-07-01T00:00:00+00:00',
-                                        'finished_at' => null,
-                                        'statistics'  => null,
-                                        'context'     => null,
-                                    ],
-                                ],
-                                'paginatorInfo' => [
-                                    'count'        => 1,
-                                    'currentPage'  => 1,
-                                    'firstItem'    => 1,
-                                    'hasMorePages' => false,
-                                    'lastItem'     => 1,
-                                    'lastPage'     => 1,
-                                    'perPage'      => 25,
-                                    'total'        => 1,
+                        new JsonFragment('logs', [
+                            'data'          => [
+                                [
+                                    'id'          => '2cc07e2a-a482-4814-9697-314c0cec4e23',
+                                    'category'    => 'Queue',
+                                    'action'      => 'test',
+                                    'status'      => 'unknown',
+                                    'object_type' => null,
+                                    'object_id'   => null,
+                                    'duration'    => 1234,
+                                    'created_at'  => '2021-07-01T00:00:00+00:00',
+                                    'finished_at' => null,
+                                    'statistics'  => '{"Log":{"total":{"levels":1},"levels":{"error":1}}}',
+                                    'context'     => '{"Log":{"total":{"levels":1},"levels":{"notice":1}}}',
                                 ],
                             ],
-                        ],
+                            'paginatorInfo' => [
+                                'count'        => 1,
+                                'currentPage'  => 1,
+                                'firstItem'    => 1,
+                                'hasMorePages' => false,
+                                'lastItem'     => 1,
+                                'lastPage'     => 1,
+                                'perPage'      => 25,
+                                'total'        => 1,
+                            ],
+                        ]),
                     ),
                     static function (TestCase $test): void {
                         Log::factory()->create([
@@ -129,8 +128,8 @@ class LogsTest extends TestCase {
                                 'duration'    => 1234,
                                 'created_at'  => Date::make('2021-07-01T00:00:00+00:00'),
                                 'finished_at' => null,
-                                'statistics'  => null,
-                                'context'     => null,
+                                'statistics'  => ['Log' => ['total' => ['levels' => 1], 'levels' => ['error' => 1]]],
+                                'context'     => ['Log' => ['total' => ['levels' => 1], 'levels' => ['notice' => 1]]],
                             ]),
                         ]);
                     },

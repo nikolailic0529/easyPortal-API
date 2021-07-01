@@ -8,6 +8,12 @@ type ApplicationLog {
   duration: Int
   created_at: DateTime!
   finished_at: DateTime
+
+  "JSON"
   statistics: String
+  @field(resolver: "App\\GraphQL\\Resolvers\\JsonResolver")
+
+  "JSON"
   context: String
+  @field(resolver: "App\\GraphQL\\Resolvers\\JsonResolver")
 }
