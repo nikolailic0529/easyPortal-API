@@ -9,7 +9,6 @@ class State {
         public string $id,
         public string $name,
         public bool $running,
-        public ?Progress $progress,
         public DateTimeInterface $pending_at,
         public ?DateTimeInterface $running_at,
     ) {

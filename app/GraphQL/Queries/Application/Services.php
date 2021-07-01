@@ -38,7 +38,7 @@ class Services {
         foreach ($this->settings->getServices() as $class) {
             $service = $this->app->make($class);
             $config  = $configurator->config($service);
-            $name    = $this->getName($service);
+            $name    = $this->queue->getName($service);
 
             $instances[$class] = $service;
             $services[$name]   = [
@@ -49,6 +49,7 @@ class Services {
                 'queue'       => $config->get('queue'),
                 'settings'    => [],
                 'state'       => null,
+                'progress'    => $this->queue->getProgress($service),
             ];
         }
 
@@ -60,7 +61,7 @@ class Services {
             $service = $instances[$class] ?? null;
 
             if ($service) {
-                $services[$this->getName($service)]['settings'][] = $setting->getName();
+                $services[$this->queue->getName($service)]['settings'][] = $setting->getName();
             }
         }
 
@@ -75,12 +76,8 @@ class Services {
         return array_values($services);
     }
 
-    protected function getName(CronJob $service): string {
-        return $service->displayName();
-    }
-
     protected function getDescription(CronJob $service): ?string {
-        $key  = "settings.services.{$this->getName($service)}";
+        $key  = "settings.services.{$this->queue->getName($service)}";
         $desc = __($key);
 
         if ($key === $desc) {

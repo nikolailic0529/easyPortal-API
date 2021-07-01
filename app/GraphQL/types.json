@@ -1175,6 +1175,16 @@
                             "type": "null"
                         }
                     ]
+                },
+                "progress": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ApplicationJobProgress"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 }
             }
         },
@@ -1203,7 +1213,6 @@
             "required": [
                 "id",
                 "running",
-                "progress",
                 "pending_at",
                 "running_at"
             ],
@@ -1213,16 +1222,6 @@
                 },
                 "running": {
                     "type": "boolean"
-                },
-                "progress": {
-                    "oneOf": [
-                        {
-                            "$ref": "#/definitions/ApplicationJobProgress"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
                 },
                 "pending_at": {
                     "type": "string",

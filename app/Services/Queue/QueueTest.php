@@ -22,7 +22,6 @@ class QueueTest extends TestCase {
      */
     public function testGetState(): void {
         // Prepare
-        $progress = new Progress(10, 1);
         $reserved = str_replace(',', '.', (string) microtime(true));
         $pushed   = str_replace(',', '.', (string) microtime(true));
         $a        = Mockery::mock(Job::class);
@@ -32,12 +31,6 @@ class QueueTest extends TestCase {
             ->shouldReceive('displayName')
             ->once()
             ->andReturn('b');
-        $c
-            ->shouldReceive('getProgressProvider')
-            ->once()
-            ->andReturn(static function () use ($progress): Progress {
-                return $progress;
-            });
 
         $qaa = new QueueJob([
             'id'          => $this->faker->uuid,
@@ -90,7 +83,6 @@ class QueueTest extends TestCase {
                     $qab->id,
                     $qab->name,
                     false,
-                    null,
                     Date::createFromTimestamp((float) $pushed),
                     null,
                 ),
@@ -98,7 +90,6 @@ class QueueTest extends TestCase {
                     $qaa->id,
                     $qaa->name,
                     true,
-                    null,
                     Date::createFromTimestamp((float) $pushed),
                     Date::createFromTimestamp((float) $reserved),
                 ),
@@ -108,7 +99,6 @@ class QueueTest extends TestCase {
                     $qb->id,
                     $qb->name,
                     false,
-                    $progress,
                     Date::createFromTimestamp((float) $pushed),
                     null,
                 ),

@@ -20,4 +20,6 @@ type ApplicationService {
   description: String
 
   state: ApplicationJobState
+
+  progress: ApplicationJobProgress
 }

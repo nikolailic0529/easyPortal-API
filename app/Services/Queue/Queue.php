@@ -24,6 +24,20 @@ class Queue {
         // empty
     }
 
+    protected function getContainer(): Container {
+        return $this->container;
+    }
+
+    public function getName(Job $job): string {
+        return $job instanceof NamedJob ? $job->displayName() : $job::class;
+    }
+
+    public function getProgress(Job $job): ?Progress {
+        return $job instanceof Progressable
+            ? $this->getContainer()->call($job->getProgressProvider())
+            : null;
+    }
+
     /**
      * @param array<\LastDragon_ru\LaraASP\Queue\Queueables\Job> $jobs
      *
@@ -56,7 +70,6 @@ class Queue {
                 $job->id,
                 $job->name,
                 $job->status === QueueJob::STATUS_RESERVED,
-                $this->getProgress($jobs[$job->name]),
                 $this->getDate(json_decode($job->payload, true)['pushedAt'] ?? null),
                 $this->getDate($job->reserved_at ?? null),
             );
@@ -73,16 +86,6 @@ class Queue {
 
     protected function getDate(string|bool|null $timestamp): ?DateTimeInterface {
         return $timestamp ? Date::createFromTimestamp((float) $timestamp) : null;
-    }
-
-    protected function getName(Job $job): string {
-        return $job instanceof NamedJob ? $job->displayName() : $job::class;
-    }
-
-    protected function getProgress(Job $job): ?Progress {
-        return $job instanceof Progressable
-            ? $this->container->call($job->getProgressProvider())
-            : null;
     }
 
     /**

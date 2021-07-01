@@ -2,9 +2,11 @@
 
 namespace App\GraphQL\Queries\Application;
 
+use App\Models\Location;
 use App\Services\Queue\CronJob;
 use App\Services\Queue\Job;
 use App\Services\Queue\Progress;
+use App\Services\Queue\Progressable;
 use App\Services\Queue\Queue;
 use App\Services\Queue\State;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
@@ -18,6 +20,7 @@ use Closure;
 use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -53,52 +56,54 @@ class ServicesTest extends TestCase {
         $this->setTranslations($translationsFactory);
 
         if ($store) {
-            $service = new class(
-                $this->app,
-                $this->app->make(Repository::class),
-                $this->app->make(Storage::class),
-                $store::class,
-            ) extends Bootstraper {
-                /** @noinspection PhpMissingParentConstructorInspection */
-                public function __construct(
-                    protected Application $app,
-                    protected Repository $config,
-                    protected Storage $storage,
-                    protected string $store,
-                ) {
-                    // empty
-                }
+            $this->override(Settings::class, function () use ($store): Settings {
+                $service = new class(
+                    $this->app,
+                    $this->app->make(Repository::class),
+                    $this->app->make(Storage::class),
+                    $store::class,
+                ) extends Bootstraper {
+                    /** @noinspection PhpMissingParentConstructorInspection */
+                    public function __construct(
+                        protected Application $app,
+                        protected Repository $config,
+                        protected Storage $storage,
+                        protected string $store,
+                    ) {
+                        // empty
+                    }
 
-                public function getStore(): string {
-                    return $this->store;
-                }
+                    public function getStore(): string {
+                        return $this->store;
+                    }
 
-                protected function isBootstrapped(): bool {
-                    return false;
-                }
-            };
+                    protected function isBootstrapped(): bool {
+                        return false;
+                    }
+                };
 
-            $service->bootstrap();
+                $service->bootstrap();
 
-            $this->app->bind(Settings::class, static function () use ($service): Settings {
                 return $service;
             });
         }
 
         // Queue
-        $queue = Mockery::mock(Queue::class);
-        $spy   = Mockery::spy(static function () use ($queue): Queue {
-            return $queue;
-        });
+        $queue = $this->override(Queue::class);
 
         if ($queueStateFactory) {
+            $queue->shouldAllowMockingProtectedMethods();
+            $queue->makePartial();
+            $queue
+                ->shouldReceive('getContainer')
+                ->atLeast()
+                ->once()
+                ->andReturn($this->app);
             $queue
                 ->shouldReceive('getState')
                 ->once()
                 ->andReturn($queueStateFactory($this));
         }
-
-        $this->app->bind(Queue::class, Closure::fromCallable($spy));
 
         // Test
         $this
@@ -113,22 +118,20 @@ class ServicesTest extends TestCase {
                             settings
                             description
                             state {
-                              id
-                              running
-                              progress {
+                                id
+                                running
+                                pending_at
+                                running_at
+                            }
+                            progress {
                                 total
                                 value
-                              }
-                              pending_at
-                              running_at
                             }
                         }
                     }
                 }
             ')
             ->assertThat($expected);
-
-        $spy->shouldHaveBeenCalled();
     }
     // </editor-fold>
 
@@ -165,6 +168,7 @@ class ServicesTest extends TestCase {
                                 ],
                                 'description' => 'Service description.',
                                 'state'       => null,
+                                'progress'    => null,
                             ],
                             [
                                 'name'        => 'service-b',
@@ -178,12 +182,12 @@ class ServicesTest extends TestCase {
                                 'state'       => [
                                     'id'         => 'a77d8197-bc62-4831-ab98-5629cb0656e7',
                                     'running'    => true,
-                                    'progress'   => [
-                                        'total' => 100,
-                                        'value' => 25,
-                                    ],
                                     'pending_at' => '2021-06-30T00:00:00+00:00',
                                     'running_at' => null,
+                                ],
+                                'progress'    => [
+                                    'total' => 100,
+                                    'value' => 25,
                                 ],
                             ],
                         ],
@@ -235,7 +239,6 @@ class ServicesTest extends TestCase {
                                     'a77d8197-bc62-4831-ab98-5629cb0656e7',
                                     'service-b',
                                     true,
-                                    new Progress(100, 25),
                                     Date::make('2021-06-30T00:00:00+00:00'),
                                     null,
                                 ),
@@ -243,7 +246,6 @@ class ServicesTest extends TestCase {
                                     'id-b',
                                     'service-b',
                                     true,
-                                    null,
                                     Date::make('2021-06-30T00:00:00+00:00'),
                                     null,
                                 ),
@@ -276,7 +278,7 @@ class ServicesTest_ServiceA extends CronJob {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class ServicesTest_ServiceB extends CronJob {
+class ServicesTest_ServiceB extends CronJob implements Progressable {
     public function displayName(): string {
         return 'service-b';
     }
@@ -290,6 +292,12 @@ class ServicesTest_ServiceB extends CronJob {
                 'cron'    => '* 1 1 1 *',
                 'queue'   => 'queue-b',
             ] + parent::getQueueConfig();
+    }
+
+    public function getProgressProvider(): callable {
+        return static function (): Progress {
+            return new Progress(100, 25);
+        };
     }
 }
 

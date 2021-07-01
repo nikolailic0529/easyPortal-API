@@ -1,7 +1,6 @@
 type ApplicationJobState {
   id: ID!
   running: Boolean!
-  progress: ApplicationJobProgress
   pending_at: DateTime!
   running_at: DateTime
 }
