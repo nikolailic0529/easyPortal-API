@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Http;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -31,9 +33,23 @@ class UpdateOrgUserPasswordTest extends TestCase {
      */
     public function testInvoke(
         Response $expected,
+        Closure $organizationFactory,
+        Closure $userFactory = null,
         Closure $prepare = null,
         Closure $requestFactory = null,
     ): void {
+        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+
+        $data = [
+            'token'                 => $this->app->make(Encrypter::class)->encrypt([
+                'email'        => 'test@gmail.com',
+                'organization' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+            ]),
+            'first_name'            => 'First',
+            'last_name'             => 'Last',
+            'password'              => '123456',
+            'password_confirmation' => '123456',
+        ];
         if ($prepare) {
             $data = $prepare($this);
         }
@@ -103,6 +119,8 @@ class UpdateOrgUserPasswordTest extends TestCase {
         };
 
         return (new CompositeDataProvider(
+            new AnyOrganizationDataProvider('updateOrgUserPassword'),
+            new AnyUserDataProvider('updateOrgUserPassword'),
             new ArrayDataProvider([
                 'ok'                            => [
                     new GraphQLSuccess('updateOrgUserPassword', UpdateOrgUserPassword::class),
