@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Queries\Application;
 
-use App\Models\Location;
 use App\Services\Queue\CronJob;
 use App\Services\Queue\Job;
 use App\Services\Queue\Progress;
@@ -20,12 +19,10 @@ use Closure;
 use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\Translation\Translator;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Mockery;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\RootUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;

@@ -15,12 +15,6 @@ type Application {
   @require <root> Authenticated user must be a root.
   """
   settingGroups: [ApplicationSettingGroup!]!
-
-  """
-  @require <organization(root)> Authenticated user must be a member of the root organization.
-  
-  @require <root> Authenticated user must be a root.
-  """
   services: [ApplicationService!]!
 
   """
@@ -58,7 +52,6 @@ type ApplicationJobProgress {
 type ApplicationJobState {
   id: ID!
   running: Boolean!
-  progress: ApplicationJobProgress
   pending_at: DateTime!
   running_at: DateTime
 }
@@ -77,6 +70,7 @@ type ApplicationService {
   settings: [String!]!
   description: String
   state: ApplicationJobState
+  progress: ApplicationJobProgress
 }
 
 type ApplicationSetting {
