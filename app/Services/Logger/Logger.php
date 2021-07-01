@@ -18,7 +18,6 @@ use function array_slice;
 use function count;
 use function is_array;
 use function microtime;
-use function round;
 use function sprintf;
 
 class Logger {
@@ -281,7 +280,7 @@ class Logger {
 
     public function getDuration(): ?float {
         return $this->isRecording()
-            ? round((microtime(true) - $this->start) * 1000)
+            ? microtime(true) - $this->start * 1000
             : null;
     }
 

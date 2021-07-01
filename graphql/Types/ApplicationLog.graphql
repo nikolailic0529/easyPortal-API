@@ -5,7 +5,8 @@ type ApplicationLog {
   status: String
   object_type: String
   object_id: ID
-  duration: Int
+  "Seconds"
+  duration: Float
   created_at: DateTime!
   finished_at: DateTime
 

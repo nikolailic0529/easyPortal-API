@@ -1,6 +1,7 @@
 type Application {
   name: String!
   version: String!
+  locale: String!
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -15,6 +16,12 @@ type Application {
   @require <root> Authenticated user must be a root.
   """
   settingGroups: [ApplicationSettingGroup!]!
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
   services: [ApplicationService!]!
 
   """
@@ -30,7 +37,22 @@ type Application {
   @require <root> Authenticated user must be a root.
   """
   translations(locale: String!): [Translation!]!
-  locale: String!
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  logs(
+    where: SearchByConditionApplicationLogsQuery
+    order: [SortByClauseApplicationLogsSort!]
+
+    """Limits number of fetched elements. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which elements are returned."""
+    page: Int
+  ): ApplicationLogPaginator
 }
 
 type ApplicationJob {
@@ -54,6 +76,53 @@ type ApplicationJobState {
   running: Boolean!
   pending_at: DateTime!
   running_at: DateTime
+}
+
+type ApplicationLog {
+  id: ID!
+  category: String!
+  action: String!
+  status: String
+  object_type: String
+  object_id: ID
+
+  """Seconds"""
+  duration: Float
+  created_at: DateTime!
+  finished_at: DateTime
+
+  """JSON"""
+  statistics: String
+
+  """JSON"""
+  context: String
+}
+
+"""A paginated list of ApplicationLog items."""
+type ApplicationLogPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of ApplicationLog items."""
+  data: [ApplicationLog!]!
+}
+
+input ApplicationLogsQuery {
+  id: ID!
+  category: String!
+  action: String!
+  status: String
+  object_type: String
+  object_id: ID
+  duration: Float
+  created_at: DateTime!
+  finished_at: DateTime
+}
+
+input ApplicationLogsSort {
+  duration: Float
+  created_at: DateTime!
+  finished_at: DateTime
 }
 
 type ApplicationService {
@@ -898,7 +967,7 @@ type Organization {
   """
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
-  roles: [Role!]
+  roles: [Role!]!
 }
 
 type OrganizationBranding {
@@ -1150,6 +1219,13 @@ type Query {
   quote(id: ID!): Document
 
   """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
+  """
+  permissions: [Permission!]!
+
+  """
   Organization.
   
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -1157,13 +1233,6 @@ type Query {
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
   organization(id: ID!): Organization
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  permissions: [Permission!]!
 
   """
   List of Customers.
@@ -1304,6 +1373,47 @@ type Role {
   id: ID!
   name: String!
   permissions: [ID!]!
+}
+
+"""
+Available conditions for input ApplicationLogsQuery (only one property allowed at a time).
+"""
+input SearchByConditionApplicationLogsQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionApplicationLogsQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionApplicationLogsQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  category: SearchByScalarString
+
+  """Property condition."""
+  action: SearchByScalarString
+
+  """Property condition."""
+  status: SearchByScalarStringOrNull
+
+  """Property condition."""
+  object_type: SearchByScalarStringOrNull
+
+  """Property condition."""
+  object_id: SearchByScalarIDOrNull
+
+  """Property condition."""
+  duration: SearchByScalarFloatOrNull
+
+  """Property condition."""
+  created_at: SearchByScalarDateTime
+
+  """Property condition."""
+  finished_at: SearchByScalarDateTimeOrNull
 }
 
 """
@@ -2265,6 +2375,38 @@ input SearchByScalarDateTimeOperatorBetween {
   max: DateTime!
 }
 
+"""
+Available operators for scalar DateTime (only one operator allowed at a time).
+"""
+input SearchByScalarDateTimeOrNull {
+  """Equal (`=`)."""
+  eq: DateTime
+
+  """Less than (`<`)."""
+  lt: DateTime
+
+  """Less than or equal to (`<=`)."""
+  lte: DateTime
+
+  """Greater than (`>`)."""
+  gt: DateTime
+
+  """Greater than or equal to (`>=`)."""
+  gte: DateTime
+
+  """Within a set of values."""
+  in: [DateTime!]
+
+  """Within a range."""
+  between: SearchByScalarDateTimeOperatorBetween
+
+  """Is NULL?"""
+  isNull: SearchByFlag
+
+  """Not."""
+  not: SearchByFlag
+}
+
 input SearchByScalarFloatOperatorBetween {
   min: Float!
   max: Float!
@@ -2459,6 +2601,20 @@ type SimplePaginatorInfo {
 
   """Number of items per page in the collection."""
   perPage: Int!
+}
+
+"""
+Sort clause for input ApplicationLogsSort (only one property allowed at a time).
+"""
+input SortByClauseApplicationLogsSort {
+  """Property clause."""
+  duration: SortByDirection
+
+  """Property clause."""
+  created_at: SortByDirection
+
+  """Property clause."""
+  finished_at: SortByDirection
 }
 
 """

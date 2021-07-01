@@ -5,7 +5,7 @@ input ApplicationLogsQuery {
   status: String
   object_type: String
   object_id: ID
-  duration: Int
+  duration: Float
   created_at: DateTime!
   finished_at: DateTime
 }

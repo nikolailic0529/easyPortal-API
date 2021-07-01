@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int                                                                            $index
  * @property string|null                                                                    $object_type
  * @property string|null                                                                    $object_id
- * @property int|null                                                                       $duration
+ * @property float|null                                                                     $duration
  * @property \Carbon\CarbonImmutable                                                        $created_at
  * @property \Carbon\CarbonImmutable                                                        $updated_at
  * @property \Carbon\CarbonImmutable|null                                                   $finished_at

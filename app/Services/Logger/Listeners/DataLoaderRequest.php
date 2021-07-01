@@ -3,7 +3,6 @@
 namespace App\Services\Logger\Listeners;
 
 use function microtime;
-use function round;
 
 class DataLoaderRequest {
     protected float $start;
@@ -23,7 +22,7 @@ class DataLoaderRequest {
         return $this->transaction;
     }
 
-    public function getDuration(): ?float {
-        return round((microtime(true) - $this->start) * 1000);
+    public function getDuration(): float {
+        return microtime(true) - $this->start;
     }
 }
