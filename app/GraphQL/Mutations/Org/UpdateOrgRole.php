@@ -55,7 +55,7 @@ class UpdateOrgRole {
             $role->save();
         }
 
-        if (array_key_exists('name', $input)) {
+        if (array_key_exists('permissions', $input)) {
             // update Permissions
             $this->syncPermissions($role, $input['permissions']);
         }
