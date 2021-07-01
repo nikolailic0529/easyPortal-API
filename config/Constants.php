@@ -105,16 +105,17 @@ interface Constants {
     public const EP_ROOT_ORGANIZATION = '40765bbb-4736-4d2f-8964-1c3fd4e59aac';
 
     /**
-     * The URI (can be relative) where user should be redirected to complete
+     * The URI (can be relative) where user should be redirected to add his password
      * Access EP after invitation.
      *
      * Replacements:
      * * `{organization}` - organization
+     * * `{token}`        - token
      */
-    #[Setting('ep.client.organization_signin_uri')]
+    #[Setting('ep.client.organization_add_password_uri')]
     #[Group('ep')]
     #[Type(StringType::class)]
-    public const EP_CLIENT_ORGANIZATION_SIGNIN_URI = 'auth/organizations/{organization}';
+    public const EP_CLIENT_ORGANIZATION_ADD_PASSWORD_URI = 'auth/organizations/{organization}/password/{token}';
     // </editor-fold>
 
     // <editor-fold desc="EP_CLIENT">

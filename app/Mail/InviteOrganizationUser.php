@@ -16,7 +16,7 @@ class InviteOrganizationUser extends Mailable {
     use Queueable;
     use SerializesModels;
 
-    public function __construct(protected Organization $organization) {
+    public function __construct(protected Organization $organization, protected string $token) {
         // empty
     }
 
@@ -28,8 +28,9 @@ class InviteOrganizationUser extends Mailable {
     public function build() {
         $generator = app()->make(UrlGenerator::class);
         $config    = app()->make(Repository::class);
-        $url       = $generator->to(strtr($config->get('ep.client.organization_signin_uri'), [
+        $url       = $generator->to(strtr($config->get('ep.client.organization_add_password_uri'), [
             '{organization}' => $this->organization->getKey(),
+            '{token}'        => $this->token,
         ]));
         return $this->markdown('invite_user', [
             'url' => $url,

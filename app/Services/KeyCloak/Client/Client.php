@@ -231,11 +231,13 @@ class Client {
     public function resetPassword(UserModel $user, string $password): void {
         // PUT /{realm}/users/{id}/reset-password
         $endpoint = "users/{$user->id}/reset-password";
-        $this->call($endpoint, 'PUT', ['json' => [
-            'type'      => 'password',
-            'temporary' => false,
-            'value'     => $password,
-        ]]);
+        $this->call($endpoint, 'PUT', [
+            'json' => [
+                'type'      => 'password',
+                'temporary' => false,
+                'value'     => $password,
+            ],
+        ]);
     }
     // </editor-fold>
 
