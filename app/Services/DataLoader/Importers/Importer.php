@@ -16,12 +16,15 @@ use Illuminate\Contracts\Container\Container as ContainerContract;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
+use function min;
+
 abstract class Importer {
     use GlobalScopes;
 
     protected ContainerContract $container;
     protected Loader            $loader;
     protected Resolver          $resolver;
+    protected ?Closure          $onInit   = null;
     protected ?Closure          $onChange = null;
     protected ?Closure          $onFinish = null;
 
@@ -35,6 +38,12 @@ abstract class Importer {
 
     protected function getLogger(): LoggerInterface {
         return $this->logger;
+    }
+
+    public function onInit(?Closure $closure): static {
+        $this->onInit = $closure;
+
+        return $this;
     }
 
     public function onChange(?Closure $closure): static {
@@ -56,7 +65,7 @@ abstract class Importer {
         int $chunk = null,
         int $limit = null,
     ): void {
-        $status   = new Status($from, $continue);
+        $status   = new Status($from, $continue, $this->getTotal($from, $limit));
         $iterator = $this
             ->getIterator($from, $chunk, $limit, $continue)
             ->onBeforeChunk(function (array $items) use ($status): void {
@@ -65,6 +74,8 @@ abstract class Importer {
             ->onAfterChunk(function (array $items) use (&$iterator, $status): void {
                 $this->onAfterChunk($items, $status, $iterator->getOffset());
             });
+
+        $this->onBeforeImport($status);
 
         $this->callWithoutGlobalScopes(
             [OwnedByOrganizationScope::class],
@@ -76,6 +87,8 @@ abstract class Importer {
                             if ($update) {
                                 $this->loader->update($item);
                                 $status->updated++;
+                            } else {
+                                $status->ignored++;
                             }
                         } else {
                             $this->loader->create($item);
@@ -122,6 +135,23 @@ abstract class Importer {
         return $iterator;
     }
 
+    protected function getTotal(DateTimeInterface $from = null, int $limit = null): ?int {
+        $total   = null;
+        $objects = $this->getObjectsCount($from);
+
+        if ($objects !== null && $limit !== null) {
+            $total = min($limit, $objects);
+        } elseif ($objects !== null) {
+            $total = $objects;
+        } elseif ($limit !== null) {
+            $total = $limit;
+        } else {
+            // empty
+        }
+
+        return $total;
+    }
+
     /**
      * @param array<mixed> $items
      */
@@ -160,6 +190,12 @@ abstract class Importer {
         }
     }
 
+    protected function onBeforeImport(Status $status): void {
+        if ($this->onInit) {
+            ($this->onInit)(clone $status);
+        }
+    }
+
     protected function onAfterImport(Status $status): void {
         if ($this->onFinish) {
             ($this->onFinish)(clone $status);
@@ -175,4 +211,6 @@ abstract class Importer {
     abstract protected function makeLoader(): Loader;
 
     abstract protected function makeResolver(): Resolver;
+
+    abstract protected function getObjectsCount(DateTimeInterface $from = null): ?int;
 }

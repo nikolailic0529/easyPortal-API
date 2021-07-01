@@ -97,4 +97,8 @@ class AssetsImporter extends Importer {
     protected function makeResolver(): Resolver {
         return $this->container->make(AssetResolver::class);
     }
+
+    protected function getObjectsCount(DateTimeInterface $from = null): ?int {
+        return $from ? null : $this->client->getAssetsCount();
+    }
 }

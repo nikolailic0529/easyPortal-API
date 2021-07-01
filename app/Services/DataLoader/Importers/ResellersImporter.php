@@ -35,4 +35,8 @@ class ResellersImporter extends Importer {
     protected function makeResolver(): Resolver {
         return $this->container->make(ResellerResolver::class);
     }
+
+    protected function getObjectsCount(DateTimeInterface $from = null): ?int {
+        return $from ? null : $this->client->getResellersCount();
+    }
 }

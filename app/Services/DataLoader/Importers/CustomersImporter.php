@@ -35,4 +35,8 @@ class CustomersImporter extends Importer {
     protected function makeResolver(): Resolver {
         return $this->container->make(CustomerResolver::class);
     }
+
+    protected function getObjectsCount(DateTimeInterface $from = null): ?int {
+        return $from ? null : $this->client->getCustomersCount();
+    }
 }
