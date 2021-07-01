@@ -3,7 +3,6 @@
 namespace App\GraphQL\Mutations\Org;
 
 use App\Mail\InviteOrganizationUser;
-use App\Models\Organization;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Encryption\Encrypter;
@@ -26,8 +25,7 @@ class InviteOrgUser {
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
-        // $organization = $this->organization->get();
-        $organization = Organization::find('a7c3efa9-2be7-4114-a897-7a273a2c0ac5');
+        $organization = $this->organization->get();
         $role         = $organization->roles()->whereKey($args['input']['role_id'])->first();
         if (!$role) {
             throw new InviteOrgUserInvalidRole();
