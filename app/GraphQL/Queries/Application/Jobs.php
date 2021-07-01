@@ -3,6 +3,7 @@
 namespace App\GraphQL\Queries\Application;
 
 use App\Services\Queue\Job;
+use App\Services\Queue\Queue;
 use App\Services\Settings\Description;
 use App\Services\Settings\Settings as SettingsService;
 use Illuminate\Contracts\Foundation\Application;
@@ -16,6 +17,7 @@ class Jobs {
     public function __construct(
         protected Application $app,
         protected SettingsService $settings,
+        protected Queue $queue,
     ) {
         // empty
     }
@@ -36,7 +38,7 @@ class Jobs {
             $config = $configurator->config($job);
 
             $jobs[$class] = [
-                'name'        => $this->getName($job),
+                'name'        => $this->queue->getName($job),
                 'description' => $this->getDescription($job),
                 'queue'       => $config->get('queue'),
                 'settings'    => [],
@@ -58,12 +60,8 @@ class Jobs {
         return array_values($jobs);
     }
 
-    protected function getName(Job $job): string {
-        return $job->displayName();
-    }
-
     protected function getDescription(Job $job): ?string {
-        $key  = "settings.jobs.{$this->getName($job)}";
+        $key  = "settings.jobs.{$this->queue->getName($job)}";
         $desc = __($key);
 
         if ($key === $desc) {
