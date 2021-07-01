@@ -18,4 +18,8 @@ type ApplicationService {
   settings: [String!]!
 
   description: String
+
+  state: ApplicationJobState
+
+  progress: ApplicationJobProgress
 }

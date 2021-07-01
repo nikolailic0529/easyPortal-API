@@ -8,11 +8,13 @@ class Status {
     public function __construct(
         public ?DateTimeInterface $from = null,
         public string|int|null $continue = null,
-        public int $chunk = 0,
+        public ?int $total = null,
         public int $processed = 0,
+        public int $chunk = 0,
         public int $failed = 0,
         public int $updated = 0,
         public int $created = 0,
+        public int $ignored = 0,
     ) {
         // empty
     }

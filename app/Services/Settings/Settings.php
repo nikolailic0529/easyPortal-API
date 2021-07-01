@@ -115,7 +115,7 @@ class Settings {
     }
 
     /**
-     * @return array<class-string<\LastDragon_ru\LaraASP\Queue\Queueables\Job>>
+     * @return array<class-string<\App\Services\Queue\Job>>
      */
     public function getJobs(): array {
         $settings = $this->getSettings();
@@ -131,7 +131,7 @@ class Settings {
     }
 
     /**
-     * @return array<class-string<\LastDragon_ru\LaraASP\Queue\Queueables\CronJob>>
+     * @return array<class-string<\App\Services\Queue\CronJob>>
      */
     public function getServices(): array {
         $settings = $this->getSettings();

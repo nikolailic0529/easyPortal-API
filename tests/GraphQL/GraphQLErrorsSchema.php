@@ -2,7 +2,6 @@
 
 namespace Tests\GraphQL;
 
-use App\Exceptions\Helper;
 use Closure;
 use JsonSerializable;
 use Throwable;
@@ -36,22 +35,40 @@ class GraphQLErrorsSchema implements JsonSerializable {
             $errors = [$errors];
         }
 
-        $items  = [];
-        $helper = new Helper();
+        $items = [];
 
         foreach ($errors as $error) {
             if ($error instanceof Throwable) {
-                $error = $helper->getMessage($error);
+                $error = $error->getMessage();
             }
 
             $items[] = [
-                'type'       => 'object',
-                'required'   => [
-                    'message',
-                ],
-                'properties' => [
-                    'message' => [
-                        'const' => $error,
+                'oneOf' => [
+                    [
+                        'type'       => 'object',
+                        'required'   => [
+                            'message',
+                            'debugMessage',
+                        ],
+                        'properties' => [
+                            'message'      => [
+                                'type' => 'string',
+                            ],
+                            'debugMessage' => [
+                                'const' => $error,
+                            ],
+                        ],
+                    ],
+                    [
+                        'type'       => 'object',
+                        'required'   => [
+                            'message',
+                        ],
+                        'properties' => [
+                            'message' => [
+                                'const' => $error,
+                            ],
+                        ],
                     ],
                 ],
             ];

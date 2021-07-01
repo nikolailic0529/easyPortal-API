@@ -2,6 +2,8 @@
 
 namespace App\Services\Settings;
 
+use App\Services\Queue\CronJob;
+use App\Services\Queue\Job;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\PublicName;
@@ -11,8 +13,6 @@ use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\StringType;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Collection;
-use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
-use LastDragon_ru\LaraASP\Queue\Queueables\Job;
 use Mockery;
 use Tests\TestCase;
 
@@ -437,7 +437,9 @@ class SettingsTest extends TestCase {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class SettingsTest_Service extends CronJob {
-    // empty
+    public function displayName(): string {
+        return 'service';
+    }
 }
 
 /**
@@ -445,5 +447,7 @@ class SettingsTest_Service extends CronJob {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class SettingsTest_Job extends Job {
-    // empty
+    public function displayName(): string {
+        return 'job';
+    }
 }

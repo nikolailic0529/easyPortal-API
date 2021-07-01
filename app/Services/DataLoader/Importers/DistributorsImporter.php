@@ -35,4 +35,8 @@ class DistributorsImporter extends Importer {
     protected function makeResolver(): Resolver {
         return $this->container->make(DistributorResolver::class);
     }
+
+    protected function getObjectsCount(DateTimeInterface $from = null): ?int {
+        return $from ? null : $this->client->getDistributorsCount();
+    }
 }

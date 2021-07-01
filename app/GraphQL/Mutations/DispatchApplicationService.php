@@ -3,11 +3,10 @@
 namespace App\GraphQL\Mutations;
 
 use App\Exceptions\TranslatedException;
-use App\Jobs\NamedJob;
+use App\Services\Queue\CronJob;
 use App\Services\Settings\Settings;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
-use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
 
 use function is_null;
 
@@ -56,16 +55,9 @@ class DispatchApplicationService {
         $service  = null;
 
         foreach ($services as $class) {
-            // By class?
-            if ($class === $name) {
-                $service = $this->app->make($class);
-                break;
-            }
-
-            // By name
             $instance = $this->app->make($class);
 
-            if ($instance instanceof NamedJob && $instance->displayName() === $name) {
+            if ($instance->displayName() === $name) {
                 $service = $instance;
                 break;
             }

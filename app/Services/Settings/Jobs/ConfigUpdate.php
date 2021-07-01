@@ -2,15 +2,14 @@
 
 namespace App\Services\Settings\Jobs;
 
-use App\Jobs\NamedJob;
+use App\Services\Queue\Job;
 use App\Services\Settings\Settings;
 use Illuminate\Contracts\Console\Kernel;
-use LastDragon_ru\LaraASP\Queue\Queueables\Job;
 
 /**
  * Updates application config (if cached) and restart queue to apply setting changes.
  */
-class ConfigUpdate extends Job implements NamedJob {
+class ConfigUpdate extends Job {
     public function displayName(): string {
         return 'ep-settings-config-update';
     }

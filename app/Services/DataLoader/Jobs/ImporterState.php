@@ -7,5 +7,6 @@ use App\Utils\JsonObject;
 class ImporterState extends JsonObject {
     public ?string $from      = null;
     public ?string $continue  = null;
+    public ?int    $total     = null;
     public int     $processed = 0;
 }

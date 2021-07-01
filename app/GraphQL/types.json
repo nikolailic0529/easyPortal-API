@@ -1136,6 +1136,116 @@
                     "type": "string"
                 }
             }
+        },
+        "ApplicationService": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "name",
+                "enabled",
+                "cron",
+                "queue",
+                "settings",
+                "description"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "cron": {
+                    "type": "string"
+                },
+                "queue": {
+                    "type": "string"
+                },
+                "settings": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "description": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "state": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ApplicationJobState"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "progress": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ApplicationJobProgress"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                }
+            }
+        },
+        "ApplicationJobProgress": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "total",
+                "value"
+            ],
+            "properties": {
+                "total": {
+                    "type": [
+                        "null",
+                        "integer"
+                    ]
+                },
+                "value": {
+                    "type": "integer"
+                }
+            }
+        },
+        "ApplicationJobState": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "running",
+                "pending_at",
+                "running_at"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "running": {
+                    "type": "boolean"
+                },
+                "pending_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "running_at": {
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                }
+            }
         }
     }
 }

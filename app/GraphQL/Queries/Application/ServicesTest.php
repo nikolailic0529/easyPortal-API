@@ -2,7 +2,12 @@
 
 namespace App\GraphQL\Queries\Application;
 
-use App\Jobs\NamedJob;
+use App\Services\Queue\CronJob;
+use App\Services\Queue\Job;
+use App\Services\Queue\Progress;
+use App\Services\Queue\Progressable;
+use App\Services\Queue\Queue;
+use App\Services\Queue\State;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
@@ -14,8 +19,7 @@ use Closure;
 use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
-use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
-use LastDragon_ru\LaraASP\Queue\Queueables\Job;
+use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -42,42 +46,60 @@ class ServicesTest extends TestCase {
         Closure $userFactory = null,
         Closure $translationsFactory = null,
         object $store = null,
+        Closure $queueStateFactory = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
         $this->setTranslations($translationsFactory);
 
         if ($store) {
-            $service = new class(
-                $this->app,
-                $this->app->make(Repository::class),
-                $this->app->make(Storage::class),
-                $store::class,
-            ) extends Bootstraper {
-                /** @noinspection PhpMissingParentConstructorInspection */
-                public function __construct(
-                    protected Application $app,
-                    protected Repository $config,
-                    protected Storage $storage,
-                    protected string $store,
-                ) {
-                    // empty
-                }
+            $this->override(Settings::class, function () use ($store): Settings {
+                $service = new class(
+                    $this->app,
+                    $this->app->make(Repository::class),
+                    $this->app->make(Storage::class),
+                    $store::class,
+                ) extends Bootstraper {
+                    /** @noinspection PhpMissingParentConstructorInspection */
+                    public function __construct(
+                        protected Application $app,
+                        protected Repository $config,
+                        protected Storage $storage,
+                        protected string $store,
+                    ) {
+                        // empty
+                    }
 
-                public function getStore(): string {
-                    return $this->store;
-                }
+                    public function getStore(): string {
+                        return $this->store;
+                    }
 
-                protected function isBootstrapped(): bool {
-                    return false;
-                }
-            };
+                    protected function isBootstrapped(): bool {
+                        return false;
+                    }
+                };
 
-            $service->bootstrap();
+                $service->bootstrap();
 
-            $this->app->bind(Settings::class, static function () use ($service): Settings {
                 return $service;
             });
+        }
+
+        // Queue
+        $queue = $this->override(Queue::class);
+
+        if ($queueStateFactory) {
+            $queue->shouldAllowMockingProtectedMethods();
+            $queue->makePartial();
+            $queue
+                ->shouldReceive('getContainer')
+                ->atLeast()
+                ->once()
+                ->andReturn($this->app);
+            $queue
+                ->shouldReceive('getState')
+                ->once()
+                ->andReturn($queueStateFactory($this));
         }
 
         // Test
@@ -92,6 +114,16 @@ class ServicesTest extends TestCase {
                             queue
                             settings
                             description
+                            state {
+                                id
+                                running
+                                pending_at
+                                running_at
+                            }
+                            progress {
+                                total
+                                value
+                            }
                         }
                     }
                 }
@@ -112,12 +144,17 @@ class ServicesTest extends TestCase {
             new ArrayDataProvider([
                 Constants::class => [
                     new GraphQLSuccess('application', self::class),
+                    null,
+                    null,
+                    static function (): array {
+                        return [];
+                    },
                 ],
                 'translated'     => [
                     new GraphQLSuccess('application', self::class, [
                         'services' => [
                             [
-                                'name'        => ServicesTest_ServiceA::class,
+                                'name'        => 'service-a',
                                 'enabled'     => true,
                                 'cron'        => '*/8 * * * *',
                                 'queue'       => 'queue-a',
@@ -127,6 +164,8 @@ class ServicesTest extends TestCase {
                                     'SERVICE_A_CRON',
                                 ],
                                 'description' => 'Service description.',
+                                'state'       => null,
+                                'progress'    => null,
                             ],
                             [
                                 'name'        => 'service-b',
@@ -137,6 +176,16 @@ class ServicesTest extends TestCase {
                                     'SERVICE_B_ENABLED',
                                 ],
                                 'description' => 'Description description description.',
+                                'state'       => [
+                                    'id'         => 'a77d8197-bc62-4831-ab98-5629cb0656e7',
+                                    'running'    => true,
+                                    'pending_at' => '2021-06-30T00:00:00+00:00',
+                                    'running_at' => null,
+                                ],
+                                'progress'    => [
+                                    'total' => 100,
+                                    'value' => 25,
+                                ],
                             ],
                         ],
                     ]),
@@ -180,6 +229,26 @@ class ServicesTest extends TestCase {
                         #[JobAttribute(ServicesTest_Job::class, 'enabled')]
                         public const JOB = true;
                     },
+                    static function (TestCase $test): array {
+                        return [
+                            'service-b' => [
+                                new State(
+                                    'a77d8197-bc62-4831-ab98-5629cb0656e7',
+                                    'service-b',
+                                    true,
+                                    Date::make('2021-06-30T00:00:00+00:00'),
+                                    null,
+                                ),
+                                new State(
+                                    'id-b',
+                                    'service-b',
+                                    true,
+                                    Date::make('2021-06-30T00:00:00+00:00'),
+                                    null,
+                                ),
+                            ],
+                        ];
+                    },
                 ],
             ]),
         ))->getData();
@@ -197,14 +266,16 @@ class ServicesTest extends TestCase {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class ServicesTest_ServiceA extends CronJob {
-    // empty
+    public function displayName(): string {
+        return 'service-a';
+    }
 }
 
 /**
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class ServicesTest_ServiceB extends CronJob implements NamedJob {
+class ServicesTest_ServiceB extends CronJob implements Progressable {
     public function displayName(): string {
         return 'service-b';
     }
@@ -219,6 +290,12 @@ class ServicesTest_ServiceB extends CronJob implements NamedJob {
                 'queue'   => 'queue-b',
             ] + parent::getQueueConfig();
     }
+
+    public function getProgressProvider(): callable {
+        return static function (): Progress {
+            return new Progress(100, 25);
+        };
+    }
 }
 
 /**
@@ -226,5 +303,7 @@ class ServicesTest_ServiceB extends CronJob implements NamedJob {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class ServicesTest_Job extends Job {
-    // empty
+    public function displayName(): string {
+        return 'job';
+    }
 }

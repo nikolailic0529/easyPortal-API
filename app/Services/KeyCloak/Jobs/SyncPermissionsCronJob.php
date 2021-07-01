@@ -2,15 +2,13 @@
 
 namespace App\Services\KeyCloak\Jobs;
 
-use App\Jobs\NamedJob;
+use App\Services\Queue\CronJob;
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
 
 /**
  * Sync application permissions with KeyCloak.
  */
-class SyncPermissionsCronJob extends CronJob implements ShouldBeUnique, NamedJob {
+class SyncPermissionsCronJob extends CronJob {
     public function displayName(): string {
         return 'ep-keycloak-sync-permissions';
     }

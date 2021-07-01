@@ -2,22 +2,21 @@
 
 namespace App\Services\DataLoader\Jobs;
 
-use App\Jobs\NamedJob;
 use App\Services\DataLoader\Importers\Importer;
 use App\Services\DataLoader\Importers\Status;
+use App\Services\Queue\CronJob;
+use App\Services\Queue\Progressable;
 use DateTimeInterface;
 use Illuminate\Contracts\Cache\Repository;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
-use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
 use Throwable;
 
 /**
  * Base Importer job.
  */
-abstract class ImporterCronJob extends CronJob implements ShouldBeUnique, NamedJob {
+abstract class ImporterCronJob extends CronJob implements Progressable {
     /**
      * @return array<mixed>
      */
@@ -37,15 +36,18 @@ abstract class ImporterCronJob extends CronJob implements ShouldBeUnique, NamedJ
         QueueableConfigurator $configurator,
     ): void {
         $config   = $configurator->config($this);
-        $state    = $this->getState($cache, $config);
+        $state    = $this->getState($cache) ?: $this->getDefaultState($config);
         $from     = Date::make($state->from);
         $chunk    = $config->setting('chunk');
         $update   = $config->setting('update');
         $continue = $state->continue;
 
         $importer
+            ->onInit(function (Status $status) use ($cache, $state): void {
+                $this->updateState($cache, $state, $status);
+            })
             ->onChange(function (array $items, Status $status) use ($cache, $state): void {
-                $this->setState($cache, $status, $state);
+                $this->updateState($cache, $state, $status);
             })
             ->onFinish(function () use ($cache): void {
                 $this->resetState($cache);
@@ -66,8 +68,8 @@ abstract class ImporterCronJob extends CronJob implements ShouldBeUnique, NamedJ
         ]);
     }
 
-    protected function getState(Repository $cache, QueueableConfig $config): ImporterState {
-        $state = $this->getDefaultState($config);
+    public function getState(Repository $cache): ?ImporterState {
+        $state = null;
 
         try {
             if ($cache->has($this->displayName())) {
@@ -80,15 +82,24 @@ abstract class ImporterCronJob extends CronJob implements ShouldBeUnique, NamedJ
         return $state;
     }
 
-    protected function setState(Repository $cache, Status $status, ImporterState $initial): void {
-        $cache->set($this->displayName(), (new ImporterState([
+    protected function updateState(Repository $cache, ImporterState $initial, Status $status): void {
+        $this->saveState($cache, new ImporterState([
             'from'      => $status->from?->format(DateTimeInterface::ATOM),
             'continue'  => $status->continue,
+            'total'     => $status->total,
             'processed' => $initial->processed + $status->processed,
-        ]))->jsonSerialize());
+        ]));
+    }
+
+    protected function saveState(Repository $cache, ImporterState $state): void {
+        $cache->set($this->displayName(), $state->jsonSerialize());
     }
 
     protected function resetState(Repository $cache): void {
         $cache->forget($this->displayName());
+    }
+
+    public function getProgressProvider(): callable {
+        return new ImporterProgress($this);
     }
 }

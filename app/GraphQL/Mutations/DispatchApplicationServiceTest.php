@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Jobs\NamedJob;
+use App\Services\Queue\CronJob;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Settings;
 use App\Services\Settings\Storage;
@@ -10,7 +10,6 @@ use Closure;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Facades\Queue;
-use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -89,33 +88,25 @@ class DispatchApplicationServiceTest extends TestCase {
             new RootOrganizationDataProvider('dispatchApplicationService'),
             new RootUserDataProvider('dispatchApplicationService'),
             new ArrayDataProvider([
-                'no service'    => [
+                'no service' => [
                     new GraphQLError('dispatchApplicationService', new DispatchApplicationServiceNotFoundException()),
                     [
                         'name' => 'unknown-service',
                     ],
                 ],
-                'failed'        => [
+                'failed'     => [
                     new GraphQLError('dispatchApplicationService', new DispatchApplicationServiceFailed()),
                     [
                         'name'        => 'service-b',
                         'immediately' => true,
                     ],
                 ],
-                'ok (by name)'  => [
+                'ok'         => [
                     new GraphQLSuccess('dispatchApplicationService', DispatchApplicationService::class, [
                         'result' => true,
                     ]),
                     [
                         'name' => 'service-a',
-                    ],
-                ],
-                'ok (by class)' => [
-                    new GraphQLSuccess('dispatchApplicationService', DispatchApplicationService::class, [
-                        'result' => true,
-                    ]),
-                    [
-                        'name' => DispatchApplicationServiceTest_ServiceA::class,
                     ],
                 ],
             ]),
@@ -133,7 +124,7 @@ class DispatchApplicationServiceTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class DispatchApplicationServiceTest_ServiceA extends CronJob implements NamedJob {
+class DispatchApplicationServiceTest_ServiceA extends CronJob {
     public function displayName(): string {
         return 'service-a';
     }
@@ -147,7 +138,7 @@ class DispatchApplicationServiceTest_ServiceA extends CronJob implements NamedJo
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class DispatchApplicationServiceTest_ServiceB extends CronJob implements NamedJob {
+class DispatchApplicationServiceTest_ServiceB extends CronJob {
     public function displayName(): string {
         return 'service-b';
     }

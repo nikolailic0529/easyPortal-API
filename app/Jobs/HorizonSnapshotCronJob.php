@@ -2,14 +2,13 @@
 
 namespace App\Jobs;
 
+use App\Services\Queue\CronJob;
 use Illuminate\Contracts\Console\Kernel;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
-use LastDragon_ru\LaraASP\Queue\Queueables\CronJob;
 
 /**
  * Creates Horizon snapshot.
  */
-class HorizonSnapshotCronJob extends CronJob implements ShouldBeUnique, NamedJob {
+class HorizonSnapshotCronJob extends CronJob {
     public function displayName(): string {
         return 'ep-horizon-snapshot';
     }
