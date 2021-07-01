@@ -2,6 +2,9 @@ type Application {
   name: String!
   version: String!
 
+  locale: String!
+  @field(resolver: "App\\GraphQL\\Queries\\Application\\Locale")
+
   settings: [ApplicationSetting!]!
   @organization(root: true)
   @root
@@ -29,6 +32,12 @@ type Application {
   @root
   @field(resolver: "App\\GraphQL\\Queries\\Application\\Translations")
 
-  locale: String!
-  @field(resolver: "App\\GraphQL\\Queries\\Application\\Locale")
+  logs(
+    where: ApplicationLogsQuery @searchBy
+    order: ApplicationLogsSort @sortBy
+  ): [ApplicationLog!]!
+  @organization(root: true)
+  @root
+  @builder(method: "App\\GraphQL\\Queries\\Application\\Logs")
+  @paginate(model: "App\\Services\\Logger\\Models\\Log")
 }

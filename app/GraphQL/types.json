@@ -1246,6 +1246,86 @@
                     ]
                 }
             }
+        },
+        "ApplicationLog": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "category",
+                "action",
+                "status",
+                "object_type",
+                "object_id",
+                "duration",
+                "created_at",
+                "finished_at",
+                "statistics",
+                "context"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "category": {
+                    "type": "string"
+                },
+                "action": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "object_type": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "object_id": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "duration": {
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "finished_at": {
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "statistics": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "context": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            }
         }
     }
 }

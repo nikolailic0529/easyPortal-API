@@ -1,0 +1,13 @@
+type ApplicationLog {
+  id: ID!
+  category: String!
+  action: String!
+  status: String
+  object_type: String
+  object_id: ID
+  duration: Int
+  created_at: DateTime!
+  finished_at: DateTime
+  statistics: String
+  context: String
+}
