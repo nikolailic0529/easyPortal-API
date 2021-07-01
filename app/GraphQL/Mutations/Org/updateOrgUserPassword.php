@@ -49,13 +49,17 @@ class UpdateOrgUserPassword {
             throw new UpdateOrgUserPasswordInvalidUser();
         }
 
-        if (!$user->attributes || !array_key_exists('invited', $user->attributes) || !$user->attributes['invited'][0]) {
+        if (
+            !$user->attributes ||
+            !array_key_exists('invited', $user->attributes) ||
+            (int) $user->attributes['invited'][0] === 0
+        ) {
             throw new UpdateOrgUserPasswordUnInvitedUser();
         }
 
         if (
             !array_key_exists('added_password_through_invite', $user->attributes) ||
-            $user->attributes['added_password_through_invite'][0]
+            (int) $user->attributes['added_password_through_invite'][0] === 1
         ) {
             throw new UpdateOrgUserPasswordAlreadyAdded();
         }

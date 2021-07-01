@@ -89,8 +89,8 @@ class UpdateOrgUserPasswordTest extends TestCase {
                     [
                         'id'         => $test->faker->uuid(),
                         'attributes' => [
-                            'invited'                       => [true],
-                            'added_password_through_invite' => [false],
+                            'invited'                       => ['1'],
+                            'added_password_through_invite' => ['0'],
                         ],
                     ],
                 ], 200),
@@ -107,8 +107,8 @@ class UpdateOrgUserPasswordTest extends TestCase {
                     [
                         'id'         => $test->faker->uuid(),
                         'attributes' => [
-                            'invited'                       => [true],
-                            'added_password_through_invite' => [true],
+                            'invited'                       => ['1'],
+                            'added_password_through_invite' => ['1'],
                         ],
                     ],
                 ], 200),

@@ -185,8 +185,8 @@ class Client {
             'enabled'       => false,
             'emailVerified' => false,
             'attributes'    => [
-                'invited'                       => [true],
-                'added_password_through_invite' => [false],
+                'invited'                       => [1],
+                'added_password_through_invite' => [0],
             ],
         ]);
         $errorHandler = function (Exception $exception) use ($endpoint, $email): void {
