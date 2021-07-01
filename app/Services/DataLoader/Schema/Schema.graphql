@@ -71,6 +71,17 @@ type BrandingData {
   logoUrl: String
 }
 
+type CentralAssetDbStatistics {
+  assetsAmount: Int
+  documentsAmount: Int
+  documentsContractAmount: Int
+  documentsQuoteAmount: Int
+  companiesAmount: Int
+  companiesResellerAmount: Int
+  companiesCustomerAmount: Int
+  companiesDistributorAmount: Int
+}
+
 type Company {
   id: ID
   companyContactPersons: [CompanyContactPerson]
@@ -263,6 +274,7 @@ type Query {
   getCustomers(limit: Int, offset: Int, fromTimestamp: String, lastId: String): [Company]!
   getDistributors(limit: Int, offset: Int, fromTimestamp: String, lastId: String): [Company]!
   getDocumentTypes: [String]!
+  getCentralAssetDbStatistics: CentralAssetDbStatistics
 }
 
 type SourceDocument {

@@ -45,6 +45,19 @@ class Client {
 
     // <editor-fold desc="Queries">
     // =========================================================================
+    public function getDistributorsCount(): int {
+        return (int) $this->call(
+            'data.getCentralAssetDbStatistics.companiesDistributorAmount',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            query {
+                getCentralAssetDbStatistics {
+                    companiesDistributorAmount
+                }
+            }
+            GRAPHQL,
+        );
+    }
+
     /**
      * @return \App\Services\DataLoader\Client\LastIdBasedIterator<\App\Services\DataLoader\Schema\Company>
      */
@@ -66,12 +79,23 @@ class Client {
                 [
                     'from' => $this->datetime($from),
                 ],
-                static function (array $data): Company {
-                    return new Company($data);
-                },
+                $this->getCompanyRetriever(),
             )
             ->setLimit($limit)
             ->setOffset($lastId);
+    }
+
+    public function getResellersCount(): int {
+        return (int) $this->call(
+            'data.getCentralAssetDbStatistics.companiesResellerAmount',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            query {
+                getCentralAssetDbStatistics {
+                    companiesResellerAmount
+                }
+            }
+            GRAPHQL,
+        );
     }
 
     /**
@@ -95,12 +119,23 @@ class Client {
                 [
                     'from' => $this->datetime($from),
                 ],
-                static function (array $data): Company {
-                    return new Company($data);
-                },
+                $this->getCompanyRetriever(),
             )
             ->setLimit($limit)
             ->setOffset($lastId);
+    }
+
+    public function getCustomersCount(): int {
+        return (int) $this->call(
+            'data.getCentralAssetDbStatistics.companiesCustomerAmount',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            query {
+                getCentralAssetDbStatistics {
+                    companiesCustomerAmount
+                }
+            }
+            GRAPHQL,
+        );
     }
 
     /**
@@ -124,16 +159,14 @@ class Client {
                 [
                     'from' => $this->datetime($from),
                 ],
-                static function (array $data): Company {
-                    return new Company($data);
-                },
+                $this->getCompanyRetriever(),
             )
             ->setLimit($limit)
             ->setOffset($lastId);
     }
 
     public function getCompanyById(string $id): ?Company {
-        $company = $this->get(
+        return $this->get(
             'getCompanyById',
             /** @lang GraphQL */ <<<GRAPHQL
             query getCompanyById(\$id: String!) {
@@ -145,17 +178,25 @@ class Client {
             [
                 'id' => $id,
             ],
+            $this->getCompanyRetriever(),
         );
+    }
 
-        if ($company) {
-            $company = new Company($company);
-        }
-
-        return $company;
+    public function getAssetsCount(): int {
+        return (int) $this->call(
+            'data.getCentralAssetDbStatistics.assetsAmount',
+            /** @lang GraphQL */ <<<'GRAPHQL'
+            query {
+                getCentralAssetDbStatistics {
+                    assetsAmount
+                }
+            }
+            GRAPHQL,
+        );
     }
 
     public function getAssetById(string $id): ?ViewAsset {
-        $asset = $this->get(
+        return $this->get(
             'getAssets',
             /** @lang GraphQL */ <<<GRAPHQL
             query getAssets(\$id: String!) {
@@ -167,17 +208,12 @@ class Client {
             [
                 'id' => $id,
             ],
+            $this->getAssetRetriever(),
         );
-
-        if ($asset) {
-            $asset = new ViewAsset($asset);
-        }
-
-        return $asset;
     }
 
     public function getAssetByIdWithDocuments(string $id): ?ViewAsset {
-        $asset = $this->get(
+        return $this->get(
             'getAssets',
             /** @lang GraphQL */ <<<GRAPHQL
             query getAssets(\$id: String!) {
@@ -192,13 +228,8 @@ class Client {
             [
                 'id' => $id,
             ],
+            $this->getAssetRetriever(),
         );
-
-        if ($asset) {
-            $asset = new ViewAsset($asset);
-        }
-
-        return $asset;
     }
 
     /**
@@ -218,9 +249,7 @@ class Client {
                 [
                     'id' => $id,
                 ],
-                static function (array $data): ViewAsset {
-                    return new ViewAsset($data);
-                },
+                $this->getAssetRetriever(),
             )
             ->setLimit($limit)
             ->setOffset($lastId);
@@ -250,9 +279,7 @@ class Client {
                 [
                     'id' => $id,
                 ],
-                static function (array $data): ViewAsset {
-                    return new ViewAsset($data);
-                },
+                $this->getAssetRetriever(),
             )
             ->setLimit($limit)
             ->setOffset($lastId);
@@ -275,9 +302,7 @@ class Client {
                 [
                     'id' => $id,
                 ],
-                static function (array $data): ViewAsset {
-                    return new ViewAsset($data);
-                },
+                $this->getAssetRetriever(),
             )
             ->setLimit($limit)
             ->setOffset($lastId);
@@ -307,9 +332,7 @@ class Client {
                 [
                     'id' => $id,
                 ],
-                static function (array $data): ViewAsset {
-                    return new ViewAsset($data);
-                },
+                $this->getAssetRetriever(),
             )
             ->setLimit($limit)
             ->setOffset($lastId);
@@ -326,9 +349,7 @@ class Client {
         $params                   = [
             'from' => $this->datetime($from),
         ];
-        $retriever                = static function (array $data): ViewAsset {
-            return new ViewAsset($data);
-        };
+        $retriever                = $this->getAssetRetriever();
         $getAssets                = $this->getLastIdBasedIterator(
             'getAssets',
             /** @lang GraphQL */ <<<GRAPHQL
@@ -373,9 +394,7 @@ class Client {
         $params                   = [
             'from' => $this->datetime($from),
         ];
-        $retriever                = static function (array $data): ViewAsset {
-            return new ViewAsset($data);
-        };
+        $retriever                = $this->getAssetRetriever();
         $getAssets                = $this->getLastIdBasedIterator(
             'getAssets',
             /** @lang GraphQL */ <<<GRAPHQL
@@ -537,13 +556,20 @@ class Client {
     }
 
     /**
-     * @param array<mixed> $params
+     * @template T
      *
-     * @return array<mixed>|null
+     * @param array<mixed> $params
+     * @param \Closure(array<mixed>): T $retriever
+     *
+     * @return T|null
      */
-    public function get(string $selector, string $graphql, array $params = []): ?array {
+    public function get(string $selector, string $graphql, array $params, Closure $retriever): ?object {
         $results = (array) $this->call("data.{$selector}", $graphql, $params);
         $item    = reset($results) ?: null;
+
+        if ($item) {
+            $item = $retriever($item);
+        }
 
         return $item;
     }
@@ -675,6 +701,27 @@ class Client {
         return $datetime
             ? "{$datetime->getTimestamp()}{$datetime->format('v')}"
             : null;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Retrievers">
+    // =========================================================================
+    /**
+     * @return \Closure(array<mixed>): \App\Services\DataLoader\Schema\Company
+     */
+    protected function getCompanyRetriever(): Closure {
+        return static function (array $data): Company {
+            return new Company($data);
+        };
+    }
+
+    /**
+     * @return \Closure(array<mixed>): \App\Services\DataLoader\Schema\ViewAsset
+     */
+    protected function getAssetRetriever(): Closure {
+        return static function (array $data): ViewAsset {
+            return new ViewAsset($data);
+        };
     }
     // </editor-fold>
 
