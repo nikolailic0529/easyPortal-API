@@ -5,7 +5,7 @@ namespace App\GraphQL\Validators;
 use App\Rules\PermissionId;
 use Nuwave\Lighthouse\Validation\Validator;
 
-class UpdateOrgRoleInputValidator extends Validator {
+class UpdateOrgRolesInputValidator extends Validator {
     /**
      * @return array<mixed>
      */

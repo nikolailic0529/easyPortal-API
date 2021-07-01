@@ -323,7 +323,7 @@ type CreateMeSearchPayload {
 
 input CreateOrgRoleInput {
   name: String!
-  permissions: [ID!]!
+  permissions: [ID!]
 }
 
 type CreateOrgRolePayload {
@@ -860,6 +860,13 @@ type Mutation {
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
   updateOrgRole(input: UpdateOrgRoleInput): UpdateOrgRolePayload
+
+  """
+  Update Organization Roles.
+  
+  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
+  """
+  updateOrgRoles(input: [UpdateOrgRolesInput!]!): UpdateOrgRolesPayload
 }
 
 type Oem {
@@ -898,7 +905,7 @@ type Organization {
   """
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
-  roles: [Role!]
+  roles: [Role!]!
 }
 
 type OrganizationBranding {
@@ -2794,12 +2801,22 @@ type UpdateOrgPayload {
 
 input UpdateOrgRoleInput {
   id: ID!
-  name: String!
-  permissions: [ID!]!
+  name: String
+  permissions: [ID!]
 }
 
 type UpdateOrgRolePayload {
   updated: Role!
+}
+
+input UpdateOrgRolesInput {
+  id: ID!
+  name: String
+  permissions: [ID!]
+}
+
+type UpdateOrgRolesPayload {
+  updated: [Role!]!
 }
 
 """

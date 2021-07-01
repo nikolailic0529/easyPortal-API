@@ -7,10 +7,13 @@ use App\Models\Role;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\Organization\CurrentOrganization;
 
+use function array_key_exists;
+
 class CreateOrgRole {
     public function __construct(
         protected Client $client,
         protected CurrentOrganization $organization,
+        protected UpdateOrgRole $updateOrgRole,
     ) {
         // empty
     }
@@ -30,9 +33,15 @@ class CreateOrgRole {
         $role->organization_id = $organization->id;
         $role->save();
         $role = $role->fresh();
-        // Add permissions
-        $this->addRolePermissions($role, $args['input']['permissions']);
-        return ['created' => $role];
+
+        if (array_key_exists('permissions', $args['input'])) {
+            // Add permissions
+            $this->addRolePermissions($role, $args['input']['permissions']);
+        }
+
+        $group = $this->updateOrgRole->transformGroup($role);
+
+        return ['created' => $group];
     }
     /**
      * @param array<string> $permissions

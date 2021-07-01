@@ -9,8 +9,8 @@ extend type Mutation {
 
 input UpdateOrgRoleInput @validator {
   id: ID!
-  name: String!
-  permissions: [ID!]!
+  name: String
+  permissions: [ID!]
 }
 
 type UpdateOrgRolePayload {

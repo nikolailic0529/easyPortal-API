@@ -76,6 +76,7 @@ class CreateOrgRoleTest extends TestCase {
                     created {
                         id
                         name
+                        permissions
                     }
                 }
             }', ['input' => $data])
@@ -102,14 +103,24 @@ class CreateOrgRoleTest extends TestCase {
                     'realmRoles'  => [],
                     'clientRoles' => [],
                     'subGroups'   => [],
-                    ], 201);
+                ], 201);
             }
-            $output['*'] = Http::response([], 200);
+            $output["{$client->getBaseUrl()}/groups/*"] = Http::response([
+                'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                'name'        => 'subgroup',
+                'clientRoles' => [
+                    'portal-web-app' => [
+                        'permission1',
+                    ],
+                ],
+            ], 200);
+            $output['*']                                = Http::response([], 200);
             return $output;
         };
         $permissionFactory = static function (TestCase $test): void {
             Permission::factory()->create([
-                'id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                'id'  => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                'key' => 'permission1',
             ]);
         };
         return (new CompositeDataProvider(
@@ -121,8 +132,11 @@ class CreateOrgRoleTest extends TestCase {
                 'ok'                  => [
                     new GraphQLSuccess('createOrgRole', CreateOrgRole::class, [
                         'created' => [
-                            'id'   => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-                            'name' => 'subgroup',
+                            'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                            'name'        => 'subgroup',
+                            'permissions' => [
+                                'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                            ],
                         ],
                     ]),
                     $permissionFactory,

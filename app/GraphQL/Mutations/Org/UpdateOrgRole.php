@@ -2,9 +2,11 @@
 
 namespace App\GraphQL\Mutations\Org;
 
+use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Services\KeyCloak\Client\Client;
+use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role as KeyCloakRole;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Config\Repository;
@@ -30,22 +32,36 @@ class UpdateOrgRole {
      */
     public function __invoke($_, array $args): array {
         $organization = $this->organization->get();
-        $name         = $args['input']['name'];
-        $permissions  = $args['input']['permissions'];
-        $role         = Role::query()
-            ->whereKey($args['input']['id'])
-            ->where('organization_id', '=', $organization->getKey())
-            ->first();
-        // Update Role Name
-        $this->client->editSubGroup($role, $name);
-        $role->name = $name;
-        $role->save();
-
-        // Sync permissions
-        $this->syncPermissions($role, $permissions);
-        return ['updated' => $role->fresh()];
+        $input        = $args['input'];
+        return ['updated' => $this->updateRole($organization, $input)];
     }
 
+    /**
+     * @param array<string,mixed> $input
+     *
+     * @return array<string,mixed>
+     */
+    public function updateRole(Organization $organization, array $input): array {
+        $role = Role::query()
+            ->whereKey($input['id'])
+            ->where('organization_id', '=', $organization->getKey())
+            ->first();
+
+        if (array_key_exists('name', $input)) {
+            // Update Role Name
+            $name = $input['name'];
+            $this->client->editSubGroup($role, $name);
+            $role->name = $name;
+            $role->save();
+        }
+
+        if (array_key_exists('name', $input)) {
+            // update Permissions
+            $this->syncPermissions($role, $input['permissions']);
+        }
+
+        return $this->transformGroup($role);
+    }
     /**
      * @param array<string> $permissions
      */
@@ -83,6 +99,7 @@ class UpdateOrgRole {
 
         // Remove old permissions
         $deleted = [];
+
         foreach ($currentRoles as $currentRole) {
             $permission = Permission::where('key', '=', $currentRole)->first();
             if ($permission) {
@@ -100,5 +117,31 @@ class UpdateOrgRole {
             'id'   => $permission->id,
             'name' => $permission->key,
         ]);
+    }
+
+    /**
+     * @return array<string,mixed>
+     */
+    public function transformGroup(Role $role): ?array {
+        $group = $this->client->getGroup($role);
+        return [
+            'id'          => $group->id,
+            'name'        => $group->name,
+            'permissions' => $this->getPermissionsIds($group),
+        ];
+    }
+
+    /**
+     * @return array<string>
+     */
+    protected function getPermissionsIds(Group $group): array {
+        $clientRoles  = $group->clientRoles;
+        $clientId     = (string) $this->config->get('ep.keycloak.client_id');
+        $currentRoles = [];
+        if (array_key_exists($clientId, $clientRoles)) {
+            $currentRoles = $clientRoles[$clientId];
+        }
+
+        return Permission::whereIn('key', $currentRoles)->pluck('id')->all();
     }
 }
