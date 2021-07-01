@@ -152,6 +152,13 @@ type Query {
   @builder(method: "App\\GraphQL\\Queries\\Quotes")
   @find
 
+  # Organization
+  # ============================================================================
+  permissions: [Permission!]!
+  @organization
+  @me(permissions: ["org-administer"])
+  @all
+
   # Administration
   # ============================================================================
   "List of all organizations."
@@ -168,9 +175,4 @@ type Query {
   @organization(root: true)
   @me(permissions: ["administer"])
   @find
-
-  permissions: [Permission!]!
-  @organization
-  @me(permissions: ["org-administer"])
-  @all
 }
