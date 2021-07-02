@@ -484,6 +484,10 @@ input CustomerStatusesQuery {
   customers: CustomersQuery
 }
 
+input CustomerTypesQuery {
+  customers: CustomersQuery
+}
+
 input CustomersQuery {
   id: ID!
   name: String!
@@ -1220,8 +1224,14 @@ type Query {
   """
   customerStatuses(where: SearchByConditionCustomerStatusesQuery): [Status!]!
 
-  """List of all possible customer types."""
-  customerTypes: [Type!]!
+  """
+  List of all possible customer types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  customerTypes(where: SearchByConditionCustomerTypesQuery): [Type!]!
 
   """List of all possible location types."""
   locationTypes: [Type!]!
@@ -1712,6 +1722,23 @@ input SearchByConditionCustomerStatusesQuery {
 
   """Any of the conditions must be true."""
   anyOf: [SearchByConditionCustomerStatusesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  customers: SearchByRelationCustomersQuery
+}
+
+"""
+Available conditions for input CustomerTypesQuery (only one property allowed at a time).
+"""
+input SearchByConditionCustomerTypesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionCustomerTypesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionCustomerTypesQuery!]
 
   """Not."""
   not: SearchByFlag
