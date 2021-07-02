@@ -103,7 +103,13 @@ type Query {
   )
 
   "List of all possible contract types."
-  contractTypes: [Type!]!
+  contractTypes(where: ContractTypesQuery @searchBy): [Type!]!
+  @organization
+  @me
+  @all
+  @builder(
+    method: "App\\GraphQL\\Queries\\ContractTypes"
+  )
 
   "List of all possible quote types."
   quoteTypes: [Type!]!

@@ -6,6 +6,7 @@ use App\GraphQL\Queries\ContractTypes;
 use App\GraphQL\Queries\QuoteTypes;
 use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasContacts;
+use App\Models\Concerns\HasContracts;
 use App\Models\Concerns\HasLocations;
 use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
@@ -69,6 +70,7 @@ class Customer extends Model {
     use HasAssets;
     use HasLocations;
     use HasContacts;
+    use HasContracts;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -95,14 +97,6 @@ class Customer extends Model {
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->withTimestamps();
-    }
-
-    public function contracts(): HasMany {
-        return $this
-            ->hasMany(Document::class)
-            ->where(static function (Builder $builder) {
-                return app()->make(ContractTypes::class)->prepare($builder);
-            });
     }
 
     public function quotes(): HasMany {

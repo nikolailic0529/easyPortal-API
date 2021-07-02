@@ -382,6 +382,10 @@ input ContactsQuery {
   customers: CustomersQuery
 }
 
+input ContractTypesQuery {
+  contracts: DocumentsQuery
+}
+
 input CountriesQuery {
   id: ID!
   code: String!
@@ -1284,8 +1288,14 @@ type Query {
   """
   assetTypes(where: SearchByConditionAssetTypesQuery): [Type!]!
 
-  """List of all possible contract types."""
-  contractTypes: [Type!]!
+  """
+  List of all possible contract types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  contractTypes(where: SearchByConditionContractTypesQuery): [Type!]!
 
   """List of all possible quote types."""
   quoteTypes: [Type!]!
@@ -1796,6 +1806,23 @@ input SearchByConditionContactsQuery {
 
   """Property condition."""
   customers: SearchByRelationCustomersQuery
+}
+
+"""
+Available conditions for input ContractTypesQuery (only one property allowed at a time).
+"""
+input SearchByConditionContractTypesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionContractTypesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionContractTypesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  contracts: SearchByRelationDocumentsQuery
 }
 
 """

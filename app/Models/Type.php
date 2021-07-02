@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\GraphQL\Contracts\Translatable;
 use App\Models\Concerns\HasAssets;
+use App\Models\Concerns\HasContracts;
 use App\Models\Concerns\HasCustomers;
 use App\Models\Concerns\TranslateProperties;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,6 +22,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property \Carbon\CarbonImmutable|null                                        $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>  $contacts
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Document>      $contracts
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer> $customers
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Location> $locations
  * @method static \Database\Factories\TypeFactory factory(...$parameters)
@@ -34,6 +36,7 @@ class Type extends PolymorphicModel implements Translatable {
     use TranslateProperties;
     use HasCustomers;
     use HasAssets;
+    use HasContracts;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
