@@ -44,7 +44,9 @@ type Query {
   @all
 
   "List of all countries."
-  countries: [Country!]!
+  countries(where: CountriesQuery @searchBy): [Country!]!
+  @organization
+  @me
   @all
 
   "List of all cities."
