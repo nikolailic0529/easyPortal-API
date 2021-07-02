@@ -944,6 +944,11 @@ type Oem {
   name: String!
 }
 
+input OemsQuery {
+  assets: AssetsQuery
+  documents: DocumentsQuery
+}
+
 type Organization {
   id: ID!
   name: String!
@@ -1144,8 +1149,14 @@ type Query {
   """Client data (settings, translations, etc)."""
   client: Client
 
-  """List of all OEMs"""
-  oems: [Oem!]!
+  """
+  List of all OEMs
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  oems(where: SearchByConditionOemsQuery): [Oem!]!
 
   """List of all currencies."""
   currencies: [Currency!]!
@@ -1852,6 +1863,26 @@ input SearchByConditionMeSearchQuery {
 
   """Property condition."""
   created_at: SearchByScalarDateTime
+}
+
+"""
+Available conditions for input OemsQuery (only one property allowed at a time).
+"""
+input SearchByConditionOemsQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionOemsQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionOemsQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  assets: SearchByRelationAssetsQuery
+
+  """Property condition."""
+  documents: SearchByRelationDocumentsQuery
 }
 
 """

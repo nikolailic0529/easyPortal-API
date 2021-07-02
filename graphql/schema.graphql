@@ -26,7 +26,9 @@ type Query {
   # These enpoints available for anyone
 
   "List of all OEMs"
-  oems: [Oem!]!
+  oems(where: OemsQuery @searchBy): [Oem!]!
+  @organization
+  @me
   @all
 
   "List of all currencies."
