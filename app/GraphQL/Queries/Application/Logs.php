@@ -10,7 +10,7 @@ class Logs {
         // empty
     }
 
-    public function __invoke(Builder $builder): Builder {
+    public function __invoke(): Builder {
         return Log::query()->whereNull('parent_id');
     }
 }

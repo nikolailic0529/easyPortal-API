@@ -43,7 +43,7 @@ class LogsTest extends TestCase {
         $this
             ->graphQL(/** @lang GraphQL */ '{
                 application {
-                    logs {
+                    logs(where: { category: { eq: "Queue" } }) {
                         data {
                             id
                             category
@@ -117,6 +117,10 @@ class LogsTest extends TestCase {
                         ]),
                     ),
                     static function (TestCase $test): void {
+                        Log::factory()->create([
+                            'category' => Category::eloquent(),
+                        ]);
+
                         Log::factory()->create([
                             'parent_id' => Log::factory()->create([
                                 'id'          => '2cc07e2a-a482-4814-9697-314c0cec4e23',
