@@ -1,0 +1,3 @@
+input AssetStatusesQuery {
+  assets: AssetsQuery
+}

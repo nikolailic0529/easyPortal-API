@@ -240,6 +240,10 @@ type AssetPaginator {
   data: [Asset!]!
 }
 
+input AssetStatusesQuery {
+  assets: AssetsQuery
+}
+
 input AssetTypesQuery {
   assets: AssetsQuery
 }
@@ -1282,8 +1286,14 @@ type Query {
   """List of all possible quote types."""
   quoteTypes: [Type!]!
 
-  """List of all possible asset statuses."""
-  assetStatuses: [Status!]!
+  """
+  List of all possible asset statuses.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  assetStatuses(where: SearchByConditionAssetStatusesQuery): [Status!]!
 
   """List of all possible asset coverages."""
   assetCoverages: [AssetCoverage!]!
@@ -1523,6 +1533,23 @@ input SearchByConditionApplicationLogsQuery {
 
   """Property condition."""
   finished_at: SearchByScalarDateTimeOrNull
+}
+
+"""
+Available conditions for input AssetStatusesQuery (only one property allowed at a time).
+"""
+input SearchByConditionAssetStatusesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionAssetStatusesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionAssetStatusesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  assets: SearchByRelationAssetsQuery
 }
 
 """

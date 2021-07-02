@@ -3,17 +3,10 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Asset;
-use App\Models\Status;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Builder;
 
 class AssetStatuses {
-    /**
-     * @param array<string, mixed> $args
-     */
-    public function __invoke(mixed $_, array $args): Collection {
-        return Status::query()
-            ->where('object_type', '=', (new Asset())->getMorphClass())
-            ->orderByKey()
-            ->get();
+    public function __invoke(Builder $builder): Builder {
+        return $builder->where('object_type', '=', (new Asset())->getMorphClass());
     }
 }
