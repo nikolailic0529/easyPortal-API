@@ -4,10 +4,9 @@ namespace App\GraphQL\Mutations\Auth;
 
 use App\Models\Organization;
 use App\Services\KeyCloak\Client\Client;
+use App\Services\KeyCloak\Client\Types\User;
 use Closure;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Illuminate\Http\Client\Factory;
-use Illuminate\Support\Facades\Http;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -53,28 +52,65 @@ class SignUpByInviteTest extends TestCase {
         $organization->save();
 
         $data = [
-            'token'                 => $this->app->make(Encrypter::class)->encrypt([
+            'token'      => $this->app->make(Encrypter::class)->encrypt([
                 'email'        => 'test@gmail.com',
                 'organization' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
             ]),
-            'first_name'            => 'First',
-            'last_name'             => 'Last',
-            'password'              => '123456',
-            'password_confirmation' => '123456',
+            'first_name' => 'First',
+            'last_name'  => 'Last',
+            'password'   => '123456',
         ];
+
         if ($prepare) {
             $data = $prepare($this);
         }
 
-        $requests = ['*' => Http::response(true, 201)];
+        $this->override(Client::class, static function ($mock) {
+            $mock
+                ->shouldReceive('updateUser')
+                ->andReturns();
 
+            $mock
+                ->shouldReceive('getUserByEmail')
+                ->with('test@gmail.com')
+                ->andReturns(new User([
+                    'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                    'attributes' => [
+                        'ep_invite' => [
+                            '{"id":null,"organization_id":"f9834bc1-2f2f-4c57-bb8d-7a224ac24981",
+                                "sent_at":1625232777,"used_at":null}',
+                        ],
+                    ],
+                ]));
 
-        if ($requestFactory) {
-            $requests = $requestFactory($this);
-        }
-        $client = Http::fake($requests);
+            $mock
+                ->shouldReceive('getUserByEmail')
+                ->with('uninvited@gmail.com')
+                ->andReturns(new User([
+                    'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                    'attributes' => [],
+                ]));
 
-        $this->app->instance(Factory::class, $client);
+            $mock
+                ->shouldReceive('getUserByEmail')
+                ->with('added@gmail.com')
+                ->andReturns(new User([
+                    'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                    'attributes' => [
+                        'ep_invite' => [
+                            '{"id":"f9834bc1-2f2f-4c57-bb8d-7a224ac24982",
+                                "organization_id":"f9834bc1-2f2f-4c57-bb8d-7a224ac24981",
+                                "sent_at":1625232777,"used_at":1625232788}',
+                        ],
+                    ],
+                ]));
+
+            $mock
+                ->shouldReceive('getUserByEmail')
+                ->with('wrong@gmail.com')
+                ->andReturns(null);
+            return $mock;
+        });
 
         // Test
         $this
@@ -93,45 +129,6 @@ class SignUpByInviteTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $requestFactory = static function (TestCase $test): array {
-            $client  = $test->app->make(Client::class);
-            $baseUrl = $client->getBaseUrl();
-            return [
-                "{$baseUrl}/users?email=test@gmail.com"      => Http::response([
-                    [
-                        'id'         => $test->faker->uuid(),
-                        'attributes' => [
-                            'ep_invite' => [
-                                '{"id":null,"organization_id":"f9834bc1-2f2f-4c57-bb8d-7a224ac24981",
-                                    "sent_at":1625232777,"used_at":null}',
-                            ],
-                        ],
-                    ],
-                ], 200),
-                "{$baseUrl}/users?email=uninvited@gmail.com" => Http::response([
-                    [
-                        'id'         => $test->faker->uuid(),
-                        'attributes' => [],
-                    ],
-                ], 200),
-                "{$baseUrl}/users?email=added@gmail.com"     => Http::response([
-                    [
-                        'id'         => $test->faker->uuid(),
-                        'attributes' => [
-                            'ep_invite' => [
-                                '{"id":"f9834bc1-2f2f-4c57-bb8d-7a224ac24982",
-                                    "organization_id":"f9834bc1-2f2f-4c57-bb8d-7a224ac24981",
-                                    "sent_at":1625232777,"used_at":1625232788}',
-                            ],
-                        ],
-                    ],
-                ], 200),
-                "{$baseUrl}/users?email=wrong@gmail.com"     => Http::response([], 200),
-                "{$baseUrl}/users"                           => Http::response([], 200),
-                '*'                                          => Http::response(true, 200),
-            ];
-        };
-
         return (new CompositeDataProvider(
             new AnyOrganizationDataProvider('signUpByInvite', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
             new AnyUserDataProvider('signUpByInvite'),
@@ -149,7 +146,6 @@ class SignUpByInviteTest extends TestCase {
                             'password'   => '123456',
                         ];
                     },
-                    $requestFactory,
                 ],
                 'Invalid user'                  => [
                     new GraphQLError('signUpByInvite', new SignUpByInviteInvalidUser()),
@@ -164,7 +160,6 @@ class SignUpByInviteTest extends TestCase {
                             'password'   => '123456',
                         ];
                     },
-                    $requestFactory,
                 ],
                 'Invalid token data'            => [
                     new GraphQLError('signUpByInvite', new SignUpByInviteInvalidToken()),
@@ -178,7 +173,6 @@ class SignUpByInviteTest extends TestCase {
                             'password'   => '123456',
                         ];
                     },
-                    $requestFactory,
                 ],
                 'Invalid not invited user'      => [
                     new GraphQLError('signUpByInvite', new SignUpByInviteUnInvitedUser()),
@@ -193,7 +187,6 @@ class SignUpByInviteTest extends TestCase {
                             'password'   => '123456',
                         ];
                     },
-                    $requestFactory,
                 ],
                 'Invalid invited already added' => [
                     new GraphQLError('signUpByInvite', new SignUpByInviteAlreadyUsed()),
@@ -208,7 +201,6 @@ class SignUpByInviteTest extends TestCase {
                             'password'   => '123456',
                         ];
                     },
-                    $requestFactory,
                 ],
                 'Invalid token'                 => [
                     new GraphQLError('signUpByInvite', static function (): array {
@@ -222,7 +214,6 @@ class SignUpByInviteTest extends TestCase {
                             'password'   => '123456',
                         ];
                     },
-                    $requestFactory,
                 ],
                 'Invalid first name'            => [
                     new GraphQLError('signUpByInvite', static function (): array {
@@ -239,7 +230,6 @@ class SignUpByInviteTest extends TestCase {
                             'password'   => '123456',
                         ];
                     },
-                    $requestFactory,
                 ],
                 'Invalid last name'             => [
                     new GraphQLError('signUpByInvite', static function (): array {
@@ -256,7 +246,6 @@ class SignUpByInviteTest extends TestCase {
                             'password'   => '123456',
                         ];
                     },
-                    $requestFactory,
                 ],
                 'Invalid password'              => [
                     new GraphQLError('signUpByInvite', static function (): array {
@@ -273,7 +262,6 @@ class SignUpByInviteTest extends TestCase {
                             'password'   => '',
                         ];
                     },
-                    $requestFactory,
                 ],
             ]),
         ))->getData();
