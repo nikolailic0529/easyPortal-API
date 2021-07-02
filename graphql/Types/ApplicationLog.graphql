@@ -1,8 +1,8 @@
 type ApplicationLog {
   id: ID!
-  category: ApplicationLogCategory!
+  category: String!
   action: String!
-  status: ApplicationLogStatus
+  status: String
   object_type: String
   object_id: ID
   "Seconds"
