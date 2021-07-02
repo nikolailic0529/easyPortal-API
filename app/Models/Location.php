@@ -7,7 +7,6 @@ use App\Models\Concerns\HasCustomersOwners;
 use App\Models\Concerns\HasTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Location.
