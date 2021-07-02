@@ -35,6 +35,8 @@ use App\Models\User;
 use App\Models\UserSearch;
 use App\Services\KeyCloak\KeyCloak;
 use App\Services\KeyCloak\UserProvider;
+use App\Services\Logger\Models\Enums\Category as CategoryEnum;
+use App\Services\Logger\Models\Enums\Status as StatusEnum;
 use Carbon\CarbonImmutable;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -42,7 +44,9 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\ServiceProvider;
+use LastDragon_ru\LaraASP\GraphQL\Helpers\EnumHelper;
 use Nuwave\Lighthouse\Events\ManipulateResult;
+use Nuwave\Lighthouse\Schema\TypeRegistry;
 
 class AppServiceProvider extends ServiceProvider {
     /**
@@ -72,12 +76,18 @@ class AppServiceProvider extends ServiceProvider {
     }
 
     protected function bootGraphQL(Dispatcher $dispatcher): void {
+        // Events
         $dispatcher->listen(
             ManipulateResult::class,
             function (ManipulateResult $event): void {
                 $event->result->setErrorFormatter($this->app->make(GraphQLHandler::class));
             },
         );
+
+        // TODO [GraphQL] Should be moved into lara-asp-graphql.php
+        $registry = $this->app->make(TypeRegistry::class);
+        $registry->register(EnumHelper::getType(CategoryEnum::class, 'ApplicationLogCategory'));
+        $registry->register(EnumHelper::getType(StatusEnum::class, 'ApplicationLogStatus'));
     }
 
     protected function bootMorphMap(): void {
