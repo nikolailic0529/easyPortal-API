@@ -6,7 +6,6 @@ use App\Models\Document;
 use App\Models\Type;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Collection;
 
 class ContractTypes {
     public function __construct(
@@ -15,17 +14,11 @@ class ContractTypes {
         // empty
     }
 
-    /**
-     * @param null                 $_
-     * @param array<string, mixed> $args
-     */
-    public function __invoke($_, array $args): Collection {
-        $builder = Type::query()
-            ->where('object_type', '=', (new Document())->getMorphClass())
-            ->orderByKey();
+    public function __invoke(Builder $builder): Builder {
+        $builder = $builder->where('object_type', '=', (new Document())->getMorphClass());
         $builder = $this->prepare($builder, (new Type())->getKeyName());
 
-        return $builder->get();
+        return $builder;
     }
 
     public function prepare(Builder $builder, string $key = 'type_id'): Builder {

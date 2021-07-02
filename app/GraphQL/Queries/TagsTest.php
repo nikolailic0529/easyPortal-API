@@ -7,8 +7,8 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -52,8 +52,8 @@ class TagsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('tags'),
-            new AnyUserDataProvider(),
+            new OrganizationDataProvider('tags'),
+            new AuthUserDataProvider('tags'),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('tags', self::class, [
@@ -63,7 +63,7 @@ class TagsTest extends TestCase {
                         ],
                     ]),
                     static function (): void {
-                        Tag ::factory()->create([
+                        Tag::factory()->create([
                             'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                             'name' => 'tag1',
                         ]);

@@ -2,19 +2,17 @@
 
 namespace App\Models;
 
-use App\GraphQL\Queries\ContractTypes;
-use App\GraphQL\Queries\QuoteTypes;
 use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasContacts;
+use App\Models\Concerns\HasContracts;
 use App\Models\Concerns\HasLocations;
+use App\Models\Concerns\HasQuotes;
 use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasType;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
@@ -69,6 +67,8 @@ class Customer extends Model {
     use HasAssets;
     use HasLocations;
     use HasContacts;
+    use HasContracts;
+    use HasQuotes;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -95,22 +95,6 @@ class Customer extends Model {
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->withTimestamps();
-    }
-
-    public function contracts(): HasMany {
-        return $this
-            ->hasMany(Document::class)
-            ->where(static function (Builder $builder) {
-                return app()->make(ContractTypes::class)->prepare($builder);
-            });
-    }
-
-    public function quotes(): HasMany {
-        return $this
-            ->hasMany(Document::class)
-            ->where(static function (Builder $builder): Builder {
-                return app()->make(QuoteTypes::class)->prepare($builder);
-            });
     }
 
     // <editor-fold desc="OwnedByOrganization">

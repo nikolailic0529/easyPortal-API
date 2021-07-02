@@ -11,4 +11,6 @@ input LocationsQuery {
   country: CountriesQuery
   country_id: ID!
   types: TypesQuery
+  assets: CustomersQuery
+  customers: CustomersQuery
 }

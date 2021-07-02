@@ -1,0 +1,3 @@
+input LocationTypesQuery {
+  locations: LocationsQuery
+}

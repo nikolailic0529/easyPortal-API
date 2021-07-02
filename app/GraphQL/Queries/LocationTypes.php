@@ -3,18 +3,10 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Location;
-use App\Models\Type;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Builder;
 
 class LocationTypes {
-    /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
-     */
-    public function __invoke($_, array $args): Collection {
-        return Type::query()
-            ->where('object_type', '=', (new Location())->getMorphClass())
-            ->orderByKey()
-            ->get();
+    public function __invoke(Builder $builder): Builder {
+        return $builder->where('object_type', '=', (new Location())->getMorphClass());
     }
 }

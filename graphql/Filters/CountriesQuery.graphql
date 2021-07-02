@@ -2,4 +2,7 @@ input CountriesQuery {
   id: ID!
   code: String!
   name: String!
+  cities: CitiesQuery
+  assets: AssetsQuery
+  customers: CustomersQuery
 }

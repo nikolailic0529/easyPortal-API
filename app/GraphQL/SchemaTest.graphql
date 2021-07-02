@@ -227,6 +227,10 @@ type AssetCoverage {
   name: String!
 }
 
+input AssetCoveragesQuery {
+  assets: AssetsQuery
+}
+
 input AssetCoveragesSort {
   name: String!
 }
@@ -238,6 +242,14 @@ type AssetPaginator {
 
   """A list of Asset items."""
   data: [Asset!]!
+}
+
+input AssetStatusesQuery {
+  assets: AssetsQuery
+}
+
+input AssetTypesQuery {
+  assets: AssetsQuery
 }
 
 input AssetWarrantiesQuery {
@@ -312,6 +324,8 @@ input CitiesQuery {
   id: ID!
   name: String!
   country_id: ID!
+  assets: AssetsQuery
+  customers: CustomersQuery
 }
 
 input CitiesSort {
@@ -353,6 +367,10 @@ type Contact {
   types: [Type]!
 }
 
+input ContactTypesQuery {
+  contacts: ContactsQuery
+}
+
 input ContactsQuery {
   id: ID!
   name: String
@@ -360,12 +378,21 @@ input ContactsQuery {
   phone_number: String
   phone_valid: Boolean
   types: TypesQuery
+  assets: CustomersQuery
+  customers: CustomersQuery
+}
+
+input ContractTypesQuery {
+  contracts: DocumentsQuery
 }
 
 input CountriesQuery {
   id: ID!
   code: String!
   name: String!
+  cities: CitiesQuery
+  assets: AssetsQuery
+  customers: CustomersQuery
 }
 
 input CountriesSort {
@@ -397,6 +424,10 @@ input CreateOrgRoleInput {
 
 type CreateOrgRolePayload {
   created: Role!
+}
+
+input CurrenciesQuery {
+  documents: DocumentsQuery
 }
 
 type Currency {
@@ -469,6 +500,14 @@ type CustomerPaginator {
 
   """A list of Customer items."""
   data: [Customer!]!
+}
+
+input CustomerStatusesQuery {
+  customers: CustomersQuery
+}
+
+input CustomerTypesQuery {
+  customers: CustomersQuery
 }
 
 input CustomersQuery {
@@ -670,6 +709,10 @@ type Language {
   name: String!
 }
 
+input LanguagesQuery {
+  documents: DocumentsQuery
+}
+
 type Location {
   id: ID!
   postcode: String!
@@ -685,6 +728,10 @@ type Location {
   types: [Type]!
 }
 
+input LocationTypesQuery {
+  locations: LocationsQuery
+}
+
 input LocationsQuery {
   id: ID!
   postcode: String!
@@ -698,6 +745,8 @@ input LocationsQuery {
   country: CountriesQuery
   country_id: ID!
   types: TypesQuery
+  assets: CustomersQuery
+  customers: CustomersQuery
 }
 
 input LocationsSort {
@@ -944,6 +993,11 @@ type Oem {
   name: String!
 }
 
+input OemsQuery {
+  assets: AssetsQuery
+  documents: DocumentsQuery
+}
+
 type Organization {
   id: ID!
   name: String!
@@ -1144,49 +1198,139 @@ type Query {
   """Client data (settings, translations, etc)."""
   client: Client
 
-  """List of all OEMs"""
-  oems: [Oem!]!
+  """
+  List of all OEMs
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  oems(where: SearchByConditionOemsQuery): [Oem!]!
 
-  """List of all currencies."""
-  currencies: [Currency!]!
+  """
+  List of all currencies.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  currencies(where: SearchByConditionCurrenciesQuery): [Currency!]!
 
-  """List of all languages."""
-  languages: [Language!]!
+  """
+  List of all languages.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  languages(where: SearchByConditionLanguagesQuery): [Language!]!
 
-  """List of all countries."""
-  countries: [Country!]!
+  """
+  List of all countries.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  countries(where: SearchByConditionCountriesQuery): [Country!]!
 
-  """List of all cities."""
+  """
+  List of all cities.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
   cities(where: SearchByConditionCitiesQuery): [City!]!
 
-  """List of all possible customer statuses."""
-  customerStatuses: [Status!]!
+  """
+  List of all possible customer statuses.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  customerStatuses(where: SearchByConditionCustomerStatusesQuery): [Status!]!
 
-  """List of all possible customer types."""
-  customerTypes: [Type!]!
+  """
+  List of all possible customer types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  customerTypes(where: SearchByConditionCustomerTypesQuery): [Type!]!
 
-  """List of all possible location types."""
-  locationTypes: [Type!]!
+  """
+  List of all possible location types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  locationTypes(where: SearchByConditionLocationTypesQuery): [Type!]!
 
-  """List of all possible contact types."""
-  contactTypes: [Type!]!
+  """
+  List of all possible contact types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  contactTypes(where: SearchByConditionContactTypesQuery): [Type!]!
 
-  """List of all possible asset types."""
-  assetTypes: [Type!]!
+  """
+  List of all possible asset types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  assetTypes(where: SearchByConditionAssetTypesQuery): [Type!]!
 
-  """List of all possible contract types."""
-  contractTypes: [Type!]!
+  """
+  List of all possible contract types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  contractTypes(where: SearchByConditionContractTypesQuery): [Type!]!
 
-  """List of all possible quote types."""
-  quoteTypes: [Type!]!
+  """
+  List of all possible quote types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  quoteTypes(where: SearchByConditionQuoteTypesQuery): [Type!]!
 
-  """List of all possible asset statuses."""
-  assetStatuses: [Status!]!
+  """
+  List of all possible asset statuses.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  assetStatuses(where: SearchByConditionAssetStatusesQuery): [Status!]!
 
-  """List of all possible asset coverages."""
-  assetCoverages: [AssetCoverage!]!
+  """
+  List of all possible asset coverages.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  assetCoverages(where: SearchByConditionAssetCoveragesQuery): [AssetCoverage!]!
 
-  """List of all possible tags."""
+  """
+  List of all possible tags.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
   tags(where: SearchByConditionTagsQuery, order: [SortByClauseTagsSort!]): [Tag!]!
 
   """
@@ -1332,6 +1476,10 @@ type Query {
   ): OrganizationPaginator
 }
 
+input QuoteTypesQuery {
+  quotes: DocumentsQuery
+}
+
 input RecoverApplicationTranslationsInput {
   locale: String!
 }
@@ -1421,6 +1569,57 @@ input SearchByConditionApplicationLogsQuery {
 
   """Property condition."""
   finished_at: SearchByScalarDateTimeOrNull
+}
+
+"""
+Available conditions for input AssetCoveragesQuery (only one property allowed at a time).
+"""
+input SearchByConditionAssetCoveragesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionAssetCoveragesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionAssetCoveragesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  assets: SearchByRelationAssetsQuery
+}
+
+"""
+Available conditions for input AssetStatusesQuery (only one property allowed at a time).
+"""
+input SearchByConditionAssetStatusesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionAssetStatusesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionAssetStatusesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  assets: SearchByRelationAssetsQuery
+}
+
+"""
+Available conditions for input AssetTypesQuery (only one property allowed at a time).
+"""
+input SearchByConditionAssetTypesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionAssetTypesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionAssetTypesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  assets: SearchByRelationAssetsQuery
 }
 
 """
@@ -1556,6 +1755,29 @@ input SearchByConditionCitiesQuery {
 
   """Property condition."""
   country_id: SearchByScalarID
+
+  """Property condition."""
+  assets: SearchByRelationAssetsQuery
+
+  """Property condition."""
+  customers: SearchByRelationCustomersQuery
+}
+
+"""
+Available conditions for input ContactTypesQuery (only one property allowed at a time).
+"""
+input SearchByConditionContactTypesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionContactTypesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionContactTypesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  contacts: SearchByRelationContactsQuery
 }
 
 """
@@ -1588,6 +1810,29 @@ input SearchByConditionContactsQuery {
 
   """Property condition."""
   types: SearchByRelationTypesQuery
+
+  """Property condition."""
+  assets: SearchByRelationCustomersQuery
+
+  """Property condition."""
+  customers: SearchByRelationCustomersQuery
+}
+
+"""
+Available conditions for input ContractTypesQuery (only one property allowed at a time).
+"""
+input SearchByConditionContractTypesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionContractTypesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionContractTypesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  contracts: SearchByRelationDocumentsQuery
 }
 
 """
@@ -1611,6 +1856,66 @@ input SearchByConditionCountriesQuery {
 
   """Property condition."""
   name: SearchByScalarString
+
+  """Property condition."""
+  cities: SearchByRelationCitiesQuery
+
+  """Property condition."""
+  assets: SearchByRelationAssetsQuery
+
+  """Property condition."""
+  customers: SearchByRelationCustomersQuery
+}
+
+"""
+Available conditions for input CurrenciesQuery (only one property allowed at a time).
+"""
+input SearchByConditionCurrenciesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionCurrenciesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionCurrenciesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  documents: SearchByRelationDocumentsQuery
+}
+
+"""
+Available conditions for input CustomerStatusesQuery (only one property allowed at a time).
+"""
+input SearchByConditionCustomerStatusesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionCustomerStatusesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionCustomerStatusesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  customers: SearchByRelationCustomersQuery
+}
+
+"""
+Available conditions for input CustomerTypesQuery (only one property allowed at a time).
+"""
+input SearchByConditionCustomerTypesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionCustomerTypesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionCustomerTypesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  customers: SearchByRelationCustomersQuery
 }
 
 """
@@ -1779,6 +2084,40 @@ input SearchByConditionDocumentsQuery {
 }
 
 """
+Available conditions for input LanguagesQuery (only one property allowed at a time).
+"""
+input SearchByConditionLanguagesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionLanguagesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionLanguagesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  documents: SearchByRelationDocumentsQuery
+}
+
+"""
+Available conditions for input LocationTypesQuery (only one property allowed at a time).
+"""
+input SearchByConditionLocationTypesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionLocationTypesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionLocationTypesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  locations: SearchByRelationLocationsQuery
+}
+
+"""
 Available conditions for input LocationsQuery (only one property allowed at a time).
 """
 input SearchByConditionLocationsQuery {
@@ -1826,6 +2165,12 @@ input SearchByConditionLocationsQuery {
 
   """Property condition."""
   types: SearchByRelationTypesQuery
+
+  """Property condition."""
+  assets: SearchByRelationCustomersQuery
+
+  """Property condition."""
+  customers: SearchByRelationCustomersQuery
 }
 
 """
@@ -1852,6 +2197,26 @@ input SearchByConditionMeSearchQuery {
 
   """Property condition."""
   created_at: SearchByScalarDateTime
+}
+
+"""
+Available conditions for input OemsQuery (only one property allowed at a time).
+"""
+input SearchByConditionOemsQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionOemsQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionOemsQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  assets: SearchByRelationAssetsQuery
+
+  """Property condition."""
+  documents: SearchByRelationDocumentsQuery
 }
 
 """
@@ -1919,6 +2284,23 @@ input SearchByConditionProductsQuery {
 }
 
 """
+Available conditions for input QuoteTypesQuery (only one property allowed at a time).
+"""
+input SearchByConditionQuoteTypesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionQuoteTypesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionQuoteTypesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  quotes: SearchByRelationDocumentsQuery
+}
+
+"""
 Available conditions for input ResellersQuery (only one property allowed at a time).
 """
 input SearchByConditionResellersQuery {
@@ -1956,6 +2338,9 @@ input SearchByConditionTagsQuery {
 
   """Property condition."""
   name: SearchByScalarString
+
+  """Property condition."""
+  assets: SearchByRelationAssetsQuery
 }
 
 """
@@ -2846,6 +3231,7 @@ type Tag {
 input TagsQuery {
   id: ID!
   name: String!
+  assets: AssetsQuery
 }
 
 input TagsSort {

@@ -1,4 +1,5 @@
 input TagsQuery {
   id: ID!
   name: String!
+  assets: AssetsQuery
 }

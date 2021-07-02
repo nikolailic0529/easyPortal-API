@@ -26,59 +26,123 @@ type Query {
   # These enpoints available for anyone
 
   "List of all OEMs"
-  oems: [Oem!]!
+  oems(where: OemsQuery @searchBy): [Oem!]!
+  @organization
+  @me
   @all
 
   "List of all currencies."
-  currencies: [Currency!]!
+  currencies(where: CurrenciesQuery @searchBy): [Currency!]!
+  @organization
+  @me
   @all
 
   "List of all languages."
-  languages: [Language!]!
+  languages(where: LanguagesQuery @searchBy): [Language!]!
+  @organization
+  @me
   @all
 
   "List of all countries."
-  countries: [Country!]!
+  countries(where: CountriesQuery @searchBy): [Country!]!
+  @organization
+  @me
   @all
 
   "List of all cities."
   cities(
     where: CitiesQuery @searchBy
   ): [City!]!
+  @organization
+  @me
   @all
 
   "List of all possible customer statuses."
-  customerStatuses: [Status!]!
+  customerStatuses(where: CustomerStatusesQuery @searchBy): [Status!]!
+  @organization
+  @me
+  @all
+  @builder(
+    method: "App\\GraphQL\\Queries\\CustomerStatuses"
+  )
 
   "List of all possible customer types."
-  customerTypes: [Type!]!
+  customerTypes(where: CustomerTypesQuery @searchBy): [Type!]!
+  @organization
+  @me
+  @all
+  @builder(
+    method: "App\\GraphQL\\Queries\\CustomerTypes"
+  )
 
   "List of all possible location types."
-  locationTypes: [Type!]!
+  locationTypes(where: LocationTypesQuery @searchBy): [Type!]!
+  @organization
+  @me
+  @all
+  @builder(
+    method: "App\\GraphQL\\Queries\\LocationTypes"
+  )
 
   "List of all possible contact types."
-  contactTypes: [Type!]!
+  contactTypes(where: ContactTypesQuery @searchBy): [Type!]!
+  @organization
+  @me
+  @all
+  @builder(
+    method: "App\\GraphQL\\Queries\\ContactTypes"
+  )
 
   "List of all possible asset types."
-  assetTypes: [Type!]!
+  assetTypes(where: AssetTypesQuery @searchBy): [Type!]!
+  @organization
+  @me
+  @all
+  @builder(
+    method: "App\\GraphQL\\Queries\\AssetTypes"
+  )
 
   "List of all possible contract types."
-  contractTypes: [Type!]!
+  contractTypes(where: ContractTypesQuery @searchBy): [Type!]!
+  @organization
+  @me
+  @all
+  @builder(
+    method: "App\\GraphQL\\Queries\\ContractTypes"
+  )
 
   "List of all possible quote types."
-  quoteTypes: [Type!]!
+  quoteTypes(where: QuoteTypesQuery @searchBy): [Type!]!
+  @organization
+  @me
+  @all
+  @builder(
+    method: "App\\GraphQL\\Queries\\QuoteTypes"
+  )
 
   "List of all possible asset statuses."
-  assetStatuses: [Status!]!
+  assetStatuses(where: AssetStatusesQuery @searchBy): [Status!]!
+  @organization
+  @me
+  @all
+  @builder(
+    method: "App\\GraphQL\\Queries\\AssetStatuses"
+  )
 
   "List of all possible asset coverages."
-  assetCoverages: [AssetCoverage!]! @all
+  assetCoverages(where: AssetCoveragesQuery @searchBy): [AssetCoverage!]!
+  @organization
+  @me
+  @all
 
   "List of all possible tags."
   tags (
     where: TagsQuery @searchBy
     order: TagsSort @sortBy
-  ): [Tag!]! @all
+  ): [Tag!]!
+  @organization
+  @me
+  @all
 
   # Customers
   # ============================================================================

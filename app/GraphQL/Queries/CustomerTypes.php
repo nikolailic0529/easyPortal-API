@@ -3,17 +3,10 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Customer;
-use App\Models\Type;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Builder;
 
 class CustomerTypes {
-    /**
-     * @param array<string, mixed> $args
-     */
-    public function __invoke(mixed $_, array $args): Collection {
-        return Type::query()
-            ->where('object_type', '=', (new Customer())->getMorphClass())
-            ->orderByKey()
-            ->get();
+    public function __invoke(Builder $builder): Builder {
+        return $builder->where('object_type', '=', (new Customer())->getMorphClass());
     }
 }
