@@ -399,6 +399,10 @@ type CreateOrgRolePayload {
   created: Role!
 }
 
+input CurrenciesQuery {
+  documents: DocumentsQuery
+}
+
 type Currency {
   id: ID!
   code: String!
@@ -1158,8 +1162,14 @@ type Query {
   """
   oems(where: SearchByConditionOemsQuery): [Oem!]!
 
-  """List of all currencies."""
-  currencies: [Currency!]!
+  """
+  List of all currencies.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  currencies(where: SearchByConditionCurrenciesQuery): [Currency!]!
 
   """List of all languages."""
   languages: [Language!]!
@@ -1622,6 +1632,23 @@ input SearchByConditionCountriesQuery {
 
   """Property condition."""
   name: SearchByScalarString
+}
+
+"""
+Available conditions for input CurrenciesQuery (only one property allowed at a time).
+"""
+input SearchByConditionCurrenciesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionCurrenciesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionCurrenciesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  documents: SearchByRelationDocumentsQuery
 }
 
 """

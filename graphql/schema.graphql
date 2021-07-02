@@ -32,7 +32,9 @@ type Query {
   @all
 
   "List of all currencies."
-  currencies: [Currency!]!
+  currencies(where: CurrenciesQuery @searchBy): [Currency!]!
+  @organization
+  @me
   @all
 
   "List of all languages."
