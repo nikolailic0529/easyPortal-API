@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property \Carbon\CarbonImmutable                                             $created_at
  * @property \Carbon\CarbonImmutable                                             $updated_at
  * @property \Carbon\CarbonImmutable|null                                        $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>  $contacts
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer> $customers
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Location> $locations
  * @method static \Database\Factories\TypeFactory factory(...$parameters)
@@ -59,6 +60,16 @@ class Type extends PolymorphicModel implements Translatable {
 
         return $this
             ->belongsToMany(Location::class, $pivot->getTable())
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
+    }
+
+    public function contacts(): BelongsToMany {
+        $pivot = new ContactType();
+
+        return $this
+            ->belongsToMany(Contact::class, $pivot->getTable())
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->withTimestamps();

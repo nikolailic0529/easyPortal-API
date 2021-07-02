@@ -85,7 +85,13 @@ type Query {
   )
 
   "List of all possible contact types."
-  contactTypes: [Type!]!
+  contactTypes(where: ContactTypesQuery @searchBy): [Type!]!
+  @organization
+  @me
+  @all
+  @builder(
+    method: "App\\GraphQL\\Queries\\ContactTypes"
+  )
 
   "List of all possible asset types."
   assetTypes: [Type!]!

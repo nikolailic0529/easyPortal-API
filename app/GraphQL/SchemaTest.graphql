@@ -355,6 +355,10 @@ type Contact {
   types: [Type]!
 }
 
+input ContactTypesQuery {
+  contacts: ContactsQuery
+}
+
 input ContactsQuery {
   id: ID!
   name: String
@@ -362,6 +366,8 @@ input ContactsQuery {
   phone_number: String
   phone_valid: Boolean
   types: TypesQuery
+  assets: CustomersQuery
+  customers: CustomersQuery
 }
 
 input CountriesQuery {
@@ -1249,7 +1255,7 @@ type Query {
   locationTypes(where: SearchByConditionLocationTypesQuery): [Type!]!
 
   """List of all possible contact types."""
-  contactTypes: [Type!]!
+  contactTypes(where: SearchByConditionContactTypesQuery): [Type!]!
 
   """List of all possible asset types."""
   assetTypes: [Type!]!
@@ -1645,6 +1651,23 @@ input SearchByConditionCitiesQuery {
 }
 
 """
+Available conditions for input ContactTypesQuery (only one property allowed at a time).
+"""
+input SearchByConditionContactTypesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionContactTypesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionContactTypesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  contacts: SearchByRelationContactsQuery
+}
+
+"""
 Available conditions for input ContactsQuery (only one property allowed at a time).
 """
 input SearchByConditionContactsQuery {
@@ -1674,6 +1697,12 @@ input SearchByConditionContactsQuery {
 
   """Property condition."""
   types: SearchByRelationTypesQuery
+
+  """Property condition."""
+  assets: SearchByRelationCustomersQuery
+
+  """Property condition."""
+  customers: SearchByRelationCustomersQuery
 }
 
 """

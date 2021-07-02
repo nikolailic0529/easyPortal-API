@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasAssets;
+use App\Models\Concerns\HasCustomersOwners;
 use App\Models\Concerns\HasTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -40,6 +41,7 @@ class Location extends PolymorphicModel {
     use HasFactory;
     use HasAssets;
     use HasTypes;
+    use HasCustomersOwners;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -66,9 +68,5 @@ class Location extends PolymorphicModel {
 
     protected function getTypesPivot(): Pivot {
         return new LocationType();
-    }
-
-    public function customers(): HasMany {
-        return $this->hasMany(Customer::class, $this->getKeyName(), 'object_id');
     }
 }
