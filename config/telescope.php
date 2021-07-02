@@ -1,5 +1,6 @@
 <?php declare(strict_types = 1);
 
+use App\Services\Logger\Logger;
 use Laravel\Telescope\Http\Middleware\Authorize;
 use Laravel\Telescope\Watchers;
 
@@ -46,7 +47,7 @@ return [
 
     'storage'         => [
         'database' => [
-            'connection' => env('EP_LOGGER_DB_DATABASE', 'mysql'),
+            'connection' => Logger::CONNECTION,
             'chunk'      => 1000,
         ],
     ],
