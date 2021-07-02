@@ -3,24 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Tag.
  *
- * @property string                                                     $id
- * @property string|null                                                $name
- * @property \Carbon\CarbonImmutable                                    $created_at
- * @property \Carbon\CarbonImmutable                                    $updated_at
- * @property \Carbon\CarbonImmutable|null                               $deleted_at
+ * @property string                                                           $id
+ * @property string|null                                                      $name
+ * @property \Carbon\CarbonImmutable                                          $created_at
+ * @property \Carbon\CarbonImmutable                                          $updated_at
+ * @property \Carbon\CarbonImmutable|null                                     $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset> $assets
  * @method static \Database\Factories\TagFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Tag newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Tag newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Tag query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Tag whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Tag whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Tag whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Tag whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Tag whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Tag extends Model {
@@ -32,4 +29,14 @@ class Tag extends Model {
      * @var string
      */
     protected $table = 'tags';
+
+    public function assets(): BelongsToMany {
+        $pivot = new AssetTag();
+
+        return $this
+            ->belongsToMany(Asset::class, $pivot->getTable())
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
+    }
 }

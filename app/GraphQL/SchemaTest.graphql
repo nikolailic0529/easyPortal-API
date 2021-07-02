@@ -1308,7 +1308,13 @@ type Query {
   """
   assetCoverages(where: SearchByConditionAssetCoveragesQuery): [AssetCoverage!]!
 
-  """List of all possible tags."""
+  """
+  List of all possible tags.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
   tags(where: SearchByConditionTagsQuery, order: [SortByClauseTagsSort!]): [Tag!]!
 
   """
@@ -2278,6 +2284,9 @@ input SearchByConditionTagsQuery {
 
   """Property condition."""
   name: SearchByScalarString
+
+  """Property condition."""
+  assets: SearchByRelationAssetsQuery
 }
 
 """
@@ -3168,6 +3177,7 @@ type Tag {
 input TagsQuery {
   id: ID!
   name: String!
+  assets: AssetsQuery
 }
 
 input TagsSort {

@@ -127,7 +127,10 @@ type Query {
   tags (
     where: TagsQuery @searchBy
     order: TagsSort @sortBy
-  ): [Tag!]! @all
+  ): [Tag!]!
+  @organization
+  @me
+  @all
 
   # Customers
   # ============================================================================
