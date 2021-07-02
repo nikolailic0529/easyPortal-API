@@ -312,6 +312,8 @@ input CitiesQuery {
   id: ID!
   name: String!
   country_id: ID!
+  assets: AssetsQuery
+  customers: CustomersQuery
 }
 
 input CitiesSort {
@@ -1196,7 +1198,13 @@ type Query {
   """
   countries(where: SearchByConditionCountriesQuery): [Country!]!
 
-  """List of all cities."""
+  """
+  List of all cities.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
   cities(where: SearchByConditionCitiesQuery): [City!]!
 
   """List of all possible customer statuses."""
@@ -1596,6 +1604,12 @@ input SearchByConditionCitiesQuery {
 
   """Property condition."""
   country_id: SearchByScalarID
+
+  """Property condition."""
+  assets: SearchByRelationAssetsQuery
+
+  """Property condition."""
+  customers: SearchByRelationCustomersQuery
 }
 
 """

@@ -53,6 +53,8 @@ type Query {
   cities(
     where: CitiesQuery @searchBy
   ): [City!]!
+  @organization
+  @me
   @all
 
   "List of all possible customer statuses."
