@@ -894,6 +894,7 @@ type Mutation {
   @require <me> User must be authenticated.
   """
   signOut: SignOutPayload
+  signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload
 
   """
   Create Organization Role.
@@ -936,7 +937,6 @@ type Mutation {
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
   updateOrgRoles(input: [UpdateOrgRolesInput!]!): UpdateOrgRolesPayload
-  signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload
 }
 
 type Oem {
@@ -2593,6 +2593,18 @@ type SignOutPayload {
   url: String
 }
 
+input SignUpByInviteInput {
+  token: String!
+  first_name: String!
+  last_name: String!
+  password: String!
+}
+
+type SignUpByInvitePayload {
+  """The link where the User should be redirected to Sign In."""
+  url: String!
+}
+
 """Pagination information about the corresponding list of items."""
 type SimplePaginatorInfo {
   """Count of available items in the page."""
@@ -2974,18 +2986,6 @@ input UpdateOrgRolesInput {
 
 type UpdateOrgRolesPayload {
   updated: [Role!]!
-}
-
-input SignUpByInviteInput {
-  token: String!
-  first_name: String!
-  last_name: String!
-  password: String!
-  password_confirmation: String!
-}
-
-type SignUpByInvitePayload {
-  result: String!
 }
 
 """
