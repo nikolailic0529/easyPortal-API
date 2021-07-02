@@ -480,6 +480,10 @@ type CustomerPaginator {
   data: [Customer!]!
 }
 
+input CustomerStatusesQuery {
+  customers: CustomersQuery
+}
+
 input CustomersQuery {
   id: ID!
   name: String!
@@ -1207,8 +1211,14 @@ type Query {
   """
   cities(where: SearchByConditionCitiesQuery): [City!]!
 
-  """List of all possible customer statuses."""
-  customerStatuses: [Status!]!
+  """
+  List of all possible customer statuses.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  customerStatuses(where: SearchByConditionCustomerStatusesQuery): [Status!]!
 
   """List of all possible customer types."""
   customerTypes: [Type!]!
@@ -1691,6 +1701,23 @@ input SearchByConditionCurrenciesQuery {
 
   """Property condition."""
   documents: SearchByRelationDocumentsQuery
+}
+
+"""
+Available conditions for input CustomerStatusesQuery (only one property allowed at a time).
+"""
+input SearchByConditionCustomerStatusesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionCustomerStatusesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionCustomerStatusesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  customers: SearchByRelationCustomersQuery
 }
 
 """

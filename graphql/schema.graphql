@@ -58,7 +58,13 @@ type Query {
   @all
 
   "List of all possible customer statuses."
-  customerStatuses: [Status!]!
+  customerStatuses(where: CustomerStatusesQuery @searchBy): [Status!]!
+  @organization
+  @me
+  @all
+  @builder(
+    method: "App\\GraphQL\\Queries\\CustomerStatuses"
+  )
 
   "List of all possible customer types."
   customerTypes: [Type!]!
