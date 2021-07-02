@@ -15,6 +15,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
+use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -162,6 +163,29 @@ class ResetPasswordTest extends TestCase {
                         User::factory()->create([
                             'type'  => UserType::keycloak(),
                             'email' => 'test@example.com',
+                        ]);
+                        PasswordReset::factory()->create([
+                            'email' => 'test@example.com',
+                            'token' => $test->app->make(Hasher::class)->make('12345678'),
+                        ]);
+
+                        return false;
+                    },
+                    static function () {
+                        return [
+                            'email'    => 'test@example.com',
+                            'token'    => '12345678',
+                            'password' => '12345678',
+                        ];
+                    },
+                ],
+                'same password'                        => [
+                    new GraphQLError('resetPassword', new ResetPasswordSamePasswordException()),
+                    static function (TestCase $test): bool {
+                        User::factory()->create([
+                            'type'     => UserType::local(),
+                            'email'    => 'test@example.com',
+                            'password' => $test->app->make(Hasher::class)->make('12345678'),
                         ]);
                         PasswordReset::factory()->create([
                             'email' => 'test@example.com',

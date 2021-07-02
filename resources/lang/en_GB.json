@@ -127,6 +127,7 @@
     "graphql.mutations.dispatchApplicationService.failed": "Service execution failed.",
     "graphql.mutations.dispatchApplicationService.not_found": "Service not found.",
     "graphql.mutations.inviteOrgUser.invalid_role": "Invalid organization role.",
+    "graphql.mutations.resetPassword.same_password": "Cannot use old password.",
     "models.country.name.??": "Unknown Country",
     "models.currency.name.EUR": "Euro",
     "models.status.name.customer.ACTIVE": "Active",
