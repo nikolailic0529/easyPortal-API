@@ -94,7 +94,13 @@ type Query {
   )
 
   "List of all possible asset types."
-  assetTypes: [Type!]!
+  assetTypes(where: AssetTypesQuery @searchBy): [Type!]!
+  @organization
+  @me
+  @all
+  @builder(
+    method: "App\\GraphQL\\Queries\\AssetTypes"
+  )
 
   "List of all possible contract types."
   contractTypes: [Type!]!
