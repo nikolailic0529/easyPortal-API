@@ -76,7 +76,13 @@ type Query {
   )
 
   "List of all possible location types."
-  locationTypes: [Type!]!
+  locationTypes(where: LocationTypesQuery @searchBy): [Type!]!
+  @organization
+  @me
+  @all
+  @builder(
+    method: "App\\GraphQL\\Queries\\LocationTypes"
+  )
 
   "List of all possible contact types."
   contactTypes: [Type!]!
