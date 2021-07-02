@@ -16,7 +16,7 @@ use function sprintf;
 
 class Statistics implements JsonSerializable, Castable {
     /**
-     * @param array<string,int> $data
+     * @param array<string,float|int> $data
      */
     public function __construct(
         protected array $data = [],
@@ -24,11 +24,11 @@ class Statistics implements JsonSerializable, Castable {
         // empty
     }
 
-    public function __get(string $name): ?int {
+    public function __get(string $name): float|int|null {
         return Arr::get($this->data, $name);
     }
 
-    public function __set(string $name, int $value): void {
+    public function __set(string $name, float|int $value): void {
         Arr::set($this->data, $name, $value);
     }
 
