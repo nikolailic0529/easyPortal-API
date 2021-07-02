@@ -6,6 +6,7 @@ use App\GraphQL\Contracts\Translatable;
 use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasContracts;
 use App\Models\Concerns\HasCustomers;
+use App\Models\Concerns\HasQuotes;
 use App\Models\Concerns\TranslateProperties;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -25,6 +26,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Document>      $contracts
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Customer> $customers
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Location> $locations
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $quotes
  * @method static \Database\Factories\TypeFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newQuery()
@@ -37,6 +39,7 @@ class Type extends PolymorphicModel implements Translatable {
     use HasCustomers;
     use HasAssets;
     use HasContracts;
+    use HasQuotes;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

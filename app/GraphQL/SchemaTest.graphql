@@ -1297,8 +1297,14 @@ type Query {
   """
   contractTypes(where: SearchByConditionContractTypesQuery): [Type!]!
 
-  """List of all possible quote types."""
-  quoteTypes: [Type!]!
+  """
+  List of all possible quote types.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  quoteTypes(where: SearchByConditionQuoteTypesQuery): [Type!]!
 
   """
   List of all possible asset statuses.
@@ -1468,6 +1474,10 @@ type Query {
     """The offset from which elements are returned."""
     page: Int
   ): OrganizationPaginator
+}
+
+input QuoteTypesQuery {
+  quotes: DocumentsQuery
 }
 
 input RecoverApplicationTranslationsInput {
@@ -2271,6 +2281,23 @@ input SearchByConditionProductsQuery {
 
   """Property condition."""
   name: SearchByScalarString
+}
+
+"""
+Available conditions for input QuoteTypesQuery (only one property allowed at a time).
+"""
+input SearchByConditionQuoteTypesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionQuoteTypesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionQuoteTypesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  quotes: SearchByRelationDocumentsQuery
 }
 
 """

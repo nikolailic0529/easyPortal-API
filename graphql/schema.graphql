@@ -112,7 +112,13 @@ type Query {
   )
 
   "List of all possible quote types."
-  quoteTypes: [Type!]!
+  quoteTypes(where: QuoteTypesQuery @searchBy): [Type!]!
+  @organization
+  @me
+  @all
+  @builder(
+    method: "App\\GraphQL\\Queries\\QuoteTypes"
+  )
 
   "List of all possible asset statuses."
   assetStatuses(where: AssetStatusesQuery @searchBy): [Status!]!

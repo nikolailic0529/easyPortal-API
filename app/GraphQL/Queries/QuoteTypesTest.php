@@ -10,7 +10,9 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -108,6 +110,10 @@ class QuoteTypesTest extends TestCase {
         };
         $objects     = [
             [
+                'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                'name' => 'No translation',
+            ],
+            [
                 'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
                 'name' => 'Translated (locale)',
             ],
@@ -115,15 +121,11 @@ class QuoteTypesTest extends TestCase {
                 'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                 'name' => 'Translated (fallback)',
             ],
-            [
-                'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                'name' => 'No translation',
-            ],
         ];
 
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('quoteTypes'),
-            new AnyUserDataProvider(),
+            new OrganizationDataProvider('quoteTypes'),
+            new AuthUserDataProvider('quoteTypes'),
             new ArrayDataProvider([
                 'quote_types match'                  => [
                     new GraphQLSuccess('quoteTypes', QuoteTypes::class, $objects),
