@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\Http\Controllers\Telescope\HomeController as AppTelescopeHomeController;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Telescope\Http\Controllers\HomeController as TelescopeHomeController;
-use Laravel\Telescope\IncomingEntry;
 use Laravel\Telescope\Telescope;
 use Laravel\Telescope\TelescopeApplicationServiceProvider;
 
