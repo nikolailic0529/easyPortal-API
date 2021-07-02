@@ -674,6 +674,10 @@ type Language {
   name: String!
 }
 
+input LanguagesQuery {
+  documents: DocumentsQuery
+}
+
 type Location {
   id: ID!
   postcode: String!
@@ -1171,8 +1175,14 @@ type Query {
   """
   currencies(where: SearchByConditionCurrenciesQuery): [Currency!]!
 
-  """List of all languages."""
-  languages: [Language!]!
+  """
+  List of all languages.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  languages(where: SearchByConditionLanguagesQuery): [Language!]!
 
   """List of all countries."""
   countries: [Country!]!
@@ -1814,6 +1824,23 @@ input SearchByConditionDocumentsQuery {
 
   """Property condition."""
   reseller: SearchByRelationResellersQuery
+}
+
+"""
+Available conditions for input LanguagesQuery (only one property allowed at a time).
+"""
+input SearchByConditionLanguagesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionLanguagesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionLanguagesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  documents: SearchByRelationDocumentsQuery
 }
 
 """

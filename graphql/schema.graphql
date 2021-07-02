@@ -38,7 +38,9 @@ type Query {
   @all
 
   "List of all languages."
-  languages: [Language!]!
+  languages(where: LanguagesQuery @searchBy): [Language!]!
+  @organization
+  @me
   @all
 
   "List of all countries."

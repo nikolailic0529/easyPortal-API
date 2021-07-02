@@ -7,8 +7,8 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
+use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -55,8 +55,8 @@ class LanguagesTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('languages'),
-            new AnyUserDataProvider(),
+            new OrganizationDataProvider('languages'),
+            new AuthUserDataProvider('languages'),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('languages', self::class, [
@@ -78,6 +78,7 @@ class LanguagesTest extends TestCase {
                     ]),
                     static function (TestCase $test, string $locale): array {
                         $model = (new Language())->getMorphClass();
+
                         return [
                             $locale => [
                                 "models.{$model}.name.c1" => 'Translated (locale)',
