@@ -1,7 +1,7 @@
 @component('mail::message')
-# IT Asset Hub
+# {{ config('app.name') }}
 
-Your have been invited to use IT Asset Hub dashboard.
+Your have been invited to use {{ config('app.name') }} dashboard.
 
 @component('mail::button', ['url' => $url])
 Join
@@ -9,5 +9,5 @@ Join
 
 Thanks,<br>
 Support Team<br>
-IT Asset Hub
+{{ config('app.name') }}
 @endcomponent

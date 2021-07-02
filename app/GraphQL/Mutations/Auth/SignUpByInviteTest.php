@@ -17,6 +17,8 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
 use function __;
+use function json_encode;
+use function time;
 
 /**
  * @internal
@@ -35,8 +37,8 @@ class SignUpByInviteTest extends TestCase {
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
+        Closure $prepareInput = null,
         Closure $prepare = null,
-        Closure $requestFactory = null,
     ): void {
         $organization = $this->setOrganization($organizationFactory);
         $this->setUser($userFactory, $organization);
@@ -61,54 +63,14 @@ class SignUpByInviteTest extends TestCase {
             'password'   => '123456',
         ];
 
-        if ($prepare) {
-            $data = $prepare($this);
+        if ($prepareInput) {
+            $data = $prepareInput($this);
         }
 
-        $this->override(Client::class, static function ($mock) {
-            $mock
-                ->shouldReceive('updateUser')
-                ->andReturns();
-
-            $mock
-                ->shouldReceive('getUserByEmail')
-                ->with('test@gmail.com')
-                ->andReturns(new User([
-                    'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                    'attributes' => [
-                        'ep_invite' => [
-                            '{"id":null,"organization_id":"f9834bc1-2f2f-4c57-bb8d-7a224ac24981",
-                                "sent_at":1625232777,"used_at":null}',
-                        ],
-                    ],
-                ]));
-
-            $mock
-                ->shouldReceive('getUserByEmail')
-                ->with('uninvited@gmail.com')
-                ->andReturns(new User([
-                    'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                    'attributes' => [],
-                ]));
-
-            $mock
-                ->shouldReceive('getUserByEmail')
-                ->with('added@gmail.com')
-                ->andReturns(new User([
-                    'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                    'attributes' => [
-                        'ep_invite' => [
-                            '{"id":"f9834bc1-2f2f-4c57-bb8d-7a224ac24982",
-                                "organization_id":"f9834bc1-2f2f-4c57-bb8d-7a224ac24981",
-                                "sent_at":1625232777,"used_at":1625232788}',
-                        ],
-                    ],
-                ]));
-
-            $mock
-                ->shouldReceive('getUserByEmail')
-                ->with('wrong@gmail.com')
-                ->andReturns(null);
+        $this->override(Client::class, static function ($mock) use ($prepare): Client {
+            if ($prepare) {
+                $prepare($mock);
+            }
             return $mock;
         });
 
@@ -146,6 +108,29 @@ class SignUpByInviteTest extends TestCase {
                             'password'   => '123456',
                         ];
                     },
+                    static function (Client $mock): void {
+                        $mock
+                            ->shouldReceive('updateUser')
+                            ->once()
+                            ->andReturns();
+                        $mock
+                            ->shouldReceive('getUserByEmail')
+                            ->once()
+                            ->with('test@gmail.com')
+                            ->andReturns(new User([
+                                'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'attributes' => [
+                                    'ep_invite' => [
+                                        json_encode([
+                                            'id'              => null,
+                                            'organization_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                            'sent_at'         => time(),
+                                            'used_at'         => null,
+                                        ]),
+                                    ],
+                                ],
+                            ]));
+                    },
                 ],
                 'Invalid user'                  => [
                     new GraphQLError('signUpByInvite', new SignUpByInviteInvalidUser()),
@@ -159,6 +144,13 @@ class SignUpByInviteTest extends TestCase {
                             'last_name'  => 'Last',
                             'password'   => '123456',
                         ];
+                    },
+                    static function (Client $mock): void {
+                        $mock
+                            ->shouldReceive('getUserByEmail')
+                            ->once()
+                            ->with('wrong@gmail.com')
+                            ->andReturns(null);
                     },
                 ],
                 'Invalid token data'            => [
@@ -187,6 +179,16 @@ class SignUpByInviteTest extends TestCase {
                             'password'   => '123456',
                         ];
                     },
+                    static function (Client $mock): void {
+                        $mock
+                            ->shouldReceive('getUserByEmail')
+                            ->once()
+                            ->with('uninvited@gmail.com')
+                            ->andReturns(new User([
+                                'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'attributes' => [],
+                            ]));
+                    },
                 ],
                 'Invalid invited already added' => [
                     new GraphQLError('signUpByInvite', new SignUpByInviteAlreadyUsed()),
@@ -200,6 +202,25 @@ class SignUpByInviteTest extends TestCase {
                             'last_name'  => 'Last',
                             'password'   => '123456',
                         ];
+                    },
+                    static function (Client $mock): void {
+                        $mock
+                            ->shouldReceive('getUserByEmail')
+                            ->once()
+                            ->with('added@gmail.com')
+                            ->andReturns(new User([
+                                'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'attributes' => [
+                                    'ep_invite' => [
+                                        json_encode([
+                                            'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                            'organization_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                            'sent_at'         => time(),
+                                            'used_at'         => time(),
+                                        ]),
+                                    ],
+                                ],
+                            ]));
                     },
                 ],
                 'Invalid token'                 => [

@@ -31,7 +31,6 @@ class InviteOrganizationUser extends Mailable {
             '{token}' => $this->token,
         ]));
         return $this->subject('You have been invited to join IT Asset Hub')
-            ->from('info@itassethub.test', 'IT Asset Hub')
             ->markdown('invite_user', [
                 'url' => $url,
             ]);

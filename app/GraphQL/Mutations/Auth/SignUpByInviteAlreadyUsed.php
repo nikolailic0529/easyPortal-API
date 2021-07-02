@@ -13,10 +13,10 @@ class SignUpByInviteAlreadyUsed extends Exception implements TranslatedException
     use HasErrorCode;
 
     public function __construct(Throwable $previous = null) {
-        parent::__construct('User already added password.', 0, $previous);
+        parent::__construct('User already used the invitation.', 0, $previous);
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.signUpByInvite.password_added');
+        return __('graphql.mutations.signUpByInvite.already_used');
     }
 }
