@@ -80,9 +80,9 @@ type ApplicationJobState {
 
 type ApplicationLog {
   id: ID!
-  category: ApplicationLogCategory!
+  category: String!
   action: String!
-  status: ApplicationLogStatus
+  status: String
   object_type: String
   object_id: ID
 
@@ -98,15 +98,6 @@ type ApplicationLog {
   context: String
 }
 
-enum ApplicationLogCategory {
-  log
-  queue
-  eloquent
-  dataLoader
-  logger
-  database
-}
-
 """A paginated list of ApplicationLog items."""
 type ApplicationLogPaginator {
   """Pagination information about the list of items."""
@@ -114,14 +105,6 @@ type ApplicationLogPaginator {
 
   """A list of ApplicationLog items."""
   data: [ApplicationLog!]!
-}
-
-enum ApplicationLogStatus {
-  active
-  success
-  failed
-  unknown
-  killed
 }
 
 input ApplicationLogsQuery {
