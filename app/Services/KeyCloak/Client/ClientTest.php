@@ -6,7 +6,6 @@ use App\Services\KeyCloak\Client\Types\User;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
-
 /**
  * @internal
  * @coversDefaultClass \App\Services\KeyCloak\Client
@@ -19,6 +18,14 @@ class ClientTest extends TestCase {
      * @dataProvider dataProviderGetUserByEmail
      */
     public function testGetUserByEmail(string $email, ?User $expected): void {
+        $this->app->instance(AuthClient::class, null);
+        $this->override(Token::class, static function ($mock) {
+            $mock->shouldReceive('getAccessToken')
+            ->once()
+            ->andReturn('token');
+
+            return $mock;
+        });
         $this->override(Factory::class, static function () {
             return Http::fake([
                 'users?email=correct@gmail.com' => Http::response(
@@ -37,10 +44,6 @@ class ClientTest extends TestCase {
         $response = $client->getUserByEmail($email);
 
         $this->assertEquals($expected, $response);
-        if ($client->isEnabled()) {
-        } else {
-            $this->markTestSkipped('Keycloak client is disabled.');
-        }
     }
 
     // <editor-fold desc="DataProviders">
