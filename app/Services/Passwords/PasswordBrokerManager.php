@@ -4,7 +4,6 @@ namespace App\Services\Passwords;
 
 use Illuminate\Auth\Passwords\PasswordBrokerManager as IlluminatePasswordBrokerManager;
 use Illuminate\Auth\Passwords\TokenRepositoryInterface;
-use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 
@@ -61,7 +60,6 @@ class PasswordBrokerManager extends IlluminatePasswordBrokerManager {
         return new PasswordBroker(
             $this->createTokenRepository($config),
             $this->app['auth']->createUserProvider($config['provider'] ?? null),
-            $this->app->make(Hasher::class),
         );
     }
 }
