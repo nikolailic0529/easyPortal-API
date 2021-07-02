@@ -30,8 +30,10 @@ class InviteOrganizationUser extends Mailable {
         $url       = $generator->to(strtr($config->get('ep.client.signup_invite_uri'), [
             '{token}' => $this->token,
         ]));
-        return $this->markdown('invite_user', [
-            'url' => $url,
-        ]);
+        return $this->subject('You have been invited to join IT Asset Hub')
+            ->from('info@itassethub.test', 'IT Asset Hub')
+            ->markdown('invite_user', [
+                'url' => $url,
+            ]);
     }
 }

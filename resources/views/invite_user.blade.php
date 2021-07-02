@@ -1,12 +1,13 @@
 @component('mail::message')
-# EasyPortal
+# IT Asset Hub
 
-Your have been invited to use EasyPortal dashboard.
+Your have been invited to use IT Asset Hub dashboard.
 
 @component('mail::button', ['url' => $url])
-View EasyPortal
+Join
 @endcomponent
 
 Thanks,<br>
-{{ config('app.name') }}
+Support Team<br>
+IT Asset Hub
 @endcomponent
