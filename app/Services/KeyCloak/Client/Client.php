@@ -257,7 +257,7 @@ class Client {
         return "{$keycloak}/auth/admin/realms/{$realm}";
     }
 
-    protected function isEnabled(): bool {
+    public function isEnabled(): bool {
         return $this->config->get('ep.keycloak.url')
             && $this->config->get('ep.keycloak.client_id')
             && $this->config->get('ep.keycloak.client_secret');
