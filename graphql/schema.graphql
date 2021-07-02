@@ -118,7 +118,10 @@ type Query {
   )
 
   "List of all possible asset coverages."
-  assetCoverages: [AssetCoverage!]! @all
+  assetCoverages(where: AssetCoveragesQuery @searchBy): [AssetCoverage!]!
+  @organization
+  @me
+  @all
 
   "List of all possible tags."
   tags (

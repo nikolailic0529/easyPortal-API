@@ -227,6 +227,10 @@ type AssetCoverage {
   name: String!
 }
 
+input AssetCoveragesQuery {
+  assets: AssetsQuery
+}
+
 input AssetCoveragesSort {
   name: String!
 }
@@ -1295,8 +1299,14 @@ type Query {
   """
   assetStatuses(where: SearchByConditionAssetStatusesQuery): [Status!]!
 
-  """List of all possible asset coverages."""
-  assetCoverages: [AssetCoverage!]!
+  """
+  List of all possible asset coverages.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  assetCoverages(where: SearchByConditionAssetCoveragesQuery): [AssetCoverage!]!
 
   """List of all possible tags."""
   tags(where: SearchByConditionTagsQuery, order: [SortByClauseTagsSort!]): [Tag!]!
@@ -1533,6 +1543,23 @@ input SearchByConditionApplicationLogsQuery {
 
   """Property condition."""
   finished_at: SearchByScalarDateTimeOrNull
+}
+
+"""
+Available conditions for input AssetCoveragesQuery (only one property allowed at a time).
+"""
+input SearchByConditionAssetCoveragesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionAssetCoveragesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionAssetCoveragesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  assets: SearchByRelationAssetsQuery
 }
 
 """
