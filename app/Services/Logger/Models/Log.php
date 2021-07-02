@@ -5,6 +5,9 @@ namespace App\Services\Logger\Models;
 use App\Services\Logger\Models\Casts\Statistics;
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
+use Database\Factories\Logs\LogFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -19,7 +22,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int                                                                            $index
  * @property string|null                                                                    $object_type
  * @property string|null                                                                    $object_id
- * @property int|null                                                                       $duration
+ * @property float|null                                                                     $duration
  * @property \Carbon\CarbonImmutable                                                        $created_at
  * @property \Carbon\CarbonImmutable                                                        $updated_at
  * @property \Carbon\CarbonImmutable|null                                                   $finished_at
@@ -27,12 +30,15 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property array|null                                                                     $context
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Services\Logger\Models\Log> $children
  * @property \App\Services\Logger\Models\Log|null                                           $parent
+ * @method static \Database\Factories\Logs\LogFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Services\Logger\Models\Log newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Services\Logger\Models\Log newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Services\Logger\Models\Log query()
  * @mixin \Eloquent
  */
 class Log extends Model {
+    use HasFactory;
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -67,5 +73,12 @@ class Log extends Model {
 
     public function children(): HasMany {
         return $this->hasMany(self::class, 'parent_id');
+    }
+
+    /**
+     * @deprecated Should be removed after moving model into \App\Models\Logs
+     */
+    protected static function newFactory(): Factory {
+        return new LogFactory();
     }
 }

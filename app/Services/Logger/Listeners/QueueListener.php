@@ -4,6 +4,7 @@ namespace App\Services\Logger\Listeners;
 
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
+use App\Services\Logger\Models\Log;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Queue\Job as JobContract;
 use Illuminate\Queue\Events\JobExceptionOccurred;
@@ -95,6 +96,8 @@ class QueueListener extends Listener {
 
             $this->logger->success($transaction);
         }
+
+        $this->killZombies($event->job);
     }
 
     protected function failed(JobExceptionOccurred|JobFailed $event): void {
@@ -107,6 +110,8 @@ class QueueListener extends Listener {
                 'exception' => $event->exception,
             ]);
         }
+
+        $this->killZombies($event->job);
     }
 
     /**
@@ -123,5 +128,24 @@ class QueueListener extends Listener {
 
     protected function getCategory(): Category {
         return Category::queue();
+    }
+
+    protected function killZombies(JobContract $job): void {
+        // If a job was killed (eg `kill -9`) database may contain records with
+        // status equal to "active", these records will have this status forever.
+        // To avoid this we should reset the status for existing "active" jobs.
+        $object  = new QueueObject($job);
+        $zombies = Log::query()
+            ->where('category', '=', $this->getCategory())
+            ->where('action', '=', 'job.run')
+            ->where('object_type', '=', $object->getType())
+            ->where('object_id', '=', $object->getId())
+            ->where('status', '=', Status::active())
+            ->get();
+
+        foreach ($zombies as $zombie) {
+            $zombie->status = Status::killed();
+            $zombie->save();
+        }
     }
 }

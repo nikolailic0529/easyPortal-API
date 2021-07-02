@@ -1,0 +1,20 @@
+type ApplicationLog {
+  id: ID!
+  category: ApplicationLogCategory!
+  action: String!
+  status: ApplicationLogStatus
+  object_type: String
+  object_id: ID
+  "Seconds"
+  duration: Float
+  created_at: DateTime!
+  finished_at: DateTime
+
+  "JSON"
+  statistics: String
+  @field(resolver: "App\\GraphQL\\Resolvers\\JsonResolver")
+
+  "JSON"
+  context: String
+  @field(resolver: "App\\GraphQL\\Resolvers\\JsonResolver")
+}

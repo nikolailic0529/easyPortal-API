@@ -1,0 +1,5 @@
+input ApplicationLogsSort {
+  duration: Float
+  created_at: DateTime!
+  finished_at: DateTime
+}

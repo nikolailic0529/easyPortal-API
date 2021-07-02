@@ -291,6 +291,14 @@ interface Constants {
     public const EP_LOGGER_ENABLED = false;
 
     /**
+     * How often long-running actions should be dumped?
+     */
+    #[Setting('ep.logger.dump')]
+    #[Group('logger')]
+    #[Type(Duration::class)]
+    public const EP_LOGGER_DUMP = 'PT5M';
+
+    /**
      * Log models changes?
      */
     #[Setting('ep.logger.eloquent.models')]
@@ -310,6 +318,13 @@ interface Constants {
     #[Setting('ep.logger.data_loader.mutations')]
     #[Group('logger')]
     public const EP_LOGGER_DATA_LOADER_MUTATIONS = false;
+
+    /**
+     * Log DataLoader skipped objects?
+     */
+    #[Setting('ep.logger.data_loader.skipped')]
+    #[Group('logger')]
+    public const EP_LOGGER_DATA_LOADER_SKIPPED = false;
     //</editor-fold>
 
     // <editor-fold desc="EP_DATA_LOADER">

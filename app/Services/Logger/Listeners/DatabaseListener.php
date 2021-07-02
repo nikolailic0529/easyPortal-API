@@ -10,6 +10,8 @@ use function ltrim;
 use function preg_match;
 
 class DatabaseListener extends Listener {
+    use Database;
+
     public function subscribe(Dispatcher $dispatcher): void {
         $dispatcher->listen(QueryExecuted::class, $this->getSafeListener(function (QueryExecuted $event): void {
             $this->query($event);
@@ -17,9 +19,19 @@ class DatabaseListener extends Listener {
     }
 
     protected function query(QueryExecuted $event): void {
+        if ($this->isConnectionIgnored($event->connection)) {
+            return;
+        }
+
+        $category = $this->getCategory();
+        $type     = $this->getType($event->sql);
+        $time     = $event->time / 1000;
+
         $this->logger->count([
-            "{$this->getCategory()}.total.queries"                         => 1,
-            "{$this->getCategory()}.queries.{$this->getType($event->sql)}" => 1,
+            "{$category}.total.queries"            => 1,
+            "{$category}.total.duration"           => $time,
+            "{$category}.queries.{$type}.count"    => 1,
+            "{$category}.queries.{$type}.duration" => $time,
         ]);
     }
 

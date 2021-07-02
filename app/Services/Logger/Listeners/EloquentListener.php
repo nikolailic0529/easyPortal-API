@@ -18,6 +18,8 @@ use function str_pad;
 use function str_replace;
 
 class EloquentListener extends Listener {
+    use Database;
+
     /**
      * @var array<class-string<\Illuminate\Database\Eloquent\Model>, bool>
      */
@@ -38,7 +40,14 @@ class EloquentListener extends Listener {
             $dispatcher->listen(
                 "{$event}: *",
                 $this->getSafeListener(function (string $name, array $args) use ($changes, $event, $property): void {
-                    $model     = reset($args);
+                    // Should be ignored?
+                    $model = reset($args);
+
+                    if (!($model instanceof Model) || $this->isConnectionIgnored($model->getConnection())) {
+                        return;
+                    }
+
+                    // Log
                     $object    = new EloquentObject($model);
                     $action    = $this->getAction($model, $event);
                     $countable = [

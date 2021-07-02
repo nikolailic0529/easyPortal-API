@@ -21,6 +21,14 @@ abstract class TestCase extends BaseTestCase {
     }
     use Override;
 
+    /**
+     * @var array<string>
+     */
+    protected array $connectionsToTransact = [
+        'mysql',
+        'logs',
+    ];
+
     public function app(): Application {
         return $this->app;
     }
