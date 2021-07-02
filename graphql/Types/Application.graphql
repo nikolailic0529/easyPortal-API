@@ -38,6 +38,8 @@ type Application {
   ): [ApplicationLog!]!
   @organization(root: true)
   @root
-  @builder(method: "App\\GraphQL\\Queries\\Application\\Logs")
-  @paginate(model: "App\\Services\\Logger\\Models\\Log")
+  @paginate(
+    model: "App\\Services\\Logger\\Models\\Log"
+    builder: "App\\GraphQL\\Queries\\Application\\Logs"
+  )
 }
