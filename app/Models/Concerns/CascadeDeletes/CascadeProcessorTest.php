@@ -206,7 +206,7 @@ class CascadeProcessorTest extends TestCase {
         $relation = Mockery::mock(BelongsToMany::class);
         $relation
             ->shouldReceive('getPivotAccessor')
-            ->once()
+            ->twice()
             ->andReturn('pivot');
 
         $item = Mockery::mock(Model::class);
