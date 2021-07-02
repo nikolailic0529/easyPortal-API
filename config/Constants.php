@@ -291,6 +291,14 @@ interface Constants {
     public const EP_LOGGER_ENABLED = false;
 
     /**
+     * How often long-running actions should be dumped?
+     */
+    #[Setting('ep.logger.dump')]
+    #[Group('logger')]
+    #[Type(Duration::class)]
+    public const EP_LOGGER_DUMP = 'PT5M';
+
+    /**
      * Log models changes?
      */
     #[Setting('ep.logger.eloquent.models')]

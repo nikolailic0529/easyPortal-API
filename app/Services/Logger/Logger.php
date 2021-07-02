@@ -7,33 +7,32 @@ use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Log;
 use Illuminate\Contracts\Auth\Factory;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Facades\Date;
 use LogicException;
 use Throwable;
 
-use function array_column;
 use function array_pop;
 use function array_reverse;
 use function array_slice;
 use function count;
 use function is_array;
-use function microtime;
 use function sprintf;
 
 class Logger {
     public const CONNECTION = 'logs';
 
-    protected ?Log  $log   = null;
-    protected float $start = 0;
-    protected int   $index = 0;
+    protected ?Action $action = null;
+    protected int     $index  = 0;
 
     /**
-     * @var array<array{log:\App\Services\Logger\Models\Log,start:float}>
+     * @var array<\App\Services\Logger\Action>
      */
     protected array $stack = [];
 
     public function __construct(
         protected Factory $auth,
+        protected Repository $config,
     ) {
         // empty
     }
@@ -50,33 +49,32 @@ class Logger {
         // Stack
         $parent = null;
 
-        if ($this->log) {
-            $parent        = $this->log;
-            $this->stack[] = [
-                'log'   => $this->log,
-                'start' => $this->start,
-            ];
+        if ($this->action) {
+            $parent        = $this->action->getLog();
+            $this->stack[] = $this->action;
         }
 
         // Create
-        $this->start         = microtime(true);
-        $this->log           = new Log();
-        $this->log->category = $category;
-        $this->log->action   = $action;
-        $this->log->index    = $this->index++;
-        $this->log->parent   = $parent;
-        $this->log->status   = Status::active();
-        $this->log->context  = $this->mergeContext($this->log, $context);
+        $log           = new Log();
+        $log->category = $category;
+        $log->action   = $action;
+        $log->index    = $this->index++;
+        $log->parent   = $parent;
+        $log->status   = Status::active();
+        $log->context  = $this->mergeContext($log, $context);
 
         if ($object) {
-            $this->log->object_type = $object->getType();
-            $this->log->object_id   = $object->getId();
+            $log->object_type = $object->getType();
+            $log->object_id   = $object->getId();
         }
 
-        $this->log->save();
+        $log->save();
+
+        // Add
+        $this->action = new Action($log);
 
         // Return
-        return $this->log->getKey();
+        return $this->action->getKey();
     }
 
     /**
@@ -118,7 +116,7 @@ class Logger {
         $entry->action   = $action;
         $entry->status   = $status;
         $entry->index    = $this->index++;
-        $entry->parent   = $this->log;
+        $entry->parent   = $this->action->getLog();
         $entry->context  = $this->mergeContext($entry, $context);
 
         if ($object) {
@@ -142,9 +140,13 @@ class Logger {
         }
 
         // Update
-        $logs = [...array_column($this->stack, 'log'), $this->log];
+        /** @var array<\App\Services\Logger\Action> $actions */
+        $actions = [...$this->stack, $this->action];
+        $dump    = $this->config->get('ep.logger.dump');
+        $dump    = $dump ? Date::now()->sub($dump) : null;
 
-        foreach ($logs as $log) {
+        foreach ($actions as $action) {
+            $log        = $action->getLog();
             $statistics = $log->statistics ?? new Statistics();
 
             foreach ($countable as $property => $value) {
@@ -152,6 +154,11 @@ class Logger {
             }
 
             $log->statistics = $statistics;
+            $log->duration   = $action->getDuration();
+
+            if ($dump && $log->updated_at <= $dump) {
+                $log->save();
+            }
         }
     }
 
@@ -169,12 +176,12 @@ class Logger {
         $children = [];
 
         foreach ($this->stack as $item) {
-            if ($children || $item['log']->getKey() === $transaction) {
-                $children[] = $item['log']->getKey();
+            if ($children || $item->getKey() === $transaction) {
+                $children[] = $item->getKey();
             }
         }
 
-        $children[] = $this->log->getKey();
+        $children[] = $this->action->getKey();
 
         if (count($children) > 1) {
             $children = array_slice($children, 1);
@@ -205,28 +212,27 @@ class Logger {
      */
     private function finish(string $transaction, Status $status, array $context = null): void {
         // Valid?
-        if ($this->log->getKey() !== $transaction) {
+        if ($this->action->getKey() !== $transaction) {
             throw new LogicException(sprintf(
                 'Transaction id not match: `%s` !== `%s`',
-                $this->log->getKey(),
+                $this->action->getKey(),
                 $transaction,
             ));
         }
 
         // Update
-        $this->log->status      = $status;
-        $this->log->context     = $this->mergeContext($this->log, $context);
-        $this->log->duration    = $this->getDuration();
-        $this->log->finished_at = Date::now();
+        $log              = $this->action->getLog();
+        $log->status      = $status;
+        $log->context     = $this->mergeContext($log, $context);
+        $log->duration    = $this->getDuration();
+        $log->finished_at = Date::now();
 
-        $this->log->save();
+        $log->save();
 
         // Reset
-        $parent      = array_pop($this->stack);
-        $this->log   = $parent['log'] ?? null;
-        $this->start = $parent['start'] ?? 0;
+        $this->action = array_pop($this->stack);
 
-        if ($this->log === null) {
+        if ($this->action === null) {
             $this->index = 0;
         }
     }
@@ -275,12 +281,12 @@ class Logger {
     }
 
     protected function isRecording(): bool {
-        return (bool) $this->log;
+        return (bool) $this->action;
     }
 
     public function getDuration(): ?float {
         return $this->isRecording()
-            ? microtime(true) - $this->start
+            ? $this->action->getDuration()
             : null;
     }
 
