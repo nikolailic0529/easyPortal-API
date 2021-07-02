@@ -1,7 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations\Org;
+namespace App\GraphQL\Mutations\Auth;
 
+use App\Models\Organization;
 use App\Services\KeyCloak\Client\Client;
 use Closure;
 use Illuminate\Contracts\Encryption\Encrypter;
@@ -20,9 +21,9 @@ use function __;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\UpdateOrgUserPassword
+ * @coversDefaultClass \App\GraphQL\Mutations\SignUpByInvite
  */
-class UpdateOrgUserPasswordTest extends TestCase {
+class SignUpByInviteTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -38,7 +39,18 @@ class UpdateOrgUserPasswordTest extends TestCase {
         Closure $prepare = null,
         Closure $requestFactory = null,
     ): void {
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $organization = $this->setOrganization($organizationFactory);
+        $this->setUser($userFactory, $organization);
+
+        if (!$organization) {
+            // Organization to be redirect;
+            $organization = Organization::factory()->create([
+                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+            ]);
+        }
+
+        $organization->keycloak_scope = 'test_scope';
+        $organization->save();
 
         $data = [
             'token'                 => $this->app->make(Encrypter::class)->encrypt([
@@ -66,9 +78,9 @@ class UpdateOrgUserPasswordTest extends TestCase {
 
         // Test
         $this
-            ->graphQL(/** @lang GraphQL */ 'mutation updateOrgUserPassword($input: UpdateOrgUserPasswordInput!) {
-                updateOrgUserPassword(input:$input) {
-                    result
+            ->graphQL(/** @lang GraphQL */ 'mutation signUpByInvite($input: SignUpByInviteInput!) {
+                signUpByInvite(input:$input) {
+                    url
                 }
             }', ['input' => $data])
             ->assertThat($expected);
@@ -89,26 +101,28 @@ class UpdateOrgUserPasswordTest extends TestCase {
                     [
                         'id'         => $test->faker->uuid(),
                         'attributes' => [
-                            'invited'                       => ['1'],
-                            'added_password_through_invite' => ['0'],
+                            'ep_invite' => [
+                                '{"id":null,"organization_id":"f9834bc1-2f2f-4c57-bb8d-7a224ac24981",
+                                    "sent_at":1625232777,"used_at":null}',
+                            ],
                         ],
                     ],
                 ], 200),
                 "{$baseUrl}/users?email=uninvited@gmail.com" => Http::response([
                     [
                         'id'         => $test->faker->uuid(),
-                        'attributes' => [
-                            'invited'                       => [false],
-                            'added_password_through_invite' => [false],
-                        ],
+                        'attributes' => [],
                     ],
                 ], 200),
                 "{$baseUrl}/users?email=added@gmail.com"     => Http::response([
                     [
                         'id'         => $test->faker->uuid(),
                         'attributes' => [
-                            'invited'                       => ['1'],
-                            'added_password_through_invite' => ['1'],
+                            'ep_invite' => [
+                                '{"id":"f9834bc1-2f2f-4c57-bb8d-7a224ac24982",
+                                    "organization_id":"f9834bc1-2f2f-4c57-bb8d-7a224ac24981",
+                                    "sent_at":1625232777,"used_at":1625232788}',
+                            ],
                         ],
                     ],
                 ], 200),
@@ -119,171 +133,144 @@ class UpdateOrgUserPasswordTest extends TestCase {
         };
 
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('updateOrgUserPassword'),
-            new AnyUserDataProvider('updateOrgUserPassword'),
+            new AnyOrganizationDataProvider('signUpByInvite', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
+            new AnyUserDataProvider('signUpByInvite'),
             new ArrayDataProvider([
                 'ok'                            => [
-                    new GraphQLSuccess('updateOrgUserPassword', UpdateOrgUserPassword::class),
+                    new GraphQLSuccess('signUpByInvite', SignUpByInvite::class),
                     static function (TestCase $test): array {
                         return [
-                            'token'                 => $test->app->make(Encrypter::class)->encrypt([
+                            'token'      => $test->app->make(Encrypter::class)->encrypt([
                                 'email'        => 'test@gmail.com',
                                 'organization' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             ]),
-                            'first_name'            => 'First',
-                            'last_name'             => 'Last',
-                            'password'              => '123456',
-                            'password_confirmation' => '123456',
+                            'first_name' => 'First',
+                            'last_name'  => 'Last',
+                            'password'   => '123456',
                         ];
                     },
                     $requestFactory,
                 ],
                 'Invalid user'                  => [
-                    new GraphQLError('updateOrgUserPassword', new UpdateOrgUserPasswordInvalidUser()),
+                    new GraphQLError('signUpByInvite', new SignUpByInviteInvalidUser()),
                     static function (TestCase $test): array {
                         return [
-                            'token'                 => $test->app->make(Encrypter::class)->encrypt([
+                            'token'      => $test->app->make(Encrypter::class)->encrypt([
                                 'email'        => 'wrong@gmail.com',
                                 'organization' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             ]),
-                            'first_name'            => 'First',
-                            'last_name'             => 'Last',
-                            'password'              => '123456',
-                            'password_confirmation' => '123456',
+                            'first_name' => 'First',
+                            'last_name'  => 'Last',
+                            'password'   => '123456',
                         ];
                     },
                     $requestFactory,
                 ],
                 'Invalid token data'            => [
-                    new GraphQLError('updateOrgUserPassword', new UpdateOrgUserPasswordInvalidToken()),
+                    new GraphQLError('signUpByInvite', new SignUpByInviteInvalidToken()),
                     static function (TestCase $test): array {
                         return [
-                            'token'                 => $test->app->make(Encrypter::class)->encrypt([
+                            'token'      => $test->app->make(Encrypter::class)->encrypt([
                                 'email' => 'test@gmail.com',
                             ]),
-                            'first_name'            => 'First',
-                            'last_name'             => 'Last',
-                            'password'              => '123456',
-                            'password_confirmation' => '123456',
+                            'first_name' => 'First',
+                            'last_name'  => 'Last',
+                            'password'   => '123456',
                         ];
                     },
                     $requestFactory,
                 ],
                 'Invalid not invited user'      => [
-                    new GraphQLError('updateOrgUserPassword', new UpdateOrgUserPasswordUnInvitedUser()),
+                    new GraphQLError('signUpByInvite', new SignUpByInviteUnInvitedUser()),
                     static function (TestCase $test): array {
                         return [
-                            'token'                 => $test->app->make(Encrypter::class)->encrypt([
+                            'token'      => $test->app->make(Encrypter::class)->encrypt([
                                 'email'        => 'uninvited@gmail.com',
                                 'organization' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             ]),
-                            'first_name'            => 'First',
-                            'last_name'             => 'Last',
-                            'password'              => '123456',
-                            'password_confirmation' => '123456',
+                            'first_name' => 'First',
+                            'last_name'  => 'Last',
+                            'password'   => '123456',
                         ];
                     },
                     $requestFactory,
                 ],
                 'Invalid invited already added' => [
-                    new GraphQLError('updateOrgUserPassword', new UpdateOrgUserPasswordAlreadyAdded()),
+                    new GraphQLError('signUpByInvite', new SignUpByInviteAlreadyUsed()),
                     static function (TestCase $test): array {
                         return [
-                            'token'                 => $test->app->make(Encrypter::class)->encrypt([
+                            'token'      => $test->app->make(Encrypter::class)->encrypt([
                                 'email'        => 'added@gmail.com',
                                 'organization' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             ]),
-                            'first_name'            => 'First',
-                            'last_name'             => 'Last',
-                            'password'              => '123456',
-                            'password_confirmation' => '123456',
+                            'first_name' => 'First',
+                            'last_name'  => 'Last',
+                            'password'   => '123456',
                         ];
                     },
                     $requestFactory,
                 ],
                 'Invalid token'                 => [
-                    new GraphQLError('updateOrgUserPassword', static function (): array {
+                    new GraphQLError('signUpByInvite', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     static function (TestCase $test): array {
                         return [
-                            'token'                 => '',
-                            'first_name'            => 'First',
-                            'last_name'             => 'Last',
-                            'password'              => '123456',
-                            'password_confirmation' => '123456',
+                            'token'      => '',
+                            'first_name' => 'First',
+                            'last_name'  => 'Last',
+                            'password'   => '123456',
                         ];
                     },
                     $requestFactory,
                 ],
                 'Invalid first name'            => [
-                    new GraphQLError('updateOrgUserPassword', static function (): array {
+                    new GraphQLError('signUpByInvite', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     static function (TestCase $test): array {
                         return [
-                            'token'                 => $test->app->make(Encrypter::class)->encrypt([
+                            'token'      => $test->app->make(Encrypter::class)->encrypt([
                                 'email'        => 'test@gmail.com',
                                 'organization' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             ]),
-                            'first_name'            => '',
-                            'last_name'             => 'Last',
-                            'password'              => '123456',
-                            'password_confirmation' => '123456',
+                            'first_name' => '',
+                            'last_name'  => 'Last',
+                            'password'   => '123456',
                         ];
                     },
                     $requestFactory,
                 ],
                 'Invalid last name'             => [
-                    new GraphQLError('updateOrgUserPassword', static function (): array {
+                    new GraphQLError('signUpByInvite', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     static function (TestCase $test): array {
                         return [
-                            'token'                 => $test->app->make(Encrypter::class)->encrypt([
+                            'token'      => $test->app->make(Encrypter::class)->encrypt([
                                 'email'        => 'test@gmail.com',
                                 'organization' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             ]),
-                            'first_name'            => 'First',
-                            'last_name'             => '',
-                            'password'              => '123456',
-                            'password_confirmation' => '123456',
+                            'first_name' => 'First',
+                            'last_name'  => '',
+                            'password'   => '123456',
                         ];
                     },
                     $requestFactory,
                 ],
                 'Invalid password'              => [
-                    new GraphQLError('updateOrgUserPassword', static function (): array {
+                    new GraphQLError('signUpByInvite', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     static function (TestCase $test): array {
                         return [
-                            'token'                 => $test->app->make(Encrypter::class)->encrypt([
+                            'token'      => $test->app->make(Encrypter::class)->encrypt([
                                 'email'        => 'test@gmail.com',
                                 'organization' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                             ]),
-                            'first_name'            => 'First',
-                            'last_name'             => 'Last',
-                            'password'              => '',
-                            'password_confirmation' => '',
-                        ];
-                    },
-                    $requestFactory,
-                ],
-                'Invalid confirmed password'    => [
-                    new GraphQLError('updateOrgUserPassword', static function (): array {
-                        return [__('errors.validation_failed')];
-                    }),
-                    static function (TestCase $test): array {
-                        return [
-                            'token'                 => $test->app->make(Encrypter::class)->encrypt([
-                                'email'        => 'test@gmail.com',
-                                'organization' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                            ]),
-                            'first_name'            => 'First',
-                            'last_name'             => 'Last',
-                            'password'              => '123456',
-                            'password_confirmation' => '12345',
+                            'first_name' => 'First',
+                            'last_name'  => 'Last',
+                            'password'   => '',
                         ];
                     },
                     $requestFactory,

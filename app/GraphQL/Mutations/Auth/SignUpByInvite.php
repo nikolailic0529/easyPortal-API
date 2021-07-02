@@ -1,24 +1,23 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations\Org;
+namespace App\GraphQL\Mutations\Auth;
 
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Credential;
 use App\Services\KeyCloak\Client\Types\User;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Encryption\Encrypter;
-use Illuminate\Contracts\Routing\UrlGenerator;
 
 use function array_key_exists;
-use function strtr;
+use function json_decode;
+use function json_encode;
+use function time;
 
-class UpdateOrgUserPassword {
+class SignUpByInvite {
     public function __construct(
         protected Client $client,
         protected Encrypter $encrypter,
-        protected UrlGenerator $generator,
-        protected Repository $config,
+        protected SignInOrganization $signInOrganization,
     ) {
         // empty
     }
@@ -35,35 +34,33 @@ class UpdateOrgUserPassword {
         try {
             $data = $this->encrypter->decrypt($input['token']);
         } catch (DecryptException $e) {
-            throw new UpdateOrgUserPasswordInvalidToken();
+            throw new SignUpByInviteInvalidToken();
         }
 
         if (!array_key_exists('email', $data) || !array_key_exists('organization', $data)) {
-            throw new UpdateOrgUserPasswordInvalidToken();
+            throw new SignUpByInviteInvalidToken();
         }
 
         // Get user from keycloak
         $user = $this->client->getUserByEmail($data['email']);
 
         if (!$user) {
-            throw new UpdateOrgUserPasswordInvalidUser();
+            throw new SignUpByInviteInvalidUser();
         }
 
-        if (
-            !$user->attributes ||
-            !array_key_exists('invited', $user->attributes) ||
-            (int) $user->attributes['invited'][0] === 0
-        ) {
-            throw new UpdateOrgUserPasswordUnInvitedUser();
+        if (!$user->attributes || !array_key_exists('ep_invite', $user->attributes)) {
+            throw new SignUpByInviteUnInvitedUser();
         }
 
-        if (
-            !array_key_exists('added_password_through_invite', $user->attributes) ||
-            (int) $user->attributes['added_password_through_invite'][0] === 1
-        ) {
-            throw new UpdateOrgUserPasswordAlreadyAdded();
+        $invitation = json_decode($user->attributes['ep_invite'][0]);
+        if ($invitation->id) {
+            throw new SignUpByInviteAlreadyUsed();
         }
+        // update invitation
+        $invitation->id      = $user->id;
+        $invitation->used_at = time();
 
+        // Create new credentials
         $credential = new Credential([
             'type'      => 'password',
             'temporary' => false,
@@ -79,16 +76,22 @@ class UpdateOrgUserPassword {
                 $credential,
             ],
             'attributes'    => [
-                'added_password_through_invite' => [true],
+                'ep_invite' => [json_encode($invitation)],
             ],
         ]));
 
-        return ['result' => $this->getSignInUri($data['organization'])];
+        return $this->getSignInUri($data['organization']);
     }
 
-    protected function getSignInUri(string $organization): string {
-        return $this->generator->to(strtr($this->config->get('ep.client.organization_signin_uri'), [
-            '{organization}' => $organization,
-        ]));
+    /**
+     * @return array<string,string>
+     */
+    protected function getSignInUri(string $organization): array {
+        $signInOrganization = $this->signInOrganization;
+        return $signInOrganization(null, [
+            'input' => [
+                'organization_id' => $organization,
+            ],
+        ]);
     }
 }

@@ -1,0 +1,18 @@
+extend type Mutation {
+  signUpByInvite(
+    input: SignUpByInviteInput!
+  ): SignUpByInvitePayload
+  @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignUpByInvite")
+}
+
+input SignUpByInviteInput @validator {
+  token: String!
+  first_name: String!
+  last_name: String!
+  password: String!
+}
+
+type SignUpByInvitePayload {
+  "The link where the User should be redirected to Sign In."
+  url: String!
+}

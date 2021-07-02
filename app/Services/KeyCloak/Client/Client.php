@@ -21,7 +21,9 @@ use Illuminate\Http\Client\RequestException;
 use Symfony\Component\HttpFoundation\Response;
 
 use function array_map;
+use function json_encode;
 use function rtrim;
+use function time;
 
 class Client {
 
@@ -178,18 +180,22 @@ class Client {
         if (!$group) {
             throw new InvalidKeyCloakGroup();
         }
-
-        $input        = new User([
+        $invitationAttribute = [
+            'id'              => null,
+            'organization_id' => $role->organization_id,
+            'sent_at'         => time(),
+            'used_at'         => null,
+        ];
+        $input               = new User([
             'email'         => $email,
             'groups'        => [$group->path],
             'enabled'       => false,
             'emailVerified' => false,
             'attributes'    => [
-                'invited'                       => [1],
-                'added_password_through_invite' => [0],
+                'ep_invite' => [json_encode($invitationAttribute)],
             ],
         ]);
-        $errorHandler = function (Exception $exception) use ($endpoint, $email): void {
+        $errorHandler        = function (Exception $exception) use ($endpoint, $email): void {
             if ($exception instanceof RequestException) {
                 if ($exception->getCode() === Response::HTTP_CONFLICT) {
                     throw new UserAlreadyExists($email);

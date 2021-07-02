@@ -936,7 +936,7 @@ type Mutation {
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
   updateOrgRoles(input: [UpdateOrgRolesInput!]!): UpdateOrgRolesPayload
-  updateOrgUserPassword(input: UpdateOrgUserPasswordInput!): UpdateOrgUserPasswordPayload
+  signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload
 }
 
 type Oem {
@@ -2976,7 +2976,7 @@ type UpdateOrgRolesPayload {
   updated: [Role!]!
 }
 
-input UpdateOrgUserPasswordInput {
+input SignUpByInviteInput {
   token: String!
   first_name: String!
   last_name: String!
@@ -2984,7 +2984,7 @@ input UpdateOrgUserPasswordInput {
   password_confirmation: String!
 }
 
-type UpdateOrgUserPasswordPayload {
+type SignUpByInvitePayload {
   result: String!
 }
 

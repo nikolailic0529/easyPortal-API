@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations\Org;
+namespace App\GraphQL\Mutations\Auth;
 
 use App\Exceptions\HasErrorCode;
 use App\Exceptions\TranslatedException;
@@ -9,14 +9,14 @@ use Throwable;
 
 use function __;
 
-class UpdateOrgUserPasswordInvalidToken extends Exception implements TranslatedException {
+class SignUpByInviteAlreadyUsed extends Exception implements TranslatedException {
     use HasErrorCode;
 
     public function __construct(Throwable $previous = null) {
-        parent::__construct('Invalid invite token.', 0, $previous);
+        parent::__construct('User already added password.', 0, $previous);
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.updateOrgUserPassword.invalid_token');
+        return __('graphql.mutations.signUpByInvite.password_added');
     }
 }

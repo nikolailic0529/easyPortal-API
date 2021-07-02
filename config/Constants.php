@@ -103,30 +103,6 @@ interface Constants {
     #[Group('ep')]
     #[Type(Organization::class)]
     public const EP_ROOT_ORGANIZATION = '40765bbb-4736-4d2f-8964-1c3fd4e59aac';
-
-    /**
-     * The URI (can be relative) where user should be redirected to complete
-     * Access EP after invitation.
-     *
-     * Replacements:
-     * * `{organization}` - organization
-     */
-    #[Setting('ep.client.organization_signin_uri')]
-    #[Group('ep')]
-    #[Type(StringType::class)]
-    public const EP_CLIENT_ORGANIZATION_SIGNIN_URI = 'auth/organizations/{organization}';
-
-    /**
-     * The URI (can be relative) where user should be redirected to add his password
-     * Access EP after invitation.
-     *
-     * Replacements:
-     * * `{token}`        - token
-     */
-    #[Setting('ep.client.invite_complete_uri')]
-    #[Group('ep')]
-    #[Type(StringType::class)]
-    public const EP_CLIENT_INVITE_COMPLETE_URI = 'auth/password/{token}';
     // </editor-fold>
 
     // <editor-fold desc="EP_CLIENT">
@@ -143,6 +119,18 @@ interface Constants {
     #[Group('client')]
     #[Type(StringType::class)]
     public const EP_CLIENT_PASSWORD_RESET_URI = 'auth/reset-password/{token}?email={email}';
+
+    /**
+     * The URI (can be relative) where user should be redirected to add his password
+     * Access EP after invitation.
+     *
+     * Replacements:
+     * * `{token}` - token
+     */
+    #[Setting('ep.client.signup_invite_uri')]
+    #[Group('client')]
+    #[Type(StringType::class)]
+    public const EP_CLIENT_SIGNUP_INVITE_URI = 'auth/signup/{token}';
     //</editor-fold>
 
     // <editor-fold desc="EP_KEYCLOAK">

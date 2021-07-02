@@ -27,7 +27,7 @@ class InviteOrganizationUser extends Mailable {
     public function build() {
         $generator = app()->make(UrlGenerator::class);
         $config    = app()->make(Repository::class);
-        $url       = $generator->to(strtr($config->get('ep.client.invite_complete_uri'), [
+        $url       = $generator->to(strtr($config->get('ep.client.signup_invite_uri'), [
             '{token}' => $this->token,
         ]));
         return $this->markdown('invite_user', [

@@ -3,6 +3,10 @@
 namespace App\Exceptions;
 
 use App\GraphQL\Mutations\Auth\ResetPasswordSamePasswordException;
+use App\GraphQL\Mutations\Auth\SignUpByInviteAlreadyUsed;
+use App\GraphQL\Mutations\Auth\SignUpByInviteInvalidToken;
+use App\GraphQL\Mutations\Auth\SignUpByInviteInvalidUser;
+use App\GraphQL\Mutations\Auth\SignUpByInviteUnInvitedUser;
 use App\GraphQL\Mutations\DispatchApplicationServiceFailed;
 use App\GraphQL\Mutations\DispatchApplicationServiceNotFoundException;
 use App\GraphQL\Mutations\InviteOrgUserInvalidRole;
@@ -63,6 +67,10 @@ class ErrorCodes {
         KeyCloakUserAlreadyExists::class                   => 'ERR25',
         InviteOrgUserInvalidRole::class                    => 'ERR26',
         ResetPasswordSamePasswordException::class          => 'ERR27',
+        SignUpByInviteInvalidToken::class                  => 'ERR28',
+        SignUpByInviteInvalidUser::class                   => 'ERR29',
+        SignUpByInviteUnInvitedUser::class                 => 'ERR30',
+        SignUpByInviteAlreadyUsed::class                   => 'ERR31',
     ];
 
     public static function getCode(Throwable $throwable): string|int {
