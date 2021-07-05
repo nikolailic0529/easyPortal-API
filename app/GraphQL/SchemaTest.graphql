@@ -758,6 +758,18 @@ input LocationsSort {
   city: CitiesSort!
 }
 
+type Map {
+  latitude: Float!
+  longitude: Float!
+  customers: Int!
+  assets: Int!
+}
+
+input MapQuery {
+  latitude: Float!
+  longitude: Float!
+}
+
 type Me {
   id: ID!
   given_name: String!
@@ -1368,6 +1380,13 @@ type Query {
   @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
   """
   quote(id: ID!): Document
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  map(where: SearchByConditionMapQuery, diff: Float!): [Map!]!
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -2174,6 +2193,26 @@ input SearchByConditionLocationsQuery {
 }
 
 """
+Available conditions for input MapQuery (only one property allowed at a time).
+"""
+input SearchByConditionMapQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionMapQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionMapQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  latitude: SearchByScalarFloat
+
+  """Property condition."""
+  longitude: SearchByScalarFloat
+}
+
+"""
 Available conditions for input MeSearchQuery (only one property allowed at a time).
 """
 input SearchByConditionMeSearchQuery {
@@ -2794,6 +2833,35 @@ input SearchByScalarDateTimeOrNull {
 
   """Is NULL?"""
   isNull: SearchByFlag
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""
+Available operators for scalar Float! (only one operator allowed at a time).
+"""
+input SearchByScalarFloat {
+  """Equal (`=`)."""
+  eq: Float
+
+  """Less than (`<`)."""
+  lt: Float
+
+  """Less than or equal to (`<=`)."""
+  lte: Float
+
+  """Greater than (`>`)."""
+  gt: Float
+
+  """Greater than or equal to (`>=`)."""
+  gte: Float
+
+  """Within a set of values."""
+  in: [Float!]
+
+  """Within a range."""
+  between: SearchByScalarFloatOperatorBetween
 
   """Not."""
   not: SearchByFlag

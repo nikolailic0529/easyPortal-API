@@ -216,6 +216,16 @@ type Query {
   @builder(method: "App\\GraphQL\\Queries\\Quotes")
   @find
 
+  # Map
+  # ============================================================================
+  map(
+    where: MapQuery @searchBy
+    diff: Float! @rules(apply: ["gt:0"])
+  ): [Map!]!
+  @organization
+  @me(permissions: ["customers-view"])
+  @all(builder: "App\\GraphQL\\Queries\\Map")
+
   # Organization
   # ============================================================================
   permissions: [Permission!]!
