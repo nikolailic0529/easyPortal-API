@@ -1,0 +1,4 @@
+input MapQuery {
+  latitude: Float!
+  longitude: Float!
+}

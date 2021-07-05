@@ -1,0 +1,6 @@
+type Map {
+  latitude: Float!
+  longitude: Float!
+  customers: Int!
+  assets: Int!
+}
