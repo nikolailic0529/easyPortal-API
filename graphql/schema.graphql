@@ -147,6 +147,13 @@ type Query {
   @me(permissions: ["customers-view"])
   @paginate
 
+  customersAggregate(
+    where: CustomersQuery @searchBy
+  ): CustomersAggregate!
+  @organization
+  @me(permissions: ["customers-view"])
+  @field(resolver: "App\\GraphQL\\Queries\\CustomersAggregate")
+
   "Customer."
   customer(id: ID! @eq): Customer
   @organization
