@@ -14,8 +14,8 @@ class QuoteTypes {
         // empty
     }
 
-    public function __invoke(Builder $builder): Builder {
-        $builder = $builder->where('object_type', '=', (new Document())->getMorphClass());
+    public function __invoke(): Builder {
+        $builder = Type::query()->where('object_type', '=', (new Document())->getMorphClass());
         $builder = $this->prepare($builder, (new Type())->getKeyName());
 
         return $builder;
