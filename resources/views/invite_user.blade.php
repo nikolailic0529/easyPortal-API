@@ -1,7 +1,7 @@
 @component('mail::message')
 # {{ config('app.name') }}
 
-Your have been invited to use {{ config('app.name') }} dashboard.
+You have been invited to join {{ config('app.name') }}.
 
 @component('mail::button', ['url' => $url])
 Join
