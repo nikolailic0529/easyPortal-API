@@ -10,6 +10,7 @@ use Illuminate\Contracts\Encryption\Encrypter;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
 use Tests\GraphQL\GraphQLError;
@@ -22,7 +23,7 @@ use function time;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\SignUpByInvite
+ * @coversDefaultClass \App\GraphQL\Mutations\Auth\SignUpByInvite
  */
 class SignUpByInviteTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -30,15 +31,13 @@ class SignUpByInviteTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
-     *
-     * @param array<string,mixed> $data
      */
     public function testInvoke(
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
-        Closure $prepareInput = null,
-        Closure $prepare = null,
+        Closure $inputFactory = null,
+        Closure $clientFactory = null,
     ): void {
         $organization = $this->setOrganization($organizationFactory);
         $this->setUser($userFactory, $organization);
@@ -53,26 +52,13 @@ class SignUpByInviteTest extends TestCase {
         $organization->keycloak_scope = 'test_scope';
         $organization->save();
 
-        $data = [
-            'token'      => $this->app->make(Encrypter::class)->encrypt([
-                'email'        => 'test@gmail.com',
-                'organization' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-            ]),
-            'first_name' => 'First',
-            'last_name'  => 'Last',
-            'password'   => '123456',
-        ];
+        $data = [];
 
-        if ($prepareInput) {
-            $data = $prepareInput($this);
+        if ($inputFactory) {
+            $data = $inputFactory($this);
         }
 
-        $this->override(Client::class, static function ($mock) use ($prepare): Client {
-            if ($prepare) {
-                $prepare($mock);
-            }
-            return $mock;
-        });
+        $this->override(Client::class, $clientFactory);
 
         // Test
         $this
@@ -93,7 +79,7 @@ class SignUpByInviteTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new AnyOrganizationDataProvider('signUpByInvite', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
-            new AnyUserDataProvider('signUpByInvite'),
+            new AnyUserDataProvider(),
             new ArrayDataProvider([
                 'ok'                            => [
                     new GraphQLSuccess('signUpByInvite', SignUpByInvite::class),
@@ -108,7 +94,7 @@ class SignUpByInviteTest extends TestCase {
                             'password'   => '123456',
                         ];
                     },
-                    static function (Client $mock): void {
+                    static function (MockInterface $mock): void {
                         $mock
                             ->shouldReceive('updateUser')
                             ->once()
@@ -145,7 +131,7 @@ class SignUpByInviteTest extends TestCase {
                             'password'   => '123456',
                         ];
                     },
-                    static function (Client $mock): void {
+                    static function (MockInterface $mock): void {
                         $mock
                             ->shouldReceive('getUserByEmail')
                             ->once()
@@ -179,7 +165,7 @@ class SignUpByInviteTest extends TestCase {
                             'password'   => '123456',
                         ];
                     },
-                    static function (Client $mock): void {
+                    static function (MockInterface $mock): void {
                         $mock
                             ->shouldReceive('getUserByEmail')
                             ->once()
@@ -203,7 +189,7 @@ class SignUpByInviteTest extends TestCase {
                             'password'   => '123456',
                         ];
                     },
-                    static function (Client $mock): void {
+                    static function (MockInterface $mock): void {
                         $mock
                             ->shouldReceive('getUserByEmail')
                             ->once()

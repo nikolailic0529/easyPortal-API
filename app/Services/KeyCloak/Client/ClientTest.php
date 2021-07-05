@@ -5,10 +5,12 @@ namespace App\Services\KeyCloak\Client;
 use App\Services\KeyCloak\Client\Types\User;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Support\Facades\Http;
+use Mockery\MockInterface;
 use Tests\TestCase;
+
 /**
  * @internal
- * @coversDefaultClass \App\Services\KeyCloak\Client
+ * @coversDefaultClass \App\Services\KeyCloak\Client\Client
  */
 class ClientTest extends TestCase {
     /**
@@ -18,13 +20,16 @@ class ClientTest extends TestCase {
      * @dataProvider dataProviderGetUserByEmail
      */
     public function testGetUserByEmail(string $email, ?User $expected): void {
-        $this->app->instance(AuthClient::class, null);
-        $this->override(Token::class, static function ($mock) {
-            $mock->shouldReceive('getAccessToken')
-            ->once()
-            ->andReturn('token');
-
-            return $mock;
+        $this->setSettings([
+            'ep.keycloak.url'           => $this->faker->url,
+            'ep.keycloak.client_id'     => $this->faker->uuid,
+            'ep.keycloak.client_secret' => $this->faker->uuid,
+        ]);
+        $this->override(Token::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('getAccessToken')
+                ->once()
+                ->andReturn('token');
         });
         $this->override(Factory::class, static function () {
             return Http::fake([
