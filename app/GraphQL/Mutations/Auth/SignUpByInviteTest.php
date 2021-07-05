@@ -12,7 +12,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\AnyUserDataProvider;
+use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -52,7 +52,12 @@ class SignUpByInviteTest extends TestCase {
         $organization->keycloak_scope = 'test_scope';
         $organization->save();
 
-        $data = [];
+        $data = [
+            'token'      => $this->faker->sha256,
+            'first_name' => $this->faker->firstName,
+            'last_name'  => $this->faker->lastName,
+            'password'   => $this->faker->password,
+        ];
 
         if ($inputFactory) {
             $data = $inputFactory($this);
@@ -79,7 +84,7 @@ class SignUpByInviteTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new AnyOrganizationDataProvider('signUpByInvite', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
-            new AnyUserDataProvider(),
+            new GuestDataProvider('signUpByInvite'),
             new ArrayDataProvider([
                 'ok'                            => [
                     new GraphQLSuccess('signUpByInvite', SignUpByInvite::class),

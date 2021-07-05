@@ -894,6 +894,8 @@ type Mutation {
   @require <me> User must be authenticated.
   """
   signOut: SignOutPayload
+
+  """@require <guest> Current visitor must be a guest."""
   signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload
 
   """

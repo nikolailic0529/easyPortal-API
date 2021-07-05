@@ -2,6 +2,7 @@ extend type Mutation {
   signUpByInvite(
     input: SignUpByInviteInput!
   ): SignUpByInvitePayload
+  @guest
   @field(resolver: "App\\GraphQL\\Mutations\\Auth\\SignUpByInvite")
 }
 
