@@ -53,7 +53,7 @@ trait Override {
         $mock = Mockery::mock($class);
 
         if ($factory) {
-            $mock = $factory($mock, $this);
+            $mock = $factory($mock, $this) ?: $mock;
         }
 
         // Override
