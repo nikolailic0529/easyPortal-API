@@ -6,6 +6,7 @@ use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Location;
 use App\Models\Organization;
+use App\Models\Reseller;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -48,7 +49,7 @@ class MapTest extends TestCase {
         // Test
         $this
             ->graphQL(
-                /** @lang GraphQL */ <<<'GRAPHQL'
+            /** @lang GraphQL */ <<<'GRAPHQL'
                 query ($where: SearchByConditionMapQuery, $diff: Float!) {
                     map (where: $where, diff: $diff) {
                         latitude
@@ -97,30 +98,50 @@ class MapTest extends TestCase {
             ],
         ];
         $factory = static function (TestCase $test, Organization $organization): void {
+            // Customers
+            $customerA = Customer::factory()->create();
+            $customerB = Customer::factory()->create();
+
+            // Resellers
+            $resellerA = Reseller::factory()->create([
+                'id' => $organization->getKey(),
+            ]);
+            $resellerB = Reseller::factory()->create();
+
+            $resellerA->customers = [$customerA];
+            $resellerB->customers = [$customerB];
+
             // Inside
-            $a = Location::factory()->create([
+            $locationA = Location::factory()->create([
                 'latitude'  => 1.00,
                 'longitude' => 1.00,
             ]);
-            $b = Location::factory()->create([
+            $locationB = Location::factory()->create([
                 'latitude'  => 1.10,
                 'longitude' => 1.10,
-                'object_id' => Customer::factory()->create(),
+                'object_id' => $customerA,
             ]);
             Location::factory()->create([
                 'latitude'  => 1.25,
                 'longitude' => 1.25,
-                'object_id' => Customer::factory()->create(),
+                'object_id' => $customerB,
             ]);
 
             Asset::factory()->create([
-                'location_id' => $a,
+                'location_id' => $locationA,
+                'reseller_id' => $resellerA,
             ]);
             Asset::factory()->create([
-                'location_id' => $a,
+                'location_id' => $locationA,
+                'reseller_id' => $resellerA,
             ]);
             Asset::factory()->create([
-                'location_id' => $b,
+                'location_id' => $locationA,
+                'reseller_id' => $resellerB,
+            ]);
+            Asset::factory()->create([
+                'location_id' => $locationB,
+                'reseller_id' => $resellerA,
             ]);
 
             // Empty
@@ -139,20 +160,6 @@ class MapTest extends TestCase {
                 'longitude' => -1.00,
             ]);
         };
-        $result  = [
-            [
-                'latitude'  => 1.033333333333,
-                'longitude' => 1.033333333333,
-                'customers' => 1,
-                'assets'    => 3,
-            ],
-            [
-                'latitude'  => 1.25,
-                'longitude' => 1.25,
-                'customers' => 1,
-                'assets'    => 0,
-            ],
-        ];
 
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
@@ -162,7 +169,20 @@ class MapTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('map', self::class, $result),
+                        new GraphQLSuccess('map', self::class, [
+                            [
+                                'latitude'  => 1.025,
+                                'longitude' => 1.025,
+                                'customers' => 1,
+                                'assets'    => 4,
+                            ],
+                            [
+                                'latitude'  => 1.25,
+                                'longitude' => 1.25,
+                                'customers' => 1,
+                                'assets'    => 0,
+                            ],
+                        ]),
                         $factory,
                         $params,
                     ],
@@ -175,7 +195,14 @@ class MapTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('map', self::class, $result),
+                        new GraphQLSuccess('map', self::class, [
+                            [
+                                'latitude'  => 1.033333333333,
+                                'longitude' => 1.033333333333,
+                                'customers' => 1,
+                                'assets'    => 3,
+                            ],
+                        ]),
                         $factory,
                         $params,
                     ],
