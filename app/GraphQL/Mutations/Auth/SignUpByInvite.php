@@ -86,7 +86,7 @@ class SignUpByInvite {
     /**
      * @return array<string,string>
      */
-    protected function getSignInUri(string $organization): array {
+    public function getSignInUri(string $organization): array {
         $signInOrganization = $this->signInOrganization;
         return $signInOrganization(null, [
             'input' => [
