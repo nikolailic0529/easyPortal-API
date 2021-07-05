@@ -9,6 +9,8 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
 use function app;
+use function config;
+use function sprintf;
 use function strtr;
 
 class InviteOrganizationUser extends Mailable {
@@ -19,18 +21,15 @@ class InviteOrganizationUser extends Mailable {
         // empty
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build() {
+    public function build(): Mailable {
         $generator = app()->make(UrlGenerator::class);
         $config    = app()->make(Repository::class);
         $url       = $generator->to(strtr($config->get('ep.client.signup_invite_uri'), [
             '{token}' => $this->token,
         ]));
-        return $this->subject('You have been invited to join IT Asset Hub')
+
+        return $this
+            ->subject(sprintf('You have been invited to join %s', config('app.name')))
             ->markdown('invite_user', [
                 'url' => $url,
             ]);
