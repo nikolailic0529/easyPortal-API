@@ -1,12 +1,13 @@
 @component('mail::message')
-# EasyPortal
+# {{ config('app.name') }}
 
-Your have been invited to use EasyPortal dashboard.
+Your have been invited to use {{ config('app.name') }} dashboard.
 
 @component('mail::button', ['url' => $url])
-View EasyPortal
+Join
 @endcomponent
 
 Thanks,<br>
+Support Team<br>
 {{ config('app.name') }}
 @endcomponent

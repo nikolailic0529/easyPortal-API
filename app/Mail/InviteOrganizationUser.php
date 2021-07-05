@@ -2,7 +2,6 @@
 
 namespace App\Mail;
 
-use App\Models\Organization;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Routing\UrlGenerator;
@@ -10,29 +9,29 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
 use function app;
+use function config;
+use function sprintf;
 use function strtr;
 
 class InviteOrganizationUser extends Mailable {
     use Queueable;
     use SerializesModels;
 
-    public function __construct(protected Organization $organization) {
+    public function __construct(protected string $token) {
         // empty
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build() {
+    public function build(): Mailable {
         $generator = app()->make(UrlGenerator::class);
         $config    = app()->make(Repository::class);
-        $url       = $generator->to(strtr($config->get('ep.client.organization_signin_uri'), [
-            '{organization}' => $this->organization->getKey(),
+        $url       = $generator->to(strtr($config->get('ep.client.signup_invite_uri'), [
+            '{token}' => $this->token,
         ]));
-        return $this->markdown('invite_user', [
-            'url' => $url,
-        ]);
+
+        return $this
+            ->subject(sprintf('You have been invited to join %s', config('app.name')))
+            ->markdown('invite_user', [
+                'url' => $url,
+            ]);
     }
 }

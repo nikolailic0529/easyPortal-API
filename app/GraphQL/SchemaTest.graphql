@@ -956,6 +956,9 @@ type Mutation {
   """
   signOut: SignOutPayload
 
+  """@require <guest> Current visitor must be a guest."""
+  signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload
+
   """
   Create Organization Role.
   
@@ -3043,6 +3046,18 @@ type SignInPayload {
 type SignOutPayload {
   """The link where the User should be redirected to complete Sign Out."""
   url: String
+}
+
+input SignUpByInviteInput {
+  token: String!
+  first_name: String!
+  last_name: String!
+  password: String!
+}
+
+type SignUpByInvitePayload {
+  """The link where the User should be redirected to Sign In."""
+  url: String!
 }
 
 """Pagination information about the corresponding list of items."""

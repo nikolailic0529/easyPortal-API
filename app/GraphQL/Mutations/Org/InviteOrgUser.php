@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations\Org;
 use App\Mail\InviteOrganizationUser;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\Organization\CurrentOrganization;
+use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Contracts\Mail\Mailer;
 
 class InviteOrgUser {
@@ -12,6 +13,7 @@ class InviteOrgUser {
         protected Client $client,
         protected Mailer $mailer,
         protected CurrentOrganization $organization,
+        protected Encrypter $encrypter,
     ) {
         // empty
     }
@@ -30,7 +32,11 @@ class InviteOrgUser {
         }
         $email  = $args['input']['email'];
         $result = $this->client->inviteUser($role, $email);
-        $this->mailer->to($email)->send(new InviteOrganizationUser($organization));
+        $token  = $this->encrypter->encrypt([
+            'email'        => $email,
+            'organization' => $organization->getKey(),
+        ]);
+        $this->mailer->to($email)->send(new InviteOrganizationUser($token));
         return ['result' => $result ];
     }
 }
