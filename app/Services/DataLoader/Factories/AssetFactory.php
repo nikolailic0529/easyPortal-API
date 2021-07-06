@@ -495,7 +495,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 'asset'    => $model,
                 'document' => $assetDocument,
             ]);
-            $oem    = $this->getDocumentFactory()->find($object)?->oem;
+            $oem    = $this->getDocumentFactory()->find($object)?->oem ?: $oem;
         }
 
         return $oem;
