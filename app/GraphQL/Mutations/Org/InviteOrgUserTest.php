@@ -7,6 +7,7 @@ use App\Models\Organization;
 use App\Models\Role;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists;
+use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\User;
 use Closure;
 use Illuminate\Support\Facades\Mail;
@@ -48,6 +49,7 @@ class InviteOrgUserTest extends TestCase {
             'role_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
         ],
         Closure $clientFactory = null,
+        bool $shouldSendEmail = false,
     ): void {
         // Prepare
         $organization = $organizationFactory($this);
@@ -83,7 +85,7 @@ class InviteOrgUserTest extends TestCase {
             }', ['input' => $data])
             ->assertThat($expected);
 
-        if ($expected instanceof GraphQLSuccess) {
+        if ($shouldSendEmail && $expected instanceof GraphQLSuccess) {
             Mail::assertSent(InviteOrganizationUser::class);
         }
     }
@@ -121,7 +123,7 @@ class InviteOrgUserTest extends TestCase {
                 'org-administer',
             ]),
             new ArrayDataProvider([
-                'ok'                   => [
+                'ok'                          => [
                     new GraphQLSuccess('inviteOrgUser', InviteOrgUser::class),
                     $prepare,
                     $roleFactory,
@@ -135,8 +137,9 @@ class InviteOrgUserTest extends TestCase {
                             ->once()
                             ->andReturns(true);
                     },
+                    true,
                 ],
-                'invited'              => [
+                'invited/not in organization' => [
                     new GraphQLSuccess('inviteOrgUser', InviteOrgUser::class),
                     $prepare,
                     $roleFactory,
@@ -145,6 +148,13 @@ class InviteOrgUserTest extends TestCase {
                         'role_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                     ],
                     static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getUserGroups')
+                            ->once()
+                            ->andReturns([]);
+                        $mock
+                            ->shouldReceive('addUserToGroup')
+                            ->once();
                         $mock
                             ->shouldReceive('inviteUser')
                             ->once()
@@ -166,8 +176,45 @@ class InviteOrgUserTest extends TestCase {
                                 ],
                             ]));
                     },
+                    true,
                 ],
-                'un-completed invited' => [
+                'invited/in organization'     => [
+                    new GraphQLSuccess('inviteOrgUser', InviteOrgUser::class),
+                    $prepare,
+                    $roleFactory,
+                    [
+                        'email'   => 'test@gmail.com',
+                        'role_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                    ],
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getUserGroups')
+                            ->once()
+                            ->andReturns([new Group(['id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982'])]);
+                        $mock
+                            ->shouldReceive('inviteUser')
+                            ->once()
+                            ->andThrow(new UserAlreadyExists('test@gmail.com'));
+                        $mock
+                            ->shouldReceive('getUserByEmail')
+                            ->once()
+                            ->andReturns(new User([
+                                'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'attributes' => [
+                                    'ep_invite' => [
+                                        json_encode([
+                                            'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                            'organization_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                            'sent_at'         => time(),
+                                            'used_at'         => time(),
+                                        ]),
+                                    ],
+                                ],
+                            ]));
+                    },
+                    false,
+                ],
+                'un-completed invited'        => [
                     new GraphQLSuccess('inviteOrgUser', InviteOrgUser::class),
                     $prepare,
                     $roleFactory,
@@ -197,8 +244,9 @@ class InviteOrgUserTest extends TestCase {
                                 ],
                             ]));
                     },
+                    true,
                 ],
-                'Invalid email'        => [
+                'Invalid email'               => [
                     new GraphQLError('inviteOrgUser', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
@@ -209,7 +257,7 @@ class InviteOrgUserTest extends TestCase {
                         'role_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                     ],
                 ],
-                'Invalid role'         => [
+                'Invalid role'                => [
                     new GraphQLError('inviteOrgUser', static function (): array {
                         return [__('errors.validation_failed')];
                     }),

@@ -246,6 +246,24 @@ class Client {
         }
         return new User($users[0]);
     }
+
+    /**
+     * @return array<\App\Services\KeyCloak\Client\Types\Group>
+     */
+    public function getUserGroups(string $id): array {
+        // GET /{realm}/users/{id}/groups
+        $endpoint = "users/{$id}/groups";
+        $groups   = $this->call($endpoint, 'GET');
+        return array_map(static function ($group) {
+            return new Group($group);
+        }, $groups);
+    }
+
+    public function addUserToGroup(string $userId, string $groupId): void {
+        // PUT /{realm}/users/{id}/groups/{groupId}
+        $endpoint = "users/{$userId}/groups/{$groupId}";
+        $this->call($endpoint, 'PUT');
+    }
     // </editor-fold>
 
     // <editor-fold desc="API">

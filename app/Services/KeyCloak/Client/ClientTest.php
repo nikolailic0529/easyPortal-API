@@ -3,6 +3,8 @@
 namespace App\Services\KeyCloak\Client;
 
 use App\Models\Role;
+use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists;
+use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\User;
 use Exception;
 use Illuminate\Http\Client\Factory;
@@ -101,6 +103,41 @@ class ClientTest extends TestCase {
         }
     }
 
+    /**
+     * @covers ::getUserGroups
+     */
+    public function testGetUserGroups(): void {
+        $this->prepareClient();
+        $this->override(Token::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('getAccessToken')
+                ->once()
+                ->andReturn('token');
+        });
+        $this->override(Factory::class, static function () {
+            return Http::fake([
+                '*' => Http::response(
+                    [
+                        [
+                            'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02388',
+                            'name' => 'test',
+                            'path' => 'group/test',
+                        ],
+                    ],
+                    Response::HTTP_OK,
+                ),
+            ]);
+        });
+        $client   = $this->app->make(Client::class);
+        $group    = new Group([
+            'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02388',
+            'name' => 'test',
+            'path' => 'group/test',
+        ]);
+        $response = $client->getUserGroups($this->faker->uuid);
+        $this->assertEquals($response, [$group]);
+    }
+
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
@@ -125,7 +162,7 @@ class ClientTest extends TestCase {
     public function dataProviderInviteUser(): array {
         return [
             ['correct@gmail.com', true],
-            // ['wrong@gmail.com', new UserAlreadyExists('wrong@gmail.com')],
+            ['wrong@gmail.com', new UserAlreadyExists('wrong@gmail.com')],
         ];
     }
     //</editor-fold>

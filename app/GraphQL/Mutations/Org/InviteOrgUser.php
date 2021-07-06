@@ -3,14 +3,17 @@
 namespace App\GraphQL\Mutations\Org;
 
 use App\Mail\InviteOrganizationUser;
+use App\Models\Role;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists;
+use App\Services\KeyCloak\Client\Types\User;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Contracts\Routing\UrlGenerator;
 
+use function array_filter;
 use function array_key_exists;
 use function json_decode;
 use function rtrim;
@@ -49,9 +52,13 @@ class InviteOrgUser {
                 $invitation = json_decode($user->attributes['ep_invite'][0]);
                 if ($invitation->id) {
                     // completed his invitation
-                    $signUri = rtrim($this->config->get('ep.keycloak.redirects.signin_uri'));
-                    $url     = $this->generator->to("{$signUri}/{$organization->getKey()}");
-                    $this->mailer->to($email)->send(new InviteOrganizationUser($url));
+                    if (!$this->userInOrganization($user, $role)) {
+                        // add user to organization
+                        $this->client->addUserToGroup($user->id, $role->getKey());
+                        $signUri = rtrim($this->config->get('ep.keycloak.redirects.signin_uri'));
+                        $url     = $this->generator->to("{$signUri}/{$organization->getKey()}");
+                        $this->mailer->to($email)->send(new InviteOrganizationUser($url));
+                    }
                     return ['result' => true ];
                 }
             }
@@ -65,5 +72,13 @@ class InviteOrgUser {
         ]));
         $this->mailer->to($email)->send(new InviteOrganizationUser($url));
         return ['result' => true ];
+    }
+
+    protected function userInOrganization(User $user, Role $role): bool {
+        $groups   = $this->client->getUserGroups($user->id);
+        $filtered = array_filter($groups, static function ($group) use ($role) {
+            return $group->id === $role->getKey();
+        });
+        return !empty($filtered);
     }
 }
