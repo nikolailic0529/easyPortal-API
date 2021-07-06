@@ -2,12 +2,10 @@
 
 namespace App\GraphQL\Queries;
 
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
 
 class Quotes {
     public function __construct(
-        protected Repository $config,
         protected QuoteTypes $types,
     ) {
         // empty
