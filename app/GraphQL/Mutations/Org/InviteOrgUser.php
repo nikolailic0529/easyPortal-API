@@ -2,17 +2,19 @@
 
 namespace App\GraphQL\Mutations\Org;
 
-use App\GraphQL\Mutations\Auth\SignUpByInvite;
 use App\Mail\InviteOrganizationUser;
-use App\Mail\InviteToSignIn;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists;
 use App\Services\Organization\CurrentOrganization;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Contracts\Routing\UrlGenerator;
 
 use function array_key_exists;
 use function json_decode;
+use function rtrim;
+use function strtr;
 
 class InviteOrgUser {
     public function __construct(
@@ -20,7 +22,8 @@ class InviteOrgUser {
         protected Mailer $mailer,
         protected CurrentOrganization $organization,
         protected Encrypter $encrypter,
-        protected SignUpByInvite $signUpByInvite,
+        protected Repository $config,
+        protected UrlGenerator $generator,
     ) {
         // empty
     }
@@ -46,8 +49,9 @@ class InviteOrgUser {
                 $invitation = json_decode($user->attributes['ep_invite'][0]);
                 if ($invitation->id) {
                     // completed his invitation
-                    $output = $this->signUpByInvite->getSignInUri($organization->getKey());
-                    $this->mailer->to($email)->send(new InviteToSignIn($output['url']));
+                    $signUri = rtrim($this->config->get('ep.keycloak.redirects.signin_uri'));
+                    $url     = $this->generator->to("{$signUri}/{$organization->getKey()}");
+                    $this->mailer->to($email)->send(new InviteOrganizationUser($url));
                     return ['result' => true ];
                 }
             }
@@ -56,7 +60,10 @@ class InviteOrgUser {
             'email'        => $email,
             'organization' => $organization->getKey(),
         ]);
-        $this->mailer->to($email)->send(new InviteOrganizationUser($token));
+        $url   = $this->generator->to(strtr($this->config->get('ep.client.signup_invite_uri'), [
+            '{token}' => $token,
+        ]));
+        $this->mailer->to($email)->send(new InviteOrganizationUser($url));
         return ['result' => true ];
     }
 }

@@ -3,7 +3,6 @@
 namespace App\GraphQL\Mutations\Org;
 
 use App\Mail\InviteOrganizationUser;
-use App\Mail\InviteToSignIn;
 use App\Models\Organization;
 use App\Models\Role;
 use App\Services\KeyCloak\Client\Client;
@@ -49,7 +48,6 @@ class InviteOrgUserTest extends TestCase {
             'role_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
         ],
         Closure $clientFactory = null,
-        string $mailable = '',
     ): void {
         // Prepare
         $organization = $organizationFactory($this);
@@ -85,8 +83,8 @@ class InviteOrgUserTest extends TestCase {
             }', ['input' => $data])
             ->assertThat($expected);
 
-        if ($mailable && $expected instanceof GraphQLSuccess) {
-            Mail::assertSent($mailable);
+        if ($expected instanceof GraphQLSuccess) {
+            Mail::assertSent(InviteOrganizationUser::class);
         }
     }
     // </editor-fold>
@@ -137,7 +135,6 @@ class InviteOrgUserTest extends TestCase {
                             ->once()
                             ->andReturns(true);
                     },
-                    InviteOrganizationUser::class,
                 ],
                 'invited'              => [
                     new GraphQLSuccess('inviteOrgUser', InviteOrgUser::class),
@@ -169,7 +166,6 @@ class InviteOrgUserTest extends TestCase {
                                 ],
                             ]));
                     },
-                    InviteToSignIn::class,
                 ],
                 'un-completed invited' => [
                     new GraphQLSuccess('inviteOrgUser', InviteOrgUser::class),
@@ -201,7 +197,6 @@ class InviteOrgUserTest extends TestCase {
                                 ],
                             ]));
                     },
-                    InviteOrganizationUser::class,
                 ],
                 'Invalid email'        => [
                     new GraphQLError('inviteOrgUser', static function (): array {
