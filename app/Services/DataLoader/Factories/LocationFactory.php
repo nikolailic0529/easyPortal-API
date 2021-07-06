@@ -19,8 +19,10 @@ use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
+use function array_filter;
 use function end;
 use function explode;
+use function implode;
 use function mb_strtoupper;
 use function reset;
 use function sprintf;
@@ -89,6 +91,8 @@ class LocationFactory extends DependentModelFactory {
 
     // </editor-fold>
 
+    // <editor-fold desc="Functions">
+    // =========================================================================
     public function isEmpty(Location|ViewAsset $location): bool {
         return !($location->zip ?? null) || !($location->city ?? null);
     }
@@ -137,14 +141,10 @@ class LocationFactory extends DependentModelFactory {
     }
 
     protected function createFromAsset(Model $object, ViewAsset $asset): ?LocationModel {
-        // TODO [DataLoader] Today Asset::address2 is always equal `TODO` (I
-        //      guess because it the same as the customer's location that
-        //      doesn't have it), so we ignore it. We will need review this
-        //      method and tests when it will filled correctly.
         $location              = new Location();
         $location->zip         = $asset->zip ?? null;
         $location->city        = $asset->city ?? null;
-        $location->address     = $asset->address ?? null;
+        $location->address     = implode(' ', array_filter([$asset->address ?? null, $asset->address2 ?? null]));
         $location->country     = $asset->country ?? null;
         $location->countryCode = $asset->countryCode ?? null;
         $location->latitude    = $asset->latitude ?? null;
@@ -247,4 +247,5 @@ class LocationFactory extends DependentModelFactory {
 
         return $location;
     }
+    //</editor-fold>
 }
