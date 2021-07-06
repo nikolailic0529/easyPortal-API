@@ -16,6 +16,7 @@ use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\LocationNotFoundException;
+use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithCustomer;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
@@ -54,6 +55,7 @@ use function array_map;
 use function array_merge;
 use function array_unique;
 use function array_values;
+use function count;
 use function implode;
 use function sprintf;
 
@@ -271,6 +273,28 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         // Asset.assetDocument is not a document but an array of entries where
         // each entry is the mixin of Document, DocumentEntry, and additional
         // information (that is not available in Document and DocumentEntry)
+
+        // Log assets were document is missed
+        (new Collection($asset->assetDocument))
+            ->filter(static function (ViewAssetDocument $document): bool {
+                return isset($document->documentNumber) && !isset($document->document->id);
+            })
+            ->groupBy(static function (ViewAssetDocument $document): string {
+                return $document->documentNumber;
+            })
+            ->each(function (Collection $entries) use ($model): void {
+                /** @var \App\Services\DataLoader\Schema\ViewAssetDocument $document */
+                $document = $entries->first();
+
+                $this->dispatcher->dispatch(
+                    new ObjectSkipped($document, new ViewAssetDocumentNoDocument($document)),
+                );
+                $this->logger->notice('Failed to process ViewAssetDocument: document is null.', [
+                    'asset'    => $model->getKey(),
+                    'document' => $document->documentNumber,
+                    'entries'  => count($entries),
+                ]);
+            });
 
         // Create documents
         return (new Collection($asset->assetDocument))
