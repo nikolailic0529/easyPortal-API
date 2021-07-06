@@ -24,6 +24,6 @@ class ViewAssetDocument extends Type {
 
     public ?string $estimatedValueRenewal;
 
-    public ?Company $reseller;
-    public ?Company $customer;
+    public ?ViewCompany $reseller;
+    public ?ViewCompany $customer;
 }

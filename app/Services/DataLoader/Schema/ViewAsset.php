@@ -36,6 +36,6 @@ class ViewAsset extends Type implements TypeWithId {
      */
     public array $latestContactPersons;
 
-    public ?Company $reseller;
-    public ?Company $customer;
+    public ?ViewCompany $reseller;
+    public ?ViewCompany $customer;
 }

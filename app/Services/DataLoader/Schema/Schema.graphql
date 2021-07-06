@@ -343,8 +343,8 @@ type ViewAsset {
   sku: String
   vendorSpecificField: [VendorSpecificField]
   customerId: String
-  customer: Company
-  reseller: Company
+  customer: ViewCompany
+  reseller: ViewCompany
   updatedAt: String
   latitude: String
   longitude: String
@@ -373,16 +373,24 @@ type ViewAssetDocument {
   netPrice: String
   discount: String
   listPrice: String
-  distributor: Company
-  customer: Company
-  reseller: Company
+  distributor: ViewCompany
+  customer: ViewCompany
+  reseller: ViewCompany
   estimatedValueRenewal: String
+}
+
+type ViewCompany {
+  id: ID
+  companyContactPersons: [CompanyContactPerson]
+  companyTypes: [CompanyType]
+  name: String
+  locations: [Location]
+  updatedAt: String
 }
 
 type ViewDocument {
   id: ID
   resellerId: String
-  documentEntries: [DocumentEntry]
   endDate: String
   vendorSpecificFields: DocumentVendorSpecificField
   customerId: String
@@ -395,8 +403,8 @@ type ViewDocument {
   totalNetPrice: String
   currencyCode: String
   distributorId: String
-  customer: Company
-  reseller: Company
-  distributor: Company
+  customer: ViewCompany
+  reseller: ViewCompany
+  distributor: ViewCompany
   contactPersons: [CompanyContactPerson]
 }
