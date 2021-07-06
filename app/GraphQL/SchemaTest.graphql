@@ -673,6 +673,18 @@ type DocumentPaginator {
   data: [Document!]!
 }
 
+type DocumentsAggregate {
+  count: Int!
+  prices: [DocumentsAggregatePrice!]!
+}
+
+type DocumentsAggregatePrice {
+  count: Int!
+  amount: Float!
+  currency_id: ID
+  currency: Currency
+}
+
 input DocumentsQuery {
   id: ID!
   oem_id: ID!
@@ -1377,6 +1389,13 @@ type Query {
   @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
   asset(id: ID!): Asset
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  contractsAggregate(where: SearchByConditionDocumentsQuery): DocumentsAggregate!
 
   """
   Contract.

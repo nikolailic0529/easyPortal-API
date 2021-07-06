@@ -1,0 +1,4 @@
+type DocumentsAggregate {
+  count: Int!
+  prices: [DocumentsAggregatePrice!]!
+}

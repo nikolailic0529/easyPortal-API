@@ -1326,6 +1326,63 @@
                     ]
                 }
             }
+        },
+        "DocumentsAggregate": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "count",
+                "prices"
+            ],
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "prices": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/DocumentsAggregatePrice"
+                    }
+                }
+            }
+        },
+        "DocumentsAggregatePrice": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "count",
+                "amount",
+                "currency",
+                "currency_id"
+            ],
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "amount": {
+                    "type": "number"
+                },
+                "currency_id": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "currency": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/Currency"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                }
+            }
         }
     }
 }

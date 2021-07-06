@@ -189,6 +189,13 @@ type Query {
   @builder(method: "App\\GraphQL\\Queries\\Contracts")
   @paginate
 
+  contractsAggregate(
+    where: DocumentsQuery @searchBy
+  ): DocumentsAggregate!
+  @organization
+  @me(permissions: ["contracts-view", "customers-view"])
+  @field(resolver: "App\\GraphQL\\Queries\\ContractsAggregate")
+
   "Contract."
   contract(id: ID! @eq): Document
   @organization
