@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\GraphQL\Mutations\Auth\ChangePasswordInvalidCurrentPassword;
 use App\GraphQL\Mutations\Auth\ResetPasswordSamePasswordException;
 use App\GraphQL\Mutations\Auth\SignUpByInviteAlreadyUsed;
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvalidToken;
@@ -73,6 +74,7 @@ class ErrorCodes {
         SignUpByInviteUnInvitedUser::class                 => 'ERR30',
         SignUpByInviteAlreadyUsed::class                   => 'ERR31',
         InviteOrgUserAlreadyUsedInvitation::class          => 'ERR32',
+        ChangePasswordInvalidCurrentPassword::class        => 'ERR33',
     ];
 
     public static function getCode(Throwable $throwable): string|int {

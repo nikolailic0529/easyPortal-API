@@ -9,6 +9,7 @@ use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakClient;
 use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakGroup;
 use App\Services\KeyCloak\Client\Exceptions\KeyCloakDisabled;
 use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists;
+use App\Services\KeyCloak\Client\Types\Credential;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role;
 use App\Services\KeyCloak\Client\Types\User;
@@ -261,6 +262,18 @@ class Client {
         // PUT /{realm}/users/{id}/groups/{groupId}
         $endpoint = "users/{$userId}/groups/{$groupId}";
         $this->call($endpoint, 'PUT');
+    }
+    
+    public function resetPassword(string $id, string $password): void {
+        // PUT /{realm}/users/{id}/reset-password
+        $endpoint = "users/{$id}/reset-password";
+        // Create new credentials
+        $credential = new Credential([
+            'type'      => 'password',
+            'temporary' => false,
+            'value'     => $password,
+        ]);
+        $this->call($endpoint, 'PUT', $credential->toArray());
     }
     // </editor-fold>
 
