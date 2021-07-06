@@ -90,9 +90,10 @@ class Document extends Model implements CascadeDeletable {
     use SyncHasMany;
 
     protected const CASTS = [
+        'price' => 'decimal:2',
         'start' => 'date',
         'end'   => 'date',
-    ];
+    ] + parent::CASTS;
 
     /**
      * The attributes that should be cast to native types.
@@ -101,7 +102,7 @@ class Document extends Model implements CascadeDeletable {
      *
      * @var array<string>
      */
-    protected $casts = self::CASTS + parent::CASTS;
+    protected $casts = self::CASTS;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
