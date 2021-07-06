@@ -14,6 +14,7 @@ use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
+use App\Services\DataLoader\Schema\ViewCompany;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Closure;
 use Illuminate\Console\Command;
@@ -250,7 +251,7 @@ class AnalyzeAssets extends Command {
             && $analyze->customer_unknown === null;
     }
 
-    protected function getCompanyType(?Company $company): string {
+    protected function getCompanyType(Company|ViewCompany|null $company): string {
         return implode(',', array_filter(array_map(static function (CompanyType $type): string {
             return $type->type;
         }, $company->companyTypes ?? [])));

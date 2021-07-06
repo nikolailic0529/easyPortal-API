@@ -1094,6 +1094,41 @@ class AssetFactoryTest extends TestCase {
     /**
      * @covers ::assetDocumentOem
      */
+    public function testAssetDocumentOemWithDocumentWihtoutOem(): void {
+        $asset         = Asset::factory()->make();
+        $document      = Document::factory()->make([
+            'oem_id' => $this->faker->uuid,
+        ]);
+        $assetDocument = new ViewAssetDocument([
+            'document' => [
+                'id' => $this->faker->uuid,
+            ],
+        ]);
+        $documents     = Mockery::mock(DocumentFactory::class);
+        $documents
+            ->shouldReceive('find')
+            ->withArgs(static function (mixed $object) use ($asset, $assetDocument): bool {
+                return $object instanceof AssetDocumentObject
+                    && $object->document === $assetDocument
+                    && $object->asset === $asset;
+            })
+            ->once()
+            ->andReturn($document);
+
+        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('getDocumentFactory')
+            ->once()
+            ->andReturn($documents);
+
+        $this->assertSame($asset->oem, $factory->assetDocumentOem($asset, $assetDocument));
+    }
+
+    /**
+     * @covers ::assetDocumentOem
+     */
     public function testAssetDocumentOemWithoutDocument(): void {
         $asset         = Asset::factory()->make();
         $assetDocument = new ViewAssetDocument();

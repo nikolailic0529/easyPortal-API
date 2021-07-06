@@ -43,11 +43,26 @@ class Location extends PolymorphicModel {
     use HasCustomersOwners;
 
     /**
+     * The attributes that should be cast to native types.
+     */
+    protected const CASTS = [
+        'latitude'  => 'decimal:8',
+        'longitude' => 'decimal:8',
+    ] + parent::CASTS;
+
+    /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
      */
     protected $table = 'locations';
+
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<string>
+     */
+    protected $casts = self::CASTS;
 
     public function country(): BelongsTo {
         return $this->belongsTo(Country::class);

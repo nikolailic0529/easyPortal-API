@@ -14,6 +14,7 @@ use App\Services\DataLoader\Resolvers\LocationResolver;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
+use App\Services\DataLoader\Testing\Helper;
 use Closure;
 use Illuminate\Database\Eloquent\Collection;
 use InvalidArgumentException;
@@ -27,6 +28,7 @@ use Tests\TestCase;
  */
 class LocationFactoryTest extends TestCase {
     use WithQueryLog;
+    use Helper;
 
     // <editor-fold desc="Tests">
     // =========================================================================
@@ -486,8 +488,8 @@ class LocationFactoryTest extends TestCase {
         $this->assertEquals($normalizer->string($state), $created->state);
         $this->assertEquals($normalizer->string($lineOne), $created->line_one);
         $this->assertEquals($normalizer->string($lineTwo), $created->line_two);
-        $this->assertEquals($normalizer->coordinate($latitude), $created->latitude);
-        $this->assertEquals($normalizer->coordinate($longitude), $created->longitude);
+        $this->assertEquals($this->latitude($normalizer->coordinate($latitude)), $created->latitude);
+        $this->assertEquals($this->longitude($normalizer->coordinate($longitude)), $created->longitude);
         $this->assertCount(2, $this->getQueryLog());
 
         $this->flushQueryLog();

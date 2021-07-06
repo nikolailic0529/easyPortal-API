@@ -24,6 +24,20 @@ use function reset;
 trait Helper {
     // <editor-fold desc="General">
     // =========================================================================
+    protected function latitude(string|float|null $latitude): ?string {
+        $model           = new Location();
+        $model->latitude = $latitude;
+
+        return $model->latitude;
+    }
+
+    protected function longitude(string|float|null $longitude): ?string {
+        $model            = new Location();
+        $model->longitude = $longitude;
+
+        return $model->longitude;
+    }
+
     protected function getDatetime(?DateTimeInterface $datetime): ?string {
         return $datetime
             ? "{$datetime->getTimestamp()}{$datetime->format('v')}"
@@ -83,7 +97,7 @@ trait Helper {
         foreach ($tags as $tag) {
             // Add to array
             $output[$tag] = [
-                'name'  => $tag,
+                'name' => $tag,
             ];
         }
 
@@ -128,8 +142,8 @@ trait Helper {
                     'city'        => $location->city,
                     'line_one'    => $location->address,
                     'line_two'    => '',
-                    'latitude'    => $location->latitude,
-                    'longitude'   => $location->longitude,
+                    'latitude'    => $this->latitude($location->latitude),
+                    'longitude'   => $this->longitude($location->longitude),
                 ];
             }
         }
@@ -202,8 +216,8 @@ trait Helper {
             'city'        => $asset->city,
             'line_one'    => $asset->address,
             'line_two'    => '',
-            'latitude'    => $asset->latitude,
-            'longitude'   => $asset->longitude,
+            'latitude'    => $this->latitude($asset->latitude),
+            'longitude'   => $this->longitude($asset->longitude),
         ] : null;
     }
 

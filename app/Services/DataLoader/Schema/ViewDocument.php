@@ -13,10 +13,6 @@ class ViewDocument extends Type implements TypeWithId {
     public ?string                     $languageCode;
     public DocumentVendorSpecificField $vendorSpecificFields;
     /**
-     * @var array<\App\Services\DataLoader\Schema\DocumentEntry>
-     */
-    public array $documentEntries;
-    /**
      * @var array<\App\Services\DataLoader\Schema\CompanyContactPerson>
      */
     public ?array $contactPersons;

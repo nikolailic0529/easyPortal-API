@@ -11,7 +11,7 @@ class ViewAssetDocument extends Type {
 
     public ?string $warrantyEndDate;
 
-    public string        $documentNumber;
+    public ?string       $documentNumber;
     public ?ViewDocument $document;
     public ?string       $startDate;
     public ?string       $endDate;
@@ -24,6 +24,6 @@ class ViewAssetDocument extends Type {
 
     public ?string $estimatedValueRenewal;
 
-    public ?Company $reseller;
-    public ?Company $customer;
+    public ?ViewCompany $reseller;
+    public ?ViewCompany $customer;
 }

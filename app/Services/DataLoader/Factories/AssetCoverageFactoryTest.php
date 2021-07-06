@@ -64,20 +64,29 @@ class AssetCoverageFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAsset(): void {
-        $key   = $this->faker->word;
-        $asset = new ViewAsset([
-            'assetCoverage' => $key,
-        ]);
+        $key = $this->faker->word;
 
         $factory = Mockery::mock(AssetCoverageFactory::class);
         $factory->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
-        $factory->shouldReceive('assetCoverage')
+        $factory
+            ->shouldReceive('assetCoverage')
             ->once()
             ->with($key)
             ->andReturn(null);
+        $factory
+            ->shouldReceive('assetCoverage')
+            ->once()
+            ->with(null)
+            ->andReturn(null);
 
-        $factory->create($asset);
+        $factory->create(new ViewAsset([
+            'assetCoverage' => $key,
+        ]));
+
+        $factory->create(new ViewAsset([
+            'assetCoverage' => null,
+        ]));
     }
 
     /**

@@ -59,10 +59,26 @@ class DocumentEntry extends Model {
     use HasDocument;
     use HasCurrency;
 
+    protected const CASTS = [
+        'net_price'  => 'decimal:2',
+        'list_price' => 'decimal:2',
+        'discount'   => 'decimal:2',
+        'renewal'    => 'decimal:2',
+    ] + parent::CASTS;
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
      */
     protected $table = 'document_entries';
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<string>
+     */
+    protected $casts = self::CASTS;
 }

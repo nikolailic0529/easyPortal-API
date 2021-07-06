@@ -14,7 +14,7 @@
     "zip": "70618",
     "city": "Port Adanville",
     "address": "Maddison Path Suite 820 Apt. 898",
-    "address2": "TODO",
+    "address2": "",
     "status": "ACTIVE",
     "assetCoverage": "COVERED_ON_CONTRACT",
     "assetTag": "Software",
@@ -105,6 +105,28 @@
             "listPrice": "8",
             "currencyCode": "EUR",
             "estimatedValueRenewal": "123",
+            "customer": {
+                "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a"
+            },
+            "reseller": {
+                "id": "97292d03-7919-406c-a15b-39bf029e6d5a"
+            }
+        },
+        {
+            "documentNumber": null,
+            "document": null,
+            "skuNumber": "HA151AC",
+            "skuDescription": "HPE Hardware Maintenance Onsite Support",
+            "supportPackage": "H7J34AC",
+            "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
+            "startDate": "1583020800000",
+            "endDate": "1614470400000",
+            "warrantyEndDate": "1614470400000",
+            "netPrice": "23.4",
+            "discount": "-2.05",
+            "listPrice": "48",
+            "currencyCode": "EUR",
+            "estimatedValueRenewal": "145",
             "customer": {
                 "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a"
             },
