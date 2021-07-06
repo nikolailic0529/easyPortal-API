@@ -1,0 +1,4 @@
+type CustomersAggregate {
+  count: Int!
+  assets: Int!
+}
