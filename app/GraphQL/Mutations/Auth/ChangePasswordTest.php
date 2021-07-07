@@ -3,9 +3,8 @@
 namespace App\GraphQL\Mutations\Auth;
 
 use App\Models\Enums\UserType;
-use App\Models\Organization;
-use App\Models\PasswordReset;
 use App\Models\User;
+use App\Services\KeyCloak\Client\Client;
 use Closure;
 use Illuminate\Auth\Events\PasswordReset as PasswordResetEvent;
 use Illuminate\Contracts\Hashing\Hasher;
@@ -13,8 +12,9 @@ use Illuminate\Support\Facades\Event;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
+use Mockery\MockInterface;
+use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Users\AuthUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -36,31 +36,50 @@ class ChangePasswordTest extends TestCase {
         Closure $userFactory = null,
         Closure $prepare = null,
         Closure $inputFactory = null,
+        Closure $clientFactory = null,
+        bool $isRootOrganization = false,
     ): void {
         // Prepare
-        $this->setRootOrganization(Organization::factory()->create());
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $organization = null;
+        if ($organizationFactory) {
+            $organization = $organizationFactory($this);
+        }
 
-        $input   = [
-            'email'    => '',
-            'token'    => '',
-            'password' => '',
+        $user = null;
+        if ($userFactory) {
+            $user = $userFactory($this, $organization);
+        }
+        $this->setUser($user, $this->setOrganization($organization));
+
+        if ($isRootOrganization) {
+            $this->setRootOrganization($organization);
+        }
+        $input = [
+            'password'         => '',
+            'current_password' => '',
         ];
 
         if ($prepare) {
-            $prepare($this);
+            $prepare($this, $user);
         }
 
         if ($inputFactory) {
             $input = $inputFactory($this);
         }
 
+        if ($clientFactory) {
+            $this->override(Client::class, $clientFactory);
+        }
+
+        // Fake
+        Event::fake();
+
         // Test
         $this
             ->graphQL(
             /** @lang GraphQL */
                 <<<'GRAPHQL'
-                mutation changePassword($input: ChangePasswordInput) {
+                mutation changePassword($input: ChangePasswordInput!) {
                     changePassword(input: $input) {
                         result
                     }
@@ -71,6 +90,10 @@ class ChangePasswordTest extends TestCase {
                 ],
             )
             ->assertThat($expected);
+
+        if ($expected instanceof GraphQLSuccess && $isRootOrganization) {
+            Event::assertDispatched(PasswordResetEvent::class);
+        }
     }
     // </editor-fold>
 
@@ -81,118 +104,89 @@ class ChangePasswordTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new AnyOrganizationDataProvider('resetPassword'),
-            new GuestDataProvider('resetPassword'),
+            new OrganizationDataProvider('changePassword'),
+            new AuthUserDataProvider('changePassword'),
             new ArrayDataProvider([
-                'no user'                              => [
-                    new GraphQLSuccess('resetPassword', self::class, [
-                        'result' => false,
-                    ]),
-                    static function (): bool {
-                        return false;
-                    },
-                    static function () {
-                        return [
-                            'email'    => 'test@example.com',
-                            'token'    => '12345678',
-                            'password' => '12345678',
-                        ];
-                    },
-                ],
-                'invalid token'                        => [
-                    new GraphQLSuccess('resetPassword', self::class, [
-                        'result' => false,
-                    ]),
-                    static function (): bool {
-                        User::factory()->create([
-                            'type'  => UserType::local(),
-                            'email' => 'test@example.com',
-                        ]);
-                        PasswordReset::factory()->create([
-                            'email' => 'test@example.com',
-                            'token' => 'invalid',
-                        ]);
-
-                        return false;
-                    },
-                    static function () {
-                        return [
-                            'email'    => 'test@example.com',
-                            'token'    => '12345678',
-                            'password' => '12345678',
-                        ];
-                    },
-                ],
-                'user exists and token valid'          => [
-                    new GraphQLSuccess('resetPassword', self::class, [
+                'keycloak user'                       => [
+                    new GraphQLSuccess('changePassword', ChangePassword::class, [
                         'result' => true,
                     ]),
-                    static function (TestCase $test): bool {
-                        User::factory()->create([
-                            'type'  => UserType::local(),
-                            'email' => 'test@example.com',
-                        ]);
-                        PasswordReset::factory()->create([
-                            'email' => 'test@example.com',
-                            'token' => $test->app->make(Hasher::class)->make('12345678'),
-                        ]);
-
+                    static function (TestCase $test, User $user): bool {
+                        $user->type = UserType::keycloak();
+                        $user->save();
                         return true;
                     },
                     static function () {
                         return [
-                            'email'    => 'test@example.com',
-                            'token'    => '12345678',
                             'password' => '12345678',
                         ];
                     },
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('resetPassword')
+                            ->once();
+                    },
+                    false,
                 ],
-                'keycloak user exists and token valid' => [
-                    new GraphQLSuccess('resetPassword', self::class, [
+                'local user'                          => [
+                    new GraphQLSuccess('changePassword', ChangePassword::class, [
+                        'result' => true,
+                    ]),
+                    static function (TestCase $test, User $user): bool {
+                        $user->email    = 'test@gmail.com';
+                        $user->type     = UserType::local();
+                        $user->password = $test->app->make(Hasher::class)->make('12345678');
+                        $user->save();
+                        return true;
+                    },
+                    static function () {
+                        return [
+                            'current_password' => '12345678',
+                            'password'         => '12345687',
+                        ];
+                    },
+                    null,
+                    true,
+                ],
+                'local user/Invalid current password' => [
+                    new GraphQLError('changePassword', new ChangePasswordInvalidCurrentPassword(), [
                         'result' => false,
                     ]),
-                    static function (TestCase $test): bool {
-                        User::factory()->create([
-                            'type'  => UserType::keycloak(),
-                            'email' => 'test@example.com',
-                        ]);
-                        PasswordReset::factory()->create([
-                            'email' => 'test@example.com',
-                            'token' => $test->app->make(Hasher::class)->make('12345678'),
-                        ]);
-
-                        return false;
+                    static function (TestCase $test, User $user): bool {
+                        $user->email    = 'test@gmail.com';
+                        $user->type     = UserType::local();
+                        $user->password = $test->app->make(Hasher::class)->make('12345678');
+                        $user->save();
+                        return true;
                     },
                     static function () {
                         return [
-                            'email'    => 'test@example.com',
-                            'token'    => '12345678',
-                            'password' => '12345678',
+                            'current_password' => '12345679',
+                            'password'         => '12345687',
                         ];
                     },
+                    null,
+                    true,
                 ],
-                'same password'                        => [
-                    new GraphQLError('resetPassword', new ResetPasswordSamePasswordException()),
-                    static function (TestCase $test): bool {
-                        User::factory()->create([
-                            'type'     => UserType::local(),
-                            'email'    => 'test@example.com',
-                            'password' => $test->app->make(Hasher::class)->make('12345678'),
-                        ]);
-                        PasswordReset::factory()->create([
-                            'email' => 'test@example.com',
-                            'token' => $test->app->make(Hasher::class)->make('12345678'),
-                        ]);
-
-                        return false;
+                'local user/same password'            => [
+                    new GraphQLError('changePassword', new ResetPasswordSamePasswordException(), [
+                        'result' => false,
+                    ]),
+                    static function (TestCase $test, User $user): bool {
+                        $user->email    = 'test@gmail.com';
+                        $user->type     = UserType::local();
+                        $user->password = $test->app->make(Hasher::class)->make('12345678');
+                        $user->save();
+                        return true;
                     },
                     static function () {
                         return [
-                            'email'    => 'test@example.com',
-                            'token'    => '12345678',
-                            'password' => '12345678',
+                            'current_password' => '12345678',
+                            'password'         => '12345678',
                         ];
                     },
+                    null,
+                    true,
                 ],
             ]),
         ))->getData();

@@ -273,7 +273,9 @@ class Client {
             'temporary' => false,
             'value'     => $password,
         ]);
-        $this->call($endpoint, 'PUT', $credential->toArray());
+        $this->call($endpoint, 'PUT', [
+            'json' => $credential->toArray(),
+        ]);
     }
     // </editor-fold>
 
@@ -324,6 +326,7 @@ class Client {
                 ->send($method, $endpoint, $options);
             $response->throw();
         } catch (Exception $exception) {
+            dd($exception);
             if ($errorHandler) {
                 return $errorHandler($exception);
             } else {
