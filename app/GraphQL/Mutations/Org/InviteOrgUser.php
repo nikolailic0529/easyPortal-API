@@ -55,8 +55,9 @@ class InviteOrgUser {
                     if (!$this->userInOrganization($user, $role)) {
                         // add user to organization
                         $this->client->addUserToGroup($user->id, $role->getKey());
-                        $signUri = rtrim($this->config->get('ep.keycloak.redirects.signin_uri'));
-                        $url     = $this->generator->to("{$signUri}/{$organization->getKey()}");
+                        $url   = $this->generator->to(strtr($this->config->get('ep.client.signin_invite_uri'), [
+                            '{organization}' => $organization->getKey(),
+                        ]));
                         $this->mailer->to($email)->send(new InviteOrganizationUser($url));
                     }
                     return ['result' => true ];

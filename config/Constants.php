@@ -131,6 +131,18 @@ interface Constants {
     #[Group('client')]
     #[Type(StringType::class)]
     public const EP_CLIENT_SIGNUP_INVITE_URI = 'auth/signup/{token}';
+
+    /**
+     * The URI (can be relative) where user should be redirected to access portal.
+     * Access EP after invitation.
+     *
+     * Replacements:
+     * * `{organization}` - organization
+     */
+    #[Setting('ep.client.signin_invite_uri')]
+    #[Group('client')]
+    #[Type(StringType::class)]
+    public const EP_CLIENT_SIGNIN_INVITE_URI = 'auth/organization/{organization}';
     //</editor-fold>
 
     // <editor-fold desc="EP_KEYCLOAK">
