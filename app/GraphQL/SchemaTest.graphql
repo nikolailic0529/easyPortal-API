@@ -932,6 +932,15 @@ type Mutation {
   setApplicationLocale(input: SetApplicationLocaleInput!): SetApplicationLocalePayload
 
   """
+  Stop application service.
+  
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  stopApplicationService(input: StopApplicationServiceInput!): StopApplicationServicePayload
+
+  """
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
   @require <root> Authenticated user must be a root.
@@ -3366,6 +3375,15 @@ type Status {
 
 input StatusSort {
   name: String!
+}
+
+input StopApplicationServiceInput {
+  """Name of the service."""
+  name: String!
+}
+
+type StopApplicationServicePayload {
+  result: Boolean!
 }
 
 type Tag {

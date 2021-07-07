@@ -1,0 +1,30 @@
+<?php declare(strict_types = 1);
+
+namespace App\GraphQL\Mutations\Application;
+
+use App\Services\Queue\Queue;
+use App\Services\Queue\ServiceResolver;
+
+class StopApplicationService {
+    public function __construct(
+        protected ServiceResolver $resolver,
+        protected Queue $queue,
+    ) {
+        // empty
+    }
+
+    /**
+     * @param null                 $_
+     * @param array<string, mixed> $args
+     *
+     * @return array{setting: array<mixed>}
+     */
+    public function __invoke($_, array $args): array {
+        $service = $this->resolver->get($args['input']['name'] ?? '');
+        $result  = $this->queue->stop($service);
+
+        return [
+            'result' => $result,
+        ];
+    }
+}
