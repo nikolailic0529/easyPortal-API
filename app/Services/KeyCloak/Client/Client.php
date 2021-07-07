@@ -326,7 +326,6 @@ class Client {
                 ->send($method, $endpoint, $options);
             $response->throw();
         } catch (Exception $exception) {
-            dd($exception);
             if ($errorHandler) {
                 return $errorHandler($exception);
             } else {
