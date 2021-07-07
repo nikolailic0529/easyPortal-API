@@ -74,7 +74,8 @@ type ApplicationJobProgress {
 type ApplicationJobState {
   id: ID!
   running: Boolean!
-  pending_at: DateTime!
+  stopped: Boolean!
+  pending_at: DateTime
   running_at: DateTime
 }
 
@@ -829,13 +830,6 @@ type Mutation {
   
   @require <root> Authenticated user must be a root.
   """
-  deleteApplicationTranslations(input: DeleteApplicationTranslationsInput!): DeleteApplicationTranslationsPayload
-
-  """
-  @require <organization(root)> Authenticated user must be a member of the root organization.
-  
-  @require <root> Authenticated user must be a root.
-  """
   deleteClientSettings(input: DeleteClientSettingsInput!): DeleteClientSettingsPayload
 
   """
@@ -847,34 +841,6 @@ type Mutation {
 
   """@require <me> User must be authenticated."""
   deleteMeSearch(input: DeleteMeSearchInput!): DeleteMeSearchPayload
-
-  """
-  Dispatch/Run application service.
-  
-  @require <organization(root)> Authenticated user must be a member of the root organization.
-  
-  @require <root> Authenticated user must be a root.
-  """
-  dispatchApplicationService(input: DispatchApplicationServiceInput!): DispatchApplicationServicePayload
-
-  """
-  Force delete all custom settings, may be useful to restore the corrupted file.
-  
-  @require <organization(root)> Authenticated user must be a member of the root organization.
-  
-  @require <root> Authenticated user must be a root.
-  """
-  recoverApplicationSettings: recoverApplicationSettingsPayload
-
-  """
-  Force delete all translations for a given locale, may be useful to restore the
-  corrupted file.
-  
-  @require <organization(root)> Authenticated user must be a member of the root organization.
-  
-  @require <root> Authenticated user must be a root.
-  """
-  recoverApplicationTranslations(input: RecoverApplicationTranslationsInput!): RecoverApplicationTranslationsPayload
 
   """
   Force delete all custom settings, may be useful to restore the corrupted file.
@@ -894,21 +860,6 @@ type Mutation {
   @require <root> Authenticated user must be a root.
   """
   recoverClientTranslations(input: RecoverClientTranslationsInput!): RecoverClientTranslationsPayload
-  setApplicationLocale(input: SetApplicationLocaleInput!): SetApplicationLocalePayload
-
-  """
-  @require <organization(root)> Authenticated user must be a member of the root organization.
-  
-  @require <root> Authenticated user must be a root.
-  """
-  updateApplicationSettings(input: [UpdateApplicationSettingsInput!]!): UpdateApplicationSettingsPayload
-
-  """
-  @require <organization(root)> Authenticated user must be a member of the root organization.
-  
-  @require <root> Authenticated user must be a root.
-  """
-  updateApplicationTranslations(input: UpdateApplicationTranslationsInput!): UpdateApplicationTranslationsPayload
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -937,6 +888,56 @@ type Mutation {
   @require <organization> Authenticated user must be a member of the current organization.
   """
   updateMeProfile(input: UpdateMeProfileInput!): UpdateMeProfilePayload
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  deleteApplicationTranslations(input: DeleteApplicationTranslationsInput!): DeleteApplicationTranslationsPayload
+
+  """
+  Dispatch/Run application service.
+  
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  dispatchApplicationService(input: DispatchApplicationServiceInput!): DispatchApplicationServicePayload
+
+  """
+  Force delete all custom settings, may be useful to restore the corrupted file.
+  
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  recoverApplicationSettings: recoverApplicationSettingsPayload
+
+  """
+  Force delete all translations for a given locale, may be useful to restore the
+  corrupted file.
+  
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  recoverApplicationTranslations(input: RecoverApplicationTranslationsInput!): RecoverApplicationTranslationsPayload
+  setApplicationLocale(input: SetApplicationLocaleInput!): SetApplicationLocalePayload
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  updateApplicationSettings(input: [UpdateApplicationSettingsInput!]!): UpdateApplicationSettingsPayload
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  updateApplicationTranslations(input: UpdateApplicationTranslationsInput!): UpdateApplicationTranslationsPayload
 
   """
   Finish the Sign In for Organization.

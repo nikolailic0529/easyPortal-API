@@ -1220,6 +1220,7 @@
             "required": [
                 "id",
                 "running",
+                "stopped",
                 "pending_at",
                 "running_at"
             ],
@@ -1230,9 +1231,19 @@
                 "running": {
                     "type": "boolean"
                 },
+                "stopped": {
+                    "type": "boolean"
+                },
                 "pending_at": {
-                    "type": "string",
-                    "format": "date-time"
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "running_at": {
                     "oneOf": [

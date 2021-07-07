@@ -97,7 +97,7 @@ class ServicesTest extends TestCase {
                 ->once()
                 ->andReturn($this->app);
             $queue
-                ->shouldReceive('getState')
+                ->shouldReceive('getStates')
                 ->once()
                 ->andReturn($queueStateFactory($this));
         }
@@ -117,6 +117,7 @@ class ServicesTest extends TestCase {
                             state {
                                 id
                                 running
+                                stopped
                                 pending_at
                                 running_at
                             }
@@ -179,6 +180,7 @@ class ServicesTest extends TestCase {
                                 'state'       => [
                                     'id'         => 'a77d8197-bc62-4831-ab98-5629cb0656e7',
                                     'running'    => true,
+                                    'stopped'    => false,
                                     'pending_at' => '2021-06-30T00:00:00+00:00',
                                     'running_at' => null,
                                 ],
@@ -236,6 +238,7 @@ class ServicesTest extends TestCase {
                                     'a77d8197-bc62-4831-ab98-5629cb0656e7',
                                     'service-b',
                                     true,
+                                    false,
                                     Date::make('2021-06-30T00:00:00+00:00'),
                                     null,
                                 ),
@@ -243,6 +246,7 @@ class ServicesTest extends TestCase {
                                     'id-b',
                                     'service-b',
                                     true,
+                                    false,
                                     Date::make('2021-06-30T00:00:00+00:00'),
                                     null,
                                 ),
