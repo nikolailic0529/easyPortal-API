@@ -10,6 +10,7 @@ use App\GraphQL\Mutations\Auth\SignUpByInviteUnInvitedUser;
 use App\GraphQL\Mutations\DispatchApplicationServiceFailed;
 use App\GraphQL\Mutations\DispatchApplicationServiceNotFoundException;
 use App\GraphQL\Mutations\InviteOrgUserInvalidRole;
+use App\GraphQL\Mutations\Org\InviteOrgUserAlreadyUsedInvitation;
 use App\Http\Controllers\ExportGraphQLQueryEmpty;
 use App\Http\Controllers\ExportGraphQLQueryInvalid;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled as DataLoaderDataLoaderDisabled;
@@ -71,6 +72,7 @@ class ErrorCodes {
         SignUpByInviteInvalidUser::class                   => 'ERR29',
         SignUpByInviteUnInvitedUser::class                 => 'ERR30',
         SignUpByInviteAlreadyUsed::class                   => 'ERR31',
+        InviteOrgUserAlreadyUsedInvitation::class          => 'ERR32',
     ];
 
     public static function getCode(Throwable $throwable): string|int {

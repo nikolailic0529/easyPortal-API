@@ -181,10 +181,8 @@ class Client {
             throw new InvalidKeyCloakGroup();
         }
         $invitationAttribute = [
-            'id'              => null,
-            'organization_id' => $role->organization_id,
-            'sent_at'         => time(),
-            'used_at'         => null,
+            'sent_at' => time(),
+            'used_at' => null,
         ];
         $input               = new User([
             'email'         => $email,
@@ -192,7 +190,7 @@ class Client {
             'enabled'       => false,
             'emailVerified' => false,
             'attributes'    => [
-                'ep_invite' => [json_encode($invitationAttribute)],
+                "ep_invite_{$role->organization_id}" => [json_encode($invitationAttribute)],
             ],
         ]);
         $errorHandler        = function (Exception $exception) use ($endpoint, $email): void {
