@@ -111,12 +111,10 @@ class SignUpByInviteTest extends TestCase {
                             ->andReturns(new User([
                                 'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                 'attributes' => [
-                                    'ep_invite' => [
+                                    'ep_invite_f9834bc1-2f2f-4c57-bb8d-7a224ac24981' => [
                                         json_encode([
-                                            'id'              => null,
-                                            'organization_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                            'sent_at'         => time(),
-                                            'used_at'         => null,
+                                            'sent_at' => time(),
+                                            'used_at' => null,
                                         ]),
                                     ],
                                 ],
@@ -202,12 +200,10 @@ class SignUpByInviteTest extends TestCase {
                             ->andReturns(new User([
                                 'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                 'attributes' => [
-                                    'ep_invite' => [
+                                    'ep_invite_f9834bc1-2f2f-4c57-bb8d-7a224ac24981' => [
                                         json_encode([
-                                            'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                            'organization_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                            'sent_at'         => time(),
-                                            'used_at'         => time(),
+                                            'sent_at' => time(),
+                                            'used_at' => time(),
                                         ]),
                                     ],
                                 ],

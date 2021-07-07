@@ -79,7 +79,7 @@ class InviteOrgUser {
                     if (!$hasCurrentInvitation) {
                         // add new invitation
                         $attributes = $user->attributes;
-                        array_push($user->attributes, [
+                        array_push($attributes, [
                             "ep_invite_{$organization->getKey()}" => [
                                 json_encode([
                                     'sent_at' => time(),
