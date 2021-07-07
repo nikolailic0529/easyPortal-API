@@ -129,7 +129,7 @@ class ResetApplicationServiceTest_ServiceA extends CronJob implements Progressab
         return 'service-a';
     }
 
-    public function getProgressProvider(): callable {
+    public function getProgressCallback(): callable {
         return static function (): void {
             // empty
         };

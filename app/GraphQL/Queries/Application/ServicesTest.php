@@ -302,7 +302,7 @@ class ServicesTest_ServiceB extends CronJob implements Progressable, Stoppable {
             ] + parent::getQueueConfig();
     }
 
-    public function getProgressProvider(): callable {
+    public function getProgressCallback(): callable {
         return static function (): Progress {
             return new Progress(100, 25);
         };

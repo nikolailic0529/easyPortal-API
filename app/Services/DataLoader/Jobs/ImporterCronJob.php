@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Jobs;
 use App\Services\DataLoader\Importers\Importer;
 use App\Services\DataLoader\Importers\Status;
 use App\Services\Queue\CronJob;
+use App\Services\Queue\Progress;
 use App\Services\Queue\Progressable;
 use DateTimeInterface;
 use Illuminate\Contracts\Cache\Repository;
@@ -68,7 +69,7 @@ abstract class ImporterCronJob extends CronJob implements Progressable {
         ]);
     }
 
-    public function getState(Repository $cache): ?ImporterState {
+    protected function getState(Repository $cache): ?ImporterState {
         $state = null;
 
         try {
@@ -99,8 +100,17 @@ abstract class ImporterCronJob extends CronJob implements Progressable {
         $cache->forget($this->displayName());
     }
 
-    public function getProgressProvider(): callable {
-        return new ImporterProgress($this);
+    public function getProgressCallback(): callable {
+        return function (Repository $cache): ?Progress {
+            $state    = $this->getState($cache);
+            $progress = null;
+
+            if ($state) {
+                $progress = new Progress($state->total, $state->processed);
+            }
+
+            return $progress;
+        };
     }
 
     public function getResetProgressCallback(): callable {

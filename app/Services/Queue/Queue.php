@@ -62,7 +62,7 @@ class Queue {
 
     public function getProgress(Job $job): ?Progress {
         return $job instanceof Progressable
-            ? $this->getContainer()->call($job->getProgressProvider())
+            ? $this->getContainer()->call($job->getProgressCallback())
             : null;
     }
 
