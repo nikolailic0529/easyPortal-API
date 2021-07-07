@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Application;
 
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -13,7 +13,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\SetApplicationLocale
+ * @coversDefaultClass \App\GraphQL\Mutations\Application\SetApplicationLocale
  */
 class SetApplicationLocaleTest extends TestCase {
     // <editor-fold desc="Tests">

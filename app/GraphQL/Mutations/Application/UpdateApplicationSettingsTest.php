@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Application;
 
 use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Secret;
@@ -22,7 +22,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\UpdateApplicationSettings
+ * @coversDefaultClass \App\GraphQL\Mutations\Application\UpdateApplicationSettings
  */
 class UpdateApplicationSettingsTest extends TestCase {
     // <editor-fold desc="Tests">

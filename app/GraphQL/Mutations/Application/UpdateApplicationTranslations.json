@@ -1,14 +1,15 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
+    "additionalProperties": false,
     "required": [
         "updated"
     ],
     "properties": {
-        "updated" :{
+        "updated": {
             "type": "array",
             "items": {
-                "$ref": "../types.json#/definitions/ApplicationSetting"
+                "$ref": "../../Types/Translation.json"
             }
         }
     }

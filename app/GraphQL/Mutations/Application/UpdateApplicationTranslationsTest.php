@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Application;
 
 use App\Services\Filesystem\Disks\AppDisk;
 use App\Services\Filesystem\Storages\AppTranslations;
@@ -15,7 +15,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\UpdateApplicationTranslations
+ * @coversDefaultClass \App\GraphQL\Mutations\Application\UpdateApplicationTranslations
  */
 class UpdateApplicationTranslationsTest extends TestCase {
     // <editor-fold desc="Tests">

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Application;
 
 use App\GraphQL\Queries\Application\Settings as SettingsQuery;
 use App\Services\Settings\Settings;

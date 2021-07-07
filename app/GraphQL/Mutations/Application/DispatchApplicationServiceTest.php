@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Application;
 
 use App\Services\Queue\CronJob;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
@@ -21,7 +21,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\DispatchApplicationService
+ * @coversDefaultClass \App\GraphQL\Mutations\Application\DispatchApplicationService
  */
 class DispatchApplicationServiceTest extends TestCase {
     // <editor-fold desc="Tests">

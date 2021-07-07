@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Application;
 
 use App\Services\Filesystem\Disks\AppDisk;
 use App\Services\Filesystem\Storages\AppTranslations;
@@ -18,7 +18,7 @@ use function is_array;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\DeleteApplicationTranslations
+ * @coversDefaultClass \App\GraphQL\Mutations\Application\DeleteApplicationTranslations
  */
 class DeleteApplicationTranslationsTest extends TestCase {
     // <editor-fold desc="Tests">

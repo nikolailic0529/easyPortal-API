@@ -8,6 +8,7 @@ extend type Mutation {
   ): RecoverApplicationTranslationsPayload
   @organization(root: true)
   @root
+  @field(resolver: "App\\GraphQL\\Mutations\\Application\\RecoverApplicationTranslations")
 }
 
 input RecoverApplicationTranslationsInput {

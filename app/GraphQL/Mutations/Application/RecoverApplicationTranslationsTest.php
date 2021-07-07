@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Application;
 
-use App\Services\Settings\Storage;
+use App\Services\Filesystem\Storages\AppTranslations;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -15,9 +15,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\RecoverApplicationSettings
+ * @coversDefaultClass \App\GraphQL\Mutations\Application\RecoverApplicationTranslations
  */
-class RecoverApplicationSettingsTest extends TestCase {
+class RecoverApplicationTranslationsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -35,23 +35,31 @@ class RecoverApplicationSettingsTest extends TestCase {
 
         // Mock
         if ($expected instanceof GraphQLSuccess) {
-            $storage = Mockery::mock(Storage::class);
+            $storage = Mockery::mock(AppTranslations::class);
             $storage
                 ->shouldReceive('delete')
                 ->with(true)
                 ->once()
                 ->andReturn(true);
 
-            $this->app->bind(Storage::class, static function () use ($storage): Storage {
-                return $storage;
+            $mutation = Mockery::mock(RecoverApplicationTranslations::class);
+            $mutation->makePartial();
+            $mutation->shouldAllowMockingProtectedMethods();
+            $mutation
+                ->shouldReceive('getStorage')
+                ->once()
+                ->andReturn($storage);
+
+            $this->app->bind(RecoverApplicationTranslations::class, static function () use ($mutation) {
+                return $mutation;
             });
         }
 
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '
-                mutation recoverApplicationSettings {
-                    recoverApplicationSettings {
+                mutation recoverApplicationTranslations {
+                    recoverApplicationTranslations(input: {locale: "en"}) {
                         result
                     }
                 }')
@@ -66,11 +74,11 @@ class RecoverApplicationSettingsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('recoverApplicationSettings'),
-            new RootUserDataProvider('recoverApplicationSettings'),
+            new RootOrganizationDataProvider('recoverApplicationTranslations'),
+            new RootUserDataProvider('recoverApplicationTranslations'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('recoverApplicationSettings', RecoverApplicationSettings::class, [
+                    new GraphQLSuccess('recoverApplicationTranslations', RecoverApplicationTranslations::class, [
                         'result' => true,
                     ]),
                 ],

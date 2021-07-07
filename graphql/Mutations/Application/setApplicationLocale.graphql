@@ -2,6 +2,7 @@ extend type Mutation {
   setApplicationLocale(
     input: SetApplicationLocaleInput!
   ): SetApplicationLocalePayload
+  @field(resolver: "App\\GraphQL\\Mutations\\Application\\SetApplicationLocale")
 }
 
 input SetApplicationLocaleInput {

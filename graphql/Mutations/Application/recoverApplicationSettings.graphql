@@ -5,6 +5,7 @@ extend type Mutation {
   recoverApplicationSettings: recoverApplicationSettingsPayload
   @organization(root: true)
   @root
+  @field(resolver: "App\\GraphQL\\Mutations\\Application\\RecoverApplicationSettings")
 }
 
 type recoverApplicationSettingsPayload {
