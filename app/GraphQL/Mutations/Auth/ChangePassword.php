@@ -48,6 +48,8 @@ class ChangePassword {
                     'token'    => $this->password->broker()->getRepository()->create($user),
                 ],
             ]);
+        } else {
+            return ['result' => false];
         }
     }
 }
