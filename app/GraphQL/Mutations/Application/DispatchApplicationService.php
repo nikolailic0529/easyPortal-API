@@ -2,18 +2,11 @@
 
 namespace App\GraphQL\Mutations\Application;
 
-use App\Exceptions\TranslatedException;
-use App\Services\Queue\CronJob;
-use App\Services\Settings\Settings;
-use Exception;
-use Illuminate\Contracts\Foundation\Application;
-
-use function is_null;
+use App\Services\Queue\ServiceResolver;
 
 class DispatchApplicationService {
     public function __construct(
-        protected Application $app,
-        protected Settings $settings,
+        protected ServiceResolver $resolver,
     ) {
         // empty
     }
@@ -26,43 +19,17 @@ class DispatchApplicationService {
      */
     public function __invoke($_, array $args): array {
         $result      = false;
-        $service     = $this->getService($args['input']['name'] ?? '');
+        $service     = $this->resolver->get($args['input']['name'] ?? '');
         $immediately = $args['input']['immediately'] ?? false;
 
-        if (is_null($service)) {
-            throw new DispatchApplicationServiceNotFoundException();
-        }
-
-        try {
-            if ($immediately) {
-                $result = (bool) $service->run();
-            } else {
-                $result = (bool) $service->dispatch();
-            }
-        } catch (TranslatedException $exception) {
-            throw $exception;
-        } catch (Exception $exception) {
-            throw new DispatchApplicationServiceFailed($exception);
+        if ($immediately) {
+            $result = (bool) $service->run();
+        } else {
+            $result = (bool) $service->dispatch();
         }
 
         return [
             'result' => $result,
         ];
-    }
-
-    protected function getService(string $name): ?CronJob {
-        $services = $this->settings->getServices();
-        $service  = null;
-
-        foreach ($services as $class) {
-            $instance = $this->app->make($class);
-
-            if ($instance->displayName() === $name) {
-                $service = $instance;
-                break;
-            }
-        }
-
-        return $service;
     }
 }

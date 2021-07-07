@@ -124,8 +124,6 @@
     "errors.storage.file_corrupted": "Impossible to load storage file :file (disc: :disc).",
     "errors.storage.file_delete_failed": "Impossible to delete storage file :file (disc: :disc).",
     "errors.storage.file_save_failed": "Impossible to save storage file :file (disc: :disc).",
-    "graphql.mutations.dispatchApplicationService.failed": "Service execution failed.",
-    "graphql.mutations.dispatchApplicationService.not_found": "Service not found.",
     "graphql.mutations.inviteOrgUser.invalid_role": "Invalid organization role.",
     "graphql.mutations.resetPassword.same_password": "Cannot use old password.",
     "graphql.mutations.signUpByInvite.invalid_token": "Invalid invitation information.",
@@ -211,5 +209,6 @@
     "keycloak.client.disabled": "KeyCloak Client disabled.",
     "keycloak.client.invalid_group": "Invalid Keycloak group",
     "keycloak.client.invalid_client": "Invalid Keycloak Client UUID",
-    "keycloak.client.user_already_exists": "Keycloak user already exists"
+    "keycloak.client.user_already_exists": "Keycloak user already exists",
+    "queue.errors.service_not_found": "Service :service not found."
 }

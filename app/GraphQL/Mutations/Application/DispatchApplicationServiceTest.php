@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations\Application;
 
 use App\Services\Queue\CronJob;
+use App\Services\Queue\Exceptions\ServiceNotFound;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Settings;
 use App\Services\Settings\Storage;
@@ -89,13 +90,13 @@ class DispatchApplicationServiceTest extends TestCase {
             new RootUserDataProvider('dispatchApplicationService'),
             new ArrayDataProvider([
                 'no service' => [
-                    new GraphQLError('dispatchApplicationService', new DispatchApplicationServiceNotFoundException()),
+                    new GraphQLError('dispatchApplicationService', new ServiceNotFound('unknown-service')),
                     [
                         'name' => 'unknown-service',
                     ],
                 ],
                 'failed'     => [
-                    new GraphQLError('dispatchApplicationService', new DispatchApplicationServiceFailed()),
+                    new GraphQLError('dispatchApplicationService', new Exception('An unknown error occurred.')),
                     [
                         'name'        => 'service-b',
                         'immediately' => true,
