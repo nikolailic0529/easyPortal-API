@@ -40,7 +40,7 @@ abstract class ImporterCronJob extends CronJob implements Progressable {
         $state    = $this->getState($cache) ?: $this->getDefaultState($config);
         $from     = Date::make($state->from);
         $chunk    = $config->setting('chunk');
-        $update   = $config->setting('update');
+        $update   = $state->update;
         $continue = $state->continue;
 
         $importer
@@ -58,6 +58,7 @@ abstract class ImporterCronJob extends CronJob implements Progressable {
 
     protected function getDefaultState(QueueableConfig $config): ImporterState {
         $from   = null;
+        $update = $config->setting('update');
         $expire = $config->setting('expire');
 
         if ($expire) {
@@ -65,7 +66,8 @@ abstract class ImporterCronJob extends CronJob implements Progressable {
         }
 
         return new ImporterState([
-            'from' => $from,
+            'from'   => $from,
+            'update' => $update,
         ]);
     }
 
