@@ -3,7 +3,9 @@
 namespace App\GraphQL\Queries\Application;
 
 use App\Services\Queue\CronJob;
+use App\Services\Queue\Progressable;
 use App\Services\Queue\Queue;
+use App\Services\Queue\Stoppable;
 use App\Services\Settings\Description;
 use App\Services\Settings\Settings as SettingsService;
 use Illuminate\Contracts\Foundation\Application;
@@ -42,14 +44,16 @@ class Services {
 
             $instances[$class] = $service;
             $services[$name]   = [
-                'name'        => $name,
-                'description' => $this->getDescription($service),
-                'enabled'     => $config->get('enabled'),
-                'cron'        => $config->get('cron'),
-                'queue'       => $config->get('queue'),
-                'settings'    => [],
-                'state'       => null,
-                'progress'    => $this->queue->getProgress($service),
+                'name'         => $name,
+                'description'  => $this->getDescription($service),
+                'enabled'      => $config->get('enabled'),
+                'cron'         => $config->get('cron'),
+                'queue'        => $config->get('queue'),
+                'settings'     => [],
+                'state'        => null,
+                'progress'     => $this->queue->getProgress($service),
+                'stoppable'    => $service instanceof Stoppable,
+                'progressable' => $service instanceof Progressable,
             ];
         }
 

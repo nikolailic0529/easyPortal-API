@@ -1146,7 +1146,10 @@
                 "cron",
                 "queue",
                 "settings",
-                "description"
+                "description",
+                "stoppable",
+                "progressable",
+                "progress"
             ],
             "properties": {
                 "name": {
@@ -1182,6 +1185,12 @@
                             "type": "null"
                         }
                     ]
+                },
+                "stoppable": {
+                    "type": "boolean"
+                },
+                "progressable": {
+                    "type": "boolean"
                 },
                 "progress": {
                     "oneOf": [

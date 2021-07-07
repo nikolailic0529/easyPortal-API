@@ -8,6 +8,7 @@ use App\Services\Queue\Progress;
 use App\Services\Queue\Progressable;
 use App\Services\Queue\Queue;
 use App\Services\Queue\State;
+use App\Services\Queue\Stoppable;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
@@ -114,6 +115,8 @@ class ServicesTest extends TestCase {
                             queue
                             settings
                             description
+                            stoppable
+                            progressable
                             state {
                                 id
                                 running
@@ -155,36 +158,40 @@ class ServicesTest extends TestCase {
                     new GraphQLSuccess('application', self::class, [
                         'services' => [
                             [
-                                'name'        => 'service-a',
-                                'enabled'     => true,
-                                'cron'        => '*/8 * * * *',
-                                'queue'       => 'queue-a',
-                                'settings'    => [
+                                'name'         => 'service-a',
+                                'enabled'      => true,
+                                'cron'         => '*/8 * * * *',
+                                'queue'        => 'queue-a',
+                                'settings'     => [
                                     'SERVICE_A_ENABLED',
                                     'SERVICE_A_QUEUE',
                                     'SERVICE_A_CRON',
                                 ],
-                                'description' => 'Service description.',
-                                'state'       => null,
-                                'progress'    => null,
+                                'description'  => 'Service description.',
+                                'stoppable'    => false,
+                                'progressable' => false,
+                                'state'        => null,
+                                'progress'     => null,
                             ],
                             [
-                                'name'        => 'service-b',
-                                'enabled'     => true,
-                                'cron'        => '* 1 1 1 *',
-                                'queue'       => 'queue-b',
-                                'settings'    => [
+                                'name'         => 'service-b',
+                                'enabled'      => true,
+                                'cron'         => '* 1 1 1 *',
+                                'queue'        => 'queue-b',
+                                'settings'     => [
                                     'SERVICE_B_ENABLED',
                                 ],
-                                'description' => 'Description description description.',
-                                'state'       => [
+                                'description'  => 'Description description description.',
+                                'stoppable'    => true,
+                                'progressable' => true,
+                                'state'        => [
                                     'id'         => 'a77d8197-bc62-4831-ab98-5629cb0656e7',
                                     'running'    => true,
                                     'stopped'    => false,
                                     'pending_at' => '2021-06-30T00:00:00+00:00',
                                     'running_at' => null,
                                 ],
-                                'progress'    => [
+                                'progress'     => [
                                     'total' => 100,
                                     'value' => 25,
                                 ],
@@ -279,7 +286,7 @@ class ServicesTest_ServiceA extends CronJob {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class ServicesTest_ServiceB extends CronJob implements Progressable {
+class ServicesTest_ServiceB extends CronJob implements Progressable, Stoppable {
     public function displayName(): string {
         return 'service-b';
     }
