@@ -102,4 +102,12 @@ abstract class ImporterCronJob extends CronJob implements Progressable {
     public function getProgressProvider(): callable {
         return new ImporterProgress($this);
     }
+
+    public function getResetProgressCallback(): callable {
+        return function (Repository $cache): bool {
+            $this->resetState($cache);
+
+            return true;
+        };
+    }
 }

@@ -1,0 +1,22 @@
+extend type Mutation {
+  """
+  Reset application service progress.
+  """
+  resetApplicationService(
+    input: ResetApplicationServiceInput!
+  ): ResetApplicationServicePayload
+  @organization(root: true)
+  @root
+  @field(resolver: "App\\GraphQL\\Mutations\\Application\\ResetApplicationService")
+}
+
+input ResetApplicationServiceInput {
+  """
+  Name of the service.
+  """
+  name: String!
+}
+
+type ResetApplicationServicePayload {
+  result: Boolean!
+}

@@ -35,9 +35,9 @@ class Queue {
 
     public function isStopped(Job $job, string $id = null): bool {
         return $job instanceof Stoppable && (new Collection($this->getState($job)))
-            ->first(static function (State $state) use ($id): bool {
-                return $state->stopped && ($id === null || $state->id === $id);
-            });
+                ->first(static function (State $state) use ($id): bool {
+                    return $state->stopped && ($id === null || $state->id === $id);
+                });
     }
 
     /**
@@ -48,7 +48,8 @@ class Queue {
      * stopped.
      */
     public function stop(Job $job, string $id = null): bool {
-        return $job instanceof Stoppable && $this->cache->set(
+        return $job instanceof Stoppable
+            && $this->cache->set(
                 $this->getStopKey($job, $id),
                 Date::now()->timestamp,
                 new DateInterval('P1W'),
@@ -63,6 +64,11 @@ class Queue {
         return $job instanceof Progressable
             ? $this->getContainer()->call($job->getProgressProvider())
             : null;
+    }
+
+    public function resetProgress(Job $job): bool {
+        return $job instanceof Progressable
+            && $this->getContainer()->call($job->getResetProgressCallback());
     }
 
     /**
