@@ -18,9 +18,9 @@ use function str_replace;
  */
 class QueueTest extends TestCase {
     /**
-     * @covers ::getState
+     * @covers ::getStates
      */
-    public function testGetState(): void {
+    public function testGetStates(): void {
         // Prepare
         $reserved = str_replace(',', '.', (string) microtime(true));
         $pushed   = str_replace(',', '.', (string) microtime(true));
@@ -76,7 +76,7 @@ class QueueTest extends TestCase {
             ->andReturn([]);
 
         // Test
-        $actual   = (new Queue($this->app, $repository))->getState([$a, $b, $c]);
+        $actual   = (new Queue($this->app, $repository))->getStates([$a, $b, $c]);
         $expected = [
             $a::class => [
                 new State(
@@ -109,9 +109,9 @@ class QueueTest extends TestCase {
     }
 
     /**
-     * @covers ::getState
+     * @covers ::getStates
      */
-    public function testGetStateEmptyJobs(): void {
+    public function testGetStatesEmptyJobs(): void {
         // Prepare
         $repository = Mockery::mock(JobRepository::class);
         $repository
@@ -119,9 +119,68 @@ class QueueTest extends TestCase {
             ->never();
 
         // Test
-        $actual   = (new Queue($this->app, $repository))->getState([]);
+        $actual   = (new Queue($this->app, $repository))->getStates([]);
         $expected = [];
 
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers ::getState
+     */
+    public function testGetState(): void {
+        $job   = Mockery::mock(Job::class);
+        $state = Mockery::mock(State::class);
+        $queue = Mockery::mock(Queue::class);
+        $queue->makePartial();
+        $queue
+            ->shouldReceive('getStates')
+            ->with([$job])
+            ->once()
+            ->andReturn([[$state]]);
+
+        $this->assertEquals([$state], $queue->getState($job));
+    }
+
+    /**
+     * @covers ::getName
+     */
+    public function testGetName(): void {
+        $job = Mockery::mock(Job::class);
+        $job
+            ->shouldReceive('displayName')
+            ->never();
+
+        $name  = $this->faker->word;
+        $named = Mockery::mock(Job::class, NamedJob::class);
+        $named
+            ->shouldReceive('displayName')
+            ->once()
+            ->andReturn($name);
+
+        $queue = $this->app->make(Queue::class);
+
+        $this->assertEquals($job::class, $queue->getName($job));
+        $this->assertEquals($name, $queue->getName($named));
+    }
+
+    /**
+     * @covers ::getProgress
+     */
+    public function testGetProgress(): void {
+        $job          = Mockery::mock(Job::class);
+        $progress     = new Progress(2, 1);
+        $progressable = Mockery::mock(Job::class, Progressable::class);
+        $progressable
+            ->shouldReceive('getProgressProvider')
+            ->once()
+            ->andReturn(static function () use ($progress): Progress {
+                return $progress;
+            });
+
+        $queue = $this->app->make(Queue::class);
+
+        $this->assertNull($queue->getProgress($job));
+        $this->assertEquals($progress, $queue->getProgress($progressable));
     }
 }

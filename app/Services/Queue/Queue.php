@@ -15,6 +15,7 @@ use function array_keys;
 use function array_reverse;
 use function count;
 use function json_decode;
+use function reset;
 
 class Queue {
     public function __construct(
@@ -39,11 +40,21 @@ class Queue {
     }
 
     /**
+     * @return array<\App\Services\Queue\State>
+     */
+    public function getState(Job $job): array {
+        $states = $this->getStates([$job]);
+        $state  = reset($states) ?: [];
+
+        return $state;
+    }
+
+    /**
      * @param array<\LastDragon_ru\LaraASP\Queue\Queueables\Job> $jobs
      *
      * @return array<string,array<\App\Services\Queue\State>>
      */
-    public function getState(array $jobs): array {
+    public function getStates(array $jobs): array {
         // Empty?
         if (!$jobs) {
             return [];

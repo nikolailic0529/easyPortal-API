@@ -66,7 +66,7 @@ class Services {
         }
 
         // State
-        $states = $this->queue->getState($instances);
+        $states = $this->queue->getStates($instances);
 
         foreach ($states as $name => $state) {
             $services[$name]['state'] = reset($state) ?: null;
