@@ -251,6 +251,13 @@ class InviteOrgUserTest extends TestCase {
                             ->once()
                             ->andThrow(new UserAlreadyExists('test@gmail.com'));
                         $mock
+                            ->shouldReceive('updateUser')
+                            ->once()
+                            ->andReturns(true);
+                        $mock
+                            ->shouldReceive('addUserToGroup')
+                            ->once();
+                        $mock
                             ->shouldReceive('getUserByEmail')
                             ->once()
                             ->andReturns(new User([

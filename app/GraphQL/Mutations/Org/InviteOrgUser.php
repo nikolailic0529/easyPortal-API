@@ -14,7 +14,6 @@ use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Contracts\Routing\UrlGenerator;
 
 use function array_filter;
-use function array_push;
 use function json_decode;
 use function json_encode;
 use function str_contains;
@@ -73,26 +72,24 @@ class InviteOrgUser {
                         }
                     }
                 }
+                if (!$hasCurrentInvitation) {
+                    $attributes = $user->attributes;
+                    // add new invitation
+                    $attributes["ep_invite_{$organization->getKey()}"] = [
+                        json_encode([
+                            'sent_at' => time(),
+                            'used_at' => null,
+                        ]),
+                    ];
+                    $newData                                           = new User([
+                        'attributes' => $attributes,
+                    ]);
+                    $this->client->updateUser($user->id, $newData);
+                    $this->client->addUserToGroup($user->id, $role->getKey());
+                }
                 // Used an invitation before from any organization
                 if ($usedInvitation) {
                     // add user to organization
-                    if (!$hasCurrentInvitation) {
-                        // add new invitation
-                        $attributes = $user->attributes;
-                        array_push($attributes, [
-                            "ep_invite_{$organization->getKey()}" => [
-                                json_encode([
-                                    'sent_at' => time(),
-                                    'used_at' => null,
-                                ]),
-                            ],
-                        ]);
-                        $newData = new User([
-                            'attributes' => $attributes,
-                        ]);
-                        $this->client->updateUser($user->id, $newData);
-                    }
-                    $this->client->addUserToGroup($user->id, $role->getKey());
                     $url = $this->generator->to(strtr($this->config->get('ep.client.signin_invite_uri'), [
                         '{organization}' => $organization->getKey(),
                     ]));

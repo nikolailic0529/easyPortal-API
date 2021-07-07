@@ -64,11 +64,13 @@ class SignUpByInvite {
             'value'     => $input['password'],
         ]);
         // update Profile
-        $attributes                               = $user->attributes;
-        $attributes["ep_invite_{$invitationKey}"] = json_encode([
-            'sent_at' => time(),
-            'used_at' => null,
-        ]);
+        $attributes                 = $user->attributes;
+        $attributes[$invitationKey] = [
+            json_encode([
+                'sent_at' => time(),
+                'used_at' => time(),
+            ]),
+        ];
         $this->client->updateUser($user->id, new User([
             'firstName'     => $input['first_name'],
             'lastName'      => $input['last_name'],
