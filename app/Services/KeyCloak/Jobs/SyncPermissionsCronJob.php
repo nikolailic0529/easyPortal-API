@@ -13,7 +13,7 @@ class SyncPermissionsCronJob extends CronJob {
         return 'ep-keycloak-sync-permissions';
     }
 
-    public function handle(Kernel $artisan): void {
+    public function __invoke(Kernel $artisan): void {
         $artisan->call('ep:keycloak-sync-permissions');
     }
 }

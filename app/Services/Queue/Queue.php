@@ -161,7 +161,7 @@ class Queue {
     }
 
     protected function getStopKey(Job $job, string $id = null): string {
-        return "service.queue.stop.{$this->getName($job)}".($id ? ".{$id}" : '');
+        return "service:queue:stop:{$this->getName($job)}".($id ? "#{$id}" : '');
     }
 
     protected function getStoppedAt(Job $job, string $id = null): ?DateTimeInterface {

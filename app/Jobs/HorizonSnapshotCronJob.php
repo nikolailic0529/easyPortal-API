@@ -13,7 +13,7 @@ class HorizonSnapshotCronJob extends CronJob {
         return 'ep-horizon-snapshot';
     }
 
-    public function handle(Kernel $artisan): void {
+    public function __invoke(Kernel $artisan): void {
         $artisan->call('horizon:snapshot');
     }
 }

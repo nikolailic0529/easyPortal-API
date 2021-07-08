@@ -130,7 +130,7 @@ class DispatchApplicationServiceTest_ServiceA extends CronJob {
         return 'service-a';
     }
 
-    public function handle(): void {
+    public function __invoke(): void {
         // no action
     }
 }
@@ -144,7 +144,7 @@ class DispatchApplicationServiceTest_ServiceB extends CronJob {
         return 'service-b';
     }
 
-    public function handle(): void {
+    public function __invoke(): void {
         throw new Exception();
     }
 }

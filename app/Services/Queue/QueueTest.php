@@ -206,7 +206,7 @@ class QueueTest extends TestCase {
         $progress     = new Progress(2, 1);
         $progressable = Mockery::mock(Job::class, Progressable::class);
         $progressable
-            ->shouldReceive('getProgressProvider')
+            ->shouldReceive('getProgressCallback')
             ->once()
             ->andReturn(static function () use ($progress): Progress {
                 return $progress;

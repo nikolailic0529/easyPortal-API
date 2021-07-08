@@ -2,8 +2,12 @@
 
 namespace App\Services\Queue;
 
+use App\Services\Queue\Concerns\StoppableJob;
 use LastDragon_ru\LaraASP\Queue\Queueables\Job as LaraASPJob;
 
-abstract class Job extends LaraASPJob implements NamedJob {
-    // empty
+/**
+ * Application Job.
+ */
+abstract class Job extends LaraASPJob implements NamedJob, Stoppable {
+    use StoppableJob;
 }
