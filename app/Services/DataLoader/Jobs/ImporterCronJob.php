@@ -49,6 +49,7 @@ abstract class ImporterCronJob extends CronJob implements Progressable {
             })
             ->onChange(function (array $items, Status $status) use ($cache, $state): void {
                 $this->updateState($cache, $state, $status);
+                $this->stop();
             })
             ->onFinish(function () use ($cache): void {
                 $this->resetState($cache);
