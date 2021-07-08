@@ -83,6 +83,16 @@ type ApplicationLog {
   id: ID!
   category: String!
   action: String!
+
+  """
+  Possible values:
+  * active
+  * success
+  * failed
+  * unknown
+  * killed
+  * stopped
+  """
   status: String
   object_type: String
   object_id: ID
