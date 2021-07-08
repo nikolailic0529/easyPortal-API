@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations\Auth;
+namespace App\GraphQL\Mutations;
 
 use App\Exceptions\HasErrorCode;
 use App\Exceptions\TranslatedException;
@@ -9,7 +9,7 @@ use Throwable;
 
 use function __;
 
-class ChangePasswordInvalidCurrentPassword extends Exception implements TranslatedException {
+class UpdateMePasswordInvalidCurrentPassword extends Exception implements TranslatedException {
     use HasErrorCode;
 
     public function __construct(Throwable $previous = null) {
@@ -17,6 +17,6 @@ class ChangePasswordInvalidCurrentPassword extends Exception implements Translat
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.changePassword.invalid_current_password');
+        return __('graphql.mutations.updateMePassword.invalid_current_password');
     }
 }

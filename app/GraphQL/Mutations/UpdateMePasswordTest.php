@@ -1,7 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations\Auth;
+namespace App\GraphQL\Mutations;
 
+use App\GraphQL\Mutations\Auth\ResetPasswordSamePasswordException;
 use App\Models\Enums\UserType;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
@@ -21,9 +22,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Auth\ChangePassword
+ * @coversDefaultClass \App\GraphQL\Mutations\Auth\UpdateMePassword
  */
-class ChangePasswordTest extends TestCase {
+class UpdateMePasswordTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -40,16 +41,8 @@ class ChangePasswordTest extends TestCase {
         bool $isRootOrganization = false,
     ): void {
         // Prepare
-        $organization = null;
-        if ($organizationFactory) {
-            $organization = $organizationFactory($this);
-        }
-
-        $user = null;
-        if ($userFactory) {
-            $user = $userFactory($this, $organization);
-        }
-        $this->setUser($user, $this->setOrganization($organization));
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
 
         if ($isRootOrganization) {
             $this->setRootOrganization($organization);
@@ -79,8 +72,8 @@ class ChangePasswordTest extends TestCase {
             ->graphQL(
             /** @lang GraphQL */
                 <<<'GRAPHQL'
-                mutation changePassword($input: ChangePasswordInput!) {
-                    changePassword(input: $input) {
+                mutation updateMePassword($input: UpdateMePasswordInput!) {
+                    updateMePassword(input: $input) {
                         result
                     }
                 }
@@ -104,11 +97,11 @@ class ChangePasswordTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('changePassword'),
-            new AuthUserDataProvider('changePassword'),
+            new OrganizationDataProvider('updateMePassword'),
+            new AuthUserDataProvider('updateMePassword'),
             new ArrayDataProvider([
                 'keycloak user'                       => [
-                    new GraphQLSuccess('changePassword', ChangePassword::class, [
+                    new GraphQLSuccess('updateMePassword', UpdateMePassword::class, [
                         'result' => true,
                     ]),
                     static function (TestCase $test, User $user): bool {
@@ -129,7 +122,7 @@ class ChangePasswordTest extends TestCase {
                     false,
                 ],
                 'local user'                          => [
-                    new GraphQLSuccess('changePassword', ChangePassword::class, [
+                    new GraphQLSuccess('updateMePassword', UpdateMePassword::class, [
                         'result' => true,
                     ]),
                     static function (TestCase $test, User $user): bool {
@@ -149,7 +142,7 @@ class ChangePasswordTest extends TestCase {
                     true,
                 ],
                 'local user/Invalid current password' => [
-                    new GraphQLError('changePassword', new ChangePasswordInvalidCurrentPassword(), [
+                    new GraphQLError('updateMePassword', new UpdateMePasswordInvalidCurrentPassword(), [
                         'result' => false,
                     ]),
                     static function (TestCase $test, User $user): bool {
@@ -169,7 +162,7 @@ class ChangePasswordTest extends TestCase {
                     true,
                 ],
                 'local user/same password'            => [
-                    new GraphQLError('changePassword', new ResetPasswordSamePasswordException(), [
+                    new GraphQLError('updateMePassword', new ResetPasswordSamePasswordException(), [
                         'result' => false,
                     ]),
                     static function (TestCase $test, User $user): bool {

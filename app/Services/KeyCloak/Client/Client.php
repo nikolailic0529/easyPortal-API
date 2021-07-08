@@ -263,7 +263,7 @@ class Client {
         $endpoint = "users/{$userId}/groups/{$groupId}";
         $this->call($endpoint, 'PUT');
     }
-    
+
     public function resetPassword(string $id, string $password): void {
         // PUT /{realm}/users/{id}/reset-password
         $endpoint = "users/{$id}/reset-password";

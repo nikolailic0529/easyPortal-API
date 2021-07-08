@@ -4,6 +4,7 @@ namespace App\Services\KeyCloak\Client;
 
 use App\Models\Role;
 use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists;
+use App\Services\KeyCloak\Client\Types\Credential;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\User;
 use Exception;
@@ -136,6 +137,37 @@ class ClientTest extends TestCase {
         ]);
         $response = $client->getUserGroups($this->faker->uuid);
         $this->assertEquals($response, [$group]);
+    }
+
+    /*
+     * @covers ::resetPassword
+     */
+    public function testResetPassword(): void {
+        $this->setSettings([
+            'ep.keycloak.url'           => $this->faker->url,
+            'ep.keycloak.client_id'     => $this->faker->uuid,
+            'ep.keycloak.client_secret' => $this->faker->uuid,
+        ]);
+        $this->override(Client::class, static function (MockInterface $mock): void {
+            $credentials = new Credential([
+                'type'      => 'password',
+                'temporary' => false,
+                'value'     => '1234567',
+            ]);
+            $mock->makePartial();
+            $mock->shouldAllowMockingProtectedMethods();
+            $mock
+                ->shouldReceive('call')
+                ->with(
+                    'users/f9834bc1-2f2f-4c57-bb8d-7a224ac24982/reset-password',
+                    'PUT',
+                    ['json' => $credentials->toArray()],
+                )
+                ->once()
+                ->andReturns();
+        });
+        $client = $this->app->make(Client::class);
+        $client->resetPassword('f9834bc1-2f2f-4c57-bb8d-7a224ac24982', '1234567');
     }
 
     // <editor-fold desc="DataProviders">

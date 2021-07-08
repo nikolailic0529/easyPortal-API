@@ -320,15 +320,6 @@ type AuthorizeOrganizationPayload {
   me: Me
 }
 
-input ChangePasswordInput {
-  current_password: String
-  password: String!
-}
-
-type ChangePasswordPayload {
-  result: Boolean!
-}
-
 input CitiesQuery {
   id: ID!
   name: String!
@@ -952,7 +943,7 @@ type Mutation {
   
   @require <me> User must be authenticated.
   """
-  changePassword(input: ChangePasswordInput!): ChangePasswordPayload
+  updateMePassword(input: UpdateMePasswordInput!): UpdateMePasswordPayload
 
   """
   Reset password.
@@ -3426,6 +3417,15 @@ input UpdateClientTranslationsInput {
 
 type UpdateClientTranslationsPayload {
   updated: [Translation!]!
+}
+
+input UpdateMePasswordInput {
+  current_password: String
+  password: String!
+}
+
+type UpdateMePasswordPayload {
+  result: Boolean!
 }
 
 input UpdateMeProfileInput {

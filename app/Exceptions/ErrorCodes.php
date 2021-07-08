@@ -2,7 +2,6 @@
 
 namespace App\Exceptions;
 
-use App\GraphQL\Mutations\Auth\ChangePasswordInvalidCurrentPassword;
 use App\GraphQL\Mutations\Auth\ResetPasswordSamePasswordException;
 use App\GraphQL\Mutations\Auth\SignUpByInviteAlreadyUsed;
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvalidToken;
@@ -12,6 +11,7 @@ use App\GraphQL\Mutations\DispatchApplicationServiceFailed;
 use App\GraphQL\Mutations\DispatchApplicationServiceNotFoundException;
 use App\GraphQL\Mutations\InviteOrgUserInvalidRole;
 use App\GraphQL\Mutations\Org\InviteOrgUserAlreadyUsedInvitation;
+use App\GraphQL\Mutations\UpdateMePasswordInvalidCurrentPassword;
 use App\Http\Controllers\ExportGraphQLQueryEmpty;
 use App\Http\Controllers\ExportGraphQLQueryInvalid;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled as DataLoaderDataLoaderDisabled;
@@ -75,6 +75,7 @@ class ErrorCodes {
         SignUpByInviteAlreadyUsed::class                   => 'ERR31',
         InviteOrgUserAlreadyUsedInvitation::class          => 'ERR32',
         ChangePasswordInvalidCurrentPassword::class        => 'ERR33',
+        UpdateMePasswordInvalidCurrentPassword::class      => 'ERR34',
     ];
 
     public static function getCode(Throwable $throwable): string|int {
