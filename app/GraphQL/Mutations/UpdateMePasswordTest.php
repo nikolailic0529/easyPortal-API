@@ -117,7 +117,8 @@ class UpdateMePasswordTest extends TestCase {
                     static function (MockInterface $mock): void {
                         $mock
                             ->shouldReceive('resetPassword')
-                            ->once();
+                            ->once()
+                            ->andReturn(true);
                     },
                     false,
                 ],
@@ -142,9 +143,7 @@ class UpdateMePasswordTest extends TestCase {
                     true,
                 ],
                 'local user/Invalid current password' => [
-                    new GraphQLError('updateMePassword', new UpdateMePasswordInvalidCurrentPassword(), [
-                        'result' => false,
-                    ]),
+                    new GraphQLError('updateMePassword', new UpdateMePasswordInvalidCurrentPassword()),
                     static function (TestCase $test, User $user): bool {
                         $user->email    = 'test@gmail.com';
                         $user->type     = UserType::local();
@@ -162,9 +161,7 @@ class UpdateMePasswordTest extends TestCase {
                     true,
                 ],
                 'local user/same password'            => [
-                    new GraphQLError('updateMePassword', new ResetPasswordSamePasswordException(), [
-                        'result' => false,
-                    ]),
+                    new GraphQLError('updateMePassword', new ResetPasswordSamePasswordException()),
                     static function (TestCase $test, User $user): bool {
                         $user->email    = 'test@gmail.com';
                         $user->type     = UserType::local();

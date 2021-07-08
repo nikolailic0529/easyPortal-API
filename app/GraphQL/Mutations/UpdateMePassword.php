@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\GraphQL\Mutations\Auth\ResetPassword;
 use App\Models\Enums\UserType;
+use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\UserProvider;
 use Illuminate\Auth\AuthManager;
@@ -19,36 +20,58 @@ class UpdateMePassword {
     ) {
         // empty
     }
+
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
+     * @param null                 $_
+     * @param array<string, mixed> $args
      *
      * @return array<string, mixed>
      */
     public function __invoke($_, array $args): array {
-        /** @var \App\Models\User $user */
+        // Possible?
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
         $user = $this->auth->user();
+
+        if (!($user instanceof User)) {
+            return [
+                'result' => false,
+            ];
+        }
+
+        // Reset
+        $result = false;
+
         switch ($user->type) {
             case UserType::keycloak():
-                $this->client->resetPassword($user->id, $args['input']['password']);
-                return ['result' => true];
+                $result = $this->client->resetPassword($user->getKey(), $args['input']['password']);
+                break;
             case UserType::local():
                 $valid = $this->provider->validateCredentials($user, [
                     UserProvider::CREDENTIAL_PASSWORD => $args['input']['current_password'],
                     UserProvider::CREDENTIAL_EMAIL    => $user->email,
                 ]);
+
                 if (!$valid) {
                     throw new UpdateMePasswordInvalidCurrentPassword();
                 }
-                return ($this->resetPassword)(null, [
+
+                $result = ($this->resetPassword)(null, [
                     'input' => [
                         'email'    => $user->email,
                         'password' => $args['input']['password'],
                         'token'    => $this->password->broker()->getRepository()->create($user),
                     ],
-                ]);
+                ])['result'];
+
+                break;
             default:
-                return ['result' => false];
+                // empty
+                break;
         }
+
+        // Return
+        return [
+            'result' => $result,
+        ];
     }
 }

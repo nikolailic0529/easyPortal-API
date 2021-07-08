@@ -264,7 +264,7 @@ class Client {
         $this->call($endpoint, 'PUT');
     }
 
-    public function resetPassword(string $id, string $password): void {
+    public function resetPassword(string $id, string $password): bool {
         // PUT /{realm}/users/{id}/reset-password
         $endpoint = "users/{$id}/reset-password";
         // Create new credentials
@@ -276,6 +276,8 @@ class Client {
         $this->call($endpoint, 'PUT', [
             'json' => $credential->toArray(),
         ]);
+
+        return true;
     }
     // </editor-fold>
 

@@ -164,10 +164,11 @@ class ClientTest extends TestCase {
                     ['json' => $credentials->toArray()],
                 )
                 ->once()
-                ->andReturns();
+                ->andReturn(true);
         });
         $client = $this->app->make(Client::class);
-        $client->resetPassword('f9834bc1-2f2f-4c57-bb8d-7a224ac24982', '1234567');
+
+        $this->assertTrue($client->resetPassword('f9834bc1-2f2f-4c57-bb8d-7a224ac24982', '1234567'));
     }
 
     // <editor-fold desc="DataProviders">
