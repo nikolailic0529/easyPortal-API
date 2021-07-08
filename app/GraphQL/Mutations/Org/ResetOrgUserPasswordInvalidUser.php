@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Org;
 
 use App\Exceptions\HasErrorCode;
 use App\Exceptions\TranslatedException;

@@ -11,7 +11,7 @@ use App\GraphQL\Mutations\DispatchApplicationServiceFailed;
 use App\GraphQL\Mutations\DispatchApplicationServiceNotFoundException;
 use App\GraphQL\Mutations\Org\InviteOrgUserAlreadyUsedInvitation;
 use App\GraphQL\Mutations\Org\InviteOrgUserInvalidRole;
-use App\GraphQL\Mutations\ResetOrgUserPasswordInvalidUser;
+use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser;
 use App\GraphQL\Mutations\UpdateMePasswordInvalidCurrentPassword;
 use App\Http\Controllers\ExportGraphQLQueryEmpty;
 use App\Http\Controllers\ExportGraphQLQueryInvalid;

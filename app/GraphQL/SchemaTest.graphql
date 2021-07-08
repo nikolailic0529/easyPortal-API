@@ -1005,7 +1005,7 @@ type Mutation {
   inviteOrgUser(input: InviteOrgUserInput!): InviteOrgUserPayload
 
   """
-  Send reset password link.
+  Send reset password link to the user.
   
   @require <organization> Authenticated user must be a member of the current organization.
   

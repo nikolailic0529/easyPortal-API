@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Org;
 
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Group;
@@ -17,7 +17,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\ResetOrgUserPassword
+ * @coversDefaultClass \App\GraphQL\Mutations\Org\ResetOrgUserPassword
  */
 class ResetOrgUserPasswordTest extends TestCase {
     // <editor-fold desc="Tests">
