@@ -133,7 +133,6 @@
     "graphql.mutations.signUpByInvite.uninvited_user": "User is not invited.",
     "graphql.mutations.signUpByInvite.already_used": "User already used the invitation.",
     "graphql.mutations.inviteOrgUser.user_already_used_invitation": "User already used the invitation.",
-    "graphql.mutations.changePassword.invalid_current_password": "Invalid current password.",
     "graphql.mutations.updateMePassword.invalid_current_password": "Invalid current password.",
     "models.country.name.??": "Unknown Country",
     "models.currency.name.EUR": "Euro",
