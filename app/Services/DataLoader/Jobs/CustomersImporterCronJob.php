@@ -28,7 +28,7 @@ class CustomersImporterCronJob extends ImporterCronJob {
             ] + parent::getQueueConfig();
     }
 
-    public function handle(
+    public function __invoke(
         Repository $cache,
         CustomersImporter $importer,
         QueueableConfigurator $configurator,

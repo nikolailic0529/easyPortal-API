@@ -30,6 +30,6 @@ class SyncPermissionsCronJobTest extends TestCase {
             ->with('ep:keycloak-sync-permissions')
             ->once();
 
-        $job->handle($kernel);
+        $job($kernel);
     }
 }

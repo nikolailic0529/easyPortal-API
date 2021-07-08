@@ -15,7 +15,7 @@ use function basename;
 
 /**
  * @internal
- * @coversDefaultClass App\Services\KeyCloak\Commands\SyncPermissions
+ * @coversDefaultClass \App\Services\KeyCloak\Commands\SyncPermissions
  */
 class SyncPermissionsTest extends TestCase {
     /**

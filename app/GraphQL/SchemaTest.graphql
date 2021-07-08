@@ -74,7 +74,8 @@ type ApplicationJobProgress {
 type ApplicationJobState {
   id: ID!
   running: Boolean!
-  pending_at: DateTime!
+  stopped: Boolean!
+  pending_at: DateTime
   running_at: DateTime
 }
 
@@ -82,6 +83,16 @@ type ApplicationLog {
   id: ID!
   category: String!
   action: String!
+
+  """
+  Possible values:
+  * active
+  * success
+  * failed
+  * unknown
+  * killed
+  * stopped
+  """
   status: String
   object_type: String
   object_id: ID
@@ -139,6 +150,12 @@ type ApplicationService {
   settings: [String!]!
   description: String
   state: ApplicationJobState
+
+  """Indicates that Service can be stopped."""
+  stoppable: Boolean!
+
+  """Indicates that Service have a progress."""
+  progressable: Boolean!
   progress: ApplicationJobProgress
 }
 
@@ -829,13 +846,6 @@ type Mutation {
   
   @require <root> Authenticated user must be a root.
   """
-  deleteApplicationTranslations(input: DeleteApplicationTranslationsInput!): DeleteApplicationTranslationsPayload
-
-  """
-  @require <organization(root)> Authenticated user must be a member of the root organization.
-  
-  @require <root> Authenticated user must be a root.
-  """
   deleteClientSettings(input: DeleteClientSettingsInput!): DeleteClientSettingsPayload
 
   """
@@ -847,6 +857,60 @@ type Mutation {
 
   """@require <me> User must be authenticated."""
   deleteMeSearch(input: DeleteMeSearchInput!): DeleteMeSearchPayload
+
+  """
+  Force delete all custom settings, may be useful to restore the corrupted file.
+  
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  recoverClientSettings: RecoverClientSettingsPayload
+
+  """
+  Force delete all client translations for a given locale, may be useful to
+  restore the corrupted file.
+  
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  recoverClientTranslations(input: RecoverClientTranslationsInput!): RecoverClientTranslationsPayload
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  updateClientSettings(input: [UpdateClientSettingsInput!]!): UpdateClientSettingsPayload
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  updateClientTranslations(input: UpdateClientTranslationsInput!): UpdateClientTranslationsPayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  updateMePassword(input: UpdateMePasswordInput!): UpdateMePasswordPayload
+
+  """
+  @require <me> User must be authenticated.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  """
+  updateMeProfile(input: UpdateMeProfileInput!): UpdateMeProfilePayload
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  deleteApplicationTranslations(input: DeleteApplicationTranslationsInput!): DeleteApplicationTranslationsPayload
 
   """
   Dispatch/Run application service.
@@ -877,24 +941,23 @@ type Mutation {
   recoverApplicationTranslations(input: RecoverApplicationTranslationsInput!): RecoverApplicationTranslationsPayload
 
   """
-  Force delete all custom settings, may be useful to restore the corrupted file.
+  Reset application service progress.
   
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
   @require <root> Authenticated user must be a root.
   """
-  recoverClientSettings: RecoverClientSettingsPayload
+  resetApplicationService(input: ResetApplicationServiceInput!): ResetApplicationServicePayload
+  setApplicationLocale(input: SetApplicationLocaleInput!): SetApplicationLocalePayload
 
   """
-  Force delete all client translations for a given locale, may be useful to
-  restore the corrupted file.
+  Stop application service.
   
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
   @require <root> Authenticated user must be a root.
   """
-  recoverClientTranslations(input: RecoverClientTranslationsInput!): RecoverClientTranslationsPayload
-  setApplicationLocale(input: SetApplicationLocaleInput!): SetApplicationLocalePayload
+  stopApplicationService(input: StopApplicationServiceInput!): StopApplicationServicePayload
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -909,34 +972,6 @@ type Mutation {
   @require <root> Authenticated user must be a root.
   """
   updateApplicationTranslations(input: UpdateApplicationTranslationsInput!): UpdateApplicationTranslationsPayload
-
-  """
-  @require <organization(root)> Authenticated user must be a member of the root organization.
-  
-  @require <root> Authenticated user must be a root.
-  """
-  updateClientSettings(input: [UpdateClientSettingsInput!]!): UpdateClientSettingsPayload
-
-  """
-  @require <organization(root)> Authenticated user must be a member of the root organization.
-  
-  @require <root> Authenticated user must be a root.
-  """
-  updateClientTranslations(input: UpdateClientTranslationsInput!): UpdateClientTranslationsPayload
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  updateMePassword(input: UpdateMePasswordInput!): UpdateMePasswordPayload
-
-  """
-  @require <me> User must be authenticated.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  """
-  updateMeProfile(input: UpdateMeProfileInput!): UpdateMeProfilePayload
 
   """
   Finish the Sign In for Organization.
@@ -1581,6 +1616,15 @@ type Reseller {
 input ResellersQuery {
   id: ID!
   name: String!
+}
+
+input ResetApplicationServiceInput {
+  """Name of the service."""
+  name: String!
+}
+
+type ResetApplicationServicePayload {
+  result: Boolean!
 }
 
 input ResetOrgUserPasswordInput {
@@ -3359,6 +3403,15 @@ type Status {
 
 input StatusSort {
   name: String!
+}
+
+input StopApplicationServiceInput {
+  """Name of the service."""
+  name: String!
+}
+
+type StopApplicationServicePayload {
+  result: Boolean!
 }
 
 type Tag {

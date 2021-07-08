@@ -29,6 +29,6 @@ class HorizonSnapshotCronJobTest extends TestCase {
             ->with('horizon:snapshot')
             ->once();
 
-        $this->app->make(HorizonSnapshotCronJob::class)->handle($kernel);
+        ($this->app->make(HorizonSnapshotCronJob::class))($kernel);
     }
 }

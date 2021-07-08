@@ -4,7 +4,12 @@ namespace App\Services\Queue;
 
 interface Progressable {
     /**
-     * @return callable(): \App\Services\Queue\Progress|null
+     * @return callable(mixed ...$args): \App\Services\Queue\Progress|null
      */
-    public function getProgressProvider(): callable;
+    public function getProgressCallback(): callable;
+
+    /**
+     * @return callable(mixed ...$args): bool
+     */
+    public function getResetProgressCallback(): callable;
 }

@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Jobs;
 use App\Services\DataLoader\Importers\Importer;
 use App\Services\DataLoader\Importers\Status;
 use App\Services\Queue\CronJob;
+use App\Services\Queue\Progress;
 use App\Services\Queue\Progressable;
 use DateTimeInterface;
 use Illuminate\Contracts\Cache\Repository;
@@ -39,7 +40,7 @@ abstract class ImporterCronJob extends CronJob implements Progressable {
         $state    = $this->getState($cache) ?: $this->getDefaultState($config);
         $from     = Date::make($state->from);
         $chunk    = $config->setting('chunk');
-        $update   = $config->setting('update');
+        $update   = $state->update;
         $continue = $state->continue;
 
         $importer
@@ -48,6 +49,7 @@ abstract class ImporterCronJob extends CronJob implements Progressable {
             })
             ->onChange(function (array $items, Status $status) use ($cache, $state): void {
                 $this->updateState($cache, $state, $status);
+                $this->stop();
             })
             ->onFinish(function () use ($cache): void {
                 $this->resetState($cache);
@@ -57,6 +59,7 @@ abstract class ImporterCronJob extends CronJob implements Progressable {
 
     protected function getDefaultState(QueueableConfig $config): ImporterState {
         $from   = null;
+        $update = $config->setting('update');
         $expire = $config->setting('expire');
 
         if ($expire) {
@@ -64,11 +67,12 @@ abstract class ImporterCronJob extends CronJob implements Progressable {
         }
 
         return new ImporterState([
-            'from' => $from,
+            'from'   => $from,
+            'update' => $update,
         ]);
     }
 
-    public function getState(Repository $cache): ?ImporterState {
+    protected function getState(Repository $cache): ?ImporterState {
         $state = null;
 
         try {
@@ -99,7 +103,24 @@ abstract class ImporterCronJob extends CronJob implements Progressable {
         $cache->forget($this->displayName());
     }
 
-    public function getProgressProvider(): callable {
-        return new ImporterProgress($this);
+    public function getProgressCallback(): callable {
+        return function (Repository $cache): ?Progress {
+            $state    = $this->getState($cache);
+            $progress = null;
+
+            if ($state) {
+                $progress = new Progress($state->total, $state->processed);
+            }
+
+            return $progress;
+        };
+    }
+
+    public function getResetProgressCallback(): callable {
+        return function (Repository $cache): bool {
+            $this->resetState($cache);
+
+            return true;
+        };
     }
 }

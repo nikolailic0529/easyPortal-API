@@ -1,0 +1,17 @@
+extend type Mutation {
+  deleteApplicationTranslations(
+    input: DeleteApplicationTranslationsInput!
+  ): DeleteApplicationTranslationsPayload
+  @organization(root: true)
+  @root
+  @field(resolver: "App\\GraphQL\\Mutations\\Application\\DeleteApplicationTranslations")
+}
+
+input DeleteApplicationTranslationsInput {
+  locale: String! @rules(apply: ["App\\Rules\\Locale"])
+  keys: [String!]!
+}
+
+type DeleteApplicationTranslationsPayload {
+  deleted: [String!]!
+}

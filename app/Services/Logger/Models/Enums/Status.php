@@ -24,4 +24,8 @@ class Status extends Enum {
     public static function killed(): static {
         return static::make(__FUNCTION__);
     }
+
+    public static function stopped(): static {
+        return static::make(__FUNCTION__);
+    }
 }

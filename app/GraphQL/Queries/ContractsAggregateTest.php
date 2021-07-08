@@ -54,7 +54,8 @@ class ContractsAggregateTest extends TestCase {
         // Test
         $this
             ->graphQL(
-            /** @lang GraphQL */ <<<'GRAPHQL'
+                /** @lang GraphQL */
+                <<<'GRAPHQL'
                 query ($where: SearchByConditionDocumentsQuery) {
                     contractsAggregate(where: $where) {
                         count

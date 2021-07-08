@@ -47,7 +47,8 @@ class CustomersAggregateTest extends TestCase {
         // Test
         $this
             ->graphQL(
-            /** @lang GraphQL */ <<<'GRAPHQL'
+                /** @lang GraphQL */
+                <<<'GRAPHQL'
                 query ($where: SearchByConditionCustomersQuery) {
                     customersAggregate(where: $where) {
                         count

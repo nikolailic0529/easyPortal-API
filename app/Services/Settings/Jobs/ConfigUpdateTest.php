@@ -14,7 +14,7 @@ use Tests\TestCase;
  */
 class ConfigUpdateTest extends TestCase {
     /**
-     * @covers ::handle
+     * @covers ::__invoke
      */
     public function testHandleWhenConfigCached(): void {
         $kernel = Mockery::mock(Kernel::class);
@@ -34,10 +34,11 @@ class ConfigUpdateTest extends TestCase {
             ->once()
             ->andReturn(true);
 
-        $this->app->make(ConfigUpdate::class)->handle($kernel, $settings);
+        ($this->app->make(ConfigUpdate::class))($kernel, $settings);
     }
+
     /**
-     * @covers ::handle
+     * @covers ::__invoke
      */
     public function testHandleWhenConfigNotCached(): void {
         $kernel = Mockery::mock(Kernel::class);
@@ -57,6 +58,6 @@ class ConfigUpdateTest extends TestCase {
             ->once()
             ->andReturn(false);
 
-        $this->app->make(ConfigUpdate::class)->handle($kernel, $settings);
+        ($this->app->make(ConfigUpdate::class))($kernel, $settings);
     }
 }

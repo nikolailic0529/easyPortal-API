@@ -1,0 +1,22 @@
+extend type Mutation {
+  """
+  Stop application service.
+  """
+  stopApplicationService(
+    input: StopApplicationServiceInput!
+  ): StopApplicationServicePayload
+  @organization(root: true)
+  @root
+  @field(resolver: "App\\GraphQL\\Mutations\\Application\\StopApplicationService")
+}
+
+input StopApplicationServiceInput {
+  """
+  Name of the service.
+  """
+  name: String!
+}
+
+type StopApplicationServicePayload {
+  result: Boolean!
+}

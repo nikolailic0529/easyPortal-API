@@ -14,7 +14,7 @@ class ConfigUpdate extends Job {
         return 'ep-settings-config-update';
     }
 
-    public function handle(Kernel $artisan, Settings $settings): void {
+    public function __invoke(Kernel $artisan, Settings $settings): void {
         try {
             if ($settings->isCached()) {
                 $artisan->call('config:cache');

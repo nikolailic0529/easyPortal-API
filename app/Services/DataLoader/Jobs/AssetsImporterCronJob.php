@@ -28,7 +28,7 @@ class AssetsImporterCronJob extends ImporterCronJob {
             ] + parent::getQueueConfig();
     }
 
-    public function handle(
+    public function __invoke(
         Repository $cache,
         AssetsImporter $importer,
         QueueableConfigurator $configurator,

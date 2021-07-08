@@ -21,5 +21,14 @@ type ApplicationService {
 
   state: ApplicationJobState
 
+  """
+  Indicates that Service can be stopped.
+  """
+  stoppable: Boolean!
+
+  """
+  Indicates that Service have a progress.
+  """
+  progressable: Boolean!
   progress: ApplicationJobProgress
 }

@@ -146,14 +146,8 @@ abstract class QueryIteratorImpl implements QueryIterator {
      * @param array<mixed> $items
      */
     protected function chunkLoaded(array $items): void {
-        try {
-            if ($this->beforeChunk) {
-                ($this->beforeChunk)($items);
-            }
-        } catch (Throwable $exception) {
-            $this->logger->error(__METHOD__, [
-                'exception' => $exception,
-            ]);
+        if ($this->beforeChunk) {
+            ($this->beforeChunk)($items);
         }
     }
 
@@ -161,14 +155,8 @@ abstract class QueryIteratorImpl implements QueryIterator {
      * @param array<mixed> $items
      */
     protected function chunkProcessed(array $items): bool {
-        try {
-            if ($this->afterChunk) {
-                ($this->afterChunk)($items);
-            }
-        } catch (Throwable $exception) {
-            $this->logger->error(__METHOD__, [
-                'exception' => $exception,
-            ]);
+        if ($this->afterChunk) {
+            ($this->afterChunk)($items);
         }
 
         return true;

@@ -7,8 +7,6 @@ use App\GraphQL\Mutations\Auth\SignUpByInviteAlreadyUsed;
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvalidToken;
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvalidUser;
 use App\GraphQL\Mutations\Auth\SignUpByInviteUnInvitedUser;
-use App\GraphQL\Mutations\DispatchApplicationServiceFailed;
-use App\GraphQL\Mutations\DispatchApplicationServiceNotFoundException;
 use App\GraphQL\Mutations\Org\InviteOrgUserAlreadyUsedInvitation;
 use App\GraphQL\Mutations\Org\InviteOrgUserInvalidRole;
 use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser;
@@ -34,6 +32,7 @@ use App\Services\KeyCloak\Exceptions\InvalidIdentity as KeyCloakInvalidIdentity;
 use App\Services\KeyCloak\Exceptions\StateMismatch as KeyCloakStateMismatch;
 use App\Services\KeyCloak\Exceptions\UnknownScope as KeyCloakUnknownScope;
 use App\Services\Organization\Exceptions\UnknownOrganization as OrganizationUnknownOrganization;
+use App\Services\Queue\Exceptions\ServiceNotFound as QueueServiceNotFound;
 use App\Services\Settings\Exceptions\SettingsFailedToLoadEnv as SettingsSettingsFailedToLoadEnv;
 use App\Services\Tokens\Exceptions\InvalidCredentials as TokensInvalidCredentials;
 use Throwable;
@@ -43,40 +42,39 @@ class ErrorCodes {
      * @var array<class-string<\Throwable>,string|int>
      */
     protected static array $map = [
-        DispatchApplicationServiceNotFoundException::class => 'ERR01',
-        DispatchApplicationServiceFailed::class            => 'ERR02',
-        FilesystemStorageFileCorrupted::class              => 'ERR03',
-        FilesystemStorageFileDeleteFailed::class           => 'ERR04',
-        FilesystemStorageFileSaveFailed::class             => 'ERR05',
-        SettingsSettingsFailedToLoadEnv::class             => 'ERR06',
-        ExportGraphQLQueryInvalid::class                   => 'ERR07',
-        KeyCloakAuthorizationFailed::class                 => 'ERR08',
-        KeyCloakStateMismatch::class                       => 'ERR09',
-        KeyCloakInvalidIdentity::class                     => 'ERR10',
-        KeyCloakInvalidCredentials::class                  => 'ERR11',
-        KeyCloakInsufficientData::class                    => 'ERR12',
-        OrganizationUnknownOrganization::class             => 'ERR13',
-        KeyCloakUnknownScope::class                        => 'ERR14',
-        KeyCloakAnotherUserExists::class                   => 'ERR15',
-        TokensInvalidCredentials::class                    => 'ERR16',
-        ExportGraphQLQueryEmpty::class                     => 'ERR17',
-        DataLoaderDataLoaderDisabled::class                => 'ERR18',
-        DataLoaderDataLoaderUnavailable::class             => 'ERR19',
-        DataLoaderGraphQLRequestFailed::class              => 'ERR20',
-        KeyCloakEndpointException::class                   => 'ERR21',
-        InvalidKeyCloakGroup::class                        => 'ERR22',
-        KeyCloakDisabled::class                            => 'ERR23',
-        InvalidKeyCloakClient::class                       => 'ERR24',
-        KeyCloakUserAlreadyExists::class                   => 'ERR25',
-        InviteOrgUserInvalidRole::class                    => 'ERR26',
-        ResetPasswordSamePasswordException::class          => 'ERR27',
-        SignUpByInviteInvalidToken::class                  => 'ERR28',
-        SignUpByInviteInvalidUser::class                   => 'ERR29',
-        SignUpByInviteUnInvitedUser::class                 => 'ERR30',
-        SignUpByInviteAlreadyUsed::class                   => 'ERR31',
-        InviteOrgUserAlreadyUsedInvitation::class          => 'ERR32',
-        UpdateMePasswordInvalidCurrentPassword::class      => 'ERR33',
-        ResetOrgUserPasswordInvalidUser::class             => 'ERR34',
+        QueueServiceNotFound::class                   => 'ERR01',
+        FilesystemStorageFileCorrupted::class         => 'ERR03',
+        FilesystemStorageFileDeleteFailed::class      => 'ERR04',
+        FilesystemStorageFileSaveFailed::class        => 'ERR05',
+        SettingsSettingsFailedToLoadEnv::class        => 'ERR06',
+        ExportGraphQLQueryInvalid::class              => 'ERR07',
+        KeyCloakAuthorizationFailed::class            => 'ERR08',
+        KeyCloakStateMismatch::class                  => 'ERR09',
+        KeyCloakInvalidIdentity::class                => 'ERR10',
+        KeyCloakInvalidCredentials::class             => 'ERR11',
+        KeyCloakInsufficientData::class               => 'ERR12',
+        OrganizationUnknownOrganization::class        => 'ERR13',
+        KeyCloakUnknownScope::class                   => 'ERR14',
+        KeyCloakAnotherUserExists::class              => 'ERR15',
+        TokensInvalidCredentials::class               => 'ERR16',
+        ExportGraphQLQueryEmpty::class                => 'ERR17',
+        DataLoaderDataLoaderDisabled::class           => 'ERR18',
+        DataLoaderDataLoaderUnavailable::class        => 'ERR19',
+        DataLoaderGraphQLRequestFailed::class         => 'ERR20',
+        KeyCloakEndpointException::class              => 'ERR21',
+        InvalidKeyCloakGroup::class                   => 'ERR22',
+        KeyCloakDisabled::class                       => 'ERR23',
+        InvalidKeyCloakClient::class                  => 'ERR24',
+        KeyCloakUserAlreadyExists::class              => 'ERR25',
+        InviteOrgUserInvalidRole::class               => 'ERR26',
+        ResetPasswordSamePasswordException::class     => 'ERR27',
+        SignUpByInviteInvalidToken::class             => 'ERR28',
+        SignUpByInviteInvalidUser::class              => 'ERR29',
+        SignUpByInviteUnInvitedUser::class            => 'ERR30',
+        SignUpByInviteAlreadyUsed::class              => 'ERR31',
+        InviteOrgUserAlreadyUsedInvitation::class     => 'ERR32',
+        UpdateMePasswordInvalidCurrentPassword::class => 'ERR33',
+        ResetOrgUserPasswordInvalidUser::class        => 'ERR34',
     ];
 
     public static function getCode(Throwable $throwable): string|int {
