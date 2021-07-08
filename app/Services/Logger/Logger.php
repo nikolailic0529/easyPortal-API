@@ -166,7 +166,7 @@ class Logger {
      * @param array<mixed>|null $context
      * @param array<string,int> $countable
      */
-    protected function end(string $transaction, Status $status, array $context = null, array $countable = []): void {
+    public function end(string $transaction, Status $status, array $context = null, array $countable = []): void {
         // Recording?
         if (!$this->isRecording()) {
             return;

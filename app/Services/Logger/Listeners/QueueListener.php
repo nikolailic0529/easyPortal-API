@@ -2,9 +2,12 @@
 
 namespace App\Services\Logger\Listeners;
 
+use App\Services\Logger\Logger;
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Log;
+use App\Services\Queue\Events\JobStopped;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Queue\Job as JobContract;
 use Illuminate\Queue\Events\JobExceptionOccurred;
@@ -12,6 +15,8 @@ use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Queue\Queue;
+use Psr\Log\LoggerInterface;
+use WeakMap;
 
 use function array_pop;
 use function last;
@@ -21,6 +26,17 @@ class QueueListener extends Listener {
      * @var array<array<string,string>>
      */
     protected array $stack = [];
+
+    /**
+     * @var \WeakMap<\Illuminate\Contracts\Queue\Job>
+     */
+    protected WeakMap $stopped;
+
+    public function __construct(Logger $logger, Repository $config, LoggerInterface $log) {
+        parent::__construct($logger, $config, $log);
+
+        $this->stopped = new WeakMap();
+    }
 
     public function subscribe(Dispatcher $dispatcher): void {
         $dispatcher->listen(
@@ -58,6 +74,13 @@ class QueueListener extends Listener {
 
             return [];
         });
+
+        $dispatcher->listen(
+            JobStopped::class,
+            $this->getSafeListener(function (JobStopped $event): void {
+                $this->stopped($event);
+            }),
+        );
     }
 
     protected function dispatched(JobContract $job): void {
@@ -94,7 +117,11 @@ class QueueListener extends Listener {
         if ($id === $event->job->uuid() && $transaction) {
             array_pop($this->stack);
 
-            $this->logger->success($transaction);
+            if (isset($this->stopped[$event->job])) {
+                $this->logger->end($transaction, Status::stopped());
+            } else {
+                $this->logger->success($transaction);
+            }
         }
 
         $this->killZombies($event->job);
@@ -112,6 +139,10 @@ class QueueListener extends Listener {
         }
 
         $this->killZombies($event->job);
+    }
+
+    protected function stopped(JobStopped $event): void {
+        $this->stopped[$event->getJob()] = true;
     }
 
     /**
