@@ -15,6 +15,7 @@ use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Queue\Queue;
+use Laravel\Horizon\Events\JobDeleted;
 use Psr\Log\LoggerInterface;
 use WeakMap;
 
@@ -67,6 +68,20 @@ class QueueListener extends Listener {
             }),
         );
 
+        $dispatcher->listen(
+            JobStopped::class,
+            $this->getSafeListener(function (JobStopped $event): void {
+                $this->stopped($event);
+            }),
+        );
+
+        $dispatcher->listen(
+            JobDeleted::class,
+            $this->getSafeListener(function (JobDeleted $event): void {
+                $this->deleted($event);
+            }),
+        );
+
         Queue::createPayloadUsing(function (string $connection, string $queue, array $payload): array {
             $this->getSafeListener(function () use ($connection, $queue, $payload): void {
                 $this->dispatched(new QueueJob($connection, $queue, $payload));
@@ -74,13 +89,6 @@ class QueueListener extends Listener {
 
             return [];
         });
-
-        $dispatcher->listen(
-            JobStopped::class,
-            $this->getSafeListener(function (JobStopped $event): void {
-                $this->stopped($event);
-            }),
-        );
     }
 
     protected function dispatched(JobContract $job): void {
@@ -123,8 +131,6 @@ class QueueListener extends Listener {
                 $this->logger->success($transaction);
             }
         }
-
-        $this->killZombies($event->job);
     }
 
     protected function failed(JobExceptionOccurred|JobFailed $event): void {
@@ -137,12 +143,16 @@ class QueueListener extends Listener {
                 'exception' => $event->exception,
             ]);
         }
-
-        $this->killZombies($event->job);
     }
 
     protected function stopped(JobStopped $event): void {
         $this->stopped[$event->getJob()] = true;
+    }
+
+    protected function deleted(JobDeleted $event): void {
+        if ($event->job instanceof JobContract) {
+            $this->killZombies($event->job);
+        }
     }
 
     /**
