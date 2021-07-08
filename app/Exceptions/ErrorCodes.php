@@ -9,8 +9,9 @@ use App\GraphQL\Mutations\Auth\SignUpByInviteInvalidUser;
 use App\GraphQL\Mutations\Auth\SignUpByInviteUnInvitedUser;
 use App\GraphQL\Mutations\DispatchApplicationServiceFailed;
 use App\GraphQL\Mutations\DispatchApplicationServiceNotFoundException;
-use App\GraphQL\Mutations\InviteOrgUserInvalidRole;
 use App\GraphQL\Mutations\Org\InviteOrgUserAlreadyUsedInvitation;
+use App\GraphQL\Mutations\Org\InviteOrgUserInvalidRole;
+use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser;
 use App\GraphQL\Mutations\UpdateMePasswordInvalidCurrentPassword;
 use App\Http\Controllers\ExportGraphQLQueryEmpty;
 use App\Http\Controllers\ExportGraphQLQueryInvalid;
@@ -74,8 +75,8 @@ class ErrorCodes {
         SignUpByInviteUnInvitedUser::class                 => 'ERR30',
         SignUpByInviteAlreadyUsed::class                   => 'ERR31',
         InviteOrgUserAlreadyUsedInvitation::class          => 'ERR32',
-        ChangePasswordInvalidCurrentPassword::class        => 'ERR33',
-        UpdateMePasswordInvalidCurrentPassword::class      => 'ERR34',
+        UpdateMePasswordInvalidCurrentPassword::class      => 'ERR33',
+        ResetOrgUserPasswordInvalidUser::class             => 'ERR34',
     ];
 
     public static function getCode(Throwable $throwable): string|int {

@@ -103,6 +103,31 @@ class ClientTest extends TestCase {
             $this->assertEquals($expected, $response);
         }
     }
+    /*
+     * @covers ::requestResetPassword
+     */
+    public function testRequestResetPassword(): void {
+        $this->setSettings([
+            'ep.keycloak.url'           => $this->faker->url,
+            'ep.keycloak.client_id'     => $this->faker->uuid,
+            'ep.keycloak.client_secret' => $this->faker->uuid,
+        ]);
+        $this->override(Client::class, static function (MockInterface $mock): void {
+            $mock->makePartial();
+            $mock->shouldAllowMockingProtectedMethods();
+            $mock
+                ->shouldReceive('call')
+                ->with(
+                    'users/f9834bc1-2f2f-4c57-bb8d-7a224ac24982/execute-actions-email',
+                    'PUT',
+                    ['json' => ['UPDATE_PASSWORD']],
+                )
+                ->once()
+                ->andReturns();
+        });
+        $client = $this->app->make(Client::class);
+        $client->requestResetPassword('f9834bc1-2f2f-4c57-bb8d-7a224ac24982');
+    }
 
     /**
      * @covers ::getUserGroups
@@ -137,6 +162,25 @@ class ClientTest extends TestCase {
         ]);
         $response = $client->getUserGroups($this->faker->uuid);
         $this->assertEquals($response, [$group]);
+        $this->setSettings([
+            'ep.keycloak.url'           => $this->faker->url,
+            'ep.keycloak.client_id'     => $this->faker->uuid,
+            'ep.keycloak.client_secret' => $this->faker->uuid,
+        ]);
+        $this->override(Client::class, static function (MockInterface $mock): void {
+            $mock->makePartial();
+            $mock->shouldAllowMockingProtectedMethods();
+            $mock
+                ->shouldReceive('call')
+                ->with(
+                    'users/f9834bc1-2f2f-4c57-bb8d-7a224ac24982/groups',
+                    'GET',
+                )
+                ->once()
+                ->andReturns([]);
+        });
+        $client = $this->app->make(Client::class);
+        $client->getUserGroups('f9834bc1-2f2f-4c57-bb8d-7a224ac24982');
     }
 
     /*

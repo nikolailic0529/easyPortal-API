@@ -246,6 +246,12 @@ class Client {
         return new User($users[0]);
     }
 
+    public function requestResetPassword(string $id): void {
+        // PUT /{realm}/users/{id}/execute-actions-email
+        $endpoint = "users/{$id}/execute-actions-email";
+        $this->call($endpoint, 'PUT', ['json' => ['UPDATE_PASSWORD']]);
+    }
+
     /**
      * @return array<\App\Services\KeyCloak\Client\Types\Group>
      */
