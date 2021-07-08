@@ -1005,6 +1005,15 @@ type Mutation {
   inviteOrgUser(input: InviteOrgUserInput!): InviteOrgUserPayload
 
   """
+  Send reset password link.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
+  """
+  resetOrgUserPassword(input: ResetOrgUserPasswordInput!): ResetOrgUserPasswordPayload
+
+  """
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
@@ -1572,6 +1581,14 @@ type Reseller {
 input ResellersQuery {
   id: ID!
   name: String!
+}
+
+input ResetOrgUserPasswordInput {
+  id: ID!
+}
+
+type ResetOrgUserPasswordPayload {
+  result: Boolean!
 }
 
 input ResetPasswordInput {
