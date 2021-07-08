@@ -49,7 +49,8 @@ class MapTest extends TestCase {
         // Test
         $this
             ->graphQL(
-            /** @lang GraphQL */ <<<'GRAPHQL'
+                /** @lang GraphQL */
+                <<<'GRAPHQL'
                 query ($where: SearchByConditionMapQuery, $diff: Float!) {
                     map (where: $where, diff: $diff) {
                         latitude

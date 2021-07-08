@@ -22,7 +22,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Application\DispatchApplicationService
+ * @coversDefaultClass \App\GraphQL\Mutations\Application\StopApplicationService
  */
 class StopApplicationServiceTest extends TestCase {
     // <editor-fold desc="Tests">
