@@ -925,6 +925,13 @@ type Mutation {
   updateClientTranslations(input: UpdateClientTranslationsInput!): UpdateClientTranslationsPayload
 
   """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  updateMePassword(input: UpdateMePasswordInput!): UpdateMePasswordPayload
+
+  """
   @require <me> User must be authenticated.
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -3410,6 +3417,15 @@ input UpdateClientTranslationsInput {
 
 type UpdateClientTranslationsPayload {
   updated: [Translation!]!
+}
+
+input UpdateMePasswordInput {
+  current_password: String
+  password: String!
+}
+
+type UpdateMePasswordPayload {
+  result: Boolean!
 }
 
 input UpdateMeProfileInput {
