@@ -181,10 +181,8 @@ class Client {
             throw new InvalidKeyCloakGroup();
         }
         $invitationAttribute = [
-            'id'              => null,
-            'organization_id' => $role->organization_id,
-            'sent_at'         => time(),
-            'used_at'         => null,
+            'sent_at' => time(),
+            'used_at' => null,
         ];
         $input               = new User([
             'email'         => $email,
@@ -192,7 +190,7 @@ class Client {
             'enabled'       => false,
             'emailVerified' => false,
             'attributes'    => [
-                'ep_invite' => [json_encode($invitationAttribute)],
+                "ep_invite_{$role->organization_id}" => [json_encode($invitationAttribute)],
             ],
         ]);
         $errorHandler        = function (Exception $exception) use ($endpoint, $email): void {
@@ -245,6 +243,24 @@ class Client {
             return null;
         }
         return new User($users[0]);
+    }
+
+    /**
+     * @return array<\App\Services\KeyCloak\Client\Types\Group>
+     */
+    public function getUserGroups(string $id): array {
+        // GET /{realm}/users/{id}/groups
+        $endpoint = "users/{$id}/groups";
+        $groups   = $this->call($endpoint, 'GET');
+        return array_map(static function ($group) {
+            return new Group($group);
+        }, $groups);
+    }
+
+    public function addUserToGroup(string $userId, string $groupId): void {
+        // PUT /{realm}/users/{id}/groups/{groupId}
+        $endpoint = "users/{$userId}/groups/{$groupId}";
+        $this->call($endpoint, 'PUT');
     }
     // </editor-fold>
 

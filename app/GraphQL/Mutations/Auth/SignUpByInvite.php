@@ -47,18 +47,15 @@ class SignUpByInvite {
         if (!$user) {
             throw new SignUpByInviteInvalidUser();
         }
-
-        if (!$user->attributes || !array_key_exists('ep_invite', $user->attributes)) {
+        $invitationKey = "ep_invite_{$data['organization']}";
+        if (!$user->attributes || !array_key_exists($invitationKey, $user->attributes)) {
             throw new SignUpByInviteUnInvitedUser();
         }
 
-        $invitation = json_decode($user->attributes['ep_invite'][0]);
-        if ($invitation->id) {
+        $invitation = json_decode($user->attributes[$invitationKey][0]);
+        if ($invitation->used_at) {
             throw new SignUpByInviteAlreadyUsed();
         }
-        // update invitation
-        $invitation->id      = $user->id;
-        $invitation->used_at = time();
 
         // Create new credentials
         $credential = new Credential([
@@ -67,6 +64,13 @@ class SignUpByInvite {
             'value'     => $input['password'],
         ]);
         // update Profile
+        $attributes                 = $user->attributes;
+        $attributes[$invitationKey] = [
+            json_encode([
+                'sent_at' => time(),
+                'used_at' => time(),
+            ]),
+        ];
         $this->client->updateUser($user->id, new User([
             'firstName'     => $input['first_name'],
             'lastName'      => $input['last_name'],
@@ -75,9 +79,7 @@ class SignUpByInvite {
             'credentials'   => [
                 $credential,
             ],
-            'attributes'    => [
-                'ep_invite' => [json_encode($invitation)],
-            ],
+            'attributes'    => $attributes,
         ]));
 
         return $this->getSignInUri($data['organization']);
