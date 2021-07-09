@@ -2,15 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Models\AssetCoverage;
+use App\Models\Coverage;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\AssetCoverage create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\AssetCoverage make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method \App\Models\Coverage create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method \App\Models\Coverage make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
  */
-class AssetCoverageFactory extends Factory {
+class CoverageFactory extends Factory {
     /**
      * The name of the factory's corresponding model.
      *
@@ -18,7 +18,7 @@ class AssetCoverageFactory extends Factory {
      *
      * @var string
      */
-    protected $model = AssetCoverage::class;
+    protected $model = Coverage::class;
 
     /**
      * Define the model's default state.

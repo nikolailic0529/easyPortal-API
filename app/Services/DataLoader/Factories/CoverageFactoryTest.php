@@ -2,9 +2,9 @@
 
 namespace App\Services\DataLoader\Factories;
 
-use App\Models\AssetCoverage;
+use App\Models\Coverage;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\AssetCoverageResolver;
+use App\Services\DataLoader\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use InvalidArgumentException;
@@ -14,9 +14,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factories\AssetCoverageFactory
+ * @coversDefaultClass \App\Services\DataLoader\Factories\CoverageFactory
  */
-class AssetCoverageFactoryTest extends TestCase {
+class CoverageFactoryTest extends TestCase {
     use WithQueryLog;
 
     // <editor-fold desc="Tests">
@@ -25,7 +25,7 @@ class AssetCoverageFactoryTest extends TestCase {
      * @covers ::find
      */
     public function testFind(): void {
-        $factory = $this->app->make(AssetCoverageFactory::class);
+        $factory = $this->app->make(CoverageFactory::class);
         $entry   = new ViewAsset([
             'assetCoverage' => $this->faker->word,
         ]);
@@ -43,7 +43,7 @@ class AssetCoverageFactoryTest extends TestCase {
      * @dataProvider dataProviderCreate
      */
     public function testCreate(?string $expected, Type $type): void {
-        $factory = Mockery::mock(AssetCoverageFactory::class);
+        $factory = Mockery::mock(CoverageFactory::class);
         $factory->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
 
@@ -66,7 +66,7 @@ class AssetCoverageFactoryTest extends TestCase {
     public function testCreateFromAsset(): void {
         $key = $this->faker->word;
 
-        $factory = Mockery::mock(AssetCoverageFactory::class);
+        $factory = Mockery::mock(CoverageFactory::class);
         $factory->makePartial();
         $factory->shouldAllowMockingProtectedMethods();
         $factory
@@ -95,19 +95,19 @@ class AssetCoverageFactoryTest extends TestCase {
     public function testAssetCoverage(): void {
         // Prepare
         $normalizer    = $this->app->make(Normalizer::class);
-        $resolver      = $this->app->make(AssetCoverageResolver::class);
-        $assetCoverage = AssetCoverage::factory()->create();
+        $resolver      = $this->app->make(CoverageResolver::class);
+        $assetCoverage = Coverage::factory()->create();
 
-        $factory = new class($normalizer, $resolver) extends AssetCoverageFactory {
+        $factory = new class($normalizer, $resolver) extends CoverageFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected AssetCoverageResolver $assetCoverages,
+                protected CoverageResolver $coverages,
             ) {
                 // empty
             }
 
-            public function assetCoverage(?string $key): ?AssetCoverage {
+            public function assetCoverage(?string $key): ?Coverage {
                 return parent::assetCoverage($key);
             }
         };

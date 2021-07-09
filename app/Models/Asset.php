@@ -50,7 +50,7 @@ use function sprintf;
  * @property \App\Models\Reseller|null                                                $reseller
  * @property \App\Models\Type|null                                                    $type
  * @property \App\Models\Status                                                       $status
- * @property \App\Models\AssetCoverage                                                $coverage
+ * @property \App\Models\Coverage                                                     $coverage
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry>      $documentEntries
  * @property-write int|null                                                           $document_entries
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty>      $warranties
@@ -156,10 +156,10 @@ class Asset extends Model {
     }
 
     public function coverage(): BelongsTo {
-        return $this->belongsTo(AssetCoverage::class);
+        return $this->belongsTo(Coverage::class);
     }
 
-    public function setCoverageAttribute(?AssetCoverage $coverage): void {
+    public function setCoverageAttribute(?Coverage $coverage): void {
         $this->coverage()->associate($coverage);
     }
 

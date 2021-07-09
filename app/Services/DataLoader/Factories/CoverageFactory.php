@@ -2,9 +2,9 @@
 
 namespace App\Services\DataLoader\Factories;
 
-use App\Models\AssetCoverage;
+use App\Models\Coverage;
 use App\Services\DataLoader\Normalizer;
-use App\Services\DataLoader\Resolvers\AssetCoverageResolver;
+use App\Services\DataLoader\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use InvalidArgumentException;
@@ -13,21 +13,21 @@ use Psr\Log\LoggerInterface;
 use function implode;
 use function sprintf;
 
-class AssetCoverageFactory extends ModelFactory {
+class CoverageFactory extends ModelFactory {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
-        protected AssetCoverageResolver $assetCoverages,
+        protected CoverageResolver $coverages,
     ) {
         parent::__construct($logger, $normalizer);
     }
 
-    public function find(Type $type): ?AssetCoverage {
+    public function find(Type $type): ?Coverage {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return parent::find($type);
     }
 
-    public function create(Type $type): ?AssetCoverage {
+    public function create(Type $type): ?Coverage {
         $model = null;
 
         if ($type instanceof ViewAsset) {
@@ -44,18 +44,18 @@ class AssetCoverageFactory extends ModelFactory {
         return $model;
     }
 
-    protected function createFromAsset(ViewAsset $asset): ?AssetCoverage {
+    protected function createFromAsset(ViewAsset $asset): ?Coverage {
         return $this->assetCoverage($asset->assetCoverage);
     }
 
-    protected function assetCoverage(?string $key): ?AssetCoverage {
+    protected function assetCoverage(?string $key): ?Coverage {
         $assetCoverage = null;
 
         if ($key) {
-            $assetCoverage = $this->assetCoverages->get(
+            $assetCoverage = $this->coverages->get(
                 $key,
-                $this->factory(function () use ($key): AssetCoverage {
-                    $model = new AssetCoverage();
+                $this->factory(function () use ($key): Coverage {
+                    $model = new Coverage();
 
                     $model->key  = $this->normalizer->string($key);
                     $model->name = $this->normalizer->string($key);

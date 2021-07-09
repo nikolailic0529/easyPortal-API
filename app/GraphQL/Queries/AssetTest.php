@@ -3,7 +3,7 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Asset;
-use App\Models\AssetCoverage;
+use App\Models\Coverage;
 use App\Models\AssetWarranty;
 use App\Models\Customer;
 use App\Models\Document;
@@ -589,7 +589,7 @@ class AssetTest extends TestCase {
                                 'object_type' => (new Asset())->getMorphClass(),
                             ]);
                             // Coverages belongs to
-                            $coverage = AssetCoverage::factory()->create([
+                            $coverage = Coverage::factory()->create([
                                 'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
                                 'name' => 'COVERED_ON_CONTRACT',
                             ]);

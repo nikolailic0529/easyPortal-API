@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Resolvers;
 
-use App\Models\AssetCoverage;
+use App\Models\Coverage;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -10,9 +10,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Resolvers\AssetCoverageResolver
+ * @coversDefaultClass \App\Services\DataLoader\Resolvers\CoverageResolver
  */
-class AssetCoverageResolverTest extends TestCase {
+class CoverageResolverTest extends TestCase {
     use WithQueryLog;
 
     /**
@@ -20,16 +20,16 @@ class AssetCoverageResolverTest extends TestCase {
      */
     public function testGet(): void {
         // Prepare
-        $factory = static function (): AssetCoverage {
-            return AssetCoverage::factory()->make();
+        $factory = static function (): Coverage {
+            return Coverage::factory()->make();
         };
 
-        AssetCoverage::factory()->create(['key' => 'a']);
-        AssetCoverage::factory()->create(['key' => 'b']);
-        AssetCoverage::factory()->create(['key' => 'c']);
+        Coverage::factory()->create(['key' => 'a']);
+        Coverage::factory()->create(['key' => 'b']);
+        Coverage::factory()->create(['key' => 'c']);
 
         // Run
-        $provider = $this->app->make(AssetCoverageResolver::class);
+        $provider = $this->app->make(CoverageResolver::class);
         $actual   = $provider->get('a', $factory);
 
         $this->flushQueryLog();
@@ -52,8 +52,8 @@ class AssetCoverageResolverTest extends TestCase {
         $this->assertCount(0, $this->getQueryLog());
 
         // If value not found the new object should be created
-        $spy     = Mockery::spy(static function (): AssetCoverage {
-            return AssetCoverage::factory()->make([
+        $spy     = Mockery::spy(static function (): Coverage {
+            return Coverage::factory()->make([
                 'key'  => 'UN',
                 'name' => 'unknown name',
             ]);
@@ -74,7 +74,7 @@ class AssetCoverageResolverTest extends TestCase {
         $this->assertCount(0, $this->getQueryLog());
 
         // Created object should be found
-        $c = AssetCoverage::factory()->create();
+        $c = Coverage::factory()->create();
 
         $this->flushQueryLog();
         $this->assertEquals($c->getKey(), $provider->get($c->getKey())?->getKey());

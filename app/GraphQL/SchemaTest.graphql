@@ -233,23 +233,13 @@ type Asset {
   contacts: [Contact!]!
   contacts_count: Int!
   coverage_id: ID
-  coverage: AssetCoverage
+  coverage: Coverage
   tags: [Tag!]!
   data_quality: String
 }
 
-type AssetCoverage {
-  id: ID!
-  key: String!
-  name: String!
-}
-
 input AssetCoveragesQuery {
   assets: AssetsQuery
-}
-
-input AssetCoveragesSort {
-  name: String!
 }
 
 """A paginated list of Asset items."""
@@ -325,7 +315,7 @@ input AssetsSort {
   location: LocationsSort!
   customer: CustomersSort!
   status: StatusSort!
-  coverage: AssetCoveragesSort!
+  coverage: CoveragesSort!
 }
 
 input AuthorizeOrganizationInput {
@@ -422,6 +412,16 @@ type Country {
   id: ID!
   name: String!
   code: String!
+}
+
+type Coverage {
+  id: ID!
+  key: String!
+  name: String!
+}
+
+input CoveragesSort {
+  name: String!
 }
 
 input CreateMeSearchInput {
@@ -1405,7 +1405,7 @@ type Query {
   
   @require <me> User must be authenticated.
   """
-  assetCoverages(where: SearchByConditionAssetCoveragesQuery): [AssetCoverage!]!
+  assetCoverages(where: SearchByConditionAssetCoveragesQuery): [Coverage!]!
 
   """
   List of all possible tags.
@@ -3192,14 +3192,6 @@ input SortByClauseApplicationLogsSort {
 }
 
 """
-Sort clause for input AssetCoveragesSort (only one property allowed at a time).
-"""
-input SortByClauseAssetCoveragesSort {
-  """Property clause."""
-  name: SortByDirection
-}
-
-"""
 Sort clause for input AssetsSort (only one property allowed at a time).
 """
 input SortByClauseAssetsSort {
@@ -3222,7 +3214,7 @@ input SortByClauseAssetsSort {
   status: SortByClauseStatusSort
 
   """Property clause."""
-  coverage: SortByClauseAssetCoveragesSort
+  coverage: SortByClauseCoveragesSort
 }
 
 """
@@ -3249,6 +3241,14 @@ input SortByClauseCountriesSort {
   """Property clause."""
   code: SortByDirection
 
+  """Property clause."""
+  name: SortByDirection
+}
+
+"""
+Sort clause for input CoveragesSort (only one property allowed at a time).
+"""
+input SortByClauseCoveragesSort {
   """Property clause."""
   name: SortByDirection
 }

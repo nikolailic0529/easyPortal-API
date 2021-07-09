@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Exceptions\GraphQLHandler;
 use App\Models\Asset;
-use App\Models\AssetCoverage;
 use App\Models\AssetTag;
 use App\Models\AssetWarranty;
 use App\Models\AssetWarrantyService;
@@ -12,6 +11,7 @@ use App\Models\City;
 use App\Models\Contact;
 use App\Models\ContactType;
 use App\Models\Country;
+use App\Models\Coverage;
 use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\Distributor;
@@ -83,7 +83,7 @@ class AppServiceProvider extends ServiceProvider {
     protected function bootMorphMap(): void {
         Relation::morphMap([
             'asset'                  => Asset::class,
-            'asset-coverage'         => AssetCoverage::class,
+            'coverage'               => Coverage::class,
             'asset-tag'              => AssetTag::class,
             'asset-warranty'         => AssetWarranty::class,
             'asset-warranty-service' => AssetWarrantyService::class,

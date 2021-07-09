@@ -87,7 +87,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         protected ContactFactory $contactFactory,
         protected ContactResolver $contactResolver,
         protected StatusResolver $statuses,
-        protected AssetCoverageFactory $coverages,
+        protected CoverageFactory $coverages,
         protected TagResolver $tags,
         protected DocumentResolver $documentResolver,
         protected ?ResellerFinder $resellerFinder = null,

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * AssetCoverage.
+ * Coverage.
  *
  * @property string                                                           $id
  * @property string                                                           $key
@@ -17,13 +17,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Carbon\CarbonImmutable                                          $updated_at
  * @property \Carbon\CarbonImmutable|null                                     $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset> $assets
- * @method static \Database\Factories\AssetCoverageFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetCoverage newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetCoverage newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\AssetCoverage query()
+ * @method static \Database\Factories\CoverageFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Coverage newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Coverage newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Coverage query()
  * @mixin \Eloquent
  */
-class AssetCoverage extends Model implements Translatable {
+class Coverage extends Model implements Translatable {
     use HasFactory;
     use TranslateProperties;
 
@@ -32,7 +32,7 @@ class AssetCoverage extends Model implements Translatable {
      *
      * @var string
      */
-    protected $table = 'asset_coverages';
+    protected $table = 'coverages';
 
     /**
      * @inheritdoc
