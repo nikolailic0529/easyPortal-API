@@ -10,6 +10,7 @@ use App\GraphQL\Mutations\Auth\SignUpByInviteUnInvitedUser;
 use App\GraphQL\Mutations\Org\InviteOrgUserAlreadyUsedInvitation;
 use App\GraphQL\Mutations\Org\InviteOrgUserInvalidRole;
 use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser;
+use App\GraphQL\Mutations\OrganizationUserInvalidUser;
 use App\GraphQL\Mutations\UpdateMeEmailUserAlreadyExists;
 use App\GraphQL\Mutations\UpdateMePasswordInvalidCurrentPassword;
 use App\Http\Controllers\ExportGraphQLQueryEmpty;
@@ -25,6 +26,7 @@ use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakClient;
 use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakGroup;
 use App\Services\KeyCloak\Client\Exceptions\KeyCloakDisabled;
 use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists as KeyCloakUserAlreadyExists;
+use App\Services\KeyCloak\Client\Exceptions\UserDoesntExists as KeyCloakUserDoesntExists;
 use App\Services\KeyCloak\Exceptions\AnotherUserExists as KeyCloakAnotherUserExists;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailed as KeyCloakAuthorizationFailed;
 use App\Services\KeyCloak\Exceptions\InsufficientData as KeyCloakInsufficientData;
@@ -77,6 +79,8 @@ class ErrorCodes {
         UpdateMePasswordInvalidCurrentPassword::class => 'ERR33',
         ResetOrgUserPasswordInvalidUser::class        => 'ERR34',
         UpdateMeEmailUserAlreadyExists::class         => 'ERR35',
+        KeyCloakUserDoesntExists::class               => 'ERR36',
+        OrganizationUserInvalidUser::class            => 'ERR37',
     ];
 
     public static function getCode(Throwable $throwable): string|int {

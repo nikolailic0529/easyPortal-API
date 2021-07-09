@@ -9,6 +9,7 @@ use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakClient;
 use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakGroup;
 use App\Services\KeyCloak\Client\Exceptions\KeyCloakDisabled;
 use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists;
+use App\Services\KeyCloak\Client\Exceptions\UserDoesntExists;
 use App\Services\KeyCloak\Client\Types\Credential;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role;
@@ -257,8 +258,15 @@ class Client {
      */
     public function getUserGroups(string $id): array {
         // GET /{realm}/users/{id}/groups
-        $endpoint = "users/{$id}/groups";
-        $groups   = $this->call($endpoint, 'GET');
+        $endpoint     = "users/{$id}/groups";
+        $errorHandler = static function (Exception $exception): void {
+            if ($exception instanceof RequestException) {
+                if ($exception->getCode() === Response::HTTP_NOT_FOUND) {
+                    throw new UserDoesntExists();
+                }
+            }
+        };
+        $groups       = $this->call($endpoint, 'GET', [], $errorHandler);
         return array_map(static function ($group) {
             return new Group($group);
         }, $groups);
