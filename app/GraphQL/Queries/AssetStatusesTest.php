@@ -62,16 +62,16 @@ class AssetStatusesTest extends TestCase {
                 'ok' => [
                     new GraphQLSuccess('assetStatuses', AssetStatuses::class, [
                         [
-                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                            'name' => 'No translation',
-                        ],
-                        [
                             'id'   => '6f19ef5f-5963-437e-a798-29296db08d59',
                             'name' => 'Translated (locale)',
                         ],
                         [
                             'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                             'name' => 'Translated (fallback)',
+                        ],
+                        [
+                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                            'name' => 'No translation',
                         ],
                     ]),
                     static function (TestCase $test, string $locale): array {

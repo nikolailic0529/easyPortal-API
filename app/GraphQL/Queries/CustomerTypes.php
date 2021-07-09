@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class CustomerTypes {
     public function __invoke(): Builder {
-        return Type::query()->where('object_type', '=', (new Customer())->getMorphClass());
+        return Type::query()
+            ->where('object_type', '=', (new Customer())->getMorphClass())
+            ->orderByKey();
     }
 }

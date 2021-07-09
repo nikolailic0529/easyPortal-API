@@ -198,8 +198,8 @@ class MapTest extends TestCase {
                     'ok' => [
                         new GraphQLSuccess('map', self::class, [
                             [
-                                'latitude'  => 1.033333333333,
-                                'longitude' => 1.033333333333,
+                                'latitude'  => 1.03333333,
+                                'longitude' => 1.03333333,
                                 'customers' => 1,
                                 'assets'    => 3,
                             ],

@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ContactTypes {
     public function __invoke(): Builder {
-        return Type::query()->where('object_type', '=', (new Contact())->getMorphClass());
+        return Type::query()
+            ->where('object_type', '=', (new Contact())->getMorphClass())
+            ->orderByKey();
     }
 }
