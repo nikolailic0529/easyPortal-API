@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `asset_coverages` (
     INDEX `fk_asset_coverages_coverages1_idx`(`coverage_id` ASC) VISIBLE,
     INDEX `fk_asset_coverages_assets1_idx`(`asset_id` ASC) INVISIBLE,
     INDEX `idx__deleted_at`(`deleted_at` ASC) INVISIBLE,
-    UNIQUE INDEX `unique__asset_id__coverage_id__deleted_not`(`coverage_id` ASC, `deleted_not` ASC) VISIBLE,
+    UNIQUE INDEX `unique__asset_id__coverage_id__deleted_not`(`asset_id` ASC, `coverage_id` ASC, `deleted_not` ASC) VISIBLE,
     CONSTRAINT `fk_asset_coverages_assets1`
         FOREIGN KEY (`asset_id`)
             REFERENCES `assets`(`id`)

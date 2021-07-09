@@ -18,7 +18,8 @@
     "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
     "status": "Active",
     "assetCoverage": [
-        "EXPOSED"
+        "EXPOSED",
+        "COVERED_ON_CONTRACT"
     ],
     "assetTag": "Hardware",
     "dataQualityScore": "130",
