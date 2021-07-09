@@ -21,9 +21,11 @@ use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
+use App\Services\DataLoader\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Resolvers\TagResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
@@ -136,18 +138,21 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->assetType, $created->type->key);
         $this->assertEquals($asset->status, $created->status->key);
         $this->assertEquals($asset->customerId, $created->customer->getKey());
-        $this->assertEquals($asset->assetCoverage, $created->coverage->key);
         $this->assertEquals(
             $this->getAssetLocation($asset),
             $this->getLocation($created->location, false),
         );
         $this->assertEquals(
-            $this->getModelContacts($created),
             $this->getContacts($asset),
+            $this->getModelContacts($created),
         );
         $this->assertEquals(
+            $this->getAssetTags($asset),
             $this->getModelTags($created),
-            $this->getTags($asset),
+        );
+        $this->assertEquals(
+            $this->getAssetCoverages($asset),
+            $this->getModelCoverages($created),
         );
 
         // Documents
@@ -234,18 +239,21 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->eolDate, $this->getDatetime($updated->product->eol));
         $this->assertEquals($asset->assetType, $updated->type->key);
         $this->assertEquals($asset->customerId, $updated->customer->getKey());
-        $this->assertEquals($asset->assetCoverage, $updated->coverage->key);
         $this->assertEquals(
             $this->getAssetLocation($asset),
             $this->getLocation($updated->location, false),
         );
         $this->assertEquals(
-            $this->getModelContacts($updated),
             $this->getContacts($asset),
+            $this->getModelContacts($updated),
         );
         $this->assertEquals(
+            $this->getAssetTags($asset),
             $this->getModelTags($updated),
-            $this->getTags($asset),
+        );
+        $this->assertEquals(
+            $this->getAssetCoverages($asset),
+            $this->getModelCoverages($updated),
         );
 
         // Documents
@@ -279,12 +287,15 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->eosDate, (string) $created->product->eos);
         $this->assertEquals($asset->eolDate, (string) $created->product->eol);
         $this->assertEquals($asset->assetType, $created->type->key);
-        $this->assertEquals($asset->assetCoverage, $created->coverage->key);
         $this->assertNull($created->customer_id);
         $this->assertNull($created->location_id);
         $this->assertEquals(
             $this->getModelContacts($created),
             $this->getContacts($asset),
+        );
+        $this->assertEquals(
+            $this->getAssetCoverages($asset),
+            $this->getModelCoverages($created),
         );
     }
 
@@ -389,10 +400,13 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->eolDate, $this->getDatetime($created->product->eol));
         $this->assertEquals($asset->assetType, $created->type->key);
         $this->assertEquals($asset->customerId, $created->customer->getKey());
-        $this->assertEquals($asset->assetCoverage, $created->coverage->key);
         $this->assertEquals(
             $this->getAssetLocation($asset),
             $this->getLocation($created->location, false),
+        );
+        $this->assertEquals(
+            $this->getAssetCoverages($asset),
+            $this->getModelCoverages($created),
         );
     }
 
@@ -1658,10 +1672,12 @@ class AssetFactoryTest extends TestCase {
     public function testAssetTags(): void {
         $factory = new class(
             $this->app->make(Normalizer::class),
+            $this->app->make(TagResolver::class),
         ) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
+                protected TagResolver $tags,
             ) {
                 // empty
             }
@@ -1673,15 +1689,74 @@ class AssetFactoryTest extends TestCase {
                 return parent::assetTags($asset);
             }
         };
-        // Null tag
-        $asset = new ViewAsset(['assetTag' => null]);
-        $factory->assetTags($asset);
-        $this->assertEmpty($factory->assetTags($asset));
 
-        // Normalized empty
-        $asset = new ViewAsset(['assetTag' => ' ']);
-        $factory->assetTags($asset);
-        $this->assertEmpty($factory->assetTags($asset));
+        // Null tag
+        $this->assertEmpty($factory->assetTags(new ViewAsset(['assetTag' => null])));
+
+        // Empty
+        $this->assertEmpty($factory->assetTags(new ViewAsset(['assetTag' => ' '])));
+
+        // Not empty
+        $asset    = new ViewAsset(['assetTag' => 'tag']);
+        $tags     = $factory->assetTags($asset);
+        $expected = [
+            'tag' => [
+                'name' => 'tag',
+            ],
+        ];
+
+        $this->assertCount(1, $tags);
+        $this->assertEquals($expected, $this->getAssetTags($asset));
+    }
+
+    /**
+     * @covers ::assetCoverages
+     */
+    public function testAssetCoverages(): void {
+        $factory = new class(
+            $this->app->make(Normalizer::class),
+            $this->app->make(CoverageResolver::class),
+        ) extends AssetFactory {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected CoverageResolver $coverages,
+            ) {
+                // empty
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function assetCoverages(ViewAsset $asset): array {
+                return parent::assetCoverages($asset);
+            }
+        };
+
+        // Null
+        $this->assertEmpty($factory->assetCoverages(new ViewAsset(['assetCoverage' => null])));
+
+        // Empty
+        $this->assertEmpty($factory->assetCoverages(new ViewAsset(['assetCoverage' => ['', null]])));
+
+        // Not empty
+        $asset     = new ViewAsset([
+            'assetCoverage' => ['a', 'a', 'b'],
+        ]);
+        $coverages = $factory->assetCoverages($asset);
+        $expected  = [
+            'a' => [
+                'key'  => 'a',
+                'name' => 'a',
+            ],
+            'b' => [
+                'key'  => 'b',
+                'name' => 'b',
+            ],
+        ];
+
+        $this->assertCount(2, $coverages);
+        $this->assertEquals($expected, $this->getAssetCoverages($asset));
     }
     // </editor-fold>
 

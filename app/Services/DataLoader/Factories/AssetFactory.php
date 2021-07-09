@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\Asset as AssetModel;
 use App\Models\AssetWarranty;
+use App\Models\Coverage;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Document as DocumentModel;
@@ -18,6 +19,7 @@ use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\LocationNotFoundException;
 use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
+use App\Services\DataLoader\Factories\Concerns\WithCoverage;
 use App\Services\DataLoader\Factories\Concerns\WithCustomer;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
@@ -31,6 +33,7 @@ use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\ContactResolver;
+use App\Services\DataLoader\Resolvers\CoverageResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
@@ -70,6 +73,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     use WithStatus;
     use WithContacts;
     use WithTag;
+    use WithCoverage;
 
     protected ?DocumentFactory $documentFactory = null;
 
@@ -87,7 +91,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         protected ContactFactory $contactFactory,
         protected ContactResolver $contactResolver,
         protected StatusResolver $statuses,
-        protected CoverageFactory $coverages,
+        protected CoverageResolver $coverages,
         protected TagResolver $tags,
         protected DocumentResolver $documentResolver,
         protected ?ResellerFinder $resellerFinder = null,
@@ -134,6 +138,10 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         $this->documentFactory = $factory;
 
         return $this;
+    }
+
+    public function getCoverageResolver(): CoverageResolver {
+        return $this->coverages;
     }
     // </editor-fold>
 
@@ -220,7 +228,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $model->data_quality  = $this->normalizer->string($asset->dataQualityScore);
             $model->contacts      = $this->objectContacts($model, $asset->latestContactPersons);
             $model->tags          = $this->assetTags($asset);
-            $model->coverage      = $this->coverages->create($asset);
+            $model->coverages     = $this->assetCoverages($asset);
 
             if ($this->getDocumentFactory() && isset($asset->assetDocument)) {
                 // Prefetch documents
@@ -643,5 +651,19 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         return [];
     }
 
+    /**
+     * @return array<\App\Models\Coverage>
+     */
+    protected function assetCoverages(ViewAsset $asset): array {
+        return (new Collection($asset->assetCoverage ?? []))
+            ->filter(function (?string $coverage): bool {
+                return (bool) $this->getNormalizer()->string($coverage);
+            })
+            ->map(function (string $coverage): Coverage {
+                return $this->coverage($coverage);
+            })
+            ->unique()
+            ->all();
+    }
     // </editor-fold>
 }

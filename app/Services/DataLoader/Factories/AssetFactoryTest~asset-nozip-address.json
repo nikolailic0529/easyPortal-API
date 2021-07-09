@@ -17,7 +17,10 @@
     "address2": "",
     "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
     "status": "Active",
-    "assetCoverage": "COVERED_ON_CONTRACT",
+    "assetCoverage": [
+        "COVERED",
+        "COVERED_ON_CONTRACT"
+    ],
     "assetTag": "Software",
     "dataQualityScore": "120",
     "latestContactPersons": [

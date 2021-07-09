@@ -8,7 +8,10 @@
     "eolDate": "",
     "eosDate": "",
     "status": "Active",
-    "assetCoverage": "COVERED_ON_CONTRACT",
+    "assetCoverage": [
+        "COVERED",
+        "COVERED_ON_CONTRACT"
+    ],
     "assetTag": "Software",
     "dataQualityScore": "120",
     "latestContactPersons": [
