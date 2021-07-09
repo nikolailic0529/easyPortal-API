@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class LocationTypes {
     public function __invoke(): Builder {
-        return Type::query()->where('object_type', '=', (new Location())->getMorphClass());
+        return Type::query()
+            ->where('object_type', '=', (new Location())->getMorphClass())
+            ->orderByKey();
     }
 }

@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 class AssetStatuses {
     public function __invoke(): Builder {
-        return Status::query()->where('object_type', '=', (new Asset())->getMorphClass());
+        return Status::query()
+            ->where('object_type', '=', (new Asset())->getMorphClass())
+            ->orderByKey();
     }
 }

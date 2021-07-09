@@ -15,7 +15,7 @@ class ContractTypes {
     }
 
     public function __invoke(): Builder {
-        $builder = Type::query()->where('object_type', '=', (new Document())->getMorphClass());
+        $builder = Type::query()->where('object_type', '=', (new Document())->getMorphClass())->orderByKey();
         $builder = $this->prepare($builder, (new Type())->getKeyName());
 
         return $builder;

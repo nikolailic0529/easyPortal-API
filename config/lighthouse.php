@@ -245,11 +245,7 @@ return [
 
     'field_middleware'        => [
         TrimDirective::class,
-        SanitizeDirective::class,
         ValidateDirective::class,
-        TransformArgsDirective::class,
-        SpreadDirective::class,
-        RenameArgsDirective::class,
     ],
 
     /*

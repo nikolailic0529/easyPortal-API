@@ -8,7 +8,6 @@ use App\Services\Queue\Progress;
 use App\Services\Queue\Progressable;
 use App\Services\Queue\Queue;
 use App\Services\Queue\State;
-use App\Services\Queue\Stoppable;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
@@ -168,7 +167,7 @@ class ServicesTest extends TestCase {
                                     'SERVICE_A_CRON',
                                 ],
                                 'description'  => 'Service description.',
-                                'stoppable'    => false,
+                                'stoppable'    => true,
                                 'progressable' => false,
                                 'state'        => null,
                                 'progress'     => null,
@@ -286,7 +285,7 @@ class ServicesTest_ServiceA extends CronJob {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class ServicesTest_ServiceB extends CronJob implements Progressable, Stoppable {
+class ServicesTest_ServiceB extends CronJob implements Progressable {
     public function displayName(): string {
         return 'service-b';
     }
@@ -305,6 +304,12 @@ class ServicesTest_ServiceB extends CronJob implements Progressable, Stoppable {
     public function getProgressCallback(): callable {
         return static function (): Progress {
             return new Progress(100, 25);
+        };
+    }
+
+    public function getResetProgressCallback(): callable {
+        return static function (): void {
+            // empty
         };
     }
 }
