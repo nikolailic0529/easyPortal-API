@@ -55,6 +55,11 @@ class SchemaTest extends TestCase {
         return [
             ['@guard', '@me'],
             ['@orderBy', '@sortBy'],
+            ['@spread', null],
+            ['@hash', null],
+            ['@globalId', null],
+            ['@trim', null],
+            ['@rename', null],
         ];
     }
     //</editor-fold>
