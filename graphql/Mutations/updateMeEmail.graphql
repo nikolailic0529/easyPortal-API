@@ -1,0 +1,15 @@
+extend type Mutation {
+  updateMeEmail(
+    input: UpdateMeEmailInput!
+  ): UpdateMeEmailPayload
+  @me
+  @organization
+}
+
+input UpdateMeEmailInput {
+  email: String! @rules(apply: ["email", "App\\Rules\\UniqueUserEmail"])
+}
+
+type UpdateMeEmailPayload {
+  result: Boolean!
+}
