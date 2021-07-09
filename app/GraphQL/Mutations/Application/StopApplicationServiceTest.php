@@ -4,7 +4,6 @@ namespace App\GraphQL\Mutations\Application;
 
 use App\Services\Queue\CronJob;
 use App\Services\Queue\Exceptions\ServiceNotFound;
-use App\Services\Queue\Stoppable;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Settings;
 use App\Services\Settings\Storage;
@@ -87,21 +86,13 @@ class StopApplicationServiceTest extends TestCase {
             new RootOrganizationDataProvider('stopApplicationService'),
             new RootUserDataProvider('stopApplicationService'),
             new ArrayDataProvider([
-                'no service'  => [
+                'no service' => [
                     new GraphQLError('stopApplicationService', new ServiceNotFound('unknown-service')),
                     [
                         'name' => 'unknown-service',
                     ],
                 ],
-                'unstoppable' => [
-                    new GraphQLSuccess('stopApplicationService', StopApplicationService::class, [
-                        'result' => false,
-                    ]),
-                    [
-                        'name' => 'service-b',
-                    ],
-                ],
-                'ok'          => [
+                'ok'         => [
                     new GraphQLSuccess('stopApplicationService', StopApplicationService::class, [
                         'result' => true,
                     ]),
@@ -124,7 +115,7 @@ class StopApplicationServiceTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class StopApplicationServiceTest_ServiceA extends CronJob implements Stoppable {
+class StopApplicationServiceTest_ServiceA extends CronJob {
     public function displayName(): string {
         return 'service-a';
     }
