@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations;
 use App\Models\Enums\UserType;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
+use App\Services\KeyCloak\Client\Exceptions\UserDoesntExists;
 use App\Services\KeyCloak\Client\Types\Group;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -88,7 +89,7 @@ class EnableOrganizationUserTest extends TestCase {
                 'org-administer',
             ]),
             new ArrayDataProvider([
-                'ok'           => [
+                'ok'             => [
                     new GraphQLSuccess('enableOrganizationUser', EnableOrganizationUser::class, [
                         'result' => true,
                     ]),
@@ -115,8 +116,8 @@ class EnableOrganizationUserTest extends TestCase {
                             ->andReturn(true);
                     },
                 ],
-                'invalid user' => [
-                    new GraphQLError('enableOrganizationUser', new OrganizationUserInvalidUser()),
+                'invalid user'   => [
+                    new GraphQLError('enableOrganizationUser', new EnableOrganizationUserInvalidUser()),
                     static function (): string {
                         $user = User::factory()->create([
                             'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02399',
@@ -134,6 +135,23 @@ class EnableOrganizationUserTest extends TestCase {
                                     'id' => 'd8ec7dcf-c542-42b5-8d7d-971400c02377',
                                 ]),
                             ]);
+                    },
+                ],
+                'user not found' => [
+                    new GraphQLError('enableOrganizationUser', new UserDoesntExists()),
+                    static function (): string {
+                        $user = User::factory()->create([
+                            'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02399',
+                            'type' => UserType::keycloak(),
+                        ]);
+                        return $user->getKey();
+                    },
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getUserGroups')
+                            ->with('d8ec7dcf-c542-42b5-8d7d-971400c02399')
+                            ->once()
+                            ->andThrow(new UserDoesntExists());
                     },
                 ],
             ]),

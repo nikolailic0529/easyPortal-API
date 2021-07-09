@@ -22,7 +22,7 @@ class DisableOrganizationUser {
      */
     public function __invoke($_, array $args): array {
         if (!$this->enableOrganizationUser->checkUserInCurrentOrganization($args['input']['id'])) {
-            throw new OrganizationUserInvalidUser();
+            throw new DisableOrganizationUserInvalidUser();
         }
 
         $user   = new User(['enabled' => false]);

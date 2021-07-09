@@ -7,10 +7,11 @@ use App\GraphQL\Mutations\Auth\SignUpByInviteAlreadyUsed;
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvalidToken;
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvalidUser;
 use App\GraphQL\Mutations\Auth\SignUpByInviteUnInvitedUser;
+use App\GraphQL\Mutations\DisableOrganizationUserInvalidUser;
+use App\GraphQL\Mutations\EnableOrganizationUserInvalidUser;
 use App\GraphQL\Mutations\Org\InviteOrgUserAlreadyUsedInvitation;
 use App\GraphQL\Mutations\Org\InviteOrgUserInvalidRole;
 use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser;
-use App\GraphQL\Mutations\OrganizationUserInvalidUser;
 use App\GraphQL\Mutations\UpdateMeEmailUserAlreadyExists;
 use App\GraphQL\Mutations\UpdateMePasswordInvalidCurrentPassword;
 use App\Http\Controllers\ExportGraphQLQueryEmpty;
@@ -80,7 +81,8 @@ class ErrorCodes {
         ResetOrgUserPasswordInvalidUser::class        => 'ERR34',
         UpdateMeEmailUserAlreadyExists::class         => 'ERR35',
         KeyCloakUserDoesntExists::class               => 'ERR36',
-        OrganizationUserInvalidUser::class            => 'ERR37',
+        EnableOrganizationUserInvalidUser::class      => 'ERR37',
+        DisableOrganizationUserInvalidUser::class     => 'ERR38',
     ];
 
     public static function getCode(Throwable $throwable): string|int {

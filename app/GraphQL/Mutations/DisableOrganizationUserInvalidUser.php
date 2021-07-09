@@ -9,7 +9,7 @@ use Throwable;
 
 use function __;
 
-class OrganizationUserInvalidUser extends Exception implements TranslatedException {
+class DisableOrganizationUserInvalidUser extends Exception implements TranslatedException {
     use HasErrorCode;
 
     public function __construct(Throwable $previous = null) {
@@ -17,6 +17,6 @@ class OrganizationUserInvalidUser extends Exception implements TranslatedExcepti
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.enable_disable_organizationUser.invalid_user');
+        return __('graphql.mutations.disableOrganizationUser.invalid_user');
     }
 }
