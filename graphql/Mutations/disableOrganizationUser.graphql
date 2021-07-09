@@ -1,0 +1,15 @@
+extend type Mutation {
+  disableOrganizationUser(
+    input: DisableOrganizationUserInput!
+  ): DisableOrganizationUserPayload
+  @me(permissions: ["org-administer"])
+  @organization
+}
+
+input DisableOrganizationUserInput {
+  id: String!
+}
+
+type DisableOrganizationUserPayload {
+  result: Boolean!
+}

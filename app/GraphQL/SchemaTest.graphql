@@ -605,6 +605,14 @@ type DeleteOrgRolePayload {
   deleted: Boolean!
 }
 
+input DisableOrganizationUserInput {
+  id: String!
+}
+
+type DisableOrganizationUserPayload {
+  result: Boolean!
+}
+
 input DispatchApplicationServiceInput {
   """Name of the service."""
   name: String!
@@ -724,6 +732,14 @@ input DocumentsSort {
   start: Date!
   end: Date!
   price: Float
+}
+
+input EnableOrganizationUserInput {
+  id: String!
+}
+
+type EnableOrganizationUserPayload {
+  result: Boolean!
 }
 
 input InviteOrgUserInput {
@@ -855,6 +871,20 @@ type Mutation {
 
   """@require <me> User must be authenticated."""
   deleteMeSearch(input: DeleteMeSearchInput!): DeleteMeSearchPayload
+
+  """
+  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  """
+  disableOrganizationUser(input: DisableOrganizationUserInput!): DisableOrganizationUserPayload
+
+  """
+  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  """
+  enableOrganizationUser(input: EnableOrganizationUserInput!): EnableOrganizationUserPayload
 
   """
   Force delete all custom settings, may be useful to restore the corrupted file.
