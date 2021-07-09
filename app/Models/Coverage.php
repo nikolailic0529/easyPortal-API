@@ -5,7 +5,7 @@ namespace App\Models;
 use App\GraphQL\Contracts\Translatable;
 use App\Models\Concerns\TranslateProperties;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Coverage.
@@ -50,7 +50,13 @@ class Coverage extends Model implements Translatable {
         ];
     }
 
-    public function assets(): HasMany {
-        return $this->hasMany(Asset::class, 'coverage_id');
+    public function assets(): BelongsToMany {
+        $pivot = new AssetCoverage();
+
+        return $this
+            ->belongsToMany(Asset::class, $pivot->getTable())
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
     }
 }

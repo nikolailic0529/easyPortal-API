@@ -3,7 +3,6 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Asset;
-use App\Models\Coverage;
 use App\Models\AssetWarranty;
 use App\Models\Currency;
 use App\Models\Customer;
@@ -278,8 +277,7 @@ class CustomerTest extends TestCase {
                                     id
                                     name
                                 }
-                                coverage_id
-                                coverage {
+                                coverages {
                                     id
                                     name
                                 }
@@ -711,7 +709,6 @@ class CustomerTest extends TestCase {
                                         'location_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
                                         'type_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
                                         'customer_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                        'coverage_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
                                         'serial_number'  => '#PRODUCT_SERIAL_323',
                                         'data_quality'   => '130',
                                         'contacts_count' => 1,
@@ -864,9 +861,11 @@ class CustomerTest extends TestCase {
                                             'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
                                             'name' => 'active',
                                         ],
-                                        'coverage'       => [
-                                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
-                                            'name' => 'COVERED_ON_CONTRACT',
+                                        'coverages'      => [
+                                            [
+                                                'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
+                                                'name' => 'COVERED_ON_CONTRACT',
+                                            ],
                                         ],
                                         'tags'           => [
                                             [
@@ -992,11 +991,6 @@ class CustomerTest extends TestCase {
                                     'type_id'    => $documentType,
                                     'support_id' => $product2,
                                 ]);
-                            // Coverages belongs to
-                            $coverage = Coverage::factory()->create([
-                                'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
-                                'name' => 'COVERED_ON_CONTRACT',
-                            ]);
                             // Asset creation
                             $asset = Asset::factory()
                                 ->for($oem)
@@ -1007,7 +1001,6 @@ class CustomerTest extends TestCase {
                                 ->for($location)
                                 ->for($reseller)
                                 ->for($status)
-                                ->for($coverage, 'coverage')
                                 ->hasTags(1, [
                                     'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20950',
                                     'name' => 'Software',
@@ -1016,6 +1009,10 @@ class CustomerTest extends TestCase {
                                     'name'        => 'contact2',
                                     'email'       => 'contact2@test.com',
                                     'phone_valid' => false,
+                                ])
+                                ->hasCoverages(1, [
+                                    'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20948',
+                                    'name' => 'COVERED_ON_CONTRACT',
                                 ])
                                 ->create([
                                     'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',

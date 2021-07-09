@@ -14,4 +14,5 @@ input AssetsQuery {
   product: ProductsQuery
   warranties: AssetWarrantiesQuery
   tags: TagsQuery
+  coverages: CoveragesQuery
 }

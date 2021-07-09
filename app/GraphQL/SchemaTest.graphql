@@ -232,8 +232,7 @@ type Asset {
   status: Status
   contacts: [Contact!]!
   contacts_count: Int!
-  coverage_id: ID
-  coverage: Coverage
+  coverages: [Coverage!]
   tags: [Tag!]!
   data_quality: String
 }
@@ -306,6 +305,7 @@ input AssetsQuery {
   product: ProductsQuery
   warranties: AssetWarrantiesQuery
   tags: TagsQuery
+  coverages: CoveragesQuery
 }
 
 input AssetsSort {
@@ -315,7 +315,6 @@ input AssetsSort {
   location: LocationsSort!
   customer: CustomersSort!
   status: StatusSort!
-  coverage: CoveragesSort!
 }
 
 input AuthorizeOrganizationInput {
@@ -420,8 +419,8 @@ type Coverage {
   name: String!
 }
 
-input CoveragesSort {
-  name: String!
+input CoveragesQuery {
+  id: ID!
 }
 
 input CreateMeSearchInput {
@@ -1853,6 +1852,9 @@ input SearchByConditionAssetsQuery {
 
   """Property condition."""
   tags: SearchByRelationTagsQuery
+
+  """Property condition."""
+  coverages: SearchByRelationCoveragesQuery
 }
 
 """
@@ -1986,6 +1988,23 @@ input SearchByConditionCountriesQuery {
 
   """Property condition."""
   customers: SearchByRelationCustomersQuery
+}
+
+"""
+Available conditions for input CoveragesQuery (only one property allowed at a time).
+"""
+input SearchByConditionCoveragesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionCoveragesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionCoveragesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
 }
 
 """
@@ -2626,6 +2645,30 @@ input SearchByRelationCountriesQuery {
   not: SearchByFlag
 }
 
+"""Relation condition for input CoveragesQuery."""
+input SearchByRelationCoveragesQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionCoveragesQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
 """Relation condition for input CustomersQuery."""
 input SearchByRelationCustomersQuery {
   """Conditions for the related objects."""
@@ -3212,9 +3255,6 @@ input SortByClauseAssetsSort {
 
   """Property clause."""
   status: SortByClauseStatusSort
-
-  """Property clause."""
-  coverage: SortByClauseCoveragesSort
 }
 
 """
@@ -3241,14 +3281,6 @@ input SortByClauseCountriesSort {
   """Property clause."""
   code: SortByDirection
 
-  """Property clause."""
-  name: SortByDirection
-}
-
-"""
-Sort clause for input CoveragesSort (only one property allowed at a time).
-"""
-input SortByClauseCoveragesSort {
   """Property clause."""
   name: SortByDirection
 }
