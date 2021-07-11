@@ -13,12 +13,14 @@ use App\Models\Concerns\HasSupport;
 use App\Models\Concerns\HasType;
 use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use Illuminate\Auth\AuthManager;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 
+use function app;
 use function count;
 
 /**
@@ -135,5 +137,10 @@ class Document extends Model implements CascadeDeletable {
 
     public function setOemGroupAttribute(?OemGroup $group): void {
         $this->oemGroup()->associate($group);
+    }
+    
+    public function notes(): HasMany {
+        $user = app()->make(AuthManager::class)->user();
+        return $this->hasMany(Note::class)->where('user_id', $user ? $user->getKey() : null);
     }
 }

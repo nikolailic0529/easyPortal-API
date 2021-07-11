@@ -27,4 +27,5 @@ type Document {
   distributor_id: ID
   distributor: Distributor @belongsTo
   assets_count: Int
+  notes: [Note!]! @hasMany
 }

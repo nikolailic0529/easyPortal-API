@@ -14,6 +14,7 @@ use App\Models\Organization;
 use App\Models\Product;
 use App\Models\Reseller;
 use App\Models\Type;
+use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -231,7 +232,8 @@ class QuotesTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderQuery(): array {
-        $factory = static function (TestCase $test, Organization $organization): void {
+        $factory = static function (TestCase $test, Organization $organization, User $user): void {
+            $user->save();
             // OEM Creation belongs to
             $oem      = Oem::factory()->create([
                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -342,6 +344,11 @@ class QuotesTest extends TestCase {
                     'list_price'    => 67.00,
                     'discount'      => -8,
                     'renewal'       => 24.20,
+                ])
+                ->hasNotes(1, [
+                    'id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
+                    'note'    => 'Note',
+                    'user_id' => $user->getKey(),
                 ])
                 ->create([
                     'id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',

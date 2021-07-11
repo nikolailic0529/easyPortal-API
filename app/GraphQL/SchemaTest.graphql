@@ -1119,6 +1119,11 @@ type Mutation {
   updateOrgRoles(input: [UpdateOrgRolesInput!]!): UpdateOrgRolesPayload
 }
 
+type Note {
+  id: ID!
+  note: String!
+}
+
 type Oem {
   id: ID!
   abbr: String!

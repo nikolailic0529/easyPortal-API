@@ -14,6 +14,7 @@ use App\Models\Organization;
 use App\Models\Product;
 use App\Models\Reseller;
 use App\Models\Type;
+use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -409,7 +410,8 @@ class QuoteTest extends TestCase {
                             ],
                             'assets_count'   => 1,
                         ]),
-                        static function (TestCase $test, Organization $organization): Document {
+                        static function (TestCase $test, Organization $organization, User $user): Document {
+                            $user->save();
                             // OEM Creation belongs to
                             $oem      = Oem::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -523,6 +525,11 @@ class QuoteTest extends TestCase {
                                     'name'        => 'contact2',
                                     'email'       => 'contact2@test.com',
                                     'phone_valid' => false,
+                                ])
+                                ->hasNotes(1, [
+                                    'id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
+                                    'note'    => 'Note',
+                                    'user_id' => $user->getKey(),
                                 ])
                                 ->create([
                                     'id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
