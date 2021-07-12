@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\Enums\UserType;
+use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Exceptions\UserDoesntExists;
@@ -35,6 +36,7 @@ class EnableOrganizationUserTest extends TestCase {
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
+        Closure $prepare = null,
         Closure $inputFactory = null,
         Closure $clientFactory = null,
     ): void {
@@ -42,22 +44,19 @@ class EnableOrganizationUserTest extends TestCase {
         $organization = $this->setOrganization($organizationFactory);
         $this->setUser($userFactory, $organization);
 
-        if ($organization) {
-            $organization->keycloak_group_id = 'd8ec7dcf-c542-42b5-8d7d-971400c02388';
-            $organization->save();
+        if ($prepare) {
+            $prepare($this, $organization);
         }
-        $id = '';
+
+        $input = ['id' => ''];
         if ($inputFactory) {
-            $id = $inputFactory($this);
+            $input = $inputFactory($this);
         }
 
         if ($clientFactory) {
             $this->override(Client::class, $clientFactory);
         }
 
-        $input = [
-            'id' => $id,
-        ];
         // Test
         $this
             ->graphQL(
@@ -83,6 +82,12 @@ class EnableOrganizationUserTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
+        $prepare = static function (TestCase $test, ?Organization $organization): void {
+            if ($organization) {
+                $organization->keycloak_group_id = 'd8ec7dcf-c542-42b5-8d7d-971400c02388';
+                $organization->save();
+            }
+        };
         return (new CompositeDataProvider(
             new OrganizationDataProvider('enableOrganizationUser'),
             new UserDataProvider('enableOrganizationUser', [
@@ -93,12 +98,13 @@ class EnableOrganizationUserTest extends TestCase {
                     new GraphQLSuccess('enableOrganizationUser', EnableOrganizationUser::class, [
                         'result' => true,
                     ]),
-                    static function (): string {
+                    $prepare,
+                    static function (): array {
                         $user = User::factory()->create([
                             'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02399',
                             'type' => UserType::keycloak(),
                         ]);
-                        return $user->getKey();
+                        return ['id' => $user->getKey()];
                     },
                     static function (MockInterface $mock): void {
                         $mock
@@ -118,12 +124,13 @@ class EnableOrganizationUserTest extends TestCase {
                 ],
                 'invalid user'   => [
                     new GraphQLError('enableOrganizationUser', new EnableOrganizationUserInvalidUser()),
-                    static function (): string {
+                    $prepare,
+                    static function (): array {
                         $user = User::factory()->create([
                             'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02399',
                             'type' => UserType::keycloak(),
                         ]);
-                        return $user->getKey();
+                        return ['id' => $user->getKey()];
                     },
                     static function (MockInterface $mock): void {
                         $mock
@@ -139,12 +146,13 @@ class EnableOrganizationUserTest extends TestCase {
                 ],
                 'user not found' => [
                     new GraphQLError('enableOrganizationUser', new UserDoesntExists()),
-                    static function (): string {
+                    $prepare,
+                    static function (): array {
                         $user = User::factory()->create([
                             'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02399',
                             'type' => UserType::keycloak(),
                         ]);
-                        return $user->getKey();
+                        return ['id' => $user->getKey()];
                     },
                     static function (MockInterface $mock): void {
                         $mock
