@@ -1,7 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Org;
 
+use App\GraphQL\Mutations\Org\DisableOrgUser;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
@@ -21,9 +22,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\DisableOrganizationUser
+ * @coversDefaultClass \App\GraphQL\Mutations\DisableOrgUser
  */
-class DisableOrganizationUserTest extends TestCase {
+class DisableOrgUserTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -62,8 +63,8 @@ class DisableOrganizationUserTest extends TestCase {
             ->graphQL(
             /** @lang GraphQL */
                 <<<'GRAPHQL'
-                mutation disableOrganizationUser($input: DisableOrganizationUserInput!) {
-                    disableOrganizationUser(input: $input) {
+                mutation disableOrgUser($input: DisableOrgUserInput!) {
+                    disableOrgUser(input: $input) {
                         result
                     }
                 }
@@ -89,13 +90,13 @@ class DisableOrganizationUserTest extends TestCase {
             }
         };
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('disableOrganizationUser'),
-            new UserDataProvider('disableOrganizationUser', [
+            new OrganizationDataProvider('disableOrgUser'),
+            new UserDataProvider('disableOrgUser', [
                 'org-administer',
             ]),
             new ArrayDataProvider([
                 'ok'             => [
-                    new GraphQLSuccess('disableOrganizationUser', DisableOrganizationUser::class, [
+                    new GraphQLSuccess('disableOrgUser', DisableOrgUser::class, [
                         'result' => true,
                     ]),
                     $prepare,
@@ -123,7 +124,7 @@ class DisableOrganizationUserTest extends TestCase {
                     },
                 ],
                 'invalid user'   => [
-                    new GraphQLError('disableOrganizationUser', new DisableOrganizationUserInvalidUser()),
+                    new GraphQLError('disableOrgUser', new DisableOrgUserInvalidUser()),
                     $prepare,
                     static function (): array {
                         $user = User::factory()->create([
@@ -145,7 +146,7 @@ class DisableOrganizationUserTest extends TestCase {
                     },
                 ],
                 'user not found' => [
-                    new GraphQLError('disableOrganizationUser', new UserDoesntExists()),
+                    new GraphQLError('disableOrgUser', new UserDoesntExists()),
                     $prepare,
                     static function (): array {
                         $user = User::factory()->create([

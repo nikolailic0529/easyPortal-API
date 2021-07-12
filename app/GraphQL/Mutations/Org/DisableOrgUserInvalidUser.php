@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Org;
 
 use App\Exceptions\HasErrorCode;
 use App\Exceptions\TranslatedException;
@@ -9,7 +9,7 @@ use Throwable;
 
 use function __;
 
-class DisableOrganizationUserInvalidUser extends Exception implements TranslatedException {
+class DisableOrgUserInvalidUser extends Exception implements TranslatedException {
     use HasErrorCode;
 
     public function __construct(Throwable $previous = null) {
@@ -17,6 +17,6 @@ class DisableOrganizationUserInvalidUser extends Exception implements Translated
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.disableOrganizationUser.invalid_user');
+        return __('graphql.mutations.disableOrgUser.invalid_user');
     }
 }
