@@ -233,7 +233,6 @@ class QuotesTest extends TestCase {
      */
     public function dataProviderQuery(): array {
         $factory = static function (TestCase $test, Organization $organization, User $user): void {
-            $user->save();
             // OEM Creation belongs to
             $oem      = Oem::factory()->create([
                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -346,9 +345,8 @@ class QuotesTest extends TestCase {
                     'renewal'       => 24.20,
                 ])
                 ->hasNotes(1, [
-                    'id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
-                    'note'    => 'Note',
-                    'user_id' => $user->getKey(),
+                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
+                    'note' => 'Note',
                 ])
                 ->create([
                     'id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',

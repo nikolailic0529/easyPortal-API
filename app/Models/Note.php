@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Note.
@@ -10,12 +11,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                       $id
  * @property string                       $note
  * @property string                       $document_id
- * @property string                       $organization_id
  * @property string                       $user_id
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property \App\Models\Organization     $organization
  * @property \App\Models\User             $user
  * @property \App\Models\Document         $document
  * @method static \Database\Factories\NoteFactory factory(...$parameters)
@@ -33,4 +32,20 @@ class Note extends Model {
      * @var string
      */
     protected $table = 'notes';
+
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class);
+    }
+
+    public function setUserAttribute(User $user): void {
+        $this->user()->associate($user);
+    }
+
+    public function document(): BelongsTo {
+        return $this->belongsTo(Document::class);
+    }
+
+    public function setDocumentAttribute(Document $document): void {
+        $this->document()->associate($document);
+    }
 }

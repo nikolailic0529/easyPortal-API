@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Document;
 use App\Models\Note;
-use App\Models\Organization;
 use App\Models\User;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
@@ -30,20 +29,17 @@ class NoteFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'              => $this->faker->uuid,
-            'organization_id' => static function (): Organization {
-                return Organization::query()->first() ?? Organization::factory()->create();
-            },
-            'user_id'         => static function (): User {
+            'id'          => $this->faker->uuid,
+            'user_id'     => static function (): User {
                 return User::query()->first() ?? User::factory()->create();
             },
-            'document_id'     => static function (): Document {
+            'document_id' => static function (): Document {
                 return Document::query()->first() ?? Document::factory()->create();
             },
-            'note'            => $this->faker->text(),
-            'created_at'      => Date::now(),
-            'updated_at'      => Date::now(),
-            'deleted_at'      => null,
+            'note'        => $this->faker->text(),
+            'created_at'  => Date::now(),
+            'updated_at'  => Date::now(),
+            'deleted_at'  => null,
         ];
     }
 }

@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\Language;
+use App\Models\Note;
 use App\Models\Oem;
 use App\Models\OemGroup;
 use App\Models\Organization;
@@ -198,6 +199,16 @@ class QuoteTest extends TestCase {
                             name
                         }
                         assets_count
+                        notes {
+                            id
+                            note
+                            created_at
+                            user {
+                                id
+                                given_name
+                                family_name
+                            }
+                        }
                     }
                 }
             ', ['id' => $quoteId])
@@ -409,9 +420,20 @@ class QuoteTest extends TestCase {
                                 'name' => 'distributor1',
                             ],
                             'assets_count'   => 1,
+                            'notes'          => [
+                                [
+                                    'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
+                                    'note'       => 'Note',
+                                    'created_at' => '2021-07-11T23:27:47+00:00',
+                                    'user'       => [
+                                        'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
+                                        'given_name'  => 'first',
+                                        'family_name' => 'last',
+                                    ],
+                                ],
+                            ],
                         ]),
                         static function (TestCase $test, Organization $organization, User $user): Document {
-                            $user->save();
                             // OEM Creation belongs to
                             $oem      = Oem::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -497,8 +519,7 @@ class QuoteTest extends TestCase {
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
                                 'name' => 'distributor1',
                             ]);
-
-                            return Document::factory()
+                            $document    = Document::factory()
                                 ->for($oem)
                                 ->for($oemGroup)
                                 ->for($product, 'support')
@@ -526,11 +547,6 @@ class QuoteTest extends TestCase {
                                     'email'       => 'contact2@test.com',
                                     'phone_valid' => false,
                                 ])
-                                ->hasNotes(1, [
-                                    'id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
-                                    'note'    => 'Note',
-                                    'user_id' => $user->getKey(),
-                                ])
                                 ->create([
                                     'id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                     'oem_said'     => '1234-5678-9012',
@@ -540,6 +556,20 @@ class QuoteTest extends TestCase {
                                     'end'          => '2024-01-01',
                                     'assets_count' => 1,
                                 ]);
+                            // Note
+                            Note::factory()
+                            ->forUser([
+                                'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
+                                'given_name'  => 'first',
+                                'family_name' => 'last',
+                            ])
+                            ->for($document)
+                            ->create([
+                                'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
+                                'note'       => 'Note',
+                                'created_at' => '2021-07-11T23:27:47+00:00',
+                            ]);
+                            return $document;
                         },
                     ],
                 ]),

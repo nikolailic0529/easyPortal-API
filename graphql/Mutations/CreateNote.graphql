@@ -1,0 +1,16 @@
+extend type Mutation {
+  createNote(
+    input: CreateNoteInput!
+  ): CreateNotePayload
+  @me
+  @organization
+}
+
+input CreateNoteInput {
+  note: String!
+  document_id: String!
+}
+
+type CreateNotePayload {
+  created: Note!
+}

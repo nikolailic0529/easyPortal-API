@@ -3,24 +3,19 @@
     "additionProperties": false,
     "type": "object",
     "required": [
-        "created_at",
-        "note",
-        "user",
+        "given_name",
+        "family_name",
         "id"
     ],
     "properties": {
         "id": {
             "$ref": "../types.json#/definitions/ID"
         },
-        "note": {
+        "given_name": {
             "type": "string"
         },
-        "created_at": {
-            "type": "string",
-            "format": "date-time"
-        },
-        "user": {
-            "$ref": "../Types/User.json"
+        "family_name": {
+            "type": "string"
         }
     }
 }
