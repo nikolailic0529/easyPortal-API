@@ -1091,7 +1091,7 @@ type Organization {
   analytics_code: String
   timezone: String
   branding: OrganizationBranding
-  status: Status
+  statuses: [Status!]!
   locations: [Location!]!
   contacts: [Contact!]!
   headquarter: Location
@@ -1152,7 +1152,7 @@ input OrganizationsQuery {
   name: String!
   website_url: String
   email: String
-  status_id: ID
+  statuses: StatusesQuery
   contacts: ContactsQuery
   locations: LocationsQuery
   headquarter: LocationsQuery
@@ -1162,7 +1162,6 @@ input OrganizationsSort {
   name: String!
   website_url: String
   email: String
-  status: StatusSort!
 }
 
 """Pagination information about the corresponding list of items."""
@@ -2401,7 +2400,7 @@ input SearchByConditionOrganizationsQuery {
   email: SearchByScalarStringOrNull
 
   """Property condition."""
-  status_id: SearchByScalarIDOrNull
+  statuses: SearchByRelationStatusesQuery
 
   """Property condition."""
   contacts: SearchByRelationContactsQuery
@@ -2474,6 +2473,23 @@ input SearchByConditionResellersQuery {
 
   """Property condition."""
   name: SearchByScalarString
+}
+
+"""
+Available conditions for input StatusesQuery (only one property allowed at a time).
+"""
+input SearchByConditionStatusesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionStatusesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionStatusesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
 }
 
 """
@@ -2765,6 +2781,30 @@ input SearchByRelationProductsQuery {
 input SearchByRelationResellersQuery {
   """Conditions for the related objects."""
   where: SearchByConditionResellersQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""Relation condition for input StatusesQuery."""
+input SearchByRelationStatusesQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionStatusesQuery!
 
   """Equal (`=`)."""
   eq: Int
@@ -3370,9 +3410,6 @@ input SortByClauseOrganizationsSort {
 
   """Property clause."""
   email: SortByDirection
-
-  """Property clause."""
-  status: SortByClauseStatusSort
 }
 
 """
@@ -3431,6 +3468,10 @@ type Status {
 
 input StatusSort {
   name: String!
+}
+
+input StatusesQuery {
+  id: ID!
 }
 
 input StopApplicationServiceInput {

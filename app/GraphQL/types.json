@@ -833,7 +833,7 @@
                 "currency_id",
                 "locations",
                 "branding",
-                "status",
+                "statuses",
                 "contacts",
                 "headquarter",
                 "timezone"
@@ -901,15 +901,11 @@
                         }
                     ]
                 },
-                "status": {
-                    "oneOf": [
-                        {
-                            "$ref": "#/definitions/Status"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
+                "statuses": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Status"
+                    }
                 },
                 "contacts": {
                     "type": "array",

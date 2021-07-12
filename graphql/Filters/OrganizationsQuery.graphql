@@ -3,7 +3,7 @@ input OrganizationsQuery {
   name: String!
   website_url: String
   email: String
-  status_id: ID
+  statuses: StatusesQuery
   contacts: ContactsQuery
   locations: LocationsQuery
   headquarter: LocationsQuery

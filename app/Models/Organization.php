@@ -6,6 +6,7 @@ use App\Models\Concerns\HasCurrency;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -16,38 +17,38 @@ use function app;
 /**
  * Organization.
  *
- * @property string                                                             $id
- * @property string                                                             $name
- * @property string|null                                                        $keycloak_scope
- * @property string|null                                                        $keycloak_group_id
- * @property string|null                                                        $locale
- * @property string|null                                                        $currency_id
- * @property string|null                                                        $website_url
- * @property string|null                                                        $email
- * @property bool|null                                                          $branding_dark_theme
- * @property string|null                                                        $branding_main_color
- * @property string|null                                                        $branding_secondary_color
- * @property string|null                                                        $branding_logo_url
- * @property string|null                                                        $branding_favicon_url
- * @property string|null                                                        $branding_default_main_color
- * @property string|null                                                        $branding_default_secondary_color
- * @property string|null                                                        $branding_default_logo_url
- * @property string|null                                                        $branding_default_favicon_url
- * @property string|null                                                        $branding_welcome_image_url
- * @property string|null                                                        $branding_welcome_heading
- * @property string|null                                                        $branding_welcome_underline
- * @property string|null                                                        $analytics_code
- * @property string|null                                                        $timezone
- * @property \Carbon\CarbonImmutable                                            $created_at
- * @property \Carbon\CarbonImmutable                                            $updated_at
- * @property \Carbon\CarbonImmutable|null                                       $deleted_at
- * @property \App\Models\Currency|null                                          $currency
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Contact> $contacts
- * @property-read \App\Models\Location|null                                     $headquarter
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>     $locations
- * @property \App\Models\Status                                                 $status
- * @property \App\Models\Reseller                                               $reseller
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Role>         $roles
+ * @property string                                                              $id
+ * @property string                                                              $name
+ * @property string|null                                                         $keycloak_scope
+ * @property string|null                                                         $keycloak_group_id
+ * @property string|null                                                         $locale
+ * @property string|null                                                         $currency_id
+ * @property string|null                                                         $website_url
+ * @property string|null                                                         $email
+ * @property bool|null                                                           $branding_dark_theme
+ * @property string|null                                                         $branding_main_color
+ * @property string|null                                                         $branding_secondary_color
+ * @property string|null                                                         $branding_logo_url
+ * @property string|null                                                         $branding_favicon_url
+ * @property string|null                                                         $branding_default_main_color
+ * @property string|null                                                         $branding_default_secondary_color
+ * @property string|null                                                         $branding_default_logo_url
+ * @property string|null                                                         $branding_default_favicon_url
+ * @property string|null                                                         $branding_welcome_image_url
+ * @property string|null                                                         $branding_welcome_heading
+ * @property string|null                                                         $branding_welcome_underline
+ * @property string|null                                                         $analytics_code
+ * @property string|null                                                         $timezone
+ * @property \Carbon\CarbonImmutable                                             $created_at
+ * @property \Carbon\CarbonImmutable                                             $updated_at
+ * @property \Carbon\CarbonImmutable|null                                        $deleted_at
+ * @property \App\Models\Currency|null                                           $currency
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>  $contacts
+ * @property-read \App\Models\Location|null                                      $headquarter
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Location> $locations
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Status>   $statuses
+ * @property-read \App\Models\Reseller                                           $reseller
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Role>     $roles
  * @method static \Database\Factories\OrganizationFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization newQuery()
@@ -82,18 +83,26 @@ class Organization extends Model implements HasLocalePreference {
         return $this->locale;
     }
 
-    public function status(): HasOneThrough {
-        return $this->hasOneThrough(Status::class, Reseller::class, 'id', 'id', 'id', 'status_id');
+    public function statuses(): BelongsToMany {
+        $pivot = new ResellerStatus();
+
+        return $this
+            ->belongsToMany(Status::class, $pivot->getTable(), 'reseller_id')
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
     }
 
     public function contacts(): HasManyThrough {
         [$type, $id] = $this->getMorphs('object', null, null);
+
         return $this->hasManyThrough(Contact::class, Reseller::class, 'id', $id)
             ->where($type, '=', (new Reseller())->getMorphClass());
     }
 
     public function locations(): HasManyThrough {
         [$type, $id] = $this->getMorphs('object', null, null);
+
         return $this->hasManyThrough(Location::class, Reseller::class, 'id', $id)
             ->where($type, '=', (new Reseller())->getMorphClass());
     }
@@ -101,6 +110,7 @@ class Organization extends Model implements HasLocalePreference {
     public function headquarter(): HasOneThrough {
         $type             = app()->make(Repository::class)->get('ep.headquarter_type');
         [$morphType, $id] = $this->getMorphs('object', null, null);
+
         return $this
             ->hasOneThrough(Location::class, Reseller::class, 'id', $id)
             ->where($morphType, '=', (new Reseller())->getMorphClass())
