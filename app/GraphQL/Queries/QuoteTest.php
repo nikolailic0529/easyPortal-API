@@ -563,7 +563,7 @@ class QuoteTest extends TestCase {
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
                                 'name' => 'distributor1',
                             ]);
-                            return Document::factory()
+                            $document    = Document::factory()
                                 ->for($oem)
                                 ->for($oemGroup)
                                 ->for($product, 'support')
@@ -590,11 +590,6 @@ class QuoteTest extends TestCase {
                                     'name'        => 'contact2',
                                     'email'       => 'contact2@test.com',
                                     'phone_valid' => false,
-                                ])
-                                ->hasNotes(1, [
-                                    'id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
-                                    'note'    => 'Note',
-                                    'user_id' => $user->getKey(),
                                 ])
                                 ->create([
                                     'id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
