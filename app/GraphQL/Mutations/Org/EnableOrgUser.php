@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Mutations\Org;
 
-use App\GraphQL\Mutations\Org\EnableOrgUserInvalidUser;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User;
 use App\Services\Organization\CurrentOrganization;
