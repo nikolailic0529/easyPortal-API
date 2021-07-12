@@ -78,6 +78,12 @@ class CustomersTest extends TestCase {
                         email
                         phone_valid
                     }
+                    statuses {
+                        id
+                        key
+                        name
+                    }
+
                 },
                 paginatorInfo {
                     count
@@ -157,6 +163,13 @@ class CustomersTest extends TestCase {
                                     'latitude'  => 47.91634204,
                                     'longitude' => -2.26318359,
                                 ],
+                                'statuses'        => [
+                                    [
+                                        'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
+                                        'key'  => 'active',
+                                        'name' => 'active',
+                                    ],
+                                ],
                             ],
                         ]),
                         [
@@ -169,6 +182,12 @@ class CustomersTest extends TestCase {
                                     'name'        => 'contact1',
                                     'email'       => 'contact1@test.com',
                                     'phone_valid' => false,
+                                ])
+                                ->hasStatuses(1, [
+                                    'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
+                                    'name'        => 'active',
+                                    'key'         => 'active',
+                                    'object_type' => (new Customer())->getMorphClass(),
                                 ])
                                 ->create([
                                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',

@@ -3,7 +3,6 @@ input CustomersSort {
   locations_count: Int!
   contacts_count: Int!
   assets_count: Int!
-  status: StatusSort!
   type: TypesSort!
   headquarter: LocationsSort!
 }

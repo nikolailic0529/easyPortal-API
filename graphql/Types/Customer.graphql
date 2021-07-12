@@ -3,8 +3,7 @@ type Customer {
   name: String!
   type: Type! @belongsTo
   type_id: ID!
-  status: Status! @belongsTo
-  status_id: ID!
+  statuses: [Status]! @belongsToMany
   assets_count: Int!
   locations_count: Int!
   locations: [Location!]! @morphMany

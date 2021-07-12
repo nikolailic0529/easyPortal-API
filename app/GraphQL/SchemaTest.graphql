@@ -456,8 +456,7 @@ type Customer {
   name: String!
   type: Type!
   type_id: ID!
-  status: Status!
-  status_id: ID!
+  statuses: [Status]!
   assets_count: Int!
   locations_count: Int!
   locations: [Location!]!
@@ -534,7 +533,7 @@ input CustomersQuery {
   id: ID!
   name: String!
   type_id: ID!
-  status_id: ID!
+  statuses: StatusesQuery!
   assets_count: Int!
   locations_count: Int!
   locations: LocationsQuery
@@ -550,7 +549,6 @@ input CustomersSort {
   locations_count: Int!
   contacts_count: Int!
   assets_count: Int!
-  status: StatusSort!
   type: TypesSort!
   headquarter: LocationsSort!
 }
@@ -2076,7 +2074,7 @@ input SearchByConditionCustomersQuery {
   type_id: SearchByScalarID
 
   """Property condition."""
-  status_id: SearchByScalarID
+  statuses: SearchByRelationStatusesQuery
 
   """Property condition."""
   assets_count: SearchByScalarInt
@@ -3336,9 +3334,6 @@ input SortByClauseCustomersSort {
 
   """Property clause."""
   assets_count: SortByDirection
-
-  """Property clause."""
-  status: SortByClauseStatusSort
 
   """Property clause."""
   type: SortByClauseTypesSort

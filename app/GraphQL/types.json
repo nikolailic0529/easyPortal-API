@@ -71,6 +71,12 @@
                 },
                 "headquarter": {
                     "$ref": "#/definitions/Location"
+                },
+                "statuses":  {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Status"
+                    }
                 }
             }
         },
