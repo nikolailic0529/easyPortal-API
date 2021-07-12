@@ -15,6 +15,7 @@ use App\Models\Country;
 use App\Models\Coverage;
 use App\Models\Currency;
 use App\Models\Customer;
+use App\Models\CustomerStatus;
 use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
@@ -28,6 +29,7 @@ use App\Models\Permission;
 use App\Models\Product;
 use App\Models\Reseller;
 use App\Models\ResellerCustomer;
+use App\Models\ResellerStatus;
 use App\Models\Role;
 use App\Models\Status;
 use App\Models\Tag;
@@ -95,6 +97,7 @@ class AppServiceProvider extends ServiceProvider {
             'country'                => Country::class,
             'currency'               => Currency::class,
             'customer'               => Customer::class,
+            'customer-status'        => CustomerStatus::class,
             'distributor'            => Distributor::class,
             'document'               => Document::class,
             'document-entry'         => DocumentEntry::class,
@@ -106,6 +109,7 @@ class AppServiceProvider extends ServiceProvider {
             'password-reset'         => PasswordReset::class,
             'product'                => Product::class,
             'reseller'               => Reseller::class,
+            'reseller-status'        => ResellerStatus::class,
             'reseller-customer'      => ResellerCustomer::class,
             'status'                 => Status::class,
             'tag'                    => Tag::class,

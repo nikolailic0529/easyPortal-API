@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Customer;
-use App\Models\Status;
 use App\Models\Type;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
@@ -35,9 +34,6 @@ class CustomerFactory extends Factory {
             'name'            => $this->faker->company,
             'type_id'         => static function () use ($object): Type {
                 return Type::factory()->create(['object_type' => $object]);
-            },
-            'status_id'       => static function () use ($object): Status {
-                return Status::factory()->create(['object_type' => $object]);
             },
             'assets_count'    => 0,
             'locations_count' => 0,

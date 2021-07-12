@@ -97,6 +97,7 @@ type Company {
   keycloakGroupId: String
   keycloakName: String
   keycloakClientScopeName: String
+  status: [String]
 }
 
 input CompanyBrandingData {
