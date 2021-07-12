@@ -36,47 +36,31 @@ use function sprintf;
  * @property string|null                                                              $reseller_id current
  * @property string|null                                                              $customer_id current
  * @property string|null                                                              $location_id current
+ * @property string|null                                                              $status_id
  * @property string|null                                                              $serial_number
  * @property string|null                                                              $data_quality
- * @property string|null                                                              $status_id
- * @property string|null                                                              $coverage_id
  * @property int                                                                      $contacts_count
  * @property \Carbon\CarbonImmutable                                                  $created_at
  * @property \Carbon\CarbonImmutable                                                  $updated_at
  * @property \Carbon\CarbonImmutable|null                                             $deleted_at
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>            $contacts
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $contractWarranties
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Coverage>           $coverages
  * @property \App\Models\Customer|null                                                $customer
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $documentEntries
  * @property \App\Models\Location|null                                                $location
  * @property \App\Models\Oem                                                          $oem
  * @property \App\Models\Product                                                      $product
  * @property \App\Models\Reseller|null                                                $reseller
- * @property \App\Models\Type|null                                                    $type
- * @property \App\Models\Status                                                       $status
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Coverage>           $coverages
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry>      $documentEntries
- * @property-write int|null                                                           $document_entries
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty>      $warranties
- * @property-read int|null                                                            $warranties_count
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $contractWarranties
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>            $contacts
+ * @property-write mixed                                                              $document_entries
+ * @property \App\Models\Status|null                                                  $status
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Tag>                $tags
+ * @property \App\Models\Type|null                                                    $type
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty>      $warranties
  * @method static \Database\Factories\AssetFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereContactsCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereCoverageId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereCustomerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereLocationId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereOemId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereResellerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereSerialNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereStatusId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereTypeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Asset extends Model {
@@ -154,14 +138,6 @@ class Asset extends Model {
                 });
             });
         });
-    }
-
-    public function coverage(): BelongsTo {
-        return $this->belongsTo(Coverage::class);
-    }
-
-    public function setCoverageAttribute(?Coverage $coverage): void {
-        $this->coverage()->associate($coverage);
     }
 
     public function documentEntries(): HasMany {
