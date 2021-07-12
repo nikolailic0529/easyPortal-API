@@ -1,4 +1,4 @@
-type AssetCoverage {
+type Coverage {
   id: ID!
   key: String!
   name: String! @translate

@@ -72,7 +72,8 @@ trait Helper {
     protected function getModelTags(Model $model): array {
         $tags = [];
 
-        foreach ($model->tags as $tag) {
+        foreach ($model->tags ?? [] as $tag) {
+            /** @var \App\Models\Tag $tag */
             $tags["{$tag->name}"] = [
                 'name' => $tag->name,
             ];
@@ -84,24 +85,69 @@ trait Helper {
     /**
      * @return array<mixed>
      */
-    protected function getTags(ViewAsset $object): array {
-        $output = [];
-        $tags   = [];
+    protected function getModelCoverages(Model $model): array {
+        $coverages = [];
 
-        if ($object instanceof ViewAsset && $object->assetTag) {
-            $tags = [$object->assetTag];
+        foreach ($model->coverages ?? [] as $coverage) {
+            /** @var \App\Models\Coverage $coverage */
+
+            $coverages["{$coverage->key}"] = [
+                'key'  => $coverage->key,
+                'name' => $coverage->name,
+            ];
+        }
+
+        return $coverages;
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    protected function getContacts(ViewAsset|Company|ViewDocument $object): array {
+        $contacts = [];
+        $persons  = [];
+
+        if ($object instanceof ViewDocument) {
+            $persons = (array) $object->contactPersons;
+        } elseif ($object instanceof Company) {
+            $persons = $object->companyContactPersons;
+        } elseif ($object instanceof ViewAsset) {
+            $persons = $object->latestContactPersons;
         } else {
             // empty
         }
 
-        foreach ($tags as $tag) {
+        foreach ($persons as $person) {
+            // Empty?
+            if (is_null($person->name) && is_null($person->phoneNumber)) {
+                continue;
+            }
+
+            // Convert phone
+            $phone = $person->phoneNumber;
+
+            try {
+                $phone = PhoneNumber::make($phone)->formatE164();
+            } catch (NumberParseException) {
+                // empty
+            }
+
             // Add to array
-            $output[$tag] = [
-                'name' => $tag,
-            ];
+            $key = "{$person->name}/{$phone}";
+
+            if (isset($contacts[$key])) {
+                $contacts[$key]['types'][] = $person->type;
+            } else {
+                $contacts[$key] = [
+                    'name'  => $person->name,
+                    'phone' => $phone,
+                    'types' => [$person->type],
+                    'mail'  => $person->mail,
+                ];
+            }
         }
 
-        return $output;
+        return $contacts;
     }
     // </editor-fold>
 
@@ -224,51 +270,34 @@ trait Helper {
     /**
      * @return array<mixed>
      */
-    protected function getContacts(ViewAsset|Company|ViewDocument $object): array {
-        $contacts = [];
-        $persons  = [];
+    protected function getAssetTags(ViewAsset $object): array {
+        $tags = [];
 
-        if ($object instanceof ViewDocument) {
-            $persons = (array) $object->contactPersons;
-        } elseif ($object instanceof Company) {
-            $persons = $object->companyContactPersons;
-        } elseif ($object instanceof ViewAsset) {
-            $persons = $object->latestContactPersons;
-        } else {
-            // empty
-        }
-
-        foreach ($persons as $person) {
-            // Empty?
-            if (is_null($person->name) && is_null($person->phoneNumber)) {
-                continue;
-            }
-
-            // Convert phone
-            $phone = $person->phoneNumber;
-
-            try {
-                $phone = PhoneNumber::make($phone)->formatE164();
-            } catch (NumberParseException) {
-                // empty
-            }
-
+        foreach ((array) $object->assetTag as $tag) {
             // Add to array
-            $key = "{$person->name}/{$phone}";
-
-            if (isset($contacts[$key])) {
-                $contacts[$key]['types'][] = $person->type;
-            } else {
-                $contacts[$key] = [
-                    'name'  => $person->name,
-                    'phone' => $phone,
-                    'types' => [$person->type],
-                    'mail'  => $person->mail,
-                ];
-            }
+            $tags[$tag] = [
+                'name' => $tag,
+            ];
         }
 
-        return $contacts;
+        return $tags;
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    protected function getAssetCoverages(ViewAsset $object): array {
+        $coverages = [];
+
+        foreach ((array) $object->assetCoverage as $coverage) {
+            // Add to array
+            $coverages[$coverage] = [
+                'key'  => $coverage,
+                'name' => $coverage,
+            ];
+        }
+
+        return $coverages;
     }
     // </editor-fold>
 

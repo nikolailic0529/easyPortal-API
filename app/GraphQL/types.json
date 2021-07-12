@@ -232,8 +232,7 @@
                 "status",
                 "contacts_count",
                 "contacts",
-                "coverage",
-                "coverage_id",
+                "coverages",
                 "tags",
                 "data_quality"
             ],
@@ -286,11 +285,11 @@
                 "contacts_count": {
                     "type": "integer"
                 },
-                "coverage": {
-                    "$ref": "../Types/AssetCoverage.json"
-                },
-                "coverage_id": {
-                    "$ref": "#/definitions/ID"
+                "coverages": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "../Types/Coverage.json"
+                    }
                 },
                 "tags": {
                     "type": "array",

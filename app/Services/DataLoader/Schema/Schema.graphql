@@ -353,7 +353,7 @@ type ViewAsset {
   dataQualityScore: String
   latestContactPersons: [CompanyContactPerson]
   status: String
-  assetCoverage: String
+  assetCoverage: [String]
 }
 
 type ViewAssetDocument {

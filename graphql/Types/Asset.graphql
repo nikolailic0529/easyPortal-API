@@ -17,8 +17,7 @@ type Asset {
   status: Status @belongsTo
   contacts: [Contact!]! @morphMany
   contacts_count: Int!
-  coverage_id: ID
-  coverage: AssetCoverage @belongsTo
+  coverages: [Coverage!] @belongsTo
   tags: [Tag!]! @belongsToMany
   data_quality: String
 }

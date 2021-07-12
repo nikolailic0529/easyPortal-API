@@ -232,24 +232,13 @@ type Asset {
   status: Status
   contacts: [Contact!]!
   contacts_count: Int!
-  coverage_id: ID
-  coverage: AssetCoverage
+  coverages: [Coverage!]
   tags: [Tag!]!
   data_quality: String
 }
 
-type AssetCoverage {
-  id: ID!
-  key: String!
-  name: String!
-}
-
 input AssetCoveragesQuery {
   assets: AssetsQuery
-}
-
-input AssetCoveragesSort {
-  name: String!
 }
 
 """A paginated list of Asset items."""
@@ -316,6 +305,7 @@ input AssetsQuery {
   product: ProductsQuery
   warranties: AssetWarrantiesQuery
   tags: TagsQuery
+  coverages: CoveragesQuery
 }
 
 input AssetsSort {
@@ -325,7 +315,6 @@ input AssetsSort {
   location: LocationsSort!
   customer: CustomersSort!
   status: StatusSort!
-  coverage: AssetCoveragesSort!
 }
 
 input AuthorizeOrganizationInput {
@@ -422,6 +411,16 @@ type Country {
   id: ID!
   name: String!
   code: String!
+}
+
+type Coverage {
+  id: ID!
+  key: String!
+  name: String!
+}
+
+input CoveragesQuery {
+  id: ID!
 }
 
 input CreateMeSearchInput {
@@ -1405,7 +1404,7 @@ type Query {
   
   @require <me> User must be authenticated.
   """
-  assetCoverages(where: SearchByConditionAssetCoveragesQuery): [AssetCoverage!]!
+  assetCoverages(where: SearchByConditionAssetCoveragesQuery): [Coverage!]!
 
   """
   List of all possible tags.
@@ -1853,6 +1852,9 @@ input SearchByConditionAssetsQuery {
 
   """Property condition."""
   tags: SearchByRelationTagsQuery
+
+  """Property condition."""
+  coverages: SearchByRelationCoveragesQuery
 }
 
 """
@@ -1986,6 +1988,23 @@ input SearchByConditionCountriesQuery {
 
   """Property condition."""
   customers: SearchByRelationCustomersQuery
+}
+
+"""
+Available conditions for input CoveragesQuery (only one property allowed at a time).
+"""
+input SearchByConditionCoveragesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionCoveragesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionCoveragesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
 }
 
 """
@@ -2626,6 +2645,30 @@ input SearchByRelationCountriesQuery {
   not: SearchByFlag
 }
 
+"""Relation condition for input CoveragesQuery."""
+input SearchByRelationCoveragesQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionCoveragesQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
 """Relation condition for input CustomersQuery."""
 input SearchByRelationCustomersQuery {
   """Conditions for the related objects."""
@@ -3192,14 +3235,6 @@ input SortByClauseApplicationLogsSort {
 }
 
 """
-Sort clause for input AssetCoveragesSort (only one property allowed at a time).
-"""
-input SortByClauseAssetCoveragesSort {
-  """Property clause."""
-  name: SortByDirection
-}
-
-"""
 Sort clause for input AssetsSort (only one property allowed at a time).
 """
 input SortByClauseAssetsSort {
@@ -3220,9 +3255,6 @@ input SortByClauseAssetsSort {
 
   """Property clause."""
   status: SortByClauseStatusSort
-
-  """Property clause."""
-  coverage: SortByClauseAssetCoveragesSort
 }
 
 """

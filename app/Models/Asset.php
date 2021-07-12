@@ -16,6 +16,7 @@ use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
@@ -50,7 +51,7 @@ use function sprintf;
  * @property \App\Models\Reseller|null                                                $reseller
  * @property \App\Models\Type|null                                                    $type
  * @property \App\Models\Status                                                       $status
- * @property \App\Models\AssetCoverage                                                $coverage
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Coverage>           $coverages
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry>      $documentEntries
  * @property-write int|null                                                           $document_entries
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty>      $warranties
@@ -156,10 +157,10 @@ class Asset extends Model {
     }
 
     public function coverage(): BelongsTo {
-        return $this->belongsTo(AssetCoverage::class);
+        return $this->belongsTo(Coverage::class);
     }
 
-    public function setCoverageAttribute(?AssetCoverage $coverage): void {
+    public function setCoverageAttribute(?Coverage $coverage): void {
         $this->coverage()->associate($coverage);
     }
 
@@ -176,5 +177,22 @@ class Asset extends Model {
 
     protected function getTagsPivot(): Pivot {
         return new AssetTag();
+    }
+
+    public function coverages(): BelongsToMany {
+        $pivot = new AssetCoverage();
+
+        return $this
+            ->belongsToMany(Coverage::class, $pivot->getTable())
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\Coverage>|array<\App\Models\Coverage> $coverages
+     */
+    public function setCoveragesAttribute(Collection|array $coverages): void {
+        $this->syncBelongsToMany('coverages', $coverages);
     }
 }

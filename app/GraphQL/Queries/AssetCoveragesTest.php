@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\AssetCoverage;
+use App\Models\Coverage;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -63,7 +63,7 @@ class AssetCoveragesTest extends TestCase {
                         ],
                     ]),
                     static function (): void {
-                        AssetCoverage::factory()->create([
+                        Coverage::factory()->create([
                             'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                             'name' => 'coverage1',
                         ]);

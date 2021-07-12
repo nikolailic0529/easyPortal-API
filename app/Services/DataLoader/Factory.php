@@ -30,6 +30,10 @@ abstract class Factory implements Isolated {
         return $this->logger;
     }
 
+    protected function getNormalizer(): Normalizer {
+        return $this->normalizer;
+    }
+
     protected function isSearchMode(): bool {
         return $this->searchMode;
     }

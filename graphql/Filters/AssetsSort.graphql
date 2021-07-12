@@ -5,5 +5,4 @@ input AssetsSort {
   location: LocationsSort!
   customer: CustomersSort!
   status: StatusSort!
-  coverage: AssetCoveragesSort!
 }
