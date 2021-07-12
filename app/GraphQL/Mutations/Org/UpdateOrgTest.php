@@ -121,8 +121,9 @@ class UpdateOrgTest extends TestCase {
                     welcome_heading
                     welcome_underline
                   }
-                  status {
+                  statuses {
                       id
+                      key
                       name
                   }
                   contacts {

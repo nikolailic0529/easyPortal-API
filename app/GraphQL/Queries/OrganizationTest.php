@@ -7,7 +7,6 @@ use App\Models\Location;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Reseller;
-use App\Models\Status;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Client\Factory;
@@ -96,6 +95,7 @@ class OrganizationTest extends TestCase {
                         }
                         statuses {
                             id
+                            key
                             name
                         }
                         contacts {
@@ -330,6 +330,7 @@ class OrganizationTest extends TestCase {
                         'statuses'       => [
                             [
                                 'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
+                                'key'  => 'active',
                                 'name' => 'active',
                             ],
                         ],
