@@ -13,6 +13,7 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Closure;
 use DateTimeInterface;
 use Illuminate\Contracts\Container\Container as ContainerContract;
+use Laravel\Telescope\Telescope;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
@@ -77,39 +78,57 @@ abstract class Importer {
 
         $this->onBeforeImport($status);
 
-        $this->callWithoutGlobalScopes(
-            [OwnedByOrganizationScope::class],
-            function () use ($iterator, $status, $update): void {
-                foreach ($iterator as $item) {
-                    /** @var \App\Services\DataLoader\Schema\Type|\App\Services\DataLoader\Schema\TypeWithId $item */
-                    try {
-                        if ($this->resolver->get($item->id)) {
-                            if ($update) {
-                                $this->loader->update($item);
-                                $status->updated++;
-                            } else {
-                                $status->ignored++;
-                            }
+        $this->call(function () use ($iterator, $status, $update): void {
+            foreach ($iterator as $item) {
+                /** @var \App\Services\DataLoader\Schema\Type|\App\Services\DataLoader\Schema\TypeWithId $item */
+                try {
+                    if ($this->resolver->get($item->id)) {
+                        if ($update) {
+                            $this->loader->update($item);
+                            $status->updated++;
                         } else {
-                            $this->loader->create($item);
-                            $status->created++;
+                            $status->ignored++;
                         }
-                    } catch (Throwable $exception) {
-                        $status->failed++;
-
-                        $this->logger->warning('Failed to import object.', [
-                            'importer'  => $this::class,
-                            'object'    => $item,
-                            'exception' => $exception,
-                        ]);
-                    } finally {
-                        $status->processed++;
+                    } else {
+                        $this->loader->create($item);
+                        $status->created++;
                     }
+                } catch (Throwable $exception) {
+                    $status->failed++;
+
+                    $this->logger->warning('Failed to import object.', [
+                        'importer'  => $this::class,
+                        'object'    => $item,
+                        'exception' => $exception,
+                    ]);
+                } finally {
+                    $status->processed++;
                 }
-            },
-        );
+            }
+        });
 
         $this->onAfterImport($status);
+    }
+
+    private function call(Closure $closure): void {
+        $this->callWithoutGlobalScopes([OwnedByOrganizationScope::class], static function () use ($closure): void {
+            // Telescope should be disabled because it stored all data in memory
+            // and will dump it only after the job/command/request is finished.
+            // For long-running jobs, this will lead to huge memory usage
+
+            // We cannot use Telescope:withoutRecording() because it is not
+            // exception-safe now.
+            //
+            // https://github.com/laravel/telescope/pull/1092
+            $previous                = Telescope::$shouldRecord;
+            Telescope::$shouldRecord = false;
+
+            try {
+                $closure();
+            } finally {
+                Telescope::$shouldRecord = $previous;
+            }
+        });
     }
 
     protected function getIterator(
