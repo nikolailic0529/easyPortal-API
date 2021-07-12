@@ -1,0 +1,16 @@
+extend type Mutation {
+  enableOrgUser(
+    input: EnableOrgUserInput!
+  ): EnableOrgUserPayload
+  @field(resolver: "App\\GraphQL\\Mutations\\Org\\EnableOrgUser")
+  @me(permissions: ["org-administer"])
+  @organization
+}
+
+input EnableOrgUserInput {
+  id: String!
+}
+
+type EnableOrgUserPayload {
+  result: Boolean!
+}

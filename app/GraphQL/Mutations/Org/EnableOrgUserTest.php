@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Org;
 
 use App\Models\Enums\UserType;
 use App\Models\Organization;
@@ -21,9 +21,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\EnableOrganizationUser
+ * @coversDefaultClass \App\GraphQL\Mutations\Org\EnableOrgUser
  */
-class EnableOrganizationUserTest extends TestCase {
+class EnableOrgUserTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -62,8 +62,8 @@ class EnableOrganizationUserTest extends TestCase {
             ->graphQL(
             /** @lang GraphQL */
                 <<<'GRAPHQL'
-                mutation enableOrganizationUser($input: EnableOrganizationUserInput!) {
-                    enableOrganizationUser(input: $input) {
+                mutation enableOrgUser($input: EnableOrgUserInput!) {
+                    enableOrgUser(input: $input) {
                         result
                     }
                 }
@@ -89,13 +89,13 @@ class EnableOrganizationUserTest extends TestCase {
             }
         };
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('enableOrganizationUser'),
-            new UserDataProvider('enableOrganizationUser', [
+            new OrganizationDataProvider('enableOrgUser'),
+            new UserDataProvider('enableOrgUser', [
                 'org-administer',
             ]),
             new ArrayDataProvider([
                 'ok'             => [
-                    new GraphQLSuccess('enableOrganizationUser', EnableOrganizationUser::class, [
+                    new GraphQLSuccess('enableOrgUser', EnableOrgUser::class, [
                         'result' => true,
                     ]),
                     $prepare,
@@ -123,7 +123,7 @@ class EnableOrganizationUserTest extends TestCase {
                     },
                 ],
                 'invalid user'   => [
-                    new GraphQLError('enableOrganizationUser', new EnableOrganizationUserInvalidUser()),
+                    new GraphQLError('enableOrgUser', new EnableOrgUserInvalidUser()),
                     $prepare,
                     static function (): array {
                         $user = User::factory()->create([
@@ -145,7 +145,7 @@ class EnableOrganizationUserTest extends TestCase {
                     },
                 ],
                 'user not found' => [
-                    new GraphQLError('enableOrganizationUser', new UserDoesntExists()),
+                    new GraphQLError('enableOrgUser', new UserDoesntExists()),
                     $prepare,
                     static function (): array {
                         $user = User::factory()->create([

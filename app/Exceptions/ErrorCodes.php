@@ -7,8 +7,8 @@ use App\GraphQL\Mutations\Auth\SignUpByInviteAlreadyUsed;
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvalidToken;
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvalidUser;
 use App\GraphQL\Mutations\Auth\SignUpByInviteUnInvitedUser;
-use App\GraphQL\Mutations\EnableOrganizationUserInvalidUser;
 use App\GraphQL\Mutations\Org\DisableOrgUserInvalidUser;
+use App\GraphQL\Mutations\Org\EnableOrgUserInvalidUser;
 use App\GraphQL\Mutations\Org\InviteOrgUserAlreadyUsedInvitation;
 use App\GraphQL\Mutations\Org\InviteOrgUserInvalidRole;
 use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser;
@@ -81,7 +81,7 @@ class ErrorCodes {
         ResetOrgUserPasswordInvalidUser::class        => 'ERR34',
         UpdateMeEmailUserAlreadyExists::class         => 'ERR35',
         KeyCloakUserDoesntExists::class               => 'ERR36',
-        EnableOrganizationUserInvalidUser::class      => 'ERR37',
+        EnableOrgUserInvalidUser::class               => 'ERR37',
         DisableOrgUserInvalidUser::class              => 'ERR38',
     ];
 

@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Mutations\Org;
 
-use App\GraphQL\Mutations\DisableOrgUserInvalidUser;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User;
 use App\Services\Organization\CurrentOrganization;
@@ -11,7 +10,7 @@ class DisableOrgUser {
     public function __construct(
         protected Client $client,
         protected CurrentOrganization $organization,
-        protected EnableOrganizationUser $enableOrganizationUser,
+        protected EnableOrgUser $enableOrgUser,
     ) {
         // empty
     }
@@ -22,7 +21,7 @@ class DisableOrgUser {
      * @return array<string, mixed>
      */
     public function __invoke($_, array $args): array {
-        if (!$this->enableOrganizationUser->checkUserInCurrentOrganization($args['input']['id'])) {
+        if (!$this->enableOrgUser->checkUserInCurrentOrganization($args['input']['id'])) {
             throw new DisableOrgUserInvalidUser();
         }
 

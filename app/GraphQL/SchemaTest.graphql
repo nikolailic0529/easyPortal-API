@@ -605,11 +605,11 @@ type DeleteOrgRolePayload {
   deleted: Boolean!
 }
 
-input DisableOrganizationUserInput {
+input DisableOrgUserInput {
   id: String!
 }
 
-type DisableOrganizationUserPayload {
+type DisableOrgUserPayload {
   result: Boolean!
 }
 
@@ -734,11 +734,11 @@ input DocumentsSort {
   price: Float
 }
 
-input EnableOrganizationUserInput {
+input EnableOrgUserInput {
   id: String!
 }
 
-type EnableOrganizationUserPayload {
+type EnableOrgUserPayload {
   result: Boolean!
 }
 
@@ -871,20 +871,6 @@ type Mutation {
 
   """@require <me> User must be authenticated."""
   deleteMeSearch(input: DeleteMeSearchInput!): DeleteMeSearchPayload
-
-  """
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  """
-  disableOrganizationUser(input: DisableOrganizationUserInput!): DisableOrganizationUserPayload
-
-  """
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  """
-  enableOrganizationUser(input: EnableOrganizationUserInput!): EnableOrganizationUserPayload
 
   """
   Force delete all custom settings, may be useful to restore the corrupted file.
@@ -1066,6 +1052,20 @@ type Mutation {
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
   deleteOrgRole(input: DeleteOrgRoleInput): DeleteOrgRolePayload
+
+  """
+  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  """
+  disableOrgUser(input: DisableOrgUserInput!): DisableOrgUserPayload
+
+  """
+  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  """
+  enableOrgUser(input: EnableOrgUserInput!): EnableOrgUserPayload
 
   """
   @require <organization> Authenticated user must be a member of the current organization.

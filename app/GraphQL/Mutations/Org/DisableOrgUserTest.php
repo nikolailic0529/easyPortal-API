@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Mutations\Org;
 
-use App\GraphQL\Mutations\Org\DisableOrgUser;
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
@@ -22,7 +21,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\DisableOrgUser
+ * @coversDefaultClass \App\GraphQL\Mutations\Org\DisableOrgUser
  */
 class DisableOrgUserTest extends TestCase {
     // <editor-fold desc="Tests">
