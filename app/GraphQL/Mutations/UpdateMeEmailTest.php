@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\Enums\UserType;
+use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists;
@@ -17,7 +18,6 @@ use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
-use function __;
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\UpdateMeEmail
@@ -36,18 +36,13 @@ class UpdateMeEmailTest extends TestCase {
         Closure $prepare = null,
         string $email = '',
         Closure $clientFactory = null,
-        bool $isRootOrganization = false,
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
         $user         = $this->setUser($userFactory, $organization);
 
-        if ($isRootOrganization) {
-            $this->setRootOrganization($organization);
-        }
-
         if ($prepare) {
-            $prepare($this, $user);
+            $prepare($this, $organization, $user);
         }
 
         if ($clientFactory) {
@@ -75,7 +70,7 @@ class UpdateMeEmailTest extends TestCase {
             )
             ->assertThat($expected);
 
-        if ($expected instanceof GraphQLSuccess) {
+        if ($expected instanceof GraphQLSuccess && $user->type === UserType::local()) {
             $this->assertEquals($user->email, $email);
         }
     }
@@ -95,7 +90,7 @@ class UpdateMeEmailTest extends TestCase {
                     new GraphQLSuccess('updateMeEmail', UpdateMeEmail::class, [
                         'result' => true,
                     ]),
-                    static function (TestCase $test, User $user): bool {
+                    static function (TestCase $test, ?Organization $organization, ?User $user): bool {
                         $user->email = 'old@example.com';
                         $user->type  = UserType::keycloak();
                         $user->save();
@@ -107,25 +102,27 @@ class UpdateMeEmailTest extends TestCase {
                             ->shouldReceive('updateUserEmail')
                             ->once();
                     },
-                    false,
                 ],
                 'local'                => [
                     new GraphQLSuccess('updateMeEmail', UpdateMeEmail::class, [
                         'result' => true,
                     ]),
-                    static function (TestCase $test, User $user): bool {
+                    static function (TestCase $test, ?Organization $organization, ?User $user): bool {
                         $user->email = 'old@example.com';
                         $user->type  = UserType::local();
                         $user->save();
                         return true;
                     },
                     'new@example.com',
-                    null,
-                    true,
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('updateUserEmail')
+                            ->never();
+                    },
                 ],
                 'keycloak/email taken' => [
                     new GraphQLError('updateMeEmail', new UserAlreadyExists('new@example.com')),
-                    static function (TestCase $test, User $user): bool {
+                    static function (TestCase $test, ?Organization $organization, ?User $user): bool {
                         $user->email = 'old@example.com';
                         $user->type  = UserType::keycloak();
                         $user->save();
@@ -138,13 +135,10 @@ class UpdateMeEmailTest extends TestCase {
                             ->once()
                             ->andThrow(new UserAlreadyExists('new@example.com'));
                     },
-                    true,
                 ],
                 'local/taken'          => [
-                    new GraphQLError('updateMeEmail', static function (): array {
-                        return [__('errors.validation_failed')];
-                    }),
-                    static function (TestCase $test, User $user): bool {
+                    new GraphQLError('updateMeEmail', new UpdateMeEmailEmailTaken('new@example.com')),
+                    static function (TestCase $test, ?Organization $organization, ?User $user): bool {
                         $user->email = 'old@example.com';
                         $user->type  = UserType::local();
                         $user->save();
@@ -153,8 +147,11 @@ class UpdateMeEmailTest extends TestCase {
                         return true;
                     },
                     'new@example.com',
-                    null,
-                    true,
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('updateUserEmail')
+                            ->never();
+                    },
                 ],
             ]),
         ))->getData();

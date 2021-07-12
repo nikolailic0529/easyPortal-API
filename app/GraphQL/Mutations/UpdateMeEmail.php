@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Models\Enums\UserType;
+use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
 use Illuminate\Auth\AuthManager;
 
@@ -20,15 +21,33 @@ class UpdateMeEmail {
      * @return array<string, mixed>
      */
     public function __invoke($_, array $args): array {
-        /** @var \App\Models\User $user */
-        $user  = $this->auth->user();
-        $email = $args['input']['email'];
-
-        if ($user->type === UserType::keycloak()) {
-            $this->client->updateUserEmail($user->getKey(), $email);
+        // Possible?
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
+        $user = $this->auth->user();
+        if (!($user instanceof User)) {
+            return [
+                'result' => false,
+            ];
         }
+        $email  = $args['input']['email'];
+        $result = false;
 
-        $user->email = $email;
-        return ['result' => $user->save() ];
+        switch ($user->type) {
+            case UserType::local():
+                if (User::query()->where('email', '=', $email)->exists()) {
+                    throw new UpdateMeEmailEmailTaken($email);
+                }
+                $user->email = $email;
+                $result      = $user->save();
+                break;
+            case UserType::keycloak():
+                $this->client->updateUserEmail($user->getKey(), $email);
+                $result = true;
+                break;
+            default:
+                // empty
+                break;
+        }
+        return ['result' => $result ];
     }
 }

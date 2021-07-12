@@ -4,10 +4,11 @@ extend type Mutation {
   ): UpdateMeEmailPayload
   @me
   @organization
+  @throttle(name: "auth")
 }
 
 input UpdateMeEmailInput {
-  email: String! @rules(apply: ["email", "App\\Rules\\UniqueUserEmail"])
+  email: String! @rules(apply: ["email"])
 }
 
 type UpdateMeEmailPayload {

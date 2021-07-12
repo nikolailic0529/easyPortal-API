@@ -10,6 +10,7 @@ use App\GraphQL\Mutations\Auth\SignUpByInviteUnInvitedUser;
 use App\GraphQL\Mutations\Org\InviteOrgUserAlreadyUsedInvitation;
 use App\GraphQL\Mutations\Org\InviteOrgUserInvalidRole;
 use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser;
+use App\GraphQL\Mutations\UpdateMeEmailEmailTaken;
 use App\GraphQL\Mutations\UpdateMePasswordInvalidCurrentPassword;
 use App\Http\Controllers\ExportGraphQLQueryEmpty;
 use App\Http\Controllers\ExportGraphQLQueryInvalid;
@@ -75,6 +76,7 @@ class ErrorCodes {
         InviteOrgUserAlreadyUsedInvitation::class     => 'ERR32',
         UpdateMePasswordInvalidCurrentPassword::class => 'ERR33',
         ResetOrgUserPasswordInvalidUser::class        => 'ERR34',
+        UpdateMeEmailEmailTaken::class                => 'ERR35',
     ];
 
     public static function getCode(Throwable $throwable): string|int {
