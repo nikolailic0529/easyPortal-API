@@ -42,7 +42,7 @@ class CurrenciesTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                currencies {
+                currencies(where: {documents: { where: {}, lt: 1 }}) {
                     id
                     name
                     code

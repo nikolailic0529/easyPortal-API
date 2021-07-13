@@ -5,11 +5,11 @@ namespace App\Models;
 use App\GraphQL\Contracts\Translatable;
 use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasContracts;
-use App\Models\Concerns\HasCustomers;
 use App\Models\Concerns\HasQuotes;
 use App\Models\Concerns\TranslateProperties;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Type.
@@ -36,7 +36,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Type extends PolymorphicModel implements Translatable {
     use HasFactory;
     use TranslateProperties;
-    use HasCustomers;
     use HasAssets;
     use HasContracts;
     use HasQuotes;
@@ -82,5 +81,9 @@ class Type extends PolymorphicModel implements Translatable {
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->withTimestamps();
+    }
+
+    public function customers(): HasMany {
+        return $this->hasMany(Customer::class);
     }
 }

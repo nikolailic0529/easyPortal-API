@@ -44,7 +44,7 @@ class LocationTypesTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                locationTypes {
+                locationTypes(where: {locations: { where: {}, lt: 1 }}) {
                     id
                     name
                 }

@@ -36,7 +36,7 @@ class TagsTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                tags {
+                tags(where: {assets: { where: {}, lt: 1 }}) {
                     id
                     name
                 }
