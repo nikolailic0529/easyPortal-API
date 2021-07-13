@@ -3,8 +3,8 @@ extend type Mutation {
     input: UpdateMeEmailInput!
   ): UpdateMeEmailPayload
   @throttle(name: "auth")
-  @me
   @organization
+  @me
 }
 
 input UpdateMeEmailInput {

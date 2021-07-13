@@ -892,9 +892,9 @@ type Mutation {
   updateClientTranslations(input: UpdateClientTranslationsInput!): UpdateClientTranslationsPayload
 
   """
-  @require <me> User must be authenticated.
-  
   @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
   """
   updateMeEmail(input: UpdateMeEmailInput!): UpdateMeEmailPayload
 

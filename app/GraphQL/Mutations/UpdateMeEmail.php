@@ -35,7 +35,7 @@ class UpdateMeEmail {
         switch ($user->type) {
             case UserType::local():
                 if (User::query()->where('email', '=', $email)->exists()) {
-                    throw new UpdateMeEmailEmailTaken($email);
+                    throw new UpdateMeEmailUserAlreadyExists($email);
                 }
                 $user->email = $email;
                 $result      = $user->save();

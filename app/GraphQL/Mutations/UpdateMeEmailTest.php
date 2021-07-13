@@ -137,7 +137,7 @@ class UpdateMeEmailTest extends TestCase {
                     },
                 ],
                 'local/taken'          => [
-                    new GraphQLError('updateMeEmail', new UpdateMeEmailEmailTaken('new@example.com')),
+                    new GraphQLError('updateMeEmail', new UpdateMeEmailUserAlreadyExists('new@example.com')),
                     static function (TestCase $test, ?Organization $organization, ?User $user): bool {
                         $user->email = 'old@example.com';
                         $user->type  = UserType::local();

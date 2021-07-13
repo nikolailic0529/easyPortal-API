@@ -9,7 +9,7 @@ use Throwable;
 
 use function __;
 
-class UpdateMeEmailEmailTaken extends Exception implements TranslatedException {
+class UpdateMeEmailUserAlreadyExists extends Exception implements TranslatedException {
     use HasErrorCode;
 
     public function __construct(string $email, Throwable $previous = null) {
@@ -17,6 +17,6 @@ class UpdateMeEmailEmailTaken extends Exception implements TranslatedException {
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.updateMeEmail.email_taken');
+        return __('graphql.mutations.updateMeEmail.user_already_exists');
     }
 }
