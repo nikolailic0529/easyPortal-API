@@ -4,6 +4,7 @@ namespace App\Services\KeyCloak\Client;
 
 use App\Models\Role;
 use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists;
+use App\Services\KeyCloak\Client\Exceptions\UserDoesntExists;
 use App\Services\KeyCloak\Client\Types\Credential;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\User;
@@ -121,50 +122,43 @@ class ClientTest extends TestCase {
 
     /**
      * @covers ::getUserGroups
+     *
+     * @dataProvider dataProviderGetUserGroups
      */
-    public function testGetUserGroups(): void {
-        $this->prepareClient(true);
-        $this->override(Factory::class, static function () {
-            return Http::fake([
-                '*' => Http::response(
-                    [
-                        [
-                            'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02388',
-                            'name' => 'test',
-                            'path' => 'group/test',
-                        ],
-                    ],
-                    Response::HTTP_OK,
-                ),
-            ]);
-        });
-        $client   = $this->app->make(Client::class);
-        $group    = new Group([
-            'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02388',
-            'name' => 'test',
-            'path' => 'group/test',
-        ]);
-        $response = $client->getUserGroups($this->faker->uuid);
-        $this->assertEquals($response, [$group]);
-        $this->setSettings([
-            'ep.keycloak.url'           => $this->faker->url,
-            'ep.keycloak.client_id'     => $this->faker->uuid,
-            'ep.keycloak.client_secret' => $this->faker->uuid,
-        ]);
-        $this->override(Client::class, static function (MockInterface $mock): void {
-            $mock->makePartial();
-            $mock->shouldAllowMockingProtectedMethods();
+    public function testGetUserGroups(array|Exception $expected): void {
+        $this->prepareClient();
+        if ($expected instanceof Exception) {
+            $this->expectExceptionObject(new UserDoesntExists());
+        }
+        $this->override(Token::class, static function (MockInterface $mock): void {
             $mock
-                ->shouldReceive('call')
-                ->with(
-                    'users/f9834bc1-2f2f-4c57-bb8d-7a224ac24982/groups',
-                    'GET',
-                )
+                ->shouldReceive('getAccessToken')
                 ->once()
-                ->andReturns([]);
+                ->andReturn('token');
+        });
+        $this->override(Factory::class, static function () use ($expected) {
+            if ($expected instanceof Exception) {
+                return Http::fake(['*' => Http::response(null, Response::HTTP_NOT_FOUND)]);
+            } else {
+                return Http::fake([
+                    '*' => Http::response(
+                        [
+                            [
+                                'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02388',
+                                'name' => 'test',
+                                'path' => 'group/test',
+                            ],
+                        ],
+                        Response::HTTP_OK,
+                    ),
+                ]);
+            }
         });
         $client = $this->app->make(Client::class);
-        $client->getUserGroups('f9834bc1-2f2f-4c57-bb8d-7a224ac24982');
+        $groups = $client->getUserGroups('f9834bc1-2f2f-4c57-bb8d-7a224ac24982');
+        if (!$expected instanceof Exception) {
+            $this->assertEquals($expected, $groups);
+        }
     }
 
     /*
@@ -258,6 +252,21 @@ class ClientTest extends TestCase {
         return [
             ['correct@example.com', true],
             ['wrong@example.com', new UserAlreadyExists('wrong@example.com')],
+        ];
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderGetUserGroups(): array {
+        $group = new Group([
+            'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02388',
+            'name' => 'test',
+            'path' => 'group/test',
+        ]);
+        return [
+            'success'   => [[$group]],
+            'not found' => [new UserDoesntExists()],
         ];
     }
     //</editor-fold>
