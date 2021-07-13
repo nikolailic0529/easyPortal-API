@@ -3,5 +3,5 @@ type Note {
   note: String!
   created_at: DateTime!
   user: User! @belongsTo
-  files: [Files!]! @hasMany
+  files: [File!]! @hasMany
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasDocuments;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * File.
@@ -35,4 +36,12 @@ class File extends Model {
      * @var string
      */
     protected $table = 'files';
+
+    public function note(): BelongsTo {
+        return $this->belongsTo(User::class);
+    }
+
+    public function setNoteAttribute(Note $note): void {
+        $this->note()->associate($note);
+    }
 }

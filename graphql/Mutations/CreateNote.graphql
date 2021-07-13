@@ -6,7 +6,7 @@ extend type Mutation {
   @organization
 }
 
-input CreateNoteInput {
+input CreateNoteInput @validator {
   note: String!
   document_id: String!
   files: [Upload!]

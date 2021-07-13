@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 /**
  * Note.
@@ -30,6 +32,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Note extends Model {
     use HasFactory;
     use OwnedByOrganization;
+    use SyncHasMany;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -60,5 +63,9 @@ class Note extends Model {
 
     public function files(): HasMany {
         return $this->hasMany(File::class);
+    }
+
+    public function setFilesAttribute(Collection|array $files): void {
+        $this->syncHasMany('files', $files);
     }
 }

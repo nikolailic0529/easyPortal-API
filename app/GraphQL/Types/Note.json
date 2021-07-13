@@ -4,6 +4,7 @@
     "type": "object",
     "required": [
         "created_at",
+        "files",
         "note",
         "user",
         "id"
@@ -21,6 +22,12 @@
         },
         "user": {
             "$ref": "../Types/User.json"
+        },
+        "files": {
+            "type": "array",
+            "items": {
+                "$ref": "../Types/File.json"
+            }
         }
     }
 }

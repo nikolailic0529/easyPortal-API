@@ -11,9 +11,11 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\AuthUserDataProvider;
+use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
+use function __;
 use function array_key_exists;
 /**
  * @internal
@@ -27,6 +29,8 @@ class CreateNoteTest extends TestCase {
      * @dataProvider dataProviderInvoke
      *
      * @param array<string,mixed> $input
+     *
+     * @param array<string,mixed> $settings
      */
     public function testInvoke(
         Response $expected,
@@ -34,13 +38,15 @@ class CreateNoteTest extends TestCase {
         Closure $userFactory = null,
         Closure $documentFactory = null,
         array $input = [
-            'document_id' => '',
-            'note'        => '',
+            'document_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+            'note'        => 'note',
             'files'       => null,
         ],
+        array $settings = [],
     ): void {
         // Prepare
         $user = $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $this->setSettings($settings);
 
         if ($user) {
             $user->save();
@@ -53,8 +59,8 @@ class CreateNoteTest extends TestCase {
 
         if (array_key_exists('files', $input)) {
             if (!empty($input['files'])) {
-                foreach ($input['files'] as $index => $file) {
-                    $file[$index] = $file;
+                foreach ($input['files'] as $index => $item) {
+                    $file[$index] = $item;
                     $map[$index]  = ["variables.input.files.{$index}"];
                 }
                 $input['files'] = null;
@@ -63,6 +69,10 @@ class CreateNoteTest extends TestCase {
 
         if ($documentFactory) {
             $documentFactory($this);
+        } else {
+            Document::factory()->create([
+                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+            ]);
         }
 
         // Test
@@ -78,6 +88,11 @@ class CreateNoteTest extends TestCase {
                             given_name
                             family_name
                         }
+                        files {
+                            id
+                            name
+                            path
+                        }
                     }
                 }
             }';
@@ -89,29 +104,16 @@ class CreateNoteTest extends TestCase {
         ];
 
         $response = $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
-        // $response = $this
-        //     ->graphQL(/** @lang GraphQL */ 'mutation createNote($input: CreateNoteInput!) {
-        //         createNote(input:$input) {
-        //             created {
-        //                 id
-        //                 note
-        //                 created_at
-        //                 user {
-        //                     given_name
-        //                     family_name
-        //                     id
-        //                 }
-        //             }
-        //         }
-        //     }', ['input' => $data])
-        //     ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
             $created = $response->json('data.createNote.created');
             $this->assertIsArray($created);
             $this->assertNotNull($created['id']);
             $this->assertNotNull($created['created_at']);
-            // $this->assertEquals($data['note'], $created['note']);
+            $this->assertEquals($input['note'], $created['note']);
+            // Files assertion
+            $this->assertCount(1, $created['files']);
+            $this->assertEquals('document.csv', $created['files'][0]['name']);
         }
     }
     // </editor-fold>
@@ -126,7 +128,7 @@ class CreateNoteTest extends TestCase {
             new OrganizationDataProvider('createNote'),
             new AuthUserDataProvider('createNote'),
             new ArrayDataProvider([
-                'ok' => [
+                'ok'                  => [
                     new GraphQLSuccess('createNote', CreateNote::class),
                     static function (): void {
                         Document::factory()->create([
@@ -137,6 +139,82 @@ class CreateNoteTest extends TestCase {
                         'note'        => 'note',
                         'document_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                         'files'       => [UploadedFile::fake()->create('document.csv', 200)],
+                    ],
+                    [
+                        'ep.file.max_size' => 250,
+                        'ep.file.formats'  => ['csv'],
+                    ],
+                ],
+                'Invalid note'        => [
+                    new GraphQLError('createNote', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    static function (): void {
+                        Document::factory()->create([
+                            'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                        ]);
+                    },
+                    [
+                        'note'        => '',
+                        'document_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                        'files'       => [UploadedFile::fake()->create('document.csv', 200)],
+                    ],
+                ],
+                'Invalid document'    => [
+                    new GraphQLError('createNote', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    static function (): void {
+                        Document::factory()->create([
+                            'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                        ]);
+                    },
+                    [
+                        'note'        => 'note',
+                        'document_id' => '',
+                        'files'       => [UploadedFile::fake()->create('document.csv', 200)],
+                    ],
+                    [
+                        'ep.file.max_size' => 250,
+                        'ep.file.formats'  => ['csv'],
+                    ],
+                ],
+                'Invalid file size'   => [
+                    new GraphQLError('createNote', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    static function (): void {
+                        Document::factory()->create([
+                            'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                        ]);
+                    },
+                    [
+                        'note'        => 'note',
+                        'document_id' => '',
+                        'files'       => [UploadedFile::fake()->create('document.csv', 150)],
+                    ],
+                    [
+                        'ep.file.max_size' => 100,
+                        'ep.file.formats'  => ['csv'],
+                    ],
+                ],
+                'Invalid file format' => [
+                    new GraphQLError('createNote', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    static function (): void {
+                        Document::factory()->create([
+                            'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                        ]);
+                    },
+                    [
+                        'note'        => 'note',
+                        'document_id' => '',
+                        'files'       => [UploadedFile::fake()->create('document.csv', 150)],
+                    ],
+                    [
+                        'ep.file.max_size' => 200,
+                        'ep.file.formats'  => ['pdf'],
                     ],
                 ],
             ]),
