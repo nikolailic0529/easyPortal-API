@@ -30,13 +30,7 @@ class ClientTest extends TestCase {
      * @dataProvider dataProviderGetUserByEmail
      */
     public function testGetUserByEmail(string $email, ?User $expected): void {
-        $this->prepareClient();
-        $this->override(Token::class, static function (MockInterface $mock): void {
-            $mock
-                ->shouldReceive('getAccessToken')
-                ->once()
-                ->andReturn('token');
-        });
+        $this->prepareClient(true);
         $this->override(Factory::class, static function () {
             return Http::fake([
                 'users?email=correct@gmail.com' => Http::response(
@@ -107,11 +101,7 @@ class ClientTest extends TestCase {
      * @covers ::requestResetPassword
      */
     public function testRequestResetPassword(): void {
-        $this->setSettings([
-            'ep.keycloak.url'           => $this->faker->url,
-            'ep.keycloak.client_id'     => $this->faker->uuid,
-            'ep.keycloak.client_secret' => $this->faker->uuid,
-        ]);
+        $this->prepareClient();
         $this->override(Client::class, static function (MockInterface $mock): void {
             $mock->makePartial();
             $mock->shouldAllowMockingProtectedMethods();
@@ -133,13 +123,7 @@ class ClientTest extends TestCase {
      * @covers ::getUserGroups
      */
     public function testGetUserGroups(): void {
-        $this->prepareClient();
-        $this->override(Token::class, static function (MockInterface $mock): void {
-            $mock
-                ->shouldReceive('getAccessToken')
-                ->once()
-                ->andReturn('token');
-        });
+        $this->prepareClient(true);
         $this->override(Factory::class, static function () {
             return Http::fake([
                 '*' => Http::response(
@@ -187,11 +171,7 @@ class ClientTest extends TestCase {
      * @covers ::resetPassword
      */
     public function testResetPassword(): void {
-        $this->setSettings([
-            'ep.keycloak.url'           => $this->faker->url,
-            'ep.keycloak.client_id'     => $this->faker->uuid,
-            'ep.keycloak.client_secret' => $this->faker->uuid,
-        ]);
+        $this->prepareClient();
         $this->override(Client::class, static function (MockInterface $mock): void {
             $credentials = new Credential([
                 'type'      => 'password',
@@ -213,6 +193,34 @@ class ClientTest extends TestCase {
         $client = $this->app->make(Client::class);
 
         $this->assertTrue($client->resetPassword('f9834bc1-2f2f-4c57-bb8d-7a224ac24982', '1234567'));
+    }
+
+    /**
+     *
+     * @covers ::updateUserEmail
+     *
+     * @dataProvider dataProviderUpdateUserEmail
+     */
+    public function testUpdateUserEmail(string $email, bool|Exception $expected): void {
+        $this->prepareClient(true);
+        $this->override(Factory::class, static function () {
+            return Http::fake(static function (Request $request) {
+                $data = $request->data();
+                if ($data['email'] === 'correct@example.com') {
+                    return Http::response([], Response::HTTP_NO_CONTENT);
+                } else {
+                    return Http::response(null, Response::HTTP_CONFLICT);
+                }
+            });
+        });
+        if ($expected instanceof Exception) {
+            $this->expectExceptionObject($expected);
+        }
+        $client   = $this->app->make(Client::class);
+        $response = $client->updateUserEmail('f9834bc1-2f2f-4c57-bb8d-7a224ac24982', $email);
+        if (is_bool($expected)) {
+            $this->assertNull($response);
+        }
     }
 
     // <editor-fold desc="DataProviders">
@@ -242,17 +250,39 @@ class ClientTest extends TestCase {
             ['wrong@gmail.com', new UserAlreadyExists('wrong@gmail.com')],
         ];
     }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderUpdateUserEmail(): array {
+        return [
+            ['correct@example.com', true],
+            ['wrong@example.com', new UserAlreadyExists('wrong@example.com')],
+        ];
+    }
     //</editor-fold>
 
     // <editor-fold desc="Helpers">
     // =========================================================================
-    protected function prepareClient(): void {
+    protected function prepareClient(bool $withToken = false): void {
         $this->setSettings([
             'ep.keycloak.url'           => $this->faker->url,
             'ep.keycloak.client_id'     => $this->faker->word,
             'ep.keycloak.client_secret' => $this->faker->uuid,
             'ep.keycloak.client_uuid'   => $this->faker->uuid,
         ]);
+        if ($withToken) {
+            $this->prepareToken();
+        }
+    }
+
+    protected function prepareToken(): void {
+        $this->override(Token::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('getAccessToken')
+                ->once()
+                ->andReturn('token');
+        });
     }
     //</editor-fold>
 }

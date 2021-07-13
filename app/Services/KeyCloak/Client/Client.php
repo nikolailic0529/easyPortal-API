@@ -285,6 +285,20 @@ class Client {
 
         return true;
     }
+
+    public function updateUserEmail(string $id, string $email): void {
+        // PUT /{realm}/users/{id}
+        $endpoint     = "users/{$id}";
+        $errorHandler = function (Exception $exception) use ($endpoint, $email): void {
+            if ($exception instanceof RequestException) {
+                if ($exception->getCode() === Response::HTTP_CONFLICT) {
+                    throw new UserAlreadyExists($email);
+                }
+            }
+            $this->endpointException($exception, $endpoint);
+        };
+        $this->call($endpoint, 'PUT', ['json' => ['email' => $email]], $errorHandler);
+    }
     // </editor-fold>
 
     // <editor-fold desc="API">
