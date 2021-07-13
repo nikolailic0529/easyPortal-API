@@ -97,6 +97,7 @@ type Company {
   keycloakGroupId: String
   keycloakName: String
   keycloakClientScopeName: String
+  companyKpis: CompanyKpis
   status: [String]
 }
 
@@ -122,6 +123,21 @@ type CompanyContactPerson {
   name: String
   type: String
   mail: String
+}
+
+type CompanyKpis {
+  assets: Int
+  activeAssets: Int
+  activeCustomers: Int
+  newActiveCustomers: Int
+  activeContracts: Int
+  activeContractTotalAmount: Int
+  newActiveContracts: Int
+  expiringContracts: Int
+  activeQuotes: Int
+  activeQuotesTotalAmount: Int
+  newActiveQuotes: Int
+  expiringQuotes: Int
 }
 
 type CompanyType {
@@ -200,6 +216,7 @@ type Document {
   reseller: Company
   distributor: Company
   contactPersons: [CompanyContactPerson]
+  status: [String]
 }
 
 type DocumentEntry {
