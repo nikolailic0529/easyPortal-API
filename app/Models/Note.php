@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Note.
@@ -11,12 +13,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string                       $id
  * @property string                       $note
  * @property string                       $document_id
+ * @property string                       $organization_id
  * @property string                       $user_id
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
  * @property \App\Models\User             $user
  * @property \App\Models\Document         $document
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\File> $files
  * @method static \Database\Factories\NoteFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note newQuery()
@@ -25,6 +29,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Note extends Model {
     use HasFactory;
+    use OwnedByOrganization;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -47,5 +52,13 @@ class Note extends Model {
 
     public function setDocumentAttribute(Document $document): void {
         $this->document()->associate($document);
+    }
+
+    public function getQualifiedOrganizationColumn(): string {
+        return $this->qualifyColumn('organization_id');
+    }
+
+    public function files(): HasMany {
+        return $this->hasMany(File::class);
     }
 }
