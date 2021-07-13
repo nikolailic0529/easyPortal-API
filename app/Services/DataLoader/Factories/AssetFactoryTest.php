@@ -1756,7 +1756,7 @@ class AssetFactoryTest extends TestCase {
         ];
 
         $this->assertCount(2, $coverages);
-        $this->assertEquals($expected, $this->getAssetCoverages($asset));
+        $this->assertEquals($expected, $this->getCoverages($coverages));
     }
     // </editor-fold>
 

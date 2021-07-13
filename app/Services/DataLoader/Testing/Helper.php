@@ -103,6 +103,26 @@ trait Helper {
     }
 
     /**
+     * @param \Illuminate\Support\Collection<\App\Models\Coverage>|array<\App\Models\Coverage> $coverages
+     *
+     * @return array{key: string, name: string}|null
+     */
+    protected function getCoverages(Collection|array|null $coverages): ?array {
+        $result = null;
+
+        foreach ($coverages as $coverage) {
+            /** @var \App\Models\Coverage $coverage */
+
+            $result["{$coverage->key}"] = [
+                'key'  => $coverage->key,
+                'name' => $coverage->name,
+            ];
+        }
+
+        return $result;
+    }
+
+    /**
      * @return array{key: string, name: string}|null
      */
     protected function getModelStatuses(Reseller|Customer $model): ?array {
