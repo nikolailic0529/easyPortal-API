@@ -140,8 +140,12 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         return $this;
     }
 
-    public function getCoverageResolver(): CoverageResolver {
+    protected function getCoverageResolver(): CoverageResolver {
         return $this->coverages;
+    }
+
+    protected function getStatusResolver(): StatusResolver {
+        return $this->statuses;
     }
     // </editor-fold>
 

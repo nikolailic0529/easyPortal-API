@@ -6,7 +6,6 @@ use App\Models\Customer;
 use App\Services\DataLoader\Factories\Concerns\Company as ConcernsCompany;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithLocations;
-use App\Services\DataLoader\Factories\Concerns\WithStatus;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Normalizer;
@@ -30,7 +29,6 @@ use function sprintf;
 
 class CustomerFactory extends ModelFactory implements FactoryPrefetchable {
     use WithType;
-    use WithStatus;
     use WithContacts;
     use WithLocations;
     use ConcernsCompany;
@@ -60,6 +58,10 @@ class CustomerFactory extends ModelFactory implements FactoryPrefetchable {
 
     protected function getLocationFactory(): LocationFactory {
         return $this->locations;
+    }
+
+    protected function getStatusResolver(): StatusResolver {
+        return $this->statuses;
     }
     // </editor-fold>
 
@@ -137,7 +139,7 @@ class CustomerFactory extends ModelFactory implements FactoryPrefetchable {
             $customer->id        = $this->normalizer->uuid($company->id);
             $customer->name      = $this->normalizer->string($company->name);
             $customer->type      = $this->companyType($customer, $company->companyTypes);
-            $customer->status    = $this->companyStatus($customer, $company->companyTypes);
+            $customer->statuses  = $this->companyStatuses($customer, $company);
             $customer->contacts  = $this->objectContacts($customer, $company->companyContactPersons);
             $customer->locations = $this->objectLocations($customer, $company->locations);
 

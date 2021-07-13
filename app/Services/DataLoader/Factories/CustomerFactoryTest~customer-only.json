@@ -3,8 +3,7 @@
     "name": "Weber, Gusikowski and Simonis",
     "companyTypes": [
         {
-            "type": "CUSTOMER",
-            "status": "ACTIVE"
+            "type": "CUSTOMER"
         }
     ],
     "companyContactPersons": [

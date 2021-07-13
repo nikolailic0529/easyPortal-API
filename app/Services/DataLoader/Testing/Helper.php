@@ -2,7 +2,9 @@
 
 namespace App\Services\DataLoader\Testing;
 
+use App\Models\Asset;
 use App\Models\Customer;
+use App\Models\Document;
 use App\Models\Location;
 use App\Models\Model;
 use App\Models\Reseller;
@@ -12,6 +14,7 @@ use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewDocument;
 use DateTimeInterface;
+use Illuminate\Support\Collection;
 use libphonenumber\NumberParseException;
 use Propaganistas\LaravelPhone\PhoneNumber;
 
@@ -47,7 +50,7 @@ trait Helper {
     /**
      * @return array<mixed>
      */
-    protected function getModelContacts(Model $model): array {
+    protected function getModelContacts(Reseller|Customer|Asset|Document $model): array {
         $contacts = [];
 
         foreach ($model->contacts as $contact) {
@@ -69,7 +72,7 @@ trait Helper {
     /**
      * @return array<mixed>
      */
-    protected function getModelTags(Model $model): array {
+    protected function getModelTags(Asset $model): array {
         $tags = [];
 
         foreach ($model->tags ?? [] as $tag) {
@@ -85,7 +88,7 @@ trait Helper {
     /**
      * @return array<mixed>
      */
-    protected function getModelCoverages(Model $model): array {
+    protected function getModelCoverages(Asset $model): array {
         $coverages = [];
 
         foreach ($model->coverages ?? [] as $coverage) {
@@ -98,6 +101,33 @@ trait Helper {
         }
 
         return $coverages;
+    }
+
+    /**
+     * @return array{key: string, name: string}|null
+     */
+    protected function getModelStatuses(Reseller|Customer $model): ?array {
+        return $this->getStatuses($model->statuses ?? []);
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\Status>|array<\App\Models\Status> $statuses
+     *
+     * @return array{key: string, name: string}|null
+     */
+    protected function getStatuses(Collection|array|null $statuses): ?array {
+        $result = null;
+
+        foreach ($statuses as $status) {
+            /** @var \App\Models\Status $status */
+
+            $result["{$status->key}"] = [
+                'key'  => $status->key,
+                'name' => $status->name,
+            ];
+        }
+
+        return $result;
     }
 
     /**
@@ -159,6 +189,22 @@ trait Helper {
         }, $company->companyTypes));
 
         return reset($types);
+    }
+
+    /**
+     * @return array{key: string, name: string}
+     */
+    protected function getCompanyStatuses(Company $company): array {
+        $statuses = [];
+
+        foreach ((array) $company->status as $status) {
+            $statuses[$status] = [
+                'key'  => $status,
+                'name' => $status,
+            ];
+        }
+
+        return $statuses;
     }
 
     /**

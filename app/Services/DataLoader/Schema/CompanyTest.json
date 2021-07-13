@@ -64,5 +64,8 @@
         "secondaryColorDefault": null,
         "underlineText": null,
         "useDefaultFavIcon": null
-    }
+    },
+    "status": [
+        "INACTIVE"
+    ]
 }

@@ -1,6 +1,7 @@
 {
     "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
     "name": "Gusikowski and Simonis",
+    "status": ["INACTIVE"],
     "companyContactPersons": [
         {
             "phoneNumber": "+49 (591) 12345-67",
@@ -12,8 +13,7 @@
     ],
     "companyTypes": [
         {
-            "type": "CUSTOMER",
-            "status": "ACTIVE"
+            "type": "CUSTOMER"
         }
     ],
     "locations": [

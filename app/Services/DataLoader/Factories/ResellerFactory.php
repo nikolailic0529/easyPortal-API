@@ -57,6 +57,10 @@ class ResellerFactory extends ModelFactory implements FactoryPrefetchable {
     protected function getLocationFactory(): LocationFactory {
         return $this->locations;
     }
+
+    protected function getStatusResolver(): StatusResolver {
+        return $this->statuses;
+    }
     // </editor-fold>
 
     // <editor-fold desc="Prefetch">
@@ -133,7 +137,7 @@ class ResellerFactory extends ModelFactory implements FactoryPrefetchable {
             $reseller->id        = $this->normalizer->uuid($company->id);
             $reseller->name      = $this->normalizer->string($company->name);
             $reseller->type      = $this->companyType($reseller, $company->companyTypes);
-            $reseller->status    = $this->companyStatus($reseller, $company->companyTypes);
+            $reseller->statuses  = $this->companyStatuses($reseller, $company);
             $reseller->contacts  = $this->objectContacts($reseller, $company->companyContactPersons);
             $reseller->locations = $this->objectLocations($reseller, $company->locations);
 

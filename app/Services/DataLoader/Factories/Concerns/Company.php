@@ -6,7 +6,10 @@ use App\Models\Model;
 use App\Models\Status;
 use App\Models\Type;
 use App\Services\DataLoader\Exceptions\DataLoaderException;
+use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Schema\Company as CompanyObject;
 use App\Services\DataLoader\Schema\CompanyType;
+use Illuminate\Support\Collection;
 
 use function array_map;
 use function array_unique;
@@ -17,24 +20,21 @@ trait Company {
     use WithStatus;
     use WithType;
 
+    abstract protected function getNormalizer(): Normalizer;
+
     /**
-     * @param array<\App\Services\DataLoader\Schema\CompanyType> $statuses
+     * @return array<\App\Models\Status>
      */
-    protected function companyStatus(Model $owner, array $statuses): Status {
-        $status = null;
-        $names  = array_unique(array_map(static function (CompanyType $type): string {
-            return $type->status;
-        }, $statuses));
-
-        if (count($names) > 1) {
-            throw new DataLoaderException('Multiple status.');
-        } elseif (count($names) < 1) {
-            throw new DataLoaderException('Status is missing.');
-        } else {
-            $status = $this->status($owner, reset($names));
-        }
-
-        return $status;
+    protected function companyStatuses(Model $owner, CompanyObject $company): array {
+        return (new Collection($company->status ?? []))
+            ->filter(function (?string $status): bool {
+                return (bool) $this->getNormalizer()->string($status);
+            })
+            ->map(function (string $status) use ($owner): Status {
+                return $this->status($owner, $status);
+            })
+            ->unique()
+            ->all();
     }
 
     /**
