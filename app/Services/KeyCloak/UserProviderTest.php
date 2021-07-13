@@ -486,7 +486,6 @@ class UserProviderTest extends TestCase {
                         'family_name'    => 'Test',
                         'phone'          => '12345678',
                         'phone_verified' => true,
-                        'locale'         => null,
                         'permissions'    => [
                             'test_role_1',
                             'test_role_2',
@@ -535,7 +534,6 @@ class UserProviderTest extends TestCase {
                         'family_name'    => 'Test',
                         'phone'          => '12345678',
                         'phone_verified' => null,
-                        'locale'         => null,
                         'organization'   => $organization,
                         'permissions'    => [],
                     ];
@@ -566,7 +564,6 @@ class UserProviderTest extends TestCase {
                         'family_name'    => 'Test',
                         'phone'          => null,
                         'phone_verified' => null,
-                        'locale'         => null,
                         'organization'   => $organization,
                         'permissions'    => [],
                     ];
