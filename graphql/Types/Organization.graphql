@@ -15,7 +15,7 @@ type Organization {
   branding: OrganizationBranding
   @field(resolver: "App\\GraphQL\\Queries\\Organization@branding")
 
-  status: Status @hasOne
+  statuses: [Status!]! @belongsToMany
   locations: [Location!]!
   contacts: [Contact!]!
   headquarter: Location

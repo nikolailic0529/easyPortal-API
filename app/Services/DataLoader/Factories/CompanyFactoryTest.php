@@ -1,14 +1,16 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Factories\Concerns;
+namespace App\Services\DataLoader\Factories;
 
 use App\Models\Model;
-use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\DataLoaderException;
-use App\Services\DataLoader\Factories\ModelFactory;
+use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Resolvers\StatusResolver;
+use App\Services\DataLoader\Schema\Company as CompanyObject;
 use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\Type;
+use App\Services\DataLoader\Testing\Helper;
 use Closure;
 use Exception;
 use Tests\TestCase;
@@ -17,25 +19,32 @@ use function tap;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factories\Concerns\Company
+ * @coversDefaultClass \App\Services\DataLoader\Factories\CompanyFactory
  */
-class CompanyTest extends TestCase {
+class CompanyFactoryTest extends TestCase {
+    use Helper;
+
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
-     * @covers ::companyStatus
-     *
-     * @dataProvider dataProviderCompanyStatus
+     * @covers ::companyStatuses
      */
-    public function testCompanyStatus(string|Exception $expected, Closure $statusesFactory): void {
+    public function testCompanyStatuses(): void {
         // Prepare
-        $factory = new class() extends ModelFactory {
-            use Company {
-                companyStatus as public;
+        $owner   = new class() extends Model {
+            public function getMorphClass(): string {
+                return $this::class;
             }
-
+        };
+        $factory = new class(
+            $this->app->make(Normalizer::class),
+            $this->app->make(StatusResolver::class),
+        ) extends CompanyFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected StatusResolver $statuses,
+            ) {
                 // empty
             }
 
@@ -43,28 +52,38 @@ class CompanyTest extends TestCase {
                 return null;
             }
 
-            protected function status(Model $model, string $status): Status {
-                return Status::factory()->make([
-                    'object_type' => $model,
-                    'key'         => $status,
-                ]);
+            /**
+             * @inheritDoc
+             */
+            public function companyStatuses(Model $owner, CompanyObject $company): array {
+                return parent::companyStatuses($owner, $company);
             }
         };
 
-        // Test
-        if ($expected instanceof Exception) {
-            $this->expectExceptionObject($expected);
-        }
+        // Null
+        $this->assertEmpty($factory->companyStatuses($owner, new CompanyObject(['status' => null])));
 
-        $owner = new class() extends Model {
-            // empty
-        };
+        // Empty
+        $this->assertEmpty($factory->companyStatuses($owner, new CompanyObject(['status' => ['', null]])));
 
-        $statuses = $statusesFactory($this);
-        $actual   = $factory->companyStatus($owner, $statuses);
+        // Not empty
+        $company  = new CompanyObject([
+            'status' => ['a', 'A', 'b'],
+        ]);
+        $statuses = $factory->companyStatuses($owner, $company);
+        $expected = [
+            'a' => [
+                'key'  => 'a',
+                'name' => 'a',
+            ],
+            'b' => [
+                'key'  => 'b',
+                'name' => 'b',
+            ],
+        ];
 
-        $this->assertNotNull($actual);
-        $this->assertEquals($expected, $actual->key);
+        $this->assertCount(2, $statuses);
+        $this->assertEquals($expected, $this->getStatuses($statuses));
     }
 
     /**
@@ -74,11 +93,7 @@ class CompanyTest extends TestCase {
      */
     public function testCompanyType(string|Exception $expected, Closure $typesFactory): void {
         // Prepare
-        $factory = new class() extends ModelFactory {
-            use Company {
-                companyType as public;
-            }
-
+        $factory = new class() extends CompanyFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct() {
                 // empty
@@ -93,6 +108,13 @@ class CompanyTest extends TestCase {
                     'object_type' => $model,
                     'key'         => $type,
                 ]);
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function companyType(Model $owner, array $types): TypeModel {
+                return parent::companyType($owner, $types);
             }
         };
 
@@ -115,56 +137,6 @@ class CompanyTest extends TestCase {
 
     // <editor-fold desc="DataProviders">
     // =========================================================================
-    /**
-     * @return array<mixed>
-     */
-    public function dataProviderCompanyStatus(): array {
-        return [
-            'one value'                => [
-                'value',
-                static function (): array {
-                    return [
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->status = 'value';
-                        }),
-                    ];
-                },
-            ],
-            'several values, but same' => [
-                'value',
-                static function (): array {
-                    return [
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->status = 'value';
-                        }),
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->status = 'value';
-                        }),
-                    ];
-                },
-            ],
-            'several values'           => [
-                new DataLoaderException('Multiple status.'),
-                static function (): array {
-                    return [
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->status = 'value a';
-                        }),
-                        tap(new CompanyType(), static function (CompanyType $type): void {
-                            $type->status = 'value b';
-                        }),
-                    ];
-                },
-            ],
-            'empty'                    => [
-                new DataLoaderException('Status is missing.'),
-                static function (): array {
-                    return [];
-                },
-            ],
-        ];
-    }
-
     /**
      * @return array<mixed>
      */

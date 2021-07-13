@@ -7,7 +7,6 @@ use App\Models\Location;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Reseller;
-use App\Models\Status;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Client\Factory;
@@ -94,8 +93,9 @@ class OrganizationTest extends TestCase {
                           welcome_heading
                           welcome_underline
                         }
-                        status {
+                        statuses {
                             id
+                            key
                             name
                         }
                         contacts {
@@ -327,9 +327,12 @@ class OrganizationTest extends TestCase {
                             'welcome_heading'         => 'heading',
                             'welcome_underline'       => 'underline',
                         ],
-                        'status'         => [
-                            'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
-                            'name' => 'active',
+                        'statuses'       => [
+                            [
+                                'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
+                                'key'  => 'active',
+                                'name' => 'active',
+                            ],
                         ],
                     ]),
                     [
@@ -341,18 +344,17 @@ class OrganizationTest extends TestCase {
                             'name' => 'currency1',
                             'code' => 'CUR',
                         ]);
-                        $status   = Status::factory()->create([
-                            'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
-                            'name'        => 'active',
-                            'key'         => 'active',
-                            'object_type' => (new Reseller())->getMorphClass(),
-                        ]);
                         $reseller = Reseller::factory()
-                            ->for($status)
                             ->hasContacts(1, [
                                 'name'        => 'contact1',
                                 'email'       => 'contact1@test.com',
                                 'phone_valid' => false,
+                            ])
+                            ->hasStatuses(1, [
+                                'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20949',
+                                'name'        => 'active',
+                                'key'         => 'active',
+                                'object_type' => (new Reseller())->getMorphClass(),
                             ])
                             ->create([
                                 'id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
@@ -445,7 +447,7 @@ class OrganizationTest extends TestCase {
         ))->getData();
     }
 
-        /**
+    /**
      * @return array<mixed>
      */
     public function dataProviderRoles(): array {

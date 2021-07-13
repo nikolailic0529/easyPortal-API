@@ -4,26 +4,31 @@ namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Model;
 use App\Models\Status;
+use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Resolvers\StatusResolver;
 
 /**
- * @property \App\Services\DataLoader\Normalizer               $normalizer
- * @property \App\Services\DataLoader\Resolvers\StatusResolver $statuses
- *
  * @mixin \App\Services\DataLoader\Factory
  */
 trait WithStatus {
+    abstract protected function getNormalizer(): Normalizer;
+
+    abstract protected function getStatusResolver(): StatusResolver;
+
     protected function status(Model $owner, string $status): Status {
-        $status = $this->statuses->get($owner, $status, $this->factory(function () use ($owner, $status): Status {
-            $model = new Status();
+        $status = $this->getStatusResolver()->get($owner, $status, $this->factory(
+            function () use ($owner, $status): Status {
+                $model              = new Status();
+                $normalizer         = $this->getNormalizer();
+                $model->object_type = $owner->getMorphClass();
+                $model->key         = $normalizer->string($status);
+                $model->name        = $normalizer->string($status);
 
-            $model->object_type = $owner->getMorphClass();
-            $model->key         = $this->normalizer->string($status);
-            $model->name        = $this->normalizer->string($status);
+                $model->save();
 
-            $model->save();
-
-            return $model;
-        }));
+                return $model;
+            },
+        ));
 
         return $status;
     }

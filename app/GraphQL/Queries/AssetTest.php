@@ -4,7 +4,6 @@ namespace App\GraphQL\Queries;
 
 use App\Models\Asset;
 use App\Models\AssetWarranty;
-use App\Models\Coverage;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\DocumentEntry;

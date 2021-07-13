@@ -3,8 +3,7 @@
     "name": "Gusikowski and Simonis",
     "companyTypes": [
         {
-            "type": "RESELLER",
-            "status": "ACTIVE"
+            "type": "RESELLER"
         }
     ],
     "companyContactPersons": [

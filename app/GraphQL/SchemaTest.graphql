@@ -456,8 +456,7 @@ type Customer {
   name: String!
   type: Type!
   type_id: ID!
-  status: Status!
-  status_id: ID!
+  statuses: [Status]!
   assets_count: Int!
   locations_count: Int!
   locations: [Location!]!
@@ -534,7 +533,7 @@ input CustomersQuery {
   id: ID!
   name: String!
   type_id: ID!
-  status_id: ID!
+  statuses: StatusesQuery!
   assets_count: Int!
   locations_count: Int!
   locations: LocationsQuery
@@ -550,7 +549,6 @@ input CustomersSort {
   locations_count: Int!
   contacts_count: Int!
   assets_count: Int!
-  status: StatusSort!
   type: TypesSort!
   headquarter: LocationsSort!
 }
@@ -1128,7 +1126,7 @@ type Organization {
   analytics_code: String
   timezone: String
   branding: OrganizationBranding
-  status: Status
+  statuses: [Status!]!
   locations: [Location!]!
   contacts: [Contact!]!
   headquarter: Location
@@ -1189,7 +1187,7 @@ input OrganizationsQuery {
   name: String!
   website_url: String
   email: String
-  status_id: ID
+  statuses: StatusesQuery
   contacts: ContactsQuery
   locations: LocationsQuery
   headquarter: LocationsQuery
@@ -1199,7 +1197,6 @@ input OrganizationsSort {
   name: String!
   website_url: String
   email: String
-  status: StatusSort!
 }
 
 """Pagination information about the corresponding list of items."""
@@ -2114,7 +2111,7 @@ input SearchByConditionCustomersQuery {
   type_id: SearchByScalarID
 
   """Property condition."""
-  status_id: SearchByScalarID
+  statuses: SearchByRelationStatusesQuery
 
   """Property condition."""
   assets_count: SearchByScalarInt
@@ -2438,7 +2435,7 @@ input SearchByConditionOrganizationsQuery {
   email: SearchByScalarStringOrNull
 
   """Property condition."""
-  status_id: SearchByScalarIDOrNull
+  statuses: SearchByRelationStatusesQuery
 
   """Property condition."""
   contacts: SearchByRelationContactsQuery
@@ -2511,6 +2508,23 @@ input SearchByConditionResellersQuery {
 
   """Property condition."""
   name: SearchByScalarString
+}
+
+"""
+Available conditions for input StatusesQuery (only one property allowed at a time).
+"""
+input SearchByConditionStatusesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionStatusesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionStatusesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
 }
 
 """
@@ -2802,6 +2816,30 @@ input SearchByRelationProductsQuery {
 input SearchByRelationResellersQuery {
   """Conditions for the related objects."""
   where: SearchByConditionResellersQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""Relation condition for input StatusesQuery."""
+input SearchByRelationStatusesQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionStatusesQuery!
 
   """Equal (`=`)."""
   eq: Int
@@ -3335,9 +3373,6 @@ input SortByClauseCustomersSort {
   assets_count: SortByDirection
 
   """Property clause."""
-  status: SortByClauseStatusSort
-
-  """Property clause."""
   type: SortByClauseTypesSort
 
   """Property clause."""
@@ -3407,9 +3442,6 @@ input SortByClauseOrganizationsSort {
 
   """Property clause."""
   email: SortByDirection
-
-  """Property clause."""
-  status: SortByClauseStatusSort
 }
 
 """
@@ -3468,6 +3500,10 @@ type Status {
 
 input StatusSort {
   name: String!
+}
+
+input StatusesQuery {
+  id: ID!
 }
 
 input StopApplicationServiceInput {

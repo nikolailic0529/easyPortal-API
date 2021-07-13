@@ -7,7 +7,7 @@ use App\Models\Concerns\HasContacts;
 use App\Models\Concerns\HasContracts;
 use App\Models\Concerns\HasLocations;
 use App\Models\Concerns\HasQuotes;
-use App\Models\Concerns\HasStatus;
+use App\Models\Concerns\HasStatuses;
 use App\Models\Concerns\HasType;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Contracts\Config\Repository;
@@ -23,47 +23,33 @@ use function app;
  *
  * @property string                                                              $id
  * @property string                                                              $type_id
- * @property string                                                              $status_id
  * @property string                                                              $name
- * @property int                                                                 $locations_count
  * @property int                                                                 $assets_count
+ * @property int                                                                 $locations_count
+ * @property int                                                                 $contacts_count
  * @property \Carbon\CarbonImmutable                                             $created_at
  * @property \Carbon\CarbonImmutable                                             $updated_at
  * @property \Carbon\CarbonImmutable|null                                        $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Asset>    $assets
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
- * @property int                                                                 $contacts_count
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Document>      $contracts
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $contracts
+ * @property-read \App\Models\Location|null                                      $headquarter
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>      $locations
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $quotes
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Reseller> $resellers
- * @property \App\Models\Status                                                  $status
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>        $statuses
  * @property \App\Models\Type                                                    $type
  * @method static \Database\Factories\CustomerFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereAssetsCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereContactsCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereLocationsCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereStatusId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereTypeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Customer whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property-read int|null                                                       $contracts_count
- * @property-read \App\Models\Location|null                                      $headquarter
- * @property-read int|null                                                       $quotes_count
- * @property-read int|null                                                       $resellers_count
  */
 class Customer extends Model {
     use OwnedByOrganization;
     use HasFactory;
     use HasType;
-    use HasStatus;
+    use HasStatuses;
     use HasAssets;
     use HasLocations;
     use HasContacts;
@@ -95,6 +81,10 @@ class Customer extends Model {
             ->using($pivot::class)
             ->wherePivotNull($pivot->getDeletedAtColumn())
             ->withTimestamps();
+    }
+
+    protected function getStatusesPivot(): Pivot {
+        return new CustomerStatus();
     }
 
     // <editor-fold desc="OwnedByOrganization">

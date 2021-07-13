@@ -25,4 +25,9 @@ class Company extends Type implements TypeWithId {
     public array $assets;
 
     public ?BrandingData $brandingData;
+
+    /**
+     * @var array<string>|null
+     */
+    public ?array $status;
 }

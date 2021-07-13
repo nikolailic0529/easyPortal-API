@@ -731,6 +731,7 @@ class Client {
         return <<<'GRAPHQL'
             id
             name
+            status
             keycloakGroupId
             keycloakName
             companyContactPersons {
@@ -775,6 +776,7 @@ class Client {
         return <<<'GRAPHQL'
             id
             name
+            status
             companyContactPersons {
                 phoneNumber
                 name

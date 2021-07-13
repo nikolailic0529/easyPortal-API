@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\HasAssets;
 use App\Models\Concerns\HasContacts;
 use App\Models\Concerns\HasLocations;
-use App\Models\Concerns\HasStatus;
+use App\Models\Concerns\HasStatuses;
 use App\Models\Concerns\HasType;
 use App\Models\Concerns\SyncBelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,7 +19,6 @@ use function count;
  *
  * @property string                                                           $id
  * @property string|null                                                      $type_id
- * @property string|null                                                      $status_id
  * @property string                                                           $name
  * @property int                                                              $customers_count
  * @property int                                                              $locations_count
@@ -32,7 +31,7 @@ use function count;
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>    $contacts
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Customer>   $customers
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>   $locations
- * @property \App\Models\Status|null                                          $status
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>     $statuses
  * @property \App\Models\Type|null                                            $type
  * @method static \Database\Factories\ResellerFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller newModelQuery()
@@ -45,7 +44,7 @@ class Reseller extends Model {
     use HasAssets;
     use HasLocations;
     use HasType;
-    use HasStatus;
+    use HasStatuses;
     use HasContacts;
     use SyncBelongsToMany;
 
@@ -72,5 +71,9 @@ class Reseller extends Model {
     public function setCustomersAttribute(Collection|array $customers): void {
         $this->syncBelongsToMany('customers', $customers);
         $this->customers_count = count($customers);
+    }
+
+    protected function getStatusesPivot(): Pivot {
+        return new ResellerStatus();
     }
 }

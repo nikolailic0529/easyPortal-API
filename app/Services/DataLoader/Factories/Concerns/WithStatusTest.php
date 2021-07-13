@@ -37,9 +37,15 @@ class WithStatusTest extends TestCase {
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, StatusResolver $resolver) {
-                $this->normalizer = $normalizer;
-                $this->statuses   = $resolver;
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected  StatusResolver $statuses,
+            ) {
+                // empty
+            }
+
+            protected function getStatusResolver(): StatusResolver {
+                return $this->statuses;
             }
 
             public function create(Model $object, Type $type): ?Model {
