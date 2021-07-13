@@ -8,7 +8,7 @@ extend type Mutation {
 }
 
 input EnableOrgUserInput {
-  id: String!
+  id: ID!
 }
 
 type EnableOrgUserPayload {
