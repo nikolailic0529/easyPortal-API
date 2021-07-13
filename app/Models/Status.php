@@ -4,9 +4,9 @@ namespace App\Models;
 
 use App\GraphQL\Contracts\Translatable;
 use App\Models\Concerns\HasAssets;
-use App\Models\Concerns\HasCustomers;
 use App\Models\Concerns\TranslateProperties;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Status.
@@ -29,7 +29,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Status extends Model implements Translatable {
     use HasFactory;
     use TranslateProperties;
-    use HasCustomers;
     use HasAssets;
 
     /**
@@ -53,5 +52,15 @@ class Status extends Model implements Translatable {
         return [
             "models.{$this->getMorphClass()}.{$property}.{$this->object_type}.{$this->key}",
         ];
+    }
+
+    public function customers(): BelongsToMany {
+        $pivot = new CustomerStatus();
+
+        return $this
+            ->belongsToMany(Customer::class, $pivot->getTable())
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
     }
 }
