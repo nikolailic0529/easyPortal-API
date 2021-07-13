@@ -36,7 +36,10 @@ class OemsTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                oems {
+                oems(where: {anyOf: [
+                    { assets: { where: {}, lt: 1 } }
+                    { documents: { where: {}, lt: 1 } }
+                ]}) {
                     id
                     abbr
                     name

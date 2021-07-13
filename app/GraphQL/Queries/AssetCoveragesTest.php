@@ -36,7 +36,7 @@ class AssetCoveragesTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                assetCoverages {
+                assetCoverages(where: { assets: { where: {}, lt: 1 }}) {
                     id
                     name
                 }

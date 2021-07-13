@@ -44,7 +44,7 @@ class CustomerTypesTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                customerTypes {
+                customerTypes(where: {customers: { where: {}, lt: 1 }}) {
                     id
                     name
                 }

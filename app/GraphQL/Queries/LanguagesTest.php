@@ -38,7 +38,7 @@ class LanguagesTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                languages {
+                languages(where: {documents: { where: {}, lt: 1 }}) {
                     id
                     name
                     code
