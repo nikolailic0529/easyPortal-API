@@ -16,6 +16,7 @@ use Illuminate\Support\Collection;
  * @property string                       $id
  * @property string                       $note
  * @property string                       $document_id
+ * @property string                       $organization_id
  * @property string                       $user_id
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at

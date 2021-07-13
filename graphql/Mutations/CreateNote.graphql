@@ -9,6 +9,7 @@ extend type Mutation {
 input CreateNoteInput {
   note: String!
   document_id: String!
+  files: [Upload!]
 }
 
 type CreateNotePayload {
