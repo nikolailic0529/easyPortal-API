@@ -4,10 +4,6 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\Reseller;
 use App\Services\DataLoader\Events\ResellerUpdated;
-use App\Services\DataLoader\Factories\Concerns\Company as ConcernsCompany;
-use App\Services\DataLoader\Factories\Concerns\WithContacts;
-use App\Services\DataLoader\Factories\Concerns\WithLocations;
-use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
@@ -25,43 +21,19 @@ use Psr\Log\LoggerInterface;
 use function implode;
 use function sprintf;
 
-class ResellerFactory extends ModelFactory implements FactoryPrefetchable {
-    use WithLocations;
-    use WithType;
-    use WithContacts;
-    use ConcernsCompany;
-
+class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
-        protected TypeResolver $types,
+        Dispatcher $dispatcher,
+        TypeResolver $types,
+        StatusResolver $statuses,
+        ContactFactory $contacts,
+        LocationFactory $locations,
         protected ResellerResolver $resellers,
-        protected Dispatcher $dispatcher,
-        protected StatusResolver $statuses,
-        protected ContactFactory $contacts,
-        protected LocationFactory $locations,
     ) {
-        parent::__construct($logger, $normalizer);
+        parent::__construct($logger, $normalizer, $dispatcher, $types, $statuses, $contacts, $locations);
     }
-
-    // <editor-fold desc="Getters / Setters">
-    // =========================================================================
-    protected function getDispatcher(): Dispatcher {
-        return $this->dispatcher;
-    }
-
-    protected function getContactsFactory(): ContactFactory {
-        return $this->contacts;
-    }
-
-    protected function getLocationFactory(): LocationFactory {
-        return $this->locations;
-    }
-
-    protected function getStatusResolver(): StatusResolver {
-        return $this->statuses;
-    }
-    // </editor-fold>
 
     // <editor-fold desc="Prefetch">
     // =========================================================================

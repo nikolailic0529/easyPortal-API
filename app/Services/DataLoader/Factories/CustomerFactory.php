@@ -3,10 +3,6 @@
 namespace App\Services\DataLoader\Factories;
 
 use App\Models\Customer;
-use App\Services\DataLoader\Factories\Concerns\Company as ConcernsCompany;
-use App\Services\DataLoader\Factories\Concerns\WithContacts;
-use App\Services\DataLoader\Factories\Concerns\WithLocations;
-use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
@@ -27,43 +23,19 @@ use function sprintf;
 // TODO [DataLoader] Customer can be a CUSTOMER or RESELLER or any other type.
 //      If this is not true we need to update this factory and its tests.
 
-class CustomerFactory extends ModelFactory implements FactoryPrefetchable {
-    use WithType;
-    use WithContacts;
-    use WithLocations;
-    use ConcernsCompany;
-
+class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
-        protected Dispatcher $dispatcher,
-        protected TypeResolver $types,
-        protected StatusResolver $statuses,
+        Dispatcher $dispatcher,
+        TypeResolver $types,
+        StatusResolver $statuses,
+        ContactFactory $contacts,
+        LocationFactory $locations,
         protected CustomerResolver $customers,
-        protected ContactFactory $contacts,
-        protected LocationFactory $locations,
     ) {
-        parent::__construct($logger, $normalizer);
+        parent::__construct($logger, $normalizer, $dispatcher, $types, $statuses, $contacts, $locations);
     }
-
-    // <editor-fold desc="Getters / Setters">
-    // =========================================================================
-    protected function getDispatcher(): Dispatcher {
-        return $this->dispatcher;
-    }
-
-    protected function getContactsFactory(): ContactFactory {
-        return $this->contacts;
-    }
-
-    protected function getLocationFactory(): LocationFactory {
-        return $this->locations;
-    }
-
-    protected function getStatusResolver(): StatusResolver {
-        return $this->statuses;
-    }
-    // </editor-fold>
 
     // <editor-fold desc="Factory">
     // =========================================================================

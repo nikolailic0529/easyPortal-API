@@ -1,12 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\DataLoader\Factories\Concerns;
+namespace App\Services\DataLoader\Factories;
 
 use App\Models\Model;
-use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\DataLoaderException;
-use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Schema\Company as CompanyObject;
@@ -21,9 +19,9 @@ use function tap;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\DataLoader\Factories\Concerns\Company
+ * @coversDefaultClass \App\Services\DataLoader\Factories\CompanyFactory
  */
-class CompanyTest extends TestCase {
+class CompanyFactoryTest extends TestCase {
     use Helper;
 
     // <editor-fold desc="Tests">
@@ -41,11 +39,7 @@ class CompanyTest extends TestCase {
         $factory = new class(
             $this->app->make(Normalizer::class),
             $this->app->make(StatusResolver::class),
-        ) extends ModelFactory {
-            use Company {
-                companyStatuses as public;
-            }
-
+        ) extends CompanyFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
@@ -54,12 +48,12 @@ class CompanyTest extends TestCase {
                 // empty
             }
 
-            protected function getStatusResolver(): StatusResolver {
-                return $this->statuses;
-            }
-
             public function create(Type $type): ?Model {
                 return null;
+            }
+
+            public function companyStatuses(Model $owner, CompanyObject $company): array {
+                return parent::companyStatuses($owner, $company);
             }
         };
 
@@ -96,11 +90,7 @@ class CompanyTest extends TestCase {
      */
     public function testCompanyType(string|Exception $expected, Closure $typesFactory): void {
         // Prepare
-        $factory = new class() extends ModelFactory {
-            use Company {
-                companyType as public;
-            }
-
+        $factory = new class() extends CompanyFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct() {
                 // empty
@@ -117,8 +107,8 @@ class CompanyTest extends TestCase {
                 ]);
             }
 
-            protected function getStatusResolver(): StatusResolver {
-                throw new Exception('should not be called');
+            public function companyType(Model $owner, array $types): TypeModel {
+                return parent::companyType($owner, $types);
             }
         };
 
