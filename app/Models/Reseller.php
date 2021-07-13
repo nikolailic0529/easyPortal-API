@@ -18,7 +18,7 @@ use function count;
  * Reseller.
  *
  * @property string                                                           $id
- * @property string|null                                                      $type_id
+ * @property string                                                           $type_id
  * @property string                                                           $name
  * @property int                                                              $customers_count
  * @property int                                                              $locations_count
@@ -33,7 +33,7 @@ use function count;
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Customer>   $customers
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Location>   $locations
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>     $statuses
- * @property \App\Models\Type|null                                            $type
+ * @property \App\Models\Type                                                 $type
  * @method static \Database\Factories\ResellerFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reseller newQuery()
