@@ -52,6 +52,9 @@ class CompanyFactoryTest extends TestCase {
                 return null;
             }
 
+            /**
+             * @inheritDoc
+             */
             public function companyStatuses(Model $owner, CompanyObject $company): array {
                 return parent::companyStatuses($owner, $company);
             }
@@ -107,6 +110,9 @@ class CompanyFactoryTest extends TestCase {
                 ]);
             }
 
+            /**
+             * @inheritDoc
+             */
             public function companyType(Model $owner, array $types): TypeModel {
                 return parent::companyType($owner, $types);
             }

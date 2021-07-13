@@ -13,7 +13,7 @@ use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
-use App\Services\DataLoader\Schema\Company as CompanyObject;
+use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Collection;
@@ -66,7 +66,7 @@ abstract class CompanyFactory extends ModelFactory {
     /**
      * @return array<\App\Models\Status>
      */
-    protected function companyStatuses(Model $owner, CompanyObject $company): array {
+    protected function companyStatuses(Model $owner, Company $company): array {
         return (new Collection($company->status ?? []))
             ->filter(function (?string $status): bool {
                 return (bool) $this->getNormalizer()->string($status);

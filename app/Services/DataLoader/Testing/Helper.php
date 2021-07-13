@@ -6,7 +6,6 @@ use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Location;
-use App\Models\Model;
 use App\Models\Reseller;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Schema\Company;
