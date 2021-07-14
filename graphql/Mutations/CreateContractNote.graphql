@@ -1,0 +1,17 @@
+extend type Mutation {
+  createContractNote(
+    input: CreateContractNoteInput!
+  ): CreateContractNotePayload
+  @organization
+  @me(permissions: ["contracts-view", "customers-view"])
+}
+
+input CreateContractNoteInput @validator {
+  note: String!
+  contract_id: String!
+  files: [Upload!]
+}
+
+type CreateContractNotePayload {
+  created: Note!
+}
