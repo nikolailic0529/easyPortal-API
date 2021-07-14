@@ -30,6 +30,5 @@ type Document {
   notes (
     where: NotesQuery @searchBy
   ): [Note!]!
-  @hasMany
   @paginate
 }

@@ -344,10 +344,6 @@ class QuotesTest extends TestCase {
                     'discount'      => -8,
                     'renewal'       => 24.20,
                 ])
-                ->hasNotes(1, [
-                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
-                    'note' => 'Note',
-                ])
                 ->create([
                     'id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                     'oem_said'     => '1234-5678-9012',
