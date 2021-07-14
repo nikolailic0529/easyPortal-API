@@ -207,7 +207,10 @@ class QuotesTest extends TestCase {
                                 id
                                 name
                             }
+<<<<<<< HEAD
                             assets_count
+=======
+>>>>>>> c9d3dd79 (update Quote & Quotes test)
                         }
                         paginatorInfo {
                             count
@@ -343,10 +346,6 @@ class QuotesTest extends TestCase {
                     'list_price'    => 67.00,
                     'discount'      => -8,
                     'renewal'       => 24.20,
-                ])
-                ->hasNotes(1, [
-                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
-                    'note' => 'Note',
                 ])
                 ->create([
                     'id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
