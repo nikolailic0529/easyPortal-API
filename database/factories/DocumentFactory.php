@@ -35,6 +35,8 @@ class DocumentFactory extends Factory {
             'oem_id'         => static function (): Oem {
                 return Oem::factory()->create();
             },
+            'oem_said'       => $this->faker->randomElement([null, $this->faker->uuid]),
+            'oem_group_id'   => null,
             'type_id'        => function (): Type {
                 return Type::factory()->create([
                     'object_type' => $this->newModel()->getMorphClass(),

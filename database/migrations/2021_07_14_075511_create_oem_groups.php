@@ -4,6 +4,6 @@
 
 use LastDragon_ru\LaraASP\Migrator\Migrations\RawMigration;
 
-class AlterTableDocumentsAddAssetsCount extends RawMigration {
+class CreateOemGroups extends RawMigration {
     // Please see the associated SQL files
 }

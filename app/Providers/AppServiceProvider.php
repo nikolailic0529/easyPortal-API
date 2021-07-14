@@ -23,6 +23,7 @@ use App\Models\Language;
 use App\Models\Location;
 use App\Models\LocationType;
 use App\Models\Oem;
+use App\Models\OemGroup;
 use App\Models\Organization;
 use App\Models\PasswordReset;
 use App\Models\Permission;
@@ -118,6 +119,7 @@ class AppServiceProvider extends ServiceProvider {
             'user-search'            => UserSearch::class,
             'permission'             => Permission::class,
             'role'                   => Role::class,
+            'oem-group'              => OemGroup::class,
         ]);
     }
 }

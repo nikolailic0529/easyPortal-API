@@ -26,6 +26,8 @@ use function count;
  *
  * @property string                                                              $id
  * @property string                                                              $oem_id
+ * @property string|null                                                         $oem_said
+ * @property string|null                                                         $oem_group_id
  * @property string                                                              $type_id
  * @property string                                                              $customer_id
  * @property string|null                                                         $reseller_id
@@ -50,6 +52,7 @@ use function count;
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $entries
  * @property \App\Models\Language|null                                           $language
  * @property \App\Models\Oem                                                     $oem
+ * @property \App\Models\OemGroup|null                                           $oemGroup
  * @property \App\Models\Reseller|null                                           $reseller
  * @property \App\Models\Product|null                                            $support
  * @property \App\Models\Type                                                    $type
@@ -122,5 +125,13 @@ class Document extends Model implements CascadeDeletable {
 
     public function setDistributorAttribute(?Distributor $distributor): void {
         $this->distributor()->associate($distributor);
+    }
+
+    public function oemGroup(): BelongsTo {
+        return $this->belongsTo(OemGroup::class);
+    }
+
+    public function setOemGroupAttribute(?OemGroup $group): void {
+        $this->oemGroup()->associate($group);
     }
 }
