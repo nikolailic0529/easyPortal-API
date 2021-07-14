@@ -207,10 +207,7 @@ class QuotesTest extends TestCase {
                                 id
                                 name
                             }
-<<<<<<< HEAD
                             assets_count
-=======
->>>>>>> c9d3dd79 (update Quote & Quotes test)
                         }
                         paginatorInfo {
                             count

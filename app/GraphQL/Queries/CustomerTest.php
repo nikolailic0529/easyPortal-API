@@ -1544,11 +1544,6 @@ class CustomerTest extends TestCase {
                                     'email'       => 'contact3@test.com',
                                     'phone_valid' => false,
                                 ])
-                                ->hasNotes(1, [
-                                    'id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
-                                    'note'    => 'Note',
-                                    'user_id' => $user->getKey(),
-                                ])
                                 ->create([
                                     'id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                     'oem_said'     => null,
@@ -1743,11 +1738,6 @@ class CustomerTest extends TestCase {
                 ->for($currency)
                 ->for($language)
                 ->for($distributor)
-                ->hasNotes(1, [
-                    'id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
-                    'note'    => 'Note',
-                    'user_id' => $user->getKey(),
-                ])
                 ->hasEntries(1, [
                     'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                     'asset_id'      => Asset::factory()->create([
