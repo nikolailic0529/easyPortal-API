@@ -11,11 +11,11 @@ use Illuminate\Http\UploadedFile;
 
 use function array_map;
 
-class CreateNote {
+class CreateQuoteNote {
     public function __construct(
         protected AuthManager $auth,
         protected NotesDisk $disk,
-        protected CurrentOrganization $currentOrganization,
+        protected CurrentOrganization $organization,
     ) {
         // empty
     }
@@ -28,8 +28,8 @@ class CreateNote {
     public function __invoke($_, array $args): array {
         $note                  = new Note();
         $note->user            = $this->auth->user();
-        $note->document_id     = $args['input']['document_id'];
-        $note->organization_id = $this->currentOrganization->get()->getKey();
+        $note->document_id     = $args['input']['quote_id'];
+        $note->organization_id = $this->organization->get()->getKey();
         $note->note            = $args['input']['note'];
         $note->files           = array_map(function ($file) use ($note) {
             return $this->createFile($note, $file);
@@ -49,8 +49,6 @@ class CreateNote {
     }
 
     protected function store(Note $note, UploadedFile $file): string {
-        $path = $file->storePublicly("{$note->getMorphClass()}/{$note->getKey()}");
-        $url  = $this->disk->filesystem()->url($path);
-        return $url;
+        return $file->store("{$note->getMorphClass()}/{$note->getKey()}");
     }
 }

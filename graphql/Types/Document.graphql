@@ -29,6 +29,7 @@ type Document {
   assets_count: Int
   notes (
     where: NotesQuery @searchBy
+    order: NotesSort @sortBy
   ): [Note!]!
   @paginate
 }

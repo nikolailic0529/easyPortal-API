@@ -2,14 +2,16 @@
 
 namespace App\GraphQL\Validators;
 
+use App\Rules\QuoteId;
 use Illuminate\Contracts\Config\Repository;
 use Nuwave\Lighthouse\Validation\Validator;
 
 use function implode;
 
-class CreateNoteInputValidator extends Validator {
+class CreateQuoteNoteInputValidator extends Validator {
     public function __construct(
         protected Repository $config,
+        protected QuoteId $quoteId,
     ) {
         // empty
     }
@@ -27,9 +29,9 @@ class CreateNoteInputValidator extends Validator {
         ];
 
         return [
-            'note'        => ['required', 'string'],
-            'document_id' => ['required', 'string'],
-            'file.*'      => [...$upload],
+            'note'     => ['required', 'string'],
+            'quote_id' => ['required', $this->quoteId],
+            'file.*'   => [...$upload],
         ];
     }
 }

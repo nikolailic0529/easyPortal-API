@@ -4,9 +4,9 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 
 CREATE TABLE IF NOT EXISTS `notes` (
   `id`              CHAR(36) NOT NULL,
+  `organization_id` CHAR(36) NOT NULL,
   `user_id`         CHAR(36) NOT NULL,
   `document_id`     CHAR(36) NOT NULL,
-  `organization_id` CHAR(36) NOT NULL,
   `note`            TEXT NOT NULL,
   `created_at`      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at`      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,

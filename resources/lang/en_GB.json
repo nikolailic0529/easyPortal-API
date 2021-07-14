@@ -108,6 +108,7 @@
     "validation.organization_id": "Unknown organization",
     "validation.role_id": "Unknown Role",
     "validation.document_id": "Unknown Document",
+    "validation.quote_id'": "Unknown Quote",
     "validation.color": "Color should be in #RRGGBB format.",
     "validation.permissions_id": "Unknown permission",
     "errors.message": ":message (:code)",

@@ -1,0 +1,17 @@
+extend type Mutation {
+  createQuoteNote(
+    input: CreateQuoteNoteInput!
+  ): CreateQuoteNotePayload
+  @organization
+  @me(permissions: ["quotes-view", "customers-view"])
+}
+
+input CreateQuoteNoteInput @validator {
+  note: String!
+  quote_id: String!
+  files: [Upload!]
+}
+
+type CreateQuoteNotePayload {
+  created: Note!
+}
