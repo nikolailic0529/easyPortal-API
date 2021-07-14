@@ -16,7 +16,7 @@ trait WithOemGroup {
     abstract protected function getOemGroupResolver(): OemGroupResolver;
 
     protected function oemGroup(Oem $oem, string $key, string $name): OemGroup {
-        $group = $this->getOemGroupResolver()->get($oem, $key, $this->factory(
+        $group = $this->getOemGroupResolver()->get($oem, $key, $name, $this->factory(
             function () use ($oem, $key, $name): OemGroup {
                 $model       = new OemGroup();
                 $normalizer  = $this->getNormalizer();

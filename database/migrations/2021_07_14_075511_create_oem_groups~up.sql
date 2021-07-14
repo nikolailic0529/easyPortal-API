@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `oem_groups` (
     PRIMARY KEY (`id`),
     INDEX `fk_oem_groups_oems1_idx`(`oem_id` ASC) VISIBLE,
     INDEX `idx__deleted_at`(`deleted_at` ASC) VISIBLE,
-    UNIQUE INDEX `unique__key__oem_id__deleted_not`(`key` ASC, `oem_id` ASC, `deleted_not` ASC) VISIBLE,
+    UNIQUE INDEX `unique__key__name__oem_id__deleted_not`(`key` ASC, `name` ASC, `oem_id` ASC, `deleted_not` ASC) VISIBLE,
     CONSTRAINT `fk_oem_groups_oems1`
         FOREIGN KEY (`oem_id`)
             REFERENCES `oems`(`id`)

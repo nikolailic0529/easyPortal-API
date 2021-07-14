@@ -11,9 +11,9 @@ use Illuminate\Database\Eloquent\Builder;
 use JetBrains\PhpStorm\Pure;
 
 class OemGroupResolver extends Resolver {
-    public function get(Oem $model, string $key, Closure $factory = null): ?OemGroup {
+    public function get(Oem $model, string $key, string $name, Closure $factory = null): ?OemGroup {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->resolve($this->getUniqueKey($model, $key), $factory);
+        return $this->resolve($this->getUniqueKey($model, $key, $name), $factory);
     }
 
     protected function getFindQuery(): ?Builder {
@@ -26,7 +26,7 @@ class OemGroupResolver extends Resolver {
     protected function getKeyRetrievers(): array {
         return [
             'key' => new ClosureKey(function (OemGroup $group): array {
-                return $this->getUniqueKey($group->oem_id, $group->key);
+                return $this->getUniqueKey($group->oem_id, $group->key, $group->name);
             }),
         ];
     }
@@ -35,10 +35,11 @@ class OemGroupResolver extends Resolver {
      * @return array{oem_id: string, key: string}
      */
     #[Pure]
-    protected function getUniqueKey(Oem|string $model, string $key): array {
+    protected function getUniqueKey(Oem|string $model, string $key, string $name): array {
         return [
             'oem_id' => $model instanceof Oem ? $model->getKey() : $model,
             'key'    => $key,
+            'name'   => $name,
         ];
     }
 }
