@@ -872,6 +872,9 @@ class Client {
 
                 vendorSpecificFields {
                     vendor
+                    groupId
+                    groupDescription
+                    said
                 }
 
                 contactPersons {

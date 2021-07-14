@@ -9,6 +9,7 @@ use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\Enums\ProductType;
 use App\Models\Oem;
+use App\Models\OemGroup;
 use App\Models\Product;
 use App\Models\Reseller as ResellerModel;
 use App\Models\Type as TypeModel;
@@ -136,6 +137,8 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals(ProductType::support(), $created->support->type);
         $this->assertEquals('HPE', $created->support->oem->abbr);
         $this->assertEquals('HPE', $created->oem->abbr);
+        $this->assertEquals('1234 4678 9012', $created->oem_said);
+        $this->assertEquals('abc-de', $created->oemGroup->key);
         $this->assertEquals(1, $created->assets_count);
         $this->assertEquals(7, $created->entries_count);
         $this->assertEquals(1, $created->contacts_count);
@@ -176,6 +179,8 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals('3292.16', $changed->price);
         $this->assertEquals('EUR', $changed->currency->code);
         $this->assertEquals('en', $changed->language->code);
+        $this->assertNull($changed->oem_said);
+        $this->assertNull($changed->oemGroup);
         $this->assertCount(0, $changed->contacts);
         $this->assertEquals(0, $changed->contacts_count);
         $this->assertEquals(2, $changed->entries_count);
@@ -612,6 +617,39 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
+     * @covers ::documentOemGroup
+     */
+    public function testDocumentOemGroup(): void {
+        $oem      = Oem::factory()->make();
+        $document = new ViewDocument([
+            'vendorSpecificFields' => [
+                'vendor'           => $this->faker->word,
+                'groupId'          => $this->faker->word,
+                'groupDescription' => $this->faker->randomElement([null, $this->faker->sentence]),
+            ],
+        ]);
+        $factory  = Mockery::mock(DocumentFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+
+        $factory
+            ->shouldReceive('documentOem')
+            ->with($document)
+            ->andReturn($oem);
+        $factory
+            ->shouldReceive('oemGroup')
+            ->with(
+                $oem,
+                $document->vendorSpecificFields->groupId,
+                (string) $document->vendorSpecificFields->groupDescription,
+            )
+            ->once()
+            ->andReturns();
+
+        $factory->documentOemGroup($document);
+    }
+
+    /**
      * @covers ::documentType
      */
     public function testDocumentType(): void {
@@ -734,20 +772,16 @@ class DocumentFactoryTest_Factory extends DocumentFactory {
         return parent::documentOem($document);
     }
 
+    public function documentOemGroup(ViewDocument $document): ?OemGroup {
+        return parent::documentOemGroup($document);
+    }
+
     public function documentType(ViewDocument $document): TypeModel {
         return parent::documentType($document);
     }
 
     public function assetDocumentObjectSupport(AssetDocumentObject $document): Product {
         return parent::assetDocumentObjectSupport($document);
-    }
-
-    public function createFromDocument(
-        ViewDocument $document,
-        Closure $product = null,
-        Closure $entries = null,
-    ): ?DocumentModel {
-        return parent::createFromDocument($document, $product, $entries);
     }
 
     public function createFromAssetDocumentObject(AssetDocumentObject $object): ?DocumentModel {

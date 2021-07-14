@@ -28,7 +28,10 @@
                 "languageCode": "en",
                 "totalNetPrice": "3,292.16",
                 "vendorSpecificFields": {
-                    "vendor": "HPE"
+                    "vendor": "HPE",
+                    "said": null,
+                    "groupId": null,
+                    "groupDescription": "description"
                 },
                 "documentNumber": "0056523287",
                 "contactPersons": [],
@@ -58,7 +61,10 @@
                 "languageCode": "en",
                 "totalNetPrice": "3,292.16",
                 "vendorSpecificFields": {
-                    "vendor": "HPE"
+                    "vendor": "HPE",
+                    "said": null,
+                    "groupId": null,
+                    "groupDescription": "description"
                 },
                 "documentNumber": "0056523287",
                 "contactPersons": [],
