@@ -24,4 +24,5 @@ type Document {
   contacts: [Contact!]! @morphMany
   distributor_id: ID
   distributor: Distributor @belongsTo
+  assets_count: Int
 }

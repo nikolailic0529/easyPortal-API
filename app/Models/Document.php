@@ -29,51 +29,34 @@ use function count;
  * @property string                                                              $type_id
  * @property string                                                              $customer_id
  * @property string|null                                                         $reseller_id
- * @property string                                                              $number     Internal Number
- * @property string|null                                                         $support_id Support Level
+ * @property string|null                                                         $distributor_id
+ * @property string                                                              $number
+ * @property string|null                                                         $support_id
  * @property \Carbon\CarbonImmutable|null                                        $start
  * @property \Carbon\CarbonImmutable|null                                        $end
  * @property string|null                                                         $price
  * @property string|null                                                         $currency_id
  * @property string|null                                                         $language_id
- * @property string|null                                                         $distributor_id
+ * @property int                                                                 $assets_count
+ * @property int                                                                 $entries_count
+ * @property int                                                                 $contacts_count
  * @property \Carbon\CarbonImmutable                                             $created_at
  * @property \Carbon\CarbonImmutable                                             $updated_at
  * @property \Carbon\CarbonImmutable|null                                        $deleted_at
- * @property \App\Models\Currency|null                                           $currency
- * @property \App\Models\Language|null                                           $language
- * @property \App\Models\Customer                                                $customer
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $entries
- * @property int                                                                 $entries_count
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Contact>       $contacts
- * @property int                                                                 $contacts_count
- * @property \App\Models\Oem                                                     $oem
- * @property \App\Models\Product|null                                            $support
- * @property \App\Models\Reseller|null                                           $reseller
+ * @property \App\Models\Currency|null                                           $currency
+ * @property \App\Models\Customer                                                $customer
  * @property \App\Models\Distributor|null                                        $distributor
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $entries
+ * @property \App\Models\Language|null                                           $language
+ * @property \App\Models\Oem                                                     $oem
+ * @property \App\Models\Reseller|null                                           $reseller
+ * @property \App\Models\Product|null                                            $support
  * @property \App\Models\Type                                                    $type
  * @method static \Database\Factories\DocumentFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereContactsCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereCurrencyId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereCustomerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereDistributorId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereEnd($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereEntriesCount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereLanguageId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereOemId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document wherePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereSupportId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereResellerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereStart($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereTypeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Document extends Model implements CascadeDeletable {
@@ -121,6 +104,12 @@ class Document extends Model implements CascadeDeletable {
     public function setEntriesAttribute(Collection|array $entries): void {
         $this->syncHasMany('entries', $entries);
         $this->entries_count = count($entries);
+        $this->assets_count  = (new Collection($entries))
+            ->map(static function (DocumentEntry $entry): string {
+                return $entry->asset_id;
+            })
+            ->unique()
+            ->count();
     }
 
     public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {

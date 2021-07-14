@@ -31,6 +31,8 @@ use Tests\TestCase;
  * @coversDefaultClass \App\GraphQL\Queries\Contracts
  */
 class ContractsTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @covers ::__invoke
      *
@@ -196,6 +198,7 @@ class ContractsTest extends TestCase {
                                 id
                                 name
                             }
+                            assets_count
                         }
                         paginatorInfo {
                             count
@@ -429,6 +432,7 @@ class ContractsTest extends TestCase {
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
                                     'name' => 'distributor1',
                                 ],
+                                'assets_count'   => 1,
                             ],
                         ]),
                         [
@@ -543,11 +547,12 @@ class ContractsTest extends TestCase {
                                     'phone_valid' => false,
                                 ])
                                 ->create([
-                                    'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                                    'number' => '1323',
-                                    'price'  => 100,
-                                    'start'  => '2021-01-01',
-                                    'end'    => '2024-01-01',
+                                    'id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'number'       => '1323',
+                                    'price'        => 100,
+                                    'start'        => '2021-01-01',
+                                    'end'          => '2024-01-01',
+                                    'assets_count' => 1,
                                 ]);
 
                             Document::factory()->create([

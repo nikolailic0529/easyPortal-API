@@ -451,7 +451,8 @@
                 "language",
                 "contacts",
                 "distributor_id",
-                "distributor"
+                "distributor",
+                "assets_count"
             ],
             "properties": {
                 "id": {
@@ -597,6 +598,9 @@
                             "$ref": "../Types/Distributor.json"
                         }
                     ]
+                },
+                "assets_count": {
+                    "type": "integer"
                 }
             }
         },

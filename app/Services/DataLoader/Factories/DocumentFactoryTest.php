@@ -136,6 +136,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals(ProductType::support(), $created->support->type);
         $this->assertEquals('HPE', $created->support->oem->abbr);
         $this->assertEquals('HPE', $created->oem->abbr);
+        $this->assertEquals(1, $created->assets_count);
         $this->assertEquals(7, $created->entries_count);
         $this->assertEquals(1, $created->contacts_count);
         $this->assertCount(7, $created->entries);
@@ -178,6 +179,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertCount(0, $changed->contacts);
         $this->assertEquals(0, $changed->contacts_count);
         $this->assertEquals(2, $changed->entries_count);
+        $this->assertEquals(1, $changed->assets_count);
         $this->assertCount(2, $changed->entries);
         $this->assertCount(2, $changed->refresh()->entries);
 

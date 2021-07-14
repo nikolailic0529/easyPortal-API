@@ -32,6 +32,8 @@ use Tests\TestCase;
  * @coversDefaultClass \App\GraphQL\Queries\Quotes
  */
 class QuotesTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @covers ::__invoke
      *
@@ -197,6 +199,7 @@ class QuotesTest extends TestCase {
                                 id
                                 name
                             }
+                            assets_count
                         }
                         paginatorInfo {
                             count
@@ -328,11 +331,12 @@ class QuotesTest extends TestCase {
                     'renewal'       => 24.20,
                 ])
                 ->create([
-                    'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                    'number' => '1323',
-                    'price'  => 100,
-                    'start'  => '2021-01-01',
-                    'end'    => '2024-01-01',
+                    'id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                    'number'       => '1323',
+                    'price'        => 100,
+                    'start'        => '2021-01-01',
+                    'end'          => '2024-01-01',
+                    'assets_count' => 1,
                 ]);
 
             Document::factory()->create([
@@ -483,6 +487,7 @@ class QuotesTest extends TestCase {
                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
                     'name' => 'distributor1',
                 ],
+                'assets_count'   => 1,
             ],
         ];
 
