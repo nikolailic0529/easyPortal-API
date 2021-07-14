@@ -4,19 +4,28 @@
     "type": "object",
     "required": [
         "created_at",
+        "updated_at",
         "files",
         "note",
         "user",
+        "user_id",
         "id"
     ],
     "properties": {
         "id": {
             "$ref": "../types.json#/definitions/ID"
         },
+        "user_id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
         "note": {
             "type": "string"
         },
         "created_at": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "updated_at": {
             "type": "string",
             "format": "date-time"
         },

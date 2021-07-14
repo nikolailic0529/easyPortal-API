@@ -1,5 +1,5 @@
 type File {
   id: ID!
   name: String!
-  path: String!
+  url: String!
 }

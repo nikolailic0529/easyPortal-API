@@ -422,6 +422,16 @@ input CoveragesQuery {
   id: ID!
 }
 
+input CreateContractNoteInput {
+  note: String!
+  contract_id: String!
+  files: [Upload!]
+}
+
+type CreateContractNotePayload {
+  created: Note!
+}
+
 input CreateMeSearchInput {
   name: String!
   key: String!
@@ -439,6 +449,16 @@ input CreateOrgRoleInput {
 
 type CreateOrgRolePayload {
   created: Role!
+}
+
+input CreateQuoteNoteInput {
+  note: String!
+  quote_id: String!
+  files: [Upload!]
+}
+
+type CreateQuoteNotePayload {
+  created: Note!
 }
 
 input CurrenciesQuery {
@@ -661,6 +681,16 @@ type Document {
   distributor_id: ID
   distributor: Distributor
   assets_count: Int
+  notes(
+    where: SearchByConditionNotesQuery
+    order: [SortByClauseNotesSort!]
+
+    """Limits number of fetched elements. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which elements are returned."""
+    page: Int
+  ): NotePaginator
 }
 
 input DocumentEntriesQuery {
@@ -754,6 +784,12 @@ input EnableOrgUserInput {
 
 type EnableOrgUserPayload {
   result: Boolean!
+}
+
+type File {
+  id: ID!
+  name: String!
+  url: String!
 }
 
 input InviteOrgUserInput {
@@ -866,6 +902,20 @@ input MeSearchSort {
 }
 
 type Mutation {
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  createContractNote(input: CreateContractNoteInput!): CreateContractNotePayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+  """
+  createQuoteNote(input: CreateQuoteNoteInput!): CreateQuoteNotePayload
+
   """@require <me> User must be authenticated."""
   createMeSearch(input: CreateMeSearchInput!): CreateMeSearchPayload
 
@@ -1122,6 +1172,32 @@ type Mutation {
 type Note {
   id: ID!
   note: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+  user_id: ID!
+  user: User!
+  files: [File!]!
+}
+
+"""A paginated list of Note items."""
+type NotePaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of Note items."""
+  data: [Note!]!
+}
+
+input NotesQuery {
+  note: String!
+  user_id: ID!
+  user: UsersQuery
+}
+
+input NotesSort {
+  user_id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
 }
 
 type Oem {
@@ -2461,6 +2537,29 @@ input SearchByConditionMeSearchQuery {
 }
 
 """
+Available conditions for input NotesQuery (only one property allowed at a time).
+"""
+input SearchByConditionNotesQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionNotesQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionNotesQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  note: SearchByScalarString
+
+  """Property condition."""
+  user_id: SearchByScalarID
+
+  """Property condition."""
+  user: SearchByRelationUsersQuery
+}
+
+"""
 Available conditions for input OemsQuery (only one property allowed at a time).
 """
 input SearchByConditionOemsQuery {
@@ -2636,6 +2735,29 @@ input SearchByConditionTypesQuery {
 
   """Property condition."""
   id: SearchByScalarID
+}
+
+"""
+Available conditions for input UsersQuery (only one property allowed at a time).
+"""
+input SearchByConditionUsersQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionUsersQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionUsersQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  given_name: SearchByScalarString
+
+  """Property condition."""
+  family_name: SearchByScalarString
 }
 
 """Flag."""
@@ -3007,6 +3129,30 @@ input SearchByRelationTagsQuery {
 input SearchByRelationTypesQuery {
   """Conditions for the related objects."""
   where: SearchByConditionTypesQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""Relation condition for input UsersQuery."""
+input SearchByRelationUsersQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionUsersQuery!
 
   """Equal (`=`)."""
   eq: Int
@@ -3550,6 +3696,20 @@ input SortByClauseMeSearchSort {
 }
 
 """
+Sort clause for input NotesSort (only one property allowed at a time).
+"""
+input SortByClauseNotesSort {
+  """Property clause."""
+  user_id: SortByDirection
+
+  """Property clause."""
+  created_at: SortByDirection
+
+  """Property clause."""
+  updated_at: SortByDirection
+}
+
+"""
 Sort clause for input OrganizationsSort (only one property allowed at a time).
 """
 input SortByClauseOrganizationsSort {
@@ -3795,6 +3955,12 @@ Can be used as an argument to upload files using https://github.com/jaydenseric/
 scalar Upload
 
 type User {
+  id: ID!
+  given_name: String!
+  family_name: String!
+}
+
+input UsersQuery {
   id: ID!
   given_name: String!
   family_name: String!

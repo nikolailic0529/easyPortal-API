@@ -4,7 +4,7 @@
     "type": "object",
     "required": [
         "name",
-        "path",
+        "url",
         "id"
     ],
     "properties": {
@@ -14,7 +14,7 @@
         "name": {
             "type": "string"
         },
-        "path": {
+        "url": {
             "type": "string"
         }
     }

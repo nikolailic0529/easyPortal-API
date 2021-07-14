@@ -104,7 +104,7 @@ class CreateQuoteNoteTest extends TestCase {
                         files {
                             id
                             name
-                            path
+                            url
                         }
                     }
                 }

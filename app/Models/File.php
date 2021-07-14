@@ -44,4 +44,9 @@ class File extends Model {
     public function setNoteAttribute(Note $note): void {
         $this->note()->associate($note);
     }
+
+    public function getUrlAttribute(): string {
+        // Logic will be added to a resolver in another PR
+        return $this->path;
+    }
 }

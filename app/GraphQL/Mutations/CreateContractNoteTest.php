@@ -104,7 +104,7 @@ class CreateContractNoteTest extends TestCase {
                         files {
                             id
                             name
-                            path
+                            url
                         }
                     }
                 }
