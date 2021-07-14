@@ -108,6 +108,18 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     protected function getContactsFactory(): ContactFactory {
         return $this->contacts;
     }
+
+    protected function getOemResolver(): OemResolver {
+        return $this->oems;
+    }
+
+    protected function getProductResolver(): ProductResolver {
+        return $this->products;
+    }
+
+    protected function getTypeResolver(): TypeResolver {
+        return $this->types;
+    }
     // </editor-fold>
 
     // <editor-fold desc="Factory">

@@ -47,12 +47,11 @@ use function sprintf;
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty> $contractWarranties
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Coverage>           $coverages
  * @property \App\Models\Customer|null                                                $customer
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $documentEntries
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry>      $documentEntries
  * @property \App\Models\Location|null                                                $location
  * @property \App\Models\Oem                                                          $oem
  * @property \App\Models\Product                                                      $product
  * @property \App\Models\Reseller|null                                                $reseller
- * @property-write mixed                                                              $document_entries
  * @property \App\Models\Status|null                                                  $status
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Tag>                $tags
  * @property \App\Models\Type|null                                                    $type

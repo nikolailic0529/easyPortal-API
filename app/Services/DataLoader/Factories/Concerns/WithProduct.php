@@ -5,14 +5,17 @@ namespace App\Services\DataLoader\Factories\Concerns;
 use App\Models\Enums\ProductType;
 use App\Models\Oem;
 use App\Models\Product;
+use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Resolvers\ProductResolver;
 
 /**
- * @property \App\Services\DataLoader\Normalizer                $normalizer
- * @property \App\Services\DataLoader\Resolvers\ProductResolver $products
- *
  * @mixin \App\Services\DataLoader\Factory
  */
 trait WithProduct {
+    abstract protected function getNormalizer(): Normalizer;
+
+    abstract protected function getProductResolver(): ProductResolver;
+
     protected function product(
         Oem $oem,
         ProductType $type,
@@ -26,11 +29,12 @@ trait WithProduct {
         $factory = $this->factory(
             function (Product $product) use (&$created, $type, $oem, $sku, $name, $eol, $eos): Product {
                 $created       = !$product->exists;
+                $normalizer    = $this->getNormalizer();
                 $product->type = $type;
                 $product->oem  = $oem;
-                $product->sku  = $this->normalizer->string($sku);
-                $product->eol  = $this->normalizer->datetime($eol);
-                $product->eos  = $this->normalizer->datetime($eos);
+                $product->sku  = $normalizer->string($sku);
+                $product->eol  = $normalizer->datetime($eol);
+                $product->eos  = $normalizer->datetime($eos);
 
                 if ($created) {
                     // Product name may be inconsistent, eg
@@ -38,7 +42,7 @@ trait WithProduct {
                     // - '(Gewährleistung) HPE Hardware Maintenance Onsite Support'
                     //
                     // To avoid infinite updates we will not update it at all.
-                    $product->name = $this->normalizer->string($name);
+                    $product->name = $normalizer->string($name);
                 }
 
                 $product->save();
@@ -46,7 +50,7 @@ trait WithProduct {
                 return $product;
             },
         );
-        $product = $this->products->get(
+        $product = $this->getProductResolver()->get(
             $type,
             $oem,
             $sku,

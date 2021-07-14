@@ -3,19 +3,22 @@
 namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Tag;
+use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Resolvers\TagResolver;
 
 /**
- * @property \App\Services\DataLoader\Normalizer             $normalizer
- * @property \App\Services\DataLoader\Resolvers\TagResolver $tags
- *
  * @mixin \App\Services\DataLoader\Factory
  */
 trait WithTag {
-    protected function tag(string $name): Tag {
-        $tag = $this->tags->get($name, $this->factory(function () use ($name): Tag {
-            $model = new Tag();
+    abstract protected function getNormalizer(): Normalizer;
 
-            $model->name = $this->normalizer->string($name);
+    abstract protected function getTagResolver(): TagResolver;
+
+    protected function tag(string $name): Tag {
+        $tag = $this->getTagResolver()->get($name, $this->factory(function () use ($name): Tag {
+            $model       = new Tag();
+            $normalizer  = $this->getNormalizer();
+            $model->name = $normalizer->string($name);
 
             $model->save();
 

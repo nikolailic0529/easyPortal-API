@@ -53,15 +53,13 @@ class WithLocationsTest extends TestCase {
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                LoggerInterface $logger,
-                Normalizer $normalizer,
-                TypeResolver $types,
+                protected LoggerInterface $logger,
+                protected Normalizer $normalizer,
+                protected TypeResolver $types,
                 protected LocationFactory $locations,
                 protected Dispatcher $dispatcher,
             ) {
-                $this->logger     = $logger;
-                $this->normalizer = $normalizer;
-                $this->types      = $types;
+                // empty
             }
 
             public function create(Type $type): ?Model {
@@ -74,6 +72,10 @@ class WithLocationsTest extends TestCase {
 
             protected function getDispatcher(): Dispatcher {
                 return $this->dispatcher;
+            }
+
+            protected function getTypeResolver(): TypeResolver {
+                return $this->types;
             }
         };
 
@@ -163,6 +165,10 @@ class WithLocationsTest extends TestCase {
             protected function getDispatcher(): Dispatcher {
                 return $this->dispatcher;
             }
+
+            protected function getTypeResolver(): TypeResolver {
+                throw new Exception('Should not be called.');
+            }
         };
 
         $factory->location($owner, $location);
@@ -213,6 +219,10 @@ class WithLocationsTest extends TestCase {
 
             protected function getDispatcher(): Dispatcher {
                 return $this->dispatcher;
+            }
+
+            protected function getTypeResolver(): TypeResolver {
+                throw new Exception('Should not be called.');
             }
         };
 

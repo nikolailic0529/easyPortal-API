@@ -33,13 +33,19 @@ class WithTagTest extends TestCase {
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, TagResolver $resolver) {
-                $this->normalizer = $normalizer;
-                $this->tags       = $resolver;
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected TagResolver $tags,
+            ) {
+                // empty
             }
 
             public function create(Model $object, Type $type): ?Model {
                 return null;
+            }
+
+            protected function getTagResolver(): TagResolver {
+                return $this->tags;
             }
         };
 

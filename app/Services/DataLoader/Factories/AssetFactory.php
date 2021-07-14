@@ -147,6 +147,22 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     protected function getStatusResolver(): StatusResolver {
         return $this->statuses;
     }
+
+    protected function getOemResolver(): OemResolver {
+        return $this->oems;
+    }
+
+    protected function getProductResolver(): ProductResolver {
+        return $this->products;
+    }
+
+    protected function getTagResolver(): TagResolver {
+        return $this->tags;
+    }
+
+    protected function getTypeResolver(): TypeResolver {
+        return $this->types;
+    }
     // </editor-fold>
 
     // <editor-fold desc="Factory">

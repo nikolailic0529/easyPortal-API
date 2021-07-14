@@ -49,6 +49,10 @@ class WithProductTest extends TestCase {
             public function create(Type $type): ?Model {
                 return null;
             }
+
+            protected function getProductResolver(): ProductResolver {
+                return $this->products;
+            }
         };
 
         $this->flushQueryLog();
