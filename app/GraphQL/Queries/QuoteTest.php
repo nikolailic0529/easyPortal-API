@@ -241,6 +241,8 @@ class QuoteTest extends TestCase {
                                 id
                                 note
                                 created_at
+                                updated_at
+                                user_id
                                 user {
                                     id
                                     family_name
@@ -679,6 +681,8 @@ class QuoteTest extends TestCase {
                                         'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
                                         'note'       => 'Note',
                                         'created_at' => '2021-07-11T23:27:47+00:00',
+                                        'updated_at' => '2021-07-11T23:27:47+00:00',
+                                        'user_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
                                         'user'       => [
                                             'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
                                             'given_name'  => 'first',
@@ -740,6 +744,7 @@ class QuoteTest extends TestCase {
                                     'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
                                     'note'       => 'Note',
                                     'created_at' => '2021-07-11T23:27:47+00:00',
+                                    'updated_at' => '2021-07-11T23:27:47+00:00',
                                 ]);
                             return $document;
                         },

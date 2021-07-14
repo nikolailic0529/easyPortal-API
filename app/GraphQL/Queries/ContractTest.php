@@ -2,12 +2,14 @@
 
 namespace App\GraphQL\Queries;
 
+use App\GraphQL\Queries\Note as QueriesNote;
 use App\Models\Asset;
 use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\Language;
+use App\Models\Note;
 use App\Models\Oem;
 use App\Models\OemGroup;
 use App\Models\Organization;
@@ -25,6 +27,7 @@ use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\JsonFragmentPaginatedSchema;
 use Tests\TestCase;
 
 /**
@@ -198,6 +201,70 @@ class ContractTest extends TestCase {
                             name
                         }
                         assets_count
+                    }
+                }
+            ', ['id' => $contractId])
+            ->assertThat($expected);
+    }
+
+    /**
+     * @dataProvider dataProviderQueryNotes
+     */
+    public function testQueryNotes(
+        Response $expected,
+        Closure $organizationFactory,
+        Closure $userFactory = null,
+        Closure $contractFactory = null,
+    ): void {
+        // Prepare
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
+
+        $contractId = 'wrong';
+
+        if ($contractFactory) {
+            $contract   = $contractFactory($this, $organization, $user);
+            $contractId = $contract->id;
+
+            $this->setSettings([
+                'ep.contract_types' => [$contract->type_id],
+            ]);
+        }
+
+        // Test
+        $this
+            ->graphQL(/** @lang GraphQL */ '
+                query contract($id: ID!) {
+                    contract(id: $id) {
+                        notes {
+                            data{
+                                id
+                                note
+                                created_at
+                                updated_at
+                                user_id
+                                user {
+                                    id
+                                    family_name
+                                    given_name
+                                }
+                                files {
+                                    id
+                                    name
+                                    path
+                                }
+                            }
+                            paginatorInfo {
+                                count
+                                currentPage
+                                firstItem
+                                hasMorePages
+                                lastItem
+                                lastPage
+                                perPage
+                                total
+                            }
+                        }
                     }
                 }
             ', ['id' => $contractId])
@@ -526,11 +593,6 @@ class ContractTest extends TestCase {
                                     'discount'      => -8,
                                     'renewal'       => 24.20,
                                 ])
-                                ->hasNotes(1, [
-                                    'id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
-                                    'note'    => 'Note',
-                                    'user_id' => $user->getKey(),
-                                ])
                                 ->create([
                                     'id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                     'oem_said'     => '1234-5678-9012',
@@ -540,6 +602,141 @@ class ContractTest extends TestCase {
                                     'end'          => '2024-01-01',
                                     'assets_count' => 1,
                                 ]);
+                        },
+                    ],
+                ]),
+            ),
+        ]))->getData();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderQueryNotes(): array {
+        return (new MergeDataProvider([
+            'root'           => new CompositeDataProvider(
+                new RootOrganizationDataProvider('contract'),
+                new OrganizationUserDataProvider('contract', [
+                    'contracts-view',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('contract', null),
+                        static function (TestCase $test, Organization $organization): Document {
+                            return Document::factory()->create();
+                        },
+                    ],
+                ]),
+            ),
+            'customers-view' => new CompositeDataProvider(
+                new OrganizationDataProvider('contract'),
+                new UserDataProvider('contract', [
+                    'customers-view',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('contract', null),
+                        static function (TestCase $test, Organization $organization): Document {
+                            $type     = Type::factory()->create([
+                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+                            $customer = Customer::factory()->create();
+
+                            $customer->resellers()->attach($reseller);
+
+                            $document = Document::factory()->create([
+                                'type_id'     => $type,
+                                'reseller_id' => $reseller,
+                                'customer_id' => $customer,
+                            ]);
+                            return $document;
+                        },
+                    ],
+                ]),
+            ),
+            'organization'   => new CompositeDataProvider(
+                new OrganizationDataProvider('contract', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new UserDataProvider('contract', [
+                    'contracts-view',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('contract', new JsonFragmentPaginatedSchema('notes', QueriesNote::class), [
+                            'notes' => [
+                                'data'          => [
+                                    [
+                                        'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
+                                        'note'       => 'Note',
+                                        'created_at' => '2021-07-11T23:27:47+00:00',
+                                        'updated_at' => '2021-07-11T23:27:47+00:00',
+                                        'user_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
+                                        'user'       => [
+                                            'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
+                                            'given_name'  => 'first',
+                                            'family_name' => 'last',
+                                        ],
+                                        'files'      => [
+                                            [
+                                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E988',
+                                                'name' => 'document',
+                                                'path' => 'http://example.com/document.csv',
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                'paginatorInfo' => [
+                                    'count'        => 1,
+                                    'currentPage'  => 1,
+                                    'firstItem'    => 1,
+                                    'hasMorePages' => false,
+                                    'lastItem'     => 1,
+                                    'lastPage'     => 1,
+                                    'perPage'      => 25,
+                                    'total'        => 1,
+                                ],
+                            ],
+                        ]),
+                        static function (TestCase $test, Organization $organization, User $user): Document {
+                            // Type Creation belongs to
+                            $type = Type::factory()->create([
+                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                'name' => 'name aaa',
+                            ]);
+                            // Reseller creation belongs to
+                            $reseller = Reseller::factory()
+                                ->create([
+                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+
+                                ]);
+                            $document = Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->create([
+                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                ]);
+                            // Note
+                            Note::factory()
+                                ->forUser([
+                                    'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
+                                    'given_name'  => 'first',
+                                    'family_name' => 'last',
+                                ])
+                                ->for($document)
+                                ->hasFiles(1, [
+                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E988',
+                                    'name' => 'document',
+                                    'path' => 'http://example.com/document.csv',
+                                ])
+                                ->create([
+                                    'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
+                                    'note'       => 'Note',
+                                    'created_at' => '2021-07-11T23:27:47+00:00',
+                                    'updated_at' => '2021-07-11T23:27:47+00:00',
+                                ]);
+                            return $document;
                         },
                     ],
                 ]),
