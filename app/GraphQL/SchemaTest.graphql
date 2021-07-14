@@ -641,6 +641,8 @@ type Document {
   currency: Currency
   customer: Customer!
   oem: Oem!
+  oem_said: String
+  oemGroup: OemGroup
   support_id: ID
   support: Product
   reseller_id: ID
@@ -1107,6 +1109,12 @@ type Mutation {
 type Oem {
   id: ID!
   abbr: String!
+  name: String!
+}
+
+type OemGroup {
+  id: ID!
+  key: String!
   name: String!
 }
 

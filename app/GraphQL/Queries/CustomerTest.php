@@ -363,6 +363,12 @@ class CustomerTest extends TestCase {
                                     abbr
                                     name
                                 }
+                                oem_said
+                                oemGroup {
+                                    id
+                                    key
+                                    name
+                                }
                                 support {
                                     id
                                     name
@@ -545,6 +551,12 @@ class CustomerTest extends TestCase {
                                 oem {
                                     id
                                     abbr
+                                    name
+                                }
+                                oem_said
+                                oemGroup {
+                                    id
+                                    key
                                     name
                                 }
                                 support {
@@ -1281,6 +1293,8 @@ class CustomerTest extends TestCase {
                                                 'abbr' => 'abbr',
                                                 'name' => 'oem1',
                                             ],
+                                            'oem_said'       => null,
+                                            'oemGroup'       => null,
                                             'support'        => [
                                                 'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                                 'name'   => 'Product1',
@@ -1771,6 +1785,8 @@ class CustomerTest extends TestCase {
                             'abbr' => 'abbr',
                             'name' => 'oem1',
                         ],
+                        'oem_said'       => null,
+                        'oemGroup'       => null,
                         'support'        => [
                             'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                             'name'   => 'Product1',

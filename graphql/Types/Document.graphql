@@ -11,6 +11,8 @@ type Document {
   currency: Currency @belongsTo
   customer: Customer! @belongsTo
   oem: Oem! @belongsTo
+  oem_said: String
+  oemGroup: OemGroup @belongsTo
   support_id: ID
   support: Product @belongsTo
   reseller_id: ID

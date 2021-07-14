@@ -72,7 +72,7 @@
                 "headquarter": {
                     "$ref": "#/definitions/Location"
                 },
-                "statuses":  {
+                "statuses": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/Status"
@@ -328,6 +328,25 @@
                 }
             }
         },
+        "OemGroup": {
+            "type": "object",
+            "required": [
+                "id",
+                "key",
+                "name"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
         "Product": {
             "additionProperties": false,
             "type": "object",
@@ -443,6 +462,8 @@
                 "currency",
                 "customer",
                 "oem",
+                "oem_said",
+                "oemGroup",
                 "support",
                 "reseller",
                 "type",
@@ -460,6 +481,22 @@
                 },
                 "oem_id": {
                     "$ref": "#/definitions/ID"
+                },
+                "oem_said": {
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "oemGroup": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/OemGroup"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "type_id": {
                     "$ref": "#/definitions/ID"

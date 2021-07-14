@@ -9,6 +9,7 @@ use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\Language;
 use App\Models\Oem;
+use App\Models\OemGroup;
 use App\Models\Organization;
 use App\Models\Product;
 use App\Models\Reseller;
@@ -87,6 +88,12 @@ class QuotesTest extends TestCase {
                             oem {
                                 id
                                 abbr
+                                name
+                            }
+                            oem_said
+                            oemGroup {
+                                id
+                                key
                                 name
                             }
                             support {
@@ -226,10 +233,15 @@ class QuotesTest extends TestCase {
     public function dataProviderQuery(): array {
         $factory = static function (TestCase $test, Organization $organization): void {
             // OEM Creation belongs to
-            $oem = Oem::factory()->create([
+            $oem      = Oem::factory()->create([
                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                 'abbr' => 'abbr',
                 'name' => 'oem1',
+            ]);
+            $oemGroup = OemGroup::factory()->create([
+                'id'   => '52f2faec-5a80-4cdb-8cee-669b942ae1ef',
+                'key'  => 'key',
+                'name' => 'name',
             ]);
             // Type Creation belongs to
             $type = Type::factory()->create([
@@ -305,6 +317,7 @@ class QuotesTest extends TestCase {
             ]);
             Document::factory()
                 ->for($oem)
+                ->for($oemGroup)
                 ->for($product, 'support')
                 ->for($customer)
                 ->for($type)
@@ -332,6 +345,7 @@ class QuotesTest extends TestCase {
                 ])
                 ->create([
                     'id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                    'oem_said'     => '1234-5678-9012',
                     'number'       => '1323',
                     'price'        => 100,
                     'start'        => '2021-01-01',
@@ -366,6 +380,12 @@ class QuotesTest extends TestCase {
                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                     'abbr' => 'abbr',
                     'name' => 'oem1',
+                ],
+                'oem_said'       => '1234-5678-9012',
+                'oemGroup'       => [
+                    'id'   => '52f2faec-5a80-4cdb-8cee-669b942ae1ef',
+                    'key'  => 'key',
+                    'name' => 'name',
                 ],
                 'support'        => [
                     'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
