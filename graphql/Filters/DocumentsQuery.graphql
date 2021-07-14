@@ -6,14 +6,21 @@ input DocumentsQuery {
   start: Date!
   end: Date!
   price: Float
-  serial_number: String
-  product_id: ID!
-  product: ProductsQuery!
   currency_id: ID
-  customer_id: ID!
-  customer: CustomersQuery
+  language_id: ID
+  serial_number: String
+  support_id: ID!
+  support: ProductsQuery!
   service_id: ID
   service: ProductsQuery
+  customer_id: ID!
+  customer: CustomersQuery
   reseller_id: ID
   reseller: ResellersQuery
+  distributor_id: ID
+  distributor: DistributorsQuery
+  entries: DocumentEntriesQuery
+  entries_count: Int!
+  contacts: ContactsQuery
+  contacts_count: Int!
 }

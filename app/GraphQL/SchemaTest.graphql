@@ -628,6 +628,11 @@ type Distributor {
   name: String!
 }
 
+input DistributorsQuery {
+  id: ID!
+  name: String!
+}
+
 type Document {
   id: ID!
   oem_id: ID!
@@ -656,7 +661,7 @@ type Document {
 
 input DocumentEntriesQuery {
   id: ID!
-  document_id: ID!
+  asset_id: ID!
   net_price: Float
   list_price: Float
   discount: Float
@@ -714,16 +719,23 @@ input DocumentsQuery {
   start: Date!
   end: Date!
   price: Float
-  serial_number: String
-  product_id: ID!
-  product: ProductsQuery!
   currency_id: ID
-  customer_id: ID!
-  customer: CustomersQuery
+  language_id: ID
+  serial_number: String
+  support_id: ID!
+  support: ProductsQuery!
   service_id: ID
   service: ProductsQuery
+  customer_id: ID!
+  customer: CustomersQuery
   reseller_id: ID
   reseller: ResellersQuery
+  distributor_id: ID
+  distributor: DistributorsQuery
+  entries: DocumentEntriesQuery
+  entries_count: Int!
+  contacts: ContactsQuery
+  contacts_count: Int!
 }
 
 input DocumentsSort {
@@ -2139,6 +2151,26 @@ input SearchByConditionCustomersQuery {
 }
 
 """
+Available conditions for input DistributorsQuery (only one property allowed at a time).
+"""
+input SearchByConditionDistributorsQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionDistributorsQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionDistributorsQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  name: SearchByScalarString
+}
+
+"""
 Available conditions for input DocumentEntriesQuery (only one property allowed at a time).
 """
 input SearchByConditionDocumentEntriesQuery {
@@ -2155,7 +2187,7 @@ input SearchByConditionDocumentEntriesQuery {
   id: SearchByScalarID
 
   """Property condition."""
-  document_id: SearchByScalarID
+  asset_id: SearchByScalarID
 
   """Property condition."""
   net_price: SearchByScalarFloatOrNull
@@ -2223,22 +2255,19 @@ input SearchByConditionDocumentsQuery {
   price: SearchByScalarFloatOrNull
 
   """Property condition."""
-  serial_number: SearchByScalarStringOrNull
-
-  """Property condition."""
-  product_id: SearchByScalarID
-
-  """Property condition."""
-  product: SearchByRelationProductsQuery
-
-  """Property condition."""
   currency_id: SearchByScalarIDOrNull
 
   """Property condition."""
-  customer_id: SearchByScalarID
+  language_id: SearchByScalarIDOrNull
 
   """Property condition."""
-  customer: SearchByRelationCustomersQuery
+  serial_number: SearchByScalarStringOrNull
+
+  """Property condition."""
+  support_id: SearchByScalarID
+
+  """Property condition."""
+  support: SearchByRelationProductsQuery
 
   """Property condition."""
   service_id: SearchByScalarIDOrNull
@@ -2247,10 +2276,34 @@ input SearchByConditionDocumentsQuery {
   service: SearchByRelationProductsQuery
 
   """Property condition."""
+  customer_id: SearchByScalarID
+
+  """Property condition."""
+  customer: SearchByRelationCustomersQuery
+
+  """Property condition."""
   reseller_id: SearchByScalarIDOrNull
 
   """Property condition."""
   reseller: SearchByRelationResellersQuery
+
+  """Property condition."""
+  distributor_id: SearchByScalarIDOrNull
+
+  """Property condition."""
+  distributor: SearchByRelationDistributorsQuery
+
+  """Property condition."""
+  entries: SearchByRelationDocumentEntriesQuery
+
+  """Property condition."""
+  entries_count: SearchByScalarInt
+
+  """Property condition."""
+  contacts: SearchByRelationContactsQuery
+
+  """Property condition."""
+  contacts_count: SearchByScalarInt
 }
 
 """
@@ -2720,6 +2773,54 @@ input SearchByRelationCoveragesQuery {
 input SearchByRelationCustomersQuery {
   """Conditions for the related objects."""
   where: SearchByConditionCustomersQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""Relation condition for input DistributorsQuery."""
+input SearchByRelationDistributorsQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionDistributorsQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""Relation condition for input DocumentEntriesQuery."""
+input SearchByRelationDocumentEntriesQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionDocumentEntriesQuery!
 
   """Equal (`=`)."""
   eq: Int
