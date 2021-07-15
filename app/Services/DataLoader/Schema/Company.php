@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Schema;
 class Company extends Type implements TypeWithId {
     public string  $id;
     public string  $name;
+    public ?string $updatedAt;
     public ?string $keycloakName;
     public ?string $keycloakGroupId;
     /**

@@ -23,6 +23,7 @@ class ViewAsset extends Type implements TypeWithId {
     public ?string  $longitude;
     public ?string  $countryCode;
     public string   $status;
+    public ?string  $updatedAt;
 
     /**
      * @var array<string>|null

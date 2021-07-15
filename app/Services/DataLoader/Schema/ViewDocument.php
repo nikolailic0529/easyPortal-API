@@ -11,6 +11,7 @@ class ViewDocument extends Type implements TypeWithId {
     public ?string                     $currencyCode;
     public ?string                     $totalNetPrice;
     public ?string                     $languageCode;
+    public ?string                     $updatedAt;
     public DocumentVendorSpecificField $vendorSpecificFields;
     /**
      * @var array<\App\Services\DataLoader\Schema\CompanyContactPerson>

@@ -27,8 +27,12 @@
                 "currencyCode": "EUR",
                 "languageCode": "en",
                 "totalNetPrice": "3,292.16",
+                "updatedAt": "1625642660000",
                 "vendorSpecificFields": {
-                    "vendor": "HPE"
+                    "vendor": "HPE",
+                    "said": null,
+                    "groupId": null,
+                    "groupDescription": "description"
                 },
                 "documentNumber": "0056523287",
                 "contactPersons": [],
@@ -57,8 +61,12 @@
                 "currencyCode": "EUR",
                 "languageCode": "en",
                 "totalNetPrice": "3,292.16",
+                "updatedAt": "1625642660000",
                 "vendorSpecificFields": {
-                    "vendor": "HPE"
+                    "vendor": "HPE",
+                    "said": null,
+                    "groupId": null,
+                    "groupDescription": "description"
                 },
                 "documentNumber": "0056523287",
                 "contactPersons": [],

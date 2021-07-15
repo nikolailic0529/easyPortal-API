@@ -7,6 +7,7 @@ use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry;
 use App\Models\Enums\ProductType;
 use App\Models\Oem;
+use App\Models\OemGroup;
 use App\Models\Product;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
@@ -14,6 +15,7 @@ use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithCustomer;
 use App\Services\DataLoader\Factories\Concerns\WithDistributor;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
+use App\Services\DataLoader\Factories\Concerns\WithOemGroup;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
 use App\Services\DataLoader\Factories\Concerns\WithReseller;
 use App\Services\DataLoader\Factories\Concerns\WithType;
@@ -25,6 +27,7 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
+use App\Services\DataLoader\Resolvers\OemGroupResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
@@ -47,6 +50,7 @@ use function sprintf;
 
 class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     use WithOem;
+    use WithOemGroup;
     use WithType;
     use WithProduct;
     use WithContacts;
@@ -67,6 +71,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         protected LanguageFactory $languages,
         protected DistributorResolver $distributorResolver,
         protected ContactFactory $contacts,
+        protected OemGroupResolver $oemGroupResolver,
         protected ?DistributorFinder $distributorFinder = null,
         protected ?ResellerFinder $resellerFinder = null,
         protected ?CustomerFinder $customerFinder = null,
@@ -107,6 +112,22 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
 
     protected function getContactsFactory(): ContactFactory {
         return $this->contacts;
+    }
+
+    protected function getOemResolver(): OemResolver {
+        return $this->oems;
+    }
+
+    protected function getProductResolver(): ProductResolver {
+        return $this->products;
+    }
+
+    protected function getTypeResolver(): TypeResolver {
+        return $this->types;
+    }
+
+    protected function getOemGroupResolver(): OemGroupResolver {
+        return $this->oemGroupResolver;
     }
     // </editor-fold>
 
@@ -167,20 +188,24 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         $factory = $this->factory(function (DocumentModel $model) use (&$created, $object): DocumentModel {
             // Update
             $created            = !$model->exists;
-            $model->id          = $this->normalizer->uuid($object->document->document->id);
-            $model->oem         = $this->documentOem($object->document->document);
-            $model->type        = $this->documentType($object->document->document);
+            $document           = $object->document->document;
+            $model->id          = $this->normalizer->uuid($document->id);
+            $model->oem         = $this->documentOem($document);
+            $model->oemGroup    = $this->documentOemGroup($document);
+            $model->oem_said    = $this->normalizer->string($document->vendorSpecificFields->said ?? null);
+            $model->type        = $this->documentType($document);
             $model->support     = $this->assetDocumentObjectSupport($object);
-            $model->reseller    = $this->reseller($object->document->document);
-            $model->customer    = $this->customer($object->document->document);
+            $model->reseller    = $this->reseller($document);
+            $model->customer    = $this->customer($document);
             $model->currency    = $this->currencies->create($object);
             $model->language    = $this->languages->create($object);
-            $model->distributor = $this->distributor($object->document->document);
-            $model->start       = $this->normalizer->datetime($object->document->document->startDate);
-            $model->end         = $this->normalizer->datetime($object->document->document->endDate);
-            $model->price       = $this->normalizer->number($object->document->document->totalNetPrice);
-            $model->number      = $this->normalizer->string($object->document->document->documentNumber);
-            $model->contacts    = $this->objectContacts($model, (array) $object->document->document->contactPersons);
+            $model->distributor = $this->distributor($document);
+            $model->start       = $this->normalizer->datetime($document->startDate);
+            $model->end         = $this->normalizer->datetime($document->endDate);
+            $model->price       = $this->normalizer->number($document->totalNetPrice);
+            $model->number      = $this->normalizer->string($document->documentNumber);
+            $model->changed_at  = $this->normalizer->datetime($document->updatedAt);
+            $model->contacts    = $this->objectContacts($model, (array) $document->contactPersons);
             $model->entries     = $this->assetDocumentObjectEntries($model, $object);
             $model->save();
 
@@ -301,6 +326,19 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
             $document->vendorSpecificFields->vendor,
             $document->vendorSpecificFields->vendor,
         );
+    }
+
+    protected function documentOemGroup(ViewDocument $document): ?OemGroup {
+        $key   = $document->vendorSpecificFields->groupId ?? null;
+        $desc  = $document->vendorSpecificFields->groupDescription ?? null;
+        $group = null;
+
+        if ($key) {
+            $oem   = $this->documentOem($document);
+            $group = $this->oemGroup($oem, $key, (string) $desc);
+        }
+
+        return $group;
     }
 
     protected function documentType(ViewDocument $document): TypeModel {

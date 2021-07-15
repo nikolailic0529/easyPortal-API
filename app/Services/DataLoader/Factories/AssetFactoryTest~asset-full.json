@@ -16,6 +16,7 @@
     "address": "Maddison Path Suite 820 Apt. 898",
     "address2": "",
     "status": "ACTIVE",
+    "updatedAt": "1625642660000",
     "assetCoverage": [
         "COVERED",
         "COVERED_ON_CONTRACT"
@@ -35,6 +36,7 @@
                 "totalNetPrice": "1,292.16",
                 "currencyCode": "CUR",
                 "languageCode": "fr",
+                "updatedAt": "1625642660000",
                 "vendorSpecificFields": {
                     "vendor": "HPE"
                 },
@@ -80,6 +82,7 @@
                 "totalNetPrice": "1,292.16",
                 "currencyCode": "CUR",
                 "languageCode": "fr",
+                "updatedAt": "1625642660000",
                 "vendorSpecificFields": {
                     "vendor": "HPE"
                 },

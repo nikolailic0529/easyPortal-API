@@ -27,8 +27,12 @@
                 "currencyCode": "CUR",
                 "languageCode": "fr",
                 "totalNetPrice": "1,292.16",
+                "updatedAt": null,
                 "vendorSpecificFields": {
-                    "vendor": "HPE"
+                    "vendor": "HPE",
+                    "said": "1234 4678 9012",
+                    "groupId": "abc-de",
+                    "groupDescription": "description"
                 },
                 "documentNumber": "0056523287",
                 "contactPersons": [
@@ -66,6 +70,7 @@
                 "currencyCode": "CUR",
                 "languageCode": "en",
                 "totalNetPrice": "3,646.44",
+                "updatedAt": null,
                 "vendorSpecificFields": {
                     "vendor": "HPE2"
                 },
@@ -105,6 +110,7 @@
                 "currencyCode": "CUR",
                 "languageCode": "fr",
                 "totalNetPrice": "6,376.15",
+                "updatedAt": null,
                 "vendorSpecificFields": {
                     "vendor": "HPE"
                 },
@@ -144,8 +150,12 @@
                 "currencyCode": "CUR",
                 "languageCode": "fr",
                 "totalNetPrice": "1,292.16",
+                "updatedAt": null,
                 "vendorSpecificFields": {
-                    "vendor": "HPE"
+                    "vendor": "HPE",
+                    "said": "1234 4678 9012",
+                    "groupId": "abc-de",
+                    "groupDescription": "description"
                 },
                 "documentNumber": "0056523287",
                 "contactPersons": [
@@ -183,6 +193,7 @@
                 "currencyCode": "CUR",
                 "languageCode": "fr",
                 "totalNetPrice": "3,646.44",
+                "updatedAt": null,
                 "vendorSpecificFields": {
                     "vendor": "HPE"
                 },
@@ -222,6 +233,7 @@
                 "currencyCode": "CUR",
                 "languageCode": "fr",
                 "totalNetPrice": "6,376.15",
+                "updatedAt": null,
                 "vendorSpecificFields": {
                     "vendor": "HPE"
                 },
@@ -261,8 +273,12 @@
                 "currencyCode": "CUR",
                 "languageCode": "fr",
                 "totalNetPrice": "1,292.16",
+                "updatedAt": null,
                 "vendorSpecificFields": {
-                    "vendor": "HPE"
+                    "vendor": "HPE",
+                    "said": "1234 4678 9012",
+                    "groupId": "abc-de",
+                    "groupDescription": "description"
                 },
                 "documentNumber": "0056523287",
                 "contactPersons": [

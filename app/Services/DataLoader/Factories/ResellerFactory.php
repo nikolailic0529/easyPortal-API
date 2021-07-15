@@ -105,13 +105,14 @@ class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
         // Get/Create
         $created  = false;
         $factory  = $this->factory(function (Reseller $reseller) use (&$created, $company): Reseller {
-            $created             = !$reseller->exists;
-            $reseller->id        = $this->normalizer->uuid($company->id);
-            $reseller->name      = $this->normalizer->string($company->name);
-            $reseller->type      = $this->companyType($reseller, $company->companyTypes);
-            $reseller->statuses  = $this->companyStatuses($reseller, $company);
-            $reseller->contacts  = $this->objectContacts($reseller, $company->companyContactPersons);
-            $reseller->locations = $this->objectLocations($reseller, $company->locations);
+            $created              = !$reseller->exists;
+            $reseller->id         = $this->normalizer->uuid($company->id);
+            $reseller->name       = $this->normalizer->string($company->name);
+            $reseller->type       = $this->companyType($reseller, $company->companyTypes);
+            $reseller->changed_at = $this->normalizer->datetime($company->updatedAt);
+            $reseller->statuses   = $this->companyStatuses($reseller, $company);
+            $reseller->contacts   = $this->objectContacts($reseller, $company->companyContactPersons);
+            $reseller->locations  = $this->objectLocations($reseller, $company->locations);
 
             $reseller->save();
 

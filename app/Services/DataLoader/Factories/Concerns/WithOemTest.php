@@ -33,12 +33,19 @@ class WithOemTest extends TestCase {
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, protected OemResolver $oems) {
-                $this->normalizer = $normalizer;
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected OemResolver $oems,
+            ) {
+                // empty
             }
 
             public function create(Type $type): ?Model {
                 return null;
+            }
+
+            protected function getOemResolver(): OemResolver {
+                return $this->oems;
             }
         };
 

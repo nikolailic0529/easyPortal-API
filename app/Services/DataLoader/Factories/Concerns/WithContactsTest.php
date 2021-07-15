@@ -11,6 +11,7 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\Type;
+use Exception;
 use Mockery;
 use Psr\Log\LoggerInterface;
 use Tests\TestCase;
@@ -48,14 +49,12 @@ class WithContactsTest extends TestCase {
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                LoggerInterface $logger,
-                Normalizer $normalizer,
-                TypeResolver $types,
+                protected LoggerInterface $logger,
+                protected Normalizer $normalizer,
+                protected TypeResolver $types,
                 protected ContactFactory $contacts,
             ) {
-                $this->logger     = $logger;
-                $this->normalizer = $normalizer;
-                $this->types      = $types;
+                // empty
             }
 
             public function create(Type $type): ?Model {
@@ -64,6 +63,10 @@ class WithContactsTest extends TestCase {
 
             protected function getContactsFactory(): ContactFactory {
                 return $this->contacts;
+            }
+
+            protected function getTypeResolver(): TypeResolver {
+                return $this->types;
             }
         };
 
@@ -129,6 +132,10 @@ class WithContactsTest extends TestCase {
 
             protected function getContactsFactory(): ContactFactory {
                 return $this->contacts;
+            }
+
+            protected function getTypeResolver(): TypeResolver {
+                throw new Exception('Should not be called.');
             }
         };
 

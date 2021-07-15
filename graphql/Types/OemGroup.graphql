@@ -1,0 +1,5 @@
+type OemGroup {
+  id: ID!
+  key: String!
+  name: String!
+}

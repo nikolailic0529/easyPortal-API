@@ -29,6 +29,7 @@ class DistributorFactory extends Factory {
         return [
             'id'         => $this->faker->uuid,
             'name'       => $this->faker->company,
+            'changed_at' => null,
             'created_at' => Date::now(),
             'updated_at' => Date::now(),
             'deleted_at' => null,

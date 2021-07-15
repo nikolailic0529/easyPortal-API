@@ -35,6 +35,8 @@ class DocumentFactory extends Factory {
             'oem_id'         => static function (): Oem {
                 return Oem::factory()->create();
             },
+            'oem_said'       => $this->faker->randomElement([null, $this->faker->uuid]),
+            'oem_group_id'   => null,
             'type_id'        => function (): Type {
                 return Type::factory()->create([
                     'object_type' => $this->newModel()->getMorphClass(),
@@ -54,6 +56,7 @@ class DocumentFactory extends Factory {
             'end'            => $this->faker->dateTime,
             'price'          => (string) $this->faker->randomFloat(2),
             'currency_id'    => null,
+            'changed_at'     => null,
             'created_at'     => Date::now(),
             'updated_at'     => Date::now(),
             'deleted_at'     => null,

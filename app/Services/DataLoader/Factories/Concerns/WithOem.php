@@ -3,20 +3,23 @@
 namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Oem;
+use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Resolvers\OemResolver;
 
 /**
- * @property \App\Services\DataLoader\Normalizer            $normalizer
- * @property \App\Services\DataLoader\Resolvers\OemResolver $oems
- *
  * @mixin \App\Services\DataLoader\Factory
  */
 trait WithOem {
-    protected function oem(string $abbr, string $name): Oem {
-        $oem = $this->oems->get($abbr, $this->factory(function () use ($abbr, $name): Oem {
-            $model = new Oem();
+    abstract protected function getNormalizer(): Normalizer;
 
-            $model->abbr = $this->normalizer->string($abbr);
-            $model->name = $this->normalizer->string($name);
+    abstract protected function getOemResolver(): OemResolver;
+
+    protected function oem(string $abbr, string $name): Oem {
+        $oem = $this->getOemResolver()->get($abbr, $this->factory(function () use ($abbr, $name): Oem {
+            $model       = new Oem();
+            $normalizer  = $this->getNormalizer();
+            $model->abbr = $normalizer->string($abbr);
+            $model->name = $normalizer->string($name);
 
             $model->save();
 

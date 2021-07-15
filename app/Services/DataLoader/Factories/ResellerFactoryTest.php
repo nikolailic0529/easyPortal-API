@@ -88,6 +88,7 @@ class ResellerFactoryTest extends TestCase {
         $this->assertTrue($reseller->wasRecentlyCreated);
         $this->assertEquals($company->id, $reseller->getKey());
         $this->assertEquals($company->name, $reseller->name);
+        $this->assertEquals($company->updatedAt, $this->getDatetime($reseller->changed_at));
         $this->assertCount(2, $reseller->statuses);
         $this->assertEquals($this->getCompanyStatuses($company), $this->getModelStatuses($reseller));
         $this->assertCount(2, $reseller->locations);
@@ -112,6 +113,7 @@ class ResellerFactoryTest extends TestCase {
         $this->assertSame($reseller, $updated);
         $this->assertEquals($company->id, $updated->getKey());
         $this->assertEquals($company->name, $updated->name);
+        $this->assertEquals($company->updatedAt, $this->getDatetime($updated->changed_at));
         $this->assertCount(1, $updated->statuses);
         $this->assertEquals($this->getCompanyStatuses($company), $this->getModelStatuses($updated));
         $this->assertCount(1, $updated->locations);

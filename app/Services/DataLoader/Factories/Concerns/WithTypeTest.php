@@ -37,13 +37,19 @@ class WithTypeTest extends TestCase {
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, TypeResolver $resolver) {
-                $this->normalizer = $normalizer;
-                $this->types      = $resolver;
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected TypeResolver $types,
+            ) {
+                // empty
             }
 
             public function create(Model $object, Type $type): ?Model {
                 return null;
+            }
+
+            protected function getTypeResolver(): TypeResolver {
+                return $this->types;
             }
         };
 

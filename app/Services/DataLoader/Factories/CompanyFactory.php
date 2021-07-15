@@ -59,6 +59,10 @@ abstract class CompanyFactory extends ModelFactory {
     protected function getStatusResolver(): StatusResolver {
         return $this->statuses;
     }
+
+    protected function getTypeResolver(): TypeResolver {
+        return $this->types;
+    }
     // </editor-fold>
 
     // <editor-fold desc="Company">

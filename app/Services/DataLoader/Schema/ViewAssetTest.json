@@ -19,6 +19,7 @@
     "longitude": null,
     "countryCode": "GB",
     "status": "Active",
+    "updatedAt": "1625642660983",
     "assetCoverage": [
         "COVERED_ON_CONTRACT"
     ],

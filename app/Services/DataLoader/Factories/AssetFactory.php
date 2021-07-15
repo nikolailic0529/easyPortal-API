@@ -147,6 +147,22 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     protected function getStatusResolver(): StatusResolver {
         return $this->statuses;
     }
+
+    protected function getOemResolver(): OemResolver {
+        return $this->oems;
+    }
+
+    protected function getProductResolver(): ProductResolver {
+        return $this->products;
+    }
+
+    protected function getTagResolver(): TagResolver {
+        return $this->tags;
+    }
+
+    protected function getTypeResolver(): TypeResolver {
+        return $this->types;
+    }
     // </editor-fold>
 
     // <editor-fold desc="Factory">
@@ -228,6 +244,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $model->reseller      = $reseller;
             $model->customer      = $customer;
             $model->location      = $location;
+            $model->changed_at    = $this->normalizer->datetime($asset->updatedAt);
             $model->serial_number = $this->normalizer->string($asset->serialNumber);
             $model->data_quality  = $this->normalizer->string($asset->dataQualityScore);
             $model->contacts      = $this->objectContacts($model, $asset->latestContactPersons);

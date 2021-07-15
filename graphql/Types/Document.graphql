@@ -11,6 +11,8 @@ type Document {
   currency: Currency @belongsTo
   customer: Customer! @belongsTo
   oem: Oem! @belongsTo
+  oem_said: String
+  oemGroup: OemGroup @belongsTo
   support_id: ID
   support: Product @belongsTo
   reseller_id: ID
@@ -24,4 +26,5 @@ type Document {
   contacts: [Contact!]! @morphMany
   distributor_id: ID
   distributor: Distributor @belongsTo
+  assets_count: Int
 }
