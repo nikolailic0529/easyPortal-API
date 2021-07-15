@@ -25,7 +25,7 @@ use function __;
 use function array_key_exists;
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\UpdateQuoteNote
+ * @coversDefaultClass \App\GraphQL\Mutations\UpdateContractNote
  */
 class UpdateQuoteNoteTest extends TestCase {
     // <editor-fold desc="Tests">

@@ -1,0 +1,16 @@
+extend type Mutation {
+  deleteQuoteNote(
+    input: DeleteQuoteNoteInput!
+  ): DeleteQuoteNotePayload
+  @organization
+  @me(permissions: ["quotes-view", "customers-view"])
+  @field(resolver:"App\\GraphQL\\Mutations\\DeleteContractNote")
+}
+
+input DeleteQuoteNoteInput {
+  id: ID!
+}
+
+type DeleteQuoteNotePayload {
+  deleted: Boolean!
+}

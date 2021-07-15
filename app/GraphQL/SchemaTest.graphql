@@ -608,6 +608,14 @@ type DeleteClientTranslationsPayload {
   deleted: [String!]!
 }
 
+input DeleteContractNoteInput {
+  id: ID!
+}
+
+type DeleteContractNotePayload {
+  deleted: Boolean!
+}
+
 input DeleteMeSearchInput {
   id: ID!
 }
@@ -621,6 +629,14 @@ input DeleteOrgRoleInput {
 }
 
 type DeleteOrgRolePayload {
+  deleted: Boolean!
+}
+
+input DeleteQuoteNoteInput {
+  id: ID!
+}
+
+type DeleteQuoteNotePayload {
   deleted: Boolean!
 }
 
@@ -916,6 +932,20 @@ type Mutation {
   """
   createQuoteNote(input: CreateQuoteNoteInput!): CreateQuoteNotePayload
 
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  updateContractNote(input: UpdateContractNoteInput!): UpdateContractNotePayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+  """
+  updateQuoteNote(input: UpdateQuoteNoteInput!): UpdateQuoteNotePayload
+
   """@require <me> User must be authenticated."""
   createMeSearch(input: CreateMeSearchInput!): CreateMeSearchPayload
 
@@ -933,8 +963,22 @@ type Mutation {
   """
   deleteClientTranslations(input: DeleteClientTranslationsInput!): DeleteClientTranslationsPayload
 
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  deleteContractNote(input: DeleteContractNoteInput!): DeleteContractNotePayload
+
   """@require <me> User must be authenticated."""
   deleteMeSearch(input: DeleteMeSearchInput!): DeleteMeSearchPayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+  """
+  deleteQuoteNote(input: DeleteQuoteNoteInput!): DeleteQuoteNotePayload
 
   """
   Force delete all custom settings, may be useful to restore the corrupted file.
@@ -3869,6 +3913,16 @@ type UpdateClientTranslationsPayload {
   updated: [Translation!]!
 }
 
+input UpdateContractNoteInput {
+  id: ID!
+  note: String!
+  files: [UpdateQuoteNoteFile!]
+}
+
+type UpdateContractNotePayload {
+  updated: Note!
+}
+
 input UpdateMeEmailInput {
   email: String!
 }
@@ -3947,6 +4001,21 @@ input UpdateOrgRolesInput {
 
 type UpdateOrgRolesPayload {
   updated: [Role!]!
+}
+
+input UpdateQuoteNoteFile {
+  id: ID
+  content: Upload
+}
+
+input UpdateQuoteNoteInput {
+  id: ID!
+  note: String!
+  files: [UpdateQuoteNoteFile!]
+}
+
+type UpdateQuoteNotePayload {
+  updated: Note!
 }
 
 """
