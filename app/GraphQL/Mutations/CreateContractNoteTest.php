@@ -21,6 +21,7 @@ use Tests\TestCase;
 
 use function __;
 use function array_key_exists;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\CreateContractNote
@@ -41,11 +42,7 @@ class CreateContractNoteTest extends TestCase {
         Closure $organizationFactory,
         Closure $userFactory = null,
         Closure $prepare = null,
-        array $input = [
-            'contract_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-            'note'        => 'note',
-            'files'       => null,
-        ],
+        array $input = [],
         array $settings = [
             'ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
         ],
@@ -58,8 +55,16 @@ class CreateContractNoteTest extends TestCase {
         if ($prepare) {
             $prepare($this, $organization, $user);
         } else {
-            // For validation as it will throw validation errors that will alter test results
-            // PROBLEM: it still throws unknown organization in case of no organization
+            // Lighthouse performs validation BEFORE permission check :(
+            //
+            // https://github.com/nuwave/lighthouse/issues/1780
+            //
+            // Following code required to "fix" it
+
+            if (!$organization) {
+                $organization = $this->setOrganization(Organization::factory()->make());
+            }
+
             $type     = Type::factory()->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
             ]);
@@ -110,6 +115,11 @@ class CreateContractNoteTest extends TestCase {
                 }
             }';
 
+        $input      = $input ?: [
+            'contract_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+            'note'        => 'note',
+            'files'       => null,
+        ];
         $operations = [
             'operationName' => 'createContractNote',
             'query'         => $query,
@@ -165,6 +175,7 @@ class CreateContractNoteTest extends TestCase {
             'ep.file.formats'   => ['csv'],
             'ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ad'],
         ];
+
         return (new MergeDataProvider([
             'contracts-view' => new CompositeDataProvider(
                 new OrganizationDataProvider('createContractNote'),
