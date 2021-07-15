@@ -6,6 +6,7 @@ input CustomersQuery {
   assets_count: Int!
   locations_count: Int!
   locations: LocationsQuery
+  headquarter: LocationsQuery
   contacts_count: Int!
   contacts: ContactsQuery
   assets: AssetsQuery

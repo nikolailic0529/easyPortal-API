@@ -537,6 +537,7 @@ input CustomersQuery {
   assets_count: Int!
   locations_count: Int!
   locations: LocationsQuery
+  headquarter: LocationsQuery
   contacts_count: Int!
   contacts: ContactsQuery
   assets: AssetsQuery
@@ -2142,6 +2143,9 @@ input SearchByConditionCustomersQuery {
 
   """Property condition."""
   locations: SearchByRelationLocationsQuery
+
+  """Property condition."""
+  headquarter: SearchByRelationLocationsQuery
 
   """Property condition."""
   contacts_count: SearchByScalarInt
