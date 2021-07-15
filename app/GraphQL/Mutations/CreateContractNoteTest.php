@@ -41,11 +41,9 @@ class CreateContractNoteTest extends TestCase {
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
+        array $settings = null,
         Closure $prepare = null,
         array $input = [],
-        array $settings = [
-            'ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
-        ],
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
@@ -63,6 +61,12 @@ class CreateContractNoteTest extends TestCase {
 
             if (!$organization) {
                 $organization = $this->setOrganization(Organization::factory()->make());
+            }
+
+            if (!$settings) {
+                $this->setSettings([
+                    'ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                ]);
             }
 
             $type     = Type::factory()->create([
@@ -185,14 +189,17 @@ class CreateContractNoteTest extends TestCase {
                 new ArrayDataProvider([
                     'ok'                  => [
                         new GraphQLSuccess('createContractNote', CreateContractNote::class),
+                        $settings,
                         $prepare,
                         $input,
-                        $settings,
                     ],
                     'Invalid note'        => [
                         new GraphQLError('createContractNote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
+                        [
+                            'ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                        ],
                         static function (): void {
                             Document::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -208,6 +215,10 @@ class CreateContractNoteTest extends TestCase {
                         new GraphQLError('createContractNote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
+                        [
+                            'ep.file.max_size' => 250,
+                            'ep.file.formats'  => ['csv'],
+                        ],
                         static function (): void {
                             Document::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -218,15 +229,15 @@ class CreateContractNoteTest extends TestCase {
                             'contract_id' => '',
                             'files'       => [UploadedFile::fake()->create('document.csv', 200)],
                         ],
-                        [
-                            'ep.file.max_size' => 250,
-                            'ep.file.formats'  => ['csv'],
-                        ],
                     ],
                     'Invalid file size'   => [
                         new GraphQLError('createContractNote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
+                        [
+                            'ep.file.max_size' => 100,
+                            'ep.file.formats'  => ['csv'],
+                        ],
                         static function (): void {
                             Document::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -236,16 +247,16 @@ class CreateContractNoteTest extends TestCase {
                             'note'        => 'note',
                             'contract_id' => '',
                             'files'       => [UploadedFile::fake()->create('document.csv', 150)],
-                        ],
-                        [
-                            'ep.file.max_size' => 100,
-                            'ep.file.formats'  => ['csv'],
                         ],
                     ],
                     'Invalid file format' => [
                         new GraphQLError('createContractNote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
+                        [
+                            'ep.file.max_size' => 200,
+                            'ep.file.formats'  => ['pdf'],
+                        ],
                         static function (): void {
                             Document::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -255,10 +266,6 @@ class CreateContractNoteTest extends TestCase {
                             'note'        => 'note',
                             'contract_id' => '',
                             'files'       => [UploadedFile::fake()->create('document.csv', 150)],
-                        ],
-                        [
-                            'ep.file.max_size' => 200,
-                            'ep.file.formats'  => ['pdf'],
                         ],
                     ],
                 ]),
@@ -271,9 +278,9 @@ class CreateContractNoteTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('createContractNote', CreateContractNote::class),
+                        $settings,
                         $prepare,
                         $input,
-                        $settings,
                     ],
                 ]),
             ),
