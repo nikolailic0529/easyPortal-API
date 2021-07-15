@@ -42,6 +42,7 @@ use function count;
  * @property int                                                                 $assets_count
  * @property int                                                                 $entries_count
  * @property int                                                                 $contacts_count
+ * @property \Carbon\CarbonImmutable|null                                        $changed_at
  * @property \Carbon\CarbonImmutable                                             $created_at
  * @property \Carbon\CarbonImmutable                                             $updated_at
  * @property \Carbon\CarbonImmutable|null                                        $deleted_at
@@ -76,9 +77,10 @@ class Document extends Model implements CascadeDeletable {
     use SyncHasMany;
 
     protected const CASTS = [
-        'price' => 'decimal:2',
-        'start' => 'date',
-        'end'   => 'date',
+        'changed_at' => 'datetime',
+        'price'      => 'decimal:2',
+        'start'      => 'date',
+        'end'        => 'date',
     ] + parent::CASTS;
 
     /**

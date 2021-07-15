@@ -244,6 +244,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $model->reseller      = $reseller;
             $model->customer      = $customer;
             $model->location      = $location;
+            $model->changed_at    = $this->normalizer->datetime($asset->updatedAt);
             $model->serial_number = $this->normalizer->string($asset->serialNumber);
             $model->data_quality  = $this->normalizer->string($asset->dataQualityScore);
             $model->contacts      = $this->objectContacts($model, $asset->latestContactPersons);

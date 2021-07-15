@@ -40,6 +40,7 @@ use function sprintf;
  * @property string|null                                                              $serial_number
  * @property string|null                                                              $data_quality
  * @property int                                                                      $contacts_count
+ * @property \Carbon\CarbonImmutable|null                                             $changed_at
  * @property \Carbon\CarbonImmutable                                                  $created_at
  * @property \Carbon\CarbonImmutable                                                  $updated_at
  * @property \Carbon\CarbonImmutable|null                                             $deleted_at
@@ -75,12 +76,25 @@ class Asset extends Model {
     use HasContacts;
     use HasTags;
 
+    protected const CASTS = [
+        'changed_at' => 'datetime',
+    ] + parent::CASTS;
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
      */
     protected $table = 'assets';
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<string>
+     */
+    protected $casts = self::CASTS;
 
     public function location(): BelongsTo {
         return $this->belongsTo(Location::class);

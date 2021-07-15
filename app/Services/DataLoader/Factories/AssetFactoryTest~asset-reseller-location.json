@@ -16,6 +16,7 @@
     "address": "Maddison Path Suite 820 Apt. 898",
     "address2": "",
     "status": "Active",
+    "updatedAt": "1625642660983",
     "assetCoverage": [
         "COVERED",
         "COVERED_ON_CONTRACT"

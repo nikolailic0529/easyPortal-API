@@ -128,6 +128,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals('1292.16', $created->price);
         $this->assertNull($this->getDatetime($created->start));
         $this->assertEquals('1614470400000', $this->getDatetime($created->end));
+        $this->assertNull($this->getDatetime($created->changed_at));
         $this->assertEquals('HPE', $created->oem->abbr);
         $this->assertEquals('MultiNational Quote', $created->type->key);
         $this->assertEquals('CUR', $created->currency->code);
@@ -177,6 +178,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertNotNull($changed);
         $this->assertNull($created->distributor_id);
         $this->assertEquals('3292.16', $changed->price);
+        $this->assertEquals('1625642660000', $this->getDatetime($changed->changed_at));
         $this->assertEquals('EUR', $changed->currency->code);
         $this->assertEquals('en', $changed->language->code);
         $this->assertNull($changed->oem_said);

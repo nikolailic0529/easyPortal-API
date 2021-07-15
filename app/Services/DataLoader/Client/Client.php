@@ -732,6 +732,7 @@ class Client {
             id
             name
             status
+            updatedAt
             keycloakGroupId
             keycloakName
             companyContactPersons {
@@ -777,6 +778,7 @@ class Client {
             id
             name
             status
+            updatedAt
             companyContactPersons {
                 phoneNumber
                 name
@@ -804,6 +806,7 @@ class Client {
         return <<<'GRAPHQL'
             id
             name
+            updatedAt
             GRAPHQL;
     }
 
@@ -833,6 +836,8 @@ class Client {
 
             customerId
             resellerId
+
+            updatedAt
 
             latestContactPersons {
                 phoneNumber
@@ -869,6 +874,8 @@ class Client {
                 currencyCode
                 languageCode
                 totalNetPrice
+
+                updatedAt
 
                 vendorSpecificFields {
                     vendor

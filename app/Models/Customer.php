@@ -27,6 +27,7 @@ use function app;
  * @property int                                                                 $assets_count
  * @property int                                                                 $locations_count
  * @property int                                                                 $contacts_count
+ * @property \Carbon\CarbonImmutable|null                                        $changed_at
  * @property \Carbon\CarbonImmutable                                             $created_at
  * @property \Carbon\CarbonImmutable                                             $updated_at
  * @property \Carbon\CarbonImmutable|null                                        $deleted_at
@@ -56,12 +57,25 @@ class Customer extends Model {
     use HasContracts;
     use HasQuotes;
 
+    protected const CASTS = [
+        'changed_at' => 'datetime',
+    ] + parent::CASTS;
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
      */
     protected $table = 'customers';
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<string>
+     */
+    protected $casts = self::CASTS;
 
     public function headquarter(): MorphOne {
         $type = app()->make(Repository::class)->get('ep.headquarter_type');

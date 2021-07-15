@@ -42,6 +42,7 @@ class DistributorFactory extends ModelFactory implements FactoryPrefetchable {
 
         return $this;
     }
+
     // </editor-fold>
 
     public function find(Type $type): ?Distributor {
@@ -72,9 +73,10 @@ class DistributorFactory extends ModelFactory implements FactoryPrefetchable {
         // Get/Create
         $created     = false;
         $factory     = $this->factory(function (Distributor $distributor) use (&$created, $company): Distributor {
-            $created           = !$distributor->exists;
-            $distributor->id   = $this->normalizer->uuid($company->id);
-            $distributor->name = $this->normalizer->string($company->name);
+            $created                 = !$distributor->exists;
+            $distributor->id         = $this->normalizer->uuid($company->id);
+            $distributor->name       = $this->normalizer->string($company->name);
+            $distributor->changed_at = $this->normalizer->datetime($company->updatedAt);
 
             $distributor->save();
 

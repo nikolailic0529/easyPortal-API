@@ -204,6 +204,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
             $model->end         = $this->normalizer->datetime($document->endDate);
             $model->price       = $this->normalizer->number($document->totalNetPrice);
             $model->number      = $this->normalizer->string($document->documentNumber);
+            $model->changed_at  = $this->normalizer->datetime($document->updatedAt);
             $model->contacts    = $this->objectContacts($model, (array) $document->contactPersons);
             $model->entries     = $this->assetDocumentObjectEntries($model, $object);
             $model->save();
