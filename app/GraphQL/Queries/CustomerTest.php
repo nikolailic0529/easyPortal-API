@@ -1544,6 +1544,7 @@ class CustomerTest extends TestCase {
                                 ])
                                 ->create([
                                     'id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                    'oem_said'     => null,
                                     'number'       => '1323',
                                     'price'        => 100,
                                     'start'        => '2021-01-01',
