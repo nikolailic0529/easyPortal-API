@@ -19,6 +19,7 @@ use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 
 use function __;
@@ -59,7 +60,7 @@ class UpdateContractNoteTest extends TestCase {
             $prepare($this, $organization, $user);
         } else {
             if (!$organization) {
-                $organization = $this->setOrganization(Organization::factory()->make());
+                $organization = $this->setOrganization(Organization::factory()->create());
             }
 
             if (!$settings) {
@@ -71,7 +72,6 @@ class UpdateContractNoteTest extends TestCase {
             $type     = Type::factory()->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
             ]);
-
             $reseller = Reseller::factory()->create([
                 'id' => $organization ? $organization->getKey() : $this->faker->uuid,
             ]);
@@ -177,6 +177,7 @@ class UpdateContractNoteTest extends TestCase {
                     'reseller_id' => $reseller->getKey(),
                 ]);
             Note::factory()
+                ->for($user)
                 ->hasFiles(1, [
                     'name' => 'deleted',
                 ])
@@ -231,6 +232,7 @@ class UpdateContractNoteTest extends TestCase {
                                     'reseller_id' => $reseller->getKey(),
                                 ]);
                             $note     = Note::factory()
+                                ->for($user)
                                 ->hasFiles(1, [
                                     'name' => 'deleted',
                                 ])
@@ -353,6 +355,48 @@ class UpdateContractNoteTest extends TestCase {
                             ],
                         ],
                     ],
+                    'unauthorized'        => [
+                        new GraphQLUnauthorized('updateContractNote'),
+                        $settings,
+                        static function (TestCase $test, ?Organization $organization, User $user): void {
+                            $type     = Type::factory()->create([
+                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization->getKey(),
+                            ]);
+                            $document = Document::factory()
+                                ->create([
+                                    'type_id'     => $type->getKey(),
+                                    'reseller_id' => $reseller->getKey(),
+                                ]);
+                            $user2    = User::factory()->create();
+                            $note     = Note::factory()
+                                ->for($user2)
+                                ->hasFiles(1, [
+                                    'name' => 'deleted',
+                                ])
+                                ->create([
+                                    'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                    'document_id' => $document->getKey(),
+                                ]);
+                            File::factory()->create([
+                                'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
+                                'name'    => 'keep.csv',
+                                'note_id' => $note->getKey(),
+                            ]);
+                        },
+                        [
+                            'note'  => 'new note',
+                            'id'    => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                            'files' => [
+                                [
+                                    'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
+                                    'content' => null,
+                                ],
+                            ],
+                        ],
+                    ],
                 ]),
             ),
             'customers-view' => new CompositeDataProvider(
@@ -361,7 +405,7 @@ class UpdateContractNoteTest extends TestCase {
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok' => [
+                    'ok'           => [
                         new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
                         $settings,
                         $prepare,
@@ -372,6 +416,48 @@ class UpdateContractNoteTest extends TestCase {
                                 [
                                     'id'      => null,
                                     'content' => UploadedFile::fake()->create('new.csv', 200),
+                                ],
+                            ],
+                        ],
+                    ],
+                    'unauthorized' => [
+                        new GraphQLUnauthorized('updateContractNote'),
+                        $settings,
+                        static function (TestCase $test, ?Organization $organization, User $user): void {
+                            $type     = Type::factory()->create([
+                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization->getKey(),
+                            ]);
+                            $document = Document::factory()
+                                ->create([
+                                    'type_id'     => $type->getKey(),
+                                    'reseller_id' => $reseller->getKey(),
+                                ]);
+                            $user2    = User::factory()->create();
+                            $note     = Note::factory()
+                                ->for($user2)
+                                ->hasFiles(1, [
+                                    'name' => 'deleted',
+                                ])
+                                ->create([
+                                    'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                    'document_id' => $document->getKey(),
+                                ]);
+                            File::factory()->create([
+                                'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
+                                'name'    => 'keep.csv',
+                                'note_id' => $note->getKey(),
+                            ]);
+                        },
+                        [
+                            'note'  => 'new note',
+                            'id'    => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                            'files' => [
+                                [
+                                    'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
+                                    'content' => null,
                                 ],
                             ],
                         ],
