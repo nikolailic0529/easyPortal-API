@@ -14,11 +14,12 @@ use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\DeleteContractNote
+ * @coversDefaultClass \App\GraphQL\Mutations\DeleteQuoteNote
  */
 class DeleteQuoteNoteTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -85,14 +86,12 @@ class DeleteQuoteNoteTest extends TestCase {
                                 $user->save();
                                 $data['user_id'] = $user->getKey();
                             }
-                            return Note::factory()->hasFiles(1)->create($data);
+                            return Note::factory()->for($user)->hasFiles(1)->create($data);
                         },
                         false,
                     ],
                     'Different User' => [
-                        new GraphQLSuccess('deleteQuoteNote', DeleteContractNote::class, [
-                            'deleted' => false,
-                        ]),
+                        new GraphQLUnauthorized('deleteQuoteNote'),
                         static function (TestCase $test, ?Organization $organization, ?User $user): Note {
                             $data = [];
                             if ($organization) {
@@ -123,14 +122,12 @@ class DeleteQuoteNoteTest extends TestCase {
                                 $user->save();
                                 $data['user_id'] = $user->getKey();
                             }
-                            return Note::factory()->hasFiles(1)->create($data);
+                            return Note::factory()->for($user)->hasFiles(1)->create($data);
                         },
                         false,
                     ],
                     'Different User' => [
-                        new GraphQLSuccess('deleteQuoteNote', DeleteContractNote::class, [
-                            'deleted' => false,
-                        ]),
+                        new GraphQLUnauthorized('deleteQuoteNote'),
                         static function (TestCase $test, ?Organization $organization, ?User $user): Note {
                             $data = [];
                             if ($organization) {
@@ -139,6 +136,44 @@ class DeleteQuoteNoteTest extends TestCase {
                             return Note::factory()->hasFiles(1)->for(User::factory())->create($data);
                         },
                         true,
+                    ],
+                ]),
+            ),
+            'org-administer' => new CompositeDataProvider(
+                new OrganizationDataProvider('deleteQuoteNote'),
+                new UserDataProvider('deleteQuoteNote', [
+                    'org-administer',
+                ]),
+                new ArrayDataProvider([
+                    'ok'             => [
+                        new GraphQLSuccess('deleteQuoteNote', DeleteContractNote::class, [
+                            'deleted' => true,
+                        ]),
+                        static function (TestCase $test, ?Organization $organization, ?User $user): Note {
+                            $data = [];
+                            if ($organization) {
+                                $data['organization_id'] = $organization->getKey();
+                            }
+                            if ($user) {
+                                $user->save();
+                                $data['user_id'] = $user->getKey();
+                            }
+                            return Note::factory()->hasFiles(1)->create($data);
+                        },
+                        false,
+                    ],
+                    'Different User' => [
+                        new GraphQLSuccess('deleteQuoteNote', DeleteContractNote::class, [
+                            'deleted' => true,
+                        ]),
+                        static function (TestCase $test, ?Organization $organization, ?User $user): Note {
+                            $data = [];
+                            if ($organization) {
+                                $data['organization_id'] = $organization->getKey();
+                            }
+                            return Note::factory()->hasFiles(1)->for(User::factory())->create($data);
+                        },
+                        false,
                     ],
                 ]),
             ),

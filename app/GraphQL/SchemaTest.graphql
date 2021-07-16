@@ -966,7 +966,8 @@ type Mutation {
   """
   @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  @require <me(["contracts-view","customers-view","org-administer"])> User must
+  be authenticated and have any of these permissions.
   """
   deleteContractNote(input: DeleteContractNoteInput!): DeleteContractNotePayload
 
@@ -976,7 +977,8 @@ type Mutation {
   """
   @require <organization> Authenticated user must be a member of the current organization.
   
-  @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+  @require <me(["customers-view","org-administer","quotes-view"])> User must be
+  authenticated and have any of these permissions.
   """
   deleteQuoteNote(input: DeleteQuoteNoteInput!): DeleteQuoteNotePayload
 

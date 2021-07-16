@@ -3,8 +3,7 @@ extend type Mutation {
     input: DeleteQuoteNoteInput!
   ): DeleteQuoteNotePayload
   @organization
-  @me(permissions: ["quotes-view", "customers-view"])
-  @field(resolver:"App\\GraphQL\\Mutations\\DeleteContractNote")
+  @me(permissions: ["quotes-view", "customers-view", "org-administer"])
 }
 
 input DeleteQuoteNoteInput {
