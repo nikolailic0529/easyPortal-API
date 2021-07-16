@@ -45,11 +45,7 @@ class UpdateContractNoteTest extends TestCase {
         Closure $userFactory = null,
         array $settings = null,
         Closure $prepare = null,
-        array $input = [
-            'id'    => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-            'note'  => 'old',
-            'files' => null,
-        ],
+        array $input = [],
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
@@ -107,7 +103,7 @@ class UpdateContractNoteTest extends TestCase {
         }
 
         // Test
-        $query = /** @lang GraphQL */
+        $query      = /** @lang GraphQL */
             'mutation updateContractNote($input: UpdateContractNoteInput!){
                 updateContractNote(input: $input){
                     updated {
@@ -129,7 +125,11 @@ class UpdateContractNoteTest extends TestCase {
                     }
                 }
             }';
-
+        $input      = $input ?: [
+            'id'    => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+            'note'  => 'old',
+            'files' => null,
+        ];
         $operations = [
             'operationName' => 'updateContractNote',
             'query'         => $query,

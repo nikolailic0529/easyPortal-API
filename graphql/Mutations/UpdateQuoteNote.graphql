@@ -4,7 +4,6 @@ extend type Mutation {
   ): UpdateQuoteNotePayload
   @organization
   @me(permissions: ["quotes-view", "customers-view"])
-  @field(resolver:"App\\GraphQL\\Mutations\\UpdateContractNote")
 }
 
 input UpdateQuoteNoteInput @validator(class:"App\\GraphQL\\Validators\\UpdateContractNoteInputValidator") {

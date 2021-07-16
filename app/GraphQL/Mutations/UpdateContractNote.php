@@ -24,16 +24,32 @@ class UpdateContractNote {
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
-        $user  = $this->auth->user();
-        $input = $args['input'];
-        $note  = Note::whereKey($input['id'])->first();
-        if ($user->cannot('contracts-view', $note) && $user->cannot('customers-view', $note)) {
-            throw new AuthorizationException();
-        }
-        return ['updated' => $this->updateNote($note, $input['note'], $input['files'] ?? [])];
+        return [
+                'updated' => $this->updateNote(
+                    $args['input']['id'],
+                    ['contracts-view', 'customers-view'],
+                    $args['input']['note'],
+                    $args['input']['files'] ?? [],
+                ),
+        ];
     }
 
-    public function updateNote(Note $note, string $content, array $attached = []): Note {
+    /**
+     * @param array<string> $permissions
+     *
+     * @param array<string, mixed> $attached
+     *
+     */
+    public function updateNote(
+        string $noteId,
+        array $permissions,
+        string $content,
+        array $attached = [],
+    ): Note {
+        $note = Note::whereKey($noteId)->first();
+        if (!$this->auth->user()->canAny($permissions, [$note])) {
+            throw new AuthorizationException();
+        }
         $note->note = $content;
         $note->save();
 

@@ -19,6 +19,7 @@ use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 
 use function __;
@@ -42,15 +43,9 @@ class UpdateQuoteNoteTest extends TestCase {
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
+        array $settings = null,
         Closure $prepare = null,
-        array $input = [
-            'id'    => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-            'note'  => 'old',
-            'files' => null,
-        ],
-        array $settings = [
-            'ep.quote_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
-        ],
+        array $input = [],
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
@@ -60,8 +55,16 @@ class UpdateQuoteNoteTest extends TestCase {
         if ($prepare) {
             $prepare($this, $organization, $user);
         } else {
-            // For validation as it will throw validation errors that will alter test results
-            // PROBLEM: it still throws unknown organization in case of no organization
+            if (!$organization) {
+                $organization = $this->setOrganization(Organization::factory()->create());
+            }
+
+            if (!$settings) {
+                $this->setSettings([
+                    'ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                ]);
+            }
+
             $type     = Type::factory()->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
             ]);
@@ -123,6 +126,11 @@ class UpdateQuoteNoteTest extends TestCase {
                 }
             }';
 
+        $input      = $input ?: [
+            'id'    => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+            'note'  => 'old',
+            'files' => null,
+        ];
         $operations = [
             'operationName' => 'updateQuoteNote',
             'query'         => $query,
@@ -192,6 +200,7 @@ class UpdateQuoteNoteTest extends TestCase {
                 new ArrayDataProvider([
                     'ok-files'            => [
                         new GraphQLSuccess('updateQuoteNote', UpdateContractNote::class),
+                        $settings,
                         $prepare,
                         [
                             'note'  => 'new note',
@@ -203,10 +212,10 @@ class UpdateQuoteNoteTest extends TestCase {
                                 ],
                             ],
                         ],
-                        $settings,
                     ],
                     'ok-Ids'              => [
                         new GraphQLSuccess('updateQuoteNote', UpdateContractNote::class),
+                        $settings,
                         static function (TestCase $test, ?Organization $organization, User $user): void {
                             if ($user) {
                                 $user->save();
@@ -246,12 +255,12 @@ class UpdateQuoteNoteTest extends TestCase {
                                 ],
                             ],
                         ],
-                        $settings,
                     ],
                     'Invalid note id'     => [
                         new GraphQLError('updateQuoteNote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
+                        ['ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac']],
                         static function (): void {
                             Note::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -272,6 +281,10 @@ class UpdateQuoteNoteTest extends TestCase {
                         new GraphQLError('updateQuoteNote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
+                        [
+                            'ep.file.max_size' => 250,
+                            'ep.file.formats'  => ['csv'],
+                        ],
                         static function (): void {
                             Note::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -287,15 +300,15 @@ class UpdateQuoteNoteTest extends TestCase {
                                 ],
                             ],
                         ],
-                        [
-                            'ep.file.max_size' => 250,
-                            'ep.file.formats'  => ['csv'],
-                        ],
                     ],
                     'Invalid file size'   => [
                         new GraphQLError('updateQuoteNote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
+                        [
+                            'ep.file.max_size' => 100,
+                            'ep.file.formats'  => ['csv'],
+                        ],
                         static function (): void {
                             Note::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -311,15 +324,15 @@ class UpdateQuoteNoteTest extends TestCase {
                                 ],
                             ],
                         ],
-                        [
-                            'ep.file.max_size' => 100,
-                            'ep.file.formats'  => ['csv'],
-                        ],
                     ],
                     'Invalid file format' => [
                         new GraphQLError('updateQuoteNote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
+                        [
+                            'ep.file.max_size' => 200,
+                            'ep.file.formats'  => ['pdf'],
+                        ],
                         static function (): void {
                             Note::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -335,9 +348,47 @@ class UpdateQuoteNoteTest extends TestCase {
                                 ],
                             ],
                         ],
+                    ],
+                    'unauthorized'        => [
+                        new GraphQLUnauthorized('updateQuoteNote'),
+                        $settings,
+                        static function (TestCase $test, ?Organization $organization, User $user): void {
+                            $type     = Type::factory()->create([
+                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization->getKey(),
+                            ]);
+                            $document = Document::factory()
+                                ->create([
+                                    'type_id'     => $type->getKey(),
+                                    'reseller_id' => $reseller->getKey(),
+                                ]);
+                            $user2    = User::factory()->create();
+                            $note     = Note::factory()
+                                ->for($user2)
+                                ->hasFiles(1, [
+                                    'name' => 'deleted',
+                                ])
+                                ->create([
+                                    'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                    'document_id' => $document->getKey(),
+                                ]);
+                            File::factory()->create([
+                                'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
+                                'name'    => 'keep.csv',
+                                'note_id' => $note->getKey(),
+                            ]);
+                        },
                         [
-                            'ep.file.max_size' => 200,
-                            'ep.file.formats'  => ['pdf'],
+                            'note'  => 'new note',
+                            'id'    => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                            'files' => [
+                                [
+                                    'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
+                                    'content' => null,
+                                ],
+                            ],
                         ],
                     ],
                 ]),
@@ -348,8 +399,9 @@ class UpdateQuoteNoteTest extends TestCase {
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok' => [
+                    'ok'           => [
                         new GraphQLSuccess('updateQuoteNote', UpdateContractNote::class),
+                        $settings,
                         $prepare,
                         [
                             'note'  => 'new note',
@@ -361,7 +413,48 @@ class UpdateQuoteNoteTest extends TestCase {
                                 ],
                             ],
                         ],
+                    ],
+                    'unauthorized' => [
+                        new GraphQLUnauthorized('updateQuoteNote'),
                         $settings,
+                        static function (TestCase $test, ?Organization $organization, User $user): void {
+                            $type     = Type::factory()->create([
+                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization->getKey(),
+                            ]);
+                            $document = Document::factory()
+                                ->create([
+                                    'type_id'     => $type->getKey(),
+                                    'reseller_id' => $reseller->getKey(),
+                                ]);
+                            $user2    = User::factory()->create();
+                            $note     = Note::factory()
+                                ->for($user2)
+                                ->hasFiles(1, [
+                                    'name' => 'deleted',
+                                ])
+                                ->create([
+                                    'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                    'document_id' => $document->getKey(),
+                                ]);
+                            File::factory()->create([
+                                'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
+                                'name'    => 'keep.csv',
+                                'note_id' => $note->getKey(),
+                            ]);
+                        },
+                        [
+                            'note'  => 'new note',
+                            'id'    => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                            'files' => [
+                                [
+                                    'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
+                                    'content' => null,
+                                ],
+                            ],
+                        ],
                     ],
                 ]),
             ),
