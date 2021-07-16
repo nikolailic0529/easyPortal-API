@@ -136,7 +136,7 @@ class Document extends Model implements CascadeDeletable {
     public function setOemGroupAttribute(?OemGroup $group): void {
         $this->oemGroup()->associate($group);
     }
-    
+
     public function notes(): HasMany {
         return $this->hasMany(Note::class);
     }

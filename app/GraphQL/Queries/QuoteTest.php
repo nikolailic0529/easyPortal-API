@@ -476,18 +476,6 @@ class QuoteTest extends TestCase {
                                 'name' => 'distributor1',
                             ],
                             'assets_count'   => 1,
-                            'notes'          => [
-                                [
-                                    'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
-                                    'note'       => 'Note',
-                                    'created_at' => '2021-07-11T23:27:47+00:00',
-                                    'user'       => [
-                                        'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
-                                        'given_name'  => 'first',
-                                        'family_name' => 'last',
-                                    ],
-                                ],
-                            ],
                         ]),
                         static function (TestCase $test, Organization $organization, User $user): Document {
                             // OEM Creation belongs to
@@ -738,6 +726,7 @@ class QuoteTest extends TestCase {
                                 ->hasFiles(1, [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E988',
                                     'name' => 'document',
+                                    'hash' => 'hash',
                                     'path' => 'http://example.com/document.csv',
                                 ])
                                 ->create([
