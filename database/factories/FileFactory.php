@@ -34,6 +34,7 @@ class FileFactory extends Factory {
             'path'       => $this->faker->word,
             'type'       => $this->faker->mimeType,
             'size'       => $this->faker->randomNumber(5, false),
+            'hash'       => $this->faker->word(),
             'note_id'    => static function (): Note {
                 return Note::query()->first() ?? Note::factory()->create();
             },
