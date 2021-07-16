@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use App\Models\Asset;
 use App\Models\Customer;
-use App\Models\Enums\ProductType;
 use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
@@ -50,7 +49,6 @@ class AssetFactory extends Factory {
             'product_id'     => static function (array $properties): Product {
                 return Product::factory()->create([
                     'oem_id' => $properties['oem_id'],
-                    'type'   => ProductType::asset(),
                 ]);
             },
             'customer_id'    => static function (): Customer {

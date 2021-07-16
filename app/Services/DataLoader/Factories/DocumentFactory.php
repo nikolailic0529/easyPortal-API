@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Asset as AssetModel;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry;
-use App\Models\Enums\ProductType;
 use App\Models\Oem;
 use App\Models\OemGroup;
 use App\Models\Product;
@@ -237,8 +236,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
             : $document->asset->oem;
 
         if ($oem && $package && $desc) {
-            $type    = ProductType::support();
-            $product = $this->product($oem, $type, $package, $desc, null, null);
+            $product = $this->product($oem, $package, $desc, null, null);
         }
 
         return $product;
@@ -297,7 +295,6 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         $entry->service       = $assetDocument->skuNumber && $assetDocument->skuDescription
             ? $this->product(
                 $document->oem,
-                ProductType::service(),
                 $assetDocument->skuNumber,
                 $assetDocument->skuDescription,
                 null,

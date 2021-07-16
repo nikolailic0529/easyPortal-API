@@ -7,7 +7,6 @@ use App\Models\AssetWarranty;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\DocumentEntry;
-use App\Models\Enums\ProductType;
 use App\Models\Location;
 use App\Models\Model;
 use App\Models\Oem;
@@ -130,7 +129,6 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->dataQualityScore, $created->data_quality);
         $this->assertEquals($asset->updatedAt, $this->getDatetime($created->changed_at));
         $this->assertEquals($asset->vendor, $created->oem->abbr);
-        $this->assertEquals(ProductType::asset(), $created->product->type);
         $this->assertEquals($asset->productDescription, $created->product->name);
         $this->assertEquals($asset->sku, $created->product->sku);
         $this->assertNull($created->product->eos);
@@ -234,7 +232,6 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->dataQualityScore, $updated->data_quality);
         $this->assertEquals($asset->updatedAt, $this->getDatetime($updated->changed_at));
         $this->assertEquals($asset->vendor, $updated->oem->abbr);
-        $this->assertEquals(ProductType::asset(), $updated->product->type);
         $this->assertEquals($created->product->name, $updated->product->name);
         $this->assertEquals($asset->sku, $updated->product->sku);
         $this->assertEquals($asset->eosDate, $this->getDatetime($updated->product->eos));
@@ -282,7 +279,6 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->serialNumber, $created->serial_number);
         $this->assertEquals($asset->dataQualityScore, $created->data_quality);
         $this->assertEquals($asset->vendor, $created->oem->abbr);
-        $this->assertEquals(ProductType::asset(), $created->product->type);
         $this->assertEquals($asset->productDescription, $created->product->name);
         $this->assertEquals($asset->sku, $created->product->sku);
         $this->assertNull($created->product->eos);
@@ -394,7 +390,6 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->serialNumber, $created->serial_number);
         $this->assertEquals($asset->dataQualityScore, $created->data_quality);
         $this->assertEquals($asset->vendor, $created->oem->abbr);
-        $this->assertEquals(ProductType::asset(), $created->product->type);
         $this->assertEquals($asset->productDescription, $created->product->name);
         $this->assertEquals($asset->sku, $created->product->sku);
         $this->assertNull($created->product->eos);
@@ -822,7 +817,6 @@ class AssetFactoryTest extends TestCase {
         $supportPackage     = $this->faker->uuid;
         $supportDescription = $this->faker->sentence;
         $support            = Product::factory()->create([
-            'type'   => ProductType::support(),
             'sku'    => $supportPackage,
             'name'   => $supportDescription,
             'oem_id' => $documentB->oem_id,
@@ -1243,7 +1237,6 @@ class AssetFactoryTest extends TestCase {
             ->shouldReceive('product')
             ->with(
                 $document->oem,
-                ProductType::service(),
                 $assetDocument->skuNumber,
                 $assetDocument->skuDescription,
                 null,
@@ -1278,7 +1271,6 @@ class AssetFactoryTest extends TestCase {
             ->shouldReceive('product')
             ->with(
                 $asset->oem,
-                ProductType::service(),
                 $assetDocument->skuNumber,
                 $assetDocument->skuDescription,
                 null,
@@ -1327,7 +1319,6 @@ class AssetFactoryTest extends TestCase {
             ->shouldReceive('product')
             ->with(
                 $document->oem,
-                ProductType::support(),
                 $assetDocument->supportPackage,
                 $assetDocument->supportPackageDescription,
                 null,
@@ -1362,7 +1353,6 @@ class AssetFactoryTest extends TestCase {
             ->shouldReceive('product')
             ->with(
                 $asset->oem,
-                ProductType::support(),
                 $assetDocument->supportPackage,
                 $assetDocument->supportPackageDescription,
                 null,
@@ -1432,7 +1422,6 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetProduct(): void {
         $oem   = Oem::factory()->make();
-        $type  = ProductType::asset();
         $asset = new ViewAsset([
             'vendor'             => $this->faker->word,
             'sku'                => $this->faker->word,
@@ -1451,7 +1440,7 @@ class AssetFactoryTest extends TestCase {
             ->andReturn($oem);
         $factory
             ->shouldReceive('product')
-            ->with($oem, $type, $asset->sku, $asset->productDescription, $asset->eolDate, $asset->eosDate)
+            ->with($oem, $asset->sku, $asset->productDescription, $asset->eolDate, $asset->eosDate)
             ->once()
             ->andReturns();
 

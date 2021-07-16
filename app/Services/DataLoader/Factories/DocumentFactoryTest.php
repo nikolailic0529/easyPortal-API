@@ -7,7 +7,6 @@ use App\Models\Customer as CustomerModel;
 use App\Models\Distributor as DistributorModel;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
-use App\Models\Enums\ProductType;
 use App\Models\Oem;
 use App\Models\OemGroup;
 use App\Models\Product;
@@ -135,7 +134,6 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals('fr', $created->language->code);
         $this->assertEquals('H7J34AC', $created->support->sku);
         $this->assertEquals('HPE Foundation Care 24x7 SVC', $created->support->name);
-        $this->assertEquals(ProductType::support(), $created->support->type);
         $this->assertEquals('HPE', $created->support->oem->abbr);
         $this->assertEquals('HPE', $created->oem->abbr);
         $this->assertEquals('1234 4678 9012', $created->oem_said);
@@ -159,7 +157,6 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($asset->id, $e->asset_id);
         $this->assertEquals('HA151AC', $e->service->sku);
         $this->assertEquals('HPE Hardware Maintenance Onsite Support', $e->service->name);
-        $this->assertEquals(ProductType::service(), $e->service->type);
         $this->assertEquals('HPE', $e->service->oem->abbr);
         $this->assertEquals('145.00', $e->renewal);
 
@@ -232,7 +229,6 @@ class DocumentFactoryTest extends TestCase {
      */
     public function testAssetDocumentObjectSupport(): void {
         $oem      = Oem::factory()->make();
-        $type     = ProductType::support();
         $document = new AssetDocumentObject([
             'document' => [
                 'document'                  => [
@@ -257,7 +253,6 @@ class DocumentFactoryTest extends TestCase {
             ->shouldReceive('product')
             ->with(
                 $oem,
-                $type,
                 $document->document->supportPackage,
                 $document->document->supportPackageDescription,
                 null,
@@ -277,9 +272,7 @@ class DocumentFactoryTest extends TestCase {
         $asset      = AssetModel::factory()->create();
         $document   = DocumentModel::factory()->create([
             'support_id' => static function (): Product {
-                return Product::factory()->create([
-                    'type' => ProductType::support(),
-                ]);
+                return Product::factory()->create();
             },
         ]);
         $another    = DocumentEntryModel::factory(2)->create([
@@ -292,7 +285,6 @@ class DocumentFactoryTest extends TestCase {
             'product_id'  => $asset->product_id,
             'service_id'  => static function () use ($document): Product {
                 return Product::factory()->create([
-                    'type'   => ProductType::service(),
                     'oem_id' => $document->oem_id,
                 ]);
             },
@@ -456,7 +448,6 @@ class DocumentFactoryTest extends TestCase {
         $this->assertSame($asset->product, $entry->product);
         $this->assertNotNull($entry->service_id);
         $this->assertSame($document->oem, $entry->service->oem);
-        $this->assertEquals(ProductType::service(), $entry->service->type);
         $this->assertEquals($skuNumber, $entry->service->sku);
         $this->assertEquals($skuDescription, $entry->service->name);
         $this->assertNull($entry->service->eos);

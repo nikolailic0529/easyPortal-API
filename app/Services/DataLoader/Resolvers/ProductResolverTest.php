@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Resolvers;
 
-use App\Models\Enums\ProductType;
 use App\Models\Oem;
 use App\Models\Product;
 use Closure;
@@ -24,31 +23,26 @@ class ProductResolverTest extends TestCase {
         // Prepare
         $oemA    = Oem::factory()->create();
         $oemB    = Oem::factory()->create();
-        $typeA   = ProductType::asset();
-        $typeB   = ProductType::service();
         $factory = static function (): Product {
             return Product::factory()->make();
         };
 
         $a = Product::factory()->create([
             'oem_id' => $oemA,
-            'type'   => $typeA,
             'sku'    => 'a',
         ]);
         Product::factory()->create([
             'oem_id' => $oemA,
-            'type'   => $typeA,
             'sku'    => 'b',
         ]);
         Product::factory()->create([
             'oem_id' => $oemA,
-            'type'   => $typeA,
             'sku'    => 'c',
         ]);
 
         // Run
         $provider = $this->app->make(ProductResolver::class);
-        $actual   = $provider->get($typeA, $oemA, ' a ', $factory);
+        $actual   = $provider->get($oemA, ' a ', $factory);
 
         $this->flushQueryLog();
 
@@ -62,19 +56,19 @@ class ProductResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Second call should return same instance
-        $this->assertSame($actual, $provider->get($typeA, $oemA, 'a', $factory));
-        $this->assertSame($actual, $provider->get($typeA, $oemA, ' a ', $factory));
-        $this->assertSame($actual, $provider->get($typeA, $oemA, 'A', $factory));
+        $this->assertSame($actual, $provider->get($oemA, 'a', $factory));
+        $this->assertSame($actual, $provider->get($oemA, ' a ', $factory));
+        $this->assertSame($actual, $provider->get($oemA, 'A', $factory));
         $this->assertCount(0, $this->getQueryLog());
 
-        $this->assertNotSame($actual, $provider->get($typeA, $oemB, 'a', static function (): Product {
+        $this->assertNotSame($actual, $provider->get($oemB, 'a', static function (): Product {
             return Product::factory()->make();
         }));
 
         $this->flushQueryLog();
 
         // Product should be found in DB
-        $found = $provider->get($typeA, $oemA, 'c', $factory);
+        $found = $provider->get($oemA, 'c', $factory);
 
         $this->assertNotNull($found);
         $this->assertFalse($found->wasRecentlyCreated);
@@ -83,14 +77,13 @@ class ProductResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // If not, the new object should be created
-        $spy     = Mockery::spy(static function () use ($oemB, $typeB): Product {
+        $spy     = Mockery::spy(static function () use ($oemB): Product {
             return Product::factory()->create([
                 'oem_id' => $oemB,
-                'type'   => $typeB,
                 'sku'    => 'unKnown',
             ]);
         });
-        $created = $provider->get($typeB, $oemB, ' unKnown ', Closure::fromCallable($spy));
+        $created = $provider->get($oemB, ' unKnown ', Closure::fromCallable($spy));
 
         $spy->shouldHaveBeenCalled();
 
@@ -102,7 +95,7 @@ class ProductResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // The created object should be in cache
-        $this->assertSame($created, $provider->get($typeB, $oemB, ' unknown ', $factory));
+        $this->assertSame($created, $provider->get($oemB, ' unknown ', $factory));
         $this->assertCount(0, $this->getQueryLog());
     }
 }

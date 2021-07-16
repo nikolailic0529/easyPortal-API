@@ -6,7 +6,6 @@ use App\Models\Asset;
 use App\Models\Currency;
 use App\Models\Document;
 use App\Models\DocumentEntry;
-use App\Models\Enums\ProductType;
 use App\Models\Product;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
@@ -42,9 +41,7 @@ class DocumentEntryFactory extends Factory {
                 return Asset::factory()->create();
             },
             'service_id'  => static function (): Product {
-                return Product::factory()->create([
-                    'type' => ProductType::service(),
-                ]);
+                return Product::factory()->create();
             },
             'currency_id' => static function (): Currency {
                 return Currency::query()->first() ?? Currency::factory()->create();

@@ -8,7 +8,6 @@ use App\Models\Coverage;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Document as DocumentModel;
-use App\Models\Enums\ProductType;
 use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
@@ -204,8 +203,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             })
             ->map(function (ViewAsset $asset): array {
                 return [
-                    'type' => ProductType::asset(),
-                    'sku'  => $this->normalizer->string($asset->sku),
+                    'sku' => $this->normalizer->string($asset->sku),
                 ];
             })
             ->unique()
@@ -574,7 +572,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         if ($assetDocument->skuNumber && $assetDocument->skuDescription) {
             $service = $this->product(
                 $oem,
-                ProductType::service(),
                 $assetDocument->skuNumber,
                 $assetDocument->skuDescription,
                 null,
@@ -592,7 +589,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         if ($assetDocument->supportPackage && $assetDocument->supportPackageDescription) {
             $support = $this->product(
                 $oem,
-                ProductType::support(),
                 $assetDocument->supportPackage,
                 $assetDocument->supportPackageDescription,
                 null,
@@ -615,10 +611,8 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
 
     protected function assetProduct(ViewAsset $asset): Product {
         $oem     = $this->assetOem($asset);
-        $type    = ProductType::asset();
         $product = $this->product(
             $oem,
-            $type,
             $asset->sku,
             $asset->productDescription,
             $asset->eolDate,
