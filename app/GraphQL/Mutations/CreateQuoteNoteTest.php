@@ -40,14 +40,12 @@ class CreateQuoteNoteTest extends TestCase {
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
+        array $settings = null,
         Closure $prepare = null,
         array $input = [
             'quote_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
             'note'     => 'note',
             'files'    => null,
-        ],
-        array $settings = [
-            'ep.quote_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
         ],
     ): void {
         // Prepare
@@ -58,8 +56,16 @@ class CreateQuoteNoteTest extends TestCase {
         if ($prepare) {
             $prepare($this, $organization, $user);
         } else {
-            // For validation as it will throw validation errors that will alter test results
-            // PROBLEM: it still throws unknown organization in case of no organization
+            if (!$organization) {
+                $organization = $this->setOrganization(Organization::factory()->make());
+            }
+
+            if (!$settings) {
+                $this->setSettings([
+                    'ep.quote_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                ]);
+            }
+
             $type     = Type::factory()->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
             ]);
@@ -86,8 +92,7 @@ class CreateQuoteNoteTest extends TestCase {
             }
         }
 
-        // Test
-        $query = /** @lang GraphQL */
+        $query      = /** @lang GraphQL */
             'mutation createQuoteNote($input: CreateQuoteNoteInput!){
                 createQuoteNote(input: $input){
                     created {
@@ -109,14 +114,17 @@ class CreateQuoteNoteTest extends TestCase {
                     }
                 }
             }';
-
         $operations = [
             'operationName' => 'createQuoteNote',
             'query'         => $query,
             'variables'     => ['input' => $input],
         ];
-
-        $response = $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
+        $input      = $input ?: [
+            'quote_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+            'note'     => 'note',
+            'files'    => null,
+        ];
+        $response   = $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
             $created = $response->json('data.createQuoteNote.created');
@@ -174,14 +182,17 @@ class CreateQuoteNoteTest extends TestCase {
                 new ArrayDataProvider([
                     'ok'                  => [
                         new GraphQLSuccess('createQuoteNote', CreateQuoteNote::class),
+                        $settings,
                         $prepare,
                         $input,
-                        $settings,
                     ],
                     'Invalid note'        => [
                         new GraphQLError('createQuoteNote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
+                        [
+                            'ep.quote_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                        ],
                         static function (): void {
                             Document::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -197,6 +208,9 @@ class CreateQuoteNoteTest extends TestCase {
                         new GraphQLError('createQuoteNote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
+                        [
+                            'ep.quote_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                        ],
                         static function (): void {
                             Document::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -216,6 +230,9 @@ class CreateQuoteNoteTest extends TestCase {
                         new GraphQLError('createQuoteNote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
+                        [
+                            'ep.quote_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                        ],
                         static function (): void {
                             Document::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -235,6 +252,9 @@ class CreateQuoteNoteTest extends TestCase {
                         new GraphQLError('createQuoteNote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
+                        [
+                            'ep.quote_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                        ],
                         static function (): void {
                             Document::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -260,9 +280,9 @@ class CreateQuoteNoteTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('createQuoteNote', CreateQuoteNote::class),
+                        $settings,
                         $prepare,
                         $input,
-                        $settings,
                     ],
                 ]),
             ),

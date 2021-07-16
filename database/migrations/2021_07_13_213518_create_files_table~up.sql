@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS `files` (
   `path`       VARCHAR(255) NOT NULL,
   `size`       INT(11)      NOT NULL,
   `type`       VARCHAR(255) NOT NULL,
+  `hash`       VARCHAR(255) NOT NULL,
   `note_id`    CHAR(36)     NOT NULL,
   `created_at` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,

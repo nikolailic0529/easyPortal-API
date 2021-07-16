@@ -18,8 +18,7 @@ class QuoteId implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        $builder = Document::whereKey($value);
-        return $this->types->prepare($builder)->exists();
+        return $this->types->prepare(Document::query()->whereKey($value))->exists();
     }
 
     public function message(): string {

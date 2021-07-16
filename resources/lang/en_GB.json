@@ -107,7 +107,6 @@
     "validation.currency_id": "Unknown currency",
     "validation.organization_id": "Unknown organization",
     "validation.role_id": "Unknown Role",
-    "validation.document_id": "Unknown Document",
     "validation.quote_id'": "Unknown Quote.",
     "validation.contract_id": "Unknown Contract.",
     "validation.color": "Color should be in #RRGGBB format.",

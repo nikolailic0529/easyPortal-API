@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasDocument;
 use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,6 +34,7 @@ class Note extends Model {
     use HasFactory;
     use OwnedByOrganization;
     use SyncHasMany;
+    use HasDocument;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -47,14 +49,6 @@ class Note extends Model {
 
     public function setUserAttribute(User $user): void {
         $this->user()->associate($user);
-    }
-
-    public function document(): BelongsTo {
-        return $this->belongsTo(Document::class);
-    }
-
-    public function setDocumentAttribute(Document $document): void {
-        $this->document()->associate($document);
     }
 
     public function getQualifiedOrganizationColumn(): string {

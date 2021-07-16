@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
-use App\GraphQL\Queries\Note as QueriesNote;
+use App\GraphQL\Types\Note as NoteType;
 use App\Models\Asset;
 use App\Models\Currency;
 use App\Models\Customer;
@@ -664,7 +664,7 @@ class ContractTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('contract', new JsonFragmentPaginatedSchema('notes', QueriesNote::class), [
+                        new GraphQLSuccess('contract', new JsonFragmentPaginatedSchema('notes', NoteType::class), [
                             'notes' => [
                                 'data'          => [
                                     [
