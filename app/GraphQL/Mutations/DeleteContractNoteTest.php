@@ -14,6 +14,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 
 /**
@@ -90,9 +91,7 @@ class DeleteContractNoteTest extends TestCase {
                         false,
                     ],
                     'Different User' => [
-                        new GraphQLSuccess('deleteContractNote', DeleteContractNote::class, [
-                            'deleted' => false,
-                        ]),
+                        new GraphQLUnauthorized('deleteContractNote'),
                         static function (TestCase $test, ?Organization $organization, ?User $user): Note {
                             $data = [];
                             if ($organization) {
@@ -128,9 +127,7 @@ class DeleteContractNoteTest extends TestCase {
                         false,
                     ],
                     'Different User' => [
-                        new GraphQLSuccess('deleteContractNote', DeleteContractNote::class, [
-                            'deleted' => false,
-                        ]),
+                        new GraphQLUnauthorized('deleteContractNote'),
                         static function (TestCase $test, ?Organization $organization, ?User $user): Note {
                             $data = [];
                             if ($organization) {
@@ -139,6 +136,44 @@ class DeleteContractNoteTest extends TestCase {
                             return Note::factory()->hasFiles(1)->for(User::factory())->create($data);
                         },
                         true,
+                    ],
+                ]),
+            ),
+            'org-administer' => new CompositeDataProvider(
+                new OrganizationDataProvider('deleteContractNote'),
+                new UserDataProvider('deleteContractNote', [
+                    'org-administer',
+                ]),
+                new ArrayDataProvider([
+                    'ok'             => [
+                        new GraphQLSuccess('deleteContractNote', DeleteContractNote::class, [
+                            'deleted' => true,
+                        ]),
+                        static function (TestCase $test, ?Organization $organization, ?User $user): Note {
+                            $data = [];
+                            if ($organization) {
+                                $data['organization_id'] = $organization->getKey();
+                            }
+                            if ($user) {
+                                $user->save();
+                                $data['user_id'] = $user->getKey();
+                            }
+                            return Note::factory()->hasFiles(1)->create($data);
+                        },
+                        false,
+                    ],
+                    'Different User' => [
+                        new GraphQLSuccess('deleteContractNote', DeleteContractNote::class, [
+                            'deleted' => true,
+                        ]),
+                        static function (TestCase $test, ?Organization $organization, ?User $user): Note {
+                            $data = [];
+                            if ($organization) {
+                                $data['organization_id'] = $organization->getKey();
+                            }
+                            return Note::factory()->hasFiles(1)->for(User::factory())->create($data);
+                        },
+                        false,
                     ],
                 ]),
             ),

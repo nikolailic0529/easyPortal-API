@@ -20,4 +20,8 @@ class NotePolicy {
     public function customersView(User $user, Note $note): bool {
         return $user->getKey() === $note->user_id;
     }
+
+    public function orgAdminister(): bool {
+        return true;
+    }
 }

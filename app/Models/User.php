@@ -158,10 +158,6 @@ class User extends Model implements
     public function getOrganization(): ?Organization {
         return $this->organization;
     }
-
-    public function notes(): HasMany {
-        return $this->hasMany(Note::class);
-    }
     // </editor-fold>
 
     // <editor-fold desc="HasPermissions">
