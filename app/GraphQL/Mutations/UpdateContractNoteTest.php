@@ -42,14 +42,12 @@ class UpdateContractNoteTest extends TestCase {
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
+        array $settings = null,
         Closure $prepare = null,
         array $input = [
             'id'    => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
             'note'  => 'old',
             'files' => null,
-        ],
-        array $settings = [
-            'ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
         ],
     ): void {
         // Prepare
@@ -60,20 +58,29 @@ class UpdateContractNoteTest extends TestCase {
         if ($prepare) {
             $prepare($this, $organization, $user);
         } else {
-            // For validation as it will throw validation errors that will alter test results
-            // PROBLEM: it still throws unknown organization in case of no organization
+            if (!$organization) {
+                $organization = $this->setOrganization(Organization::factory()->make());
+            }
+
+            if (!$settings) {
+                $this->setSettings([
+                    'ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                ]);
+            }
+
             $type     = Type::factory()->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
             ]);
+
             $reseller = Reseller::factory()->create([
                 'id' => $organization ? $organization->getKey() : $this->faker->uuid,
             ]);
-            $data     = ['id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa'];
-            if ($organization) {
-                $data['organization_id'] = $organization->getKey();
-            }
+
             Document::factory()
-                ->hasNotes(1, $data)
+                ->hasNotes(1, [
+                    'id'              => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                    'organization_id' => $organization->getKey(),
+                ])
                 ->create([
                     'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                     'type_id'     => $type->getKey(),
@@ -192,6 +199,7 @@ class UpdateContractNoteTest extends TestCase {
                 new ArrayDataProvider([
                     'ok-files'            => [
                         new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
+                        $settings,
                         $prepare,
                         [
                             'note'  => 'new note',
@@ -203,10 +211,10 @@ class UpdateContractNoteTest extends TestCase {
                                 ],
                             ],
                         ],
-                        $settings,
                     ],
                     'ok-Ids'              => [
                         new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
+                        $settings,
                         static function (TestCase $test, ?Organization $organization, User $user): void {
                             if ($user) {
                                 $user->save();
@@ -246,12 +254,14 @@ class UpdateContractNoteTest extends TestCase {
                                 ],
                             ],
                         ],
-                        $settings,
                     ],
                     'Invalid note id'     => [
                         new GraphQLError('updateContractNote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
+                        [
+                            'ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                        ],
                         static function (): void {
                             Note::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -272,6 +282,9 @@ class UpdateContractNoteTest extends TestCase {
                         new GraphQLError('updateContractNote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
+                        [
+                            'ep.contract_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                        ],
                         static function (): void {
                             Note::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -296,6 +309,10 @@ class UpdateContractNoteTest extends TestCase {
                         new GraphQLError('updateContractNote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
+                        [
+                            'ep.file.max_size' => 100,
+                            'ep.file.formats'  => ['csv'],
+                        ],
                         static function (): void {
                             Note::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -311,15 +328,15 @@ class UpdateContractNoteTest extends TestCase {
                                 ],
                             ],
                         ],
-                        [
-                            'ep.file.max_size' => 100,
-                            'ep.file.formats'  => ['csv'],
-                        ],
                     ],
                     'Invalid file format' => [
                         new GraphQLError('updateContractNote', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
+                        [
+                            'ep.file.max_size' => 200,
+                            'ep.file.formats'  => ['pdf'],
+                        ],
                         static function (): void {
                             Note::factory()->create([
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -335,10 +352,6 @@ class UpdateContractNoteTest extends TestCase {
                                 ],
                             ],
                         ],
-                        [
-                            'ep.file.max_size' => 200,
-                            'ep.file.formats'  => ['pdf'],
-                        ],
                     ],
                 ]),
             ),
@@ -350,6 +363,7 @@ class UpdateContractNoteTest extends TestCase {
                 new ArrayDataProvider([
                     'ok' => [
                         new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
+                        $settings,
                         $prepare,
                         [
                             'note'  => 'new note',
@@ -361,7 +375,6 @@ class UpdateContractNoteTest extends TestCase {
                                 ],
                             ],
                         ],
-                        $settings,
                     ],
                 ]),
             ),
