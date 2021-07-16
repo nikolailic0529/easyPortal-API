@@ -32,6 +32,8 @@ use App\Models\Reseller;
 use App\Models\ResellerCustomer;
 use App\Models\ResellerStatus;
 use App\Models\Role;
+use App\Models\ServiceGroup;
+use App\Models\ServiceLevel;
 use App\Models\Status;
 use App\Models\Tag;
 use App\Models\Type;
@@ -120,6 +122,8 @@ class AppServiceProvider extends ServiceProvider {
             'permission'             => Permission::class,
             'role'                   => Role::class,
             'oem-group'              => OemGroup::class,
+            'service-group'          => ServiceGroup::class,
+            'service-level'          => ServiceLevel::class,
         ]);
     }
 }
