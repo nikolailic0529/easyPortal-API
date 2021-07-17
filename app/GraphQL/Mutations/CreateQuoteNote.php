@@ -38,10 +38,10 @@ class CreateQuoteNote {
     /**
      * @param array<\Illuminate\Http\UploadedFile> $files
      */
-    public function createNote(string $document_id, string $content, array $files = []): Note {
+    public function createNote(string $documentId, string $content, array $files = []): Note {
         $note                  = new Note();
         $note->user            = $this->auth->user();
-        $note->document_id     = $document_id;
+        $note->document_id     = $documentId;
         $note->organization_id = $this->organization->get()->getKey();
         $note->note            = $content;
         $note->files           = array_map(function ($file) use ($note) {
@@ -58,7 +58,7 @@ class CreateQuoteNote {
         $file->type = $upload->getMimeType();
         $file->disk = $this->disk;
         $file->path = $this->disk->filesystem()->put($note->getKey(), $upload);
-        $file->hash = $upload->hashName();
+        $file->hash = hash_file('sha256', $this->disk->filesystem()->path($file->path));
         return $file;
     }
 }

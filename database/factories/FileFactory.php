@@ -31,7 +31,7 @@ class FileFactory extends Factory {
             'id'         => $this->faker->uuid,
             'name'       => $this->faker->word,
             'disk'       => $this->faker->word,
-            'path'       => $this->faker->word,
+            'path'       => $this->faker->sha256,
             'type'       => $this->faker->mimeType,
             'size'       => $this->faker->randomNumber(5, false),
             'hash'       => $this->faker->word(),
