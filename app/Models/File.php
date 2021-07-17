@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -26,6 +27,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\File query()
  * @mixin \Eloquent
  */
+
+ use function app;
+
 class File extends Model {
     use HasFactory;
 
@@ -45,7 +49,7 @@ class File extends Model {
     }
 
     public function getUrlAttribute(): string {
-        // Logic will be added to a resolver in another PR
-        return $this->path;
+        $url = app()->make(UrlGenerator::class);
+        return $url->route('files', ['id' => $this->id ]);
     }
 }
