@@ -31,10 +31,10 @@ class FileFactory extends Factory {
             'id'         => $this->faker->uuid,
             'name'       => $this->faker->word,
             'disk'       => $this->faker->word,
-            'path'       => $this->faker->sha256,
+            'path'       => $this->faker->word,
             'type'       => $this->faker->mimeType,
             'size'       => $this->faker->randomNumber(5, false),
-            'hash'       => $this->faker->word(),
+            'hash'       => $this->faker->sha256,
             'note_id'    => static function (): Note {
                 return Note::query()->first() ?? Note::factory()->create();
             },
