@@ -25,7 +25,7 @@ Route::post('/download/excel', [ExportController::class, 'excel']);
 
 Route::post('/download/pdf', [ExportController::class, 'pdf']);
 
-Route::get('/files/{id}', FilesController::class)->name('files')->middleware('auth');
+Route::get('/files/{id}', FilesController::class)->name('files');
 
 // This route required to be able to translate 404 page (without it the error
 // will be shown before the session start and actual locale will not available).
