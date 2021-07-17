@@ -43,7 +43,7 @@ class LogsTest extends TestCase {
         $this
             ->graphQL(/** @lang GraphQL */ '{
                 application {
-                    logs(where: { category: { eq: "Queue" } }) {
+                    logs(where: { category: { equal: "Queue" } }) {
                         data {
                             id
                             category

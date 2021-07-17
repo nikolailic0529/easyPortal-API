@@ -88,7 +88,7 @@ class ContractsAggregateTest extends TestCase {
     public function dataProviderQuery(): array {
         $params  = [
             'where' => [
-                'price' => ['lte' => 100],
+                'price' => ['lessThanOrEqual' => 100],
             ],
         ];
         $factory = static function (TestCase $test, Organization $organization): void {

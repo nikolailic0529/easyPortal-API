@@ -3596,16 +3596,16 @@ input SearchByScalarDate {
   notEqual: Date
 
   """Less than (`<`)."""
-  lt: Date
+  lessThan: Date
 
   """Less than or equal to (`<=`)."""
-  lte: Date
+  lessThanOrEqual: Date
 
   """Greater than (`>`)."""
-  gt: Date
+  greaterThan: Date
 
   """Greater than or equal to (`>=`)."""
-  gte: Date
+  greaterThanOrEqual: Date
 
   """Within a set of values."""
   in: [Date!]
@@ -3631,16 +3631,16 @@ input SearchByScalarDateOrNull {
   notEqual: Date
 
   """Less than (`<`)."""
-  lt: Date
+  lessThan: Date
 
   """Less than or equal to (`<=`)."""
-  lte: Date
+  lessThanOrEqual: Date
 
   """Greater than (`>`)."""
-  gt: Date
+  greaterThan: Date
 
   """Greater than or equal to (`>=`)."""
-  gte: Date
+  greaterThanOrEqual: Date
 
   """Within a set of values."""
   in: [Date!]
@@ -3672,16 +3672,16 @@ input SearchByScalarDateTime {
   notEqual: DateTime
 
   """Less than (`<`)."""
-  lt: DateTime
+  lessThan: DateTime
 
   """Less than or equal to (`<=`)."""
-  lte: DateTime
+  lessThanOrEqual: DateTime
 
   """Greater than (`>`)."""
-  gt: DateTime
+  greaterThan: DateTime
 
   """Greater than or equal to (`>=`)."""
-  gte: DateTime
+  greaterThanOrEqual: DateTime
 
   """Within a set of values."""
   in: [DateTime!]
@@ -3707,16 +3707,16 @@ input SearchByScalarDateTimeOrNull {
   notEqual: DateTime
 
   """Less than (`<`)."""
-  lt: DateTime
+  lessThan: DateTime
 
   """Less than or equal to (`<=`)."""
-  lte: DateTime
+  lessThanOrEqual: DateTime
 
   """Greater than (`>`)."""
-  gt: DateTime
+  greaterThan: DateTime
 
   """Greater than or equal to (`>=`)."""
-  gte: DateTime
+  greaterThanOrEqual: DateTime
 
   """Within a set of values."""
   in: [DateTime!]
@@ -3748,16 +3748,16 @@ input SearchByScalarFloat {
   notEqual: Float
 
   """Less than (`<`)."""
-  lt: Float
+  lessThan: Float
 
   """Less than or equal to (`<=`)."""
-  lte: Float
+  lessThanOrEqual: Float
 
   """Greater than (`>`)."""
-  gt: Float
+  greaterThan: Float
 
   """Greater than or equal to (`>=`)."""
-  gte: Float
+  greaterThanOrEqual: Float
 
   """Within a set of values."""
   in: [Float!]
@@ -3783,16 +3783,16 @@ input SearchByScalarFloatOrNull {
   notEqual: Float
 
   """Less than (`<`)."""
-  lt: Float
+  lessThan: Float
 
   """Less than or equal to (`<=`)."""
-  lte: Float
+  lessThanOrEqual: Float
 
   """Greater than (`>`)."""
-  gt: Float
+  greaterThan: Float
 
   """Greater than or equal to (`>=`)."""
-  gte: Float
+  greaterThanOrEqual: Float
 
   """Within a set of values."""
   in: [Float!]
@@ -3864,16 +3864,16 @@ input SearchByScalarInt {
   notEqual: Int
 
   """Less than (`<`)."""
-  lt: Int
+  lessThan: Int
 
   """Less than or equal to (`<=`)."""
-  lte: Int
+  lessThanOrEqual: Int
 
   """Greater than (`>`)."""
-  gt: Int
+  greaterThan: Int
 
   """Greater than or equal to (`>=`)."""
-  gte: Int
+  greaterThanOrEqual: Int
 
   """Within a set of values."""
   in: [Int!]

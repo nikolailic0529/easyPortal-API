@@ -49,7 +49,7 @@ class ContractTypesTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                contractTypes(where: {contracts: { where: {}, lt: 1 }}) {
+                contractTypes(where: {contracts: { where: {}, count: {lessThan: 1} } }) {
                     id
                     name
                 }

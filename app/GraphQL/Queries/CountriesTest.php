@@ -44,9 +44,9 @@ class CountriesTest extends TestCase {
         $this
             ->graphQL(/** @lang GraphQL */ '{
                 countries(where: {anyOf: [
-                    { assets: { where: {}, lt: 1 } }
-                    { cities: { where: {}, lt: 1 } }
-                    { customers: { where: {}, lt: 1 } }
+                    { assets: { where: {}, count: {lessThan: 1} } }
+                    { cities: { where: {}, count: {lessThan: 1} } }
+                    { customers: { where: {}, count: {lessThan: 1} } }
                 ]}) {
                     id
                     name
