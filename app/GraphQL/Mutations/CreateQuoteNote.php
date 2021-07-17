@@ -57,7 +57,7 @@ class CreateQuoteNote {
         $file->size = $upload->getSize();
         $file->type = $upload->getMimeType();
         $file->disk = $this->disk;
-        $file->path = $upload->store($note->getKey());
+        $file->path = $this->disk->filesystem()->put($note->getKey(), $upload);
         $file->hash = $upload->hashName();
         return $file;
     }

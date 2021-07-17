@@ -42,11 +42,7 @@ class CreateQuoteNoteTest extends TestCase {
         Closure $userFactory = null,
         array $settings = null,
         Closure $prepare = null,
-        array $input = [
-            'quote_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-            'note'     => 'note',
-            'files'    => null,
-        ],
+        array $input = [],
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
@@ -114,15 +110,15 @@ class CreateQuoteNoteTest extends TestCase {
                     }
                 }
             }';
-        $operations = [
-            'operationName' => 'createQuoteNote',
-            'query'         => $query,
-            'variables'     => ['input' => $input],
-        ];
         $input      = $input ?: [
             'quote_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
             'note'     => 'note',
             'files'    => null,
+        ];
+        $operations = [
+            'operationName' => 'createQuoteNote',
+            'query'         => $query,
+            'variables'     => ['input' => $input],
         ];
         $response   = $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
 
