@@ -10,6 +10,7 @@ use Illuminate\Auth\AuthManager;
 use Illuminate\Http\UploadedFile;
 
 use function array_map;
+use function hash_file;
 
 class CreateQuoteNote {
     public function __construct(
