@@ -37,7 +37,7 @@ class File extends Model {
     protected $table = 'files';
 
     public function note(): BelongsTo {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Note::class);
     }
 
     public function setNoteAttribute(Note $note): void {
