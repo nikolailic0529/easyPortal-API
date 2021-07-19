@@ -2027,15 +2027,14 @@ input SearchByComplexRelationAssetWarrantiesQuery {
   count: SearchByScalarInt
 
   """
-  Shortcut for `doesntHave()`, same as:
-  
-  ```
-  count: {
-    lt: 1
-  }
-  ```
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
   """
-  not: Boolean! = false
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
 
   """Complex operator marker."""
   relation: SearchByTypeFlag! = yes
@@ -2056,15 +2055,14 @@ input SearchByComplexRelationAssetsQuery {
   count: SearchByScalarInt
 
   """
-  Shortcut for `doesntHave()`, same as:
-  
-  ```
-  count: {
-    lt: 1
-  }
-  ```
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
   """
-  not: Boolean! = false
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
 
   """Complex operator marker."""
   relation: SearchByTypeFlag! = yes
@@ -2085,15 +2083,14 @@ input SearchByComplexRelationCitiesQuery {
   count: SearchByScalarInt
 
   """
-  Shortcut for `doesntHave()`, same as:
-  
-  ```
-  count: {
-    lt: 1
-  }
-  ```
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
   """
-  not: Boolean! = false
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
 
   """Complex operator marker."""
   relation: SearchByTypeFlag! = yes
@@ -2114,15 +2111,14 @@ input SearchByComplexRelationContactsQuery {
   count: SearchByScalarInt
 
   """
-  Shortcut for `doesntHave()`, same as:
-  
-  ```
-  count: {
-    lt: 1
-  }
-  ```
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
   """
-  not: Boolean! = false
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
 
   """Complex operator marker."""
   relation: SearchByTypeFlag! = yes
@@ -2143,15 +2139,14 @@ input SearchByComplexRelationCountriesQuery {
   count: SearchByScalarInt
 
   """
-  Shortcut for `doesntHave()`, same as:
-  
-  ```
-  count: {
-    lt: 1
-  }
-  ```
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
   """
-  not: Boolean! = false
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
 
   """Complex operator marker."""
   relation: SearchByTypeFlag! = yes
@@ -2172,15 +2167,14 @@ input SearchByComplexRelationCoveragesQuery {
   count: SearchByScalarInt
 
   """
-  Shortcut for `doesntHave()`, same as:
-  
-  ```
-  count: {
-    lt: 1
-  }
-  ```
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
   """
-  not: Boolean! = false
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
 
   """Complex operator marker."""
   relation: SearchByTypeFlag! = yes
@@ -2201,15 +2195,14 @@ input SearchByComplexRelationCustomersQuery {
   count: SearchByScalarInt
 
   """
-  Shortcut for `doesntHave()`, same as:
-  
-  ```
-  count: {
-    lt: 1
-  }
-  ```
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
   """
-  not: Boolean! = false
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
 
   """Complex operator marker."""
   relation: SearchByTypeFlag! = yes
@@ -2230,15 +2223,14 @@ input SearchByComplexRelationDistributorsQuery {
   count: SearchByScalarInt
 
   """
-  Shortcut for `doesntHave()`, same as:
-  
-  ```
-  count: {
-    lt: 1
-  }
-  ```
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
   """
-  not: Boolean! = false
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
 
   """Complex operator marker."""
   relation: SearchByTypeFlag! = yes
@@ -2259,15 +2251,14 @@ input SearchByComplexRelationDocumentEntriesQuery {
   count: SearchByScalarInt
 
   """
-  Shortcut for `doesntHave()`, same as:
-  
-  ```
-  count: {
-    lt: 1
-  }
-  ```
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
   """
-  not: Boolean! = false
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
 
   """Complex operator marker."""
   relation: SearchByTypeFlag! = yes
@@ -2288,15 +2279,14 @@ input SearchByComplexRelationDocumentsQuery {
   count: SearchByScalarInt
 
   """
-  Shortcut for `doesntHave()`, same as:
-  
-  ```
-  count: {
-    lt: 1
-  }
-  ```
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
   """
-  not: Boolean! = false
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
 
   """Complex operator marker."""
   relation: SearchByTypeFlag! = yes
@@ -2317,15 +2307,14 @@ input SearchByComplexRelationLocationsQuery {
   count: SearchByScalarInt
 
   """
-  Shortcut for `doesntHave()`, same as:
-  
-  ```
-  count: {
-    lt: 1
-  }
-  ```
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
   """
-  not: Boolean! = false
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
 
   """Complex operator marker."""
   relation: SearchByTypeFlag! = yes
@@ -2346,15 +2335,14 @@ input SearchByComplexRelationProductsQuery {
   count: SearchByScalarInt
 
   """
-  Shortcut for `doesntHave()`, same as:
-  
-  ```
-  count: {
-    lt: 1
-  }
-  ```
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
   """
-  not: Boolean! = false
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
 
   """Complex operator marker."""
   relation: SearchByTypeFlag! = yes
@@ -2375,15 +2363,14 @@ input SearchByComplexRelationResellersQuery {
   count: SearchByScalarInt
 
   """
-  Shortcut for `doesntHave()`, same as:
-  
-  ```
-  count: {
-    lt: 1
-  }
-  ```
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
   """
-  not: Boolean! = false
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
 
   """Complex operator marker."""
   relation: SearchByTypeFlag! = yes
@@ -2433,15 +2420,14 @@ input SearchByComplexRelationStatusesQuery {
   count: SearchByScalarInt
 
   """
-  Shortcut for `doesntHave()`, same as:
-  
-  ```
-  count: {
-    lt: 1
-  }
-  ```
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
   """
-  not: Boolean! = false
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
 
   """Complex operator marker."""
   relation: SearchByTypeFlag! = yes
@@ -2462,15 +2448,14 @@ input SearchByComplexRelationTagsQuery {
   count: SearchByScalarInt
 
   """
-  Shortcut for `doesntHave()`, same as:
-  
-  ```
-  count: {
-    lt: 1
-  }
-  ```
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
   """
-  not: Boolean! = false
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
 
   """Complex operator marker."""
   relation: SearchByTypeFlag! = yes
@@ -2491,15 +2476,14 @@ input SearchByComplexRelationTypesQuery {
   count: SearchByScalarInt
 
   """
-  Shortcut for `doesntHave()`, same as:
-  
-  ```
-  count: {
-    lt: 1
-  }
-  ```
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
   """
-  not: Boolean! = false
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
 
   """Complex operator marker."""
   relation: SearchByTypeFlag! = yes
