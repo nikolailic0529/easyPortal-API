@@ -159,12 +159,12 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals(
             [
                 [
-                    'sku'      => null,
-                    'services' => [],
+                    'serviceGroup'  => null,
+                    'serviceLevels' => [],
                 ],
                 [
-                    'sku'      => 'H7J34AC',
-                    'services' => [
+                    'serviceGroup'  => 'H7J34AC',
+                    'serviceLevels' => [
                         [
                             'sku' => 'HA151AC',
                         ],
@@ -174,8 +174,8 @@ class AssetFactoryTest extends TestCase {
             $created->warranties
                 ->map(static function (AssetWarranty $warranty): array {
                     return [
-                        'sku'      => $warranty->serviceGroup?->sku,
-                        'services' => $warranty->services
+                        'serviceGroup'  => $warranty->serviceGroup?->sku,
+                        'serviceLevels' => $warranty->serviceLevels
                             ->map(static function (ServiceLevel $level): array {
                                 return [
                                     'sku' => $level->sku,
@@ -1025,9 +1025,9 @@ class AssetFactoryTest extends TestCase {
         $this->assertNull($a->customer_id);
         $this->assertEquals($documentA->getKey(), $a->document_id);
         $this->assertEquals($model->getKey(), $a->asset_id);
-        $this->assertEquals(2, $a->services->count());
+        $this->assertEquals(2, $a->serviceLevels->count());
 
-        $as = $a->services->first(static function (ServiceLevel $level) use ($skuNumber): bool {
+        $as = $a->serviceLevels->first(static function (ServiceLevel $level) use ($skuNumber): bool {
             return $level->sku === $skuNumber;
         });
 
@@ -1056,7 +1056,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($customerB->getKey(), $c->customer_id);
         $this->assertEquals($documentB->getKey(), $c->document_id);
         $this->assertEquals($model->getKey(), $c->asset_id);
-        $this->assertEquals(0, $c->services->count());
+        $this->assertEquals(0, $c->serviceLevels->count());
 
         // Existing warranty should be updated
         /** @var \App\Models\AssetWarranty $d */

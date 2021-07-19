@@ -12,7 +12,6 @@ use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
 use App\Models\Reseller;
-use App\Models\ServiceGroup;
 use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Events\ObjectSkipped;
@@ -471,9 +470,9 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
      */
     protected function assetExtendedWarranties(AssetModel $model, ViewAsset $asset): array {
         // Prepare
-        $warranties = [];
-        $services   = [];
-        $existing   = $model->warranties
+        $serviceLevels = [];
+        $warranties    = [];
+        $existing      = $model->warranties
             ->filter(static function (AssetWarranty $warranty): bool {
                 return $warranty->document_number !== null;
             })
@@ -488,7 +487,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                     $warranty->end?->startOfDay(),
                 ]);
             });
-        $documents  = (new Collection($asset->assetDocument))
+        $documents     = (new Collection($asset->assetDocument))
             ->filter(static function (ViewAssetDocument $document): bool {
                 return isset($document->documentNumber);
             })
@@ -504,11 +503,11 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 $document     = $this->assetDocumentDocument($model, $assetDocument);
                 $number       = $assetDocument->documentNumber;
                 $serviceGroup = $this->assetDocumentServiceGroup($model, $assetDocument);
-                $service      = $this->assetDocumentServiceLevel($model, $assetDocument);
+                $serviceLevel = $this->assetDocumentServiceLevel($model, $assetDocument);
                 $start        = $this->normalizer->datetime($assetDocument->startDate);
                 $end          = $this->normalizer->datetime($assetDocument->endDate);
 
-                if (!($number && ($start || $end) && ($serviceGroup || $service))) {
+                if (!($number && ($start || $end) && ($serviceGroup || $serviceLevel))) {
                     continue;
                 }
 
@@ -526,7 +525,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 ]);
 
                 // Add service
-                $services[$key][] = $service;
+                $serviceLevels[$key][] = $serviceLevel;
 
                 // Already added?
                 if (isset($warranties[$key])) {
@@ -559,9 +558,9 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             }
         }
 
-        // Update services
+        // Update Service Levels
         foreach ($warranties as $key => $warranty) {
-            $warranty->services = array_filter(array_unique($services[$key] ?? [], SORT_REGULAR));
+            $warranty->serviceLevels = array_filter(array_unique($serviceLevels[$key] ?? [], SORT_REGULAR));
             $warranty->save();
         }
 

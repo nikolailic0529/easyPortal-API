@@ -49,7 +49,7 @@ class AssetsImporter extends Importer {
             ->prefetch($items, false, static function (Collection $assets) use ($locations, $contacts): void {
                 $assets->loadMissing('documentEntries');
                 $assets->loadMissing('warranties');
-                $assets->loadMissing('warranties.services');
+                $assets->loadMissing('warranties.serviceLevels');
                 $assets->loadMissing('contacts');
                 $assets->loadMissing('contacts.types');
                 $assets->loadMissing('location');
