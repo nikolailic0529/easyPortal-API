@@ -28,15 +28,16 @@ class WithCustomerTest extends TestCase {
      * @dataProvider dataProviderCustomer
      */
     public function testCustomerExistsThroughProvider(Closure $objectFactory): void {
-        $customer = Customer::factory()->make();
-        $resolver = Mockery::mock(CustomerResolver::class);
+        $normalizer = $this->app->make(Normalizer::class);
+        $customer   = Customer::factory()->make();
+        $resolver   = Mockery::mock(CustomerResolver::class);
         $resolver
             ->shouldReceive('get')
             ->with($customer->getKey(), Mockery::any())
             ->once()
             ->andReturn($customer);
 
-        $factory = new WithCustomerTestObject($resolver);
+        $factory = new WithCustomerTestObject($normalizer, $resolver);
         $object  = $objectFactory($this, $customer);
 
         $this->assertEquals($customer, $factory->customer($object));
@@ -48,8 +49,9 @@ class WithCustomerTest extends TestCase {
      * @dataProvider dataProviderCustomer
      */
     public function testCustomerExistsThroughFinder(Closure $objectFactory): void {
-        $customer = Customer::factory()->make();
-        $resolver = Mockery::mock(CustomerResolver::class, [$this->app->make(Normalizer::class)]);
+        $normalizer = $this->app->make(Normalizer::class);
+        $customer   = Customer::factory()->make();
+        $resolver   = Mockery::mock(CustomerResolver::class, [$this->app->make(Normalizer::class)]);
         $resolver->shouldAllowMockingProtectedMethods();
         $resolver->makePartial();
         $resolver
@@ -64,7 +66,7 @@ class WithCustomerTest extends TestCase {
             ->once()
             ->andReturn($customer);
 
-        $factory = new WithCustomerTestObject($resolver, $finder);
+        $factory = new WithCustomerTestObject($normalizer, $resolver, $finder);
         $object  = $objectFactory($this, $customer);
 
         $this->assertEquals($customer, $factory->customer($object));
@@ -76,15 +78,16 @@ class WithCustomerTest extends TestCase {
      * @dataProvider dataProviderCustomer
      */
     public function testCustomerCustomerNotFound(Closure $objectFactory): void {
-        $customer = Customer::factory()->make();
-        $resolver = Mockery::mock(CustomerResolver::class);
+        $normalizer = $this->app->make(Normalizer::class);
+        $customer   = Customer::factory()->make();
+        $resolver   = Mockery::mock(CustomerResolver::class);
         $resolver
             ->shouldReceive('get')
             ->with($customer->getKey(), Mockery::any())
             ->once()
             ->andReturn(null);
 
-        $factory = new WithCustomerTestObject($resolver);
+        $factory = new WithCustomerTestObject($normalizer, $resolver);
         $object  = $objectFactory($this, $customer);
 
         $this->expectException(CustomerNotFoundException::class);
@@ -96,13 +99,14 @@ class WithCustomerTest extends TestCase {
      * @covers ::customer
      */
     public function testCustomerAssetWithoutCustomer(): void {
-        $object   = new ViewAsset();
-        $resolver = Mockery::mock(CustomerResolver::class);
+        $normalizer = $this->app->make(Normalizer::class);
+        $object     = new ViewAsset();
+        $resolver   = Mockery::mock(CustomerResolver::class);
         $resolver
             ->shouldReceive('get')
             ->never();
 
-        $factory = new WithCustomerTestObject($resolver);
+        $factory = new WithCustomerTestObject($normalizer, $resolver);
 
         $this->assertNull($factory->customer($object));
     }
@@ -157,6 +161,7 @@ class WithCustomerTestObject extends Factory {
 
     /** @noinspection PhpMissingParentConstructorInspection */
     public function __construct(
+        protected Normalizer $normalizer,
         protected CustomerResolver $resolver,
         protected ?CustomerFinder $finder = null,
     ) {

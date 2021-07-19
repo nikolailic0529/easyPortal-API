@@ -64,7 +64,7 @@ class WithProductTest extends TestCase {
                 "{$product->eos->getTimestamp()}000",
             )->withoutRelations(),
         );
-        $this->assertCount(2, $this->getQueryLog());
+        $this->assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 

@@ -6,6 +6,7 @@ use App\Models\ServiceGroup;
 use App\Services\DataLoader\Exceptions\ServiceGroupNotFound;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
+use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ServiceGroupResolver;
 use Mockery;
 use Tests\TestCase;
@@ -19,21 +20,23 @@ class WithServiceGroupTest extends TestCase {
      * @covers ::serviceGroup
      */
     public function testServiceGroupExistsThroughProvider(): void {
-        $group    = ServiceGroup::factory()->make();
-        $resolver = Mockery::mock(ServiceGroupResolver::class);
+        $group      = ServiceGroup::factory()->make();
+        $normalizer = $this->app->make(Normalizer::class);
+        $resolver   = Mockery::mock(ServiceGroupResolver::class);
         $resolver
             ->shouldReceive('get')
             ->with($group->oem, $group->sku, Mockery::any())
             ->once()
             ->andReturn($group);
 
-        $factory = new class($resolver) extends Factory {
+        $factory = new class($normalizer, $resolver) extends Factory {
             use WithServiceGroup {
                 serviceGroup as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
+                protected Normalizer $normalizer,
                 protected ServiceGroupResolver $serviceGroupResolver,
             ) {
                 // empty
@@ -48,29 +51,31 @@ class WithServiceGroupTest extends TestCase {
             }
         };
 
-        $this->assertEquals($group, $factory->serviceGroup($group->oem, $group->sku));
+        $this->assertEquals($group, $factory->serviceGroup($group->oem, " {$group->sku} "));
     }
 
     /**
      * @covers ::serviceGroup
      */
     public function testServiceGroupExistsThroughFinder(): void {
-        $group    = ServiceGroup::factory()->make();
-        $resolver = $this->app->make(ServiceGroupResolver::class);
-        $finder   = Mockery::mock(ServiceGroupFinder::class);
+        $group      = ServiceGroup::factory()->make();
+        $normalizer = $this->app->make(Normalizer::class);
+        $resolver   = $this->app->make(ServiceGroupResolver::class);
+        $finder     = Mockery::mock(ServiceGroupFinder::class);
         $finder
             ->shouldReceive('find')
             ->with($group->oem, $group->sku)
             ->once()
             ->andReturn($group);
 
-        $factory = new class($resolver, $finder) extends Factory {
+        $factory = new class($normalizer, $resolver, $finder) extends Factory {
             use WithServiceGroup {
                 serviceGroup as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
+                protected Normalizer $normalizer,
                 protected ServiceGroupResolver $serviceGroupResolver,
                 protected ServiceGroupFinder $serviceGroupFinder,
             ) {
@@ -86,27 +91,29 @@ class WithServiceGroupTest extends TestCase {
             }
         };
 
-        $this->assertEquals($group, $factory->serviceGroup($group->oem, $group->sku));
+        $this->assertEquals($group, $factory->serviceGroup($group->oem, " {$group->sku} "));
     }
 
     /**
      * @covers ::serviceGroup
      */
     public function testServiceGroupServiceGroupNotFound(): void {
-        $group    = ServiceGroup::factory()->make();
-        $resolver = Mockery::mock(ServiceGroupResolver::class);
+        $group      = ServiceGroup::factory()->make();
+        $normalizer = $this->app->make(Normalizer::class);
+        $resolver   = Mockery::mock(ServiceGroupResolver::class);
         $resolver
             ->shouldReceive('get')
             ->once()
             ->andReturn(null);
 
-        $factory = new class($resolver) extends Factory {
+        $factory = new class($normalizer, $resolver) extends Factory {
             use WithServiceGroup {
                 serviceGroup as public;
             }
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
+                protected Normalizer $normalizer,
                 protected ServiceGroupResolver $serviceGroupResolver,
             ) {
                 // empty
