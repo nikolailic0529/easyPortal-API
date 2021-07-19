@@ -28,9 +28,10 @@ class UpdateMeProfile {
      */
     public function __invoke($_, array $args): array {
         // Prepare
-        $user     = $this->auth->user();
-        $userType = $this->prepare($user, $args['input']);
-        $result   = $this->client->updateUser($user->getKey(), $userType);
+        $user         = $this->auth->user();
+        $keycloakUser = $this->client->getUserById($user->getKey());
+        $userType     = $this->prepare($user, $keycloakUser, $args['input']);
+        $result       = $this->client->updateUser($user->getKey(), $userType);
 
         // Return
         return [
@@ -41,9 +42,9 @@ class UpdateMeProfile {
     /**
      * @param array<mixed> $properties
      */
-    protected function prepare(User $user, array $properties): UserType {
+    protected function prepare(User $user, UserType $keycloakUser, array $properties): UserType {
         $userType   = new UserType();
-        $attributes = [];
+        $attributes = $keycloakUser->attributes;
         foreach ($properties as $property => $value) {
             switch ($property) {
                 case 'first_name':

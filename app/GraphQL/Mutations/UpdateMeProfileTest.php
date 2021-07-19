@@ -2,14 +2,16 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Services\KeyCloak\Client\Client;
+use App\Services\KeyCloak\Client\Exceptions\UserDoesntExists;
+use App\Services\KeyCloak\Client\Types\User;
 use Closure;
-use Illuminate\Http\Client\Factory;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\AuthUserDataProvider;
 use Tests\GraphQL\GraphQLError;
@@ -36,8 +38,9 @@ class UpdateMeProfileTest extends TestCase {
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
-        Closure $dataFactory = null,
         array $settings = [],
+        Closure $dataFactory = null,
+        Closure $clientFactory = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
@@ -77,11 +80,9 @@ class UpdateMeProfileTest extends TestCase {
         ];
 
 
-        $http = Http::fake([
-            '*' => Http::response([], 204),
-        ]);
-
-        $this->app->instance(Factory::class, $http);
+        if ($clientFactory) {
+            $this->override(Client::class, $clientFactory);
+        }
 
         // Test
         $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
@@ -100,6 +101,7 @@ class UpdateMeProfileTest extends TestCase {
             new ArrayDataProvider([
                 'ok'                                    => [
                     new GraphQLSuccess('updateMeProfile', UpdateMeProfile::class),
+                    [],
                     static function (): array {
                         return [
                             'first_name'     => 'first',
@@ -114,11 +116,41 @@ class UpdateMeProfileTest extends TestCase {
                             'photo'          => UploadedFile::fake()->create('photo.jpg', 200),
                         ];
                     },
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getUserById')
+                            ->once()
+                            ->andReturn(new User(['attributes' => []]));
+                        $mock
+                            ->shouldReceive('updateUser')
+                            ->once()
+                            ->andReturn(true);
+                    },
+                ],
+                'user not exists'                       => [
+                    new GraphQLError('updateMeProfile', new UserDoesntExists()),
+                    [],
+                    static function (): array {
+                        return [
+                            'first_name' => 'first',
+                            'last_name'  => 'last',
+                        ];
+                    },
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getUserById')
+                            ->once()
+                            ->andThrow(new UserDoesntExists());
+                        $mock
+                            ->shouldReceive('updateUser')
+                            ->never();
+                    },
                 ],
                 'invalid request/Invalid contact email' => [
                     new GraphQLError('updateMeProfile', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
+                    [],
                     static function (): array {
                         return [
                             'contact_email' => 'wrong email',
@@ -129,32 +161,33 @@ class UpdateMeProfileTest extends TestCase {
                     new GraphQLError('updateMeProfile', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
+                    [
+                        'ep.image.max_size' => 100,
+                        'ep.image.formats'  => ['jpg'],
+                    ],
                     static function (TestCase $test): array {
                         return [
                             'photo' => UploadedFile::fake()->create('photo.jpg', 200),
                         ];
                     },
-                    [
-                        'ep.image.max_size' => 100,
-                        'ep.image.formats'  => ['jpg'],
-                    ],
                 ],
                 'invalid request/Invalid photo format'  => [
                     new GraphQLError('updateMeProfile', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
+                    [
+                        'ep.image.max_size' => 200,
+                        'ep.image.formats'  => ['jpg'],
+                    ],
                     static function (TestCase $test): array {
                         return [
                             'photo' => UploadedFile::fake()->create('photo.png', 100),
                         ];
                     },
-                    [
-                        'ep.image.max_size' => 200,
-                        'ep.image.formats'  => ['jpg'],
-                    ],
                 ],
                 'nullable data'                         => [
                     new GraphQLSuccess('updateMeProfile', updateMeProfile::class),
+                    [],
                     static function (): array {
                         return [
                             'first_name'     => null,
@@ -168,6 +201,16 @@ class UpdateMeProfileTest extends TestCase {
                             'job_title'      => null,
                             'photo'          => null,
                         ];
+                    },
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getUserById')
+                            ->once()
+                            ->andReturn(new User(['attributes' => []]));
+                        $mock
+                            ->shouldReceive('updateUser')
+                            ->once()
+                            ->andReturn(true);
                     },
                 ],
             ]),

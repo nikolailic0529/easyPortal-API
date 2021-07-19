@@ -217,6 +217,40 @@ class ClientTest extends TestCase {
         }
     }
 
+    /**
+     *
+     * @covers ::getUserById
+     *
+     * @dataProvider dataProviderGetUserById
+     */
+    public function testGetUserById(string $id, User|Exception $expected): void {
+        $this->prepareClient(true);
+        if ($expected instanceof Exception) {
+            $this->expectExceptionObject($expected);
+        }
+        $this->override(Factory::class, static function () use ($expected, $id) {
+            return Http::fake(static function (Request $request) use ($expected, $id) {
+                if ($expected instanceof User) {
+                    return Http::response(
+                        [
+                            'id'        => $id,
+                            'firstName' => 'correct',
+                            'lastName'  => 'last',
+                        ],
+                        Response::HTTP_OK,
+                    );
+                } else {
+                    return Http::response(null, Response::HTTP_NOT_FOUND);
+                }
+            });
+        });
+        $client   = $this->app->make(Client::class);
+        $response = $client->getUserById($id);
+        if ($expected instanceof User) {
+            $this->assertEquals($response, $response);
+        }
+    }
+
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
@@ -267,6 +301,24 @@ class ClientTest extends TestCase {
         return [
             'success'   => [[$group]],
             'not found' => [new UserDoesntExists()],
+        ];
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderGetUserById(): array {
+        return [
+            [
+                'd8ec7dcf-c542-42b5-8d7d-971400c02388',
+                new User([
+                    'id'         => 'd8ec7dcf-c542-42b5-8d7d-971400c02388',
+                    'firstName'  => 'first',
+                    'lastName'   => 'last',
+                    'attributes' => [],
+                ]),
+            ],
+            ['d8ec7dcf-c542-42b5-8d7d-971400c02389', new UserDoesntExists()],
         ];
     }
     //</editor-fold>
