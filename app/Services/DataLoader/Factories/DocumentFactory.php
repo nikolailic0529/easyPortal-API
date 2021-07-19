@@ -26,6 +26,7 @@ use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
+use App\Services\DataLoader\Finders\ServiceLevelFinder;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\DistributorResolver;
@@ -85,6 +86,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         protected ?ResellerFinder $resellerFinder = null,
         protected ?CustomerFinder $customerFinder = null,
         protected ?ServiceGroupFinder $serviceGroupFinder = null,
+        protected ?ServiceLevelFinder $serviceLevelFinder = null,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -150,6 +152,10 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
 
     protected function getServiceLevelResolver(): ServiceLevelResolver {
         return $this->serviceLevelResolver;
+    }
+
+    protected function getServiceLevelFinder(): ?ServiceLevelFinder {
+        return $this->serviceLevelFinder;
     }
     // </editor-fold>
 

@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Factories\Concerns;
 use App\Models\ServiceLevel;
 use App\Services\DataLoader\Exceptions\ServiceLevelNotFound;
 use App\Services\DataLoader\Factory;
+use App\Services\DataLoader\Finders\ServiceLevelFinder;
 use App\Services\DataLoader\Resolvers\ServiceLevelResolver;
 use Mockery;
 use Tests\TestCase;
@@ -22,7 +23,7 @@ class WithServiceLevelTest extends TestCase {
         $resolver = Mockery::mock(ServiceLevelResolver::class);
         $resolver
             ->shouldReceive('get')
-            ->with($level->oem, $level->serviceGroup, $level->sku)
+            ->with($level->oem, $level->serviceGroup, $level->sku, Mockery::any())
             ->once()
             ->andReturn($level);
 
@@ -40,6 +41,48 @@ class WithServiceLevelTest extends TestCase {
 
             protected function getServiceLevelResolver(): ServiceLevelResolver {
                 return $this->serviceLevelResolver;
+            }
+
+            protected function getServiceLevelFinder(): ?ServiceLevelFinder {
+                return null;
+            }
+        };
+
+        $this->assertEquals($level, $factory->serviceLevel($level->oem, $level->serviceGroup, $level->sku));
+    }
+
+    /**
+     * @covers ::serviceLevel
+     */
+    public function testServiceLevelExistsThroughFinder(): void {
+        $level    = ServiceLevel::factory()->make();
+        $resolver = $this->app->make(ServiceLevelResolver::class);
+        $finder   = Mockery::mock(ServiceLevelFinder::class);
+        $finder
+            ->shouldReceive('find')
+            ->with($level->oem, $level->serviceGroup, $level->sku)
+            ->once()
+            ->andReturn($level);
+
+        $factory = new class($resolver, $finder) extends Factory {
+            use WithServiceLevel {
+                serviceLevel as public;
+            }
+
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected ServiceLevelResolver $serviceLevelResolver,
+                protected ServiceLevelFinder $serviceLevelFinder,
+            ) {
+                // empty
+            }
+
+            protected function getServiceLevelResolver(): ServiceLevelResolver {
+                return $this->serviceLevelResolver;
+            }
+
+            protected function getServiceLevelFinder(): ?ServiceLevelFinder {
+                return $this->serviceLevelFinder;
             }
         };
 
@@ -71,6 +114,10 @@ class WithServiceLevelTest extends TestCase {
 
             protected function getServiceLevelResolver(): ServiceLevelResolver {
                 return $this->serviceLevelResolver;
+            }
+
+            protected function getServiceLevelFinder(): ?ServiceLevelFinder {
+                return null;
             }
         };
 
