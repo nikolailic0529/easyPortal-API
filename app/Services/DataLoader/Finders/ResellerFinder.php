@@ -3,8 +3,7 @@
 namespace App\Services\DataLoader\Finders;
 
 use App\Models\Reseller;
-use App\Services\DataLoader\Container\Isolated;
 
-interface ResellerFinder extends Isolated {
+interface ResellerFinder {
     public function find(string $key): ?Reseller;
 }

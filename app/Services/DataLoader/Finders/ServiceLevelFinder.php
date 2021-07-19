@@ -5,8 +5,7 @@ namespace App\Services\DataLoader\Finders;
 use App\Models\Oem;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
-use App\Services\DataLoader\Container\Isolated;
 
-interface ServiceLevelFinder extends Isolated {
+interface ServiceLevelFinder {
     public function find(Oem $oem, ServiceGroup $group, string $sku): ?ServiceLevel;
 }
