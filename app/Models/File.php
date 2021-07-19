@@ -2,25 +2,24 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\HasDocuments;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * File.
  *
- * @property string                                                              $id
- * @property string                                                              $name
- * @property string                                                              $disk
- * @property string                                                              $path
- * @property int                                                                 $size
- * @property string                                                              $type
- * @property string                                                              $hash
- * @property string                                                              $note_id
- * @property \Carbon\CarbonImmutable                                             $created_at
- * @property \Carbon\CarbonImmutable                                             $updated_at
- * @property \Carbon\CarbonImmutable|null                                        $deleted_at
- * @property \App\Models\Note                                                    $note
+ * @property string                       $id
+ * @property string                       $name
+ * @property string                       $disk
+ * @property string                       $path
+ * @property int                          $size
+ * @property string                       $type
+ * @property string                       $hash
+ * @property string                       $note_id
+ * @property \Carbon\CarbonImmutable      $created_at
+ * @property \Carbon\CarbonImmutable      $updated_at
+ * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property \App\Models\Note             $note
  * @method static \Database\Factories\FileFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\File newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\File newQuery()
@@ -29,7 +28,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class File extends Model {
     use HasFactory;
-    use HasDocuments;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
