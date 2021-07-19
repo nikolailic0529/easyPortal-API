@@ -29,7 +29,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class ServiceLevel extends Model {
     use HasFactory;
     use HasOem;
-    use HasServiceGroup;
+    use HasServiceGroup {
+        setServiceGroupAttribute as private setServiceGroupAttributeNullable;
+    }
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -37,4 +39,8 @@ class ServiceLevel extends Model {
      * @var string
      */
     protected $table = 'service_levels';
+
+    public function setServiceGroupAttribute(ServiceGroup $group): void {
+        $this->setServiceGroupAttributeNullable($group);
+    }
 }

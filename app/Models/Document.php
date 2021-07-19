@@ -56,7 +56,6 @@ use function count;
  * @property \App\Models\OemGroup|null                                           $oemGroup
  * @property \App\Models\Reseller|null                                           $reseller
  * @property \App\Models\ServiceGroup|null                                       $serviceGroup
- * @property \App\Models\Product|null                                            $support
  * @property \App\Models\Type                                                    $type
  * @method static \Database\Factories\DocumentFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newModelQuery()

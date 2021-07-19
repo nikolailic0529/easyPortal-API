@@ -13,7 +13,7 @@ trait HasServiceGroup {
         return $this->belongsTo(ServiceGroup::class);
     }
 
-    public function setServiceGroupAttribute(ServiceGroup $group): void {
+    public function setServiceGroupAttribute(?ServiceGroup $group): void {
         $this->serviceGroup()->associate($group);
     }
 }
