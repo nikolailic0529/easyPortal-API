@@ -8,10 +8,20 @@ use App\Models\Document;
 use App\Models\Location;
 use App\Models\Reseller;
 use App\Models\Type as TypeModel;
+use App\Services\DataLoader\Finders\CustomerFinder as CustomerFinderContract;
+use App\Services\DataLoader\Finders\DistributorFinder as DistributorFinderContract;
+use App\Services\DataLoader\Finders\ResellerFinder as ResellerFinderContract;
+use App\Services\DataLoader\Finders\ServiceGroupFinder as ServiceGroupFinderContract;
+use App\Services\DataLoader\Finders\ServiceLevelFinder as ServiceLevelFinderContract;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewDocument;
+use App\Services\DataLoader\Testing\Finders\CustomerFinder;
+use App\Services\DataLoader\Testing\Finders\DistributorFinder;
+use App\Services\DataLoader\Testing\Finders\ResellerFinder;
+use App\Services\DataLoader\Testing\Finders\ServiceGroupFinder;
+use App\Services\DataLoader\Testing\Finders\ServiceLevelFinder;
 use DateTimeInterface;
 use Illuminate\Support\Collection;
 use libphonenumber\NumberParseException;
@@ -23,6 +33,9 @@ use function array_values;
 use function is_null;
 use function reset;
 
+/**
+ * @mixin \Tests\TestCase
+ */
 trait Helper {
     // <editor-fold desc="General">
     // =========================================================================
@@ -380,6 +393,47 @@ trait Helper {
         }
 
         return $locations;
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Finders">
+    // =========================================================================
+    protected function overrideFinders(): void {
+        $this->overrideServiceGroupFinder();
+        $this->overrideServiceLevelFinder();
+        $this->overrideDistributorFinder();
+        $this->overrideResellerFinder();
+        $this->overrideCustomerFinder();
+    }
+
+    protected function overrideServiceGroupFinder(): void {
+        $this->override(ServiceGroupFinderContract::class, static function (): ServiceGroupFinderContract {
+            return new ServiceGroupFinder();
+        });
+    }
+
+    protected function overrideServiceLevelFinder(): void {
+        $this->override(ServiceLevelFinderContract::class, static function (): ServiceLevelFinderContract {
+            return new ServiceLevelFinder();
+        });
+    }
+
+    protected function overrideDistributorFinder(): void {
+        $this->override(DistributorFinderContract::class, static function (): DistributorFinderContract {
+            return new DistributorFinder();
+        });
+    }
+
+    protected function overrideResellerFinder(): void {
+        $this->override(ResellerFinderContract::class, static function (): ResellerFinderContract {
+            return new ResellerFinder();
+        });
+    }
+
+    protected function overrideCustomerFinder(): void {
+        $this->override(CustomerFinderContract::class, static function (): CustomerFinderContract {
+            return new CustomerFinder();
+        });
     }
     // </editor-fold>
 }
