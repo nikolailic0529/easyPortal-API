@@ -244,135 +244,6 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::assetDocumentOem
-     */
-    public function testAssetDocumentOem(): void {
-        $oem      = Oem::factory()->make();
-        $asset    = AssetModel::factory()->make();
-        $document = new ViewAssetDocument([
-            'document' => [
-                'vendorSpecificFields' => [
-                    'vendor' => $this->faker->word,
-                ],
-            ],
-        ]);
-
-        $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory->makePartial();
-        $factory
-            ->shouldReceive('documentOem')
-            ->with($document->document)
-            ->once()
-            ->andReturn($oem);
-
-        $this->assertSame($oem, $factory->assetDocumentOem($asset, $document));
-    }
-
-    /**
-     * @covers ::assetDocumentOem
-     */
-    public function testAssetDocumentOemNoDocument(): void {
-        $oem        = Oem::factory()->make();
-        $asset      = AssetModel::factory()->make();
-        $asset->oem = $oem;
-        $document   = new ViewAssetDocument([
-            'document' => null,
-        ]);
-
-        $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory->makePartial();
-        $factory
-            ->shouldReceive('documentOem')
-            ->never();
-
-        $this->assertSame($oem, $factory->assetDocumentOem($asset, $document));
-    }
-
-    /**
-     * @covers ::assetDocumentServiceGroup
-     */
-    public function testAssetDocumentServiceGroup(): void {
-        $oem      = Oem::factory()->make();
-        $asset    = AssetModel::factory()->make();
-        $group    = ServiceGroup::factory()->make();
-        $document = new ViewAssetDocument([
-            'document'       => [
-                'vendorSpecificFields' => [
-                    'vendor' => $this->faker->word,
-                ],
-            ],
-            'supportPackage' => $this->faker->word,
-        ]);
-
-        $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory->makePartial();
-        $factory
-            ->shouldReceive('assetDocumentOem')
-            ->with($asset, $document)
-            ->once()
-            ->andReturn($oem);
-        $factory
-            ->shouldReceive('serviceGroup')
-            ->with(
-                $oem,
-                $document->supportPackage,
-            )
-            ->once()
-            ->andReturns($group);
-
-        $this->assertSame($group, $factory->assetDocumentServiceGroup($asset, $document));
-    }
-
-    /**
-     * @covers ::assetDocumentServiceLevel
-     */
-    public function testAssetDocumentServiceLevel(): void {
-        $oem      = Oem::factory()->make();
-        $asset    = AssetModel::factory()->make();
-        $group    = ServiceGroup::factory()->make();
-        $level    = ServiceLevel::factory()->make();
-        $document = new ViewAssetDocument([
-            'document'  => [
-                'vendorSpecificFields' => [
-                    'vendor' => $this->faker->word,
-                ],
-            ],
-            'skuNumber' => $this->faker->word,
-        ]);
-
-        $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory->makePartial();
-        $factory
-            ->shouldReceive('assetDocumentOem')
-            ->with($asset, $document)
-            ->once()
-            ->andReturn($oem);
-        $factory
-            ->shouldReceive('assetDocumentServiceGroup')
-            ->with(
-                $asset,
-                $document,
-            )
-            ->once()
-            ->andReturns($group);
-        $factory
-            ->shouldReceive('serviceLevel')
-            ->with(
-                $oem,
-                $group,
-                $document->skuNumber,
-            )
-            ->once()
-            ->andReturns($level);
-
-        $this->assertSame($level, $factory->assetDocumentServiceLevel($asset, $document));
-    }
-
-    /**
      * @covers ::assetDocumentObjectEntries
      */
     public function testAssetDocumentObjectEntries(): void {
@@ -720,31 +591,6 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::documentOem
-     */
-    public function testDocumentOem(): void {
-        $document = new ViewDocument([
-            'vendorSpecificFields' => [
-                'vendor' => $this->faker->word,
-            ],
-        ]);
-        $factory  = Mockery::mock(DocumentFactoryTest_Factory::class);
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory->makePartial();
-
-        $factory
-            ->shouldReceive('oem')
-            ->with(
-                $document->vendorSpecificFields->vendor,
-                $document->vendorSpecificFields->vendor,
-            )
-            ->once()
-            ->andReturns();
-
-        $factory->documentOem($document);
-    }
-
-    /**
      * @covers ::documentOemGroup
      */
     public function testDocumentOemGroup(): void {
@@ -896,10 +742,6 @@ class DocumentFactoryTest extends TestCase {
 class DocumentFactoryTest_Factory extends DocumentFactory {
     // TODO [tests] Remove after https://youtrack.jetbrains.com/issue/WI-25253
 
-    public function documentOem(ViewDocument $document): Oem {
-        return parent::documentOem($document);
-    }
-
     public function documentOemGroup(ViewDocument $document): ?OemGroup {
         return parent::documentOemGroup($document);
     }
@@ -910,18 +752,6 @@ class DocumentFactoryTest_Factory extends DocumentFactory {
 
     public function assetDocumentObjectServiceGroup(AssetDocumentObject $document): ?ServiceGroup {
         return parent::assetDocumentObjectServiceGroup($document);
-    }
-
-    public function assetDocumentOem(AssetModel $asset, ViewAssetDocument $assetDocument): Oem {
-        return parent::assetDocumentOem($asset, $assetDocument);
-    }
-
-    public function assetDocumentServiceGroup(AssetModel $asset, ViewAssetDocument $assetDocument): ?ServiceGroup {
-        return parent::assetDocumentServiceGroup($asset, $assetDocument);
-    }
-
-    public function assetDocumentServiceLevel(AssetModel $asset, ViewAssetDocument $assetDocument): ?ServiceLevel {
-        return parent::assetDocumentServiceLevel($asset, $assetDocument);
     }
 
     public function createFromAssetDocumentObject(AssetDocumentObject $object): ?DocumentModel {

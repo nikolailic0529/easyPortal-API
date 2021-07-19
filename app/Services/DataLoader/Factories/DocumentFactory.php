@@ -11,6 +11,7 @@ use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
+use App\Services\DataLoader\Factories\Concerns\WithAssetDocument;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithCustomer;
 use App\Services\DataLoader\Factories\Concerns\WithDistributor;
@@ -65,6 +66,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     use WithReseller;
     use WithCustomer;
     use WithDistributor;
+    use WithAssetDocument;
 
     public function __construct(
         LoggerInterface $logger,
@@ -326,49 +328,8 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     }
     // </editor-fold>
 
-    // <editor-fold desc="AssetDocument">
-    // =========================================================================
-    protected function assetDocumentOem(AssetModel $asset, ViewAssetDocument $assetDocument): Oem {
-        return isset($assetDocument->document)
-            ? $this->documentOem($assetDocument->document)
-            : $asset->oem;
-    }
-
-    protected function assetDocumentServiceGroup(AssetModel $asset, ViewAssetDocument $assetDocument): ?ServiceGroup {
-        $oem   = $this->assetDocumentOem($asset, $assetDocument);
-        $sku   = $assetDocument->supportPackage ?? null;
-        $group = null;
-
-        if ($oem && $sku) {
-            $group = $this->serviceGroup($oem, $sku);
-        }
-
-        return $group;
-    }
-
-    protected function assetDocumentServiceLevel(AssetModel $asset, ViewAssetDocument $assetDocument): ?ServiceLevel {
-        $oem   = $this->assetDocumentOem($asset, $assetDocument);
-        $sku   = $assetDocument->skuNumber ?? null;
-        $group = $this->assetDocumentServiceGroup($asset, $assetDocument);
-        $level = null;
-
-        if ($oem && $group && $sku) {
-            $level = $this->serviceLevel($oem, $group, $sku);
-        }
-
-        return $level;
-    }
-    // </editor-fold>
-
     // <editor-fold desc="Document">
     // =========================================================================
-    protected function documentOem(ViewDocument $document): Oem {
-        return $this->oem(
-            $document->vendorSpecificFields->vendor,
-            $document->vendorSpecificFields->vendor,
-        );
-    }
-
     protected function documentOemGroup(ViewDocument $document): ?OemGroup {
         $key   = $document->vendorSpecificFields->groupId ?? null;
         $desc  = $document->vendorSpecificFields->groupDescription ?? null;
