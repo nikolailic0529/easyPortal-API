@@ -16,7 +16,7 @@ class ServiceGroupNotFound extends InvalidData {
         parent::__construct(sprintf(
             'Service Group `%s` not found (`%s`).',
             $sku,
-            $this->oem->name,
+            $this->oem->abbr,
         ));
     }
 

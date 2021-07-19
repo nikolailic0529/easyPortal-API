@@ -9,14 +9,16 @@ use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry as DocumentEntryModel;
 use App\Models\Oem;
 use App\Models\OemGroup;
-use App\Models\Product;
 use App\Models\Reseller as ResellerModel;
+use App\Models\ServiceGroup;
+use App\Models\ServiceLevel;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
+use App\Services\DataLoader\Resolvers\ServiceGroupResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
@@ -132,9 +134,9 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals('MultiNational Quote', $created->type->key);
         $this->assertEquals('CUR', $created->currency->code);
         $this->assertEquals('fr', $created->language->code);
-        $this->assertEquals('H7J34AC', $created->support->sku);
-        $this->assertEquals('HPE Foundation Care 24x7 SVC', $created->support->name);
-        $this->assertEquals('HPE', $created->support->oem->abbr);
+        $this->assertEquals('H7J34AC', $created->serviceGroup->sku);
+        $this->assertEquals('HPE Foundation Care 24x7 SVC', $created->serviceGroup->name);
+        $this->assertEquals('HPE', $created->serviceGroup->oem->abbr);
         $this->assertEquals('HPE', $created->oem->abbr);
         $this->assertEquals('1234 4678 9012', $created->oem_said);
         $this->assertEquals('abc-de', $created->oemGroup->key);
@@ -155,9 +157,9 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals('-2.05', $e->discount);
         $this->assertEquals($created->getKey(), $e->document_id);
         $this->assertEquals($asset->id, $e->asset_id);
-        $this->assertEquals('HA151AC', $e->service->sku);
-        $this->assertEquals('HPE Hardware Maintenance Onsite Support', $e->service->name);
-        $this->assertEquals('HPE', $e->service->oem->abbr);
+        $this->assertEquals('HA151AC', $e->serviceLevel->sku);
+        $this->assertEquals('HPE Hardware Maintenance Onsite Support', $e->serviceLevel->name);
+        $this->assertEquals('HPE', $e->serviceLevel->oem->abbr);
         $this->assertEquals('145.00', $e->renewal);
 
         // Changed
@@ -225,19 +227,41 @@ class DocumentFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::assetDocumentObjectSupport
+     * @covers ::assetDocumentObjectServiceGroup
      */
-    public function testAssetDocumentObjectSupport(): void {
-        $oem      = Oem::factory()->make();
+    public function testAssetDocumentObjectServiceGroup(): void {
+        $group    = ServiceGroup::factory()->make();
+        $asset    = AssetModel::factory()->make();
         $document = new AssetDocumentObject([
+            'asset'    => $asset,
             'document' => [
-                'document'                  => [
-                    'vendorSpecificFields' => [
-                        'vendor' => $this->faker->word,
-                    ],
+                'documentNumber' => $this->faker->word,
+            ],
+        ]);
+        $factory  = Mockery::mock(DocumentFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+
+        $factory
+            ->shouldReceive('assetDocumentServiceGroup')
+            ->with($asset, $document->document)
+            ->once()
+            ->andReturn($group);
+
+        $this->assertSame($group, $factory->assetDocumentObjectServiceGroup($document));
+    }
+
+    /**
+     * @covers ::assetDocumentOem
+     */
+    public function testAssetDocumentOem(): void {
+        $oem      = Oem::factory()->make();
+        $asset    = AssetModel::factory()->make();
+        $document = new ViewAssetDocument([
+            'document' => [
+                'vendorSpecificFields' => [
+                    'vendor' => $this->faker->word,
                 ],
-                'supportPackage'            => $this->faker->word,
-                'supportPackageDescription' => $this->faker->word,
             ],
         ]);
 
@@ -246,22 +270,114 @@ class DocumentFactoryTest extends TestCase {
         $factory->makePartial();
         $factory
             ->shouldReceive('documentOem')
-            ->with($document->document->document)
+            ->with($document->document)
+            ->once()
+            ->andReturn($oem);
+
+        $this->assertSame($oem, $factory->assetDocumentOem($asset, $document));
+    }
+
+    /**
+     * @covers ::assetDocumentOem
+     */
+    public function testAssetDocumentOemNoDocument(): void {
+        $oem        = Oem::factory()->make();
+        $asset      = AssetModel::factory()->make();
+        $asset->oem = $oem;
+        $document   = new ViewAssetDocument([
+            'document' => null,
+        ]);
+
+        $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('documentOem')
+            ->never();
+
+        $this->assertSame($oem, $factory->assetDocumentOem($asset, $document));
+    }
+
+    /**
+     * @covers ::assetDocumentServiceGroup
+     */
+    public function testAssetDocumentServiceGroup(): void {
+        $oem      = Oem::factory()->make();
+        $asset    = AssetModel::factory()->make();
+        $group    = ServiceGroup::factory()->make();
+        $document = new ViewAssetDocument([
+            'document'       => [
+                'vendorSpecificFields' => [
+                    'vendor' => $this->faker->word,
+                ],
+            ],
+            'supportPackage' => $this->faker->word,
+        ]);
+
+        $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('assetDocumentOem')
+            ->with($asset, $document)
             ->once()
             ->andReturn($oem);
         $factory
-            ->shouldReceive('product')
+            ->shouldReceive('serviceGroup')
             ->with(
                 $oem,
-                $document->document->supportPackage,
-                $document->document->supportPackageDescription,
-                null,
-                null,
+                $document->supportPackage,
             )
             ->once()
-            ->andReturns();
+            ->andReturns($group);
 
-        $factory->assetDocumentObjectSupport($document);
+        $this->assertSame($group, $factory->assetDocumentServiceGroup($asset, $document));
+    }
+
+    /**
+     * @covers ::assetDocumentServiceLevel
+     */
+    public function testAssetDocumentServiceLevel(): void {
+        $oem      = Oem::factory()->make();
+        $asset    = AssetModel::factory()->make();
+        $group    = ServiceGroup::factory()->make();
+        $level    = ServiceLevel::factory()->make();
+        $document = new ViewAssetDocument([
+            'document'  => [
+                'vendorSpecificFields' => [
+                    'vendor' => $this->faker->word,
+                ],
+            ],
+            'skuNumber' => $this->faker->word,
+        ]);
+
+        $factory = Mockery::mock(DocumentFactoryTest_Factory::class);
+        $factory->shouldAllowMockingProtectedMethods();
+        $factory->makePartial();
+        $factory
+            ->shouldReceive('assetDocumentOem')
+            ->with($asset, $document)
+            ->once()
+            ->andReturn($oem);
+        $factory
+            ->shouldReceive('assetDocumentServiceGroup')
+            ->with(
+                $asset,
+                $document,
+            )
+            ->once()
+            ->andReturns($group);
+        $factory
+            ->shouldReceive('serviceLevel')
+            ->with(
+                $oem,
+                $group,
+                $document->skuNumber,
+            )
+            ->once()
+            ->andReturns($level);
+
+        $this->assertSame($level, $factory->assetDocumentServiceLevel($asset, $document));
     }
 
     /**
@@ -271,8 +387,10 @@ class DocumentFactoryTest extends TestCase {
         // Prepare
         $asset      = AssetModel::factory()->create();
         $document   = DocumentModel::factory()->create([
-            'support_id' => static function (): Product {
-                return Product::factory()->create();
+            'service_group_id' => static function (array $args): ServiceGroup {
+                return ServiceGroup::factory()->create([
+                    'oem_id' => $args['oem_id'],
+                ]);
             },
         ]);
         $another    = DocumentEntryModel::factory(2)->create([
@@ -280,11 +398,11 @@ class DocumentFactoryTest extends TestCase {
             'product_id'  => $asset->product_id,
         ]);
         $properties = [
-            'document_id' => $document,
-            'asset_id'    => $asset,
-            'product_id'  => $asset->product_id,
-            'service_id'  => static function () use ($document): Product {
-                return Product::factory()->create([
+            'document_id'      => $document,
+            'asset_id'         => $asset,
+            'product_id'       => $asset->product_id,
+            'service_level_id' => static function () use ($document): ServiceLevel {
+                return ServiceLevel::factory()->create([
                     'oem_id' => $document->oem_id,
                 ]);
             },
@@ -297,37 +415,31 @@ class DocumentFactoryTest extends TestCase {
             'asset'   => $asset,
             'entries' => [
                 [
-                    'skuNumber'                 => $a->service->sku,
-                    'skuDescription'            => $a->service->name,
-                    'supportPackage'            => $document->support->sku,
-                    'supportPackageDescription' => $document->support->name,
-                    'currencyCode'              => $a->currency->code,
-                    'netPrice'                  => $a->net_price,
-                    'discount'                  => $a->discount,
-                    'listPrice'                 => $a->list_price,
-                    'estimatedValueRenewal'     => $a->renewal,
+                    'skuNumber'             => $a->serviceLevel->sku,
+                    'supportPackage'        => $document->serviceGroup->sku,
+                    'currencyCode'          => $a->currency->code,
+                    'netPrice'              => $a->net_price,
+                    'discount'              => $a->discount,
+                    'listPrice'             => $a->list_price,
+                    'estimatedValueRenewal' => $a->renewal,
                 ],
                 [
-                    'skuNumber'                 => $b->service->sku,
-                    'skuDescription'            => $b->service->name,
-                    'supportPackage'            => $document->support->sku,
-                    'supportPackageDescription' => $document->support->name,
-                    'currencyCode'              => $a->currency->code,
-                    'netPrice'                  => $b->net_price,
-                    'discount'                  => $b->discount,
-                    'listPrice'                 => $b->list_price,
-                    'estimatedValueRenewal'     => $b->renewal,
+                    'skuNumber'             => $b->serviceLevel->sku,
+                    'supportPackage'        => $document->serviceGroup->sku,
+                    'currencyCode'          => $a->currency->code,
+                    'netPrice'              => $b->net_price,
+                    'discount'              => $b->discount,
+                    'listPrice'             => $b->list_price,
+                    'estimatedValueRenewal' => $b->renewal,
                 ],
                 [
-                    'skuNumber'                 => $b->service->sku,
-                    'skuDescription'            => $b->service->name,
-                    'supportPackage'            => $document->support->sku,
-                    'supportPackageDescription' => $document->support->name,
-                    'currencyCode'              => null,
-                    'netPrice'                  => null,
-                    'discount'                  => null,
-                    'listPrice'                 => null,
-                    'estimatedValueRenewal'     => null,
+                    'skuNumber'             => $b->serviceLevel->sku,
+                    'supportPackage'        => $document->serviceGroup->sku,
+                    'currencyCode'          => null,
+                    'netPrice'              => null,
+                    'discount'              => null,
+                    'listPrice'             => null,
+                    'estimatedValueRenewal' => null,
                 ],
             ],
         ]);
@@ -336,6 +448,7 @@ class DocumentFactoryTest extends TestCase {
             $this->app->make(ProductResolver::class),
             $this->app->make(OemResolver::class),
             $this->app->make(CurrencyFactory::class),
+            $this->app->make(ServiceGroupResolver::class),
         ) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
@@ -343,6 +456,7 @@ class DocumentFactoryTest extends TestCase {
                 protected ProductResolver $products,
                 protected OemResolver $oems,
                 protected CurrencyFactory $currencies,
+                protected ServiceGroupResolver $serviceGroupResolver,
             ) {
                 // empty
             }
@@ -393,28 +507,26 @@ class DocumentFactoryTest extends TestCase {
      * @covers ::assetDocumentEntry
      */
     public function testAssetDocumentEntry(): void {
-        $asset          = AssetModel::factory()->make([
+        $asset         = AssetModel::factory()->make([
             'id'            => $this->faker->uuid,
             'serial_number' => $this->faker->uuid,
         ]);
-        $skuNumber      = $this->faker->word;
-        $skuDescription = $this->faker->sentence;
-        $currencyCode   = $this->faker->currencyCode;
-        $netPrice       = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $discount       = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $listPrice      = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $renewal        = number_format($this->faker->randomFloat(2), 2, '.', '');
-        $assetDocument  = new ViewAssetDocument([
+        $skuNumber     = $this->faker->word;
+        $currencyCode  = $this->faker->currencyCode;
+        $netPrice      = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $discount      = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $listPrice     = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $renewal       = number_format($this->faker->randomFloat(2), 2, '.', '');
+        $assetDocument = new ViewAssetDocument([
             'skuNumber'             => " {$skuNumber} ",
-            'skuDescription'        => " {$skuDescription} ",
             'netPrice'              => " {$netPrice} ",
             'discount'              => " {$discount} ",
             'listPrice'             => " {$listPrice} ",
             'estimatedValueRenewal' => " {$renewal} ",
             'currencyCode'          => " {$currencyCode} ",
         ]);
-        $document       = DocumentModel::factory()->make();
-        $factory        = new class(
+        $document      = DocumentModel::factory()->make();
+        $factory       = new class(
             $this->app->make(Normalizer::class),
             $this->app->make(ProductResolver::class),
             $this->app->make(OemResolver::class),
@@ -446,12 +558,11 @@ class DocumentFactoryTest extends TestCase {
         $this->assertNull($entry->document_id);
         $this->assertEquals($asset->serial_number, $entry->serial_number);
         $this->assertSame($asset->product, $entry->product);
-        $this->assertNotNull($entry->service_id);
-        $this->assertSame($document->oem, $entry->service->oem);
-        $this->assertEquals($skuNumber, $entry->service->sku);
-        $this->assertEquals($skuDescription, $entry->service->name);
-        $this->assertNull($entry->service->eos);
-        $this->assertNull($entry->service->eol);
+        $this->assertNotNull($entry->service_level_id);
+        $this->assertSame($document->oem, $entry->serviceLevel->oem);
+        $this->assertEquals($skuNumber, $entry->serviceLevel->sku);
+        $this->assertNull($entry->serviceLevel->eos);
+        $this->assertNull($entry->serviceLevel->eol);
         $this->assertEquals($currencyCode, $entry->currency->code);
         $this->assertEquals($netPrice, $entry->net_price);
         $this->assertEquals($listPrice, $entry->list_price);
@@ -469,7 +580,6 @@ class DocumentFactoryTest extends TestCase {
         ]);
         $assetDocument = new ViewAssetDocument([
             'skuNumber'             => null,
-            'skuDescription'        => null,
             'netPrice'              => number_format($this->faker->randomFloat(2), 2, '.', ''),
             'discount'              => number_format($this->faker->randomFloat(2), 2, '.', ''),
             'listPrice'             => number_format($this->faker->randomFloat(2), 2, '.', ''),
@@ -509,8 +619,8 @@ class DocumentFactoryTest extends TestCase {
         $this->assertNull($entry->document_id);
         $this->assertEquals($asset->serial_number, $entry->serial_number);
         $this->assertSame($asset->product, $entry->product);
-        $this->assertNull($entry->service_id);
-        $this->assertNull($entry->service);
+        $this->assertNull($entry->service_level_id);
+        $this->assertNull($entry->serviceLevel);
     }
 
     /**
@@ -535,12 +645,12 @@ class DocumentFactoryTest extends TestCase {
         $this->assertNotEquals(0, $factory->compareDocumentEntries($a, $b));
 
         // Make same
-        $a->currency_id = $b->currency_id;
-        $a->net_price   = $b->net_price;
-        $a->list_price  = $b->list_price;
-        $a->discount    = $b->discount;
-        $a->renewal     = $b->renewal;
-        $a->service_id  = $b->service_id;
+        $a->currency_id      = $b->currency_id;
+        $a->net_price        = $b->net_price;
+        $a->list_price       = $b->list_price;
+        $a->discount         = $b->discount;
+        $a->renewal          = $b->renewal;
+        $a->service_level_id = $b->service_level_id;
 
         $this->assertEquals(0, $factory->compareDocumentEntries($a, $b));
     }
@@ -773,8 +883,20 @@ class DocumentFactoryTest_Factory extends DocumentFactory {
         return parent::documentType($document);
     }
 
-    public function assetDocumentObjectSupport(AssetDocumentObject $document): Product {
-        return parent::assetDocumentObjectSupport($document);
+    public function assetDocumentObjectServiceGroup(AssetDocumentObject $document): ?ServiceGroup {
+        return parent::assetDocumentObjectServiceGroup($document);
+    }
+
+    public function assetDocumentOem(AssetModel $asset, ViewAssetDocument $assetDocument): Oem {
+        return parent::assetDocumentOem($asset, $assetDocument);
+    }
+
+    public function assetDocumentServiceGroup(AssetModel $asset, ViewAssetDocument $assetDocument): ?ServiceGroup {
+        return parent::assetDocumentServiceGroup($asset, $assetDocument);
+    }
+
+    public function assetDocumentServiceLevel(AssetModel $asset, ViewAssetDocument $assetDocument): ?ServiceLevel {
+        return parent::assetDocumentServiceLevel($asset, $assetDocument);
     }
 
     public function createFromAssetDocumentObject(AssetDocumentObject $object): ?DocumentModel {
