@@ -9,10 +9,10 @@ extend type Mutation {
 input UpdateContractNoteInput @validator {
   id: ID!
   note: String!
-  files: [UpdateQuoteNoteFile!]
+  files: [UpdateContractNoteFile!]
 }
 
-input UpdateQuoteNoteFile {
+input UpdateContractNoteFile {
    id: ID
    content: Upload
 }

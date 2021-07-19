@@ -3915,10 +3915,15 @@ type UpdateClientTranslationsPayload {
   updated: [Translation!]!
 }
 
+input UpdateContractNoteFile {
+  id: ID
+  content: Upload
+}
+
 input UpdateContractNoteInput {
   id: ID!
   note: String!
-  files: [UpdateQuoteNoteFile!]
+  files: [UpdateContractNoteFile!]
 }
 
 type UpdateContractNotePayload {

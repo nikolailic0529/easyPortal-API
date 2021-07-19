@@ -49,7 +49,6 @@ class File extends Model {
     }
 
     public function getUrlAttribute(): string {
-        $url = app()->make(UrlGenerator::class);
-        return $url->route('files', ['id' => $this->id ]);
+        return app()->make(UrlGenerator::class)->route('files', ['id' => $this->getKey() ]);
     }
 }

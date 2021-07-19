@@ -612,6 +612,7 @@ class QuoteTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderQueryNotes(): array {
+        $url = 'http://example.com/files/f9834bc1-2f2f-4c57-bb8d-7a224ac2E988';
         return (new MergeDataProvider([
             'root'           => new CompositeDataProvider(
                 new RootOrganizationDataProvider('quote'),
@@ -681,7 +682,7 @@ class QuoteTest extends TestCase {
                                             [
                                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E988',
                                                 'name' => 'document',
-                                                'url'  => 'http://example.com/files/f9834bc1-2f2f-4c57-bb8d-7a224ac2E988', //phpcs:ignore
+                                                'url'  => $url,
                                             ],
                                         ],
                                     ],
