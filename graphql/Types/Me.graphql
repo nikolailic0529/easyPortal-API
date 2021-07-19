@@ -16,4 +16,11 @@ type Me {
 
   profile: Profile
   @field(resolver: "App\\GraphQL\\Queries\\Me@profile")
+
+  #portal Settings
+  locale:  String
+  timezone: String
+  homepage: String
+  language_id: ID
+  language: Language
 }

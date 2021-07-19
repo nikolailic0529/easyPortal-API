@@ -48,6 +48,15 @@ class MeTest extends TestCase {
                     locale
                     root
                     permissions
+                    locale
+                    timezone
+                    homepage
+                    language_id
+                    language {
+                        id
+                        code
+                        name
+                    }
                 }
             }')
             ->assertThat($expected);

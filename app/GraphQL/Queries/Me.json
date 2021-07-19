@@ -9,7 +9,10 @@
         "email",
         "locale",
         "root",
-        "permissions"
+        "permissions",
+        "homepage",
+        "timezone",
+        "language_id"
     ],
     "properties": {
         "id": {
@@ -38,6 +41,38 @@
             "items": {
                 "type": "string"
             }
+        },
+        "timezone": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+         "homepage": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "language_id": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "../types.json/#/definitions/ID"
+                }
+            ]
+        },
+        "language": {
+            "oneOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "$ref": "../Types/Language.json"
+                }
+            ]
         }
     }
 }
