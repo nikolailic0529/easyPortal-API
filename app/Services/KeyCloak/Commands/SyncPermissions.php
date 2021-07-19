@@ -49,7 +49,7 @@ class SyncPermissions extends Command {
         $permissions = Permission::query()
             ->withTrashed()
             ->get()
-            ->keyBy((new Permission())->getKeyName());
+            ->keyBy('key');
 
         // Get all keycloak roles
         $roles = (new Collection($this->client->getRoles()))->keyBy('name');
@@ -65,10 +65,10 @@ class SyncPermissions extends Command {
             }
 
             $permission = null;
-            if (!$permissions->has($role->id)) {
+            if (!$permissions->has($role->name)) {
                 $permission = new Permission();
             } else {
-                $permission = $permissions->get($role->id);
+                $permission = $permissions->get($role->name);
                 if ($permission->trashed()) {
                     $permission->restore();
                 }
@@ -76,7 +76,7 @@ class SyncPermissions extends Command {
             $this->savePermission($permission, $role);
 
             // remove it from permissions to delete the rest
-            $permissions->forget($role->id);
+            $permissions->forget($role->name);
         }
 
         foreach ($permissions as $permission) {
