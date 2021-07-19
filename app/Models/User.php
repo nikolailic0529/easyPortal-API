@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasLanguage;
 use App\Models\Enums\UserType;
 use App\Services\Auth\HasPermissions;
 use App\Services\Auth\Rootable;
@@ -36,10 +37,14 @@ use LogicException;
  * @property array                                                                 $permissions
  * @property string|null                                                           $locale
  * @property string|null                                                           $password
+ * @property string|null                                                           $language_id
+ * @property string|null                                                           $homepage
+ * @property string|null                                                           $timezone
  * @property \Carbon\CarbonImmutable                                               $created_at
  * @property \Carbon\CarbonImmutable                                               $updated_at
  * @property \Carbon\CarbonImmutable|null                                          $deleted_at
  * @property \App\Models\Organization                                              $organization
+ * @property \App\Models\Language                                                  $language
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\UserSearch> $searches
  * @property-read int|null                                                         $searches_count
  * @method static \Database\Factories\UserFactory factory(...$parameters)
@@ -78,6 +83,7 @@ class User extends Model implements
     use MustVerifyEmail;
     use CanResetPassword;
     use RoutesNotifications;
+    use HasLanguage;
 
     protected const CASTS = [
         'type'           => UserType::class,
