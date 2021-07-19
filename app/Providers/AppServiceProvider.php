@@ -22,6 +22,7 @@ use App\Models\DocumentEntry;
 use App\Models\Language;
 use App\Models\Location;
 use App\Models\LocationType;
+use App\Models\Note;
 use App\Models\Oem;
 use App\Models\OemGroup;
 use App\Models\Organization;
@@ -120,6 +121,7 @@ class AppServiceProvider extends ServiceProvider {
             'permission'             => Permission::class,
             'role'                   => Role::class,
             'oem-group'              => OemGroup::class,
+            'note'                   => Note::class,
         ]);
     }
 }

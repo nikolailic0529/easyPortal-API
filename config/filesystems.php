@@ -2,6 +2,7 @@
 
 use App\Services\Filesystem\Disks\AppDisk;
 use App\Services\Filesystem\Disks\ClientDisk;
+use App\Services\Filesystem\Disks\NotesDisk;
 
 return [
     /*
@@ -38,6 +39,10 @@ return [
         ClientDisk::NAME => [
             'driver' => 'local',
             'root'   => storage_path('client'),
+        ],
+        NotesDisk::NAME  => [
+            'driver' => 'local',
+            'root'   => storage_path('notes'),
         ],
 
         // Default

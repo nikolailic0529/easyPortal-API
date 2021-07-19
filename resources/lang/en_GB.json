@@ -107,6 +107,8 @@
     "validation.currency_id": "Unknown currency",
     "validation.organization_id": "Unknown organization",
     "validation.role_id": "Unknown Role",
+    "validation.quote_id'": "Unknown Quote.",
+    "validation.contract_id": "Unknown Contract.",
     "validation.color": "Color should be in #RRGGBB format.",
     "validation.permissions_id": "Unknown permission",
     "errors.message": ":message (:code)",

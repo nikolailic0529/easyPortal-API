@@ -103,6 +103,23 @@ interface Constants {
     #[Group('ep')]
     #[Type(Organization::class)]
     public const EP_ROOT_ORGANIZATION = '40765bbb-4736-4d2f-8964-1c3fd4e59aac';
+
+    /**
+     * Max size of uploaded files in KB.
+     */
+    #[Setting('ep.file.max_size')]
+    #[PublicName('epFileMaxSize')]
+    #[Group('ep')]
+    public const EP_FILE_MAX_SIZE = 2048;
+
+    /**
+     * Accepted file/document formats.
+     */
+    #[Setting('ep.file.formats')]
+    #[PublicName('epFileFormats')]
+    #[Group('ep')]
+    #[Type(StringType::class)]
+    public const EP_FILE_FORMATS = ['jpg', 'jpeg', 'png', 'csv', 'xlsx', 'pdf', 'docx', 'doc'];
     // </editor-fold>
 
     // <editor-fold desc="EP_CLIENT">
