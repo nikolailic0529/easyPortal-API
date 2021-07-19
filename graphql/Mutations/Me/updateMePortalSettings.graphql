@@ -9,9 +9,9 @@ extend type Mutation {
 
 input UpdateMePortalSettingsInput {
   homepage: String
-  language_id: ID! @rules(apply: ["App\\Rules\\LanguageId"])
-  locale: String! @rules(apply: ["App\\Rules\\Locale"])
-  timezone: String @rules(apply: ["timezone"])
+  language_id: ID @rules(apply: ["nullable","App\\Rules\\LanguageId"])
+  locale: String @rules(apply: ["nullable","App\\Rules\\Locale"])
+  timezone: String @rules(apply: ["nullable","timezone"])
 }
 
 type UpdateMePortalSettingsPayload {

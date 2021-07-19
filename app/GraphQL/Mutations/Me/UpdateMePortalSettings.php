@@ -2,7 +2,15 @@
 
 namespace App\GraphQL\Mutations\Me;
 
+use Illuminate\Auth\AuthManager;
+
 class UpdateMePortalSettings {
+
+    public function __construct(
+        protected AuthManager $auth,
+    ) {
+        // empty
+    }
     /**
      * @param  null  $_
      * @param  array<string, mixed>  $args
@@ -10,6 +18,11 @@ class UpdateMePortalSettings {
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
-        return [];
+        $user = $this->auth->user();
+
+        foreach ($args['input'] as $key => $value) {
+            $user->{$key} = $value;
+        }
+        return ['result' => (bool) $user->save()];
     }
 }
