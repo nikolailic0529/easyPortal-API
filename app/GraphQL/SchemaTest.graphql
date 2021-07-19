@@ -696,6 +696,7 @@ type Document {
 input DocumentEntriesQuery {
   id: ID!
   asset_id: ID!
+  asset: AssetsQuery
   net_price: Float
   list_price: Float
   discount: Float
@@ -2282,6 +2283,9 @@ input SearchByConditionDocumentEntriesQuery {
 
   """Property condition."""
   asset_id: SearchByScalarID
+
+  """Property condition."""
+  asset: SearchByRelationAssetsQuery
 
   """Property condition."""
   net_price: SearchByScalarFloatOrNull
