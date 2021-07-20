@@ -256,6 +256,9 @@ class AssetFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAssetAssetOnly(): void {
+        // Mock
+        $this->overrideOemFinder();
+
         // Prepare
         $container = $this->app->make(Container::class);
         $factory   = $container->make(AssetFactory::class);
@@ -312,6 +315,9 @@ class AssetFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAssetAssetInvalidAddress(): void {
+        // Mock
+        $this->overrideOemFinder();
+
         // Prepare
         $container = $this->app->make(Container::class);
         $factory   = $container->make(AssetFactory::class);
@@ -335,6 +341,9 @@ class AssetFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAssetWithoutZip(): void {
+        // Mock
+        $this->overrideOemFinder();
+
         // Prepare
         $container = $this->app->make(Container::class);
         $factory   = $container->make(AssetFactory::class);
@@ -356,6 +365,9 @@ class AssetFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAssetOnResellerLocation(): void {
+        // Mock
+        $this->overrideOemFinder();
+
         // Prepare
         $container = $this->app->make(Container::class);
         $factory   = $container->make(AssetFactory::class);
@@ -403,6 +415,9 @@ class AssetFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAssetAssetTypeNull(): void {
+        // Mock
+        $this->overrideOemFinder();
+
         // Prepare
         $container = $this->app->make(Container::class);
         $factory   = $container->make(AssetFactory::class);
@@ -1127,7 +1142,7 @@ class AssetFactoryTest extends TestCase {
 
         $factory
             ->shouldReceive('oem')
-            ->with($asset->vendor, $asset->vendor)
+            ->with($asset->vendor)
             ->once()
             ->andReturns();
 

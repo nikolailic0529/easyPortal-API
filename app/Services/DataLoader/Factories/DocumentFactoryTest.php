@@ -340,7 +340,7 @@ class DocumentFactoryTest extends TestCase {
             public function __construct(
                 protected Normalizer $normalizer,
                 protected ProductResolver $products,
-                protected OemResolver $oems,
+                protected OemResolver $oemResolver,
                 protected CurrencyFactory $currencies,
                 protected ServiceGroupResolver $serviceGroupResolver,
                 protected ServiceLevelResolver $serviceLevelResolver,
@@ -439,7 +439,7 @@ class DocumentFactoryTest extends TestCase {
             public function __construct(
                 protected Normalizer $normalizer,
                 protected ProductResolver $products,
-                protected OemResolver $oems,
+                protected OemResolver $oemResolver,
                 protected CurrencyFactory $currencies,
                 protected ServiceGroupResolver $serviceGroupResolver,
                 protected ServiceLevelResolver $serviceLevelResolver,
@@ -502,7 +502,7 @@ class DocumentFactoryTest extends TestCase {
             public function __construct(
                 protected Normalizer $normalizer,
                 protected ProductResolver $products,
-                protected OemResolver $oems,
+                protected OemResolver $oemResolver,
                 protected CurrencyFactory $currencies,
             ) {
                 // empty

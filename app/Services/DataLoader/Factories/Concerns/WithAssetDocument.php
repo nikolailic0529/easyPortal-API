@@ -46,9 +46,6 @@ trait WithAssetDocument {
     }
 
     protected function documentOem(ViewDocument $document): Oem {
-        return $this->oem(
-            $document->vendorSpecificFields->vendor,
-            $document->vendorSpecificFields->vendor,
-        );
+        return $this->oem($document->vendorSpecificFields->vendor);
     }
 }

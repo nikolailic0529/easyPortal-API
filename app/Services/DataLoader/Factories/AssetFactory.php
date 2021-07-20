@@ -31,6 +31,7 @@ use App\Services\DataLoader\Factories\Concerns\WithTag;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Finders\CustomerFinder;
+use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Finders\ServiceLevelFinder;
@@ -91,7 +92,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         Normalizer $normalizer,
         protected Dispatcher $dispatcher,
         protected AssetResolver $assets,
-        protected OemResolver $oems,
+        protected OemResolver $oemResolver,
         protected TypeResolver $types,
         protected ProductResolver $products,
         protected CustomerResolver $customerResolver,
@@ -109,6 +110,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         protected ?CustomerFinder $customerFinder = null,
         protected ?ServiceGroupFinder $serviceGroupFinder = null,
         protected ?ServiceLevelFinder $serviceLevelFinder = null,
+        protected ?OemFinder $oemFinder = null,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -162,7 +164,11 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     }
 
     protected function getOemResolver(): OemResolver {
-        return $this->oems;
+        return $this->oemResolver;
+    }
+
+    protected function getOemFinder(): ?OemFinder {
+        return $this->oemFinder;
     }
 
     protected function getProductResolver(): ProductResolver {
@@ -233,7 +239,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             })
             ->map(function (ViewAsset $asset): array {
                 return [
-                    'sku' => $this->normalizer->string($asset->sku),
+                    'sku' => $this->getNormalizer()->string($asset->sku),
                 ];
             })
             ->unique()
@@ -264,7 +270,8 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $location = $this->assetLocation($asset, $customer, $reseller);
 
             $created              = !$model->exists;
-            $model->id            = $this->normalizer->uuid($asset->id);
+            $normalizer           = $this->getNormalizer();
+            $model->id            = $normalizer->uuid($asset->id);
             $model->oem           = $this->assetOem($asset);
             $model->type          = $this->assetType($asset);
             $model->status        = $this->assetStatus($asset);
@@ -272,9 +279,9 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $model->reseller      = $reseller;
             $model->customer      = $customer;
             $model->location      = $location;
-            $model->changed_at    = $this->normalizer->datetime($asset->updatedAt);
-            $model->serial_number = $this->normalizer->string($asset->serialNumber);
-            $model->data_quality  = $this->normalizer->string($asset->dataQualityScore);
+            $model->changed_at    = $normalizer->datetime($asset->updatedAt);
+            $model->serial_number = $normalizer->string($asset->serialNumber);
+            $model->data_quality  = $normalizer->string($asset->dataQualityScore);
             $model->contacts      = $this->objectContacts($model, $asset->latestContactPersons);
             $model->tags          = $this->assetTags($asset);
             $model->coverages     = $this->assetCoverages($asset);
@@ -408,6 +415,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         // has an initial warranty up to "warrantyEndDate" and then the user
         // can buy additional warranty.
 
+        $normalizer = $this->getNormalizer();
         $warranties = [];
         $existing   = $model->warranties
             ->filter(static function (AssetWarranty $warranty): bool {
@@ -420,7 +428,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         foreach ($asset->assetDocument as $assetDocument) {
             try {
                 // Warranty exists?
-                $end = $this->normalizer->datetime($assetDocument->warrantyEndDate);
+                $end = $normalizer->datetime($assetDocument->warrantyEndDate);
 
                 if (!$end) {
                     continue;
@@ -497,6 +505,8 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             });
 
         // Warranties
+        $normalizer = $this->getNormalizer();
+
         foreach ($documents as $assetDocument) {
             try {
                 // Valid?
@@ -504,8 +514,8 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 $number       = $assetDocument->documentNumber;
                 $serviceGroup = $this->assetDocumentServiceGroup($model, $assetDocument);
                 $serviceLevel = $this->assetDocumentServiceLevel($model, $assetDocument);
-                $start        = $this->normalizer->datetime($assetDocument->startDate);
-                $end          = $this->normalizer->datetime($assetDocument->endDate);
+                $start        = $normalizer->datetime($assetDocument->startDate);
+                $end          = $normalizer->datetime($assetDocument->endDate);
 
                 if (!($number && ($start || $end) && ($serviceGroup || $serviceLevel))) {
                     continue;
@@ -582,7 +592,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     }
 
     protected function assetOem(ViewAsset $asset): Oem {
-        return $this->oem($asset->vendor, $asset->vendor);
+        return $this->oem($asset->vendor);
     }
 
     protected function assetType(ViewAsset $asset): ?TypeModel {
@@ -640,7 +650,8 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
      * @return array<\App\Models\Tag>
      */
     protected function assetTags(ViewAsset $asset): array {
-        $name = $this->normalizer->string($asset->assetTag);
+        $name = $this->getNormalizer()->string($asset->assetTag);
+
         if ($name) {
             return [$this->tag($name)];
         }

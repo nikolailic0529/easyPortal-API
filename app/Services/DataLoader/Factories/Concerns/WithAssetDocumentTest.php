@@ -8,6 +8,7 @@ use App\Models\Oem;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Services\DataLoader\Factories\ModelFactory;
+use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Finders\ServiceLevelFinder;
 use App\Services\DataLoader\Normalizer;
@@ -42,7 +43,6 @@ class WithAssetDocumentTest extends TestCase {
         $factory
             ->shouldReceive('oem')
             ->with(
-                $document->vendorSpecificFields->vendor,
                 $document->vendorSpecificFields->vendor,
             )
             ->once()
@@ -206,6 +206,7 @@ class WithAssetDocumentTest_Factory extends ModelFactory {
         protected ServiceLevelResolver $serviceLevelResolver,
         protected ?ServiceGroupFinder $serviceGroupFinder = null,
         protected ?ServiceLevelFinder $serviceLevelFinder = null,
+        protected ?OemFinder $oemFinder = null,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -216,6 +217,10 @@ class WithAssetDocumentTest_Factory extends ModelFactory {
 
     protected function getOemResolver(): OemResolver {
         return $this->oemResolver;
+    }
+
+    protected function getOemFinder(): ?OemFinder {
+        return $this->oemFinder;
     }
 
     protected function getServiceGroupFinder(): ?ServiceGroupFinder {

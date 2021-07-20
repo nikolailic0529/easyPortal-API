@@ -5,10 +5,8 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Asset as AssetModel;
 use App\Models\Document as DocumentModel;
 use App\Models\DocumentEntry;
-use App\Models\Oem;
 use App\Models\OemGroup;
 use App\Models\ServiceGroup;
-use App\Models\ServiceLevel;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factories\Concerns\WithAssetDocument;
@@ -25,6 +23,7 @@ use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Finders\DistributorFinder;
+use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Finders\ServiceLevelFinder;
@@ -71,7 +70,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
-        protected OemResolver $oems,
+        protected OemResolver $oemResolver,
         protected TypeResolver $types,
         protected ResellerResolver $resellerResolver,
         protected CustomerResolver $customerResolver,
@@ -89,6 +88,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         protected ?CustomerFinder $customerFinder = null,
         protected ?ServiceGroupFinder $serviceGroupFinder = null,
         protected ?ServiceLevelFinder $serviceLevelFinder = null,
+        protected ?OemFinder $oemFinder = null,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -129,7 +129,11 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     }
 
     protected function getOemResolver(): OemResolver {
-        return $this->oems;
+        return $this->oemResolver;
+    }
+
+    protected function getOemFinder(): ?OemFinder {
+        return $this->oemFinder;
     }
 
     protected function getProductResolver(): ProductResolver {
@@ -218,11 +222,12 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         $factory = $this->factory(function (DocumentModel $model) use (&$created, $object): DocumentModel {
             // Update
             $created             = !$model->exists;
+            $normalizer          = $this->getNormalizer();
             $document            = $object->document->document;
-            $model->id           = $this->normalizer->uuid($document->id);
+            $model->id           = $normalizer->uuid($document->id);
             $model->oem          = $this->documentOem($document);
             $model->oemGroup     = $this->documentOemGroup($document);
-            $model->oem_said     = $this->normalizer->string($document->vendorSpecificFields->said ?? null);
+            $model->oem_said     = $normalizer->string($document->vendorSpecificFields->said ?? null);
             $model->type         = $this->documentType($document);
             $model->serviceGroup = $this->assetDocumentObjectServiceGroup($object);
             $model->reseller     = $this->reseller($document);
@@ -230,11 +235,11 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
             $model->currency     = $this->currencies->create($object);
             $model->language     = $this->languages->create($object);
             $model->distributor  = $this->distributor($document);
-            $model->start        = $this->normalizer->datetime($document->startDate);
-            $model->end          = $this->normalizer->datetime($document->endDate);
-            $model->price        = $this->normalizer->number($document->totalNetPrice);
-            $model->number       = $this->normalizer->string($document->documentNumber);
-            $model->changed_at   = $this->normalizer->datetime($document->updatedAt);
+            $model->start        = $normalizer->datetime($document->startDate);
+            $model->end          = $normalizer->datetime($document->endDate);
+            $model->price        = $normalizer->number($document->totalNetPrice);
+            $model->number       = $normalizer->string($document->documentNumber);
+            $model->changed_at   = $normalizer->datetime($document->updatedAt);
             $model->contacts     = $this->objectContacts($model, (array) $document->contactPersons);
             $model->entries      = $this->assetDocumentObjectEntries($model, $object);
             $model->save();
@@ -304,14 +309,15 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         ViewAssetDocument $assetDocument,
     ): DocumentEntry {
         $entry                = new DocumentEntry();
+        $normalizer           = $this->getNormalizer();
         $entry->asset         = $asset;
         $entry->product       = $asset->product;
         $entry->serial_number = $asset->serial_number;
         $entry->currency      = $this->currencies->create($assetDocument);
-        $entry->net_price     = $this->normalizer->number($assetDocument->netPrice);
-        $entry->list_price    = $this->normalizer->number($assetDocument->listPrice);
-        $entry->discount      = $this->normalizer->number($assetDocument->discount);
-        $entry->renewal       = $this->normalizer->number($assetDocument->estimatedValueRenewal);
+        $entry->net_price     = $normalizer->number($assetDocument->netPrice);
+        $entry->list_price    = $normalizer->number($assetDocument->listPrice);
+        $entry->discount      = $normalizer->number($assetDocument->discount);
+        $entry->renewal       = $normalizer->number($assetDocument->estimatedValueRenewal);
         $entry->serviceLevel  = $this->assetDocumentServiceLevel($asset, $assetDocument);
 
         return $entry;
