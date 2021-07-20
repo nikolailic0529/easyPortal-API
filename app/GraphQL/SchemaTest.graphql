@@ -3988,17 +3988,6 @@ type UpdateMePasswordPayload {
   result: Boolean!
 }
 
-input UpdateMeSettingsInput {
-  homepage: String
-  language_id: ID
-  locale: String
-  timezone: String
-}
-
-type UpdateMeSettingsPayload {
-  result: Boolean!
-}
-
 input UpdateMeProfileInput {
   first_name: String
   last_name: String
@@ -4013,6 +4002,16 @@ input UpdateMeProfileInput {
 }
 
 type UpdateMeProfilePayload {
+  result: Boolean!
+}
+
+input UpdateMeSettingsInput {
+  homepage: String
+  locale: String
+  timezone: String
+}
+
+type UpdateMeSettingsPayload {
   result: Boolean!
 }
 

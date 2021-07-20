@@ -9,7 +9,6 @@ extend type Mutation {
 
 input UpdateMeSettingsInput {
   homepage: String
-  language_id: ID @rules(apply: ["nullable","App\\Rules\\LanguageId"])
   locale: String @rules(apply: ["nullable","App\\Rules\\Locale"])
   timezone: String @rules(apply: ["nullable","timezone"])
 }

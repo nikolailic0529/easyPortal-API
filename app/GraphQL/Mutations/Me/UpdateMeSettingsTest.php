@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Mutations\Me;
 
-use App\Models\Language;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -55,9 +54,6 @@ class UpdateMeSettingsTest extends TestCase {
             array_key_exists('homepage', $input)
                 ? $this->assertEquals($user->homepage, $input['homepage'])
                 : $this->assertNull($user->homepage);
-            array_key_exists('language_id', $input)
-                ? $this->assertEquals($user->language_id, $input['language_id'])
-                : $this->assertNull($user->language_id);
             array_key_exists('locale', $input)
                 ? $this->assertEquals($user->locale, $input['locale'])
                 : $this->assertNull($user->locale);
@@ -81,12 +77,10 @@ class UpdateMeSettingsTest extends TestCase {
                 'ok'                               => [
                     new GraphQLSuccess('updateMeSettings', UpdateMeSettings::class),
                     static function (): array {
-                        $language = Language::factory()->create();
                         return [
-                            'homepage'    => 'Dashboard',
-                            'timezone'    => 'Europe/London',
-                            'language_id' => $language->getKey(),
-                            'locale'      => 'en_GB',
+                            'homepage' => 'Dashboard',
+                            'timezone' => 'Europe/London',
+                            'locale'   => 'en_GB',
                         ];
                     },
                 ],
@@ -113,16 +107,6 @@ class UpdateMeSettingsTest extends TestCase {
                     static function (): array {
                         return [
                             'timezone' => 'wrong locale',
-                        ];
-                    },
-                ],
-                'invalid request/Invalid language' => [
-                    new GraphQLError('updateMeSettings', static function (): array {
-                        return [__('errors.validation_failed')];
-                    }),
-                    static function (TestCase $test): array {
-                        return [
-                            'language_id' => $test->faker->uuid,
                         ];
                     },
                 ],
