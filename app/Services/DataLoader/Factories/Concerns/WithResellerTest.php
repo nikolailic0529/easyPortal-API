@@ -162,17 +162,17 @@ class WithResellerTestObject extends Factory {
     /** @noinspection PhpMissingParentConstructorInspection */
     public function __construct(
         protected Normalizer $normalizer,
-        protected ResellerResolver $resolver,
-        protected ?ResellerFinder $finder = null,
+        protected ResellerResolver $resellerResolver,
+        protected ?ResellerFinder $resellerFinder = null,
     ) {
         // empty
     }
 
     protected function getResellerResolver(): ResellerResolver {
-        return $this->resolver;
+        return $this->resellerResolver;
     }
 
     protected function getResellerFinder(): ?ResellerFinder {
-        return $this->finder;
+        return $this->resellerFinder;
     }
 }

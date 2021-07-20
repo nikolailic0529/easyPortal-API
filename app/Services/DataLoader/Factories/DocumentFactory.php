@@ -71,15 +71,15 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         LoggerInterface $logger,
         Normalizer $normalizer,
         protected OemResolver $oemResolver,
-        protected TypeResolver $types,
+        protected TypeResolver $typeResolver,
         protected ResellerResolver $resellerResolver,
         protected CustomerResolver $customerResolver,
-        protected ProductResolver $products,
-        protected CurrencyFactory $currencies,
-        protected DocumentResolver $documents,
-        protected LanguageFactory $languages,
+        protected ProductResolver $productResolver,
+        protected CurrencyFactory $currencyFactory,
+        protected DocumentResolver $documentResolver,
+        protected LanguageFactory $languageFactory,
         protected DistributorResolver $distributorResolver,
-        protected ContactFactory $contacts,
+        protected ContactFactory $contactFactory,
         protected OemGroupResolver $oemGroupResolver,
         protected ServiceGroupResolver $serviceGroupResolver,
         protected ServiceLevelResolver $serviceLevelResolver,
@@ -125,7 +125,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     }
 
     protected function getContactsFactory(): ContactFactory {
-        return $this->contacts;
+        return $this->contactFactory;
     }
 
     protected function getOemResolver(): OemResolver {
@@ -137,11 +137,11 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     }
 
     protected function getProductResolver(): ProductResolver {
-        return $this->products;
+        return $this->productResolver;
     }
 
     protected function getTypeResolver(): TypeResolver {
-        return $this->types;
+        return $this->typeResolver;
     }
 
     protected function getOemGroupResolver(): OemGroupResolver {
@@ -203,7 +203,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
             ->unique()
             ->all();
 
-        $this->documents->prefetch($keys, $reset, $callback);
+        $this->documentResolver->prefetch($keys, $reset, $callback);
 
         return $this;
     }
@@ -232,8 +232,8 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
             $model->serviceGroup = $this->assetDocumentObjectServiceGroup($object);
             $model->reseller     = $this->reseller($document);
             $model->customer     = $this->customer($document);
-            $model->currency     = $this->currencies->create($object);
-            $model->language     = $this->languages->create($object);
+            $model->currency     = $this->currencyFactory->create($object);
+            $model->language     = $this->languageFactory->create($object);
             $model->distributor  = $this->distributor($document);
             $model->start        = $normalizer->datetime($document->startDate);
             $model->end          = $normalizer->datetime($document->endDate);
@@ -247,7 +247,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
             // Return
             return $model;
         });
-        $model   = $this->documents->get(
+        $model   = $this->documentResolver->get(
             $object->document->document->id,
             static function () use ($factory): DocumentModel {
                 return $factory(new DocumentModel());
@@ -313,7 +313,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         $entry->asset         = $asset;
         $entry->product       = $asset->product;
         $entry->serial_number = $asset->serial_number;
-        $entry->currency      = $this->currencies->create($assetDocument);
+        $entry->currency      = $this->currencyFactory->create($assetDocument);
         $entry->net_price     = $normalizer->number($assetDocument->netPrice);
         $entry->list_price    = $normalizer->number($assetDocument->listPrice);
         $entry->discount      = $normalizer->number($assetDocument->discount);

@@ -162,17 +162,17 @@ class WithCustomerTestObject extends Factory {
     /** @noinspection PhpMissingParentConstructorInspection */
     public function __construct(
         protected Normalizer $normalizer,
-        protected CustomerResolver $resolver,
-        protected ?CustomerFinder $finder = null,
+        protected CustomerResolver $customerResolver,
+        protected ?CustomerFinder $customerFinder = null,
     ) {
         // empty
     }
 
     protected function getCustomerResolver(): CustomerResolver {
-        return $this->resolver;
+        return $this->customerResolver;
     }
 
     protected function getCustomerFinder(): ?CustomerFinder {
-        return $this->finder;
+        return $this->customerFinder;
     }
 }

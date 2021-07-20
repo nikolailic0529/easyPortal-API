@@ -80,10 +80,10 @@ class LanguageFactory extends ModelFactory {
             $language = $this->languages->get(
                 $code,
                 $this->factory(function () use ($code): Language {
-                    $model = new Language();
-
-                    $model->code = $this->normalizer->string($code);
-                    $model->name = $this->normalizer->string($code);
+                    $model       = new Language();
+                    $normalizer  = $this->getNormalizer();
+                    $model->code = $normalizer->string($code);
+                    $model->name = $normalizer->string($code);
 
                     $model->save();
 

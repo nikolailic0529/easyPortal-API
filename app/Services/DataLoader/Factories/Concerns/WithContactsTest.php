@@ -51,7 +51,7 @@ class WithContactsTest extends TestCase {
             public function __construct(
                 protected LoggerInterface $logger,
                 protected Normalizer $normalizer,
-                protected TypeResolver $types,
+                protected TypeResolver $typeResolver,
                 protected ContactFactory $contacts,
             ) {
                 // empty
@@ -66,7 +66,7 @@ class WithContactsTest extends TestCase {
             }
 
             protected function getTypeResolver(): TypeResolver {
-                return $this->types;
+                return $this->typeResolver;
             }
         };
 

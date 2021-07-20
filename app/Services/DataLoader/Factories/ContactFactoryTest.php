@@ -116,9 +116,11 @@ class ContactFactoryTest extends TestCase {
 
         $factory = new class($normalizer, $resolver) extends ContactFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, ContactResolver $resolver) {
-                $this->normalizer = $normalizer;
-                $this->contacts   = $resolver;
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected ContactResolver $contactResolver,
+            ) {
+                // empty
             }
 
             public function contact(

@@ -128,17 +128,17 @@ class WithDistributorTestObject extends Factory {
     /** @noinspection PhpMissingParentConstructorInspection */
     public function __construct(
         protected Normalizer $normalizer,
-        protected DistributorResolver $resolver,
-        protected ?DistributorFinder $finder = null,
+        protected DistributorResolver $distributorResolver,
+        protected ?DistributorFinder $distributorFinder = null,
     ) {
         // empty
     }
 
     protected function getDistributorResolver(): DistributorResolver {
-        return $this->resolver;
+        return $this->distributorResolver;
     }
 
     protected function getDistributorFinder(): ?DistributorFinder {
-        return $this->finder;
+        return $this->distributorFinder;
     }
 }

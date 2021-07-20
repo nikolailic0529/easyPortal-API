@@ -27,10 +27,11 @@ use function is_array;
  */
 abstract class Resolver implements Singleton {
     protected Cache|null $cache = null;
-    protected Normalizer $normalizer;
 
-    public function __construct(Normalizer $normalizer) {
-        $this->normalizer = $normalizer;
+    public function __construct(
+        protected Normalizer $normalizer,
+    ) {
+        // empty
     }
 
     /**

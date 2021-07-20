@@ -26,13 +26,21 @@ class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
         LoggerInterface $logger,
         Normalizer $normalizer,
         Dispatcher $dispatcher,
-        TypeResolver $types,
-        StatusResolver $statuses,
-        ContactFactory $contacts,
-        LocationFactory $locations,
-        protected ResellerResolver $resellers,
+        TypeResolver $typeResolver,
+        StatusResolver $statusResolver,
+        ContactFactory $contactFactory,
+        LocationFactory $locationFactory,
+        protected ResellerResolver $resellerResolver,
     ) {
-        parent::__construct($logger, $normalizer, $dispatcher, $types, $statuses, $contacts, $locations);
+        parent::__construct(
+            $logger,
+            $normalizer,
+            $dispatcher,
+            $typeResolver,
+            $statusResolver,
+            $contactFactory,
+            $locationFactory,
+        );
     }
 
     // <editor-fold desc="Prefetch">
@@ -68,7 +76,7 @@ class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
             ->filter()
             ->all();
 
-        $this->resellers->prefetch($keys, $reset, $callback);
+        $this->resellerResolver->prefetch($keys, $reset, $callback);
 
         return $this;
     }
@@ -106,10 +114,11 @@ class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
         $created  = false;
         $factory  = $this->factory(function (Reseller $reseller) use (&$created, $company): Reseller {
             $created              = !$reseller->exists;
-            $reseller->id         = $this->normalizer->uuid($company->id);
-            $reseller->name       = $this->normalizer->string($company->name);
+            $normalizer           = $this->getNormalizer();
+            $reseller->id         = $normalizer->uuid($company->id);
+            $reseller->name       = $normalizer->string($company->name);
             $reseller->type       = $this->companyType($reseller, $company->companyTypes);
-            $reseller->changed_at = $this->normalizer->datetime($company->updatedAt);
+            $reseller->changed_at = $normalizer->datetime($company->updatedAt);
             $reseller->statuses   = $this->companyStatuses($reseller, $company);
             $reseller->contacts   = $this->objectContacts($reseller, $company->companyContactPersons);
             $reseller->locations  = $this->objectLocations($reseller, $company->locations);
@@ -120,7 +129,7 @@ class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
 
             return $reseller;
         });
-        $reseller = $this->resellers->get(
+        $reseller = $this->resellerResolver->get(
             $company->id,
             static function () use ($factory): Reseller {
                 return $factory(new Reseller());

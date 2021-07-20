@@ -172,9 +172,11 @@ class CustomerFactoryTest extends TestCase {
 
         $factory = new class($normalizer, $resolver) extends CustomerFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, CustomerResolver $resolver) {
-                $this->normalizer = $normalizer;
-                $this->customers  = $resolver;
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected CustomerResolver $customerResolver,
+            ) {
+                // empty
             }
         };
 

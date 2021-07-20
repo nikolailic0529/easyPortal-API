@@ -296,14 +296,13 @@ class AssetFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAssetAssetNoCustomer(): void {
+        // Mock
+        $this->overrideResellerFinder();
+
         // Prepare
         $factory = $this->app->make(AssetFactory::class);
         $json    = $this->getTestData()->json('~asset-full.json');
         $asset   = new ViewAsset($json);
-
-        Reseller::factory()->create([
-            'id' => $asset->resellerId,
-        ]);
 
         // Test
         $this->expectException(CustomerNotFoundException::class);
@@ -317,19 +316,15 @@ class AssetFactoryTest extends TestCase {
     public function testCreateFromAssetAssetInvalidAddress(): void {
         // Mock
         $this->overrideOemFinder();
+        $this->overrideCustomerFinder();
 
         // Prepare
         $container = $this->app->make(Container::class);
         $factory   = $container->make(AssetFactory::class);
 
         // Test
-        $json  = $this->getTestData()->json('~asset-invalid-address.json');
-        $asset = new ViewAsset($json);
-
-        Customer::factory()->create([
-            'id' => $asset->customerId,
-        ]);
-
+        $json    = $this->getTestData()->json('~asset-invalid-address.json');
+        $asset   = new ViewAsset($json);
         $created = $factory->create($asset);
 
         $this->assertNotNull($created->location);
@@ -343,19 +338,15 @@ class AssetFactoryTest extends TestCase {
     public function testCreateFromAssetWithoutZip(): void {
         // Mock
         $this->overrideOemFinder();
+        $this->overrideCustomerFinder();
 
         // Prepare
         $container = $this->app->make(Container::class);
         $factory   = $container->make(AssetFactory::class);
 
         // Test
-        $json  = $this->getTestData()->json('~asset-nozip-address.json');
-        $asset = new ViewAsset($json);
-
-        Customer::factory()->create([
-            'id' => $asset->customerId,
-        ]);
-
+        $json    = $this->getTestData()->json('~asset-nozip-address.json');
+        $asset   = new ViewAsset($json);
         $created = $factory->create($asset);
 
         $this->assertNull($created->location);
@@ -367,6 +358,8 @@ class AssetFactoryTest extends TestCase {
     public function testCreateFromAssetOnResellerLocation(): void {
         // Mock
         $this->overrideOemFinder();
+        $this->overrideResellerFinder();
+        $this->overrideCustomerFinder();
 
         // Prepare
         $container = $this->app->make(Container::class);
@@ -375,14 +368,6 @@ class AssetFactoryTest extends TestCase {
         // Load
         $json  = $this->getTestData()->json('~asset-reseller-location.json');
         $asset = new ViewAsset($json);
-
-        Reseller::factory()->create([
-            'id' => $asset->resellerId,
-        ]);
-
-        Customer::factory()->create([
-            'id' => $asset->customerId,
-        ]);
 
         // Test
         $created = $factory->create($asset);
@@ -1240,7 +1225,7 @@ class AssetFactoryTest extends TestCase {
         $factory = new class($locations) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(LocationFactory $locations) {
-                $this->locations = $locations;
+                $this->locationFactory = $locations;
             }
 
             public function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
@@ -1278,7 +1263,7 @@ class AssetFactoryTest extends TestCase {
         $factory = new class($locations) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(LocationFactory $locations) {
-                $this->locations = $locations;
+                $this->locationFactory = $locations;
             }
 
             public function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
@@ -1312,7 +1297,7 @@ class AssetFactoryTest extends TestCase {
         $factory = new class($locations) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(LocationFactory $factory) {
-                $this->locations = $factory;
+                $this->locationFactory = $factory;
             }
 
             public function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
@@ -1341,7 +1326,7 @@ class AssetFactoryTest extends TestCase {
         $factory = new class($locations) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(LocationFactory $locations) {
-                $this->locations = $locations;
+                $this->locationFactory = $locations;
             }
 
             public function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
@@ -1381,9 +1366,9 @@ class AssetFactoryTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected AssetResolver $assets,
-                protected ProductResolver $products,
-                protected LocationFactory $locations,
+                protected AssetResolver $assetResolver,
+                protected ProductResolver $productResolver,
+                protected LocationFactory $locationFactory,
             ) {
                 // empty
             }
@@ -1434,7 +1419,7 @@ class AssetFactoryTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected TagResolver $tags,
+                protected TagResolver $tagResolver,
             ) {
                 // empty
             }
@@ -1477,7 +1462,7 @@ class AssetFactoryTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected CoverageResolver $coverages,
+                protected CoverageResolver $coverageResolver,
             ) {
                 // empty
             }

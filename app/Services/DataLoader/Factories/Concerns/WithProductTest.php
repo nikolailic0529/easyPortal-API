@@ -37,7 +37,7 @@ class WithProductTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected ProductResolver $products,
+                protected ProductResolver $productResolver,
             ) {
                 // empty
             }
@@ -47,7 +47,7 @@ class WithProductTest extends TestCase {
             }
 
             protected function getProductResolver(): ProductResolver {
-                return $this->products;
+                return $this->productResolver;
             }
         };
 

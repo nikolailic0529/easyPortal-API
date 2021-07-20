@@ -43,7 +43,7 @@ class CompanyFactoryTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected StatusResolver $statuses,
+                protected StatusResolver $statusResolver,
             ) {
                 // empty
             }

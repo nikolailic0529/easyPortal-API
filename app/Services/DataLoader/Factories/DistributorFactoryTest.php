@@ -108,9 +108,11 @@ class DistributorFactoryTest extends TestCase {
 
         $factory = new class($normalizer, $resolver) extends DistributorFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, DistributorResolver $resolver) {
-                $this->normalizer   = $normalizer;
-                $this->distributors = $resolver;
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected DistributorResolver $distributorResolver,
+            ) {
+                // empty
             }
         };
 

@@ -34,7 +34,7 @@ class WithCoverageTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected CoverageResolver $resolver,
+                protected CoverageResolver $coverageResolver,
             ) {
                 // empty
             }
@@ -44,7 +44,7 @@ class WithCoverageTest extends TestCase {
             }
 
             protected function getCoverageResolver(): CoverageResolver {
-                return $this->resolver;
+                return $this->coverageResolver;
             }
 
             public function create(Type $type): ?Model {

@@ -91,18 +91,18 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         LoggerInterface $logger,
         Normalizer $normalizer,
         protected Dispatcher $dispatcher,
-        protected AssetResolver $assets,
+        protected AssetResolver $assetResolver,
         protected OemResolver $oemResolver,
-        protected TypeResolver $types,
-        protected ProductResolver $products,
+        protected TypeResolver $typeResolver,
+        protected ProductResolver $productResolver,
         protected CustomerResolver $customerResolver,
         protected ResellerResolver $resellerResolver,
-        protected LocationFactory $locations,
+        protected LocationFactory $locationFactory,
         protected ContactFactory $contactFactory,
         protected ContactResolver $contactResolver,
-        protected StatusResolver $statuses,
-        protected CoverageResolver $coverages,
-        protected TagResolver $tags,
+        protected StatusResolver $statusResolver,
+        protected CoverageResolver $coverageResolver,
+        protected TagResolver $tagResolver,
         protected DocumentResolver $documentResolver,
         protected ServiceGroupResolver $serviceGroupResolver,
         protected ServiceLevelResolver $serviceLevelResolver,
@@ -156,11 +156,11 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     }
 
     protected function getCoverageResolver(): CoverageResolver {
-        return $this->coverages;
+        return $this->coverageResolver;
     }
 
     protected function getStatusResolver(): StatusResolver {
-        return $this->statuses;
+        return $this->statusResolver;
     }
 
     protected function getOemResolver(): OemResolver {
@@ -172,15 +172,15 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     }
 
     protected function getProductResolver(): ProductResolver {
-        return $this->products;
+        return $this->productResolver;
     }
 
     protected function getTagResolver(): TagResolver {
-        return $this->tags;
+        return $this->tagResolver;
     }
 
     protected function getTypeResolver(): TypeResolver {
-        return $this->types;
+        return $this->typeResolver;
     }
 
     protected function getServiceGroupResolver(): ServiceGroupResolver {
@@ -230,7 +230,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             return $asset->id;
         }, $assets));
 
-        $this->assets->prefetch($keys, $reset, $callback);
+        $this->assetResolver->prefetch($keys, $reset, $callback);
 
         // Products
         $products = (new Collection($assets))
@@ -245,10 +245,10 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             ->unique()
             ->all();
 
-        $this->products->prefetch($products, $reset);
+        $this->getProductResolver()->prefetch($products, $reset);
 
         // Locations
-        $this->locations->prefetch($assets);
+        $this->locationFactory->prefetch($assets);
 
         // Return
         return $this;
@@ -314,7 +314,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
 
             return $model;
         });
-        $model   = $this->assets->get(
+        $model   = $this->assetResolver->get(
             $asset->id,
             static function () use ($factory): AssetModel {
                 return $factory(new AssetModel());
@@ -615,19 +615,19 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     }
 
     protected function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
-        $location = $this->locations->find(new AssetModel(), $asset);
-        $required = !$this->locations->isEmpty($asset);
+        $location = $this->locationFactory->find(new AssetModel(), $asset);
+        $required = !$this->locationFactory->isEmpty($asset);
 
         if ($customer && !$location) {
-            $location = $this->locations->find($customer, $asset);
+            $location = $this->locationFactory->find($customer, $asset);
         }
 
         if ($reseller && !$location) {
-            $location = $this->locations->find($reseller, $asset);
+            $location = $this->locationFactory->find($reseller, $asset);
         }
 
         if ($required && !$location) {
-            $location = $this->locations->create(new AssetModel(), $asset);
+            $location = $this->locationFactory->create(new AssetModel(), $asset);
 
             if (!$location) {
                 throw new LocationNotFoundException(sprintf(

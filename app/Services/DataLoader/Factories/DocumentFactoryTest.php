@@ -339,9 +339,9 @@ class DocumentFactoryTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected ProductResolver $products,
+                protected ProductResolver $productResolver,
                 protected OemResolver $oemResolver,
-                protected CurrencyFactory $currencies,
+                protected CurrencyFactory $currencyFactory,
                 protected ServiceGroupResolver $serviceGroupResolver,
                 protected ServiceLevelResolver $serviceLevelResolver,
                 protected ?ServiceGroupFinder $serviceGroupFinder = null,
@@ -438,9 +438,9 @@ class DocumentFactoryTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected ProductResolver $products,
+                protected ProductResolver $productResolver,
                 protected OemResolver $oemResolver,
-                protected CurrencyFactory $currencies,
+                protected CurrencyFactory $currencyFactory,
                 protected ServiceGroupResolver $serviceGroupResolver,
                 protected ServiceLevelResolver $serviceLevelResolver,
                 protected ?ServiceGroupFinder $serviceGroupFinder = null,
@@ -501,9 +501,9 @@ class DocumentFactoryTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected ProductResolver $products,
+                protected ProductResolver $productResolver,
                 protected OemResolver $oemResolver,
-                protected CurrencyFactory $currencies,
+                protected CurrencyFactory $currencyFactory,
             ) {
                 // empty
             }
@@ -669,7 +669,7 @@ class DocumentFactoryTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected DocumentResolver $documents,
+                protected DocumentResolver $documentResolver,
             ) {
                 // empty
             }
