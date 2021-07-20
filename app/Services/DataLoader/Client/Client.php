@@ -897,13 +897,8 @@ class Client {
             }
 
             skuNumber
-            skuDescription
-
             supportPackage
-            supportPackageDescription
-
             warrantyEndDate
-
             estimatedValueRenewal
 
             customer {
