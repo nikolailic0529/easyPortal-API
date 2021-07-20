@@ -81,10 +81,6 @@ trait WithAssets {
             });
             $this->getCustomersFactory()?->prefetch($assets, false);
             $this->getResellersFactory()?->prefetch($assets, false);
-            $factory->getDocumentFactory()?->prefetch($assets, false, static function (Collection $documents): void {
-                $documents->loadMissing('entries');
-                $documents->loadMissing('entries.serviceLevel');
-            });
         };
 
         foreach ($this->getCurrentAssets($owner)->onBeforeChunk($prefetch) as $asset) {
