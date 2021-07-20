@@ -1,6 +1,12 @@
 type Map {
-  latitude: Float!
-  longitude: Float!
-  customers: Int!
-  assets: Int!
+  latitude_avg: Float!
+  latitude_min: Float!
+  latitude_max: Float!
+  longitude_avg: Float!
+  longitude_min: Float!
+  longitude_max: Float!
+  customers_count: Int!
+  assets_count: Int!
+  customers_ids: [ID!]!
+  @field(resolver:"App\\GraphQL\\Queries\\Map@customersIds")
 }

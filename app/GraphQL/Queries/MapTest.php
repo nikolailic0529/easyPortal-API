@@ -53,10 +53,15 @@ class MapTest extends TestCase {
                 <<<'GRAPHQL'
                 query ($where: SearchByConditionMapQuery, $diff: Float!) {
                     map (where: $where, diff: $diff) {
-                        latitude
-                        longitude
-                        customers
-                        assets
+                        latitude_avg
+                        latitude_min
+                        latitude_max
+                        longitude_avg
+                        longitude_min
+                        longitude_max
+                        customers_count
+                        assets_count
+                        customers_ids
                     }
                 }
                 GRAPHQL,
@@ -100,8 +105,12 @@ class MapTest extends TestCase {
         ];
         $factory = static function (TestCase $test, Organization $organization): void {
             // Customers
-            $customerA = Customer::factory()->create();
-            $customerB = Customer::factory()->create();
+            $customerA = Customer::factory()->create([
+                'id' => 'ad16444a-46a4-3036-b893-7636e2e6209b',
+            ]);
+            $customerB = Customer::factory()->create([
+                'id' => 'ad16444a-46a4-3036-b893-7636e2e6209c',
+            ]);
 
             // Resellers
             $resellerA = Reseller::factory()->create([
@@ -172,16 +181,30 @@ class MapTest extends TestCase {
                     'ok' => [
                         new GraphQLSuccess('map', self::class, [
                             [
-                                'latitude'  => 1.025,
-                                'longitude' => 1.025,
-                                'customers' => 1,
-                                'assets'    => 4,
+                                'latitude_avg'    => 1.025,
+                                'latitude_min'    => 1,
+                                'latitude_max'    => 1.1,
+                                'longitude_avg'   => 1.025,
+                                'longitude_min'   => 1,
+                                'longitude_max'   => 1.1,
+                                'customers_count' => 1,
+                                'assets_count'    => 4,
+                                'customers_ids'   => [
+                                    'ad16444a-46a4-3036-b893-7636e2e6209b',
+                                ],
                             ],
                             [
-                                'latitude'  => 1.25,
-                                'longitude' => 1.25,
-                                'customers' => 1,
-                                'assets'    => 0,
+                                'latitude_avg'    => 1.25,
+                                'latitude_min'    => 1.25,
+                                'latitude_max'    => 1.25,
+                                'longitude_avg'   => 1.25,
+                                'longitude_min'   => 1.25,
+                                'longitude_max'   => 1.25,
+                                'customers_count' => 1,
+                                'assets_count'    => 0,
+                                'customers_ids'   => [
+                                    'ad16444a-46a4-3036-b893-7636e2e6209c',
+                                ],
                             ],
                         ]),
                         $factory,
@@ -189,26 +212,33 @@ class MapTest extends TestCase {
                     ],
                 ]),
             ),
-            'organization' => new CompositeDataProvider(
-                new OrganizationDataProvider('map'),
-                new UserDataProvider('map', [
-                    'customers-view',
-                ]),
-                new ArrayDataProvider([
-                    'ok' => [
-                        new GraphQLSuccess('map', self::class, [
-                            [
-                                'latitude'  => 1.03333333,
-                                'longitude' => 1.03333333,
-                                'customers' => 1,
-                                'assets'    => 3,
-                            ],
-                        ]),
-                        $factory,
-                        $params,
-                    ],
-                ]),
-            ),
+                'organization' => new CompositeDataProvider(
+                    new OrganizationDataProvider('map'),
+                    new UserDataProvider('map', [
+                        'customers-view',
+                    ]),
+                    new ArrayDataProvider([
+                        'ok' => [
+                            new GraphQLSuccess('map', self::class, [
+                                [
+                                    'latitude_avg'    => 1.033333333333,
+                                    'latitude_min'    => 1,
+                                    'latitude_max'    => 1.1,
+                                    'longitude_avg'   => 1.033333333333,
+                                    'longitude_min'   => 1,
+                                    'longitude_max'   => 1.1,
+                                    'customers_count' => 1,
+                                    'assets_count'    => 3,
+                                    'customers_ids'   => [
+                                        'ad16444a-46a4-3036-b893-7636e2e6209b',
+                                    ],
+                                ],
+                            ]),
+                            $factory,
+                            $params,
+                        ],
+                    ]),
+                ),
         ]))->getData();
     }
     // </editor-fold>

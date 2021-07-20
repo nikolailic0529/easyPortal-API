@@ -3,23 +3,49 @@
     "additionProperties": false,
     "type": "object",
     "required": [
-        "latitude",
-        "longitude",
-        "customers",
-        "assets"
+        "latitude_avg",
+        "latitude_min",
+        "latitude_max",
+        "longitude_avg",
+        "longitude_min",
+        "longitude_max",
+        "customers_count",
+        "assets_count",
+        "customers_ids"
     ],
     "properties": {
-        "latitude": {
+        "latitude_avg": {
+            "type": "number"
+        },
+        "latitude_min": {
+            "type": "number"
+        },
+        "latitude_max": {
+            "type": "number"
+        },
+        "longitude_avg": {
+            "type": "number"
+        },
+        "longitude_min": {
+            "type": "number"
+        },
+        "longitude_max": {
             "type": "number"
         },
         "longitude": {
             "type": "number"
         },
-        "customers": {
+        "customers_count": {
             "type": "integer"
         },
-        "assets": {
+        "assets_count": {
             "type": "integer"
+        },
+        "customers_ids": {
+            "type": "array",
+            "items": {
+                "$ref": "../types.json/#/definitions/ID"
+            }
         }
     }
 }
