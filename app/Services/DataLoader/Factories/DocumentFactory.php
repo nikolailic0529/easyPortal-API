@@ -11,6 +11,7 @@ use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factories\Concerns\WithAssetDocument;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
+use App\Services\DataLoader\Factories\Concerns\WithCurrency;
 use App\Services\DataLoader\Factories\Concerns\WithCustomer;
 use App\Services\DataLoader\Factories\Concerns\WithDistributor;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
@@ -28,6 +29,7 @@ use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Finders\ServiceLevelFinder;
 use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
@@ -61,6 +63,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     use WithServiceLevel;
     use WithType;
     use WithProduct;
+    use WithCurrency;
     use WithContacts;
     use WithReseller;
     use WithCustomer;
@@ -75,7 +78,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         protected ResellerResolver $resellerResolver,
         protected CustomerResolver $customerResolver,
         protected ProductResolver $productResolver,
-        protected CurrencyFactory $currencyFactory,
+        protected CurrencyResolver $currencyResolver,
         protected DocumentResolver $documentResolver,
         protected LanguageFactory $languageFactory,
         protected DistributorResolver $distributorResolver,
@@ -163,6 +166,10 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     protected function getServiceLevelFinder(): ?ServiceLevelFinder {
         return $this->serviceLevelFinder;
     }
+
+    protected function getCurrencyResolver(): CurrencyResolver {
+        return $this->currencyResolver;
+    }
     // </editor-fold>
 
     // <editor-fold desc="Factory">
@@ -232,7 +239,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
             $model->serviceGroup = $this->assetDocumentObjectServiceGroup($object);
             $model->reseller     = $this->reseller($document);
             $model->customer     = $this->customer($document);
-            $model->currency     = $this->currencyFactory->create($object);
+            $model->currency     = $this->currency($document->currencyCode);
             $model->language     = $this->languageFactory->create($object);
             $model->distributor  = $this->distributor($document);
             $model->start        = $normalizer->datetime($document->startDate);
@@ -313,7 +320,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         $entry->asset         = $asset;
         $entry->product       = $asset->product;
         $entry->serial_number = $asset->serial_number;
-        $entry->currency      = $this->currencyFactory->create($assetDocument);
+        $entry->currency      = $this->currency($assetDocument->currencyCode);
         $entry->net_price     = $normalizer->number($assetDocument->netPrice);
         $entry->list_price    = $normalizer->number($assetDocument->listPrice);
         $entry->discount      = $normalizer->number($assetDocument->discount);

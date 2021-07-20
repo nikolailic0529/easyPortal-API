@@ -14,6 +14,7 @@ use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Finders\ServiceLevelFinder;
 use App\Services\DataLoader\Normalizer;
+use App\Services\DataLoader\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
@@ -330,7 +331,7 @@ class DocumentFactoryTest extends TestCase {
             $this->app->make(Normalizer::class),
             $this->app->make(ProductResolver::class),
             $this->app->make(OemResolver::class),
-            $this->app->make(CurrencyFactory::class),
+            $this->app->make(CurrencyResolver::class),
             $this->app->make(ServiceGroupResolver::class),
             $this->app->make(ServiceLevelResolver::class),
             $this->app->make(ServiceGroupFinder::class),
@@ -341,7 +342,7 @@ class DocumentFactoryTest extends TestCase {
                 protected Normalizer $normalizer,
                 protected ProductResolver $productResolver,
                 protected OemResolver $oemResolver,
-                protected CurrencyFactory $currencyFactory,
+                protected CurrencyResolver $currencyResolver,
                 protected ServiceGroupResolver $serviceGroupResolver,
                 protected ServiceLevelResolver $serviceLevelResolver,
                 protected ?ServiceGroupFinder $serviceGroupFinder = null,
@@ -429,7 +430,7 @@ class DocumentFactoryTest extends TestCase {
             $this->app->make(Normalizer::class),
             $this->app->make(ProductResolver::class),
             $this->app->make(OemResolver::class),
-            $this->app->make(CurrencyFactory::class),
+            $this->app->make(CurrencyResolver::class),
             $this->app->make(ServiceGroupResolver::class),
             $this->app->make(ServiceLevelResolver::class),
             $this->app->make(ServiceGroupFinder::class),
@@ -440,7 +441,7 @@ class DocumentFactoryTest extends TestCase {
                 protected Normalizer $normalizer,
                 protected ProductResolver $productResolver,
                 protected OemResolver $oemResolver,
-                protected CurrencyFactory $currencyFactory,
+                protected CurrencyResolver $currencyResolver,
                 protected ServiceGroupResolver $serviceGroupResolver,
                 protected ServiceLevelResolver $serviceLevelResolver,
                 protected ?ServiceGroupFinder $serviceGroupFinder = null,
@@ -496,14 +497,14 @@ class DocumentFactoryTest extends TestCase {
             $this->app->make(Normalizer::class),
             $this->app->make(ProductResolver::class),
             $this->app->make(OemResolver::class),
-            $this->app->make(CurrencyFactory::class),
+            $this->app->make(CurrencyResolver::class),
         ) extends DocumentFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
                 protected ProductResolver $productResolver,
                 protected OemResolver $oemResolver,
-                protected CurrencyFactory $currencyFactory,
+                protected CurrencyResolver $currencyResolver,
             ) {
                 // empty
             }
