@@ -12,6 +12,8 @@ use App\Models\Oem;
 use App\Models\Organization;
 use App\Models\Product;
 use App\Models\Reseller;
+use App\Models\ServiceGroup;
+use App\Models\ServiceLevel;
 use App\Models\Status;
 use App\Models\Type;
 use Closure;
@@ -131,31 +133,19 @@ class AssetTest extends TestCase {
                             start
                             end
                             note
-                            services {
-                                id
-                                name
+                            serviceGroup {
+                              id
                                 oem_id
                                 sku
-                                eol
-                                eos
-                                oem {
-                                    id
-                                    abbr
-                                    name
-                                }
+                                name
                             }
-                            support {
+                            serviceLevels {
                                 id
-                                name
                                 oem_id
+                                service_group_id
                                 sku
-                                eol
-                                eos
-                                oem {
-                                    id
-                                    abbr
-                                    name
-                                }
+                                name
+                                description
                             }
                             customer {
                                 id
@@ -332,19 +322,19 @@ class AssetTest extends TestCase {
                             ],
                             'warranties'     => [
                                 [
-                                    'id'          => 'e4a60a4f-492f-4e16-8fea-d9bd77ed2551',
-                                    'reseller_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                    'customer_id' => null,
-                                    'document_id' => null,
-                                    'start'       => '2021-01-01',
-                                    'end'         => '2022-01-01',
-                                    'note'        => 'note',
-                                    'services'    => [
+                                    'id'            => 'e4a60a4f-492f-4e16-8fea-d9bd77ed2551',
+                                    'reseller_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                    'customer_id'   => null,
+                                    'document_id'   => null,
+                                    'start'         => '2021-01-01',
+                                    'end'           => '2022-01-01',
+                                    'note'          => 'note',
+                                    'serviceLevels' => [
                                         // empty
                                     ],
-                                    'support'     => null,
-                                    'customer'    => null,
-                                    'reseller'    => [
+                                    'serviceGroup'  => null,
+                                    'customer'      => null,
+                                    'reseller'      => [
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                         'name'            => 'reseller1',
                                         'customers_count' => 0,
@@ -364,42 +354,30 @@ class AssetTest extends TestCase {
                                     ],
                                 ],
                                 [
-                                    'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                                    'reseller_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                    'customer_id' => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                    'document_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                    'start'       => '2021-01-01',
-                                    'end'         => '2022-01-01',
-                                    'note'        => 'note',
-                                    'services'    => [
+                                    'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                    'reseller_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                    'customer_id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                    'document_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                    'start'         => '2021-01-01',
+                                    'end'           => '2022-01-01',
+                                    'note'          => 'note',
+                                    'serviceLevels' => [
                                         [
-                                            'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                                            'name'   => 'Product1',
-                                            'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                            'sku'    => 'SKU#123',
-                                            'eol'    => '2022-12-30',
-                                            'eos'    => '2022-01-01',
-                                            'oem'    => [
-                                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                                'abbr' => 'abbr',
-                                                'name' => 'oem1',
-                                            ],
+                                            'id'               => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
+                                            'name'             => 'Level',
+                                            'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                                            'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                            'sku'              => 'SKU#123',
+                                            'description'      => 'description',
                                         ],
                                     ],
-                                    'support'     => [
-                                        'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24998',
-                                        'name'   => 'Product2',
+                                    'serviceGroup'  => [
+                                        'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                                        'name'   => 'Group',
                                         'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                        'sku'    => 'SKU#321',
-                                        'eol'    => '2022-12-30',
-                                        'eos'    => '2022-01-01',
-                                        'oem'    => [
-                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                            'abbr' => 'abbr',
-                                            'name' => 'oem1',
-                                        ],
+                                        'sku'    => 'SKU#123',
                                     ],
-                                    'customer'    => [
+                                    'customer'      => [
                                         'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                         'name'            => 'name aaa',
                                         'assets_count'    => 0,
@@ -424,7 +402,7 @@ class AssetTest extends TestCase {
                                             ],
                                         ],
                                     ],
-                                    'reseller'    => [
+                                    'reseller'      => [
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                                         'name'            => 'reseller1',
                                         'customers_count' => 0,
@@ -528,14 +506,20 @@ class AssetTest extends TestCase {
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                 'name' => 'name aaa',
                             ]);
-                            // Product creation for support
-                            $product2 = Product::factory()->create([
-                                'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24998',
-                                'name'   => 'Product2',
-                                'oem_id' => $oem->id,
-                                'sku'    => 'SKU#321',
-                                'eol'    => '2022-12-30',
-                                'eos'    => '2022-01-01',
+                            // Service
+                            $serviceGroup = ServiceGroup::factory()->create([
+                                'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                                'oem_id' => $oem,
+                                'sku'    => 'SKU#123',
+                                'name'   => 'Group',
+                            ]);
+                            $serviceLevel = ServiceLevel::factory()->create([
+                                'id'               => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
+                                'oem_id'           => $oem,
+                                'service_group_id' => $serviceGroup,
+                                'sku'              => 'SKU#123',
+                                'name'             => 'Level',
+                                'description'      => 'description',
                             ]);
 
                             // Reseller
@@ -564,20 +548,20 @@ class AssetTest extends TestCase {
                                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
                             ]);
                             $document     = Document::factory()->create([
-                                'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
-                                'type_id'     => $documentType,
-                                'support_id'  => $product2,
-                                'reseller_id' => $reseller,
+                                'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                'type_id'          => $documentType,
+                                'service_group_id' => $serviceGroup,
+                                'reseller_id'      => $reseller,
                             ]);
                             // Document entry creation for services
                             DocumentEntry::factory()->create([
-                                'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                                'document_id' => $document,
-                                'asset_id'    => Asset::factory()->create([
+                                'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                                'document_id'      => $document,
+                                'asset_id'         => Asset::factory()->create([
                                     'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
                                 ]),
-                                'product_id'  => $product,
-                                'service_id'  => $product,
+                                'product_id'       => $product,
+                                'service_level_id' => $serviceLevel,
                             ]);
 
                             // Status belongs to
@@ -618,8 +602,8 @@ class AssetTest extends TestCase {
 
                             // Should be returned - document has valid type
                             AssetWarranty::factory()
-                                ->hasAttached($product, [], 'services')
-                                ->for($product2, 'support')
+                                ->hasAttached($serviceLevel)
+                                ->for($serviceGroup)
                                 ->create([
                                     'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                                     'asset_id'    => $asset,

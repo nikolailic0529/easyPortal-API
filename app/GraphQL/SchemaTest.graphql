@@ -270,8 +270,8 @@ input AssetWarrantiesQuery {
   document: DocumentsQuery
   reseller_id: ID
   reseller: ResellersQuery
-  services: ProductsQuery
-  support: ProductsQuery
+  service_group_id: ID
+  serviceLevels: ServiceLevelsQuery
 }
 
 type AssetWarranty {
@@ -285,8 +285,8 @@ type AssetWarranty {
   document: Document
   reseller_id: ID
   reseller: Reseller
-  services: [Product!]!
-  support: Product
+  serviceGroup: ServiceGroup
+  serviceLevels: [ServiceLevel!]!
 }
 
 input AssetsQuery {
@@ -649,8 +649,8 @@ type Document {
   oem: Oem!
   oem_said: String
   oemGroup: OemGroup
-  support_id: ID
-  support: Product
+  service_group_id: ID
+  serviceGroup: ServiceGroup
   reseller_id: ID
   reseller: Reseller
   type: Type!
@@ -673,8 +673,7 @@ input DocumentEntriesQuery {
   serial_number: String
   product_id: ID!
   product: ProductsQuery
-  service_id: ID
-  service: ProductsQuery
+  service_level_id: ID
   currency_id: ID
 }
 
@@ -688,8 +687,8 @@ type DocumentEntry {
   serial_number: String
   product_id: ID!
   product: Product!
-  service_id: ID
-  service: Product
+  service_level_id: ID
+  serviceLevel: ServiceLevel
   currency_id: ID
   currency: Currency
 }
@@ -726,10 +725,8 @@ input DocumentsQuery {
   currency_id: ID
   language_id: ID
   serial_number: String
-  support_id: ID!
-  support: ProductsQuery!
-  service_id: ID
-  service: ProductsQuery
+  service_group_id: ID
+  service_level_id: ID
   customer_id: ID!
   customer: CustomersQuery
   reseller_id: ID
@@ -1844,10 +1841,10 @@ input SearchByConditionAssetWarrantiesQuery {
   reseller: SearchByRelationResellersQuery
 
   """Property condition."""
-  services: SearchByRelationProductsQuery
+  service_group_id: SearchByScalarIDOrNull
 
   """Property condition."""
-  support: SearchByRelationProductsQuery
+  serviceLevels: SearchByRelationServiceLevelsQuery
 }
 
 """
@@ -2224,10 +2221,7 @@ input SearchByConditionDocumentEntriesQuery {
   product: SearchByRelationProductsQuery
 
   """Property condition."""
-  service_id: SearchByScalarIDOrNull
-
-  """Property condition."""
-  service: SearchByRelationProductsQuery
+  service_level_id: SearchByScalarIDOrNull
 
   """Property condition."""
   currency_id: SearchByScalarIDOrNull
@@ -2277,16 +2271,10 @@ input SearchByConditionDocumentsQuery {
   serial_number: SearchByScalarStringOrNull
 
   """Property condition."""
-  support_id: SearchByScalarID
+  service_group_id: SearchByScalarIDOrNull
 
   """Property condition."""
-  support: SearchByRelationProductsQuery
-
-  """Property condition."""
-  service_id: SearchByScalarIDOrNull
-
-  """Property condition."""
-  service: SearchByRelationProductsQuery
+  service_level_id: SearchByScalarIDOrNull
 
   """Property condition."""
   customer_id: SearchByScalarID
@@ -2574,6 +2562,32 @@ input SearchByConditionResellersQuery {
 
   """Property condition."""
   name: SearchByScalarString
+}
+
+"""
+Available conditions for input ServiceLevelsQuery (only one property allowed at a time).
+"""
+input SearchByConditionServiceLevelsQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionServiceLevelsQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionServiceLevelsQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  oem_id: SearchByScalarID
+
+  """Property condition."""
+  service_group_id: SearchByScalarID
+
+  """Property condition."""
+  sku: SearchByScalarString
 }
 
 """
@@ -2930,6 +2944,30 @@ input SearchByRelationProductsQuery {
 input SearchByRelationResellersQuery {
   """Conditions for the related objects."""
   where: SearchByConditionResellersQuery!
+
+  """Equal (`=`)."""
+  eq: Int
+
+  """Less than (`<`)."""
+  lt: Int
+
+  """Less than or equal to (`<=`)."""
+  lte: Int
+
+  """Greater than (`>`)."""
+  gt: Int
+
+  """Greater than or equal to (`>=`)."""
+  gte: Int
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""Relation condition for input ServiceLevelsQuery."""
+input SearchByRelationServiceLevelsQuery {
+  """Conditions for the related objects."""
+  where: SearchByConditionServiceLevelsQuery!
 
   """Equal (`=`)."""
   eq: Int
@@ -3342,6 +3380,35 @@ input SendResetPasswordLinkInput {
 
 type SendResetPasswordLinkPayload {
   result: Boolean!
+}
+
+type ServiceGroup {
+  id: ID!
+  oem_id: ID!
+  sku: String!
+  name: String!
+}
+
+input ServiceGroupsQuery {
+  id: ID!
+  oem_id: ID!
+  sku: String!
+}
+
+type ServiceLevel {
+  id: ID!
+  oem_id: ID!
+  service_group_id: ID!
+  sku: String!
+  name: String!
+  description: String!
+}
+
+input ServiceLevelsQuery {
+  id: ID!
+  oem_id: ID!
+  service_group_id: ID!
+  sku: String!
 }
 
 input SetApplicationLocaleInput {

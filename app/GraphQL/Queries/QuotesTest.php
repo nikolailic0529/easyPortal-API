@@ -13,6 +13,8 @@ use App\Models\OemGroup;
 use App\Models\Organization;
 use App\Models\Product;
 use App\Models\Reseller;
+use App\Models\ServiceGroup;
+use App\Models\ServiceLevel;
 use App\Models\Type;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -74,7 +76,7 @@ class QuotesTest extends TestCase {
                         data {
                             id
                             oem_id
-                            support_id
+                            service_group_id
                             type_id
                             customer_id
                             reseller_id
@@ -96,18 +98,11 @@ class QuotesTest extends TestCase {
                                 key
                                 name
                             }
-                            support {
+                            serviceGroup {
                                 id
-                                name
                                 oem_id
                                 sku
-                                eol
-                                eos
-                                oem {
-                                    id
-                                    abbr
-                                    name
-                                }
+                                name
                             }
                             type {
                                 id
@@ -158,7 +153,7 @@ class QuotesTest extends TestCase {
                             entries {
                                 id
                                 document_id
-                                service_id
+                                service_level_id
                                 net_price
                                 list_price
                                 discount
@@ -178,18 +173,13 @@ class QuotesTest extends TestCase {
                                         name
                                     }
                                 }
-                                service {
+                                serviceLevel {
                                     id
-                                    name
                                     oem_id
+                                    service_group_id
                                     sku
-                                    eol
-                                    eos
-                                    oem {
-                                        id
-                                        abbr
-                                        name
-                                    }
+                                    name
+                                    description
                                 }
                             }
                             language {
@@ -311,14 +301,29 @@ class QuotesTest extends TestCase {
                 'code' => 'en',
             ]);
             // Distributor
-            $distributor = Distributor::factory()->create([
+            $distributor  = Distributor::factory()->create([
                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
                 'name' => 'distributor1',
             ]);
+            $serviceGroup = ServiceGroup::factory()->create([
+                'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                'oem_id' => $oem,
+                'sku'    => 'SKU#123',
+                'name'   => 'Group',
+            ]);
+            $serviceLevel = ServiceLevel::factory()->create([
+                'id'               => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
+                'oem_id'           => $oem,
+                'service_group_id' => $serviceGroup,
+                'sku'              => 'SKU#123',
+                'name'             => 'Level',
+                'description'      => 'description',
+            ]);
+
             Document::factory()
                 ->for($oem)
                 ->for($oemGroup)
-                ->for($product, 'support')
+                ->for($serviceGroup)
                 ->for($customer)
                 ->for($type)
                 ->for($reseller)
@@ -331,17 +336,17 @@ class QuotesTest extends TestCase {
                     'phone_valid' => false,
                 ])
                 ->hasEntries(1, [
-                    'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                    'asset_id'      => Asset::factory()->create([
+                    'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                    'asset_id'         => Asset::factory()->create([
                         'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                     ]),
-                    'serial_number' => null,
-                    'product_id'    => $product,
-                    'service_id'    => $product,
-                    'net_price'     => 123.45,
-                    'list_price'    => 67.00,
-                    'discount'      => -8,
-                    'renewal'       => 24.20,
+                    'serial_number'    => null,
+                    'product_id'       => $product,
+                    'service_level_id' => $serviceLevel,
+                    'net_price'        => 123.45,
+                    'list_price'       => 67.00,
+                    'discount'         => -8,
+                    'renewal'          => 24.20,
                 ])
                 ->create([
                     'id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
@@ -363,48 +368,41 @@ class QuotesTest extends TestCase {
         };
         $objects = [
             [
-                'id'             => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                'oem_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                'support_id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                'customer_id'    => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                'type_id'        => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
-                'reseller_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-                'currency_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                'language_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
-                'distributor_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
-                'number'         => '1323',
-                'price'          => 100,
-                'start'          => '2021-01-01',
-                'end'            => '2024-01-01',
-                'oem'            => [
+                'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                'customer_id'      => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                'type_id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                'reseller_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                'currency_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                'language_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
+                'distributor_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
+                'number'           => '1323',
+                'price'            => 100,
+                'start'            => '2021-01-01',
+                'end'              => '2024-01-01',
+                'oem'              => [
                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                     'abbr' => 'abbr',
                     'name' => 'oem1',
                 ],
-                'oem_said'       => '1234-5678-9012',
-                'oemGroup'       => [
+                'oem_said'         => '1234-5678-9012',
+                'oemGroup'         => [
                     'id'   => '52f2faec-5a80-4cdb-8cee-669b942ae1ef',
                     'key'  => 'key',
                     'name' => 'name',
                 ],
-                'support'        => [
-                    'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                    'name'   => 'Product1',
+                'serviceGroup'     => [
+                    'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                    'name'   => 'Group',
                     'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                     'sku'    => 'SKU#123',
-                    'eol'    => '2022-12-30',
-                    'eos'    => '2022-01-01',
-                    'oem'    => [
-                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                        'abbr' => 'abbr',
-                        'name' => 'oem1',
-                    ],
                 ],
-                'type'           => [
+                'type'             => [
                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                     'name' => 'name aaa',
                 ],
-                'customer'       => [
+                'customer'         => [
                     'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                     'name'            => 'name aaa',
                     'assets_count'    => 0,
@@ -429,7 +427,7 @@ class QuotesTest extends TestCase {
                         ],
                     ],
                 ],
-                'reseller'       => [
+                'reseller'         => [
                     'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
                     'name'            => 'reseller1',
                     'customers_count' => 0,
@@ -447,23 +445,23 @@ class QuotesTest extends TestCase {
                         ],
                     ],
                 ],
-                'currency'       => [
+                'currency'         => [
                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                     'name' => 'Currency1',
                     'code' => 'CUR',
                 ],
-                'entries'        => [
+                'entries'          => [
                     [
-                        'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
-                        'service_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                        'document_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                        'net_price'     => 123.45,
-                        'list_price'    => 67.00,
-                        'discount'      => -8.00,
-                        'renewal'       => 24.20,
-                        'serial_number' => null,
-                        'product_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                        'product'       => [
+                        'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
+                        'service_level_id' => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
+                        'document_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                        'net_price'        => 123.45,
+                        'list_price'       => 67.00,
+                        'discount'         => -8.00,
+                        'renewal'          => 24.20,
+                        'serial_number'    => null,
+                        'product_id'       => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                        'product'          => [
                             'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                             'name'   => 'Product1',
                             'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -476,38 +474,33 @@ class QuotesTest extends TestCase {
                                 'name' => 'oem1',
                             ],
                         ],
-                        'service'       => [
-                            'id'     => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                            'name'   => 'Product1',
-                            'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                            'sku'    => 'SKU#123',
-                            'eol'    => '2022-12-30',
-                            'eos'    => '2022-01-01',
-                            'oem'    => [
-                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                'abbr' => 'abbr',
-                                'name' => 'oem1',
-                            ],
+                        'serviceLevel'     => [
+                            'id'               => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',
+                            'name'             => 'Level',
+                            'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                            'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'sku'              => 'SKU#123',
+                            'description'      => 'description',
                         ],
                     ],
                 ],
-                'language'       => [
+                'language'         => [
                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
                     'name' => 'Lang1',
                     'code' => 'en',
                 ],
-                'contacts'       => [
+                'contacts'         => [
                     [
                         'name'        => 'contact2',
                         'email'       => 'contact2@test.com',
                         'phone_valid' => false,
                     ],
                 ],
-                'distributor'    => [
+                'distributor'      => [
                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
                     'name' => 'distributor1',
                 ],
-                'assets_count'   => 1,
+                'assets_count'     => 1,
             ],
         ];
 
