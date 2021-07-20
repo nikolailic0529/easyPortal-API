@@ -111,7 +111,6 @@
     "validation.contract_id": "Unknown Contract.",
     "validation.note_id": "Unknown Note.",
     "validation.file_id": "Unknown File.",
-    "validation.language_id": "Unknown Language.",
     "validation.color": "Color should be in #RRGGBB format.",
     "validation.permissions_id": "Unknown permission",
     "errors.message": ":message (:code)",
