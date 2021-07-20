@@ -14,6 +14,7 @@ use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithCurrency;
 use App\Services\DataLoader\Factories\Concerns\WithCustomer;
 use App\Services\DataLoader\Factories\Concerns\WithDistributor;
+use App\Services\DataLoader\Factories\Concerns\WithLanguage;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithOemGroup;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
@@ -33,6 +34,7 @@ use App\Services\DataLoader\Resolvers\CurrencyResolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Resolvers\DocumentResolver;
+use App\Services\DataLoader\Resolvers\LanguageResolver;
 use App\Services\DataLoader\Resolvers\OemGroupResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
@@ -64,6 +66,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     use WithType;
     use WithProduct;
     use WithCurrency;
+    use WithLanguage;
     use WithContacts;
     use WithReseller;
     use WithCustomer;
@@ -80,7 +83,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         protected ProductResolver $productResolver,
         protected CurrencyResolver $currencyResolver,
         protected DocumentResolver $documentResolver,
-        protected LanguageFactory $languageFactory,
+        protected LanguageResolver $languageResolver,
         protected DistributorResolver $distributorResolver,
         protected ContactFactory $contactFactory,
         protected OemGroupResolver $oemGroupResolver,
@@ -170,6 +173,10 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     protected function getCurrencyResolver(): CurrencyResolver {
         return $this->currencyResolver;
     }
+
+    protected function getLanguageResolver(): LanguageResolver {
+        return $this->languageResolver;
+    }
     // </editor-fold>
 
     // <editor-fold desc="Factory">
@@ -240,7 +247,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
             $model->reseller     = $this->reseller($document);
             $model->customer     = $this->customer($document);
             $model->currency     = $this->currency($document->currencyCode);
-            $model->language     = $this->languageFactory->create($object);
+            $model->language     = $this->language($document->languageCode);
             $model->distributor  = $this->distributor($document);
             $model->start        = $normalizer->datetime($document->startDate);
             $model->end          = $normalizer->datetime($document->endDate);
