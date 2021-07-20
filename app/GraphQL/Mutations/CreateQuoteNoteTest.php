@@ -52,6 +52,11 @@ class CreateQuoteNoteTest extends TestCase {
         if ($prepare) {
             $prepare($this, $organization, $user);
         } else {
+            // Lighthouse performs validation BEFORE permission check :(
+            //
+            // https://github.com/nuwave/lighthouse/issues/1780
+            //
+            // Following code required to "fix" it
             if (!$organization) {
                 $organization = $this->setOrganization(Organization::factory()->make());
             }

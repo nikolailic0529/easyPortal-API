@@ -1,0 +1,22 @@
+extend type Mutation {
+  updateQuoteNote(
+    input: UpdateQuoteNoteInput!
+  ): UpdateQuoteNotePayload
+  @organization
+  @me(permissions: ["quotes-view", "customers-view"])
+}
+
+input UpdateQuoteNoteInput @validator(class:"App\\GraphQL\\Validators\\UpdateContractNoteInputValidator") {
+  id: ID!
+  note: String!
+  files: [UpdateQuoteNoteFile!]
+}
+
+input UpdateQuoteNoteFile {
+   id: ID
+   content: Upload
+}
+
+type UpdateQuoteNotePayload {
+  updated: Note!
+}

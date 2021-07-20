@@ -1,5 +1,5 @@
 input NotesQuery {
   note: String!
-  user_id: ID! 
+  user_id: ID!
   user: UsersQuery
 }

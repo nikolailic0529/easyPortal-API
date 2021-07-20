@@ -52,7 +52,7 @@ class CreateQuoteNote {
         return $note;
     }
 
-    protected function createFile(Note $note, UploadedFile $upload): File {
+    public function createFile(Note $note, UploadedFile $upload): File {
         $file       = new File();
         $file->name = $upload->getClientOriginalName();
         $file->size = $upload->getSize();
