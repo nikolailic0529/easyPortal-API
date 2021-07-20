@@ -169,7 +169,7 @@ class CustomerTest extends TestCase {
                                 }
                                 oem {
                                     id
-                                    abbr
+                                    key
                                     name
                                 }
                                 product {
@@ -181,7 +181,7 @@ class CustomerTest extends TestCase {
                                     eos
                                     oem {
                                         id
-                                        abbr
+                                        key
                                         name
                                     }
                                 }
@@ -350,7 +350,7 @@ class CustomerTest extends TestCase {
                                 distributor_id
                                 oem {
                                     id
-                                    abbr
+                                    key
                                     name
                                 }
                                 oem_said
@@ -430,7 +430,7 @@ class CustomerTest extends TestCase {
                                         eos
                                         oem {
                                             id
-                                            abbr
+                                            key
                                             name
                                         }
                                     }
@@ -528,7 +528,7 @@ class CustomerTest extends TestCase {
                                 distributor_id
                                 oem {
                                     id
-                                    abbr
+                                    key
                                     name
                                 }
                                 oem_said
@@ -608,7 +608,7 @@ class CustomerTest extends TestCase {
                                         eos
                                         oem {
                                             id
-                                            abbr
+                                            key
                                             name
                                         }
                                     }
@@ -724,7 +724,7 @@ class CustomerTest extends TestCase {
                                         ],
                                         'oem'            => [
                                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                            'abbr' => 'abbr',
+                                            'key'  => 'key',
                                             'name' => 'oem1',
                                         ],
                                         'type'           => [
@@ -740,7 +740,7 @@ class CustomerTest extends TestCase {
                                             'eos'    => '2022-01-01',
                                             'oem'    => [
                                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                                'abbr' => 'abbr',
+                                                'key'  => 'key',
                                                 'name' => 'oem1',
                                             ],
                                         ],
@@ -909,7 +909,7 @@ class CustomerTest extends TestCase {
                             // OEM Creation belongs to
                             $oem = Oem::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                'abbr' => 'abbr',
+                                'key'  => 'key',
                                 'name' => 'oem1',
                             ]);
                             // Location belongs to
@@ -1252,7 +1252,7 @@ class CustomerTest extends TestCase {
                                             'end'              => '2024-01-01',
                                             'oem'              => [
                                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                                'abbr' => 'abbr',
+                                                'key'  => 'key',
                                                 'name' => 'oem1',
                                             ],
                                             'oem_said'         => null,
@@ -1335,7 +1335,7 @@ class CustomerTest extends TestCase {
                                                         'eos'    => '2022-01-01',
                                                         'oem'    => [
                                                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                                            'abbr' => 'abbr',
+                                                            'key'  => 'key',
                                                             'name' => 'oem1',
                                                         ],
                                                     ],
@@ -1431,7 +1431,7 @@ class CustomerTest extends TestCase {
                             // OEM Creation belongs to
                             $oem = Oem::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                'abbr' => 'abbr',
+                                'key'  => 'key',
                                 'name' => 'oem1',
                             ]);
                             // Type Creation belongs to
@@ -1657,7 +1657,7 @@ class CustomerTest extends TestCase {
             // OEM Creation belongs to
             $oem = Oem::factory()->create([
                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                'abbr' => 'abbr',
+                'key'  => 'key',
                 'name' => 'oem1',
             ]);
             // Type Creation belongs to
@@ -1764,7 +1764,7 @@ class CustomerTest extends TestCase {
                         'end'              => '2024-01-01',
                         'oem'              => [
                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                            'abbr' => 'abbr',
+                            'key'  => 'key',
                             'name' => 'oem1',
                         ],
                         'oem_said'         => '225d982d-926d-3db4-ba0b-81ab17b790b0',
@@ -1847,7 +1847,7 @@ class CustomerTest extends TestCase {
                                     'eos'    => '2022-01-01',
                                     'oem'    => [
                                         'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                        'abbr' => 'abbr',
+                                        'key'  => 'key',
                                         'name' => 'oem1',
                                     ],
                                 ],

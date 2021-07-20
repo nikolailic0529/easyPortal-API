@@ -313,14 +313,14 @@
             "type": "object",
             "required": [
                 "id",
-                "abbr",
+                "key",
                 "name"
             ],
             "properties": {
                 "id": {
                     "$ref": "#/definitions/ID"
                 },
-                "abbr": {
+                "key": {
                     "type": "string"
                 },
                 "name": {

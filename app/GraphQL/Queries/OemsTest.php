@@ -41,7 +41,7 @@ class OemsTest extends TestCase {
                     { documents: { where: {}, lt: 1 } }
                 ]}) {
                     id
-                    abbr
+                    key
                     name
                 }
             }')
@@ -63,14 +63,14 @@ class OemsTest extends TestCase {
                     new GraphQLSuccess('oems', self::class, [
                         [
                             'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'abbr' => 'abr',
+                            'key'  => 'abr',
                             'name' => 'oem1',
                         ],
                     ]),
                     static function (): void {
                         Oem::factory()->create([
                             'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'abbr' => 'abr',
+                            'key'  => 'abr',
                             'name' => 'oem1',
                         ]);
                     },

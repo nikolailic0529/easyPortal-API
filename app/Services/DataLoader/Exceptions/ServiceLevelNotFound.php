@@ -19,7 +19,7 @@ class ServiceLevelNotFound extends InvalidData {
             'Service Group `%s`/`%s` not found (`%s`).',
             $this->group->sku,
             $sku,
-            $this->oem->abbr,
+            $this->oem->key,
         ));
     }
 

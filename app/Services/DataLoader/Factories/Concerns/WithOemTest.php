@@ -25,7 +25,7 @@ class WithOemTest extends TestCase {
         $resolver   = Mockery::mock(OemResolver::class);
         $resolver
             ->shouldReceive('get')
-            ->with($oem->abbr, Mockery::any())
+            ->with($oem->key, Mockery::any())
             ->once()
             ->andReturn($oem);
 
@@ -51,7 +51,7 @@ class WithOemTest extends TestCase {
             }
         };
 
-        $this->assertEquals($oem, $factory->oem($oem->abbr));
+        $this->assertEquals($oem, $factory->oem($oem->key));
     }
 
     /**
@@ -64,7 +64,7 @@ class WithOemTest extends TestCase {
         $finder     = Mockery::mock(OemFinder::class);
         $finder
             ->shouldReceive('find')
-            ->with($oem->abbr)
+            ->with($oem->key)
             ->once()
             ->andReturn($oem);
 
@@ -91,7 +91,7 @@ class WithOemTest extends TestCase {
             }
         };
 
-        $this->assertEquals($oem, $factory->oem(" {$oem->abbr} "));
+        $this->assertEquals($oem, $factory->oem(" {$oem->key} "));
     }
 
     /**
@@ -130,6 +130,6 @@ class WithOemTest extends TestCase {
 
         $this->expectException(OemNotFound::class);
 
-        $this->assertEquals($oem, $factory->oem($oem->abbr));
+        $this->assertEquals($oem, $factory->oem($oem->key));
     }
 }

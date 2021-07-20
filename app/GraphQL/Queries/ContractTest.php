@@ -79,7 +79,7 @@ class ContractTest extends TestCase {
                         distributor_id
                         oem {
                             id
-                            abbr
+                            key
                             name
                         }
                         oem_said
@@ -159,7 +159,7 @@ class ContractTest extends TestCase {
                                 eos
                                 oem {
                                     id
-                                    abbr
+                                    key
                                     name
                                 }
                             }
@@ -268,7 +268,7 @@ class ContractTest extends TestCase {
                             'end'              => '2024-01-01',
                             'oem'              => [
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                'abbr' => 'abbr',
+                                'key'  => 'key',
                                 'name' => 'oem1',
                             ],
                             'oem_said'         => '1234-5678-9012',
@@ -355,7 +355,7 @@ class ContractTest extends TestCase {
                                         'eos'    => '2022-01-01',
                                         'oem'    => [
                                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                            'abbr' => 'abbr',
+                                            'key'  => 'key',
                                             'name' => 'oem1',
                                         ],
                                     ],
@@ -391,7 +391,7 @@ class ContractTest extends TestCase {
                             // OEM Creation belongs to
                             $oem      = Oem::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                'abbr' => 'abbr',
+                                'key'  => 'key',
                                 'name' => 'oem1',
                             ]);
                             $oemGroup = OemGroup::factory()->create([

@@ -76,7 +76,7 @@ class AssetsTest extends TestCase {
                             data_quality
                             oem {
                                 id
-                                abbr
+                                key
                                 name
                             }
                             product {
@@ -88,7 +88,7 @@ class AssetsTest extends TestCase {
                                 eos
                                 oem {
                                     id
-                                    abbr
+                                    key
                                     name
                                 }
                             }
@@ -278,7 +278,7 @@ class AssetsTest extends TestCase {
                                 'data_quality'   => '130',
                                 'oem'            => [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                    'abbr' => 'abbr',
+                                    'key'  => 'key',
                                     'name' => 'oem1',
                                 ],
                                 'product'        => [
@@ -290,7 +290,7 @@ class AssetsTest extends TestCase {
                                     'eos'    => '2022-01-01',
                                     'oem'    => [
                                         'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                        'abbr' => 'abbr',
+                                        'key'  => 'key',
                                         'name' => 'oem1',
                                     ],
                                 ],
@@ -436,7 +436,7 @@ class AssetsTest extends TestCase {
                             // OEM Creation belongs to
                             $oem = Oem::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                                'abbr' => 'abbr',
+                                'key'  => 'key',
                                 'name' => 'oem1',
                             ]);
                             // Location belongs to

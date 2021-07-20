@@ -8,7 +8,7 @@ use App\Services\DataLoader\Finders\OemFinder as OemFinderContract;
 class OemFinder implements OemFinderContract {
     public function find(string $key): ?Oem {
         return Oem::factory()->create([
-            'abbr' => $key,
+            'key' => $key,
         ]);
     }
 }

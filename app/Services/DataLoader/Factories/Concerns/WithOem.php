@@ -18,16 +18,16 @@ trait WithOem {
 
     abstract protected function getOemResolver(): OemResolver;
 
-    protected function oem(string $abbr): Oem {
-        $abbr = $this->getNormalizer()->string($abbr);
-        $oem  = $this->getOemResolver()->get($abbr, $this->factory(
-            function () use ($abbr): ?Oem {
-                return $this->getOemFinder()?->find($abbr);
+    protected function oem(string $key): Oem {
+        $key = $this->getNormalizer()->string($key);
+        $oem = $this->getOemResolver()->get($key, $this->factory(
+            function () use ($key): ?Oem {
+                return $this->getOemFinder()?->find($key);
             },
         ));
 
         if (!$oem) {
-            throw new OemNotFound($abbr);
+            throw new OemNotFound($key);
         }
 
         return $oem;

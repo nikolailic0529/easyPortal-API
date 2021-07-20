@@ -125,13 +125,13 @@ class DocumentFactoryTest extends TestCase {
         $this->assertNull($this->getDatetime($created->start));
         $this->assertEquals('1614470400000', $this->getDatetime($created->end));
         $this->assertNull($this->getDatetime($created->changed_at));
-        $this->assertEquals('HPE', $created->oem->abbr);
+        $this->assertEquals('HPE', $created->oem->key);
         $this->assertEquals('MultiNational Quote', $created->type->key);
         $this->assertEquals('CUR', $created->currency->code);
         $this->assertEquals('fr', $created->language->code);
         $this->assertEquals('H7J34AC', $created->serviceGroup->sku);
-        $this->assertEquals('HPE', $created->serviceGroup->oem->abbr);
-        $this->assertEquals('HPE', $created->oem->abbr);
+        $this->assertEquals('HPE', $created->serviceGroup->oem->key);
+        $this->assertEquals('HPE', $created->oem->key);
         $this->assertEquals('1234 4678 9012', $created->oem_said);
         $this->assertEquals('abc-de', $created->oemGroup->key);
         $this->assertEquals(1, $created->assets_count);
@@ -152,7 +152,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($created->getKey(), $e->document_id);
         $this->assertEquals($asset->id, $e->asset_id);
         $this->assertEquals('HA151AC', $e->serviceLevel->sku);
-        $this->assertEquals('HPE', $e->serviceLevel->oem->abbr);
+        $this->assertEquals('HPE', $e->serviceLevel->oem->key);
         $this->assertEquals('145.00', $e->renewal);
 
         // Changed
@@ -293,7 +293,7 @@ class DocumentFactoryTest extends TestCase {
                     'estimatedValueRenewal' => $a->renewal,
                     'document'              => [
                         'vendorSpecificFields' => [
-                            'vendor' => $document->oem->abbr,
+                            'vendor' => $document->oem->key,
                         ],
                     ],
                 ],
@@ -307,7 +307,7 @@ class DocumentFactoryTest extends TestCase {
                     'estimatedValueRenewal' => $b->renewal,
                     'document'              => [
                         'vendorSpecificFields' => [
-                            'vendor' => $document->oem->abbr,
+                            'vendor' => $document->oem->key,
                         ],
                     ],
                 ],
@@ -321,7 +321,7 @@ class DocumentFactoryTest extends TestCase {
                     'estimatedValueRenewal' => null,
                     'document'              => [
                         'vendorSpecificFields' => [
-                            'vendor' => $document->oem->abbr,
+                            'vendor' => $document->oem->key,
                         ],
                     ],
                 ],
@@ -422,7 +422,7 @@ class DocumentFactoryTest extends TestCase {
             'currencyCode'          => " {$currencyCode} ",
             'document'              => [
                 'vendorSpecificFields' => [
-                    'vendor' => $document->oem->abbr,
+                    'vendor' => $document->oem->key,
                 ],
             ],
         ]);

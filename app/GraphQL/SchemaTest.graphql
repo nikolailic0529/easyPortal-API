@@ -1118,7 +1118,7 @@ type Mutation {
 
 type Oem {
   id: ID!
-  abbr: String!
+  key: String!
   name: String!
 }
 
