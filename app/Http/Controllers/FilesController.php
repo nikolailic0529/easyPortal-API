@@ -33,9 +33,8 @@ class FilesController extends Controller {
         }
         $document_id = $file->note->document_id;
         $permissions = ['customers-view'];
-        /*
-            checking document type if Contact or Quote then check the user permission against note policy
-        */
+
+        // checking document type if Contact or Quote then check the user permission against note policy
         if ($this->contractId->passes(null, $document_id)) {
             $permissions[] = 'contracts-view';
         } elseif ($this->quoteId->passes(null, $document_id)) {

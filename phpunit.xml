@@ -35,6 +35,6 @@
         <server name="TELESCOPE_ENABLED" value="false"/>
         <server name="EP_LOGGER_ENABLED" value="false"/>
         <server name="EP_LOGGER_DB_DATABASE" value="testing"/>
-        <server name="APP_URL" value="http://example.com"/>
+        <server name="APP_URL" value="https://example.com"/>
     </php>
 </phpunit>
