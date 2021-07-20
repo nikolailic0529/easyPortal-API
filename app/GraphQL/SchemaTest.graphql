@@ -1164,7 +1164,7 @@ type Mutation {
   
   @require <organization> Authenticated user must be a member of the current organization.
   """
-  updateMePortalSettings(input: UpdateMePortalSettingsInput!): UpdateMePortalSettingsPayload
+  updateMeSettings(input: UpdateMeSettingsInput!): UpdateMeSettingsPayload
 
   """
   Create Organization Role.
@@ -3988,14 +3988,14 @@ type UpdateMePasswordPayload {
   result: Boolean!
 }
 
-input UpdateMePortalSettingsInput {
+input UpdateMeSettingsInput {
   homepage: String
   language_id: ID
   locale: String
   timezone: String
 }
 
-type UpdateMePortalSettingsPayload {
+type UpdateMeSettingsPayload {
   result: Boolean!
 }
 

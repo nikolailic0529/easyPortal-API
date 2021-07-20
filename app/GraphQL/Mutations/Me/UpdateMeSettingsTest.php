@@ -18,9 +18,9 @@ use function array_key_exists;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Me\UpdateMePortalSettings
+ * @coversDefaultClass \App\GraphQL\Mutations\Me\UpdateMeSettings
  */
-class UpdateMePortalSettingsTest extends TestCase {
+class UpdateMeSettingsTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -43,8 +43,8 @@ class UpdateMePortalSettingsTest extends TestCase {
             $input = $prepare($this);
         }
         // Test
-        $this->graphQL(/** @lang GraphQL */ 'mutation updateMePortalSettings($input: UpdateMePortalSettingsInput!) {
-            updateMePortalSettings(input:$input) {
+        $this->graphQL(/** @lang GraphQL */ 'mutation updateMeSettings($input: UpdateMeSettingsInput!) {
+            updateMeSettings(input:$input) {
                 result
             }
         }', ['input' => $input])
@@ -75,11 +75,11 @@ class UpdateMePortalSettingsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('updateMePortalSettings'),
-            new AuthUserDataProvider('updateMePortalSettings'),
+            new OrganizationDataProvider('updateMeSettings'),
+            new AuthUserDataProvider('updateMeSettings'),
             new ArrayDataProvider([
                 'ok'                               => [
-                    new GraphQLSuccess('updateMePortalSettings', UpdateMePortalSettings::class),
+                    new GraphQLSuccess('updateMeSettings', UpdateMeSettings::class),
                     static function (): array {
                         $language = Language::factory()->create();
                         return [
@@ -91,13 +91,13 @@ class UpdateMePortalSettingsTest extends TestCase {
                     },
                 ],
                 'nullable'                         => [
-                    new GraphQLSuccess('updateMePortalSettings', UpdateMePortalSettings::class),
+                    new GraphQLSuccess('updateMeSettings', UpdateMeSettings::class),
                     static function (): array {
                         return [];
                     },
                 ],
                 'invalid request/Invalid locale'   => [
-                    new GraphQLError('updateMePortalSettings', static function (): array {
+                    new GraphQLError('updateMeSettings', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     static function (): array {
@@ -107,7 +107,7 @@ class UpdateMePortalSettingsTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid timezone' => [
-                    new GraphQLError('updateMePortalSettings', static function (): array {
+                    new GraphQLError('updateMeSettings', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     static function (): array {
@@ -117,7 +117,7 @@ class UpdateMePortalSettingsTest extends TestCase {
                     },
                 ],
                 'invalid request/Invalid language' => [
-                    new GraphQLError('updateMePortalSettings', static function (): array {
+                    new GraphQLError('updateMeSettings', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     static function (TestCase $test): array {

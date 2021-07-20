@@ -4,7 +4,7 @@ namespace App\GraphQL\Mutations\Me;
 
 use Illuminate\Auth\AuthManager;
 
-class UpdateMePortalSettings {
+class UpdateMeSettings {
 
     public function __construct(
         protected AuthManager $auth,
