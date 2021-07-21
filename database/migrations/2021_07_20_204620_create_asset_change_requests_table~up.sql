@@ -5,9 +5,10 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE TABLE IF NOT EXISTS `asset_change_requests` (
   `id`              CHAR(36)     NOT NULL,
   `subject`         VARCHAR(255) NOT NULL,
+  `from`            VARCHAR(255) NOT NULL,
   `message`         TEXT         NOT NULL,
-  `cc`              VARCHAR(255) NULL       DEFAULT NULL,
-  `bcc`             VARCHAR(255) NULL       DEFAULT NULL,
+  `cc`              JSON         NULL       DEFAULT NULL,
+  `bcc`             JSON         NULL       DEFAULT NULL,
   `organization_id` CHAR(36)     NOT NULL,
   `user_id`         CHAR(36)     NOT NULL,
   `asset_id`        CHAR(36)     NOT NULL,

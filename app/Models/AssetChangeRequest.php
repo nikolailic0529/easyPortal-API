@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Asset Change Request.
@@ -30,10 +31,31 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AssetChangeRequest extends Model {
     use HasFactory;
 
+    protected const CASTS = [
+        'cc'  => 'array',
+        'bcc' => 'array',
+    ];
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
      */
     protected $table = 'asset_change_requests';
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<string>
+     */
+    protected $casts = self::CASTS + parent::CASTS;
+
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class);
+    }
+
+    public function asset(): BelongsTo {
+        return $this->belongsTo(Asset::class);
+    }
 }

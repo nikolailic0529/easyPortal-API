@@ -1,0 +1,91 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionProperties": false,
+    "type": "object",
+    "required": [
+        "id",
+        "subject",
+        "message",
+        "cc",
+        "bcc",
+        "user_id",
+        "user",
+        "asset_id",
+        "created_at",
+        "updated_at"
+    ],
+    "properties": {
+        "id": {
+            "$ref": "../../types.json#/definitions/ID"
+        },
+        "subject": {
+            "type": "string"
+        },
+        "message": {
+            "type": "string"
+        },
+        "cc": {
+            "oneOf": [
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "bcc": {
+            "oneOf": [
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "user_id": {
+            "$ref": "../../types.json#/definitions/ID"
+        },
+        "user": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "given_name",
+                "family_name",
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "$ref": "../../types.json#/definitions/ID"
+                },
+                "given_name": {
+                    "type": "string"
+                },
+                "family_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "created_at": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "updated_at": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "asset_id": {
+            "$ref": "../../types.json#/definitions/ID"
+        },
+        "asset": {
+            "$ref": "../../types.json#/definitions/Asset"
+        }
+    }
+}

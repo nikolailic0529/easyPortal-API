@@ -120,6 +120,15 @@ interface Constants {
     #[Group('ep')]
     #[Type(StringType::class)]
     public const EP_FILE_FORMATS = ['jpg', 'jpeg', 'png', 'csv', 'xlsx', 'pdf', 'docx', 'doc'];
+
+    /**
+     * Portal email address.
+     */
+    #[Setting('ep.email_address')]
+    #[PublicName('epEmailAddress')]
+    #[Group('ep')]
+    #[Type(StringType::class)]
+    public const EP_EMAIL_ADDRESS = '';
     // </editor-fold>
 
     // <editor-fold desc="EP_CLIENT">

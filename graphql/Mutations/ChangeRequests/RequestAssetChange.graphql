@@ -1,0 +1,21 @@
+extend type Mutation {
+  requestAssetChange(
+    input: RequestAssetChangeInput!
+  ): RequestAssetChangePayload
+  @organization
+  @me(permissions: ["requests-asset-change"])
+  @field(resolver:"App\\GraphQL\\Mutations\\ChangeRequests\\RequestAssetChange")
+}
+
+input RequestAssetChangeInput {
+  asset_id: ID! @rules(apply:["required","App\\Rules\\AssetId"])
+  subject: String! @rules(apply:["required"])
+  message: String! @rules(apply:["required"])
+  from: String! @rules(apply:["email"])
+  cc: [String!] @rules(apply:["email"])
+  bcc: [String!] @rules(apply:["email"])
+}
+
+type RequestAssetChangePayload {
+  created: AssetChangeRequest!
+}
