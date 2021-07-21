@@ -1287,7 +1287,7 @@ type Organization {
   headquarter: Location
 
   """
-  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
   """
   users: [OrganizationUser!]!
 
