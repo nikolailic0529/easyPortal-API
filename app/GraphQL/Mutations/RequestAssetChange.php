@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations\ChangeRequests;
+namespace App\GraphQL\Mutations;
 
 use App\Mail\RequestAssetChange as MailRequestAssetChange;
 use App\Models\ChangeRequest;

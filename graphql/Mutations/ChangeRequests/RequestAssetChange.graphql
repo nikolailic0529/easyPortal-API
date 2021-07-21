@@ -4,7 +4,6 @@ extend type Mutation {
   ): RequestAssetChangePayload
   @organization
   @me(permissions: ["requests-asset-change"])
-  @field(resolver:"App\\GraphQL\\Mutations\\ChangeRequests\\RequestAssetChange")
 }
 
 input RequestAssetChangeInput {

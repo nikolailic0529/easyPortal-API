@@ -3,20 +3,17 @@
     "additionProperties": false,
     "type": "object",
     "required": [
-        "id",
         "subject",
         "message",
         "cc",
         "bcc",
         "user_id",
         "user",
-        "asset_id",
-        "created_at",
-        "updated_at"
+        "asset_id"
     ],
     "properties": {
         "id": {
-            "$ref": "../../types.json#/definitions/ID"
+            "$ref": "../types.json#/definitions/ID"
         },
         "subject": {
             "type": "string"
@@ -51,7 +48,7 @@
             ]
         },
         "user_id": {
-            "$ref": "../../types.json#/definitions/ID"
+            "$ref": "../types.json#/definitions/ID"
         },
         "user": {
             "additionProperties": false,
@@ -63,7 +60,7 @@
             ],
             "properties": {
                 "id": {
-                    "$ref": "../../types.json#/definitions/ID"
+                    "$ref": "../types.json#/definitions/ID"
                 },
                 "given_name": {
                     "type": "string"
@@ -84,7 +81,7 @@
         "asset_id": {
             "oneOf": [
                 {
-                    "$ref": "../../types.json#/definitions/ID"
+                    "$ref": "../types.json#/definitions/ID"
                 },
                 {
                     "type": "null"
@@ -94,7 +91,7 @@
         "asset": {
             "oneOf": [
                 {
-                    "$ref": "../../types.json#/definitions/Asset"
+                    "$ref": "../types.json#/definitions/Asset"
                 },
                 {
                     "type": "null"

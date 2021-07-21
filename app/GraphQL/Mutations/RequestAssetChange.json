@@ -7,7 +7,7 @@
     ],
     "properties": {
         "created": {
-            "$ref": "../../Types/ChangeRequest.json"
+            "$ref": "../Types/ChangeRequest.json"
         }
     }
 }

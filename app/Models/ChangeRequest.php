@@ -38,6 +38,7 @@ class ChangeRequest extends Model {
     protected const CASTS = [
         'cc'  => 'array',
         'bcc' => 'array',
+        'to'  => 'array',
     ];
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
