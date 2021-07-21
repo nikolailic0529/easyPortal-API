@@ -15,9 +15,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null                  $asset_id
  * @property string                       $subject
  * @property string                       $from
- * @property string                       $to
- * @property string|null                  $cc
- * @property string|null                  $bcc
+ * @property array<string>                $to
+ * @property array<string>|null           $cc
+ * @property array<string>|null           $bcc
  * @property string                       $message
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at

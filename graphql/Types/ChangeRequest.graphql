@@ -9,6 +9,7 @@ type ChangeRequest {
   subject: String!
   message: String!
   from: String!
+  to: [String!]!
   cc: [String!]
   bcc: [String!]
 }
