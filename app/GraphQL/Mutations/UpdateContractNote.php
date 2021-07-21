@@ -9,6 +9,7 @@ use Illuminate\Http\UploadedFile;
 use Nuwave\Lighthouse\Exceptions\AuthorizationException;
 
 use function array_key_exists;
+use function is_null;
 
 class UpdateContractNote {
     public function __construct(
@@ -28,8 +29,9 @@ class UpdateContractNote {
                 'updated' => $this->updateNote(
                     $args['input']['id'],
                     ['contracts-view', 'customers-view'],
-                    $args['input']['note'],
-                    $args['input']['files'] ?? [],
+                    $args['input']['note'] ?? null,
+                    $args['input']['pinned'] ?? null,
+                    $args['input']['files'] ?? null,
                 ),
         ];
     }
@@ -43,36 +45,44 @@ class UpdateContractNote {
     public function updateNote(
         string $noteId,
         array $permissions,
-        string $content,
-        array $attached = [],
+        string $content = null,
+        bool $pinned = null,
+        array $attached = null,
     ): Note {
         $note = Note::whereKey($noteId)->first();
         if (!$this->auth->user()->canAny($permissions, [$note])) {
             throw new AuthorizationException();
         }
-        $note->note = $content;
-        $note->save();
-
-        $files = $note->files->keyBy(static function (File $file) {
-            return $file->getKey();
-        });
-
-        foreach ($attached as $item) {
-            if (array_key_exists('content', $item) && $item['content'] instanceof UploadedFile) {
-                // new upload
-                $newFile          = $this->createQuoteNote->createFile($note, $item['content']);
-                $newFile->note_id = $note->getKey();
-                $newFile->save();
-            } elseif (array_key_exists('id', $item)) {
-                // keep file
-                $files->forget($item['id']);
-            } else {
-                // empty
-            }
+        if ($content) {
+            $note->note = $content;
         }
 
-        foreach ($files as $file) {
-            $file->delete();
+        if (!is_null($pinned)) {
+            $note->pinned = $pinned;
+        }
+
+        $note->save();
+
+        if ($attached) {
+            $files = $note->files->keyBy(static function (File $file) {
+                return $file->getKey();
+            });
+            foreach ($attached as $item) {
+                if (array_key_exists('content', $item) && $item['content'] instanceof UploadedFile) {
+                    // new upload
+                    $newFile          = $this->createQuoteNote->createFile($note, $item['content']);
+                    $newFile->note_id = $note->getKey();
+                    $newFile->save();
+                } elseif (array_key_exists('id', $item)) {
+                    // keep file
+                    $files->forget($item['id']);
+                } else {
+                    // empty
+                }
+            }
+            foreach ($files as $file) {
+                $file->delete();
+            }
         }
 
         return $note->fresh();

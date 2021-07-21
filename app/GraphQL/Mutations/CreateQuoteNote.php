@@ -49,7 +49,7 @@ class CreateQuoteNote {
             return $this->createFile($note, $file);
         }, $files);
         $note->save();
-        return $note;
+        return $note->fresh();
     }
 
     public function createFile(Note $note, UploadedFile $upload): File {

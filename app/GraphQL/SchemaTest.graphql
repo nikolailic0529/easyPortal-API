@@ -1223,6 +1223,7 @@ type Mutation {
 
 type Note {
   id: ID!
+  pinned: Boolean!
   note: String!
   created_at: DateTime!
   updated_at: DateTime!
@@ -1242,12 +1243,14 @@ type NotePaginator {
 
 input NotesQuery {
   note: String!
+  pinned: Boolean!
   user_id: ID!
   user: UsersQuery
 }
 
 input NotesSort {
   user_id: ID!
+  pinned: Boolean!
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -2608,6 +2611,9 @@ input SearchByConditionNotesQuery {
   note: SearchByScalarString
 
   """Property condition."""
+  pinned: SearchByScalarBoolean
+
+  """Property condition."""
   user_id: SearchByScalarID
 
   """Property condition."""
@@ -3229,6 +3235,17 @@ input SearchByRelationUsersQuery {
 }
 
 """
+Available operators for scalar Boolean! (only one operator allowed at a time).
+"""
+input SearchByScalarBoolean {
+  """Equal (`=`)."""
+  eq: Boolean
+
+  """Not."""
+  not: SearchByFlag
+}
+
+"""
 Available operators for scalar Boolean (only one operator allowed at a time).
 """
 input SearchByScalarBooleanOrNull {
@@ -3758,6 +3775,9 @@ input SortByClauseNotesSort {
   user_id: SortByDirection
 
   """Property clause."""
+  pinned: SortByDirection
+
+  """Property clause."""
   created_at: SortByDirection
 
   """Property clause."""
@@ -3931,7 +3951,8 @@ input UpdateContractNoteFile {
 
 input UpdateContractNoteInput {
   id: ID!
-  note: String!
+  note: String
+  pinned: Boolean
   files: [UpdateContractNoteFile!]
 }
 
@@ -4026,7 +4047,8 @@ input UpdateQuoteNoteFile {
 
 input UpdateQuoteNoteInput {
   id: ID!
-  note: String!
+  note: String
+  pinned: Boolean
   files: [UpdateQuoteNoteFile!]
 }
 

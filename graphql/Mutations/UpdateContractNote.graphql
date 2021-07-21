@@ -8,7 +8,8 @@ extend type Mutation {
 
 input UpdateContractNoteInput @validator {
   id: ID!
-  note: String!
+  note: String
+  pinned: Boolean
   files: [UpdateContractNoteFile!]
 }
 

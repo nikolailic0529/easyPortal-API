@@ -240,6 +240,7 @@ class ContractTest extends TestCase {
                             data{
                                 id
                                 note
+                                pinned
                                 created_at
                                 updated_at
                                 user_id
@@ -613,7 +614,7 @@ class ContractTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderQueryNotes(): array {
-        $url = 'http://example.com/files/f9834bc1-2f2f-4c57-bb8d-7a224ac2E988';
+        $url = 'https://example.com/files/f9834bc1-2f2f-4c57-bb8d-7a224ac2E988';
         return (new MergeDataProvider([
             'root'           => new CompositeDataProvider(
                 new RootOrganizationDataProvider('contract'),
@@ -671,6 +672,7 @@ class ContractTest extends TestCase {
                                     [
                                         'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
                                         'note'       => 'Note',
+                                        'pinned'     => true,
                                         'created_at' => '2021-07-11T23:27:47+00:00',
                                         'updated_at' => '2021-07-11T23:27:47+00:00',
                                         'user_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
@@ -734,6 +736,7 @@ class ContractTest extends TestCase {
                                 ->create([
                                     'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
                                     'note'       => 'Note',
+                                    'pinned'     => true,
                                     'created_at' => '2021-07-11T23:27:47+00:00',
                                     'updated_at' => '2021-07-11T23:27:47+00:00',
                                 ]);

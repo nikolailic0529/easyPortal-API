@@ -19,8 +19,9 @@ class UpdateQuoteNote {
             'updated' => $this->updateContractNote->updateNote(
                 $args['input']['id'],
                 ['quotes-view', 'customers-view'],
-                $args['input']['note'],
-                $args['input']['files'] ?? [],
+                $args['input']['note'] ?? null,
+                $args['input']['pinned'] ?? null,
+                $args['input']['files'] ?? null,
             ),
         ];
     }

@@ -101,6 +101,7 @@ class CreateContractNoteTest extends TestCase {
                 createContractNote(input: $input){
                     created {
                         id
+                        pinned
                         note
                         user_id
                         created_at
@@ -138,6 +139,7 @@ class CreateContractNoteTest extends TestCase {
             $this->assertNotNull($created['id']);
             $this->assertNotNull($created['created_at']);
             $this->assertNotNull($created['updated_at']);
+            $this->assertFalse($created['pinned']);
             $this->assertEquals($input['note'], $created['note']);
             $this->assertEquals($user->getKey(), $created['user_id']);
             // Files assertion

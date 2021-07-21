@@ -29,7 +29,8 @@ class UpdateContractNoteInputValidator extends Validator {
         ];
 
         return [
-            'note'           => ['required', 'string'],
+            'note'           => ['nullable', 'string'],
+            'pinned'         => ['nullable', 'boolean'],
             'id'             => ['required', new NoteId()],
             'file.*.content' => ['nullable', ...$upload],
             'file.*.id'      => ['nullable', new FileId()],

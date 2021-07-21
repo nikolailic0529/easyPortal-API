@@ -114,6 +114,7 @@ class UpdateQuoteNoteTest extends TestCase {
                     updated {
                         id
                         note
+                        pinned
                         user_id
                         created_at
                         updated_at
@@ -150,8 +151,11 @@ class UpdateQuoteNoteTest extends TestCase {
             $this->assertNotNull($updated['id']);
             $this->assertNotNull($updated['created_at']);
             $this->assertNotNull($updated['updated_at']);
-            $this->assertEquals($input['note'], $updated['note']);
             $this->assertEquals($user->getKey(), $updated['user_id']);
+            array_key_exists('note', $input) && $this->assertEquals($input['note'], $updated['note']);
+            array_key_exists('pinned', $input)
+                ? $this->assertEquals($input['pinned'], $updated['pinned'])
+                : $this->assertFalse($updated['pinned']);
             // Files assertion
             $this->assertCount(1, $updated['files']);
             $uploadTest
@@ -208,9 +212,10 @@ class UpdateQuoteNoteTest extends TestCase {
                         $settings,
                         $prepare,
                         [
-                            'note'  => 'new note',
-                            'id'    => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                            'files' => [
+                            'note'   => 'new note',
+                            'pinned' => true,
+                            'id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                            'files'  => [
                                 [
                                     'id'      => null,
                                     'content' => UploadedFile::fake()->create('new.csv', 200),
@@ -251,14 +256,78 @@ class UpdateQuoteNoteTest extends TestCase {
                             ]);
                         },
                         [
-                            'note'  => 'new note',
-                            'id'    => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                            'files' => [
+                            'note'   => 'new note',
+                            'pinned' => true,
+                            'id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                            'files'  => [
                                 [
                                     'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
                                     'content' => null,
                                 ],
                             ],
+                        ],
+                    ],
+                    'optional note'       => [
+                        new GraphQLSuccess('updateQuoteNote', UpdateContractNote::class),
+                        $settings,
+                        $prepare,
+                        [
+                            'id'    => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                            'files' => [
+                                [
+                                    'id'      => null,
+                                    'content' => UploadedFile::fake()->create('new.csv', 200),
+                                ],
+                            ],
+                        ],
+                    ],
+                    'optional pinned'     => [
+                        new GraphQLSuccess('updateQuoteNote', UpdateContractNote::class),
+                        $settings,
+                        $prepare,
+                        [
+                            'id'    => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                            'note'  => 'new note',
+                            'files' => [
+                                [
+                                    'id'      => null,
+                                    'content' => UploadedFile::fake()->create('new.csv', 200),
+                                ],
+                            ],
+                        ],
+                    ],
+                    'optional files'      => [
+                        new GraphQLSuccess('updateQuoteNote', UpdateContractNote::class),
+                        $settings,
+                        static function (TestCase $test, ?Organization $organization, User $user): void {
+                            if ($user) {
+                                $user->save();
+                            }
+                            $type     = Type::factory()->create([
+                                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization->getKey(),
+                            ]);
+                            $document = Document::factory()->create([
+                                'type_id'     => $type->getKey(),
+                                'reseller_id' => $reseller->getKey(),
+                            ]);
+                            // File should not be deleted if files is not updated
+                            Note::factory()
+                                ->for($user)
+                                ->hasFiles(1, [
+                                    'name' => 'keep.csv',
+                                ])
+                                ->create([
+                                    'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                    'document_id' => $document->getKey(),
+                                ]);
+                        },
+                        [
+                            'id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                            'note'   => 'new note',
+                            'pinned' => false,
                         ],
                     ],
                     'Invalid note id'     => [
@@ -451,9 +520,10 @@ class UpdateQuoteNoteTest extends TestCase {
                             ]);
                         },
                         [
-                            'note'  => 'new note',
-                            'id'    => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                            'files' => [
+                            'note'   => 'new note',
+                            'pinned' => true,
+                            'id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                            'files'  => [
                                 [
                                     'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
                                     'content' => null,

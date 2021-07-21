@@ -240,6 +240,7 @@ class QuoteTest extends TestCase {
                             data{
                                 id
                                 note
+                                pinned
                                 created_at
                                 updated_at
                                 user_id
@@ -671,6 +672,7 @@ class QuoteTest extends TestCase {
                                     [
                                         'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
                                         'note'       => 'Note',
+                                        'pinned'     => true,
                                         'created_at' => '2021-07-11T23:27:47+00:00',
                                         'updated_at' => '2021-07-11T23:27:47+00:00',
                                         'user_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
@@ -734,6 +736,7 @@ class QuoteTest extends TestCase {
                                 ->create([
                                     'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
                                     'note'       => 'Note',
+                                    'pinned'     => true,
                                     'created_at' => '2021-07-11T23:27:47+00:00',
                                     'updated_at' => '2021-07-11T23:27:47+00:00',
                                 ]);

@@ -40,6 +40,7 @@ class NoteFactory extends Factory {
             'document_id'     => static function (): Document {
                 return Document::query()->first() ?? Document::factory()->create();
             },
+            'pinned'          => false,
             'note'            => $this->faker->text(),
             'created_at'      => Date::now(),
             'updated_at'      => Date::now(),

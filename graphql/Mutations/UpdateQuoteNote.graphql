@@ -8,7 +8,8 @@ extend type Mutation {
 
 input UpdateQuoteNoteInput @validator(class:"App\\GraphQL\\Validators\\UpdateContractNoteInputValidator") {
   id: ID!
-  note: String!
+  note: String
+  pinned: Boolean
   files: [UpdateQuoteNoteFile!]
 }
 

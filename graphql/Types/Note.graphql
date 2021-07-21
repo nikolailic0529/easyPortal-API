@@ -1,5 +1,6 @@
 type Note {
   id: ID!
+  pinned: Boolean!
   note: String!
   created_at: DateTime!
   updated_at: DateTime!

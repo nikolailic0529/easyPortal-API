@@ -20,6 +20,7 @@ use Illuminate\Support\Collection;
  * @property string                       $document_id
  * @property string                       $organization_id
  * @property string                       $user_id
+ * @property bool                         $pinned
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
@@ -38,6 +39,9 @@ class Note extends Model implements CascadeDeletable {
     use SyncHasMany;
     use HasDocument;
 
+    protected const CASTS = [
+        'pinned' => 'bool',
+    ];
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -68,4 +72,13 @@ class Note extends Model implements CascadeDeletable {
     public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {
         return $name === 'files';
     }
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<string>
+     */
+    protected $casts = self::CASTS + parent::CASTS;
 }
