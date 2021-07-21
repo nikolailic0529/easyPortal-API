@@ -34,6 +34,7 @@ class RequestAssetChange {
         $request->message         = $args['input']['message'];
         $request->subject         = $args['input']['subject'];
         $request->from            = $args['input']['from'];
+        $request->to              = [$this->config->get('ep.email_address')];
         if (array_key_exists('cc', $args['input'])) {
             $request->cc = $args['input']['cc'];
         }
@@ -43,8 +44,7 @@ class RequestAssetChange {
         $request->save();
         // Send Email
 
-        $this->mail->to($this->config->get('ep.email_address'))
-            ->send(new MailRequestAssetChange($request));
+        $this->mail->send(new MailRequestAssetChange($request));
         return ['created' => $request];
     }
 }

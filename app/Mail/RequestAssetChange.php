@@ -36,7 +36,7 @@ class RequestAssetChange extends Mailable {
         if ($this->request->bcc) {
             $mail = $mail->bcc($this->request->bcc);
         }
-        return $mail->markdown('asset_change_request', [
+        return $mail->to($this->request->to)->markdown('asset_change_request', [
             'request' => $this->request,
         ]);
     }
