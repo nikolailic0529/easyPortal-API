@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations\Me;
 
+use App\Models\User;
 use Illuminate\Auth\AuthManager;
 
 class UpdateMeSettings {
@@ -18,11 +19,19 @@ class UpdateMeSettings {
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
+        // Possible?
+        /** @var \Illuminate\Contracts\Auth\Authenticatable $user */
         $user = $this->auth->user();
 
-        foreach ($args['input'] as $key => $value) {
-            $user->{$key} = $value;
+        if (!($user instanceof User)) {
+            return [
+                'result' => false,
+            ];
         }
-        return ['result' => (bool) $user->save()];
+
+        // Update
+        return [
+            'result' => $user->forceFill($args['input'])->save(),
+        ];
     }
 }
