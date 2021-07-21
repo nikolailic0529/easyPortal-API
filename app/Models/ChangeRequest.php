@@ -12,7 +12,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string                       $id
  * @property string                       $organization_id
  * @property string                       $user_id
- * @property string|null                  $asset_id
+ * @property string                       $object_id
+ * @property string                       $object_type
  * @property string                       $subject
  * @property string                       $from
  * @property array<string>                $to
@@ -31,7 +32,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChangeRequest query()
  * @mixin \Eloquent
  */
-class ChangeRequest extends Model {
+class ChangeRequest extends PolymorphicModel {
     use HasFactory;
     use OwnedByOrganization;
 
@@ -58,10 +59,6 @@ class ChangeRequest extends Model {
 
     public function user(): BelongsTo {
         return $this->belongsTo(User::class);
-    }
-
-    public function asset(): BelongsTo {
-        return $this->belongsTo(Asset::class);
     }
 
     public function getQualifiedOrganizationColumn(): string {

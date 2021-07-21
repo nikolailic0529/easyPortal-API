@@ -4,8 +4,6 @@ type ChangeRequest {
   updated_at: DateTime!
   user_id: ID!
   user: User! @belongsTo
-  asset_id: ID
-  asset: Asset @belongsTo
   subject: String!
   message: String!
   from: String!

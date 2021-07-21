@@ -8,8 +8,7 @@
         "cc",
         "bcc",
         "user_id",
-        "user",
-        "asset_id"
+        "user"
     ],
     "properties": {
         "id": {
@@ -77,26 +76,6 @@
         "updated_at": {
             "type": "string",
             "format": "date-time"
-        },
-        "asset_id": {
-            "oneOf": [
-                {
-                    "$ref": "../types.json#/definitions/ID"
-                },
-                {
-                    "type": "null"
-                }
-            ]
-        },
-        "asset": {
-            "oneOf": [
-                {
-                    "$ref": "../types.json#/definitions/Asset"
-                },
-                {
-                    "type": "null"
-                }
-            ]
         }
     }
 }

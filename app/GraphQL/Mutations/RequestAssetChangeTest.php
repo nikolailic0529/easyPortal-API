@@ -90,7 +90,6 @@ class RequestAssetChangeTest extends TestCase {
                         to
                         cc
                         bcc
-                        asset_id
                         user_id
                         user {
                             id
@@ -144,7 +143,6 @@ class RequestAssetChangeTest extends TestCase {
                 'ok'              => [
                     new GraphQLSuccess('requestAssetChange', RequestAssetChange::class,[
                         'created' => [
-                            'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                             'user_id'  => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
                             'subject'  => 'subject',
                             'message'  => 'change request',

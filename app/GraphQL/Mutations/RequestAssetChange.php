@@ -3,13 +3,12 @@
 namespace App\GraphQL\Mutations;
 
 use App\Mail\RequestAssetChange as MailRequestAssetChange;
+use App\Models\Asset;
 use App\Models\ChangeRequest;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Mail\Mailer;
-
-use function array_key_exists;
 
 class RequestAssetChange {
     public function __construct(
@@ -27,24 +26,41 @@ class RequestAssetChange {
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
+        $request = $this->createRequest(
+            $args['input']['asset_id'],
+            (new Asset())->getMorphClass(),
+            $args['input']['subject'],
+            $args['input']['message'],
+            $args['input']['from'],
+            $args['input']['cc'] ?? null,
+            $args['input']['bcc'] ?? null,
+        );
+        // Send Email
+        $this->mail->send(new MailRequestAssetChange($request));
+        return ['created' => $request];
+    }
+
+    protected function createRequest(
+        string $object_id,
+        string $object_type,
+        string $subject,
+        string $message,
+        string $from,
+        array $cc = null,
+        array $bcc = null,
+    ) {
         $request                  = new ChangeRequest();
         $request->user_id         = $this->auth->user()->getKey();
         $request->organization_id = $this->organization->get()->getKey();
-        $request->asset_id        = $args['input']['asset_id'];
-        $request->message         = $args['input']['message'];
-        $request->subject         = $args['input']['subject'];
-        $request->from            = $args['input']['from'];
+        $request->object_id       = $object_id;
+        $request->object_type     = $object_type;
+        $request->subject         = $subject;
+        $request->message         = $message;
+        $request->from            = $from;
         $request->to              = [$this->config->get('ep.email_address')];
-        if (array_key_exists('cc', $args['input'])) {
-            $request->cc = $args['input']['cc'];
-        }
-        if (array_key_exists('bcc', $args['input'])) {
-            $request->bcc = $args['input']['bcc'];
-        }
+        $request->cc              = $cc;
+        $request->bcc             = $bcc;
         $request->save();
-        // Send Email
-
-        $this->mail->send(new MailRequestAssetChange($request));
-        return ['created' => $request];
+        return $request;
     }
 }
