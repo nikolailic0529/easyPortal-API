@@ -25,6 +25,7 @@ use App\Services\Settings\Types\BooleanType;
 use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\DocumentType;
 use App\Services\Settings\Types\Duration;
+use App\Services\Settings\Types\EmailType;
 use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\LocationType;
 use App\Services\Settings\Types\Organization;

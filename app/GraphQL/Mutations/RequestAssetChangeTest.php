@@ -19,7 +19,6 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
 use function __;
-use function array_key_exists;
 
 /**
  * @internal
@@ -80,25 +79,24 @@ class RequestAssetChangeTest extends TestCase {
             'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
         ];
         // Test
-        $response = $this
-            ->graphQL(/** @lang GraphQL */ 'mutation RequestAssetChange($input: RequestAssetChangeInput!) {
-                requestAssetChange(input:$input) {
-                    created {
-                        subject
-                        message
-                        from
-                        to
-                        cc
-                        bcc
-                        user_id
-                        user {
-                            id
-                            given_name
-                            family_name
-                        }
+        $this->graphQL(/** @lang GraphQL */ 'mutation RequestAssetChange($input: RequestAssetChangeInput!) {
+            requestAssetChange(input:$input) {
+                created {
+                    subject
+                    message
+                    from
+                    to
+                    cc
+                    bcc
+                    user_id
+                    user {
+                        id
+                        given_name
+                        family_name
                     }
                 }
-            }', ['input' => $input])
+            }
+        }', ['input' => $input])
         ->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
@@ -116,8 +114,8 @@ class RequestAssetChangeTest extends TestCase {
         $prepare  = static function (TestCase $test, ?Organization $organization, ?User $user): void {
             if ($user) {
                 $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
-                $user->given_name  = "first";
-                $user->family_name = "last";
+                $user->given_name  = 'first';
+                $user->family_name = 'last';
                 $user->save();
             }
 
@@ -141,21 +139,21 @@ class RequestAssetChangeTest extends TestCase {
             ]),
             new ArrayDataProvider([
                 'ok'              => [
-                    new GraphQLSuccess('requestAssetChange', RequestAssetChange::class,[
+                    new GraphQLSuccess('requestAssetChange', RequestAssetChange::class, [
                         'created' => [
-                            'user_id'  => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
-                            'subject'  => 'subject',
-                            'message'  => 'change request',
-                            'from'     => 'user@example.com',
-                            'to'       => ['test@example.com'],
-                            'cc'       => ['cc@example.com'],
-                            'bcc'      => ['bcc@example.com'],
-                            'user'     => [
+                            'user_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
+                            'subject' => 'subject',
+                            'message' => 'change request',
+                            'from'    => 'user@example.com',
+                            'to'      => ['test@example.com'],
+                            'cc'      => ['cc@example.com'],
+                            'bcc'     => ['bcc@example.com'],
+                            'user'    => [
                                 'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
                                 'given_name'  => 'first',
-                                'family_name' => 'last'
+                                'family_name' => 'last',
                             ],
-                        ]
+                        ],
                     ]),
                     $settings,
                     $prepare,

@@ -40,6 +40,11 @@ class RequestAssetChange {
         return ['created' => $request];
     }
 
+    /**
+     * @param array<string>|null $cc
+     *
+     * @param array<string>|null $bcc
+     */
     protected function createRequest(
         string $object_id,
         string $object_type,
@@ -48,7 +53,7 @@ class RequestAssetChange {
         string $from,
         array $cc = null,
         array $bcc = null,
-    ) {
+    ): ChangeRequest {
         $request                  = new ChangeRequest();
         $request->user_id         = $this->auth->user()->getKey();
         $request->organization_id = $this->organization->get()->getKey();

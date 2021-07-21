@@ -237,21 +237,6 @@ type Asset {
   data_quality: String
 }
 
-type ChangeRequest {
-  id: ID!
-  created_at: DateTime!
-  updated_at: DateTime!
-  user_id: ID!
-  user: User!
-  asset_id: ID
-  asset: Asset
-  subject: String!
-  message: String!
-  from: String!
-  cc: [String!]
-  bcc: [String!]
-}
-
 input AssetCoveragesQuery {
   assets: AssetsQuery
 }
@@ -338,6 +323,20 @@ input AuthorizeOrganizationInput {
 
 type AuthorizeOrganizationPayload {
   me: Me
+}
+
+type ChangeRequest {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  user_id: ID!
+  user: User!
+  subject: String!
+  message: String!
+  from: String!
+  to: [String!]!
+  cc: [String!]
+  bcc: [String!]
 }
 
 input CitiesQuery {
@@ -1144,6 +1143,13 @@ type Mutation {
 
   """@require <guest> Current visitor must be a guest."""
   signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["requests-asset-change"])> User must be authenticated and have any of these permissions.
+  """
+  requestAssetChange(input: RequestAssetChangeInput!): RequestAssetChangePayload
 
   """@require <me> User must be authenticated."""
   createMeSearch(input: CreateMeSearchInput!): CreateMeSearchPayload
