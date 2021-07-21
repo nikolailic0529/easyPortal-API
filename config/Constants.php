@@ -122,13 +122,13 @@ interface Constants {
     public const EP_FILE_FORMATS = ['jpg', 'jpeg', 'png', 'csv', 'xlsx', 'pdf', 'docx', 'doc'];
 
     /**
-     * Portal email address.
+     * Tesedi Portal Email Address.
      */
     #[Setting('ep.email_address')]
     #[PublicName('epEmailAddress')]
     #[Group('ep')]
-    #[Type(StringType::class)]
-    public const EP_EMAIL_ADDRESS = '';
+    #[Type(EmailType::class)]
+    public const EP_EMAIL_ADDRESS = 'info@itassethub.test';
     // </editor-fold>
 
     // <editor-fold desc="EP_CLIENT">
