@@ -8,6 +8,7 @@ use App\Services\DataLoader\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizers\KeyNormalizer;
 use App\Services\DataLoader\Normalizers\NumberNormalizer;
 use App\Services\DataLoader\Normalizers\StringNormalizer;
+use App\Services\DataLoader\Normalizers\TextNormalizer;
 use App\Services\DataLoader\Normalizers\UuidNormalizer;
 use DateTimeInterface;
 
@@ -20,6 +21,7 @@ class Normalizer {
         protected NumberNormalizer $number,
         protected BoolNormalizer $boolean,
         protected ColorNormalizer $color,
+        protected TextNormalizer $text,
     ) {
         // empty
     }
@@ -34,6 +36,10 @@ class Normalizer {
 
     public function string(mixed $value): ?string {
         return $this->string->normalize($value);
+    }
+
+    public function text(mixed $value): ?string {
+        return $this->text->normalize($value);
     }
 
     public function datetime(mixed $value): ?DateTimeInterface {

@@ -8,6 +8,7 @@ use App\Services\DataLoader\Normalizers\DateTimeNormalizer;
 use App\Services\DataLoader\Normalizers\KeyNormalizer;
 use App\Services\DataLoader\Normalizers\NumberNormalizer;
 use App\Services\DataLoader\Normalizers\StringNormalizer;
+use App\Services\DataLoader\Normalizers\TextNormalizer;
 use App\Services\DataLoader\Normalizers\UuidNormalizer;
 use Mockery;
 use Tests\TestCase;
@@ -167,5 +168,24 @@ class NormalizerTest extends TestCase {
         $color->shouldReceive('normalize')->once()->andReturns();
 
         $normalizer->color('value');
+    }
+
+    /**
+     * @covers ::text
+     */
+    public function testText(): void {
+        $color      = Mockery::mock(TextNormalizer::class);
+        $normalizer = new class($color) extends Normalizer {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected TextNormalizer $text,
+            ) {
+                // empty
+            }
+        };
+
+        $color->shouldReceive('normalize')->once()->andReturns();
+
+        $normalizer->text('value');
     }
 }
