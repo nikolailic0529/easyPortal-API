@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Me;
 
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Exceptions\UserDoesntExists;
@@ -23,7 +23,7 @@ use function array_key_exists;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\UpdateMeProfile
+ * @coversDefaultClass \App\GraphQL\Mutations\Me\UpdateMeProfile
  */
 class UpdateMeProfileTest extends TestCase {
     // <editor-fold desc="Tests">

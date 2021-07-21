@@ -5,6 +5,7 @@ extend type Mutation {
   @throttle(name: "auth")
   @organization
   @me
+  @field(resolver: "App\\GraphQL\\Mutations\\Me\\UpdateMeEmail")
 }
 
 input UpdateMeEmailInput {

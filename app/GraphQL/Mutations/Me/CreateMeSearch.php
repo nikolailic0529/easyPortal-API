@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Me;
 
 use App\Models\UserSearch;
 use Illuminate\Auth\AuthManager;

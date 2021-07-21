@@ -952,9 +952,6 @@ type Mutation {
   """
   updateQuoteNote(input: UpdateQuoteNoteInput!): UpdateQuoteNotePayload
 
-  """@require <me> User must be authenticated."""
-  createMeSearch(input: CreateMeSearchInput!): CreateMeSearchPayload
-
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
@@ -976,9 +973,6 @@ type Mutation {
   be authenticated and have any of these permissions.
   """
   deleteContractNote(input: DeleteContractNoteInput!): DeleteContractNotePayload
-
-  """@require <me> User must be authenticated."""
-  deleteMeSearch(input: DeleteMeSearchInput!): DeleteMeSearchPayload
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1020,27 +1014,6 @@ type Mutation {
   @require <root> Authenticated user must be a root.
   """
   updateClientTranslations(input: UpdateClientTranslationsInput!): UpdateClientTranslationsPayload
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  updateMeEmail(input: UpdateMeEmailInput!): UpdateMeEmailPayload
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me> User must be authenticated.
-  """
-  updateMePassword(input: UpdateMePasswordInput!): UpdateMePasswordPayload
-
-  """
-  @require <me> User must be authenticated.
-  
-  @require <organization> Authenticated user must be a member of the current organization.
-  """
-  updateMeProfile(input: UpdateMeProfileInput!): UpdateMeProfilePayload
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -1154,6 +1127,33 @@ type Mutation {
 
   """@require <guest> Current visitor must be a guest."""
   signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload
+
+  """@require <me> User must be authenticated."""
+  createMeSearch(input: CreateMeSearchInput!): CreateMeSearchPayload
+
+  """@require <me> User must be authenticated."""
+  deleteMeSearch(input: DeleteMeSearchInput!): DeleteMeSearchPayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  updateMeEmail(input: UpdateMeEmailInput!): UpdateMeEmailPayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  updateMePassword(input: UpdateMePasswordInput!): UpdateMePasswordPayload
+
+  """
+  @require <me> User must be authenticated.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  """
+  updateMeProfile(input: UpdateMeProfileInput!): UpdateMeProfilePayload
 
   """
   Create Organization Role.

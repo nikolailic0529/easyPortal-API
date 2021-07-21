@@ -4,6 +4,7 @@ extend type Mutation {
   ): UpdateMeProfilePayload
   @me
   @organization
+  @field(resolver: "App\\GraphQL\\Mutations\\Me\\UpdateMeProfile")
 }
 
 input UpdateMeProfileInput @validator {

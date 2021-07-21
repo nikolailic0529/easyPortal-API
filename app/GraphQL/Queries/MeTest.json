@@ -11,7 +11,28 @@
                 "searches": {
                     "type": "array",
                     "items": {
-                        "$ref": "../Types/MeSearch.json"
+                        "additionProperties": false,
+                        "type": "object",
+                        "required": [
+                            "conditions",
+                            "name",
+                            "key",
+                            "id"
+                        ],
+                        "properties": {
+                            "id": {
+                                "$ref": "../types.json#/definitions/ID"
+                            },
+                            "key": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            },
+                            "conditions": {
+                                "type": "string"
+                            }
+                        }
                     }
                 }
             }

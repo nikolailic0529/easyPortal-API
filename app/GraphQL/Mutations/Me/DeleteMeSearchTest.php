@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Me;
 
 use App\Models\User;
 use App\Models\UserSearch;
@@ -15,7 +15,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\DeleteMeSearch
+ * @coversDefaultClass \App\GraphQL\Mutations\Me\DeleteMeSearch
  */
 class DeleteMeSearchTest extends TestCase {
     // <editor-fold desc="Tests">

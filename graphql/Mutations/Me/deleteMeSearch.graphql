@@ -3,6 +3,7 @@ extend type Mutation {
     input: DeleteMeSearchInput!
   ): DeleteMeSearchPayload
     @me
+    @field(resolver: "App\\GraphQL\\Mutations\\Me\\DeleteMeSearch")
 }
 
 input DeleteMeSearchInput {

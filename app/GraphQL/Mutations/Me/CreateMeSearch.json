@@ -3,11 +3,11 @@
     "type": "object",
     "additionalProperties": false,
     "required": [
-        "deleted"
+        "created"
     ],
     "properties": {
-        "deleted": {
-            "type": "string"
+        "created": {
+            "$ref": "../../Types/MeSearch.json"
         }
     }
 }

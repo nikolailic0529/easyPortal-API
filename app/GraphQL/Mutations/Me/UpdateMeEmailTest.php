@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Me;
 
 use App\Models\Enums\UserType;
 use App\Models\Organization;
@@ -20,7 +20,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\UpdateMeEmail
+ * @coversDefaultClass \App\GraphQL\Mutations\Me\UpdateMeEmail
  */
 class UpdateMeEmailTest extends TestCase {
     // <editor-fold desc="Tests">

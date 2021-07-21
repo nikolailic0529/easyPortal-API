@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Me;
 
 use App\GraphQL\Mutations\Auth\ResetPasswordSamePasswordException;
 use App\Models\Enums\UserType;
@@ -22,7 +22,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Auth\UpdateMePassword
+ * @coversDefaultClass \App\GraphQL\Mutations\Me\UpdateMePassword
  */
 class UpdateMePasswordTest extends TestCase {
     // <editor-fold desc="Tests">
