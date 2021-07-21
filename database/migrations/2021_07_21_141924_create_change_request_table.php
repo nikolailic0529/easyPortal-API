@@ -4,6 +4,6 @@
 
 use LastDragon_ru\LaraASP\Migrator\Migrations\RawMigration;
 
-class CreateAssetChangeRequestsTable extends RawMigration {
+class CreateChangeRequestTable extends RawMigration {
     // Please see the associated SQL files
 }
