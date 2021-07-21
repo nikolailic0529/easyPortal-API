@@ -82,10 +82,24 @@
             "format": "date-time"
         },
         "asset_id": {
-            "$ref": "../../types.json#/definitions/ID"
+            "oneOf": [
+                {
+                    "$ref": "../../types.json#/definitions/ID"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         },
         "asset": {
-            "$ref": "../../types.json#/definitions/Asset"
+            "oneOf": [
+                {
+                    "$ref": "../../types.json#/definitions/Asset"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         }
     }
 }

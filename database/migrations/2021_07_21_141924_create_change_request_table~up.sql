@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `change_requests` (
   `id`              CHAR(36)     NOT NULL,
   `organization_id` CHAR(36)     NOT NULL,
   `user_id`         CHAR(36)     NOT NULL,
-  `asset_id`        CHAR(36)     NOT NULL,
+  `asset_id`        CHAR(36)     NULL DEFAULT NULL,
   `subject`         VARCHAR(255) NOT NULL,
   `from`            VARCHAR(255) NOT NULL,
   `to`              JSON         NOT NULL,

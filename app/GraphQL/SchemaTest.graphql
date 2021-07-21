@@ -237,14 +237,14 @@ type Asset {
   data_quality: String
 }
 
-type AssetChangeRequest {
+type ChangeRequest {
   id: ID!
   created_at: DateTime!
   updated_at: DateTime!
   user_id: ID!
   user: User!
-  asset_id: ID!
-  asset: Asset!
+  asset_id: ID
+  asset: Asset
   subject: String!
   message: String!
   from: String!
@@ -1833,7 +1833,7 @@ input RequestAssetChangeInput {
 }
 
 type RequestAssetChangePayload {
-  created: AssetChangeRequest!
+  created: ChangeRequest!
 }
 
 type Reseller {

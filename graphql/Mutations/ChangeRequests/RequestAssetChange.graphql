@@ -17,5 +17,5 @@ input RequestAssetChangeInput {
 }
 
 type RequestAssetChangePayload {
-  created: AssetChangeRequest!
+  created: ChangeRequest!
 }

@@ -3,7 +3,7 @@
 namespace App\GraphQL\Mutations\ChangeRequests;
 
 use App\Mail\RequestAssetChange as MailRequestAssetChange;
-use App\Models\AssetChangeRequest;
+use App\Models\ChangeRequest;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Config\Repository;
@@ -27,7 +27,7 @@ class RequestAssetChange {
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
-        $request                  = new AssetChangeRequest();
+        $request                  = new ChangeRequest();
         $request->user_id         = $this->auth->user()->getKey();
         $request->organization_id = $this->organization->get()->getKey();
         $request->asset_id        = $args['input']['asset_id'];

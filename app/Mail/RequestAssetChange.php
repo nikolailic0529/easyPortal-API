@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\AssetChangeRequest;
+use App\Models\ChangeRequest;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -17,7 +17,7 @@ class RequestAssetChange extends Mailable {
      * @return void
      */
     public function __construct(
-        protected AssetChangeRequest $request,
+        protected ChangeRequest $request,
     ) {
         // empty
     }
