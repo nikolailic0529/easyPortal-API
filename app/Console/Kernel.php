@@ -7,6 +7,7 @@ use App\Services\DataLoader\Commands\AnalyzeAssets;
 use App\Services\DataLoader\Commands\ImportAssets;
 use App\Services\DataLoader\Commands\ImportCustomers;
 use App\Services\DataLoader\Commands\ImportDistributors;
+use App\Services\DataLoader\Commands\ImportOems;
 use App\Services\DataLoader\Commands\ImportResellers;
 use App\Services\DataLoader\Commands\UpdateAsset;
 use App\Services\DataLoader\Commands\UpdateCustomer;
@@ -42,6 +43,7 @@ class Kernel extends ConsoleKernel {
         ImportResellers::class,
         ImportCustomers::class,
         ImportAssets::class,
+        ImportOems::class,
         UpdateDistributor::class,
         UpdateReseller::class,
         UpdateCustomer::class,
