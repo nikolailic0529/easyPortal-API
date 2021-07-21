@@ -21,6 +21,4 @@ type Me {
   locale:  String
   timezone: String
   homepage: String
-  language_id: ID
-  language: Language
 }

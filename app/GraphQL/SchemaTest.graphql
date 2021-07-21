@@ -902,8 +902,6 @@ type Me {
   profile: Profile
   timezone: String
   homepage: String
-  language_id: ID
-  language: Language
 }
 
 type MeSearch {

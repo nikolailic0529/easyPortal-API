@@ -51,12 +51,6 @@ class MeTest extends TestCase {
                     locale
                     timezone
                     homepage
-                    language_id
-                    language {
-                        id
-                        code
-                        name
-                    }
                 }
             }')
             ->assertThat($expected);

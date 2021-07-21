@@ -11,8 +11,7 @@
         "root",
         "permissions",
         "homepage",
-        "timezone",
-        "language_id"
+        "timezone"
     ],
     "properties": {
         "id": {
@@ -52,26 +51,6 @@
             "type": [
                 "string",
                 "null"
-            ]
-        },
-        "language_id": {
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "$ref": "../types.json/#/definitions/ID"
-                }
-            ]
-        },
-        "language": {
-            "oneOf": [
-                {
-                    "type": "null"
-                },
-                {
-                    "$ref": "../Types/Language.json"
-                }
             ]
         }
     }
