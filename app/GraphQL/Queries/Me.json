@@ -9,7 +9,9 @@
         "email",
         "locale",
         "root",
-        "permissions"
+        "permissions",
+        "homepage",
+        "timezone"
     ],
     "properties": {
         "id": {
@@ -38,6 +40,18 @@
             "items": {
                 "type": "string"
             }
+        },
+        "timezone": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+         "homepage": {
+            "type": [
+                "string",
+                "null"
+            ]
         }
     }
 }

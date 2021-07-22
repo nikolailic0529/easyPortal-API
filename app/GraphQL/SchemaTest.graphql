@@ -896,6 +896,8 @@ type Me {
   family_name: String!
   email: String!
   locale: String
+  timezone: String
+  homepage: String
   permissions: [String!]
   root: Boolean!
   searches(where: SearchByConditionMeSearchQuery, order: [SortByClauseMeSearchSort!]): [MeSearch!]!
@@ -1154,6 +1156,13 @@ type Mutation {
   @require <organization> Authenticated user must be a member of the current organization.
   """
   updateMeProfile(input: UpdateMeProfileInput!): UpdateMeProfilePayload
+
+  """
+  @require <me> User must be authenticated.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  """
+  updateMeSettings(input: UpdateMeSettingsInput!): UpdateMeSettingsPayload
 
   """
   Create Organization Role.
@@ -3991,6 +4000,16 @@ input UpdateMeProfileInput {
 }
 
 type UpdateMeProfilePayload {
+  result: Boolean!
+}
+
+input UpdateMeSettingsInput {
+  homepage: String
+  locale: String
+  timezone: String
+}
+
+type UpdateMeSettingsPayload {
   result: Boolean!
 }
 

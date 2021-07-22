@@ -44,6 +44,8 @@ class UserFactory extends Factory {
             'permissions'     => [],
             'locale'          => null,
             'password'        => null,
+            'homepage'        => null,
+            'timezone'        => null,
         ];
     }
 }
