@@ -2,6 +2,7 @@ input DocumentEntriesQuery {
   id: ID!
   document_id: ID!
   asset_id: ID!
+  asset: AssetsQuery
   net_price: Float
   list_price: Float
   discount: Float

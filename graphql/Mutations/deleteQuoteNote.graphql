@@ -1,0 +1,15 @@
+extend type Mutation {
+  deleteQuoteNote(
+    input: DeleteQuoteNoteInput!
+  ): DeleteQuoteNotePayload
+  @organization
+  @me(permissions: ["quotes-view", "customers-view", "org-administer"])
+}
+
+input DeleteQuoteNoteInput {
+  id: ID!
+}
+
+type DeleteQuoteNotePayload {
+  deleted: Boolean!
+}

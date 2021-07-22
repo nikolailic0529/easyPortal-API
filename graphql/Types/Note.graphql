@@ -1,0 +1,10 @@
+type Note {
+  id: ID!
+  pinned: Boolean!
+  note: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+  user_id: ID!
+  user: User! @belongsTo
+  files: [File!]! @hasMany
+}

@@ -25,6 +25,7 @@ use App\Services\Settings\Types\BooleanType;
 use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\DocumentType;
 use App\Services\Settings\Types\Duration;
+use App\Services\Settings\Types\EmailType;
 use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\LocationType;
 use App\Services\Settings\Types\Organization;
@@ -103,6 +104,32 @@ interface Constants {
     #[Group('ep')]
     #[Type(Organization::class)]
     public const EP_ROOT_ORGANIZATION = '40765bbb-4736-4d2f-8964-1c3fd4e59aac';
+
+    /**
+     * Max size of uploaded files in KB.
+     */
+    #[Setting('ep.file.max_size')]
+    #[PublicName('epFileMaxSize')]
+    #[Group('ep')]
+    public const EP_FILE_MAX_SIZE = 2048;
+
+    /**
+     * Accepted file/document formats.
+     */
+    #[Setting('ep.file.formats')]
+    #[PublicName('epFileFormats')]
+    #[Group('ep')]
+    #[Type(StringType::class)]
+    public const EP_FILE_FORMATS = ['jpg', 'jpeg', 'png', 'csv', 'xlsx', 'pdf', 'docx', 'doc'];
+
+    /**
+     * Tesedi Portal Email Address.
+     */
+    #[Setting('ep.email_address')]
+    #[PublicName('epEmailAddress')]
+    #[Group('ep')]
+    #[Type(EmailType::class)]
+    public const EP_EMAIL_ADDRESS = 'info@itassethub.test';
     // </editor-fold>
 
     // <editor-fold desc="EP_CLIENT">

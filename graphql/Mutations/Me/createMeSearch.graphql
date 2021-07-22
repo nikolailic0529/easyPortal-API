@@ -1,0 +1,17 @@
+extend type Mutation {
+  createMeSearch(
+    input: CreateMeSearchInput!
+  ): CreateMeSearchPayload
+    @me
+    @field(resolver: "App\\GraphQL\\Mutations\\Me\\CreateMeSearch")
+}
+
+input CreateMeSearchInput {
+  name: String!
+  key: String!
+  conditions: String!
+}
+
+type CreateMeSearchPayload {
+  created: MeSearch!
+}

@@ -419,6 +419,7 @@ class OrganizationTest extends TestCase {
             new RootOrganizationDataProvider('organization'),
             new UserDataProvider('organization', [
                 'administer',
+                'org-administer',
             ]),
             new ArrayDataProvider([
                 'ok' => [
@@ -454,8 +455,8 @@ class OrganizationTest extends TestCase {
         return (new CompositeDataProvider(
             new RootOrganizationDataProvider('organization'),
             new UserDataProvider('organization', [
-                'administer',
                 'org-administer',
+                'administer',
             ]),
             new ArrayDataProvider([
                 'ok' => [

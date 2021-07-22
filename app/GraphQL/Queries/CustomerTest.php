@@ -19,6 +19,7 @@ use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Status;
 use App\Models\Type;
+use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -1386,7 +1387,8 @@ class CustomerTest extends TestCase {
                                 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                             ],
                         ],
-                        static function (TestCase $test, Organization $organization): Customer {
+                        static function (TestCase $test, Organization $organization, User $user): Customer {
+                            $user->save();
                             // Reseller creation belongs to
                             $reseller = Reseller::factory()
                                 ->hasLocations(1, [
@@ -1612,7 +1614,8 @@ class CustomerTest extends TestCase {
             return $customer;
         };
 
-        $customerQuoteFactory = static function (TestCase $test, Organization $organization): Customer {
+        $customerQuoteFactory = static function (TestCase $test, Organization $organization, User $user): Customer {
+            $user->save();
             // Reseller creation belongs to
             $reseller = Reseller::factory()
                 ->hasLocations(1, [

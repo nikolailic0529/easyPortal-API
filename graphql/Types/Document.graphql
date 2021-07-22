@@ -27,4 +27,9 @@ type Document {
   distributor_id: ID
   distributor: Distributor @belongsTo
   assets_count: Int
+  notes (
+    where: NotesQuery @searchBy
+    order: NotesSort @sortBy
+  ): [Note!]!
+  @paginate
 }

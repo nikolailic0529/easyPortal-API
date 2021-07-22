@@ -1,0 +1,17 @@
+extend type Mutation {
+  updateMeEmail(
+    input: UpdateMeEmailInput!
+  ): UpdateMeEmailPayload
+  @throttle(name: "auth")
+  @organization
+  @me
+  @field(resolver: "App\\GraphQL\\Mutations\\Me\\UpdateMeEmail")
+}
+
+input UpdateMeEmailInput {
+  email: String! @rules(apply: ["email"])
+}
+
+type UpdateMeEmailPayload {
+  result: Boolean!
+}

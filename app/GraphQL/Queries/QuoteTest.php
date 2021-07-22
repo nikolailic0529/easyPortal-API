@@ -2,12 +2,14 @@
 
 namespace App\GraphQL\Queries;
 
+use App\GraphQL\Types\Note as NoteType;
 use App\Models\Asset;
 use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\Language;
+use App\Models\Note;
 use App\Models\Oem;
 use App\Models\OemGroup;
 use App\Models\Organization;
@@ -16,6 +18,7 @@ use App\Models\Reseller;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Type;
+use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -26,6 +29,7 @@ use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\JsonFragmentPaginatedSchema;
 use Tests\TestCase;
 
 /**
@@ -187,6 +191,71 @@ class QuoteTest extends TestCase {
                             name
                         }
                         assets_count
+                    }
+                }
+            ', ['id' => $quoteId])
+            ->assertThat($expected);
+    }
+
+    /**
+     * @dataProvider dataProviderQueryNotes
+     */
+    public function testQueryNotes(
+        Response $expected,
+        Closure $organizationFactory,
+        Closure $userFactory = null,
+        Closure $quoteFactory = null,
+    ): void {
+        // Prepare
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
+
+        $quoteId = 'wrong';
+
+        if ($quoteFactory) {
+            $quote   = $quoteFactory($this, $organization, $user);
+            $quoteId = $quote->id;
+
+            $this->setSettings([
+                'ep.quote_types' => [$quote->type_id],
+            ]);
+        }
+
+        // Test
+        $this
+            ->graphQL(/** @lang GraphQL */ '
+                query quote($id: ID!) {
+                    quote(id: $id) {
+                        notes {
+                            data{
+                                id
+                                note
+                                pinned
+                                created_at
+                                updated_at
+                                user_id
+                                user {
+                                    id
+                                    family_name
+                                    given_name
+                                }
+                                files {
+                                    id
+                                    name
+                                    url
+                                }
+                            }
+                            paginatorInfo {
+                                count
+                                currentPage
+                                firstItem
+                                hasMorePages
+                                lastItem
+                                lastPage
+                                perPage
+                                total
+                            }
+                        }
                     }
                 }
             ', ['id' => $quoteId])
@@ -387,7 +456,7 @@ class QuoteTest extends TestCase {
                             ],
                             'assets_count'     => 1,
                         ]),
-                        static function (TestCase $test, Organization $organization): Document {
+                        static function (TestCase $test, Organization $organization, User $user): Document {
                             // OEM Creation belongs to
                             $oem      = Oem::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -525,6 +594,145 @@ class QuoteTest extends TestCase {
                                     'end'          => '2024-01-01',
                                     'assets_count' => 1,
                                 ]);
+                        },
+                    ],
+                ]),
+            ),
+        ]))->getData();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderQueryNotes(): array {
+        $url = 'https://example.com/files/f9834bc1-2f2f-4c57-bb8d-7a224ac2E988';
+
+        return (new MergeDataProvider([
+            'root'           => new CompositeDataProvider(
+                new RootOrganizationDataProvider('quote'),
+                new OrganizationUserDataProvider('quote', [
+                    'quotes-view',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('quote', null),
+                        static function (TestCase $test, Organization $organization): Document {
+                            return Document::factory()->create();
+                        },
+                    ],
+                ]),
+            ),
+            'customers-view' => new CompositeDataProvider(
+                new OrganizationDataProvider('quote'),
+                new UserDataProvider('quote', [
+                    'customers-view',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('quote', null),
+                        static function (TestCase $test, Organization $organization): Document {
+                            $type     = Type::factory()->create([
+                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                            ]);
+                            $reseller = Reseller::factory()->create([
+                                'id' => $organization,
+                            ]);
+                            $customer = Customer::factory()->create();
+
+                            $customer->resellers()->attach($reseller);
+
+                            $document = Document::factory()->create([
+                                'type_id'     => $type,
+                                'reseller_id' => $reseller,
+                                'customer_id' => $customer,
+                            ]);
+                            return $document;
+                        },
+                    ],
+                ]),
+            ),
+            'organization'   => new CompositeDataProvider(
+                new OrganizationDataProvider('quote', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
+                new UserDataProvider('quote', [
+                    'quotes-view',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('quote', new JsonFragmentPaginatedSchema('notes', NoteType::class), [
+                            'notes' => [
+                                'data'          => [
+                                    [
+                                        'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
+                                        'note'       => 'Note',
+                                        'pinned'     => true,
+                                        'created_at' => '2021-07-11T23:27:47+00:00',
+                                        'updated_at' => '2021-07-11T23:27:47+00:00',
+                                        'user_id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
+                                        'user'       => [
+                                            'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
+                                            'given_name'  => 'first',
+                                            'family_name' => 'last',
+                                        ],
+                                        'files'      => [
+                                            [
+                                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E988',
+                                                'name' => 'document',
+                                                'url'  => $url,
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                'paginatorInfo' => [
+                                    'count'        => 1,
+                                    'currentPage'  => 1,
+                                    'firstItem'    => 1,
+                                    'hasMorePages' => false,
+                                    'lastItem'     => 1,
+                                    'lastPage'     => 1,
+                                    'perPage'      => 25,
+                                    'total'        => 1,
+                                ],
+                            ],
+                        ]),
+                        static function (TestCase $test, Organization $organization, User $user): Document {
+                            // Type Creation belongs to
+                            $type = Type::factory()->create([
+                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                'name' => 'name aaa',
+                            ]);
+                            // Reseller creation belongs to
+                            $reseller = Reseller::factory()
+                                ->create([
+                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+
+                                ]);
+                            $document = Document::factory()
+                                ->for($type)
+                                ->for($reseller)
+                                ->create([
+                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                ]);
+                            // Note
+                            Note::factory()
+                                ->forUser([
+                                    'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E999',
+                                    'given_name'  => 'first',
+                                    'family_name' => 'last',
+                                ])
+                                ->for($document)
+                                ->hasFiles(1, [
+                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E988',
+                                    'name' => 'document',
+                                    'path' => 'http://example.com/document.csv',
+                                ])
+                                ->create([
+                                    'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24999',
+                                    'note'       => 'Note',
+                                    'pinned'     => true,
+                                    'created_at' => '2021-07-11T23:27:47+00:00',
+                                    'updated_at' => '2021-07-11T23:27:47+00:00',
+                                ]);
+                            return $document;
                         },
                     ],
                 ]),

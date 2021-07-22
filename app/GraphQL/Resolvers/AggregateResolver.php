@@ -20,6 +20,10 @@ abstract class AggregateResolver {
     }
 
     protected function getResult(DatabaseBuilder|EloquentBuilder $builder): mixed {
+        if ($builder instanceof EloquentBuilder) {
+            $builder = $builder->toBase();
+        }
+
         return $builder->first();
     }
 

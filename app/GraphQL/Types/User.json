@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionProperties": false,
+    "type": "object",
+    "required": [
+        "given_name",
+        "family_name",
+        "id"
+    ],
+    "properties": {
+        "id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "given_name": {
+            "type": "string"
+        },
+        "family_name": {
+            "type": "string"
+        }
+    }
+}

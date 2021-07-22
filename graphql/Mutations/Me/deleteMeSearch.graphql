@@ -1,0 +1,15 @@
+extend type Mutation {
+  deleteMeSearch(
+    input: DeleteMeSearchInput!
+  ): DeleteMeSearchPayload
+    @me
+    @field(resolver: "App\\GraphQL\\Mutations\\Me\\DeleteMeSearch")
+}
+
+input DeleteMeSearchInput {
+  id: ID!
+}
+
+type DeleteMeSearchPayload {
+  deleted: Boolean!
+}

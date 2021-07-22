@@ -29,7 +29,7 @@ class User extends JsonObject {
     /**
      * @var array<string>
      */
-    public array $attributes;
+    public array $attributes = [];
 
     /**
      * @var array<string>

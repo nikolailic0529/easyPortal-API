@@ -214,8 +214,16 @@ class Client {
 
     public function getUserById(string $id): User {
         // GET /{realm}/users/{id}
-        $endpoint = "users/{$id}";
-        $result   = $this->call($endpoint);
+        $endpoint     = "users/{$id}";
+        $errorHandler = function (Exception $exception) use ($endpoint): void {
+            if ($exception instanceof RequestException) {
+                if ($exception->getCode() === Response::HTTP_NOT_FOUND) {
+                    throw new UserDoesntExists();
+                }
+            }
+            $this->endpointException($exception, $endpoint);
+        };
+        $result       = $this->call($endpoint, 'GET', [], $errorHandler);
         return new User($result);
     }
 

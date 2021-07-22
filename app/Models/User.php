@@ -36,6 +36,8 @@ use LogicException;
  * @property array                                                                 $permissions
  * @property string|null                                                           $locale
  * @property string|null                                                           $password
+ * @property string|null                                                           $homepage
+ * @property string|null                                                           $timezone
  * @property \Carbon\CarbonImmutable                                               $created_at
  * @property \Carbon\CarbonImmutable                                               $updated_at
  * @property \Carbon\CarbonImmutable|null                                          $deleted_at
