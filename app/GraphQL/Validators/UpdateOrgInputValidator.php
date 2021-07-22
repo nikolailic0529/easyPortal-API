@@ -4,44 +4,38 @@ namespace App\GraphQL\Validators;
 
 use App\Rules\Color;
 use App\Rules\CurrencyId;
+use App\Rules\Image;
 use App\Rules\Locale;
-use Illuminate\Contracts\Config\Repository;
 use Nuwave\Lighthouse\Validation\Validator;
-
-use function implode;
 
 class UpdateOrgInputValidator extends Validator {
     public function __construct(
-        protected Repository $config,
+        protected CurrencyId $currencyId,
+        protected Locale $locale,
+        protected Color $color,
+        protected Image $image,
     ) {
         // empty
+        $a = 1;
     }
 
     /**
      * @return array<string, array<mixed>>
      */
     public function rules(): array {
-        $maxSize   = $this->config->get('ep.image.max_size');
-        $formats   = $this->config->get('ep.image.formats');
-        $mimeTypes = implode(',', $formats);
-        $upload    = [
-            "mimes:{$mimeTypes}",
-            "max:{$maxSize}",
-        ];
-
         return [
-            'locale'                     => ['nullable', new Locale()],
-            'currency_id'                => ['nullable', new CurrencyId()],
+            'locale'                     => ['nullable', $this->locale],
+            'currency_id'                => ['nullable', $this->currencyId],
             'website_url'                => ['nullable', 'url'],
             'email'                      => ['nullable', 'email'],
             'timezone'                   => ['nullable', 'timezone'],
             'analytics_code'             => ['nullable'],
             'branding.dark_theme'        => ['nullable'],
-            'branding.main_color'        => ['nullable', new Color()],
-            'branding.secondary_color'   => ['nullable', new Color()],
-            'branding.logo_url'          => ['nullable', ...$upload],
-            'branding.favicon_url'       => ['nullable', ...$upload],
-            'branding.welcome_image_url' => ['nullable', ...$upload],
+            'branding.main_color'        => ['nullable', $this->color],
+            'branding.secondary_color'   => ['nullable', $this->color],
+            'branding.logo_url'          => ['nullable', $this->image],
+            'branding.favicon_url'       => ['nullable', $this->image],
+            'branding.welcome_image_url' => ['nullable', $this->image],
             'branding.welcome_heading'   => ['nullable'],
             'branding.welcome_underline' => ['nullable'],
         ];

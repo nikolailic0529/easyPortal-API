@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use Illuminate\Contracts\Validation\Factory;
 use Tests\TestCase;
 
 /**
@@ -13,7 +14,7 @@ class CompositeRuleTest extends TestCase {
      * @covers ::passes
      */
     public function testPasses(): void {
-        $rule = new class() extends CompositeRule {
+        $rule = new class($this->app->make(Factory::class)) extends CompositeRule {
             /**
              * @inheritDoc
              */
@@ -38,7 +39,7 @@ class CompositeRuleTest extends TestCase {
             ];
         });
 
-        $rule = new class() extends CompositeRule {
+        $rule = new class($this->app->make(Factory::class)) extends CompositeRule {
             /**
              * @inheritDoc
              */
