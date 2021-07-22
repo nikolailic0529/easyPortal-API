@@ -4,6 +4,8 @@ type Me {
   family_name: String!
   email: String!                # TODO [GraphQL] Email type needed
   locale: String
+  timezone: String
+  homepage: String
   permissions: [String!]
   root: Boolean!
   @field(resolver: "App\\GraphQL\\Queries\\Me@root")
@@ -16,9 +18,4 @@ type Me {
 
   profile: Profile
   @field(resolver: "App\\GraphQL\\Queries\\Me@profile")
-
-  #portal Settings
-  locale:  String
-  timezone: String
-  homepage: String
 }
