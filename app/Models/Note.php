@@ -41,7 +41,7 @@ class Note extends Model implements CascadeDeletable {
 
     protected const CASTS = [
         'pinned' => 'bool',
-    ];
+    ] + parent::CASTS;
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -80,5 +80,5 @@ class Note extends Model implements CascadeDeletable {
      *
      * @var array<string>
      */
-    protected $casts = self::CASTS + parent::CASTS;
+    protected $casts = self::CASTS;
 }

@@ -61,30 +61,27 @@ class UpdateContractNote {
             $note->pinned = $pinned;
         }
 
-        $note->save();
-
         if ($attached) {
-            $files = $note->files->keyBy(static function (File $file) {
+            $files     = [];
+            $noteFiles = $note->files->keyBy(static function (File $file) {
                 return $file->getKey();
             });
             foreach ($attached as $item) {
                 if (array_key_exists('content', $item) && $item['content'] instanceof UploadedFile) {
                     // new upload
-                    $newFile          = $this->createQuoteNote->createFile($note, $item['content']);
-                    $newFile->note_id = $note->getKey();
-                    $newFile->save();
+                    $files [] = $this->createQuoteNote->createFile($note, $item['content']);
                 } elseif (array_key_exists('id', $item)) {
                     // keep file
-                    $files->forget($item['id']);
+                    $files[] = $noteFiles->get($item['id']);
                 } else {
                     // empty
                 }
             }
-            foreach ($files as $file) {
-                $file->delete();
-            }
+
+            $note->files = $files;
         }
 
-        return $note->fresh();
+        $note->save();
+        return $note;
     }
 }

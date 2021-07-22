@@ -10,6 +10,7 @@ input CreateContractNoteInput @validator {
   note: String!
   contract_id: String!
   files: [Upload!]
+  pinned: Boolean
 }
 
 type CreateContractNotePayload {

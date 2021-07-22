@@ -134,7 +134,7 @@ class CreateQuoteNoteTest extends TestCase {
             $this->assertNotNull($created['id']);
             $this->assertNotNull($created['created_at']);
             $this->assertNotNull($created['updated_at']);
-            $this->assertFalse($created['pinned']);
+            $this->assertEquals($input['pinned'], $created['pinned']);
             $this->assertEquals($input['note'], $created['note']);
             $this->assertEquals($user->getKey(), $created['user_id']);
             // Files assertion
@@ -168,6 +168,7 @@ class CreateQuoteNoteTest extends TestCase {
         };
         $input    = [
             'note'     => 'note',
+            'pinned'   => true,
             'quote_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
             'files'    => [UploadedFile::fake()->create('document.csv', 200)],
         ];

@@ -31,6 +31,7 @@ class CreateQuoteNote {
             'created' => $this->createNote(
                 $args['input']['quote_id'],
                 $args['input']['note'],
+                $args['input']['pinned'] ?? false,
                 $args['input']['files'] ?? [],
             ),
         ];
@@ -39,17 +40,18 @@ class CreateQuoteNote {
     /**
      * @param array<\Illuminate\Http\UploadedFile> $files
      */
-    public function createNote(string $documentId, string $content, array $files = []): Note {
+    public function createNote(string $documentId, string $content, bool $pinned = false, array $files = []): Note {
         $note                  = new Note();
         $note->user            = $this->auth->user();
         $note->document_id     = $documentId;
         $note->organization_id = $this->organization->get()->getKey();
         $note->note            = $content;
+        $note->pinned          = $pinned;
         $note->files           = array_map(function ($file) use ($note) {
             return $this->createFile($note, $file);
         }, $files);
         $note->save();
-        return $note->fresh();
+        return $note;
     }
 
     public function createFile(Note $note, UploadedFile $upload): File {

@@ -25,6 +25,7 @@ class CreateContractNote {
             'created' => $this->createQuoteNote->createNote(
                 $args['input']['contract_id'],
                 $args['input']['note'],
+                $args['input']['pinned'] ?? false,
                 $args['input']['files'] ?? [],
             ),
         ];
