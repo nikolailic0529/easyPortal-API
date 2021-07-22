@@ -8,6 +8,7 @@
 /.phpunit
 /.phpstorm.meta.php
 /.vagrant
+/.xdebug
 Homestead.json
 Homestead.yaml
 npm-debug.log
