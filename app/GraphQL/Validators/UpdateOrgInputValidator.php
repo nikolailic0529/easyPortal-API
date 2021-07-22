@@ -16,7 +16,6 @@ class UpdateOrgInputValidator extends Validator {
         protected Image $image,
     ) {
         // empty
-        $a = 1;
     }
 
     /**
