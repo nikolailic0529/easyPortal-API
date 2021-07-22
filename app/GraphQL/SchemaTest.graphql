@@ -325,6 +325,20 @@ type AuthorizeOrganizationPayload {
   me: Me
 }
 
+type ChangeRequest {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  user_id: ID!
+  user: User!
+  subject: String!
+  message: String!
+  from: String!
+  to: [String!]!
+  cc: [String!]
+  bcc: [String!]
+}
+
 input CitiesQuery {
   id: ID!
   name: String!
@@ -1130,6 +1144,13 @@ type Mutation {
   """@require <guest> Current visitor must be a guest."""
   signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload
 
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["requests-asset-change"])> User must be authenticated and have any of these permissions.
+  """
+  requestAssetChange(input: RequestAssetChangeInput!): RequestAssetChangePayload
+
   """@require <me> User must be authenticated."""
   createMeSearch(input: CreateMeSearchInput!): CreateMeSearchPayload
 
@@ -1801,6 +1822,19 @@ input RecoverClientTranslationsInput {
 
 type RecoverClientTranslationsPayload {
   result: Boolean!
+}
+
+input RequestAssetChangeInput {
+  asset_id: ID!
+  subject: String!
+  message: String!
+  from: String!
+  cc: [String!]
+  bcc: [String!]
+}
+
+type RequestAssetChangePayload {
+  created: ChangeRequest!
 }
 
 type Reseller {

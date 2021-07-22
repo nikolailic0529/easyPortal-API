@@ -25,6 +25,7 @@ use App\Services\Settings\Types\BooleanType;
 use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\DocumentType;
 use App\Services\Settings\Types\Duration;
+use App\Services\Settings\Types\EmailType;
 use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\LocationType;
 use App\Services\Settings\Types\Organization;
@@ -120,6 +121,15 @@ interface Constants {
     #[Group('ep')]
     #[Type(StringType::class)]
     public const EP_FILE_FORMATS = ['jpg', 'jpeg', 'png', 'csv', 'xlsx', 'pdf', 'docx', 'doc'];
+
+    /**
+     * Tesedi Portal Email Address.
+     */
+    #[Setting('ep.email_address')]
+    #[PublicName('epEmailAddress')]
+    #[Group('ep')]
+    #[Type(EmailType::class)]
+    public const EP_EMAIL_ADDRESS = 'info@itassethub.test';
     // </editor-fold>
 
     // <editor-fold desc="EP_CLIENT">
