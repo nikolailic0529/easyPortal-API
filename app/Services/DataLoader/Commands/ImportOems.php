@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Commands;
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\DataLoader\Importers\OemsImporter;
 use Illuminate\Console\Command;
-use Illuminate\Contracts\Validation\Factory;
 
 class ImportOems extends Command {
     use GlobalScopes;
@@ -26,7 +25,7 @@ class ImportOems extends Command {
      */
     protected $description = 'Import oems, service groups and service levels.';
 
-    public function __invoke(Factory $factory, OemsImporter $importer): int {
+    public function __invoke(OemsImporter $importer): int {
         // Import
         $importer->import($this->argument('file'));
 
