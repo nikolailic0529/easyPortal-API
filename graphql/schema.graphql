@@ -138,6 +138,22 @@ type Query {
   @me
   @all
 
+  "List of all Service Groups."
+  serviceGroups(
+    where: ServiceGroupsQuery @searchBy
+  ): [ServiceGroup!]!
+  @organization
+  @me
+  @all
+
+  "List of all Service Levels."
+  serviceLevels(
+    where: ServiceLevelsQuery @searchBy
+  ): [ServiceLevel!]!
+  @organization
+  @me
+  @all
+
   # Customers
   # ============================================================================
   "List of Customers."

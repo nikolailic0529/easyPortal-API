@@ -665,6 +665,7 @@ type Document {
 
 input DocumentEntriesQuery {
   id: ID!
+  document_id: ID!
   asset_id: ID!
   net_price: Float
   list_price: Float
@@ -1468,6 +1469,24 @@ type Query {
   tags(where: SearchByConditionTagsQuery, order: [SortByClauseTagsSort!]): [Tag!]!
 
   """
+  List of all Service Groups.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  serviceGroups(where: SearchByConditionServiceGroupsQuery): [ServiceGroup!]!
+
+  """
+  List of all Service Levels.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  serviceLevels(where: SearchByConditionServiceLevelsQuery): [ServiceLevel!]!
+
+  """
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
@@ -2197,6 +2216,9 @@ input SearchByConditionDocumentEntriesQuery {
   id: SearchByScalarID
 
   """Property condition."""
+  document_id: SearchByScalarID
+
+  """Property condition."""
   asset_id: SearchByScalarID
 
   """Property condition."""
@@ -2565,6 +2587,32 @@ input SearchByConditionResellersQuery {
 }
 
 """
+Available conditions for input ServiceGroupsQuery (only one property allowed at a time).
+"""
+input SearchByConditionServiceGroupsQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionServiceGroupsQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionServiceGroupsQuery!]
+
+  """Not."""
+  not: SearchByFlag
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  oem_id: SearchByScalarID
+
+  """Property condition."""
+  sku: SearchByScalarString
+
+  """Property condition."""
+  documentEntries: SearchByRelationDocumentEntriesQuery
+}
+
+"""
 Available conditions for input ServiceLevelsQuery (only one property allowed at a time).
 """
 input SearchByConditionServiceLevelsQuery {
@@ -2588,6 +2636,9 @@ input SearchByConditionServiceLevelsQuery {
 
   """Property condition."""
   sku: SearchByScalarString
+
+  """Property condition."""
+  documentEntries: SearchByRelationDocumentEntriesQuery
 }
 
 """
@@ -3393,6 +3444,7 @@ input ServiceGroupsQuery {
   id: ID!
   oem_id: ID!
   sku: String!
+  documentEntries: DocumentEntriesQuery
 }
 
 type ServiceLevel {
@@ -3409,6 +3461,7 @@ input ServiceLevelsQuery {
   oem_id: ID!
   service_group_id: ID!
   sku: String!
+  documentEntries: DocumentEntriesQuery
 }
 
 input SetApplicationLocaleInput {

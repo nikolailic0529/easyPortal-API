@@ -2,4 +2,5 @@ input ServiceGroupsQuery {
   id: ID!
   oem_id: ID!
   sku: String!
+  documentEntries: DocumentEntriesQuery
 }
