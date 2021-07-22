@@ -821,6 +821,14 @@ type File {
   url: String!
 }
 
+input ImportOemsInput {
+  file: Upload!
+}
+
+type ImportOemsPayload {
+  result: Boolean!
+}
+
 input InviteOrgUserInput {
   email: String!
   role_id: ID!
@@ -995,6 +1003,13 @@ type Mutation {
   authenticated and have any of these permissions.
   """
   deleteQuoteNote(input: DeleteQuoteNoteInput!): DeleteQuoteNotePayload
+
+  """
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <root> Authenticated user must be a root.
+  """
+  importOems(input: ImportOemsInput!): ImportOemsPayload
 
   """
   Force delete all custom settings, may be useful to restore the corrupted file.

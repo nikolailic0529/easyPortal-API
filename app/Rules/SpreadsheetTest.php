@@ -7,9 +7,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\Image
+ * @coversDefaultClass \App\Rules\Spreadsheet
  */
-class ImageTest extends TestCase {
+class SpreadsheetTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -21,12 +21,8 @@ class ImageTest extends TestCase {
      */
     public function testPasses(bool $expected, array $settings, mixed $value): void {
         $this->setSettings($settings);
-        $this->setSettings([
-            'ep.file.max_size' => 1,
-            'ep.file.formats'  => [],
-        ]);
 
-        $this->assertEquals($expected, $this->app->make(Image::class)->passes('test', $value));
+        $this->assertEquals($expected, $this->app->make(Spreadsheet::class)->passes('test', $value));
     }
     // </editor-fold>
 
@@ -40,34 +36,24 @@ class ImageTest extends TestCase {
             'too big'          => [
                 false,
                 [
-                    'ep.image.max_size' => 100,
-                    'ep.image.formats'  => ['txt'],
+                    'ep.file.max_size' => 100,
                 ],
-                UploadedFile::fake()->create('text.txt', 250),
+                UploadedFile::fake()->create('text.xlsx', 150),
             ],
             'too small'        => [
                 true,
                 [
-                    'ep.image.max_size' => 1000,
-                    'ep.image.formats'  => ['txt'],
+                    'ep.file.max_size' => 250,
                 ],
-                UploadedFile::fake()->create('text.txt', 250),
+                UploadedFile::fake()->create('text.xlsx', 150),
             ],
             'type does matter' => [
                 false,
                 [
-                    'ep.image.max_size' => 1000,
-                    'ep.image.formats'  => ['txt'],
+                    'ep.file.max_size' => 250,
+                    'ep.file.formats'  => ['txt'],
                 ],
-                UploadedFile::fake()->create('text.exe', 250),
-            ],
-            'after all'        => [
-                true,
-                [
-                    'ep.image.max_size' => 1000,
-                    'ep.image.formats'  => ['txt', 'exe'],
-                ],
-                UploadedFile::fake()->create('text.exe', 250),
+                UploadedFile::fake()->create('text.txt', 150),
             ],
         ];
     }
