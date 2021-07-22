@@ -151,6 +151,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals('-2.05', $e->discount);
         $this->assertEquals($created->getKey(), $e->document_id);
         $this->assertEquals($asset->id, $e->asset_id);
+        $this->assertEquals('H7J34AC', $e->serviceGroup->sku);
         $this->assertEquals('HA151AC', $e->serviceLevel->sku);
         $this->assertEquals('HPE', $e->serviceLevel->oem->key);
         $this->assertEquals('145.00', $e->renewal);
@@ -269,6 +270,7 @@ class DocumentFactoryTest extends TestCase {
             'document_id'      => $document,
             'asset_id'         => $asset,
             'product_id'       => $asset->product_id,
+            'service_group_id' => $document->serviceGroup,
             'service_level_id' => static function () use ($document): ServiceLevel {
                 return ServiceLevel::factory()->create([
                     'oem_id'           => $document->oem_id,
@@ -468,6 +470,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertSame($asset->product, $entry->product);
         $this->assertNotNull($entry->service_level_id);
         $this->assertEquals($document->oem_id, $entry->serviceLevel->oem_id);
+        $this->assertEquals($supportPackage, $entry->serviceGroup->sku);
         $this->assertEquals($skuNumber, $entry->serviceLevel->sku);
         $this->assertEquals($currencyCode, $entry->currency->code);
         $this->assertEquals($netPrice, $entry->net_price);

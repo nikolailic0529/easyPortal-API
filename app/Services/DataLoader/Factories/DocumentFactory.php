@@ -332,6 +332,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         $entry->list_price    = $normalizer->number($assetDocument->listPrice);
         $entry->discount      = $normalizer->number($assetDocument->discount);
         $entry->renewal       = $normalizer->number($assetDocument->estimatedValueRenewal);
+        $entry->serviceGroup  = $this->assetDocumentServiceGroup($asset, $assetDocument);
         $entry->serviceLevel  = $this->assetDocumentServiceLevel($asset, $assetDocument);
 
         return $entry;
@@ -343,6 +344,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
             ?: $a->list_price <=> $b->list_price
             ?: $a->discount <=> $b->discount
             ?: $a->renewal <=> $b->renewal
+            ?: $a->service_group_id <=> $b->service_group_id
             ?: $a->service_level_id <=> $b->service_level_id
             ?: 0;
     }

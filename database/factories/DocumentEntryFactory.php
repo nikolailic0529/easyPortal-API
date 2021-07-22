@@ -39,6 +39,7 @@ class DocumentEntryFactory extends Factory {
             'asset_id'         => static function (): Asset {
                 return Asset::factory()->create();
             },
+            'service_group_id' => null,
             'service_level_id' => null,
             'currency_id'      => static function (): Currency {
                 return Currency::query()->first() ?? Currency::factory()->create();

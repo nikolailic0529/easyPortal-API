@@ -6,6 +6,7 @@ use App\Models\Concerns\HasAsset;
 use App\Models\Concerns\HasCurrency;
 use App\Models\Concerns\HasDocument;
 use App\Models\Concerns\HasProduct;
+use App\Models\Concerns\HasServiceGroup;
 use App\Models\Concerns\HasServiceLevel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                        $id
  * @property string                        $document_id
  * @property string                        $asset_id
+ * @property string|null                   $service_group_id
  * @property string|null                   $service_level_id
  * @property string                        $product_id
  * @property string|null                   $serial_number
@@ -30,6 +32,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \App\Models\Currency|null     $currency
  * @property \App\Models\Document          $document
  * @property \App\Models\Product           $product
+ * @property \App\Models\ServiceGroup|null $serviceGroup
  * @property \App\Models\ServiceLevel|null $serviceLevel
  * @method static \Database\Factories\DocumentEntryFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\DocumentEntry newModelQuery()
@@ -40,6 +43,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class DocumentEntry extends Model {
     use HasFactory;
     use HasAsset;
+    use HasServiceGroup;
     use HasServiceLevel;
     use HasProduct;
     use HasDocument;
