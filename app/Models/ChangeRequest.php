@@ -25,7 +25,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\CarbonImmutable|null $deleted_at
  * @property \App\Models\Organization     $organization
  * @property \App\Models\User             $user
- * @property \App\Models\Asset            $asset
  * @method static \Database\Factories\ChangeRequestFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChangeRequest newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChangeRequest newQuery()
@@ -40,7 +39,7 @@ class ChangeRequest extends PolymorphicModel {
         'cc'  => 'array',
         'bcc' => 'array',
         'to'  => 'array',
-    ];
+    ] + parent::CASTS;
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -55,7 +54,7 @@ class ChangeRequest extends PolymorphicModel {
      *
      * @var array<string>
      */
-    protected $casts = self::CASTS + parent::CASTS;
+    protected $casts = self::CASTS;
 
     public function user(): BelongsTo {
         return $this->belongsTo(User::class);

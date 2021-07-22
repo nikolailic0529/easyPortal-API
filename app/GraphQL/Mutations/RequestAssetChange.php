@@ -10,6 +10,9 @@ use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Mail\Mailer;
 
+use function array_filter;
+use function array_unique;
+
 class RequestAssetChange {
     public function __construct(
         protected AuthManager $auth,
@@ -63,8 +66,8 @@ class RequestAssetChange {
         $request->message         = $message;
         $request->from            = $from;
         $request->to              = [$this->config->get('ep.email_address')];
-        $request->cc              = $cc;
-        $request->bcc             = $bcc;
+        $request->cc              = array_unique(array_filter($cc)) ?: null;
+        $request->bcc             = array_unique(array_filter($bcc)) ?: null;
         $request->save();
         return $request;
     }

@@ -36,9 +36,12 @@ class ChangeRequestFactory extends Factory {
             'user_id'         => static function (): User {
                 return User::query()->first() ?? User::factory()->create();
             },
-            'asset_id'        => null,
-            'message'         => $this->faker->text,
+            'object_id'       => $this->faker->uuid,
+            'object_type'     => $this->faker->word,
             'subject'         => $this->faker->word,
+            'message'         => $this->faker->text,
+            'from'            => $this->faker->email,
+            'to'              => [$this->faker->email],
             'cc'              => null,
             'bcc'             => null,
             'created_at'      => Date::now(),
