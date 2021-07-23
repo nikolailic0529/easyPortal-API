@@ -6,12 +6,16 @@ use App\Models\Model;
 use App\Models\Oem;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
+use App\Services\Filesystem\Disks\AppDisk;
+use App\Services\Filesystem\Storages\AppTranslations;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
 
 use function array_map;
 use function array_merge;
+use function implode;
+use function preg_replace_callback;
 
 /**
  * @internal
@@ -30,6 +34,7 @@ class OemsImporterTest extends TestCase {
      */
     public function testImport(): void {
         // Helpers
+        $storage = new AppTranslations($this->app->make(AppDisk::class), 'fr_FR');
         $toArray = static function (Collection $models): array {
             $convert = static function (Model $model) use (&$convert): array {
                 $attributes = Arr::except($model->getAttributes(), [
@@ -55,12 +60,13 @@ class OemsImporterTest extends TestCase {
         $this->assertEquals(0, Oem::query()->count());
         $this->assertEquals(0, ServiceGroup::query()->count());
         $this->assertEquals(0, ServiceLevel::query()->count());
+        $this->assertEmpty($storage->load());
 
         // Run
         $this->app->make(OemsImporter::class)->import($this->getTestData()->file('.xlsx'));
 
         // Oems
-        $oems = Oem::query()->get();
+        $oems = Oem::query()->get()->keyBy('id');
         $oemA = [
             'key'  => 'ABC',
             'name' => 'ABC',
@@ -109,7 +115,8 @@ class OemsImporterTest extends TestCase {
             ->with('oem')
             ->with('serviceGroup')
             ->with('serviceGroup.oem')
-            ->get();
+            ->get()
+            ->keyBy('id');
 
         $this->assertCount(5, $levels);
         $this->assertEqualsCanonicalizing(
@@ -152,5 +159,38 @@ class OemsImporterTest extends TestCase {
             ],
             $toArray($levels),
         );
+
+        // Translations
+        $translations = $storage->load();
+        $expected     = [];
+        $regexp       = '/^(models\.service-level)\.([^.]+)\.(.+)/u';
+        $callback     = static function (array $matches) use ($oems, $groups, $levels): string {
+            /** @var \App\Models\ServiceLevel|null $level */
+            $level = $levels->get($matches[2]);
+
+            return implode('.', [
+                $matches[1],
+                $oems->get($level?->oem_id)?->key,
+                $groups->get($level?->service_group_id)?->sku,
+                $level?->sku,
+                $matches[3],
+            ]);
+        };
+
+        foreach ($translations as $key => $translation) {
+            $expected[preg_replace_callback($regexp, $callback, $key)] = $translation;
+        }
+
+        $this->assertEquals([
+            'models.service-level.ABC.GA.LA.name'        => 'Level LA French',
+            'models.service-level.ABC.GA.LA.description' => "Level LA Description French\nline of text",
+            'models.service-level.ABC.GB.LB.name'        => 'Level LB French',
+            'models.service-level.ABC.GB.LB.description' => "Level LB Description French\nline of text",
+            'models.service-level.ABC.GC.LC.name'        => 'Level LC French',
+            'models.service-level.ABC.GC.LD.name'        => 'Level LD French',
+            'models.service-level.ABC.GC.LD.description' => "Level LD Description French\nline of text",
+            'models.service-level.CBA.GA.LA.name'        => 'Level LA French',
+            'models.service-level.CBA.GA.LA.description' => "Level LA Description French\nline of text",
+        ], $expected);
     }
 }

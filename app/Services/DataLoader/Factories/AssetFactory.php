@@ -289,7 +289,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             if ($this->getDocumentFactory() && isset($asset->assetDocument)) {
                 // Prefetch documents
                 $this->getDocumentFactory()->prefetch([$asset], false, function (Collection $documents): void {
-                    $documents->loadMissing('oem');
                     $documents->loadMissing('entries');
                     $documents->loadMissing('contacts');
                     $documents->loadMissing('contacts.types');

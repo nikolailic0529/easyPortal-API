@@ -12,6 +12,8 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ServiceGroupResolver;
 use App\Services\DataLoader\Resolvers\ServiceLevelResolver;
+use App\Services\Filesystem\Disks\AppDisk;
+use App\Services\Filesystem\Storages\AppTranslations;
 use Illuminate\Support\Arr;
 use Maatwebsite\Excel\Cell;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -25,9 +27,11 @@ use Maatwebsite\Excel\Row;
 use PhpOffice\PhpSpreadsheet\Cell\Cell as SpreadsheetCell;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 
-use function array_flip;
 use function array_key_exists;
-use function array_map;
+use function array_slice;
+use function end;
+use function explode;
+use function implode;
 use function is_array;
 use function mb_strtolower;
 use function reset;
@@ -45,6 +49,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
         protected OemResolver $oemResolver,
         protected ServiceGroupResolver $serviceGroupResolver,
         protected ServiceLevelResolver $serviceLevelResolver,
+        protected AppDisk $disc,
     ) {
         // empty
     }
@@ -107,7 +112,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
             },
         );
 
-        $this->serviceLevelResolver->get(
+        $serviceLevel = $this->serviceLevelResolver->get(
             $oem,
             $serviceGroup,
             $parsed->serviceLevel->sku,
@@ -124,6 +129,43 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
                 return $level;
             },
         );
+
+        // Save translations (temporary implementation)
+        $helper = new class($serviceLevel) extends ServiceLevel {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected ServiceLevel $model,
+            ) {
+                // empty
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public function getTranslatableProperties(): array {
+                return $this->model->getTranslatableProperties();
+            }
+
+            public function getTranslatedPropertyKey(string $property): string {
+                $keys = $this->model->getTranslatedPropertyKeys($property);
+                $key  = reset($keys);
+
+                return $key;
+            }
+        };
+
+        foreach ($parsed->serviceLevel->translations as $locale => $properties) {
+            $storage      = new AppTranslations($this->disc, $locale);
+            $translations = $storage->load();
+
+            foreach ($helper->getTranslatableProperties() as $property) {
+                if (isset($properties[$property]) && $properties[$property]) {
+                    $translations[$helper->getTranslatedPropertyKey($property)] = $properties[$property];
+                }
+            }
+
+            $storage->save($translations);
+        }
     }
 
     protected function onBeforeSheet(BeforeSheet $event): void {
@@ -138,9 +180,9 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
         ];
         $languages  = [
             'english' => null,
-            'french'  => 'fr',
-            'german'  => 'de',
-            'italian' => 'it',
+            'french'  => 'fr_FR',
+            'german'  => 'de_DE',
+            'italian' => 'it_IT',
         ];
         $properties = [
             'serviceLevel.name',
@@ -154,26 +196,22 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
             $property = 0;
 
             foreach ($row->getCellIterator() as $index => $cell) {
-                $value = $this->normalizer->string($this->getCellValue($cell));
-                $lang  = mb_strtolower((string) $value);
-                $key   = null;
+                $value  = $this->normalizer->string($this->getCellValue($cell));
+                $lang   = mb_strtolower((string) $value);
+                $key    = null;
+                $type   = null;
+                $locale = null;
 
                 if (isset($map[$index])) {
-                    $key = $map[$index];
+                    $key  = $map[$index];
+                    $type = $types[$key] ?? null;
                 } elseif (array_key_exists($lang, $languages)) {
-                    $code = $languages[$lang];
                     $key  = $properties[$property];
+                    $type = $types[$key] ?? null;
+                    $code = $languages[$lang];
 
                     if ($code) {
-                        // TODO [DataLoader] Translations + types
-                        //      Should be, but temporary disabled.
-                        //      $key .= "_{$code}";
-
-                        $key = null;
-                    }
-
-                    if (isset($cells[$key])) {
-                        $key = null;
+                        $locale = $code;
                     }
 
                     if (isset($properties[$property + 1])) {
@@ -186,7 +224,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
                 }
 
                 if ($key) {
-                    $cells[$key] = $index;
+                    $cells[$index] = new HeaderCell($index, $key, $type, $locale);
                 }
             }
 
@@ -194,9 +232,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
         }
 
         // Save
-        $this->header = array_map(static function (string $key) use ($types): HeaderCell {
-            return new HeaderCell($key, $types[$key] ?? null);
-        }, array_flip($cells));
+        $this->header = $cells;
     }
 
     protected function onAfterSheet(AfterSheet $event): void {
@@ -230,8 +266,17 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
 
         foreach ($row->getDelegate()->getCellIterator() as $index => $cell) {
             if (isset($this->header[$index])) {
-                $key   = $this->header[$index]->getKey();
-                $value = $this->getCellValue($cell);
+                $header = $this->header[$index];
+                $key    = $header->getKey();
+                $value  = $this->getCellValue($cell);
+                $locale = $header->getLocale();
+
+                if ($locale) {
+                    $path = explode('.', $key);
+                    $name = end($path);
+                    $key  = implode('.', array_slice($path, 0, -1));
+                    $key  = "{$key}.translations.{$locale}.{$name}";
+                }
 
                 switch ($this->header[$index]->getType()) {
                     case CellType::text():

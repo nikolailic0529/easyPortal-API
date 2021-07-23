@@ -8,4 +8,8 @@ class ServiceLevel extends JsonObject {
     public string $sku;
     public string $name;
     public string $description;
+    /**
+     * @var array<string,array<string,string>>
+     */
+    public array $translations;
 }

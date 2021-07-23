@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\GraphQL\Contracts\Translatable;
 use App\Models\Concerns\HasDocumentEntries;
 use App\Models\Concerns\HasOem;
 use App\Models\Concerns\HasServiceGroup;
+use App\Models\Concerns\TranslateProperties;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -28,8 +30,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ServiceLevel query()
  * @mixin \Eloquent
  */
-class ServiceLevel extends Model {
+class ServiceLevel extends Model implements Translatable {
     use HasFactory;
+    use TranslateProperties;
     use HasOem;
     use HasDocumentEntries;
     use HasServiceGroup {
@@ -45,5 +48,21 @@ class ServiceLevel extends Model {
 
     public function setServiceGroupAttribute(ServiceGroup $group): void {
         $this->setServiceGroupAttributeNullable($group);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getTranslatableProperties(): array {
+        return ['name', 'description'];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getTranslatedPropertyKeys(string $property): array {
+        return [
+            "models.{$this->getMorphClass()}.{$this->getKey()}.{$property}",
+        ];
     }
 }
