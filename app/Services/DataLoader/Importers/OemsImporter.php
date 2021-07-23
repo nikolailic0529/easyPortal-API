@@ -85,50 +85,9 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
         }
 
         // Import
-        $oem          = $this->oemResolver->get(
-            $parsed->oem->key,
-            static function () use ($parsed): Oem {
-                $oem       = new Oem();
-                $oem->key  = $parsed->oem->key;
-                $oem->name = $parsed->oem->key;
-
-                $oem->save();
-
-                return $oem;
-            },
-        );
-        $serviceGroup = $this->serviceGroupResolver->get(
-            $oem,
-            $parsed->serviceGroup->sku,
-            static function () use ($oem, $parsed): ServiceGroup {
-                $group       = new ServiceGroup();
-                $group->oem  = $oem;
-                $group->sku  = $parsed->serviceGroup->sku;
-                $group->name = $parsed->serviceGroup->name;
-
-                $group->save();
-
-                return $group;
-            },
-        );
-
-        $serviceLevel = $this->serviceLevelResolver->get(
-            $oem,
-            $serviceGroup,
-            $parsed->serviceLevel->sku,
-            static function () use ($oem, $serviceGroup, $parsed): ServiceLevel {
-                $level               = new ServiceLevel();
-                $level->oem          = $oem;
-                $level->sku          = $parsed->serviceLevel->sku;
-                $level->name         = $parsed->serviceLevel->name;
-                $level->description  = $parsed->serviceLevel->description;
-                $level->serviceGroup = $serviceGroup;
-
-                $level->save();
-
-                return $level;
-            },
-        );
+        $oem          = $this->getOem($parsed);
+        $serviceGroup = $this->getServiceGroup($oem, $parsed);
+        $serviceLevel = $this->getServiceLevel($oem, $serviceGroup, $parsed);
 
         // Save translations (temporary implementation)
         $helper = new class($serviceLevel) extends ServiceLevel {
@@ -300,5 +259,93 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
 
         // Return
         return $parsed;
+    }
+
+    protected function getOem(ParsedRow $parsed): Oem {
+        // Create
+        $created = false;
+        $factory = static function (Oem $oem) use (&$created, $parsed): Oem {
+            $created   = !$oem->exists;
+            $oem->key  = $parsed->oem->key;
+            $oem->name = $parsed->oem->key;
+
+            $oem->save();
+
+            return $oem;
+        };
+        $oem     = $this->oemResolver->get($parsed->oem->key, static function () use ($factory): Oem {
+            return $factory(new Oem());
+        });
+
+        // Update
+        if (!$created) {
+            $factory($oem);
+        }
+
+        // Return
+        return $oem;
+    }
+
+    protected function getServiceGroup(Oem $oem, ParsedRow $parsed): ServiceGroup {
+        // Create
+        $created = false;
+        $factory = static function (ServiceGroup $group) use (&$created, $oem, $parsed): ServiceGroup {
+            $created     = !$group->exists;
+            $group->oem  = $oem;
+            $group->sku  = $parsed->serviceGroup->sku;
+            $group->name = $parsed->serviceGroup->name;
+
+            $group->save();
+
+            return $group;
+        };
+        $group   = $this->serviceGroupResolver->get(
+            $oem,
+            $parsed->serviceGroup->sku,
+            static function () use ($factory): ServiceGroup {
+                return $factory(new ServiceGroup());
+            },
+        );
+
+        // Update
+        if (!$created) {
+            $factory($group);
+        }
+
+        // Return
+        return $group;
+    }
+
+    protected function getServiceLevel(Oem $oem, ServiceGroup $group, ParsedRow $parsed): ServiceLevel {
+        // Create
+        $created = false;
+        $factory = static function (ServiceLevel $level) use (&$created, $oem, $group, $parsed): ServiceLevel {
+            $created             = !$level->exists;
+            $level->oem          = $oem;
+            $level->sku          = $parsed->serviceLevel->sku;
+            $level->name         = $parsed->serviceLevel->name;
+            $level->description  = $parsed->serviceLevel->description;
+            $level->serviceGroup = $group;
+
+            $level->save();
+
+            return $level;
+        };
+        $level   = $this->serviceLevelResolver->get(
+            $oem,
+            $group,
+            $parsed->serviceLevel->sku,
+            static function () use ($factory): ServiceLevel {
+                return $factory(new ServiceLevel());
+            },
+        );
+
+        // Update
+        if (!$created) {
+            $factory($level);
+        }
+
+        // Return
+        return $level;
     }
 }

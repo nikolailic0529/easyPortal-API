@@ -62,6 +62,23 @@ class OemsImporterTest extends TestCase {
         $this->assertEquals(0, ServiceLevel::query()->count());
         $this->assertEmpty($storage->load());
 
+        // Existing objects should be updated
+        $oem   = Oem::factory()->create([
+            'key'  => 'ABC',
+            'name' => 'should be updated',
+        ]);
+        $group = ServiceGroup::factory()->create([
+            'sku'    => 'GA',
+            'name'   => 'should be updated',
+            'oem_id' => $oem,
+        ]);
+        ServiceLevel::factory()->create([
+            'sku'              => 'LA',
+            'name'             => 'should be updated',
+            'oem_id'           => $oem,
+            'service_group_id' => $group,
+        ]);
+
         // Run
         $this->app->make(OemsImporter::class)->import($this->getTestData()->file('.xlsx'));
 
@@ -82,7 +99,8 @@ class OemsImporterTest extends TestCase {
         // Service Groups
         $groups  = ServiceGroup::query()
             ->with('oem')
-            ->get();
+            ->get()
+            ->keyBy('id');
         $groupAA = [
             'sku'  => 'GA',
             'name' => 'Group A',
