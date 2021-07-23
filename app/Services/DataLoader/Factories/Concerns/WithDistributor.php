@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Factories\Concerns;
 use App\Models\Distributor;
 use App\Services\DataLoader\Exceptions\DistributorNotFoundException;
 use App\Services\DataLoader\Finders\DistributorFinder;
+use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\DistributorResolver;
 use App\Services\DataLoader\Schema\ViewDocument;
 
@@ -12,6 +13,8 @@ use App\Services\DataLoader\Schema\ViewDocument;
  * @mixin \App\Services\DataLoader\Factory
  */
 trait WithDistributor {
+    abstract protected function getNormalizer(): Normalizer;
+
     abstract protected function getDistributorFinder(): ?DistributorFinder;
 
     abstract protected function getDistributorResolver(): DistributorResolver;
@@ -24,6 +27,7 @@ trait WithDistributor {
         $distributor = null;
 
         if ($id) {
+            $id          = $this->getNormalizer()->uuid($id);
             $distributor = $this->getDistributorResolver()->get($id, $this->factory(
                 function () use ($id): ?Distributor {
                     return $this->getDistributorFinder()?->find($id);

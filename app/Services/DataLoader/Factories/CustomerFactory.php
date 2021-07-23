@@ -28,13 +28,21 @@ class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
         LoggerInterface $logger,
         Normalizer $normalizer,
         Dispatcher $dispatcher,
-        TypeResolver $types,
-        StatusResolver $statuses,
-        ContactFactory $contacts,
-        LocationFactory $locations,
-        protected CustomerResolver $customers,
+        TypeResolver $typeResolver,
+        StatusResolver $statusResolver,
+        ContactFactory $contactFactory,
+        LocationFactory $locationFactory,
+        protected CustomerResolver $customerResolver,
     ) {
-        parent::__construct($logger, $normalizer, $dispatcher, $types, $statuses, $contacts, $locations);
+        parent::__construct(
+            $logger,
+            $normalizer,
+            $dispatcher,
+            $typeResolver,
+            $statusResolver,
+            $contactFactory,
+            $locationFactory,
+        );
     }
 
     // <editor-fold desc="Factory">
@@ -95,7 +103,7 @@ class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
             ->filter()
             ->all();
 
-        $this->customers->prefetch($keys, $reset, $callback);
+        $this->customerResolver->prefetch($keys, $reset, $callback);
 
         return $this;
     }
@@ -108,10 +116,11 @@ class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
         $created  = false;
         $factory  = $this->factory(function (Customer $customer) use (&$created, $company): Customer {
             $created              = !$customer->exists;
-            $customer->id         = $this->normalizer->uuid($company->id);
-            $customer->name       = $this->normalizer->string($company->name);
+            $normalizer           = $this->getNormalizer();
+            $customer->id         = $normalizer->uuid($company->id);
+            $customer->name       = $normalizer->string($company->name);
             $customer->type       = $this->companyType($customer, $company->companyTypes);
-            $customer->changed_at = $this->normalizer->datetime($company->updatedAt);
+            $customer->changed_at = $normalizer->datetime($company->updatedAt);
             $customer->statuses   = $this->companyStatuses($customer, $company);
             $customer->contacts   = $this->objectContacts($customer, $company->companyContactPersons);
             $customer->locations  = $this->objectLocations($customer, $company->locations);
@@ -120,7 +129,7 @@ class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
 
             return $customer;
         });
-        $customer = $this->customers->get($company->id, static function () use ($factory): Customer {
+        $customer = $this->customerResolver->get($company->id, static function () use ($factory): Customer {
             return $factory(new Customer());
         });
 

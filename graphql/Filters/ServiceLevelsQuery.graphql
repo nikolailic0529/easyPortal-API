@@ -1,0 +1,7 @@
+input ServiceLevelsQuery {
+  id: ID!
+  oem_id: ID!
+  service_group_id: ID!
+  sku: String!
+  documentEntries: DocumentEntriesQuery
+}

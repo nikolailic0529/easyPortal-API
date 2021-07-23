@@ -20,7 +20,7 @@ class ContactFactory extends DependentModelFactory {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
-        protected ContactResolver $contacts,
+        protected ContactResolver $contactResolver,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -76,24 +76,25 @@ class ContactFactory extends DependentModelFactory {
     }
 
     protected function contact(Model $object, ?string $name, ?string $phone, ?bool $valid, ?string $mail): Contact {
-        $contact = $this->contacts->get(
+        $contact = $this->contactResolver->get(
             $object,
             $name,
             $phone,
             $mail,
             $this->factory(function () use ($object, $name, $phone, $valid, $mail): Contact {
-                $model = new Contact();
+                $model      = new Contact();
+                $normalizer = $this->getNormalizer();
 
                 if (!is_null($name)) {
-                    $name = $this->normalizer->string($name);
+                    $name = $normalizer->string($name);
                 }
 
                 if (!is_null($phone)) {
-                    $phone = $this->normalizer->string($phone);
+                    $phone = $normalizer->string($phone);
                 }
 
                 if (!is_null($mail)) {
-                    $mail = $this->normalizer->string($mail);
+                    $mail = $normalizer->string($mail);
                 }
 
                 $model->object_type  = $object->getMorphClass();

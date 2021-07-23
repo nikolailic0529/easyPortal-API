@@ -6,7 +6,6 @@ use App\Models\Currency;
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
 use Closure;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\UploadedFile;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -31,16 +30,20 @@ class UpdateOrgTest extends TestCase {
     /**
      * @covers ::__invoke
      * @dataProvider dataProviderInvoke
+     *
+     * @param array<string,mixed> $settings
      */
     public function testInvoke(
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
+        array $settings = null,
         Closure $dataFactory = null,
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
         $this->setUser($userFactory, $organization);
+        $this->setSettings($settings);
 
         $input = [];
         $data  = [];
@@ -240,11 +243,13 @@ class UpdateOrgTest extends TestCase {
             new ArrayDataProvider([
                 'ok'                               => [
                     new GraphQLSuccess('updateOrg', UpdateOrg::class),
+                    [],
                     static function (): array {
                         $currency = Currency::factory()->create();
                         Reseller::factory()->create([
                             'id' => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                         ]);
+
                         return [
                             'locale'         => 'en',
                             'currency_id'    => $currency->getKey(),
@@ -269,6 +274,7 @@ class UpdateOrgTest extends TestCase {
                     new GraphQLError('updateOrg', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
+                    [],
                     static function (): array {
                         return [
                             'branding' => [
@@ -281,6 +287,7 @@ class UpdateOrgTest extends TestCase {
                     new GraphQLError('updateOrg', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
+                    [],
                     static function (): array {
                         return [
                             'locale' => 'en_UKX',
@@ -291,6 +298,7 @@ class UpdateOrgTest extends TestCase {
                     new GraphQLError('updateOrg', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
+                    [],
                     static function (): array {
                         return [
                             'currency_id' => 'wrongId',
@@ -301,6 +309,7 @@ class UpdateOrgTest extends TestCase {
                     new GraphQLError('updateOrg', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
+                    [],
                     static function (): array {
                         $currency = Currency::factory()->create([
                             'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -316,12 +325,11 @@ class UpdateOrgTest extends TestCase {
                     new GraphQLError('updateOrg', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
+                    [
+                        'ep.image.max_size' => 2000,
+                        'ep.image.formats'  => ['png'],
+                    ],
                     static function (TestCase $test): array {
-                        $config  = $test->app->make(Repository::class);
-                        $maxSize = 2000;
-                        $config->set('ep.image.max_size', $maxSize);
-                        $config->set('ep.image.formats', ['png']);
-
                         return [
                             'branding' => [
                                 'logo_url'    => UploadedFile::fake()->create('branding_logo.jpg', 200),
@@ -334,17 +342,16 @@ class UpdateOrgTest extends TestCase {
                     new GraphQLError('updateOrg', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
+                    [
+                        'ep.image.max_size' => 2000,
+                        'ep.image.formats'  => ['png'],
+                    ],
                     static function (TestCase $test): array {
-                        $config  = $test->app->make(Repository::class);
-                        $maxSize = 2000;
-                        $config->set('ep.image.max_size', $maxSize);
-                        $config->set('ep.image.formats', ['png']);
-
                         return [
                             'branding' => [
-                                'logo_url'    => UploadedFile::fake()->create('logo.png', $maxSize + 1024),
+                                'logo_url'    => UploadedFile::fake()->create('logo.png', 3024),
                                 'favicon_url' => UploadedFile::fake()
-                                    ->create('favicon.jpg', $maxSize + 1024),
+                                    ->create('favicon.png', 3024),
                             ],
                         ];
                     },
@@ -353,6 +360,7 @@ class UpdateOrgTest extends TestCase {
                     new GraphQLError('updateOrg', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
+                    [],
                     static function (TestCase $test): array {
                         return [
                             'website_url' => 'wrong url',
@@ -363,6 +371,7 @@ class UpdateOrgTest extends TestCase {
                     new GraphQLError('updateOrg', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
+                    [],
                     static function (TestCase $test): array {
                         return [
                             'email' => 'wrong mail',
@@ -373,6 +382,7 @@ class UpdateOrgTest extends TestCase {
                     new GraphQLError('updateOrg', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
+                    [],
                     static function (TestCase $test): array {
                         return [
                             'timezone' => 'Europe/Unknown',
@@ -381,11 +391,13 @@ class UpdateOrgTest extends TestCase {
                 ],
                 'nullable branding'                => [
                     new GraphQLSuccess('updateOrg', UpdateOrg::class),
+                    [],
                     static function (): array {
                         $currency = Currency::factory()->create();
                         Reseller::factory()->create([
                             'id' => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                         ]);
+
                         return [
                             'locale'         => 'en',
                             'currency_id'    => $currency->getKey(),
@@ -408,8 +420,10 @@ class UpdateOrgTest extends TestCase {
                 ],
                 'no reseller organization'         => [
                     new GraphQLSuccess('updateOrg', UpdateOrg::class),
+                    [],
                     static function (): array {
                         $currency = Currency::factory()->create();
+
                         return [
                             'locale'         => 'en',
                             'currency_id'    => $currency->getKey(),
@@ -432,8 +446,10 @@ class UpdateOrgTest extends TestCase {
                 ],
                 'no reseller organization/null'    => [
                     new GraphQLSuccess('updateOrg', UpdateOrg::class),
+                    [],
                     static function (): array {
                         $currency = Currency::factory()->create();
+
                         return [
                             'locale'         => 'en',
                             'currency_id'    => $currency->getKey(),

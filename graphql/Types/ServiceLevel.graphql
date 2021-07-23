@@ -1,0 +1,8 @@
+type ServiceLevel {
+  id: ID!
+  oem_id: ID!
+  service_group_id: ID!
+  sku: String!
+  name: String! @translate
+  description: String! @translate
+}

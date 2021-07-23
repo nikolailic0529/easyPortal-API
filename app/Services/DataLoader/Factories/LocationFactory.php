@@ -32,9 +32,9 @@ class LocationFactory extends DependentModelFactory {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
-        protected CountryResolver $countries,
-        protected CityResolver $cities,
-        protected LocationResolver $locations,
+        protected CountryResolver $countryResolver,
+        protected CityResolver $cityResolver,
+        protected LocationResolver $locationResolver,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -84,7 +84,7 @@ class LocationFactory extends DependentModelFactory {
             ->unique()
             ->all();
 
-        $this->locations->prefetch($keys, $reset, $callback);
+        $this->locationResolver->prefetch($keys, $reset, $callback);
 
         return $this;
     }
@@ -154,10 +154,11 @@ class LocationFactory extends DependentModelFactory {
     }
 
     protected function country(string $code, string $name): Country {
-        $country = $this->countries->get($code, $this->factory(function () use ($code, $name): Country {
+        $country = $this->countryResolver->get($code, $this->factory(function () use ($code, $name): Country {
             $country       = new Country();
-            $country->code = mb_strtoupper($this->normalizer->string($code));
-            $country->name = $this->normalizer->string($name);
+            $normalizer    = $this->getNormalizer();
+            $country->code = mb_strtoupper($normalizer->string($code));
+            $country->name = $normalizer->string($name);
 
             $country->save();
 
@@ -168,12 +169,13 @@ class LocationFactory extends DependentModelFactory {
     }
 
     protected function city(Country $country, string $name): City {
-        $city = $this->cities->get(
+        $city = $this->cityResolver->get(
             $country,
             $name,
             $this->factory(function () use ($country, $name): City {
                 $city          = new City();
-                $city->name    = $this->normalizer->string($name);
+                $normalizer    = $this->getNormalizer();
+                $city->name    = $normalizer->string($name);
                 $city->country = $country;
 
                 $city->save();
@@ -213,23 +215,24 @@ class LocationFactory extends DependentModelFactory {
                 $longitude,
             ): LocationModel {
                 $created               = !$location->exists;
+                $normalizer            = $this->getNormalizer();
                 $location->object_type = $object->getMorphClass();
                 $location->object_id   = $object->getKey();
                 $location->country     = $country;
                 $location->city        = $city;
-                $location->postcode    = $this->normalizer->string($postcode);
-                $location->state       = $this->normalizer->string($state);
-                $location->line_one    = $this->normalizer->string($lineOne);
-                $location->line_two    = $this->normalizer->string($lineTwo);
-                $location->latitude    = $this->normalizer->coordinate($latitude);
-                $location->longitude   = $this->normalizer->coordinate($longitude);
+                $location->postcode    = $normalizer->string($postcode);
+                $location->state       = $normalizer->string($state);
+                $location->line_one    = $normalizer->string($lineOne);
+                $location->line_two    = $normalizer->string($lineTwo);
+                $location->latitude    = $normalizer->coordinate($latitude);
+                $location->longitude   = $normalizer->coordinate($longitude);
 
                 $location->save();
 
                 return $location;
             },
         );
-        $location = $this->locations->get(
+        $location = $this->locationResolver->get(
             $object,
             $country,
             $city,

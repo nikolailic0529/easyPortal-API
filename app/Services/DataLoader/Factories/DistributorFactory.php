@@ -21,8 +21,8 @@ class DistributorFactory extends ModelFactory implements FactoryPrefetchable {
     public function __construct(
         LoggerInterface $logger,
         Normalizer $normalizer,
-        protected TypeResolver $types,
-        protected DistributorResolver $distributors,
+        protected TypeResolver $typeResolver,
+        protected DistributorResolver $distributorResolver,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -38,7 +38,7 @@ class DistributorFactory extends ModelFactory implements FactoryPrefetchable {
             return $distributor->id;
         }, $distributors);
 
-        $this->distributors->prefetch($keys, $reset, $callback);
+        $this->distributorResolver->prefetch($keys, $reset, $callback);
 
         return $this;
     }
@@ -74,15 +74,16 @@ class DistributorFactory extends ModelFactory implements FactoryPrefetchable {
         $created     = false;
         $factory     = $this->factory(function (Distributor $distributor) use (&$created, $company): Distributor {
             $created                 = !$distributor->exists;
-            $distributor->id         = $this->normalizer->uuid($company->id);
-            $distributor->name       = $this->normalizer->string($company->name);
-            $distributor->changed_at = $this->normalizer->datetime($company->updatedAt);
+            $normalizer              = $this->getNormalizer();
+            $distributor->id         = $normalizer->uuid($company->id);
+            $distributor->name       = $normalizer->string($company->name);
+            $distributor->changed_at = $normalizer->datetime($company->updatedAt);
 
             $distributor->save();
 
             return $distributor;
         });
-        $distributor = $this->distributors->get(
+        $distributor = $this->distributorResolver->get(
             $company->id,
             static function () use ($factory): Distributor {
                 return $factory(new Distributor());

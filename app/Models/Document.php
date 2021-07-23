@@ -9,7 +9,7 @@ use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasLanguage;
 use App\Models\Concerns\HasOem;
 use App\Models\Concerns\HasReseller;
-use App\Models\Concerns\HasSupport;
+use App\Models\Concerns\HasServiceGroup;
 use App\Models\Concerns\HasType;
 use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
@@ -33,7 +33,7 @@ use function count;
  * @property string|null                                                         $reseller_id
  * @property string|null                                                         $distributor_id
  * @property string                                                              $number
- * @property string|null                                                         $support_id
+ * @property string|null                                                         $service_group_id
  * @property \Carbon\CarbonImmutable|null                                        $start
  * @property \Carbon\CarbonImmutable|null                                        $end
  * @property string|null                                                         $price
@@ -55,7 +55,7 @@ use function count;
  * @property \App\Models\Oem                                                     $oem
  * @property \App\Models\OemGroup|null                                           $oemGroup
  * @property \App\Models\Reseller|null                                           $reseller
- * @property \App\Models\Product|null                                            $support
+ * @property \App\Models\ServiceGroup|null                                       $serviceGroup
  * @property \App\Models\Type                                                    $type
  * @method static \Database\Factories\DocumentFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newModelQuery()
@@ -68,7 +68,7 @@ class Document extends Model implements CascadeDeletable {
     use HasFactory;
     use HasOem;
     use HasType;
-    use HasSupport;
+    use HasServiceGroup;
     use HasReseller;
     use HasCustomer;
     use HasCurrency;

@@ -5,6 +5,7 @@ namespace App\Services\DataLoader\Factories\Concerns;
 use App\Models\Customer;
 use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
 use App\Services\DataLoader\Finders\CustomerFinder;
+use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
@@ -14,6 +15,8 @@ use App\Services\DataLoader\Schema\ViewDocument;
  * @mixin \App\Services\DataLoader\Factory
  */
 trait WithCustomer {
+    abstract protected function getNormalizer(): Normalizer;
+
     abstract protected function getCustomerFinder(): ?CustomerFinder;
 
     abstract protected function getCustomerResolver(): CustomerResolver;
@@ -32,6 +35,7 @@ trait WithCustomer {
         $customer = null;
 
         if ($id) {
+            $id       = $this->getNormalizer()->uuid($id);
             $customer = $this->getCustomerResolver()->get($id, $this->factory(
                 function () use ($id): ?Customer {
                     return $this->getCustomerFinder()?->find($id);

@@ -10,8 +10,8 @@ class StringNormalizer implements Normalizer {
     public function normalize(mixed $value): ?string {
         if (!is_null($value)) {
             $value = (string) $value;
-            $value = trim($value);
             $value = preg_replace('/[\s\x00]+/ui', ' ', $value);
+            $value = trim($value);
         }
 
         return $value;

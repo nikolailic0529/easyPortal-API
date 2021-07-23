@@ -34,7 +34,7 @@ class WithCoverageTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected CoverageResolver $resolver,
+                protected CoverageResolver $coverageResolver,
             ) {
                 // empty
             }
@@ -44,7 +44,7 @@ class WithCoverageTest extends TestCase {
             }
 
             protected function getCoverageResolver(): CoverageResolver {
-                return $this->resolver;
+                return $this->coverageResolver;
             }
 
             public function create(Type $type): ?Model {
@@ -61,12 +61,12 @@ class WithCoverageTest extends TestCase {
         $this->flushQueryLog();
 
         // If not - it should be created
-        $created = $factory->coverage('newabbr ');
+        $created = $factory->coverage('new ');
 
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertEquals('newabbr', $created->key);
-        $this->assertEquals('newabbr', $created->name);
+        $this->assertEquals('new', $created->key);
+        $this->assertEquals('new', $created->name);
         $this->assertCount(2, $this->getQueryLog());
     }
 }

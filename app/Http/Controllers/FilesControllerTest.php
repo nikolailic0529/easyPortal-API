@@ -10,7 +10,6 @@ use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\Type;
 use App\Models\User;
-use App\Services\Filesystem\Disks\NotesDisk;
 use Closure;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Http\Testing\File as TestingFile;
@@ -26,7 +25,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass App\Http\Controllers\FilesController
+ * @coversDefaultClass \App\Http\Controllers\FilesController
  */
 class FilesControllerTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -48,11 +47,6 @@ class FilesControllerTest extends TestCase {
         $organization = $this->setOrganization($organizationFactory);
         $user         = $this->setUser($userFactory, $organization);
         $this->setSettings($settings);
-        /*
-            Since double initializing disk.filesystem() will cause two fake object to be generated
-            and second will remove the first and its file.
-         */
-        $this->app->singleton(NotesDisk::class);
 
         $id = null;
         if ($prepare) {

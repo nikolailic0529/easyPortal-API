@@ -1,5 +1,6 @@
 input DocumentEntriesQuery {
   id: ID!
+  document_id: ID!
   asset_id: ID!
   asset: AssetsQuery
   net_price: Float
@@ -9,7 +10,6 @@ input DocumentEntriesQuery {
   serial_number: String
   product_id: ID!
   product: ProductsQuery
-  service_id: ID
-  service: ProductsQuery
+  service_level_id: ID
   currency_id: ID
 }

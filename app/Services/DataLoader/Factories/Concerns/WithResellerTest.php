@@ -28,15 +28,16 @@ class WithResellerTest extends TestCase {
      * @dataProvider dataProviderReseller
      */
     public function testResellerExistsThroughProvider(Closure $objectFactory): void {
-        $reseller = Reseller::factory()->make();
-        $resolver = Mockery::mock(ResellerResolver::class);
+        $normalizer = $this->app->make(Normalizer::class);
+        $reseller   = Reseller::factory()->make();
+        $resolver   = Mockery::mock(ResellerResolver::class);
         $resolver
             ->shouldReceive('get')
             ->with($reseller->getKey(), Mockery::any())
             ->once()
             ->andReturn($reseller);
 
-        $factory = new WithResellerTestObject($resolver);
+        $factory = new WithResellerTestObject($normalizer, $resolver);
         $object  = $objectFactory($this, $reseller);
 
         $this->assertEquals($reseller, $factory->reseller($object));
@@ -48,8 +49,9 @@ class WithResellerTest extends TestCase {
      * @dataProvider dataProviderReseller
      */
     public function testResellerExistsThroughFinder(Closure $objectFactory): void {
-        $reseller = Reseller::factory()->make();
-        $resolver = Mockery::mock(ResellerResolver::class, [$this->app->make(Normalizer::class)]);
+        $normalizer = $this->app->make(Normalizer::class);
+        $reseller   = Reseller::factory()->make();
+        $resolver   = Mockery::mock(ResellerResolver::class, [$this->app->make(Normalizer::class)]);
         $resolver->shouldAllowMockingProtectedMethods();
         $resolver->makePartial();
         $resolver
@@ -64,7 +66,7 @@ class WithResellerTest extends TestCase {
             ->once()
             ->andReturn($reseller);
 
-        $factory = new WithResellerTestObject($resolver, $finder);
+        $factory = new WithResellerTestObject($normalizer, $resolver, $finder);
         $object  = $objectFactory($this, $reseller);
 
         $this->assertEquals($reseller, $factory->reseller($object));
@@ -76,15 +78,16 @@ class WithResellerTest extends TestCase {
      * @dataProvider dataProviderReseller
      */
     public function testResellerResellerNotFound(Closure $objectFactory): void {
-        $reseller = Reseller::factory()->make();
-        $resolver = Mockery::mock(ResellerResolver::class);
+        $normalizer = $this->app->make(Normalizer::class);
+        $reseller   = Reseller::factory()->make();
+        $resolver   = Mockery::mock(ResellerResolver::class);
         $resolver
             ->shouldReceive('get')
             ->with($reseller->getKey(), Mockery::any())
             ->once()
             ->andReturn(null);
 
-        $factory = new WithResellerTestObject($resolver);
+        $factory = new WithResellerTestObject($normalizer, $resolver);
         $object  = $objectFactory($this, $reseller);
 
         $this->expectException(ResellerNotFoundException::class);
@@ -96,13 +99,14 @@ class WithResellerTest extends TestCase {
      * @covers ::reseller
      */
     public function testResellerAssetWithoutReseller(): void {
-        $object   = new ViewAsset();
-        $resolver = Mockery::mock(ResellerResolver::class);
+        $normalizer = $this->app->make(Normalizer::class);
+        $object     = new ViewAsset();
+        $resolver   = Mockery::mock(ResellerResolver::class);
         $resolver
             ->shouldReceive('get', Mockery::any())
             ->never();
 
-        $factory = new WithResellerTestObject($resolver);
+        $factory = new WithResellerTestObject($normalizer, $resolver);
 
         $this->assertNull($factory->reseller($object));
     }
@@ -157,17 +161,18 @@ class WithResellerTestObject extends Factory {
 
     /** @noinspection PhpMissingParentConstructorInspection */
     public function __construct(
-        protected ResellerResolver $resolver,
-        protected ?ResellerFinder $finder = null,
+        protected Normalizer $normalizer,
+        protected ResellerResolver $resellerResolver,
+        protected ?ResellerFinder $resellerFinder = null,
     ) {
         // empty
     }
 
     protected function getResellerResolver(): ResellerResolver {
-        return $this->resolver;
+        return $this->resellerResolver;
     }
 
     protected function getResellerFinder(): ?ResellerFinder {
-        return $this->finder;
+        return $this->resellerFinder;
     }
 }

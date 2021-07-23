@@ -34,10 +34,10 @@ abstract class CompanyFactory extends ModelFactory {
         LoggerInterface $logger,
         Normalizer $normalizer,
         protected Dispatcher $dispatcher,
-        protected TypeResolver $types,
-        protected StatusResolver $statuses,
-        protected ContactFactory $contacts,
-        protected LocationFactory $locations,
+        protected TypeResolver $typeResolver,
+        protected StatusResolver $statusResolver,
+        protected ContactFactory $contactFactory,
+        protected LocationFactory $locationFactory,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -49,19 +49,19 @@ abstract class CompanyFactory extends ModelFactory {
     }
 
     protected function getContactsFactory(): ContactFactory {
-        return $this->contacts;
+        return $this->contactFactory;
     }
 
     protected function getLocationFactory(): LocationFactory {
-        return $this->locations;
+        return $this->locationFactory;
     }
 
     protected function getStatusResolver(): StatusResolver {
-        return $this->statuses;
+        return $this->statusResolver;
     }
 
     protected function getTypeResolver(): TypeResolver {
-        return $this->types;
+        return $this->typeResolver;
     }
     // </editor-fold>
 

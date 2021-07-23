@@ -3,8 +3,9 @@
 namespace App\Services\DataLoader\Finders;
 
 use App\Services\DataLoader\Container\Container;
+use App\Services\DataLoader\Container\Isolated;
 
-abstract class Finder {
+abstract class Finder implements Isolated {
     public function __construct(
         protected Container $container,
     ) {

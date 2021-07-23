@@ -55,8 +55,8 @@ class WithLocationsTest extends TestCase {
             public function __construct(
                 protected LoggerInterface $logger,
                 protected Normalizer $normalizer,
-                protected TypeResolver $types,
-                protected LocationFactory $locations,
+                protected TypeResolver $typeResolver,
+                protected LocationFactory $locationFactory,
                 protected Dispatcher $dispatcher,
             ) {
                 // empty
@@ -67,7 +67,7 @@ class WithLocationsTest extends TestCase {
             }
 
             protected function getLocationFactory(): LocationFactory {
-                return $this->locations;
+                return $this->locationFactory;
             }
 
             protected function getDispatcher(): Dispatcher {
@@ -75,7 +75,7 @@ class WithLocationsTest extends TestCase {
             }
 
             protected function getTypeResolver(): TypeResolver {
-                return $this->types;
+                return $this->typeResolver;
             }
         };
 

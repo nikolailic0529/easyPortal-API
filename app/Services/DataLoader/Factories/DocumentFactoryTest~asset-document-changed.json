@@ -40,9 +40,7 @@
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a"
             },
             "skuNumber": "HA151AC",
-            "skuDescription": "HPE Hardware Maintenance Onsite Support",
             "supportPackage": "H7J34AC",
-            "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "2020-03-01",
             "endDate": "28/02/2021",
             "warrantyEndDate": null,
@@ -74,9 +72,7 @@
                 "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a"
             },
             "skuNumber": "HA151AC",
-            "skuDescription": "HPE Hardware Maintenance Onsite Support",
             "supportPackage": "H7J34AC",
-            "supportPackageDescription": "HPE Foundation Care 24x7 SVC",
             "startDate": "1583020800000",
             "endDate": "1614470400000",
             "warrantyEndDate": null,

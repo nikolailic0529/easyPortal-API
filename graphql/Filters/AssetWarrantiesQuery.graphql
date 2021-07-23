@@ -10,6 +10,6 @@ input AssetWarrantiesQuery {
   document: DocumentsQuery
   reseller_id: ID
   reseller: ResellersQuery
-  services: ProductsQuery
-  support: ProductsQuery
+  service_group_id: ID
+  serviceLevels: ServiceLevelsQuery
 }

@@ -22,6 +22,7 @@ abstract class TestCase extends BaseTestCase {
         faker as public;
     }
     use Override;
+    use FakeDisks;
 
     /**
      * @var array<string>

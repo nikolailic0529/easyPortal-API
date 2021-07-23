@@ -2,13 +2,13 @@
 
 namespace App\Services\DataLoader\Factories\Concerns;
 
-use App\Models\Model;
 use App\Models\Oem;
-use App\Services\DataLoader\Factories\ModelFactory;
+use App\Services\DataLoader\Exceptions\OemNotFound;
+use App\Services\DataLoader\Factory;
+use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\OemResolver;
-use App\Services\DataLoader\Schema\Type;
-use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
+use Mockery;
 use Tests\TestCase;
 
 /**
@@ -16,18 +16,20 @@ use Tests\TestCase;
  * @coversDefaultClass \App\Services\DataLoader\Factories\Concerns\WithOem
  */
 class WithOemTest extends TestCase {
-    use WithQueryLog;
-
     /**
-     * @covers ::status
+     * @covers ::oem
      */
-    public function testOem(): void {
-        // Prepare
+    public function testOemExistsThroughProvider(): void {
+        $oem        = Oem::factory()->make();
         $normalizer = $this->app->make(Normalizer::class);
-        $resolver   = $this->app->make(OemResolver::class);
-        $oem        = Oem::factory()->create();
+        $resolver   = Mockery::mock(OemResolver::class);
+        $resolver
+            ->shouldReceive('get')
+            ->with($oem->key, Mockery::any())
+            ->once()
+            ->andReturn($oem);
 
-        $factory = new class($normalizer, $resolver) extends ModelFactory {
+        $factory = new class($normalizer, $resolver) extends Factory {
             use WithOem {
                 oem as public;
             }
@@ -35,35 +37,99 @@ class WithOemTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected OemResolver $oems,
+                protected OemResolver $oemResolver,
             ) {
                 // empty
             }
 
-            public function create(Type $type): ?Model {
-                return null;
+            protected function getOemResolver(): OemResolver {
+                return $this->oemResolver;
             }
 
-            protected function getOemResolver(): OemResolver {
-                return $this->oems;
+            protected function getOemFinder(): ?OemFinder {
+                return null;
             }
         };
 
-        $this->flushQueryLog();
+        $this->assertEquals($oem, $factory->oem($oem->key));
+    }
 
-        // If model exists - no action required
-        $this->assertEquals($oem, $factory->oem($oem->abbr, $oem->name));
-        $this->assertCount(1, $this->getQueryLog());
+    /**
+     * @covers ::oem
+     */
+    public function testOemExistsThroughFinder(): void {
+        $oem        = Oem::factory()->make();
+        $normalizer = $this->app->make(Normalizer::class);
+        $resolver   = $this->app->make(OemResolver::class);
+        $finder     = Mockery::mock(OemFinder::class);
+        $finder
+            ->shouldReceive('find')
+            ->with($oem->key)
+            ->once()
+            ->andReturn($oem);
 
-        $this->flushQueryLog();
+        $factory = new class($normalizer, $resolver, $finder) extends Factory {
+            use WithOem {
+                oem as public;
+            }
 
-        // If not - it should be created
-        $created = $factory->oem('newabbr', ' New  Oem    Name ');
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected OemResolver $oemResolver,
+                protected OemFinder $oemFinder,
+            ) {
+                // empty
+            }
 
-        $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
-        $this->assertEquals('newabbr', $created->abbr);
-        $this->assertEquals('New Oem Name', $created->name);
-        $this->assertCount(2, $this->getQueryLog());
+            protected function getOemResolver(): OemResolver {
+                return $this->oemResolver;
+            }
+
+            protected function getOemFinder(): ?OemFinder {
+                return $this->oemFinder;
+            }
+        };
+
+        $this->assertEquals($oem, $factory->oem(" {$oem->key} "));
+    }
+
+    /**
+     * @covers ::oem
+     */
+    public function testOemOemNotFound(): void {
+        $oem        = Oem::factory()->make();
+        $normalizer = $this->app->make(Normalizer::class);
+        $resolver   = Mockery::mock(OemResolver::class);
+        $resolver
+            ->shouldReceive('get')
+            ->once()
+            ->andReturn(null);
+
+        $factory = new class($normalizer, $resolver) extends Factory {
+            use WithOem {
+                oem as public;
+            }
+
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected OemResolver $oemResolver,
+            ) {
+                // empty
+            }
+
+            protected function getOemResolver(): OemResolver {
+                return $this->oemResolver;
+            }
+
+            protected function getOemFinder(): ?OemFinder {
+                return null;
+            }
+        };
+
+        $this->expectException(OemNotFound::class);
+
+        $this->assertEquals($oem, $factory->oem($oem->key));
     }
 }

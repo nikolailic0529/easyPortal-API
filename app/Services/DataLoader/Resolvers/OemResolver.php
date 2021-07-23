@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 class OemResolver extends Resolver {
-    public function get(string $abbr, Closure $factory = null): ?Oem {
+    public function get(string $key, Closure $factory = null): ?Oem {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->resolve($abbr, $factory);
+        return $this->resolve($key, $factory);
     }
 
     protected function getPreloadedItems(): Collection {
@@ -28,8 +28,8 @@ class OemResolver extends Resolver {
      */
     protected function getKeyRetrievers(): array {
         return [
-            'abbr' => new ClosureKey(static function (Oem $oem): string {
-                return $oem->abbr;
+            'key' => new ClosureKey(static function (Oem $oem): string {
+                return $oem->key;
             }),
         ];
     }

@@ -204,9 +204,11 @@ class ResellerFactoryTest extends TestCase {
 
         $factory = new class($normalizer, $resolver) extends ResellerFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, ResellerResolver $resolver) {
-                $this->normalizer = $normalizer;
-                $this->resellers  = $resolver;
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected ResellerResolver $resellerResolver,
+            ) {
+                // empty
             }
         };
 

@@ -8,7 +8,6 @@ use App\Models\Coverage;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Document as DocumentModel;
-use App\Models\Enums\ProductType;
 use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
@@ -18,18 +17,24 @@ use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\LocationNotFoundException;
 use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
+use App\Services\DataLoader\Factories\Concerns\WithAssetDocument;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithCoverage;
 use App\Services\DataLoader\Factories\Concerns\WithCustomer;
 use App\Services\DataLoader\Factories\Concerns\WithOem;
 use App\Services\DataLoader\Factories\Concerns\WithProduct;
 use App\Services\DataLoader\Factories\Concerns\WithReseller;
+use App\Services\DataLoader\Factories\Concerns\WithServiceGroup;
+use App\Services\DataLoader\Factories\Concerns\WithServiceLevel;
 use App\Services\DataLoader\Factories\Concerns\WithStatus;
 use App\Services\DataLoader\Factories\Concerns\WithTag;
 use App\Services\DataLoader\Factories\Concerns\WithType;
 use App\Services\DataLoader\FactoryPrefetchable;
 use App\Services\DataLoader\Finders\CustomerFinder;
+use App\Services\DataLoader\Finders\OemFinder;
 use App\Services\DataLoader\Finders\ResellerFinder;
+use App\Services\DataLoader\Finders\ServiceGroupFinder;
+use App\Services\DataLoader\Finders\ServiceLevelFinder;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\ContactResolver;
@@ -39,6 +44,8 @@ use App\Services\DataLoader\Resolvers\DocumentResolver;
 use App\Services\DataLoader\Resolvers\OemResolver;
 use App\Services\DataLoader\Resolvers\ProductResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
+use App\Services\DataLoader\Resolvers\ServiceGroupResolver;
+use App\Services\DataLoader\Resolvers\ServiceLevelResolver;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TagResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
@@ -74,6 +81,9 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     use WithContacts;
     use WithTag;
     use WithCoverage;
+    use WithServiceGroup;
+    use WithServiceLevel;
+    use WithAssetDocument;
 
     protected ?DocumentFactory $documentFactory = null;
 
@@ -81,21 +91,26 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         LoggerInterface $logger,
         Normalizer $normalizer,
         protected Dispatcher $dispatcher,
-        protected AssetResolver $assets,
-        protected OemResolver $oems,
-        protected TypeResolver $types,
-        protected ProductResolver $products,
+        protected AssetResolver $assetResolver,
+        protected OemResolver $oemResolver,
+        protected TypeResolver $typeResolver,
+        protected ProductResolver $productResolver,
         protected CustomerResolver $customerResolver,
         protected ResellerResolver $resellerResolver,
-        protected LocationFactory $locations,
+        protected LocationFactory $locationFactory,
         protected ContactFactory $contactFactory,
         protected ContactResolver $contactResolver,
-        protected StatusResolver $statuses,
-        protected CoverageResolver $coverages,
-        protected TagResolver $tags,
+        protected StatusResolver $statusResolver,
+        protected CoverageResolver $coverageResolver,
+        protected TagResolver $tagResolver,
         protected DocumentResolver $documentResolver,
+        protected ServiceGroupResolver $serviceGroupResolver,
+        protected ServiceLevelResolver $serviceLevelResolver,
         protected ?ResellerFinder $resellerFinder = null,
         protected ?CustomerFinder $customerFinder = null,
+        protected ?ServiceGroupFinder $serviceGroupFinder = null,
+        protected ?ServiceLevelFinder $serviceLevelFinder = null,
+        protected ?OemFinder $oemFinder = null,
     ) {
         parent::__construct($logger, $normalizer);
     }
@@ -141,27 +156,47 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     }
 
     protected function getCoverageResolver(): CoverageResolver {
-        return $this->coverages;
+        return $this->coverageResolver;
     }
 
     protected function getStatusResolver(): StatusResolver {
-        return $this->statuses;
+        return $this->statusResolver;
     }
 
     protected function getOemResolver(): OemResolver {
-        return $this->oems;
+        return $this->oemResolver;
+    }
+
+    protected function getOemFinder(): ?OemFinder {
+        return $this->oemFinder;
     }
 
     protected function getProductResolver(): ProductResolver {
-        return $this->products;
+        return $this->productResolver;
     }
 
     protected function getTagResolver(): TagResolver {
-        return $this->tags;
+        return $this->tagResolver;
     }
 
     protected function getTypeResolver(): TypeResolver {
-        return $this->types;
+        return $this->typeResolver;
+    }
+
+    protected function getServiceGroupResolver(): ServiceGroupResolver {
+        return $this->serviceGroupResolver;
+    }
+
+    protected function getServiceGroupFinder(): ?ServiceGroupFinder {
+        return $this->serviceGroupFinder;
+    }
+
+    protected function getServiceLevelResolver(): ServiceLevelResolver {
+        return $this->serviceLevelResolver;
+    }
+
+    protected function getServiceLevelFinder(): ?ServiceLevelFinder {
+        return $this->serviceLevelFinder;
     }
     // </editor-fold>
 
@@ -195,7 +230,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             return $asset->id;
         }, $assets));
 
-        $this->assets->prefetch($keys, $reset, $callback);
+        $this->assetResolver->prefetch($keys, $reset, $callback);
 
         // Products
         $products = (new Collection($assets))
@@ -204,17 +239,16 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             })
             ->map(function (ViewAsset $asset): array {
                 return [
-                    'type' => ProductType::asset(),
-                    'sku'  => $this->normalizer->string($asset->sku),
+                    'sku' => $this->getNormalizer()->string($asset->sku),
                 ];
             })
             ->unique()
             ->all();
 
-        $this->products->prefetch($products, $reset);
+        $this->getProductResolver()->prefetch($products, $reset);
 
         // Locations
-        $this->locations->prefetch($assets);
+        $this->locationFactory->prefetch($assets);
 
         // Return
         return $this;
@@ -236,7 +270,8 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $location = $this->assetLocation($asset, $customer, $reseller);
 
             $created              = !$model->exists;
-            $model->id            = $this->normalizer->uuid($asset->id);
+            $normalizer           = $this->getNormalizer();
+            $model->id            = $normalizer->uuid($asset->id);
             $model->oem           = $this->assetOem($asset);
             $model->type          = $this->assetType($asset);
             $model->status        = $this->assetStatus($asset);
@@ -244,9 +279,9 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $model->reseller      = $reseller;
             $model->customer      = $customer;
             $model->location      = $location;
-            $model->changed_at    = $this->normalizer->datetime($asset->updatedAt);
-            $model->serial_number = $this->normalizer->string($asset->serialNumber);
-            $model->data_quality  = $this->normalizer->string($asset->dataQualityScore);
+            $model->changed_at    = $normalizer->datetime($asset->updatedAt);
+            $model->serial_number = $normalizer->string($asset->serialNumber);
+            $model->data_quality  = $normalizer->string($asset->dataQualityScore);
             $model->contacts      = $this->objectContacts($model, $asset->latestContactPersons);
             $model->tags          = $this->assetTags($asset);
             $model->coverages     = $this->assetCoverages($asset);
@@ -254,7 +289,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             if ($this->getDocumentFactory() && isset($asset->assetDocument)) {
                 // Prefetch documents
                 $this->getDocumentFactory()->prefetch([$asset], false, function (Collection $documents): void {
-                    $documents->loadMissing('oem');
                     $documents->loadMissing('entries');
                     $documents->loadMissing('contacts');
                     $documents->loadMissing('contacts.types');
@@ -279,7 +313,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
 
             return $model;
         });
-        $model   = $this->assets->get(
+        $model   = $this->assetResolver->get(
             $asset->id,
             static function () use ($factory): AssetModel {
                 return $factory(new AssetModel());
@@ -380,6 +414,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         // has an initial warranty up to "warrantyEndDate" and then the user
         // can buy additional warranty.
 
+        $normalizer = $this->getNormalizer();
         $warranties = [];
         $existing   = $model->warranties
             ->filter(static function (AssetWarranty $warranty): bool {
@@ -392,7 +427,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         foreach ($asset->assetDocument as $assetDocument) {
             try {
                 // Warranty exists?
-                $end = $this->normalizer->datetime($assetDocument->warrantyEndDate);
+                $end = $normalizer->datetime($assetDocument->warrantyEndDate);
 
                 if (!$end) {
                     continue;
@@ -413,7 +448,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 $warranty->start           = null;
                 $warranty->end             = $end;
                 $warranty->asset           = $model;
-                $warranty->support         = null;
+                $warranty->serviceGroup    = null;
                 $warranty->customer        = $customer;
                 $warranty->reseller        = $reseller;
                 $warranty->document        = null;
@@ -442,9 +477,9 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
      */
     protected function assetExtendedWarranties(AssetModel $model, ViewAsset $asset): array {
         // Prepare
-        $warranties = [];
-        $services   = [];
-        $existing   = $model->warranties
+        $serviceLevels = [];
+        $warranties    = [];
+        $existing      = $model->warranties
             ->filter(static function (AssetWarranty $warranty): bool {
                 return $warranty->document_number !== null;
             })
@@ -454,12 +489,12 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                     $warranty->document_number,
                     $warranty->reseller_id,
                     $warranty->customer_id,
-                    $warranty->support_id,
+                    $warranty->service_group_id,
                     $warranty->start?->startOfDay(),
                     $warranty->end?->startOfDay(),
                 ]);
             });
-        $documents  = (new Collection($asset->assetDocument))
+        $documents     = (new Collection($asset->assetDocument))
             ->filter(static function (ViewAssetDocument $document): bool {
                 return isset($document->documentNumber);
             })
@@ -469,17 +504,19 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             });
 
         // Warranties
+        $normalizer = $this->getNormalizer();
+
         foreach ($documents as $assetDocument) {
             try {
                 // Valid?
-                $document = $this->assetDocumentDocument($model, $assetDocument);
-                $number   = $assetDocument->documentNumber;
-                $support  = $this->assetDocumentSupport($model, $assetDocument);
-                $service  = $this->assetDocumentService($model, $assetDocument);
-                $start    = $this->normalizer->datetime($assetDocument->startDate);
-                $end      = $this->normalizer->datetime($assetDocument->endDate);
+                $document     = $this->assetDocumentDocument($model, $assetDocument);
+                $number       = $assetDocument->documentNumber;
+                $serviceGroup = $this->assetDocumentServiceGroup($model, $assetDocument);
+                $serviceLevel = $this->assetDocumentServiceLevel($model, $assetDocument);
+                $start        = $normalizer->datetime($assetDocument->startDate);
+                $end          = $normalizer->datetime($assetDocument->endDate);
 
-                if (!($number && ($start || $end) && ($support || $service))) {
+                if (!($number && ($start || $end) && ($serviceGroup || $serviceLevel))) {
                     continue;
                 }
 
@@ -491,13 +528,13 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                     $number,
                     $reseller?->getKey(),
                     $customer?->getKey(),
-                    $support?->getKey(),
+                    $serviceGroup?->getKey(),
                     Date::make($start)?->startOfDay(),
                     Date::make($end)?->startOfDay(),
                 ]);
 
                 // Add service
-                $services[$key][] = $service;
+                $serviceLevels[$key][] = $serviceLevel;
 
                 // Already added?
                 if (isset($warranties[$key])) {
@@ -510,7 +547,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 $warranty->start           = $start;
                 $warranty->end             = $end;
                 $warranty->asset           = $model;
-                $warranty->support         = $support;
+                $warranty->serviceGroup    = $serviceGroup;
                 $warranty->customer        = $customer;
                 $warranty->reseller        = $reseller;
                 $warranty->document        = $document;
@@ -530,28 +567,14 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             }
         }
 
-        // Update services
+        // Update Service Levels
         foreach ($warranties as $key => $warranty) {
-            $warranty->services = array_filter(array_unique($services[$key] ?? [], SORT_REGULAR));
+            $warranty->serviceLevels = array_filter(array_unique($serviceLevels[$key] ?? [], SORT_REGULAR));
             $warranty->save();
         }
 
         // Return
         return array_values($warranties);
-    }
-
-    protected function assetDocumentOem(AssetModel $model, ViewAssetDocument $assetDocument): Oem {
-        $oem = $model->oem;
-
-        if (isset($assetDocument->document)) {
-            $object = new AssetDocumentObject([
-                'asset'    => $model,
-                'document' => $assetDocument,
-            ]);
-            $oem    = $this->getDocumentFactory()->find($object)?->oem ?: $oem;
-        }
-
-        return $oem;
     }
 
     protected function assetDocumentDocument(AssetModel $model, ViewAssetDocument $assetDocument): ?Document {
@@ -567,44 +590,8 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         return $document;
     }
 
-    protected function assetDocumentService(AssetModel $model, ViewAssetDocument $assetDocument): ?Product {
-        $oem     = $this->assetDocumentOem($model, $assetDocument);
-        $service = null;
-
-        if ($assetDocument->skuNumber && $assetDocument->skuDescription) {
-            $service = $this->product(
-                $oem,
-                ProductType::service(),
-                $assetDocument->skuNumber,
-                $assetDocument->skuDescription,
-                null,
-                null,
-            );
-        }
-
-        return $service;
-    }
-
-    protected function assetDocumentSupport(AssetModel $model, ViewAssetDocument $assetDocument): ?Product {
-        $oem     = $this->assetDocumentOem($model, $assetDocument);
-        $support = null;
-
-        if ($assetDocument->supportPackage && $assetDocument->supportPackageDescription) {
-            $support = $this->product(
-                $oem,
-                ProductType::support(),
-                $assetDocument->supportPackage,
-                $assetDocument->supportPackageDescription,
-                null,
-                null,
-            );
-        }
-
-        return $support;
-    }
-
     protected function assetOem(ViewAsset $asset): Oem {
-        return $this->oem($asset->vendor, $asset->vendor);
+        return $this->oem($asset->vendor);
     }
 
     protected function assetType(ViewAsset $asset): ?TypeModel {
@@ -615,10 +602,8 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
 
     protected function assetProduct(ViewAsset $asset): Product {
         $oem     = $this->assetOem($asset);
-        $type    = ProductType::asset();
         $product = $this->product(
             $oem,
-            $type,
             $asset->sku,
             $asset->productDescription,
             $asset->eolDate,
@@ -629,19 +614,19 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     }
 
     protected function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
-        $location = $this->locations->find(new AssetModel(), $asset);
-        $required = !$this->locations->isEmpty($asset);
+        $location = $this->locationFactory->find(new AssetModel(), $asset);
+        $required = !$this->locationFactory->isEmpty($asset);
 
         if ($customer && !$location) {
-            $location = $this->locations->find($customer, $asset);
+            $location = $this->locationFactory->find($customer, $asset);
         }
 
         if ($reseller && !$location) {
-            $location = $this->locations->find($reseller, $asset);
+            $location = $this->locationFactory->find($reseller, $asset);
         }
 
         if ($required && !$location) {
-            $location = $this->locations->create(new AssetModel(), $asset);
+            $location = $this->locationFactory->create(new AssetModel(), $asset);
 
             if (!$location) {
                 throw new LocationNotFoundException(sprintf(
@@ -664,7 +649,8 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
      * @return array<\App\Models\Tag>
      */
     protected function assetTags(ViewAsset $asset): array {
-        $name = $this->normalizer->string($asset->assetTag);
+        $name = $this->getNormalizer()->string($asset->assetTag);
+
         if ($name) {
             return [$this->tag($name)];
         }

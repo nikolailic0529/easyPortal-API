@@ -313,14 +313,14 @@
             "type": "object",
             "required": [
                 "id",
-                "abbr",
+                "key",
                 "name"
             ],
             "properties": {
                 "id": {
                     "$ref": "#/definitions/ID"
                 },
-                "abbr": {
+                "key": {
                     "type": "string"
                 },
                 "name": {
@@ -454,7 +454,7 @@
                 "customer_id",
                 "reseller_id",
                 "number",
-                "support_id",
+                "service_group_id",
                 "start",
                 "end",
                 "price",
@@ -464,7 +464,7 @@
                 "oem",
                 "oem_said",
                 "oemGroup",
-                "support",
+                "serviceGroup",
                 "reseller",
                 "type",
                 "entries",
@@ -517,7 +517,7 @@
                 "number": {
                     "type": "string"
                 },
-                "support_id": {
+                "service_group_id": {
                     "oneOf": [
                         {
                             "$ref": "#/definitions/ID"
@@ -581,10 +581,10 @@
                 "oem": {
                     "$ref": "#/definitions/Oem"
                 },
-                "support": {
+                "serviceGroup": {
                     "oneOf": [
                         {
-                            "$ref": "#/definitions/Product"
+                            "$ref": "#/definitions/ServiceGroup"
                         },
                         {
                             "type": "null"
@@ -651,8 +651,8 @@
                 "document_id",
                 "start",
                 "end",
-                "services",
-                "support",
+                "serviceGroup",
+                "serviceLevels",
                 "customer",
                 "reseller"
             ],
@@ -754,16 +754,16 @@
                         }
                     ]
                 },
-                "services": {
+                "serviceLevels": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/Product"
+                        "$ref": "#/definitions/ServiceLevel"
                     }
                 },
-                "support": {
+                "serviceGroup": {
                     "oneOf": [
                         {
-                            "$ref": "#/definitions/Product"
+                            "$ref": "#/definitions/ServiceGroup"
                         },
                         {
                             "type": "null"
@@ -784,8 +784,8 @@
             "required": [
                 "id",
                 "document_id",
-                "service_id",
-                "service",
+                "service_level_id",
+                "serviceLevel",
                 "net_price",
                 "list_price",
                 "discount",
@@ -801,7 +801,7 @@
                 "document_id": {
                     "$ref": "#/definitions/ID"
                 },
-                "service_id": {
+                "service_level_id": {
                     "$ref": "#/definitions/ID"
                 },
                 "asset": {
@@ -810,8 +810,8 @@
                 "document": {
                     "$ref": "#/definitions/Document"
                 },
-                "service": {
-                    "$ref": "#/definitions/Product"
+                "serviceLevel": {
+                    "$ref": "#/definitions/ServiceLevel"
                 },
                 "net_price": {
                     "type": [
@@ -1443,6 +1443,62 @@
                             "type": "null"
                         }
                     ]
+                }
+            }
+        },
+        "ServiceGroup": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "oem_id",
+                "sku",
+                "name"
+            ],
+            "properties": {
+                "id":  {
+                    "$ref": "#/definitions/ID"
+                },
+                "oem_id":  {
+                    "$ref": "#/definitions/ID"
+                },
+                "sku": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "ServiceLevel": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "id",
+                "oem_id",
+                "service_group_id",
+                "sku",
+                "name",
+                "description"
+            ],
+            "properties": {
+                "id":  {
+                    "$ref": "#/definitions/ID"
+                },
+                "oem_id":  {
+                    "$ref": "#/definitions/ID"
+                },
+                "service_group_id":  {
+                    "$ref": "#/definitions/ID"
+                },
+                "sku": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
                 }
             }
         }

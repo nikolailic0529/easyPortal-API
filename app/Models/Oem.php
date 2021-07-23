@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * Oem.
  *
  * @property string                                                              $id
- * @property string                                                              $abbr
+ * @property string                                                              $key
  * @property string                                                              $name
  * @property \Carbon\CarbonImmutable                                             $created_at
  * @property \Carbon\CarbonImmutable                                             $updated_at

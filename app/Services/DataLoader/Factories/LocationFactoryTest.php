@@ -320,9 +320,11 @@ class LocationFactoryTest extends TestCase {
 
         $factory = new class($normalizer, $resolver) extends LocationFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, CountryResolver $resolver) {
-                $this->normalizer = $normalizer;
-                $this->countries  = $resolver;
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected CountryResolver $countryResolver,
+            ) {
+                // empty
             }
 
             public function country(string $code, string $name): Country {
@@ -362,9 +364,11 @@ class LocationFactoryTest extends TestCase {
 
         $factory = new class($normalizer, $resolver) extends LocationFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, CityResolver $resolver) {
-                $this->normalizer = $normalizer;
-                $this->cities     = $resolver;
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected CityResolver $cityResolver,
+            ) {
+                // empty
             }
 
             public function city(Country $country, string $name): City {
@@ -410,9 +414,11 @@ class LocationFactoryTest extends TestCase {
 
         $factory = new class($normalizer, $resolver) extends LocationFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, LocationResolver $resolver) {
-                $this->normalizer = $normalizer;
-                $this->locations  = $resolver;
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected LocationResolver $locationResolver,
+            ) {
+                // empty
             }
 
             public function location(
@@ -526,9 +532,11 @@ class LocationFactoryTest extends TestCase {
 
         $factory = new class($normalizer, $resolver) extends LocationFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(Normalizer $normalizer, LocationResolver $resolver) {
-                $this->normalizer = $normalizer;
-                $this->locations  = $resolver;
+            public function __construct(
+                protected Normalizer $normalizer,
+                protected LocationResolver $locationResolver,
+            ) {
+                // empty
             }
         };
 

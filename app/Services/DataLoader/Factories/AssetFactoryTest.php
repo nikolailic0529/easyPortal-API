@@ -7,12 +7,13 @@ use App\Models\AssetWarranty;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\DocumentEntry;
-use App\Models\Enums\ProductType;
 use App\Models\Location;
 use App\Models\Model;
 use App\Models\Oem;
 use App\Models\Product;
 use App\Models\Reseller;
+use App\Models\ServiceGroup;
+use App\Models\ServiceLevel;
 use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Container\Container;
@@ -100,6 +101,9 @@ class AssetFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAsset(): void {
+        // Mock
+        $this->overrideFinders();
+
         // Prepare
         $container = $this->app->make(Container::class);
         $documents = $container->make(DocumentFactory::class);
@@ -111,14 +115,6 @@ class AssetFactoryTest extends TestCase {
         $json  = $this->getTestData()->json('~asset-full.json');
         $asset = new ViewAsset($json);
 
-        Reseller::factory()->create([
-            'id' => $asset->resellerId,
-        ]);
-
-        Customer::factory()->create([
-            'id' => $asset->customerId,
-        ]);
-
         // Test
         $created = $factory->create($asset);
 
@@ -129,8 +125,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->serialNumber, $created->serial_number);
         $this->assertEquals($asset->dataQualityScore, $created->data_quality);
         $this->assertEquals($asset->updatedAt, $this->getDatetime($created->changed_at));
-        $this->assertEquals($asset->vendor, $created->oem->abbr);
-        $this->assertEquals(ProductType::asset(), $created->product->type);
+        $this->assertEquals($asset->vendor, $created->oem->key);
         $this->assertEquals($asset->productDescription, $created->product->name);
         $this->assertEquals($asset->sku, $created->product->sku);
         $this->assertNull($created->product->eos);
@@ -164,17 +159,14 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals(
             [
                 [
-                    'sku'      => null,
-                    'package'  => null,
-                    'services' => [],
+                    'serviceGroup'  => null,
+                    'serviceLevels' => [],
                 ],
                 [
-                    'sku'      => 'H7J34AC',
-                    'package'  => 'HPE Foundation Care 24x7 SVC',
-                    'services' => [
+                    'serviceGroup'  => 'H7J34AC',
+                    'serviceLevels' => [
                         [
-                            'sku'     => 'HA151AC',
-                            'package' => 'HPE Hardware Maintenance Onsite Support',
+                            'sku' => 'HA151AC',
                         ],
                     ],
                 ],
@@ -182,13 +174,11 @@ class AssetFactoryTest extends TestCase {
             $created->warranties
                 ->map(static function (AssetWarranty $warranty): array {
                     return [
-                        'sku'      => $warranty->support?->sku,
-                        'package'  => $warranty->support?->name,
-                        'services' => $warranty->services
-                            ->map(static function (Product $product): array {
+                        'serviceGroup'  => $warranty->serviceGroup?->sku,
+                        'serviceLevels' => $warranty->serviceLevels
+                            ->map(static function (ServiceLevel $level): array {
                                 return [
-                                    'sku'     => $product->sku,
-                                    'package' => $product->name,
+                                    'sku' => $level->sku,
                                 ];
                             })
                             ->all(),
@@ -229,12 +219,11 @@ class AssetFactoryTest extends TestCase {
         $this->assertNotNull($updated);
         $this->assertSame($created, $updated);
         $this->assertEquals($asset->id, $updated->getKey());
-        $this->assertNull($updated->ogranization_id);
+        $this->assertNull($updated->reseller_id);
         $this->assertEquals($asset->serialNumber, $updated->serial_number);
         $this->assertEquals($asset->dataQualityScore, $updated->data_quality);
         $this->assertEquals($asset->updatedAt, $this->getDatetime($updated->changed_at));
-        $this->assertEquals($asset->vendor, $updated->oem->abbr);
-        $this->assertEquals(ProductType::asset(), $updated->product->type);
+        $this->assertEquals($asset->vendor, $updated->oem->key);
         $this->assertEquals($created->product->name, $updated->product->name);
         $this->assertEquals($asset->sku, $updated->product->sku);
         $this->assertEquals($asset->eosDate, $this->getDatetime($updated->product->eos));
@@ -267,6 +256,9 @@ class AssetFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAssetAssetOnly(): void {
+        // Mock
+        $this->overrideOemFinder();
+
         // Prepare
         $container = $this->app->make(Container::class);
         $factory   = $container->make(AssetFactory::class);
@@ -281,8 +273,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->id, $created->getKey());
         $this->assertEquals($asset->serialNumber, $created->serial_number);
         $this->assertEquals($asset->dataQualityScore, $created->data_quality);
-        $this->assertEquals($asset->vendor, $created->oem->abbr);
-        $this->assertEquals(ProductType::asset(), $created->product->type);
+        $this->assertEquals($asset->vendor, $created->oem->key);
         $this->assertEquals($asset->productDescription, $created->product->name);
         $this->assertEquals($asset->sku, $created->product->sku);
         $this->assertNull($created->product->eos);
@@ -305,14 +296,13 @@ class AssetFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAssetAssetNoCustomer(): void {
+        // Mock
+        $this->overrideResellerFinder();
+
         // Prepare
         $factory = $this->app->make(AssetFactory::class);
         $json    = $this->getTestData()->json('~asset-full.json');
         $asset   = new ViewAsset($json);
-
-        Reseller::factory()->create([
-            'id' => $asset->resellerId,
-        ]);
 
         // Test
         $this->expectException(CustomerNotFoundException::class);
@@ -324,18 +314,17 @@ class AssetFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAssetAssetInvalidAddress(): void {
+        // Mock
+        $this->overrideOemFinder();
+        $this->overrideCustomerFinder();
+
         // Prepare
         $container = $this->app->make(Container::class);
         $factory   = $container->make(AssetFactory::class);
 
         // Test
-        $json  = $this->getTestData()->json('~asset-invalid-address.json');
-        $asset = new ViewAsset($json);
-
-        Customer::factory()->create([
-            'id' => $asset->customerId,
-        ]);
-
+        $json    = $this->getTestData()->json('~asset-invalid-address.json');
+        $asset   = new ViewAsset($json);
         $created = $factory->create($asset);
 
         $this->assertNotNull($created->location);
@@ -347,18 +336,17 @@ class AssetFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAssetWithoutZip(): void {
+        // Mock
+        $this->overrideOemFinder();
+        $this->overrideCustomerFinder();
+
         // Prepare
         $container = $this->app->make(Container::class);
         $factory   = $container->make(AssetFactory::class);
 
         // Test
-        $json  = $this->getTestData()->json('~asset-nozip-address.json');
-        $asset = new ViewAsset($json);
-
-        Customer::factory()->create([
-            'id' => $asset->customerId,
-        ]);
-
+        $json    = $this->getTestData()->json('~asset-nozip-address.json');
+        $asset   = new ViewAsset($json);
         $created = $factory->create($asset);
 
         $this->assertNull($created->location);
@@ -368,23 +356,17 @@ class AssetFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAssetOnResellerLocation(): void {
-        // Prepare
-        $container = $this->app->make(Container::class);
-        $factory   = $container->make(AssetFactory::class);
+        // Mock
+        $this->overrideOemFinder();
+        $this->overrideResellerFinder();
+        $this->overrideCustomerFinder();
 
         // Load
         $json  = $this->getTestData()->json('~asset-reseller-location.json');
         $asset = new ViewAsset($json);
 
-        Reseller::factory()->create([
-            'id' => $asset->resellerId,
-        ]);
-
-        Customer::factory()->create([
-            'id' => $asset->customerId,
-        ]);
-
         // Test
+        $factory = $this->app->make(AssetFactory::class);
         $created = $factory->create($asset);
 
         $this->assertNotNull($created);
@@ -393,8 +375,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($asset->resellerId, $created->reseller_id);
         $this->assertEquals($asset->serialNumber, $created->serial_number);
         $this->assertEquals($asset->dataQualityScore, $created->data_quality);
-        $this->assertEquals($asset->vendor, $created->oem->abbr);
-        $this->assertEquals(ProductType::asset(), $created->product->type);
+        $this->assertEquals($asset->vendor, $created->oem->key);
         $this->assertEquals($asset->productDescription, $created->product->name);
         $this->assertEquals($asset->sku, $created->product->sku);
         $this->assertNull($created->product->eos);
@@ -416,6 +397,9 @@ class AssetFactoryTest extends TestCase {
      * @covers ::createFromAsset
      */
     public function testCreateFromAssetAssetTypeNull(): void {
+        // Mock
+        $this->overrideOemFinder();
+
         // Prepare
         $container = $this->app->make(Container::class);
         $factory   = $container->make(AssetFactory::class);
@@ -800,209 +784,217 @@ class AssetFactoryTest extends TestCase {
      * @covers ::assetExtendedWarranties
      */
     public function testAssetExtendedWarranties(): void {
-        $container          = $this->app->make(Container::class);
-        $documents          = $container->make(DocumentFactory::class);
-        $factory            = $container->make(AssetFactoryTest_Factory::class)->setDocumentFactory($documents);
-        $date               = Date::now();
-        $model              = Asset::factory()->create();
-        $resellerA          = Reseller::factory()->create();
-        $resellerB          = Reseller::factory()->create();
-        $customerA          = Customer::factory()->create();
-        $customerB          = Customer::factory()->create();
-        $documentA          = Document::factory()->create([
+        // Mock
+        $this->overrideServiceGroupFinder();
+        $this->overrideServiceLevelFinder();
+
+        // Prepare
+        $container      = $this->app->make(Container::class);
+        $documents      = $container->make(DocumentFactory::class);
+        $factory        = $container->make(AssetFactoryTest_Factory::class)->setDocumentFactory($documents);
+        $date           = Date::now();
+        $model          = Asset::factory()->create();
+        $resellerA      = Reseller::factory()->create();
+        $resellerB      = Reseller::factory()->create();
+        $customerA      = Customer::factory()->create();
+        $customerB      = Customer::factory()->create();
+        $documentA      = Document::factory()->create([
             'reseller_id' => $resellerA,
             'customer_id' => $customerA,
         ]);
-        $documentB          = Document::factory()->create([
+        $documentB      = Document::factory()->create([
             'reseller_id' => $resellerB,
             'customer_id' => $customerB,
         ]);
-        $skuNumber          = $this->faker->uuid;
-        $skuDescription     = $this->faker->sentence;
-        $supportPackage     = $this->faker->uuid;
-        $supportDescription = $this->faker->sentence;
-        $support            = Product::factory()->create([
-            'type'   => ProductType::support(),
+        $skuNumber      = $this->faker->uuid;
+        $supportPackage = $this->faker->uuid;
+        $serviceGroup   = ServiceGroup::factory()->create([
             'sku'    => $supportPackage,
-            'name'   => $supportDescription,
             'oem_id' => $documentB->oem_id,
         ]);
-        $warranty           = AssetWarranty::factory()->create([
-            'start'           => $date,
-            'end'             => $date,
-            'asset_id'        => $model,
-            'support_id'      => $support,
-            'reseller_id'     => $resellerB,
-            'customer_id'     => $customerB,
-            'document_id'     => $documentB,
-            'document_number' => $documentB->number,
+        $warranty       = AssetWarranty::factory()->create([
+            'start'            => $date,
+            'end'              => $date,
+            'asset_id'         => $model,
+            'service_group_id' => $serviceGroup,
+            'reseller_id'      => $resellerB,
+            'customer_id'      => $customerB,
+            'document_id'      => $documentB,
+            'document_number'  => $documentB->number,
         ]);
-        $asset              = new ViewAsset([
+        $asset          = new ViewAsset([
             'id'            => $model->getKey(),
             'assetDocument' => [
                 // Only one of should be created but Services should be merged
                 [
-                    'startDate'                 => $this->getDatetime($date),
-                    'endDate'                   => $this->getDatetime($date),
-                    'documentNumber'            => $documentA->number,
-                    'document'                  => [
-                        'id' => $documentA->getKey(),
+                    'startDate'      => $this->getDatetime($date),
+                    'endDate'        => $this->getDatetime($date),
+                    'documentNumber' => $documentA->number,
+                    'document'       => [
+                        'id'                   => $documentA->getKey(),
+                        'vendorSpecificFields' => [
+                            'vendor' => $documentA->oem->key,
+                        ],
                     ],
-                    'reseller'                  => null,
-                    'customer'                  => null,
-                    'skuNumber'                 => $this->faker->uuid,
-                    'skuDescription'            => $this->faker->sentence,
-                    'supportPackage'            => $supportPackage,
-                    'supportPackageDescription' => $supportDescription,
+                    'reseller'       => null,
+                    'customer'       => null,
+                    'skuNumber'      => $this->faker->uuid,
+                    'supportPackage' => $supportPackage,
                 ],
                 [
-                    'startDate'                 => $this->getDatetime($date),
-                    'endDate'                   => $this->getDatetime($date),
-                    'documentNumber'            => $documentA->number,
-                    'document'                  => [
-                        'id' => $documentA->getKey(),
+                    'startDate'      => $this->getDatetime($date),
+                    'endDate'        => $this->getDatetime($date),
+                    'documentNumber' => $documentA->number,
+                    'document'       => [
+                        'id'                   => $documentA->getKey(),
+                        'vendorSpecificFields' => [
+                            'vendor' => $documentA->oem->key,
+                        ],
                     ],
-                    'reseller'                  => null,
-                    'customer'                  => null,
-                    'skuNumber'                 => $skuNumber,
-                    'skuDescription'            => $skuDescription,
-                    'supportPackage'            => $supportPackage,
-                    'supportPackageDescription' => $supportDescription,
+                    'reseller'       => null,
+                    'customer'       => null,
+                    'skuNumber'      => $skuNumber,
+                    'supportPackage' => $supportPackage,
                 ],
                 [
-                    'startDate'                 => $this->getDatetime($date),
-                    'endDate'                   => $this->getDatetime($date),
-                    'documentNumber'            => $documentA->number,
-                    'document'                  => [
-                        'id' => $documentA->getKey(),
+                    'startDate'      => $this->getDatetime($date),
+                    'endDate'        => $this->getDatetime($date),
+                    'documentNumber' => $documentA->number,
+                    'document'       => [
+                        'id'                   => $documentA->getKey(),
+                        'vendorSpecificFields' => [
+                            'vendor' => $documentA->oem->key,
+                        ],
                     ],
-                    'reseller'                  => null,
-                    'customer'                  => null,
-                    'skuNumber'                 => $skuNumber,
-                    'skuDescription'            => $skuDescription,
-                    'supportPackage'            => $supportPackage,
-                    'supportPackageDescription' => $supportDescription,
+                    'reseller'       => null,
+                    'customer'       => null,
+                    'skuNumber'      => $skuNumber,
+                    'supportPackage' => $supportPackage,
                 ],
 
                 // Should be created - support not same
                 [
-                    'startDate'                 => $this->getDatetime($date),
-                    'endDate'                   => $this->getDatetime($date),
-                    'documentNumber'            => $documentA->number,
-                    'document'                  => [
-                        'id' => $documentA->getKey(),
+                    'startDate'      => $this->getDatetime($date),
+                    'endDate'        => $this->getDatetime($date),
+                    'documentNumber' => $documentA->number,
+                    'document'       => [
+                        'id'                   => $documentA->getKey(),
+                        'vendorSpecificFields' => [
+                            'vendor' => $documentA->oem->key,
+                        ],
                     ],
-                    'reseller'                  => null,
-                    'customer'                  => null,
-                    'skuNumber'                 => $this->faker->uuid,
-                    'skuDescription'            => $this->faker->sentence,
-                    'supportPackage'            => $this->faker->uuid,
-                    'supportPackageDescription' => $this->faker->sentence,
+                    'reseller'       => null,
+                    'customer'       => null,
+                    'skuNumber'      => $this->faker->uuid,
+                    'supportPackage' => $this->faker->uuid,
                 ],
 
                 // Should be created - date not same
                 [
-                    'startDate'                 => $this->getDatetime($date->subDay()),
-                    'endDate'                   => $this->getDatetime($date),
-                    'documentNumber'            => $documentA->number,
-                    'document'                  => [
-                        'id' => $documentA->getKey(),
+                    'startDate'      => $this->getDatetime($date->subDay()),
+                    'endDate'        => $this->getDatetime($date),
+                    'documentNumber' => $documentA->number,
+                    'document'       => [
+                        'id'                   => $documentA->getKey(),
+                        'vendorSpecificFields' => [
+                            'vendor' => $documentA->oem->key,
+                        ],
                     ],
-                    'reseller'                  => null,
-                    'customer'                  => null,
-                    'skuNumber'                 => $skuNumber,
-                    'skuDescription'            => $skuDescription,
-                    'supportPackage'            => $supportPackage,
-                    'supportPackageDescription' => $supportDescription,
+                    'reseller'       => null,
+                    'customer'       => null,
+                    'skuNumber'      => $skuNumber,
+                    'supportPackage' => $supportPackage,
                 ],
 
                 // No service is OK
                 [
-                    'startDate'                 => $this->getDatetime($date),
-                    'endDate'                   => $this->getDatetime($date),
-                    'documentNumber'            => $documentB->number,
-                    'document'                  => [
-                        'id' => $documentB->getKey(),
+                    'startDate'      => $this->getDatetime($date),
+                    'endDate'        => $this->getDatetime($date),
+                    'documentNumber' => $documentB->number,
+                    'document'       => [
+                        'id'                   => $documentB->getKey(),
+                        'vendorSpecificFields' => [
+                            'vendor' => $documentB->oem->key,
+                        ],
                     ],
-                    'reseller'                  => [
+                    'reseller'       => [
                         'id' => $documentB->reseller_id,
                     ],
-                    'customer'                  => [
+                    'customer'       => [
                         'id' => $documentB->customer_id,
                     ],
-                    'skuNumber'                 => null,
-                    'skuDescription'            => null,
-                    'supportPackage'            => $supportPackage,
-                    'supportPackageDescription' => $supportDescription,
+                    'skuNumber'      => null,
+                    'supportPackage' => $supportPackage,
                 ],
 
                 // Should be created even if document null
                 [
-                    'documentNumber'            => $documentA->number,
-                    'startDate'                 => $this->getDatetime($date),
-                    'endDate'                   => $this->getDatetime($date),
-                    'reseller'                  => null,
-                    'customer'                  => null,
-                    'skuNumber'                 => $this->faker->uuid,
-                    'skuDescription'            => $this->faker->sentence,
-                    'supportPackage'            => $supportPackage,
-                    'supportPackageDescription' => $supportDescription,
+                    'documentNumber' => $documentA->number,
+                    'startDate'      => $this->getDatetime($date),
+                    'endDate'        => $this->getDatetime($date),
+                    'reseller'       => null,
+                    'customer'       => null,
+                    'skuNumber'      => $this->faker->uuid,
+                    'supportPackage' => $supportPackage,
                 ],
 
                 // Should be skipped - no start and end date
                 [
-                    'startDate'                 => null,
-                    'endDate'                   => null,
-                    'documentNumber'            => $documentB->number,
-                    'document'                  => [
-                        'id' => $documentB->getKey(),
+                    'startDate'      => null,
+                    'endDate'        => null,
+                    'documentNumber' => $documentB->number,
+                    'document'       => [
+                        'id'                   => $documentB->getKey(),
+                        'vendorSpecificFields' => [
+                            'vendor' => $documentB->oem->key,
+                        ],
                     ],
-                    'reseller'                  => null,
-                    'customer'                  => null,
-                    'skuNumber'                 => null,
-                    'skuDescription'            => null,
-                    'supportPackage'            => $this->faker->uuid,
-                    'supportPackageDescription' => $this->faker->sentence,
+                    'reseller'       => null,
+                    'customer'       => null,
+                    'skuNumber'      => null,
+                    'supportPackage' => $this->faker->uuid,
                 ],
 
                 // Should be skipped - reseller not found
                 [
-                    'startDate'                 => $this->getDatetime($date),
-                    'endDate'                   => $this->getDatetime($date),
-                    'documentNumber'            => $documentB->number,
-                    'document'                  => [
-                        'id' => $documentB->getKey(),
+                    'startDate'      => $this->getDatetime($date),
+                    'endDate'        => $this->getDatetime($date),
+                    'documentNumber' => $documentB->number,
+                    'document'       => [
+                        'id'                   => $documentB->getKey(),
+                        'vendorSpecificFields' => [
+                            'vendor' => $documentB->oem->key,
+                        ],
                     ],
-                    'reseller'                  => [
+                    'reseller'       => [
                         'id' => $this->faker->uuid,
                     ],
-                    'customer'                  => [
+                    'customer'       => [
                         'id' => $documentB->customer_id,
                     ],
-                    'skuNumber'                 => null,
-                    'skuDescription'            => null,
-                    'supportPackage'            => $this->faker->uuid,
-                    'supportPackageDescription' => $this->faker->sentence,
+                    'skuNumber'      => null,
+                    'supportPackage' => $this->faker->uuid,
                 ],
 
                 // Should be skipped - customer not found
                 [
-                    'startDate'                 => $this->getDatetime($date),
-                    'endDate'                   => $this->getDatetime($date),
-                    'documentNumber'            => $documentB->number,
-                    'document'                  => [
-                        'id' => $documentB->getKey(),
+                    'startDate'      => $this->getDatetime($date),
+                    'endDate'        => $this->getDatetime($date),
+                    'documentNumber' => $documentB->number,
+                    'document'       => [
+                        'id'                   => $documentB->getKey(),
+                        'vendorSpecificFields' => [
+                            'vendor' => $documentB->oem->key,
+                        ],
                     ],
-                    'reseller'                  => [
+                    'reseller'       => [
                         'id' => $documentB->reseller_id,
                     ],
-                    'customer'                  => [
+                    'customer'       => [
                         'id' => $this->faker->uuid,
                     ],
-                    'skuNumber'                 => null,
-                    'skuDescription'            => null,
-                    'supportPackage'            => $this->faker->uuid,
-                    'supportPackageDescription' => $this->faker->sentence,
+                    'skuNumber'      => null,
+                    'supportPackage' => $this->faker->uuid,
                 ],
             ],
         ]);
@@ -1030,11 +1022,10 @@ class AssetFactoryTest extends TestCase {
         $this->assertNull($a->customer_id);
         $this->assertEquals($documentA->getKey(), $a->document_id);
         $this->assertEquals($model->getKey(), $a->asset_id);
-        $this->assertEquals(2, $a->services->count());
+        $this->assertEquals(2, $a->serviceLevels->count());
 
-        $as = $a->services->first(static function (Product $service) use ($skuNumber, $skuDescription): bool {
-            return $service->sku === $skuNumber
-                && $service->name === $skuDescription;
+        $as = $a->serviceLevels->first(static function (ServiceLevel $level) use ($skuNumber): bool {
+            return $level->sku === $skuNumber;
         });
 
         $this->assertNotNull($as);
@@ -1047,8 +1038,7 @@ class AssetFactoryTest extends TestCase {
         });
 
         $this->assertNotNull($b);
-        $this->assertEquals($b->support->sku, $supportPackage);
-        $this->assertEquals($b->support->name, $supportDescription);
+        $this->assertEquals($b->serviceGroup->sku, $supportPackage);
 
         // No service
         /** @var \App\Models\AssetWarranty $c */
@@ -1063,7 +1053,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals($customerB->getKey(), $c->customer_id);
         $this->assertEquals($documentB->getKey(), $c->document_id);
         $this->assertEquals($model->getKey(), $c->asset_id);
-        $this->assertEquals(0, $c->services->count());
+        $this->assertEquals(0, $c->serviceLevels->count());
 
         // Existing warranty should be updated
         /** @var \App\Models\AssetWarranty $d */
@@ -1072,90 +1062,6 @@ class AssetFactoryTest extends TestCase {
         });
 
         $this->assertNotNull($d);
-    }
-
-    /**
-     * @covers ::assetDocumentOem
-     */
-    public function testAssetDocumentOemWithDocument(): void {
-        $asset         = Asset::factory()->make();
-        $document      = Document::factory()->make();
-        $assetDocument = new ViewAssetDocument([
-            'document' => [
-                'id' => $this->faker->uuid,
-            ],
-        ]);
-        $documents     = Mockery::mock(DocumentFactory::class);
-        $documents
-            ->shouldReceive('find')
-            ->withArgs(static function (mixed $object) use ($asset, $assetDocument): bool {
-                return $object instanceof AssetDocumentObject
-                    && $object->document === $assetDocument
-                    && $object->asset === $asset;
-            })
-            ->once()
-            ->andReturn($document);
-
-        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory->makePartial();
-        $factory
-            ->shouldReceive('getDocumentFactory')
-            ->once()
-            ->andReturn($documents);
-
-        $this->assertSame($document->oem, $factory->assetDocumentOem($asset, $assetDocument));
-    }
-
-    /**
-     * @covers ::assetDocumentOem
-     */
-    public function testAssetDocumentOemWithDocumentWihtoutOem(): void {
-        $asset         = Asset::factory()->make();
-        $document      = Document::factory()->make([
-            'oem_id' => $this->faker->uuid,
-        ]);
-        $assetDocument = new ViewAssetDocument([
-            'document' => [
-                'id' => $this->faker->uuid,
-            ],
-        ]);
-        $documents     = Mockery::mock(DocumentFactory::class);
-        $documents
-            ->shouldReceive('find')
-            ->withArgs(static function (mixed $object) use ($asset, $assetDocument): bool {
-                return $object instanceof AssetDocumentObject
-                    && $object->document === $assetDocument
-                    && $object->asset === $asset;
-            })
-            ->once()
-            ->andReturn($document);
-
-        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory->makePartial();
-        $factory
-            ->shouldReceive('getDocumentFactory')
-            ->once()
-            ->andReturn($documents);
-
-        $this->assertSame($asset->oem, $factory->assetDocumentOem($asset, $assetDocument));
-    }
-
-    /**
-     * @covers ::assetDocumentOem
-     */
-    public function testAssetDocumentOemWithoutDocument(): void {
-        $asset         = Asset::factory()->make();
-        $assetDocument = new ViewAssetDocument();
-        $factory       = Mockery::mock(AssetFactoryTest_Factory::class);
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory->makePartial();
-        $factory
-            ->shouldReceive('getDocumentFactory')
-            ->never();
-
-        $this->assertSame($asset->oem, $factory->assetDocumentOem($asset, $assetDocument));
     }
 
     /**
@@ -1208,174 +1114,6 @@ class AssetFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::assetDocumentService
-     */
-    public function testAssetDocumentServiceWithDocument(): void {
-        $product       = Product::factory()->make();
-        $asset         = Asset::factory()->make();
-        $document      = Document::factory()->make();
-        $assetDocument = new ViewAssetDocument([
-            'skuNumber'      => $this->faker->word,
-            'skuDescription' => $this->faker->sentence,
-            'document'       => [
-                'id' => $this->faker->uuid,
-            ],
-        ]);
-        $documents     = Mockery::mock(DocumentFactory::class);
-        $documents
-            ->shouldReceive('find')
-            ->withArgs(static function (mixed $object) use ($asset, $assetDocument): bool {
-                return $object instanceof AssetDocumentObject
-                    && $object->document === $assetDocument
-                    && $object->asset === $asset;
-            })
-            ->once()
-            ->andReturn($document);
-
-        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory->makePartial();
-        $factory
-            ->shouldReceive('getDocumentFactory')
-            ->once()
-            ->andReturn($documents);
-        $factory
-            ->shouldReceive('product')
-            ->with(
-                $document->oem,
-                ProductType::service(),
-                $assetDocument->skuNumber,
-                $assetDocument->skuDescription,
-                null,
-                null,
-            )
-            ->once()
-            ->andReturn($product);
-
-        $this->assertNotSame($asset->oem, $document->oem);
-        $this->assertSame($product, $factory->assetDocumentService($asset, $assetDocument));
-    }
-
-    /**
-     * @covers ::assetDocumentService
-     */
-    public function testAssetDocumentServiceWithoutDocument(): void {
-        $product       = Product::factory()->make();
-        $asset         = Asset::factory()->make();
-        $document      = Document::factory()->make();
-        $assetDocument = new ViewAssetDocument([
-            'skuNumber'      => $this->faker->word,
-            'skuDescription' => $this->faker->sentence,
-        ]);
-
-        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory->makePartial();
-        $factory
-            ->shouldReceive('getDocumentFactory')
-            ->never();
-        $factory
-            ->shouldReceive('product')
-            ->with(
-                $asset->oem,
-                ProductType::service(),
-                $assetDocument->skuNumber,
-                $assetDocument->skuDescription,
-                null,
-                null,
-            )
-            ->once()
-            ->andReturn($product);
-
-        $this->assertNotSame($asset->oem, $document->oem);
-        $this->assertSame($product, $factory->assetDocumentService($asset, $assetDocument));
-    }
-
-    /**
-     * @covers ::assetDocumentSupport
-     */
-    public function testAssetDocumentSupportWithDocument(): void {
-        $product       = Product::factory()->make();
-        $asset         = Asset::factory()->make();
-        $document      = Document::factory()->make();
-        $assetDocument = new ViewAssetDocument([
-            'supportPackage'            => $this->faker->word,
-            'supportPackageDescription' => $this->faker->sentence,
-            'document'                  => [
-                'id' => $this->faker->uuid,
-            ],
-        ]);
-        $documents     = Mockery::mock(DocumentFactory::class);
-        $documents
-            ->shouldReceive('find')
-            ->withArgs(static function (mixed $object) use ($asset, $assetDocument): bool {
-                return $object instanceof AssetDocumentObject
-                    && $object->document === $assetDocument
-                    && $object->asset === $asset;
-            })
-            ->once()
-            ->andReturn($document);
-
-        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory->makePartial();
-        $factory
-            ->shouldReceive('getDocumentFactory')
-            ->once()
-            ->andReturn($documents);
-        $factory
-            ->shouldReceive('product')
-            ->with(
-                $document->oem,
-                ProductType::support(),
-                $assetDocument->supportPackage,
-                $assetDocument->supportPackageDescription,
-                null,
-                null,
-            )
-            ->once()
-            ->andReturn($product);
-
-        $this->assertNotSame($asset->oem, $document->oem);
-        $this->assertSame($product, $factory->assetDocumentSupport($asset, $assetDocument));
-    }
-
-    /**
-     * @covers ::assetDocumentSupport
-     */
-    public function testAssetDocumentSupportWithoutDocument(): void {
-        $product       = Product::factory()->make();
-        $asset         = Asset::factory()->make();
-        $document      = Document::factory()->make();
-        $assetDocument = new ViewAssetDocument([
-            'supportPackage'            => $this->faker->word,
-            'supportPackageDescription' => $this->faker->sentence,
-        ]);
-
-        $factory = Mockery::mock(AssetFactoryTest_Factory::class);
-        $factory->shouldAllowMockingProtectedMethods();
-        $factory->makePartial();
-        $factory
-            ->shouldReceive('getDocumentFactory')
-            ->never();
-        $factory
-            ->shouldReceive('product')
-            ->with(
-                $asset->oem,
-                ProductType::support(),
-                $assetDocument->supportPackage,
-                $assetDocument->supportPackageDescription,
-                null,
-                null,
-            )
-            ->once()
-            ->andReturn($product);
-
-        $this->assertNotSame($asset->oem, $document->oem);
-        $this->assertSame($product, $factory->assetDocumentSupport($asset, $assetDocument));
-    }
-
-    /**
      * @covers ::assetOem
      */
     public function testAssetOem(): void {
@@ -1386,7 +1124,7 @@ class AssetFactoryTest extends TestCase {
 
         $factory
             ->shouldReceive('oem')
-            ->with($asset->vendor, $asset->vendor)
+            ->with($asset->vendor)
             ->once()
             ->andReturns();
 
@@ -1432,7 +1170,6 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetProduct(): void {
         $oem   = Oem::factory()->make();
-        $type  = ProductType::asset();
         $asset = new ViewAsset([
             'vendor'             => $this->faker->word,
             'sku'                => $this->faker->word,
@@ -1451,7 +1188,7 @@ class AssetFactoryTest extends TestCase {
             ->andReturn($oem);
         $factory
             ->shouldReceive('product')
-            ->with($oem, $type, $asset->sku, $asset->productDescription, $asset->eolDate, $asset->eosDate)
+            ->with($oem, $asset->sku, $asset->productDescription, $asset->eolDate, $asset->eosDate)
             ->once()
             ->andReturns();
 
@@ -1485,7 +1222,7 @@ class AssetFactoryTest extends TestCase {
         $factory = new class($locations) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(LocationFactory $locations) {
-                $this->locations = $locations;
+                $this->locationFactory = $locations;
             }
 
             public function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
@@ -1523,7 +1260,7 @@ class AssetFactoryTest extends TestCase {
         $factory = new class($locations) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(LocationFactory $locations) {
-                $this->locations = $locations;
+                $this->locationFactory = $locations;
             }
 
             public function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
@@ -1557,7 +1294,7 @@ class AssetFactoryTest extends TestCase {
         $factory = new class($locations) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(LocationFactory $factory) {
-                $this->locations = $factory;
+                $this->locationFactory = $factory;
             }
 
             public function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
@@ -1586,7 +1323,7 @@ class AssetFactoryTest extends TestCase {
         $factory = new class($locations) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(LocationFactory $locations) {
-                $this->locations = $locations;
+                $this->locationFactory = $locations;
             }
 
             public function assetLocation(ViewAsset $asset, ?Customer $customer, ?Reseller $reseller): ?Location {
@@ -1626,9 +1363,9 @@ class AssetFactoryTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected AssetResolver $assets,
-                protected ProductResolver $products,
-                protected LocationFactory $locations,
+                protected AssetResolver $assetResolver,
+                protected ProductResolver $productResolver,
+                protected LocationFactory $locationFactory,
             ) {
                 // empty
             }
@@ -1679,7 +1416,7 @@ class AssetFactoryTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected TagResolver $tags,
+                protected TagResolver $tagResolver,
             ) {
                 // empty
             }
@@ -1722,7 +1459,7 @@ class AssetFactoryTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected CoverageResolver $coverages,
+                protected CoverageResolver $coverageResolver,
             ) {
                 // empty
             }
@@ -1807,20 +1544,8 @@ class AssetFactoryTest_Factory extends AssetFactory {
         return parent::assetStatus($asset);
     }
 
-    public function assetDocumentOem(Asset $model, ViewAssetDocument $assetDocument): Oem {
-        return parent::assetDocumentOem($model, $assetDocument);
-    }
-
     public function assetDocumentDocument(Asset $model, ViewAssetDocument $assetDocument): ?Document {
         return parent::assetDocumentDocument($model, $assetDocument);
-    }
-
-    public function assetDocumentService(Asset $model, ViewAssetDocument $assetDocument): ?Product {
-        return parent::assetDocumentService($model, $assetDocument);
-    }
-
-    public function assetDocumentSupport(Asset $model, ViewAssetDocument $assetDocument): ?Product {
-        return parent::assetDocumentSupport($model, $assetDocument);
     }
 
     /**

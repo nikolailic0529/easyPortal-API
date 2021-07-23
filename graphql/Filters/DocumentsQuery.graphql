@@ -9,10 +9,8 @@ input DocumentsQuery {
   currency_id: ID
   language_id: ID
   serial_number: String
-  support_id: ID!
-  support: ProductsQuery!
-  service_id: ID
-  service: ProductsQuery
+  service_group_id: ID
+  service_level_id: ID
   customer_id: ID!
   customer: CustomersQuery
   reseller_id: ID

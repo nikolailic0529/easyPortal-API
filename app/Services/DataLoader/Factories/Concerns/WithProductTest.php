@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Factories\Concerns;
 
-use App\Models\Enums\ProductType;
 use App\Models\Model;
 use App\Models\Product;
 use App\Services\DataLoader\Factories\ModelFactory;
@@ -20,7 +19,6 @@ use Tests\TestCase;
 class WithProductTest extends TestCase {
     use WithQueryLog;
 
-
     /**
      * @covers ::product
      */
@@ -28,9 +26,7 @@ class WithProductTest extends TestCase {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
         $resolver   = $this->app->make(ProductResolver::class);
-        $product    = Product::factory()->create([
-            'type' => ProductType::asset(),
-        ]);
+        $product    = Product::factory()->create();
         $oem        = $product->oem;
 
         $factory = new class($normalizer, $resolver) extends ModelFactory {
@@ -41,7 +37,7 @@ class WithProductTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected ProductResolver $products,
+                protected ProductResolver $productResolver,
             ) {
                 // empty
             }
@@ -51,7 +47,7 @@ class WithProductTest extends TestCase {
             }
 
             protected function getProductResolver(): ProductResolver {
-                return $this->products;
+                return $this->productResolver;
             }
         };
 
@@ -62,14 +58,13 @@ class WithProductTest extends TestCase {
             $product->withoutRelations(),
             $factory->product(
                 $oem,
-                $product->type,
                 $product->sku,
                 $product->name,
                 "{$product->eol->getTimestamp()}000",
                 "{$product->eos->getTimestamp()}000",
             )->withoutRelations(),
         );
-        $this->assertCount(2, $this->getQueryLog());
+        $this->assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
@@ -79,14 +74,12 @@ class WithProductTest extends TestCase {
         $newName = $this->faker->sentence;
         $updated = $factory->product(
             $oem,
-            $product->type,
             $product->sku,
             $newName,
             "{$newEol->getTimestamp()}000",
             $newEos,
         );
 
-        $this->assertSame(ProductType::asset(), $updated->type);
         $this->assertEquals($product->name, $updated->name);
         $this->assertEquals($newEol, $newEol);
         $this->assertNull($updated->eos);
@@ -97,11 +90,9 @@ class WithProductTest extends TestCase {
 
         // If not - it should be created
         $sku     = $this->faker->uuid;
-        $type    = $this->faker->randomElement(ProductType::getValues());
         $name    = $this->faker->sentence;
         $created = $factory->product(
             $oem,
-            $type,
             $sku,
             $name,
             null,
@@ -109,7 +100,6 @@ class WithProductTest extends TestCase {
         );
 
         $this->assertNotNull($created);
-        $this->assertSame($type, $created->type);
         $this->assertEquals($oem->getKey(), $created->oem_id);
         $this->assertEquals($sku, $created->sku);
         $this->assertEquals($name, $created->name);

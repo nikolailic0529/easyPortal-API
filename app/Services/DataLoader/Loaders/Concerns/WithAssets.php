@@ -76,15 +76,11 @@ trait WithAssets {
             $factory->prefetch($assets, true, function (Collection $assets): void {
                 if ($this->isWithAssetsDocuments()) {
                     $assets->loadMissing('warranties');
-                    $assets->loadMissing('warranties.services');
+                    $assets->loadMissing('warranties.serviceLevels');
                 }
             });
             $this->getCustomersFactory()?->prefetch($assets, false);
             $this->getResellersFactory()?->prefetch($assets, false);
-            $factory->getDocumentFactory()?->prefetch($assets, false, static function (Collection $documents): void {
-                $documents->loadMissing('entries');
-                $documents->loadMissing('entries.service');
-            });
         };
 
         foreach ($this->getCurrentAssets($owner)->onBeforeChunk($prefetch) as $asset) {

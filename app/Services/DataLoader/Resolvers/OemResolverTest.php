@@ -24,9 +24,9 @@ class OemResolverTest extends TestCase {
             return Oem::factory()->make();
         };
 
-        Oem::factory()->create(['abbr' => 'a']);
-        Oem::factory()->create(['abbr' => 'b']);
-        Oem::factory()->create(['abbr' => 'c']);
+        Oem::factory()->create(['key' => 'a']);
+        Oem::factory()->create(['key' => 'b']);
+        Oem::factory()->create(['key' => 'c']);
 
         // Run
         $provider = $this->app->make(OemResolver::class);
@@ -36,7 +36,7 @@ class OemResolverTest extends TestCase {
 
         // Basic
         $this->assertNotNull($actual);
-        $this->assertEquals('a', $actual->abbr);
+        $this->assertEquals('a', $actual->key);
 
         // Second call should return same instance
         $this->assertSame($actual, $provider->get('a', $factory));
@@ -53,7 +53,7 @@ class OemResolverTest extends TestCase {
         // If value not found the new object should be created
         $spy     = Mockery::spy(static function (): Oem {
             return Oem::factory()->make([
-                'abbr' => 'unKnown',
+                'key'  => 'unKnown',
                 'name' => 'unKnown',
             ]);
         });
@@ -62,7 +62,7 @@ class OemResolverTest extends TestCase {
         $spy->shouldHaveBeenCalled();
 
         $this->assertNotNull($created);
-        $this->assertEquals('unKnown', $created->abbr);
+        $this->assertEquals('unKnown', $created->key);
         $this->assertEquals('unKnown', $created->name);
         $this->assertCount(1, $this->getQueryLog());
 

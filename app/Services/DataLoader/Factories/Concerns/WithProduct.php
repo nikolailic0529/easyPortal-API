@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Factories\Concerns;
 
-use App\Models\Enums\ProductType;
 use App\Models\Oem;
 use App\Models\Product;
 use App\Services\DataLoader\Normalizer;
@@ -18,7 +17,6 @@ trait WithProduct {
 
     protected function product(
         Oem $oem,
-        ProductType $type,
         string $sku,
         string $name,
         ?string $eol,
@@ -27,14 +25,13 @@ trait WithProduct {
         // Get/Create
         $created = false;
         $factory = $this->factory(
-            function (Product $product) use (&$created, $type, $oem, $sku, $name, $eol, $eos): Product {
-                $created       = !$product->exists;
-                $normalizer    = $this->getNormalizer();
-                $product->type = $type;
-                $product->oem  = $oem;
-                $product->sku  = $normalizer->string($sku);
-                $product->eol  = $normalizer->datetime($eol);
-                $product->eos  = $normalizer->datetime($eos);
+            function (Product $product) use (&$created, $oem, $sku, $name, $eol, $eos): Product {
+                $created      = !$product->exists;
+                $normalizer   = $this->getNormalizer();
+                $product->oem = $oem;
+                $product->sku = $normalizer->string($sku);
+                $product->eol = $normalizer->datetime($eol);
+                $product->eos = $normalizer->datetime($eos);
 
                 if ($created) {
                     // Product name may be inconsistent, eg
@@ -51,7 +48,6 @@ trait WithProduct {
             },
         );
         $product = $this->getProductResolver()->get(
-            $type,
             $oem,
             $sku,
             static function () use ($factory): Product {
