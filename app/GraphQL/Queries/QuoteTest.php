@@ -243,6 +243,7 @@ class QuoteTest extends TestCase {
                                     id
                                     name
                                     url
+                                    size
                                 }
                             }
                             paginatorInfo {
@@ -677,6 +678,7 @@ class QuoteTest extends TestCase {
                                             [
                                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E988',
                                                 'name' => 'document',
+                                                'size' => 100,
                                                 'url'  => $url,
                                             ],
                                         ],
@@ -723,6 +725,7 @@ class QuoteTest extends TestCase {
                                 ->hasFiles(1, [
                                     'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2E988',
                                     'name' => 'document',
+                                    'size' => 100,
                                     'path' => 'http://example.com/document.csv',
                                 ])
                                 ->create([

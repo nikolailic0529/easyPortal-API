@@ -819,6 +819,7 @@ type File {
   id: ID!
   name: String!
   url: String!
+  size: Int!
 }
 
 input ImportOemsInput {
