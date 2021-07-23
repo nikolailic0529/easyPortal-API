@@ -48,11 +48,6 @@ class FilesControllerTest extends TestCase {
         $organization = $this->setOrganization($organizationFactory);
         $user         = $this->setUser($userFactory, $organization);
         $this->setSettings($settings);
-        /*
-            Since double initializing disk.filesystem() will cause two fake object to be generated
-            and second will remove the first and its file.
-         */
-        $this->app->singleton(NotesDisk::class);
 
         $id = null;
         if ($prepare) {
