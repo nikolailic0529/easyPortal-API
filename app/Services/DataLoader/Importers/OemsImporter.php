@@ -246,7 +246,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
                         break;
                 }
 
-                Arr::set($parsed, $key, $value);
+                Arr::set($parsed, $key, (string) $value);
             }
         }
 
