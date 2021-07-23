@@ -4,19 +4,20 @@ namespace App\Models;
 
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * File.
  *
  * @property string                       $id
+ * @property string                       $object_id
+ * @property string                       $object_type
  * @property string                       $name
  * @property string                       $disk
  * @property string                       $path
  * @property int                          $size
  * @property string                       $type
  * @property string                       $hash
- * @property string                       $note_id
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
@@ -30,7 +31,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
  use function app;
 
-class File extends Model {
+class File extends PolymorphicModel {
     use HasFactory;
 
     /**
@@ -40,12 +41,8 @@ class File extends Model {
      */
     protected $table = 'files';
 
-    public function note(): BelongsTo {
-        return $this->belongsTo(Note::class);
-    }
-
-    public function setNoteAttribute(Note $note): void {
-        $this->note()->associate($note);
+    public function note(): MorphTo {
+        return $this->morphTo(Note::class, 'object_type', 'object_id');
     }
 
     public function getUrlAttribute(): string {

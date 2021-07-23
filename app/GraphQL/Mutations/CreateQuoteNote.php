@@ -55,13 +55,15 @@ class CreateQuoteNote {
     }
 
     public function createFile(Note $note, UploadedFile $upload): File {
-        $file       = new File();
-        $file->name = $upload->getClientOriginalName();
-        $file->size = $upload->getSize();
-        $file->type = $upload->getMimeType();
-        $file->disk = $this->disk;
-        $file->path = $this->disk->filesystem()->put($note->getKey(), $upload);
-        $file->hash = hash_file('sha256', $this->disk->filesystem()->path($file->path));
+        $file              = new File();
+        $file->object_id   = $note->id;
+        $file->object_type = $note->getMorphClass();
+        $file->name        = $upload->getClientOriginalName();
+        $file->size        = $upload->getSize();
+        $file->type        = $upload->getMimeType();
+        $file->disk        = $this->disk;
+        $file->path        = $this->disk->filesystem()->put($note->getKey(), $upload);
+        $file->hash        = hash_file('sha256', $this->disk->filesystem()->path($file->path));
         return $file;
     }
 }

@@ -440,6 +440,7 @@ input CreateContractNoteInput {
   note: String!
   contract_id: String!
   files: [Upload!]
+  pinned: Boolean
 }
 
 type CreateContractNotePayload {
@@ -469,6 +470,7 @@ input CreateQuoteNoteInput {
   note: String!
   quote_id: String!
   files: [Upload!]
+  pinned: Boolean
 }
 
 type CreateQuoteNotePayload {

@@ -4,13 +4,12 @@ namespace App\Models;
 
 use App\Models\Concerns\CascadeDeletes\CascadeDeletable;
 use App\Models\Concerns\HasDocument;
+use App\Models\Concerns\HasFiles;
 use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Support\Collection;
 
 /**
  * Note.
@@ -38,6 +37,7 @@ class Note extends Model implements CascadeDeletable {
     use OwnedByOrganization;
     use SyncHasMany;
     use HasDocument;
+    use HasFiles;
 
     protected const CASTS = [
         'pinned' => 'bool',
@@ -59,14 +59,6 @@ class Note extends Model implements CascadeDeletable {
 
     public function getQualifiedOrganizationColumn(): string {
         return $this->qualifyColumn('organization_id');
-    }
-
-    public function files(): HasMany {
-        return $this->hasMany(File::class);
-    }
-
-    public function setFilesAttribute(Collection|array $files): void {
-        $this->syncHasMany('files', $files);
     }
 
     public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {

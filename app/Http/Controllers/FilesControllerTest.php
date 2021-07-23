@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\GraphQL\Mutations\CreateQuoteNote;
 use App\Models\Document;
-use App\Models\File;
 use App\Models\Note;
 use App\Models\Organization;
 use App\Models\Reseller;
@@ -60,10 +59,12 @@ class FilesControllerTest extends TestCase {
             if (!$organization) {
                 $this->setOrganization(Organization::factory()->make());
             }
-            $file = File::factory()->create([
-                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ff',
-            ]);
-            $id   = $file->getKey();
+            Note::factory()
+                ->hasFiles(1, [
+                    'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ff',
+                ])
+                ->create();
+            $id = 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ff';
         }
 
         $url = $this->app->make(UrlGenerator::class);
@@ -99,10 +100,9 @@ class FilesControllerTest extends TestCase {
                 'user_id'         => $user->getKey(),
             ]);
 
-            $helper     = $test->app->make(CreateQuoteNote::class);
-            $upload     = TestingFile::create('document.csv');
-            $file       = $helper->createFile($note, $upload);
-            $file->note = $note;
+            $helper = $test->app->make(CreateQuoteNote::class);
+            $upload = TestingFile::create('document.csv');
+            $file   = $helper->createFile($note, $upload);
             $file->save();
             return $file->getKey();
         };

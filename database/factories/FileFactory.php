@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\File;
-use App\Models\Note;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
@@ -28,19 +27,18 @@ class FileFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'         => $this->faker->uuid,
-            'name'       => $this->faker->word,
-            'disk'       => $this->faker->word,
-            'path'       => $this->faker->word,
-            'type'       => $this->faker->mimeType,
-            'size'       => $this->faker->randomNumber(5, false),
-            'hash'       => $this->faker->sha256,
-            'note_id'    => static function (): Note {
-                return Note::query()->first() ?? Note::factory()->create();
-            },
-            'created_at' => Date::now(),
-            'updated_at' => Date::now(),
-            'deleted_at' => null,
+            'id'          => $this->faker->uuid,
+            'object_id'   => $this->faker->uuid,
+            'object_type' => $this->faker->word,
+            'name'        => $this->faker->word,
+            'disk'        => $this->faker->word,
+            'path'        => $this->faker->word,
+            'type'        => $this->faker->mimeType,
+            'size'        => $this->faker->randomNumber(5, false),
+            'hash'        => $this->faker->sha256,
+            'created_at'  => Date::now(),
+            'updated_at'  => Date::now(),
+            'deleted_at'  => null,
         ];
     }
 }

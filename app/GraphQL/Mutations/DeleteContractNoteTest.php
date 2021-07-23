@@ -55,7 +55,13 @@ class DeleteContractNoteTest extends TestCase {
 
         if ($expected instanceof GraphQLSuccess) {
             $this->assertEquals($exists, $note->exists());
-            $this->assertEquals($exists, File::where('note_id', '=', $note->getKey())->exists());
+            $this->assertEquals(
+                $exists,
+                File::query()
+                    ->where('object_id', '=', $note->getKey())
+                    ->where('object_type', '=', $note->getMorphClass())
+                    ->exists(),
+            );
         }
     }
     // </editor-fold>

@@ -75,8 +75,9 @@ class FileIdTest extends TestCase {
                         'organization_id' => $organization->getKey(),
                     ]);
                     $file = File::factory()->create([
-                        'id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                        'note_id' => $note->getKey(),
+                        'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        'object_id'   => $note->getKey(),
+                        'object_type' => $note->getMorphClass(),
                     ]);
                     $file->delete();
                     return $file->getKey();

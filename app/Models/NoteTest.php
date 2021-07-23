@@ -17,13 +17,11 @@ class NoteTest extends TestCase {
      */
     public function testDelete(): void {
         $user = User::factory()->create();
-        $note = Note::factory()->create([
-            'user_id' => $user,
-        ]);
-
-        File::factory(4)->create([
-            'note_id' => $note,
-        ]);
+        $note = Note::factory()
+            ->hasFiles(4)
+            ->create([
+                'user_id' => $user,
+            ]);
 
         $note->delete();
 

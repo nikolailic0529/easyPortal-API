@@ -250,9 +250,10 @@ class UpdateQuoteNoteTest extends TestCase {
                                     'document_id' => $document->getKey(),
                                 ]);
                             File::factory()->create([
-                                'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
-                                'name'    => 'keep.csv',
-                                'note_id' => $note->getKey(),
+                                'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
+                                'name'        => 'keep.csv',
+                                'object_id'   => $note->getKey(),
+                                'object_type' => $note->getMorphClass(),
                             ]);
                         },
                         [
@@ -449,9 +450,10 @@ class UpdateQuoteNoteTest extends TestCase {
                                     'document_id' => $document->getKey(),
                                 ]);
                             File::factory()->create([
-                                'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
-                                'name'    => 'keep.csv',
-                                'note_id' => $note->getKey(),
+                                'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
+                                'name'        => 'keep.csv',
+                                'object_id'   => $note->getKey(),
+                                'object_type' => $note->getMorphClass(),
                             ]);
                         },
                         [
@@ -514,9 +516,10 @@ class UpdateQuoteNoteTest extends TestCase {
                                     'document_id' => $document->getKey(),
                                 ]);
                             File::factory()->create([
-                                'id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
-                                'name'    => 'keep.csv',
-                                'note_id' => $note->getKey(),
+                                'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a169972',
+                                'name'        => 'keep.csv',
+                                'object_id'   => $note->getKey(),
+                                'object_type' => $note->getMorphClass(),
                             ]);
                         },
                         [
