@@ -11,9 +11,9 @@ class TextNormalizer implements Normalizer {
     public function normalize(mixed $value): ?string {
         if (!is_null($value)) {
             $value = (string) $value;
-            $value = trim($value);
-            $value = preg_replace('/[\x00]+/ui', ' ', $value);
+            $value = preg_replace('/[\h\x00]/ui', ' ', $value);
             $value = str_replace(["\r\n", "\n\r", "\r"], "\n", $value);
+            $value = trim($value);
         }
 
         return $value;
