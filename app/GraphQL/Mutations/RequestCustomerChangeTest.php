@@ -3,7 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Mail\RequestChange;
-use App\Models\Asset;
+use App\Models\Customer;
 use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\User;
@@ -22,9 +22,9 @@ use function __;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\RequestAssetChange
+ * @coversDefaultClass \App\GraphQL\Mutations\RequestCustomerChange
  */
-class RequestAssetChangeTest extends TestCase {
+class RequestCustomerChangeTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -65,22 +65,21 @@ class RequestAssetChangeTest extends TestCase {
             $reseller = Reseller::factory()->create([
                 'id' => $organization->getKey(),
             ]);
-
-            Asset::factory()->create([
-                'reseller_id' => $reseller->getKey(),
-                'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+            $customer = Customer::factory()->create([
+                'id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
             ]);
+            $customer->resellers()->attach($reseller);
         }
 
         $input = $input ?: [
-            'from'     => 'user@example.com',
-            'subject'  => 'subject',
-            'message'  => 'message',
-            'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+            'from'        => 'user@example.com',
+            'subject'     => 'subject',
+            'message'     => 'message',
+            'customer_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
         ];
         // Test
-        $this->graphQL(/** @lang GraphQL */ 'mutation RequestAssetChange($input: RequestAssetChangeInput!) {
-            requestAssetChange(input:$input) {
+        $this->graphQL(/** @lang GraphQL */ 'mutation RequestCustomerChange($input: RequestCustomerChangeInput!) {
+            requestCustomerChange(input:$input) {
                 created {
                     subject
                     message
@@ -122,24 +121,23 @@ class RequestAssetChangeTest extends TestCase {
             $reseller = Reseller::factory()->create([
                 'id' => $organization->getKey(),
             ]);
-
-            Asset::factory()->create([
-                'reseller_id' => $reseller->getKey(),
-                'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+            $customer = Customer::factory()->create([
+                'id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
             ]);
+            $customer->resellers()->attach($reseller);
         };
         $settings = [
             'ep.email_address' => 'test@example.com',
         ];
 
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('requestAssetChange'),
-            new UserDataProvider('requestAssetChange', [
-                'requests-asset-change',
+            new OrganizationDataProvider('requestCustomerChange'),
+            new UserDataProvider('requestCustomerChange', [
+                'requests-customer-change',
             ]),
             new ArrayDataProvider([
-                'ok'              => [
-                    new GraphQLSuccess('requestAssetChange', RequestAssetChange::class, [
+                'ok'               => [
+                    new GraphQLSuccess('requestCustomerChange', RequestAssetChange::class, [
                         'created' => [
                             'user_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
                             'subject' => 'subject',
@@ -158,87 +156,87 @@ class RequestAssetChangeTest extends TestCase {
                     $settings,
                     $prepare,
                     [
-                        'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-                        'subject'  => 'subject',
-                        'message'  => 'change request',
-                        'from'     => 'user@example.com',
-                        'cc'       => ['cc@example.com'],
-                        'bcc'      => ['bcc@example.com'],
+                        'customer_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                        'subject'     => 'subject',
+                        'message'     => 'change request',
+                        'from'        => 'user@example.com',
+                        'cc'          => ['cc@example.com'],
+                        'bcc'         => ['bcc@example.com'],
                     ],
                 ],
-                'Invalid asset'   => [
-                    new GraphQLError('requestAssetChange', static function (): array {
+                'Invalid Customer' => [
+                    new GraphQLError('requestCustomerChange', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     $settings,
                     $prepare,
                     [
-                        'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
-                        'subject'  => 'subject',
-                        'message'  => 'change request',
-                        'from'     => 'user@example.com',
-                        'cc'       => ['cc@example.com'],
-                        'bcc'      => ['bcc@example.com'],
+                        'customer_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                        'subject'     => 'subject',
+                        'message'     => 'change request',
+                        'from'        => 'user@example.com',
+                        'cc'          => ['cc@example.com'],
+                        'bcc'         => ['bcc@example.com'],
                     ],
                 ],
-                'Invalid subject' => [
-                    new GraphQLError('requestAssetChange', static function (): array {
+                'Invalid subject'  => [
+                    new GraphQLError('requestCustomerChange', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     $settings,
                     $prepare,
                     [
-                        'subject'  => '',
-                        'message'  => 'change request',
-                        'from'     => 'user@example.com',
-                        'cc'       => ['cc@example.com'],
-                        'bcc'      => ['bcc@example.com'],
-                        'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                        'subject'     => '',
+                        'message'     => 'change request',
+                        'from'        => 'user@example.com',
+                        'cc'          => ['cc@example.com'],
+                        'bcc'         => ['bcc@example.com'],
+                        'customer_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                     ],
                 ],
-                'Invalid message' => [
-                    new GraphQLError('requestAssetChange', static function (): array {
+                'Invalid message'  => [
+                    new GraphQLError('requestCustomerChange', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     $settings,
                     $prepare,
                     [
-                        'subject'  => 'subject',
-                        'message'  => '',
-                        'from'     => 'user@example.com',
-                        'cc'       => ['cc@example.com'],
-                        'bcc'      => ['bcc@example.com'],
-                        'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                        'subject'     => 'subject',
+                        'message'     => '',
+                        'from'        => 'user@example.com',
+                        'cc'          => ['cc@example.com'],
+                        'bcc'         => ['bcc@example.com'],
+                        'customer_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                     ],
                 ],
-                'Invalid cc'      => [
-                    new GraphQLError('requestAssetChange', static function (): array {
+                'Invalid cc'       => [
+                    new GraphQLError('requestCustomerChange', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     $settings,
                     $prepare,
                     [
-                        'subject'  => 'subject',
-                        'message'  => 'message',
-                        'from'     => 'user@example.com',
-                        'cc'       => ['wrong'],
-                        'bcc'      => ['bcc@example.com'],
-                        'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                        'subject'     => 'subject',
+                        'message'     => 'message',
+                        'from'        => 'user@example.com',
+                        'cc'          => ['wrong'],
+                        'bcc'         => ['bcc@example.com'],
+                        'customer_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                     ],
                 ],
-                'Invalid bcc'     => [
-                    new GraphQLError('requestAssetChange', static function (): array {
+                'Invalid bcc'      => [
+                    new GraphQLError('requestCustomerChange', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     $settings,
                     $prepare,
                     [
-                        'subject'  => 'subject',
-                        'message'  => 'message',
-                        'from'     => 'user@example.com',
-                        'cc'       => ['cc@example.com'],
-                        'bcc'      => ['wrong'],
-                        'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                        'subject'     => 'subject',
+                        'message'     => 'message',
+                        'from'        => 'user@example.com',
+                        'cc'          => ['cc@example.com'],
+                        'bcc'         => ['wrong'],
+                        'customer_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                     ],
                 ],
             ]),

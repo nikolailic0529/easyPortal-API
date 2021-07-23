@@ -114,6 +114,7 @@
     "validation.color": "Color should be in #RRGGBB format.",
     "validation.permissions_id": "Unknown permission",
     "validation.asset_id": "Unknown Asset",
+    "validation.customer_id": "Unknown Customer",
     "errors.message": ":message (:code)",
     "errors.unauthenticated": "Unauthenticated.",
     "errors.unauthorized": "Unauthorized.",

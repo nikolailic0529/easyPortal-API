@@ -1,0 +1,20 @@
+extend type Mutation {
+  requestQuoteChange(
+    input: RequestQuoteChangeInput!
+  ): RequestQuoteChangePayload
+  @organization
+  @me(permissions: ["requests-quote-change"])
+}
+
+input RequestQuoteChangeInput {
+  quote_id: ID! @rules(apply:["required","App\\Rules\\QuoteId"])
+  subject: String! @rules(apply:["required"])
+  message: String! @rules(apply:["required"])
+  from: String! @rules(apply:["email"])
+  cc: [String!] @rules(apply:["email"])
+  bcc: [String!] @rules(apply:["email"])
+}
+
+type RequestQuoteChangePayload {
+  created: ChangeRequest!
+}

@@ -3,9 +3,10 @@
 namespace App\GraphQL\Mutations;
 
 use App\Mail\RequestChange;
-use App\Models\Asset;
+use App\Models\Document;
 use App\Models\Organization;
 use App\Models\Reseller;
+use App\Models\Type;
 use App\Models\User;
 use Closure;
 use Illuminate\Support\Facades\Mail;
@@ -22,9 +23,9 @@ use function __;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\RequestAssetChange
+ * @coversDefaultClass \App\GraphQL\Mutations\RequestQuoteChange
  */
-class RequestAssetChangeTest extends TestCase {
+class RequestQuoteChangeTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -62,12 +63,22 @@ class RequestAssetChangeTest extends TestCase {
                 $organization = $this->setOrganization(Organization::factory()->create());
             }
 
+            if (!$settings) {
+                $this->setSettings([
+                    'ep.quote_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
+                ]);
+            }
+
+            $type     = Type::factory()->create([
+                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
+            ]);
             $reseller = Reseller::factory()->create([
                 'id' => $organization->getKey(),
             ]);
 
-            Asset::factory()->create([
+            Document::factory()->create([
                 'reseller_id' => $reseller->getKey(),
+                'type_id'     => $type->getKey(),
                 'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
             ]);
         }
@@ -76,11 +87,11 @@ class RequestAssetChangeTest extends TestCase {
             'from'     => 'user@example.com',
             'subject'  => 'subject',
             'message'  => 'message',
-            'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+            'quote_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
         ];
         // Test
-        $this->graphQL(/** @lang GraphQL */ 'mutation RequestAssetChange($input: RequestAssetChangeInput!) {
-            requestAssetChange(input:$input) {
+        $this->graphQL(/** @lang GraphQL */ 'mutation RequestQuoteChange($input: RequestQuoteChangeInput!) {
+            requestQuoteChange(input:$input) {
                 created {
                     subject
                     message
@@ -122,24 +133,28 @@ class RequestAssetChangeTest extends TestCase {
             $reseller = Reseller::factory()->create([
                 'id' => $organization->getKey(),
             ]);
-
-            Asset::factory()->create([
+            $type     = Type::factory()->create([
+                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
+            ]);
+            Document::factory()->create([
+                'type_id'     => $type->getKey(),
                 'reseller_id' => $reseller->getKey(),
                 'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
             ]);
         };
         $settings = [
             'ep.email_address' => 'test@example.com',
+            'ep.quote_types'   => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ac'],
         ];
 
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('requestAssetChange'),
-            new UserDataProvider('requestAssetChange', [
-                'requests-asset-change',
+            new OrganizationDataProvider('requestQuoteChange'),
+            new UserDataProvider('requestQuoteChange', [
+                'requests-quote-change',
             ]),
             new ArrayDataProvider([
                 'ok'              => [
-                    new GraphQLSuccess('requestAssetChange', RequestAssetChange::class, [
+                    new GraphQLSuccess('requestQuoteChange', RequestAssetChange::class, [
                         'created' => [
                             'user_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
                             'subject' => 'subject',
@@ -158,7 +173,7 @@ class RequestAssetChangeTest extends TestCase {
                     $settings,
                     $prepare,
                     [
-                        'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                        'quote_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                         'subject'  => 'subject',
                         'message'  => 'change request',
                         'from'     => 'user@example.com',
@@ -166,14 +181,14 @@ class RequestAssetChangeTest extends TestCase {
                         'bcc'      => ['bcc@example.com'],
                     ],
                 ],
-                'Invalid asset'   => [
-                    new GraphQLError('requestAssetChange', static function (): array {
+                'Invalid Quote'   => [
+                    new GraphQLError('requestQuoteChange', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     $settings,
                     $prepare,
                     [
-                        'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                        'quote_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
                         'subject'  => 'subject',
                         'message'  => 'change request',
                         'from'     => 'user@example.com',
@@ -182,7 +197,7 @@ class RequestAssetChangeTest extends TestCase {
                     ],
                 ],
                 'Invalid subject' => [
-                    new GraphQLError('requestAssetChange', static function (): array {
+                    new GraphQLError('requestQuoteChange', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     $settings,
@@ -193,11 +208,11 @@ class RequestAssetChangeTest extends TestCase {
                         'from'     => 'user@example.com',
                         'cc'       => ['cc@example.com'],
                         'bcc'      => ['bcc@example.com'],
-                        'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                        'quote_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                     ],
                 ],
                 'Invalid message' => [
-                    new GraphQLError('requestAssetChange', static function (): array {
+                    new GraphQLError('requestQuoteChange', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     $settings,
@@ -208,11 +223,11 @@ class RequestAssetChangeTest extends TestCase {
                         'from'     => 'user@example.com',
                         'cc'       => ['cc@example.com'],
                         'bcc'      => ['bcc@example.com'],
-                        'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                        'quote_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                     ],
                 ],
                 'Invalid cc'      => [
-                    new GraphQLError('requestAssetChange', static function (): array {
+                    new GraphQLError('requestQuoteChange', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     $settings,
@@ -223,11 +238,11 @@ class RequestAssetChangeTest extends TestCase {
                         'from'     => 'user@example.com',
                         'cc'       => ['wrong'],
                         'bcc'      => ['bcc@example.com'],
-                        'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                        'quote_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                     ],
                 ],
                 'Invalid bcc'     => [
-                    new GraphQLError('requestAssetChange', static function (): array {
+                    new GraphQLError('requestQuoteChange', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     $settings,
@@ -238,7 +253,7 @@ class RequestAssetChangeTest extends TestCase {
                         'from'     => 'user@example.com',
                         'cc'       => ['cc@example.com'],
                         'bcc'      => ['wrong'],
-                        'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                        'quote_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                     ],
                 ],
             ]),

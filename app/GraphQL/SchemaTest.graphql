@@ -1034,6 +1034,27 @@ type Mutation {
   recoverClientTranslations(input: RecoverClientTranslationsInput!): RecoverClientTranslationsPayload
 
   """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["requests-asset-change"])> User must be authenticated and have any of these permissions.
+  """
+  requestAssetChange(input: RequestAssetChangeInput!): RequestAssetChangePayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["requests-customer-change"])> User must be authenticated and have any of these permissions.
+  """
+  requestCustomerChange(input: RequestCustomerChangeInput!): RequestCustomerChangePayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["requests-quote-change"])> User must be authenticated and have any of these permissions.
+  """
+  requestQuoteChange(input: RequestQuoteChangeInput!): RequestQuoteChangePayload
+
+  """
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
   @require <root> Authenticated user must be a root.
@@ -1159,13 +1180,6 @@ type Mutation {
 
   """@require <guest> Current visitor must be a guest."""
   signUpByInvite(input: SignUpByInviteInput!): SignUpByInvitePayload
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["requests-asset-change"])> User must be authenticated and have any of these permissions.
-  """
-  requestAssetChange(input: RequestAssetChangeInput!): RequestAssetChangePayload
 
   """@require <me> User must be authenticated."""
   createMeSearch(input: CreateMeSearchInput!): CreateMeSearchPayload
@@ -1868,6 +1882,32 @@ input RequestAssetChangeInput {
 }
 
 type RequestAssetChangePayload {
+  created: ChangeRequest!
+}
+
+input RequestCustomerChangeInput {
+  customer_id: ID!
+  subject: String!
+  message: String!
+  from: String!
+  cc: [String!]
+  bcc: [String!]
+}
+
+type RequestCustomerChangePayload {
+  created: ChangeRequest!
+}
+
+input RequestQuoteChangeInput {
+  quote_id: ID!
+  subject: String!
+  message: String!
+  from: String!
+  cc: [String!]
+  bcc: [String!]
+}
+
+type RequestQuoteChangePayload {
   created: ChangeRequest!
 }
 

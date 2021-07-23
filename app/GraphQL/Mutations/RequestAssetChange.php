@@ -2,9 +2,11 @@
 
 namespace App\GraphQL\Mutations;
 
-use App\Mail\RequestAssetChange as MailRequestAssetChange;
+use App\Mail\RequestChange;
 use App\Models\Asset;
 use App\Models\ChangeRequest;
+use App\Models\Customer;
+use App\Models\Document;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Config\Repository;
@@ -37,9 +39,8 @@ class RequestAssetChange {
             $args['input']['from'],
             $args['input']['cc'] ?? null,
             $args['input']['bcc'] ?? null,
+            new Asset(),
         );
-        // Send Email
-        $this->mail->send(new MailRequestAssetChange($request));
         return ['created' => $request];
     }
 
@@ -48,7 +49,7 @@ class RequestAssetChange {
      *
      * @param array<string>|null $bcc
      */
-    protected function createRequest(
+    public function createRequest(
         string $object_id,
         string $object_type,
         string $subject,
@@ -56,6 +57,7 @@ class RequestAssetChange {
         string $from,
         array $cc = null,
         array $bcc = null,
+        Asset|Document|Customer $model,
     ): ChangeRequest {
         $request                  = new ChangeRequest();
         $request->user_id         = $this->auth->user()->getKey();
@@ -69,6 +71,9 @@ class RequestAssetChange {
         $request->cc              = array_unique(array_filter($cc)) ?: null;
         $request->bcc             = array_unique(array_filter($bcc)) ?: null;
         $request->save();
+
+        // Send Email
+        $this->mail->send(new RequestChange($request, $model));
         return $request;
     }
 }
