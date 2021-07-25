@@ -5,12 +5,12 @@ namespace App\GraphQL\Mutations\Org;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Services\KeyCloak\Client\Client;
+use App\Services\KeyCloak\Client\Types\Group;
 use Closure;
-use Illuminate\Http\Client\Factory;
-use Illuminate\Support\Facades\Http;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLError;
@@ -38,7 +38,7 @@ class UpdateOrgRoleTest extends TestCase {
         Closure $organizationFactory,
         Closure $userFactory = null,
         Closure $roleFactory = null,
-        Closure $requestFactory = null,
+        Closure $clientFactory = null,
         array $data = [
             'id'          => '',
             'name'        => 'wrong',
@@ -47,24 +47,16 @@ class UpdateOrgRoleTest extends TestCase {
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
-
-        $role = null;
+        $this->setSettings([
+            'ep.keycloak.client_id' => 'client_id',
+        ]);
         if ($roleFactory) {
-            $role = $roleFactory($this);
+            $roleFactory($this);
         }
 
-
-        $requests = [
-            '*' => Http::response([], 200),
-        ];
-
-        if ($requestFactory && $role) {
-            $requests = $requestFactory($this, $role);
+        if ($clientFactory) {
+            $this->override(Client::class, $clientFactory);
         }
-
-        $http = Http::fake($requests);
-
-        $this->app->instance(Factory::class, $http);
 
         // Test
         $this
@@ -87,8 +79,8 @@ class UpdateOrgRoleTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $factory = static function (TestCase $test): Role {
-            $role = Role::factory()->create([
+        $factory = static function (TestCase $test): void {
+            Role::factory()->create([
                 'id'              => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                 'name'            => 'name',
                 'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
@@ -98,36 +90,6 @@ class UpdateOrgRoleTest extends TestCase {
                 'id'  => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
                 'key' => 'permission1',
             ]);
-
-            return $role;
-        };
-
-        $requestFactory = static function (TestCase $test, Role $role): array {
-            $client  = $test->app->make(Client::class);
-            $baseUrl = $client->getBaseUrl();
-            return [
-                "{$baseUrl}/groups/{$role->getKey()}" => Http::sequence()
-                    ->push([], 200)                        // update
-                    ->push([
-                        'id'          => $role->getKey(), // Get First
-                        'name'        => 'name',
-                        'clientRoles' => [
-                            'portal-web-app' => [
-                                'permission2',
-                            ],
-                        ],
-                    ], 200)
-                    ->push([                              // Get after update
-                        'id'          => $role->getKey(),
-                        'name'        => 'change',
-                        'clientRoles' => [
-                            'portal-web-app' => [
-                                'permission1',
-                            ],
-                        ],
-                    ], 200),
-                '*'                                   => Http::response([], 200),
-            ];
         };
         return (new CompositeDataProvider(
             new OrganizationDataProvider('updateOrgRole', '439a0a06-d98a-41f0-b8e5-4e5722518e00'),
@@ -146,7 +108,37 @@ class UpdateOrgRoleTest extends TestCase {
                         ],
                     ]),
                     $factory,
-                    $requestFactory,
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('editSubGroup')
+                            ->once();
+                        $mock
+                            ->shouldReceive('addRolesToGroup')
+                            ->once();
+                        $mock
+                            ->shouldReceive('getGroup')
+                            ->twice()
+                            ->andReturns(
+                                new Group([
+                                    'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                                    'name'        => 'name',
+                                    'clientRoles' => [
+                                        'client_id' => [
+                                            'permission2',
+                                        ],
+                                    ],
+                                ]),
+                                new Group([
+                                    'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                                    'name'        => 'change',
+                                    'clientRoles' => [
+                                        'client_id' => [
+                                            'permission1',
+                                        ],
+                                    ],
+                                ]),
+                            );
+                    },
                     [
                         'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                         'name'        => 'change',
@@ -160,7 +152,17 @@ class UpdateOrgRoleTest extends TestCase {
                         return [__('errors.validation_failed')];
                     }),
                     $factory,
-                    $requestFactory,
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('editSubGroup')
+                            ->never();
+                        $mock
+                            ->shouldReceive('addRolesToGroup')
+                            ->never();
+                        $mock
+                            ->shouldReceive('getGroup')
+                            ->never();
+                    },
                     [
                         'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                         'name'        => '',

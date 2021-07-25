@@ -60,6 +60,9 @@ class CreateOrgRoleTest extends TestCase {
         }
 
         $this->setUser($userFactory, $this->setOrganization($organization));
+        $this->setSettings([
+            'ep.keycloak.client_id' => 'client_id',
+        ]);
 
         if ($clientFactory) {
             $this->override(Client::class, $clientFactory);
@@ -102,7 +105,7 @@ class CreateOrgRoleTest extends TestCase {
                     'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                     'name'        => 'subgroup',
                     'clientRoles' => [
-                        'portal-web-app' => [
+                        'client_id' => [
                             'permission1',
                         ],
                     ],

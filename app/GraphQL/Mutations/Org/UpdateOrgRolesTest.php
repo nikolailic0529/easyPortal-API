@@ -49,7 +49,9 @@ class UpdateOrgRolesTest extends TestCase {
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
-
+        $this->setSettings([
+            'ep.keycloak.client_id' => 'client_id',
+        ]);
         if ($roleFactory) {
             $roleFactory($this);
         }
@@ -125,7 +127,7 @@ class UpdateOrgRolesTest extends TestCase {
                                     'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                                     'name'        => 'name',
                                     'clientRoles' => [
-                                        'portal-web-app' => [
+                                        'client_id' => [
                                             'permission2',
                                         ],
                                     ],
@@ -134,7 +136,7 @@ class UpdateOrgRolesTest extends TestCase {
                                     'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                                     'name'        => 'change',
                                     'clientRoles' => [
-                                        'portal-web-app' => [
+                                        'client_id' => [
                                             'permission1',
                                         ],
                                     ],
