@@ -14,6 +14,7 @@ use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
@@ -375,112 +376,206 @@ class OrganizationTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderUsers(): array {
-        return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('organization'),
-            new UserDataProvider('organization', [
-                'org-administer',
-                'administer',
-            ]),
-            new ArrayDataProvider([
-                'ok' => [
-                    new GraphQLSuccess('organization', self::class, new JsonFragment('users', [
-                        [
-                            'id'            => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                            'username'      => 'virtualcomputersa_3@tesedi.com',
-                            'enabled'       => true,
-                            'emailVerified' => true,
-                            'firstName'     => 'Reseller',
-                            'lastName'      => 'virtualcomputersa_3',
-                            'email'         => 'virtualcomputersa_3@tesedi.com',
-                        ],
-                    ])),
-                    static function (TestCase $test, Organization $organization): void {
-                        $organization->keycloak_group_id = 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945';
-
-                        Reseller::factory()->create([
-                            'id' => $organization->getKey(),
-                        ]);
-
-                        $organization->save();
-                    },
-                    static function (MockInterface $mock): void {
-                        $mock
-                            ->shouldReceive('users')
-                            ->once()
-                            ->andReturn([
-                                new User([
-                                    'id'            => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                                    'username'      => 'virtualcomputersa_3@tesedi.com',
-                                    'enabled'       => true,
-                                    'emailVerified' => true,
-                                    'firstName'     => 'Reseller',
-                                    'lastName'      => 'virtualcomputersa_3',
-                                    'email'         => 'virtualcomputersa_3@tesedi.com',
-                                ]),
+        return (new MergeDataProvider([
+            'administer'     => new CompositeDataProvider(
+                new RootOrganizationDataProvider('organization'),
+                new UserDataProvider('organization', [
+                    'administer',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('organization', self::class, new JsonFragment('users', [
+                            [
+                                'id'            => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                'username'      => 'virtualcomputersa_3@tesedi.com',
+                                'enabled'       => true,
+                                'emailVerified' => true,
+                                'firstName'     => 'Reseller',
+                                'lastName'      => 'virtualcomputersa_3',
+                                'email'         => 'virtualcomputersa_3@tesedi.com',
+                            ],
+                        ])),
+                        static function (TestCase $test, Organization $organization): void {
+                            $organization->keycloak_group_id = 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945';
+                            Reseller::factory()->create([
+                                'id' => $organization->getKey(),
                             ]);
-                    },
-                ],
-            ]),
-        ))->getData();
+                            $organization->save();
+                        },
+                        static function (MockInterface $mock): void {
+                            $mock
+                                ->shouldReceive('users')
+                                ->once()
+                                ->andReturn([
+                                    new User([
+                                        'id'            => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                        'username'      => 'virtualcomputersa_3@tesedi.com',
+                                        'enabled'       => true,
+                                        'emailVerified' => true,
+                                        'firstName'     => 'Reseller',
+                                        'lastName'      => 'virtualcomputersa_3',
+                                        'email'         => 'virtualcomputersa_3@tesedi.com',
+                                    ]),
+                                ]);
+                        },
+                    ],
+                ]),
+            ),
+            'org-administer' => new CompositeDataProvider(
+                new RootOrganizationDataProvider('organization'),
+                new UserDataProvider('organization', [
+                    'administer',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('organization', self::class, new JsonFragment('users', [
+                            [
+                                'id'            => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                'username'      => 'virtualcomputersa_3@tesedi.com',
+                                'enabled'       => true,
+                                'emailVerified' => true,
+                                'firstName'     => 'Reseller',
+                                'lastName'      => 'virtualcomputersa_3',
+                                'email'         => 'virtualcomputersa_3@tesedi.com',
+                            ],
+                        ])),
+                        static function (TestCase $test, Organization $organization): void {
+                            $organization->keycloak_group_id = 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945';
+                            Reseller::factory()->create([
+                                'id' => $organization->getKey(),
+                            ]);
+                            $organization->save();
+                        },
+                        static function (MockInterface $mock): void {
+                            $mock
+                                ->shouldReceive('users')
+                                ->once()
+                                ->andReturn([
+                                    new User([
+                                        'id'            => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                        'username'      => 'virtualcomputersa_3@tesedi.com',
+                                        'enabled'       => true,
+                                        'emailVerified' => true,
+                                        'firstName'     => 'Reseller',
+                                        'lastName'      => 'virtualcomputersa_3',
+                                        'email'         => 'virtualcomputersa_3@tesedi.com',
+                                    ]),
+                                ]);
+                        },
+                    ],
+                ]),
+            ),
+        ]))->getData();
     }
 
     /**
      * @return array<mixed>
      */
     public function dataProviderRoles(): array {
-        return (new CompositeDataProvider(
-            new RootOrganizationDataProvider('organization'),
-            new UserDataProvider('organization', [
-                'org-administer',
-                'administer',
-            ]),
-            new ArrayDataProvider([
-                'ok' => [
-                    new GraphQLSuccess('organization', self::class, new JsonFragment('roles', [
-                        [
-                            'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                            'name'        => 'subgroup1',
-                            'permissions' => [
-                                '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
+        return (new MergeDataProvider([
+            'administer'     => new CompositeDataProvider(
+                new RootOrganizationDataProvider('organization'),
+                new UserDataProvider('organization', [
+                    'administer',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('organization', self::class, new JsonFragment('roles', [
+                            [
+                                'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                'name'        => 'subgroup1',
+                                'permissions' => [
+                                    '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
+                                ],
                             ],
-                        ],
-                    ])),
-                    static function (TestCase $test, Organization $organization): void {
-                        if (!$organization->keycloak_group_id) {
-                            $organization->keycloak_group_id = $test->faker->uuid();
-                            $organization->save();
-                        }
-
-                        Permission::factory()->create([
-                            'id'  => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
-                            'key' => 'permission1',
-                        ]);
-                    },
-                    static function (MockInterface $mock): void {
-                        $mock
-                            ->shouldReceive('getGroup')
-                            ->once()
-                            ->andReturn(
-                                new Group([
-                                    'id'        => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1d',
-                                    'name'      => 'test',
-                                    'subGroups' => [
-                                        [
-                                            'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                                            'name'        => 'subgroup1',
-                                            'clientRoles' => [
-                                                'client_id' => [
-                                                    'permission1',
+                        ])),
+                        static function (TestCase $test, Organization $organization): void {
+                            if (!$organization->keycloak_group_id) {
+                                $organization->keycloak_group_id = $test->faker->uuid();
+                                $organization->save();
+                            }
+                            Permission::factory()->create([
+                                'id'  => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
+                                'key' => 'permission1',
+                            ]);
+                        },
+                        static function (MockInterface $mock): void {
+                            $mock
+                                ->shouldReceive('getGroup')
+                                ->once()
+                                ->andReturn(
+                                    new Group([
+                                        'id'        => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1d',
+                                        'name'      => 'test',
+                                        'subGroups' => [
+                                            [
+                                                'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                                'name'        => 'subgroup1',
+                                                'clientRoles' => [
+                                                    'client_id' => [
+                                                        'permission1',
+                                                    ],
                                                 ],
                                             ],
                                         ],
-                                    ],
-                                ]),
-                            );
-                    },
-                ],
-            ]),
-        ))->getData();
+                                    ]),
+                                );
+                        },
+                    ],
+                ]),
+            ),
+            'org-administer' => new CompositeDataProvider(
+                new RootOrganizationDataProvider('organization'),
+                new UserDataProvider('organization', [
+                    'administer',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('organization', self::class, new JsonFragment('roles', [
+                            [
+                                'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                'name'        => 'subgroup1',
+                                'permissions' => [
+                                    '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
+                                ],
+                            ],
+                        ])),
+                        static function (TestCase $test, Organization $organization): void {
+                            if (!$organization->keycloak_group_id) {
+                                $organization->keycloak_group_id = $test->faker->uuid();
+                                $organization->save();
+                            }
+                            Permission::factory()->create([
+                                'id'  => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
+                                'key' => 'permission1',
+                            ]);
+                        },
+                        static function (MockInterface $mock): void {
+                            $mock
+                                ->shouldReceive('getGroup')
+                                ->once()
+                                ->andReturn(
+                                    new Group([
+                                        'id'        => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1d',
+                                        'name'      => 'test',
+                                        'subGroups' => [
+                                            [
+                                                'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                                'name'        => 'subgroup1',
+                                                'clientRoles' => [
+                                                    'client_id' => [
+                                                        'permission1',
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ]),
+                                );
+                        },
+                    ],
+                ]),
+            ),
+        ]))->getData();
     }
     // </editor-fold>
 }

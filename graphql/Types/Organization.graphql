@@ -21,13 +21,13 @@ type Organization {
   headquarter: Location
 
   users: [OrganizationUser!]!
-  @me(permissions: ["org-administer", "administer"])
+  @me(permissions: ["administer", "org-administer"])
   @field(resolver: "App\\GraphQL\\Queries\\Organization@users")
 
   keycloak_scope: String
   @me(permissions: ["administer"])
 
-  roles: [Role!]
+  roles: [Role!]!
+  @me(permissions: ["administer", "org-administer"])
   @field(resolver: "App\\GraphQL\\Queries\\Organization@roles")
-  @me(permissions: ["org-administer", "administer"])
 }
