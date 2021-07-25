@@ -27,7 +27,7 @@ type Organization {
   keycloak_scope: String
   @me(permissions: ["administer"])
 
-  roles: [Role!]!
+  roles: [Role!]
   @field(resolver: "App\\GraphQL\\Queries\\Organization@roles")
-  @me(permissions: ["org-administer"])
+  @me(permissions: ["org-administer", "administer"])
 }

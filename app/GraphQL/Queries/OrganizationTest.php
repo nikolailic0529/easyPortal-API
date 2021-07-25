@@ -7,13 +7,14 @@ use App\Models\Location;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Reseller;
+use App\Services\KeyCloak\Client\Client;
+use App\Services\KeyCloak\Client\Types\Group;
+use App\Services\KeyCloak\Client\Types\User;
 use Closure;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Http\Client\Factory;
-use Illuminate\Support\Facades\Http;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -127,6 +128,7 @@ class OrganizationTest extends TestCase {
         Closure $organizationFactory,
         Closure $userFactory = null,
         Closure $prepare = null,
+        Closure $clientFactory = null,
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
@@ -136,35 +138,9 @@ class OrganizationTest extends TestCase {
             $prepare($this, $organization, $user);
         }
 
-        $client = Http::fake([
-            '*' => Http::response(
-                [
-                    [
-                        'id'                         => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                        'username'                   => 'virtualcomputersa_3@tesedi.com',
-                        'enabled'                    => true,
-                        'emailVerified'              => true,
-                        'notBefore'                  => 0,
-                        'totp'                       => false,
-                        'firstName'                  => 'Reseller',
-                        'lastName'                   => 'virtualcomputersa_3',
-                        'email'                      => 'virtualcomputersa_3@tesedi.com',
-                        'disableableCredentialTypes' => [],
-                        'requiredActions'            => [],
-                        'attributes'                 => [
-                            'locale' => [
-                                'de',
-                            ],
-                            'phone'  => [
-                                '12345678',
-                            ],
-                        ],
-                    ],
-                ],
-                200,
-            ),
-        ]);
-        $this->app->instance(Factory::class, $client);
+        if ($clientFactory) {
+            $this->override(Client::class, $clientFactory);
+        }
 
         // Test
         $this
@@ -202,38 +178,22 @@ class OrganizationTest extends TestCase {
         Closure $organizationFactory,
         Closure $userFactory = null,
         Closure $prepare = null,
+        Closure $clientFactory = null,
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
         $this->setUser($userFactory, $organization);
+        $this->setSettings([
+            'ep.keycloak.client_id' => 'client_id',
+        ]);
 
         if ($prepare) {
             $prepare($this, $organization);
         }
 
-        $config   = $this->app->make(Repository::class);
-        $clientId = (string) $config->get('ep.keycloak.client_id');
-        $client   = Http::fake([
-            '*' => Http::response(
-                [
-                    'id'        => $organization->keycloak_group_id ?? $this->faker->uuid(),
-                    'name'      => 'test',
-                    'subGroups' => [
-                        [
-                            'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                            'name'        => 'subgroup1',
-                            'clientRoles' => [
-                                $clientId => [
-                                    'permission1',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                200,
-            ),
-        ]);
-        $this->app->instance(Factory::class, $client);
+        if ($clientFactory) {
+            $this->override(Client::class, $clientFactory);
+        }
 
         // Test
         $this
@@ -418,8 +378,8 @@ class OrganizationTest extends TestCase {
         return (new CompositeDataProvider(
             new RootOrganizationDataProvider('organization'),
             new UserDataProvider('organization', [
-                'administer',
                 'org-administer',
+                'administer',
             ]),
             new ArrayDataProvider([
                 'ok' => [
@@ -442,6 +402,22 @@ class OrganizationTest extends TestCase {
                         ]);
 
                         $organization->save();
+                    },
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('users')
+                            ->once()
+                            ->andReturn([
+                                new User([
+                                    'id'            => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                    'username'      => 'virtualcomputersa_3@tesedi.com',
+                                    'enabled'       => true,
+                                    'emailVerified' => true,
+                                    'firstName'     => 'Reseller',
+                                    'lastName'      => 'virtualcomputersa_3',
+                                    'email'         => 'virtualcomputersa_3@tesedi.com',
+                                ]),
+                            ]);
                     },
                 ],
             ]),
@@ -479,6 +455,28 @@ class OrganizationTest extends TestCase {
                             'id'  => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
                             'key' => 'permission1',
                         ]);
+                    },
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getGroup')
+                            ->once()
+                            ->andReturn(
+                                new Group([
+                                    'id'        => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1d',
+                                    'name'      => 'test',
+                                    'subGroups' => [
+                                        [
+                                            'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                            'name'        => 'subgroup1',
+                                            'clientRoles' => [
+                                                'client_id' => [
+                                                    'permission1',
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ]),
+                            );
                     },
                 ],
             ]),
