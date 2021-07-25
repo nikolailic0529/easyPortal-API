@@ -2,15 +2,14 @@
 
 namespace App\GraphQL\Mutations\Org;
 
-use App\Models\Organization;
 use App\Models\Permission;
 use App\Services\KeyCloak\Client\Client;
+use App\Services\KeyCloak\Client\Types\Group;
 use Closure;
-use Illuminate\Http\Client\Factory;
-use Illuminate\Support\Facades\Http;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLError;
@@ -41,7 +40,7 @@ class CreateOrgRoleTest extends TestCase {
             'name'        => 'wrong',
             'permissions' => [],
         ],
-        Closure $requests = null,
+        Closure $clientFactory = null,
     ): void {
         // Prepare
         $organization = null;
@@ -62,10 +61,8 @@ class CreateOrgRoleTest extends TestCase {
 
         $this->setUser($userFactory, $this->setOrganization($organization));
 
-        if ($requests) {
-            $this->app->instance(Factory::class, Http::fake(
-                $requests($this, $organization),
-            ));
+        if ($clientFactory) {
+            $this->override(Client::class, $clientFactory);
         }
 
 
@@ -90,32 +87,29 @@ class CreateOrgRoleTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderInvoke(): array {
-        $requests          = static function (TestCase $test, Organization $organization): array {
-            $client = $test->app->make(Client::class);
-            $output = [];
-            if ($organization && $organization->keycloak_group_id) {
-                $url          = "{$client->getBaseUrl()}/groups/{$organization->keycloak_group_id}/children";
-                $output[$url] = Http::response([
+        $clientFactory     = static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('createSubGroup')
+                ->once()
+                ->andReturns(new Group([
+                    'id'   => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                    'name' => 'subgroup',
+                ]));
+            $mock
+                ->shouldReceive('getGroup')
+                ->once()
+                ->andReturns(new Group([
                     'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                     'name'        => 'subgroup',
-                    'path'        => '/test/subgroup',
-                    'attributes'  => [],
-                    'realmRoles'  => [],
-                    'clientRoles' => [],
-                    'subGroups'   => [],
-                ], 201);
-            }
-            $output["{$client->getBaseUrl()}/groups/*"] = Http::response([
-                'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-                'name'        => 'subgroup',
-                'clientRoles' => [
-                    'portal-web-app' => [
-                        'permission1',
+                    'clientRoles' => [
+                        'portal-web-app' => [
+                            'permission1',
+                        ],
                     ],
-                ],
-            ], 200);
-            $output['*']                                = Http::response([], 200);
-            return $output;
+                ]));
+            $mock
+                ->shouldReceive('addRolesToGroup')
+                ->once();
         };
         $permissionFactory = static function (TestCase $test): void {
             Permission::factory()->create([
@@ -146,7 +140,7 @@ class CreateOrgRoleTest extends TestCase {
                             'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
                         ],
                     ],
-                    $requests,
+                    $clientFactory,
                 ],
                 'Invalid name'        => [
                     new GraphQLError('createOrgRole', static function (): array {
@@ -159,7 +153,11 @@ class CreateOrgRoleTest extends TestCase {
                             'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
                         ],
                     ],
-                    $requests,
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('createSubGroup')
+                            ->never();
+                    },
                 ],
                 'Invalid permissions' => [
                     new GraphQLError('createOrgRole', static function (): array {
@@ -172,7 +170,11 @@ class CreateOrgRoleTest extends TestCase {
                             'fd421bad-069f-491c-ad5f-5841aa9a9dfd',
                         ],
                     ],
-                    $requests,
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('createSubGroup')
+                            ->never();
+                    },
                 ],
             ]),
         ))->getData();
