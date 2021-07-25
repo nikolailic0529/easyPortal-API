@@ -3,12 +3,12 @@
 namespace App\GraphQL\Mutations\Org;
 
 use App\Models\Role;
+use App\Services\KeyCloak\Client\Client;
 use Closure;
-use Illuminate\Http\Client\Factory;
-use Illuminate\Support\Facades\Http;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -35,6 +35,7 @@ class DeleteOrgRoleTest extends TestCase {
         array $data = [
             'id' => '',
         ],
+        Closure $clientFactory = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
@@ -44,11 +45,9 @@ class DeleteOrgRoleTest extends TestCase {
             $role = $roleFactory($this);
         }
 
-        $http = Http::fake([
-            '*' => Http::response([], 200),
-        ]);
-
-        $this->app->instance(Factory::class, $http);
+        if ($clientFactory) {
+            $this->override(Client::class, $clientFactory);
+        }
 
         // Test
         $response = $this
@@ -91,6 +90,11 @@ class DeleteOrgRoleTest extends TestCase {
                     [
                         'id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                     ],
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('deleteGroup')
+                            ->once();
+                    },
                 ],
             ]),
         ))->getData();
