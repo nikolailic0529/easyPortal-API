@@ -48,6 +48,7 @@ class SyncPermissions extends Command {
         // Get all permissions
         $permissions = Permission::query()
             ->withTrashed()
+            ->orderByDesc('deleted_at')
             ->get()
             ->keyBy('key');
 
@@ -65,6 +66,7 @@ class SyncPermissions extends Command {
             }
 
             $permission = null;
+
             if (!$permissions->has($role->name)) {
                 $permission = new Permission();
             } else {

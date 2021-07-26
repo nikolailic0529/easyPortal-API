@@ -5,13 +5,11 @@ namespace App\Services\KeyCloak\Commands;
 use App\Models\Permission;
 use App\Services\Auth\Auth;
 use App\Services\KeyCloak\Client\Client;
-use Illuminate\Contracts\Config\Repository;
-use Illuminate\Http\Client\Factory;
-use Illuminate\Http\Client\Request;
-use Illuminate\Support\Facades\Http;
+use App\Services\KeyCloak\Client\Types\Role;
+use Closure;
+use Illuminate\Support\Facades\Date;
+use Mockery\MockInterface;
 use Tests\TestCase;
-
-use function basename;
 
 /**
  * @internal
@@ -20,51 +18,165 @@ use function basename;
 class SyncPermissionsTest extends TestCase {
     /**
      * @covers ::handle
+     *
+     * @dataProvider dataProviderTestHandle
+     *
+     * @param array<string> $expected
+     *
+     * @param array<string> $deleted
      */
-    public function testHandle(): void {
+    public function testHandle(
+        array $expected,
+        Closure $authFactory,
+        Closure $clientFactory,
+        Closure $permissionFactory = null,
+        array $deleted = null,
+    ): void {
         // prepare
-        $client   = $this->app->make(Client::class);
-        $baseUrl  = $client->getBaseUrl();
-        $clientId = (string) $this->app->make(Repository::class)->get('ep.keycloak.client_uuid');
-        $requests = [
-            "{$baseUrl}/clients/{$clientId}/roles"   => function (Request $request) {
-                switch ($request->method()) {
-                    case 'GET':
-                        return Http::response([
-                            [
-                                'id'   => '70a74596-08f2-48d1-b3f9-0e4f339bc1b2',
-                                'name' => 'role',
-                            ],
-                        ], 200);
-                    case 'POST':
-                        $data = $request->data();
-                        return Http::response([
-                            'id'   => $this->faker->uuid(),
-                            'name' => $data['name'],
-                        ], 201);
-                    default:
-                        // empty
-                        return;
-                }
-            },
-            "{$baseUrl}/clients/{$clientId}/roles/*" => function (Request $request) {
-                return Http::response([
-                    'id'   => $this->faker->uuid(),
-                    'name' => basename($request->url()),
-                ], 200);
-            },
-            '*'                                      => Http::response([], 200),
-        ];
-        $client   = Http::fake($requests);
-        $this->app->instance(Factory::class, $client);
-        $auth    = $this->app->make(Auth::class);
-        $command = $this->app->make(SyncPermissions::class);
+        if ($permissionFactory) {
+            $permissionFactory();
+        }
+        $this->override(Auth::class, $authFactory);
+        $this->override(Client::class, $clientFactory);
 
-        $permission = Permission::factory()->create();
+        $command = $this->app->make(SyncPermissions::class);
 
         $command->handle();
 
-        $this->assertFalse(Permission::whereKey($permission->getKey())->exists());
-        $this->assertEqualsCanonicalizing(Permission::pluck('key')->all(), $auth->getPermissions());
+        if ($deleted) {
+            $this->assertFalse(Permission::where('key', '=', $deleted)->exists());
+        }
+        $this->assertEqualsCanonicalizing(Permission::pluck('key')->all(), $expected);
     }
+
+    // <editor-fold desc="DataProviders">
+    // =========================================================================
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderTestHandle(): array {
+        return [
+            'empty permissions'                  => [
+                ['permission1'],
+                static function (MockInterface $mock): void {
+                    $mock
+                        ->shouldReceive('getPermissions')
+                        ->once()
+                        ->andReturns([
+                            'permission1',
+                        ]);
+                },
+                static function (MockInterface $mock, TestCase $test): void {
+                    $mock
+                        ->shouldReceive('getRoles')
+                        ->once()
+                        ->andReturn([
+                            new Role([
+                                'id'   => $test->faker->uuid,
+                                'name' => 'role',
+                            ]),
+                        ]);
+                        $mock
+                            ->shouldReceive('updateRoleByName')
+                            ->once();
+                        $mock
+                            ->shouldReceive('createRole')
+                            ->andReturn(
+                                new Role([
+                                    'id'   => $test->faker->uuid,
+                                    'name' => 'permission1',
+                                ]),
+                            );
+                },
+            ],
+            'existing permissions/different key' => [
+                ['permission1'],
+                static function (MockInterface $mock): void {
+                    $mock
+                        ->shouldReceive('getPermissions')
+                        ->once()
+                        ->andReturns([
+                            'permission1',
+                        ]);
+                },
+                static function (MockInterface $mock, TestCase $test): void {
+                    $mock
+                        ->shouldReceive('getRoles')
+                        ->once()
+                        ->andReturn([
+                            new Role([
+                                'id'   => $test->faker->uuid,
+                                'name' => 'role',
+                            ]),
+                        ]);
+                        $mock
+                            ->shouldReceive('updateRoleByName')
+                            ->once();
+                        $mock
+                            ->shouldReceive('createRole')
+                            ->andReturn(
+                                new Role([
+                                    'id'   => $test->faker->uuid,
+                                    'name' => 'permission1',
+                                ]),
+                            );
+                },
+                static function (): void {
+                    Permission::factory()->create([
+                        'key'        => 'permission1',
+                        'created_at' => Date::now()->subHour(),
+                        'deleted_at' => Date::now(),
+                    ]);
+
+                    Permission::factory()->create([
+                        'key' => 'permission1',
+                    ]);
+                },
+                ['old-permissions'],
+            ],
+            'soft deleted permissions'           => [
+                ['permission1'],
+                static function (MockInterface $mock): void {
+                    $mock
+                        ->shouldReceive('getPermissions')
+                        ->once()
+                        ->andReturns([
+                            'permission1',
+                        ]);
+                },
+                static function (MockInterface $mock, TestCase $test): void {
+                    $mock
+                        ->shouldReceive('getRoles')
+                        ->once()
+                        ->andReturn([
+                            new Role([
+                                'id'   => $test->faker->uuid,
+                                'name' => 'permission1',
+                            ]),
+                        ]);
+                        $mock
+                            ->shouldReceive('updateRoleByName')
+                            ->never();
+                        $mock
+                            ->shouldReceive('createRole')
+                            ->andReturn(
+                                new Role([
+                                    'id'   => $test->faker->uuid,
+                                    'name' => 'permission1',
+                                ]),
+                            );
+                },
+                static function (): void {
+                    $permission = Permission::factory()->create([
+                        'id'  => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                        'key' => 'permission1',
+                    ]);
+
+                    $permission->delete();
+                },
+                ['old-permissions'],
+            ],
+        ];
+    }
+    // </editor-fold>
 }
