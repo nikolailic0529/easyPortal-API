@@ -52,7 +52,7 @@ class Log extends Model {
         'finished_at' => 'datetime',
         'statistics'  => Statistics::class,
         'context'     => 'json',
-    ];
+    ] + parent::CASTS;
 
     /**
      * The attributes that should be cast to native types.
@@ -61,7 +61,7 @@ class Log extends Model {
      *
      * @var array<string>
      */
-    protected $casts = self::CASTS + parent::CASTS;
+    protected $casts = self::CASTS;
 
     public function parent(): BelongsTo {
         return $this->belongsTo(self::class);

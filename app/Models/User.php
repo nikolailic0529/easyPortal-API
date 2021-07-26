@@ -86,7 +86,7 @@ class User extends Model implements
         'permissions'    => 'array',
         'email_verified' => 'bool',
         'phone_verified' => 'bool',
-    ];
+    ] + parent::CASTS;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -127,7 +127,7 @@ class User extends Model implements
      *
      * @var array<string>
      */
-    protected $casts = self::CASTS + parent::CASTS;
+    protected $casts = self::CASTS;
 
     // <editor-fold desc="MustVerifyEmail">
     // =========================================================================

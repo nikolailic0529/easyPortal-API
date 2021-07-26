@@ -54,7 +54,7 @@ class AssetWarranty extends Model {
     protected const CASTS = [
         'start' => 'date',
         'end'   => 'date',
-    ];
+    ] + parent::CASTS;
 
     /**
      * The attributes that should be cast to native types.
@@ -63,7 +63,7 @@ class AssetWarranty extends Model {
      *
      * @var array<string>
      */
-    protected $casts = self::CASTS + parent::CASTS;
+    protected $casts = self::CASTS;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
