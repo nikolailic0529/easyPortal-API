@@ -1055,6 +1055,13 @@ type Mutation {
   recoverClientTranslations(input: RecoverClientTranslationsInput!): RecoverClientTranslationsPayload
 
   """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["requests-contract-change"])> User must be authenticated and have any of these permissions.
+  """
+  requestContractChange(input: RequestContractChangeInput!): RequestContractChangePayload
+
+  """
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
   @require <root> Authenticated user must be a root.
@@ -1891,6 +1898,19 @@ input RequestAssetChangeInput {
 }
 
 type RequestAssetChangePayload {
+  created: ChangeRequest!
+}
+
+input RequestContractChangeInput {
+  contract_id: ID!
+  subject: String!
+  message: String!
+  from: String!
+  cc: [String!]
+  bcc: [String!]
+}
+
+type RequestContractChangePayload {
   created: ChangeRequest!
 }
 
