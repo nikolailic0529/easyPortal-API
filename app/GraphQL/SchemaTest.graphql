@@ -1360,7 +1360,7 @@ type Organization {
   keycloak_scope: String
 
   """
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
+  @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
   """
   roles: [Role!]!
 }
