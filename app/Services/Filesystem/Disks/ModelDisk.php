@@ -8,8 +8,11 @@ use App\Models\Note;
 use App\Services\Filesystem\Disk;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Http\UploadedFile;
+use LogicException;
+use Symfony\Component\HttpFoundation\Response;
 
 use function hash_file;
+use function sprintf;
 use function str_replace;
 
 class ModelDisk extends Disk {
@@ -37,6 +40,28 @@ class ModelDisk extends Disk {
         return $this->model;
     }
 
+    /**
+     * @param array<string, mixed> $headers
+     */
+    public function download(File|string $path, string $name = null, array $headers = []): Response {
+        // Possible?
+        if ($path instanceof File) {
+            if ($path->disk !== $this->getName()) {
+                throw new LogicException(sprintf(
+                    'File should be from `%s` disk, but it is from `%s` disk.',
+                    $this->getName(),
+                    $path->disk,
+                ));
+            }
+
+            $name = $name ?: $path->name;
+            $path = $path->path;
+        }
+
+        // Create
+        return parent::download($path, $name, $headers);
+    }
+
     public function store(UploadedFile $upload): string {
         $dir  = str_replace('-', '/', $this->getModel()->getKey());
         $path = $this->isPublic()
@@ -60,5 +85,20 @@ class ModelDisk extends Disk {
         $file->save();
 
         return $file;
+    }
+
+    /**
+     * @param array<\Illuminate\Http\UploadedFile> $uploads
+     *
+     * @return array<\App\Models\File>
+     */
+    public function storeToFiles(array $uploads): array {
+        $files = [];
+
+        foreach ($uploads as $upload) {
+            $files[] = $this->storeToFile($upload);
+        }
+
+        return $files;
     }
 }

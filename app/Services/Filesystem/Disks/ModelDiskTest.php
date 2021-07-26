@@ -4,11 +4,15 @@ namespace App\Services\Filesystem\Disks;
 
 use App\Models\File;
 use App\Models\Model;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Http\UploadedFile;
+use LogicException;
 use Mockery;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Tests\TestCase;
 
 use function hash_file;
+use function sprintf;
 use function str_replace;
 
 /**
@@ -101,5 +105,106 @@ class ModelDiskTest extends TestCase {
         $this->assertEquals('disk', $actual->disk);
         $this->assertEquals('path/to/file.txt', $actual->path);
         $this->assertEquals(hash_file('sha256', $upload->getPathname()), $actual->hash);
+    }
+
+    /**
+     * @covers ::storeToFiles
+     */
+    public function testStoreToFiles(): void {
+        $a    = Mockery::mock(UploadedFile::class);
+        $b    = Mockery::mock(UploadedFile::class);
+        $disk = Mockery::mock(ModelDisk::class);
+        $disk->makePartial();
+        $disk
+            ->shouldReceive('storeToFile')
+            ->with($a)
+            ->once()
+            ->andReturn(new File());
+        $disk
+            ->shouldReceive('storeToFile')
+            ->with($b)
+            ->once()
+            ->andReturn(new File());
+
+        $this->assertCount(2, $disk->storeToFiles([$a, $b]));
+    }
+
+    /**
+     * @covers ::download
+     */
+    public function testDownloadPath(): void {
+        $response = Mockery::mock(StreamedResponse::class);
+        $path     = 'path/to/file';
+        $fs       = Mockery::mock(FilesystemAdapter::class);
+        $fs
+            ->shouldReceive('download')
+            ->with($path, null, [])
+            ->once()
+            ->andReturn($response);
+
+        $disk = Mockery::mock(ModelDisk::class);
+        $disk->makePartial();
+        $disk
+            ->shouldReceive('filesystem')
+            ->once()
+            ->andReturn($fs);
+
+        $this->assertSame($response, $disk->download($path));
+    }
+
+    /**
+     * @covers ::download
+     */
+    public function testDownloadFile(): void {
+        $response = Mockery::mock(StreamedResponse::class);
+        $file     = File::factory()->create();
+        $fs       = Mockery::mock(FilesystemAdapter::class);
+        $fs
+            ->shouldReceive('download')
+            ->with($file->path, $file->name, [])
+            ->once()
+            ->andReturn($response);
+
+        $disk = Mockery::mock(ModelDisk::class);
+        $disk->makePartial();
+        $disk
+            ->shouldReceive('getName')
+            ->once()
+            ->andReturn($file->disk);
+        $disk
+            ->shouldReceive('filesystem')
+            ->once()
+            ->andReturn($fs);
+
+        $this->assertSame($response, $disk->download($file));
+    }
+
+    /**
+     * @covers ::download
+     */
+    public function testDownloadFileFromAnotherDisc(): void {
+        $file = File::factory()->create();
+        $fs   = Mockery::mock(FilesystemAdapter::class);
+        $fs
+            ->shouldReceive('download')
+            ->never();
+
+        $disk = Mockery::mock(ModelDisk::class);
+        $disk->makePartial();
+        $disk
+            ->shouldReceive('getName')
+            ->twice()
+            ->andReturn('another');
+        $disk
+            ->shouldReceive('filesystem')
+            ->never();
+
+        $this->expectExceptionObject(new LogicException(sprintf(
+            'File should be from `%s` disk, but it is from `%s` disk.',
+            'another',
+            $file->disk,
+        )));
+
+        $disk->download($file);
     }
 }

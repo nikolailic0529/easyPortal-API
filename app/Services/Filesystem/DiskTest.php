@@ -4,7 +4,11 @@ namespace App\Services\Filesystem;
 
 use Exception;
 use Illuminate\Contracts\Filesystem\Factory;
+use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Filesystem\FilesystemAdapter;
 use LogicException;
+use Mockery;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Tests\TestCase;
 
 /**
@@ -72,6 +76,29 @@ class DiskTest extends TestCase {
                 return $this->name;
             }
         })->isPublic());
+    }
+
+    /**
+     * @covers ::download
+     */
+    public function testDownload(): void {
+        $response = Mockery::mock(StreamedResponse::class);
+        $path     = 'path/to/file';
+        $fs       = Mockery::mock(FilesystemAdapter::class);
+        $fs
+            ->shouldReceive('download')
+            ->with($path, null, [])
+            ->once()
+            ->andReturn($response);
+
+        $disk = Mockery::mock(Disk::class);
+        $disk->makePartial();
+        $disk
+            ->shouldReceive('filesystem')
+            ->once()
+            ->andReturn($fs);
+
+        $this->assertSame($response, $disk->download($path));
     }
     //</editor-fold>
 

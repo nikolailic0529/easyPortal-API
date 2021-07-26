@@ -2,6 +2,7 @@
 
 namespace App\Services\Filesystem;
 
+use App\Models\File;
 use Illuminate\Contracts\Filesystem\Cloud;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Contracts\Filesystem\Filesystem;
@@ -10,6 +11,7 @@ use League\Flysystem\AdapterInterface;
 use League\Flysystem\Filesystem as FlysystemFilesystem;
 use LogicException;
 use Stringable;
+use Symfony\Component\HttpFoundation\Response;
 
 use function sprintf;
 
@@ -43,6 +45,28 @@ abstract class Disk implements Stringable {
         return $this->factory->disk($this->getName());
     }
 
+    /**
+     * @param array<string, mixed> $headers
+     */
+    public function download(string $path, string $name = null, array $headers = []): Response {
+        // Create
+        $fs       = $this->filesystem();
+        $response = null;
+
+        if ($fs instanceof FilesystemAdapter) {
+            $response = $fs->download($path, $name, $headers);
+        } else {
+            // Theoretically, $fs may implement `\Illuminate\Contracts\Filesystem\Filesystem`
+            // only. In this case we should use `$fs->readStream($path)` and
+            // create response by hand
+
+            throw new LogicException('Not implemented.');
+        }
+
+        // Return
+        return $response;
+    }
+
     public function __toString(): string {
         return $this->getName();
     }
@@ -51,7 +75,7 @@ abstract class Disk implements Stringable {
         // Public?
         if (!$this->isPublic()) {
             throw new LogicException(sprintf(
-                'Is not possible to get url for the file from non-public disk `%s`.',
+                'It is not possible to get url for the file from non-public disk `%s`.',
                 $this->getName(),
             ));
         }
