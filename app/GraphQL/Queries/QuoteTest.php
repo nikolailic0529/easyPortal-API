@@ -703,12 +703,12 @@ class QuoteTest extends TestCase {
                                 'name' => 'name aaa',
                             ]);
                             // Reseller creation belongs to
-                            $reseller = Reseller::factory()
+                            $reseller  = Reseller::factory()
                                 ->create([
                                     'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
-
                                 ]);
-                            $document = Document::factory()
+                            $reseller2 = Reseller::factory()->create();
+                            $document  = Document::factory()
                                 ->for($type)
                                 ->for($reseller)
                                 ->create([
@@ -735,6 +735,16 @@ class QuoteTest extends TestCase {
                                     'created_at' => '2021-07-11T23:27:47+00:00',
                                     'updated_at' => '2021-07-11T23:27:47+00:00',
                                 ]);
+                            // same org different document
+                            Document::factory()
+                                ->for($reseller)
+                                ->hasNotes(1)
+                                ->create();
+                            // different org
+                            Document::factory()
+                                ->for($reseller2)
+                                ->hasNotes(1)
+                                ->create();
                             return $document;
                         },
                     ],

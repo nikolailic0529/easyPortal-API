@@ -31,5 +31,7 @@ type Document {
     where: NotesQuery @searchBy
     order: NotesSort @sortBy
   ): [Note!]!
-  @paginate
+  @paginate(
+    builder: "App\\GraphQL\\Queries\\DocumentNotes"
+  )
 }
