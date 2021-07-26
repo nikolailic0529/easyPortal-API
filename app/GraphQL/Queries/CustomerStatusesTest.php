@@ -83,14 +83,13 @@ class CustomerStatusesTest extends TestCase {
                         $fallback   = $translator->getFallback();
                         $locale     = $test->app()->getLocale();
                         $model      = (new Status())->getMorphClass();
-                        $type       = (new Customer())->getMorphClass();
 
                         $translator->addLines([
-                            "models.{$model}.name.{$type}.translated" => 'Translated (locale)',
+                            "models.{$model}.6f19ef5f-5963-437e-a798-29296db08d59.name" => 'Translated (locale)',
                         ], $locale);
 
                         $translator->addLines([
-                            "models.{$model}.name.{$type}.translated-fallback" => 'Translated (fallback)',
+                            "models.{$model}.f3cb1fac-b454-4f23-bbb4-f3d84a1699ae.name" => 'Translated (fallback)',
                         ], $fallback);
 
                         return $locale;
@@ -103,13 +102,11 @@ class CustomerStatusesTest extends TestCase {
                         ]);
                         Status::factory()->create([
                             'id'          => '6f19ef5f-5963-437e-a798-29296db08d59',
-                            'key'         => 'translated',
                             'name'        => 'Should be translated',
                             'object_type' => (new Customer())->getMorphClass(),
                         ]);
                         Status::factory()->create([
                             'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                            'key'         => 'translated-fallback',
                             'name'        => 'Should be translated via fallback',
                             'object_type' => (new Customer())->getMorphClass(),
                         ]);

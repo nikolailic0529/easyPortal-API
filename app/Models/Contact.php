@@ -37,7 +37,7 @@ class Contact extends PolymorphicModel {
 
     protected const CASTS = [
         'phone_valid' => 'bool',
-    ];
+    ] + parent::CASTS;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -53,7 +53,7 @@ class Contact extends PolymorphicModel {
      *
      * @var array<string>
      */
-    protected $casts = self::CASTS + parent::CASTS;
+    protected $casts = self::CASTS;
 
     protected function getTypesPivot(): Pivot {
         return new ContactType();

@@ -2,7 +2,7 @@
 
 namespace App\Services\DataLoader\Normalizers;
 
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 /**
  * @internal

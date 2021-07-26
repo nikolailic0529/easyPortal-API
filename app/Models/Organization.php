@@ -61,7 +61,7 @@ class Organization extends Model implements HasLocalePreference {
 
     protected const CASTS = [
         'branding_dark_theme' => 'bool',
-    ];
+    ] + parent::CASTS;
 
     /**
      * The attributes that should be cast to native types.
@@ -70,7 +70,7 @@ class Organization extends Model implements HasLocalePreference {
      *
      * @var array<string>
      */
-    protected $casts = self::CASTS + parent::CASTS;
+    protected $casts = self::CASTS;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

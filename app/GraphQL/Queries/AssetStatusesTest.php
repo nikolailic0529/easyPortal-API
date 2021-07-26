@@ -76,12 +76,11 @@ class AssetStatusesTest extends TestCase {
                     ]),
                     static function (TestCase $test, string $locale): array {
                         $model = (new Status())->getMorphClass();
-                        $type  = (new Asset())->getMorphClass();
 
                         return [
                             $locale => [
-                                "models.{$model}.name.{$type}.translated"          => 'Translated (locale)',
-                                "models.{$model}.name.{$type}.translated-fallback" => 'Translated (fallback)',
+                                "models.{$model}.6f19ef5f-5963-437e-a798-29296db08d59.name" => 'Translated (locale)',
+                                "models.{$model}.f3cb1fac-b454-4f23-bbb4-f3d84a1699ae.name" => 'Translated (fallback)',
                             ],
                         ];
                     },

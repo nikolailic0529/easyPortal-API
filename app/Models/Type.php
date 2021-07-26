@@ -54,15 +54,6 @@ class Type extends PolymorphicModel implements Translatable {
         return ['name'];
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function getTranslatedPropertyKeys(string $property): array {
-        return [
-            "models.{$this->getMorphClass()}.{$property}.{$this->object_type}.{$this->key}",
-        ];
-    }
-
     public function locations(): BelongsToMany {
         $pivot = new LocationType();
 

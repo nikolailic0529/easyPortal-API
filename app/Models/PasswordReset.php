@@ -17,12 +17,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PasswordReset newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PasswordReset newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PasswordReset query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PasswordReset whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PasswordReset whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PasswordReset whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PasswordReset whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PasswordReset whereToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\PasswordReset whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class PasswordReset extends Model {

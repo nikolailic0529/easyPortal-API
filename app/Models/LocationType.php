@@ -14,12 +14,6 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LocationType newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LocationType newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LocationType query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LocationType whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LocationType whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LocationType whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LocationType whereLocationId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LocationType whereTypeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\LocationType whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class LocationType extends Pivot {

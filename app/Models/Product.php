@@ -31,7 +31,7 @@ class Product extends Model {
     protected const CASTS = [
         'eol' => 'date',
         'eos' => 'date',
-    ];
+    ] + parent::CASTS;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -47,5 +47,5 @@ class Product extends Model {
      *
      * @var array<string>
      */
-    protected $casts = self::CASTS + parent::CASTS;
+    protected $casts = self::CASTS;
 }

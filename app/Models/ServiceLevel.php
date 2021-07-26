@@ -56,13 +56,4 @@ class ServiceLevel extends Model implements Translatable {
     protected function getTranslatableProperties(): array {
         return ['name', 'description'];
     }
-
-    /**
-     * @inheritDoc
-     */
-    protected function getTranslatedPropertyKeys(string $property): array {
-        return [
-            "models.{$this->getMorphClass()}.{$this->getKey()}.{$property}",
-        ];
-    }
 }

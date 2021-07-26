@@ -14,12 +14,6 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ContactType newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ContactType newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ContactType query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ContactType whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ContactType whereContactId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ContactType whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ContactType whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ContactType whereTypeId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ContactType whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class ContactType extends Pivot {

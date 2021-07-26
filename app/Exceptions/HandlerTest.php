@@ -3,7 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 use Throwable;
 
 /**
