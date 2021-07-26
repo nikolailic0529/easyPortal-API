@@ -5,8 +5,10 @@ namespace App\Services\Filesystem\Disks;
 use App\Models\File;
 use App\Models\Model;
 use App\Models\Note;
+use App\Models\Organization;
 use App\Models\User;
 use App\Services\Filesystem\Disk;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Http\UploadedFile;
 use LogicException;
@@ -17,22 +19,25 @@ use function sprintf;
 use function str_replace;
 
 class ModelDisk extends Disk {
-    public const USERS = 'users';
-    public const NOTES = 'notes';
+    public const ORGANIZATIONS = 'organizations';
+    public const USERS         = 'users';
+    public const NOTES         = 'notes';
 
     /**
      * @var array<class-string<\App\Models\Model>,string>
      */
     protected array $map = [
-        User::class => self::USERS,
-        Note::class => self::NOTES,
+        Organization::class => self::ORGANIZATIONS,
+        User::class         => self::USERS,
+        Note::class         => self::NOTES,
     ];
 
     public function __construct(
         Factory $factory,
+        Repository $config,
         protected Model $model,
     ) {
-        parent::__construct($factory);
+        parent::__construct($factory, $config);
     }
 
     public function getName(): string {

@@ -6,17 +6,15 @@ use App\Models\Organization;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
 use App\Services\DataLoader\Schema\UpdateCompanyFile;
+use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\Organization\CurrentOrganization;
-use Illuminate\Contracts\Filesystem\Factory;
-use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Http\UploadedFile;
 
 class UpdateOrg {
     public function __construct(
         protected CurrentOrganization $organization,
         protected Client $client,
-        protected Factory $storage,
-        protected UrlGenerator $url,
+        protected ModelDiskFactory $disks,
     ) {
         // empty
     }
@@ -145,14 +143,12 @@ class UpdateOrg {
     }
 
     protected function store(Organization $organization, ?UploadedFile $file): ?string {
-        if (!$file) {
-            return null;
-        }
+        $url = null;
 
-        $disk = 'public';
-        $path = $file->storePublicly("{$organization->getMorphClass()}/{$organization->getKey()}", $disk);
-        $url  = $this->storage->disk($disk)->url($path);
-        $url  = $this->url->to($url);
+        if ($file) {
+            $disk = $this->disks->getDisk($organization);
+            $url  = $disk->url($disk->store($file));
+        }
 
         return $url;
     }
