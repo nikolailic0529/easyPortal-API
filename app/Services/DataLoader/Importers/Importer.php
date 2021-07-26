@@ -116,18 +116,7 @@ abstract class Importer {
             // and will dump it only after the job/command/request is finished.
             // For long-running jobs, this will lead to huge memory usage
 
-            // We cannot use Telescope:withoutRecording() because it is not
-            // exception-safe now.
-            //
-            // https://github.com/laravel/telescope/pull/1092
-            $previous                = Telescope::$shouldRecord;
-            Telescope::$shouldRecord = false;
-
-            try {
-                $closure();
-            } finally {
-                Telescope::$shouldRecord = $previous;
-            }
+            Telescope::withoutRecording($closure);
         });
     }
 
