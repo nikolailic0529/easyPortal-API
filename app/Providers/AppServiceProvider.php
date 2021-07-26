@@ -8,6 +8,7 @@ use App\Models\AssetCoverage;
 use App\Models\AssetTag;
 use App\Models\AssetWarranty;
 use App\Models\AssetWarrantyServiceLevel;
+use App\Models\ChangeRequest;
 use App\Models\City;
 use App\Models\Contact;
 use App\Models\ContactType;
@@ -19,6 +20,7 @@ use App\Models\CustomerStatus;
 use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
+use App\Models\File;
 use App\Models\Language;
 use App\Models\Location;
 use App\Models\LocationType;
@@ -126,6 +128,8 @@ class AppServiceProvider extends ServiceProvider {
             'service-group'                => ServiceGroup::class,
             'service-level'                => ServiceLevel::class,
             'note'                         => Note::class,
+            'change-request'               => ChangeRequest::class,
+            'file'                         => File::class,
         ]);
     }
 }
