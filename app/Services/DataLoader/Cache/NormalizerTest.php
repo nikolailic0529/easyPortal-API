@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Cache;
 
 use Illuminate\Contracts\Queue\QueueableEntity;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 use function addslashes;
 use function sprintf;

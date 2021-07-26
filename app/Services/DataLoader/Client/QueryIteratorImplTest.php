@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Client;
 
 use Exception;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 /**
  * @internal

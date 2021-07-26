@@ -3,7 +3,7 @@
 namespace App\Utils;
 
 use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 use function count;
 use function sprintf;

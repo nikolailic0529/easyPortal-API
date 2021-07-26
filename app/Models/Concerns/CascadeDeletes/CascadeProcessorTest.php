@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 use Mockery;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 use function array_keys;
 use function count;
@@ -214,7 +214,7 @@ class CascadeProcessorTest extends TestCase {
         $item
             ->shouldReceive('getRelationValue')
             ->with('pivot')
-            ->once()
+            ->twice()
             ->andReturn($pivot);
 
         $model = Mockery::mock(Model::class);

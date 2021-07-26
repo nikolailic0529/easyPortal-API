@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Normalizers;
 
 use Illuminate\Contracts\Queue\QueueableEntity;
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 /**
  * @internal
