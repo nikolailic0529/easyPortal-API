@@ -30,8 +30,8 @@ use LogicException;
  * @property string                                                                $family_name
  * @property string                                                                $email
  * @property bool                                                                  $email_verified
- * @property string                                                                $phone
- * @property bool                                                                  $phone_verified
+ * @property string|null                                                           $phone
+ * @property bool|null                                                             $phone_verified
  * @property string|null                                                           $photo
  * @property array                                                                 $permissions
  * @property string|null                                                           $locale
@@ -41,29 +41,12 @@ use LogicException;
  * @property \Carbon\CarbonImmutable                                               $created_at
  * @property \Carbon\CarbonImmutable                                               $updated_at
  * @property \Carbon\CarbonImmutable|null                                          $deleted_at
- * @property \App\Models\Organization                                              $organization
+ * @property \App\Models\Organization|null                                         $organization
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\UserSearch> $searches
- * @property-read int|null                                                         $searches_count
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmailVerified($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereFamilyName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereGivenName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereLocale($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereOrganizationId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePassword($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePermissions($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhone($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhoneVerified($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhoto($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class User extends Model implements

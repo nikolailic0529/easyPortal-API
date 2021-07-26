@@ -3,7 +3,7 @@
 namespace App\Models;
 
 /**
- * Reseller Customer.
+ * ResellerCustomer.
  *
  * @property string                       $id
  * @property string                       $reseller_id
@@ -14,12 +14,6 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerCustomer newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerCustomer newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerCustomer query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerCustomer whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerCustomer whereCustomerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerCustomer whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerCustomer whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerCustomer whereResellerId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ResellerCustomer whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class ResellerCustomer extends Pivot {

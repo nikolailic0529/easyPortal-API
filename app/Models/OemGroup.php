@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
  * @property \App\Models\Oem              $oem
+ * @method static \Database\Factories\OemGroupFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OemGroup newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OemGroup newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OemGroup query()

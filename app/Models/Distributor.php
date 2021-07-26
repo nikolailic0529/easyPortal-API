@@ -17,11 +17,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Distributor whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Distributor extends Model {
