@@ -964,41 +964,6 @@ type Mutation {
   createQuoteNote(input: CreateQuoteNoteInput!): CreateQuoteNotePayload
 
   """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["requests-asset-change"])> User must be authenticated and have any of these permissions.
-  """
-  requestAssetChange(input: RequestAssetChangeInput!): RequestAssetChangePayload
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["requests-customer-change"])> User must be authenticated and have any of these permissions.
-  """
-  requestCustomerChange(input: RequestCustomerChangeInput!): RequestCustomerChangePayload
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["requests-quote-change"])> User must be authenticated and have any of these permissions.
-  """
-  requestQuoteChange(input: RequestQuoteChangeInput!): RequestQuoteChangePayload
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  updateContractNote(input: UpdateContractNoteInput!): UpdateContractNotePayload
-
-  """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
-  """
-  updateQuoteNote(input: UpdateQuoteNoteInput!): UpdateQuoteNotePayload
-
-  """
   @require <organization(root)> Authenticated user must be a member of the root organization.
   
   @require <root> Authenticated user must be a root.
@@ -1057,9 +1022,30 @@ type Mutation {
   """
   @require <organization> Authenticated user must be a member of the current organization.
   
+  @require <me(["requests-asset-change"])> User must be authenticated and have any of these permissions.
+  """
+  requestAssetChange(input: RequestAssetChangeInput!): RequestAssetChangePayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
   @require <me(["requests-contract-change"])> User must be authenticated and have any of these permissions.
   """
   requestContractChange(input: RequestContractChangeInput!): RequestContractChangePayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["requests-customer-change"])> User must be authenticated and have any of these permissions.
+  """
+  requestCustomerChange(input: RequestCustomerChangeInput!): RequestCustomerChangePayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["requests-quote-change"])> User must be authenticated and have any of these permissions.
+  """
+  requestQuoteChange(input: RequestQuoteChangeInput!): RequestQuoteChangePayload
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -1074,6 +1060,20 @@ type Mutation {
   @require <root> Authenticated user must be a root.
   """
   updateClientTranslations(input: UpdateClientTranslationsInput!): UpdateClientTranslationsPayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  updateContractNote(input: UpdateContractNoteInput!): UpdateContractNotePayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+  """
+  updateQuoteNote(input: UpdateQuoteNoteInput!): UpdateQuoteNotePayload
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
