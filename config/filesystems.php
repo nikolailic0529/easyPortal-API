@@ -2,7 +2,7 @@
 
 use App\Services\Filesystem\Disks\AppDisk;
 use App\Services\Filesystem\Disks\ClientDisk;
-use App\Services\Filesystem\Disks\NotesDisk;
+use App\Services\Filesystem\Disks\ModelDisk;
 
 return [
     /*
@@ -40,9 +40,12 @@ return [
             'driver' => 'local',
             'root'   => storage_path('client'),
         ],
-        NotesDisk::NAME  => [
+
+        // Models
+        // =====================================================================
+        ModelDisk::NOTES => [
             'driver' => 'local',
-            'root'   => storage_path('notes'),
+            'root'   => storage_path('app/models/Notes'),
         ],
 
         // Default
