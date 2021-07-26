@@ -23,7 +23,7 @@ type Query {
 
   # Data
   # ============================================================================
-  # These enpoints available for anyone
+  # These endpoints available for anyone
 
   "List of all OEMs"
   oems(where: OemsQuery @searchBy): [Oem!]!
@@ -153,6 +153,11 @@ type Query {
   @organization
   @me
   @all
+
+  "List of all Timezones"
+  timezones: [String!]!
+  @organization
+  @me
 
   # Customers
   # ============================================================================
