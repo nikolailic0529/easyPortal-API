@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 class HideDeletedNotModelHook implements ModelHookInterface {
     public function run(ModelsCommand $command, Model $model): void {
         (new class($command) extends ModelsCommand {
+            /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected ModelsCommand $command,
             ) {

@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Dev\IdeHelper\ModelsCommand;
 use App\Jobs\HorizonSnapshotCronJob;
 use App\Services\DataLoader\Commands\AnalyzeAssets;
 use App\Services\DataLoader\Commands\ImportAssets;
@@ -39,6 +40,7 @@ class Kernel extends ConsoleKernel {
      * @var array<string>
      */
     protected $commands = [
+        // App
         ImportDistributors::class,
         ImportResellers::class,
         ImportCustomers::class,
@@ -50,6 +52,9 @@ class Kernel extends ConsoleKernel {
         UpdateAsset::class,
         AnalyzeAssets::class,
         SyncPermissions::class,
+
+        // Dev
+        ModelsCommand::class,
     ];
 
     /**
