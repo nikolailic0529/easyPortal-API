@@ -54,14 +54,4 @@ class City extends Model implements Translatable {
     protected function getTranslatableProperties(): array {
         return ['name'];
     }
-
-    /**
-     * @inheritdoc
-     */
-    protected function getTranslatedPropertyKeys(string $property): array {
-        return [
-            "models.{$this->getMorphClass()}.{$property}.{$this->country->code}.{$this->name}",
-            "models.{$this->getMorphClass()}.{$property}.{$this->name}",
-        ];
-    }
 }

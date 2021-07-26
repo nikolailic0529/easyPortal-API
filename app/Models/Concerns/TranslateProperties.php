@@ -47,5 +47,9 @@ trait TranslateProperties {
     /**
      * @return array<string>
      */
-    abstract protected function getTranslatedPropertyKeys(string $property): array;
+    protected function getTranslatedPropertyKeys(string $property): array {
+        return [
+            "models.{$this->getMorphClass()}.{$this->getKey()}.{$property}",
+        ];
+    }
 }

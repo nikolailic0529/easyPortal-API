@@ -40,15 +40,6 @@ class Permission extends Model implements Translatable {
         return ['name', 'description'];
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function getTranslatedPropertyKeys(string $property): array {
-        return [
-            "models.{$this->getMorphClass()}.{$property}.{$this->key}",
-        ];
-    }
-
     public function getNameAttribute(): string {
         return $this->key;
     }

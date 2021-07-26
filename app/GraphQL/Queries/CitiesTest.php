@@ -97,26 +97,6 @@ class CitiesTest extends TestCase {
                             ],
                         ],
                         [
-                            'id'         => '7d4795e9-c687-4ef8-acd7-017afe63bb50',
-                            'name'       => 'Translated (country + fallback)',
-                            'country_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'country'    => [
-                                'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                'name' => 'country name',
-                                'code' => 'c1',
-                            ],
-                        ],
-                        [
-                            'id'         => '9d5bf4eb-f44e-4c2f-9180-5fc78e75d928',
-                            'name'       => 'Translated (country)',
-                            'country_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'country'    => [
-                                'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                'name' => 'country name',
-                                'code' => 'c1',
-                            ],
-                        ],
-                        [
                             'id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                             'name'       => 'Translated (fallback)',
                             'country_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
@@ -144,19 +124,11 @@ class CitiesTest extends TestCase {
                         $model      = (new City())->getMorphClass();
 
                         $translator->addLines([
-                            "models.{$model}.name.translated" => 'Translated (locale)',
+                            "models.{$model}.6f19ef5f-5963-437e-a798-29296db08d59.name" => 'Translated (locale)',
                         ], $locale);
 
                         $translator->addLines([
-                            "models.{$model}.name.c1.translated-country" => 'Translated (country)',
-                        ], $locale);
-
-                        $translator->addLines([
-                            "models.{$model}.name.translated-fallback" => 'Translated (fallback)',
-                        ], $fallback);
-
-                        $translator->addLines([
-                            "models.{$model}.name.c1.translated-country-fallback" => 'Translated (country + fallback)',
+                            "models.{$model}.f3cb1fac-b454-4f23-bbb4-f3d84a1699ae.name" => 'Translated (fallback)',
                         ], $fallback);
 
                         return $locale;
@@ -183,17 +155,6 @@ class CitiesTest extends TestCase {
                             'name'       => 'translated-fallback',
                             'country_id' => $country->getKey(),
                         ]);
-                        City::factory()->create([
-                            'id'         => '9d5bf4eb-f44e-4c2f-9180-5fc78e75d928',
-                            'name'       => 'translated-country',
-                            'country_id' => $country->getKey(),
-                        ]);
-                        City::factory()->create([
-                            'id'         => '7d4795e9-c687-4ef8-acd7-017afe63bb50',
-                            'name'       => 'translated-country-fallback',
-                            'country_id' => $country->getKey(),
-                        ]);
-
                         City::factory()->create([
                             'name'       => 'Another country',
                             'country_id' => Country::factory()->create(),

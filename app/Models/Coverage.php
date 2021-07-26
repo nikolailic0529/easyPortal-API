@@ -41,15 +41,6 @@ class Coverage extends Model implements Translatable {
         return ['name'];
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function getTranslatedPropertyKeys(string $property): array {
-        return [
-            "models.{$this->getMorphClass()}.{$property}.{$this->key}",
-        ];
-    }
-
     public function assets(): BelongsToMany {
         $pivot = new AssetCoverage();
 
