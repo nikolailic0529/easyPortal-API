@@ -61,7 +61,7 @@ class UpdateContractNote {
             $note->pinned = $pinned;
         }
 
-        if ($attached) {
+        if (!is_null($attached)) {
             $files     = [];
             $noteFiles = $note->files->keyBy(static function (File $file) {
                 return $file->getKey();

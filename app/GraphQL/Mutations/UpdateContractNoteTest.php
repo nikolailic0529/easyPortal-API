@@ -46,6 +46,7 @@ class UpdateContractNoteTest extends TestCase {
         array $settings = null,
         Closure $prepare = null,
         array $input = [],
+        string $filename = null,
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
@@ -92,13 +93,10 @@ class UpdateContractNoteTest extends TestCase {
         $map  = [];
         $file = [];
 
-        $uploadTest = false;
-
         if (array_key_exists('files', $input)) {
             if (!empty($input['files'])) {
                 foreach ($input['files'] as $index => $item) {
                     if ($item['content']) {
-                        $uploadTest   = true;
                         $file[$index] = $item;
                         $map[$index]  = ["variables.input.files.{$index}"];
                         unset($input['files'][$index]);
@@ -156,10 +154,12 @@ class UpdateContractNoteTest extends TestCase {
                 ? $this->assertEquals($input['pinned'], $updated['pinned'])
                 : $this->assertFalse($updated['pinned']);
             // Files assertion
-            $this->assertCount(1, $updated['files']);
-            $uploadTest
-                ? $this->assertEquals('new.csv', $updated['files'][0]['name'])
-                : $this->assertEquals('keep.csv', $updated['files'][0]['name']);
+            if ($filename) {
+                $this->assertCount(1, $updated['files']);
+                $this->assertEquals($filename, $updated['files'][0]['name']);
+            } else {
+                $this->assertEmpty($updated['files']);
+            }
         }
     }
     // </editor-fold>
@@ -221,6 +221,7 @@ class UpdateContractNoteTest extends TestCase {
                                 ],
                             ],
                         ],
+                        'new.csv',
                     ],
                     'ok-Ids'              => [
                         new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
@@ -267,6 +268,18 @@ class UpdateContractNoteTest extends TestCase {
                                 ],
                             ],
                         ],
+                        'keep.csv',
+                    ],
+                    'ok-empty files'      => [
+                        new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
+                        $settings,
+                        $prepare,
+                        [
+                            'note'   => 'new note',
+                            'pinned' => true,
+                            'id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                            'files'  => [],
+                        ],
                     ],
                     'optional note'       => [
                         new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
@@ -281,6 +294,7 @@ class UpdateContractNoteTest extends TestCase {
                                 ],
                             ],
                         ],
+                        'new.csv',
                     ],
                     'optional pinned'     => [
                         new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
@@ -296,6 +310,7 @@ class UpdateContractNoteTest extends TestCase {
                                 ],
                             ],
                         ],
+                        'new.csv',
                     ],
                     'optional files'      => [
                         new GraphQLSuccess('updateContractNote', UpdateContractNote::class),
@@ -330,6 +345,7 @@ class UpdateContractNoteTest extends TestCase {
                             'note'   => 'new note',
                             'pinned' => false,
                         ],
+                        'keep.csv',
                     ],
                     'Invalid note id'     => [
                         new GraphQLError('updateContractNote', static function (): array {
@@ -375,10 +391,6 @@ class UpdateContractNoteTest extends TestCase {
                                     'id'      => null,
                                 ],
                             ],
-                        ],
-                        [
-                            'ep.file.max_size' => 250,
-                            'ep.file.formats'  => ['csv'],
                         ],
                     ],
                     'Invalid file size'   => [
@@ -495,6 +507,7 @@ class UpdateContractNoteTest extends TestCase {
                                 ],
                             ],
                         ],
+                        'new.csv',
                     ],
                     'unauthorized' => [
                         new GraphQLUnauthorized('updateContractNote'),
