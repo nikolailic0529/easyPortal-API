@@ -31,15 +31,14 @@ class RequestAssetChange {
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
+        $asset   = Asset::whereKey($args['input']['asset_id'])->first();
         $request = $this->createRequest(
-            $args['input']['asset_id'],
-            (new Asset())->getMorphClass(),
+            $asset,
             $args['input']['subject'],
             $args['input']['message'],
             $args['input']['from'],
             $args['input']['cc'] ?? null,
             $args['input']['bcc'] ?? null,
-            new Asset(),
         );
         return ['created' => $request];
     }
@@ -50,20 +49,18 @@ class RequestAssetChange {
      * @param array<string>|null $bcc
      */
     public function createRequest(
-        string $object_id,
-        string $object_type,
+        Asset|Document|Customer $model,
         string $subject,
         string $message,
         string $from,
         array $cc = null,
         array $bcc = null,
-        Asset|Document|Customer $model,
     ): ChangeRequest {
         $request                  = new ChangeRequest();
         $request->user_id         = $this->auth->user()->getKey();
         $request->organization_id = $this->organization->get()->getKey();
-        $request->object_id       = $object_id;
-        $request->object_type     = $object_type;
+        $request->object_id       = $model->getKey();
+        $request->object_type     = $model->getMorphClass();
         $request->subject         = $subject;
         $request->message         = $message;
         $request->from            = $from;

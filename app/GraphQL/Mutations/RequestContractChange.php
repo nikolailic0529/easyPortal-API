@@ -4,7 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\Document;
 
-class RequestQuoteChange {
+class RequestContractChange {
     public function __construct(
         protected RequestAssetChange $requestAssetChange,
     ) {
@@ -17,9 +17,9 @@ class RequestQuoteChange {
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
-        $quote   = Document::whereKey($args['input']['quote_id'])->first();
-        $request = $this->requestAssetChange->createRequest(
-            $quote,
+        $contract = Document::whereKey($args['input']['contract_id'])->first();
+        $request  = $this->requestAssetChange->createRequest(
+            $contract,
             $args['input']['subject'],
             $args['input']['message'],
             $args['input']['from'],

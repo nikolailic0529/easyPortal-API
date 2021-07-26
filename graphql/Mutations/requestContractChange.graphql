@@ -1,0 +1,20 @@
+extend type Mutation {
+  requestContractChange(
+    input: RequestContractChangeInput!
+  ): RequestContractChangePayload
+  @organization
+  @me(permissions: ["requests-contract-change"])
+}
+
+input RequestContractChangeInput {
+  contract_id: ID! @rules(apply:["required","App\\Rules\\ContractId"])
+  subject: String! @rules(apply:["required"])
+  message: String! @rules(apply:["required"])
+  from: String! @rules(apply:["email"])
+  cc: [String!] @rules(apply:["email"])
+  bcc: [String!] @rules(apply:["email"])
+}
+
+type RequestContractChangePayload {
+  created: ChangeRequest!
+}

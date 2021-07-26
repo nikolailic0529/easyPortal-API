@@ -17,15 +17,14 @@ class RequestCustomerChange {
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
-        $request = $this->requestAssetChange->createRequest(
-            $args['input']['customer_id'],
-            (new Customer())->getMorphClass(),
+        $customer = Customer::whereKey($args['input']['customer_id'])->first();
+        $request  = $this->requestAssetChange->createRequest(
+            $customer,
             $args['input']['subject'],
             $args['input']['message'],
             $args['input']['from'],
             $args['input']['cc'] ?? null,
             $args['input']['bcc'] ?? null,
-            new Customer(),
         );
         return ['created' => $request];
     }

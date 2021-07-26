@@ -6,10 +6,13 @@ use App\Models\Asset;
 use App\Models\ChangeRequest;
 use App\Models\Customer;
 use App\Models\Document;
+use App\Rules\ContractId;
+use App\Rules\QuoteId;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
+use function app;
 use function get_class;
 
 class RequestChange extends Mailable {
@@ -52,7 +55,14 @@ class RequestChange extends Mailable {
                 $type = 'customer';
                 break;
             case Document::class:
-                $type = 'quote';
+                // checking document type if Contact or Quote.
+                if (app()->make(ContractId::class)->passes(null, $this->model->getKey())) {
+                    $type = 'contract';
+                } elseif (app()->make(QuoteId::class)->passes(null, $this->model->getKey())) {
+                    $type = 'quote';
+                } else {
+                    // empty
+                }
                 break;
             default:
                 // empty
