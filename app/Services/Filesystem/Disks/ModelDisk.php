@@ -5,6 +5,7 @@ namespace App\Services\Filesystem\Disks;
 use App\Models\File;
 use App\Models\Model;
 use App\Models\Note;
+use App\Models\User;
 use App\Services\Filesystem\Disk;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Http\UploadedFile;
@@ -16,12 +17,14 @@ use function sprintf;
 use function str_replace;
 
 class ModelDisk extends Disk {
+    public const USERS = 'users';
     public const NOTES = 'notes';
 
     /**
      * @var array<class-string<\App\Models\Model>,string>
      */
     protected array $map = [
+        User::class => self::USERS,
         Note::class => self::NOTES,
     ];
 

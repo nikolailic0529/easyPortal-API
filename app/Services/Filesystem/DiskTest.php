@@ -3,8 +3,8 @@
 namespace App\Services\Filesystem;
 
 use Exception;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Filesystem\Factory;
-use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemAdapter;
 use LogicException;
 use Mockery;
@@ -32,23 +32,29 @@ class DiskTest extends TestCase {
         }
 
         $name = $this->faker->uuid;
-
-        $this->setSettings([
-            "filesystems.disks.{$name}" => $config,
-        ]);
-
-        $this->assertEquals($expected, (new class($name, $this->app->make(Factory::class)) extends Disk {
+        $disk = new class(
+            $this->app->make(Factory::class),
+            $this->app->make(Repository::class),
+            $name,
+        ) extends Disk {
             public function __construct(
-                protected string $name,
                 Factory $factory,
+                Repository $config,
+                protected string $name,
             ) {
-                parent::__construct($factory);
+                parent::__construct($factory, $config);
             }
 
             public function getName(): string {
                 return $this->name;
             }
-        })->url($path));
+        };
+
+        $this->setSettings([
+            "filesystems.disks.{$name}" => $config,
+        ]);
+
+        $this->assertEquals($expected, $disk->url($path));
     }
 
     /**
@@ -59,23 +65,29 @@ class DiskTest extends TestCase {
      */
     public function testIsPublic(bool $expected, array $config): void {
         $name = $this->faker->uuid;
-
-        $this->setSettings([
-            "filesystems.disks.{$name}" => $config,
-        ]);
-
-        $this->assertEquals($expected, (new class($name, $this->app->make(Factory::class)) extends Disk {
+        $disk = new class(
+            $this->app->make(Factory::class),
+            $this->app->make(Repository::class),
+            $name,
+        ) extends Disk {
             public function __construct(
-                protected string $name,
                 Factory $factory,
+                Repository $config,
+                protected string $name,
             ) {
-                parent::__construct($factory);
+                parent::__construct($factory, $config);
             }
 
             public function getName(): string {
                 return $this->name;
             }
-        })->isPublic());
+        };
+
+        $this->setSettings([
+            "filesystems.disks.{$name}" => $config,
+        ]);
+
+        $this->assertEquals($expected, $disk->isPublic());
     }
 
     /**
@@ -130,7 +142,7 @@ class DiskTest extends TestCase {
             ],
             'private'            => [
                 new LogicException(
-                    'Is not possible to get url for the file from non-public disk',
+                    'It is not possible to get url for the file from non-public disk',
                 ),
                 [
                     'driver' => 'local',

@@ -2,13 +2,11 @@
 
 namespace App\Services\Filesystem;
 
-use App\Models\File;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Filesystem\Cloud;
 use Illuminate\Contracts\Filesystem\Factory;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Filesystem\FilesystemAdapter;
-use League\Flysystem\AdapterInterface;
-use League\Flysystem\Filesystem as FlysystemFilesystem;
 use LogicException;
 use Stringable;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +18,7 @@ abstract class Disk implements Stringable {
 
     public function __construct(
         protected Factory $factory,
+        protected Repository $config,
     ) {
         // empty
     }
@@ -29,14 +28,8 @@ abstract class Disk implements Stringable {
     }
 
     public function isPublic(): bool {
-        $fs     = $this->filesystem();
-        $driver = $fs instanceof FilesystemAdapter
-            ? $fs->getDriver()
-            : null;
-        $config = $driver instanceof FlysystemFilesystem
-            ? $driver->getConfig()
-            : null;
-        $public = $config?->get('visibility') === AdapterInterface::VISIBILITY_PUBLIC;
+        $visibility = $this->config->get("filesystems.disks.{$this->getName()}.visibility");
+        $public     = $visibility === FilesystemAdapter::VISIBILITY_PUBLIC;
 
         return $public;
     }
