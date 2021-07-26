@@ -43,6 +43,12 @@ return [
 
         // Models
         // =====================================================================
+        ModelDisk::USERS => [
+            'driver'     => 'local',
+            'root'       => storage_path('app/models/Users'),
+            'url'        => env('APP_URL').'/storage/models/Users',
+            'visibility' => 'public',
+        ],
         ModelDisk::NOTES => [
             'driver' => 'local',
             'root'   => storage_path('app/models/Notes'),
@@ -82,6 +88,6 @@ return [
     |
     */
     'links'   => [
-        public_path('storage') => storage_path('app/public'),
+        public_path('storage/models/Users') => storage_path('app/models/Users'),
     ],
 ];
