@@ -14,18 +14,18 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 /**
  * Note.
  *
- * @property string                       $id
- * @property string                       $note
- * @property string                       $document_id
- * @property string                       $organization_id
- * @property string                       $user_id
- * @property bool                         $pinned
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property \App\Models\User             $user
- * @property \App\Models\Document         $document
- * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\File> $files
+ * @property string                                                     $id
+ * @property string                                                     $note
+ * @property string                                                     $document_id
+ * @property string                                                     $organization_id
+ * @property string                                                     $user_id
+ * @property bool                                                       $pinned
+ * @property \Carbon\CarbonImmutable                                    $created_at
+ * @property \Carbon\CarbonImmutable                                    $updated_at
+ * @property \Carbon\CarbonImmutable|null                               $deleted_at
+ * @property \App\Models\User                                           $user
+ * @property \App\Models\Document                                       $document
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\File> $files
  * @method static \Database\Factories\NoteFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note newQuery()
@@ -42,6 +42,7 @@ class Note extends Model implements CascadeDeletable {
     protected const CASTS = [
         'pinned' => 'bool',
     ] + parent::CASTS;
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *

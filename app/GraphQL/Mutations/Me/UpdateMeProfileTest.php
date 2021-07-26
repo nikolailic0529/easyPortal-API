@@ -2,12 +2,13 @@
 
 namespace App\GraphQL\Mutations\Me;
 
+use App\Models\Organization;
+use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Exceptions\UserDoesntExists;
-use App\Services\KeyCloak\Client\Types\User;
+use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
 use Closure;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -43,19 +44,17 @@ class UpdateMeProfileTest extends TestCase {
         Closure $clientFactory = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
+
         $this->setSettings($settings);
 
-        Storage::fake();
-
         $input = [];
-        $data  = [];
         $map   = [];
         $file  = [];
 
         if ($dataFactory) {
-            $data  = $dataFactory($this);
-            $input = $data;
+            $input = $dataFactory($this, $organization, $user);
 
             if (array_key_exists('photo', $input)) {
                 if (isset($input['photo'])) {
@@ -102,7 +101,9 @@ class UpdateMeProfileTest extends TestCase {
                 'ok'                                    => [
                     new GraphQLSuccess('updateMeProfile', UpdateMeProfile::class),
                     [],
-                    static function (): array {
+                    static function (TestCase $test, Organization $organization, User $user): array {
+                        $user->save();
+
                         return [
                             'first_name'     => 'first',
                             'last_name'      => 'last',
@@ -120,7 +121,7 @@ class UpdateMeProfileTest extends TestCase {
                         $mock
                             ->shouldReceive('getUserById')
                             ->once()
-                            ->andReturn(new User(['attributes' => []]));
+                            ->andReturn(new KeyCloakUser(['attributes' => []]));
                         $mock
                             ->shouldReceive('updateUser')
                             ->once()
@@ -206,7 +207,7 @@ class UpdateMeProfileTest extends TestCase {
                         $mock
                             ->shouldReceive('getUserById')
                             ->once()
-                            ->andReturn(new User(['attributes' => []]));
+                            ->andReturn(new KeyCloakUser(['attributes' => []]));
                         $mock
                             ->shouldReceive('updateUser')
                             ->once()

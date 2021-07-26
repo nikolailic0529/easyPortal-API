@@ -4,43 +4,41 @@ namespace App\GraphQL\Mutations;
 
 use App\Models\File;
 use App\Models\Note;
+use App\Services\Filesystem\ModelDiskFactory;
 use Illuminate\Auth\AuthManager;
-use Illuminate\Http\UploadedFile;
 use Nuwave\Lighthouse\Exceptions\AuthorizationException;
 
-use function array_key_exists;
 use function is_null;
 
 class UpdateContractNote {
     public function __construct(
-        protected CreateQuoteNote $createQuoteNote,
         protected AuthManager $auth,
+        protected ModelDiskFactory $disks,
     ) {
         // empty
     }
+
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
+     * @param null                 $_
+     * @param array<string, mixed> $args
      *
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
         return [
-                'updated' => $this->updateNote(
-                    $args['input']['id'],
-                    ['contracts-view', 'customers-view'],
-                    $args['input']['note'] ?? null,
-                    $args['input']['pinned'] ?? null,
-                    $args['input']['files'] ?? null,
-                ),
+            'updated' => $this->updateNote(
+                $args['input']['id'],
+                ['contracts-view', 'customers-view'],
+                $args['input']['note'] ?? null,
+                $args['input']['pinned'] ?? null,
+                $args['input']['files'] ?? null,
+            ),
         ];
     }
 
     /**
      * @param array<string> $permissions
-     *
-     * @param array<string, mixed> $attached
-     *
+     * @param array<array{id: string}|array{content: \Illuminate\Http\UploadedFile}> $attached
      */
     public function updateNote(
         string $noteId,
@@ -62,17 +60,17 @@ class UpdateContractNote {
         }
 
         if (!is_null($attached)) {
-            $files     = [];
-            $noteFiles = $note->files->keyBy(static function (File $file) {
+            $disk     = $this->disks->getDisk($note);
+            $files    = [];
+            $existing = $note->files->keyBy(static function (File $file) {
                 return $file->getKey();
             });
+
             foreach ($attached as $item) {
-                if (array_key_exists('content', $item) && $item['content'] instanceof UploadedFile) {
-                    // new upload
-                    $files [] = $this->createQuoteNote->createFile($note, $item['content']);
-                } elseif (array_key_exists('id', $item)) {
-                    // keep file
-                    $files[] = $noteFiles->get($item['id']);
+                if (isset($item['content'])) {
+                    $files [] = $disk->storeToFile($item['content']);
+                } elseif (isset($item['id'])) {
+                    $files[] = $existing->get($item['id']);
                 } else {
                     // empty
                 }
@@ -82,6 +80,7 @@ class UpdateContractNote {
         }
 
         $note->save();
+
         return $note;
     }
 }

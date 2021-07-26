@@ -6,6 +6,8 @@ use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
+use function app;
+
 /**
  * File.
  *
@@ -28,9 +30,6 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\File query()
  * @mixin \Eloquent
  */
-
- use function app;
-
 class File extends PolymorphicModel {
     use HasFactory;
 
@@ -46,6 +45,6 @@ class File extends PolymorphicModel {
     }
 
     public function getUrlAttribute(): string {
-        return app()->make(UrlGenerator::class)->route('files', ['id' => $this->getKey() ]);
+        return app()->make(UrlGenerator::class)->route('files', ['id' => $this->getKey()]);
     }
 }

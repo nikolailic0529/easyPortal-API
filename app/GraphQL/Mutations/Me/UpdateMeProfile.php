@@ -3,19 +3,17 @@
 namespace App\GraphQL\Mutations\Me;
 
 use App\Models\User;
+use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User as UserType;
 use Illuminate\Auth\AuthManager;
-use Illuminate\Contracts\Filesystem\Factory;
-use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Http\UploadedFile;
 
 class UpdateMeProfile {
     public function __construct(
         protected AuthManager $auth,
         protected Client $client,
-        protected Factory $storage,
-        protected UrlGenerator $url,
+        protected ModelDiskFactory $disks,
     ) {
         // empty
     }
@@ -62,18 +60,17 @@ class UpdateMeProfile {
             }
         }
         $userType->attributes = $attributes;
+
         return $userType;
     }
 
     protected function store(User $user, ?UploadedFile $file): ?string {
-        if (!$file) {
-            return null;
-        }
+        $url = null;
 
-        $disk = 'public';
-        $path = $file->storePublicly("{$user->getMorphClass()}/{$user->getKey()}", $disk);
-        $url  = $this->storage->disk($disk)->url($path);
-        $url  = $this->url->to($url);
+        if ($file) {
+            $disk = $this->disks->getDisk($user);
+            $url  = $disk->url($disk->store($file));
+        }
 
         return $url;
     }

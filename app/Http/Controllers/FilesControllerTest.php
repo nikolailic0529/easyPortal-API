@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\GraphQL\Mutations\CreateQuoteNote;
 use App\Models\Document;
 use App\Models\Note;
 use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\Type;
 use App\Models\User;
+use App\Services\Filesystem\ModelDiskFactory;
 use Closure;
 use Illuminate\Contracts\Routing\UrlGenerator;
-use Illuminate\Http\Testing\File as TestingFile;
+use Illuminate\Http\UploadedFile;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -68,7 +68,7 @@ class FilesControllerTest extends TestCase {
         }
 
         $url = $this->app->make(UrlGenerator::class);
-        $this->getJson($url->route('files', ['id' => $id ]))->assertThat($expected);
+        $this->getJson($url->route('files', ['id' => $id]))->assertThat($expected);
     }
     // </editor-fold>
 
@@ -93,19 +93,18 @@ class FilesControllerTest extends TestCase {
                 'type_id'     => $type->getKey(),
                 'reseller_id' => $reseller->getKey(),
             ]);
-
-            $note = Note::factory()->create([
+            $note     = Note::factory()->create([
                 'organization_id' => $organization->getKey(),
                 'document_id'     => $document->getKey(),
                 'user_id'         => $user->getKey(),
             ]);
+            $file     = $test->app()->make(ModelDiskFactory::class)->getDisk($note)->storeToFile(
+                UploadedFile::fake()->create('test.txt'),
+            );
 
-            $helper = $test->app->make(CreateQuoteNote::class);
-            $upload = TestingFile::create('document.csv');
-            $file   = $helper->createFile($note, $upload);
-            $file->save();
             return $file->getKey();
         };
+
         return (new MergeDataProvider([
             'quotes-view'    => new CompositeDataProvider(
                 new OrganizationDataProvider(),
@@ -131,6 +130,7 @@ class FilesControllerTest extends TestCase {
                             ?User $user,
                         ) use ($prepare): string {
                             $user2 = User::factory()->create();
+
                             return $prepare($test, $organization, $user2);
                         },
                     ],
