@@ -32,7 +32,6 @@ class CreateOrgRole {
         $role->name         = $group->name;
         $role->organization = $organization;
         $role->save();
-        $role = $role->fresh();
 
         if (array_key_exists('permissions', $args['input'])) {
             // Add permissions
