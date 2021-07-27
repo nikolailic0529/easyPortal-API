@@ -14,7 +14,7 @@ class ContractsAggregate extends AggregateResolver {
         // empty
     }
 
-    protected function getQuery(): DatabaseBuilder|EloquentBuilder {
+    protected function getQuery(mixed $root): DatabaseBuilder|EloquentBuilder {
         $model = new Document();
         $query = $this->types->prepare($model->query())
             ->select("{$model->qualifyColumn('currency_id')} as currency_id")

@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
+use App\GraphQL\Types\CustomerAssetsAggregate;
 use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\Currency;
@@ -31,6 +32,7 @@ use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragmentPaginatedSchema;
+use Tests\GraphQL\JsonFragmentSchema;
 use Tests\TestCase;
 
 /**
@@ -652,6 +654,61 @@ class CustomerTest extends TestCase {
                     }
                 }
             ', ['id' => $customerId])
+            ->assertThat($expected);
+    }
+
+    /**
+     * @covers ::__invoke
+     *
+     * @dataProvider dataProviderQueryAssetAggregate
+     *
+     * @param array<string, mixed> $params
+     */
+    public function testQueryAssetAggregate(
+        Response $expected,
+        Closure $organizationFactory,
+        Closure $userFactory = null,
+        Closure $customerFactory = null,
+        array $params = [],
+    ): void {
+        // Prepare
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
+
+        $customerId = 'wrong';
+        if ($customerFactory) {
+            $customerId = $customerFactory($this, $organization, $user)->getKey();
+        }
+
+        // Test
+        $this
+            ->graphQL(/** @lang GraphQL */ '
+                query customer($id: ID!, $where: SearchByConditionAssetsQuery) {
+                    customer(id: $id) {
+                        assetsAggregate(where: $where) {
+                            count
+                            types {
+                                count
+                                type_id
+                                type {
+                                    id
+                                    key
+                                    name
+                                }
+                            }
+                            coverages {
+                                count
+                                coverage_id
+                                coverage {
+                                    id
+                                    key
+                                    name
+                                }
+                            }
+                        }
+                    }
+                }
+            ', $params + ['id' => $customerId])
             ->assertThat($expected);
     }
     // </editor-fold>
@@ -2033,6 +2090,142 @@ class CustomerTest extends TestCase {
                 ]),
             ),
         ]))->getData();
+    }
+
+        /**
+     * @return array<mixed>
+     */
+    public function dataProviderQueryAssetAggregate(): array {
+        $factory = static function (TestCase $test, Organization $organization): Customer {
+            $reseller = Reseller::factory()
+                ->hasLocations(1, [
+                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20954',
+                    'state'     => 'state2',
+                    'postcode'  => '19912',
+                    'line_one'  => 'reseller_one_data',
+                    'line_two'  => 'reseller_two_data',
+                    'latitude'  => '49.91634204',
+                    'longitude' => '90.26318359',
+                ])
+                ->create([
+                    'id'              => $organization->getKey(),
+                    'name'            => 'reseller1',
+                    'customers_count' => 0,
+                    'locations_count' => 1,
+                    'assets_count'    => 0,
+                ]);
+            $customer = Customer::factory()
+                ->hasContacts(1, [
+                    'name'        => 'contact1',
+                    'email'       => 'contact1@test.com',
+                    'phone_valid' => false,
+                ])
+                ->hasLocations(1, [
+                    'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                    'state'     => 'state1',
+                    'postcode'  => '19911',
+                    'line_one'  => 'line_one_data',
+                    'line_two'  => 'line_two_data',
+                    'latitude'  => '47.91634204',
+                    'longitude' => '-2.26318359',
+                ])
+                ->create([
+                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                    'name'            => 'name aaa',
+                    'assets_count'    => 0,
+                    'contacts_count'  => 1,
+                    'locations_count' => 1,
+                ]);
+            $customer->resellers()->attach($reseller);
+            // Type
+            $type  = Type::factory()->create([
+                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                'name' => 'name1',
+                'key'  => 'key1',
+            ]);
+            $type2 = Type::factory()->create([
+                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+            ]);
+            // Assets
+            Asset::factory()
+                ->hasCoverages(1, [
+                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                    'name' => 'name2',
+                    'key'  => 'key2',
+                ])
+                ->create([
+                    'type_id'     => $type,
+                    'reseller_id' => $reseller,
+                    'customer_id' => $customer,
+                ]);
+            Asset::factory()->create([
+                'type_id'     => $type,
+                'reseller_id' => $reseller,
+                'customer_id' => $customer,
+            ]);
+            Asset::factory()->create([
+                'type_id'     => $type2,
+                'reseller_id' => $reseller,
+                'customer_id' => $customer,
+            ]);
+            // Another customer
+            $customer2 = Customer::factory()->create();
+            Asset::factory()->create([
+                'type_id'     => $type2,
+                'customer_id' => $customer2,
+            ]);
+            return $customer;
+        };
+        $params  = [
+            'where' => [
+                'type_id' => [
+                    'eq' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                ],
+            ],
+        ];
+        return (new CompositeDataProvider(
+            new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
+            new UserDataProvider('customer', [
+                'customers-view',
+            ]),
+            new ArrayDataProvider([
+                'ok' => [
+                    new GraphQLSuccess(
+                        'customer',
+                        new JsonFragmentSchema('assetsAggregate', CustomerAssetsAggregate::class),
+                        [
+                            'assetsAggregate' => [
+                                'count'     => 2,
+                                'types'     => [
+                                    [
+                                        'count'   => 2,
+                                        'type_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                        'type'    => [
+                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                            'name' => 'name1',
+                                            'key'  => 'key1',
+                                        ],
+                                    ],
+                                ],
+                                'coverages' => [
+                                    [
+                                        'count'       => 1,
+                                        'coverage_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                        'coverage'    => [
+                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                            'name' => 'name2',
+                                            'key'  => 'key2',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ),
+                    $factory,
+                    $params,
+                ],
+            ]),
+        ))->getData();
     }
     // </editor-fold>
 }

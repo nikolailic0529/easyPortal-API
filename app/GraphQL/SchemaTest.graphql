@@ -520,6 +520,11 @@ type Customer {
   headquarter: Location
 
   """
+  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  assetsAggregate(where: SearchByConditionAssetsQuery): AssetsAggregate!
+
+  """
   @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
   contracts(

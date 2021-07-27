@@ -10,7 +10,7 @@ use Illuminate\Database\Query\Builder as DatabaseBuilder;
 use Illuminate\Support\Collection;
 
 class AssetsAggregate extends AggregateResolver {
-    protected function getQuery(): DatabaseBuilder|EloquentBuilder {
+    public function prepareQuery(): DatabaseBuilder|EloquentBuilder {
         $model = new Asset();
         $query = $model->query()
             ->select([$model->getQualifiedKeyName(), $model->qualifyColumn('type_id')])
@@ -20,6 +20,10 @@ class AssetsAggregate extends AggregateResolver {
             });
 
         return $query;
+    }
+
+    protected function getQuery(mixed $root): DatabaseBuilder|EloquentBuilder {
+        return $this->prepareQuery();
     }
 
     protected function getResult(EloquentBuilder|DatabaseBuilder $builder): mixed {
