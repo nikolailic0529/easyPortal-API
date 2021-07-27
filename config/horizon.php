@@ -199,6 +199,15 @@ return [
                 'tries'        => 1,
                 'nice'         => 0,
             ],
+            'Scout'      => [
+                'connection'   => 'redis',
+                'queue'        => [Queues::SCOUT],
+                'balance'      => 'auto',
+                'maxProcesses' => 1,
+                'memory'       => 256,
+                'tries'        => 1,
+                'nice'         => 0,
+            ],
         ],
     ],
 ];

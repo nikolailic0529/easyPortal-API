@@ -20,4 +20,9 @@ interface Queues {
      * Default queue for Data Loader Update jobs.
      */
     public const KEYCLOAK_DEFAULT = 'keycloak-default';
+
+    /**
+     * Default queue for Laravel Scout.
+     */
+    public const SCOUT = 'scout';
 }

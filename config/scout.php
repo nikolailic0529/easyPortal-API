@@ -1,5 +1,7 @@
 <?php declare(strict_types = 1);
 
+use App\Services\Queue\Queues;
+
 return [
 
     /*
@@ -15,7 +17,7 @@ return [
     |
     */
 
-    'driver'       => env('SCOUT_DRIVER', 'algolia'),
+    'driver'       => env('SCOUT_DRIVER', 'elastic'),
 
     /*
     |--------------------------------------------------------------------------
@@ -41,7 +43,9 @@ return [
     |
     */
 
-    'queue'        => env('SCOUT_QUEUE', false),
+    'queue'        => [
+        'queue' => Queues::SCOUT,
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -54,7 +58,7 @@ return [
     |
     */
 
-    'after_commit' => false,
+    'after_commit' => true,
 
     /*
     |--------------------------------------------------------------------------
