@@ -2,8 +2,6 @@
 
 namespace App\Services\Organization\Eloquent;
 
-use Illuminate\Database\Eloquent\Relations\Relation;
-
 use function app;
 
 /**
@@ -16,9 +14,5 @@ trait OwnedByOrganization {
 
     public function getOrganizationColumn(): string {
         return 'organization_id';
-    }
-
-    public function getOrganizationThrough(): ?Relation {
-        return null;
     }
 }

@@ -108,8 +108,8 @@ class Customer extends Model {
 
     // <editor-fold desc="OwnedByOrganization">
     // =========================================================================
-    public function getOrganizationThrough(): ?Relation {
-        return $this->hasMany(ResellerCustomer::class);
+    public function getOrganizationColumn(): string {
+        return "resellers.{$this->resellers()->getModel()->getKeyName()}";
     }
     // </editor-fold>
 }

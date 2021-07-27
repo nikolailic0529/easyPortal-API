@@ -4,9 +4,9 @@ namespace App\Services\Organization\Eloquent;
 
 use App\Models\Concerns\GlobalScopes\DisableableScope;
 use App\Services\Organization\CurrentOrganization;
+use App\Utils\ModelProperty;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Relation;
 
 class OwnedByOrganizationScope extends DisableableScope {
     public function __construct(
@@ -25,18 +25,18 @@ class OwnedByOrganizationScope extends DisableableScope {
         }
 
         // Hide data related to another organization
-        $org      = $this->organization->getKey();
-        $column   = $model->getOrganizationColumn();
-        $relation = Relation::noConstraints(static function () use ($model): ?Relation {
-            return $model->getOrganizationThrough();
-        });
+        $organization = $this->organization->getKey();
+        $property     = new ModelProperty($model->getOrganizationColumn());
 
-        if ($relation instanceof Relation) {
-            $builder->whereHas($relation, static function (Builder $builder) use ($column, $relation, $org): void {
-                $builder->where($relation->qualifyColumn($column), '=', $org);
-            });
+        if ($property->isRelation()) {
+            $builder->whereHas(
+                $property->getRelation(),
+                static function (Builder $builder) use ($property, $organization): void {
+                    $builder->where($builder->getModel()->qualifyColumn($property->getName()), '=', $organization);
+                },
+            );
         } else {
-            $builder->where($model->qualifyColumn($column), '=', $org);
+            $builder->where($model->qualifyColumn($property->getName()), '=', $organization);
         }
     }
 }
