@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasFiles;
+use App\Models\Concerns\HasOrganization;
+use App\Models\Concerns\HasUser;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Change Request.
@@ -37,12 +38,15 @@ class ChangeRequest extends PolymorphicModel {
     use HasFactory;
     use OwnedByOrganization;
     use HasFiles;
+    use HasOrganization;
+    use HasUser;
 
     protected const CASTS = [
         'cc'  => 'array',
         'bcc' => 'array',
         'to'  => 'array',
     ] + parent::CASTS;
+
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -58,8 +62,4 @@ class ChangeRequest extends PolymorphicModel {
      * @var array<string>
      */
     protected $casts = self::CASTS;
-
-    public function user(): BelongsTo {
-        return $this->belongsTo(User::class);
-    }
 }

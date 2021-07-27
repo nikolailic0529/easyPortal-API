@@ -38,12 +38,12 @@ class CreateQuoteNote {
      */
     public function createNote(string $documentId, string $content, bool $pinned = false, array $files = []): Note {
         // Create
-        $note                  = new Note();
-        $note->user            = $this->auth->user();
-        $note->document_id     = $documentId;
-        $note->organization_id = $this->organization->getKey();
-        $note->note            = $content;
-        $note->pinned          = $pinned;
+        $note               = new Note();
+        $note->user         = $this->auth->user();
+        $note->document_id  = $documentId;
+        $note->organization = $this->organization->get();
+        $note->note         = $content;
+        $note->pinned       = $pinned;
         $note->save();
 
         // Add files

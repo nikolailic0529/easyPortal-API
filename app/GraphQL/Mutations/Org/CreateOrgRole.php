@@ -25,12 +25,12 @@ class CreateOrgRole {
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
-        $organization          = $this->organization->get();
-        $group                 = $this->client->createSubGroup($organization, $args['input']['name']);
-        $role                  = new Role();
-        $role->id              = $group->id;
-        $role->name            = $group->name;
-        $role->organization_id = $organization->id;
+        $organization       = $this->organization->get();
+        $group              = $this->client->createSubGroup($organization, $args['input']['name']);
+        $role               = new Role();
+        $role->id           = $group->id;
+        $role->name         = $group->name;
+        $role->organization = $organization;
         $role->save();
         $role = $role->fresh();
 
@@ -43,6 +43,7 @@ class CreateOrgRole {
 
         return ['created' => $group];
     }
+
     /**
      * @param array<string> $permissions
      */
