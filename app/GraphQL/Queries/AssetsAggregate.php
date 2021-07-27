@@ -13,7 +13,7 @@ class AssetsAggregate extends AggregateResolver {
     protected function getQuery(): DatabaseBuilder|EloquentBuilder {
         $model = new Asset();
         $query = $model->query()
-            ->select([$model->getKeyName(), $model->qualifyColumn('type_id')])
+            ->select([$model->getQualifiedKeyName(), $model->qualifyColumn('type_id')])
             ->with('type')
             ->with('coverages', static function ($query) {
                 return $query->withCount('assets');
