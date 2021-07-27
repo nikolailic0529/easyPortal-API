@@ -289,6 +289,24 @@ type AssetWarranty {
   serviceLevels: [ServiceLevel!]!
 }
 
+type AssetsAggregate {
+  count: Int!
+  types: [AssetsAggregateType!]!
+  coverages: [AssetsAggregateCoverage!]!
+}
+
+type AssetsAggregateCoverage {
+  count: Int!
+  coverage_id: ID
+  coverage: Type
+}
+
+type AssetsAggregateType {
+  count: Int!
+  type_id: ID
+  type: Type
+}
+
 input AssetsQuery {
   id: ID!
   oem_id: ID!
@@ -1732,6 +1750,13 @@ type Query {
   @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
   asset(id: ID!): Asset
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["assets-view"])> User must be authenticated and have any of these permissions.
+  """
+  assetsAggregate(where: SearchByConditionAssetsQuery): AssetsAggregate!
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
