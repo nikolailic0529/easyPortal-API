@@ -286,7 +286,7 @@ interface Constants {
      */
     #[Service(SyncPermissionsCronJob::class, 'queue')]
     #[Group('keycloak')]
-    public const EP_KEYCLOAK_SYNC_PERMISSIONS_QUEUE = Queues::KEYCLOAK_DEFAULT;
+    public const EP_KEYCLOAK_SYNC_PERMISSIONS_QUEUE = Queues::KEYCLOAK;
     // </editor-fold>
 
     // </editor-fold>
@@ -441,7 +441,7 @@ interface Constants {
      */
     #[Service(ResellersImporterCronJob::class, 'queue')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_RESELLERS_IMPORTER_QUEUE = Queues::DATA_LOADER_DEFAULT;
+    public const EP_DATA_LOADER_RESELLERS_IMPORTER_QUEUE = Queues::DATA_LOADER;
 
     /**
      * Number of seconds the job can run.
@@ -498,7 +498,7 @@ interface Constants {
      */
     #[Service(ResellersUpdaterCronJob::class, 'queue')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_RESELLERS_UPDATER_QUEUE = Queues::DATA_LOADER_DEFAULT;
+    public const EP_DATA_LOADER_RESELLERS_UPDATER_QUEUE = Queues::DATA_LOADER;
 
     /**
      * Number of seconds the job can run.
@@ -555,7 +555,7 @@ interface Constants {
      */
     #[Service(CustomersImporterCronJob::class, 'queue')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_QUEUE = Queues::DATA_LOADER_DEFAULT;
+    public const EP_DATA_LOADER_CUSTOMERS_IMPORTER_QUEUE = Queues::DATA_LOADER;
 
     /**
      * Number of seconds the job can run.
@@ -612,7 +612,7 @@ interface Constants {
      */
     #[Service(CustomersUpdaterCronJob::class, 'queue')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_QUEUE = Queues::DATA_LOADER_DEFAULT;
+    public const EP_DATA_LOADER_CUSTOMERS_UPDATER_QUEUE = Queues::DATA_LOADER;
 
     /**
      * Number of seconds the job can run.
@@ -669,7 +669,7 @@ interface Constants {
      */
     #[Service(AssetsImporterCronJob::class, 'queue')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_ASSETS_IMPORTER_QUEUE = Queues::DATA_LOADER_DEFAULT;
+    public const EP_DATA_LOADER_ASSETS_IMPORTER_QUEUE = Queues::DATA_LOADER;
 
     /**
      * Number of seconds the job can run.
@@ -724,7 +724,7 @@ interface Constants {
      */
     #[Service(AssetsUpdaterCronJob::class, 'queue')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_ASSETS_UPDATER_QUEUE = Queues::DATA_LOADER_DEFAULT;
+    public const EP_DATA_LOADER_ASSETS_UPDATER_QUEUE = Queues::DATA_LOADER;
 
     /**
      * Number of seconds the job can run.
@@ -779,7 +779,7 @@ interface Constants {
      */
     #[Service(DistributorsImporterCronJob::class, 'queue')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_QUEUE = Queues::DATA_LOADER_DEFAULT;
+    public const EP_DATA_LOADER_DISTRIBUTORS_IMPORTER_QUEUE = Queues::DATA_LOADER;
 
     /**
      * Number of seconds the job can run.
@@ -836,7 +836,7 @@ interface Constants {
      */
     #[Service(DistributorsUpdaterCronJob::class, 'queue')]
     #[Group('data_loader')]
-    public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_QUEUE = Queues::DATA_LOADER_DEFAULT;
+    public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_QUEUE = Queues::DATA_LOADER;
 
     /**
      * Number of seconds the job can run.
