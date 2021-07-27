@@ -62,8 +62,4 @@ class ChangeRequest extends PolymorphicModel {
     public function user(): BelongsTo {
         return $this->belongsTo(User::class);
     }
-
-    public function getQualifiedOrganizationColumn(): string {
-        return $this->qualifyColumn('organization_id');
-    }
 }

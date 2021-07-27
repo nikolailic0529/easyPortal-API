@@ -50,22 +50,6 @@ class Note extends Model implements CascadeDeletable {
      */
     protected $table = 'notes';
 
-    public function user(): BelongsTo {
-        return $this->belongsTo(User::class);
-    }
-
-    public function setUserAttribute(User $user): void {
-        $this->user()->associate($user);
-    }
-
-    public function getQualifiedOrganizationColumn(): string {
-        return $this->qualifyColumn('organization_id');
-    }
-
-    public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {
-        return $name === 'files';
-    }
-
     /**
      * The attributes that should be cast to native types.
      *
@@ -74,4 +58,16 @@ class Note extends Model implements CascadeDeletable {
      * @var array<string>
      */
     protected $casts = self::CASTS;
+
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class);
+    }
+
+    public function setUserAttribute(User $user): void {
+        $this->user()->associate($user);
+    }
+
+    public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {
+        return $name === 'files';
+    }
 }

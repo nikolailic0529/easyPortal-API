@@ -14,8 +14,8 @@ trait OwnedByOrganization {
         static::addGlobalScope(app()->make(OwnedByOrganizationScope::class));
     }
 
-    public function getQualifiedOrganizationColumn(): string {
-        return $this->qualifyColumn('reseller_id');
+    public function getOrganizationColumn(): string {
+        return 'organization_id';
     }
 
     public function getOrganizationThrough(): ?Relation {

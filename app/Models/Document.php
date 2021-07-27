@@ -13,6 +13,7 @@ use App\Models\Concerns\HasServiceGroup;
 use App\Models\Concerns\HasType;
 use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByReseller;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -65,7 +66,7 @@ use function count;
  * @mixin \Eloquent
  */
 class Document extends Model implements CascadeDeletable {
-    use OwnedByOrganization;
+    use OwnedByReseller;
     use HasFactory;
     use HasOem;
     use HasType;

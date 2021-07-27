@@ -12,7 +12,7 @@ use App\Models\Concerns\HasStatus;
 use App\Models\Concerns\HasTags;
 use App\Models\Concerns\HasTypeNullable;
 use App\Models\Concerns\SyncHasMany;
-use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByReseller;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -64,7 +64,7 @@ use function sprintf;
  * @mixin \Eloquent
  */
 class Asset extends Model {
-    use OwnedByOrganization;
+    use OwnedByReseller;
     use HasFactory;
     use SyncHasMany;
     use HasOem;

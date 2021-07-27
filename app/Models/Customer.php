@@ -9,12 +9,13 @@ use App\Models\Concerns\HasLocations;
 use App\Models\Concerns\HasQuotes;
 use App\Models\Concerns\HasStatuses;
 use App\Models\Concerns\HasType;
-use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByReseller;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Laravel\Scout\Searchable;
 
 use function app;
 
@@ -47,7 +48,8 @@ use function app;
  * @mixin \Eloquent
  */
 class Customer extends Model {
-    use OwnedByOrganization;
+    use Searchable;
+    use OwnedByReseller;
     use HasFactory;
     use HasType;
     use HasStatuses;
@@ -77,6 +79,8 @@ class Customer extends Model {
      */
     protected $casts = self::CASTS;
 
+    // <editor-fold desc="Relations">
+    // =========================================================================
     public function headquarter(): MorphOne {
         $type = app()->make(Repository::class)->get('ep.headquarter_type');
 
@@ -100,13 +104,10 @@ class Customer extends Model {
     protected function getStatusesPivot(): Pivot {
         return new CustomerStatus();
     }
+    // </editor-fold>
 
     // <editor-fold desc="OwnedByOrganization">
     // =========================================================================
-    public function getQualifiedOrganizationColumn(): string {
-        return $this->getOrganizationThrough()->getModel()->qualifyColumn('reseller_id');
-    }
-
     public function getOrganizationThrough(): ?Relation {
         return $this->hasMany(ResellerCustomer::class);
     }

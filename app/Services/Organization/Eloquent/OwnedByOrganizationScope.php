@@ -25,17 +25,18 @@ class OwnedByOrganizationScope extends DisableableScope {
         }
 
         // Hide data related to another organization
-        $organization = $this->organization->getKey();
-        $relation     = Relation::noConstraints(static function () use ($model): ?Relation {
+        $org      = $this->organization->getKey();
+        $column   = $model->getOrganizationColumn();
+        $relation = Relation::noConstraints(static function () use ($model): ?Relation {
             return $model->getOrganizationThrough();
         });
 
-        if ($relation) {
-            $builder->whereHas($relation, static function (Builder $builder) use ($model, $organization): void {
-                $builder->where($model->getQualifiedOrganizationColumn(), '=', $organization);
+        if ($relation instanceof Relation) {
+            $builder->whereHas($relation, static function (Builder $builder) use ($column, $relation, $org): void {
+                $builder->where($relation->qualifyColumn($column), '=', $org);
             });
         } else {
-            $builder->where($model->getQualifiedOrganizationColumn(), '=', $organization);
+            $builder->where($model->qualifyColumn($column), '=', $org);
         }
     }
 }
