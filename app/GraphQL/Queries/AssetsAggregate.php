@@ -2,67 +2,27 @@
 
 namespace App\GraphQL\Queries;
 
-use App\GraphQL\Resolvers\AggregateResolver;
-use App\Models\Asset;
-use App\Models\Coverage;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Query\Builder as DatabaseBuilder;
-use Illuminate\Support\Collection;
+use GraphQL\Type\Definition\ResolveInfo;
+use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-class AssetsAggregate extends AggregateResolver {
-    public function prepareQuery(): DatabaseBuilder|EloquentBuilder {
-        $model = new Asset();
-        $query = $model->query()
-            ->select([$model->getQualifiedKeyName(), $model->qualifyColumn('type_id')])
-            ->with('type')
-            ->with('coverages', static function ($query) {
-                return $query->withCount('assets');
-            });
-
-        return $query;
+class AssetsAggregate {
+    public function __construct(
+        protected AssetsAggregateCount $assetsAggregateCount,
+        protected AssetsAggregateTypes $assetsAggregateType,
+        protected AssetsAggregateCoverages $assetsAggregateCoverages,
+    ) {
+        //empty
     }
-
-    protected function getQuery(mixed $root): DatabaseBuilder|EloquentBuilder {
-        return $this->prepareQuery();
-    }
-
-    protected function getResult(EloquentBuilder|DatabaseBuilder $builder): mixed {
-        $results   = $builder->get();
-        $aggregate = [
-            'count'     => $results->count(),
-            'types'     => [],
-            'coverages' => [],
+    /**
+     * @param  null  $_
+     * @param  array<string, mixed>  $args
+     * @return array<string,mixed>
+     */
+    public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): array {
+        return [
+            'count'     => ($this->assetsAggregateCount)($root, $args, $context, $resolveInfo),
+            'types'     => ($this->assetsAggregateType)($root, $args, $context, $resolveInfo),
+            'coverages' => ($this->assetsAggregateCoverages)($root, $args, $context, $resolveInfo),
         ];
-
-        $types = $results->groupBy('type_id')->map(static function ($group, $key) {
-            return [
-                'count'   => $group->count(),
-                'type_id' => $key,
-                'type'    => $group->first()->type,
-            ];
-        });
-
-        $coverages = new Collection();
-        $results->each(static function ($result) use ($coverages): void {
-            $result->coverages->each(static function ($coverage) use ($coverages): void {
-                $coverages->push($coverage);
-            });
-        });
-
-        $coverages = $coverages
-            ->groupBy((new Coverage())->getKeyName())
-            ->map(static function ($group, $key): array {
-                $coverage = $group->first();
-                return [
-                    'count'       => $coverage->assets_count,
-                    'coverage_id' => $key,
-                    'coverage'    => $coverage,
-                ];
-            });
-
-        $aggregate['types']     = $types;
-        $aggregate['coverages'] = $coverages;
-
-        return $aggregate;
     }
 }
