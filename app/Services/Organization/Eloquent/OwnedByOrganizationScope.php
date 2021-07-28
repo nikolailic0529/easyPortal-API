@@ -30,7 +30,7 @@ class OwnedByOrganizationScope extends DisableableScope {
 
         if ($property->isRelation()) {
             $builder->whereHas(
-                $property->getRelation(),
+                $property->getRelationName(),
                 static function (Builder $builder) use ($property, $organization): void {
                     $builder->where($builder->getModel()->qualifyColumn($property->getName()), '=', $organization);
                 },
