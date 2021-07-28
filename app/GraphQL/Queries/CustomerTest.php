@@ -2,7 +2,6 @@
 
 namespace App\GraphQL\Queries;
 
-use App\GraphQL\Types\CustomerAssetsAggregate;
 use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\Currency;
@@ -2192,7 +2191,7 @@ class CustomerTest extends TestCase {
                 'ok' => [
                     new GraphQLSuccess(
                         'customer',
-                        new JsonFragmentSchema('assetsAggregate', CustomerAssetsAggregate::class),
+                        new JsonFragmentSchema('assetsAggregate', AssetsAggregate::class),
                         [
                             'assetsAggregate' => [
                                 'count'     => 2,
