@@ -2391,15 +2391,14 @@ input SearchByComplexRelationServiceLevelsQuery {
   count: SearchByScalarInt
 
   """
-  Shortcut for `doesntHave()`, same as:
-  
-  ```
-  count: {
-    lt: 1
-  }
-  ```
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
   """
-  not: Boolean! = false
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
 
   """Complex operator marker."""
   relation: SearchByTypeFlag! = yes
@@ -2504,15 +2503,14 @@ input SearchByComplexRelationUsersQuery {
   count: SearchByScalarInt
 
   """
-  Shortcut for `doesntHave()`, same as:
-  
-  ```
-  count: {
-    lt: 1
-  }
-  ```
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
   """
-  not: Boolean! = false
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
 
   """Complex operator marker."""
   relation: SearchByTypeFlag! = yes
