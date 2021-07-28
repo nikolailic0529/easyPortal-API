@@ -8,7 +8,8 @@
         "cc",
         "bcc",
         "user_id",
-        "user"
+        "user",
+        "files"
     ],
     "properties": {
         "id": {
@@ -66,6 +67,20 @@
                 },
                 "family_name": {
                     "type": "string"
+                }
+            }
+        },
+        "files": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
                 }
             }
         },

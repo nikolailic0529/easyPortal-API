@@ -120,6 +120,9 @@ class RequestContractChangeTest extends TestCase {
                         given_name
                         family_name
                     }
+                    files {
+                        name
+                    }
                 }
             }
         }';
@@ -188,6 +191,11 @@ class RequestContractChangeTest extends TestCase {
                                 'given_name'  => 'first',
                                 'family_name' => 'last',
                             ],
+                            'files'   => [
+                                [
+                                    'name' => 'documents.csv',
+                                ],
+                            ],
                         ],
                     ]),
                     $settings,
@@ -199,7 +207,7 @@ class RequestContractChangeTest extends TestCase {
                         'from'        => 'user@example.com',
                         'cc'          => ['cc@example.com'],
                         'bcc'         => ['bcc@example.com'],
-                        'files' => [
+                        'files'       => [
                             UploadedFile::fake()->create('documents.csv', 100),
                         ],
                     ],

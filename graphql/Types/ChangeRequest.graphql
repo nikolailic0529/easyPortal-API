@@ -10,4 +10,5 @@ type ChangeRequest {
   to: [String!]!
   cc: [String!]
   bcc: [String!]
+  files: [File!]! @morphMany
 }

@@ -109,6 +109,9 @@ class RequestAssetChangeTest extends TestCase {
                         given_name
                         family_name
                     }
+                    files {
+                        name
+                    }
                 }
             }
         }';
@@ -174,18 +177,23 @@ class RequestAssetChangeTest extends TestCase {
                                 'given_name'  => 'first',
                                 'family_name' => 'last',
                             ],
+                            'files'   => [
+                                [
+                                    'name' => 'documents.csv',
+                                ],
+                            ],
                         ],
                     ]),
                     $settings,
                     $prepare,
                     [
-                        'asset_id'    => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-                        'subject'     => 'subject',
-                        'message'     => 'change request',
-                        'from'        => 'user@example.com',
-                        'cc'          => ['cc@example.com'],
-                        'bcc'         => ['bcc@example.com'],
-                        'files' => [
+                        'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                        'subject'  => 'subject',
+                        'message'  => 'change request',
+                        'from'     => 'user@example.com',
+                        'cc'       => ['cc@example.com'],
+                        'bcc'      => ['bcc@example.com'],
+                        'files'    => [
                             UploadedFile::fake()->create('documents.csv', 100),
                         ],
                     ],
