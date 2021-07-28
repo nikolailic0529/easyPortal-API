@@ -7,6 +7,7 @@ use App\Models\Asset;
 use App\Models\ChangeRequest;
 use App\Models\Customer;
 use App\Models\Document;
+use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Config\Repository;
@@ -21,6 +22,7 @@ class RequestAssetChange {
         protected CurrentOrganization $organization,
         protected Mailer $mail,
         protected Repository $config,
+        protected ModelDiskFactory $disks,
     ) {
         // empty
     }
@@ -37,6 +39,7 @@ class RequestAssetChange {
             $args['input']['subject'],
             $args['input']['message'],
             $args['input']['from'],
+            $args['input']['attachments'] ?? [],
             $args['input']['cc'] ?? null,
             $args['input']['bcc'] ?? null,
         );
@@ -44,6 +47,8 @@ class RequestAssetChange {
     }
 
     /**
+     * @param array<string> $attachments
+     *
      * @param array<string>|null $cc
      *
      * @param array<string>|null $bcc
@@ -53,6 +58,7 @@ class RequestAssetChange {
         string $subject,
         string $message,
         string $from,
+        array $attachments = [],
         array $cc = null,
         array $bcc = null,
     ): ChangeRequest {
@@ -69,8 +75,14 @@ class RequestAssetChange {
         $request->bcc             = array_unique(array_filter($bcc)) ?: null;
         $request->save();
 
+        // Add files
+        $files = [];
+        $disk  = $this->disks->getDisk($request);
+        foreach ($attachments as $attachment) {
+            $files[] = $disk->filesystem()->path($disk->store($attachment));
+        }
         // Send Email
-        $this->mail->send(new RequestChange($request, $model));
+        $this->mail->send(new RequestChange($request, $model, $files));
         return $request;
     }
 }

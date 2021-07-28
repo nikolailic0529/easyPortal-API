@@ -22,11 +22,14 @@ class RequestChange extends Mailable {
     /**
      * Create a new message instance.
      *
+     * @param array<string> $files
+     *
      * @return void
      */
     public function __construct(
         protected ChangeRequest $request,
         protected Asset|Document|Customer $model,
+        protected array $files,
     ) {
         // empty
     }
@@ -44,6 +47,12 @@ class RequestChange extends Mailable {
 
         if ($this->request->bcc) {
             $mail = $mail->bcc($this->request->bcc);
+        }
+
+        if (!empty($files)) {
+            foreach ($files as $file) {
+                $mail = $mail->attach($file);
+            }
         }
 
         $type = '';

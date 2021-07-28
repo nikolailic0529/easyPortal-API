@@ -13,6 +13,7 @@ input RequestContractChangeInput {
   from: String! @rules(apply:["email"])
   cc: [String!] @rules(apply:["email"])
   bcc: [String!] @rules(apply:["email"])
+  attachments: [Upload!]
 }
 
 type RequestContractChangePayload {

@@ -23,6 +23,7 @@ class RequestQuoteChange {
             $args['input']['subject'],
             $args['input']['message'],
             $args['input']['from'],
+            $args['input']['attachments'] ?? [],
             $args['input']['cc'] ?? null,
             $args['input']['bcc'] ?? null,
         );

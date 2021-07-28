@@ -8,6 +8,7 @@ use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\User;
 use Closure;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Mail;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -19,6 +20,7 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
 use function __;
+use function array_key_exists;
 
 /**
  * @internal
@@ -78,8 +80,21 @@ class RequestAssetChangeTest extends TestCase {
             'message'  => 'message',
             'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
         ];
-        // Test
-        $this->graphQL(/** @lang GraphQL */ 'mutation RequestAssetChange($input: RequestAssetChangeInput!) {
+
+        $map  = [];
+        $file = [];
+
+        if (array_key_exists('attachments', $input)) {
+            if (!empty($input['attachments'])) {
+                foreach ($input['attachments'] as $index => $item) {
+                    $file[$index] = $item;
+                    $map[$index]  = ["variables.input.attachments.{$index}"];
+                }
+                $input['attachments'] = null;
+            }
+        }
+
+        $query      = /** @lang GraphQL */ 'mutation RequestAssetChange($input: RequestAssetChangeInput!) {
             requestAssetChange(input:$input) {
                 created {
                     subject
@@ -96,8 +111,14 @@ class RequestAssetChangeTest extends TestCase {
                     }
                 }
             }
-        }', ['input' => $input])
-        ->assertThat($expected);
+        }';
+        $operations = [
+            'operationName' => 'RequestAssetChange',
+            'query'         => $query,
+            'variables'     => ['input' => $input],
+        ];
+        // Test
+        $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
             Mail::assertSent(RequestChange::class);
@@ -158,12 +179,15 @@ class RequestAssetChangeTest extends TestCase {
                     $settings,
                     $prepare,
                     [
-                        'asset_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-                        'subject'  => 'subject',
-                        'message'  => 'change request',
-                        'from'     => 'user@example.com',
-                        'cc'       => ['cc@example.com'],
-                        'bcc'      => ['bcc@example.com'],
+                        'asset_id'    => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
+                        'subject'     => 'subject',
+                        'message'     => 'change request',
+                        'from'        => 'user@example.com',
+                        'cc'          => ['cc@example.com'],
+                        'bcc'         => ['bcc@example.com'],
+                        'attachments' => [
+                            UploadedFile::fake()->create('documents.csv', 100),
+                        ],
                     ],
                 ],
                 'Invalid asset'   => [
