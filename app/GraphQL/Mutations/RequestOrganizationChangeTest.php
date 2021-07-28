@@ -88,6 +88,9 @@ class RequestOrganizationChangeTest extends TestCase {
                         given_name
                         family_name
                     }
+                    files {
+                        name
+                    }
                 }
             }
         }';
@@ -143,6 +146,11 @@ class RequestOrganizationChangeTest extends TestCase {
                                 'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
                                 'given_name'  => 'first',
                                 'family_name' => 'last',
+                            ],
+                            'files'   => [
+                                [
+                                    'name' => 'documents.csv',
+                                ],
                             ],
                         ],
                     ]),

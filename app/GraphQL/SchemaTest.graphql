@@ -337,6 +337,7 @@ type ChangeRequest {
   to: [String!]!
   cc: [String!]
   bcc: [String!]
+  files: [File!]!
 }
 
 input CitiesQuery {
@@ -1039,6 +1040,13 @@ type Mutation {
   @require <me(["requests-customer-change"])> User must be authenticated and have any of these permissions.
   """
   requestCustomerChange(input: RequestCustomerChangeInput!): RequestCustomerChangePayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
+  """
+  requestOrganizationChange(input: RequestOrganizationChangeInput!): RequestOrganizationChangePayload
 
   """
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1927,6 +1935,19 @@ input RequestCustomerChangeInput {
 }
 
 type RequestCustomerChangePayload {
+  created: ChangeRequest!
+}
+
+input RequestOrganizationChangeInput {
+  subject: String!
+  message: String!
+  from: String!
+  cc: [String!]
+  bcc: [String!]
+  files: [Upload!]
+}
+
+type RequestOrganizationChangePayload {
   created: ChangeRequest!
 }
 
