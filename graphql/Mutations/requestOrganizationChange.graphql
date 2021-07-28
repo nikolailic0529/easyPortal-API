@@ -1,0 +1,20 @@
+extend type Mutation {
+  requestOrganizationChange(
+    input: RequestOrganizationChangeInput!
+  ): RequestOrganizationChangePayload
+  @organization
+  @me(permissions: ["org-administer"])
+}
+
+input RequestOrganizationChangeInput {
+  subject: String! @rules(apply:["required"])
+  message: String! @rules(apply:["required"])
+  from: String! @rules(apply:["email"])
+  cc: [String!] @rules(apply:["email"])
+  bcc: [String!] @rules(apply:["email"])
+  files: [Upload!]
+}
+
+type RequestOrganizationChangePayload {
+  created: ChangeRequest!
+}
