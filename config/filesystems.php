@@ -60,10 +60,8 @@ return [
             'root'   => storage_path('app/models/Notes'),
         ],
         ModelDisk::CHANGE_REQUESTS => [
-            'driver'     => 'local',
-            'root'       => storage_path('app/models/ChangeRequest'),
-            'url'        => env('APP_URL').'/storage/models/ChangeRequest',
-            'visibility' => 'public',
+            'driver' => 'local',
+            'root'   => storage_path('app/models/ChangeRequest'),
         ],
 
         // Default

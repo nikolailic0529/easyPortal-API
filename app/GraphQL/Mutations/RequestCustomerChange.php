@@ -23,7 +23,7 @@ class RequestCustomerChange {
             $args['input']['subject'],
             $args['input']['message'],
             $args['input']['from'],
-            $args['input']['attachments'] ?? [],
+            $args['input']['files'] ?? [],
             $args['input']['cc'] ?? null,
             $args['input']['bcc'] ?? null,
         );

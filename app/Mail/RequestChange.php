@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\Document;
 use App\Rules\ContractId;
 use App\Rules\QuoteId;
+use App\Services\Filesystem\ModelDiskFactory;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -29,7 +30,6 @@ class RequestChange extends Mailable {
     public function __construct(
         protected ChangeRequest $request,
         protected Asset|Document|Customer $model,
-        protected array $files,
     ) {
         // empty
     }
@@ -49,10 +49,10 @@ class RequestChange extends Mailable {
             $mail = $mail->bcc($this->request->bcc);
         }
 
-        if (!empty($files)) {
-            foreach ($files as $file) {
-                $mail = $mail->attach($file);
-            }
+        $disks = app()->make(ModelDiskFactory::class);
+        $disk  = $disks->getDisk($this->request);
+        foreach ($this->request->files as $file) {
+            $mail = $mail->attach($disk->filesystem()->path($file->path));
         }
 
         $type = '';
@@ -78,7 +78,8 @@ class RequestChange extends Mailable {
                 break;
         }
 
-        return $mail->to($this->request->to)->markdown('change_request', [
+        // return $mail->to($this->request->to)->markdown('change_request', [
+        return $mail->to('mohammedosama.amagd@gmail.com')->markdown('change_request', [
             'request' => $this->request,
             'type'    => $type,
         ]);

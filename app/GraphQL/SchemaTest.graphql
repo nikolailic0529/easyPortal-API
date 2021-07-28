@@ -1895,7 +1895,7 @@ input RequestAssetChangeInput {
   from: String!
   cc: [String!]
   bcc: [String!]
-  attachments: [Upload!]
+  files: [Upload!]
 }
 
 type RequestAssetChangePayload {
@@ -1909,7 +1909,7 @@ input RequestContractChangeInput {
   from: String!
   cc: [String!]
   bcc: [String!]
-  attachments: [Upload!]
+  files: [Upload!]
 }
 
 type RequestContractChangePayload {
@@ -1923,7 +1923,7 @@ input RequestCustomerChangeInput {
   from: String!
   cc: [String!]
   bcc: [String!]
-  attachments: [Upload!]
+  files: [Upload!]
 }
 
 type RequestCustomerChangePayload {
@@ -1937,7 +1937,7 @@ input RequestQuoteChangeInput {
   from: String!
   cc: [String!]
   bcc: [String!]
-  attachments: [Upload!]
+  files: [Upload!]
 }
 
 type RequestQuoteChangePayload {

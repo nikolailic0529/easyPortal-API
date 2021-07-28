@@ -82,13 +82,13 @@ class RequestCustomerChangeTest extends TestCase {
         $map   = [];
         $file  = [];
 
-        if (array_key_exists('attachments', $input)) {
-            if (!empty($input['attachments'])) {
-                foreach ($input['attachments'] as $index => $item) {
+        if (array_key_exists('files', $input)) {
+            if (!empty($input['files'])) {
+                foreach ($input['files'] as $index => $item) {
                     $file[$index] = $item;
-                    $map[$index]  = ["variables.input.attachments.{$index}"];
+                    $map[$index]  = ["variables.input.files.{$index}"];
                 }
-                $input['attachments'] = null;
+                $input['files'] = null;
             }
         }
 
@@ -197,7 +197,7 @@ class RequestCustomerChangeTest extends TestCase {
                         'from'        => 'user@example.com',
                         'cc'          => ['cc@example.com'],
                         'bcc'         => ['bcc@example.com'],
-                        'attachments' => [
+                        'files' => [
                             UploadedFile::fake()->create('documents.csv', 100),
                         ],
                     ],
