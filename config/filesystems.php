@@ -32,47 +32,51 @@ return [
     'disks'   => [
         // Internal, must be "local".
         // =====================================================================
-        AppDisk::NAME            => [
+        AppDisk::NAME              => [
             'driver' => 'local',
             'root'   => storage_path('app'),
         ],
-        ClientDisk::NAME         => [
+        ClientDisk::NAME           => [
             'driver' => 'local',
             'root'   => storage_path('client'),
         ],
 
         // Models
         // =====================================================================
-        ModelDisk::ORGANIZATIONS => [
+        ModelDisk::ORGANIZATIONS   => [
             'driver'     => 'local',
             'root'       => storage_path('app/models/Organizations'),
             'url'        => env('APP_URL').'/storage/models/Organizations',
             'visibility' => 'public',
         ],
-        ModelDisk::USERS         => [
+        ModelDisk::USERS           => [
             'driver'     => 'local',
             'root'       => storage_path('app/models/Users'),
             'url'        => env('APP_URL').'/storage/models/Users',
             'visibility' => 'public',
         ],
-        ModelDisk::NOTES         => [
+        ModelDisk::NOTES           => [
             'driver' => 'local',
             'root'   => storage_path('app/models/Notes'),
+        ],
+        ModelDisk::CHANGE_REQUESTS => [
+            'driver' => 'local',
+            'root'   => storage_path('app/models/ChangeRequest'),
         ],
 
         // Default
         // =====================================================================
-        'local'                  => [
+        'local'                    => [
             'driver' => 'local',
             'root'   => storage_path('app'),
         ],
-        'public'                 => [
+        'public'                   => [
             'driver'     => 'local',
             'root'       => storage_path('app/public'),
             'url'        => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
-        's3'                     => [
+        's3'                       => [
             'driver'   => 's3',
             'key'      => env('AWS_ACCESS_KEY_ID'),
             'secret'   => env('AWS_SECRET_ACCESS_KEY'),

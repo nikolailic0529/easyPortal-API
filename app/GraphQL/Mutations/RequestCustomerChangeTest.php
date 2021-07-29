@@ -8,6 +8,7 @@ use App\Models\Organization;
 use App\Models\Reseller;
 use App\Models\User;
 use Closure;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Mail;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -19,6 +20,7 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
 use function __;
+use function array_key_exists;
 
 /**
  * @internal
@@ -77,8 +79,20 @@ class RequestCustomerChangeTest extends TestCase {
             'message'     => 'message',
             'customer_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
         ];
-        // Test
-        $this->graphQL(/** @lang GraphQL */ 'mutation RequestCustomerChange($input: RequestCustomerChangeInput!) {
+        $map   = [];
+        $file  = [];
+
+        if (array_key_exists('files', $input)) {
+            if (!empty($input['files'])) {
+                foreach ($input['files'] as $index => $item) {
+                    $file[$index] = $item;
+                    $map[$index]  = ["variables.input.files.{$index}"];
+                }
+                $input['files'] = null;
+            }
+        }
+
+        $query      = /** @lang GraphQL */ 'mutation RequestCustomerChange($input: RequestCustomerChangeInput!) {
             requestCustomerChange(input:$input) {
                 created {
                     subject
@@ -93,10 +107,19 @@ class RequestCustomerChangeTest extends TestCase {
                         given_name
                         family_name
                     }
+                    files {
+                        name
+                    }
                 }
             }
-        }', ['input' => $input])
-        ->assertThat($expected);
+        }';
+        $operations = [
+            'operationName' => 'RequestCustomerChange',
+            'query'         => $query,
+            'variables'     => ['input' => $input],
+        ];
+        // Test
+        $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
 
         if ($expected instanceof GraphQLSuccess) {
             Mail::assertSent(RequestChange::class);
@@ -151,6 +174,11 @@ class RequestCustomerChangeTest extends TestCase {
                                 'given_name'  => 'first',
                                 'family_name' => 'last',
                             ],
+                            'files'   => [
+                                [
+                                    'name' => 'documents.csv',
+                                ],
+                            ],
                         ],
                     ]),
                     $settings,
@@ -162,6 +190,9 @@ class RequestCustomerChangeTest extends TestCase {
                         'from'        => 'user@example.com',
                         'cc'          => ['cc@example.com'],
                         'bcc'         => ['bcc@example.com'],
+                        'files'       => [
+                            UploadedFile::fake()->create('documents.csv', 100),
+                        ],
                     ],
                 ],
                 'Invalid Customer' => [

@@ -2,6 +2,7 @@
 
 namespace App\Services\Filesystem\Disks;
 
+use App\Models\ChangeRequest;
 use App\Models\File;
 use App\Models\Model;
 use App\Models\Note;
@@ -19,17 +20,19 @@ use function sprintf;
 use function str_replace;
 
 class ModelDisk extends Disk {
-    public const ORGANIZATIONS = 'organizations';
-    public const USERS         = 'users';
-    public const NOTES         = 'notes';
+    public const ORGANIZATIONS   = 'organizations';
+    public const USERS           = 'users';
+    public const NOTES           = 'notes';
+    public const CHANGE_REQUESTS = 'changeRequests';
 
     /**
      * @var array<class-string<\App\Models\Model>,string>
      */
     protected array $map = [
-        Organization::class => self::ORGANIZATIONS,
-        User::class         => self::USERS,
-        Note::class         => self::NOTES,
+        Organization::class  => self::ORGANIZATIONS,
+        User::class          => self::USERS,
+        Note::class          => self::NOTES,
+        ChangeRequest::class => self::CHANGE_REQUESTS,
     ];
 
     public function __construct(

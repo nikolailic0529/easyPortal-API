@@ -19,11 +19,6 @@ class RequestChange extends Mailable {
     use Queueable;
     use SerializesModels;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
     public function __construct(
         protected ChangeRequest $request,
         protected Asset|Document|Customer $model,
@@ -44,6 +39,11 @@ class RequestChange extends Mailable {
 
         if ($this->request->bcc) {
             $mail = $mail->bcc($this->request->bcc);
+        }
+
+        foreach ($this->request->files as $file) {
+            /** @var \App\Models\File $file */
+            $mail = $mail->attachFromStorageDisk($file->disk, $file->path, $file->name);
         }
 
         $type = '';
