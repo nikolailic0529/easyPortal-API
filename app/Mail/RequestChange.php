@@ -6,6 +6,7 @@ use App\Models\Asset;
 use App\Models\ChangeRequest;
 use App\Models\Customer;
 use App\Models\Document;
+use App\Models\Organization;
 use App\Rules\ContractId;
 use App\Rules\QuoteId;
 use Illuminate\Bus\Queueable;
@@ -21,7 +22,7 @@ class RequestChange extends Mailable {
 
     public function __construct(
         protected ChangeRequest $request,
-        protected Asset|Document|Customer $model,
+        protected Asset|Document|Customer|Organization $model,
     ) {
         // empty
     }
@@ -63,6 +64,9 @@ class RequestChange extends Mailable {
                 } else {
                     // empty
                 }
+                break;
+            case Organization::class:
+                $type = 'organization';
                 break;
             default:
                 // empty

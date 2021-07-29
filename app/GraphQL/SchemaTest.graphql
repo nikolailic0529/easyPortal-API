@@ -337,6 +337,7 @@ type ChangeRequest {
   to: [String!]!
   cc: [String!]
   bcc: [String!]
+  files: [File!]!
 }
 
 input CitiesQuery {
@@ -1258,6 +1259,13 @@ type Mutation {
   inviteOrgUser(input: InviteOrgUserInput!): InviteOrgUserPayload
 
   """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
+  """
+  requestOrgChange(input: RequestOrgChangeInput!): RequestOrgChangePayload
+
+  """
   Send reset password link to the user.
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1927,6 +1935,19 @@ input RequestCustomerChangeInput {
 }
 
 type RequestCustomerChangePayload {
+  created: ChangeRequest!
+}
+
+input RequestOrgChangeInput {
+  subject: String!
+  message: String!
+  from: String!
+  cc: [String!]
+  bcc: [String!]
+  files: [Upload!]
+}
+
+type RequestOrgChangePayload {
   created: ChangeRequest!
 }
 

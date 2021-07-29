@@ -7,6 +7,7 @@ use App\Models\Asset;
 use App\Models\ChangeRequest;
 use App\Models\Customer;
 use App\Models\Document;
+use App\Models\Organization;
 use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Auth\AuthManager;
@@ -54,7 +55,7 @@ class RequestAssetChange {
      * @param array<string>|null $bcc
      */
     public function createRequest(
-        Asset|Document|Customer $model,
+        Asset|Document|Customer|Organization $model,
         string $subject,
         string $message,
         string $from,

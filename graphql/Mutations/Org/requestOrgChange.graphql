@@ -1,0 +1,21 @@
+extend type Mutation {
+  requestOrgChange(
+    input: RequestOrgChangeInput!
+  ): RequestOrgChangePayload
+  @field(resolver: "App\\GraphQL\\Mutations\\Org\\RequestOrgChange")
+  @organization
+  @me(permissions: ["org-administer"])
+}
+
+input RequestOrgChangeInput {
+  subject: String! @rules(apply:["required"])
+  message: String! @rules(apply:["required"])
+  from: String! @rules(apply:["email"])
+  cc: [String!] @rules(apply:["email"])
+  bcc: [String!] @rules(apply:["email"])
+  files: [Upload!]
+}
+
+type RequestOrgChangePayload {
+  created: ChangeRequest!
+}
