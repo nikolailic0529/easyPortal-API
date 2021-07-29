@@ -49,7 +49,7 @@ class QuoteTypesTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                quoteTypes(where: {quotes: { where: {}, lt: 1 }}) {
+                quoteTypes(where: {quotes: { where: {}, count: {lessThan: 1} }}) {
                     id
                     name
                 }

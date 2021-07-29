@@ -12,6 +12,9 @@ use function is_null;
 class GraphQLSuccess extends GraphQLResponse {
     protected JsonFragment|null $content;
 
+    /**
+     * @param \Tests\GraphQL\JsonFragmentSchema|class-string|null $schema
+     */
     public function __construct(
         string $root,
         JsonFragmentSchema|string|null $schema,

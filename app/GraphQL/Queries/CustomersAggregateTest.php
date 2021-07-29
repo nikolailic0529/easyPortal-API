@@ -73,7 +73,7 @@ class CustomersAggregateTest extends TestCase {
         $params  = [
             'where' => [
                 'assets_count' => [
-                    'lte' => 2,
+                    'lessThanOrEqual' => 2,
                 ],
             ],
         ];

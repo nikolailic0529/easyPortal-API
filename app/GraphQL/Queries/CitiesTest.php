@@ -53,7 +53,7 @@ class CitiesTest extends TestCase {
         $this
             ->graphQL(/** @lang GraphQL */ '
                 query cities($country_id: ID!) {
-                    cities(where:{ country_id: { eq: $country_id } }) {
+                    cities(where:{ country_id: { equal: $country_id } }) {
                         id
                         name
                         country_id

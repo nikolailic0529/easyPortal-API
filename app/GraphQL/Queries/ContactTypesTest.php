@@ -44,7 +44,7 @@ class ContactTypesTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                contactTypes (where: {contacts: { where: {}, lt: 1 }}) {
+                contactTypes (where: {contacts: { where: {}, count: {lessThan: 1} }}) {
                     id
                     name
                 }

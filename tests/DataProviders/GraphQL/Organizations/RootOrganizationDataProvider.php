@@ -5,7 +5,7 @@ namespace Tests\DataProviders\GraphQL\Organizations;
 use App\Models\Organization;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
-use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
+use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\TestCase;
 
@@ -25,7 +25,7 @@ class RootOrganizationDataProvider extends ArrayDataProvider {
                 },
             ],
             'root organization is allowed'   => [
-                new Unknown(),
+                new UnknownValue(),
                 static function (TestCase $test) use ($id): ?Organization {
                     return $test->setRootOrganization(
                         Organization::factory()->create($id ? ['id' => $id] : []),

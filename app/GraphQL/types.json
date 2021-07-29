@@ -294,13 +294,13 @@
                 "coverages": {
                     "type": "array",
                     "items": {
-                        "$ref": "../Types/Coverage.json"
+                        "$ref": "./Types/Coverage.json"
                     }
                 },
                 "tags": {
                     "type": "array",
                     "items": {
-                        "$ref": "../Types/Tag.json"
+                        "$ref": "./Types/Tag.json"
                     }
                 },
                 "data_quality": {
@@ -632,7 +632,7 @@
                             "type": "null"
                         },
                         {
-                            "$ref": "../Types/Distributor.json"
+                            "$ref": "./Types/Distributor.json"
                         }
                     ]
                 },
@@ -979,21 +979,14 @@
                 "users": {
                     "type": "array",
                     "items": {
-                        "$ref": "../Types/OrganizationUser.json"
+                        "$ref": "./Types/OrganizationUser.json"
                     }
                 },
                 "roles": {
-                    "oneOf": [
-                        {
-                            "type": "null"
-                        },
-                        {
-                            "type": "array",
-                            "items": {
-                                "$ref": "../Types/Role.json"
-                            }
-                        }
-                    ]
+                    "type": "array",
+                    "items": {
+                        "$ref": "./Types/Role.json"
+                    }
                 }
             }
         },

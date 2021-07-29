@@ -6,7 +6,7 @@ use App\Models\Organization;
 use App\Models\User;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
-use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
+use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\TestCase;
 
@@ -17,7 +17,7 @@ class GuestDataProvider extends ArrayDataProvider {
     public function __construct(string $root) {
         parent::__construct([
             'guest is allowed'    => [
-                new Unknown(),
+                new UnknownValue(),
                 static function (): ?User {
                     return null;
                 },

@@ -82,7 +82,7 @@ class MeTest extends TestCase {
             ->graphQL(/** @lang GraphQL */ '
                 query searches ($key: String!){
                     me {
-                        searches(where: {key: {eq: $key}}) {
+                        searches(where: {key: {equal: $key}}) {
                             id
                             key
                             name

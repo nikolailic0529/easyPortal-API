@@ -8,7 +8,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Forbidden;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Unauthorized;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
-use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
+use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use LengthException;
 use Tests\TestCase;
 
@@ -45,7 +45,7 @@ class UserDataProvider extends ArrayDataProvider {
                 },
             ],
             'user with permissions is allowed'        => [
-                new Unknown(),
+                new UnknownValue(),
                 static function (TestCase $test, ?Organization $organization) use ($permissions): ?User {
                     return User::factory()->make([
                         'organization_id' => $organization,

@@ -31,12 +31,6 @@ class SignupRequest extends Request {
     }
 
     /**
-     * FIXME [!] Looks like ReturnTypeHint doesn't support multi-line array{}
-     *      (https://github.com/phpstan/phpstan/issues/2497) -> rule temporary
-     *      disabled. This method probably not needed for GraphGL.
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification
-     *
      * @return array{
      *      'given_name: string',
      *      'family_name: string',

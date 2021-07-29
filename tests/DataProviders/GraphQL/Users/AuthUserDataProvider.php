@@ -6,7 +6,7 @@ use App\Models\Organization;
 use App\Models\User;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
-use LastDragon_ru\LaraASP\Testing\Providers\Unknown;
+use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
 use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\TestCase;
 
@@ -23,7 +23,7 @@ class AuthUserDataProvider extends ArrayDataProvider {
                 },
             ],
             'user is allowed'      => [
-                new Unknown(),
+                new UnknownValue(),
                 static function (TestCase $test, ?Organization $organization): ?User {
                     return User::factory()->make([
                         'organization_id' => $organization,

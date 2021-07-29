@@ -37,8 +37,8 @@ class OemsTest extends TestCase {
         $this
             ->graphQL(/** @lang GraphQL */ '{
                 oems(where: {anyOf: [
-                    { assets: { where: {}, lt: 1 } }
-                    { documents: { where: {}, lt: 1 } }
+                    { assets: { where: {}, count: {lessThan: 1} } }
+                    { documents: { where: {}, count: {lessThan: 1} } }
                 ]}) {
                     id
                     key

@@ -11,6 +11,9 @@ class GraphQLPaginated extends GraphQLSuccess {
     protected JsonFragment|null $data      = null;
     protected JsonFragment|null $paginator = null;
 
+    /**
+     * @param \Tests\GraphQL\JsonFragmentSchema|class-string|null $schema
+     */
     public function __construct(
         string $root,
         JsonFragmentSchema|string|null $schema,

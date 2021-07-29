@@ -42,7 +42,7 @@ class ServiceLevelsTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                serviceLevels(where: {documentEntries: { where: {}, lt: 1 }}) {
+                serviceLevels(where: {documentEntries: { where: {}, count: {lessThan: 1} }}) {
                     id
                     oem_id
                     service_group_id

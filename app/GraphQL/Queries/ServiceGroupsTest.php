@@ -39,7 +39,7 @@ class ServiceGroupsTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                serviceGroups(where: {documentEntries: { where: {}, lt: 1 }}) {
+                serviceGroups(where: {documentEntries: { where: {}, count: {lessThan: 1} }}) {
                     id
                     oem_id
                     sku
