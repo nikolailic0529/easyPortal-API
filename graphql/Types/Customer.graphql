@@ -34,4 +34,10 @@ type Customer {
   ): [Asset!]!
   @me(permissions: ["assets-view", "customers-view"])
   @hasMany(type: PAGINATOR)
+
+  assetsAggregate(
+    where: AssetsQuery @searchBy
+  ): AssetsAggregate!
+  @me(permissions: ["assets-view", "customers-view"])
+  @field(resolver: "App\\GraphQL\\Queries\\Customer@assetsAggregate")
 }

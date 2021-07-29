@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Resolvers;
 
+use App\Models\Customer;
 use GraphQL\Type\Definition\ResolveInfo;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as DatabaseBuilder;
@@ -13,8 +14,9 @@ abstract class AggregateResolver {
      */
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): mixed {
         $query  = $this->getQuery();
-        $result = $resolveInfo->argumentSet->enhanceBuilder($query, []);
-        $result = $this->getResult($result);
+        $query  = $this->enhanceBuilder($query, $root);
+        $query  = $resolveInfo->argumentSet->enhanceBuilder($query, []);
+        $result = $this->getResult($query);
 
         return $result;
     }
@@ -25,6 +27,20 @@ abstract class AggregateResolver {
         }
 
         return $builder->first();
+    }
+
+    protected function enhanceBuilder(
+        DatabaseBuilder|EloquentBuilder $builder,
+        mixed $root,
+    ): DatabaseBuilder|EloquentBuilder {
+        // Unfortunately is not possible to get `$root` inside `@builder` directive.
+        //
+        // https://github.com/nuwave/lighthouse/issues/1736
+        if ($root instanceof Customer) {
+            $builder->where('customer_id', '=', $root->getKey());
+        }
+
+        return $builder;
     }
 
     abstract protected function getQuery(): DatabaseBuilder|EloquentBuilder;

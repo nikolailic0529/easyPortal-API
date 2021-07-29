@@ -1494,6 +1494,32 @@
                     "type": "string"
                 }
             }
+        },
+        "AssetsAggregate": {
+            "additionProperties": false,
+            "type": "object",
+            "required": [
+                "count",
+                "types",
+                "coverages"
+            ],
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "types": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "./Types/AssetsAggregateType.json"
+                    }
+                },
+                "coverages": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "./Types/AssetsAggregateCoverage.json"
+                    }
+                }
+            }
         }
     }
 }

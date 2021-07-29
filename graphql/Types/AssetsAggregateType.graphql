@@ -1,0 +1,5 @@
+type AssetsAggregateType {
+  count: Int!
+  type_id: ID
+  type: Type
+}

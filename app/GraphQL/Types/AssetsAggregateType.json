@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "count",
+        "type_id",
+        "type"
+    ],
+    "properties": {
+        "count": {
+            "type": "integer"
+        },
+        "type_id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "type": {
+            "$ref": "../types.json#/definitions/Type"
+        }
+    }
+}

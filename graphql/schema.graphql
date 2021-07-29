@@ -200,6 +200,13 @@ type Query {
   @me(permissions: ["assets-view", "customers-view"])
   @find
 
+  assetsAggregate(
+    where: AssetsQuery @searchBy
+  ): AssetsAggregate!
+  @organization
+  @me(permissions: ["assets-view"])
+  @field(resolver: "App\\GraphQL\\Queries\\AssetsAggregate")
+
   # Contracts
   # ============================================================================
   "List of all contracts."
