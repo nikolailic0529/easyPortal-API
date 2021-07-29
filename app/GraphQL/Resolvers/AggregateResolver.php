@@ -12,7 +12,7 @@ abstract class AggregateResolver {
      * @param array<string,mixed> $args
      */
     public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): mixed {
-        $query  = $this->getQuery($root);
+        $query  = $this->getQuery();
         $result = $resolveInfo->argumentSet->enhanceBuilder($query, []);
         $result = $this->getResult($result);
 
@@ -27,5 +27,5 @@ abstract class AggregateResolver {
         return $builder->first();
     }
 
-    abstract protected function getQuery(mixed $root): DatabaseBuilder|EloquentBuilder;
+    abstract protected function getQuery(): DatabaseBuilder|EloquentBuilder;
 }

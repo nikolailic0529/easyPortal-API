@@ -9,7 +9,7 @@ use Illuminate\Database\Query\Builder as DatabaseBuilder;
 
 class AssetsAggregateTypes extends AggregateResolver {
 
-    protected function getQuery(mixed $root): DatabaseBuilder|EloquentBuilder {
+    protected function getQuery(): DatabaseBuilder|EloquentBuilder {
         $model = new Asset();
         $query = $model->query()
             ->select("{$model->qualifyColumn('type_id')} as type_id")

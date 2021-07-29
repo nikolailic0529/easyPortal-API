@@ -11,7 +11,7 @@ use Illuminate\Database\Query\Builder as DatabaseBuilder;
 
 class AssetsAggregateCoverages extends AggregateResolver {
 
-    protected function getQuery(mixed $root): DatabaseBuilder|EloquentBuilder {
+    protected function getQuery(): DatabaseBuilder|EloquentBuilder {
         $model    = new Asset();
         $coverage = new Coverage();
         $pivot    = new AssetCoverage();
