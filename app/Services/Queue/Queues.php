@@ -9,7 +9,7 @@ interface Queues {
     /**
      * Default queue.
      */
-    public const DEFAULT          = 'default';
+    public const DEFAULT = 'default';
 
     /**
      * Default queue for Data Loader

@@ -6,7 +6,6 @@ use Closure;
 use JsonSerializable;
 use Throwable;
 
-use function array_keys;
 use function is_array;
 
 class GraphQLErrorsSchema implements JsonSerializable {
