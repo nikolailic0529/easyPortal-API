@@ -1510,54 +1510,14 @@
                 "types": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/AssetsAggregateType"
+                        "$ref": "./Types/AssetsAggregateType.json"
                     }
                 },
                 "coverages": {
                     "type": "array",
                     "items": {
-                        "$ref": "../Types/AssetsAggregateCoverage.json"
+                        "$ref": "./Types/AssetsAggregateCoverage.json"
                     }
-                }
-            }
-        },
-        "AssetsAggregateType": {
-            "additionProperties": false,
-            "type": "object",
-            "required": [
-                "count",
-                "type_id",
-                "type"
-            ],
-            "properties": {
-                "count": {
-                    "type": "integer"
-                },
-                "type_id": {
-                    "$ref": "#/definitions/ID"
-                },
-                "type": {
-                    "$ref": "#/definitions/Type"
-                }
-            }
-        },
-        "AssetsAggregateCoverage": {
-            "additionProperties": false,
-            "type": "object",
-            "required": [
-                "count",
-                "coverage_id",
-                "coverage"
-            ],
-            "properties": {
-                "count": {
-                    "type": "integer"
-                },
-                "coverage_id": {
-                    "$ref": "#/definitions/ID"
-                },
-                "coverage": {
-                    "$ref": "#/definitions/Type"
                 }
             }
         }

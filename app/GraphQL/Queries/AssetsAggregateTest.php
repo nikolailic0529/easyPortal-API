@@ -25,6 +25,9 @@ use Tests\TestCase;
 class AssetsAggregateTest extends TestCase {
     /**
      * @covers ::__invoke
+     * @covers \App\GraphQL\Queries\AssetsAggregateTypes::__invoke
+     * @covers \App\GraphQL\Queries\AssetsAggregateCount::__invoke
+     * @covers \App\GraphQL\Queries\AssetsAggregateCoverages::__invoke
      *
      * @dataProvider dataProviderQuery
      *
@@ -48,7 +51,7 @@ class AssetsAggregateTest extends TestCase {
         // Test
         $this
             ->graphQL(
-                /** @lang GraphQL */
+            /** @lang GraphQL */
                 <<<'GRAPHQL'
                 query ($where: SearchByConditionAssetsQuery) {
                     assetsAggregate(where: $where) {
@@ -91,7 +94,7 @@ class AssetsAggregateTest extends TestCase {
         $params  = [
             'where' => [
                 'type_id' => [
-                    'eq' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                    'equal' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                 ],
             ],
         ];

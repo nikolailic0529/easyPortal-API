@@ -13,6 +13,7 @@ class AssetsAggregate {
     ) {
         //empty
     }
+
     /**
      * @param  null  $_
      * @param  array<string, mixed>  $args

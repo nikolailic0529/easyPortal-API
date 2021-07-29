@@ -36,7 +36,7 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversNothing
+ * @coversDefaultClass \App\GraphQL\Queries\Customer
  */
 class CustomerTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -657,7 +657,7 @@ class CustomerTest extends TestCase {
     }
 
     /**
-     * @covers ::__invoke
+     * @covers ::assetsAggregate
      *
      * @dataProvider dataProviderQueryAssetAggregate
      *
@@ -707,7 +707,7 @@ class CustomerTest extends TestCase {
                         }
                     }
                 }
-            ', $params + ['id' => $customerId])
+            ', ['id' => $customerId] + $params)
             ->assertThat($expected);
     }
     // </editor-fold>
@@ -2091,7 +2091,7 @@ class CustomerTest extends TestCase {
         ]))->getData();
     }
 
-        /**
+    /**
      * @return array<mixed>
      */
     public function dataProviderQueryAssetAggregate(): array {
@@ -2143,7 +2143,9 @@ class CustomerTest extends TestCase {
                 'key'  => 'key1',
             ]);
             $type2 = Type::factory()->create([
-                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                'name' => 'name2',
+                'key'  => 'key2',
             ]);
             // Assets
             Asset::factory()
@@ -2173,15 +2175,20 @@ class CustomerTest extends TestCase {
                 'type_id'     => $type2,
                 'customer_id' => $customer2,
             ]);
+
             return $customer;
         };
         $params  = [
             'where' => [
                 'type_id' => [
-                    'eq' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                    'in' => [
+                        'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                        'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                    ],
                 ],
             ],
         ];
+
         return (new CompositeDataProvider(
             new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
             new UserDataProvider('customer', [
@@ -2194,7 +2201,7 @@ class CustomerTest extends TestCase {
                         new JsonFragmentSchema('assetsAggregate', AssetsAggregate::class),
                         [
                             'assetsAggregate' => [
-                                'count'     => 2,
+                                'count'     => 3,
                                 'types'     => [
                                     [
                                         'count'   => 2,
@@ -2203,6 +2210,15 @@ class CustomerTest extends TestCase {
                                             'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                                             'name' => 'name1',
                                             'key'  => 'key1',
+                                        ],
+                                    ],
+                                    [
+                                        'count'   => 1,
+                                        'type_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                        'type'    => [
+                                            'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986',
+                                            'name' => 'name2',
+                                            'key'  => 'key2',
                                         ],
                                     ],
                                 ],
