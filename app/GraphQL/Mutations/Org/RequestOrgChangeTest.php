@@ -1,7 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations;
+namespace App\GraphQL\Mutations\Org;
 
+use App\GraphQL\Mutations\RequestAssetChange;
 use App\Mail\RequestChange;
 use App\Models\Organization;
 use App\Models\User;
@@ -22,9 +23,9 @@ use function array_key_exists;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\RequestOrganizationChange
+ * @coversDefaultClass \App\GraphQL\Mutations\Org\RequestOrgChange
  */
-class RequestOrganizationChangeTest extends TestCase {
+class RequestOrgChangeTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -72,9 +73,9 @@ class RequestOrganizationChangeTest extends TestCase {
             }
         }
 
-        $query      = /** @lang GraphQL */ 'mutation RequestOrganizationChange($input: RequestOrganizationChangeInput!)
+        $query      = /** @lang GraphQL */ 'mutation RequestOrgChange($input: RequestOrgChangeInput!)
         {
-            requestOrganizationChange(input:$input) {
+            requestOrgChange(input:$input) {
                 created {
                     subject
                     message
@@ -95,7 +96,7 @@ class RequestOrganizationChangeTest extends TestCase {
             }
         }';
         $operations = [
-            'operationName' => 'RequestOrganizationChange',
+            'operationName' => 'RequestOrgChange',
             'query'         => $query,
             'variables'     => ['input' => $input],
         ];
@@ -127,13 +128,13 @@ class RequestOrganizationChangeTest extends TestCase {
         ];
 
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('requestOrganizationChange'),
-            new UserDataProvider('requestOrganizationChange', [
+            new OrganizationDataProvider('requestOrgChange'),
+            new UserDataProvider('requestOrgChange', [
                 'org-administer',
             ]),
             new ArrayDataProvider([
                 'ok'              => [
-                    new GraphQLSuccess('requestOrganizationChange', RequestAssetChange::class, [
+                    new GraphQLSuccess('requestOrgChange', RequestAssetChange::class, [
                         'created' => [
                             'user_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
                             'subject' => 'subject',
@@ -168,7 +169,7 @@ class RequestOrganizationChangeTest extends TestCase {
                     ],
                 ],
                 'Invalid subject' => [
-                    new GraphQLError('requestOrganizationChange', static function (): array {
+                    new GraphQLError('requestOrgChange', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     $settings,
@@ -182,7 +183,7 @@ class RequestOrganizationChangeTest extends TestCase {
                     ],
                 ],
                 'Invalid message' => [
-                    new GraphQLError('requestOrganizationChange', static function (): array {
+                    new GraphQLError('requestOrgChange', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     $settings,
@@ -196,7 +197,7 @@ class RequestOrganizationChangeTest extends TestCase {
                     ],
                 ],
                 'Invalid cc'      => [
-                    new GraphQLError('requestOrganizationChange', static function (): array {
+                    new GraphQLError('requestOrgChange', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     $settings,
@@ -210,7 +211,7 @@ class RequestOrganizationChangeTest extends TestCase {
                     ],
                 ],
                 'Invalid bcc'     => [
-                    new GraphQLError('requestOrganizationChange', static function (): array {
+                    new GraphQLError('requestOrgChange', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     $settings,

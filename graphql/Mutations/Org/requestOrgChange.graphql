@@ -1,12 +1,13 @@
 extend type Mutation {
-  requestOrganizationChange(
-    input: RequestOrganizationChangeInput!
-  ): RequestOrganizationChangePayload
+  requestOrgChange(
+    input: RequestOrgChangeInput!
+  ): RequestOrgChangePayload
+  @field(resolver: "App\\GraphQL\\Mutations\\Org\\RequestOrgChange")
   @organization
   @me(permissions: ["org-administer"])
 }
 
-input RequestOrganizationChangeInput {
+input RequestOrgChangeInput {
   subject: String! @rules(apply:["required"])
   message: String! @rules(apply:["required"])
   from: String! @rules(apply:["email"])
@@ -15,6 +16,6 @@ input RequestOrganizationChangeInput {
   files: [Upload!]
 }
 
-type RequestOrganizationChangePayload {
+type RequestOrgChangePayload {
   created: ChangeRequest!
 }
