@@ -63,6 +63,10 @@ return [
             'driver' => 'local',
             'root'   => storage_path('app/models/ChangeRequest'),
         ],
+        ModelDisk::QUOTE_REQUESTS  => [
+            'driver' => 'local',
+            'root'   => storage_path('app/models/QuoteRequest'),
+        ],
 
         // Default
         // =====================================================================
