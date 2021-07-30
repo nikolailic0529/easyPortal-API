@@ -2,15 +2,19 @@
 
 namespace App\Services\Search\Eloquent;
 
+use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
-use App\Services\Search\Scout\OwnedByOrganizationScope;
+use App\Services\Search\Scopes\OwnedByOrganizationScope;
 use App\Utils\ModelProperty;
 use Carbon\CarbonInterface;
+use Closure;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
+use Laravel\Scout\Builder as ScoutBuilder;
 use Laravel\Scout\Searchable as ScoutSearchable;
 use LogicException;
 
@@ -26,19 +30,24 @@ use function is_iterable;
  * @mixin \App\Models\Model
  */
 trait Searchable {
-    use ScoutSearchable;
+    use GlobalScopes;
+    use ScoutSearchable {
+        makeAllSearchable as protected scoutMakeAllSearchable;
+    }
 
     // <editor-fold desc="Abstract">
     // =========================================================================
     /**
-     * Returns properties and their values that must be added to the index.
+     * Returns searchable properties that must be added to the index.
      *
      * @return array<string>
      */
-    abstract protected function getSearchableProperties(): array;
+    abstract protected static function getSearchableProperties(): array;
 
     /**
      * Returns relations that used in {@link \App\Services\Search\Eloquent\Searchable::getSearchableProperties()}
+     *
+     * @deprecated not needed
      *
      * @return array<string>
      */
@@ -47,10 +56,6 @@ trait Searchable {
 
     // <editor-fold desc="Scout">
     // =========================================================================
-    public function shouldBeSearchable(): bool {
-        return count($this->toSearchableArray()) > 0;
-    }
-
     public function searchIndexShouldBeUpdated(): bool {
         $dirty      = array_keys($this->getDirty());
         $properties = array_keys($this->getSearchableProperties());
@@ -94,18 +99,29 @@ trait Searchable {
             return [];
         }
 
+        $searchable = [
+            'properties' => $properties,
+        ];
+
         // Organization?
         if ($this->isOwnedByOrganization($this)) {
             /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $this */
             $property                                  = new ModelProperty($this->getOrganizationColumn());
-            $properties[OwnedByOrganizationScope::KEY] = $property->getValue($this);
+            $searchable[OwnedByOrganizationScope::KEY] = $property->getValue($this);
         }
 
         // Prepare
-        $searchable = $this->toSearchableValue($properties);
+        $searchable = $this->toSearchableValue($searchable);
 
         // Return
         return $searchable;
+    }
+
+    public static function makeAllSearchable(int $chunk = null): void {
+        // FIXME: Should be run without queue
+        static::callWithoutGlobalScope(\App\Services\Organization\Eloquent\OwnedByOrganizationScope::class, static function () use ($chunk): void {
+            static::scoutMakeAllSearchable($chunk);
+        });
     }
     // </editor-fold>
 
