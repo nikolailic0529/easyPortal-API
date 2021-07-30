@@ -3,27 +3,25 @@
 namespace App\Services\Search;
 
 use App\Services\Search\Builder as SearchBuilder;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Scout\Builder;
-
-use function is_a;
 
 class Provider extends ServiceProvider {
     public function register(): void {
         parent::register();
 
         $this->registerScopes();
+        $this->registerBuilder();
     }
 
     protected function registerScopes(): void {
-        $this->app->afterResolving(Builder::class, static function (Builder $builder, Container $container): void {
+        $this->app->afterResolving(Builder::class, static function (SearchBuilder $builder): void {
             $model  = $builder->model;
             $scopes = $model->getGlobalScopes();
 
             foreach ($scopes as $scope) {
-                if (is_a($scope, Scope::class, true)) {
-                    $container->make($scope)->applyForSearch($builder, $model);
+                if ($scope instanceof Scope) {
+                    $scope->applyForSearch($builder, $model);
                 }
             }
         });

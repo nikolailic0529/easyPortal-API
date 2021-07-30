@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 
 class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMetadata {
+    protected const SEARCH_METADATA = 'organizations';
+
     public function __construct(
         protected CurrentOrganization $organization,
     ) {
@@ -57,28 +59,18 @@ class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMeta
         }
 
         // Hide data related to another organization
-        $property     = $this->getSearchMetadataProperty($model);
-        $organization = $this->organization->getKey();
-
-        $builder->whereMetadata($property, $organization);
+        $builder->whereMetadata(static::SEARCH_METADATA, $this->organization->getKey());
     }
 
     /**
      * @param \App\Models\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model
+     *
+     * @return array<string,string>
      */
-    public function getSearchProperty(Model $model): string {
-        return $model->getOrganizationColumn();
-    }
-
-    public function getSearchMetadataProperty(Model $model): string {
-        return 'organizations';
-    }
-
-    /**
-     * @param \App\Models\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $model
-     */
-    public function getSearchMetadataValue(Model $model): mixed {
-        return (new ModelProperty($model->getOrganizationColumn()))->getValue($model);
+    public function getSearchMetadata(Model $model): array {
+        return [
+            static::SEARCH_METADATA => $model->getOrganizationColumn(),
+        ];
     }
     // </editor-fold>
 }

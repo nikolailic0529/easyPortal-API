@@ -3,28 +3,30 @@
 namespace App\Services\Search\Eloquent;
 
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
-use App\Services\Organization\Eloquent\OwnedByOrganization;
-use App\Services\Search\Scopes\OwnedByOrganizationScope;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Search\Builder as SearchBuilder;
+use App\Services\Search\ScopeWithMetadata;
 use App\Utils\ModelProperty;
 use Carbon\CarbonInterface;
 use Closure;
 use DateTimeInterface;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
-use Laravel\Scout\Builder as ScoutBuilder;
 use Laravel\Scout\Searchable as ScoutSearchable;
 use LogicException;
 
+use function app;
 use function array_intersect;
+use function array_key_exists;
 use function array_keys;
-use function array_unique;
-use function class_uses_recursive;
-use function count;
-use function in_array;
+use function array_walk_recursive;
 use function is_iterable;
+use function is_null;
+use function is_scalar;
+use function sprintf;
 
 /**
  * @mixin \App\Models\Model
@@ -40,113 +42,141 @@ trait Searchable {
     /**
      * Returns searchable properties that must be added to the index.
      *
-     * @return array<string>
+     * *Warning:* If array structure is changed the search index MUST be rebuilt.
+     *
+     * Should return array where:
+     * - `key`   - key that will be used in index;
+     * - `value` - property name (not value!) that may contain dots to get
+     *             properties from related models, OR array with properties;
+     *
+     * Example:
+     *      [
+     *          'name' => 'name',               // $model->name
+     *          'product' => [
+     *              'sku'  => 'product.sku',    // $model->product->sku
+     *              'name' => 'product.name',   // $model->product->name
+     *          ],
+     *      ]
+     *
+     * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
      */
-    abstract protected static function getSearchableProperties(): array;
+    abstract protected static function getSearchProperties(): array;
 
     /**
-     * Returns relations that used in {@link \App\Services\Search\Eloquent\Searchable::getSearchableProperties()}
+     * Returns properties that must be added to the index as metadata.
      *
-     * @deprecated not needed
+     * @see getSearchProperties()
      *
-     * @return array<string>
+     * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
      */
-    abstract protected function getSearchableRelations(): array;
+    protected static function getSearchMetadata(): array {
+        return [];
+    }
     // </editor-fold>
 
     // <editor-fold desc="Scout">
     // =========================================================================
     public function searchIndexShouldBeUpdated(): bool {
-        $dirty      = array_keys($this->getDirty());
-        $properties = array_keys($this->getSearchableProperties());
+        $properties = (new Collection($this->getSearchableProperties()))
+            ->flatten()
+            ->filter(static function (string $property): bool {
+                return (new ModelProperty($property))->isAttribute();
+            })
+            ->all();
+        $changed    = array_keys($this->getDirty());
+        $should     = (bool) array_intersect($changed, $properties);
 
-        if ($this->isOwnedByOrganization($this)) {
-            /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $this */
-            $property = new ModelProperty($this->getOrganizationColumn());
-
-            if ($property->isAttribute()) {
-                $properties[] = $property->getName();
-            }
-        }
-
-        return (bool) array_intersect($dirty, $properties);
+        return $should;
     }
 
     protected function makeAllSearchableUsing(Builder $query): Builder {
-        $relations = $this->getSearchableRelations();
-
-        if ($this->isOwnedByOrganization($this)) {
-            /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $this */
-            $property = new ModelProperty($this->getOrganizationColumn());
-
-            if ($property->isRelation()) {
-                $relations[] = $property->getRelationName();
-            }
-        }
-
-        return $query->with(array_unique($relations));
+        return $query->with($this->getSearchableRelations());
     }
 
     /**
      * @return array<string,mixed>
      */
     public function toSearchableArray(): array {
-        // Get properties.
+        // Eager Loading
+        $this->loadMissing($this->getSearchableRelations());
+
+        // Get values
         $properties = $this->getSearchableProperties();
 
-        // Empty?
-        if (!$properties) {
-            return [];
-        }
-
-        $searchable = [
-            'properties' => $properties,
-        ];
-
-        // Organization?
-        if ($this->isOwnedByOrganization($this)) {
-            /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Organization\Eloquent\OwnedByOrganization $this */
-            $property                                  = new ModelProperty($this->getOrganizationColumn());
-            $searchable[OwnedByOrganizationScope::KEY] = $property->getValue($this);
-        }
-
-        // Prepare
-        $searchable = $this->toSearchableValue($searchable);
+        array_walk_recursive($properties, function (mixed &$value): void {
+            $value = $this->toSearchableValue(Arr::get($this, $value));
+        });
 
         // Return
-        return $searchable;
+        return $properties;
     }
 
     public static function makeAllSearchable(int $chunk = null): void {
-        // FIXME: Should be run without queue
-        static::callWithoutGlobalScope(\App\Services\Organization\Eloquent\OwnedByOrganizationScope::class, static function () use ($chunk): void {
-            static::scoutMakeAllSearchable($chunk);
+        static::callWithoutGlobalScope(OwnedByOrganizationScope::class, static function () use ($chunk): void {
+            static::callWithoutScoutQueue(static function () use ($chunk): void {
+                static::scoutMakeAllSearchable($chunk);
+            });
         });
     }
     // </editor-fold>
 
     // <editor-fold desc="Helpers">
     // =========================================================================
-    protected static function isSearchable(Model $model): bool {
-        return in_array(ScoutSearchable::class, class_uses_recursive($model), true);
+    /**
+     * @return array<string>
+     */
+    protected function getSearchableRelations(): array {
+        return (new Collection($this->getSearchableProperties()))
+            ->flatten()
+            ->map(static function (string $property): ModelProperty {
+                return new ModelProperty($property);
+            })
+            ->filter(static function (ModelProperty $property): bool {
+                return $property->isRelation();
+            })
+            ->map(static function (ModelProperty $property): string {
+                return $property->getRelationName();
+            })
+            ->unique()
+            ->values()
+            ->all();
     }
 
-    protected static function isOwnedByOrganization(Model $model): bool {
-        return in_array(OwnedByOrganization::class, class_uses_recursive($model), true);
+    /**
+     * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+     */
+    protected function getSearchableProperties(): array {
+        $properties = [
+            SearchBuilder::METADATA   => $this->getSearchMetadata(),
+            SearchBuilder::PROPERTIES => $this->getSearchProperties(),
+        ];
+
+        foreach ($this->getGlobalScopes() as $scope) {
+            if ($scope instanceof ScopeWithMetadata) {
+                foreach ($scope->getSearchMetadata($this) as $key => $metadata) {
+                    // Metadata should be unique to avoid any possible side effects.
+                    if (array_key_exists($key, $properties[SearchBuilder::METADATA])) {
+                        throw new LogicException(sprintf(
+                            'The `%s` trying to redefine `%s` in metadata.',
+                            $scope::class,
+                            $key,
+                        ));
+                    }
+
+                    // Add
+                    $properties[SearchBuilder::METADATA][$key] = $metadata;
+                }
+            }
+        }
+
+        return $properties;
     }
 
     protected function toSearchableValue(mixed $value): mixed {
-        if ($value instanceof Model) {
-            /** @var \Illuminate\Database\Eloquent\Model&\Laravel\Scout\Searchable $value */
-            if ($this->isSearchable($value)) {
-                $value = $value->toSearchableArray();
-            } else {
-                throw new LogicException('Not yet supported.');
-            }
+        if ($value instanceof CarbonInterface) {
+            $value = $value->toJSON();
         } elseif ($value instanceof DateTimeInterface) {
             $value = $this->toSearchableValue(Date::make($value));
-        } elseif ($value instanceof CarbonInterface) {
-            $value = $value->toJSON();
         } elseif (is_iterable($value)) {
             $value = (new Collection($value))
                 ->map(function (mixed $value): mixed {
@@ -155,11 +185,27 @@ trait Searchable {
                 ->filter()
                 ->unique()
                 ->all();
+        } elseif (is_scalar($value) || is_null($value)) {
+            // no action
         } else {
-            // empty
+            throw new LogicException('Not yet supported.');
         }
 
         return $value;
+    }
+
+    protected static function callWithoutScoutQueue(Closure $closure): mixed {
+        $key      = 'scout.queue';
+        $config   = app()->make(Repository::class);
+        $previous = $config->get($key);
+
+        try {
+            $config->set($key, false);
+
+            return $closure();
+        } finally {
+            $config->set($key, $previous);
+        }
     }
     // </editor-fold>
 }
