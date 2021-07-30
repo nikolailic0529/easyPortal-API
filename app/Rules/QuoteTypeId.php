@@ -22,6 +22,7 @@ class QuoteTypeId implements Rule {
         $builder = Type::query()
             ->where('object_type', '=', (new Document())->getMorphClass())
             ->whereKey($value);
+
         return $this->types->prepare($builder, (new Type())->getKeyName())->exists();
     }
 

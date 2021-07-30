@@ -12,12 +12,13 @@ input CreateQuoteRequestInput {
   contact_id: ID! @rules(apply:["required","App\\Rules\\ContactId"])
   type_id: ID! @rules(apply:["required","App\\Rules\\QuoteTypeId"])
   message: String
+  files: [Upload!] @rules(apply:["nullable","App\\Rules\\Image"])
   assets: [CreateQuoteRequestAssetsInput!]!
 }
 
 input CreateQuoteRequestAssetsInput {
   asset_id: ID! @rules(apply:["required","App\\Rules\\AssetId"])
-  duration: ID! @rules(apply:["required","App\\Rules\\DurationId"])
+  duration_id: ID! @rules(apply:["required","App\\Rules\\DurationId"])
   service_level_id: ID! @rules(apply:["required","App\\Rules\\ServiceLevelId"])
 }
 

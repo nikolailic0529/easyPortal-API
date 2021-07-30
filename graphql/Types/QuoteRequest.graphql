@@ -1,0 +1,11 @@
+type QuoteRequest {
+  id: ID!
+  oem_id: ID!
+  user_id: ID!
+  customer_id: ID!
+  contact_id: ID!
+  type_id: ID!
+  message: String
+  assets: [Asset!]! @belongsToMany
+  files: [File!]! @morphMany
+}

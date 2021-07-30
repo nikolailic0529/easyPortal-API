@@ -496,6 +496,26 @@ type CreateQuoteNotePayload {
   created: Note!
 }
 
+input CreateQuoteRequestAssetsInput {
+  asset_id: ID!
+  duration_id: ID!
+  service_level_id: ID!
+}
+
+input CreateQuoteRequestInput {
+  oem_id: ID!
+  customer_id: ID!
+  contact_id: ID!
+  type_id: ID!
+  message: String
+  files: [Upload!]
+  assets: [CreateQuoteRequestAssetsInput!]!
+}
+
+type CreateQuoteRequestPayload {
+  created: QuoteRequest!
+}
+
 input CurrenciesQuery {
   documents: DocumentsQuery
 }
@@ -833,6 +853,11 @@ input DocumentsSort {
   price: Float
 }
 
+type Duration {
+  id: ID!
+  duration: String!
+}
+
 input EnableOrgUserInput {
   id: ID!
 }
@@ -986,6 +1011,13 @@ type Mutation {
   @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
   """
   createQuoteNote(input: CreateQuoteNoteInput!): CreateQuoteNotePayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["assets-view"])> User must be authenticated and have any of these permissions.
+  """
+  createQuoteRequest(input: CreateQuoteRequestInput!): CreateQuoteRequestPayload
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -1732,6 +1764,15 @@ type Query {
   timezones: [String!]!
 
   """
+  List of all possible durations.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  durations: [Duration!]!
+
+  """
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
@@ -1900,6 +1941,18 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): OrganizationPaginator
+}
+
+type QuoteRequest {
+  id: ID!
+  oem_id: ID!
+  user_id: ID!
+  customer_id: ID!
+  contact_id: ID!
+  type_id: ID!
+  message: String
+  assets: [Asset!]!
+  files: [File!]!
 }
 
 input QuoteTypesQuery {

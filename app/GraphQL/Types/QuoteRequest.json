@@ -1,0 +1,74 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionProperties": false,
+    "type": "object",
+    "required": [
+        "oem_id",
+        "customer_id",
+        "contact_id",
+        "type_id",
+        "message",
+        "assets"
+    ],
+    "properties": {
+        "id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "oem_id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "user_id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "customer_id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "message": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "created_at": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "updated_at": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "user": {
+            "$ref": "../Types/User.json"
+        },
+        "files": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalItems": false,
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "assets": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalItems": false,
+                "required": [
+                    "id"
+                ],
+                "properties": {
+                    "id": {
+                        "$ref": "../types.json#/definitions/ID"
+                    }
+                }
+            }
+        }
+    }
+}

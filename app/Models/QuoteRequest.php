@@ -8,6 +8,8 @@ use App\Models\Concerns\HasOem;
 use App\Models\Concerns\HasStatuses;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
 
 /**
  * QuoteRequest.
@@ -53,5 +55,22 @@ class QuoteRequest extends Model {
 
     public function getQualifiedOrganizationColumn(): string {
         return $this->qualifyColumn('organization_id');
+    }
+
+    public function assets(): BelongsToMany {
+        $pivot = new QuoteRequestAsset();
+
+        return $this
+            ->belongsToMany(Asset::class, $pivot->getTable(), 'request_id')
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection|array<string, mixed> $assetsWithPivot
+     */
+    public function setAssetsAttribute(Collection|array $assetsWithPivot): void {
+        $this->assets()->sync($assetsWithPivot);
     }
 }
