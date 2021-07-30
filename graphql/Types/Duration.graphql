@@ -1,0 +1,4 @@
+type Duration {
+  id: ID!
+  duration: String! @translate
+}

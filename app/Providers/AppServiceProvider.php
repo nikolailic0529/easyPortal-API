@@ -20,6 +20,7 @@ use App\Models\CustomerStatus;
 use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
+use App\Models\Duration;
 use App\Models\File;
 use App\Models\Language;
 use App\Models\Location;
@@ -130,6 +131,7 @@ class AppServiceProvider extends ServiceProvider {
             'note'                         => Note::class,
             'change-request'               => ChangeRequest::class,
             'file'                         => File::class,
+            'duration'                     => Duration::class,
         ]);
     }
 }

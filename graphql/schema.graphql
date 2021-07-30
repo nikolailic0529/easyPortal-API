@@ -159,6 +159,12 @@ type Query {
   @organization
   @me
 
+  "List of all possible durations."
+  durations: [Duration!]!
+  @organization
+  @me
+  @all
+
   # Customers
   # ============================================================================
   "List of Customers."
