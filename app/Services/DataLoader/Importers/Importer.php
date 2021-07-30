@@ -111,7 +111,7 @@ abstract class Importer {
     }
 
     private function call(Closure $closure): void {
-        $this->callWithoutGlobalScopes([OwnedByOrganizationScope::class], static function () use ($closure): void {
+        $this->callWithoutGlobalScope(OwnedByOrganizationScope::class, static function () use ($closure): void {
             // Telescope should be disabled because it stored all data in memory
             // and will dump it only after the job/command/request is finished.
             // For long-running jobs, this will lead to huge memory usage

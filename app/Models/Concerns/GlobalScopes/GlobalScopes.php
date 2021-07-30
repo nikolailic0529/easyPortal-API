@@ -8,6 +8,18 @@ trait GlobalScopes {
     /**
      * @template T
      *
+     * @param class-string<\App\Models\Concerns\GlobalScopes\DisableableScope> $scope
+     * @param \Closure():T $closure
+     *
+     * @return T
+     */
+    protected function callWithoutGlobalScope(string $scope, Closure $closure): mixed {
+        return State::callWithout([$scope], $closure);
+    }
+
+    /**
+     * @template T
+     *
      * @param array<class-string<\App\Models\Concerns\GlobalScopes\DisableableScope>> $scopes
      * @param \Closure():T $closure
      *
