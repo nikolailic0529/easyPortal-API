@@ -1,0 +1,26 @@
+extend type Mutation {
+  createQuoteRequest(
+    input: CreateQuoteRequestInput!
+  ): CreateQuoteRequestPayload
+  @organization
+  @me(permissions: ["assets-view"])
+}
+
+input CreateQuoteRequestInput {
+  oem_id: ID! @rules(apply:["required","App\\Rules\\OemId"])
+  customer_id: ID! @rules(apply:["required","App\\Rules\\CustomerId"])
+  contact_id: ID! @rules(apply:["required","App\\Rules\\ContactId"])
+  type_id: ID! @rules(apply:["required","App\\Rules\\QuoteTypeId"])
+  message: String
+  assets: [CreateQuoteRequestAssetsInput!]!
+}
+
+input CreateQuoteRequestAssetsInput {
+  asset_id: ID! @rules(apply:["required","App\\Rules\\AssetId"])
+  duration: ID! @rules(apply:["required","App\\Rules\\DurationId"])
+  service_level_id: ID! @rules(apply:["required","App\\Rules\\ServiceLevelId"])
+}
+
+type CreateQuoteRequestPayload {
+  created: QuoteRequest!
+}
