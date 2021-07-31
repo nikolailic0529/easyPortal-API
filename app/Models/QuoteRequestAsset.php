@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 /**
  * App\Models\QuoteRequestAsset
  *
@@ -11,6 +13,8 @@ namespace App\Models;
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property \App\Models\Duration         $duration
+ * @property \App\Models\ServiceLevel     $serviceLevel
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuoteRequestAsset newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuoteRequestAsset newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuoteRequestAsset query()
@@ -23,4 +27,12 @@ class QuoteRequestAsset extends Pivot {
      * @var string
      */
     protected $table = 'quote_request_assets';
+
+    public function duration(): BelongsTo {
+        return $this->belongsTo(Duration::class);
+    }
+
+    public function serviceLevel(): BelongsTo {
+        return $this->belongsTo(ServiceLevel::class);
+    }
 }

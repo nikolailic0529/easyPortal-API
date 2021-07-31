@@ -2,16 +2,19 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Mail\QuoteRequest as MailQuoteRequest;
 use App\Models\QuoteRequest;
 use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Contracts\Mail\Mailer;
 
 class CreateQuoteRequest {
     public function __construct(
         protected AuthManager $auth,
-        protected ModelDiskFactory $disks,
         protected CurrentOrganization $organization,
+        protected ModelDiskFactory $disks,
+        protected Mailer $mail,
     ) {
         // empty
     }
@@ -48,6 +51,8 @@ class CreateQuoteRequest {
         $request->assets = $assetsInput;
         $request->save();
 
+        // Send Email
+        $this->mail->send(new MailQuoteRequest($request));
         return ['created' => $request ];
     }
 }

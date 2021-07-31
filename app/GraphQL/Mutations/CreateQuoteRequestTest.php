@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Mail\QuoteRequest;
 use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Document;
@@ -14,6 +15,7 @@ use App\Models\Type;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Mail;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -52,6 +54,8 @@ class CreateQuoteRequestTest extends TestCase {
         $organization = $this->setOrganization($organizationFactory);
         $user         = $this->setUser($userFactory, $organization);
         $this->setSettings($settings);
+
+        Mail::fake();
 
         if ($prepare) {
             $prepare($this, $organization, $user);
@@ -154,6 +158,10 @@ class CreateQuoteRequestTest extends TestCase {
             'variables'     => ['input' => $input],
         ];
         $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
+
+        if ($expected instanceof GraphQLSuccess) {
+            Mail::assertSent(QuoteRequest::class);
+        }
     }
     // </editor-fold>
 

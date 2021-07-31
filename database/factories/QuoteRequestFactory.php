@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Oem;
 use App\Models\Organization;
 use App\Models\QuoteRequest;
+use App\Models\Type;
 use App\Models\User;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
@@ -47,6 +48,9 @@ class QuoteRequestFactory extends Factory {
             },
             'contact_id'      => static function (): Contact {
                 return Contact::query()->first() ?? Contact::factory()->create();
+            },
+            'type_id'         => static function (): Type {
+                return Type::query()->first() ?? Type::factory()->create();
             },
             'message'         => $this->faker->text,
             'created_at'      => Date::now(),
