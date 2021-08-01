@@ -4,10 +4,15 @@
     "type": "object",
     "required": [
         "oem_id",
+        "oem",
         "customer_id",
+        "customer",
         "contact_id",
+        "contact",
         "type_id",
+        "type",
         "message",
+        "files",
         "assets"
     ],
     "properties": {
@@ -17,11 +22,29 @@
         "oem_id": {
             "$ref": "../types.json#/definitions/ID"
         },
+        "oem": {
+            "$ref": "../types.json#/definitions/Oem"
+        },
         "user_id": {
             "$ref": "../types.json#/definitions/ID"
         },
         "customer_id": {
             "$ref": "../types.json#/definitions/ID"
+        },
+        "customer": {
+            "$ref": "../types.json#/definitions/Customer"
+        },
+        "contact_id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "contact": {
+            "$ref": "../types.json#/definitions/Contact"
+        },
+        "type_id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "type": {
+            "$ref": "../types.json#/definitions/Type"
         },
         "message": {
             "type": [

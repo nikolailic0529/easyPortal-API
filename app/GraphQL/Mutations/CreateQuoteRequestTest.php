@@ -128,6 +128,45 @@ class CreateQuoteRequestTest extends TestCase {
                         contact_id
                         type_id
                         message
+                        oem {
+                            id
+                            key
+                            name
+                        }
+                        customer {
+                            id
+                            name
+                            assets_count
+                            locations_count
+                            locations {
+                                id
+                                state
+                                postcode
+                                line_one
+                                line_two
+                                latitude
+                                longitude
+                            }
+                            contacts_count
+                            contacts {
+                                id
+                                name
+                                email
+                                phone_number
+                                phone_valid
+                            }
+                        }
+                        contact {
+                            id
+                            name
+                            email
+                            phone_number
+                            phone_valid
+                        }
+                        type {
+                            id
+                            name
+                        }
                         files {
                             name
                         }
@@ -179,18 +218,29 @@ class CreateQuoteRequestTest extends TestCase {
                 'id' => $organization->getKey(),
             ]);
             Oem::factory()->create([
-                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                'key'  => 'key1',
+                'name' => 'oem1',
             ]);
             $customer = Customer::factory()
                 ->hasContacts(1, [
-                    'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
+                    'id'           => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
+                    'email'        => 'contact1@test.com',
+                    'name'         => 'contact1',
+                    'phone_number' => '123219356',
+                    'phone_valid'  => false,
                 ])
                 ->create([
-                    'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                    'id'              => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                    'name'            => 'customer1',
+                    'assets_count'    => 0,
+                    'contacts_count'  => 1,
+                    'locations_count' => 0,
                 ]);
             $customer->resellers()->attach($reseller);
             Type::factory()->create([
                 'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                'name'        => 'new',
                 'object_type' => (new Document())->getMorphClass(),
             ]);
             Asset::factory()->create([
@@ -238,6 +288,39 @@ class CreateQuoteRequestTest extends TestCase {
                             'contact_id'  => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
                             'type_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                             'message'     => 'message',
+                            'oem'         => [
+                                'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                                'key'  => 'key1',
+                                'name' => 'oem1',
+                            ],
+                            'customer'    => [
+                                'id'              => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                                'name'            => 'customer1',
+                                'assets_count'    => 0,
+                                'contacts_count'  => 1,
+                                'locations_count' => 0,
+                                'contacts'        => [
+                                    [
+                                        'id'           => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
+                                        'email'        => 'contact1@test.com',
+                                        'name'         => 'contact1',
+                                        'phone_number' => '123219356',
+                                        'phone_valid'  => false,
+                                    ],
+                                ],
+                                'locations'       => [],
+                            ],
+                            'contact'     => [
+                                'id'           => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
+                                'email'        => 'contact1@test.com',
+                                'name'         => 'contact1',
+                                'phone_number' => '123219356',
+                                'phone_valid'  => false,
+                            ],
+                            'type'        => [
+                                'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                                'name' => 'new',
+                            ],
                             'files'       => [
                                 [
                                     'name' => 'document.csv',
