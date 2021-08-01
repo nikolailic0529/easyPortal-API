@@ -19,6 +19,10 @@ phone: {{ $request->contact->phone }}<br>
 @endforeach
 @endcomponent
 
+@if($request->message)
+<b>Message:</b><br>
+{!! $request->message !!}
+@endif
 
 Thanks,<br>
 Support Team<br>
