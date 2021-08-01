@@ -1946,13 +1946,19 @@ type Query {
 type QuoteRequest {
   id: ID!
   oem_id: ID!
+  oem: Oem!
   user_id: ID!
+  user: User!
   customer_id: ID!
+  customer: Customer!
   contact_id: ID!
+  contact: Contact!
   type_id: ID!
+  type: Type!
   message: String
   assets: [Asset!]!
   files: [File!]!
+  statuses: [Status!]!
 }
 
 input QuoteTypesQuery {
