@@ -2,13 +2,15 @@
 
 namespace App\Utils;
 
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use LogicException;
 
 use function array_slice;
 use function end;
 use function explode;
 use function implode;
+use function sprintf;
 
 class ModelProperty {
     protected string  $name;
@@ -65,13 +67,23 @@ class ModelProperty {
         $value = null;
 
         if ($this->isRelation()) {
-            $models = new Collection([$model]);
+            $value    = $model;
+            $previous = [];
 
             foreach ($this->getPath() as $property) {
-                $models = $models->pluck($property)->flatten(1)->unique();
-            }
+                if ($value instanceof Collection) {
+                    $value = $value->pluck($property)->flatten(1)->unique();
+                } elseif ($value instanceof Model) {
+                    $value = $value->{$property};
+                } else {
+                    throw new LogicException(sprintf(
+                        'Property `%s` is not a relation.',
+                        implode('.', $previous),
+                    ));
+                }
 
-            $value = $models;
+                $previous[] = $property;
+            }
         } else {
             $value = $model->{$this->getName()};
         }

@@ -69,7 +69,7 @@ class ModelPropertyTest extends TestCase {
 
         // Relations
         $this->assertEquals(
-            new Collection([$oem->getKey()]),
+            $oem->getKey(),
             (new ModelProperty('oem.id'))->getValue($assetA),
         );
         $this->assertEqualsCanonicalizing(
