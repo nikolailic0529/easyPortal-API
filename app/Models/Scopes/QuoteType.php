@@ -40,7 +40,7 @@ class QuoteType implements SearchScope, EloquentScope {
         // if empty quotes type we will use ids not represented in contracts
         $contractTypes = $this->config->get('ep.contract_types');
         $quoteTypes    = $this->config->get('ep.quote_types');
-        $key           = DocumentTypeScope::SEARCH_METADATA;
+        $key           = DocumentType::SEARCH_METADATA;
 
         if ($quoteTypes) {
             $builder->whereMetadataIn($key, $quoteTypes);

@@ -13,8 +13,10 @@ use App\Models\Concerns\Relations\HasServiceGroup;
 use App\Models\Concerns\Relations\HasType;
 use App\Models\Concerns\SyncHasMany;
 use App\Models\Scopes\ContractTypeScope;
+use App\Models\Scopes\DocumentTypeScope;
 use App\Models\Scopes\QuoteTypeScope;
 use App\Services\Organization\Eloquent\OwnedByReseller;
+use App\Services\Search\Eloquent\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -69,8 +71,9 @@ use function count;
  * @mixin \Eloquent
  */
 class Document extends Model implements CascadeDeletable {
-    use OwnedByReseller;
     use HasFactory;
+    use Searchable;
+    use OwnedByReseller;
     use HasOem;
     use HasType;
     use HasServiceGroup;
@@ -82,6 +85,7 @@ class Document extends Model implements CascadeDeletable {
     use SyncHasMany;
     use ContractTypeScope;
     use QuoteTypeScope;
+    use DocumentTypeScope;
 
     protected const CASTS = [
         'changed_at' => 'datetime',
@@ -106,6 +110,8 @@ class Document extends Model implements CascadeDeletable {
      */
     protected $table = 'documents';
 
+    // <editor-fold desc="Relations">
+    // =========================================================================
     public function entries(): HasMany {
         return $this->hasMany(DocumentEntry::class);
     }
@@ -122,10 +128,6 @@ class Document extends Model implements CascadeDeletable {
             })
             ->unique()
             ->count();
-    }
-
-    public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {
-        return $name === 'entries';
     }
 
     public function distributor(): BelongsTo {
@@ -147,4 +149,25 @@ class Document extends Model implements CascadeDeletable {
     public function notes(): HasMany {
         return $this->hasMany(Note::class);
     }
+    // </editor-fold>
+
+    // <editor-fold desc="CascadeDeletes">
+    // =========================================================================
+    public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {
+        return $name === 'entries';
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Searchable">
+    // =========================================================================
+    /**
+     * @inheritDoc
+     */
+    protected static function getSearchProperties(): array {
+        return [
+            'number'   => 'number',
+            'customer' => 'customer.name',
+        ];
+    }
+    // </editor-fold>
 }

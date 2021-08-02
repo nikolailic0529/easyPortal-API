@@ -28,7 +28,7 @@ class ContractType implements SearchScope, EloquentScope {
     }
 
     public function applyForSearch(SearchBuilder $builder, Model $model): void {
-        $builder->whereMetadataIn(DocumentTypeScope::SEARCH_METADATA, $this->getTypeIds());
+        $builder->whereMetadataIn(DocumentType::SEARCH_METADATA, $this->getTypeIds());
     }
 
     /**
