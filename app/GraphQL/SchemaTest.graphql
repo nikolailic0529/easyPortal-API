@@ -1903,6 +1903,21 @@ type Query {
   ): AssetPaginator
 
   """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  assetsSearch(
+    search: String!
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): AssetPaginator
+
+  """
   List of all contracts.
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1921,6 +1936,21 @@ type Query {
   ): DocumentPaginator
 
   """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  contractsSearch(
+    search: String!
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): DocumentPaginator
+
+  """
   List of all quotes.
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1930,6 +1960,21 @@ type Query {
   quotes(
     where: SearchByConditionDocumentsQuery
     order: [SortByClauseDocumentsSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): DocumentPaginator
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+  """
+  quotesSearch(
+    search: String!
 
     """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
