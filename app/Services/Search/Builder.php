@@ -5,20 +5,46 @@ namespace App\Services\Search;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder as ScoutBuilder;
 
-use function is_array;
-
 class Builder extends ScoutBuilder {
     public const METADATA   = 'metadata';
     public const PROPERTIES = 'searchable';
+
+    /**
+     * The "where not in" constraints added to the query.
+     *
+     * @var array<string,array<mixed>>
+     */
+    public array $whereNotIns = [];
 
     public function __construct(Model $model, string $query, callable $callback = null, bool $softDelete = false) {
         parent::__construct($model, "{$this->getFieldProperties()}.\\*:{$query}", $callback, $softDelete);
     }
 
+    /**
+     * @param array<mixed> $values
+     */
+    public function whereNotIn(string $field, array $values): static {
+        $this->whereNotIns[$field] = $values;
+
+        return $this;
+    }
+
     public function whereMetadata(string $field, mixed $value): static {
-        return is_array($value)
-            ? $this->whereIn("{$this->getFieldMetadata()}.{$field}.keyword", $value)
-            : $this->where("{$this->getFieldMetadata()}.{$field}.keyword", $value);
+        return $this->where("{$this->getFieldMetadata()}.{$field}.keyword", $value);
+    }
+
+    /**
+     * @param array<mixed> $values
+     */
+    public function whereMetadataIn(string $field, array $values): static {
+        return $this->whereIn("{$this->getFieldMetadata()}.{$field}.keyword", $values);
+    }
+
+    /**
+     * @param array<mixed> $values
+     */
+    public function whereMetadataNotIn(string $field, array $values): static {
+        return $this->whereNotIn("{$this->getFieldMetadata()}.{$field}.keyword", $values);
     }
 
     protected function getFieldMetadata(): string {

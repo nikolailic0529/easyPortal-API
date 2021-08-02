@@ -2,7 +2,6 @@
 
 namespace App\Services\Search;
 
-
 use Illuminate\Database\Eloquent\Model;
 use Tests\TestCase;
 
@@ -37,15 +36,66 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $builder->whereMetadata('test-value', 'value');
-        $builder->whereMetadata('test-array', ['a', 'b', 'c']);
+        $builder->whereMetadata('test', 'value');
 
         $this->assertEquals([
-            "{$meta}.test-value.keyword" => 'value',
+            "{$meta}.test.keyword" => 'value',
         ], $builder->wheres);
+    }
+
+    /**
+     * @covers ::whereMetadataIn
+     */
+    public function testWhereMetadataIn(): void {
+        $meta    = Builder::METADATA;
+        $builder = $this->app->make(Builder::class, [
+            'query' => '123',
+            'model' => new class() extends Model {
+                // empty
+            },
+        ]);
+
+        $builder->whereMetadataIn('test', ['a', 'b', 'c']);
 
         $this->assertEquals([
-            "{$meta}.test-array.keyword" => ['a', 'b', 'c'],
+            "{$meta}.test.keyword" => ['a', 'b', 'c'],
         ], $builder->whereIns);
+    }
+
+    /**
+     * @covers ::whereMetadataNotIn
+     */
+    public function testWhereMetadataNotIn(): void {
+        $meta    = Builder::METADATA;
+        $builder = $this->app->make(Builder::class, [
+            'query' => '123',
+            'model' => new class() extends Model {
+                // empty
+            },
+        ]);
+
+        $builder->whereMetadataNotIn('test', ['a', 'b', 'c']);
+
+        $this->assertEquals([
+            "{$meta}.test.keyword" => ['a', 'b', 'c'],
+        ], $builder->whereNotIns);
+    }
+
+    /**
+     * @covers ::whereNotIn
+     */
+    public function testWhereNotIn(): void {
+        $builder = $this->app->make(Builder::class, [
+            'query' => '123',
+            'model' => new class() extends Model {
+                // empty
+            },
+        ]);
+
+        $builder->whereNotIn('test', ['a', 'b', 'c']);
+
+        $this->assertEquals([
+            'test' => ['a', 'b', 'c'],
+        ], $builder->whereNotIns);
     }
 }
