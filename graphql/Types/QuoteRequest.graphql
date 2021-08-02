@@ -12,5 +12,4 @@ type QuoteRequest {
   message: String
   assets: [QuoteRequestAsset!]! @hasMany
   files: [File!]! @morphMany
-  statuses: [Status!]! @belongsToMany
 }

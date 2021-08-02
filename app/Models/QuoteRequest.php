@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Models\Concerns\HasCustomer;
 use App\Models\Concerns\HasFiles;
 use App\Models\Concerns\HasOem;
-use App\Models\Concerns\HasStatuses;
 use App\Models\Concerns\HasType;
 use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
@@ -44,7 +43,6 @@ class QuoteRequest extends Model {
     use OwnedByOrganization;
     use HasOem;
     use HasCustomer;
-    use HasStatuses;
     use HasType;
     use HasFiles;
     use SyncHasMany;
@@ -55,10 +53,6 @@ class QuoteRequest extends Model {
      * @var string
      */
     protected $table = 'quote_requests';
-
-    protected function getStatusesPivot(): Pivot {
-        return new QuoteRequestStatus();
-    }
 
     public function getQualifiedOrganizationColumn(): string {
         return $this->qualifyColumn('organization_id');
