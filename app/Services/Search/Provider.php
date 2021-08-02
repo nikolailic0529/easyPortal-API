@@ -3,6 +3,8 @@
 namespace App\Services\Search;
 
 use App\Services\Search\Builder as SearchBuilder;
+use App\Services\Search\Elastic\SearchRequestFactory;
+use ElasticScoutDriver\Factories\SearchRequestFactoryInterface;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Scout\Builder;
 
@@ -11,7 +13,7 @@ class Provider extends ServiceProvider {
         parent::register();
 
         $this->registerScopes();
-        $this->registerBuilder();
+        $this->registerBindings();
     }
 
     protected function registerScopes(): void {
@@ -27,7 +29,8 @@ class Provider extends ServiceProvider {
         });
     }
 
-    protected function registerBuilder(): void {
+    protected function registerBindings(): void {
         $this->app->bind(Builder::class, SearchBuilder::class);
+        $this->app->bind(SearchRequestFactoryInterface::class, SearchRequestFactory::class);
     }
 }

@@ -3,8 +3,10 @@
 namespace App\Services\Search;
 
 use App\Services\Search\Builder as SearchBuilder;
+use App\Services\Search\Elastic\SearchRequestFactory;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Scope as SearchScope;
+use ElasticScoutDriver\Factories\SearchRequestFactoryInterface;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope as EloquentScope;
@@ -53,14 +55,16 @@ class ProviderTest extends TestCase {
     }
 
     /**
-     * @covers ::registerBuilder
+     * @covers ::registerBindings
      */
-    public function testRegisterBuilder(): void {
+    public function testRegisterBindings(): void {
         $this->assertInstanceOf(SearchBuilder::class, $this->app->make(ScoutBuilder::class, [
             'query' => '',
             'model' => new class() extends Model {
                 // empty
             },
         ]));
+
+        $this->assertInstanceOf(SearchRequestFactory::class, $this->app->make(SearchRequestFactoryInterface::class));
     }
 }
