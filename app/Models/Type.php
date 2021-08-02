@@ -7,15 +7,11 @@ use App\Models\Concerns\Relations\HasAssets;
 use App\Models\Concerns\Relations\HasContracts;
 use App\Models\Concerns\Relations\HasQuotes;
 use App\Models\Concerns\TranslateProperties;
-use App\Models\Scopes\ContractType;
 use App\Models\Scopes\ContractTypeScope;
 use App\Models\Scopes\QuoteTypeScope;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
-use function app;
 
 /**
  * Type.
