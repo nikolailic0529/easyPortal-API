@@ -10,12 +10,11 @@ use App\Models\Concerns\HasQuotes;
 use App\Models\Concerns\HasStatuses;
 use App\Models\Concerns\HasType;
 use App\Services\Organization\Eloquent\OwnedByReseller;
+use App\Services\Search\Eloquent\Searchable;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Laravel\Scout\Searchable;
 
 use function app;
 
@@ -110,6 +109,18 @@ class Customer extends Model {
     // =========================================================================
     public function getOrganizationColumn(): string {
         return "resellers.{$this->resellers()->getModel()->getKeyName()}";
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Searchable">
+    // =========================================================================
+    /**
+     * @inheritDoc
+     */
+    protected static function getSearchProperties(): array {
+        return [
+            'name' => 'name',
+        ];
     }
     // </editor-fold>
 }
