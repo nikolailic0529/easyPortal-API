@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Contact;
 use App\Models\Customer;
 use App\Models\Oem;
 use App\Models\Organization;
@@ -45,9 +44,6 @@ class QuoteRequestFactory extends Factory {
             },
             'customer_id'     => static function (): Customer {
                 return Customer::query()->first() ?? Customer::factory()->create();
-            },
-            'contact_id'      => static function (): Contact {
-                return Contact::query()->first() ?? Contact::factory()->create();
             },
             'type_id'         => static function (): Type {
                 return Type::query()->first() ?? Type::factory()->create();

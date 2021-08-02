@@ -235,6 +235,7 @@ type Asset {
   coverages: [Coverage!]
   tags: [Tag!]!
   data_quality: String
+  quoteRequest: QuoteRequest
 }
 
 input AssetCoveragesQuery {

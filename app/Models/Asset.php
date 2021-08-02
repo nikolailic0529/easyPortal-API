@@ -184,4 +184,19 @@ class Asset extends Model {
     public function setCoveragesAttribute(Collection|array $coverages): void {
         $this->syncBelongsToMany('coverages', $coverages);
     }
+
+    public function requests(): BelongsToMany {
+        $pivot = new QuoteRequestAsset();
+        return $this
+            ->belongsToMany(QuoteRequest::class, $pivot->getTable(), 'asset_id', 'request_id')
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
+    }
+
+    public function getQuoteRequestAttribute(): ?QuoteRequest {
+        $request = new QuoteRequest();
+        return $this->requests()
+            ->orderByDesc($request->qualifyColumn('created_at'))
+            ->first();
+    }
 }

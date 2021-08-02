@@ -11,8 +11,7 @@
         "type_id",
         "type",
         "message",
-        "files",
-        "assets"
+        "files"
     ],
     "properties": {
         "id": {

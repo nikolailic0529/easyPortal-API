@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\HasAsset;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
@@ -26,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @mixin \Eloquent
  */
 class QuoteRequestAsset extends Model {
+    use HasFactory;
     use HasAsset;
 
     /**
