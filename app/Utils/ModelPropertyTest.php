@@ -80,5 +80,13 @@ class ModelPropertyTest extends TestCase {
             new Collection([$type->getKey()]),
             (new ModelProperty('assets.type.id'))->getValue($oem),
         );
+
+        // Null
+        $this->assertNull(
+            (new ModelProperty('unknown.id'))->getValue($oem),
+        );
+        $this->assertNull(
+            (new ModelProperty('assets.unknown.id'))->getValue($oem),
+        );
     }
 }

@@ -71,13 +71,16 @@ class ModelProperty {
             $previous = [];
 
             foreach ($this->getPath() as $property) {
-                if ($value instanceof Collection) {
+                if ($value === null || ($value instanceof Collection && $value->all() === [null])) {
+                    $value = null;
+                    break;
+                } elseif ($value instanceof Collection) {
                     $value = $value->pluck($property)->flatten(1)->unique();
                 } elseif ($value instanceof Model) {
                     $value = $value->{$property};
                 } else {
                     throw new LogicException(sprintf(
-                        'Property `%s` is not a relation.',
+                        'Value of `%s` is not supported.',
                         implode('.', $previous),
                     ));
                 }
