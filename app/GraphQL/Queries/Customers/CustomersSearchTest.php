@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Queries\Search;
+namespace App\GraphQL\Queries\Customers;
 
 use App\Models\Customer;
 use App\Models\Location;
@@ -23,7 +23,7 @@ use Tests\WithScout;
  * @coversNothing
  * @internal
  */
-class SearchCustomersTest extends TestCase {
+class CustomersSearchTest extends TestCase {
     use WithScout;
 
     // <editor-fold desc="Tests">
@@ -48,7 +48,7 @@ class SearchCustomersTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-            searchCustomers(search: "*") {
+            customersSearch(search: "*") {
                 data {
                     id
                     name
@@ -93,13 +93,13 @@ class SearchCustomersTest extends TestCase {
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
             'root'         => new CompositeDataProvider(
-                new RootOrganizationDataProvider('searchCustomers'),
-                new OrganizationUserDataProvider('searchCustomers', [
+                new RootOrganizationDataProvider('customersSearch'),
+                new OrganizationUserDataProvider('customersSearch', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLPaginated('searchCustomers', null),
+                        new GraphQLPaginated('customersSearch', null),
                         static function (TestCase $test, Organization $organization): Customer {
                             return Customer::factory()->create();
                         },
@@ -107,13 +107,13 @@ class SearchCustomersTest extends TestCase {
                 ]),
             ),
             'organization' => new CompositeDataProvider(
-                new OrganizationDataProvider('searchCustomers'),
-                new UserDataProvider('searchCustomers', [
+                new OrganizationDataProvider('customersSearch'),
+                new UserDataProvider('customersSearch', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLPaginated('searchCustomers', self::class, [
+                        new GraphQLPaginated('customersSearch', self::class, [
                             [
                                 'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
                                 'name'            => 'name aaa',

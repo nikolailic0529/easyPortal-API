@@ -1852,21 +1852,6 @@ type Query {
   organization(id: ID!): Organization
 
   """
-  @require <organization> Authenticated user must be a member of the current organization.
-  
-  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
-  """
-  searchCustomers(
-    search: String!
-
-    """Limits number of fetched items. Maximum allowed value: 100."""
-    first: Int = 25
-
-    """The offset from which items are returned."""
-    page: Int
-  ): CustomerPaginator
-
-  """
   List of Customers.
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1876,6 +1861,21 @@ type Query {
   customers(
     where: SearchByConditionCustomersQuery
     order: [SortByClauseCustomersSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): CustomerPaginator
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  customersSearch(
+    search: String!
 
     """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25

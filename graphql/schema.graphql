@@ -159,19 +159,11 @@ type Query {
   @organization
   @me
 
-
   "List of all possible quote request durations."
   quoteRequestDurations: [QuoteRequestDuration!]!
   @organization
   @me
   @all
-
-  # Search
-  # ============================================================================
-  searchCustomers(search: String! @search): [Customer!]!
-  @organization
-  @me(permissions: ["customers-view"])
-  @paginate(model: "App\\Models\\Customer")
 
   # Customers
   # ============================================================================
@@ -190,6 +182,11 @@ type Query {
   @organization
   @me(permissions: ["customers-view"])
   @field(resolver: "App\\GraphQL\\Queries\\CustomersAggregate")
+
+  customersSearch(search: String! @search): [Customer!]!
+  @organization
+  @me(permissions: ["customers-view"])
+  @paginate(model: "App\\Models\\Customer")
 
   "Customer."
   customer(id: ID! @eq): Customer
