@@ -12,7 +12,6 @@ use Closure;
 use DateTimeInterface;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Laravel\Scout\Searchable as ScoutSearchable;
@@ -104,7 +103,7 @@ trait Searchable {
         $properties = $this->getSearchableProperties();
 
         array_walk_recursive($properties, function (mixed &$value): void {
-            $value = $this->toSearchableValue(Arr::get($this, $value));
+            $value = $this->toSearchableValue((new ModelProperty($value))->getValue($this));
         });
 
         // Return
