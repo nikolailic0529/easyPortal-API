@@ -12,6 +12,7 @@ use App\Models\Concerns\Relations\HasTags;
 use App\Models\Concerns\Relations\HasTypeNullable;
 use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByReseller;
+use App\Services\Search\Eloquent\Searchable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -62,6 +63,7 @@ use function sprintf;
  * @mixin \Eloquent
  */
 class Asset extends Model {
+    use Searchable;
     use OwnedByReseller;
     use HasFactory;
     use SyncHasMany;
@@ -94,6 +96,8 @@ class Asset extends Model {
      */
     protected $casts = self::CASTS;
 
+    // <editor-fold desc="Relations">
+    // =========================================================================
     public function location(): BelongsTo {
         return $this->belongsTo(Location::class);
     }
@@ -186,6 +190,7 @@ class Asset extends Model {
 
     public function requests(): BelongsToMany {
         $pivot = new QuoteRequestAsset();
+
         return $this
             ->belongsToMany(QuoteRequest::class, $pivot->getTable(), 'asset_id', 'request_id')
             ->wherePivotNull($pivot->getDeletedAtColumn())
@@ -194,8 +199,29 @@ class Asset extends Model {
 
     public function getQuoteRequestAttribute(): ?QuoteRequest {
         $request = new QuoteRequest();
+
         return $this->requests()
             ->orderByDesc($request->qualifyColumn('created_at'))
             ->first();
     }
+    //</editor-fold>
+
+    // <editor-fold desc="Searchable">
+    // =========================================================================
+    /**
+     * @inheritDoc
+     */
+    protected static function getSearchProperties(): array {
+        return [
+            'serial_number' => 'serial_number',
+            'product'       => [
+                'sku'  => 'product.sku',
+                'name' => 'product.name',
+            ],
+            'customer'      => [
+                'name' => 'customer.name',
+            ],
+        ];
+    }
+    // </editor-fold>
 }
