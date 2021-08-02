@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 
 class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMetadata {
-    protected const SEARCH_METADATA = 'organizations';
+    protected const SEARCH_METADATA = 'organization';
 
     public function __construct(
         protected CurrentOrganization $organization,
