@@ -42,6 +42,7 @@ class UpdateMeProfileTest extends TestCase {
         array $settings = [],
         Closure $dataFactory = null,
         Closure $clientFactory = null,
+        bool $nullableData = false,
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
@@ -85,6 +86,15 @@ class UpdateMeProfileTest extends TestCase {
 
         // Test
         $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
+        if ($expected instanceof GraphQLSuccess) {
+            if ($nullableData) {
+                $this->assertNotNull($user->given_name);
+                $this->assertNotNull($user->family_name);
+            } else {
+                $this->assertEquals($user->given_name, $input['first_name']);
+                $this->assertEquals($user->family_name, $input['last_name']);
+            }
+        }
     }
     // </editor-fold>
 
@@ -213,6 +223,7 @@ class UpdateMeProfileTest extends TestCase {
                             ->once()
                             ->andReturn(true);
                     },
+                    true,
                 ],
             ]),
         ))->getData();

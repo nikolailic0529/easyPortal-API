@@ -213,6 +213,7 @@ class UserProviderTest extends TestCase {
                     'test_role_2',
                 ],
                 'organization'   => $organization,
+                'photo'          => 'https://example.com/photo.jpg',
             ]);
 
         // Test
@@ -224,6 +225,7 @@ class UserProviderTest extends TestCase {
         $this->assertEquals('456', $user->family_name);
         $this->assertEquals(['test_role_1', 'test_role_2'], $user->getPermissions());
         $this->assertEquals($organization, $user->organization);
+        $this->assertEquals('https://example.com/photo.jpg', $user->photo);
     }
     // </editor-fold>
 
@@ -491,6 +493,7 @@ class UserProviderTest extends TestCase {
                             'test_role_2',
                         ],
                         'organization'   => $organization,
+                        'photo'          => 'https://example.com/photo.jpg',
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -522,6 +525,7 @@ class UserProviderTest extends TestCase {
                         'reseller_access'       => [
                             $organization->keycloak_scope => true,
                         ],
+                        'photo'                 => 'https://example.com/photo.jpg',
                     ];
                 },
             ],
@@ -536,6 +540,7 @@ class UserProviderTest extends TestCase {
                         'phone_verified' => null,
                         'organization'   => $organization,
                         'permissions'    => [],
+                        'photo'          => 'https://example.com/photo.jpg',
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -552,6 +557,7 @@ class UserProviderTest extends TestCase {
                         'reseller_access'    => [
                             $organization->keycloak_scope => true,
                         ],
+                        'photo'              => 'https://example.com/photo.jpg',
                     ];
                 },
             ],
@@ -566,6 +572,7 @@ class UserProviderTest extends TestCase {
                         'phone_verified' => null,
                         'organization'   => $organization,
                         'permissions'    => [],
+                        'photo'          => 'https://example.com/photo.jpg',
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -582,6 +589,7 @@ class UserProviderTest extends TestCase {
                         'reseller_access'       => [
                             $organization->keycloak_scope => true,
                         ],
+                        'photo'                 => 'https://example.com/photo.jpg',
                     ];
                 },
             ],

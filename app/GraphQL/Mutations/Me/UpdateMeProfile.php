@@ -29,7 +29,7 @@ class UpdateMeProfile {
         $user         = $this->auth->user();
         $keycloakUser = $this->client->getUserById($user->getKey());
         $userType     = $this->prepare($user, $keycloakUser, $args['input']);
-        $result       = $this->client->updateUser($user->getKey(), $userType);
+        $result       = $this->client->updateUser($user->getKey(), $userType) && $user->save();
 
         // Return
         return [
@@ -46,10 +46,16 @@ class UpdateMeProfile {
         foreach ($properties as $property => $value) {
             switch ($property) {
                 case 'first_name':
-                    $userType->firstName = $value;
+                    if ($value !== null) {
+                        $userType->firstName = $value;
+                        $user->given_name    = $value;
+                    }
                     break;
                 case 'last_name':
-                    $userType->lastName = $value;
+                    if ($value !== null) {
+                        $userType->lastName = $value;
+                        $user->family_name  = $value;
+                    }
                     break;
                 case 'photo':
                     $attributes['photo'] = [$this->store($user, $value)];

@@ -33,6 +33,7 @@ class UserProvider implements UserProviderContract {
     protected const CLAIM_FAMILY_NAME           = 'family_name';
     protected const CLAIM_PHONE_NUMBER          = 'phone_number';
     protected const CLAIM_PHONE_NUMBER_VERIFIED = 'phone_number_verified';
+    protected const CLAIM_PHOTO                 = 'photo';
 
     /**
      * @var array<string,array{property:string,required:boolean,default:mixed,if:string|null}>
@@ -73,6 +74,12 @@ class UserProvider implements UserProviderContract {
             'required' => false,
             'default'  => null,
             'if'       => self::CLAIM_PHONE_NUMBER,
+        ],
+        self::CLAIM_PHOTO                 => [
+            'property' => 'photo',
+            'required' => false,
+            'default'  => null,
+            'if'       => null,
         ],
     ];
 
