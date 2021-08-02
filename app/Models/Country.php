@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use App\GraphQL\Contracts\Translatable;
-use App\Models\Concerns\HasAssetsThroughLocations;
-use App\Models\Concerns\HasCities;
-use App\Models\Concerns\HasCustomersThroughLocations;
+use App\Models\Concerns\Relations\HasAssetsThroughLocations;
+use App\Models\Concerns\Relations\HasCities;
+use App\Models\Concerns\Relations\HasCustomersThroughLocations;
 use App\Models\Concerns\TranslateProperties;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\HasUser;
+use App\Models\Concerns\Relations\HasUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

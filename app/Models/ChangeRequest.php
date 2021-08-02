@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\HasFiles;
-use App\Models\Concerns\HasOrganization;
-use App\Models\Concerns\HasUser;
+use App\Models\Concerns\Relations\HasFiles;
+use App\Models\Concerns\Relations\HasOrganization;
+use App\Models\Concerns\Relations\HasUser;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 

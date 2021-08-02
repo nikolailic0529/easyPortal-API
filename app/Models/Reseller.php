@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\HasAssets;
-use App\Models\Concerns\HasContacts;
-use App\Models\Concerns\HasLocations;
-use App\Models\Concerns\HasStatuses;
-use App\Models\Concerns\HasType;
+use App\Models\Concerns\Relations\HasAssets;
+use App\Models\Concerns\Relations\HasContacts;
+use App\Models\Concerns\Relations\HasLocations;
+use App\Models\Concerns\Relations\HasStatuses;
+use App\Models\Concerns\Relations\HasType;
 use App\Models\Concerns\SyncBelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

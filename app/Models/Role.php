@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\HasOrganization;
+use App\Models\Concerns\Relations\HasOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

@@ -3,14 +3,14 @@
 namespace App\Models;
 
 use App\GraphQL\Queries\ContractTypes;
-use App\Models\Concerns\HasContacts;
-use App\Models\Concerns\HasCustomer;
-use App\Models\Concerns\HasOem;
-use App\Models\Concerns\HasProduct;
-use App\Models\Concerns\HasReseller;
-use App\Models\Concerns\HasStatus;
-use App\Models\Concerns\HasTags;
-use App\Models\Concerns\HasTypeNullable;
+use App\Models\Concerns\Relations\HasContacts;
+use App\Models\Concerns\Relations\HasCustomer;
+use App\Models\Concerns\Relations\HasOem;
+use App\Models\Concerns\Relations\HasProduct;
+use App\Models\Concerns\Relations\HasReseller;
+use App\Models\Concerns\Relations\HasStatus;
+use App\Models\Concerns\Relations\HasTags;
+use App\Models\Concerns\Relations\HasTypeNullable;
 use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use Illuminate\Database\Eloquent\Builder;

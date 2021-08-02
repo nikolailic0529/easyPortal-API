@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\HasDocumentEntries;
-use App\Models\Concerns\HasOem;
+use App\Models\Concerns\Relations\HasDocumentEntries;
+use App\Models\Concerns\Relations\HasOem;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**

@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\HasContactsTests;
-use App\Models\Concerns\HasLocationsTests;
+use App\Models\Concerns\Relations\HasContactsTests;
+use App\Models\Concerns\Relations\HasLocationsTests;
 use Tests\TestCase;
 
 /**

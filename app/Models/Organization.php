@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\HasCurrency;
+use App\Models\Concerns\Relations\HasCurrency;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

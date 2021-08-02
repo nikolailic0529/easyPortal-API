@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use App\Models\Concerns\CascadeDeletes\CascadeDeletable;
-use App\Models\Concerns\HasDocument;
-use App\Models\Concerns\HasFiles;
-use App\Models\Concerns\HasOrganization;
-use App\Models\Concerns\HasUser;
+use App\Models\Concerns\Relations\HasDocument;
+use App\Models\Concerns\Relations\HasFiles;
+use App\Models\Concerns\Relations\HasOrganization;
+use App\Models\Concerns\Relations\HasUser;
 use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\HasAssets;
-use App\Models\Concerns\HasContacts;
-use App\Models\Concerns\HasContracts;
-use App\Models\Concerns\HasLocations;
-use App\Models\Concerns\HasQuotes;
-use App\Models\Concerns\HasStatuses;
-use App\Models\Concerns\HasType;
+use App\Models\Concerns\Relations\HasAssets;
+use App\Models\Concerns\Relations\HasContacts;
+use App\Models\Concerns\Relations\HasContracts;
+use App\Models\Concerns\Relations\HasLocations;
+use App\Models\Concerns\Relations\HasQuotes;
+use App\Models\Concerns\Relations\HasStatuses;
+use App\Models\Concerns\Relations\HasType;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Search\Eloquent\Searchable;
 use Illuminate\Contracts\Config\Repository;

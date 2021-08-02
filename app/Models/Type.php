@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use App\GraphQL\Contracts\Translatable;
-use App\Models\Concerns\HasAssets;
-use App\Models\Concerns\HasContracts;
-use App\Models\Concerns\HasQuotes;
+use App\Models\Concerns\Relations\HasAssets;
+use App\Models\Concerns\Relations\HasContracts;
+use App\Models\Concerns\Relations\HasQuotes;
 use App\Models\Concerns\TranslateProperties;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

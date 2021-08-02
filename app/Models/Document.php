@@ -3,16 +3,15 @@
 namespace App\Models;
 
 use App\Models\Concerns\CascadeDeletes\CascadeDeletable;
-use App\Models\Concerns\HasContacts;
-use App\Models\Concerns\HasCurrency;
-use App\Models\Concerns\HasCustomer;
-use App\Models\Concerns\HasLanguage;
-use App\Models\Concerns\HasOem;
-use App\Models\Concerns\HasReseller;
-use App\Models\Concerns\HasServiceGroup;
-use App\Models\Concerns\HasType;
+use App\Models\Concerns\Relations\HasContacts;
+use App\Models\Concerns\Relations\HasCurrency;
+use App\Models\Concerns\Relations\HasCustomer;
+use App\Models\Concerns\Relations\HasLanguage;
+use App\Models\Concerns\Relations\HasOem;
+use App\Models\Concerns\Relations\HasReseller;
+use App\Models\Concerns\Relations\HasServiceGroup;
+use App\Models\Concerns\Relations\HasType;
 use App\Models\Concerns\SyncHasMany;
-use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
