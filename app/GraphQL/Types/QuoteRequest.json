@@ -81,16 +81,7 @@
         "assets": {
             "type": "array",
             "items": {
-                "type": "object",
-                "additionalItems": false,
-                "required": [
-                    "id"
-                ],
-                "properties": {
-                    "id": {
-                        "$ref": "../types.json#/definitions/ID"
-                    }
-                }
+                "$ref": "../Types/QuoteRequestAsset.json"
             }
         }
     }

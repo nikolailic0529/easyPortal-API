@@ -7,10 +7,11 @@ use App\Models\Concerns\HasFiles;
 use App\Models\Concerns\HasOem;
 use App\Models\Concerns\HasStatuses;
 use App\Models\Concerns\HasType;
+use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 
 /**
@@ -46,6 +47,7 @@ class QuoteRequest extends Model {
     use HasStatuses;
     use HasType;
     use HasFiles;
+    use SyncHasMany;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -62,22 +64,15 @@ class QuoteRequest extends Model {
         return $this->qualifyColumn('organization_id');
     }
 
-    public function assets(): BelongsToMany {
-        $pivot = new QuoteRequestAsset();
-
-        return $this
-            ->belongsToMany(Asset::class, $pivot->getTable(), 'request_id')
-            ->using($pivot::class)
-            ->wherePivotNull($pivot->getDeletedAtColumn())
-            ->withPivot(['duration_id', 'service_level_id'])
-            ->withTimestamps();
+    public function assets(): HasMany {
+        return $this->hasMany(QuoteRequestAsset::class, 'request_id');
     }
 
     /**
-     * @param \Illuminate\Support\Collection|array<string, mixed> $assetsWithPivot
+     * @param \Illuminate\Support\Collection|array<\App\Models\QuoteRequestAsset> $assets
      */
-    public function setAssetsAttribute(Collection|array $assetsWithPivot): void {
-        $this->assets()->sync($assetsWithPivot);
+    public function setAssetsAttribute(Collection|array $assets): void {
+        $this->syncHasMany('assets', $assets);
     }
 
     public function contact(): BelongsTo {

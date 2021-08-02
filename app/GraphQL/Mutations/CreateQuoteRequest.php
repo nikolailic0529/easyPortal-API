@@ -4,6 +4,7 @@ namespace App\GraphQL\Mutations;
 
 use App\Mail\QuoteRequest as MailQuoteRequest;
 use App\Models\QuoteRequest;
+use App\Models\QuoteRequestAsset;
 use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Auth\AuthManager;
@@ -42,10 +43,11 @@ class CreateQuoteRequest {
         // Assets
         $assetsInput = [];
         foreach ($args['input']['assets'] as $assetInput) {
-            $assetsInput[$assetInput['asset_id']] = [
-                'duration_id'      => $assetInput['duration_id'],
-                'service_level_id' => $assetInput['service_level_id'],
-            ];
+            $quoteRequestAsset                   = new QuoteRequestAsset();
+            $quoteRequestAsset->asset_id         = $assetInput['asset_id'];
+            $quoteRequestAsset->duration_id      = $assetInput['duration_id'];
+            $quoteRequestAsset->service_level_id = $assetInput['service_level_id'];
+            $assetsInput[]                       = $quoteRequestAsset;
         }
 
         $request->assets = $assetsInput;

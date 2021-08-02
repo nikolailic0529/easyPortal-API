@@ -11,7 +11,7 @@ type QuoteRequest {
   type_id: ID!
   type: Type! @belongsTo
   message: String
-  assets: [Asset!]! @belongsToMany
+  assets: [QuoteRequestAsset!]! @hasMany
   files: [File!]! @morphMany
   statuses: [Status!]! @belongsToMany
 }

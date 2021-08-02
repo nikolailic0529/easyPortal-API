@@ -10,6 +10,7 @@ use App\Models\Duration;
 use App\Models\Oem;
 use App\Models\Organization;
 use App\Models\Reseller;
+use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Type;
 use App\Models\User;
@@ -102,7 +103,7 @@ class CreateQuoteRequestTest extends TestCase {
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
             ]);
             ServiceLevel::factory()->create([
-                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ag',
+                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
             ]);
         }
 
@@ -171,7 +172,21 @@ class CreateQuoteRequestTest extends TestCase {
                             name
                         }
                         assets {
-                            id
+                            asset_id
+                            service_level_id
+                            serviceLevel {
+                                id
+                                name
+                                description
+                                sku
+                                oem_id
+                                service_group_id
+                            }
+                            duration_id
+                            duration {
+                                id
+                                duration
+                            }
                         }
                     }
                 }
@@ -185,7 +200,7 @@ class CreateQuoteRequestTest extends TestCase {
                 [
                     'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                     'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                    'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ag',
+                    'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                 ],
             ],
             'message'     => null,
@@ -217,7 +232,7 @@ class CreateQuoteRequestTest extends TestCase {
             $reseller = Reseller::factory()->create([
                 'id' => $organization->getKey(),
             ]);
-            Oem::factory()->create([
+            $oem      = Oem::factory()->create([
                 'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                 'key'  => 'key1',
                 'name' => 'oem1',
@@ -248,11 +263,20 @@ class CreateQuoteRequestTest extends TestCase {
                 'reseller_id' => $reseller,
             ]);
             Duration::factory()->create([
-                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                'id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                'duration' => '5-10 years',
             ]);
-            ServiceLevel::factory()->create([
-                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ag',
-            ]);
+            ServiceLevel::factory()
+                ->for(ServiceGroup::factory()->state([
+                    'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a5',
+                ]))
+                ->create([
+                    'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                    'oem_id'      => $oem,
+                    'sku'         => 'SKU#123',
+                    'name'        => 'Level',
+                    'description' => 'description',
+                ]);
         };
         $input    = [
             'oem_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
@@ -263,7 +287,7 @@ class CreateQuoteRequestTest extends TestCase {
                 [
                     'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                     'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                    'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ag',
+                    'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                 ],
             ],
             'message'     => 'message',
@@ -328,7 +352,21 @@ class CreateQuoteRequestTest extends TestCase {
                             ],
                             'assets'      => [
                                 [
-                                    'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                    'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                    'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                    'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                                    'duration'         => [
+                                        'id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                        'duration' => '5-10 years',
+                                    ],
+                                    'serviceLevel'     => [
+                                        'id'               => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                                        'oem_id'           => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                                        'service_group_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a5',
+                                        'sku'              => 'SKU#123',
+                                        'name'             => 'Level',
+                                        'description'      => 'description',
+                                    ],
                                 ],
                             ],
                         ],
@@ -352,7 +390,7 @@ class CreateQuoteRequestTest extends TestCase {
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ag',
+                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                             ],
                         ],
                     ],
@@ -372,7 +410,7 @@ class CreateQuoteRequestTest extends TestCase {
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ag',
+                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                             ],
                         ],
                     ],
@@ -392,7 +430,7 @@ class CreateQuoteRequestTest extends TestCase {
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ag',
+                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                             ],
                         ],
                     ],
@@ -412,7 +450,7 @@ class CreateQuoteRequestTest extends TestCase {
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ag',
+                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                             ],
                         ],
                     ],
@@ -432,7 +470,7 @@ class CreateQuoteRequestTest extends TestCase {
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699be',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ag',
+                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                             ],
                         ],
                     ],
@@ -452,7 +490,7 @@ class CreateQuoteRequestTest extends TestCase {
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699bf',
-                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ag',
+                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                             ],
                         ],
                     ],
@@ -492,7 +530,7 @@ class CreateQuoteRequestTest extends TestCase {
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ag',
+                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                             ],
                         ],
                         'message'     => 'message',
@@ -514,7 +552,7 @@ class CreateQuoteRequestTest extends TestCase {
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ag',
+                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                             ],
                         ],
                         'message'     => 'message',
