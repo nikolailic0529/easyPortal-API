@@ -7,7 +7,6 @@
         "oem",
         "customer_id",
         "customer",
-        "contact_id",
         "contact",
         "type_id",
         "type",
@@ -33,9 +32,6 @@
         },
         "customer": {
             "$ref": "../types.json#/definitions/Customer"
-        },
-        "contact_id": {
-            "$ref": "../types.json#/definitions/ID"
         },
         "contact": {
             "$ref": "../types.json#/definitions/Contact"

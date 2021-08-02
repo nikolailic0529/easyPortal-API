@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations;
 
 use App\Mail\QuoteRequest as MailQuoteRequest;
+use App\Models\Contact;
 use App\Models\QuoteRequest;
 use App\Models\QuoteRequestAsset;
 use App\Services\Filesystem\ModelDiskFactory;
@@ -31,14 +32,24 @@ class CreateQuoteRequest {
         $request->organization_id = $this->organization->get()->getKey();
         $request->user_id         = $this->auth->user()->getKey();
         $request->customer_id     = $args['input']['customer_id'];
-        $request->contact_id      = $args['input']['contact_id'];
         $request->type_id         = $args['input']['type_id'];
         $request->message         = $args['input']['message'] ?? null;
+        // request save
         $request->save();
 
-        // Add files
+        // Contact
+        $contact               = new Contact();
+        $contact->name         = $args['input']['contact_name'];
+        $contact->email        = $args['input']['contact_email'];
+        $contact->phone_number = $args['input']['contact_phone'];
+        $contact->phone_valid  = false;
+        $contact->object_id    = $request->getKey();
+        $contact->object_type  = $request->getMorphClass();
+        $request->contact      = $contact;
+
+
+        // Files
         $request->files = $this->disks->getDisk($request)->storeToFiles($args['input']['files'] ?? []);
-        $request->save();
 
         // Assets
         $assetsInput = [];

@@ -8,7 +8,6 @@ CREATE TABLE IF NOT EXISTS `quote_requests` (
   `organization_id` CHAR(36) NOT NULL,
   `user_id`         CHAR(36) NOT NULL,
   `customer_id`     CHAR(36) NOT NULL,
-  `contact_id`      CHAR(36) NOT NULL,
   `type_id`         CHAR(36) NOT NULL,
   `message`         TEXT NULL DEFAULT NULL,
   `created_at`      TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -19,7 +18,6 @@ CREATE TABLE IF NOT EXISTS `quote_requests` (
   INDEX `fk_quote_requests_organizations1_idx` (`organization_id` ASC) VISIBLE,
   INDEX `fk_quote_requests_users1_idx` (`user_id` ASC) VISIBLE,
   INDEX `fk_quote_requests_customers1_idx` (`customer_id` ASC) VISIBLE,
-  INDEX `fk_quote_requests_contacts1_idx` (`contact_id` ASC) VISIBLE,
   INDEX `fk_quote_requests_types1_idx` (`type_id` ASC) VISIBLE,
   INDEX `idx__deleted_at` (`deleted_at` ASC) VISIBLE,
   CONSTRAINT `fk_quote_requests_oems1`
@@ -40,11 +38,6 @@ CREATE TABLE IF NOT EXISTS `quote_requests` (
   CONSTRAINT `fk_quote_requests_customers1`
     FOREIGN KEY (`customer_id`)
     REFERENCES `customers` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE RESTRICT,
-  CONSTRAINT `fk_quote_requests_contacts1`
-    FOREIGN KEY (`contact_id`)
-    REFERENCES `contacts` (`id`)
     ON DELETE CASCADE
     ON UPDATE RESTRICT,
   CONSTRAINT `fk_quote_requests_types1`

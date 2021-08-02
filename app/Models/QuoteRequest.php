@@ -12,6 +12,7 @@ use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Support\Collection;
 
 /**
@@ -22,7 +23,6 @@ use Illuminate\Support\Collection;
  * @property string                                                       $organization_id
  * @property string                                                       $user_id
  * @property string                                                       $customer_id
- * @property string                                                       $contact_id
  * @property string                                                       $message
  * @property \Carbon\CarbonImmutable                                      $created_at
  * @property \Carbon\CarbonImmutable                                      $updated_at
@@ -75,8 +75,12 @@ class QuoteRequest extends Model {
         $this->syncHasMany('assets', $assets);
     }
 
-    public function contact(): BelongsTo {
-        return $this->belongsTo(Contact::class);
+    public function contact(): MorphOne {
+        return $this->morphOne(Contact::class, 'object');
+    }
+
+    public function setContactAttribute(Contact $contact): void {
+        $this->contact()->save($contact);
     }
 
     public function organization(): BelongsTo {

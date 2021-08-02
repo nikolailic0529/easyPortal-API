@@ -82,14 +82,9 @@ class CreateQuoteRequestTest extends TestCase {
             Oem::factory()->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
             ]);
-            $customer = Customer::factory()
-                ->hasContacts(1, [
-                    'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
-                ])
-                ->create([
-                    'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-
-                ]);
+            $customer = Customer::factory()->create([
+                'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+            ]);
             $customer->resellers()->attach($reseller);
             Type::factory()->create([
                 'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
@@ -126,7 +121,6 @@ class CreateQuoteRequestTest extends TestCase {
                     created {
                         oem_id
                         customer_id
-                        contact_id
                         type_id
                         message
                         oem {
@@ -158,7 +152,6 @@ class CreateQuoteRequestTest extends TestCase {
                             }
                         }
                         contact {
-                            id
                             name
                             email
                             phone_number
@@ -192,11 +185,13 @@ class CreateQuoteRequestTest extends TestCase {
                 }
             }';
         $input      = $input ?: [
-            'oem_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-            'customer_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-            'contact_id'  => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
-            'type_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-            'assets'      => [
+            'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+            'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+            'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+            'contact_name'  => 'contact1',
+            'contact_email' => 'contact1@test.com',
+            'contact_phone' => '123219356',
+            'assets'        => [
                 [
                     'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                     'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
@@ -237,21 +232,13 @@ class CreateQuoteRequestTest extends TestCase {
                 'key'  => 'key1',
                 'name' => 'oem1',
             ]);
-            $customer = Customer::factory()
-                ->hasContacts(1, [
-                    'id'           => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
-                    'email'        => 'contact1@test.com',
-                    'name'         => 'contact1',
-                    'phone_number' => '123219356',
-                    'phone_valid'  => false,
-                ])
-                ->create([
-                    'id'              => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                    'name'            => 'customer1',
-                    'assets_count'    => 0,
-                    'contacts_count'  => 1,
-                    'locations_count' => 0,
-                ]);
+            $customer = Customer::factory()->create([
+                'id'              => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                'name'            => 'customer1',
+                'assets_count'    => 0,
+                'contacts_count'  => 0,
+                'locations_count' => 0,
+            ]);
             $customer->resellers()->attach($reseller);
             Type::factory()->create([
                 'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
@@ -279,11 +266,13 @@ class CreateQuoteRequestTest extends TestCase {
                 ]);
         };
         $input    = [
-            'oem_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-            'customer_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-            'contact_id'  => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
-            'type_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-            'assets'      => [
+            'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+            'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+            'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+            'contact_name'  => 'contact1',
+            'contact_email' => 'contact1@test.com',
+            'contact_phone' => '123219356',
+            'assets'        => [
                 [
                     'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                     'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
@@ -309,7 +298,6 @@ class CreateQuoteRequestTest extends TestCase {
                         'created' => [
                             'oem_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
                             'customer_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                            'contact_id'  => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
                             'type_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                             'message'     => 'message',
                             'oem'         => [
@@ -321,21 +309,12 @@ class CreateQuoteRequestTest extends TestCase {
                                 'id'              => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
                                 'name'            => 'customer1',
                                 'assets_count'    => 0,
-                                'contacts_count'  => 1,
+                                'contacts_count'  => 0,
                                 'locations_count' => 0,
-                                'contacts'        => [
-                                    [
-                                        'id'           => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
-                                        'email'        => 'contact1@test.com',
-                                        'name'         => 'contact1',
-                                        'phone_number' => '123219356',
-                                        'phone_valid'  => false,
-                                    ],
-                                ],
+                                'contacts'        => [],
                                 'locations'       => [],
                             ],
                             'contact'     => [
-                                'id'           => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
                                 'email'        => 'contact1@test.com',
                                 'name'         => 'contact1',
                                 'phone_number' => '123219356',
@@ -382,11 +361,13 @@ class CreateQuoteRequestTest extends TestCase {
                     $settings,
                     $prepare,
                     [
-                        'oem_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ba',
-                        'customer_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'contact_id'  => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
-                        'type_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'assets'      => [
+                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ba',
+                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'contact_name'  => 'contact1',
+                        'contact_email' => 'contact1@test.com',
+                        'contact_phone' => '123219356',
+                        'assets'        => [
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
@@ -402,11 +383,13 @@ class CreateQuoteRequestTest extends TestCase {
                     $settings,
                     $prepare,
                     [
-                        'oem_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699bb',
-                        'contact_id'  => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
-                        'type_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'assets'      => [
+                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699bb',
+                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'contact_name'  => 'contact1',
+                        'contact_email' => 'contact1@test.com',
+                        'contact_phone' => '123219356',
+                        'assets'        => [
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
@@ -422,11 +405,13 @@ class CreateQuoteRequestTest extends TestCase {
                     $settings,
                     $prepare,
                     [
-                        'oem_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'contact_id'  => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699bc',
-                        'type_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'assets'      => [
+                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'contact_name'  => '',
+                        'contact_email' => '',
+                        'contact_phone' => '',
+                        'assets'        => [
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
@@ -442,11 +427,13 @@ class CreateQuoteRequestTest extends TestCase {
                     $settings,
                     $prepare,
                     [
-                        'oem_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'contact_id'  => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
-                        'type_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699bd',
-                        'assets'      => [
+                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699bd',
+                        'contact_name'  => 'contact1',
+                        'contact_email' => 'contact1@test.com',
+                        'contact_phone' => '123219356',
+                        'assets'        => [
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
@@ -462,11 +449,13 @@ class CreateQuoteRequestTest extends TestCase {
                     $settings,
                     $prepare,
                     [
-                        'oem_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'contact_id'  => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
-                        'type_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'assets'      => [
+                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'contact_name'  => 'contact1',
+                        'contact_email' => 'contact1@test.com',
+                        'contact_phone' => '123219356',
+                        'assets'        => [
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699be',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
@@ -482,11 +471,13 @@ class CreateQuoteRequestTest extends TestCase {
                     $settings,
                     $prepare,
                     [
-                        'oem_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'contact_id'  => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
-                        'type_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'assets'      => [
+                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'contact_name'  => 'contact1',
+                        'contact_email' => 'contact1@test.com',
+                        'contact_phone' => '123219356',
+                        'assets'        => [
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699bf',
@@ -502,11 +493,13 @@ class CreateQuoteRequestTest extends TestCase {
                     $settings,
                     $prepare,
                     [
-                        'oem_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'contact_id'  => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
-                        'type_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'assets'      => [
+                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'contact_name'  => 'contact1',
+                        'contact_email' => 'contact1@test.com',
+                        'contact_phone' => '123219356',
+                        'assets'        => [
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
@@ -522,11 +515,13 @@ class CreateQuoteRequestTest extends TestCase {
                     $settings,
                     $prepare,
                     [
-                        'oem_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'contact_id'  => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
-                        'type_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'assets'      => [
+                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'contact_name'  => 'contact1',
+                        'contact_email' => 'contact1@test.com',
+                        'contact_phone' => '123219356',
+                        'assets'        => [
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
@@ -544,19 +539,21 @@ class CreateQuoteRequestTest extends TestCase {
                     $settings,
                     $prepare,
                     [
-                        'oem_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'customer_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'contact_id'  => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ac',
-                        'type_id'     => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-                        'assets'      => [
+                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'contact_name'  => 'contact1',
+                        'contact_email' => 'contact1@test.com',
+                        'contact_phone' => '123219356',
+                        'assets'        => [
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
                                 'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                             ],
                         ],
-                        'message'     => 'message',
-                        'files'       => [UploadedFile::fake()->create('document.jpg', 200)],
+                        'message'       => 'message',
+                        'files'         => [UploadedFile::fake()->create('document.jpg', 200)],
                     ],
                 ],
             ]),
