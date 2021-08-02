@@ -159,11 +159,19 @@ type Query {
   @organization
   @me
 
+
   "List of all possible quote request durations."
   quoteRequestDurations: [QuoteRequestDuration!]!
   @organization
   @me
   @all
+
+  # Search
+  # ============================================================================
+  searchCustomers(search: String! @search): [Customer!]!
+  @organization
+  @me(permissions: ["customers-view"])
+  @paginate(model: "App\\Models\\Customer")
 
   # Customers
   # ============================================================================

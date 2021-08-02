@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Nuwave\Lighthouse\LighthouseServiceProvider::class,
+        Nuwave\Lighthouse\Scout\ScoutServiceProvider::class,
         Nuwave\Lighthouse\Pagination\PaginationServiceProvider::class,
         Nuwave\Lighthouse\Validation\ValidationServiceProvider::class,
 
