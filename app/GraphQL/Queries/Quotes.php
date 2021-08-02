@@ -5,13 +5,10 @@ namespace App\GraphQL\Queries;
 use Illuminate\Database\Eloquent\Builder;
 
 class Quotes {
-    public function __construct(
-        protected QuoteTypes $types,
-    ) {
-        // empty
-    }
-
+    /**
+     * @param \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder
+     */
     public function __invoke(Builder $builder): Builder {
-        return $this->types->prepare($builder);
+        return $builder->queryQuotes();
     }
 }

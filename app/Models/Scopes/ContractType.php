@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Scope as EloquentScope;
 
 /**
  * @see \App\Models\Type
+ * @see \App\Models\Document
  */
 class ContractType implements SearchScope, EloquentScope {
     public function __construct(
@@ -27,7 +28,7 @@ class ContractType implements SearchScope, EloquentScope {
     }
 
     public function applyForSearch(SearchBuilder $builder, Model $model): void {
-        $builder->whereMetadata(DocumentTypeScope::SEARCH_METADATA, $this->getTypeIds());
+        $builder->whereMetadataIn(DocumentTypeScope::SEARCH_METADATA, $this->getTypeIds());
     }
 
     /**
