@@ -108,7 +108,6 @@
     "validation.organization_id": "Unknown organization",
     "validation.role_id": "Unknown Role",
     "validation.quote_id'": "Unknown Quote.",
-    "validation.contract_id": "Unknown Contract.",
     "validation.note_id": "Unknown Note.",
     "validation.file_id": "Unknown File.",
     "validation.color": "Color should be in #RRGGBB format.",
