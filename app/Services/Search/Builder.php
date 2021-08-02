@@ -5,6 +5,8 @@ namespace App\Services\Search;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder as ScoutBuilder;
 
+use function is_array;
+
 class Builder extends ScoutBuilder {
     public const METADATA   = 'metadata';
     public const PROPERTIES = 'searchable';
@@ -14,7 +16,9 @@ class Builder extends ScoutBuilder {
     }
 
     public function whereMetadata(string $field, mixed $value): static {
-        return $this->where("{$this->getFieldMetadata()}.{$field}.keyword", $value);
+        return is_array($value)
+            ? $this->whereIn("{$this->getFieldMetadata()}.{$field}.keyword", $value)
+            : $this->where("{$this->getFieldMetadata()}.{$field}.keyword", $value);
     }
 
     protected function getFieldMetadata(): string {

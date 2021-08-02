@@ -29,6 +29,7 @@ class BuilderTest extends TestCase {
      * @covers ::whereMetadata
      */
     public function testWhereMetadata(): void {
+        $meta    = Builder::METADATA;
         $builder = $this->app->make(Builder::class, [
             'query' => '123',
             'model' => new class() extends Model {
@@ -36,10 +37,15 @@ class BuilderTest extends TestCase {
             },
         ]);
 
-        $builder->whereMetadata('test', 'value');
+        $builder->whereMetadata('test-value', 'value');
+        $builder->whereMetadata('test-array', ['a', 'b', 'c']);
 
         $this->assertEquals([
-            Builder::METADATA.'.test.keyword' => 'value',
+            "{$meta}.test-value.keyword" => 'value',
         ], $builder->wheres);
+
+        $this->assertEquals([
+            "{$meta}.test-array.keyword" => ['a', 'b', 'c'],
+        ], $builder->whereIns);
     }
 }
