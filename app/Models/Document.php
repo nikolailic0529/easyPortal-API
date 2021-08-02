@@ -166,7 +166,9 @@ class Document extends Model implements CascadeDeletable {
     protected static function getSearchProperties(): array {
         return [
             'number'   => 'number',
-            'customer' => 'customer.name',
+            'customer' => [
+                'name' => 'customer.name',
+            ],
         ];
     }
     // </editor-fold>
