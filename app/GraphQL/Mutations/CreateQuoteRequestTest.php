@@ -6,9 +6,9 @@ use App\Mail\QuoteRequest;
 use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Document;
-use App\Models\Duration;
 use App\Models\Oem;
 use App\Models\Organization;
+use App\Models\QuoteRequestDuration;
 use App\Models\Reseller;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
@@ -94,7 +94,7 @@ class CreateQuoteRequestTest extends TestCase {
                 'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                 'reseller_id' => $reseller,
             ]);
-            Duration::factory()->create([
+            QuoteRequestDuration::factory()->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
             ]);
             ServiceLevel::factory()->create([
@@ -178,7 +178,7 @@ class CreateQuoteRequestTest extends TestCase {
                             duration_id
                             duration {
                                 id
-                                duration
+                                name
                             }
                         }
                     }
@@ -198,8 +198,8 @@ class CreateQuoteRequestTest extends TestCase {
                     'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                 ],
             ],
-            'message'     => null,
-            'files'       => null,
+            'message'       => null,
+            'files'         => null,
         ];
         $operations = [
             'operationName' => 'createQuoteRequest',
@@ -249,9 +249,9 @@ class CreateQuoteRequestTest extends TestCase {
                 'id'          => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                 'reseller_id' => $reseller,
             ]);
-            Duration::factory()->create([
-                'id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                'duration' => '5-10 years',
+            QuoteRequestDuration::factory()->create([
+                'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                'name' => '5-10 years',
             ]);
             ServiceLevel::factory()
                 ->for(ServiceGroup::factory()->state([
@@ -279,8 +279,8 @@ class CreateQuoteRequestTest extends TestCase {
                     'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                 ],
             ],
-            'message'     => 'message',
-            'files'       => [UploadedFile::fake()->create('document.csv', 200)],
+            'message'       => 'message',
+            'files'         => [UploadedFile::fake()->create('document.csv', 200)],
         ];
         $settings = [
             'ep.image.max_size' => 250,
@@ -335,8 +335,8 @@ class CreateQuoteRequestTest extends TestCase {
                                     'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
                                     'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                                     'duration'         => [
-                                        'id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                        'duration' => '5-10 years',
+                                        'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                        'name' => '5-10 years',
                                     ],
                                     'serviceLevel'     => [
                                         'id'               => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
@@ -528,8 +528,8 @@ class CreateQuoteRequestTest extends TestCase {
                                 'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                             ],
                         ],
-                        'message'     => 'message',
-                        'files'       => [UploadedFile::fake()->create('document.csv', 300)],
+                        'message'       => 'message',
+                        'files'         => [UploadedFile::fake()->create('document.csv', 300)],
                     ],
                 ],
                 'Invalid file format'   => [

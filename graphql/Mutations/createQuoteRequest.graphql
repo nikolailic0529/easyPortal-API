@@ -20,7 +20,7 @@ input CreateQuoteRequestInput {
 
 input CreateQuoteRequestAssetsInput {
   asset_id: ID! @rules(apply:["required","App\\Rules\\AssetId"])
-  duration_id: ID! @rules(apply:["required","App\\Rules\\DurationId"])
+  duration_id: ID! @rules(apply:["required","App\\Rules\\QuoteRequestDurationId"])
   service_level_id: ID! @rules(apply:["required","App\\Rules\\ServiceLevelId"])
 }
 

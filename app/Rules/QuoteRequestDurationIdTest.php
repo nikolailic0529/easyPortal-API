@@ -2,15 +2,15 @@
 
 namespace App\Rules;
 
-use App\Models\Duration;
+use App\Models\QuoteRequestDuration;
 use Closure;
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\DurationId
+ * @coversDefaultClass \App\Rules\QuoteRequestDurationId
  */
-class DurationIdTest extends TestCase {
+class QuoteRequestDurationIdTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -26,7 +26,7 @@ class DurationIdTest extends TestCase {
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(DurationId::class)->message(), 'Translated');
+        $this->assertEquals($this->app->make(QuoteRequestDurationId::class)->message(), 'Translated');
     }
 
     /**
@@ -36,7 +36,7 @@ class DurationIdTest extends TestCase {
      */
     public function testPasses(bool $expected, Closure $durationFactory): void {
         $durationId = $durationFactory();
-        $this->assertEquals($expected, $this->app->make(DurationId::class)->passes('test', $durationId));
+        $this->assertEquals($expected, $this->app->make(QuoteRequestDurationId::class)->passes('test', $durationId));
     }
     // </editor-fold>
 
@@ -50,7 +50,7 @@ class DurationIdTest extends TestCase {
             'exists'       => [
                 true,
                 static function (): string {
-                    $duration = Duration::factory()->create([
+                    $duration = QuoteRequestDuration::factory()->create([
                         'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                     ]);
                     return $duration->getKey();
@@ -65,7 +65,7 @@ class DurationIdTest extends TestCase {
             'soft-deleted' => [
                 false,
                 static function (): string {
-                    $duration = Duration::factory()->create([
+                    $duration = QuoteRequestDuration::factory()->create([
                         'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                     ]);
                     $duration->delete();

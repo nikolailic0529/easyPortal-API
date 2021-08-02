@@ -7,10 +7,11 @@ use App\Models\Concerns\TranslateProperties;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
- * Duration.
+ * QuoteRequestDuration.
  *
  * @property string                                                           $id
- * @property string                                                           $duration
+ * @property string                                                           $key
+ * @property string                                                           $name
  * @property \Carbon\CarbonImmutable                                          $created_at
  * @property \Carbon\CarbonImmutable                                          $updated_at
  * @property \Carbon\CarbonImmutable|null                                     $deleted_at
@@ -20,7 +21,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Duration query()
  * @mixin \Eloquent
  */
-class Duration extends Model implements Translatable {
+class QuoteRequestDuration extends Model implements Translatable {
     use HasFactory;
     use TranslateProperties;
 
@@ -29,12 +30,12 @@ class Duration extends Model implements Translatable {
      *
      * @var string
      */
-    protected $table = 'durations';
+    protected $table = 'quote_request_durations';
 
     /**
      * @inheritdoc
      */
     protected function getTranslatableProperties(): array {
-        return ['duration'];
+        return ['name'];
     }
 }

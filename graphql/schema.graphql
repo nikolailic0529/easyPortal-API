@@ -159,8 +159,8 @@ type Query {
   @organization
   @me
 
-  "List of all possible durations."
-  durations: [Duration!]!
+  "List of all possible quote request durations."
+  quoteRequestDurations: [QuoteRequestDuration!]!
   @organization
   @me
   @all

@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\Duration;
+use App\Models\QuoteRequestDuration;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -15,7 +15,7 @@ use Tests\TestCase;
 /**
  * @internal
  */
-class DurationsTest extends TestCase {
+class QuoteRequestDurationsTest extends TestCase {
     /**
      * @dataProvider dataProviderInvoke
      * @coversNothing
@@ -38,9 +38,9 @@ class DurationsTest extends TestCase {
         // Test
         $this
             ->graphQL(/** @lang GraphQL */ '{
-                durations {
+                quoteRequestDurations {
                     id
-                    duration
+                    name
                 }
             }')
             ->assertThat($expected);
@@ -54,25 +54,25 @@ class DurationsTest extends TestCase {
      */
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('durations'),
-            new AuthUserDataProvider('durations'),
+            new OrganizationDataProvider('quoteRequestDurations'),
+            new AuthUserDataProvider('quoteRequestDurations'),
             new ArrayDataProvider([
                 'ok' => [
-                    new GraphQLSuccess('durations', self::class, [
+                    new GraphQLSuccess('quoteRequestDurations', self::class, [
                         [
-                            'id'       => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'duration' => 'Translated (locale)',
+                            'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                            'name' => 'Translated (locale)',
                         ],
                     ]),
                     static function (): void {
-                        Duration::factory()->create([
-                            'id'       => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                            'duration' => '1-5 years',
+                        QuoteRequestDuration::factory()->create([
+                            'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                            'name' => '1-5 years',
                         ]);
                     },
                     static function (TestCase $test, string $locale): array {
-                        $model = (new Duration())->getMorphClass();
-                        $key   = "models.{$model}.439a0a06-d98a-41f0-b8e5-4e5722518e00.duration";
+                        $model = (new QuoteRequestDuration())->getMorphClass();
+                        $key   = "models.{$model}.439a0a06-d98a-41f0-b8e5-4e5722518e00.name";
                         return [
                             $locale => [
                                 $key => 'Translated (locale)',

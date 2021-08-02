@@ -3,14 +3,17 @@
     "additionProperties": false,
     "type": "object",
     "required": [
-        "duration",
+        "name",
         "id"
     ],
     "properties": {
         "id": {
             "$ref": "../types.json#/definitions/ID"
         },
-        "duration": {
+        "name": {
+            "type": "string"
+        },
+        "key": {
             "type": "string"
         }
     }

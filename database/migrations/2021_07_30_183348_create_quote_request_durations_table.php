@@ -4,6 +4,6 @@
 
 use LastDragon_ru\LaraASP\Migrator\Migrations\RawMigration;
 
-class CreateDurationsTable extends RawMigration {
+class CreateQuoteRequestDurationsTable extends RawMigration {
     // Please see the associated SQL files
 }

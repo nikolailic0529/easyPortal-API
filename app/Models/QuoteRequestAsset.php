@@ -36,7 +36,7 @@ class QuoteRequestAsset extends Model {
     protected $table = 'quote_request_assets';
 
     public function duration(): BelongsTo {
-        return $this->belongsTo(Duration::class);
+        return $this->belongsTo(QuoteRequestDuration::class, 'duration_id');
     }
 
     public function serviceLevel(): BelongsTo {
@@ -44,6 +44,6 @@ class QuoteRequestAsset extends Model {
     }
 
     public function request(): BelongsTo {
-        return $this->belongsTo(QuoteRequest::class);
+        return $this->belongsTo(QuoteRequest::class, 'request_id');
     }
 }

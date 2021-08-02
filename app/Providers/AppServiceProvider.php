@@ -20,7 +20,6 @@ use App\Models\CustomerStatus;
 use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
-use App\Models\Duration;
 use App\Models\File;
 use App\Models\Language;
 use App\Models\Location;
@@ -33,6 +32,8 @@ use App\Models\PasswordReset;
 use App\Models\Permission;
 use App\Models\Product;
 use App\Models\QuoteRequest;
+use App\Models\QuoteRequestAsset;
+use App\Models\QuoteRequestDuration;
 use App\Models\Reseller;
 use App\Models\ResellerCustomer;
 use App\Models\ResellerStatus;
@@ -132,8 +133,9 @@ class AppServiceProvider extends ServiceProvider {
             'note'                         => Note::class,
             'change-request'               => ChangeRequest::class,
             'file'                         => File::class,
-            'duration'                     => Duration::class,
             'quote-request'                => QuoteRequest::class,
+            'quote-request-duration'       => QuoteRequestDuration::class,
+            'quote-request-asset'          => QuoteRequestAsset::class,
         ]);
     }
 }

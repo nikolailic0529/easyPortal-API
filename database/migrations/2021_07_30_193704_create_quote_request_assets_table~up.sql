@@ -30,11 +30,11 @@ CREATE TABLE IF NOT EXISTS `quote_request_assets` (
   CONSTRAINT `fk_quote_request_assets_service_levels1`
     FOREIGN KEY (`service_level_id`)
     REFERENCES `service_levels` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_quote_request_assets_durations1`
+    ON DELETE CASCADE
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_quote_request_assets_quote_request_durations1`
     FOREIGN KEY (`duration_id`)
-    REFERENCES `durations` (`id`)
+    REFERENCES `quote_request_durations` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

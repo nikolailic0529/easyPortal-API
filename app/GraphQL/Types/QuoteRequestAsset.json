@@ -20,7 +20,7 @@
             "$ref": "../types.json#/definitions/ID"
         },
         "duration": {
-            "$ref": "../Types/Duration.json"
+            "$ref": "../Types/QuoteRequestDuration.json"
         },
         "request_id": {
             "$ref": "../types.json#/definitions/ID"

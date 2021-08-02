@@ -2,15 +2,15 @@
 
 namespace Database\Factories;
 
-use App\Models\Duration;
+use App\Models\QuoteRequestDuration;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
 /**
- * @method \App\Models\Duration create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
- * @method \App\Models\Duration make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method \App\Models\QuoteRequestDuration create($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
+ * @method \App\Models\QuoteRequestDuration make($attributes = [], ?\Illuminate\Database\Eloquent\Model $parent = null)
  */
-class DurationFactory extends Factory {
+class QuoteRequestDurationFactory extends Factory {
     /**
      * The name of the factory's corresponding model.
      *
@@ -18,7 +18,7 @@ class DurationFactory extends Factory {
      *
      * @var string
      */
-    protected $model = Duration::class;
+    protected $model = QuoteRequestDuration::class;
 
     /**
      * Define the model's default state.
@@ -28,7 +28,8 @@ class DurationFactory extends Factory {
     public function definition(): array {
         return [
             'id'         => $this->faker->uuid,
-            'duration'   => $this->faker->word,
+            'name'       => $this->faker->word,
+            'key'        => $this->faker->word,
             'created_at' => Date::now(),
             'updated_at' => Date::now(),
             'deleted_at' => null,
