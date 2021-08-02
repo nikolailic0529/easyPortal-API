@@ -7,9 +7,14 @@ use App\Models\Concerns\Relations\HasAssets;
 use App\Models\Concerns\Relations\HasContracts;
 use App\Models\Concerns\Relations\HasQuotes;
 use App\Models\Concerns\TranslateProperties;
+use App\Models\Scopes\ContractType;
+use App\Models\Scopes\ContractTypeScope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+
+use function app;
 
 /**
  * Type.
@@ -28,6 +33,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Location> $locations
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Document> $quotes
  * @method static \Database\Factories\TypeFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type queryContracts()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type query()
@@ -39,6 +45,7 @@ class Type extends PolymorphicModel implements Translatable {
     use HasAssets;
     use HasContracts;
     use HasQuotes;
+    use ContractTypeScope;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

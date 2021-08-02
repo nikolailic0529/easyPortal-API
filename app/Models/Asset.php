@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\GraphQL\Queries\ContractTypes;
 use App\Models\Concerns\Relations\HasContacts;
 use App\Models\Concerns\Relations\HasCustomer;
 use App\Models\Concerns\Relations\HasOem;
@@ -21,7 +20,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
-use function app;
 use function in_array;
 use function is_null;
 use function sprintf;
@@ -147,7 +145,8 @@ class Asset extends Model {
             });
             $builder->orWhere(static function (Builder $builder): void {
                 $builder->whereHas('document', static function (Builder $builder): void {
-                    app()->make(ContractTypes::class)->prepare($builder);
+                    /** @var \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder */
+                    $builder->queryContracts();
                 });
             });
         });

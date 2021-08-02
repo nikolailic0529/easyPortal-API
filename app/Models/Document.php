@@ -12,6 +12,7 @@ use App\Models\Concerns\Relations\HasReseller;
 use App\Models\Concerns\Relations\HasServiceGroup;
 use App\Models\Concerns\Relations\HasType;
 use App\Models\Concerns\SyncHasMany;
+use App\Models\Scopes\ContractTypeScope;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -59,6 +60,7 @@ use function count;
  * @property \App\Models\ServiceGroup|null                                       $serviceGroup
  * @property \App\Models\Type                                                    $type
  * @method static \Database\Factories\DocumentFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document queryContracts()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document query()
@@ -76,6 +78,7 @@ class Document extends Model implements CascadeDeletable {
     use HasLanguage;
     use HasContacts;
     use SyncHasMany;
+    use ContractTypeScope;
 
     protected const CASTS = [
         'changed_at' => 'datetime',

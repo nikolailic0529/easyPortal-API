@@ -2,12 +2,9 @@
 
 namespace App\Models\Concerns\Relations;
 
-use App\GraphQL\Queries\ContractTypes;
 use App\Models\Document;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
-use function app;
 
 /**
  * @mixin \App\Models\Model
@@ -17,7 +14,8 @@ trait HasContracts {
         return $this
             ->hasMany(Document::class)
             ->where(static function (Builder $builder) {
-                return app()->make(ContractTypes::class)->prepare($builder);
+                /** @var \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder */
+                return $builder->queryContracts();
             });
     }
 }
