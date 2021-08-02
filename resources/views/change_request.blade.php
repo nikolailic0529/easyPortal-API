@@ -1,9 +1,9 @@
 @component('mail::message')
 # {{ config('app.name') }}
 
-A new {{ $type }} change request from {{ $request->from }} to change {{ $request->object_id }}.
+A new {{ $type }} change request from {{ $request->from }} to change {{ $title }}.
 
-{{ $request->message }}
+{!! $request->message !!}
 
 Thanks,<br>
 Support Team<br>

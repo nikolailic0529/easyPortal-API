@@ -47,16 +47,20 @@ class RequestChange extends Mailable {
             $mail = $mail->attachFromStorageDisk($file->disk, $file->path, $file->name);
         }
 
-        $type = '';
+        $type  = '';
+        $title = '';
         switch (get_class($this->model)) {
             case Asset::class:
-                $type = 'asset';
+                $type  = 'asset';
+                $title = $this->model->product->name;
                 break;
             case Customer::class:
-                $type = 'customer';
+                $type  = 'customer';
+                $title = $this->model->name;
                 break;
             case Document::class:
                 // checking document type if Contact or Quote.
+                $title = $this->model->number;
                 if (app()->make(ContractId::class)->passes(null, $this->model->getKey())) {
                     $type = 'contract';
                 } elseif (app()->make(QuoteId::class)->passes(null, $this->model->getKey())) {
@@ -66,7 +70,8 @@ class RequestChange extends Mailable {
                 }
                 break;
             case Organization::class:
-                $type = 'organization';
+                $type  = 'organization';
+                $title = $this->model->name;
                 break;
             default:
                 // empty
@@ -76,6 +81,7 @@ class RequestChange extends Mailable {
         return $mail->to($this->request->to)->markdown('change_request', [
             'request' => $this->request,
             'type'    => $type,
+            'title'   => $title,
         ]);
     }
 }
