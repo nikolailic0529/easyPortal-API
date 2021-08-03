@@ -391,7 +391,7 @@ class CreateQuoteRequestTest extends TestCase {
                         ],
                     ],
                 ],
-                'Invalid contact'       => [
+                'Invalid contact name'  => [
                     new GraphQLError('createQuoteRequest', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
@@ -402,8 +402,52 @@ class CreateQuoteRequestTest extends TestCase {
                         'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
                         'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
                         'contact_name'  => '',
-                        'contact_email' => '',
+                        'contact_email' => 'contact1@test.com',
+                        'contact_phone' => '123219356',
+                        'assets'        => [
+                            [
+                                'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                            ],
+                        ],
+                    ],
+                ],
+                'Invalid contact phone' => [
+                    new GraphQLError('createQuoteRequest', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    $settings,
+                    $prepare,
+                    [
+                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'contact_name'  => 'contact1',
+                        'contact_email' => 'contact1@test.com',
                         'contact_phone' => '',
+                        'assets'        => [
+                            [
+                                'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                            ],
+                        ],
+                    ],
+                ],
+                'Invalid contact email' => [
+                    new GraphQLError('createQuoteRequest', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    $settings,
+                    $prepare,
+                    [
+                        'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                        'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'contact_name'  => 'contact1',
+                        'contact_email' => 'invalid email',
+                        'contact_phone' => '123219356',
                         'assets'        => [
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
@@ -473,7 +517,7 @@ class CreateQuoteRequestTest extends TestCase {
                         'assets'        => [
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                                'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699bf',
+                                'duration_id'      => '',
                                 'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
                             ],
                         ],
@@ -496,7 +540,7 @@ class CreateQuoteRequestTest extends TestCase {
                             [
                                 'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
                                 'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                                'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699bg',
+                                'service_level_id' => '',
                             ],
                         ],
                     ],

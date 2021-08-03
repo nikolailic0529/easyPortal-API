@@ -15,13 +15,13 @@ input CreateQuoteRequestInput {
   assets: [CreateQuoteRequestAssetsInput!]!
   contact_name: String! @rules(apply:["required"])
   contact_phone: String! @rules(apply:["required"])
-  contact_email: String!@rules(apply:["required"])
+  contact_email: String!@rules(apply:["required","email"])
 }
 
 input CreateQuoteRequestAssetsInput {
   asset_id: ID! @rules(apply:["required","App\\Rules\\AssetId"])
-  duration_id: ID! @rules(apply:["required","App\\Rules\\QuoteRequestDurationId"])
-  service_level_id: ID! @rules(apply:["required","App\\Rules\\ServiceLevelId"])
+  duration_id: ID! @rules(apply:["required"])
+  service_level_id: ID! @rules(apply:["required"])
 }
 
 type CreateQuoteRequestPayload {

@@ -115,8 +115,6 @@
     "validation.asset_id": "Unknown Asset",
     "validation.customer_id": "Unknown Customer",
     "validation.contact_id": "Unknown contact",
-    "validation.duration_id": "Unknown duration",
-    "validation.service_level_id": "Unknown service level",
     "errors.message": ":message (:code)",
     "errors.unauthenticated": "Unauthenticated.",
     "errors.unauthorized": "Unauthorized.",
