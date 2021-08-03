@@ -7,9 +7,9 @@ extend type Mutation {
 }
 
 input CreateQuoteRequestInput {
-  oem_id: ID! @rules(apply:["required","App\\Rules\\OemId"])
-  customer_id: ID! @rules(apply:["required","App\\Rules\\CustomerId"])
-  type_id: ID! @rules(apply:["required","App\\Rules\\QuoteTypeId"])
+  oem_id: ID! @rules(apply:["required"])
+  customer_id: ID! @rules(apply:["required"])
+  type_id: ID! @rules(apply:["required"])
   message: String
   files: [Upload!] @rules(apply:["nullable","App\\Rules\\Image"])
   assets: [CreateQuoteRequestAssetsInput!]!
