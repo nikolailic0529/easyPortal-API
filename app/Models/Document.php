@@ -176,6 +176,10 @@ class Document extends Model implements CascadeDeletable {
 
     // <editor-fold desc="Searchable">
     // =========================================================================
+    public function shouldBeSearchable(): bool {
+        return $this->is_contract || $this->is_quote;
+    }
+
     /**
      * @inheritDoc
      */
