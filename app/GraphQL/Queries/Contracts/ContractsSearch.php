@@ -2,20 +2,11 @@
 
 namespace App\GraphQL\Queries\Contracts;
 
-use App\Models\Document;
 use App\Models\Scopes\ContractType;
-use Illuminate\Database\Eloquent\Builder;
+use App\Services\Search\Builder;
 
 class ContractsSearch {
-    public function __construct(
-        protected ContractType $scope,
-    ) {
-        // empty
-    }
-
-    public function __invoke(): Builder {
-        Document::addGlobalScope($this->scope);
-
-        return Document::query();
+    public function __invoke(Builder $builder): Builder {
+        return $builder->applyScope(ContractType::class);
     }
 }
