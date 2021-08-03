@@ -3,14 +3,10 @@
 // @phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
 
 use Database\Seeders\QuoteRequestDurationSeeder;
-use Illuminate\Database\Migrations\Migration;
+use LastDragon_ru\LaraASP\Migrator\Migrations\RawDataMigration;
 
-class QuoteRequestDurationsSeed extends Migration {
-    public function up(): void {
-        app()->make(QuoteRequestDurationSeeder::class)->run();
-    }
-
-    public function down(): void {
-        // empty
+class QuoteRequestDurationsSeed extends RawDataMigration {
+    protected function runRawUp(): void {
+        $this->getContainer()->make(QuoteRequestDurationSeeder::class)->run();
     }
 }
