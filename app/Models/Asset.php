@@ -212,6 +212,7 @@ class Asset extends Model {
      * @inheritDoc
      */
     protected static function getSearchProperties(): array {
+        // WARNING: If array is changed the search index MUST be rebuilt.
         return [
             'serial_number' => 'serial_number',
             'product'       => [

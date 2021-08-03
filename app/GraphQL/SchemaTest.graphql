@@ -753,6 +753,8 @@ type Document {
   reseller_id: ID
   reseller: Reseller
   type: Type!
+  is_contract: Boolean!
+  is_quote: Boolean!
   entries(where: SearchByConditionDocumentEntriesQuery): [DocumentEntry!]!
   language_id: ID
   language: Language

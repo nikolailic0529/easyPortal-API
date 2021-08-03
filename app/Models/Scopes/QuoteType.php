@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope as EloquentScope;
 
+use function in_array;
+
 /**
  * @see \App\Models\Type
  * @see \App\Models\Document
@@ -17,14 +19,15 @@ use Illuminate\Database\Eloquent\Scope as EloquentScope;
 class QuoteType implements SearchScope, EloquentScope {
     public function __construct(
         protected Repository $config,
+        protected ContractType $contractType,
     ) {
         // empty
     }
 
     public function apply(EloquentBuilder $builder, Model $model): void {
         // if empty quotes type we will use ids not represented in contracts
-        $contractTypes = $this->config->get('ep.contract_types');
-        $quoteTypes    = $this->config->get('ep.quote_types');
+        $contractTypes = $this->contractType->getTypeIds();
+        $quoteTypes    = $this->getTypeIds();
         $key           = $model instanceof Type ? $model->getKeyName() : 'type_id';
 
         if ($quoteTypes) {
@@ -38,8 +41,8 @@ class QuoteType implements SearchScope, EloquentScope {
 
     public function applyForSearch(SearchBuilder $builder, Model $model): void {
         // if empty quotes type we will use ids not represented in contracts
-        $contractTypes = $this->config->get('ep.contract_types');
-        $quoteTypes    = $this->config->get('ep.quote_types');
+        $contractTypes = $this->contractType->getTypeIds();
+        $quoteTypes    = $this->getTypeIds();
         $key           = DocumentType::SEARCH_METADATA;
 
         if ($quoteTypes) {
@@ -54,7 +57,24 @@ class QuoteType implements SearchScope, EloquentScope {
     /**
      * @return array<string>
      */
-    protected function getTypeIds(): array {
-        return (array) $this->config->get('ep.contract_types');
+    public function getTypeIds(): array {
+        return (array) $this->config->get('ep.quote_types');
+    }
+
+    public function isQuoteType(Type|string $type): bool {
+        $contractTypes = $this->contractType->getTypeIds();
+        $quoteTypes    = $this->getTypeIds();
+        $type          = $type instanceof Type ? $type->getKey() : $type;
+        $is            = false;
+
+        if ($quoteTypes) {
+            $is = in_array($type, $quoteTypes, true);
+        } elseif ($contractTypes) {
+            $is = !in_array($type, $contractTypes, true);
+        } else {
+            // empty
+        }
+
+        return $is;
     }
 }

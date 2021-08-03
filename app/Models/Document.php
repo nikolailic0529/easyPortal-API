@@ -12,8 +12,10 @@ use App\Models\Concerns\Relations\HasReseller;
 use App\Models\Concerns\Relations\HasServiceGroup;
 use App\Models\Concerns\Relations\HasType;
 use App\Models\Concerns\SyncHasMany;
+use App\Models\Scopes\ContractType;
 use App\Models\Scopes\ContractTypeScope;
 use App\Models\Scopes\DocumentTypeScope;
+use App\Models\Scopes\QuoteType;
 use App\Models\Scopes\QuoteTypeScope;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Search\Eloquent\Searchable;
@@ -23,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 
+use function app;
 use function count;
 
 /**
@@ -54,6 +57,8 @@ use function count;
  * @property \App\Models\Currency|null                                           $currency
  * @property \App\Models\Customer                                                $customer
  * @property \App\Models\Distributor|null                                        $distributor
+ * @property-read bool                                                           $is_contract
+ * @property-read bool                                                           $is_quote
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $entries
  * @property \App\Models\Language|null                                           $language
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Note>     $notes
@@ -151,6 +156,17 @@ class Document extends Model implements CascadeDeletable {
     }
     // </editor-fold>
 
+    // <editor-fold desc="Attributes">
+    // =========================================================================
+    public function getIsContractAttribute(): bool {
+        return app()->make(ContractType::class)->isContractType($this->type_id);
+    }
+
+    public function getIsQuoteAttribute(): bool {
+        return app()->make(QuoteType::class)->isQuoteType($this->type_id);
+    }
+    // </editor-fold>
+
     // <editor-fold desc="CascadeDeletes">
     // =========================================================================
     public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {
@@ -164,6 +180,7 @@ class Document extends Model implements CascadeDeletable {
      * @inheritDoc
      */
     protected static function getSearchProperties(): array {
+        // WARNING: If array is changed the search index MUST be rebuilt.
         return [
             'number'   => 'number',
             'customer' => [

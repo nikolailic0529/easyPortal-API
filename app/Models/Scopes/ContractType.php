@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope as EloquentScope;
 
+use function in_array;
+
 /**
  * @see \App\Models\Type
  * @see \App\Models\Document
@@ -34,7 +36,11 @@ class ContractType implements SearchScope, EloquentScope {
     /**
      * @return array<string>
      */
-    protected function getTypeIds(): array {
+    public function getTypeIds(): array {
         return (array) $this->config->get('ep.contract_types');
+    }
+
+    public function isContractType(Type|string $type): bool {
+        return in_array($type instanceof Type ? $type->getKey() : $type, $this->getTypeIds(), true);
     }
 }

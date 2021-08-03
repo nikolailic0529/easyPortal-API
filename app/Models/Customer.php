@@ -118,6 +118,7 @@ class Customer extends Model {
      * @inheritDoc
      */
     protected static function getSearchProperties(): array {
+        // WARNING: If array is changed the search index MUST be rebuilt.
         return [
             'name' => 'name',
         ];
