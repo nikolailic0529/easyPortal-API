@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\HasCustomer;
-use App\Models\Concerns\HasFiles;
-use App\Models\Concerns\HasOem;
-use App\Models\Concerns\HasType;
+use App\Models\Concerns\Relations\HasCustomer;
+use App\Models\Concerns\Relations\HasFiles;
+use App\Models\Concerns\Relations\HasOem;
+use App\Models\Concerns\Relations\HasType;
 use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,6 +37,9 @@ use Illuminate\Support\Collection;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuoteRequest newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuoteRequest query()
  * @mixin \Eloquent
+ * @property string $type_id
+ * @property \Illuminate\Database\Eloquent\Collection|\App\Models\QuoteRequestAsset[] $assets
+ * @property \App\Models\Type $type
  */
 class QuoteRequest extends Model {
     use HasFactory;
