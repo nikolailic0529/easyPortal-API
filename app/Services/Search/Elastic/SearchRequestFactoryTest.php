@@ -4,6 +4,7 @@ namespace App\Services\Search\Elastic;
 
 use App\Models\Model;
 use App\Services\Search\Builder;
+use Closure;
 use Laravel\Scout\Builder as ScoutBuilder;
 use Tests\TestCase;
 
@@ -12,10 +13,16 @@ use Tests\TestCase;
  * @coversDefaultClass \App\Services\Search\Elastic\SearchRequestFactory
  */
 class SearchRequestFactoryTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      * @covers ::makeFilter
+     *
+     * @dataProvider dataProviderMakeFilter
+     *
+     * @param array<mixed> $expected
      */
-    public function testMakeFilter(): void {
+    public function testMakeFilter(array $expected, Closure $prepare): void {
         $builder = $this->app->make(Builder::class, [
             'query' => '*',
             'model' => new class() extends Model {
@@ -23,12 +30,7 @@ class SearchRequestFactoryTest extends TestCase {
             },
         ]);
 
-        $builder->where('where', '123');
-        $builder->whereIn('whereIn', ['a', 'b', 'c']);
-        $builder->whereIn('whereIn2', ['1', '2', '3']);
-        $builder->whereNot('whereNot', '123');
-        $builder->whereNotIn('whereNotIn', ['a', 'b', 'c']);
-        $builder->whereNotIn('whereNotIn2', ['1', '2', '3']);
+        $prepare($builder);
 
         $factory = new class() extends SearchRequestFactory {
             /**
@@ -39,34 +41,118 @@ class SearchRequestFactoryTest extends TestCase {
             }
         };
 
-        $actual   = $factory->makeFilter($builder);
-        $expected = [
-            [
-                'term' => ['where' => '123'],
+        $this->assertEquals($expected, $factory->makeFilter($builder));
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="DataProviders">
+    // =========================================================================
+    /**
+     * @return array<string, mixed>
+     */
+    public function dataProviderMakeFilter(): array {
+        return [
+            'where'                 => [
+                [
+                    [
+                        'term' => ['where' => '123'],
+                    ],
+                ],
+                static function (Builder $builder): void {
+                    $builder->where('where', '123');
+                },
             ],
-            [
-                'terms' => ['whereIn' => ['a', 'b', 'c']],
+            'whereIn'               => [
+                [
+                    [
+                        'terms' => ['whereIn' => ['a', 'b', 'c']],
+                    ],
+                    [
+                        'terms' => ['whereIn2' => ['1', '2', '3']],
+                    ],
+                ],
+                static function (Builder $builder): void {
+                    $builder->whereIn('whereIn', ['a', 'b', 'c']);
+                    $builder->whereIn('whereIn2', ['1', '2', '3']);
+                },
             ],
-            [
-                'terms' => ['whereIn2' => ['1', '2', '3']],
-            ],
-            [
-                'bool' => [
-                    'must_not' => [
-                        [
-                            'term' => ['whereNot' => '123'],
-                        ],
-                        [
-                            'terms' => ['whereNotIn' => ['a', 'b', 'c']],
-                        ],
-                        [
-                            'terms' => ['whereNotIn2' => ['1', '2', '3']],
+            'whereNot'              => [
+                [
+                    [
+                        'bool' => [
+                            'must_not' => [
+                                [
+                                    'term' => ['whereNot' => '123'],
+                                ],
+                            ],
                         ],
                     ],
                 ],
+                static function (Builder $builder): void {
+                    $builder->whereNot('whereNot', '123');
+                },
+            ],
+            'where + whereNot'      => [
+                [
+                    [
+                        'term' => ['where' => '123'],
+                    ],
+                    [
+                        'bool' => [
+                            'must_not' => [
+                                [
+                                    'term' => ['whereNot' => '123'],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                static function (Builder $builder): void {
+                    $builder->where('where', '123');
+                    $builder->whereNot('whereNot', '123');
+                },
+            ],
+            'whereNotIn'            => [
+                [
+                    [
+                        'bool' => [
+                            'must_not' => [
+                                [
+                                    'terms' => ['whereNotIn' => ['a', 'b', 'c']],
+                                ],
+                                [
+                                    'terms' => ['whereNotIn2' => ['1', '2', '3']],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                static function (Builder $builder): void {
+                    $builder->whereNotIn('whereNotIn', ['a', 'b', 'c']);
+                    $builder->whereNotIn('whereNotIn2', ['1', '2', '3']);
+                },
+            ],
+            'whereNot + whereNotIn' => [
+                [
+                    [
+                        'bool' => [
+                            'must_not' => [
+                                [
+                                    'term' => ['whereNot' => '123'],
+                                ],
+                                [
+                                    'terms' => ['whereNotIn' => ['a', 'b', 'c']],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                static function (Builder $builder): void {
+                    $builder->whereNot('whereNot', '123');
+                    $builder->whereNotIn('whereNotIn', ['a', 'b', 'c']);
+                },
             ],
         ];
-
-        $this->assertEquals($expected, $actual);
     }
+    //</editor-fold>
 }

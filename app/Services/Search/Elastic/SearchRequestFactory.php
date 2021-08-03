@@ -20,17 +20,26 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
             $filter = $filter->merge($this->getTerms($builder->whereIns));
         }
 
-        if ($builder instanceof SearchBuilder && $builder->whereNotIns) {
-            $filter = $filter->merge([
-                [
-                    'bool' => [
-                        'must_not' => $this
-                            ->getTerms($builder->whereNots)
-                            ->merge($this->getTerms($builder->whereNotIns))
-                            ->all(),
+        if ($builder instanceof SearchBuilder) {
+            $not = new Collection();
+
+            if ($builder->whereNots) {
+                $not = $not->merge($this->getTerms($builder->whereNots));
+            }
+
+            if ($builder->whereNotIns) {
+                $not = $not->merge($this->getTerms($builder->whereNotIns));
+            }
+
+            if (!$not->isEmpty()) {
+                $filter = $filter->merge([
+                    [
+                        'bool' => [
+                            'must_not' => $not->all(),
+                        ],
                     ],
-                ],
-            ]);
+                ]);
+            }
         }
 
         return $filter->isNotEmpty() ? $filter->all() : null;
