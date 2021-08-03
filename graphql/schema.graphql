@@ -165,6 +165,13 @@ type Query {
   @me
   @all
 
+  # Search
+  # ============================================================================
+  search(search: String! @search): [SearchResult!]!
+  @organization
+  @me(permissions: ["customers-view", "assets-view", "quotes-view", "contracts-view"])
+  @field(resolver: "App\\GraphQL\\Queries\\Search")
+
   # Customers
   # ============================================================================
   "List of Customers."
