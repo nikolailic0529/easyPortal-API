@@ -2,21 +2,21 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\Relations\HasUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * User Search.
  *
- * @property string $id
- * @property string $user_id
- * @property string $name
- * @property string $key
- * @property string $conditions
- * @property \Carbon\CarbonImmutable $created_at
- * @property \Carbon\CarbonImmutable $updated_at
+ * @property string                       $id
+ * @property string                       $user_id
+ * @property string                       $name
+ * @property string                       $key
+ * @property string                       $conditions
+ * @property \Carbon\CarbonImmutable      $created_at
+ * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property \App\Models\User $user
+ * @property \App\Models\User             $user
  * @method static \Database\Factories\UserSearchFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserSearch newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserSearch newQuery()
@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class UserSearch extends Model {
     use HasFactory;
+    use HasUser;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -32,12 +33,4 @@ class UserSearch extends Model {
      * @var string
      */
     protected $table = 'user_searches';
-
-    public function user(): BelongsTo {
-        return $this->belongsTo(User::class);
-    }
-
-    public function setUserAttribute(User $user): void {
-        $this->user()->associate($user);
-    }
 }

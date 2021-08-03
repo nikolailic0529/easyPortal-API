@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\Relations\HasOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -22,6 +23,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Role extends Model {
     use HasFactory;
+    use HasOrganization;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint

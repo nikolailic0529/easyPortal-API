@@ -3,22 +3,29 @@
 namespace App\Models;
 
 use App\Models\Concerns\CascadeDeletes\CascadeDeletable;
-use App\Models\Concerns\HasContacts;
-use App\Models\Concerns\HasCurrency;
-use App\Models\Concerns\HasCustomer;
-use App\Models\Concerns\HasLanguage;
-use App\Models\Concerns\HasOem;
-use App\Models\Concerns\HasReseller;
-use App\Models\Concerns\HasServiceGroup;
-use App\Models\Concerns\HasType;
+use App\Models\Concerns\Relations\HasContacts;
+use App\Models\Concerns\Relations\HasCurrency;
+use App\Models\Concerns\Relations\HasCustomer;
+use App\Models\Concerns\Relations\HasLanguage;
+use App\Models\Concerns\Relations\HasOem;
+use App\Models\Concerns\Relations\HasReseller;
+use App\Models\Concerns\Relations\HasServiceGroup;
+use App\Models\Concerns\Relations\HasType;
 use App\Models\Concerns\SyncHasMany;
-use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Models\Scopes\ContractType;
+use App\Models\Scopes\ContractTypeScope;
+use App\Models\Scopes\DocumentTypeScope;
+use App\Models\Scopes\QuoteType;
+use App\Models\Scopes\QuoteTypeScope;
+use App\Services\Organization\Eloquent\OwnedByReseller;
+use App\Services\Search\Eloquent\Searchable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Collection;
 
+use function app;
 use function count;
 
 /**
@@ -50,6 +57,8 @@ use function count;
  * @property \App\Models\Currency|null                                           $currency
  * @property \App\Models\Customer                                                $customer
  * @property \App\Models\Distributor|null                                        $distributor
+ * @property-read bool                                                           $is_contract
+ * @property-read bool                                                           $is_quote
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\DocumentEntry> $entries
  * @property \App\Models\Language|null                                           $language
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Note>     $notes
@@ -62,11 +71,14 @@ use function count;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document queryContracts()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Document queryQuotes()
  * @mixin \Eloquent
  */
 class Document extends Model implements CascadeDeletable {
-    use OwnedByOrganization;
     use HasFactory;
+    use Searchable;
+    use OwnedByReseller;
     use HasOem;
     use HasType;
     use HasServiceGroup;
@@ -76,6 +88,9 @@ class Document extends Model implements CascadeDeletable {
     use HasLanguage;
     use HasContacts;
     use SyncHasMany;
+    use ContractTypeScope;
+    use QuoteTypeScope;
+    use DocumentTypeScope;
 
     protected const CASTS = [
         'changed_at' => 'datetime',
@@ -100,6 +115,8 @@ class Document extends Model implements CascadeDeletable {
      */
     protected $table = 'documents';
 
+    // <editor-fold desc="Relations">
+    // =========================================================================
     public function entries(): HasMany {
         return $this->hasMany(DocumentEntry::class);
     }
@@ -116,10 +133,6 @@ class Document extends Model implements CascadeDeletable {
             })
             ->unique()
             ->count();
-    }
-
-    public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {
-        return $name === 'entries';
     }
 
     public function distributor(): BelongsTo {
@@ -141,4 +154,43 @@ class Document extends Model implements CascadeDeletable {
     public function notes(): HasMany {
         return $this->hasMany(Note::class);
     }
+    // </editor-fold>
+
+    // <editor-fold desc="Attributes">
+    // =========================================================================
+    public function getIsContractAttribute(): bool {
+        return app()->make(ContractType::class)->isContractType($this->type_id);
+    }
+
+    public function getIsQuoteAttribute(): bool {
+        return app()->make(QuoteType::class)->isQuoteType($this->type_id);
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="CascadeDeletes">
+    // =========================================================================
+    public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {
+        return $name === 'entries';
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Searchable">
+    // =========================================================================
+    public function shouldBeSearchable(): bool {
+        return $this->is_contract || $this->is_quote;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected static function getSearchProperties(): array {
+        // WARNING: If array is changed the search index MUST be rebuilt.
+        return [
+            'number'   => 'number',
+            'customer' => [
+                'name' => 'customer.name',
+            ],
+        ];
+    }
+    // </editor-fold>
 }

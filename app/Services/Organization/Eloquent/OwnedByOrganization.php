@@ -2,8 +2,6 @@
 
 namespace App\Services\Organization\Eloquent;
 
-use Illuminate\Database\Eloquent\Relations\Relation;
-
 use function app;
 
 /**
@@ -14,11 +12,7 @@ trait OwnedByOrganization {
         static::addGlobalScope(app()->make(OwnedByOrganizationScope::class));
     }
 
-    public function getQualifiedOrganizationColumn(): string {
-        return $this->qualifyColumn('reseller_id');
-    }
-
-    public function getOrganizationThrough(): ?Relation {
-        return null;
+    public function getOrganizationColumn(): string {
+        return 'organization_id';
     }
 }

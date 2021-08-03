@@ -7,7 +7,7 @@ namespace App\Models;
  *
  * @property string                       $id
  * @property string                       $asset_warranty_id
- * @property string                       $service_id
+ * @property string                       $service_level_id
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at

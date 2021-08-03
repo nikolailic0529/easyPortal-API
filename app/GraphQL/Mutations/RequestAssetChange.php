@@ -27,9 +27,10 @@ class RequestAssetChange {
     ) {
         // empty
     }
+
     /**
-     * @param  null  $_
-     * @param  array<string, mixed>  $args
+     * @param null                 $_
+     * @param array<string, mixed> $args
      *
      * @return  array<string, mixed>
      */
@@ -44,6 +45,7 @@ class RequestAssetChange {
             $args['input']['cc'] ?? null,
             $args['input']['bcc'] ?? null,
         );
+
         return ['created' => $request];
     }
 
@@ -63,17 +65,17 @@ class RequestAssetChange {
         array $cc = null,
         array $bcc = null,
     ): ChangeRequest {
-        $request                  = new ChangeRequest();
-        $request->user_id         = $this->auth->user()->getKey();
-        $request->organization_id = $this->organization->get()->getKey();
-        $request->object_id       = $model->getKey();
-        $request->object_type     = $model->getMorphClass();
-        $request->subject         = $subject;
-        $request->message         = $message;
-        $request->from            = $from;
-        $request->to              = [$this->config->get('ep.email_address')];
-        $request->cc              = array_unique(array_filter($cc)) ?: null;
-        $request->bcc             = array_unique(array_filter($bcc)) ?: null;
+        $request               = new ChangeRequest();
+        $request->user         = $this->auth->user();
+        $request->organization = $this->organization->get();
+        $request->object_id    = $model->getKey();
+        $request->object_type  = $model->getMorphClass();
+        $request->subject      = $subject;
+        $request->message      = $message;
+        $request->from         = $from;
+        $request->to           = [$this->config->get('ep.email_address')];
+        $request->cc           = array_unique(array_filter($cc)) ?: null;
+        $request->bcc          = array_unique(array_filter($bcc)) ?: null;
         $request->save();
 
         // Add Files
@@ -82,6 +84,7 @@ class RequestAssetChange {
 
         // Send Email
         $this->mail->send(new RequestChange($request, $model));
+
         return $request;
     }
 }

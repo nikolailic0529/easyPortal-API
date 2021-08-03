@@ -5,13 +5,10 @@ namespace App\GraphQL\Queries;
 use Illuminate\Database\Eloquent\Builder;
 
 class Contracts {
-    public function __construct(
-        protected ContractTypes $types,
-    ) {
-        // empty
-    }
-
+    /**
+     * @param \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder
+     */
     public function __invoke(Builder $builder): Builder {
-        return $this->types->prepare($builder);
+        return $builder->queryContracts();
     }
 }

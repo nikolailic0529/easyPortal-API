@@ -79,6 +79,8 @@ class QuotesTest extends TestCase {
                             oem_id
                             service_group_id
                             type_id
+                            is_contract
+                            is_quote
                             customer_id
                             reseller_id
                             number
@@ -378,6 +380,8 @@ class QuotesTest extends TestCase {
                 'currency_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                 'language_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24980',
                 'distributor_id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24990',
+                'is_contract'      => false,
+                'is_quote'         => true,
                 'number'           => '1323',
                 'price'            => 100,
                 'start'            => '2021-01-01',

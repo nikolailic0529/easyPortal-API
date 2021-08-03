@@ -753,6 +753,8 @@ type Document {
   reseller_id: ID
   reseller: Reseller
   type: Type!
+  is_contract: Boolean!
+  is_quote: Boolean!
   entries(where: SearchByConditionDocumentEntriesQuery): [DocumentEntry!]!
   language_id: ID
   language: Language
@@ -1774,6 +1776,14 @@ type Query {
   """
   @require <organization> Authenticated user must be a member of the current organization.
   
+  @require <me(["assets-view","contracts-view","customers-view","quotes-view"])>
+  User must be authenticated and have any of these permissions.
+  """
+  search(search: String!): [SearchResult!]!
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
   @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
   """
   customersAggregate(where: SearchByConditionCustomersQuery): CustomersAggregate!
@@ -1870,6 +1880,21 @@ type Query {
   ): CustomerPaginator
 
   """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  customersSearch(
+    search: String!
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): CustomerPaginator
+
+  """
   List of all assets
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1879,6 +1904,21 @@ type Query {
   assets(
     where: SearchByConditionAssetsQuery
     order: [SortByClauseAssetsSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): AssetPaginator
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  assetsSearch(
+    search: String!
 
     """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
@@ -1906,6 +1946,21 @@ type Query {
   ): DocumentPaginator
 
   """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["contracts-view","customers-view"])> User must be authenticated and have any of these permissions.
+  """
+  contractsSearch(
+    search: String!
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): DocumentPaginator
+
+  """
   List of all quotes.
   
   @require <organization> Authenticated user must be a member of the current organization.
@@ -1915,6 +1970,21 @@ type Query {
   quotes(
     where: SearchByConditionDocumentsQuery
     order: [SortByClauseDocumentsSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): DocumentPaginator
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
+  """
+  quotesSearch(
+    search: String!
 
     """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
@@ -4048,6 +4118,8 @@ input SearchByTypeRangeInt {
   min: Int!
   max: Int!
 }
+
+union SearchResult = Customer | Asset | Document
 
 input SendResetPasswordLinkInput {
   email: String!

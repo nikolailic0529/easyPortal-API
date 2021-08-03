@@ -477,6 +477,8 @@
                 "serviceGroup",
                 "reseller",
                 "type",
+                "is_contract",
+                "is_quote",
                 "entries",
                 "language_id",
                 "language",
@@ -648,6 +650,12 @@
                 },
                 "assets_count": {
                     "type": "integer"
+                },
+                "is_contract": {
+                    "type": "boolean"
+                },
+                "is_quote": {
+                    "type": "boolean"
                 }
             }
         },
@@ -1459,10 +1467,10 @@
                 "name"
             ],
             "properties": {
-                "id":  {
+                "id": {
                     "$ref": "#/definitions/ID"
                 },
-                "oem_id":  {
+                "oem_id": {
                     "$ref": "#/definitions/ID"
                 },
                 "sku": {
@@ -1485,13 +1493,13 @@
                 "description"
             ],
             "properties": {
-                "id":  {
+                "id": {
                     "$ref": "#/definitions/ID"
                 },
-                "oem_id":  {
+                "oem_id": {
                     "$ref": "#/definitions/ID"
                 },
-                "service_group_id":  {
+                "service_group_id": {
                     "$ref": "#/definitions/ID"
                 },
                 "sku": {

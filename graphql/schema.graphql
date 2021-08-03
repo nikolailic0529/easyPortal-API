@@ -165,6 +165,13 @@ type Query {
   @me
   @all
 
+  # Search
+  # ============================================================================
+  search(search: String! @search): [SearchResult!]!
+  @organization
+  @me(permissions: ["customers-view", "assets-view", "quotes-view", "contracts-view"])
+  @field(resolver: "App\\GraphQL\\Queries\\Search")
+
   # Customers
   # ============================================================================
   "List of Customers."
@@ -182,6 +189,11 @@ type Query {
   @organization
   @me(permissions: ["customers-view"])
   @field(resolver: "App\\GraphQL\\Queries\\CustomersAggregate")
+
+  customersSearch(search: String! @search): [Customer!]!
+  @organization
+  @me(permissions: ["customers-view"])
+  @paginate
 
   "Customer."
   customer(id: ID! @eq): Customer
@@ -213,6 +225,11 @@ type Query {
   @me(permissions: ["assets-view", "customers-view"])
   @field(resolver: "App\\GraphQL\\Queries\\AssetsAggregate")
 
+  assetsSearch(search: String! @search): [Asset!]!
+  @organization
+  @me(permissions: ["assets-view", "customers-view"])
+  @paginate
+
   # Contracts
   # ============================================================================
   "List of all contracts."
@@ -231,6 +248,15 @@ type Query {
   @organization
   @me(permissions: ["contracts-view", "customers-view"])
   @field(resolver: "App\\GraphQL\\Queries\\ContractsAggregate")
+
+  contractsSearch(
+    search: String!
+    @search
+    @builder(method: "App\\GraphQL\\Queries\\Contracts\\ContractsSearch")
+  ): [Document!]!
+  @organization
+  @me(permissions: ["contracts-view", "customers-view"])
+  @paginate
 
   "Contract."
   contract(id: ID! @eq): Document
@@ -257,6 +283,15 @@ type Query {
   @me(permissions: ["quotes-view", "customers-view"])
   @builder(method: "App\\GraphQL\\Queries\\Quotes")
   @find
+
+  quotesSearch(
+    search: String!
+    @search
+    @builder(method: "App\\GraphQL\\Queries\\Quotes\\QuotesSearch")
+  ): [Document!]!
+  @organization
+  @me(permissions: ["quotes-view", "customers-view"])
+  @paginate
 
   # Map
   # ============================================================================

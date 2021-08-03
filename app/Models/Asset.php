@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
-use App\GraphQL\Queries\ContractTypes;
-use App\Models\Concerns\HasContacts;
-use App\Models\Concerns\HasCustomer;
-use App\Models\Concerns\HasOem;
-use App\Models\Concerns\HasProduct;
-use App\Models\Concerns\HasReseller;
-use App\Models\Concerns\HasStatus;
-use App\Models\Concerns\HasTags;
-use App\Models\Concerns\HasTypeNullable;
+use App\Models\Concerns\Relations\HasContacts;
+use App\Models\Concerns\Relations\HasCustomer;
+use App\Models\Concerns\Relations\HasOem;
+use App\Models\Concerns\Relations\HasProduct;
+use App\Models\Concerns\Relations\HasReseller;
+use App\Models\Concerns\Relations\HasStatus;
+use App\Models\Concerns\Relations\HasTags;
+use App\Models\Concerns\Relations\HasTypeNullable;
 use App\Models\Concerns\SyncHasMany;
-use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByReseller;
+use App\Services\Search\Eloquent\Searchable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
-use function app;
 use function in_array;
 use function is_null;
 use function sprintf;
@@ -64,7 +63,8 @@ use function sprintf;
  * @mixin \Eloquent
  */
 class Asset extends Model {
-    use OwnedByOrganization;
+    use Searchable;
+    use OwnedByReseller;
     use HasFactory;
     use SyncHasMany;
     use HasOem;
@@ -96,6 +96,8 @@ class Asset extends Model {
      */
     protected $casts = self::CASTS;
 
+    // <editor-fold desc="Relations">
+    // =========================================================================
     public function location(): BelongsTo {
         return $this->belongsTo(Location::class);
     }
@@ -147,7 +149,8 @@ class Asset extends Model {
             });
             $builder->orWhere(static function (Builder $builder): void {
                 $builder->whereHas('document', static function (Builder $builder): void {
-                    app()->make(ContractTypes::class)->prepare($builder);
+                    /** @var \Illuminate\Database\Eloquent\Builder|\App\Models\Document $builder */
+                    $builder->queryContracts();
                 });
             });
         });
@@ -187,6 +190,7 @@ class Asset extends Model {
 
     public function requests(): BelongsToMany {
         $pivot = new QuoteRequestAsset();
+
         return $this
             ->belongsToMany(QuoteRequest::class, $pivot->getTable(), 'asset_id', 'request_id')
             ->wherePivotNull($pivot->getDeletedAtColumn())
@@ -195,8 +199,30 @@ class Asset extends Model {
 
     public function getQuoteRequestAttribute(): ?QuoteRequest {
         $request = new QuoteRequest();
+
         return $this->requests()
             ->orderByDesc($request->qualifyColumn('created_at'))
             ->first();
     }
+    //</editor-fold>
+
+    // <editor-fold desc="Searchable">
+    // =========================================================================
+    /**
+     * @inheritDoc
+     */
+    protected static function getSearchProperties(): array {
+        // WARNING: If array is changed the search index MUST be rebuilt.
+        return [
+            'serial_number' => 'serial_number',
+            'product'       => [
+                'sku'  => 'product.sku',
+                'name' => 'product.name',
+            ],
+            'customer'      => [
+                'name' => 'customer.name',
+            ],
+        ];
+    }
+    // </editor-fold>
 }

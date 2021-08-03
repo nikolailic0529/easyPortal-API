@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Models\Concerns\CascadeDeletes\CascadeDeletable;
-use App\Models\Concerns\HasDocument;
-use App\Models\Concerns\HasFiles;
+use App\Models\Concerns\Relations\HasDocument;
+use App\Models\Concerns\Relations\HasFiles;
+use App\Models\Concerns\Relations\HasOrganization;
+use App\Models\Concerns\Relations\HasUser;
 use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 /**
@@ -26,6 +27,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
  * @property \App\Models\User                                           $user
  * @property \App\Models\Document                                       $document
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\File> $files
+ * @property \App\Models\Organization                                   $organization
  * @method static \Database\Factories\NoteFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Note newQuery()
@@ -36,6 +38,8 @@ class Note extends Model implements CascadeDeletable {
     use HasFactory;
     use OwnedByOrganization;
     use SyncHasMany;
+    use HasUser;
+    use HasOrganization;
     use HasDocument;
     use HasFiles;
 
@@ -50,22 +54,6 @@ class Note extends Model implements CascadeDeletable {
      */
     protected $table = 'notes';
 
-    public function user(): BelongsTo {
-        return $this->belongsTo(User::class);
-    }
-
-    public function setUserAttribute(User $user): void {
-        $this->user()->associate($user);
-    }
-
-    public function getQualifiedOrganizationColumn(): string {
-        return $this->qualifyColumn('organization_id');
-    }
-
-    public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {
-        return $name === 'files';
-    }
-
     /**
      * The attributes that should be cast to native types.
      *
@@ -74,4 +62,8 @@ class Note extends Model implements CascadeDeletable {
      * @var array<string>
      */
     protected $casts = self::CASTS;
+
+    public function isCascadeDeletableRelation(string $name, Relation $relation, bool $default): bool {
+        return $name === 'files';
+    }
 }

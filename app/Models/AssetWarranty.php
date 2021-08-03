@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\HasAsset;
-use App\Models\Concerns\HasCustomer;
-use App\Models\Concerns\HasDocument;
-use App\Models\Concerns\HasReseller;
-use App\Models\Concerns\HasServiceGroup;
+use App\Models\Concerns\Relations\HasAsset;
+use App\Models\Concerns\Relations\HasCustomer;
+use App\Models\Concerns\Relations\HasDocument;
+use App\Models\Concerns\Relations\HasReseller;
+use App\Models\Concerns\Relations\HasServiceGroup;
 use App\Models\Concerns\SyncBelongsToMany;
-use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Organization\Eloquent\OwnedByReseller;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Collection;
@@ -42,7 +42,7 @@ use Illuminate\Support\Collection;
  * @mixin \Eloquent
  */
 class AssetWarranty extends Model {
-    use OwnedByOrganization;
+    use OwnedByReseller;
     use HasFactory;
     use HasAsset;
     use HasServiceGroup;

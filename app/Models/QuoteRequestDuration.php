@@ -9,16 +9,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * QuoteRequestDuration.
  *
- * @property string                                                           $id
- * @property string                                                           $key
- * @property string                                                           $name
- * @property \Carbon\CarbonImmutable                                          $created_at
- * @property \Carbon\CarbonImmutable                                          $updated_at
- * @property \Carbon\CarbonImmutable|null                                     $deleted_at
- * @method static \Database\Factories\DurationFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Duration newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Duration newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Duration query()
+ * @property string                       $id
+ * @property string                       $key
+ * @property string                       $name
+ * @property \Carbon\CarbonImmutable      $created_at
+ * @property \Carbon\CarbonImmutable      $updated_at
+ * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @method static \Database\Factories\QuoteRequestDurationFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuoteRequestDuration newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuoteRequestDuration newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuoteRequestDuration query()
  * @mixin \Eloquent
  */
 class QuoteRequestDuration extends Model implements Translatable {

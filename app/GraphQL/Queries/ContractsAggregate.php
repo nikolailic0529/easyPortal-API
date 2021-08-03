@@ -16,7 +16,8 @@ class ContractsAggregate extends AggregateResolver {
 
     protected function getQuery(): DatabaseBuilder|EloquentBuilder {
         $model = new Document();
-        $query = $this->types->prepare($model->query())
+        $query = $model->query()
+            ->queryContracts()
             ->select("{$model->qualifyColumn('currency_id')} as currency_id")
             ->selectRaw("COUNT(DISTINCT {$model->qualifyColumn($model->getKeyName())}) as count")
             ->selectRaw("SUM({$model->qualifyColumn('price')}) as amount")

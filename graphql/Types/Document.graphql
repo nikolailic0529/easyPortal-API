@@ -18,6 +18,8 @@ type Document {
   reseller_id: ID
   reseller: Reseller @belongsTo
   type: Type! @belongsTo
+  is_contract: Boolean!
+  is_quote: Boolean!
   entries(
     where: DocumentEntriesQuery @searchBy
   ): [DocumentEntry!]! @hasMany

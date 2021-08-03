@@ -2,19 +2,19 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\HasAssets;
-use App\Models\Concerns\HasContacts;
-use App\Models\Concerns\HasContracts;
-use App\Models\Concerns\HasLocations;
-use App\Models\Concerns\HasQuotes;
-use App\Models\Concerns\HasStatuses;
-use App\Models\Concerns\HasType;
-use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Models\Concerns\Relations\HasAssets;
+use App\Models\Concerns\Relations\HasContacts;
+use App\Models\Concerns\Relations\HasContracts;
+use App\Models\Concerns\Relations\HasLocations;
+use App\Models\Concerns\Relations\HasQuotes;
+use App\Models\Concerns\Relations\HasStatuses;
+use App\Models\Concerns\Relations\HasType;
+use App\Services\Organization\Eloquent\OwnedByReseller;
+use App\Services\Search\Eloquent\Searchable;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
-use Illuminate\Database\Eloquent\Relations\Relation;
 
 use function app;
 
@@ -47,7 +47,8 @@ use function app;
  * @mixin \Eloquent
  */
 class Customer extends Model {
-    use OwnedByOrganization;
+    use Searchable;
+    use OwnedByReseller;
     use HasFactory;
     use HasType;
     use HasStatuses;
@@ -77,6 +78,8 @@ class Customer extends Model {
      */
     protected $casts = self::CASTS;
 
+    // <editor-fold desc="Relations">
+    // =========================================================================
     public function headquarter(): MorphOne {
         $type = app()->make(Repository::class)->get('ep.headquarter_type');
 
@@ -100,15 +103,25 @@ class Customer extends Model {
     protected function getStatusesPivot(): Pivot {
         return new CustomerStatus();
     }
+    // </editor-fold>
 
     // <editor-fold desc="OwnedByOrganization">
     // =========================================================================
-    public function getQualifiedOrganizationColumn(): string {
-        return $this->getOrganizationThrough()->getModel()->qualifyColumn('reseller_id');
+    public function getOrganizationColumn(): string {
+        return "resellers.{$this->resellers()->getModel()->getKeyName()}";
     }
+    // </editor-fold>
 
-    public function getOrganizationThrough(): ?Relation {
-        return $this->hasMany(ResellerCustomer::class);
+    // <editor-fold desc="Searchable">
+    // =========================================================================
+    /**
+     * @inheritDoc
+     */
+    protected static function getSearchProperties(): array {
+        // WARNING: If array is changed the search index MUST be rebuilt.
+        return [
+            'name' => 'name',
+        ];
     }
     // </editor-fold>
 }

@@ -14,10 +14,15 @@ interface Queues {
     /**
      * Default queue for Data Loader
      */
-    public const DATA_LOADER_DEFAULT = 'data-loader-default';
+    public const DATA_LOADER = 'data-loader';
 
     /**
      * Default queue for Data Loader Update jobs.
      */
-    public const KEYCLOAK_DEFAULT = 'keycloak-default';
+    public const KEYCLOAK = 'keycloak';
+
+    /**
+     * Default queue for Laravel Scout.
+     */
+    public const SCOUT = 'scout';
 }

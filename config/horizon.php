@@ -183,7 +183,7 @@ return [
             ],
             'DataLoader' => [
                 'connection'   => 'redis',
-                'queue'        => [Queues::DATA_LOADER_DEFAULT],
+                'queue'        => [Queues::DATA_LOADER],
                 'balance'      => 'auto',
                 'maxProcesses' => 1,
                 'memory'       => 1024,
@@ -192,7 +192,16 @@ return [
             ],
             'KeyCloak'   => [
                 'connection'   => 'redis',
-                'queue'        => [Queues::KEYCLOAK_DEFAULT],
+                'queue'        => [Queues::KEYCLOAK],
+                'balance'      => 'auto',
+                'maxProcesses' => 1,
+                'memory'       => 256,
+                'tries'        => 1,
+                'nice'         => 0,
+            ],
+            'Scout'      => [
+                'connection'   => 'redis',
+                'queue'        => [Queues::SCOUT],
                 'balance'      => 'auto',
                 'maxProcesses' => 1,
                 'memory'       => 256,
