@@ -204,7 +204,7 @@ type Query {
     where: AssetsQuery @searchBy
   ): AssetsAggregate!
   @organization
-  @me(permissions: ["assets-view"])
+  @me(permissions: ["assets-view", "customers-view"])
   @field(resolver: "App\\GraphQL\\Queries\\AssetsAggregate")
 
   # Contracts

@@ -134,7 +134,7 @@ class AssetsAggregateTest extends TestCase {
         };
 
         return (new MergeDataProvider([
-            'root'         => new CompositeDataProvider(
+            'root'           => new CompositeDataProvider(
                 new RootOrganizationDataProvider('assetsAggregate'),
                 new OrganizationUserDataProvider('assetsAggregate', [
                     'assets-view',
@@ -171,10 +171,47 @@ class AssetsAggregateTest extends TestCase {
                     ],
                 ]),
             ),
-            'organization' => new CompositeDataProvider(
+            'organization'   => new CompositeDataProvider(
                 new OrganizationDataProvider('assetsAggregate'),
                 new UserDataProvider('assetsAggregate', [
                     'assets-view',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('assetsAggregate', AssetsAggregate::class, [
+                            'count'     => 2,
+                            'types'     => [
+                                [
+                                    'count'   => 2,
+                                    'type_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                    'type'    => [
+                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                        'name' => 'name1',
+                                        'key'  => 'key1',
+                                    ],
+                                ],
+                            ],
+                            'coverages' => [
+                                [
+                                    'count'       => 1,
+                                    'coverage_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                    'coverage'    => [
+                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                        'name' => 'name2',
+                                        'key'  => 'key2',
+                                    ],
+                                ],
+                            ],
+                        ]),
+                        $factory,
+                        $params,
+                    ],
+                ]),
+            ),
+            'customers-view' => new CompositeDataProvider(
+                new OrganizationDataProvider('assetsAggregate'),
+                new UserDataProvider('assetsAggregate', [
+                    'customers-view',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
