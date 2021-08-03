@@ -1,0 +1,11 @@
+type QuoteRequestAsset {
+  id: ID!
+  asset_id: ID!
+  asset: Asset! @belongsTo
+  request_id: ID!
+  request: QuoteRequest! @belongsTo
+  duration_id: ID!
+  duration: QuoteRequestDuration! @belongsTo
+  service_level_id: ID!
+  serviceLevel: ServiceLevel! @belongsTo
+}

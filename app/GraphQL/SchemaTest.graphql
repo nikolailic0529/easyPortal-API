@@ -235,6 +235,7 @@ type Asset {
   coverages: [Coverage!]
   tags: [Tag!]!
   data_quality: String
+  quoteRequest: QuoteRequest
 }
 
 input AssetCoveragesQuery {
@@ -494,6 +495,28 @@ input CreateQuoteNoteInput {
 
 type CreateQuoteNotePayload {
   created: Note!
+}
+
+input CreateQuoteRequestAssetsInput {
+  asset_id: ID!
+  duration_id: ID!
+  service_level_id: ID!
+}
+
+input CreateQuoteRequestInput {
+  oem_id: ID!
+  customer_id: ID!
+  type_id: ID!
+  message: String
+  files: [Upload!]
+  assets: [CreateQuoteRequestAssetsInput!]!
+  contact_name: String!
+  contact_phone: String!
+  contact_email: String!
+}
+
+type CreateQuoteRequestPayload {
+  created: QuoteRequest!
 }
 
 input CurrenciesQuery {
@@ -987,6 +1010,13 @@ type Mutation {
   @require <me(["customers-view","quotes-view"])> User must be authenticated and have any of these permissions.
   """
   createQuoteNote(input: CreateQuoteNoteInput!): CreateQuoteNotePayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["assets-view"])> User must be authenticated and have any of these permissions.
+  """
+  createQuoteRequest(input: CreateQuoteRequestInput!): CreateQuoteRequestPayload
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
@@ -1733,6 +1763,15 @@ type Query {
   timezones: [String!]!
 
   """
+  List of all possible quote request durations.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me> User must be authenticated.
+  """
+  quoteRequestDurations: [QuoteRequestDuration!]!
+
+  """
   @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
@@ -1901,6 +1940,39 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): OrganizationPaginator
+}
+
+type QuoteRequest {
+  id: ID!
+  oem_id: ID!
+  oem: Oem!
+  user_id: ID!
+  user: User!
+  customer_id: ID!
+  customer: Customer!
+  contact: Contact!
+  type_id: ID!
+  type: Type!
+  message: String
+  assets: [QuoteRequestAsset!]!
+  files: [File!]!
+}
+
+type QuoteRequestAsset {
+  id: ID!
+  asset_id: ID!
+  asset: Asset!
+  request_id: ID!
+  request: QuoteRequest!
+  duration_id: ID!
+  duration: QuoteRequestDuration!
+  service_level_id: ID!
+  serviceLevel: ServiceLevel!
+}
+
+type QuoteRequestDuration {
+  id: ID!
+  name: String!
 }
 
 input QuoteTypesQuery {

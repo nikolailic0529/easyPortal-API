@@ -31,6 +31,9 @@ use App\Models\Organization;
 use App\Models\PasswordReset;
 use App\Models\Permission;
 use App\Models\Product;
+use App\Models\QuoteRequest;
+use App\Models\QuoteRequestAsset;
+use App\Models\QuoteRequestDuration;
 use App\Models\Reseller;
 use App\Models\ResellerCustomer;
 use App\Models\ResellerStatus;
@@ -130,6 +133,9 @@ class AppServiceProvider extends ServiceProvider {
             'note'                         => Note::class,
             'change-request'               => ChangeRequest::class,
             'file'                         => File::class,
+            'quote-request'                => QuoteRequest::class,
+            'quote-request-duration'       => QuoteRequestDuration::class,
+            'quote-request-asset'          => QuoteRequestAsset::class,
         ]);
     }
 }

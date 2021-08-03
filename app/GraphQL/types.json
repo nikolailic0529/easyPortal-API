@@ -305,6 +305,16 @@
                 },
                 "data_quality": {
                     "type": "string"
+                },
+                "quoteRequest": {
+                    "oneOf": [
+                        {
+                            "$ref": "./Types/QuoteRequest.json"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 }
             }
         },

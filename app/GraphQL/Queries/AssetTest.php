@@ -11,12 +11,14 @@ use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Organization;
 use App\Models\Product;
+use App\Models\QuoteRequest;
 use App\Models\Reseller;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Status;
 use App\Models\Type;
 use Closure;
+use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -202,6 +204,51 @@ class AssetTest extends TestCase {
                         tags {
                             id
                             name
+                        }
+                        quoteRequest {
+                            id
+                            message
+                            oem_id
+                            oem {
+                                id
+                                key
+                                name
+                            }
+                            customer_id
+                            customer {
+                                id
+                                name
+                                assets_count
+                                locations_count
+                                locations {
+                                    id
+                                    state
+                                    postcode
+                                    line_one
+                                    line_two
+                                    latitude
+                                    longitude
+                                }
+                                contacts_count
+                                contacts {
+                                    name
+                                    email
+                                    phone_valid
+                                }
+                            }
+                            contact {
+                                name
+                                email
+                                phone_valid
+                            }
+                            type_id
+                            type {
+                                id
+                                name
+                            }
+                            files {
+                                name
+                            }
                         }
                     }
                 }
@@ -445,6 +492,53 @@ class AssetTest extends TestCase {
                                     'name' => 'Software',
                                 ],
                             ],
+                            'quoteRequest'   => [
+                                'id'          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20952',
+                                'type_id'     => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20953',
+                                'oem_id'      => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                'oem'         => [
+                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                    'key'  => 'key',
+                                    'name' => 'oem1',
+                                ],
+                                'customer_id' => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                'customer'    => [
+                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                    'name'            => 'name aaa',
+                                    'assets_count'    => 0,
+                                    'locations_count' => 1,
+                                    'locations'       => [
+                                        [
+                                            'id'        => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20944',
+                                            'state'     => 'state1',
+                                            'postcode'  => '19911',
+                                            'line_one'  => 'line_one_data',
+                                            'line_two'  => 'line_two_data',
+                                            'latitude'  => 47.91634204,
+                                            'longitude' => -2.26318359,
+                                        ],
+                                    ],
+                                    'contacts_count'  => 1,
+                                    'contacts'        => [
+                                        [
+                                            'name'        => 'contact1',
+                                            'email'       => 'contact1@test.com',
+                                            'phone_valid' => false,
+                                        ],
+                                    ],
+                                ],
+                                'contact'     => [
+                                    'name'        => 'contact3',
+                                    'email'       => 'contact3@test.com',
+                                    'phone_valid' => false,
+                                ],
+                                'type'        => [
+                                    'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20953',
+                                    'name' => 'new',
+                                ],
+                                'files'       => [],
+                                'message'     => null,
+                            ],
                         ]),
                         [
                             'ep.contract_types' => [
@@ -640,7 +734,36 @@ class AssetTest extends TestCase {
                                     'end'         => '2022-01-01',
                                     'note'        => 'note',
                                 ]);
-
+                            // Quote Requests
+                            QuoteRequest::factory()
+                                ->hasAssets(1, [
+                                    'asset_id' => $asset->getKey(),
+                                ])
+                                ->create([
+                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20951',
+                                    'organization_id' => $organization->getKey(),
+                                    'created_at'      => Date::now()->subHour(),
+                                ]);
+                            QuoteRequest::factory()
+                                ->for($oem)
+                                ->for(Type::factory()->create([
+                                    'id'   => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20953',
+                                    'name' => 'new',
+                                ]))
+                                ->hasAssets(1, [
+                                    'asset_id' => $asset->getKey(),
+                                ])
+                                ->hasContact(1, [
+                                    'name'        => 'contact3',
+                                    'email'       => 'contact3@test.com',
+                                    'phone_valid' => false,
+                                ])
+                                ->create([
+                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20952',
+                                    'message'         => null,
+                                    'organization_id' => $organization->getKey(),
+                                    'created_at'      => Date::now(),
+                                ]);
                             return $asset;
                         },
                     ],

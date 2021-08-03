@@ -1,0 +1,4 @@
+type QuoteRequestDuration {
+  id: ID!
+  name: String! @translate
+}

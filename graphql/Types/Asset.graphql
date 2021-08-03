@@ -20,4 +20,5 @@ type Asset {
   coverages: [Coverage!] @belongsTo
   tags: [Tag!]! @belongsToMany
   data_quality: String
+  quoteRequest: QuoteRequest
 }

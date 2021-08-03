@@ -1,0 +1,35 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionProperties": false,
+    "type": "object",
+    "required": [
+        "asset_id",
+        "service_level_id",
+        "serviceLevel",
+        "duration_id",
+        "duration"
+    ],
+    "properties": {
+        "id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "asset_id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "duration_id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "duration": {
+            "$ref": "../Types/QuoteRequestDuration.json"
+        },
+        "request_id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "service_level_id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "serviceLevel": {
+            "$ref": "../types.json#/definitions/ServiceLevel"
+        }
+    }
+}

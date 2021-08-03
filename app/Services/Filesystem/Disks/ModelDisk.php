@@ -7,6 +7,7 @@ use App\Models\File;
 use App\Models\Model;
 use App\Models\Note;
 use App\Models\Organization;
+use App\Models\QuoteRequest;
 use App\Models\User;
 use App\Services\Filesystem\Disk;
 use Illuminate\Contracts\Config\Repository;
@@ -24,6 +25,7 @@ class ModelDisk extends Disk {
     public const USERS           = 'users';
     public const NOTES           = 'notes';
     public const CHANGE_REQUESTS = 'changeRequests';
+    public const QUOTE_REQUESTS  = 'quoteRequests';
 
     /**
      * @var array<class-string<\App\Models\Model>,string>
@@ -33,6 +35,7 @@ class ModelDisk extends Disk {
         User::class          => self::USERS,
         Note::class          => self::NOTES,
         ChangeRequest::class => self::CHANGE_REQUESTS,
+        QuoteRequest::class  => self::QUOTE_REQUESTS,
     ];
 
     public function __construct(
