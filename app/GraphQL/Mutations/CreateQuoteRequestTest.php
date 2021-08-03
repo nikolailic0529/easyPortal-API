@@ -70,12 +70,6 @@ class CreateQuoteRequestTest extends TestCase {
                 $organization = $this->setOrganization(Organization::factory()->make());
             }
 
-            if (!$settings) {
-                $this->setSettings([
-                    'ep.quote_types' => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ad'],
-                ]);
-            }
-
             $reseller = Reseller::factory()->create([
                 'id' => $organization->getKey(),
             ]);
@@ -285,7 +279,6 @@ class CreateQuoteRequestTest extends TestCase {
         $settings = [
             'ep.image.max_size' => 250,
             'ep.image.formats'  => ['csv'],
-            'ep.quote_types'    => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ad'],
         ];
         return (new CompositeDataProvider(
             new OrganizationDataProvider('createQuoteRequest'),
