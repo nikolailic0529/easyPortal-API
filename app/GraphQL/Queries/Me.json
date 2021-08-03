@@ -8,6 +8,7 @@
         "family_name",
         "email",
         "locale",
+        "photo",
         "root",
         "permissions",
         "homepage",
@@ -27,6 +28,12 @@
             "type": "string"
         },
         "locale": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "photo": {
             "type": [
                 "string",
                 "null"

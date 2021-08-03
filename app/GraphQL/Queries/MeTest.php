@@ -47,6 +47,7 @@ class MeTest extends TestCase {
                     given_name
                     email
                     locale
+                    photo
                     root
                     permissions
                     locale

@@ -946,6 +946,7 @@ type Me {
   timezone: String
   homepage: String
   permissions: [String!]
+  photo: String
   root: Boolean!
   searches(where: SearchByConditionMeSearchQuery, order: [SortByClauseMeSearchSort!]): [MeSearch!]!
   profile: Profile
