@@ -15,7 +15,7 @@ phone: {{ $request->contact->phone }}<br>
 | prodcut name | service level | duration |
 | :----------: | :------------:| :--------:|
 @foreach($request->assets as $asset)
-|{{ $asset->product->name }}| {{ $asset->pivot->serviceLevel->name }} | {{ $asset->pivot->duration->duration }}
+|{{ $asset->asset->product->name }}| {{ $asset->serviceLevel->name }} | {{ $asset->duration->name }}
 @endforeach
 @endcomponent
 
