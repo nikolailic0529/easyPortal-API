@@ -26,6 +26,7 @@ class SearchRequestFactoryTest extends TestCase {
         $builder->where('where', '123');
         $builder->whereIn('whereIn', ['a', 'b', 'c']);
         $builder->whereIn('whereIn2', ['1', '2', '3']);
+        $builder->whereNot('whereNot', '123');
         $builder->whereNotIn('whereNotIn', ['a', 'b', 'c']);
         $builder->whereNotIn('whereNotIn2', ['1', '2', '3']);
 
@@ -52,6 +53,9 @@ class SearchRequestFactoryTest extends TestCase {
             [
                 'bool' => [
                     'must_not' => [
+                        [
+                            'term' => ['whereNot' => '123'],
+                        ],
                         [
                             'terms' => ['whereNotIn' => ['a', 'b', 'c']],
                         ],

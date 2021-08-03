@@ -98,4 +98,22 @@ class BuilderTest extends TestCase {
             'test' => ['a', 'b', 'c'],
         ], $builder->whereNotIns);
     }
+
+    /**
+     * @covers ::whereNot
+     */
+    public function testWhereNot(): void {
+        $builder = $this->app->make(Builder::class, [
+            'query' => '123',
+            'model' => new class() extends Model {
+                // empty
+            },
+        ]);
+
+        $builder->whereNot('test', 'value');
+
+        $this->assertEquals([
+            'test' => 'value',
+        ], $builder->whereNots);
+    }
 }

@@ -10,6 +10,13 @@ class Builder extends ScoutBuilder {
     public const PROPERTIES = 'searchable';
 
     /**
+     * The "where not" constraints added to the query.
+     *
+     * @var array<string,mixed>
+     */
+    public array $whereNots = [];
+
+    /**
      * The "where not in" constraints added to the query.
      *
      * @var array<string,array<mixed>>
@@ -18,6 +25,12 @@ class Builder extends ScoutBuilder {
 
     public function __construct(Model $model, string $query, callable $callback = null, bool $softDelete = false) {
         parent::__construct($model, "{$this->getFieldProperties()}.\\*:{$query}", $callback, $softDelete);
+    }
+
+    public function whereNot(string $field, mixed $value): static {
+        $this->whereNots[$field] = $value;
+
+        return $this;
     }
 
     /**

@@ -7,6 +7,8 @@ use ElasticScoutDriver\Factories\SearchRequestFactory as BaseSearchRequestFactor
 use Illuminate\Support\Collection;
 use Laravel\Scout\Builder as ScoutBuilder;
 
+use function is_array;
+
 class SearchRequestFactory extends BaseSearchRequestFactory {
     /**
      * @return array<mixed>|null
@@ -22,7 +24,10 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
             $filter = $filter->merge([
                 [
                     'bool' => [
-                        'must_not' => $this->getTerms($builder->whereNotIns)->all(),
+                        'must_not' => $this
+                            ->getTerms($builder->whereNots)
+                            ->merge($this->getTerms($builder->whereNotIns))
+                            ->all(),
                     ],
                 ],
             ]);
@@ -32,14 +37,14 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
     }
 
     /**
-     * @param array<string,array<mixed>> $where
+     * @param array<string,array<mixed>|mixed> $where
      */
     private function getTerms(array $where): Collection {
         return (new Collection($where))
-            ->map(static function (array $value, string $field) {
-                return [
-                    'terms' => [$field => $value],
-                ];
+            ->map(static function (mixed $value, string $field) {
+                return is_array($value)
+                    ? ['terms' => [$field => $value]]
+                    : ['term' => [$field => $value]];
             })
             ->values();
     }

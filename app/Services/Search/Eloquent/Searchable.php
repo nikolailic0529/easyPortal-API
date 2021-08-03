@@ -28,6 +28,8 @@ use function is_scalar;
 use function sprintf;
 
 /**
+ * @method \App\Services\Search\Builder search(string $query, \Closure $callback)
+ *
  * @mixin \App\Models\Model
  */
 trait Searchable {
