@@ -28,13 +28,12 @@ use function is_scalar;
 use function sprintf;
 
 /**
- * @method \App\Services\Search\Builder search(string $query, \Closure $callback)
- *
  * @mixin \App\Models\Model
  */
 trait Searchable {
     use GlobalScopes;
     use ScoutSearchable {
+        search as protected scoutSearch;
         makeAllSearchable as protected scoutMakeAllSearchable;
     }
 
@@ -118,6 +117,11 @@ trait Searchable {
                 static::scoutMakeAllSearchable($chunk);
             });
         });
+    }
+
+    public static function search(string $query = '', Closure $callback = null): SearchBuilder {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return static::scoutSearch($query, $callback);
     }
     // </editor-fold>
 

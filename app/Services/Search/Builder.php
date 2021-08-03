@@ -2,8 +2,14 @@
 
 namespace App\Services\Search;
 
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Model;
+use InvalidArgumentException;
 use Laravel\Scout\Builder as ScoutBuilder;
+
+use function is_a;
+use function is_string;
+use function sprintf;
 
 class Builder extends ScoutBuilder {
     public const METADATA   = 'metadata';
@@ -23,8 +29,46 @@ class Builder extends ScoutBuilder {
      */
     public array $whereNotIns = [];
 
-    public function __construct(Model $model, string $query, callable $callback = null, bool $softDelete = false) {
+    public function __construct(
+        protected Container $container,
+        Model $model,
+        string $query,
+        callable $callback = null,
+        bool $softDelete = false,
+    ) {
+        // Parent
         parent::__construct($model, "{$this->getFieldProperties()}.\\*:{$query}", $callback, $softDelete);
+
+        // Global scopes
+        $scopes = $model->getGlobalScopes();
+
+        foreach ($scopes as $scope) {
+            if ($scope instanceof Scope || (is_string($scope) && is_a($scope, Scope::class, true))) {
+                $this->applyScope($scope);
+            }
+        }
+    }
+
+    /**
+     * @param \App\Services\Search\Scope|class-string<\App\Services\Search\Scope> $scope
+     */
+    public function applyScope(Scope|string $scope): static {
+        if (is_string($scope)) {
+            $scope = $this->container->make($scope);
+        }
+
+        if (!($scope instanceof Scope)) {
+            throw new InvalidArgumentException(sprintf(
+                'The `%s` must be instance of `%s`, `%s` given.',
+                '$scope',
+                Scope::class,
+                $scope::class,
+            ));
+        }
+
+        $scope->applyForSearch($this, $this->model);
+
+        return $this;
     }
 
     public function whereNot(string $field, mixed $value): static {

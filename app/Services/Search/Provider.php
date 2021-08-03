@@ -12,21 +12,7 @@ class Provider extends ServiceProvider {
     public function register(): void {
         parent::register();
 
-        $this->registerScopes();
         $this->registerBindings();
-    }
-
-    protected function registerScopes(): void {
-        $this->app->afterResolving(Builder::class, static function (SearchBuilder $builder): void {
-            $model  = $builder->model;
-            $scopes = $model->getGlobalScopes();
-
-            foreach ($scopes as $scope) {
-                if ($scope instanceof Scope) {
-                    $scope->applyForSearch($builder, $model);
-                }
-            }
-        });
     }
 
     protected function registerBindings(): void {

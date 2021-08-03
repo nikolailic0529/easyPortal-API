@@ -2,8 +2,17 @@
 
 namespace App\Services\Search;
 
+use App\Services\Search\Builder as SearchBuilder;
+use App\Services\Search\Scope as SearchScope;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Scope as EloquentScope;
+use InvalidArgumentException;
+use Mockery;
+use stdClass;
 use Tests\TestCase;
+
+use function sprintf;
 
 /**
  * @internal
@@ -14,14 +23,28 @@ class BuilderTest extends TestCase {
      * @covers ::__construct
      */
     public function testConstruct(): void {
-        $builder = $this->app->make(Builder::class, [
-            'query' => '123',
-            'model' => new class() extends Model {
+        $model = new class() extends Model {
+            // empty
+        };
+        $scope = new class() implements EloquentScope, SearchScope {
+            public function apply(EloquentBuilder $builder, Model $model): void {
                 // empty
-            },
+            }
+
+            public function applyForSearch(SearchBuilder $builder, Model $model): void {
+                $builder->where('test', 'value');
+            }
+        };
+
+        $model->addGlobalScope($scope);
+
+        $builder = $this->app->make(Builder::class, [
+            'query' => '*',
+            'model' => $model,
         ]);
 
-        $this->assertEquals(Builder::PROPERTIES.'.\\*:123', $builder->query);
+        $this->assertEquals(Builder::PROPERTIES.'.\\*:*', $builder->query);
+        $this->assertEquals(['test' => 'value'], $builder->wheres);
     }
 
     /**
@@ -115,5 +138,46 @@ class BuilderTest extends TestCase {
         $this->assertEquals([
             'test' => 'value',
         ], $builder->whereNots);
+    }
+
+    /**
+     * @covers ::applyScope
+     */
+    public function testApplyScope(): void {
+        $builder = $this->app->make(Builder::class, [
+            'query' => '123',
+            'model' => new class() extends Model {
+                // empty
+            },
+        ]);
+        $scope   = Mockery::mock(Scope::class);
+        $scope
+            ->shouldReceive('applyForSearch')
+            ->with($builder, $builder->model)
+            ->once()
+            ->andReturns();
+
+        $builder->applyScope($scope);
+    }
+
+    /**
+     * @covers ::applyScope
+     */
+    public function testApplyScopeNotAScope(): void {
+        $builder = $this->app->make(Builder::class, [
+            'query' => '123',
+            'model' => new class() extends Model {
+                // empty
+            },
+        ]);
+
+        $this->expectExceptionObject(new InvalidArgumentException(sprintf(
+            'The `%s` must be instance of `%s`, `%s` given.',
+            '$scope',
+            Scope::class,
+            stdClass::class,
+        )));
+
+        $builder->applyScope(stdClass::class);
     }
 }
