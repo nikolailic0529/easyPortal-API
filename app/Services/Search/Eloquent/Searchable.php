@@ -35,6 +35,7 @@ trait Searchable {
     use ScoutSearchable {
         search as protected scoutSearch;
         makeAllSearchable as protected scoutMakeAllSearchable;
+        queueMakeSearchable as protected scoutQueueMakeSearchable;
     }
 
     // <editor-fold desc="Abstract">
@@ -117,6 +118,12 @@ trait Searchable {
                 static::scoutMakeAllSearchable($chunk);
             });
         });
+    }
+
+    public function queueMakeSearchable(Collection $models): void {
+        // shouldBeSearchable() is not used here by default...
+        // https://github.com/laravel/scout/issues/320
+        $this->scoutQueueMakeSearchable($models->filter->shouldBeSearchable());
     }
 
     public static function search(string $query = '', Closure $callback = null): SearchBuilder {
