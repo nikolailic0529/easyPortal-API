@@ -86,6 +86,27 @@ return [
             ]) : [],
         ],
 
+        'audits'           => [
+            'driver'         => 'mysql',
+            'url'            => env('EP_AUDITS_DATABASE_URL'),
+            'host'           => env('EP_AUDITS_DB_HOST', '127.0.0.1'),
+            'port'           => env('EP_AUDITS_DB_PORT', '3306'),
+            'database'       => env('EP_AUDITS_DB_DATABASE', 'forge'),
+            'username'       => env('EP_AUDITS_DB_USERNAME', 'forge'),
+            'password'       => env('EP_AUDITS_DB_PASSWORD', ''),
+            'unix_socket'    => env('EP_AUDITS_DB_SOCKET', ''),
+            'charset'        => 'utf8mb4',
+            'collation'      => 'utf8mb4_0900_as_ci',
+            'timezone'       => '+00:00',
+            'prefix'         => '',
+            'prefix_indexes' => true,
+            'strict'         => true,
+            'engine'         => null,
+            'options'        => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+
         'pgsql'            => [
             'driver'         => 'pgsql',
             'url'            => env('DATABASE_URL'),
