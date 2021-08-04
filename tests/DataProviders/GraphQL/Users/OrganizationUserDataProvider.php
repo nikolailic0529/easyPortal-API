@@ -11,8 +11,6 @@ use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 
-use function count;
-
 /**
  * Only user of current organization can perform action.
  *
@@ -24,13 +22,13 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
      */
     public function __construct(string $root, array $permissions = []) {
         parent::__construct([
-            'guest is not allowed'                                           => [
+            'guest is not allowed'                                      => [
                 new ExpectedFinal(new GraphQLUnauthenticated($root)),
                 static function (): ?User {
                     return null;
                 },
             ],
-            'user from another organization is not allowed'                  => [
+            'user from another organization is not allowed'             => [
                 new ExpectedFinal(new GraphQLUnauthorized($root)),
                 static function (TestCase $test, ?Organization $organization) use ($permissions): ?User {
                     return User::factory()->make([
@@ -39,18 +37,16 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
                     ]);
                 },
             ],
-            'user without permissions from root organization is not allowed' => [
+            'user without permissions from organization is not allowed' => [
                 new ExpectedFinal(new GraphQLUnauthorized($root)),
-                static function (TestCase $test, ?Organization $organization) use ($permissions): ?User {
+                static function (TestCase $test, ?Organization $organization): ?User {
                     return User::factory()->make([
                         'organization_id' => $organization,
-                        'permissions'     => count($permissions) > 1
-                            ? $test->faker()->randomElements($permissions, count($permissions) - 1)
-                            : [],
+                        'permissions'     => [],
                     ]);
                 },
             ],
-            'user with permissions from root organization is allowed'        => [
+            'user with permissions from organization is allowed'        => [
                 new UnknownValue(),
                 static function (TestCase $test, ?Organization $organization) use ($permissions): ?User {
                     return User::factory()->make([
