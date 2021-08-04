@@ -3,25 +3,26 @@ extend type Mutation {
     input: CreateQuoteRequestInput!
   ): CreateQuoteRequestPayload
   @organization
-  @me(permissions: ["assets-view"])
+  @me(permissions: ["requests-quote-add"])
+  @me(permissions: ["assets-view", "customers-view"])
 }
 
 input CreateQuoteRequestInput {
-  oem_id: ID! @rules(apply:["required"])
-  customer_id: ID! @rules(apply:["required"])
-  type_id: ID! @rules(apply:["required"])
+  oem_id: ID! @rules(apply:["required","App\\Rules\\OemId"])
+  customer_id: ID! @rules(apply:["required","App\\Rules\\CustomerId"])
+  type_id: ID! @rules(apply:["required","App\\Rules\\TypeId"])
   message: String
   files: [Upload!] @rules(apply:["nullable","App\\Rules\\Image"])
-  assets: [CreateQuoteRequestAssetsInput!]!
   contact_name: String! @rules(apply:["required"])
-  contact_phone: String! @rules(apply:["required"])
-  contact_email: String!@rules(apply:["required","email"])
+  contact_phone: String! @rules(apply:["required","phone:AUTO"])
+  contact_email: String! @rules(apply:["required","email"])
+  assets: [CreateQuoteRequestAssetsInput!]!
 }
 
 input CreateQuoteRequestAssetsInput {
   asset_id: ID! @rules(apply:["required","App\\Rules\\AssetId"])
-  duration_id: ID! @rules(apply:["required"])
-  service_level_id: ID! @rules(apply:["required"])
+  duration_id: ID! @rules(apply:["required","App\\Rules\\QuoteRequestDurationId"])
+  service_level_id: ID! @rules(apply:["required","App\\Rules\\ServiceLevelId"])
 }
 
 type CreateQuoteRequestPayload {

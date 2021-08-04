@@ -42,7 +42,7 @@ class CreateQuoteRequest {
         $contact->name         = $args['input']['contact_name'];
         $contact->email        = $args['input']['contact_email'];
         $contact->phone_number = $args['input']['contact_phone'];
-        $contact->phone_valid  = false;
+        $contact->phone_valid  = true;
         $contact->object_id    = $request->getKey();
         $contact->object_type  = $request->getMorphClass();
         $request->contact      = $contact;

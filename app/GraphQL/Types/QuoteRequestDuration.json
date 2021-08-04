@@ -4,6 +4,7 @@
     "type": "object",
     "required": [
         "name",
+        "key",
         "id"
     ],
     "properties": {

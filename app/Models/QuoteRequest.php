@@ -17,29 +17,29 @@ use Illuminate\Support\Collection;
 /**
  * QuoteRequest.
  *
- * @property string                                                       $id
- * @property string                                                       $oem_id
- * @property string                                                       $organization_id
- * @property string                                                       $user_id
- * @property string                                                       $customer_id
- * @property string                                                       $message
- * @property \Carbon\CarbonImmutable                                      $created_at
- * @property \Carbon\CarbonImmutable                                      $updated_at
- * @property \Carbon\CarbonImmutable|null                                 $deleted_at
- * @property \App\Models\Oem                                              $oem
- * @property \App\Models\Organization                                     $organization
- * @property \App\Models\Customer                                         $customer
- * @property \App\Models\Contact                                          $contact
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status> $statuses
- * @property \Illuminate\Database\Eloquent\Collection<\App\Models\File>   $files
+ * @property string                                                                         $id
+ * @property string                                                                         $oem_id
+ * @property string                                                                         $organization_id
+ * @property string                                                                         $user_id
+ * @property string                                                                         $customer_id
+ * @property string                                                                        $type_id
+ * @property string                                                                        $message
+ * @property \Carbon\CarbonImmutable                                                       $created_at
+ * @property \Carbon\CarbonImmutable                                                       $updated_at
+ * @property \Carbon\CarbonImmutable|null                                                  $deleted_at
+ * @property \App\Models\Oem                                                               $oem
+ * @property \App\Models\Organization                                                      $organization
+ * @property \App\Models\Customer                                                          $customer
+ * @property \App\Models\Contact                                                           $contact
+ * @property \App\Models\Type                                                              $type
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>                  $statuses
+ * @property \Illuminate\Database\Eloquent\Collection<\App\Models\File>                    $files
+ * @property \Illuminate\Database\Eloquent\Collection|array<\App\Models\QuoteRequestAsset> $assets
  * @method static \Database\Factories\QuoteRequestFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuoteRequest newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuoteRequest newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuoteRequest query()
  * @mixin \Eloquent
- * @property string $type_id
- * @property \Illuminate\Database\Eloquent\Collection|\App\Models\QuoteRequestAsset[] $assets
- * @property \App\Models\Type $type
  */
 class QuoteRequest extends Model {
     use HasFactory;

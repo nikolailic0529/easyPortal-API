@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
@@ -56,6 +57,7 @@ use function sprintf;
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Tag>                $tags
  * @property \App\Models\Type|null                                                    $type
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\AssetWarranty>      $warranties
+ * @property \App\Models\QuoteRequest|null                                            $quoteRequest
  * @method static \Database\Factories\AssetFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Asset newQuery()
@@ -188,22 +190,13 @@ class Asset extends Model {
         $this->syncBelongsToMany('coverages', $coverages);
     }
 
-    public function requests(): BelongsToMany {
-        $pivot = new QuoteRequestAsset();
-
-        return $this
-            ->belongsToMany(QuoteRequest::class, $pivot->getTable(), 'asset_id', 'request_id')
-            ->wherePivotNull($pivot->getDeletedAtColumn())
-            ->withTimestamps();
-    }
-
-    public function getQuoteRequestAttribute(): ?QuoteRequest {
+    public function quoteRequest(): HasOneThrough {
         $request = new QuoteRequest();
-
-        return $this->requests()
-            ->orderByDesc($request->qualifyColumn('created_at'))
-            ->first();
+        return $this->hasOneThrough(QuoteRequest::class, QuoteRequestAsset::class, 'asset_id', 'id', 'id', 'request_id')
+            ->whereNull($request->qualifyColumn($request->getDeletedAtColumn()))
+            ->orderByDesc($request->qualifyColumn($request->getCreatedAtColumn()));
     }
+
     //</editor-fold>
 
     // <editor-fold desc="Searchable">
