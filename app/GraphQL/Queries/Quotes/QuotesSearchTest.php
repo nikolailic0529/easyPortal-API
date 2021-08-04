@@ -65,7 +65,7 @@ class QuotesSearchTest extends TestCase {
         }
 
         if ($quotesFactory) {
-            $quotesFactory($this, $organization, $user)->searchable();
+            $this->makeSearchable($quotesFactory($this, $organization, $user));
         }
 
         // Not empty?

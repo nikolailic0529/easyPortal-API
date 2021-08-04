@@ -64,7 +64,7 @@ class ContractsSearchTest extends TestCase {
         }
 
         if ($contractsFactory) {
-            $contractsFactory($this, $organization, $user)->searchable();
+            $this->makeSearchable($contractsFactory($this, $organization, $user));
         }
 
         // Not empty?
