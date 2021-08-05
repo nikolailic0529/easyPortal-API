@@ -41,6 +41,9 @@ class ContractType implements SearchScope, EloquentScope {
     }
 
     public function isContractType(Type|string $type): bool {
-        return in_array($type instanceof Type ? $type->getKey() : $type, $this->getTypeIds(), true);
+        $type  = $type instanceof Type ? $type->getKey() : $type;
+        $types = $this->getTypeIds();
+
+        return empty($types) || in_array($type, $types, true);
     }
 }
