@@ -199,9 +199,9 @@ return [
                 'tries'        => 1,
                 'nice'         => 0,
             ],
-            'Scout'      => [
+            'Search'     => [
                 'connection'   => 'redis',
-                'queue'        => [Queues::SCOUT],
+                'queue'        => [Queues::SEARCH],
                 'balance'      => 'auto',
                 'maxProcesses' => 1,
                 'memory'       => 256,
