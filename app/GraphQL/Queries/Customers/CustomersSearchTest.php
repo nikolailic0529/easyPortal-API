@@ -184,5 +184,4 @@ class CustomersSearchTest extends TestCase {
         ]))->getData();
     }
     // </editor-fold>
-
 }

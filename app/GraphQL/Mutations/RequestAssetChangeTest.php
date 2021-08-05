@@ -15,7 +15,6 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
