@@ -14,8 +14,8 @@ use function str_starts_with;
 /**
  * @mixin \Tests\TestCase
  */
-trait WithScout {
-    protected function setUpWithScout(): void {
+trait WithSearch {
+    protected function setUpWithSearch(): void {
         // Right now only ElasticSearch is supported.
         $this->setSettings([
             'scout.driver'                           => 'elastic',
@@ -41,7 +41,7 @@ trait WithScout {
         }
     }
 
-    protected function tearDownWithScout(): void {
+    protected function tearDownWithSearch(): void {
         // empty
     }
 

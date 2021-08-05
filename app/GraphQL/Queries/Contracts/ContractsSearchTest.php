@@ -29,14 +29,14 @@ use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
-use Tests\WithScout;
+use Tests\WithSearch;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Contracts\ContractsSearch
  */
 class ContractsSearchTest extends TestCase {
-    use WithScout;
+    use WithSearch;
 
     // <editor-fold desc="Tests">
     // =========================================================================

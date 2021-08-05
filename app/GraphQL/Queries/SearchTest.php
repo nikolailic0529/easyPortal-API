@@ -19,7 +19,7 @@ use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\TestCase;
-use Tests\WithScout;
+use Tests\WithSearch;
 
 use function array_values;
 
@@ -28,7 +28,7 @@ use function array_values;
  * @coversDefaultClass \App\GraphQL\Queries\Search
  */
 class SearchTest extends TestCase {
-    use WithScout;
+    use WithSearch;
 
     // <editor-fold desc="Tests">
     // =========================================================================

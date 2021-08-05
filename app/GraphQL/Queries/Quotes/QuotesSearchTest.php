@@ -30,14 +30,14 @@ use Tests\GraphQL\GraphQLPaginated;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
-use Tests\WithScout;
+use Tests\WithSearch;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Quotes\QuotesSearch
  */
 class QuotesSearchTest extends TestCase {
-    use WithScout;
+    use WithSearch;
 
     // <editor-fold desc="Tests">
     // =========================================================================

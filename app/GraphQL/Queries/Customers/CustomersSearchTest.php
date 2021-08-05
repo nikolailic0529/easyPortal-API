@@ -16,14 +16,14 @@ use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\TestCase;
-use Tests\WithScout;
+use Tests\WithSearch;
 
 /**
  * @coversNothing
  * @internal
  */
 class CustomersSearchTest extends TestCase {
-    use WithScout;
+    use WithSearch;
 
     // <editor-fold desc="Tests">
     // =========================================================================
