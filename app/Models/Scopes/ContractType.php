@@ -24,13 +24,17 @@ class ContractType implements SearchScope, EloquentScope {
     }
 
     public function apply(EloquentBuilder $builder, Model $model): void {
-        $key = $model instanceof Type ? $model->getKeyName() : 'type_id';
+        $key   = $model instanceof Type ? $model->getKeyName() : 'type_id';
+        $types = $this->getTypeIds() ?: ['empty'];
 
-        $builder->whereIn($key, $this->getTypeIds());
+        $builder->whereIn($key, $types);
     }
 
     public function applyForSearch(SearchBuilder $builder, Model $model): void {
-        $builder->whereMetadataIn(DocumentType::SEARCH_METADATA, $this->getTypeIds());
+        $key   = DocumentType::SEARCH_METADATA;
+        $types = $this->getTypeIds() ?: ['empty'];
+
+        $builder->whereMetadataIn($key, $types);
     }
 
     /**
@@ -44,6 +48,6 @@ class ContractType implements SearchScope, EloquentScope {
         $type  = $type instanceof Type ? $type->getKey() : $type;
         $types = $this->getTypeIds();
 
-        return empty($types) || in_array($type, $types, true);
+        return in_array($type, $types, true);
     }
 }
