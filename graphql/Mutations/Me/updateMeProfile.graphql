@@ -2,8 +2,8 @@ extend type Mutation {
   updateMeProfile(
     input: UpdateMeProfileInput!
   ): UpdateMeProfilePayload
-  @me
   @organization
+  @me
   @field(resolver: "App\\GraphQL\\Mutations\\Me\\UpdateMeProfile")
 }
 
