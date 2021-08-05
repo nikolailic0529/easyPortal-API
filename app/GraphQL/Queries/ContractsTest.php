@@ -252,7 +252,7 @@ class ContractsTest extends TestCase {
             ),
             'customers-view' => new CompositeDataProvider(
                 new OrganizationDataProvider('contracts'),
-                new UserDataProvider('contracts', [
+                new OrganizationUserDataProvider('contracts', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -287,7 +287,7 @@ class ContractsTest extends TestCase {
             ),
             'organization'   => new CompositeDataProvider(
                 new OrganizationDataProvider('contracts', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new UserDataProvider('contracts', [
+                new OrganizationUserDataProvider('contracts', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([

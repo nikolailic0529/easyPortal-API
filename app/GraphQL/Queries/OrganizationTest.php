@@ -17,6 +17,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
@@ -227,7 +228,7 @@ class OrganizationTest extends TestCase {
     public function dataProviderQuery(): array {
         return (new CompositeDataProvider(
             new RootOrganizationDataProvider('organization'),
-            new UserDataProvider('organization', [
+            new OrganizationUserDataProvider('organization', [
                 'administer',
             ]),
             new ArrayDataProvider([
@@ -379,7 +380,7 @@ class OrganizationTest extends TestCase {
         return (new MergeDataProvider([
             'administer'     => new CompositeDataProvider(
                 new RootOrganizationDataProvider('organization'),
-                new UserDataProvider('organization', [
+                new OrganizationUserDataProvider('organization', [
                     'administer',
                 ]),
                 new ArrayDataProvider([
@@ -423,7 +424,7 @@ class OrganizationTest extends TestCase {
             ),
             'org-administer' => new CompositeDataProvider(
                 new RootOrganizationDataProvider('organization'),
-                new UserDataProvider('organization', [
+                new OrganizationUserDataProvider('organization', [
                     'administer',
                 ]),
                 new ArrayDataProvider([
@@ -475,7 +476,7 @@ class OrganizationTest extends TestCase {
         return (new MergeDataProvider([
             'administer'     => new CompositeDataProvider(
                 new RootOrganizationDataProvider('organization'),
-                new UserDataProvider('organization', [
+                new OrganizationUserDataProvider('organization', [
                     'administer',
                 ]),
                 new ArrayDataProvider([
@@ -526,7 +527,7 @@ class OrganizationTest extends TestCase {
             ),
             'org-administer' => new CompositeDataProvider(
                 new RootOrganizationDataProvider('organization'),
-                new UserDataProvider('organization', [
+                new OrganizationUserDataProvider('organization', [
                     'administer',
                 ]),
                 new ArrayDataProvider([

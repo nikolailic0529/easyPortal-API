@@ -2,9 +2,9 @@ extend type Mutation {
   disableOrgUser(
     input: DisableOrgUserInput!
   ): DisableOrgUserPayload
-  @field(resolver: "App\\GraphQL\\Mutations\\Org\\DisableOrgUser")
-  @me(permissions: ["org-administer"])
   @organization
+  @me(permissions: ["org-administer"])
+  @field(resolver: "App\\GraphQL\\Mutations\\Org\\DisableOrgUser")
 }
 
 input DisableOrgUserInput {

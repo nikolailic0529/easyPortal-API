@@ -15,7 +15,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -106,6 +106,7 @@ class InviteOrgUserTest extends TestCase {
             if ($organization) {
                 $input['organization_id'] = $organization->getKey();
             }
+
             return Role::factory()->create($input);
         };
         $prepare     = static function (TestCase $test, ?Organization $organization): Organization {
@@ -118,9 +119,10 @@ class InviteOrgUserTest extends TestCase {
 
             return $organization;
         };
+
         return (new CompositeDataProvider(
             new OrganizationDataProvider('inviteOrgUser', '745e3dd2-915e-31b2-b02b-cbab069c9d45'),
-            new UserDataProvider('inviteOrgUser', [
+            new OrganizationUserDataProvider('inviteOrgUser', [
                 'org-administer',
             ]),
             new ArrayDataProvider([

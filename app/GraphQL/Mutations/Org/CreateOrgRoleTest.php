@@ -11,7 +11,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -120,9 +120,10 @@ class CreateOrgRoleTest extends TestCase {
                 'key' => 'permission1',
             ]);
         };
+
         return (new CompositeDataProvider(
             new OrganizationDataProvider('createOrgRole', '439a0a06-d98a-41f0-b8e5-4e5722518e00'),
-            new UserDataProvider('createOrgRole', [
+            new OrganizationUserDataProvider('createOrgRole', [
                 'org-administer',
             ]),
             new ArrayDataProvider([

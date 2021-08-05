@@ -15,7 +15,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -172,7 +172,7 @@ class RequestQuoteChangeTest extends TestCase {
 
         return (new CompositeDataProvider(
             new OrganizationDataProvider('requestQuoteChange'),
-            new UserDataProvider('requestQuoteChange', [
+            new OrganizationUserDataProvider('requestQuoteChange', [
                 'requests-quote-change',
             ]),
             new ArrayDataProvider([

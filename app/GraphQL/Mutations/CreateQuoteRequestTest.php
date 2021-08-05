@@ -22,13 +22,14 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
 use function __;
 use function array_key_exists;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\CreateQuoteRequest
@@ -283,10 +284,11 @@ class CreateQuoteRequestTest extends TestCase {
             'ep.image.max_size' => 250,
             'ep.image.formats'  => ['csv'],
         ];
+
         return (new MergeDataProvider([
             'assets-view'    => new CompositeDataProvider(
                 new OrganizationDataProvider('createQuoteRequest'),
-                new UserDataProvider('createQuoteRequest', [
+                new OrganizationUserDataProvider('createQuoteRequest', [
                     'requests-quote-add',
                     'assets-view',
                 ]),
@@ -647,7 +649,7 @@ class CreateQuoteRequestTest extends TestCase {
             ),
             'customers-view' => new CompositeDataProvider(
                 new OrganizationDataProvider('createQuoteRequest'),
-                new UserDataProvider('createQuoteRequest', [
+                new OrganizationUserDataProvider('createQuoteRequest', [
                     'requests-quote-add',
                     'customers-view',
                 ]),

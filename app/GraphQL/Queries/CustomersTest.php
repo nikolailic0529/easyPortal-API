@@ -124,7 +124,7 @@ class CustomersTest extends TestCase {
             ),
             'organization' => new CompositeDataProvider(
                 new OrganizationDataProvider('customers'),
-                new UserDataProvider('customers', [
+                new OrganizationUserDataProvider('customers', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([

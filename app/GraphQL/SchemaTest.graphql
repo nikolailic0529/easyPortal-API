@@ -1284,6 +1284,8 @@ type Mutation {
   """
   Create Organization Role.
   
+  @require <organization> Authenticated user must be a member of the current organization.
+  
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
   createOrgRole(input: CreateOrgRoleInput): CreateOrgRolePayload
@@ -1291,21 +1293,23 @@ type Mutation {
   """
   DELETE Organization Role.
   
+  @require <organization> Authenticated user must be a member of the current organization.
+  
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
   deleteOrgRole(input: DeleteOrgRoleInput): DeleteOrgRolePayload
 
   """
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  
   @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
   disableOrgUser(input: DisableOrgUserInput!): DisableOrgUserPayload
 
   """
-  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
-  
   @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
   enableOrgUser(input: EnableOrgUserInput!): EnableOrgUserPayload
 
@@ -1342,12 +1346,16 @@ type Mutation {
   """
   Update Organization Role.
   
+  @require <organization> Authenticated user must be a member of the current organization.
+  
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """
   updateOrgRole(input: UpdateOrgRoleInput): UpdateOrgRolePayload
 
   """
   Update Organization Roles.
+  
+  @require <organization> Authenticated user must be a member of the current organization.
   
   @require <me(["org-administer"])> User must be authenticated and have any of these permissions.
   """

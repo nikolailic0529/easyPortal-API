@@ -27,7 +27,6 @@ use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragmentPaginatedSchema;
 use Tests\TestCase;
@@ -289,7 +288,7 @@ class QuoteTest extends TestCase {
             ),
             'customers-view' => new CompositeDataProvider(
                 new OrganizationDataProvider('quote'),
-                new UserDataProvider('quote', [
+                new OrganizationUserDataProvider('quote', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -319,7 +318,7 @@ class QuoteTest extends TestCase {
             ),
             'organization'   => new CompositeDataProvider(
                 new OrganizationDataProvider('quote', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new UserDataProvider('quote', [
+                new OrganizationUserDataProvider('quote', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
@@ -629,7 +628,7 @@ class QuoteTest extends TestCase {
             ),
             'customers-view' => new CompositeDataProvider(
                 new OrganizationDataProvider('quote'),
-                new UserDataProvider('quote', [
+                new OrganizationUserDataProvider('quote', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -651,6 +650,7 @@ class QuoteTest extends TestCase {
                                 'reseller_id' => $reseller,
                                 'customer_id' => $customer,
                             ]);
+
                             return $document;
                         },
                     ],
@@ -658,7 +658,7 @@ class QuoteTest extends TestCase {
             ),
             'organization'   => new CompositeDataProvider(
                 new OrganizationDataProvider('quote', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new UserDataProvider('quote', [
+                new OrganizationUserDataProvider('quote', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
@@ -749,6 +749,7 @@ class QuoteTest extends TestCase {
                                 ->for($reseller2)
                                 ->hasNotes(1)
                                 ->create();
+
                             return $document;
                         },
                     ],

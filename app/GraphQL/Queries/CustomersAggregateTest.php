@@ -119,7 +119,7 @@ class CustomersAggregateTest extends TestCase {
             ),
             'organization' => new CompositeDataProvider(
                 new OrganizationDataProvider('customersAggregate'),
-                new UserDataProvider('customersAggregate', [
+                new OrganizationUserDataProvider('customersAggregate', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([

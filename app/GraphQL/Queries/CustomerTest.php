@@ -740,7 +740,7 @@ class CustomerTest extends TestCase {
             ),
             'organization' => new CompositeDataProvider(
                 new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
-                new UserDataProvider('customer', [
+                new OrganizationUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -1124,7 +1124,7 @@ class CustomerTest extends TestCase {
             ),
             'organization' => new CompositeDataProvider(
                 new OrganizationDataProvider('customer'),
-                new UserDataProvider('customer', [
+                new OrganizationUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -1286,7 +1286,7 @@ class CustomerTest extends TestCase {
             ),
             'organization' => new CompositeDataProvider(
                 new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new UserDataProvider('customer', [
+                new OrganizationUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -1997,7 +1997,7 @@ class CustomerTest extends TestCase {
             ),
             'organization' => new CompositeDataProvider(
                 new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new UserDataProvider('customer', [
+                new OrganizationUserDataProvider('customer', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -2199,7 +2199,7 @@ class CustomerTest extends TestCase {
 
         return (new CompositeDataProvider(
             new OrganizationDataProvider('customer', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987'),
-            new UserDataProvider('customer', [
+            new OrganizationUserDataProvider('customer', [
                 'customers-view',
             ]),
             new ArrayDataProvider([

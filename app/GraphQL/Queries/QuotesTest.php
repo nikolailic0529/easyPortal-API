@@ -538,7 +538,7 @@ class QuotesTest extends TestCase {
             ),
             'customers-view' => new CompositeDataProvider(
                 new OrganizationDataProvider('quotes'),
-                new UserDataProvider('quotes', [
+                new OrganizationUserDataProvider('quotes', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -573,7 +573,7 @@ class QuotesTest extends TestCase {
             ),
             'organization'   => new CompositeDataProvider(
                 new OrganizationDataProvider('quotes', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new UserDataProvider('quotes', [
+                new OrganizationUserDataProvider('quotes', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([

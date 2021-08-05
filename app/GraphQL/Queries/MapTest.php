@@ -214,7 +214,7 @@ class MapTest extends TestCase {
             ),
                 'organization' => new CompositeDataProvider(
                     new OrganizationDataProvider('map'),
-                    new UserDataProvider('map', [
+                    new OrganizationUserDataProvider('map', [
                         'customers-view',
                     ]),
                     new ArrayDataProvider([
