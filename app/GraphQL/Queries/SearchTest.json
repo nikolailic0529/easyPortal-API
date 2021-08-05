@@ -1,19 +1,16 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "type": "array",
-    "items": {
-        "type": "object",
-        "required": [
-            "__typename",
-            "id"
-        ],
-        "properties": {
-            "__typename": {
-                "type": "string"
-            },
-            "id": {
-                "$ref": "../types.json#/definitions/ID"
-            }
+    "type": "object",
+    "required": [
+        "__typename",
+        "id"
+    ],
+    "properties": {
+        "__typename": {
+            "type": "string"
+        },
+        "id": {
+            "$ref": "../types.json#/definitions/ID"
         }
     }
 }

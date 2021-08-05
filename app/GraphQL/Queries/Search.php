@@ -7,29 +7,30 @@ use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Scopes\ContractType;
 use App\Models\Scopes\QuoteType;
-use ElasticScoutDriver\Factories\SearchRequestFactoryInterface;
-use ElasticScoutDriverPlus\Builders\BoolQueryBuilder;
-use ElasticScoutDriverPlus\Builders\SearchRequestBuilder;
-use GraphQL\Type\Definition\ResolveInfo;
+use App\Services\Search\Eloquent\UnionModel;
+use App\Services\Search\UnionBuilder;
 use Illuminate\Contracts\Auth\Access\Gate;
-use Illuminate\Database\Eloquent\Collection;
-use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
+use Illuminate\Database\Eloquent\Builder;
 
 class Search {
     public function __construct(
         protected Gate $gate,
-        protected SearchRequestFactoryInterface $factory,
     ) {
         // empty
     }
 
-    /**
-     * @param array{search: string} $args
-     */
-    public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Collection {
-        // Determine visible models
-        /** @var array<class-string<\App\Models\Model&\App\Services\Search\Eloquent\Searchable>,array<\App\Services\Search\Scope>> $models */
+    public function builder(): Builder {
+        return UnionModel::query();
+    }
+
+    public function __invoke(UnionBuilder $builder): UnionBuilder {
+        // Models
         $models = [];
+        $boosts = [
+            Customer::class => 3,
+            Asset::class    => 2,
+            Document::class => 1,
+        ];
 
         if ($this->gate->any(['assets-view', 'customers-view'])) {
             $models[Asset::class] = [];
@@ -49,55 +50,12 @@ class Search {
             // empty
         }
 
-        // Nothing?
-        if (!$models) {
-            return new Collection();
-        }
-
-        // Query
-        $search = null;
-        $boosts = [
-            Customer::class => 3,
-            Asset::class    => 2,
-            Document::class => 1,
-        ];
-
+        // Add
         foreach ($models as $model => $scopes) {
-            // Builder
-            /** @var \App\Services\Search\Builder $builder */
-            $builder = $model::search($args['search']);
-
-            foreach ($scopes as $scope) {
-                $builder->applyScope($scope);
-            }
-
-            // Join
-            if (!$search) {
-                $search = new SearchRequestBuilder(new $model(), new BoolQueryBuilder());
-            } else {
-                $search->join($model);
-            }
-
-            // Filters
-            /** @var array{query: array{must: array<mixed>, filter: array<mixed>}}|null $query */
-            $query             = $this->factory->makeFromBuilder($builder)->toArray()['query']['bool'] ?? null;
-            $query['filter'][] = [
-                'term' => [
-                    '_index' => $builder->index ?: (new $model())->searchableAs(),
-                ],
-            ];
-
-            $search->should([
-                'bool' => $query,
-            ]);
-
-            // Boost
-            if (isset($boosts[$model])) {
-                $search->boostIndex($model, $boosts[$model]);
-            }
+            $builder->addModel($model, $scopes, $boosts[$model] ?? null);
         }
 
         // Return
-        return $search->size(10)->execute()->models();
+        return $builder;
     }
 }

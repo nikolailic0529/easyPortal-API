@@ -17,7 +17,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
-use Tests\GraphQL\GraphQLSuccess;
+use Tests\GraphQL\GraphQLPaginated;
 use Tests\TestCase;
 use Tests\WithScout;
 
@@ -66,15 +66,27 @@ class SearchTest extends TestCase {
                 <<<'GRAPHQL'
                 query search($search: String!) {
                     search(search: $search) {
-                        __typename
-                        ... on Asset {
-                            id
+                        data {
+                            __typename
+                            ... on Asset {
+                                id
+                            }
+                            ... on Customer {
+                                id
+                            }
+                            ... on Document {
+                                id
+                            }
                         }
-                        ... on Customer {
-                            id
-                        }
-                        ... on Document {
-                            id
+                        paginatorInfo {
+                            count
+                            currentPage
+                            firstItem
+                            hasMorePages
+                            lastItem
+                            lastPage
+                            perPage
+                            total
                         }
                     }
                 }
@@ -201,7 +213,7 @@ class SearchTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('search', self::class),
+                        new GraphQLPaginated('search', self::class),
                         $settings,
                         static function (TestCase $test, Organization $organization): Collection {
                             return new Collection([
@@ -225,31 +237,31 @@ class SearchTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'search all'      => [
-                        new GraphQLSuccess('search', self::class, array_values($objects)),
+                        new GraphQLPaginated('search', self::class, array_values($objects)),
                         $settings,
                         $factory,
                         'ABC',
                     ],
                     'search asset'    => [
-                        new GraphQLSuccess('search', self::class, [$objects['Asset']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Asset']]),
                         $settings,
                         $factory,
                         'Asset',
                     ],
                     'search customer' => [
-                        new GraphQLSuccess('search', self::class, [$objects['Customer']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Customer']]),
                         $settings,
                         $factory,
                         'Customer',
                     ],
                     'search contract' => [
-                        new GraphQLSuccess('search', self::class, [$objects['Contract']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Contract']]),
                         $settings,
                         $factory,
                         'Contract',
                     ],
                     'search quote'    => [
-                        new GraphQLSuccess('search', self::class, [$objects['Quote']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Quote']]),
                         $settings,
                         $factory,
                         'Quote',
@@ -263,31 +275,31 @@ class SearchTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'search all'      => [
-                        new GraphQLSuccess('search', self::class, array_values($objects)),
+                        new GraphQLPaginated('search', self::class, array_values($objects)),
                         $settings,
                         $factory,
                         'ABC',
                     ],
                     'search asset'    => [
-                        new GraphQLSuccess('search', self::class, [$objects['Asset']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Asset']]),
                         $settings,
                         $factory,
                         'Asset',
                     ],
                     'search customer' => [
-                        new GraphQLSuccess('search', self::class, [$objects['Customer']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Customer']]),
                         $settings,
                         $factory,
                         'Customer',
                     ],
                     'search contract' => [
-                        new GraphQLSuccess('search', self::class, [$objects['Contract']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Contract']]),
                         $settings,
                         $factory,
                         'Contract',
                     ],
                     'search quote'    => [
-                        new GraphQLSuccess('search', self::class, [$objects['Quote']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Quote']]),
                         $settings,
                         $factory,
                         'Quote',
@@ -301,31 +313,31 @@ class SearchTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'search all'      => [
-                        new GraphQLSuccess('search', self::class, [$objects['Asset']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Asset']]),
                         $settings,
                         $factory,
                         'ABC',
                     ],
                     'search asset'    => [
-                        new GraphQLSuccess('search', self::class, [$objects['Asset']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Asset']]),
                         $settings,
                         $factory,
                         'Asset',
                     ],
                     'search customer' => [
-                        new GraphQLSuccess('search', self::class, []),
+                        new GraphQLPaginated('search', self::class, []),
                         $settings,
                         $factory,
                         'Customer',
                     ],
                     'search contract' => [
-                        new GraphQLSuccess('search', self::class, []),
+                        new GraphQLPaginated('search', self::class, []),
                         $settings,
                         $factory,
                         'Contract',
                     ],
                     'search quote'    => [
-                        new GraphQLSuccess('search', self::class, []),
+                        new GraphQLPaginated('search', self::class, []),
                         $settings,
                         $factory,
                         'Quote',
@@ -339,31 +351,31 @@ class SearchTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'search all'      => [
-                        new GraphQLSuccess('search', self::class, [$objects['Quote']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Quote']]),
                         $settings,
                         $factory,
                         'ABC',
                     ],
                     'search asset'    => [
-                        new GraphQLSuccess('search', self::class, []),
+                        new GraphQLPaginated('search', self::class, []),
                         $settings,
                         $factory,
                         'Asset',
                     ],
                     'search customer' => [
-                        new GraphQLSuccess('search', self::class, []),
+                        new GraphQLPaginated('search', self::class, []),
                         $settings,
                         $factory,
                         'Customer',
                     ],
                     'search contract' => [
-                        new GraphQLSuccess('search', self::class, []),
+                        new GraphQLPaginated('search', self::class, []),
                         $settings,
                         $factory,
                         'Contract',
                     ],
                     'search quote'    => [
-                        new GraphQLSuccess('search', self::class, [$objects['Quote']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Quote']]),
                         $settings,
                         $factory,
                         'Quote',
@@ -377,31 +389,31 @@ class SearchTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'search all'      => [
-                        new GraphQLSuccess('search', self::class, [$objects['Contract']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Contract']]),
                         $settings,
                         $factory,
                         'ABC',
                     ],
                     'search asset'    => [
-                        new GraphQLSuccess('search', self::class, []),
+                        new GraphQLPaginated('search', self::class, []),
                         $settings,
                         $factory,
                         'Asset',
                     ],
                     'search customer' => [
-                        new GraphQLSuccess('search', self::class, []),
+                        new GraphQLPaginated('search', self::class, []),
                         $settings,
                         $factory,
                         'Customer',
                     ],
                     'search contract' => [
-                        new GraphQLSuccess('search', self::class, [$objects['Contract']]),
+                        new GraphQLPaginated('search', self::class, [$objects['Contract']]),
                         $settings,
                         $factory,
                         'Contract',
                     ],
                     'search quote'    => [
-                        new GraphQLSuccess('search', self::class, []),
+                        new GraphQLPaginated('search', self::class, []),
                         $settings,
                         $factory,
                         'Quote',

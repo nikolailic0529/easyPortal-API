@@ -167,10 +167,16 @@ type Query {
 
   # Search
   # ============================================================================
-  search(search: String! @search): [SearchResult!]!
+  search(
+    search: String!
+    @search
+    @builder(method: "App\\GraphQL\\Queries\\Search")
+  ): [SearchResult!]!
   @organization
   @me(permissions: ["customers-view", "assets-view", "quotes-view", "contracts-view"])
-  @field(resolver: "App\\GraphQL\\Queries\\Search")
+  @paginate(
+    builder: "App\\GraphQL\\Queries\\Search@builder"
+  )
 
   # Customers
   # ============================================================================
