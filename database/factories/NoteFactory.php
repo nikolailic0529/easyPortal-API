@@ -38,7 +38,7 @@ class NoteFactory extends Factory {
                 return User::query()->first() ?? User::factory()->create();
             },
             'document_id'     => static function (): Document {
-                return Document::query()->first() ?? Document::factory()->create();
+                return Document::factory()->create();
             },
             'pinned'          => false,
             'note'            => $this->faker->text(),
