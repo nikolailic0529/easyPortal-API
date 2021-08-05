@@ -21,40 +21,66 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
      * @param array<string> $permissions
      */
     public function __construct(string $root, array $permissions = []) {
-        parent::__construct([
-            'guest is not allowed'                                      => [
+        $data = [
+            'guest is not allowed' => [
                 new ExpectedFinal(new GraphQLUnauthenticated($root)),
                 static function (): ?User {
                     return null;
                 },
             ],
-            'user from another organization is not allowed'             => [
-                new ExpectedFinal(new GraphQLUnauthorized($root)),
-                static function (TestCase $test, ?Organization $organization) use ($permissions): ?User {
-                    return User::factory()->make([
-                        'organization_id' => Organization::factory()->create(),
-                        'permissions'     => $permissions,
-                    ]);
-                },
-            ],
-            'user without permissions from organization is not allowed' => [
-                new ExpectedFinal(new GraphQLUnauthorized($root)),
-                static function (TestCase $test, ?Organization $organization): ?User {
-                    return User::factory()->make([
-                        'organization_id' => $organization,
-                        'permissions'     => [],
-                    ]);
-                },
-            ],
-            'user with permissions from organization is allowed'        => [
-                new UnknownValue(),
-                static function (TestCase $test, ?Organization $organization) use ($permissions): ?User {
-                    return User::factory()->make([
-                        'organization_id' => $organization,
-                        'permissions'     => $permissions,
-                    ]);
-                },
-            ],
-        ]);
+        ];
+
+        if ($permissions) {
+            $data += [
+                'user from another organization is not allowed'             => [
+                    new ExpectedFinal(new GraphQLUnauthorized($root)),
+                    static function (TestCase $test, ?Organization $organization) use ($permissions): ?User {
+                        return User::factory()->make([
+                            'organization_id' => Organization::factory()->create(),
+                            'permissions'     => $permissions,
+                        ]);
+                    },
+                ],
+                'user without permissions from organization is not allowed' => [
+                    new ExpectedFinal(new GraphQLUnauthorized($root)),
+                    static function (TestCase $test, ?Organization $organization): ?User {
+                        return User::factory()->make([
+                            'organization_id' => $organization,
+                            'permissions'     => [],
+                        ]);
+                    },
+                ],
+                'user with permissions from organization is allowed'        => [
+                    new UnknownValue(),
+                    static function (TestCase $test, ?Organization $organization) use ($permissions): ?User {
+                        return User::factory()->make([
+                            'organization_id' => $organization,
+                            'permissions'     => $permissions,
+                        ]);
+                    },
+                ],
+            ];
+        } else {
+            $data += [
+                'user from another organization is not allowed' => [
+                    new ExpectedFinal(new GraphQLUnauthorized($root)),
+                    static function (TestCase $test, ?Organization $organization): ?User {
+                        return User::factory()->make([
+                            'organization_id' => Organization::factory()->create(),
+                        ]);
+                    },
+                ],
+                'user from organization is allowed'             => [
+                    new UnknownValue(),
+                    static function (TestCase $test, ?Organization $organization): ?User {
+                        return User::factory()->make([
+                            'organization_id' => $organization,
+                        ]);
+                    },
+                ],
+            ];
+        }
+
+        parent::__construct($data);
     }
 }
