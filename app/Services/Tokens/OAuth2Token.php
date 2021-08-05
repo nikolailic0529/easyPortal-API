@@ -4,7 +4,6 @@ namespace App\Services\Tokens;
 
 use App\Services\Tokens\Exceptions\InvalidCredentials;
 use Exception;
-use Illuminate\Contracts\Cache\Repository;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\GenericProvider;
 use League\OAuth2\Client\Token\AccessToken;
@@ -20,25 +19,21 @@ abstract class OAuth2Token {
     private ?AccessTokenInterface $token = null;
 
     protected function __construct(
-        protected string $url,
-        protected string $clientId,
-        protected string $clientSecret,
-        protected Repository $cache,
+        protected Service $service,
     ) {
         // empty
     }
 
     public function getAccessToken(): string {
         // Cached?
-        $key   = $this->key();
         $token = null;
 
         if ($this->token) {
             $token = $this->token;
-        } elseif ($this->getCache()->has($key)) {
-            $token = new AccessToken($this->getCache()->get($key));
         } else {
-            // empty
+            $token = $this->getService()->get($this, static function (array $token): AccessToken {
+                return new AccessToken($token);
+            });
         }
 
         // Expired?
@@ -48,9 +43,7 @@ abstract class OAuth2Token {
 
         // Nope or Expired -> get a new one
         if (!$token) {
-            $token = $this->getToken();
-
-            $this->getCache()->set($key, $token->jsonSerialize());
+            $token = $this->getService()->set($this, $this->getToken());
         }
 
         // Save
@@ -63,13 +56,9 @@ abstract class OAuth2Token {
     public function reset(): static {
         $this->token = null;
 
-        $this->getCache()->forget($this->key());
+        $this->getService()->delete($this);
 
         return $this;
-    }
-
-    protected function key(): string {
-        return $this::class;
     }
 
     protected function getToken(): AccessTokenInterface {
@@ -83,11 +72,20 @@ abstract class OAuth2Token {
         return $token;
     }
 
-    protected function getProvider(): AbstractProvider {
-        $url      = rtrim($this->url, '/');
+    /**
+     * @return array<string,mixed>
+     */
+    protected function getTokenParameters(): array {
+        return [];
+    }
+
+    abstract protected function getProvider(): AbstractProvider;
+
+    protected function getGenericProvider(string $url, string $clientId, string $clientSecret): AbstractProvider {
+        $url      = rtrim($url, '/');
         $provider = new GenericProvider([
-            'clientId'                => $this->clientId,
-            'clientSecret'            => $this->clientSecret,
+            'clientId'                => $clientId,
+            'clientSecret'            => $clientSecret,
             'urlAuthorize'            => "{$url}/authorize",
             'urlAccessToken'          => "{$url}/token",
             'urlResourceOwnerDetails' => "{$url}/resource",
@@ -96,14 +94,7 @@ abstract class OAuth2Token {
         return $provider;
     }
 
-    /**
-     * @return array<string,mixed>
-     */
-    protected function getTokenParameters(): array {
-        return [];
-    }
-
-    protected function getCache(): Repository {
-        return $this->cache;
+    protected function getService(): Service {
+        return $this->service;
     }
 }
