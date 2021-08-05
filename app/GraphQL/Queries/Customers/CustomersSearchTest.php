@@ -42,7 +42,7 @@ class CustomersSearchTest extends TestCase {
         $user         = $this->setUser($userFactory, $organization);
 
         if ($factory) {
-            $factory($this, $organization, $user)->searchable();
+            $this->makeSearchable($factory($this, $organization, $user));
         }
 
         // Test

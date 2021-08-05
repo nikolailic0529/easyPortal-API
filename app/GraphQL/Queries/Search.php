@@ -3,22 +3,59 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Asset;
-use GraphQL\Type\Definition\ResolveInfo;
-use Illuminate\Auth\AuthManager;
-use Illuminate\Database\Eloquent\Collection;
-use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
+use App\Models\Customer;
+use App\Models\Document;
+use App\Models\Scopes\ContractType;
+use App\Models\Scopes\QuoteType;
+use App\Services\Search\Eloquent\UnionModel;
+use App\Services\Search\UnionBuilder;
+use Illuminate\Contracts\Auth\Access\Gate;
+use Illuminate\Database\Eloquent\Builder;
 
 class Search {
     public function __construct(
-        protected AuthManager $auth,
+        protected Gate $gate,
     ) {
         // empty
     }
 
-    /**
-     * @param array{search: string} $args
-     */
-    public function __invoke(mixed $root, array $args, GraphQLContext $context, ResolveInfo $resolveInfo): Collection {
-        return Asset::search($args['search'])->take(10)->get();
+    public function builder(): Builder {
+        return UnionModel::query();
+    }
+
+    public function __invoke(UnionBuilder $builder): UnionBuilder {
+        // Models
+        $models = [];
+        $boosts = [
+            Customer::class => 3,
+            Asset::class    => 2,
+            Document::class => 1,
+        ];
+
+        if ($this->gate->any(['assets-view', 'customers-view'])) {
+            $models[Asset::class] = [];
+        }
+
+        if ($this->gate->any(['customers-view'])) {
+            $models[Customer::class] = [];
+        }
+
+        if ($this->gate->any(['customers-view']) || $this->gate->check(['contracts-view', 'quotes-view'])) {
+            $models[Document::class] = [];
+        } elseif ($this->gate->check(['contracts-view'])) {
+            $models[Document::class] = [ContractType::class];
+        } elseif ($this->gate->check(['quotes-view'])) {
+            $models[Document::class] = [QuoteType::class];
+        } else {
+            // empty
+        }
+
+        // Add
+        foreach ($models as $model => $scopes) {
+            $builder->addModel($model, $scopes, $boosts[$model] ?? null);
+        }
+
+        // Return
+        return $builder;
     }
 }

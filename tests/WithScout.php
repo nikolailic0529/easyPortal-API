@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use App\Models\Model;
 use Elasticsearch\Client;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Collection;
@@ -40,5 +41,19 @@ trait WithScout {
 
     protected function tearDownWithScout(): void {
         // empty
+    }
+
+    protected function makeSearchable(Collection|Model $models): Collection|Model {
+        if ($models instanceof Model) {
+            $models->searchable();
+        } else {
+            // Foreach is used because Scout doesn't create an index right if the
+            // collection contains models of different classes.
+            foreach ($models as $model) {
+                $this->makeSearchable($model);
+            }
+        }
+
+        return $models;
     }
 }

@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use LogicException;
 use Mockery;
@@ -23,6 +24,7 @@ use stdClass;
 use Tests\TestCase;
 
 use function config;
+use function count;
 use function sprintf;
 
 /**
@@ -481,6 +483,55 @@ class SearchableTest extends TestCase {
         $this->assertEquals(123, $model->callWithoutScoutQueue(Closure::fromCallable($spy)));
 
         $spy->shouldHaveBeenCalled();
+    }
+
+    /**
+     * @covers ::queueMakeSearchable
+     */
+    public function testQueueMakeSearchable(): void {
+        // Prepare
+        $this->setSettings([
+            'scout.queue' => false,
+        ]);
+
+        // Mock
+        $a = Mockery::mock(Model::class);
+        $a
+            ->shouldReceive('shouldBeSearchable')
+            ->once()
+            ->andReturn(true);
+
+        $b = Mockery::mock(Model::class);
+        $b
+            ->shouldReceive('shouldBeSearchable')
+            ->once()
+            ->andReturn(false);
+
+        // Mockery cannot be used :(
+        //
+        // Method Mockery_0_Illuminate_Database_Eloquent_Model::searchableUsing()
+        // does not exist on this mock object
+        $model = new class() extends Model {
+            use Searchable;
+
+            public Collection $models;
+
+            /**
+             * @inheritDoc
+             */
+            protected static function getSearchProperties(): array {
+                return [];
+            }
+
+            protected function scoutQueueMakeSearchable(Collection $models): void {
+                $this->models = $models;
+            }
+        };
+
+        $model->queueMakeSearchable(new Collection([$a, $b]));
+
+        $this->assertCount(1, $model->models);
+        $this->assertSame($a, $model->models->first());
     }
     //</editor-fold>
 

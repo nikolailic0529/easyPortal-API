@@ -12,8 +12,6 @@ use Tests\GraphQL\GraphQLUnauthenticated;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 
-use function count;
-
 /**
  * Only User with permission(s) can perform the action.
  */
@@ -35,12 +33,10 @@ class UserDataProvider extends ArrayDataProvider {
             ],
             'user without permissions is not allowed' => [
                 new ExpectedFinal(new GraphQLUnauthorized($root)),
-                static function (TestCase $test, ?Organization $organization) use ($permissions): ?User {
+                static function (TestCase $test, ?Organization $organization): ?User {
                     return User::factory()->make([
                         'organization_id' => $organization,
-                        'permissions'     => count($permissions) > 1
-                            ? $test->faker()->randomElements($permissions, count($permissions) - 1)
-                            : [],
+                        'permissions'     => [],
                     ]);
                 },
             ],
