@@ -2,9 +2,13 @@
 
 namespace App\Services\Search\Elastic;
 
-use App\Models\Model;
 use App\Services\Search\Builder;
+use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Eloquent\UnionModel;
+use App\Services\Search\Scope;
+use App\Services\Search\UnionBuilder;
 use Closure;
+use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder as ScoutBuilder;
 use Tests\TestCase;
 
@@ -42,6 +46,128 @@ class SearchRequestFactoryTest extends TestCase {
         };
 
         $this->assertEquals($expected, $factory->makeFilter($builder));
+    }
+
+    /**
+     * @covers ::makeFromUnionBuilder
+     */
+    public function testMakeFromUnionBuilder(): void {
+        // Prepare
+        $model   = new UnionModel();
+        $builder = $this->app->make(UnionBuilder::class, [
+            'query' => 'abc',
+            'model' => $model,
+        ]);
+        $a       = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @inheritDoc
+             */
+            protected static function getSearchProperties(): array {
+                return [];
+            }
+
+            public function searchableAs(): string {
+                return 'a';
+            }
+        };
+        $b       = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @inheritDoc
+             */
+            protected static function getSearchProperties(): array {
+                return [];
+            }
+
+            public function searchableAs(): string {
+                return 'b';
+            }
+        };
+        $scope   = new class() implements Scope {
+            public function applyForSearch(Builder $builder, Model $model): void {
+                $builder->where('scope', 'test');
+            }
+        };
+
+        // Build
+        $builder->addModel($a::class, [], 2);
+        $builder->addModel($b::class, [$scope::class]);
+        $builder->where('test', 'value');
+
+        // Test
+        $actual   = $this->app->make(SearchRequestFactory::class)
+            ->makeFromUnionBuilder($builder, [
+                'perPage' => 10,
+                'page'    => 5,
+            ])
+            ->buildSearchRequest()
+            ->toArray();
+        $expected = [
+            'query'         => [
+                'bool' => [
+                    'should' => [
+                        [
+                            'bool' => [
+                                'must'   => [
+                                    'query_string' => [
+                                        'query' => 'searchable.\*:abc',
+                                    ],
+                                ],
+                                'filter' => [
+                                    [
+                                        'term' => [
+                                            '_index' => 'a',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                        [
+                            'bool' => [
+                                'must'   => [
+                                    'query_string' => [
+                                        'query' => 'searchable.\*:abc',
+                                    ],
+                                ],
+                                'filter' => [
+                                    [
+                                        'term' => [
+                                            'scope' => 'test',
+                                        ],
+                                    ],
+                                    [
+                                        'term' => [
+                                            '_index' => 'b',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                    'filter' => [
+                        [
+                            [
+                                'term' => [
+                                    'test' => 'value',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'from'          => 40,
+            'size'          => 10,
+            'indices_boost' => [
+                [
+                    'a' => 2.0,
+                ],
+            ],
+        ];
+
+        $this->assertEquals($expected, $actual);
     }
     // </editor-fold>
 
