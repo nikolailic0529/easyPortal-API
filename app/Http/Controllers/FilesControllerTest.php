@@ -19,7 +19,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\ForbiddenResponse;
 use Tests\DataProviders\Http\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\Http\Users\UserDataProvider;
+use Tests\DataProviders\Http\Users\OrganizationUserDataProvider;
 use Tests\TestCase;
 
 /**
@@ -47,24 +47,13 @@ class FilesControllerTest extends TestCase {
         $user         = $this->setUser($userFactory, $organization);
         $this->setSettings($settings);
 
-        $id = null;
+        $id = $this->faker->uuid;
+
         if ($prepare) {
             $id = $prepare($this, $organization, $user);
         } else {
-            // Lighthouse performs validation BEFORE permission check :(
-            //
-            // https://github.com/nuwave/lighthouse/issues/1780
-            //
-            // Following code required to "fix" it
-            if (!$organization) {
-                $this->setOrganization(Organization::factory()->make());
-            }
-            Note::factory()
-                ->hasFiles(1, [
-                    'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ff',
-                ])
-                ->create();
-            $id = 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ff';
+            // Required because some permissions check inside the controller.
+            Note::factory()->hasFiles(1, ['id' => $id])->create();
         }
 
         $url = $this->app->make(UrlGenerator::class);
@@ -82,6 +71,7 @@ class FilesControllerTest extends TestCase {
             if ($user) {
                 $user->save();
             }
+
             $type     = Type::factory()->create([
                 'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
             ]);
@@ -108,7 +98,7 @@ class FilesControllerTest extends TestCase {
         return (new MergeDataProvider([
             'quotes-view'    => new CompositeDataProvider(
                 new OrganizationDataProvider(),
-                new UserDataProvider([
+                new OrganizationUserDataProvider([
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
@@ -145,7 +135,7 @@ class FilesControllerTest extends TestCase {
             ),
             'contracts-view' => new CompositeDataProvider(
                 new OrganizationDataProvider(),
-                new UserDataProvider([
+                new OrganizationUserDataProvider([
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([

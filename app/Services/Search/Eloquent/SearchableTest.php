@@ -24,7 +24,6 @@ use stdClass;
 use Tests\TestCase;
 
 use function config;
-use function count;
 use function sprintf;
 
 /**

@@ -25,7 +25,6 @@ use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -252,7 +251,7 @@ class ContractsTest extends TestCase {
             ),
             'customers-view' => new CompositeDataProvider(
                 new OrganizationDataProvider('contracts'),
-                new UserDataProvider('contracts', [
+                new OrganizationUserDataProvider('contracts', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -287,7 +286,7 @@ class ContractsTest extends TestCase {
             ),
             'organization'   => new CompositeDataProvider(
                 new OrganizationDataProvider('contracts', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new UserDataProvider('contracts', [
+                new OrganizationUserDataProvider('contracts', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([

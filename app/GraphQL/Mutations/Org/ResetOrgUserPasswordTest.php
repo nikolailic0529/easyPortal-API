@@ -10,7 +10,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -50,7 +50,7 @@ class ResetOrgUserPasswordTest extends TestCase {
                 resetOrgUserPassword(input:$input) {
                     result
                 }
-            }', ['input' => ['id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982' ]])
+            }', ['input' => ['id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982']])
             ->assertThat($expected);
     }
     // </editor-fold>
@@ -63,7 +63,7 @@ class ResetOrgUserPasswordTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new OrganizationDataProvider('resetOrgUserPassword', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983'),
-            new UserDataProvider('resetOrgUserPassword', [
+            new OrganizationUserDataProvider('resetOrgUserPassword', [
                 'org-administer',
             ]),
             new ArrayDataProvider([

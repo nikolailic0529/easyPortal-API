@@ -13,7 +13,6 @@ use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -119,7 +118,7 @@ class CustomersAggregateTest extends TestCase {
             ),
             'organization' => new CompositeDataProvider(
                 new OrganizationDataProvider('customersAggregate'),
-                new UserDataProvider('customersAggregate', [
+                new OrganizationUserDataProvider('customersAggregate', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([

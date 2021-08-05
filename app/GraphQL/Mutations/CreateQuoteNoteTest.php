@@ -14,13 +14,14 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
 use function __;
 use function array_key_exists;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\CreateQuoteNote
@@ -177,10 +178,11 @@ class CreateQuoteNoteTest extends TestCase {
             'ep.file.formats'  => ['csv'],
             'ep.quote_types'   => ['f3cb1fac-b454-4f23-bbb4-f3d84a1699ad'],
         ];
+
         return (new MergeDataProvider([
             'quotes-view'    => new CompositeDataProvider(
                 new OrganizationDataProvider('createQuoteNote'),
-                new UserDataProvider('createQuoteNote', [
+                new OrganizationUserDataProvider('createQuoteNote', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
@@ -278,7 +280,7 @@ class CreateQuoteNoteTest extends TestCase {
             ),
             'customers-view' => new CompositeDataProvider(
                 new OrganizationDataProvider('createQuoteNote'),
-                new UserDataProvider('createQuoteNote', [
+                new OrganizationUserDataProvider('createQuoteNote', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([

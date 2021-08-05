@@ -15,7 +15,6 @@ use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -214,7 +213,7 @@ class MapTest extends TestCase {
             ),
                 'organization' => new CompositeDataProvider(
                     new OrganizationDataProvider('map'),
-                    new UserDataProvider('map', [
+                    new OrganizationUserDataProvider('map', [
                         'customers-view',
                     ]),
                     new ArrayDataProvider([

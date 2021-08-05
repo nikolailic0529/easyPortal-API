@@ -35,7 +35,7 @@ class QuoteType implements SearchScope, EloquentScope {
         } elseif ($contractTypes) {
             $builder->whereNotIn($key, $contractTypes);
         } else {
-            $builder->whereIn($key, []);
+            $builder->whereIn($key, ['empty']);
         }
     }
 
@@ -50,7 +50,7 @@ class QuoteType implements SearchScope, EloquentScope {
         } elseif ($contractTypes) {
             $builder->whereMetadataNotIn($key, $contractTypes);
         } else {
-            $builder->whereMetadataIn($key, []);
+            $builder->whereMetadataIn($key, ['empty']);
         }
     }
 

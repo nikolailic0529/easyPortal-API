@@ -15,7 +15,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\AuthUserDataProvider;
+use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -98,7 +98,7 @@ class UpdateMePasswordTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new OrganizationDataProvider('updateMePassword'),
-            new AuthUserDataProvider('updateMePassword'),
+            new UserDataProvider('updateMePassword'),
             new ArrayDataProvider([
                 'keycloak user'                       => [
                     new GraphQLSuccess('updateMePassword', UpdateMePassword::class, [

@@ -14,7 +14,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -88,9 +88,10 @@ class EnableOrgUserTest extends TestCase {
                 $organization->save();
             }
         };
+
         return (new CompositeDataProvider(
             new OrganizationDataProvider('enableOrgUser'),
-            new UserDataProvider('enableOrgUser', [
+            new OrganizationUserDataProvider('enableOrgUser', [
                 'org-administer',
             ]),
             new ArrayDataProvider([
@@ -104,6 +105,7 @@ class EnableOrgUserTest extends TestCase {
                             'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02399',
                             'type' => UserType::keycloak(),
                         ]);
+
                         return ['id' => $user->getKey()];
                     },
                     static function (MockInterface $mock): void {
@@ -130,6 +132,7 @@ class EnableOrgUserTest extends TestCase {
                             'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02399',
                             'type' => UserType::keycloak(),
                         ]);
+
                         return ['id' => $user->getKey()];
                     },
                     static function (MockInterface $mock): void {
@@ -152,6 +155,7 @@ class EnableOrgUserTest extends TestCase {
                             'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02399',
                             'type' => UserType::keycloak(),
                         ]);
+
                         return ['id' => $user->getKey()];
                     },
                     static function (MockInterface $mock): void {

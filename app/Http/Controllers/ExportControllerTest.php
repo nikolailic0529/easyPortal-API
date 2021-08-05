@@ -16,7 +16,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Maatwebsite\Excel\Facades\Excel;
 use Tests\DataProviders\Http\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\Http\Users\UserDataProvider;
+use Tests\DataProviders\Http\Users\OrganizationUserDataProvider;
 use Tests\TestCase;
 
 use function is_a;
@@ -159,7 +159,7 @@ class ExportControllerTest extends TestCase {
 
         return (new CompositeDataProvider(
             new OrganizationDataProvider(),
-            new UserDataProvider([
+            new OrganizationUserDataProvider([
                 'assets-view',
             ]),
             new ArrayDataProvider([

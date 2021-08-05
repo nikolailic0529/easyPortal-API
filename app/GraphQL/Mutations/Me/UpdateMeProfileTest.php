@@ -14,7 +14,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\AuthUserDataProvider;
+use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
@@ -106,7 +106,7 @@ class UpdateMeProfileTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new OrganizationDataProvider('updateMeProfile'),
-            new AuthUserDataProvider('updateMeProfile'),
+            new UserDataProvider('updateMeProfile'),
             new ArrayDataProvider([
                 'ok'                                    => [
                     new GraphQLSuccess('updateMeProfile', UpdateMeProfile::class),

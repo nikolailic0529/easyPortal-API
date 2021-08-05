@@ -27,7 +27,6 @@ use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragmentPaginatedSchema;
 use Tests\TestCase;
@@ -289,7 +288,7 @@ class ContractTest extends TestCase {
             ),
             'customers-view' => new CompositeDataProvider(
                 new OrganizationDataProvider('contract'),
-                new UserDataProvider('contract', [
+                new OrganizationUserDataProvider('contract', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -319,7 +318,7 @@ class ContractTest extends TestCase {
             ),
             'organization'   => new CompositeDataProvider(
                 new OrganizationDataProvider('contract', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new UserDataProvider('contract', [
+                new OrganizationUserDataProvider('contract', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([
@@ -630,7 +629,7 @@ class ContractTest extends TestCase {
             ),
             'customers-view' => new CompositeDataProvider(
                 new OrganizationDataProvider('contract'),
-                new UserDataProvider('contract', [
+                new OrganizationUserDataProvider('contract', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -660,7 +659,7 @@ class ContractTest extends TestCase {
             ),
             'organization'   => new CompositeDataProvider(
                 new OrganizationDataProvider('contract', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new UserDataProvider('contract', [
+                new OrganizationUserDataProvider('contract', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([

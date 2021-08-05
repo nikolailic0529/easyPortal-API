@@ -1,29 +1,27 @@
 <?php declare(strict_types = 1);
 
-namespace Tests\DataProviders\GraphQL\Users;
+namespace Tests\DataProviders\Http\Users;
 
 use App\Models\Organization;
 use App\Models\User;
+use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Forbidden;
+use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Unauthorized;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\ExpectedFinal;
 use LastDragon_ru\LaraASP\Testing\Providers\UnknownValue;
-use Tests\GraphQL\GraphQLUnauthenticated;
-use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
 
 /**
- * Only user of current organization can perform action.
- *
- * @see \Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider
+ * Only User with permission(s) can perform the action.
  */
 class OrganizationUserDataProvider extends ArrayDataProvider {
     /**
      * @param array<string> $permissions
      */
-    public function __construct(string $root, array $permissions = []) {
+    public function __construct(array $permissions = []) {
         $data = [
             'guest is not allowed' => [
-                new ExpectedFinal(new GraphQLUnauthenticated($root)),
+                new ExpectedFinal(new Unauthorized()),
                 static function (): ?User {
                     return null;
                 },
@@ -33,7 +31,7 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
         if ($permissions) {
             $data += [
                 'user from another organization is not allowed'             => [
-                    new ExpectedFinal(new GraphQLUnauthorized($root)),
+                    new ExpectedFinal(new Forbidden()),
                     static function (TestCase $test, ?Organization $organization) use ($permissions): ?User {
                         return User::factory()->make([
                             'organization_id' => Organization::factory()->create(),
@@ -42,7 +40,7 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
                     },
                 ],
                 'user without permissions from organization is not allowed' => [
-                    new ExpectedFinal(new GraphQLUnauthorized($root)),
+                    new ExpectedFinal(new Forbidden()),
                     static function (TestCase $test, ?Organization $organization): ?User {
                         return User::factory()->make([
                             'organization_id' => $organization,
@@ -63,7 +61,7 @@ class OrganizationUserDataProvider extends ArrayDataProvider {
         } else {
             $data += [
                 'user from another organization is not allowed' => [
-                    new ExpectedFinal(new GraphQLUnauthorized($root)),
+                    new ExpectedFinal(new Forbidden()),
                     static function (TestCase $test, ?Organization $organization): ?User {
                         return User::factory()->make([
                             'organization_id' => Organization::factory()->create(),

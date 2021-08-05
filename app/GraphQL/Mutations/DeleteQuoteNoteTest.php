@@ -12,7 +12,7 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
+use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\GraphQLUnauthorized;
 use Tests\TestCase;
@@ -75,7 +75,7 @@ class DeleteQuoteNoteTest extends TestCase {
         return (new MergeDataProvider([
             'quotes-view'    => new CompositeDataProvider(
                 new OrganizationDataProvider('deleteQuoteNote'),
-                new UserDataProvider('deleteQuoteNote', [
+                new OrganizationUserDataProvider('deleteQuoteNote', [
                     'quotes-view',
                 ]),
                 new ArrayDataProvider([
@@ -92,6 +92,7 @@ class DeleteQuoteNoteTest extends TestCase {
                                 $user->save();
                                 $data['user_id'] = $user->getKey();
                             }
+
                             return Note::factory()->for($user)->hasFiles(1)->create($data);
                         },
                         false,
@@ -103,6 +104,7 @@ class DeleteQuoteNoteTest extends TestCase {
                             if ($organization) {
                                 $data['organization_id'] = $organization->getKey();
                             }
+
                             return Note::factory()->hasFiles(1)->for(User::factory())->create($data);
                         },
                         true,
@@ -111,7 +113,7 @@ class DeleteQuoteNoteTest extends TestCase {
             ),
             'customers-view' => new CompositeDataProvider(
                 new OrganizationDataProvider('deleteQuoteNote'),
-                new UserDataProvider('deleteQuoteNote', [
+                new OrganizationUserDataProvider('deleteQuoteNote', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -128,6 +130,7 @@ class DeleteQuoteNoteTest extends TestCase {
                                 $user->save();
                                 $data['user_id'] = $user->getKey();
                             }
+
                             return Note::factory()->for($user)->hasFiles(1)->create($data);
                         },
                         false,
@@ -139,6 +142,7 @@ class DeleteQuoteNoteTest extends TestCase {
                             if ($organization) {
                                 $data['organization_id'] = $organization->getKey();
                             }
+
                             return Note::factory()->hasFiles(1)->for(User::factory())->create($data);
                         },
                         true,
@@ -147,7 +151,7 @@ class DeleteQuoteNoteTest extends TestCase {
             ),
             'org-administer' => new CompositeDataProvider(
                 new OrganizationDataProvider('deleteQuoteNote'),
-                new UserDataProvider('deleteQuoteNote', [
+                new OrganizationUserDataProvider('deleteQuoteNote', [
                     'org-administer',
                 ]),
                 new ArrayDataProvider([
@@ -164,6 +168,7 @@ class DeleteQuoteNoteTest extends TestCase {
                                 $user->save();
                                 $data['user_id'] = $user->getKey();
                             }
+
                             return Note::factory()->hasFiles(1)->create($data);
                         },
                         false,
@@ -177,6 +182,7 @@ class DeleteQuoteNoteTest extends TestCase {
                             if ($organization) {
                                 $data['organization_id'] = $organization->getKey();
                             }
+
                             return Note::factory()->hasFiles(1)->for(User::factory())->create($data);
                         },
                         false,

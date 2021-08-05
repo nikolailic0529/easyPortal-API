@@ -26,18 +26,17 @@ use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
-use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLPaginated;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
-use Tests\WithScout;
+use Tests\WithSearch;
 
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Queries\Contracts\ContractsSearch
  */
 class ContractsSearchTest extends TestCase {
-    use WithScout;
+    use WithSearch;
 
     // <editor-fold desc="Tests">
     // =========================================================================
@@ -256,7 +255,7 @@ class ContractsSearchTest extends TestCase {
             ),
             'customers-view' => new CompositeDataProvider(
                 new OrganizationDataProvider('contractsSearch'),
-                new UserDataProvider('contractsSearch', [
+                new OrganizationUserDataProvider('contractsSearch', [
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
@@ -291,7 +290,7 @@ class ContractsSearchTest extends TestCase {
             ),
             'organization'   => new CompositeDataProvider(
                 new OrganizationDataProvider('contractsSearch', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24986'),
-                new UserDataProvider('contractsSearch', [
+                new OrganizationUserDataProvider('contractsSearch', [
                     'contracts-view',
                 ]),
                 new ArrayDataProvider([

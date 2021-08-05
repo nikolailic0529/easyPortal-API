@@ -2,9 +2,9 @@ extend type Mutation {
   inviteOrgUser(
     input: InviteOrgUserInput!
   ): InviteOrgUserPayload
-  @field(resolver: "App\\GraphQL\\Mutations\\Org\\InviteOrgUser")
   @organization
   @me(permissions: ["org-administer"])
+  @field(resolver: "App\\GraphQL\\Mutations\\Org\\InviteOrgUser")
 }
 
 input InviteOrgUserInput @validator {

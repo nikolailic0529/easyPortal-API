@@ -3,6 +3,8 @@
 namespace Tests;
 
 use App\Models\Model;
+use ElasticAdapter\Indices\Index;
+use ElasticAdapter\Indices\IndexManager;
 use Elasticsearch\Client;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Collection;
@@ -12,8 +14,8 @@ use function str_starts_with;
 /**
  * @mixin \Tests\TestCase
  */
-trait WithScout {
-    protected function setUpWithScout(): void {
+trait WithSearch {
+    protected function setUpWithSearch(): void {
         // Right now only ElasticSearch is supported.
         $this->setSettings([
             'scout.driver'                           => 'elastic',
@@ -39,13 +41,23 @@ trait WithScout {
         }
     }
 
-    protected function tearDownWithScout(): void {
+    protected function tearDownWithSearch(): void {
         // empty
     }
 
     protected function makeSearchable(Collection|Model $models): Collection|Model {
         if ($models instanceof Model) {
+            // Add to index
+            /** @var \App\Services\Search\Eloquent\Searchable $models */
             $models->searchable();
+
+            // Create index if not exists
+            $manager = $this->app->make(IndexManager::class);
+            $index   = $models->searchableAs();
+
+            if (!$manager->exists($index)) {
+                $manager->create(new Index($index));
+            }
         } else {
             // Foreach is used because Scout doesn't create an index right if the
             // collection contains models of different classes.

@@ -3,8 +3,9 @@ extend type Mutation {
   updateOrgRole(
     input: UpdateOrgRoleInput
   ): UpdateOrgRolePayload
-    @field(resolver: "App\\GraphQL\\Mutations\\Org\\UpdateOrgRole")
-    @me(permissions: ["org-administer"])
+  @organization
+  @me(permissions: ["org-administer"])
+  @field(resolver: "App\\GraphQL\\Mutations\\Org\\UpdateOrgRole")
 }
 
 input UpdateOrgRoleInput @validator {
