@@ -3,8 +3,8 @@
 namespace App\Services\DataLoader\Jobs;
 
 use App\Services\DataLoader\Importers\ResellersImporter;
+use App\Services\DataLoader\Service;
 use Config\Constants;
-use Illuminate\Contracts\Cache\Repository;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 
 /**
@@ -29,10 +29,10 @@ class ResellersImporterCronJob extends ImporterCronJob {
     }
 
     public function __invoke(
-        Repository $cache,
+        Service $service,
         ResellersImporter $importer,
         QueueableConfigurator $configurator,
     ): void {
-        $this->process($cache, $importer, $configurator);
+        $this->process($service, $importer, $configurator);
     }
 }
