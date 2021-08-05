@@ -9,7 +9,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\AuthUserDataProvider;
+use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -66,7 +66,7 @@ class DeleteMeSearchTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new OrganizationDataProvider('deleteMeSearch'),
-            new AuthUserDataProvider('deleteMeSearch'),
+            new UserDataProvider('deleteMeSearch'),
             new ArrayDataProvider([
                 'ok'             => [
                     new GraphQLSuccess('deleteMeSearch', self::class, [

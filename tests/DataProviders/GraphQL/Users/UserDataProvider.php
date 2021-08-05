@@ -13,7 +13,7 @@ use Tests\TestCase;
 /**
  * Any authenticated User can perform the action.
  */
-class AuthUserDataProvider extends ArrayDataProvider {
+class UserDataProvider extends ArrayDataProvider {
     public function __construct(string $root) {
         parent::__construct([
             'guest is not allowed' => [

@@ -10,7 +10,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\AuthUserDataProvider;
+use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -119,7 +119,7 @@ class QuoteTypesTest extends TestCase {
 
         return (new CompositeDataProvider(
             new OrganizationDataProvider('quoteTypes'),
-            new AuthUserDataProvider('quoteTypes'),
+            new UserDataProvider('quoteTypes'),
             new ArrayDataProvider([
                 'quote_types match'                  => [
                     new GraphQLSuccess('quoteTypes', QuoteTypes::class, $objects),

@@ -8,7 +8,7 @@ use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
-use Tests\DataProviders\GraphQL\Users\AuthUserDataProvider;
+use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
@@ -53,7 +53,7 @@ class AssetCoveragesTest extends TestCase {
     public function dataProviderInvoke(): array {
         return (new CompositeDataProvider(
             new OrganizationDataProvider('assetCoverages'),
-            new AuthUserDataProvider('assetCoverages'),
+            new UserDataProvider('assetCoverages'),
             new ArrayDataProvider([
                 'ok' => [
                     new GraphQLSuccess('assetCoverages', self::class, [
