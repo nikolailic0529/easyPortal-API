@@ -1,5 +1,6 @@
 <?php declare(strict_types = 1);
 
+use App\Services\Audit\Auditor;
 use App\Services\Logger\Logger;
 use Illuminate\Support\Str;
 
@@ -36,7 +37,7 @@ return [
 
     'connections' => [
 
-        'sqlite'           => [
+        'sqlite'            => [
             'driver'                  => 'sqlite',
             'url'                     => env('DATABASE_URL'),
             'database'                => env('DB_DATABASE', database_path('database.sqlite')),
@@ -44,7 +45,7 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
-        'mysql'            => [
+        'mysql'             => [
             'driver'         => 'mysql',
             'url'            => env('DATABASE_URL'),
             'host'           => env('DB_HOST', '127.0.0.1'),
@@ -65,7 +66,7 @@ return [
             ]) : [],
         ],
 
-        Logger::CONNECTION => [
+        Logger::CONNECTION  => [
             'driver'         => 'mysql',
             'url'            => env('EP_LOGGER_DATABASE_URL', env('DATABASE_URL')),
             'host'           => env('EP_LOGGER_DB_HOST', env('DB_HOST', '127.0.0.1')),
@@ -86,15 +87,15 @@ return [
             ]) : [],
         ],
 
-        'audits'           => [
+        Auditor::CONNECTION => [
             'driver'         => 'mysql',
-            'url'            => env('EP_AUDITS_DATABASE_URL'),
-            'host'           => env('EP_AUDITS_DB_HOST', '127.0.0.1'),
-            'port'           => env('EP_AUDITS_DB_PORT', '3306'),
-            'database'       => env('EP_AUDITS_DB_DATABASE', 'forge'),
-            'username'       => env('EP_AUDITS_DB_USERNAME', 'forge'),
-            'password'       => env('EP_AUDITS_DB_PASSWORD', ''),
-            'unix_socket'    => env('EP_AUDITS_DB_SOCKET', ''),
+            'url'            => env('EP_AUDIT_DATABASE_URL'),
+            'host'           => env('EP_AUDIT_DB_HOST', '127.0.0.1'),
+            'port'           => env('EP_AUDIT_DB_PORT', '3306'),
+            'database'       => env('EP_AUDIT_DB_DATABASE', 'forge'),
+            'username'       => env('EP_AUDIT_DB_USERNAME', 'forge'),
+            'password'       => env('EP_AUDIT_DB_PASSWORD', ''),
+            'unix_socket'    => env('EP_AUDIT_DB_SOCKET', ''),
             'charset'        => 'utf8mb4',
             'collation'      => 'utf8mb4_0900_as_ci',
             'timezone'       => '+00:00',
@@ -107,7 +108,7 @@ return [
             ]) : [],
         ],
 
-        'pgsql'            => [
+        'pgsql'             => [
             'driver'         => 'pgsql',
             'url'            => env('DATABASE_URL'),
             'host'           => env('DB_HOST', '127.0.0.1'),
@@ -122,7 +123,7 @@ return [
             'sslmode'        => 'prefer',
         ],
 
-        'sqlsrv'           => [
+        'sqlsrv'            => [
             'driver'         => 'sqlsrv',
             'url'            => env('DATABASE_URL'),
             'host'           => env('DB_HOST', 'localhost'),

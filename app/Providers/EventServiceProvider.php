@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\ChangeRequest;
-use App\Observers\AuditObserver;
 use App\Services\Organization\Listeners\OrganizationUpdater;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -35,6 +33,5 @@ class EventServiceProvider extends ServiceProvider {
      */
     public function boot(): void {
         // empty
-        ChangeRequest::observe(AuditObserver::class);
     }
 }

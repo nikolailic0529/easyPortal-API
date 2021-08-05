@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Concerns\Audits\Auditable;
 use App\Models\Concerns\Relations\HasFiles;
 use App\Models\Concerns\Relations\HasOrganization;
 use App\Models\Concerns\Relations\HasUser;
+use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -63,11 +63,4 @@ class ChangeRequest extends PolymorphicModel implements Auditable {
      * @var array<string>
      */
     protected $casts = self::CASTS;
-
-    /**
-     * @return array<string>
-     */
-    public function getAuditableExcludedAttributes(): array {
-        return ['created_at', 'updated_at', 'deleted_At'];
-    }
 }

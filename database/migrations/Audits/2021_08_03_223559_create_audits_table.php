@@ -2,6 +2,7 @@
 
 // @phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
 
+use App\Services\Audit\Auditor;
 use LastDragon_ru\LaraASP\Migrator\Migrations\RawMigration;
 
 class CreateAuditsTables extends RawMigration {
@@ -12,7 +13,7 @@ class CreateAuditsTables extends RawMigration {
      *
      * @var string|null
      */
-    protected $connection = 'audits';
+    protected $connection = Auditor::CONNECTION;
 
     // Please see the associated SQL files
 }

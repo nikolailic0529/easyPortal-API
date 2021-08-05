@@ -9,9 +9,8 @@ CREATE TABLE IF NOT EXISTS `audits` (
   `action`          VARCHAR(255) NOT NULL,
   `object_type`     VARCHAR(255) NOT NULL,
   `object_id`       CHAR(36)     NOT NULL,
-  `field`           VARCHAR(255) NULL DEFAULT NULL,
-  `old_value`       TEXT         NULL DEFAULT NULL,
-  `new_value`       TEXT         NULL DEFAULT NULL,
+  `old_values`      JSON         NULL DEFAULT NULL,
+  `new_values`      JSON         NULL DEFAULT NULL,
   `created_at`      TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at`      TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
