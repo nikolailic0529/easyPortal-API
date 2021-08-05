@@ -35,12 +35,12 @@ class ServiceTest extends TestCase {
             ->shouldReceive('get')
             ->with("{$class}:a", null)
             ->once()
-            ->andReturn(123);
+            ->andReturn('123');
         $cache
             ->shouldReceive('set')
             ->withArgs(static function (mixed $key, mixed $value, mixed $ttl) use ($class): bool {
                 return $key === "{$class}:a"
-                    && $value === 123
+                    && $value === '123'
                     && $ttl instanceof DateInterval
                     && $ttl->format('P%yY%mM%dD%hH%iM%sS') === 'P0Y1M0D0H0M0S';
             })
@@ -86,7 +86,7 @@ class ServiceTest extends TestCase {
             ->shouldReceive('set')
             ->withArgs(static function (mixed $key, mixed $value, mixed $ttl) use ($class): bool {
                 return $key === "{$class}:a"
-                    && $value === 123
+                    && $value === '123'
                     && $ttl instanceof DateInterval
                     && $ttl->format('P%yY%mM%dD%hH%iM%sS') === 'P0Y1M0D0H0M0S';
             })

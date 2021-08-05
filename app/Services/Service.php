@@ -10,6 +10,7 @@ use JsonSerializable;
 
 use function implode;
 use function is_object;
+use function json_decode;
 use function json_encode;
 
 /**
@@ -37,7 +38,7 @@ abstract class Service {
         $value = null;
 
         if ($this->has($key)) {
-            $value = $this->cache->get($this->getKey($key), $value);
+            $value = json_decode($this->cache->get($this->getKey($key), $value), true);
             $value = $this->set($key, $value);
 
             if ($factory) {
@@ -48,14 +49,11 @@ abstract class Service {
         return $value;
     }
 
-    public function set(object|string $key, JsonSerializable|string|float|int|bool|null $value): mixed {
-        $serialized = $value;
-
-        if ($serialized instanceof JsonSerializable) {
-            $serialized = json_encode($value);
-        }
-
-        $this->cache->set($this->getKey($key), $serialized, $this->getDefaultTtl());
+    /**
+     * @param \JsonSerializable|array<mixed>|string|float|int|bool|null $value
+     */
+    public function set(object|string $key, JsonSerializable|array|string|float|int|bool|null $value): mixed {
+        $this->cache->set($this->getKey($key), json_encode($value), $this->getDefaultTtl());
 
         return $value;
     }
