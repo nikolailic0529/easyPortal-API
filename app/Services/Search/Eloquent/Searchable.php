@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Laravel\Scout\Searchable as ScoutSearchable;
+use Laravel\Telescope\Telescope;
 use LogicException;
 
 use function app;
@@ -115,7 +116,9 @@ trait Searchable {
     public static function makeAllSearchable(int $chunk = null): void {
         static::callWithoutGlobalScope(OwnedByOrganizationScope::class, static function () use ($chunk): void {
             static::callWithoutScoutQueue(static function () use ($chunk): void {
-                static::scoutMakeAllSearchable($chunk);
+                Telescope::withoutRecording(static function () use ($chunk): void {
+                    static::scoutMakeAllSearchable($chunk);
+                });
             });
         });
     }
