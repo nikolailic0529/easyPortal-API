@@ -123,5 +123,14 @@ class Customer extends Model {
             'name' => 'name',
         ];
     }
+
+    /**
+     * @inheritDoc
+     */
+    public static function getSearchSearchable(): array {
+        return [
+            'name',
+        ];
+    }
     // </editor-fold>
 }

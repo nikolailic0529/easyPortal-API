@@ -8,9 +8,11 @@ use ElasticScoutDriver\Factories\SearchRequestFactory as BaseSearchRequestFactor
 use ElasticScoutDriverPlus\Builders\BoolQueryBuilder;
 use ElasticScoutDriverPlus\Builders\SearchRequestBuilder;
 use Illuminate\Support\Collection;
+use Laravel\Scout\Builder;
 use Laravel\Scout\Builder as ScoutBuilder;
 use LogicException;
 
+use function array_map;
 use function is_array;
 use function sprintf;
 
@@ -95,6 +97,32 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
 
         // Return
         return $search;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function makeQuery(Builder $builder): array {
+        // Default `query_string` is not safe for end-user: it will return an
+        // error for invalid queries, thus it should be escaped. So we replace
+        // it with `simple_query_string` that doesn't have these problems.
+        //
+        // https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-simple-query-string-query.html#simple-query-string-syntax
+        $query = parent::makeQuery($builder);
+
+        if (isset($query['bool']['must']['query_string'])) {
+            $query['bool']['must']['simple_query_string'] = [
+                'query'  => $query['bool']['must']['query_string']['query'],
+                'flags'  => 'AND|ESCAPE|NOT|OR|PHRASE|PRECEDENCE|WHITESPACE',
+                'fields' => array_map(static function (string $field): string {
+                    return SearchBuilder::PROPERTIES.'.'.$field;
+                }, $builder->model->getSearchSearchable()),
+            ];
+
+            unset($query['bool']['must']['query_string']);
+        }
+
+        return $query;
     }
 
     /**

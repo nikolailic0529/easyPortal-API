@@ -68,6 +68,13 @@ class SearchRequestFactoryTest extends TestCase {
                 return [];
             }
 
+            /**
+             * @inheritDoc
+             */
+            public static function getSearchSearchable(): array {
+                return ['*'];
+            }
+
             public function searchableAs(): string {
                 return 'a';
             }
@@ -80,6 +87,13 @@ class SearchRequestFactoryTest extends TestCase {
              */
             protected static function getSearchProperties(): array {
                 return [];
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public static function getSearchSearchable(): array {
+                return ['*'];
             }
 
             public function searchableAs(): string {
@@ -112,8 +126,10 @@ class SearchRequestFactoryTest extends TestCase {
                         [
                             'bool' => [
                                 'must'   => [
-                                    'query_string' => [
-                                        'query' => 'searchable.\*:abc',
+                                    'simple_query_string' => [
+                                        'query'  => 'abc',
+                                        'flags'  => 'AND|ESCAPE|NOT|OR|PHRASE|PRECEDENCE|WHITESPACE',
+                                        'fields' => ['properties.*'],
                                     ],
                                 ],
                                 'filter' => [
@@ -128,8 +144,10 @@ class SearchRequestFactoryTest extends TestCase {
                         [
                             'bool' => [
                                 'must'   => [
-                                    'query_string' => [
-                                        'query' => 'searchable.\*:abc',
+                                    'simple_query_string' => [
+                                        'query'  => 'abc',
+                                        'flags'  => 'AND|ESCAPE|NOT|OR|PHRASE|PRECEDENCE|WHITESPACE',
+                                        'fields' => ['properties.*'],
                                     ],
                                 ],
                                 'filter' => [

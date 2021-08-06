@@ -192,5 +192,15 @@ class Document extends Model implements CascadeDeletable {
             ],
         ];
     }
+
+    /**
+     * @inheritDoc
+     */
+    public static function getSearchSearchable(): array {
+        return [
+            'number',
+            'customer.name',
+        ];
+    }
     // </editor-fold>
 }

@@ -13,7 +13,7 @@ use function sprintf;
 
 class Builder extends ScoutBuilder {
     public const METADATA   = 'metadata';
-    public const PROPERTIES = 'searchable';
+    public const PROPERTIES = 'properties';
 
     /**
      * The "where not" constraints added to the query.
@@ -37,7 +37,7 @@ class Builder extends ScoutBuilder {
         bool $softDelete = false,
     ) {
         // Parent
-        parent::__construct($model, "{$this->getFieldProperties()}.\\*:{$query}", $callback, $softDelete);
+        parent::__construct($model, $query, $callback, $softDelete);
 
         // Global scopes
         $scopes = $model->getGlobalScopes();

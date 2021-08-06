@@ -45,7 +45,7 @@ trait Searchable {
     // <editor-fold desc="Abstract">
     // =========================================================================
     /**
-     * Returns searchable properties that must be added to the index.
+     * Returns properties that must be added to the index.
      *
      * *Warning:* If array structure is changed the search index MUST be rebuilt.
      *
@@ -66,6 +66,14 @@ trait Searchable {
      * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
      */
     abstract protected static function getSearchProperties(): array;
+
+    /**
+     * Returns properties that will be used to search. You can return `['*']` to
+     * search over all properties.
+     *
+     * @return array<string>
+     */
+    abstract public static function getSearchSearchable(): array;
 
     /**
      * Returns properties that must be added to the index as metadata.

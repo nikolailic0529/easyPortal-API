@@ -51,10 +51,17 @@ class SearchableTest extends TestCase {
             }
 
             /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+             * @inheritDoc
              */
             protected static function getSearchProperties(): array {
                 return ['a' => 'a'];
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public static function getSearchSearchable(): array {
+                return ['*'];
             }
         };
 
@@ -69,10 +76,17 @@ class SearchableTest extends TestCase {
             }
 
             /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+             * @inheritDoc
              */
             protected static function getSearchProperties(): array {
                 return ['a.b' => 'a'];
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public static function getSearchSearchable(): array {
+                return ['*'];
             }
         };
 
@@ -96,7 +110,7 @@ class SearchableTest extends TestCase {
             use Searchable;
 
             /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+             * @inheritDoc
              */
             protected static function getSearchProperties(): array {
                 return [
@@ -105,6 +119,13 @@ class SearchableTest extends TestCase {
                         'id' => 'oem.id',
                     ],
                 ];
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public static function getSearchSearchable(): array {
+                return ['*'];
             }
         };
 
@@ -182,10 +203,17 @@ class SearchableTest extends TestCase {
             public static string  $continue;
 
             /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+             * @inheritDoc
              */
             protected static function getSearchProperties(): array {
                 return [];
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public static function getSearchSearchable(): array {
+                return ['*'];
             }
 
             public static function searchable(): void {
@@ -250,10 +278,17 @@ class SearchableTest extends TestCase {
             }
 
             /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+             * @inheritDoc
              */
             protected static function getSearchProperties(): array {
                 return [];
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public static function getSearchSearchable(): array {
+                return ['*'];
             }
 
             /**
@@ -287,7 +322,7 @@ class SearchableTest extends TestCase {
             }
 
             /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+             * @inheritDoc
              */
             protected static function getSearchProperties(): array {
                 return [
@@ -299,7 +334,14 @@ class SearchableTest extends TestCase {
             }
 
             /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+             * @inheritDoc
+             */
+            public static function getSearchSearchable(): array {
+                return ['*'];
+            }
+
+            /**
+             * @inheritDoc
              */
             protected static function getSearchMetadata(): array {
                 return [
@@ -346,7 +388,7 @@ class SearchableTest extends TestCase {
             }
 
             /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+             * @inheritDoc
              */
             protected static function getSearchProperties(): array {
                 return [
@@ -355,6 +397,13 @@ class SearchableTest extends TestCase {
                         'id' => 'oem.id',
                     ],
                 ];
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public static function getSearchSearchable(): array {
+                return ['*'];
             }
 
             /**
@@ -436,6 +485,13 @@ class SearchableTest extends TestCase {
                     'meta' => 'meta.data',
                 ];
             }
+
+            /**
+             * @inheritDoc
+             */
+            public static function getSearchSearchable(): array {
+                return ['*'];
+            }
         };
 
         // Scope
@@ -482,10 +538,17 @@ class SearchableTest extends TestCase {
             }
 
             /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+             * @inheritDoc
              */
             protected static function getSearchProperties(): array {
                 return [];
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public static function getSearchSearchable(): array {
+                return ['*'];
             }
         };
 
@@ -515,10 +578,17 @@ class SearchableTest extends TestCase {
             }
 
             /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+             * @inheritDoc
              */
             protected static function getSearchProperties(): array {
                 return [];
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public static function getSearchSearchable(): array {
+                return ['*'];
             }
         };
 
@@ -570,6 +640,13 @@ class SearchableTest extends TestCase {
              */
             protected static function getSearchProperties(): array {
                 return [];
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public static function getSearchSearchable(): array {
+                return ['*'];
             }
 
             protected function scoutQueueMakeSearchable(Collection $models): void {
