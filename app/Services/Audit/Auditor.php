@@ -25,8 +25,8 @@ class Auditor {
      *
      */
     public function create(
-        Model $model,
         Action $action,
+        Model $model = null,
         array $old_values = null,
         array $new_values = null,
     ): void {

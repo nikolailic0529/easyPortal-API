@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Services\Audit\Listeners\AuthAudit;
+use App\Services\Audit\Listeners\Audit;
 use App\Services\Organization\Listeners\OrganizationUpdater;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -27,7 +27,7 @@ class EventServiceProvider extends ServiceProvider {
      */
     protected $subscribe = [
         OrganizationUpdater::class,
-        AuthAudit::class,
+        Audit::class,
     ];
 
     /**

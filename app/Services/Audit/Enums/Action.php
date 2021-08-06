@@ -24,4 +24,8 @@ class Action extends Enum {
     public static function signedOut(): static {
         return static::make('auth.signedOut');
     }
+
+    public static function exported(): static {
+        return static::make('model.exported');
+    }
 }

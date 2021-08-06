@@ -14,6 +14,7 @@
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\FilesController;
 use App\Http\Controllers\IndexController;
+use App\Models\User;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -21,11 +22,11 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 Route::get('/', [IndexController::class, 'index']);
 
 Route::group(['middleware' => ['auth', 'organization']], static function (Router $router): void {
-    $router->post('/download/csv', [ExportController::class, 'csv']);
+    $router->post('/download/csv', [ExportController::class, 'csv'])->name('download.csv');
 
-    $router->post('/download/excel', [ExportController::class, 'excel']);
+    $router->post('/download/excel', [ExportController::class, 'excel'])->name('download.excel');
 
-    $router->post('/download/pdf', [ExportController::class, 'pdf']);
+    $router->post('/download/pdf', [ExportController::class, 'pdf'])->name('download.pdf');
 
     $router->get('/files/{id}', FilesController::class)->name('files');
 });
