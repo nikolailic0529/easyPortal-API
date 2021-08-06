@@ -30,13 +30,12 @@ class Auditor {
         array $old_values = null,
         array $new_values = null,
     ): void {
-        $user       = $this->auth->user();
-        $morphClass = $model->getMorphClass();
+        $user = $this->auth->user();
         // create audit
         $audit                  = new AuditModel();
-        $audit->action          = "{$morphClass}.{$action}";
-        $audit->object_id       = $model->getKey();
-        $audit->object_type     = $morphClass;
+        $audit->action          = $action;
+        $audit->object_id       = $model ? $model->getKey() : null;
+        $audit->object_type     = $model ? $model->getMorphClass() : null;
         $audit->user_id         = $user ? $user->getKey() : null;
         $audit->organization_id = $this->organization->getKey();
         $audit->old_values      = $old_values;

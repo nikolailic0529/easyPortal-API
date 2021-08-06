@@ -10,8 +10,7 @@ use App\Services\Audit\Observers\AuditObserver;
  * @mixin \Illuminate\Database\Eloquent\Model
  */
 trait AuditObserve {
-    protected static function boot(): void {
-        parent::boot();
+    protected static function bootAuditObserve(): void {
         self::observe(AuditObserver::class);
     }
 }

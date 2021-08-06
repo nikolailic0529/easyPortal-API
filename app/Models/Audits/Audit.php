@@ -2,6 +2,7 @@
 
 namespace App\Models\Audits;
 
+use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 /**
  * Audit.
@@ -24,6 +25,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  */
 class Audit extends Model {
     use HasFactory;
+    use OwnedByOrganization;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -45,4 +47,8 @@ class Audit extends Model {
      * @var array<string>
      */
     protected $casts = self::CASTS;
+
+    public function getQualifiedOrganizationColumn(): string {
+        return $this->qualifyColumn('organization_id');
+    }
 }
