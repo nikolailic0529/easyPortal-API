@@ -101,7 +101,7 @@ trait WithAssets {
 
         // Update missed
         $loader   = $this->getAssetLoader();
-        $iterator = $this->getMissedAssets($owner, $updated)?->iterator()->safe() ?? [];
+        $iterator = $this->getMissedAssets($owner, $updated)?->changeSafeIterator() ?? [];
 
         unset($updated);
 
