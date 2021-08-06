@@ -11,12 +11,16 @@ use Closure;
 use DateTime;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Event;
+use Laravel\Scout\Events\ModelsImported;
+use Laravel\Telescope\Telescope;
+use LastDragon_ru\LaraASP\Eloquent\Iterators\ChunkedChangeSafeIterator;
 use LogicException;
 use Mockery;
 use PHPUnit\Framework\Assert;
@@ -24,6 +28,7 @@ use stdClass;
 use Tests\TestCase;
 
 use function config;
+use function count;
 use function sprintf;
 
 /**
@@ -147,6 +152,9 @@ class SearchableTest extends TestCase {
      * @covers ::makeAllSearchable
      */
     public function testMakeAllSearchable(): void {
+        // Fake
+        Event::fake();
+
         // Prepare
         $key    = 'scout.queue';
         $config = $this->app->make(Repository::class);
@@ -156,8 +164,11 @@ class SearchableTest extends TestCase {
         $this->assertTrue($config->get($key));
 
         // Spy
-        $spy = Mockery::spy(function () use ($config, $key): void {
+        $spySearchable   = Mockery::spy(function () use ($config, $key): void {
             $this->assertFalse($config->get($key));
+        });
+        $spyOnAfterChunk = Mockery::spy(static function (): void {
+            // empty
         });
 
         // Model
@@ -166,6 +177,9 @@ class SearchableTest extends TestCase {
             use Searchable;
 
             public static Closure $spy;
+            public static int     $chunk;
+            public static Closure $callback;
+            public static string  $continue;
 
             /**
              * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
@@ -174,19 +188,55 @@ class SearchableTest extends TestCase {
                 return [];
             }
 
-            public static function scoutMakeAllSearchable(): void {
+            public static function searchable(): void {
                 Assert::assertFalse(config('scout.queue'));
+                Assert::assertFalse(Telescope::isRecording());
 
                 (self::$spy)();
             }
+
+            public function newEloquentBuilder(mixed $query): EloquentBuilder {
+                $iterator = Mockery::mock(ChunkedChangeSafeIterator::class);
+                $iterator->shouldAllowMockingProtectedMethods();
+                $iterator->makePartial();
+                $iterator
+                    ->shouldReceive('getChunk')
+                    ->once()
+                    ->andReturn(new EloquentCollection([$this]));
+                $iterator
+                    ->shouldReceive('getBuilder')
+                    ->once()
+                    ->andReturn(new EloquentBuilder($query));
+                $iterator
+                    ->shouldReceive('getColumn')
+                    ->once()
+                    ->andReturn($this->getKeyName());
+
+                $builder = Mockery::mock(EloquentBuilder::class, [$query]);
+                $builder->makePartial();
+                $builder
+                    ->shouldReceive('changeSafeIterator')
+                    ->once()
+                    ->andReturn($iterator);
+
+                return $builder;
+            }
         };
 
-        $model::$spy = Closure::fromCallable($spy);
+        $model::$spy      = Closure::fromCallable($spySearchable);
+        $model::$chunk    = 123;
+        $model::$callback = Closure::fromCallable($spyOnAfterChunk);
+        $model::$continue = 'abc';
 
         // Test
-        $model->makeAllSearchable();
+        $model->makeAllSearchable($model::$chunk, $model::$continue, $model::$callback);
 
-        $spy->shouldHaveBeenCalled();
+        $spySearchable->shouldHaveBeenCalled();
+        $spyOnAfterChunk->shouldHaveBeenCalled()->once();
+
+        Event::assertDispatched(ModelsImported::class, static function (ModelsImported $event): bool {
+            return count($event->models) > 0;
+        });
     }
 
     /**
@@ -215,7 +265,7 @@ class SearchableTest extends TestCase {
         };
 
         // Builder
-        $builder = Mockery::mock(Builder::class);
+        $builder = Mockery::mock(EloquentBuilder::class);
         $builder
             ->shouldReceive('with')
             ->with(['a', 'b'])
