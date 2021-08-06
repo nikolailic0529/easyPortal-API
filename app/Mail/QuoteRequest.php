@@ -5,8 +5,11 @@ namespace App\Mail;
 
 use App\Models\QuoteRequest as ModelsQuoteRequest;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+
+use function app;
 
 class QuoteRequest extends Mailable {
     use Queueable;
@@ -31,7 +34,8 @@ class QuoteRequest extends Mailable {
             $mail = $mail->attachFromStorageDisk($file->disk, $file->path, $file->name);
         }
 
-        return $mail->to($this->request->to)->markdown('quote_request', [
+        $email = app()->make(Repository::class)->get('ep.email_address');
+        return $mail->to($email)->markdown('quote_request', [
             'request' => $this->request,
         ]);
     }

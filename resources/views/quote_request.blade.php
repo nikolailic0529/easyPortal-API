@@ -7,9 +7,9 @@ Oem: {{ $request->oem->name }}<br>
 customer: {{ $request->customer->name }}<br>
 type: {{ $request->type->name }}<br>
 <b>Contact Info:</b><br>
-name: {{ $request->contact->name }}<br>
-email: {{ $request->contact->email }}<br>
-phone: {{ $request->contact->phone }}<br>
+name: <span>{{ $request->contact->name }}</span><br>
+email: <span>{{ $request->contact->email }}</span><br>
+phone: <span>{{ $request->contact->phone_number }}</span><br>
 <b>Assets:</b>
 @component('mail::table')
 | prodcut name | service level | duration |
