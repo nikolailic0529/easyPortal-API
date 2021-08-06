@@ -2,7 +2,6 @@
 
 namespace App\Services\Audit;
 
-use App\Models\Asset;
 use App\Models\Audits\Audit;
 use App\Models\ChangeRequest;
 use App\Models\Organization;
@@ -10,8 +9,6 @@ use App\Models\User;
 use App\Services\Audit\Enums\Action;
 use Closure;
 use Illuminate\Auth\AuthManager;
-use Illuminate\Auth\Events\Login;
-use Illuminate\Contracts\Events\Dispatcher;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -84,18 +81,18 @@ class AuditorTest extends TestCase {
      * @param array<string,mixed> $settings
      */
     public function testAuditRecorded(Closure $expectedFactory, Closure $prepare = null): void {
-        $user = User::factory()->create([
-            'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa'
+        $user         = User::factory()->create([
+            'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
         ]);
         $organization = Organization::factory()->create([
-            'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab'
+            'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
         ]);
         $this->setUser($user, $this->setOrganization($organization));
         if ($prepare) {
             $prepare($this, $organization, $user);
         }
         $expected = $expectedFactory($this, $organization, $user);
-        $this->assertDatabaseHas((new Audit)->getTable(), $expected);
+        $this->assertDatabaseHas((new Audit())->getTable(), $expected);
     }
 
     // <editor-fold desc="DataProviders">

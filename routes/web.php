@@ -14,7 +14,6 @@
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\FilesController;
 use App\Http\Controllers\IndexController;
-use App\Models\User;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

@@ -11,6 +11,8 @@ use Illuminate\Auth\Events\Logout;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Routing\Events\RouteMatched;
 
+use function in_array;
+
 class Audit implements Subscriber {
     public function __construct(
         protected Auditor $auditor,
@@ -20,21 +22,21 @@ class Audit implements Subscriber {
 
     public function signIn(Login $event): void {
         $user = $event->user;
-        if ($user instanceof Model){
+        if ($user instanceof Model) {
             $this->auditor->create(Action::signedIn(), $user);
         }
     }
 
     public function signOut(Logout $event): void {
         $user = $event->user;
-        if ($user instanceof Model){
+        if ($user instanceof Model) {
             $this->auditor->create(Action::signedOut(), $user);
         }
     }
 
     public function routeMatched(RouteMatched $event): void {
         $routes = ['download.csv', 'download.excel', 'download.pdf'];
-        if(in_array($event->route->getName(), $routes)) {
+        if (in_array($event->route->getName(), $routes, true)) {
             $this->auditor->create(Action::exported());
         }
     }
