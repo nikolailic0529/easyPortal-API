@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Enums\UserType;
+use App\Services\Audit\Concerns\Auditable;
 use App\Services\Auth\HasPermissions;
 use App\Services\Auth\Rootable;
 use App\Services\Organization\HasOrganization;
@@ -56,7 +57,8 @@ class User extends Model implements
     HasLocalePreference,
     HasOrganization,
     HasPermissions,
-    Rootable {
+    Rootable,
+    Auditable {
     use HasFactory;
     use Authenticatable;
     use Authorizable;
