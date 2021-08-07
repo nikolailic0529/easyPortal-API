@@ -214,8 +214,6 @@ class CacheTest extends TestCase {
     protected function item(): Model {
         return new class($this->faker->uuid, $this->faker->word) extends Model {
             public function __construct(string $key, string $property) {
-                parent::__construct();
-
                 $this->{$this->getKeyName()} = $key;
                 $this->property              = $property;
             }

@@ -52,8 +52,6 @@ class ResolverTest extends TestCase {
         $uuid  = $this->faker->uuid;
         $value = new class($uuid) extends Model {
             public function __construct(string $key) {
-                parent::__construct();
-
                 $this->{$this->getKeyName()} = $key;
             }
         };
