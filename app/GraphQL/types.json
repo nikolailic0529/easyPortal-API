@@ -1005,6 +1005,12 @@
                     "items": {
                         "$ref": "./Types/Role.json"
                     }
+                },
+                "audits": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "./Types/Audit.json"
+                    }
                 }
             }
         },

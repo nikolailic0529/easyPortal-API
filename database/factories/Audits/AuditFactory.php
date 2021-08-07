@@ -33,9 +33,8 @@ class AuditFactory extends Factory {
             'object_type' => stdClass::class,
             'action'      => $this->faker->sentence,
             'user_id'     => null,
-            'field'       => null,
-            'old_value'   => null,
-            'new_value'   => null,
+            'old_values'  => null,
+            'new_values'  => null,
             'created_at'  => Date::now(),
             'updated_at'  => Date::now(),
         ];

@@ -30,6 +30,11 @@ class Auditor {
         array $old_values = null,
         array $new_values = null,
     ): void {
+        if (!$this->organization->defined()) {
+            // TODO: find a better solution
+            // will break tests
+            return;
+        }
         $user = $this->auth->user();
         // create audit
         $audit                  = new AuditModel();

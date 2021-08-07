@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Audits\Audit;
 use App\Models\Concerns\Relations\HasCurrency;
-use App\Services\Audit\Concerns\Auditable;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -56,9 +56,7 @@ use function app;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization query()
  * @mixin \Eloquent
  */
-class Organization extends Model implements
-    HasLocalePreference,
-    Auditable {
+class Organization extends Model implements HasLocalePreference {
     use HasFactory;
     use HasCurrency;
 
@@ -128,5 +126,9 @@ class Organization extends Model implements
 
     public function roles(): HasMany {
         return $this->hasMany(Role::class);
+    }
+
+    public function audits(): HasMany {
+        return $this->hasMany(Audit::class);
     }
 }

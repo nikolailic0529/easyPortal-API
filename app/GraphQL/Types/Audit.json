@@ -1,0 +1,63 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "id",
+        "organization_id",
+        "user_id",
+        "object_type",
+        "object_id",
+        "old_values",
+        "new_values",
+        "action",
+        "created_at",
+        "updated_at"
+    ],
+    "properties": {
+        "id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "organization_id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "user_id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "object_type": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "object_id": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "old_values": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "new_values": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "action": {
+            "type": "string"
+        },
+        "created_at": {
+            "type": "string",
+            "format": "date-time"
+        },
+        "updated_at": {
+            "type": "string",
+            "format": "date-time"
+        }
+    }
+}

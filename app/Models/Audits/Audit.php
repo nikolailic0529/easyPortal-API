@@ -2,8 +2,11 @@
 
 namespace App\Models\Audits;
 
+use App\Models\User;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 /**
  * Audit.
  *
@@ -35,8 +38,8 @@ class Audit extends Model {
     protected $table = 'audits';
 
     protected const CASTS = [
-        'old_values' => 'json',
-        'new_values' => 'json',
+        'old_values' => 'array',
+        'new_values' => 'array',
     ] + parent::CASTS;
 
     /**
@@ -50,5 +53,9 @@ class Audit extends Model {
 
     public function getQualifiedOrganizationColumn(): string {
         return $this->qualifyColumn('organization_id');
+    }
+
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class);
     }
 }

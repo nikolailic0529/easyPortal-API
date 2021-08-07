@@ -7,6 +7,7 @@ use App\Models\Location;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Reseller;
+use App\Models\User as ModelsUser;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\User;
@@ -21,6 +22,8 @@ use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
 use Tests\TestCase;
+
+use function json_encode;
 
 /**
  * @internal
@@ -44,13 +47,14 @@ class OrganizationTest extends TestCase {
         Closure $prepare = null,
     ): void {
         // Prepare
-        $this->setUser($userFactory, $this->setOrganization($organizationFactory));
+        $organization = $this->setOrganization($organizationFactory);
+        $user         = $this->setUser($userFactory, $organization);
 
         $this->setSettings($settings);
 
         $organizationId = 'wrong';
         if ($prepare) {
-            $organizationId = $prepare($this)->getKey();
+            $organizationId = $prepare($this, $organization, $user)->getKey();
         }
 
         // Test
@@ -113,6 +117,18 @@ class OrganizationTest extends TestCase {
                           line_two
                           latitude
                           longitude
+                        }
+                        audits {
+                            id
+                            organization_id
+                            user_id
+                            object_type
+                            object_id
+                            old_values
+                            new_values
+                            action
+                            created_at
+                            updated_at
                         }
                     }
                 }
@@ -295,11 +311,28 @@ class OrganizationTest extends TestCase {
                                 'name' => 'active',
                             ],
                         ],
+                        'audits'         => [
+                            [
+                                'id'              => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20947',
+                                'object_type'     => 'type',
+                                'object_id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
+                                'user_id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
+                                'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                                'old_values'      => json_encode(['field1' => 'value1']),
+                                'new_values'      => json_encode(['field1' => 'value2']),
+                                'action'          => 'action1',
+                                'created_at'      => '2021-01-01T00:00:00+00:00',
+                                'updated_at'      => '2021-01-01T00:00:00+00:00',
+                            ],
+                        ],
                     ]),
                     [
                         'ep.headquarter_type' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                     ],
-                    static function (): Organization {
+                    static function (TestCase $test, ?Organization $organization, ?ModelsUser $user): Organization {
+                        if ($user) {
+                            $user->{$user->getKeyName()} = '439a0a06-d98a-41f0-b8e5-4e5722518e02';
+                        }
                         $currency = Currency::factory()->create([
                             'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                             'name' => 'currency1',
@@ -341,6 +374,18 @@ class OrganizationTest extends TestCase {
                             ->hasRoles(1, [
                                 'id'   => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20946',
                                 'name' => 'role1',
+                            ])
+                            ->hasAudits(1, [
+                                'id'              => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20947',
+                                'object_type'     => 'type',
+                                'object_id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
+                                'user_id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
+                                'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                                'old_values'      => json_encode(['field1' => 'value1']),
+                                'new_values'      => json_encode(['field1' => 'value2']),
+                                'action'          => 'action1',
+                                'created_at'      => '2021-01-01 00:00:00',
+                                'updated_at'      => '2021-01-01 00:00:00',
                             ])
                             ->create([
                                 'id'                               => $reseller->getKey(),
