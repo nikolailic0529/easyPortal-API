@@ -32,4 +32,8 @@ type Organization {
   @field(resolver: "App\\GraphQL\\Queries\\Organization@roles")
 
   audits: [Audit!]!
+  @me(permissions: ["administer", "org-administer"])
+  @paginate(
+    model: "App\\Models\\Audits\\Audit"
+  )
 }
