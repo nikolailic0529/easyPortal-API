@@ -14,6 +14,8 @@ use LogicException;
 
 use function array_map;
 use function is_array;
+use function key;
+use function reset;
 use function sprintf;
 
 class SearchRequestFactory extends BaseSearchRequestFactory {
@@ -171,5 +173,23 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
                     : ['term' => [$field => $value]];
             })
             ->values();
+    }
+
+    /**
+     * @return array<array<string, mixed>>|null
+     */
+    protected function makeSort(ScoutBuilder $builder): ?array {
+        $sort = (new Collection(parent::makeSort($builder)))
+            ->map(static function (array $clause): array {
+                return [
+                    key($clause).'.keyword' => [
+                        'order'         => reset($clause),
+                        'unmapped_type' => 'keyword',
+                    ],
+                ];
+            })
+            ->all();
+
+        return $sort ?: null;
     }
 }
