@@ -65,7 +65,7 @@ trait Searchable {
      *
      * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
      */
-    abstract protected static function getSearchProperties(): array;
+    abstract public static function getSearchProperties(): array;
 
     /**
      * Returns properties that will be used to search. You can return `['*']` to

@@ -1,0 +1,13 @@
+input ModelConverterTestModelsSearchChildNestedSort {
+  name: String
+}
+input ModelConverterTestModelsSearchChildSort {
+  name: String
+  another: String
+  nested: ModelConverterTestModelsSearchChildNestedSort
+}
+input ModelConverterTestModelsSearchSort {
+  name: String
+  test: String
+  child: ModelConverterTestModelsSearchChildSort
+}
