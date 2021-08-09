@@ -22,21 +22,9 @@ class ModelConverterTest extends TestCase {
      * @covers ::toInputObjectTypes
      */
     public function testToInputObjectTypes(): void {
-        // Prepare
         $converter = $this->app->make(ModelConverter::class);
-
-        // Model
-        $actual   = $this->getGraphQL($converter->toInputObjectTypes(ModelConverterTest_Model::class));
-        $expected = $this->getTestData()->content('.model.graphql');
-
-        $this->assertEquals($expected, $actual);
-
-        // Anonymous
-        $model    = new class() extends ModelConverterTest_Model {
-            // empty
-        };
-        $actual   = $this->getGraphQL($converter->toInputObjectTypes($model::class));
-        $expected = $this->getTestData()->content('.anonymous.graphql');
+        $actual    = $this->getGraphQL($converter->toInputObjectTypes(ModelConverterTest_Model::class));
+        $expected  = $this->getTestData()->content('.graphql');
 
         $this->assertEquals($expected, $actual);
     }

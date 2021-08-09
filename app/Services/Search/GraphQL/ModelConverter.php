@@ -10,11 +10,8 @@ use ReflectionClass;
 use function array_map;
 use function array_merge;
 use function end;
-use function explode;
 use function implode;
 use function is_array;
-use function sha1;
-use function substr;
 
 class ModelConverter {
     public function __construct() {
@@ -81,16 +78,9 @@ class ModelConverter {
      */
     protected function getModelTypeName(string $model): string {
         $class = (new ReflectionClass($model));
-        $name  = $class->getShortName();
+        $name  = Str::plural($class->getShortName());
+        $name  = "{$name}Search";
 
-        if ($class->isAnonymous()) {
-            [$base, $path] = explode('@', $name, 2);
-
-            $name = $base.substr(sha1($path), 0, 7);
-        } else {
-            $name = Str::plural($name);
-        }
-
-        return "{$name}Search";
+        return $name;
     }
 }
