@@ -6,6 +6,7 @@ use App\Models\Model;
 use Composer\Autoload\ClassMapGenerator;
 use Illuminate\Contracts\Config\Repository;
 use ReflectionClass;
+use Tests\Models;
 use Tests\TestCase;
 use Throwable;
 
@@ -23,32 +24,10 @@ class AppServiceProviderTest extends TestCase {
      * @covers ::bootMorphMap
      */
     public function testBootMorphMap(): void {
-        // Search all models
-        $models      = [];
-        $directories = $this->app->get(Repository::class)->get('ide-helper.model_locations', []);
-
-        foreach ($directories as $directory) {
-            $classes = ClassMapGenerator::createMap(base_path($directory));
-
-            foreach ($classes as $class => $path) {
-                $class = new ReflectionClass($class);
-
-                if (!$class->isSubclassOf(Model::class)) {
-                    continue;
-                }
-
-                if ($class->isTrait() || $class->isAbstract()) {
-                    continue;
-                }
-
-                $models[] = $class;
-            }
-        }
-
         // Search missed
         $missed = [];
 
-        foreach ($models as $model) {
+        foreach (Models::get() as $model) {
             try {
                 if ($model->getName() === $model->newInstance()->getMorphClass()) {
                     $missed[] = $model->getName();

@@ -23,6 +23,13 @@ use function config;
 class UnionModel extends Model {
     use Searchable;
 
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var string
+     */
+    protected $connection = 'fake';
+
     public static function search(string $query = '', Closure $callback = null): UnionBuilder {
         return app()->make(UnionBuilder::class, [
             'model'      => new static(),
