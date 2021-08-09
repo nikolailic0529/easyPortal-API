@@ -3,7 +3,7 @@
 namespace App\Services\Search\GraphQL;
 
 use GraphQL\Type\Definition\InputObjectType;
-use GraphQL\Type\Definition\StringType;
+use GraphQL\Type\Definition\Type;
 use Illuminate\Support\Str;
 use ReflectionClass;
 
@@ -50,7 +50,7 @@ class ModelConverter {
             } else {
                 $fields[] = [
                     'name' => $property,
-                    'type' => new StringType(), // doesn't matter now
+                    'type' => Type::string(), // doesn't matter now
                 ];
             }
         }

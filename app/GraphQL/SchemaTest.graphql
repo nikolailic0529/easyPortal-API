@@ -326,6 +326,21 @@ input AssetsQuery {
   coverages: CoveragesQuery
 }
 
+input AssetsSearchCustomerSort {
+  name: String
+}
+
+input AssetsSearchProductSort {
+  sku: String
+  name: String
+}
+
+input AssetsSearchSort {
+  serial_number: String
+  product: AssetsSearchProductSort
+  customer: AssetsSearchCustomerSort
+}
+
 input AssetsSort {
   id: ID!
   product: ProductsSort!
@@ -628,6 +643,10 @@ input CustomersQuery {
   quotes: DocumentsQuery
 }
 
+input CustomersSearchSort {
+  name: String
+}
+
 input CustomersSort {
   name: String!
   locations_count: Int!
@@ -850,6 +869,15 @@ input DocumentsQuery {
   entries_count: Int!
   contacts: ContactsQuery
   contacts_count: Int!
+}
+
+input DocumentsSearchCustomerSort {
+  name: String
+}
+
+input DocumentsSearchSort {
+  number: String
+  customer: DocumentsSearchCustomerSort
 }
 
 input DocumentsSort {
@@ -1904,6 +1932,7 @@ type Query {
   """
   customersSearch(
     search: String!
+    order: [SortByClauseCustomersSearchSort!]
 
     """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
@@ -1937,6 +1966,7 @@ type Query {
   """
   assetsSearch(
     search: String!
+    order: [SortByClauseAssetsSearchSort!]
 
     """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
@@ -1970,6 +2000,7 @@ type Query {
   """
   contractsSearch(
     search: String!
+    order: [SortByClauseDocumentsSearchSort!]
 
     """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
@@ -2003,6 +2034,7 @@ type Query {
   """
   quotesSearch(
     search: String!
+    order: [SortByClauseDocumentsSearchSort!]
 
     """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
@@ -4264,6 +4296,39 @@ input SortByClauseApplicationLogsSort {
 }
 
 """
+Sort clause for input AssetsSearchCustomerSort (only one property allowed at a time).
+"""
+input SortByClauseAssetsSearchCustomerSort {
+  """Property clause."""
+  name: SortByDirection
+}
+
+"""
+Sort clause for input AssetsSearchProductSort (only one property allowed at a time).
+"""
+input SortByClauseAssetsSearchProductSort {
+  """Property clause."""
+  sku: SortByDirection
+
+  """Property clause."""
+  name: SortByDirection
+}
+
+"""
+Sort clause for input AssetsSearchSort (only one property allowed at a time).
+"""
+input SortByClauseAssetsSearchSort {
+  """Property clause."""
+  serial_number: SortByDirection
+
+  """Property clause."""
+  product: SortByClauseAssetsSearchProductSort
+
+  """Property clause."""
+  customer: SortByClauseAssetsSearchCustomerSort
+}
+
+"""
 Sort clause for input AssetsSort (only one property allowed at a time).
 """
 input SortByClauseAssetsSort {
@@ -4315,6 +4380,14 @@ input SortByClauseCountriesSort {
 }
 
 """
+Sort clause for input CustomersSearchSort (only one property allowed at a time).
+"""
+input SortByClauseCustomersSearchSort {
+  """Property clause."""
+  name: SortByDirection
+}
+
+"""
 Sort clause for input CustomersSort (only one property allowed at a time).
 """
 input SortByClauseCustomersSort {
@@ -4335,6 +4408,25 @@ input SortByClauseCustomersSort {
 
   """Property clause."""
   headquarter: SortByClauseLocationsSort
+}
+
+"""
+Sort clause for input DocumentsSearchCustomerSort (only one property allowed at a time).
+"""
+input SortByClauseDocumentsSearchCustomerSort {
+  """Property clause."""
+  name: SortByDirection
+}
+
+"""
+Sort clause for input DocumentsSearchSort (only one property allowed at a time).
+"""
+input SortByClauseDocumentsSearchSort {
+  """Property clause."""
+  number: SortByDirection
+
+  """Property clause."""
+  customer: SortByClauseDocumentsSearchCustomerSort
 }
 
 """
