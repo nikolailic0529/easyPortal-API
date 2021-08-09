@@ -2,15 +2,10 @@
 
 namespace App\Providers;
 
-use App\Models\Model;
-use Composer\Autoload\ClassMapGenerator;
-use Illuminate\Contracts\Config\Repository;
-use ReflectionClass;
-use Tests\Models;
+use Tests\Helpers\Models;
 use Tests\TestCase;
 use Throwable;
 
-use function base_path;
 use function implode;
 
 use const PHP_EOL;

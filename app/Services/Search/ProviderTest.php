@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Builder as ScoutBuilder;
 use Laravel\Scout\Searchable as ScoutSearchable;
 use ReflectionClass;
-use Tests\Models;
+use Tests\Helpers\Models;
 use Tests\TestCase;
 
 use function array_diff;

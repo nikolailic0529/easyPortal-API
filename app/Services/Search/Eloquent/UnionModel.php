@@ -14,21 +14,9 @@ use function config;
 
 /**
  * Fake model for Lighthouse to create {@link \App\Services\Search\UnionBuilder}.
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Services\Search\Eloquent\UnionModel newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Services\Search\Eloquent\UnionModel newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Services\Search\Eloquent\UnionModel query()
- * @mixin \Eloquent
  */
 class UnionModel extends Model {
     use Searchable;
-
-    /**
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var string
-     */
-    protected $connection = 'fake';
 
     public static function search(string $query = '', Closure $callback = null): UnionBuilder {
         return app()->make(UnionBuilder::class, [
