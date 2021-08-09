@@ -120,7 +120,14 @@ class Customer extends Model {
     protected static function getSearchProperties(): array {
         // WARNING: If array is changed the search index MUST be rebuilt.
         return [
-            'name' => 'name',
+            'name'            => 'name',
+            'assets_count'    => 'assets_count',
+            'locations_count' => 'locations_count',
+            'headquarter'     => [
+                'city' => [
+                    'name' => 'headquarter.city.name',
+                ],
+            ],
         ];
     }
 

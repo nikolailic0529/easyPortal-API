@@ -643,8 +643,19 @@ input CustomersQuery {
   quotes: DocumentsQuery
 }
 
+input CustomersSearchHeadquarterCitySort {
+  name: String
+}
+
+input CustomersSearchHeadquarterSort {
+  city: CustomersSearchHeadquarterCitySort
+}
+
 input CustomersSearchSort {
   name: String
+  assets_count: String
+  locations_count: String
+  headquarter: CustomersSearchHeadquarterSort
 }
 
 input CustomersSort {
@@ -877,6 +888,9 @@ input DocumentsSearchCustomerSort {
 
 input DocumentsSearchSort {
   number: String
+  start: String
+  end: String
+  price: String
   customer: DocumentsSearchCustomerSort
 }
 
@@ -4380,11 +4394,36 @@ input SortByClauseCountriesSort {
 }
 
 """
+Sort clause for input CustomersSearchHeadquarterCitySort (only one property allowed at a time).
+"""
+input SortByClauseCustomersSearchHeadquarterCitySort {
+  """Property clause."""
+  name: SortByDirection
+}
+
+"""
+Sort clause for input CustomersSearchHeadquarterSort (only one property allowed at a time).
+"""
+input SortByClauseCustomersSearchHeadquarterSort {
+  """Property clause."""
+  city: SortByClauseCustomersSearchHeadquarterCitySort
+}
+
+"""
 Sort clause for input CustomersSearchSort (only one property allowed at a time).
 """
 input SortByClauseCustomersSearchSort {
   """Property clause."""
   name: SortByDirection
+
+  """Property clause."""
+  assets_count: SortByDirection
+
+  """Property clause."""
+  locations_count: SortByDirection
+
+  """Property clause."""
+  headquarter: SortByClauseCustomersSearchHeadquarterSort
 }
 
 """
@@ -4424,6 +4463,15 @@ Sort clause for input DocumentsSearchSort (only one property allowed at a time).
 input SortByClauseDocumentsSearchSort {
   """Property clause."""
   number: SortByDirection
+
+  """Property clause."""
+  start: SortByDirection
+
+  """Property clause."""
+  end: SortByDirection
+
+  """Property clause."""
+  price: SortByDirection
 
   """Property clause."""
   customer: SortByClauseDocumentsSearchCustomerSort
