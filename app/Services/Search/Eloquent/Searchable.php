@@ -137,8 +137,15 @@ trait Searchable {
                         $chunk  ??= config('scout.chunk.searchable', 500);
                         $trashed  = static::usesSoftDelete() && config('scout.soft_delete', false);
                         $callback = static function (EloquentCollection $items) use ($callback): void {
+                            // Empty?
+                            if ($items->isEmpty()) {
+                                return;
+                            }
+
+                            // Event (needed for scout:import)
                             event(new ModelsImported($items));
 
+                            // Callback
                             if ($callback) {
                                 $callback($items);
                             }
