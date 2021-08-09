@@ -6,4 +6,5 @@ namespace App\Services\Audit\Concerns;
  * @mixin \App\Models\Model
  */
 interface Auditable {
+    // empty
 }

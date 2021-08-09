@@ -29,7 +29,7 @@ class AuditorTest extends TestCase {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::created(), $changeRequest, null, $changeRequest->getAttributes());
+                ->with(Action::modelCreated(), $changeRequest);
         });
 
         $changeRequest->save();
@@ -49,7 +49,7 @@ class AuditorTest extends TestCase {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::updated(), $changeRequest, ['subject' => 'old'], ['subject' => 'new']);
+                ->with(Action::modelUpdated(), $changeRequest);
         });
 
         $changeRequest->subject = 'new';
@@ -68,7 +68,7 @@ class AuditorTest extends TestCase {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::deleted(), $changeRequest);
+                ->with(Action::modelDeleted(), $changeRequest);
         });
 
         $changeRequest->delete();
@@ -109,7 +109,7 @@ class AuditorTest extends TestCase {
                         'object_type'     => (new ChangeRequest())->getMorphClass(),
                         'organization_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
                         'user_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'action'          => Action::created(),
+                        'action'          => Action::modelCreated(),
                     ];
                 },
                 static function (): void {
@@ -128,7 +128,7 @@ class AuditorTest extends TestCase {
                         'object_type'     => (new ChangeRequest())->getMorphClass(),
                         'organization_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
                         'user_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'action'          => Action::updated(),
+                        'action'          => Action::modelUpdated(),
                     ];
                 },
                 static function (): void {
@@ -149,7 +149,7 @@ class AuditorTest extends TestCase {
                         'object_type'     => (new ChangeRequest())->getMorphClass(),
                         'organization_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
                         'user_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-                        'action'          => Action::deleted(),
+                        'action'          => Action::modelDeleted(),
                     ];
                 },
                 static function (): void {
@@ -167,7 +167,7 @@ class AuditorTest extends TestCase {
                         'object_id'       => $user->getKey(),
                         'object_type'     => $user->getMorphClass(),
                         'organization_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'action'          => Action::signedIn(),
+                        'action'          => Action::authSignedIn(),
                     ];
                 },
                 static function (TestCase $test, Organization $organization, User $user): void {
@@ -181,7 +181,7 @@ class AuditorTest extends TestCase {
                         'object_id'       => $user->getKey(),
                         'object_type'     => $user->getMorphClass(),
                         'organization_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-                        'action'          => Action::signedOut(),
+                        'action'          => Action::authSignedOut(),
                     ];
                 },
                 static function (TestCase $test, Organization $organization, User $user): void {

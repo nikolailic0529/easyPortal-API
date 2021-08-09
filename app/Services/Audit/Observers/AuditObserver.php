@@ -16,23 +16,20 @@ class AuditObserver {
 
     public function created(Model $model): void {
         if ($model instanceof Auditable) {
-            $this->audit->create(Action::created(), $model, null, $model->getAttributes());
+            $this->audit->create(Action::modelCreated(), $model);
         }
     }
 
     public function updated(Model $model): void {
         if ($model instanceof Auditable) {
-            $old = [];
-            foreach ($model->getChanges() as $field => $value) {
-                $old[$field] = $model->getOriginal($field);
-            }
-            $this->audit->create(Action::updated(), $model, $old, $model->getChanges());
+            $this->audit->create(Action::modelUpdated(), $model);
         }
     }
 
     public function deleted(Model $model): void {
         if ($model instanceof Auditable) {
-            $this->audit->create(Action::deleted(), $model);
+            $this->audit->create(Action::modelDeleted(), $model);
         }
     }
+
 }

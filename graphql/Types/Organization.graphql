@@ -31,7 +31,10 @@ type Organization {
   @me(permissions: ["administer", "org-administer"])
   @field(resolver: "App\\GraphQL\\Queries\\Organization@roles")
 
-  audits: [Audit!]!
+  audits(
+    where: AuditsQuery @searchBy
+    order: AuditsSort @sortBy
+  ): [Audit!]!
   @me(permissions: ["administer", "org-administer"])
   @paginate(
     model: "App\\Models\\Audits\\Audit"

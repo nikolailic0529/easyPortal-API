@@ -5,23 +5,23 @@ namespace App\Services\Audit\Enums;
 use LastDragon_ru\LaraASP\Eloquent\Enum;
 
 class Action extends Enum {
-    public static function created(): static {
+    public static function modelCreated(): static {
         return static::make('model.created');
     }
 
-    public static function updated(): static {
+    public static function modelUpdated(): static {
         return static::make('model.updated');
     }
 
-    public static function deleted(): static {
+    public static function modelDeleted(): static {
         return static::make('model.deleted');
     }
 
-    public static function signedIn(): static {
+    public static function authSignedIn(): static {
         return static::make('auth.signedIn');
     }
 
-    public static function signedOut(): static {
+    public static function authSignedOut(): static {
         return static::make('auth.signedOut');
     }
 

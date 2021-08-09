@@ -19,21 +19,16 @@ class Auditor {
     }
 
     /**
-     * @param array<string, mixed> $old_values
-     *
-     * @param array<string, mixed> $new_values
-     *
+     * @param array<string, mixed> $extra
      */
     public function create(
         Action $action,
         Model $model = null,
-        array $old_values = null,
-        array $new_values = null,
+        array $extra = null,
     ): void {
-        if (!$this->organization->defined()) {
-            // TODO: find a better solution
-            // will break tests
-            return;
+        $organization = null;
+        if ($this->organization->defined()) {
+            $organization = $this->organization->getKey();
         }
         $user = $this->auth->user();
         // create audit
@@ -42,9 +37,37 @@ class Auditor {
         $audit->object_id       = $model ? $model->getKey() : null;
         $audit->object_type     = $model ? $model->getMorphClass() : null;
         $audit->user_id         = $user ? $user->getKey() : null;
-        $audit->organization_id = $this->organization->getKey();
-        $audit->old_values      = $old_values;
-        $audit->new_values      = $new_values;
+        $audit->organization_id = $organization;
+        $audit->context         = $this->getContext($model, $extra);
         $audit->save();
+    }
+
+    /**
+     * @param array<string, mixed> $extra
+     *
+     * @return array<string, mixed>
+     */
+    protected function getContext(Model $model, ?array $extra): array {
+        $properties = [];
+        if ($model->wasRecentlyCreated) {
+            // created
+            foreach ($model->getAttributes() as $field => $value) {
+                $properties[$field] = [
+                    'value'    => $value,
+                    'previous' => null,
+                ];
+            }
+        } else {
+            foreach ($model->getChanges() as $field => $value) {
+                $properties[$field] = [
+                    'value'    => $value,
+                    'previous' => $model->getOriginal($field),
+                ];
+            }
+        }
+        return [
+            'properties' => $properties,
+            'extra'      =>  $extra,
+        ];
     }
 }

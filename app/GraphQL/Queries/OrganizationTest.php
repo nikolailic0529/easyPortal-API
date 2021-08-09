@@ -363,9 +363,6 @@ class OrganizationTest extends TestCase {
                         'ep.headquarter_type' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                     ],
                     static function (TestCase $test, ?Organization $organization, ?ModelsUser $user): Organization {
-                        if ($user) {
-                            $user->{$user->getKeyName()} = '439a0a06-d98a-41f0-b8e5-4e5722518e02';
-                        }
                         $currency = Currency::factory()->create([
                             'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                             'name' => 'currency1',

@@ -1,0 +1,8 @@
+input AuditsSort {
+  id: ID!
+  user_id: String!
+  organization_id: ID!
+  action: String!
+  object_id: String!
+  object_type: String!
+}

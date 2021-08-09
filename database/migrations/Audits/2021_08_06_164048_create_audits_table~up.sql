@@ -9,11 +9,14 @@ CREATE TABLE IF NOT EXISTS `audits` (
   `action`          VARCHAR(255) NOT NULL,
   `object_type`     VARCHAR(255) NULL DEFAULT NULL,
   `object_id`       CHAR(36)     NULL DEFAULT NULL,
-  `old_values`      JSON         NULL DEFAULT NULL,
-  `new_values`      JSON         NULL DEFAULT NULL,
+  `context`         JSON         NULL DEFAULT NULL,
   `created_at`      TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at`      TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  INDEX `idx__user_id` (`user_id` ASC) VISIBLE,
+  INDEX `idx__organization_id__user_id` (`organization_id` ASC, `user_id` ASC) VISIBLE,
+  INDEX `idx__object_id__object_type` (`object_id` ASC, `object_type` ASC) VISIBLE,
+  INDEX `idx__action__organization_id` (`action` ASC, `organization_id` ASC) VISIBLE)
 );
 
 

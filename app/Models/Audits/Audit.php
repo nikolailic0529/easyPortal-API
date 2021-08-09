@@ -13,11 +13,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string                                                              $id
  * @property string                                                              $action
  * @property string|null                                                         $user_id
- * @property string                                                              $organization_id
+ * @property string|null                                                         $organization_id
  * @property string                                                              $object_id
  * @property string                                                              $object_type
- * @property string|null                                                         $old_values
- * @property string|null                                                         $new_values
+ * @property array|null                                                          $context
  * @property \Carbon\CarbonImmutable                                             $created_at
  * @property \Carbon\CarbonImmutable                                             $updated_at
  * @method static \Database\Factories\AuditFactory factory(...$parameters)
@@ -38,8 +37,7 @@ class Audit extends Model {
     protected $table = 'audits';
 
     protected const CASTS = [
-        'old_values' => 'array',
-        'new_values' => 'array',
+        'context' => 'json',
     ] + parent::CASTS;
 
     /**
@@ -50,12 +48,4 @@ class Audit extends Model {
      * @var array<string>
      */
     protected $casts = self::CASTS;
-
-    public function getQualifiedOrganizationColumn(): string {
-        return $this->qualifyColumn('organization_id');
-    }
-
-    public function user(): BelongsTo {
-        return $this->belongsTo(User::class);
-    }
 }
