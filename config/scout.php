@@ -44,7 +44,7 @@ return [
     */
 
     'queue'        => [
-        'queue' => Queues::SCOUT,
+        'queue' => Queues::SEARCH,
     ],
 
     /*

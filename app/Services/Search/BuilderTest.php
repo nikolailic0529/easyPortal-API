@@ -43,7 +43,7 @@ class BuilderTest extends TestCase {
             'model' => $model,
         ]);
 
-        $this->assertEquals(Builder::PROPERTIES.'.\\*:*', $builder->query);
+        $this->assertEquals('*', $builder->query);
         $this->assertEquals(['test' => 'value'], $builder->wheres);
     }
 

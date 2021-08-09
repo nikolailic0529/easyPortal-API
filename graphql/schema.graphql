@@ -196,7 +196,10 @@ type Query {
   @me(permissions: ["customers-view"])
   @field(resolver: "App\\GraphQL\\Queries\\CustomersAggregate")
 
-  customersSearch(search: String! @search): [Customer!]!
+  customersSearch(
+    search: String! @search
+    order: CustomersSearchSort @sortBy
+  ): [Customer!]!
   @organization
   @me(permissions: ["customers-view"])
   @paginate
@@ -231,7 +234,10 @@ type Query {
   @me(permissions: ["assets-view", "customers-view"])
   @field(resolver: "App\\GraphQL\\Queries\\AssetsAggregate")
 
-  assetsSearch(search: String! @search): [Asset!]!
+  assetsSearch(
+    search: String! @search
+    order: AssetsSearchSort @sortBy
+  ): [Asset!]!
   @organization
   @me(permissions: ["assets-view", "customers-view"])
   @paginate
@@ -259,6 +265,8 @@ type Query {
     search: String!
     @search
     @builder(method: "App\\GraphQL\\Queries\\Contracts\\ContractsSearch")
+
+    order: DocumentsSearchSort @sortBy
   ): [Document!]!
   @organization
   @me(permissions: ["contracts-view", "customers-view"])
@@ -294,6 +302,8 @@ type Query {
     search: String!
     @search
     @builder(method: "App\\GraphQL\\Queries\\Quotes\\QuotesSearch")
+
+    order: DocumentsSearchSort @sortBy
   ): [Document!]!
   @organization
   @me(permissions: ["quotes-view", "customers-view"])

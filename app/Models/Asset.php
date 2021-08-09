@@ -217,5 +217,17 @@ class Asset extends Model {
             ],
         ];
     }
+
+    /**
+     * @inheritDoc
+     */
+    public static function getSearchSearchable(): array {
+        return [
+            'serial_number',
+            'customer.name',
+            'product.sku',
+            'product.name',
+        ];
+    }
     // </editor-fold>
 }

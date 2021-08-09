@@ -10,6 +10,9 @@
         <testsuite name="App">
             <directory suffix="Test.php">./app</directory>
         </testsuite>
+        <testsuite name="Tests">
+            <directory suffix="Test.php">./tests</directory>
+        </testsuite>
         <testsuite name="Seeders">
             <directory suffix="Test.php">./database/seeders</directory>
         </testsuite>
@@ -17,10 +20,12 @@
     <coverage processUncoveredFiles="true" cacheDirectory=".phpunit/code-coverage">
         <include>
             <directory suffix=".php">./app</directory>
+            <directory suffix=".php">./tests</directory>
             <directory suffix=".php">./database/seeders</directory>
         </include>
         <exclude>
             <directory suffix="Test.php">./app</directory>
+            <directory suffix="Test.php">./tests</directory>
             <directory suffix="Test.php">./database/seeders</directory>
         </exclude>
     </coverage>

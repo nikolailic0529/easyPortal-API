@@ -187,9 +187,22 @@ class Document extends Model implements CascadeDeletable {
         // WARNING: If array is changed the search index MUST be rebuilt.
         return [
             'number'   => 'number',
+            'start'    => 'start',
+            'end'      => 'end',
+            'price'    => 'price',
             'customer' => [
                 'name' => 'customer.name',
             ],
+        ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function getSearchSearchable(): array {
+        return [
+            'number',
+            'customer.name',
         ];
     }
     // </editor-fold>

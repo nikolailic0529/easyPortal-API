@@ -22,7 +22,7 @@ interface Queues {
     public const KEYCLOAK = 'keycloak';
 
     /**
-     * Default queue for Laravel Scout.
+     * Default queue for Search and Laravel Scout.
      */
-    public const SCOUT = 'scout';
+    public const SEARCH = 'search';
 }

@@ -62,7 +62,7 @@ class TokenRepository extends DatabaseTokenRepository implements TokenRepository
         $query     = PasswordReset::query()
             ->where('created_at', '<', $expiredAt);
 
-        foreach ($query->iterator()->safe() as $reset) {
+        foreach ($query->changeSafeIterator() as $reset) {
             $reset->delete();
         }
     }
@@ -75,7 +75,7 @@ class TokenRepository extends DatabaseTokenRepository implements TokenRepository
         $query = PasswordReset::query()
             ->where('email', '=', $user->getEmailForPasswordReset());
 
-        foreach ($query->iterator()->safe() as $reset) {
+        foreach ($query->changeSafeIterator() as $reset) {
             $reset->delete();
             $count++;
         }

@@ -63,10 +63,12 @@ class OAuth2TokenTest extends TestCase {
             ->once()
             ->andReturn($provider);
         $service
-            ->shouldReceive('getCache')
+            ->shouldReceive('getService')
             ->atLeast()
             ->once()
-            ->andReturn($cache);
+            ->andReturn($this->app->make(Service::class, [
+                'cache' => $cache,
+            ]));
 
         $this->assertEquals($token->getToken(), $service->getAccessToken());
         $this->assertEquals($token->getToken(), $service->getAccessToken());
@@ -78,26 +80,33 @@ class OAuth2TokenTest extends TestCase {
     public function testReset(): void {
         $cache = Mockery::mock(Repository::class);
         $cache
-            ->shouldReceive('forget')
+            ->shouldReceive('delete')
             ->once()
             ->andReturn(true);
         $cache
             ->shouldReceive('has')
             ->once()
-            ->andThrow(new Exception('no token'));
+            ->andReturn(false);
 
         $service = Mockery::mock(OAuth2Token::class);
         $service->shouldAllowMockingProtectedMethods();
         $service->makePartial();
         $service
-            ->shouldReceive('getCache')
+            ->shouldReceive('getService')
             ->atLeast()
             ->once()
-            ->andReturn($cache);
-
-        $this->expectDeprecationMessage('no token');
+            ->andReturn($this->app->make(Service::class, [
+                'cache' => $cache,
+            ]));
+        $service
+            ->shouldReceive('getToken')
+            ->once()
+            ->andThrow(new Exception('no token'));
 
         $service->reset();
+
+        $this->expectExceptionMessage('no token');
+
         $service->getAccessToken();
     }
     // </editor-fold>

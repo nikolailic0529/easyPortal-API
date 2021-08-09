@@ -22,8 +22,6 @@ class UnionBuilder extends Builder {
         bool $softDelete = false,
     ) {
         parent::__construct($container, $model, $query, $callback, $softDelete);
-
-        $this->query = $query;
     }
 
     /**

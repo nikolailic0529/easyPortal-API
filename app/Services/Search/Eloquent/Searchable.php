@@ -12,9 +12,12 @@ use Closure;
 use DateTimeInterface;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
+use Laravel\Scout\Events\ModelsImported;
 use Laravel\Scout\Searchable as ScoutSearchable;
+use Laravel\Telescope\Telescope;
 use LogicException;
 
 use function app;
@@ -22,6 +25,8 @@ use function array_intersect;
 use function array_key_exists;
 use function array_keys;
 use function array_walk_recursive;
+use function config;
+use function event;
 use function is_iterable;
 use function is_null;
 use function is_scalar;
@@ -34,14 +39,13 @@ trait Searchable {
     use GlobalScopes;
     use ScoutSearchable {
         search as protected scoutSearch;
-        makeAllSearchable as protected scoutMakeAllSearchable;
         queueMakeSearchable as protected scoutQueueMakeSearchable;
     }
 
     // <editor-fold desc="Abstract">
     // =========================================================================
     /**
-     * Returns searchable properties that must be added to the index.
+     * Returns properties that must be added to the index.
      *
      * *Warning:* If array structure is changed the search index MUST be rebuilt.
      *
@@ -61,7 +65,15 @@ trait Searchable {
      *
      * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
      */
-    abstract protected static function getSearchProperties(): array;
+    abstract public static function getSearchProperties(): array;
+
+    /**
+     * Returns properties that will be used to search. You can return `['*']` to
+     * search over all properties.
+     *
+     * @return array<string>
+     */
+    abstract public static function getSearchSearchable(): array;
 
     /**
      * Returns properties that must be added to the index as metadata.
@@ -112,12 +124,51 @@ trait Searchable {
         return $properties;
     }
 
-    public static function makeAllSearchable(int $chunk = null): void {
-        static::callWithoutGlobalScope(OwnedByOrganizationScope::class, static function () use ($chunk): void {
-            static::callWithoutScoutQueue(static function () use ($chunk): void {
-                static::scoutMakeAllSearchable($chunk);
-            });
-        });
+    public static function makeAllSearchable(
+        int $chunk = null,
+        string $continue = null,
+        Closure $callback = null,
+    ): void {
+        static::callWithoutGlobalScope(
+            OwnedByOrganizationScope::class,
+            static function () use ($chunk, $continue, $callback): void {
+                static::callWithoutScoutQueue(static function () use ($chunk, $continue, $callback): void {
+                    Telescope::withoutRecording(static function () use ($chunk, $continue, $callback): void {
+                        $chunk  ??= config('scout.chunk.searchable', 500);
+                        $trashed  = static::usesSoftDelete() && config('scout.soft_delete', false);
+                        $callback = static function (EloquentCollection $items) use ($callback): void {
+                            // Empty?
+                            if ($items->isEmpty()) {
+                                return;
+                            }
+
+                            // Event (needed for scout:import)
+                            event(new ModelsImported($items));
+
+                            // Callback
+                            if ($callback) {
+                                $callback($items);
+                            }
+                        };
+                        $iterator = static::query()
+                            ->when(true, static function (Builder $builder): void {
+                                $builder->newModelInstance()->makeAllSearchableUsing($builder);
+                            })
+                            ->when($trashed, static function (Builder $builder): void {
+                                $builder->withTrashed();
+                            })
+                            ->changeSafeIterator()
+                            ->onAfterChunk($callback)
+                            ->setChunkSize($chunk)
+                            ->setOffset($continue);
+
+                        foreach ($iterator as $model) {
+                            $model->searchable();
+                        }
+                    });
+                });
+            },
+        );
     }
 
     public function queueMakeSearchable(Collection $models): void {
