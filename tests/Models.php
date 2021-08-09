@@ -12,30 +12,28 @@ use function base_path;
 use function config;
 use function str_ends_with;
 
-use function var_dump;
-
-use const ARRAY_FILTER_USE_BOTH;
-
 /**
  * Holds list of all application models which use default connection.
  */
 class Models {
     /**
-     * @var array<\Illuminate\Database\Eloquent\Model,\ReflectionClass<\Illuminate\Database\Eloquent\Model>>
+     * @var array<class-string<\Illuminate\Database\Eloquent\Model>,\ReflectionClass<\Illuminate\Database\Eloquent\Model>>
      */
     protected static array $models;
 
     /**
-     * @return array<\Illuminate\Database\Eloquent\Model,\ReflectionClass<\Illuminate\Database\Eloquent\Model>>
+     * @param \Closure(\ReflectionClass<\Illuminate\Database\Eloquent\Model>): bool $filter
+     *
+     * @return array<class-string<\Illuminate\Database\Eloquent\Model>,\ReflectionClass<\Illuminate\Database\Eloquent\Model>>
      */
     public static function get(Closure $filter = null): array {
         // Cached?
         self::$models ??= self::search();
-        $models         = self::$models;
+        $models       = self::$models;
 
         // Filter
         if ($filter) {
-            $models = array_filter($models, $filter, ARRAY_FILTER_USE_BOTH);
+            $models = array_filter($models, $filter);
         }
 
         // Return
