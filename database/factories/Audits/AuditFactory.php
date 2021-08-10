@@ -28,15 +28,15 @@ class AuditFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'id'          => $this->faker->uuid,
-            'object_id'   => $this->faker->uuid,
-            'object_type' => stdClass::class,
-            'action'      => $this->faker->sentence,
-            'user_id'     => null,
-            'old_values'  => null,
-            'new_values'  => null,
-            'created_at'  => Date::now(),
-            'updated_at'  => Date::now(),
+            'id'              => $this->faker->uuid,
+            'organization_id' => null,
+            'user_id'         => null,
+            'object_id'       => $this->faker->uuid,
+            'object_type'     => stdClass::class,
+            'action'          => $this->faker->sentence,
+            'context'         => null,
+            'created_at'      => Date::now(),
+            'updated_at'      => Date::now(),
         ];
     }
 }

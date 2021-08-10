@@ -8,8 +8,7 @@
         "user_id",
         "object_type",
         "object_id",
-        "old_values",
-        "new_values",
+        "context",
         "action",
         "created_at",
         "updated_at"
@@ -36,13 +35,7 @@
                 "null"
             ]
         },
-        "old_values": {
-            "type": [
-                "string",
-                "null"
-            ]
-        },
-        "new_values": {
+        "context": {
             "type": [
                 "string",
                 "null"

@@ -18,7 +18,6 @@ use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
 use Mockery\MockInterface;
-use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -259,8 +258,7 @@ class OrganizationTest extends TestCase {
                                 user_id
                                 object_type
                                 object_id
-                                old_values
-                                new_values
+                                context
                                 action
                                 created_at
                                 updated_at
@@ -644,12 +642,13 @@ class OrganizationTest extends TestCase {
     /**
      * @return array<mixed>
      */
+
     public function dataProviderAudits(): array {
         return (new MergeDataProvider([
-            'organization' => new CompositeDataProvider(
-                new OrganizationDataProvider('organization'),
+            'administer'     => new CompositeDataProvider(
+                new RootOrganizationDataProvider('organization'),
                 new OrganizationUserDataProvider('organization', [
-                    'org-administer',
+                    'administer',
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
@@ -661,9 +660,8 @@ class OrganizationTest extends TestCase {
                                         'object_type'     => 'type',
                                         'object_id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
                                         'user_id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
-                                        'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                        'old_values'      => json_encode(['field1' => 'value1']),
-                                        'new_values'      => json_encode(['field1' => 'value2']),
+                                        'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
+                                        'context'         => json_encode(['field1' => 'value1']),
                                         'action'          => 'action1',
                                         'created_at'      => '2021-01-01T00:00:00+00:00',
                                         'updated_at'      => '2021-01-01T00:00:00+00:00',
@@ -688,8 +686,62 @@ class OrganizationTest extends TestCase {
                                     'object_type' => 'type',
                                     'object_id'   => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
                                     'user_id'     => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
-                                    'old_values'  => json_encode(['field1' => 'value1']),
-                                    'new_values'  => json_encode(['field1' => 'value2']),
+                                    'context'     => json_encode(['field1' => 'value1']),
+                                    'action'      => 'action1',
+                                    'created_at'  => '2021-01-01 00:00:00',
+                                    'updated_at'  => '2021-01-01 00:00:00',
+                                ])
+                                ->create([
+                                    'id' => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
+                                ]);
+
+                            return $organization;
+                        },
+                    ],
+                ]),
+            ),
+            'org-administer' => new CompositeDataProvider(
+                new RootOrganizationDataProvider('organization'),
+                new OrganizationUserDataProvider('organization', [
+                    'administer',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('organization', new JsonFragmentPaginatedSchema('audits', Audit::class), [
+                            'audits' => [
+                                'data'          => [
+                                    [
+                                        'id'              => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
+                                        'object_type'     => 'type',
+                                        'object_id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
+                                        'user_id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
+                                        'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
+                                        'context'         => json_encode(['field1' => 'value1']),
+                                        'action'          => 'action1',
+                                        'created_at'      => '2021-01-01T00:00:00+00:00',
+                                        'updated_at'      => '2021-01-01T00:00:00+00:00',
+                                    ],
+                                ],
+                                'paginatorInfo' => [
+                                    'count'        => 1,
+                                    'currentPage'  => 1,
+                                    'firstItem'    => 1,
+                                    'hasMorePages' => false,
+                                    'lastItem'     => 1,
+                                    'lastPage'     => 1,
+                                    'perPage'      => 25,
+                                    'total'        => 1,
+                                ],
+                            ],
+                        ]),
+                        static function (TestCase $test, Organization $organization): Organization {
+                            $organization = Organization::factory()
+                                ->hasAudits(1, [
+                                    'id'          => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
+                                    'object_type' => 'type',
+                                    'object_id'   => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
+                                    'user_id'     => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
+                                    'context'     => json_encode(['field1' => 'value1']),
                                     'action'      => 'action1',
                                     'created_at'  => '2021-01-01 00:00:00',
                                     'updated_at'  => '2021-01-01 00:00:00',

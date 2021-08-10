@@ -5,8 +5,7 @@ type Audit {
     user_id: ID
     object_type: String
     object_id: String
-    old_values: String
-    new_values: String
+    context: String
     action: String!
     created_at:  DateTime!
     updated_at: DateTime!
