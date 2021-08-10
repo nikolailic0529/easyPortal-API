@@ -88,21 +88,21 @@ class Builder extends ScoutBuilder {
     }
 
     public function whereMetadata(string $field, mixed $value): static {
-        return $this->where("{$this->getFieldMetadata()}.{$field}.keyword", $value);
+        return $this->where("{$this->getFieldMetadata()}.{$field}", $value);
     }
 
     /**
      * @param array<mixed> $values
      */
     public function whereMetadataIn(string $field, array $values): static {
-        return $this->whereIn("{$this->getFieldMetadata()}.{$field}.keyword", $values);
+        return $this->whereIn("{$this->getFieldMetadata()}.{$field}", $values);
     }
 
     /**
      * @param array<mixed> $values
      */
     public function whereMetadataNotIn(string $field, array $values): static {
-        return $this->whereNotIn("{$this->getFieldMetadata()}.{$field}.keyword", $values);
+        return $this->whereNotIn("{$this->getFieldMetadata()}.{$field}", $values);
     }
 
     protected function getFieldMetadata(): string {

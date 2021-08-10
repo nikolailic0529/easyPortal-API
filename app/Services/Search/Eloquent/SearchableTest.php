@@ -5,6 +5,7 @@ namespace App\Services\Search\Eloquent;
 use App\Models\Oem;
 use App\Models\ServiceGroup;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
+use App\Services\Search\Builders\Builder;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
@@ -608,6 +609,42 @@ class SearchableTest extends TestCase {
         $model::$searchProperties = $properties;
 
         $this->assertEquals($expected, $model->getSearchSearchable());
+    }
+
+    /**
+     * @covers ::getSearchProperty
+     */
+    public function testGetSearchProperty(): void {
+        $model = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @inheritDoc
+             */
+            protected static function getSearchProperties(): array {
+                return [
+                    'a' => new Text('a'),
+                    'b' => [
+                        'c' => new Text('c'),
+                    ],
+                ];
+            }
+
+            /**
+             * @inheritDoc
+             */
+            protected static function getSearchMetadata(): array {
+                return [
+                    'meta' => new Text('meta'),
+                ];
+            }
+        };
+
+        $this->assertNull($model->getSearchProperty(Builder::PROPERTIES.'.a'));
+        $this->assertNull($model->getSearchProperty(Builder::METADATA.'.meta'));
+        $this->assertNull($model->getSearchProperty('meta'));
+        $this->assertEquals('a', $model->getSearchProperty('a')?->getName());
+        $this->assertEquals('c', $model->getSearchProperty('b.c')?->getName());
     }
     //</editor-fold>
 

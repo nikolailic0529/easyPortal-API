@@ -62,7 +62,7 @@ class BuilderTest extends TestCase {
         $builder->whereMetadata('test', 'value');
 
         $this->assertEquals([
-            "{$meta}.test.keyword" => 'value',
+            "{$meta}.test" => 'value',
         ], $builder->wheres);
     }
 
@@ -81,7 +81,7 @@ class BuilderTest extends TestCase {
         $builder->whereMetadataIn('test', ['a', 'b', 'c']);
 
         $this->assertEquals([
-            "{$meta}.test.keyword" => ['a', 'b', 'c'],
+            "{$meta}.test" => ['a', 'b', 'c'],
         ], $builder->whereIns);
     }
 
@@ -100,7 +100,7 @@ class BuilderTest extends TestCase {
         $builder->whereMetadataNotIn('test', ['a', 'b', 'c']);
 
         $this->assertEquals([
-            "{$meta}.test.keyword" => ['a', 'b', 'c'],
+            "{$meta}.test" => ['a', 'b', 'c'],
         ], $builder->whereNotIns);
     }
 

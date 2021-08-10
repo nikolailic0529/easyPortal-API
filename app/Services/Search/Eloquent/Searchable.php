@@ -14,6 +14,7 @@ use DateTimeInterface;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Laravel\Scout\Events\ModelsImported;
@@ -189,6 +190,10 @@ trait Searchable {
 
     // <editor-fold desc="Search">
     // =========================================================================
+    public function getSearchProperty(string $name): ?Property {
+        return Arr::get($this->getSearchableProperties()[SearchBuilder::PROPERTIES], $name);
+    }
+
     /**
      * @return array<string>
      */

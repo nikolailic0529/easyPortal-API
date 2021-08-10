@@ -177,9 +177,16 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
      */
     protected function makeSort(ScoutBuilder $builder): ?array {
         $sort = (new Collection(parent::makeSort($builder)))
-            ->map(static function (array $clause): array {
+            ->map(static function (array $clause) use ($builder): array {
+                $name     = key($clause);
+                $property = $builder->model->getSearchProperty($name);
+
+                if ($property?->hasKeyword()) {
+                    $name = "{$name}.keyword";
+                }
+
                 return [
-                    key($clause).'.keyword' => [
+                    $name => [
                         'order'         => reset($clause),
                         'unmapped_type' => 'keyword',
                     ],

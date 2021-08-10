@@ -7,6 +7,7 @@ use App\Services\Search\Builders\UnionBuilder;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\UnionModel;
 use App\Services\Search\Properties\Text;
+use App\Services\Search\Properties\Uuid;
 use App\Services\Search\Scope;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
@@ -29,21 +30,27 @@ class SearchRequestFactoryTest extends TestCase {
      */
     public function testMakeFromBuilder(array $expected, Closure $prepare): void {
         $factory = $this->app->make(SearchRequestFactory::class);
+        $model   = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @var array<mixed>
+             */
+            public static array $searchProperties;
+
+            /**
+             * @inheritDoc
+             */
+            public static function getSearchProperties(): array {
+                return self::$searchProperties;
+            }
+        };
         $builder = $this->app->make(Builder::class, [
             'query' => '*',
-            'model' => new class() extends Model {
-                use Searchable;
-
-                /**
-                 * @inheritDoc
-                 */
-                public static function getSearchProperties(): array {
-                    return ['name' => new Text('name', true)];
-                }
-            },
+            'model' => $model,
         ]);
 
-        $prepare($builder);
+        $model::$searchProperties = (array) $prepare($builder);
 
         $this->assertEquals($expected, $factory->makeFromBuilder($builder)->toArray());
     }
@@ -343,7 +350,7 @@ class SearchRequestFactoryTest extends TestCase {
                     ],
                     'sort'  => [
                         [
-                            'key.a.keyword' => [
+                            'key.a' => [
                                 'order'         => 'asc',
                                 'unmapped_type' => 'keyword',
                             ],
@@ -356,9 +363,16 @@ class SearchRequestFactoryTest extends TestCase {
                         ],
                     ],
                 ],
-                static function (Builder $builder): void {
+                static function (Builder $builder): array {
                     $builder->orderBy('key.a', 'asc');
                     $builder->orderBy('key.b', 'desc');
+
+                    return [
+                        'key' => [
+                            'a' => new Uuid('a', true),
+                            'b' => new Text('b', true),
+                        ],
+                    ];
                 },
             ],
         ];
