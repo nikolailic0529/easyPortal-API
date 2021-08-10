@@ -19,6 +19,9 @@ use App\Models\Scopes\QuoteType;
 use App\Models\Scopes\QuoteTypeScope;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Properties\Date;
+use App\Services\Search\Properties\Double;
+use App\Services\Search\Properties\Text;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -186,23 +189,13 @@ class Document extends Model implements CascadeDeletable {
     protected static function getSearchProperties(): array {
         // WARNING: If array is changed the search index MUST be rebuilt.
         return [
-            'number'   => 'number',
-            'start'    => 'start',
-            'end'      => 'end',
-            'price'    => 'price',
+            'number'   => new Text('number', true),
+            'start'    => new Date('start'),
+            'end'      => new Date('end'),
+            'price'    => new Double('price'),
             'customer' => [
-                'name' => 'customer.name',
+                'name' => new Text('customer.name', true),
             ],
-        ];
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function getSearchSearchable(): array {
-        return [
-            'number',
-            'customer.name',
         ];
     }
     // </editor-fold>

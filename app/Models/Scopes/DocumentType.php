@@ -3,6 +3,7 @@
 namespace App\Models\Scopes;
 
 use App\Services\Search\Builders\Builder as SearchBuilder;
+use App\Services\Search\Properties\Uuid;
 use App\Services\Search\ScopeWithMetadata;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
@@ -28,7 +29,7 @@ class DocumentType implements Scope, ScopeWithMetadata {
      */
     public function getSearchMetadata(Model $model): array {
         return [
-            static::SEARCH_METADATA => 'type_id',
+            static::SEARCH_METADATA => new Uuid('type_id'),
         ];
     }
 }

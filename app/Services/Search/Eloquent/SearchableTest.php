@@ -6,6 +6,8 @@ use App\Models\Oem;
 use App\Models\ServiceGroup;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Search\Builders\Builder as SearchBuilder;
+use App\Services\Search\Properties\Text;
+use App\Services\Search\Properties\Uuid;
 use App\Services\Search\ScopeWithMetadata;
 use Closure;
 use DateTime;
@@ -54,14 +56,7 @@ class SearchableTest extends TestCase {
              * @inheritDoc
              */
             protected static function getSearchProperties(): array {
-                return ['a' => 'a'];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
+                return ['a' => new Text('a')];
             }
         };
 
@@ -79,14 +74,7 @@ class SearchableTest extends TestCase {
              * @inheritDoc
              */
             protected static function getSearchProperties(): array {
-                return ['a.b' => 'a'];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
+                return ['a.b' => new Text('a')];
             }
         };
 
@@ -114,18 +102,11 @@ class SearchableTest extends TestCase {
              */
             protected static function getSearchProperties(): array {
                 return [
-                    'sku' => 'sku',
+                    'sku' => new Text('sku'),
                     'oem' => [
-                        'id' => 'oem.id',
+                        'id' => new Uuid('oem.id'),
                     ],
                 ];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
             }
         };
 
@@ -140,11 +121,11 @@ class SearchableTest extends TestCase {
             }
 
             /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+             * @inheritDoc
              */
             public function getSearchMetadata(Model $model): array {
                 return [
-                    'sku' => 'sku',
+                    'sku' => new Text('sku'),
                 ];
             }
         };
@@ -207,13 +188,6 @@ class SearchableTest extends TestCase {
              */
             protected static function getSearchProperties(): array {
                 return [];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
             }
 
             public static function searchable(): void {
@@ -285,13 +259,6 @@ class SearchableTest extends TestCase {
             }
 
             /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
-            }
-
-            /**
              * @return array<string>
              */
             protected static function getSearchableRelations(): array {
@@ -326,9 +293,9 @@ class SearchableTest extends TestCase {
              */
             protected static function getSearchProperties(): array {
                 return [
-                    'sku' => 'sku',
+                    'sku' => new Text('sku'),
                     'oem' => [
-                        'id' => 'oem.id',
+                        'id' => new Text('oem.id'),
                     ],
                 ];
             }
@@ -336,16 +303,9 @@ class SearchableTest extends TestCase {
             /**
              * @inheritDoc
              */
-            public static function getSearchSearchable(): array {
-                return ['*'];
-            }
-
-            /**
-             * @inheritDoc
-             */
             protected static function getSearchMetadata(): array {
                 return [
-                    'meta' => 'meta.data',
+                    'meta' => new Text('meta.data'),
                 ];
             }
         };
@@ -361,12 +321,12 @@ class SearchableTest extends TestCase {
             }
 
             /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+             * @inheritDoc
              */
             public function getSearchMetadata(Model $model): array {
                 return [
-                    'sku' => 'abc.sku',
-                    'id'  => 'oem.id',
+                    'sku' => new Text('abc.sku'),
+                    'id'  => new Text('oem.id'),
                 ];
             }
         };
@@ -392,9 +352,9 @@ class SearchableTest extends TestCase {
              */
             protected static function getSearchProperties(): array {
                 return [
-                    'sku' => 'sku',
+                    'sku' => new Text('sku'),
                     'oem' => [
-                        'id' => 'oem.id',
+                        'id' => new Uuid('oem.id'),
                     ],
                 ];
             }
@@ -402,16 +362,9 @@ class SearchableTest extends TestCase {
             /**
              * @inheritDoc
              */
-            public static function getSearchSearchable(): array {
-                return ['*'];
-            }
-
-            /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
-             */
             protected static function getSearchMetadata(): array {
                 return [
-                    'meta' => 'meta.data',
+                    'meta' => new Text('meta.data'),
                 ];
             }
         };
@@ -427,12 +380,12 @@ class SearchableTest extends TestCase {
             }
 
             /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+             * @inheritDoc
              */
             public function getSearchMetadata(Model $model): array {
                 return [
-                    'sku' => 'abc.sku',
-                    'id'  => 'oem.id',
+                    'sku' => new Text('abc.sku'),
+                    'id'  => new Uuid('oem.id'),
                 ];
             }
         };
@@ -442,14 +395,14 @@ class SearchableTest extends TestCase {
         // Test
         $this->assertEquals([
             SearchBuilder::METADATA   => [
-                'sku'  => 'abc.sku',
-                'id'   => 'oem.id',
-                'meta' => 'meta.data',
+                'sku'  => new Text('abc.sku'),
+                'id'   => new Uuid('oem.id'),
+                'meta' => new Text('meta.data'),
             ],
             SearchBuilder::PROPERTIES => [
-                'sku' => 'sku',
+                'sku' => new Text('sku'),
                 'oem' => [
-                    'id' => 'oem.id',
+                    'id' => new Uuid('oem.id'),
                 ],
             ],
         ], $model->getSearchableProperties());
@@ -466,31 +419,19 @@ class SearchableTest extends TestCase {
             }
 
             /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+             * @inheritDoc
              */
             protected static function getSearchProperties(): array {
-                return [
-                    'sku' => 'sku',
-                    'oem' => [
-                        'id' => 'oem.id',
-                    ],
-                ];
-            }
-
-            /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
-             */
-            protected static function getSearchMetadata(): array {
-                return [
-                    'meta' => 'meta.data',
-                ];
+                return [];
             }
 
             /**
              * @inheritDoc
              */
-            public static function getSearchSearchable(): array {
-                return ['*'];
+            protected static function getSearchMetadata(): array {
+                return [
+                    'meta' => new Text('meta.data'),
+                ];
             }
         };
 
@@ -505,11 +446,11 @@ class SearchableTest extends TestCase {
             }
 
             /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+             * @inheritDoc
              */
             public function getSearchMetadata(Model $model): array {
                 return [
-                    'meta' => 'meta.data',
+                    'meta' => new Text('meta.data'),
                 ];
             }
         };
@@ -543,13 +484,6 @@ class SearchableTest extends TestCase {
             protected static function getSearchProperties(): array {
                 return [];
             }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
-            }
         };
 
         if ($expected instanceof Exception) {
@@ -582,13 +516,6 @@ class SearchableTest extends TestCase {
              */
             protected static function getSearchProperties(): array {
                 return [];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
             }
         };
 
@@ -642,13 +569,6 @@ class SearchableTest extends TestCase {
                 return [];
             }
 
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
-            }
-
             protected function scoutQueueMakeSearchable(Collection $models): void {
                 $this->models = $models;
             }
@@ -658,6 +578,36 @@ class SearchableTest extends TestCase {
 
         $this->assertCount(1, $model->models);
         $this->assertSame($a, $model->models->first());
+    }
+
+    /**
+     * @dataProvider dataProviderGetSearchSearchable
+     *
+     * @covers ::getSearchSearchable
+     *
+     * @param array<mixed> $expected
+     * @param array<mixed> $properties
+     */
+    public function testGetSearchSearchable(array $expected, array $properties): void {
+        $model = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @var array<mixed>
+             */
+            public static array $searchProperties;
+
+            /**
+             * @inheritDoc
+             */
+            protected static function getSearchProperties(): array {
+                return self::$searchProperties;
+            }
+        };
+
+        $model::$searchProperties = $properties;
+
+        $this->assertEquals($expected, $model->getSearchSearchable());
     }
     //</editor-fold>
 
@@ -681,6 +631,87 @@ class SearchableTest extends TestCase {
                 new class() extends Model {
                     // empty
                 },
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function dataProviderGetSearchSearchable(): array {
+        return [
+            'no searchable'  => [
+                [
+                    // empty
+                ],
+                [
+                    'a' => new Text('a'),
+                    'b' => [
+                        'a' => new Text('a'),
+                        'b' => new Text('a'),
+                    ],
+                ],
+            ],
+            'all searchable' => [
+                [
+                    'properties.*',
+                ],
+                [
+                    'a' => new Text('a', true),
+                    'b' => [
+                        'a' => new Text('a', true),
+                        'b' => new Text('a', true),
+                    ],
+                ],
+            ],
+            'mixed one'      => [
+                [
+                    'properties.b.b',
+                ],
+                [
+                    'a' => new Text('a'),
+                    'b' => [
+                        'a' => new Text('a'),
+                        'b' => new Text('a', true),
+                    ],
+                ],
+            ],
+            'mixed two'      => [
+                [
+                    'properties.b.*',
+                ],
+                [
+                    'a' => new Text('a'),
+                    'b' => [
+                        'a' => new Text('a', true),
+                        'b' => new Text('a', true),
+                    ],
+                ],
+            ],
+            'mixed three'    => [
+                [
+                    'properties.a',
+                ],
+                [
+                    'a' => new Text('a', true),
+                    'b' => [
+                        'a' => new Text('a'),
+                        'b' => new Text('a'),
+                    ],
+                ],
+            ],
+            'mixed four'     => [
+                [
+                    'properties.a',
+                    'properties.b.a',
+                ],
+                [
+                    'a' => new Text('a', true),
+                    'b' => [
+                        'a' => new Text('a', true),
+                        'b' => new Text('a'),
+                    ],
+                ],
             ],
         ];
     }

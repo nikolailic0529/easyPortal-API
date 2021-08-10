@@ -11,6 +11,8 @@ use App\Models\Concerns\Relations\HasStatuses;
 use App\Models\Concerns\Relations\HasType;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Properties\Integer;
+use App\Services\Search\Properties\Text;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -120,23 +122,14 @@ class Customer extends Model {
     protected static function getSearchProperties(): array {
         // WARNING: If array is changed the search index MUST be rebuilt.
         return [
-            'name'            => 'name',
-            'assets_count'    => 'assets_count',
-            'locations_count' => 'locations_count',
+            'name'            => new Text('name', true),
+            'assets_count'    => new Integer('assets_count'),
+            'locations_count' => new Integer('locations_count'),
             'headquarter'     => [
                 'city' => [
-                    'name' => 'headquarter.city.name',
+                    'name' => new Text('headquarter.city.name'),
                 ],
             ],
-        ];
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function getSearchSearchable(): array {
-        return [
-            'name',
         ];
     }
     // </editor-fold>

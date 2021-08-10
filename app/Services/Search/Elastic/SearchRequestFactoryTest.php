@@ -6,6 +6,7 @@ use App\Services\Search\Builders\Builder;
 use App\Services\Search\Builders\UnionBuilder;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\UnionModel;
+use App\Services\Search\Properties\Text;
 use App\Services\Search\Scope;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
@@ -37,14 +38,7 @@ class SearchRequestFactoryTest extends TestCase {
                  * @inheritDoc
                  */
                 public static function getSearchProperties(): array {
-                    return ['name' => 'name'];
-                }
-
-                /**
-                 * @inheritDoc
-                 */
-                public static function getSearchSearchable(): array {
-                    return ['*'];
+                    return ['name' => new Text('name', true)];
                 }
             },
         ]);
@@ -74,13 +68,6 @@ class SearchRequestFactoryTest extends TestCase {
                 return [];
             }
 
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
-            }
-
             public function searchableAs(): string {
                 return 'a';
             }
@@ -93,13 +80,6 @@ class SearchRequestFactoryTest extends TestCase {
              */
             protected static function getSearchProperties(): array {
                 return [];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
             }
 
             public function searchableAs(): string {

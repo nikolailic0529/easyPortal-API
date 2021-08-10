@@ -12,7 +12,6 @@ use Laravel\Scout\Builder;
 use Laravel\Scout\Builder as ScoutBuilder;
 use LogicException;
 
-use function array_map;
 use function is_array;
 use function key;
 use function reset;
@@ -116,9 +115,7 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
             $query['bool']['must']['simple_query_string'] = [
                 'query'  => $query['bool']['must']['query_string']['query'],
                 'flags'  => 'AND|ESCAPE|NOT|OR|PHRASE|PRECEDENCE|WHITESPACE',
-                'fields' => array_map(static function (string $field): string {
-                    return SearchBuilder::PROPERTIES.'.'.$field;
-                }, $builder->model->getSearchSearchable()),
+                'fields' => $builder->model->getSearchSearchable(),
             ];
 
             unset($query['bool']['must']['query_string']);

@@ -72,13 +72,6 @@ class ModelConverterTest_Model extends Model {
             ],
         ];
     }
-
-    /**
-     * @inheritDoc
-     */
-    public static function getSearchSearchable(): array {
-        return ['*'];
-    }
 }
 
 // @phpcs:enable

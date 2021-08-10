@@ -5,6 +5,7 @@ namespace App\Services\Search\Eloquent;
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Builders\Builder as SearchBuilder;
+use App\Services\Search\Properties\Property;
 use App\Services\Search\ScopeWithMetadata;
 use App\Utils\ModelProperty;
 use Carbon\CarbonInterface;
@@ -24,13 +25,19 @@ use function app;
 use function array_intersect;
 use function array_key_exists;
 use function array_keys;
+use function array_map;
+use function array_merge;
 use function array_walk_recursive;
 use function config;
 use function event;
+use function explode;
+use function is_array;
 use function is_iterable;
 use function is_null;
 use function is_scalar;
+use function sort;
 use function sprintf;
+use function str_ends_with;
 
 /**
  * @mixin \App\Models\Model
@@ -56,31 +63,23 @@ trait Searchable {
      *
      * Example:
      *      [
-     *          'name' => 'name',               // $model->name
+     *          'name' => new Text('name', true),         // $model->name
      *          'product' => [
-     *              'sku'  => 'product.sku',    // $model->product->sku
-     *              'name' => 'product.name',   // $model->product->name
+     *              'sku'  => new Text('product.sku'),    // $model->product->sku
+     *              'name' => new Text('product.name'),   // $model->product->name
      *          ],
      *      ]
      *
-     * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+     * @return array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property>>>>
      */
     abstract public static function getSearchProperties(): array;
-
-    /**
-     * Returns properties that will be used to search. You can return `['*']` to
-     * search over all properties.
-     *
-     * @return array<string>
-     */
-    abstract public static function getSearchSearchable(): array;
 
     /**
      * Returns properties that must be added to the index as metadata.
      *
      * @see getSearchProperties()
      *
-     * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+     * @return array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property>>>>
      */
     protected static function getSearchMetadata(): array {
         return [];
@@ -92,9 +91,12 @@ trait Searchable {
     public function searchIndexShouldBeUpdated(): bool {
         $properties = (new Collection($this->getSearchableProperties()))
             ->flatten()
-            ->filter(static function (string $property): bool {
-                return (new ModelProperty($property))->isAttribute();
+            ->map(static function (Property $property): ?string {
+                return (new ModelProperty($property->getName()))->isAttribute()
+                    ? $property->getName()
+                    : null;
             })
+            ->filter()
             ->all();
         $changed    = array_keys($this->getDirty());
         $should     = (bool) array_intersect($changed, $properties);
@@ -117,7 +119,9 @@ trait Searchable {
         $properties = $this->getSearchableProperties();
 
         array_walk_recursive($properties, function (mixed &$value): void {
-            $value = $this->toSearchableValue((new ModelProperty($value))->getValue($this));
+            $value = $value instanceof Property
+                ? $this->toSearchableValue((new ModelProperty($value->getName()))->getValue($this))
+                : $value;
         });
 
         // Return
@@ -134,7 +138,7 @@ trait Searchable {
             static function () use ($chunk, $continue, $callback): void {
                 static::callWithoutScoutQueue(static function () use ($chunk, $continue, $callback): void {
                     Telescope::withoutRecording(static function () use ($chunk, $continue, $callback): void {
-                        $chunk  ??= config('scout.chunk.searchable', 500);
+                        $chunk    ??= config('scout.chunk.searchable', 500);
                         $trashed  = static::usesSoftDelete() && config('scout.soft_delete', false);
                         $callback = static function (EloquentCollection $items) use ($callback): void {
                             // Empty?
@@ -183,6 +187,68 @@ trait Searchable {
     }
     // </editor-fold>
 
+    // <editor-fold desc="Search">
+    // =========================================================================
+    /**
+     * @return array<string>
+     */
+    public function getSearchSearchable(): array {
+        return $this->getSearchSearchableProcess(
+            $this->getSearchableProperties()[SearchBuilder::PROPERTIES],
+            SearchBuilder::PROPERTIES,
+        );
+    }
+
+    /**
+     * @param array<string,\App\Services\Search\Properties\Property|mixed> $properties
+     *
+     * @return array<string>
+     */
+    protected function getSearchSearchableProcess(array $properties, string $prefix = null): array {
+        // Process
+        $searchable = [];
+
+        foreach ($properties as $name => $property) {
+            if ($property instanceof Property) {
+                if ($property->isSearchable()) {
+                    $searchable[] = $name;
+                }
+            } elseif (is_array($property)) {
+                $searchable = array_merge($searchable, $this->getSearchSearchableProcess($property, $name));
+            } else {
+                // ignore
+            }
+        }
+
+        // All properties searchable
+        $keys  = array_keys($properties);
+        $names = (new Collection($searchable))
+            ->map(static function (string $name): string {
+                return str_ends_with($name, '.*')
+                    ? explode('.', $name, 2)[0]
+                    : $name;
+            })
+            ->all();
+
+        sort($keys);
+        sort($names);
+
+        if ($keys === $names) {
+            $searchable = ['*'];
+        }
+
+        // Add prefix
+        if ($prefix) {
+            $searchable = array_map(static function (string $name) use ($prefix): string {
+                return "{$prefix}.{$name}";
+            }, $searchable);
+        }
+
+        // Return
+        return $searchable;
+    }
+    // </editor-fold>
+
     // <editor-fold desc="Helpers">
     // =========================================================================
     /**
@@ -191,8 +257,8 @@ trait Searchable {
     protected function getSearchableRelations(): array {
         return (new Collection($this->getSearchableProperties()))
             ->flatten()
-            ->map(static function (string $property): ModelProperty {
-                return new ModelProperty($property);
+            ->map(static function (Property $property): ModelProperty {
+                return new ModelProperty($property->getName());
             })
             ->filter(static function (ModelProperty $property): bool {
                 return $property->isRelation();
@@ -206,7 +272,7 @@ trait Searchable {
     }
 
     /**
-     * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+     * @return array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property>>>>
      */
     protected function getSearchableProperties(): array {
         $properties = [
