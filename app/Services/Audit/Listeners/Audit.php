@@ -26,14 +26,14 @@ class Audit implements Subscriber {
     public function signIn(Login $event): void {
         $user = $event->user;
         if ($user instanceof Model) {
-            $this->auditor->create(Action::authSignedIn(), $user);
+            $this->auditor->create(Action::authSignedIn(), $user, ['guard' => $event->guard ]);
         }
     }
 
     public function signOut(Logout $event): void {
         $user = $event->user;
         if ($user instanceof Model) {
-            $this->auditor->create(Action::authSignedOut(), $user);
+            $this->auditor->create(Action::authSignedOut(), $user, ['guard' => $event->guard ]);
         }
     }
 

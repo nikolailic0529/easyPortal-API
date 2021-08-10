@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Services\Audit\Enums\Action;
 use Closure;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Support\Facades\Auth;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -72,6 +73,37 @@ class AuditorTest extends TestCase {
         });
 
         $changeRequest->delete();
+    }
+
+    /**
+     * @covers ::create
+     *
+     */
+    public function testLogin(): void {
+        $user = User::factory()->make();
+        $this->override(Auditor::class, static function (MockInterface $mock) use ($user): void {
+            $mock
+                ->shouldReceive('create')
+                ->once()
+                ->with(Action::authSignedIn(), $user, ['guard' => 'web']);
+        });
+        Auth::guard('web')->login($user);
+    }
+
+    /**
+     * @covers ::create
+     *
+     */
+    public function testLogout(): void {
+        $user = User::factory()->make();
+        Auth::guard('web')->login($user);
+        $this->override(Auditor::class, static function (MockInterface $mock) use ($user): void {
+            $mock
+                ->shouldReceive('create')
+                ->once()
+                ->with(Action::authSignedOut(), $user, ['guard' => 'web']);
+        });
+        Auth::logout($user);
     }
     /**
      * @covers ::create
