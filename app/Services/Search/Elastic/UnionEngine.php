@@ -5,6 +5,7 @@ namespace App\Services\Search\Elastic;
 use App\Services\Search\UnionBuilder;
 use ElasticScoutDriverPlus\QueryMatch;
 use ElasticScoutDriverPlus\SearchResult;
+use Generator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\LazyCollection;
 use InvalidArgumentException;
@@ -53,8 +54,11 @@ class UnionEngine extends Engine {
      * @param \Illuminate\Database\Eloquent\Model  $model
      */
     public function lazyMap(Builder $builder, $results, $model): LazyCollection {
-        return new LazyCollection(function () use ($builder, $results, $model): Collection {
-            return $this->map($builder, $results, $model);
+        return new LazyCollection(static function () use ($results): Generator {
+            foreach ($results as $query) {
+                /** @var \ElasticScoutDriverPlus\QueryMatch $query */
+                yield $query->model();
+            }
         });
     }
 

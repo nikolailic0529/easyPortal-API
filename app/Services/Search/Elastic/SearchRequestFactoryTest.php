@@ -114,7 +114,7 @@ class SearchRequestFactoryTest extends TestCase {
 
         // Build
         $builder->addModel($a::class, [], 2);
-        $builder->addModel($b::class, [$scope::class]);
+        $builder->addModel($b::class, [$scope]);
         $builder->where('test', 'value');
 
         // Test
