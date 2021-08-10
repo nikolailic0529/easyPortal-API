@@ -5,7 +5,6 @@ namespace App\Services\Search\Eloquent;
 use App\Models\Oem;
 use App\Models\ServiceGroup;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
-use App\Services\Search\Builders\Builder;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
@@ -640,11 +639,12 @@ class SearchableTest extends TestCase {
             }
         };
 
-        $this->assertNull($model->getSearchProperty(Builder::PROPERTIES.'.a'));
-        $this->assertNull($model->getSearchProperty(Builder::METADATA.'.meta'));
+        $this->assertEquals('a', $model->getSearchProperty(SearchBuilder::PROPERTIES.'.a')?->getName());
+        $this->assertEquals('a', $model->getSearchProperty(SearchBuilder::PROPERTIES.'.a')?->getName());
+        $this->assertEquals('c', $model->getSearchProperty(SearchBuilder::PROPERTIES.'.b.c')?->getName());
+        $this->assertEquals('meta', $model->getSearchProperty(SearchBuilder::METADATA.'.meta')?->getName());
         $this->assertNull($model->getSearchProperty('meta'));
-        $this->assertEquals('a', $model->getSearchProperty('a')?->getName());
-        $this->assertEquals('c', $model->getSearchProperty('b.c')?->getName());
+        $this->assertNull($model->getSearchProperty('a'));
     }
     //</editor-fold>
 

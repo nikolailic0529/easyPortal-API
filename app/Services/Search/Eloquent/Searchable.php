@@ -191,7 +191,7 @@ trait Searchable {
     // <editor-fold desc="Search">
     // =========================================================================
     public function getSearchProperty(string $name): ?Property {
-        return Arr::get($this->getSearchableProperties()[SearchBuilder::PROPERTIES], $name);
+        return Arr::get($this->getSearchableProperties(), $name);
     }
 
     /**

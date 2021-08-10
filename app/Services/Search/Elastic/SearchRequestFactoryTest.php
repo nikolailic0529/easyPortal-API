@@ -350,13 +350,13 @@ class SearchRequestFactoryTest extends TestCase {
                     ],
                     'sort'  => [
                         [
-                            'key.a' => [
+                            Builder::PROPERTIES.'.key.a' => [
                                 'order'         => 'asc',
                                 'unmapped_type' => 'keyword',
                             ],
                         ],
                         [
-                            'key.b.keyword' => [
+                            Builder::PROPERTIES.'.key.b.keyword' => [
                                 'order'         => 'desc',
                                 'unmapped_type' => 'keyword',
                             ],
@@ -364,8 +364,8 @@ class SearchRequestFactoryTest extends TestCase {
                     ],
                 ],
                 static function (Builder $builder): array {
-                    $builder->orderBy('key.a', 'asc');
-                    $builder->orderBy('key.b', 'desc');
+                    $builder->orderBy(Builder::PROPERTIES.'.key.a', 'asc');
+                    $builder->orderBy(Builder::PROPERTIES.'.key.b', 'desc');
 
                     return [
                         'key' => [
