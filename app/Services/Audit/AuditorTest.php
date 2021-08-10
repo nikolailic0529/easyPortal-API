@@ -21,7 +21,7 @@ class AuditorTest extends TestCase {
      * @covers ::create
      *
      */
-    public function testCreate(): void {
+    public function testCreated(): void {
         $this->setUser(User::factory()->make(), $this->setOrganization(Organization::factory()->make()));
         $changeRequest = ChangeRequest::factory()->make();
 
@@ -73,14 +73,13 @@ class AuditorTest extends TestCase {
 
         $changeRequest->delete();
     }
-
     /**
      * @covers ::create
-     * @dataProvider dataProviderAuditRecorded
+     * @dataProvider dataProviderCreate
      *
      * @param array<string,mixed> $settings
      */
-    public function testAuditRecorded(Closure $expectedFactory, Closure $prepare = null): void {
+    public function testCreate(Closure $expectedFactory, Closure $prepare = null): void {
         $user         = User::factory()->create([
             'id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
         ]);
@@ -91,6 +90,7 @@ class AuditorTest extends TestCase {
         if ($prepare) {
             $prepare($this, $organization, $user);
         }
+
         $expected = $expectedFactory($this, $organization, $user);
         $this->assertDatabaseHas((new Audit())->getTable(), $expected);
     }
@@ -100,7 +100,7 @@ class AuditorTest extends TestCase {
     /**
      * @return array<mixed>
      */
-    public function dataProviderAuditRecorded(): array {
+    public function dataProviderCreate(): array {
         return [
             'model.created' => [
                 static function (): array {

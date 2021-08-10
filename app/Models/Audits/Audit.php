@@ -2,10 +2,8 @@
 
 namespace App\Models\Audits;
 
-use App\Models\User;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Audit.

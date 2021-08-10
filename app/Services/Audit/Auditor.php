@@ -67,7 +67,7 @@ class Auditor {
         }
         return [
             'properties' => $properties,
-            'extra'      =>  $extra,
+            'extra'      => $extra,
         ];
     }
 }

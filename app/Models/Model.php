@@ -6,7 +6,6 @@ use App\Models\Concerns\CascadeDeletes\CascadeDeletes;
 use App\Models\Concerns\HideDeletedNot;
 use App\Models\Concerns\MorphMapRequired;
 use App\Models\Concerns\UuidAsPrimaryKey;
-use App\Services\Audit\Concerns\AuditObserve;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LastDragon_ru\LaraASP\Eloquent\Model as LaraASPModel;
 
@@ -16,7 +15,6 @@ abstract class Model extends LaraASPModel {
     use UuidAsPrimaryKey;
     use MorphMapRequired;
     use HideDeletedNot;
-    use AuditObserve;
 
     protected const CASTS = [
         // empty
