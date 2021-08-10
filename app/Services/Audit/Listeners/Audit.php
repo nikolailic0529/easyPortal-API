@@ -40,7 +40,7 @@ class Audit implements Subscriber {
     public function routeMatched(RouteMatched $event): void {
         $routes = ['download.csv', 'download.excel', 'download.pdf'];
         if (in_array($event->route->getName(), $routes, true)) {
-            $this->auditor->create(Action::exported());
+            // TODO:: Implement another event to handle needed data
         }
     }
 
