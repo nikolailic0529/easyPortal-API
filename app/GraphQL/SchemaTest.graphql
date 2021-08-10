@@ -350,6 +350,20 @@ input AssetsSort {
   status: StatusSort!
 }
 
+type Audit {
+  id: ID!
+  organization_id: ID!
+  organization: Organization!
+  user_id: ID
+  object_type: String
+  object_id: String
+  old_values: String
+  new_values: String
+  action: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
 input AuthorizeOrganizationInput {
   code: String!
   state: String!
@@ -1486,6 +1500,7 @@ type Organization {
   @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
   """
   roles: [Role!]!
+  audits: [Audit!]!
 }
 
 type OrganizationBranding {

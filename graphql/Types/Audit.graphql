@@ -1,0 +1,12 @@
+type Audit {
+    id: ID!
+    organization_id: ID!
+    organization: Organization!
+    user_id: ID
+    object_type: String
+    object_id: String
+    context: String
+    action: String!
+    created_at:  DateTime!
+    updated_at: DateTime!
+}

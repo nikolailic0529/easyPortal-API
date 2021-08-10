@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Concerns\Relations\HasFiles;
 use App\Models\Concerns\Relations\HasOrganization;
 use App\Models\Concerns\Relations\HasUser;
+use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -34,7 +35,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChangeRequest query()
  * @mixin \Eloquent
  */
-class ChangeRequest extends PolymorphicModel {
+class ChangeRequest extends PolymorphicModel implements Auditable {
     use HasFactory;
     use OwnedByOrganization;
     use HasFiles;

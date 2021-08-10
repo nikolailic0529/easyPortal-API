@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Audits\Audit;
 use App\Models\Concerns\Relations\HasCurrency;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Translation\HasLocalePreference;
@@ -125,5 +126,9 @@ class Organization extends Model implements HasLocalePreference {
 
     public function roles(): HasMany {
         return $this->hasMany(Role::class);
+    }
+
+    public function audits(): HasMany {
+        return $this->hasMany(Audit::class);
     }
 }
