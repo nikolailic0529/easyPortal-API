@@ -3,7 +3,7 @@
 namespace App\Models\Scopes;
 
 use App\Models\Type;
-use App\Services\Search\Builder as SearchBuilder;
+use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Scope as SearchScope;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;

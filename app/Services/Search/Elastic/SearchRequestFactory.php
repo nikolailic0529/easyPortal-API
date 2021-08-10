@@ -2,8 +2,8 @@
 
 namespace App\Services\Search\Elastic;
 
-use App\Services\Search\Builder as SearchBuilder;
-use App\Services\Search\UnionBuilder as SearchCombinedBuilder;
+use App\Services\Search\Builders\Builder as SearchBuilder;
+use App\Services\Search\Builders\UnionBuilder as SearchCombinedBuilder;
 use ElasticScoutDriver\Factories\SearchRequestFactory as BaseSearchRequestFactory;
 use ElasticScoutDriverPlus\Builders\BoolQueryBuilder;
 use ElasticScoutDriverPlus\Builders\SearchRequestBuilder;
@@ -31,7 +31,7 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
 
         foreach ($builder->getModels() as $model => $settings) {
             // Builder
-            /** @var \App\Services\Search\Builder $modelBuilder */
+            /** @var \App\Services\Search\Builders\Builder $modelBuilder */
             $modelBuilder = $model::search($builder->query);
 
             foreach ($settings['scopes'] as $scope) {

@@ -5,14 +5,14 @@ namespace App\Services\Search;
 use App\Models\Asset;
 use App\Models\Customer;
 use App\Models\Document;
-use App\Services\Search\Builder as SearchBuilder;
+use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Elastic\SearchRequestFactory;
 use App\Services\Search\GraphQL\ModelConverter;
 use App\Services\Search\GraphQL\ScoutSortColumnResolver;
 use ElasticScoutDriver\Factories\SearchRequestFactoryInterface;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
-use Laravel\Scout\Builder;
+use Laravel\Scout\Builder as ScoutBuilder;
 use LastDragon_ru\LaraASP\GraphQL\SortBy\Contracts\ScoutColumnResolver;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 
@@ -34,7 +34,7 @@ class Provider extends ServiceProvider {
     }
 
     protected function registerBindings(): void {
-        $this->app->bind(Builder::class, SearchBuilder::class);
+        $this->app->bind(ScoutBuilder::class, SearchBuilder::class);
         $this->app->bind(SearchRequestFactoryInterface::class, SearchRequestFactory::class);
         $this->app->bind(ScoutColumnResolver::class, ScoutSortColumnResolver::class);
     }

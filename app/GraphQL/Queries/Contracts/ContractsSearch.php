@@ -3,7 +3,7 @@
 namespace App\GraphQL\Queries\Contracts;
 
 use App\Models\Scopes\ContractType;
-use App\Services\Search\Builder;
+use App\Services\Search\Builders\Builder;
 
 class ContractsSearch {
     public function __invoke(Builder $builder): Builder {

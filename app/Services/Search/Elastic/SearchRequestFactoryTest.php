@@ -2,11 +2,11 @@
 
 namespace App\Services\Search\Elastic;
 
-use App\Services\Search\Builder;
+use App\Services\Search\Builders\Builder;
+use App\Services\Search\Builders\UnionBuilder;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\UnionModel;
 use App\Services\Search\Scope;
-use App\Services\Search\UnionBuilder;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Tests\TestCase;

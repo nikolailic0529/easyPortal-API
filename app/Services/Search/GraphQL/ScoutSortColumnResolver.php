@@ -2,7 +2,7 @@
 
 namespace App\Services\Search\GraphQL;
 
-use App\Services\Search\Builder;
+use App\Services\Search\Builders\Builder;
 use Illuminate\Database\Eloquent\Model;
 use LastDragon_ru\LaraASP\GraphQL\SortBy\Contracts\ScoutColumnResolver;
 

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Search;
+namespace App\Services\Search\Builders;
 
 use App\Services\Search\Eloquent\UnionModel;
 use Illuminate\Contracts\Container\Container;

@@ -5,7 +5,7 @@ namespace App\Services\Search\Eloquent;
 use App\Models\Oem;
 use App\Models\ServiceGroup;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
-use App\Services\Search\Builder as SearchBuilder;
+use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\ScopeWithMetadata;
 use Closure;
 use DateTime;

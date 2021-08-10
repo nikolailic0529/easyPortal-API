@@ -4,7 +4,7 @@ namespace App\Services\Search\Eloquent;
 
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
-use App\Services\Search\Builder as SearchBuilder;
+use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\ScopeWithMetadata;
 use App\Utils\ModelProperty;
 use Carbon\CarbonInterface;

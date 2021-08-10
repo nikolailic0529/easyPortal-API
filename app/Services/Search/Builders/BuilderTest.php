@@ -1,8 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Search;
+namespace App\Services\Search\Builders;
 
-use App\Services\Search\Builder as SearchBuilder;
+use App\Services\Search\Scope;
 use App\Services\Search\Scope as SearchScope;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +16,7 @@ use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Builder
+ * @coversDefaultClass \App\Services\Search\Builders\Builder
  */
 class BuilderTest extends TestCase {
     /**
@@ -31,7 +31,7 @@ class BuilderTest extends TestCase {
                 // empty
             }
 
-            public function applyForSearch(SearchBuilder $builder, Model $model): void {
+            public function applyForSearch(Builder $builder, Model $model): void {
                 $builder->where('test', 'value');
             }
         };
@@ -150,7 +150,7 @@ class BuilderTest extends TestCase {
                 // empty
             },
         ]);
-        $scope   = Mockery::mock(Scope::class);
+        $scope   = Mockery::mock(SearchScope::class);
         $scope
             ->shouldReceive('applyForSearch')
             ->with($builder, $builder->model)

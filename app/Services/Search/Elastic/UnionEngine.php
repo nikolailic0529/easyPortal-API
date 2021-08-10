@@ -2,7 +2,7 @@
 
 namespace App\Services\Search\Elastic;
 
-use App\Services\Search\UnionBuilder;
+use App\Services\Search\Builders\UnionBuilder;
 use ElasticScoutDriverPlus\QueryMatch;
 use ElasticScoutDriverPlus\SearchResult;
 use Generator;

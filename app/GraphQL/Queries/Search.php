@@ -7,8 +7,8 @@ use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Scopes\ContractType;
 use App\Models\Scopes\QuoteType;
+use App\Services\Search\Builders\UnionBuilder;
 use App\Services\Search\Eloquent\UnionModel;
-use App\Services\Search\UnionBuilder;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Database\Eloquent\Builder;
 
