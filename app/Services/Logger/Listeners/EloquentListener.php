@@ -4,14 +4,12 @@ namespace App\Services\Logger\Listeners;
 
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
+use App\Utils\ModelHelper;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 use function array_filter;
 use function array_intersect_key;
-use function class_uses_recursive;
-use function in_array;
 use function mb_strlen;
 use function reset;
 use function str_pad;
@@ -19,11 +17,6 @@ use function str_replace;
 
 class EloquentListener extends Listener {
     use Database;
-
-    /**
-     * @var array<class-string<\Illuminate\Database\Eloquent\Model>, bool>
-     */
-    private array $softDeletable = [];
 
     public function subscribe(Dispatcher $dispatcher): void {
         /** @var array<string,string> $events */
@@ -130,11 +123,7 @@ class EloquentListener extends Listener {
     }
 
     protected function isSoftDeletable(Model $model): bool {
-        if (!isset($this->softDeletable[$model::class])) {
-            $this->softDeletable[$model::class] = in_array(SoftDeletes::class, class_uses_recursive($model), true);
-        }
-
-        return $this->softDeletable[$model::class];
+        return ModelHelper::isSoftDeletable($model);
     }
 
     protected function getCategory(): Category {
