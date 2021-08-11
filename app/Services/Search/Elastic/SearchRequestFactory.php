@@ -130,10 +130,6 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
     protected function makeFilter(ScoutBuilder $builder): ?array {
         $filter = new Collection(parent::makeFilter($builder));
 
-        if ($builder->whereIns) {
-            $filter = $filter->merge($this->getTerms($builder->whereIns));
-        }
-
         if ($builder instanceof SearchBuilder) {
             $not = new Collection();
 
