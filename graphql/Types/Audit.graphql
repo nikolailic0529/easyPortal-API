@@ -4,8 +4,11 @@ type Audit {
     user_id: ID
     object_type: String
     object_id: String
-    context: String
     action: String!
     created_at:  DateTime!
     updated_at: DateTime!
+
+    "JSON"
+    context: String
+    @field(resolver: "App\\GraphQL\\Resolvers\\JsonResolver")
 }
