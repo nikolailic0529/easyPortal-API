@@ -3,7 +3,7 @@
 namespace App\Services\Search\Properties;
 
 class Date extends Property {
-    public function hasKeyword(): bool {
-        return false;
+    public function getType(): string {
+        return 'date';
     }
 }

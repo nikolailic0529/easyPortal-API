@@ -18,5 +18,22 @@ abstract class Property {
         return $this->searchable;
     }
 
-    abstract public function hasKeyword(): bool;
+    abstract public function getType(): string;
+
+    public function hasKeyword(): bool {
+        return false;
+    }
+
+    /**
+     * @return array<string,array{type:string}>|null
+     */
+    public function getFields(): ?array {
+        $fields = [];
+
+        if ($this->hasKeyword()) {
+            $fields['keyword'] = ['type' => 'keyword'];
+        }
+
+        return $fields ?: null;
+    }
 }

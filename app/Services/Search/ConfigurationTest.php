@@ -209,6 +209,71 @@ class ConfigurationTest extends TestCase {
         $this->assertEquals('test', $a->getIndexAlias());
         $this->assertEquals('test', $b->getIndexAlias());
     }
+
+    /**
+     * @covers ::getMappings
+     * @covers ::getMappingsProcess
+     */
+    public function testGetMappings(): void {
+        $actual   = $this
+            ->getModel(
+                [
+                    'meta' => new Text('meta'),
+                ],
+                [
+                    'name'  => new Text('name'),
+                    'child' => [
+                        'id'   => new Uuid('id'),
+                        'name' => new Text('name'),
+                    ],
+                ],
+            )
+            ->getSearchConfiguration()
+            ->getMappings();
+        $expected = [
+            Configuration::getMetadataName() => [
+                'properties' => [
+                    'meta' => [
+                        'type'   => 'text',
+                        'fields' => [
+                            'keyword' => [
+                                'type' => 'keyword',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            Configuration::getPropertyName() => [
+                'properties' => [
+                    'name'  => [
+                        'type'   => 'text',
+                        'fields' => [
+                            'keyword' => [
+                                'type' => 'keyword',
+                            ],
+                        ],
+                    ],
+                    'child' => [
+                        'properties' => [
+                            'id'   => [
+                                'type' => 'keyword',
+                            ],
+                            'name' => [
+                                'type'   => 'text',
+                                'fields' => [
+                                    'keyword' => [
+                                        'type' => 'keyword',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
     // </editor-fold>
 
     // <editor-fold desc="Helpers">

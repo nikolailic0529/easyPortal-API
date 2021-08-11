@@ -9,6 +9,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use LogicException;
 
+use function array_filter;
 use function array_key_exists;
 use function array_keys;
 use function array_map;
@@ -158,6 +159,37 @@ class Configuration {
 
     public function getIndexAlias(): string {
         return $this->getModel()->scoutSearchableAs();
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function getMappings(): array {
+        return $this->getMappingsProcess($this->getProperties());
+    }
+
+    /**
+     * @param array<string,\App\Services\Search\Properties\Property|mixed> $properties
+     *
+     * @return array<mixed>
+     */
+    protected function getMappingsProcess(array $properties): array {
+        $mappings = [];
+
+        foreach ($properties as $name => $property) {
+            if (is_array($property)) {
+                $mappings[$name] = [
+                    'properties' => $this->getMappingsProcess($property),
+                ];
+            } else {
+                $mappings[$name] = array_filter([
+                    'type'   => $property->getType(),
+                    'fields' => $property->getFields(),
+                ]);
+            }
+        }
+
+        return $mappings;
     }
 
     public static function getMetadataName(string $name = ''): string {
