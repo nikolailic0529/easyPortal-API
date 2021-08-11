@@ -6,7 +6,6 @@ use App\Exports\QueryExport;
 use App\Models\Asset;
 use App\Models\Organization;
 use App\Models\Reseller;
-use App\Services\Audit\Events\QueryExported;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Closure;
 use Illuminate\Support\Facades\Event;

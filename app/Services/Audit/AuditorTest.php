@@ -2,12 +2,12 @@
 
 namespace App\Services\Audit;
 
+use App\Http\Controllers\QueryExported;
 use App\Models\Audits\Audit;
 use App\Models\ChangeRequest;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\Audit\Enums\Action;
-use App\Services\Audit\Events\QueryExported;
 use Closure;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Events\Dispatcher;

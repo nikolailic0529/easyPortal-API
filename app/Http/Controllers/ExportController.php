@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Exports\QueryExport;
 use App\Http\Requests\ExportQuery;
-use App\Services\Audit\Events\QueryExported;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use GraphQL\Server\OperationParams;
 use Illuminate\Auth\Access\AuthorizationException;
