@@ -11,6 +11,7 @@ use App\Services\Search\Properties\Uuid;
 use App\Services\Search\Scope;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
+use LastDragon_ru\LaraASP\GraphQL\SearchBy\SearchBuilder;
 use Tests\TestCase;
 
 /**
@@ -50,7 +51,7 @@ class SearchRequestFactoryTest extends TestCase {
             'model' => $model,
         ]);
 
-        $model::$searchProperties = (array) $prepare($builder);
+        $model::$searchProperties = (array) $prepare($builder) ?: ['a' => new Text('a', true)];
 
         $this->assertEquals($expected, $factory->makeFromBuilder($builder)->toArray());
     }
@@ -72,7 +73,7 @@ class SearchRequestFactoryTest extends TestCase {
              * @inheritDoc
              */
             protected static function getSearchProperties(): array {
-                return [];
+                return ['a' => new Text('a', true)];
             }
 
             public function searchableAs(): string {
@@ -86,7 +87,7 @@ class SearchRequestFactoryTest extends TestCase {
              * @inheritDoc
              */
             protected static function getSearchProperties(): array {
-                return [];
+                return ['a' => new Text('a', true)];
             }
 
             public function searchableAs(): string {
@@ -193,7 +194,7 @@ class SearchRequestFactoryTest extends TestCase {
                 'query'  => '*',
                 'flags'  => 'AND|ESCAPE|NOT|OR|PHRASE|PRECEDENCE|WHITESPACE',
                 'fields' => [
-                    'properties.*',
+                    Builder::PROPERTIES.'.*',
                 ],
             ],
         ];

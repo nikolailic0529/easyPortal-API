@@ -30,6 +30,7 @@ use function array_map;
 use function array_merge;
 use function array_walk_recursive;
 use function config;
+use function count;
 use function event;
 use function explode;
 use function is_array;
@@ -89,6 +90,10 @@ trait Searchable {
 
     // <editor-fold desc="Scout">
     // =========================================================================
+    public function shouldBeSearchable(): bool {
+        return count($this->getSearchableProperties()) > 0;
+    }
+
     public function searchIndexShouldBeUpdated(): bool {
         $properties = (new Collection($this->getSearchableProperties()))
             ->flatten()
@@ -139,7 +144,7 @@ trait Searchable {
             static function () use ($chunk, $continue, $callback): void {
                 static::callWithoutScoutQueue(static function () use ($chunk, $continue, $callback): void {
                     Telescope::withoutRecording(static function () use ($chunk, $continue, $callback): void {
-                        $chunk    ??= config('scout.chunk.searchable', 500);
+                        $chunk  ??= config('scout.chunk.searchable', 500);
                         $trashed  = static::usesSoftDelete() && config('scout.soft_delete', false);
                         $callback = static function (EloquentCollection $items) use ($callback): void {
                             // Empty?
@@ -198,10 +203,7 @@ trait Searchable {
      * @return array<string>
      */
     public function getSearchSearchable(): array {
-        return $this->getSearchSearchableProcess(
-            $this->getSearchableProperties()[SearchBuilder::PROPERTIES],
-            SearchBuilder::PROPERTIES,
-        );
+        return $this->getSearchSearchableProcess($this->getSearchableProperties()) ?: [''];
     }
 
     /**
@@ -239,7 +241,7 @@ trait Searchable {
         sort($names);
 
         if ($keys === $names) {
-            $searchable = ['*'];
+            $searchable = count($keys) > 0 ? ['*'] : [];
         }
 
         // Add prefix

@@ -586,11 +586,17 @@ class SearchableTest extends TestCase {
      * @covers ::getSearchSearchable
      *
      * @param array<mixed> $expected
+     * @param array<mixed> $metadata
      * @param array<mixed> $properties
      */
-    public function testGetSearchSearchable(array $expected, array $properties): void {
+    public function testGetSearchSearchable(array $expected, array $metadata, array $properties): void {
         $model = new class() extends Model {
             use Searchable;
+
+            /**
+             * @var array<mixed>
+             */
+            public static array $searchMetadata;
 
             /**
              * @var array<mixed>
@@ -600,11 +606,19 @@ class SearchableTest extends TestCase {
             /**
              * @inheritDoc
              */
+            protected static function getSearchMetadata(): array {
+                return self::$searchMetadata;
+            }
+
+            /**
+             * @inheritDoc
+             */
             protected static function getSearchProperties(): array {
                 return self::$searchProperties;
             }
         };
 
+        $model::$searchMetadata   = $metadata;
         $model::$searchProperties = $properties;
 
         $this->assertEquals($expected, $model->getSearchSearchable());
@@ -646,6 +660,44 @@ class SearchableTest extends TestCase {
         $this->assertNull($model->getSearchProperty('meta'));
         $this->assertNull($model->getSearchProperty('a'));
     }
+
+    /**
+     * @covers ::shouldBeSearchable
+     */
+    public function testShouldBeSearchable(): void {
+        $model = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @var array<mixed>
+             */
+            public array $searchProperties;
+
+            /**
+             * @inheritDoc
+             */
+            protected function getSearchableProperties(): array {
+                return $this->searchProperties;
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public static function getSearchProperties(): array {
+                return [];
+            }
+        };
+
+        // No properties
+        $model->searchProperties = [];
+
+        $this->assertFalse($model->shouldBeSearchable());
+
+        // Properties
+        $model->searchProperties = ['a' => new Text('a')];
+
+        $this->assertTrue($model->shouldBeSearchable());
+    }
     //</editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -677,57 +729,88 @@ class SearchableTest extends TestCase {
      */
     public function dataProviderGetSearchSearchable(): array {
         return [
-            'no searchable'  => [
+            'no searchable'                       => [
+                [
+                    '',
+                ],
+                [
+                    'm' => new Text('m'),
+                ],
+                [
+                    'a' => new Text('a'),
+                    'b' => [
+                        'a' => new Text('a'),
+                        'b' => new Text('a'),
+                    ],
+                ],
+            ],
+            'no searchable + metadata searchable' => [
+                [
+                    SearchBuilder::METADATA.'.*',
+                ],
+                [
+                    'm' => new Text('m', true),
+                ],
+                [
+                    'a' => new Text('a'),
+                    'b' => [
+                        'a' => new Text('a'),
+                        'b' => new Text('a'),
+                    ],
+                ],
+            ],
+            'all searchable'                      => [
+                [
+                    '*',
+                ],
+                [
+                    'm' => new Text('m', true),
+                ],
+                [
+                    'a' => new Text('a', true),
+                    'b' => [
+                        'a' => new Text('a', true),
+                        'b' => new Text('a', true),
+                    ],
+                ],
+            ],
+            'mixed one'                           => [
+                [
+                    SearchBuilder::METADATA.'.*',
+                    SearchBuilder::PROPERTIES.'.b.b',
+                ],
+                [
+                    'm' => new Text('m', true),
+                ],
+                [
+                    'a' => new Text('a'),
+                    'b' => [
+                        'a' => new Text('a'),
+                        'b' => new Text('a', true),
+                    ],
+                ],
+            ],
+            'mixed two'                           => [
+                [
+                    SearchBuilder::PROPERTIES.'.b.*',
+                ],
                 [
                     // empty
                 ],
                 [
                     'a' => new Text('a'),
                     'b' => [
-                        'a' => new Text('a'),
-                        'b' => new Text('a'),
-                    ],
-                ],
-            ],
-            'all searchable' => [
-                [
-                    'properties.*',
-                ],
-                [
-                    'a' => new Text('a', true),
-                    'b' => [
                         'a' => new Text('a', true),
                         'b' => new Text('a', true),
                     ],
                 ],
             ],
-            'mixed one'      => [
+            'mixed three'                         => [
                 [
-                    'properties.b.b',
+                    SearchBuilder::PROPERTIES.'.a',
                 ],
                 [
-                    'a' => new Text('a'),
-                    'b' => [
-                        'a' => new Text('a'),
-                        'b' => new Text('a', true),
-                    ],
-                ],
-            ],
-            'mixed two'      => [
-                [
-                    'properties.b.*',
-                ],
-                [
-                    'a' => new Text('a'),
-                    'b' => [
-                        'a' => new Text('a', true),
-                        'b' => new Text('a', true),
-                    ],
-                ],
-            ],
-            'mixed three'    => [
-                [
-                    'properties.a',
+                    // empty
                 ],
                 [
                     'a' => new Text('a', true),
@@ -737,10 +820,13 @@ class SearchableTest extends TestCase {
                     ],
                 ],
             ],
-            'mixed four'     => [
+            'mixed four'                          => [
                 [
-                    'properties.a',
-                    'properties.b.a',
+                    SearchBuilder::PROPERTIES.'.a',
+                    SearchBuilder::PROPERTIES.'.b.a',
+                ],
+                [
+                    // empty
                 ],
                 [
                     'a' => new Text('a', true),
