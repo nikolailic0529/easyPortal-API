@@ -4,6 +4,7 @@ namespace App\Services\Search\Elastic;
 
 use App\Services\Search\Builders\Builder;
 use App\Services\Search\Builders\UnionBuilder;
+use App\Services\Search\Configuration;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\UnionModel;
 use App\Services\Search\Properties\Text;
@@ -11,7 +12,6 @@ use App\Services\Search\Properties\Uuid;
 use App\Services\Search\Scope;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
-use LastDragon_ru\LaraASP\GraphQL\SearchBy\SearchBuilder;
 use Tests\TestCase;
 
 /**
@@ -194,7 +194,7 @@ class SearchRequestFactoryTest extends TestCase {
                 'query'  => '*',
                 'flags'  => 'AND|ESCAPE|NOT|OR|PHRASE|PRECEDENCE|WHITESPACE',
                 'fields' => [
-                    Builder::PROPERTIES.'.*',
+                    Configuration::getPropertyName('*'),
                 ],
             ],
         ];
@@ -351,13 +351,13 @@ class SearchRequestFactoryTest extends TestCase {
                     ],
                     'sort'  => [
                         [
-                            Builder::PROPERTIES.'.key.a' => [
+                            Configuration::getPropertyName('key.a') => [
                                 'order'         => 'asc',
                                 'unmapped_type' => 'keyword',
                             ],
                         ],
                         [
-                            Builder::PROPERTIES.'.key.b.keyword' => [
+                            Configuration::getPropertyName('key.b.keyword') => [
                                 'order'         => 'desc',
                                 'unmapped_type' => 'keyword',
                             ],
@@ -365,8 +365,8 @@ class SearchRequestFactoryTest extends TestCase {
                     ],
                 ],
                 static function (Builder $builder): array {
-                    $builder->orderBy(Builder::PROPERTIES.'.key.a', 'asc');
-                    $builder->orderBy(Builder::PROPERTIES.'.key.b', 'desc');
+                    $builder->orderBy(Configuration::getPropertyName('key.a'), 'asc');
+                    $builder->orderBy(Configuration::getPropertyName('key.b'), 'desc');
 
                     return [
                         'key' => [

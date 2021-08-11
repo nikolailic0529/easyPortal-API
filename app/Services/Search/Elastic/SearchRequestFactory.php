@@ -112,10 +112,12 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
         $query = parent::makeQuery($builder);
 
         if (isset($query['bool']['must']['query_string'])) {
+            /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $model */
+            $model                                        = $builder->model;
             $query['bool']['must']['simple_query_string'] = [
                 'query'  => $query['bool']['must']['query_string']['query'],
                 'flags'  => 'AND|ESCAPE|NOT|OR|PHRASE|PRECEDENCE|WHITESPACE',
-                'fields' => $builder->model->getSearchSearchable(),
+                'fields' => $model->getSearchableConfiguration()->getSearchable(),
             ];
 
             unset($query['bool']['must']['query_string']);
@@ -174,8 +176,10 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
     protected function makeSort(ScoutBuilder $builder): ?array {
         $sort = (new Collection(parent::makeSort($builder)))
             ->map(static function (array $clause) use ($builder): array {
+                /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $model */
+                $model    = $builder->model;
                 $name     = key($clause);
-                $property = $builder->model->getSearchProperty($name);
+                $property = $model->getSearchableConfiguration()->getProperty($name);
 
                 if ($property?->hasKeyword()) {
                     $name = "{$name}.keyword";

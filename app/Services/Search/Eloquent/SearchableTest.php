@@ -6,6 +6,7 @@ use App\Models\Oem;
 use App\Models\ServiceGroup;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Search\Builders\Builder as SearchBuilder;
+use App\Services\Search\Configuration;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
 use App\Services\Search\ScopeWithMetadata;
@@ -31,7 +32,6 @@ use Tests\TestCase;
 
 use function config;
 use function count;
-use function sprintf;
 
 /**
  * @internal
@@ -135,10 +135,10 @@ class SearchableTest extends TestCase {
         // Test
         $actual   = $model->find($group->getKey())->toSearchableArray();
         $expected = [
-            SearchBuilder::METADATA   => [
+            Configuration::getMetadataName() => [
                 'sku' => $sku,
             ],
-            SearchBuilder::PROPERTIES => [
+            Configuration::getPropertyName() => [
                 'sku' => $sku,
                 'oem' => [
                     'id' => $oem->getKey(),
@@ -255,14 +255,10 @@ class SearchableTest extends TestCase {
              * @inheritDoc
              */
             protected static function getSearchProperties(): array {
-                return [];
-            }
-
-            /**
-             * @return array<string>
-             */
-            protected static function getSearchableRelations(): array {
-                return ['a', 'b'];
+                return [
+                    'a' => new Text('a.name'),
+                    'b' => new Text('b.name'),
+                ];
             }
         };
 
@@ -276,195 +272,6 @@ class SearchableTest extends TestCase {
 
         // Test
         $model->makeAllSearchableUsing($builder);
-    }
-
-    /**
-     * @covers ::getSearchableRelations
-     */
-    public function testGetSearchableRelations(): void {
-        // Prepare
-        $model = new class() extends Model {
-            use Searchable {
-                getSearchableRelations as public;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchProperties(): array {
-                return [
-                    'sku' => new Text('sku'),
-                    'oem' => [
-                        'id' => new Text('oem.id'),
-                    ],
-                ];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchMetadata(): array {
-                return [
-                    'meta' => new Text('meta.data'),
-                ];
-            }
-        };
-
-        // Scope
-        $scope = new class() implements Scope, ScopeWithMetadata {
-            public function apply(EloquentBuilder $builder, Model $model): void {
-                // empty
-            }
-
-            public function applyForSearch(SearchBuilder $builder, Model $model): void {
-                // empty
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getSearchMetadata(Model $model): array {
-                return [
-                    'sku' => new Text('abc.sku'),
-                    'id'  => new Text('oem.id'),
-                ];
-            }
-        };
-
-        $model->addGlobalScope($scope);
-
-        // Test
-        $this->assertEquals(['meta', 'abc', 'oem'], $model->getSearchableRelations());
-    }
-
-    /**
-     * @covers ::getSearchableProperties
-     */
-    public function testGetSearchableProperties(): void {
-        // Prepare
-        $model = new class() extends Model {
-            use Searchable {
-                getSearchableProperties as public;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchProperties(): array {
-                return [
-                    'sku' => new Text('sku'),
-                    'oem' => [
-                        'id' => new Uuid('oem.id'),
-                    ],
-                ];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchMetadata(): array {
-                return [
-                    'meta' => new Text('meta.data'),
-                ];
-            }
-        };
-
-        // Scope
-        $scope = new class() implements Scope, ScopeWithMetadata {
-            public function apply(EloquentBuilder $builder, Model $model): void {
-                // empty
-            }
-
-            public function applyForSearch(SearchBuilder $builder, Model $model): void {
-                // empty
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getSearchMetadata(Model $model): array {
-                return [
-                    'sku' => new Text('abc.sku'),
-                    'id'  => new Uuid('oem.id'),
-                ];
-            }
-        };
-
-        $model->addGlobalScope($scope);
-
-        // Test
-        $this->assertEquals([
-            SearchBuilder::METADATA   => [
-                'sku'  => new Text('abc.sku'),
-                'id'   => new Uuid('oem.id'),
-                'meta' => new Text('meta.data'),
-            ],
-            SearchBuilder::PROPERTIES => [
-                'sku' => new Text('sku'),
-                'oem' => [
-                    'id' => new Uuid('oem.id'),
-                ],
-            ],
-        ], $model->getSearchableProperties());
-    }
-
-    /**
-     * @covers ::getSearchableProperties
-     */
-    public function testGetSearchablePropertiesMetadataConflict(): void {
-        // Prepare
-        $model = new class() extends Model {
-            use Searchable {
-                getSearchableProperties as public;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchProperties(): array {
-                return [];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchMetadata(): array {
-                return [
-                    'meta' => new Text('meta.data'),
-                ];
-            }
-        };
-
-        // Scope
-        $scope = new class() implements Scope, ScopeWithMetadata {
-            public function apply(EloquentBuilder $builder, Model $model): void {
-                // empty
-            }
-
-            public function applyForSearch(SearchBuilder $builder, Model $model): void {
-                // empty
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getSearchMetadata(Model $model): array {
-                return [
-                    'meta' => new Text('meta.data'),
-                ];
-            }
-        };
-
-        $model->addGlobalScope($scope);
-
-        // Test
-        $this->expectExceptionObject(new LogicException(sprintf(
-            'The `%s` trying to redefine `%s` in metadata.',
-            $scope::class,
-            'meta',
-        )));
-
-        $model->getSearchableProperties();
     }
 
     /**
@@ -581,87 +388,6 @@ class SearchableTest extends TestCase {
     }
 
     /**
-     * @dataProvider dataProviderGetSearchSearchable
-     *
-     * @covers ::getSearchSearchable
-     *
-     * @param array<mixed> $expected
-     * @param array<mixed> $metadata
-     * @param array<mixed> $properties
-     */
-    public function testGetSearchSearchable(array $expected, array $metadata, array $properties): void {
-        $model = new class() extends Model {
-            use Searchable;
-
-            /**
-             * @var array<mixed>
-             */
-            public static array $searchMetadata;
-
-            /**
-             * @var array<mixed>
-             */
-            public static array $searchProperties;
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchMetadata(): array {
-                return self::$searchMetadata;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchProperties(): array {
-                return self::$searchProperties;
-            }
-        };
-
-        $model::$searchMetadata   = $metadata;
-        $model::$searchProperties = $properties;
-
-        $this->assertEquals($expected, $model->getSearchSearchable());
-    }
-
-    /**
-     * @covers ::getSearchProperty
-     */
-    public function testGetSearchProperty(): void {
-        $model = new class() extends Model {
-            use Searchable;
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchProperties(): array {
-                return [
-                    'a' => new Text('a'),
-                    'b' => [
-                        'c' => new Text('c'),
-                    ],
-                ];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchMetadata(): array {
-                return [
-                    'meta' => new Text('meta'),
-                ];
-            }
-        };
-
-        $this->assertEquals('a', $model->getSearchProperty(SearchBuilder::PROPERTIES.'.a')?->getName());
-        $this->assertEquals('a', $model->getSearchProperty(SearchBuilder::PROPERTIES.'.a')?->getName());
-        $this->assertEquals('c', $model->getSearchProperty(SearchBuilder::PROPERTIES.'.b.c')?->getName());
-        $this->assertEquals('meta', $model->getSearchProperty(SearchBuilder::METADATA.'.meta')?->getName());
-        $this->assertNull($model->getSearchProperty('meta'));
-        $this->assertNull($model->getSearchProperty('a'));
-    }
-
-    /**
      * @covers ::shouldBeSearchable
      */
     public function testShouldBeSearchable(): void {
@@ -671,30 +397,23 @@ class SearchableTest extends TestCase {
             /**
              * @var array<mixed>
              */
-            public array $searchProperties;
-
-            /**
-             * @inheritDoc
-             */
-            protected function getSearchableProperties(): array {
-                return $this->searchProperties;
-            }
+            public static array $searchProperties;
 
             /**
              * @inheritDoc
              */
             public static function getSearchProperties(): array {
-                return [];
+                return self::$searchProperties;
             }
         };
 
         // No properties
-        $model->searchProperties = [];
+        $model::$searchProperties = [];
 
         $this->assertFalse($model->shouldBeSearchable());
 
         // Properties
-        $model->searchProperties = ['a' => new Text('a')];
+        $model::$searchProperties = ['a' => new Text('a')];
 
         $this->assertTrue($model->shouldBeSearchable());
     }
@@ -720,121 +439,6 @@ class SearchableTest extends TestCase {
                 new class() extends Model {
                     // empty
                 },
-            ],
-        ];
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function dataProviderGetSearchSearchable(): array {
-        return [
-            'no searchable'                       => [
-                [
-                    '',
-                ],
-                [
-                    'm' => new Text('m'),
-                ],
-                [
-                    'a' => new Text('a'),
-                    'b' => [
-                        'a' => new Text('a'),
-                        'b' => new Text('a'),
-                    ],
-                ],
-            ],
-            'no searchable + metadata searchable' => [
-                [
-                    SearchBuilder::METADATA.'.*',
-                ],
-                [
-                    'm' => new Text('m', true),
-                ],
-                [
-                    'a' => new Text('a'),
-                    'b' => [
-                        'a' => new Text('a'),
-                        'b' => new Text('a'),
-                    ],
-                ],
-            ],
-            'all searchable'                      => [
-                [
-                    '*',
-                ],
-                [
-                    'm' => new Text('m', true),
-                ],
-                [
-                    'a' => new Text('a', true),
-                    'b' => [
-                        'a' => new Text('a', true),
-                        'b' => new Text('a', true),
-                    ],
-                ],
-            ],
-            'mixed one'                           => [
-                [
-                    SearchBuilder::METADATA.'.*',
-                    SearchBuilder::PROPERTIES.'.b.b',
-                ],
-                [
-                    'm' => new Text('m', true),
-                ],
-                [
-                    'a' => new Text('a'),
-                    'b' => [
-                        'a' => new Text('a'),
-                        'b' => new Text('a', true),
-                    ],
-                ],
-            ],
-            'mixed two'                           => [
-                [
-                    SearchBuilder::PROPERTIES.'.b.*',
-                ],
-                [
-                    // empty
-                ],
-                [
-                    'a' => new Text('a'),
-                    'b' => [
-                        'a' => new Text('a', true),
-                        'b' => new Text('a', true),
-                    ],
-                ],
-            ],
-            'mixed three'                         => [
-                [
-                    SearchBuilder::PROPERTIES.'.a',
-                ],
-                [
-                    // empty
-                ],
-                [
-                    'a' => new Text('a', true),
-                    'b' => [
-                        'a' => new Text('a'),
-                        'b' => new Text('a'),
-                    ],
-                ],
-            ],
-            'mixed four'                          => [
-                [
-                    SearchBuilder::PROPERTIES.'.a',
-                    SearchBuilder::PROPERTIES.'.b.a',
-                ],
-                [
-                    // empty
-                ],
-                [
-                    'a' => new Text('a', true),
-                    'b' => [
-                        'a' => new Text('a', true),
-                        'b' => new Text('a'),
-                    ],
-                ],
             ],
         ];
     }

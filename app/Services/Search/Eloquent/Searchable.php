@@ -5,8 +5,8 @@ namespace App\Services\Search\Eloquent;
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Builders\Builder as SearchBuilder;
+use App\Services\Search\Configuration;
 use App\Services\Search\Properties\Property;
-use App\Services\Search\ScopeWithMetadata;
 use App\Utils\ModelProperty;
 use Carbon\CarbonInterface;
 use Closure;
@@ -14,7 +14,6 @@ use DateTimeInterface;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Laravel\Scout\Events\ModelsImported;
@@ -23,23 +22,16 @@ use Laravel\Telescope\Telescope;
 use LogicException;
 
 use function app;
+use function array_filter;
 use function array_intersect;
-use function array_key_exists;
 use function array_keys;
-use function array_map;
-use function array_merge;
 use function array_walk_recursive;
 use function config;
 use function count;
 use function event;
-use function explode;
-use function is_array;
 use function is_iterable;
 use function is_null;
 use function is_scalar;
-use function sort;
-use function sprintf;
-use function str_ends_with;
 
 /**
  * @mixin \App\Models\Model
@@ -91,11 +83,11 @@ trait Searchable {
     // <editor-fold desc="Scout">
     // =========================================================================
     public function shouldBeSearchable(): bool {
-        return count($this->getSearchableProperties()) > 0;
+        return count(array_filter($this->getSearchableConfiguration()->getProperties())) > 0;
     }
 
     public function searchIndexShouldBeUpdated(): bool {
-        $properties = (new Collection($this->getSearchableProperties()))
+        $properties = (new Collection($this->getSearchableConfiguration()->getProperties()))
             ->flatten()
             ->map(static function (Property $property): ?string {
                 return (new ModelProperty($property->getName()))->isAttribute()
@@ -111,18 +103,18 @@ trait Searchable {
     }
 
     protected function makeAllSearchableUsing(Builder $query): Builder {
-        return $query->with($this->getSearchableRelations());
+        return $query->with($this->getSearchableConfiguration()->getRelations());
     }
 
     /**
      * @return array<string,mixed>
      */
     public function toSearchableArray(): array {
-        // Eager Loading
-        $this->loadMissing($this->getSearchableRelations());
+        // Eager Loading & Values
+        $configuration = $this->getSearchableConfiguration();
+        $properties    = $configuration->getProperties();
 
-        // Get values
-        $properties = $this->getSearchableProperties();
+        $this->loadMissing($configuration->getRelations());
 
         array_walk_recursive($properties, function (mixed &$value): void {
             $value = $value instanceof Property
@@ -195,119 +187,17 @@ trait Searchable {
 
     // <editor-fold desc="Search">
     // =========================================================================
-    public function getSearchProperty(string $name): ?Property {
-        return Arr::get($this->getSearchableProperties(), $name);
-    }
-
-    /**
-     * @return array<string>
-     */
-    public function getSearchSearchable(): array {
-        return $this->getSearchSearchableProcess($this->getSearchableProperties()) ?: [''];
-    }
-
-    /**
-     * @param array<string,\App\Services\Search\Properties\Property|mixed> $properties
-     *
-     * @return array<string>
-     */
-    protected function getSearchSearchableProcess(array $properties, string $prefix = null): array {
-        // Process
-        $searchable = [];
-
-        foreach ($properties as $name => $property) {
-            if ($property instanceof Property) {
-                if ($property->isSearchable()) {
-                    $searchable[] = $name;
-                }
-            } elseif (is_array($property)) {
-                $searchable = array_merge($searchable, $this->getSearchSearchableProcess($property, $name));
-            } else {
-                // ignore
-            }
-        }
-
-        // All properties searchable
-        $keys  = array_keys($properties);
-        $names = (new Collection($searchable))
-            ->map(static function (string $name): string {
-                return str_ends_with($name, '.*')
-                    ? explode('.', $name, 2)[0]
-                    : $name;
-            })
-            ->all();
-
-        sort($keys);
-        sort($names);
-
-        if ($keys === $names) {
-            $searchable = count($keys) > 0 ? ['*'] : [];
-        }
-
-        // Add prefix
-        if ($prefix) {
-            $searchable = array_map(static function (string $name) use ($prefix): string {
-                return "{$prefix}.{$name}";
-            }, $searchable);
-        }
-
-        // Return
-        return $searchable;
+    public function getSearchableConfiguration(): Configuration {
+        return app()->make(Configuration::class, [
+            'model'      => $this,
+            'metadata'   => $this->getSearchMetadata(),
+            'properties' => $this->getSearchProperties(),
+        ]);
     }
     // </editor-fold>
 
     // <editor-fold desc="Helpers">
     // =========================================================================
-    /**
-     * @return array<string>
-     */
-    protected function getSearchableRelations(): array {
-        return (new Collection($this->getSearchableProperties()))
-            ->flatten()
-            ->map(static function (Property $property): ModelProperty {
-                return new ModelProperty($property->getName());
-            })
-            ->filter(static function (ModelProperty $property): bool {
-                return $property->isRelation();
-            })
-            ->map(static function (ModelProperty $property): string {
-                return $property->getRelationName();
-            })
-            ->unique()
-            ->values()
-            ->all();
-    }
-
-    /**
-     * @return array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property>>>>
-     */
-    protected function getSearchableProperties(): array {
-        $properties = [
-            SearchBuilder::METADATA   => $this->getSearchMetadata(),
-            SearchBuilder::PROPERTIES => $this->getSearchProperties(),
-        ];
-
-        foreach ($this->getGlobalScopes() as $scope) {
-            if ($scope instanceof ScopeWithMetadata) {
-                foreach ($scope->getSearchMetadata($this) as $key => $metadata) {
-                    // Metadata should be unique to avoid any possible side effects.
-                    if (array_key_exists($key, $properties[SearchBuilder::METADATA])) {
-                        throw new LogicException(sprintf(
-                            'The `%s` trying to redefine `%s` in metadata.',
-                            $scope::class,
-                            $key,
-                        ));
-                    }
-
-                    // Add
-                    $properties[SearchBuilder::METADATA][$key] = $metadata;
-                }
-            }
-        }
-
-        return $properties;
-    }
-
     protected function toSearchableValue(mixed $value): mixed {
         if ($value instanceof CarbonInterface) {
             $value = $value->toJSON();
