@@ -6,7 +6,6 @@ type Audit {
     object_id: String
     action: String!
     created_at:  DateTime!
-    updated_at: DateTime!
 
     "JSON"
     context: String

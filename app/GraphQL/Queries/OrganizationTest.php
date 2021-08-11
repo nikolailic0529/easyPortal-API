@@ -261,7 +261,6 @@ class OrganizationTest extends TestCase {
                                 context
                                 action
                                 created_at
-                                updated_at
                             }
                             paginatorInfo {
                                 count
@@ -663,7 +662,6 @@ class OrganizationTest extends TestCase {
                                         'context'         => json_encode(['field1' => 'value1']),
                                         'action'          => 'action1',
                                         'created_at'      => '2021-01-01T00:00:00+00:00',
-                                        'updated_at'      => '2021-01-01T00:00:00+00:00',
                                     ],
                                 ],
                                 'paginatorInfo' => [
@@ -685,10 +683,9 @@ class OrganizationTest extends TestCase {
                                     'object_type' => 'type',
                                     'object_id'   => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
                                     'user_id'     => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
-                                    'context'     => json_encode(['field1' => 'value1']),
+                                    'context'     => ['field1' => 'value1'],
                                     'action'      => 'action1',
                                     'created_at'  => '2021-01-01 00:00:00',
-                                    'updated_at'  => '2021-01-01 00:00:00',
                                 ])
                                 ->create([
                                     'id' => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
@@ -718,7 +715,6 @@ class OrganizationTest extends TestCase {
                                         'context'         => json_encode(['field1' => 'value1']),
                                         'action'          => 'action1',
                                         'created_at'      => '2021-01-01T00:00:00+00:00',
-                                        'updated_at'      => '2021-01-01T00:00:00+00:00',
                                     ],
                                 ],
                                 'paginatorInfo' => [
@@ -740,10 +736,9 @@ class OrganizationTest extends TestCase {
                                     'object_type' => 'type',
                                     'object_id'   => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
                                     'user_id'     => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
-                                    'context'     => json_encode(['field1' => 'value1']),
+                                    'context'     => ['field1' => 'value1'],
                                     'action'      => 'action1',
                                     'created_at'  => '2021-01-01 00:00:00',
-                                    'updated_at'  => '2021-01-01 00:00:00',
                                 ])
                                 ->create([
                                     'id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',

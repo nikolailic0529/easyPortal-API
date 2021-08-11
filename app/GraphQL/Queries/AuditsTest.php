@@ -47,7 +47,6 @@ class AuditsTest extends TestCase {
                         context
                         action
                         created_at
-                        updated_at
                     }
                     paginatorInfo {
                       count

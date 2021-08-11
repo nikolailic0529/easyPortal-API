@@ -10,8 +10,7 @@
         "object_id",
         "context",
         "action",
-        "created_at",
-        "updated_at"
+        "created_at"
     ],
     "properties": {
         "id": {
@@ -59,10 +58,6 @@
             "type": "string"
         },
         "created_at": {
-            "type": "string",
-            "format": "date-time"
-        },
-        "updated_at": {
             "type": "string",
             "format": "date-time"
         }

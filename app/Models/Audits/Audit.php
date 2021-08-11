@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                                                              $object_type
  * @property array|null                                                          $context
  * @property \Carbon\CarbonImmutable                                             $created_at
- * @property \Carbon\CarbonImmutable                                             $updated_at
  * @method static \Database\Factories\AuditFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit newQuery()
@@ -35,7 +34,8 @@ class Audit extends Model {
     protected $table = 'audits';
 
     protected const CASTS = [
-        'context' => 'json',
+        'context'    => 'json',
+        'created_at' => 'datetime'
     ] + parent::CASTS;
 
     /**
@@ -46,4 +46,13 @@ class Audit extends Model {
      * @var array<string>
      */
     protected $casts = self::CASTS;
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     * 
+     * @var bool
+     */
+    public $timestamps = false;
 }
