@@ -18,10 +18,24 @@
             "$ref": "../types.json#/definitions/ID"
         },
         "organization_id": {
-            "$ref": "../types.json#/definitions/ID"
+            "oneOf": [
+                {
+                    "$ref": "../types.json#/definitions/ID"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         },
         "user_id": {
-            "$ref": "../types.json#/definitions/ID"
+            "oneOf": [
+                {
+                    "$ref": "../types.json#/definitions/ID"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         },
         "object_type": {
             "type": [

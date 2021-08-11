@@ -342,4 +342,15 @@ type Query {
   @organization(root: true)
   @me(permissions: ["administer"])
   @find
+
+  "List of all organizations audits."
+  audits(
+    where: AuditsQuery @searchBy
+    order: AuditsSort @sortBy
+  ): [Audit!]!
+  @organization(root: true)
+  @me(permissions: ["administer"])
+  @paginate(
+    model: "App\\Models\\Audits\\Audit"
+  )
 }
