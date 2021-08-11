@@ -4,6 +4,8 @@ namespace App\GraphQL\Queries;
 
 use App\GraphQL\Types\Audit as TypesAudit;
 use App\Models\Audits\Audit;
+use App\Models\Organization;
+use App\Models\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -79,7 +81,13 @@ class AuditsTest extends TestCase {
                 'ok' => [
                     new GraphQLPaginated('audits', TypesAudit::class),
                     static function (): void {
-                        Audit::factory()->create();
+                        $user         = User::factory()->create();
+                        $organization = Organization::factory()->create();
+                        Audit::factory()->create([
+                            'user_id'         => $user->getKey(),
+                            'organization_id' => $organization->getKey(),
+                            'context'         => ['key' => 'value'],
+                        ]);
                     },
                 ],
             ]),

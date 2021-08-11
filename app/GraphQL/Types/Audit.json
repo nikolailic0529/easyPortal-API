@@ -60,6 +60,26 @@
         "created_at": {
             "type": "string",
             "format": "date-time"
+        },
+        "user": {
+            "oneOf": [
+                {
+                    "$ref": "../types.json#/definitions/User"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "organization": {
+            "oneOf": [
+                {
+                    "$ref": "../types.json#/definitions/Organization"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         }
     }
 }

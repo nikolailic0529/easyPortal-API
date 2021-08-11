@@ -2,8 +2,11 @@
 
 namespace App\Models\Audits;
 
+use App\Models\Organization;
+use App\Models\User;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Audit.
@@ -35,7 +38,7 @@ class Audit extends Model {
 
     protected const CASTS = [
         'context'    => 'json',
-        'created_at' => 'datetime'
+        'created_at' => 'datetime',
     ] + parent::CASTS;
 
     /**
@@ -51,8 +54,16 @@ class Audit extends Model {
      * Indicates if the model should be timestamped.
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     * 
+     *
      * @var bool
      */
     public $timestamps = false;
+
+    public function user(): BelongsTo {
+        return $this->setConnection('mysql')->belongsTo(User::class);
+    }
+
+    public function organization(): BelongsTo {
+        return $this->setConnection('mysql')->belongsTo(Organization::class);
+    }
 }

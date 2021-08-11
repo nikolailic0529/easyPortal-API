@@ -7,4 +7,6 @@ input AuditsQuery {
   object_type: String!
   created_at: DateTime!
   updated_at: DateTime!
+  user: UsersQuery
+  organization: OrganizationsQuery
 }
