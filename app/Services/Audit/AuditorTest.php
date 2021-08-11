@@ -7,8 +7,10 @@ use App\Models\ChangeRequest;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\Audit\Enums\Action;
+use App\Services\Audit\Events\QueryExported;
 use Closure;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Auth;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -27,10 +29,17 @@ class AuditorTest extends TestCase {
         $changeRequest = ChangeRequest::factory()->make();
 
         $this->override(Auditor::class, static function (MockInterface $mock) use ($changeRequest): void {
+            $properties = [];
+            foreach ($changeRequest->getAttributes() as $field => $value) {
+                $properties[$field] = [
+                    'value'    => $value,
+                    'previous' => null,
+                ];
+            }
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::modelCreated(), $changeRequest);
+                ->with(Action::modelCreated(), ['properties' => $properties], $changeRequest);
         });
 
         $changeRequest->save();
@@ -47,10 +56,16 @@ class AuditorTest extends TestCase {
         ]);
 
         $this->override(Auditor::class, static function (MockInterface $mock) use ($changeRequest): void {
+            $properties = [
+                'subject' => [
+                    'value'    => 'new',
+                    'previous' => 'old',
+                ],
+            ];
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::modelUpdated(), $changeRequest);
+                ->with(Action::modelUpdated(), ['properties' => $properties], $changeRequest);
         });
 
         $changeRequest->subject = 'new';
@@ -69,7 +84,7 @@ class AuditorTest extends TestCase {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::modelDeleted(), $changeRequest);
+                ->with(Action::modelDeleted(), ['properties' => []], $changeRequest);
         });
 
         $changeRequest->delete();
@@ -81,11 +96,11 @@ class AuditorTest extends TestCase {
      */
     public function testLogin(): void {
         $user = User::factory()->make();
-        $this->override(Auditor::class, static function (MockInterface $mock) use ($user): void {
+        $this->override(Auditor::class, static function (MockInterface $mock): void {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::authSignedIn(), $user, ['guard' => 'web']);
+                ->with(Action::authSignedIn(), ['guard' => 'web']);
         });
         Auth::guard('web')->login($user);
     }
@@ -97,13 +112,29 @@ class AuditorTest extends TestCase {
     public function testLogout(): void {
         $user = User::factory()->make();
         Auth::guard('web')->login($user);
-        $this->override(Auditor::class, static function (MockInterface $mock) use ($user): void {
+        $this->override(Auditor::class, static function (MockInterface $mock): void {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::authSignedOut(), $user, ['guard' => 'web']);
+                ->with(Action::authSignedOut(), ['guard' => 'web']);
         });
         Auth::logout($user);
+    }
+
+    /**
+     * @covers ::create
+     *
+     */
+    public function testExported(): void {
+        $this->setUser(User::factory()->make(), $this->setOrganization(Organization::factory()->make()));
+        $this->override(Auditor::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('create')
+                ->once()
+                ->with(Action::exported(), ['count' => 1, 'type' => 'csv', 'columns' => ['id', 'name']]);
+        });
+        $dispatcher = $this->app->make(Dispatcher::class);
+        $dispatcher->dispatch(new QueryExported(1, 'csv', ['id', 'name']));
     }
     /**
      * @covers ::create
@@ -196,24 +227,22 @@ class AuditorTest extends TestCase {
             'auth.signIn'   => [
                 static function (TestCase $test, Organization $organization, User $user): array {
                     return [
-                        'object_id'       => $user->getKey(),
-                        'object_type'     => $user->getMorphClass(),
                         'organization_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
                         'action'          => Action::authSignedIn(),
+                        'user_id'         => $user->getKey(),
                     ];
                 },
                 static function (TestCase $test, Organization $organization, User $user): void {
                     $auth = $test->app->make(AuthManager::class);
-                    $auth->login($user);
+                    $auth->guard('web')->login($user);
                 },
             ],
             'auth.signOut'  => [
                 static function (TestCase $test, Organization $organization, User $user): array {
                     return [
-                        'object_id'       => $user->getKey(),
-                        'object_type'     => $user->getMorphClass(),
                         'organization_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
                         'action'          => Action::authSignedOut(),
+                        'user_id'         => $user->getKey(),
                     ];
                 },
                 static function (TestCase $test, Organization $organization, User $user): void {

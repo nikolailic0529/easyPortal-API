@@ -6,8 +6,10 @@ use App\Exports\QueryExport;
 use App\Models\Asset;
 use App\Models\Organization;
 use App\Models\Reseller;
+use App\Services\Audit\Events\QueryExported;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use Closure;
+use Illuminate\Support\Facades\Event;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\InternalServerError;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\Ok;
@@ -83,6 +85,8 @@ class ExportControllerTest extends TestCase {
             'root'          => $root,
         ];
 
+        Event::fake();
+
         if ($type === 'csv' || $type === 'excel') {
             Excel::fake();
         } elseif ($type === 'pdf') {
@@ -121,6 +125,8 @@ class ExportControllerTest extends TestCase {
                 default:
                     // empty
             }
+
+            Event::assertDispatched(QueryExported::class);
         }
     }
     // </editor-fold>

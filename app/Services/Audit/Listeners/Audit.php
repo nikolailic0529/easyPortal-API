@@ -7,12 +7,11 @@ use App\Models\Model;
 use App\Services\Audit\Auditor;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Audit\Enums\Action;
+use App\Services\Audit\Events\QueryExported;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Routing\Events\RouteMatched;
 
-use function in_array;
 use function reset;
 use function str_replace;
 
@@ -26,21 +25,14 @@ class Audit implements Subscriber {
     public function signIn(Login $event): void {
         $user = $event->user;
         if ($user instanceof Model) {
-            $this->auditor->create(Action::authSignedIn(), $user, ['guard' => $event->guard ]);
+            $this->auditor->create(Action::authSignedIn(), ['guard' => $event->guard ]);
         }
     }
 
     public function signOut(Logout $event): void {
         $user = $event->user;
         if ($user instanceof Model) {
-            $this->auditor->create(Action::authSignedOut(), $user, ['guard' => $event->guard ]);
-        }
-    }
-
-    public function routeMatched(RouteMatched $event): void {
-        $routes = ['download.csv', 'download.excel', 'download.pdf'];
-        if (in_array($event->route->getName(), $routes, true)) {
-            // TODO:: Implement another event to handle needed data
+            $this->auditor->create(Action::authSignedOut(), ['guard' => $event->guard ]);
         }
     }
 
@@ -52,14 +44,23 @@ class Audit implements Subscriber {
         if (!($model instanceof Model) || !($model instanceof Auditable)) {
             return;
         }
-        $action = $this->getAction($model, $event);
-        $this->auditor->create($action, $model);
+        $action  = $this->getModelAction($model, $event);
+        $context = $this->getModelContext($model);
+        $this->auditor->create($action, $context, $model);
+    }
+
+    public function queryExported(QueryExported $event): void {
+        $this->auditor->create(Action::exported(), [
+            'count'   => $event->getCount(),
+            'type'    => $event->getType(),
+            'columns' => $event->getColumns(),
+        ]);
     }
 
     public function subscribe(Dispatcher $dispatcher): void {
         $dispatcher->listen(Login::class, [$this::class, 'signIn']);
         $dispatcher->listen(Logout::class, [$this::class, 'signOut']);
-        $dispatcher->listen(RouteMatched::class, [$this::class, 'routeMatched']);
+        $dispatcher->listen(QueryExported::class, [$this::class, 'queryExported']);
         // Subscribe for model events
         /** @var array<string,\App\Services\Audit\Enums\Action> $events */
         $events = [
@@ -72,19 +73,54 @@ class Audit implements Subscriber {
         }
     }
 
-    protected function getAction(Model $model, string $event): Action {
-        $class  = $model::class;
-        $action = str_replace('eloquent.', '', $event);
-        $action = str_replace(": {$class}", '', $action);
-        switch ($action) {
+    protected function getModelAction(Model $model, string $event): Action {
+        $class      = $model::class;
+        $actionName = str_replace('eloquent.', '', $event);
+        $actionName = str_replace(": {$class}", '', $actionName);
+        $action     = null;
+
+        switch ($actionName) {
             case 'created':
-                return Action::modelCreated();
+                $action = Action::modelCreated();
+                break;
             case 'updated':
-                return Action::modelUpdated();
+                $action = Action::modelUpdated();
+                break;
             case 'deleted':
-                return Action::modelDeleted();
+                $action = Action::modelDeleted();
+                break;
             default:
                 // empty
+                break;
         }
+        return $action;
+    }
+
+    /**
+     * @param array<string, mixed> $extra
+     *
+     * @return array<string, mixed>
+     */
+    protected function getModelContext(Model $model): array {
+        $properties = [];
+        if ($model->wasRecentlyCreated) {
+            // created
+            foreach ($model->getAttributes() as $field => $value) {
+                $properties[$field] = [
+                    'value'    => $value,
+                    'previous' => null,
+                ];
+            }
+        } else {
+            foreach ($model->getChanges() as $field => $value) {
+                $properties[$field] = [
+                    'value'    => $value,
+                    'previous' => $model->getOriginal($field),
+                ];
+            }
+        }
+        return [
+            'properties' => $properties,
+        ];
     }
 }

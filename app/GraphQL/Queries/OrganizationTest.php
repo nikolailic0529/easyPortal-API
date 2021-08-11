@@ -642,7 +642,6 @@ class OrganizationTest extends TestCase {
     /**
      * @return array<mixed>
      */
-
     public function dataProviderAudits(): array {
         return (new MergeDataProvider([
             'administer'     => new CompositeDataProvider(

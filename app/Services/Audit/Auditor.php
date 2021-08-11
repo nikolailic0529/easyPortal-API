@@ -19,13 +19,9 @@ class Auditor {
     }
 
     /**
-     * @param array<string, mixed> $extra
+     * @param array<string, mixed> $context
      */
-    public function create(
-        Action $action,
-        Model $model = null,
-        array $extra = null,
-    ): void {
+    public function create(Action $action, array $context = null, Model $model = null): void {
         $organization = null;
         if ($this->organization->defined()) {
             $organization = $this->organization->getKey();
@@ -38,36 +34,7 @@ class Auditor {
         $audit->object_type     = $model ? $model->getMorphClass() : null;
         $audit->user_id         = $user ? $user->getKey() : null;
         $audit->organization_id = $organization;
-        $audit->context         = $this->getContext($model, $extra);
+        $audit->context         = $context;
         $audit->save();
-    }
-
-    /**
-     * @param array<string, mixed> $extra
-     *
-     * @return array<string, mixed>
-     */
-    protected function getContext(Model $model, ?array $extra): array {
-        $properties = [];
-        if ($model->wasRecentlyCreated) {
-            // created
-            foreach ($model->getAttributes() as $field => $value) {
-                $properties[$field] = [
-                    'value'    => $value,
-                    'previous' => null,
-                ];
-            }
-        } else {
-            foreach ($model->getChanges() as $field => $value) {
-                $properties[$field] = [
-                    'value'    => $value,
-                    'previous' => $model->getOriginal($field),
-                ];
-            }
-        }
-        return [
-            'properties' => $properties,
-            'extra'      => $extra,
-        ];
     }
 }

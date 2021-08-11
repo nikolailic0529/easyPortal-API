@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Exports\QueryExport;
 use App\Http\Requests\ExportQuery;
+use App\Services\Audit\Events\QueryExported;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use GraphQL\Server\OperationParams;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -30,19 +32,20 @@ use function ucwords;
 class ExportController extends Controller {
     public function __construct(
         protected GraphQL $graphQL,
+        protected Dispatcher $dispatcher,
     ) {
         // empty
     }
 
     public function csv(ExportQuery $request, CreatesContext $createsContext): BinaryFileResponse {
         $collection = $this->export($request, $createsContext->generate($request));
-
+        $this->dispatcher->dispatch(new QueryExported($collection->count(), 'csv', $collection->first()));
         return (new QueryExport($collection))->download('export.csv', Excel::CSV);
     }
 
     public function excel(ExportQuery $request, CreatesContext $createsContext): BinaryFileResponse {
         $collection = $this->export($request, $createsContext->generate($request));
-
+        $this->dispatcher->dispatch(new QueryExported($collection->count(), 'xlsx', $collection->first()));
         return (new QueryExport($collection))->download('export.xlsx', Excel::XLSX);
     }
 
@@ -51,7 +54,7 @@ class ExportController extends Controller {
         $pdf        = PDF::loadView('exports.pdf', [
             'rows' => $collection,
         ]);
-
+        $this->dispatcher->dispatch(new QueryExported($collection->count(), 'pdf', $collection->first()));
         return $pdf->download('export.pdf');
     }
 

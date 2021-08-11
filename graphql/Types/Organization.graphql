@@ -35,6 +35,7 @@ type Organization {
     where: AuditsQuery @searchBy
     order: AuditsSort @sortBy
   ): [Audit!]!
+  @me(permissions: ["administer", "org-administer"])
   @paginate(
     model: "App\\Models\\Audits\\Audit"
   )
