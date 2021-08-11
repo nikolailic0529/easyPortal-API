@@ -47,7 +47,7 @@ class ConfigurationTest extends TestCase {
         // Test
         $this->assertEquals(
             ['meta', 'abc', 'oem'],
-            $model->getSearchableConfiguration()->getRelations(),
+            $model->getSearchConfiguration()->getRelations(),
         );
     }
 
@@ -89,7 +89,7 @@ class ConfigurationTest extends TestCase {
                     'id' => new Uuid('oem.id'),
                 ],
             ],
-        ], $model->getSearchableConfiguration()->getProperties());
+        ], $model->getSearchConfiguration()->getProperties());
     }
 
     /**
@@ -117,7 +117,7 @@ class ConfigurationTest extends TestCase {
             'meta',
         )));
 
-        $model->getSearchableConfiguration();
+        $model->getSearchConfiguration();
     }
 
     /**
@@ -152,7 +152,7 @@ class ConfigurationTest extends TestCase {
                 ],
             ],
         );
-        $configuration = $model->getSearchableConfiguration();
+        $configuration = $model->getSearchConfiguration();
 
         $this->assertEquals('a', $configuration->getProperty(Configuration::getPropertyName('a'))?->getName());
         $this->assertEquals('a', $configuration->getProperty(Configuration::getPropertyName('a'))?->getName());

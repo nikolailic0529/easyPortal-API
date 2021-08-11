@@ -83,11 +83,11 @@ trait Searchable {
     // <editor-fold desc="Scout">
     // =========================================================================
     public function shouldBeSearchable(): bool {
-        return count(array_filter($this->getSearchableConfiguration()->getProperties())) > 0;
+        return count(array_filter($this->getSearchConfiguration()->getProperties())) > 0;
     }
 
     public function searchIndexShouldBeUpdated(): bool {
-        $properties = (new Collection($this->getSearchableConfiguration()->getProperties()))
+        $properties = (new Collection($this->getSearchConfiguration()->getProperties()))
             ->flatten()
             ->map(static function (Property $property): ?string {
                 return (new ModelProperty($property->getName()))->isAttribute()
@@ -103,7 +103,7 @@ trait Searchable {
     }
 
     protected function makeAllSearchableUsing(Builder $query): Builder {
-        return $query->with($this->getSearchableConfiguration()->getRelations());
+        return $query->with($this->getSearchConfiguration()->getRelations());
     }
 
     /**
@@ -111,7 +111,7 @@ trait Searchable {
      */
     public function toSearchableArray(): array {
         // Eager Loading & Values
-        $configuration = $this->getSearchableConfiguration();
+        $configuration = $this->getSearchConfiguration();
         $properties    = $configuration->getProperties();
 
         $this->loadMissing($configuration->getRelations());
@@ -187,7 +187,7 @@ trait Searchable {
 
     // <editor-fold desc="Search">
     // =========================================================================
-    public function getSearchableConfiguration(): Configuration {
+    public function getSearchConfiguration(): Configuration {
         return app()->make(Configuration::class, [
             'model'      => $this,
             'metadata'   => $this->getSearchMetadata(),

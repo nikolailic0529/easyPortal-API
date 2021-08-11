@@ -417,6 +417,43 @@ class SearchableTest extends TestCase {
 
         $this->assertTrue($model->shouldBeSearchable());
     }
+
+    /**
+     * @covers ::getSearchConfiguration
+     */
+    public function testGetSearchConfiguration(): void {
+        $model  = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @inheritDoc
+             */
+            public static function getSearchMetadata(): array {
+                return ['m' => new Text('m')];
+            }
+
+            /**
+             * @inheritDoc
+             */
+            public static function getSearchProperties(): array {
+                return ['a' => new Text('a')];
+            }
+        };
+        $config = $model->getSearchConfiguration();
+
+        $this->assertInstanceOf(Configuration::class, $config);
+        $this->assertEquals(
+            [
+                Configuration::getMetadataName() => [
+                    'm' => new Text('m'),
+                ],
+                Configuration::getPropertyName() => [
+                    'a' => new Text('a'),
+                ],
+            ],
+            $config->getProperties(),
+        );
+    }
     //</editor-fold>
 
     // <editor-fold desc="DataProviders">

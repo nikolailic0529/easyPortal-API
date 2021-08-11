@@ -117,7 +117,7 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
             $query['bool']['must']['simple_query_string'] = [
                 'query'  => $query['bool']['must']['query_string']['query'],
                 'flags'  => 'AND|ESCAPE|NOT|OR|PHRASE|PRECEDENCE|WHITESPACE',
-                'fields' => $model->getSearchableConfiguration()->getSearchable(),
+                'fields' => $model->getSearchConfiguration()->getSearchable(),
             ];
 
             unset($query['bool']['must']['query_string']);
@@ -179,7 +179,7 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
                 /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $model */
                 $model    = $builder->model;
                 $name     = key($clause);
-                $property = $model->getSearchableConfiguration()->getProperty($name);
+                $property = $model->getSearchConfiguration()->getProperty($name);
 
                 if ($property?->hasKeyword()) {
                     $name = "{$name}.keyword";
