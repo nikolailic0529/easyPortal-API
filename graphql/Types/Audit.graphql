@@ -1,7 +1,6 @@
 type Audit {
     id: ID!
-    organization_id: ID!
-    organization: Organization!
+    organization_id: ID
     user_id: ID
     object_type: String
     object_id: String

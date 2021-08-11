@@ -352,14 +352,43 @@ input AssetsSort {
 
 type Audit {
   id: ID!
-  organization_id: ID!
-  organization: Organization!
+  organization_id: ID
   user_id: ID
   object_type: String
   object_id: String
-  old_values: String
-  new_values: String
+  context: String
   action: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+"""A paginated list of Audit items."""
+type AuditPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of Audit items."""
+  data: [Audit!]!
+}
+
+input AuditsQuery {
+  id: ID!
+  user_id: String!
+  organization_id: ID!
+  action: String!
+  object_id: String!
+  object_type: String!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+input AuditsSort {
+  id: ID!
+  user_id: String!
+  organization_id: ID!
+  action: String!
+  object_id: String!
+  object_type: String!
   created_at: DateTime!
   updated_at: DateTime!
 }
@@ -1500,7 +1529,16 @@ type Organization {
   @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
   """
   roles: [Role!]!
-  audits: [Audit!]!
+  audits(
+    where: SearchByConditionAuditsQuery
+    order: [SortByClauseAuditsSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): AuditPaginator
 }
 
 type OrganizationBranding {
@@ -2974,6 +3012,44 @@ input SearchByConditionAssetsQuery {
 }
 
 """
+Available conditions for input AuditsQuery (only one property allowed at a time).
+"""
+input SearchByConditionAuditsQuery {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionAuditsQuery!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionAuditsQuery!]
+
+  """Not."""
+  not: SearchByConditionAuditsQuery
+
+  """Property condition."""
+  id: SearchByScalarID
+
+  """Property condition."""
+  user_id: SearchByScalarString
+
+  """Property condition."""
+  organization_id: SearchByScalarID
+
+  """Property condition."""
+  action: SearchByScalarString
+
+  """Property condition."""
+  object_id: SearchByScalarString
+
+  """Property condition."""
+  object_type: SearchByScalarString
+
+  """Property condition."""
+  created_at: SearchByScalarDateTime
+
+  """Property condition."""
+  updated_at: SearchByScalarDateTime
+}
+
+"""
 Available conditions for input CitiesQuery (only one property allowed at a time).
 """
 input SearchByConditionCitiesQuery {
@@ -4378,6 +4454,35 @@ input SortByClauseAssetsSort {
 
   """Property clause."""
   status: SortByClauseStatusSort
+}
+
+"""
+Sort clause for input AuditsSort (only one property allowed at a time).
+"""
+input SortByClauseAuditsSort {
+  """Property clause."""
+  id: SortByDirection
+
+  """Property clause."""
+  user_id: SortByDirection
+
+  """Property clause."""
+  organization_id: SortByDirection
+
+  """Property clause."""
+  action: SortByDirection
+
+  """Property clause."""
+  object_id: SortByDirection
+
+  """Property clause."""
+  object_type: SortByDirection
+
+  """Property clause."""
+  created_at: SortByDirection
+
+  """Property clause."""
+  updated_at: SortByDirection
 }
 
 """

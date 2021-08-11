@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `audits` (
   INDEX `idx__user_id` (`user_id` ASC) VISIBLE,
   INDEX `idx__organization_id__user_id` (`organization_id` ASC, `user_id` ASC) VISIBLE,
   INDEX `idx__object_id__object_type` (`object_id` ASC, `object_type` ASC) VISIBLE,
-  INDEX `idx__action__organization_id` (`action` ASC, `organization_id` ASC) VISIBLE)
+  INDEX `idx__action__organization_id` (`action` ASC, `organization_id` ASC) VISIBLE
 );
 
 
