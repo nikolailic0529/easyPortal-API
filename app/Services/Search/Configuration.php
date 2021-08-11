@@ -13,9 +13,13 @@ use function array_key_exists;
 use function array_keys;
 use function array_map;
 use function array_merge;
+use function array_walk_recursive;
 use function count;
 use function explode;
+use function implode;
 use function is_array;
+use function json_encode;
+use function sha1;
 use function sort;
 use function sprintf;
 use function str_ends_with;
@@ -134,6 +138,22 @@ class Configuration {
 
     public function getProperty(string $name): ?Property {
         return Arr::get($this->getProperties(), $name) ?: null;
+    }
+
+    public function getIndexName(): string {
+        $name       = $this->getModel()->searchableAs();
+        $properties = $this->getProperties();
+
+        array_walk_recursive($properties, static function (mixed &$value): void {
+            $value = $value instanceof Property
+                ? implode('@', [$value::class, $value->getName()])
+                : (string) $value;
+        });
+
+        $hash = sha1(json_encode($properties));
+        $name = "{$name}@{$hash}";
+
+        return $name;
     }
 
     public static function getMetadataName(string $name = ''): string {

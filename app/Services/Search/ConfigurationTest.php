@@ -26,51 +26,23 @@ class ConfigurationTest extends TestCase {
      */
     public function testGetRelations(): void {
         // Prepare
-        $model = new class() extends Model {
-            use Searchable;
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchProperties(): array {
-                return [
-                    'sku' => new Text('sku'),
-                    'oem' => [
-                        'id' => new Text('oem.id'),
-                    ],
-                ];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchMetadata(): array {
-                return [
-                    'meta' => new Text('meta.data'),
-                ];
-            }
-        };
+        $model = $this->getModel(
+            [
+                'meta' => new Text('meta.data'),
+            ],
+            [
+                'sku' => new Text('sku'),
+                'oem' => [
+                    'id' => new Text('oem.id'),
+                ],
+            ],
+        );
 
         // Scope
-        $model->addGlobalScope(new class() implements Scope, ScopeWithMetadata {
-            public function apply(EloquentBuilder $builder, Model $model): void {
-                // empty
-            }
-
-            public function applyForSearch(SearchBuilder $builder, Model $model): void {
-                // empty
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getSearchMetadata(Model $model): array {
-                return [
-                    'sku' => new Text('abc.sku'),
-                    'id'  => new Text('oem.id'),
-                ];
-            }
-        });
+        $model->addGlobalScope($this->getScope([
+            'sku' => new Text('abc.sku'),
+            'id'  => new Text('oem.id'),
+        ]));
 
         // Test
         $this->assertEquals(
@@ -86,51 +58,23 @@ class ConfigurationTest extends TestCase {
      */
     public function testGetProperties(): void {
         // Prepare
-        $model = new class() extends Model {
-            use Searchable;
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchProperties(): array {
-                return [
-                    'sku' => new Text('sku'),
-                    'oem' => [
-                        'id' => new Uuid('oem.id'),
-                    ],
-                ];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchMetadata(): array {
-                return [
-                    'meta' => new Text('meta.data'),
-                ];
-            }
-        };
+        $model = $this->getModel(
+            [
+                'meta' => new Text('meta.data'),
+            ],
+            [
+                'sku' => new Text('sku'),
+                'oem' => [
+                    'id' => new Uuid('oem.id'),
+                ],
+            ],
+        );
 
         // Scope
-        $model->addGlobalScope(new class() implements Scope, ScopeWithMetadata {
-            public function apply(EloquentBuilder $builder, Model $model): void {
-                // empty
-            }
-
-            public function applyForSearch(SearchBuilder $builder, Model $model): void {
-                // empty
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getSearchMetadata(Model $model): array {
-                return [
-                    'sku' => new Text('abc.sku'),
-                    'id'  => new Uuid('oem.id'),
-                ];
-            }
-        });
+        $model->addGlobalScope($this->getScope([
+            'sku' => new Text('abc.sku'),
+            'id'  => new Uuid('oem.id'),
+        ]));
 
         // Test
         $this->assertEquals([
@@ -155,45 +99,14 @@ class ConfigurationTest extends TestCase {
      */
     public function testGetPropertiesMetadataConflict(): void {
         // Prepare
-        $model = new class() extends Model {
-            use Searchable;
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchProperties(): array {
-                return [];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchMetadata(): array {
-                return [
-                    'meta' => new Text('meta.data'),
-                ];
-            }
-        };
+        $model = $this->getModel([
+            'meta' => new Text('meta.data'),
+        ]);
 
         // Scope
-        $scope = new class() implements Scope, ScopeWithMetadata {
-            public function apply(EloquentBuilder $builder, Model $model): void {
-                // empty
-            }
-
-            public function applyForSearch(SearchBuilder $builder, Model $model): void {
-                // empty
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public function getSearchMetadata(Model $model): array {
-                return [
-                    'meta' => new Text('meta.data'),
-                ];
-            }
-        };
+        $scope = $this->getScope([
+            'meta' => new Text('meta.data'),
+        ]);
 
         $model->addGlobalScope($scope);
 
@@ -218,6 +131,84 @@ class ConfigurationTest extends TestCase {
      * @param array<mixed> $properties
      */
     public function testGetSearchable(array $expected, array $metadata, array $properties): void {
+        $configuration = new Configuration($this->getModel(), $metadata, $properties);
+        $actual        = $configuration->getSearchable();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers ::getProperty
+     */
+    public function testGetSearchProperty(): void {
+        $model         = $this->getModel(
+            [
+                'meta' => new Text('meta'),
+            ],
+            [
+                'a' => new Text('a'),
+                'b' => [
+                    'c' => new Text('c'),
+                ],
+            ],
+        );
+        $configuration = $model->getSearchableConfiguration();
+
+        $this->assertEquals('a', $configuration->getProperty(Configuration::getPropertyName('a'))?->getName());
+        $this->assertEquals('a', $configuration->getProperty(Configuration::getPropertyName('a'))?->getName());
+        $this->assertEquals('c', $configuration->getProperty(Configuration::getPropertyName('b.c'))?->getName());
+        $this->assertEquals('meta', $configuration->getProperty(Configuration::getMetadataName('meta'))?->getName());
+        $this->assertNull($configuration->getProperty('meta'));
+        $this->assertNull($configuration->getProperty('a'));
+    }
+
+    /**
+     * @covers ::getIndexName
+     */
+    public function testGetIndexName(): void {
+        $a = new Configuration(
+            $this->getModel(),
+            [
+                'meta' => new Text('meta'),
+            ],
+            [
+                'name' => new Text('name'),
+            ],
+        );
+        $b = new Configuration(
+            $this->getModel(),
+            [
+                'meta' => new Text('meta'),
+            ],
+            [
+                'name' => new Text('name'),
+            ],
+        );
+        $c = new Configuration(
+            $this->getModel(),
+            [
+                'meta' => new Uuid('meta'),
+            ],
+            [
+                'name' => new Text('name'),
+            ],
+        );
+
+        $this->assertStringStartsWith('test@', $a->getIndexName());
+        $this->assertEquals($a->getIndexName(), $b->getIndexName());
+        $this->assertNotEquals($a->getIndexName(), $c->getIndexName());
+    }
+    // </editor-fold>
+
+    // <editor-fold desc="Helpers">
+    // =========================================================================
+    /**
+     * @param array<mixed> $metadata
+     * @param array<mixed> $properties
+     *
+     * @return \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable
+     */
+    protected function getModel(array $metadata = [], array $properties = []): Model {
         $model = new class() extends Model {
             use Searchable;
 
@@ -244,51 +235,49 @@ class ConfigurationTest extends TestCase {
             protected static function getSearchProperties(): array {
                 return self::$searchProperties;
             }
+
+            public function searchableAs(): string {
+                return 'test';
+            }
         };
 
         $model::$searchMetadata   = $metadata;
         $model::$searchProperties = $properties;
 
-        $this->assertEquals($expected, $model->getSearchableConfiguration()->getSearchable());
+        return $model;
     }
 
     /**
-     * @covers ::getProperty
+     * @param array<mixed> $metadata
+     *
+     * @return \Illuminate\Database\Eloquent\Scope&\App\Services\Search\ScopeWithMetadata
      */
-    public function testGetSearchProperty(): void {
-        $model = new class() extends Model {
-            use Searchable;
-
+    protected function getScope(array $metadata): Scope {
+        $scope = new class() implements Scope, ScopeWithMetadata {
             /**
-             * @inheritDoc
+             * @var array<mixed>
              */
-            protected static function getSearchProperties(): array {
-                return [
-                    'a' => new Text('a'),
-                    'b' => [
-                        'c' => new Text('c'),
-                    ],
-                ];
+            public static array $searchMetadata;
+
+            public function apply(EloquentBuilder $builder, Model $model): void {
+                // empty
+            }
+
+            public function applyForSearch(SearchBuilder $builder, Model $model): void {
+                // empty
             }
 
             /**
              * @inheritDoc
              */
-            protected static function getSearchMetadata(): array {
-                return [
-                    'meta' => new Text('meta'),
-                ];
+            public function getSearchMetadata(Model $model): array {
+                return self::$searchMetadata;
             }
         };
 
-        $configuration = $model->getSearchableConfiguration();
+        $scope::$searchMetadata = $metadata;
 
-        $this->assertEquals('a', $configuration->getProperty(Configuration::getPropertyName('a'))?->getName());
-        $this->assertEquals('a', $configuration->getProperty(Configuration::getPropertyName('a'))?->getName());
-        $this->assertEquals('c', $configuration->getProperty(Configuration::getPropertyName('b.c'))?->getName());
-        $this->assertEquals('meta', $configuration->getProperty(Configuration::getMetadataName('meta'))?->getName());
-        $this->assertNull($configuration->getProperty('meta'));
-        $this->assertNull($configuration->getProperty('a'));
+        return $scope;
     }
     // </editor-fold>
 
