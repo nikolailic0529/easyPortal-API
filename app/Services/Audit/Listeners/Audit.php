@@ -8,6 +8,7 @@ use App\Services\Audit\Auditor;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Audit\Enums\Action;
 use App\Services\Audit\Events\QueryExported;
+use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -23,17 +24,11 @@ class Audit implements Subscriber {
     }
 
     public function signIn(Login $event): void {
-        $user = $event->user;
-        if ($user instanceof Model) {
-            $this->auditor->create(Action::authSignedIn(), ['guard' => $event->guard ]);
-        }
+        $this->auditor->create(Action::authSignedIn(), ['guard' => $event->guard ]);
     }
 
     public function signOut(Logout $event): void {
-        $user = $event->user;
-        if ($user instanceof Model) {
-            $this->auditor->create(Action::authSignedOut(), ['guard' => $event->guard ]);
-        }
+        $this->auditor->create(Action::authSignedOut(), ['guard' => $event->guard ]);
     }
 
     /**
@@ -57,9 +52,14 @@ class Audit implements Subscriber {
         ]);
     }
 
+    public function failed(Failed $event): void {
+        $this->auditor->create(Action::authFailed(), ['guard' => $event->guard]);
+    }
+
     public function subscribe(Dispatcher $dispatcher): void {
         $dispatcher->listen(Login::class, [$this::class, 'signIn']);
         $dispatcher->listen(Logout::class, [$this::class, 'signOut']);
+        $dispatcher->listen(Failed::class, [$this::class, 'failed']);
         $dispatcher->listen(QueryExported::class, [$this::class, 'queryExported']);
         // Subscribe for model events
         /** @var array<string,\App\Services\Audit\Enums\Action> $events */

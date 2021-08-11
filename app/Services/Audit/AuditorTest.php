@@ -121,6 +121,20 @@ class AuditorTest extends TestCase {
         Auth::logout($user);
     }
 
+     /**
+     * @covers ::create
+     *
+     */
+    public function testLoginFailed(): void {
+        $this->override(Auditor::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('create')
+                ->once()
+                ->with(Action::authFailed(), ['guard' => 'web']);
+        });
+        Auth::guard('web')->attempt([ 'email' => 'test@example.com', 'password' => '12345']);
+    }
+
     /**
      * @covers ::create
      *
