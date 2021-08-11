@@ -454,6 +454,30 @@ class SearchableTest extends TestCase {
             $config->getProperties(),
         );
     }
+
+    /**
+     * @covers ::searchableAs
+     * @covers ::setSearchableAs
+     * @covers ::scoutSearchableAs
+     */
+    public function testSearchableAs(): void {
+        $model = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @inheritDoc
+             */
+            public static function getSearchProperties(): array {
+                return [];
+            }
+        };
+
+        $this->assertEquals('test', $model->setSearchableAs('test')->searchableAs());
+        $this->assertEquals(
+            $model->scoutSearchableAs(),
+            $model->setSearchableAs(null)->searchableAs(),
+        );
+    }
     //</editor-fold>
 
     // <editor-fold desc="DataProviders">

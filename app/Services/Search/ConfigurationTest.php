@@ -167,7 +167,7 @@ class ConfigurationTest extends TestCase {
      */
     public function testGetIndexName(): void {
         $a = new Configuration(
-            $this->getModel(),
+            $this->getModel()->setSearchableAs('should be ignored'),
             [
                 'meta' => new Text('meta'),
             ],
@@ -176,7 +176,7 @@ class ConfigurationTest extends TestCase {
             ],
         );
         $b = new Configuration(
-            $this->getModel(),
+            $this->getModel()->setSearchableAs('should be ignored'),
             [
                 'meta' => new Text('meta'),
             ],
@@ -185,7 +185,7 @@ class ConfigurationTest extends TestCase {
             ],
         );
         $c = new Configuration(
-            $this->getModel(),
+            $this->getModel()->setSearchableAs('should be ignored'),
             [
                 'meta' => new Uuid('meta'),
             ],
@@ -197,6 +197,17 @@ class ConfigurationTest extends TestCase {
         $this->assertStringStartsWith('test@', $a->getIndexName());
         $this->assertEquals($a->getIndexName(), $b->getIndexName());
         $this->assertNotEquals($a->getIndexName(), $c->getIndexName());
+    }
+
+    /**
+     * @covers ::getIndexAlias
+     */
+    public function testGetIndexAlias(): void {
+        $a = new Configuration($this->getModel()->setSearchableAs('should be ignored'), [], []);
+        $b = new Configuration($this->getModel(), [], []);
+
+        $this->assertEquals('test', $a->getIndexAlias());
+        $this->assertEquals('test', $b->getIndexAlias());
     }
     // </editor-fold>
 
@@ -236,7 +247,7 @@ class ConfigurationTest extends TestCase {
                 return self::$searchProperties;
             }
 
-            public function searchableAs(): string {
+            public function scoutSearchableAs(): string {
                 return 'test';
             }
         };

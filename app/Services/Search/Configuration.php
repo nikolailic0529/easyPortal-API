@@ -141,7 +141,7 @@ class Configuration {
     }
 
     public function getIndexName(): string {
-        $name       = $this->getModel()->searchableAs();
+        $name       = $this->getModel()->scoutSearchableAs();
         $properties = $this->getProperties();
 
         array_walk_recursive($properties, static function (mixed &$value): void {
@@ -154,6 +154,10 @@ class Configuration {
         $name = "{$name}@{$hash}";
 
         return $name;
+    }
+
+    public function getIndexAlias(): string {
+        return $this->getModel()->scoutSearchableAs();
     }
 
     public static function getMetadataName(string $name = ''): string {

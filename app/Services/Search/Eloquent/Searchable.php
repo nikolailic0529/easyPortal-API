@@ -40,8 +40,11 @@ trait Searchable {
     use GlobalScopes;
     use ScoutSearchable {
         search as protected scoutSearch;
+        searchableAs as public scoutSearchableAs;
         queueMakeSearchable as protected scoutQueueMakeSearchable;
     }
+
+    private ?string $searchableAs = null;
 
     // <editor-fold desc="Abstract">
     // =========================================================================
@@ -82,6 +85,10 @@ trait Searchable {
 
     // <editor-fold desc="Scout">
     // =========================================================================
+    public function searchableAs(): string {
+        return $this->searchableAs ?? $this->scoutSearchableAs();
+    }
+
     public function shouldBeSearchable(): bool {
         return count(array_filter($this->getSearchConfiguration()->getProperties())) > 0;
     }
@@ -193,6 +200,12 @@ trait Searchable {
             'metadata'   => $this->getSearchMetadata(),
             'properties' => $this->getSearchProperties(),
         ]);
+    }
+
+    public function setSearchableAs(?string $searchableAs): static {
+        $this->searchableAs = $searchableAs;
+
+        return $this;
     }
     // </editor-fold>
 
