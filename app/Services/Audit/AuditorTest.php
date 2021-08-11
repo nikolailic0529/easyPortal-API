@@ -145,10 +145,15 @@ class AuditorTest extends TestCase {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::exported(), ['count' => 1, 'type' => 'csv', 'columns' => ['id', 'name']]);
+                ->with(Action::exported(), [
+                    'count'   => 1,
+                    'type'    => 'csv',
+                    'query'   => 'assets',
+                    'columns' => ['id', 'name'],
+                ]);
         });
         $dispatcher = $this->app->make(Dispatcher::class);
-        $dispatcher->dispatch(new QueryExported(1, 'csv', ['id', 'name']));
+        $dispatcher->dispatch(new QueryExported(1, 'csv', 'assets', ['id', 'name']));
     }
     /**
      * @covers ::create

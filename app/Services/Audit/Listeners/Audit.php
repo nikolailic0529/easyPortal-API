@@ -48,6 +48,7 @@ class Audit implements Subscriber {
         $this->auditor->create(Action::exported(), [
             'count'   => $event->getCount(),
             'type'    => $event->getType(),
+            'query'   => $event->getQuery(),
             'columns' => $event->getColumns(),
         ]);
     }
