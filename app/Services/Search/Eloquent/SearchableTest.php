@@ -4,34 +4,24 @@ namespace App\Services\Search\Eloquent;
 
 use App\Models\Oem;
 use App\Models\ServiceGroup;
-use App\Services\Organization\Eloquent\OwnedByOrganization;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
 use App\Services\Search\ScopeWithMetadata;
-use Closure;
+use App\Services\Search\Updater;
 use DateTime;
 use Exception;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Facades\Event;
-use Laravel\Scout\Events\ModelsImported;
-use Laravel\Telescope\Telescope;
-use LastDragon_ru\LaraASP\Eloquent\Iterators\ChunkedChangeSafeIterator;
 use LogicException;
 use Mockery;
-use PHPUnit\Framework\Assert;
+use Mockery\MockInterface;
 use stdClass;
 use Tests\TestCase;
-
-use function config;
-use function count;
 
 /**
  * @internal
@@ -154,34 +144,9 @@ class SearchableTest extends TestCase {
      * @covers ::makeAllSearchable
      */
     public function testMakeAllSearchable(): void {
-        // Fake
-        Event::fake();
-
-        // Prepare
-        $key    = 'scout.queue';
-        $config = $this->app->make(Repository::class);
-
-        $config->set($key, true);
-
-        $this->assertTrue($config->get($key));
-
-        // Spy
-        $spySearchable   = Mockery::spy(function () use ($config, $key): void {
-            $this->assertFalse($config->get($key));
-        });
-        $spyOnAfterChunk = Mockery::spy(static function (): void {
-            // empty
-        });
-
-        // Model
+        $chunk = $this->faker->randomDigitNotNull;
         $model = new class() extends Model {
-            use OwnedByOrganization;
             use Searchable;
-
-            public static Closure $spy;
-            public static int     $chunk;
-            public static Closure $callback;
-            public static string  $continue;
 
             /**
              * @inheritDoc
@@ -189,56 +154,17 @@ class SearchableTest extends TestCase {
             protected static function getSearchProperties(): array {
                 return [];
             }
-
-            public static function searchable(): void {
-                Assert::assertFalse(config('scout.queue'));
-                Assert::assertFalse(Telescope::isRecording());
-
-                (self::$spy)();
-            }
-
-            public function newEloquentBuilder(mixed $query): EloquentBuilder {
-                $iterator = Mockery::mock(ChunkedChangeSafeIterator::class);
-                $iterator->shouldAllowMockingProtectedMethods();
-                $iterator->makePartial();
-                $iterator
-                    ->shouldReceive('getChunk')
-                    ->once()
-                    ->andReturn(new EloquentCollection([$this]));
-                $iterator
-                    ->shouldReceive('getBuilder')
-                    ->once()
-                    ->andReturn(new EloquentBuilder($query));
-                $iterator
-                    ->shouldReceive('getColumn')
-                    ->once()
-                    ->andReturn($this->getKeyName());
-
-                $builder = Mockery::mock(EloquentBuilder::class, [$query]);
-                $builder->makePartial();
-                $builder
-                    ->shouldReceive('changeSafeIterator')
-                    ->once()
-                    ->andReturn($iterator);
-
-                return $builder;
-            }
         };
 
-        $model::$spy      = Closure::fromCallable($spySearchable);
-        $model::$chunk    = 123;
-        $model::$callback = Closure::fromCallable($spyOnAfterChunk);
-        $model::$continue = 'abc';
+        $this->override(Updater::class, static function (MockInterface $updater) use ($model, $chunk): void {
+            $updater
+                ->shouldReceive('update')
+                ->with($model::class, null, null, $chunk)
+                ->once();
+        });
 
         // Test
-        $model->makeAllSearchable($model::$chunk, $model::$continue, $model::$callback);
-
-        $spySearchable->shouldHaveBeenCalled();
-        $spyOnAfterChunk->shouldHaveBeenCalled()->once();
-
-        Event::assertDispatched(ModelsImported::class, static function (ModelsImported $event): bool {
-            return count($event->models) > 0;
-        });
+        $model->makeAllSearchable($chunk);
     }
 
     /**
@@ -247,9 +173,7 @@ class SearchableTest extends TestCase {
     public function testMakeAllSearchableUsing(): void {
         // Model
         $model = new class() extends Model {
-            use Searchable {
-                makeAllSearchableUsing as public;
-            }
+            use Searchable;
 
             /**
              * @inheritDoc
@@ -298,44 +222,6 @@ class SearchableTest extends TestCase {
         }
 
         $this->assertEquals($expected, $model->toSearchableValue($value));
-    }
-
-    /**
-     * @covers ::callWithoutScoutQueue
-     */
-    public function testCallWithoutScoutQueue(): void {
-        // Prepare
-        $key    = 'scout.queue';
-        $config = $this->app->make(Repository::class);
-
-        $config->set($key, true);
-
-        $this->assertTrue($config->get($key));
-
-        // Model
-        $model = new class() extends Model {
-            use Searchable {
-                callWithoutScoutQueue as public;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchProperties(): array {
-                return [];
-            }
-        };
-
-        // Test
-        $spy = Mockery::spy(function () use ($config, $key): int {
-            $this->assertFalse($config->get($key));
-
-            return 123;
-        });
-
-        $this->assertEquals(123, $model->callWithoutScoutQueue(Closure::fromCallable($spy)));
-
-        $spy->shouldHaveBeenCalled();
     }
 
     /**

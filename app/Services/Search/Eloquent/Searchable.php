@@ -3,22 +3,18 @@
 namespace App\Services\Search\Eloquent;
 
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
 use App\Services\Search\Properties\Property;
+use App\Services\Search\Updater;
 use App\Utils\ModelProperty;
 use Carbon\CarbonInterface;
 use Closure;
 use DateTimeInterface;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
-use Laravel\Scout\Events\ModelsImported;
 use Laravel\Scout\Searchable as ScoutSearchable;
-use Laravel\Telescope\Telescope;
 use LogicException;
 
 use function app;
@@ -26,9 +22,7 @@ use function array_filter;
 use function array_intersect;
 use function array_keys;
 use function array_walk_recursive;
-use function config;
 use function count;
-use function event;
 use function is_iterable;
 use function is_null;
 use function is_scalar;
@@ -109,10 +103,6 @@ trait Searchable {
         return $should;
     }
 
-    protected function makeAllSearchableUsing(Builder $query): Builder {
-        return $query->with($this->getSearchConfiguration()->getRelations());
-    }
-
     /**
      * @return array<string,mixed>
      */
@@ -133,51 +123,12 @@ trait Searchable {
         return $properties;
     }
 
-    public static function makeAllSearchable(
-        int $chunk = null,
-        string $continue = null,
-        Closure $callback = null,
-    ): void {
-        static::callWithoutGlobalScope(
-            OwnedByOrganizationScope::class,
-            static function () use ($chunk, $continue, $callback): void {
-                static::callWithoutScoutQueue(static function () use ($chunk, $continue, $callback): void {
-                    Telescope::withoutRecording(static function () use ($chunk, $continue, $callback): void {
-                        $chunk  ??= config('scout.chunk.searchable', 500);
-                        $trashed  = static::usesSoftDelete() && config('scout.soft_delete', false);
-                        $callback = static function (EloquentCollection $items) use ($callback): void {
-                            // Empty?
-                            if ($items->isEmpty()) {
-                                return;
-                            }
+    public static function makeAllSearchable(int $chunk = null): void {
+        app(Updater::class)->update(static::class, chunk: $chunk);
+    }
 
-                            // Event (needed for scout:import)
-                            event(new ModelsImported($items));
-
-                            // Callback
-                            if ($callback) {
-                                $callback($items);
-                            }
-                        };
-                        $iterator = static::query()
-                            ->when(true, static function (Builder $builder): void {
-                                $builder->newModelInstance()->makeAllSearchableUsing($builder);
-                            })
-                            ->when($trashed, static function (Builder $builder): void {
-                                $builder->withTrashed();
-                            })
-                            ->changeSafeIterator()
-                            ->onAfterChunk($callback)
-                            ->setChunkSize($chunk)
-                            ->setOffset($continue);
-
-                        foreach ($iterator as $model) {
-                            $model->searchable();
-                        }
-                    });
-                });
-            },
-        );
+    public function makeAllSearchableUsing(Builder $query): Builder {
+        return $query->with($this->getSearchConfiguration()->getRelations());
     }
 
     public function queueMakeSearchable(Collection $models): void {
@@ -231,20 +182,6 @@ trait Searchable {
         }
 
         return $value;
-    }
-
-    protected static function callWithoutScoutQueue(Closure $closure): mixed {
-        $key      = 'scout.queue';
-        $config   = app()->make(Repository::class);
-        $previous = $config->get($key);
-
-        try {
-            $config->set($key, false);
-
-            return $closure();
-        } finally {
-            $config->set($key, $previous);
-        }
     }
     // </editor-fold>
 }

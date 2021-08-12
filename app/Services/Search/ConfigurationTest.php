@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use LogicException;
+use Mockery;
 use Tests\TestCase;
 
 use function sprintf;
@@ -231,38 +232,40 @@ class ConfigurationTest extends TestCase {
             ->getSearchConfiguration()
             ->getMappings();
         $expected = [
-            Configuration::getMetadataName() => [
-                'properties' => [
-                    'meta' => [
-                        'type'   => 'text',
-                        'fields' => [
-                            'keyword' => [
-                                'type' => 'keyword',
+            'properties' => [
+                Configuration::getMetadataName() => [
+                    'properties' => [
+                        'meta' => [
+                            'type'   => 'text',
+                            'fields' => [
+                                'keyword' => [
+                                    'type' => 'keyword',
+                                ],
                             ],
                         ],
                     ],
                 ],
-            ],
-            Configuration::getPropertyName() => [
-                'properties' => [
-                    'name'  => [
-                        'type'   => 'text',
-                        'fields' => [
-                            'keyword' => [
-                                'type' => 'keyword',
+                Configuration::getPropertyName() => [
+                    'properties' => [
+                        'name'  => [
+                            'type'   => 'text',
+                            'fields' => [
+                                'keyword' => [
+                                    'type' => 'keyword',
+                                ],
                             ],
                         ],
-                    ],
-                    'child' => [
-                        'properties' => [
-                            'id'   => [
-                                'type' => 'keyword',
-                            ],
-                            'name' => [
-                                'type'   => 'text',
-                                'fields' => [
-                                    'keyword' => [
-                                        'type' => 'keyword',
+                        'child' => [
+                            'properties' => [
+                                'id'   => [
+                                    'type' => 'keyword',
+                                ],
+                                'name' => [
+                                    'type'   => 'text',
+                                    'fields' => [
+                                        'keyword' => [
+                                            'type' => 'keyword',
+                                        ],
                                     ],
                                 ],
                             ],
@@ -273,6 +276,24 @@ class ConfigurationTest extends TestCase {
         ];
 
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers ::isIndex
+     */
+    public function testIsIndex(): void {
+        $config = Mockery::mock(Configuration::class);
+        $config->makePartial();
+        $config
+            ->shouldReceive('getIndexAlias')
+            ->andReturn('test')
+            ->atLeast()
+            ->once();
+
+        $this->assertTrue($config->isIndex('test@12345'));
+        $this->assertTrue($config->isIndex('test@'));
+        $this->assertFalse($config->isIndex('test'));
+        $this->assertFalse($config->isIndex('abc'));
     }
     // </editor-fold>
 

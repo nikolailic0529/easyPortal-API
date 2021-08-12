@@ -23,10 +23,10 @@ class ModelHelper {
             $model = $model::class;
         }
 
-        if (!isset(self::$softDeletable[$model::class])) {
-            self::$softDeletable[$model::class] = in_array(SoftDeletes::class, class_uses_recursive($model), true);
+        if (!isset(self::$softDeletable[$model])) {
+            self::$softDeletable[$model] = in_array(SoftDeletes::class, class_uses_recursive($model), true);
         }
 
-        return self::$softDeletable[$model::class];
+        return self::$softDeletable[$model];
     }
 }

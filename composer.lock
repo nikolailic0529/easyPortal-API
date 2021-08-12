@@ -3363,12 +3363,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-eloquent.git",
-                "reference": "b12095f7cd3abcc34d38bb8cc3cbd9de92dcc550"
+                "reference": "56def8adba15fbd7fe12fe72feffc8348462ef7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-eloquent/zipball/b12095f7cd3abcc34d38bb8cc3cbd9de92dcc550",
-                "reference": "b12095f7cd3abcc34d38bb8cc3cbd9de92dcc550",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-eloquent/zipball/56def8adba15fbd7fe12fe72feffc8348462ef7e",
+                "reference": "56def8adba15fbd7fe12fe72feffc8348462ef7e",
                 "shasum": ""
             },
             "require": {
@@ -3415,7 +3415,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-08-06T12:58:44+00:00"
+            "time": "2021-08-12T10:47:13+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-formatter",

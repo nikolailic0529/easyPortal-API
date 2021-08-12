@@ -24,6 +24,7 @@ use function sha1;
 use function sort;
 use function sprintf;
 use function str_ends_with;
+use function str_starts_with;
 
 class Configuration {
     protected const METADATA   = 'metadata';
@@ -142,7 +143,6 @@ class Configuration {
     }
 
     public function getIndexName(): string {
-        $name       = $this->getModel()->scoutSearchableAs();
         $properties = $this->getProperties();
 
         array_walk_recursive($properties, static function (mixed &$value): void {
@@ -152,7 +152,7 @@ class Configuration {
         });
 
         $hash = sha1(json_encode($properties));
-        $name = "{$name}@{$hash}";
+        $name = "{$this->getIndexAlias()}@{$hash}";
 
         return $name;
     }
@@ -161,11 +161,17 @@ class Configuration {
         return $this->getModel()->scoutSearchableAs();
     }
 
+    public function isIndex(string $index): bool {
+        return str_starts_with($index, "{$this->getIndexAlias()}@");
+    }
+
     /**
      * @return array<mixed>
      */
     public function getMappings(): array {
-        return $this->getMappingsProcess($this->getProperties());
+        return [
+            'properties' => $this->getMappingsProcess($this->getProperties()),
+        ];
     }
 
     /**
