@@ -8,6 +8,7 @@ use ElasticAdapter\Indices\IndexManager;
 use Elasticsearch\Client;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Support\Collection;
+use Throwable;
 
 use function str_starts_with;
 
@@ -24,13 +25,19 @@ trait WithSearch {
             'elastic.scout_driver.refresh_documents' => true,
         ]);
 
+        // Available?
+        $client = $this->app->make(Client::class);
+
+        try {
+            $client->info();
+        } catch (Throwable) {
+            $this->markTestSkipped('Elastic Search is not installed/configured.');
+        }
+
         // Remove all indexes
-        $client  = $this->app->make(Client::class);
         $prefix  = $this->app->make(Repository::class)->get('scout.prefix');
-        $indexes = (new Collection($client->cat()->indices()))
-            ->map(static function (array $index): string {
-                return $index['index'];
-            })
+        $indexes = (new Collection($client->indices()->getAlias()))
+            ->keys()
             ->filter(static function (string $index) use ($prefix): bool {
                 return str_starts_with($index, $prefix);
             })
