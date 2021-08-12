@@ -21,7 +21,6 @@ use Throwable;
 use function array_filter;
 use function array_keys;
 use function array_values;
-use function min;
 
 class Updater {
     use GlobalScopes;
@@ -81,13 +80,12 @@ class Updater {
         DateTimeInterface $from = null,
         string|int $continue = null,
         int $chunk = null,
-        int $limit = null,
     ): void {
-        $this->call(function () use ($model, $from, $continue, $chunk, $limit): void {
+        $this->call(function () use ($model, $from, $continue, $chunk): void {
             $index    = $this->createIndex($model);
-            $status   = new Status($from, $continue, $this->getTotal($model, $from, $limit));
+            $status   = new Status($from, $continue, $this->getTotal($model, $from));
             $iterator = $this
-                ->getIterator($model, $from, $chunk, $limit, $continue)
+                ->getIterator($model, $from, $chunk, $continue)
                 ->onBeforeChunk(function (Collection $items) use ($status): void {
                     $this->onBeforeChunk($items, $status);
                 })
@@ -151,7 +149,6 @@ class Updater {
         string $model,
         ?DateTimeInterface $from,
         ?int $chunk,
-        ?int $limit,
         int|string|null $continue,
     ): ChunkedChangeSafeIterator {
         $chunk    = $chunk ?? $this->getConfig()->get('scout.chunk.searchable') ?? null;
@@ -159,14 +156,11 @@ class Updater {
             ->when(true, static function (Builder $builder): void {
                 $builder->newModelInstance()->makeAllSearchableUsing($builder);
             })
-            ->changeSafeIterator();
+            ->changeSafeIterator()
+            ->setLimit(null);
 
         if ($chunk) {
             $iterator->setChunkSize($chunk);
-        }
-
-        if ($limit) {
-            $iterator->setLimit($limit);
         }
 
         if ($continue) {
@@ -196,14 +190,8 @@ class Updater {
     /**
      * @param class-string<\Illuminate\Database\Eloquent\Model> $model
      */
-    protected function getTotal(string $model, DateTimeInterface $from = null, int $limit = null): ?int {
-        $count = $this->getBuilder($model, $from)->count();
-
-        if ($limit !== null) {
-            $count = min($limit, $count);
-        }
-
-        return $count;
+    protected function getTotal(string $model, DateTimeInterface $from = null): ?int {
+        return $this->getBuilder($model, $from)->count();
     }
 
     /**

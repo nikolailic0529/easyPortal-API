@@ -21,7 +21,6 @@ use Mockery;
 use Tests\TestCase;
 use Tests\WithSearch;
 
-use function array_merge;
 use function ceil;
 
 /**
@@ -50,7 +49,6 @@ class UpdaterTest extends TestCase {
         string $model,
         Closure $from = null,
         string $continue = null,
-        int $limit = null,
     ): void {
         // Settings
         $this->setSettings($settings);
@@ -116,7 +114,6 @@ class UpdaterTest extends TestCase {
                 $from,
                 $continue,
                 $chunk,
-                $limit,
             );
 
         // Test
@@ -156,7 +153,6 @@ class UpdaterTest extends TestCase {
         string $model,
         Closure $from = null,
         string $continue = null,
-        int $limit = null,
     ): void {
         // Settings
         $this->setSettings($settings);
@@ -175,8 +171,8 @@ class UpdaterTest extends TestCase {
         $from     = $from ? $from($this) : null;
         $actual   = $this->callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
-            static function () use ($updater, $model, $from, $limit, $continue): Collection {
-                return (new Collection($updater->getIterator($model, $from, 1, $limit, $continue)))
+            static function () use ($updater, $model, $from, $continue): Collection {
+                return (new Collection($updater->getIterator($model, $from, 1, $continue)))
                     ->map(static function (Model $model): Model {
                         return $model->withoutRelations();
                     });
@@ -202,7 +198,6 @@ class UpdaterTest extends TestCase {
         string $model,
         Closure $from = null,
         string $continue = null,
-        int $limit = null,
     ): void {
         // Settings
         $this->setSettings($settings);
@@ -221,8 +216,8 @@ class UpdaterTest extends TestCase {
         $from     = $from ? $from($this) : null;
         $actual   = $this->callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
-            static function () use ($updater, $model, $from, $limit): Collection {
-                return $updater->getBuilder($model, $from)->limit($limit)->get()->toBase();
+            static function () use ($updater, $model, $from): Collection {
+                return $updater->getBuilder($model, $from)->get()->toBase();
             },
         );
 
@@ -245,7 +240,6 @@ class UpdaterTest extends TestCase {
         string $model,
         Closure $from = null,
         string $continue = null,
-        int $limit = null,
     ): void {
         // Settings
         $this->setSettings($settings);
@@ -264,8 +258,8 @@ class UpdaterTest extends TestCase {
         $from     = $from ? $from($this) : null;
         $actual   = $this->callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
-            static function () use ($updater, $model, $from, $limit): int {
-                return $updater->getTotal($model, $from, $limit);
+            static function () use ($updater, $model, $from): int {
+                return $updater->getTotal($model, $from);
             },
         );
 
@@ -431,7 +425,7 @@ class UpdaterTest extends TestCase {
      */
     public function dataProviderModels(): array {
         return [
-            'models with `from`, `limit`, `continue`'                 => [
+            'models with `from` and `continue`'                 => [
                 static function (TestCase $test): Collection {
                     // Old
                     Asset::factory()->create([
@@ -459,12 +453,6 @@ class UpdaterTest extends TestCase {
                     ]);
                     $b = Asset::factory()->create([
                         'id'         => 'c7810bc4-911e-4639-96ca-ba44344fcd6c',
-                        'updated_at' => Date::now()->addDay(),
-                    ]);
-
-                    // > limit
-                    Asset::factory()->create([
-                        'id'         => 'c7b7e065-4701-4d0d-8c6a-258c622d5eaf',
                         'updated_at' => Date::now()->addDay(),
                     ]);
 
@@ -481,7 +469,7 @@ class UpdaterTest extends TestCase {
                 '3ebc9cc2-6e6a-495e-8b56-e6cbdec9832b',
                 2,
             ],
-            'models without `from`, `limit`, `continue`'              => [
+            'models without `from` and `continue`'              => [
                 static function (TestCase $test): Collection {
                     // Old
                     $a = Asset::factory()->create([
@@ -512,14 +500,8 @@ class UpdaterTest extends TestCase {
                         'updated_at' => Date::now()->addDay(),
                     ]);
 
-                    // > limit
-                    $e = Asset::factory()->create([
-                        'id'         => 'c7b7e065-4701-4d0d-8c6a-258c622d5eaf',
-                        'updated_at' => Date::now()->addDay(),
-                    ]);
-
                     // Return
-                    return new Collection([$a, $b, $c, $d, $e]);
+                    return new Collection([$a, $b, $c, $d]);
                 },
                 [
                     // empty
@@ -529,7 +511,7 @@ class UpdaterTest extends TestCase {
                 null,
                 null,
             ],
-            'models without `from`, `limit`, `continue` + softDelete' => [
+            'models without `from` and `continue` + softDelete' => [
                 static function (TestCase $test): Collection {
                     // Old
                     $a = Asset::factory()->create([
@@ -560,14 +542,8 @@ class UpdaterTest extends TestCase {
                         'updated_at' => Date::now()->addDay(),
                     ]);
 
-                    // > limit
-                    $f = Asset::factory()->create([
-                        'id'         => 'c7b7e065-4701-4d0d-8c6a-258c622d5eaf',
-                        'updated_at' => Date::now()->addDay(),
-                    ]);
-
                     // Return
-                    return new Collection([$a, $b, $c, $d, $e, $f]);
+                    return new Collection([$a, $b, $c, $d, $e]);
                 },
                 [
                     'scout.soft_delete' => true,
