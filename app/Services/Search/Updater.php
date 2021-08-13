@@ -98,7 +98,14 @@ class Updater {
             foreach ($iterator as $item) {
                 /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $item */
                 try {
-                    $item->setSearchableAs($index)->searchable();
+                    $isSoftDeletableModel   = ModelHelper::isSoftDeletable($item);
+                    $isSoftDeletableIndexed = (bool) $this->getConfig()->get('scout.soft_delete', false);
+
+                    if ($isSoftDeletableModel && !$isSoftDeletableIndexed && $item->trashed()) {
+                        $item->setSearchableAs($index)->unsearchable();
+                    } else {
+                        $item->setSearchableAs($index)->searchable();
+                    }
                 } catch (Throwable $exception) {
                     // TODO: Use Exception + handler
                     $this->logger->warning('Failed to add object into search index.', [
@@ -174,8 +181,7 @@ class Updater {
      * @param class-string<\Illuminate\Database\Eloquent\Model> $model
      */
     protected function getBuilder(string $model, DateTimeInterface $from = null): Builder {
-        $trashed = ModelHelper::isSoftDeletable($model)
-            && $this->getConfig()->get('scout.soft_delete', false);
+        $trashed = ModelHelper::isSoftDeletable($model);
         $builder = $model::query()
             ->when($from, static function (Builder $builder) use ($model, $from): void {
                 $builder->where((new $model())->getUpdatedAtColumn(), '>=', $from);

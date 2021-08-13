@@ -117,12 +117,20 @@ class UpdaterTest extends TestCase {
             );
 
         // Test
+        if (!$this->app->make(Repository::class)->get('scout.soft_delete', false)) {
+            $expected = $expected
+                ->filter(static function (Model $model): bool {
+                    return !$model->trashed();
+                })
+                ->values();
+        }
+
         $this->assertEquals($expected, $this->callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
             static function () use ($model): Collection {
                 return $model::search()->withTrashed()->get()->toBase();
-            }),
-        );
+            },
+        ));
 
         $spyOnInit
             ->shouldHaveBeenCalled()
@@ -156,6 +164,9 @@ class UpdaterTest extends TestCase {
     ): void {
         // Settings
         $this->setSettings($settings);
+        $this->setSettings([
+            'scout.chunk.searchable' => 1,
+        ]);
 
         // Mock
         $updater = Mockery::mock(Updater::class);
@@ -172,7 +183,7 @@ class UpdaterTest extends TestCase {
         $actual   = $this->callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
             static function () use ($updater, $model, $from, $continue): Collection {
-                return (new Collection($updater->getIterator($model, $from, 1, $continue)))
+                return (new Collection($updater->getIterator($model, $from, null, $continue)))
                     ->map(static function (Model $model): Model {
                         return $model->withoutRelations();
                     });
@@ -206,10 +217,6 @@ class UpdaterTest extends TestCase {
         $updater = Mockery::mock(Updater::class);
         $updater->shouldAllowMockingProtectedMethods();
         $updater->makePartial();
-        $updater
-            ->shouldReceive('getConfig')
-            ->once()
-            ->andReturn($this->app->make(Repository::class));
 
         // Prepare
         $expected = $expected($this);
@@ -248,10 +255,6 @@ class UpdaterTest extends TestCase {
         $updater = Mockery::mock(Updater::class);
         $updater->shouldAllowMockingProtectedMethods();
         $updater->makePartial();
-        $updater
-            ->shouldReceive('getConfig')
-            ->once()
-            ->andReturn($this->app->make(Repository::class));
 
         // Prepare
         $expected = count($expected($this));
@@ -440,24 +443,24 @@ class UpdaterTest extends TestCase {
                     ]);
 
                     // Soft Deleted
-                    Asset::factory()->create([
+                    $a = Asset::factory()->create([
                         'id'         => '3ebc9cc2-6e6a-495e-8b56-e6cbdec9832b',
                         'updated_at' => Date::now()->addDay(),
                         'deleted_at' => Date::now(),
                     ]);
 
                     // Actual
-                    $a = Asset::factory()->create([
+                    $b = Asset::factory()->create([
                         'id'         => '5dc9b072-c1e2-497e-a2cd-32ae62ee5096',
                         'updated_at' => Date::now()->addDay(),
                     ]);
-                    $b = Asset::factory()->create([
+                    $c = Asset::factory()->create([
                         'id'         => 'c7810bc4-911e-4639-96ca-ba44344fcd6c',
                         'updated_at' => Date::now()->addDay(),
                     ]);
 
                     // Return
-                    return new Collection([$a, $b]);
+                    return new Collection([$a, $b, $c]);
                 },
                 [
                     // empty
@@ -466,7 +469,7 @@ class UpdaterTest extends TestCase {
                 static function (TestCase $test): DateTimeInterface {
                     return Date::now();
                 },
-                '3ebc9cc2-6e6a-495e-8b56-e6cbdec9832b',
+                '3ea13c8b-b024-44c7-94ec-3877f5785152',
                 2,
             ],
             'models without `from` and `continue`'              => [
@@ -484,24 +487,24 @@ class UpdaterTest extends TestCase {
                     ]);
 
                     // Soft Deleted
-                    Asset::factory()->create([
+                    $c = Asset::factory()->create([
                         'id'         => '3ebc9cc2-6e6a-495e-8b56-e6cbdec9832b',
                         'updated_at' => Date::now()->addDay(),
                         'deleted_at' => Date::now(),
                     ]);
 
                     // Actual
-                    $c = Asset::factory()->create([
+                    $d = Asset::factory()->create([
                         'id'         => '5dc9b072-c1e2-497e-a2cd-32ae62ee5096',
                         'updated_at' => Date::now()->addDay(),
                     ]);
-                    $d = Asset::factory()->create([
+                    $e = Asset::factory()->create([
                         'id'         => 'c7810bc4-911e-4639-96ca-ba44344fcd6c',
                         'updated_at' => Date::now()->addDay(),
                     ]);
 
                     // Return
-                    return new Collection([$a, $b, $c, $d]);
+                    return new Collection([$a, $b, $c, $d, $e]);
                 },
                 [
                     // empty
