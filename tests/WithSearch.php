@@ -57,7 +57,12 @@ trait WithSearch {
     protected function makeSearchable(Collection|Model $models): Collection|Model {
         if ($models instanceof Model) {
             /** @var \App\Services\Search\Eloquent\Searchable $models */
-            $this->createSearchIndex($models->searchableAs());
+            $config   = $models->getSearchConfiguration();
+            $index    = $config->getIndexName();
+            $alias    = $config->getIndexAlias();
+            $mappings = $config->getMappings();
+
+            $this->createSearchIndex($index, $alias, $mappings);
             $models->searchable();
         } else {
             // Foreach is used because Scout doesn't create an index right if the
@@ -70,13 +75,27 @@ trait WithSearch {
         return $models;
     }
 
-    protected function createSearchIndex(string $index, string $alias = null): void {
+    /**
+     * @param array<mixed>|null $mappings
+     */
+    protected function createSearchIndex(string $index, string $alias = null, array $mappings = null): void {
         $client = $this->app->make(Client::class)->indices();
         $index  = $this->getSearchName($index);
         $alias  = $this->getSearchName($alias);
 
         if (!$client->exists(['index' => $index])) {
-            $client->create(['index' => $index]);
+            if ($mappings) {
+                $client->create([
+                    'index' => $index,
+                    'body'  => [
+                        'mappings' => $mappings,
+                    ],
+                ]);
+            } else {
+                $client->create([
+                    'index' => $index,
+                ]);
+            }
         }
 
         if ($alias) {
