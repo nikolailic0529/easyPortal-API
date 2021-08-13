@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Laravel\Scout\Searchable as ScoutSearchable;
+use Laravel\Scout\SearchableScope;
 use LogicException;
 
 use function app;
@@ -79,6 +80,15 @@ trait Searchable {
 
     // <editor-fold desc="Scout">
     // =========================================================================
+    /**
+     * FIXME: Temporary fix for DataLoader.
+     */
+    public static function bootSearchable(): void {
+        static::addGlobalScope(new SearchableScope());
+
+        (new static())->registerSearchableMacros();
+    }
+
     public function searchableAs(): string {
         return $this->searchableAs ?? $this->scoutSearchableAs();
     }
