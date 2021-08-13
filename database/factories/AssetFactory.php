@@ -67,6 +67,7 @@ class AssetFactory extends Factory {
             },
             'serial_number'  => $this->faker->uuid,
             'contacts_count' => 0,
+            'data_quality'   => null,
             'changed_at'     => null,
             'created_at'     => Date::now(),
             'updated_at'     => Date::now(),

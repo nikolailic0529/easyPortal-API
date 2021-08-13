@@ -2,6 +2,7 @@
 
 namespace App\Services\Search;
 
+use App\Services\Search\Builders\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 interface Scope {

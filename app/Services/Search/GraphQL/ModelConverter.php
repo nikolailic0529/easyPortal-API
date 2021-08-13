@@ -2,6 +2,7 @@
 
 namespace App\Services\Search\GraphQL;
 
+use App\Services\Search\Configuration;
 use GraphQL\Type\Definition\InputObjectType;
 use GraphQL\Type\Definition\Type;
 use Illuminate\Support\Str;
@@ -24,7 +25,10 @@ class ModelConverter {
      * @return array<\GraphQL\Type\Definition\InputObjectType>
      */
     public function toInputObjectTypes(string $model): array {
-        return $this->convert([$this->getModelTypeName($model)], $model::getSearchProperties());
+        $type       = $this->getModelTypeName($model);
+        $properties = (new $model())->getSearchConfiguration()->getProperties()[Configuration::getPropertyName()];
+
+        return $this->convert([$type], $properties);
     }
 
     /**

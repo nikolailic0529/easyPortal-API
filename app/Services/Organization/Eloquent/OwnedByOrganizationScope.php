@@ -4,7 +4,8 @@ namespace App\Services\Organization\Eloquent;
 
 use App\Models\Concerns\GlobalScopes\DisableableScope;
 use App\Services\Organization\CurrentOrganization;
-use App\Services\Search\Builder;
+use App\Services\Search\Builders\Builder;
+use App\Services\Search\Properties\Uuid;
 use App\Services\Search\ScopeWithMetadata;
 use App\Utils\ModelProperty;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -69,7 +70,7 @@ class OwnedByOrganizationScope extends DisableableScope implements ScopeWithMeta
      */
     public function getSearchMetadata(Model $model): array {
         return [
-            static::SEARCH_METADATA => $model->getOrganizationColumn(),
+            static::SEARCH_METADATA => new Uuid($model->getOrganizationColumn()),
         ];
     }
     // </editor-fold>

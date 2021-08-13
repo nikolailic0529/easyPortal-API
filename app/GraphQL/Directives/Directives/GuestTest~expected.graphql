@@ -1,3 +1,45 @@
+input AssetsSearchCustomerSort {
+  name: String
+}
+
+input AssetsSearchProductSort {
+  sku: String
+  name: String
+}
+
+input AssetsSearchSort {
+  serial_number: String
+  product: AssetsSearchProductSort
+  customer: AssetsSearchCustomerSort
+}
+
+input CustomersSearchHeadquarterCitySort {
+  name: String
+}
+
+input CustomersSearchHeadquarterSort {
+  city: CustomersSearchHeadquarterCitySort
+}
+
+input CustomersSearchSort {
+  name: String
+  assets_count: String
+  locations_count: String
+  headquarter: CustomersSearchHeadquarterSort
+}
+
+input DocumentsSearchCustomerSort {
+  name: String
+}
+
+input DocumentsSearchSort {
+  number: String
+  start: String
+  end: String
+  price: String
+  customer: DocumentsSearchCustomerSort
+}
+
 """Information about pagination using a Relay style cursor connection."""
 type PageInfo {
   """When paginating forwards, are there more items?"""

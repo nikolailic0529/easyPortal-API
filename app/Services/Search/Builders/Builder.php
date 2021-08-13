@@ -1,7 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Search;
+namespace App\Services\Search\Builders;
 
+use App\Services\Search\Configuration;
+use App\Services\Search\Scope;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Model;
 use InvalidArgumentException;
@@ -12,9 +14,6 @@ use function is_string;
 use function sprintf;
 
 class Builder extends ScoutBuilder {
-    public const METADATA   = 'metadata';
-    public const PROPERTIES = 'properties';
-
     /**
      * The "where not" constraints added to the query.
      *
@@ -87,28 +86,20 @@ class Builder extends ScoutBuilder {
     }
 
     public function whereMetadata(string $field, mixed $value): static {
-        return $this->where("{$this->getFieldMetadata()}.{$field}.keyword", $value);
+        return $this->where(Configuration::getMetadataName($field), $value);
     }
 
     /**
      * @param array<mixed> $values
      */
     public function whereMetadataIn(string $field, array $values): static {
-        return $this->whereIn("{$this->getFieldMetadata()}.{$field}.keyword", $values);
+        return $this->whereIn(Configuration::getMetadataName($field), $values);
     }
 
     /**
      * @param array<mixed> $values
      */
     public function whereMetadataNotIn(string $field, array $values): static {
-        return $this->whereNotIn("{$this->getFieldMetadata()}.{$field}.keyword", $values);
-    }
-
-    protected function getFieldMetadata(): string {
-        return self::METADATA;
-    }
-
-    protected function getFieldProperties(): string {
-        return self::PROPERTIES;
+        return $this->whereNotIn(Configuration::getMetadataName($field), $values);
     }
 }

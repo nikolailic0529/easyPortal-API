@@ -59,7 +59,7 @@ class ModelConverterTest_Model extends Model {
     /**
      * @inheritDoc
      */
-    public static function getSearchProperties(): array {
+    protected static function getSearchProperties(): array {
         return [
             'name'  => '1',
             'test'  => 'value',
@@ -71,13 +71,6 @@ class ModelConverterTest_Model extends Model {
                 ],
             ],
         ];
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function getSearchSearchable(): array {
-        return ['*'];
     }
 }
 

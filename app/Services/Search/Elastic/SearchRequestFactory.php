@@ -2,8 +2,8 @@
 
 namespace App\Services\Search\Elastic;
 
-use App\Services\Search\Builder as SearchBuilder;
-use App\Services\Search\UnionBuilder as SearchCombinedBuilder;
+use App\Services\Search\Builders\Builder as SearchBuilder;
+use App\Services\Search\Builders\UnionBuilder as SearchCombinedBuilder;
 use ElasticScoutDriver\Factories\SearchRequestFactory as BaseSearchRequestFactory;
 use ElasticScoutDriverPlus\Builders\BoolQueryBuilder;
 use ElasticScoutDriverPlus\Builders\SearchRequestBuilder;
@@ -12,7 +12,6 @@ use Laravel\Scout\Builder;
 use Laravel\Scout\Builder as ScoutBuilder;
 use LogicException;
 
-use function array_map;
 use function is_array;
 use function key;
 use function reset;
@@ -31,7 +30,7 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
 
         foreach ($builder->getModels() as $model => $settings) {
             // Builder
-            /** @var \App\Services\Search\Builder $modelBuilder */
+            /** @var \App\Services\Search\Builders\Builder $modelBuilder */
             $modelBuilder = $model::search($builder->query);
 
             foreach ($settings['scopes'] as $scope) {
@@ -113,12 +112,12 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
         $query = parent::makeQuery($builder);
 
         if (isset($query['bool']['must']['query_string'])) {
+            /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $model */
+            $model                                        = $builder->model;
             $query['bool']['must']['simple_query_string'] = [
                 'query'  => $query['bool']['must']['query_string']['query'],
                 'flags'  => 'AND|ESCAPE|NOT|OR|PHRASE|PRECEDENCE|WHITESPACE',
-                'fields' => array_map(static function (string $field): string {
-                    return SearchBuilder::PROPERTIES.'.'.$field;
-                }, $builder->model->getSearchSearchable()),
+                'fields' => $model->getSearchConfiguration()->getSearchable(),
             ];
 
             unset($query['bool']['must']['query_string']);
@@ -132,10 +131,6 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
      */
     protected function makeFilter(ScoutBuilder $builder): ?array {
         $filter = new Collection(parent::makeFilter($builder));
-
-        if ($builder->whereIns) {
-            $filter = $filter->merge($this->getTerms($builder->whereIns));
-        }
 
         if ($builder instanceof SearchBuilder) {
             $not = new Collection();
@@ -180,9 +175,18 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
      */
     protected function makeSort(ScoutBuilder $builder): ?array {
         $sort = (new Collection(parent::makeSort($builder)))
-            ->map(static function (array $clause): array {
+            ->map(static function (array $clause) use ($builder): array {
+                /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $model */
+                $model    = $builder->model;
+                $name     = key($clause);
+                $property = $model->getSearchConfiguration()->getProperty($name);
+
+                if ($property?->hasKeyword()) {
+                    $name = "{$name}.keyword";
+                }
+
                 return [
-                    key($clause).'.keyword' => [
+                    $name => [
                         'order'         => reset($clause),
                         'unmapped_type' => 'keyword',
                     ],

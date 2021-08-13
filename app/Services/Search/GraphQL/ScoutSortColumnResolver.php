@@ -2,7 +2,7 @@
 
 namespace App\Services\Search\GraphQL;
 
-use App\Services\Search\Builder;
+use App\Services\Search\Configuration;
 use Illuminate\Database\Eloquent\Model;
 use LastDragon_ru\LaraASP\GraphQL\SortBy\Contracts\ScoutColumnResolver;
 
@@ -13,6 +13,6 @@ class ScoutSortColumnResolver implements ScoutColumnResolver {
      * @inheritDoc
      */
     public function getColumn(Model $model, array $path): string {
-        return implode('.', [Builder::PROPERTIES, ...$path]);
+        return Configuration::getPropertyName(implode('.', $path));
     }
 }

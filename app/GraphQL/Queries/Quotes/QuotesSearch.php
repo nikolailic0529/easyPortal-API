@@ -3,7 +3,7 @@
 namespace App\GraphQL\Queries\Quotes;
 
 use App\Models\Scopes\QuoteType;
-use App\Services\Search\Builder;
+use App\Services\Search\Builders\Builder;
 
 class QuotesSearch {
     public function __invoke(Builder $builder): Builder {

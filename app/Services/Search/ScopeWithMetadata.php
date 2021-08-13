@@ -8,7 +8,7 @@ interface ScopeWithMetadata extends Scope {
     /**
      * Returns properties that must be added to the index as metadata.
      *
-     * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+     * @return array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property>>>>
      */
     public function getSearchMetadata(Model $model): array;
 }

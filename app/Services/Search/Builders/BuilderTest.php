@@ -1,8 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Search;
+namespace App\Services\Search\Builders;
 
-use App\Services\Search\Builder as SearchBuilder;
+use App\Services\Search\Configuration;
+use App\Services\Search\Scope;
 use App\Services\Search\Scope as SearchScope;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +17,7 @@ use function sprintf;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Search\Builder
+ * @coversDefaultClass \App\Services\Search\Builders\Builder
  */
 class BuilderTest extends TestCase {
     /**
@@ -31,7 +32,7 @@ class BuilderTest extends TestCase {
                 // empty
             }
 
-            public function applyForSearch(SearchBuilder $builder, Model $model): void {
+            public function applyForSearch(Builder $builder, Model $model): void {
                 $builder->where('test', 'value');
             }
         };
@@ -51,7 +52,6 @@ class BuilderTest extends TestCase {
      * @covers ::whereMetadata
      */
     public function testWhereMetadata(): void {
-        $meta    = Builder::METADATA;
         $builder = $this->app->make(Builder::class, [
             'query' => '123',
             'model' => new class() extends Model {
@@ -62,7 +62,7 @@ class BuilderTest extends TestCase {
         $builder->whereMetadata('test', 'value');
 
         $this->assertEquals([
-            "{$meta}.test.keyword" => 'value',
+            Configuration::getMetadataName('test') => 'value',
         ], $builder->wheres);
     }
 
@@ -70,7 +70,6 @@ class BuilderTest extends TestCase {
      * @covers ::whereMetadataIn
      */
     public function testWhereMetadataIn(): void {
-        $meta    = Builder::METADATA;
         $builder = $this->app->make(Builder::class, [
             'query' => '123',
             'model' => new class() extends Model {
@@ -81,7 +80,7 @@ class BuilderTest extends TestCase {
         $builder->whereMetadataIn('test', ['a', 'b', 'c']);
 
         $this->assertEquals([
-            "{$meta}.test.keyword" => ['a', 'b', 'c'],
+            Configuration::getMetadataName('test') => ['a', 'b', 'c'],
         ], $builder->whereIns);
     }
 
@@ -89,7 +88,6 @@ class BuilderTest extends TestCase {
      * @covers ::whereMetadataNotIn
      */
     public function testWhereMetadataNotIn(): void {
-        $meta    = Builder::METADATA;
         $builder = $this->app->make(Builder::class, [
             'query' => '123',
             'model' => new class() extends Model {
@@ -100,7 +98,7 @@ class BuilderTest extends TestCase {
         $builder->whereMetadataNotIn('test', ['a', 'b', 'c']);
 
         $this->assertEquals([
-            "{$meta}.test.keyword" => ['a', 'b', 'c'],
+            Configuration::getMetadataName('test') => ['a', 'b', 'c'],
         ], $builder->whereNotIns);
     }
 
@@ -150,7 +148,7 @@ class BuilderTest extends TestCase {
                 // empty
             },
         ]);
-        $scope   = Mockery::mock(Scope::class);
+        $scope   = Mockery::mock(SearchScope::class);
         $scope
             ->shouldReceive('applyForSearch')
             ->with($builder, $builder->model)

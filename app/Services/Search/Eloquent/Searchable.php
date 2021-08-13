@@ -3,34 +3,30 @@
 namespace App\Services\Search\Eloquent;
 
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
-use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
-use App\Services\Search\Builder as SearchBuilder;
-use App\Services\Search\ScopeWithMetadata;
+use App\Services\Search\Builders\Builder as SearchBuilder;
+use App\Services\Search\Configuration;
+use App\Services\Search\Properties\Property;
+use App\Services\Search\Updater;
 use App\Utils\ModelProperty;
 use Carbon\CarbonInterface;
 use Closure;
 use DateTimeInterface;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
-use Laravel\Scout\Events\ModelsImported;
 use Laravel\Scout\Searchable as ScoutSearchable;
-use Laravel\Telescope\Telescope;
+use Laravel\Scout\SearchableScope;
 use LogicException;
 
 use function app;
+use function array_filter;
 use function array_intersect;
-use function array_key_exists;
 use function array_keys;
 use function array_walk_recursive;
-use function config;
-use function event;
+use function count;
 use function is_iterable;
 use function is_null;
 use function is_scalar;
-use function sprintf;
 
 /**
  * @mixin \App\Models\Model
@@ -39,8 +35,11 @@ trait Searchable {
     use GlobalScopes;
     use ScoutSearchable {
         search as protected scoutSearch;
+        searchableAs as public scoutSearchableAs;
         queueMakeSearchable as protected scoutQueueMakeSearchable;
     }
+
+    private ?string $searchableAs = null;
 
     // <editor-fold desc="Abstract">
     // =========================================================================
@@ -56,31 +55,23 @@ trait Searchable {
      *
      * Example:
      *      [
-     *          'name' => 'name',               // $model->name
+     *          'name' => new Text('name', true),         // $model->name
      *          'product' => [
-     *              'sku'  => 'product.sku',    // $model->product->sku
-     *              'name' => 'product.name',   // $model->product->name
+     *              'sku'  => new Text('product.sku'),    // $model->product->sku
+     *              'name' => new Text('product.name'),   // $model->product->name
      *          ],
      *      ]
      *
-     * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+     * @return array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property>>>>
      */
-    abstract public static function getSearchProperties(): array;
-
-    /**
-     * Returns properties that will be used to search. You can return `['*']` to
-     * search over all properties.
-     *
-     * @return array<string>
-     */
-    abstract public static function getSearchSearchable(): array;
+    abstract protected static function getSearchProperties(): array;
 
     /**
      * Returns properties that must be added to the index as metadata.
      *
      * @see getSearchProperties()
      *
-     * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+     * @return array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property>>>>
      */
     protected static function getSearchMetadata(): array {
         return [];
@@ -89,12 +80,32 @@ trait Searchable {
 
     // <editor-fold desc="Scout">
     // =========================================================================
+    /**
+     * FIXME: Temporary fix for DataLoader.
+     */
+    public static function bootSearchable(): void {
+        static::addGlobalScope(new SearchableScope());
+
+        (new static())->registerSearchableMacros();
+    }
+
+    public function searchableAs(): string {
+        return $this->searchableAs ?? $this->scoutSearchableAs();
+    }
+
+    public function shouldBeSearchable(): bool {
+        return count(array_filter($this->getSearchConfiguration()->getProperties())) > 0;
+    }
+
     public function searchIndexShouldBeUpdated(): bool {
-        $properties = (new Collection($this->getSearchableProperties()))
+        $properties = (new Collection($this->getSearchConfiguration()->getProperties()))
             ->flatten()
-            ->filter(static function (string $property): bool {
-                return (new ModelProperty($property))->isAttribute();
+            ->map(static function (Property $property): ?string {
+                return (new ModelProperty($property->getName()))->isAttribute()
+                    ? $property->getName()
+                    : null;
             })
+            ->filter()
             ->all();
         $changed    = array_keys($this->getDirty());
         $should     = (bool) array_intersect($changed, $properties);
@@ -102,73 +113,32 @@ trait Searchable {
         return $should;
     }
 
-    protected function makeAllSearchableUsing(Builder $query): Builder {
-        return $query->with($this->getSearchableRelations());
-    }
-
     /**
      * @return array<string,mixed>
      */
     public function toSearchableArray(): array {
-        // Eager Loading
-        $this->loadMissing($this->getSearchableRelations());
+        // Eager Loading & Values
+        $configuration = $this->getSearchConfiguration();
+        $properties    = $configuration->getProperties();
 
-        // Get values
-        $properties = $this->getSearchableProperties();
+        $this->loadMissing($configuration->getRelations());
 
         array_walk_recursive($properties, function (mixed &$value): void {
-            $value = $this->toSearchableValue((new ModelProperty($value))->getValue($this));
+            $value = $value instanceof Property
+                ? $this->toSearchableValue((new ModelProperty($value->getName()))->getValue($this))
+                : $value;
         });
 
         // Return
         return $properties;
     }
 
-    public static function makeAllSearchable(
-        int $chunk = null,
-        string $continue = null,
-        Closure $callback = null,
-    ): void {
-        static::callWithoutGlobalScope(
-            OwnedByOrganizationScope::class,
-            static function () use ($chunk, $continue, $callback): void {
-                static::callWithoutScoutQueue(static function () use ($chunk, $continue, $callback): void {
-                    Telescope::withoutRecording(static function () use ($chunk, $continue, $callback): void {
-                        $chunk  ??= config('scout.chunk.searchable', 500);
-                        $trashed  = static::usesSoftDelete() && config('scout.soft_delete', false);
-                        $callback = static function (EloquentCollection $items) use ($callback): void {
-                            // Empty?
-                            if ($items->isEmpty()) {
-                                return;
-                            }
+    public static function makeAllSearchable(int $chunk = null): void {
+        app(Updater::class)->update(static::class, chunk: $chunk);
+    }
 
-                            // Event (needed for scout:import)
-                            event(new ModelsImported($items));
-
-                            // Callback
-                            if ($callback) {
-                                $callback($items);
-                            }
-                        };
-                        $iterator = static::query()
-                            ->when(true, static function (Builder $builder): void {
-                                $builder->newModelInstance()->makeAllSearchableUsing($builder);
-                            })
-                            ->when($trashed, static function (Builder $builder): void {
-                                $builder->withTrashed();
-                            })
-                            ->changeSafeIterator()
-                            ->onAfterChunk($callback)
-                            ->setChunkSize($chunk)
-                            ->setOffset($continue);
-
-                        foreach ($iterator as $model) {
-                            $model->searchable();
-                        }
-                    });
-                });
-            },
-        );
+    public function makeAllSearchableUsing(Builder $query): Builder {
+        return $query->with($this->getSearchConfiguration()->getRelations());
     }
 
     public function queueMakeSearchable(Collection $models): void {
@@ -183,58 +153,25 @@ trait Searchable {
     }
     // </editor-fold>
 
+    // <editor-fold desc="Search">
+    // =========================================================================
+    public function getSearchConfiguration(): Configuration {
+        return app()->make(Configuration::class, [
+            'model'      => $this,
+            'metadata'   => $this->getSearchMetadata(),
+            'properties' => $this->getSearchProperties(),
+        ]);
+    }
+
+    public function setSearchableAs(?string $searchableAs): static {
+        $this->searchableAs = $searchableAs;
+
+        return $this;
+    }
+    // </editor-fold>
+
     // <editor-fold desc="Helpers">
     // =========================================================================
-    /**
-     * @return array<string>
-     */
-    protected function getSearchableRelations(): array {
-        return (new Collection($this->getSearchableProperties()))
-            ->flatten()
-            ->map(static function (string $property): ModelProperty {
-                return new ModelProperty($property);
-            })
-            ->filter(static function (ModelProperty $property): bool {
-                return $property->isRelation();
-            })
-            ->map(static function (ModelProperty $property): string {
-                return $property->getRelationName();
-            })
-            ->unique()
-            ->values()
-            ->all();
-    }
-
-    /**
-     * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
-     */
-    protected function getSearchableProperties(): array {
-        $properties = [
-            SearchBuilder::METADATA   => $this->getSearchMetadata(),
-            SearchBuilder::PROPERTIES => $this->getSearchProperties(),
-        ];
-
-        foreach ($this->getGlobalScopes() as $scope) {
-            if ($scope instanceof ScopeWithMetadata) {
-                foreach ($scope->getSearchMetadata($this) as $key => $metadata) {
-                    // Metadata should be unique to avoid any possible side effects.
-                    if (array_key_exists($key, $properties[SearchBuilder::METADATA])) {
-                        throw new LogicException(sprintf(
-                            'The `%s` trying to redefine `%s` in metadata.',
-                            $scope::class,
-                            $key,
-                        ));
-                    }
-
-                    // Add
-                    $properties[SearchBuilder::METADATA][$key] = $metadata;
-                }
-            }
-        }
-
-        return $properties;
-    }
-
     protected function toSearchableValue(mixed $value): mixed {
         if ($value instanceof CarbonInterface) {
             $value = $value->toJSON();
@@ -255,20 +192,6 @@ trait Searchable {
         }
 
         return $value;
-    }
-
-    protected static function callWithoutScoutQueue(Closure $closure): mixed {
-        $key      = 'scout.queue';
-        $config   = app()->make(Repository::class);
-        $previous = $config->get($key);
-
-        try {
-            $config->set($key, false);
-
-            return $closure();
-        } finally {
-            $config->set($key, $previous);
-        }
     }
     // </editor-fold>
 }

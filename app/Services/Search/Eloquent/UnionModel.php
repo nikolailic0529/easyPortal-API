@@ -2,8 +2,8 @@
 
 namespace App\Services\Search\Eloquent;
 
+use App\Services\Search\Builders\UnionBuilder;
 use App\Services\Search\Elastic\UnionEngine;
-use App\Services\Search\UnionBuilder;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Engines\Engine;
@@ -13,7 +13,7 @@ use function app;
 use function config;
 
 /**
- * Fake model for Lighthouse to create {@link \App\Services\Search\UnionBuilder}.
+ * Fake model for Lighthouse to create {@link \App\Services\Search\Builders\UnionBuilder}.
  */
 class UnionModel extends Model {
     use Searchable;

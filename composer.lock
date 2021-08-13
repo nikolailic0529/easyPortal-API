@@ -198,16 +198,16 @@
         },
         {
             "name": "babenkoivan/elastic-scout-driver",
-            "version": "v1.4.0",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/babenkoivan/elastic-scout-driver.git",
-                "reference": "28cb4cf5740c86922e4c78055e9d56970c04b7fd"
+                "reference": "2f7751085f385c17154a29f3553071d3be1ca205"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/babenkoivan/elastic-scout-driver/zipball/28cb4cf5740c86922e4c78055e9d56970c04b7fd",
-                "reference": "28cb4cf5740c86922e4c78055e9d56970c04b7fd",
+                "url": "https://api.github.com/repos/babenkoivan/elastic-scout-driver/zipball/2f7751085f385c17154a29f3553071d3be1ca205",
+                "reference": "2f7751085f385c17154a29f3553071d3be1ca205",
                 "shasum": ""
             },
             "require": {
@@ -217,7 +217,7 @@
             },
             "require-dev": {
                 "babenkoivan/elastic-migrations": "^1.4",
-                "friendsofphp/php-cs-fixer": "^2.16",
+                "friendsofphp/php-cs-fixer": "^3.0",
                 "laravel/legacy-factories": "^1.1",
                 "laravel/scout": "^9.0",
                 "orchestra/testbench": "^6.12",
@@ -258,7 +258,7 @@
             ],
             "support": {
                 "issues": "https://github.com/babenkoivan/elastic-scout-driver/issues",
-                "source": "https://github.com/babenkoivan/elastic-scout-driver/tree/v1.4.0"
+                "source": "https://github.com/babenkoivan/elastic-scout-driver/tree/v1.6.0"
             },
             "funding": [
                 {
@@ -270,24 +270,24 @@
                     "type": "paypal"
                 }
             ],
-            "time": "2021-05-27T17:22:10+00:00"
+            "time": "2021-08-09T21:09:19+00:00"
         },
         {
             "name": "babenkoivan/elastic-scout-driver-plus",
-            "version": "v2.3.0",
+            "version": "v2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/babenkoivan/elastic-scout-driver-plus.git",
-                "reference": "1bca1cd96ed9d73396a8babb5f5da7b0a4e8cb47"
+                "reference": "ede25afff02a7e4e06622f86a9e89b91e92f46d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/babenkoivan/elastic-scout-driver-plus/zipball/1bca1cd96ed9d73396a8babb5f5da7b0a4e8cb47",
-                "reference": "1bca1cd96ed9d73396a8babb5f5da7b0a4e8cb47",
+                "url": "https://api.github.com/repos/babenkoivan/elastic-scout-driver-plus/zipball/ede25afff02a7e4e06622f86a9e89b91e92f46d2",
+                "reference": "ede25afff02a7e4e06622f86a9e89b91e92f46d2",
                 "shasum": ""
             },
             "require": {
-                "babenkoivan/elastic-adapter": "^1.16",
+                "babenkoivan/elastic-adapter": "^1.17",
                 "babenkoivan/elastic-scout-driver": "^1.4.0",
                 "php": "^7.2 || ^8.0"
             },
@@ -334,7 +334,7 @@
             ],
             "support": {
                 "issues": "https://github.com/babenkoivan/elastic-scout-driver-plus/issues",
-                "source": "https://github.com/babenkoivan/elastic-scout-driver-plus/tree/v2.3.0"
+                "source": "https://github.com/babenkoivan/elastic-scout-driver-plus/tree/v2.4.0"
             },
             "funding": [
                 {
@@ -346,7 +346,7 @@
                     "type": "paypal"
                 }
             ],
-            "time": "2021-05-27T18:01:36+00:00"
+            "time": "2021-08-05T18:42:04+00:00"
         },
         {
             "name": "barryvdh/laravel-snappy",
@@ -3363,12 +3363,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-eloquent.git",
-                "reference": "b12095f7cd3abcc34d38bb8cc3cbd9de92dcc550"
+                "reference": "56def8adba15fbd7fe12fe72feffc8348462ef7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-eloquent/zipball/b12095f7cd3abcc34d38bb8cc3cbd9de92dcc550",
-                "reference": "b12095f7cd3abcc34d38bb8cc3cbd9de92dcc550",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-eloquent/zipball/56def8adba15fbd7fe12fe72feffc8348462ef7e",
+                "reference": "56def8adba15fbd7fe12fe72feffc8348462ef7e",
                 "shasum": ""
             },
             "require": {
@@ -3415,7 +3415,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-08-06T12:58:44+00:00"
+            "time": "2021-08-12T10:47:13+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-formatter",
@@ -3489,12 +3489,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LastDragon-ru/lara-asp-graphql.git",
-                "reference": "97601f5f47ff99eb4c3c1becc681a650ef5a14cf"
+                "reference": "19e67cf704fb71905ed962b5a85f633601d41d3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/97601f5f47ff99eb4c3c1becc681a650ef5a14cf",
-                "reference": "97601f5f47ff99eb4c3c1becc681a650ef5a14cf",
+                "url": "https://api.github.com/repos/LastDragon-ru/lara-asp-graphql/zipball/19e67cf704fb71905ed962b5a85f633601d41d3f",
+                "reference": "19e67cf704fb71905ed962b5a85f633601d41d3f",
                 "shasum": ""
             },
             "require": {
@@ -3552,7 +3552,7 @@
                 "issues": "https://github.com/LastDragon-ru/lara-asp/issues",
                 "source": "https://github.com/LastDragon-ru/lara-asp"
             },
-            "time": "2021-08-09T12:52:15+00:00"
+            "time": "2021-08-13T07:35:07+00:00"
         },
         {
             "name": "lastdragon-ru/lara-asp-migrator",

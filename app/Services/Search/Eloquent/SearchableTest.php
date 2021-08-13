@@ -4,32 +4,24 @@ namespace App\Services\Search\Eloquent;
 
 use App\Models\Oem;
 use App\Models\ServiceGroup;
-use App\Services\Organization\Eloquent\OwnedByOrganization;
-use App\Services\Search\Builder as SearchBuilder;
+use App\Services\Search\Builders\Builder as SearchBuilder;
+use App\Services\Search\Configuration;
+use App\Services\Search\Properties\Text;
+use App\Services\Search\Properties\Uuid;
 use App\Services\Search\ScopeWithMetadata;
-use Closure;
+use App\Services\Search\Updater;
 use DateTime;
 use Exception;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Facades\Event;
-use Laravel\Scout\Events\ModelsImported;
-use Laravel\Telescope\Telescope;
-use LastDragon_ru\LaraASP\Eloquent\Iterators\ChunkedChangeSafeIterator;
 use LogicException;
 use Mockery;
-use PHPUnit\Framework\Assert;
+use Mockery\MockInterface;
 use stdClass;
 use Tests\TestCase;
-
-use function config;
-use function count;
-use function sprintf;
 
 /**
  * @internal
@@ -54,14 +46,7 @@ class SearchableTest extends TestCase {
              * @inheritDoc
              */
             protected static function getSearchProperties(): array {
-                return ['a' => 'a'];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
+                return ['a' => new Text('a')];
             }
         };
 
@@ -79,14 +64,7 @@ class SearchableTest extends TestCase {
              * @inheritDoc
              */
             protected static function getSearchProperties(): array {
-                return ['a.b' => 'a'];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
+                return ['a.b' => new Text('a')];
             }
         };
 
@@ -114,18 +92,11 @@ class SearchableTest extends TestCase {
              */
             protected static function getSearchProperties(): array {
                 return [
-                    'sku' => 'sku',
+                    'sku' => new Text('sku'),
                     'oem' => [
-                        'id' => 'oem.id',
+                        'id' => new Uuid('oem.id'),
                     ],
                 ];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
             }
         };
 
@@ -140,11 +111,11 @@ class SearchableTest extends TestCase {
             }
 
             /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
+             * @inheritDoc
              */
             public function getSearchMetadata(Model $model): array {
                 return [
-                    'sku' => 'sku',
+                    'sku' => new Text('sku'),
                 ];
             }
         };
@@ -154,10 +125,10 @@ class SearchableTest extends TestCase {
         // Test
         $actual   = $model->find($group->getKey())->toSearchableArray();
         $expected = [
-            SearchBuilder::METADATA   => [
+            Configuration::getMetadataName() => [
                 'sku' => $sku,
             ],
-            SearchBuilder::PROPERTIES => [
+            Configuration::getPropertyName() => [
                 'sku' => $sku,
                 'oem' => [
                     'id' => $oem->getKey(),
@@ -173,34 +144,9 @@ class SearchableTest extends TestCase {
      * @covers ::makeAllSearchable
      */
     public function testMakeAllSearchable(): void {
-        // Fake
-        Event::fake();
-
-        // Prepare
-        $key    = 'scout.queue';
-        $config = $this->app->make(Repository::class);
-
-        $config->set($key, true);
-
-        $this->assertTrue($config->get($key));
-
-        // Spy
-        $spySearchable   = Mockery::spy(function () use ($config, $key): void {
-            $this->assertFalse($config->get($key));
-        });
-        $spyOnAfterChunk = Mockery::spy(static function (): void {
-            // empty
-        });
-
-        // Model
+        $chunk = $this->faker->randomDigitNotNull;
         $model = new class() extends Model {
-            use OwnedByOrganization;
             use Searchable;
-
-            public static Closure $spy;
-            public static int     $chunk;
-            public static Closure $callback;
-            public static string  $continue;
 
             /**
              * @inheritDoc
@@ -208,63 +154,17 @@ class SearchableTest extends TestCase {
             protected static function getSearchProperties(): array {
                 return [];
             }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
-            }
-
-            public static function searchable(): void {
-                Assert::assertFalse(config('scout.queue'));
-                Assert::assertFalse(Telescope::isRecording());
-
-                (self::$spy)();
-            }
-
-            public function newEloquentBuilder(mixed $query): EloquentBuilder {
-                $iterator = Mockery::mock(ChunkedChangeSafeIterator::class);
-                $iterator->shouldAllowMockingProtectedMethods();
-                $iterator->makePartial();
-                $iterator
-                    ->shouldReceive('getChunk')
-                    ->once()
-                    ->andReturn(new EloquentCollection([$this]));
-                $iterator
-                    ->shouldReceive('getBuilder')
-                    ->once()
-                    ->andReturn(new EloquentBuilder($query));
-                $iterator
-                    ->shouldReceive('getColumn')
-                    ->once()
-                    ->andReturn($this->getKeyName());
-
-                $builder = Mockery::mock(EloquentBuilder::class, [$query]);
-                $builder->makePartial();
-                $builder
-                    ->shouldReceive('changeSafeIterator')
-                    ->once()
-                    ->andReturn($iterator);
-
-                return $builder;
-            }
         };
 
-        $model::$spy      = Closure::fromCallable($spySearchable);
-        $model::$chunk    = 123;
-        $model::$callback = Closure::fromCallable($spyOnAfterChunk);
-        $model::$continue = 'abc';
+        $this->override(Updater::class, static function (MockInterface $updater) use ($model, $chunk): void {
+            $updater
+                ->shouldReceive('update')
+                ->with($model::class, null, null, $chunk)
+                ->once();
+        });
 
         // Test
-        $model->makeAllSearchable($model::$chunk, $model::$continue, $model::$callback);
-
-        $spySearchable->shouldHaveBeenCalled();
-        $spyOnAfterChunk->shouldHaveBeenCalled()->once();
-
-        Event::assertDispatched(ModelsImported::class, static function (ModelsImported $event): bool {
-            return count($event->models) > 0;
-        });
+        $model->makeAllSearchable($chunk);
     }
 
     /**
@@ -273,29 +173,16 @@ class SearchableTest extends TestCase {
     public function testMakeAllSearchableUsing(): void {
         // Model
         $model = new class() extends Model {
-            use Searchable {
-                makeAllSearchableUsing as public;
-            }
+            use Searchable;
 
             /**
              * @inheritDoc
              */
             protected static function getSearchProperties(): array {
-                return [];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
-            }
-
-            /**
-             * @return array<string>
-             */
-            protected static function getSearchableRelations(): array {
-                return ['a', 'b'];
+                return [
+                    'a' => new Text('a.name'),
+                    'b' => new Text('b.name'),
+                ];
             }
         };
 
@@ -309,221 +196,6 @@ class SearchableTest extends TestCase {
 
         // Test
         $model->makeAllSearchableUsing($builder);
-    }
-
-    /**
-     * @covers ::getSearchableRelations
-     */
-    public function testGetSearchableRelations(): void {
-        // Prepare
-        $model = new class() extends Model {
-            use Searchable {
-                getSearchableRelations as public;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchProperties(): array {
-                return [
-                    'sku' => 'sku',
-                    'oem' => [
-                        'id' => 'oem.id',
-                    ],
-                ];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchMetadata(): array {
-                return [
-                    'meta' => 'meta.data',
-                ];
-            }
-        };
-
-        // Scope
-        $scope = new class() implements Scope, ScopeWithMetadata {
-            public function apply(EloquentBuilder $builder, Model $model): void {
-                // empty
-            }
-
-            public function applyForSearch(SearchBuilder $builder, Model $model): void {
-                // empty
-            }
-
-            /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
-             */
-            public function getSearchMetadata(Model $model): array {
-                return [
-                    'sku' => 'abc.sku',
-                    'id'  => 'oem.id',
-                ];
-            }
-        };
-
-        $model->addGlobalScope($scope);
-
-        // Test
-        $this->assertEquals(['meta', 'abc', 'oem'], $model->getSearchableRelations());
-    }
-
-    /**
-     * @covers ::getSearchableProperties
-     */
-    public function testGetSearchableProperties(): void {
-        // Prepare
-        $model = new class() extends Model {
-            use Searchable {
-                getSearchableProperties as public;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchProperties(): array {
-                return [
-                    'sku' => 'sku',
-                    'oem' => [
-                        'id' => 'oem.id',
-                    ],
-                ];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
-            }
-
-            /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
-             */
-            protected static function getSearchMetadata(): array {
-                return [
-                    'meta' => 'meta.data',
-                ];
-            }
-        };
-
-        // Scope
-        $scope = new class() implements Scope, ScopeWithMetadata {
-            public function apply(EloquentBuilder $builder, Model $model): void {
-                // empty
-            }
-
-            public function applyForSearch(SearchBuilder $builder, Model $model): void {
-                // empty
-            }
-
-            /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
-             */
-            public function getSearchMetadata(Model $model): array {
-                return [
-                    'sku' => 'abc.sku',
-                    'id'  => 'oem.id',
-                ];
-            }
-        };
-
-        $model->addGlobalScope($scope);
-
-        // Test
-        $this->assertEquals([
-            SearchBuilder::METADATA   => [
-                'sku'  => 'abc.sku',
-                'id'   => 'oem.id',
-                'meta' => 'meta.data',
-            ],
-            SearchBuilder::PROPERTIES => [
-                'sku' => 'sku',
-                'oem' => [
-                    'id' => 'oem.id',
-                ],
-            ],
-        ], $model->getSearchableProperties());
-    }
-
-    /**
-     * @covers ::getSearchableProperties
-     */
-    public function testGetSearchablePropertiesMetadataConflict(): void {
-        // Prepare
-        $model = new class() extends Model {
-            use Searchable {
-                getSearchableProperties as public;
-            }
-
-            /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
-             */
-            protected static function getSearchProperties(): array {
-                return [
-                    'sku' => 'sku',
-                    'oem' => [
-                        'id' => 'oem.id',
-                    ],
-                ];
-            }
-
-            /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
-             */
-            protected static function getSearchMetadata(): array {
-                return [
-                    'meta' => 'meta.data',
-                ];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
-            }
-        };
-
-        // Scope
-        $scope = new class() implements Scope, ScopeWithMetadata {
-            public function apply(EloquentBuilder $builder, Model $model): void {
-                // empty
-            }
-
-            public function applyForSearch(SearchBuilder $builder, Model $model): void {
-                // empty
-            }
-
-            /**
-             * @return array<string,string|array<string,string|array<string,string|array<string,string>>>>
-             */
-            public function getSearchMetadata(Model $model): array {
-                return [
-                    'meta' => 'meta.data',
-                ];
-            }
-        };
-
-        $model->addGlobalScope($scope);
-
-        // Test
-        $this->expectExceptionObject(new LogicException(sprintf(
-            'The `%s` trying to redefine `%s` in metadata.',
-            $scope::class,
-            'meta',
-        )));
-
-        $model->getSearchableProperties();
     }
 
     /**
@@ -543,13 +215,6 @@ class SearchableTest extends TestCase {
             protected static function getSearchProperties(): array {
                 return [];
             }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
-            }
         };
 
         if ($expected instanceof Exception) {
@@ -557,51 +222,6 @@ class SearchableTest extends TestCase {
         }
 
         $this->assertEquals($expected, $model->toSearchableValue($value));
-    }
-
-    /**
-     * @covers ::callWithoutScoutQueue
-     */
-    public function testCallWithoutScoutQueue(): void {
-        // Prepare
-        $key    = 'scout.queue';
-        $config = $this->app->make(Repository::class);
-
-        $config->set($key, true);
-
-        $this->assertTrue($config->get($key));
-
-        // Model
-        $model = new class() extends Model {
-            use Searchable {
-                callWithoutScoutQueue as public;
-            }
-
-            /**
-             * @inheritDoc
-             */
-            protected static function getSearchProperties(): array {
-                return [];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
-            }
-        };
-
-        // Test
-        $spy = Mockery::spy(function () use ($config, $key): int {
-            $this->assertFalse($config->get($key));
-
-            return 123;
-        });
-
-        $this->assertEquals(123, $model->callWithoutScoutQueue(Closure::fromCallable($spy)));
-
-        $spy->shouldHaveBeenCalled();
     }
 
     /**
@@ -642,13 +262,6 @@ class SearchableTest extends TestCase {
                 return [];
             }
 
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
-            }
-
             protected function scoutQueueMakeSearchable(Collection $models): void {
                 $this->models = $models;
             }
@@ -658,6 +271,98 @@ class SearchableTest extends TestCase {
 
         $this->assertCount(1, $model->models);
         $this->assertSame($a, $model->models->first());
+    }
+
+    /**
+     * @covers ::shouldBeSearchable
+     */
+    public function testShouldBeSearchable(): void {
+        $model = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @var array<mixed>
+             */
+            public static array $searchProperties;
+
+            /**
+             * @inheritDoc
+             */
+            protected static function getSearchProperties(): array {
+                return self::$searchProperties;
+            }
+        };
+
+        // No properties
+        $model::$searchProperties = [];
+
+        $this->assertFalse($model->shouldBeSearchable());
+
+        // Properties
+        $model::$searchProperties = ['a' => new Text('a')];
+
+        $this->assertTrue($model->shouldBeSearchable());
+    }
+
+    /**
+     * @covers ::getSearchConfiguration
+     */
+    public function testGetSearchConfiguration(): void {
+        $model  = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @inheritDoc
+             */
+            public static function getSearchMetadata(): array {
+                return ['m' => new Text('m')];
+            }
+
+            /**
+             * @inheritDoc
+             */
+            protected static function getSearchProperties(): array {
+                return ['a' => new Text('a')];
+            }
+        };
+        $config = $model->getSearchConfiguration();
+
+        $this->assertInstanceOf(Configuration::class, $config);
+        $this->assertEquals(
+            [
+                Configuration::getMetadataName() => [
+                    'm' => new Text('m'),
+                ],
+                Configuration::getPropertyName() => [
+                    'a' => new Text('a'),
+                ],
+            ],
+            $config->getProperties(),
+        );
+    }
+
+    /**
+     * @covers ::searchableAs
+     * @covers ::setSearchableAs
+     * @covers ::scoutSearchableAs
+     */
+    public function testSearchableAs(): void {
+        $model = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @inheritDoc
+             */
+            protected static function getSearchProperties(): array {
+                return [];
+            }
+        };
+
+        $this->assertEquals('test', $model->setSearchableAs('test')->searchableAs());
+        $this->assertEquals(
+            $model->scoutSearchableAs(),
+            $model->setSearchableAs(null)->searchableAs(),
+        );
     }
     //</editor-fold>
 

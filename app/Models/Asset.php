@@ -13,6 +13,7 @@ use App\Models\Concerns\Relations\HasTypeNullable;
 use App\Models\Concerns\SyncHasMany;
 use App\Services\Organization\Eloquent\OwnedByReseller;
 use App\Services\Search\Eloquent\Searchable;
+use App\Services\Search\Properties\Text;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -192,6 +193,7 @@ class Asset extends Model {
 
     public function quoteRequest(): HasOneThrough {
         $request = new QuoteRequest();
+
         return $this->hasOneThrough(QuoteRequest::class, QuoteRequestAsset::class, 'asset_id', 'id', 'id', 'request_id')
             ->whereNull($request->qualifyColumn($request->getDeletedAtColumn()))
             ->orderByDesc($request->qualifyColumn($request->getCreatedAtColumn()));
@@ -207,26 +209,14 @@ class Asset extends Model {
     protected static function getSearchProperties(): array {
         // WARNING: If array is changed the search index MUST be rebuilt.
         return [
-            'serial_number' => 'serial_number',
+            'serial_number' => new Text('serial_number', true),
             'product'       => [
-                'sku'  => 'product.sku',
-                'name' => 'product.name',
+                'sku'  => new Text('product.sku', true),
+                'name' => new Text('product.name', true),
             ],
             'customer'      => [
-                'name' => 'customer.name',
+                'name' => new Text('customer.name', true),
             ],
-        ];
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function getSearchSearchable(): array {
-        return [
-            'serial_number',
-            'customer.name',
-            'product.sku',
-            'product.name',
         ];
     }
     // </editor-fold>

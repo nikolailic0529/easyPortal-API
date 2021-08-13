@@ -2,11 +2,14 @@
 
 namespace App\Services\Search\Elastic;
 
-use App\Services\Search\Builder;
+use App\Services\Search\Builders\Builder;
+use App\Services\Search\Builders\UnionBuilder;
+use App\Services\Search\Configuration;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Eloquent\UnionModel;
+use App\Services\Search\Properties\Text;
+use App\Services\Search\Properties\Uuid;
 use App\Services\Search\Scope;
-use App\Services\Search\UnionBuilder;
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Tests\TestCase;
@@ -28,28 +31,27 @@ class SearchRequestFactoryTest extends TestCase {
      */
     public function testMakeFromBuilder(array $expected, Closure $prepare): void {
         $factory = $this->app->make(SearchRequestFactory::class);
+        $model   = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @var array<mixed>
+             */
+            public static array $searchProperties;
+
+            /**
+             * @inheritDoc
+             */
+            protected static function getSearchProperties(): array {
+                return self::$searchProperties;
+            }
+        };
         $builder = $this->app->make(Builder::class, [
             'query' => '*',
-            'model' => new class() extends Model {
-                use Searchable;
-
-                /**
-                 * @inheritDoc
-                 */
-                public static function getSearchProperties(): array {
-                    return ['name' => 'name'];
-                }
-
-                /**
-                 * @inheritDoc
-                 */
-                public static function getSearchSearchable(): array {
-                    return ['*'];
-                }
-            },
+            'model' => $model,
         ]);
 
-        $prepare($builder);
+        $model::$searchProperties = (array) $prepare($builder) ?: ['a' => new Text('a', true)];
 
         $this->assertEquals($expected, $factory->makeFromBuilder($builder)->toArray());
     }
@@ -71,14 +73,7 @@ class SearchRequestFactoryTest extends TestCase {
              * @inheritDoc
              */
             protected static function getSearchProperties(): array {
-                return [];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
+                return ['a' => new Text('a', true)];
             }
 
             public function searchableAs(): string {
@@ -92,14 +87,7 @@ class SearchRequestFactoryTest extends TestCase {
              * @inheritDoc
              */
             protected static function getSearchProperties(): array {
-                return [];
-            }
-
-            /**
-             * @inheritDoc
-             */
-            public static function getSearchSearchable(): array {
-                return ['*'];
+                return ['a' => new Text('a', true)];
             }
 
             public function searchableAs(): string {
@@ -114,7 +102,7 @@ class SearchRequestFactoryTest extends TestCase {
 
         // Build
         $builder->addModel($a::class, [], 2);
-        $builder->addModel($b::class, [$scope::class]);
+        $builder->addModel($b::class, [$scope]);
         $builder->where('test', 'value');
 
         // Test
@@ -206,7 +194,7 @@ class SearchRequestFactoryTest extends TestCase {
                 'query'  => '*',
                 'flags'  => 'AND|ESCAPE|NOT|OR|PHRASE|PRECEDENCE|WHITESPACE',
                 'fields' => [
-                    'properties.*',
+                    Configuration::getPropertyName('*'),
                 ],
             ],
         ];
@@ -363,22 +351,29 @@ class SearchRequestFactoryTest extends TestCase {
                     ],
                     'sort'  => [
                         [
-                            'key.a.keyword' => [
+                            Configuration::getPropertyName('key.a') => [
                                 'order'         => 'asc',
                                 'unmapped_type' => 'keyword',
                             ],
                         ],
                         [
-                            'key.b.keyword' => [
+                            Configuration::getPropertyName('key.b.keyword') => [
                                 'order'         => 'desc',
                                 'unmapped_type' => 'keyword',
                             ],
                         ],
                     ],
                 ],
-                static function (Builder $builder): void {
-                    $builder->orderBy('key.a', 'asc');
-                    $builder->orderBy('key.b', 'desc');
+                static function (Builder $builder): array {
+                    $builder->orderBy(Configuration::getPropertyName('key.a'), 'asc');
+                    $builder->orderBy(Configuration::getPropertyName('key.b'), 'desc');
+
+                    return [
+                        'key' => [
+                            'a' => new Uuid('a', true),
+                            'b' => new Text('b', true),
+                        ],
+                    ];
                 },
             ],
         ];
