@@ -200,15 +200,15 @@ class OemsImporterTest extends TestCase {
         }
 
         $this->assertEquals([
-            'models.service-level.ABC.GA.LA.name'        => 'Level LA French',
-            'models.service-level.ABC.GA.LA.description' => "Level LA Description French\nline of text",
-            'models.service-level.ABC.GB.LB.name'        => 'Level LB French',
-            'models.service-level.ABC.GB.LB.description' => "Level LB Description French\nline of text",
-            'models.service-level.ABC.GC.LC.name'        => 'Level LC French',
-            'models.service-level.ABC.GC.LD.name'        => 'Level LD French',
-            'models.service-level.ABC.GC.LD.description' => "Level LD Description French\nline of text",
-            'models.service-level.CBA.GA.LA.name'        => 'Level LA French',
-            'models.service-level.CBA.GA.LA.description' => "Level LA Description French\nline of text",
+            'models.ServiceLevel.ABC.GA.LA.name'        => 'Level LA French',
+            'models.ServiceLevel.ABC.GA.LA.description' => "Level LA Description French\nline of text",
+            'models.ServiceLevel.ABC.GB.LB.name'        => 'Level LB French',
+            'models.ServiceLevel.ABC.GB.LB.description' => "Level LB Description French\nline of text",
+            'models.ServiceLevel.ABC.GC.LC.name'        => 'Level LC French',
+            'models.ServiceLevel.ABC.GC.LD.name'        => 'Level LD French',
+            'models.ServiceLevel.ABC.GC.LD.description' => "Level LD Description French\nline of text",
+            'models.ServiceLevel.CBA.GA.LA.name'        => 'Level LA French',
+            'models.ServiceLevel.CBA.GA.LA.description' => "Level LA Description French\nline of text",
         ], $expected);
     }
 }
