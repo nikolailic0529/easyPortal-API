@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader;
 
+use App\Services\DataLoader\Container\Singleton;
 use App\Services\DataLoader\Normalizers\BoolNormalizer;
 use App\Services\DataLoader\Normalizers\ColorNormalizer;
 use App\Services\DataLoader\Normalizers\DateTimeNormalizer;
@@ -12,7 +13,7 @@ use App\Services\DataLoader\Normalizers\TextNormalizer;
 use App\Services\DataLoader\Normalizers\UuidNormalizer;
 use DateTimeInterface;
 
-class Normalizer {
+class Normalizer implements Singleton {
     public function __construct(
         protected KeyNormalizer $key,
         protected UuidNormalizer $uuid,
