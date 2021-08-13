@@ -13,6 +13,9 @@ use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\KeyCloak\Jobs\SyncPermissionsCronJob;
 use App\Services\Queue\Queues;
+use App\Services\Search\Jobs\AssetsUpdaterCronJob as SearchAssetsUpdaterCronJob;
+use App\Services\Search\Jobs\CustomersUpdaterCronJob as SearchCustomersUpdaterCronJob;
+use App\Services\Search\Jobs\DocumentsUpdaterCronJob as SearchDocumentsUpdaterCronJob;
 use App\Services\Settings\Attributes\Group;
 use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Job;
@@ -869,6 +872,156 @@ interface Constants {
     #[Group('data_loader')]
     #[Type(Duration::class)]
     public const EP_DATA_LOADER_DISTRIBUTORS_UPDATER_EXPIRE = 'PT24H';
+    // </editor-fold>
+    // </editor-fold>
+
+    // <editor-fold desc="EP_SEARCH">
+    // =========================================================================
+    // <editor-fold desc="EP_SEARCH_CUSTOMERS_UPDATER">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled? Probably should be disabled. The job runs automatically if needed.
+     */
+    #[Service(SearchCustomersUpdaterCronJob::class, 'enabled')]
+    #[Group('search')]
+    public const EP_SEARCH_CUSTOMERS_UPDATER_ENABLED = false;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(SearchCustomersUpdaterCronJob::class, 'cron')]
+    #[Group('search')]
+    #[Type(CronExpression::class)]
+    public const EP_SEARCH_CUSTOMERS_UPDATER_CRON = '0 0 31 2 *';
+
+    /**
+     * Queue name.
+     */
+    #[Service(SearchCustomersUpdaterCronJob::class, 'queue')]
+    #[Group('search')]
+    public const EP_SEARCH_CUSTOMERS_UPDATER_QUEUE = Queues::SEARCH;
+
+    /**
+     * Number of seconds the job can run.
+     */
+    #[Service(SearchCustomersUpdaterCronJob::class, 'timeout')]
+    #[Group('search')]
+    #[Type(IntType::class)]
+    public const EP_SEARCH_CUSTOMERS_UPDATER_TIMEOUT = 1 * 60 * 60;
+
+    /**
+     * Number of times the job may be attempted.
+     */
+    #[Service(SearchCustomersUpdaterCronJob::class, 'tries')]
+    #[Group('search')]
+    #[Type(IntType::class)]
+    public const EP_SEARCH_CUSTOMERS_UPDATER_TRIES = 1;
+
+    /**
+     * Chunk size.
+     */
+    #[Service(SearchCustomersUpdaterCronJob::class, 'settings.chunk')]
+    #[Group('search')]
+    #[Type(IntType::class)]
+    public const EP_SEARCH_CUSTOMERS_UPDATER_CHUNK = null;
+    // </editor-fold>
+
+    // <editor-fold desc="EP_SEARCH_DOCUMENTS_UPDATER">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled? Probably should be disabled. The job runs automatically if needed.
+     */
+    #[Service(SearchDocumentsUpdaterCronJob::class, 'enabled')]
+    #[Group('search')]
+    public const EP_SEARCH_DOCUMENTS_UPDATER_ENABLED = false;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(SearchDocumentsUpdaterCronJob::class, 'cron')]
+    #[Group('search')]
+    #[Type(CronExpression::class)]
+    public const EP_SEARCH_DOCUMENTS_UPDATER_CRON = '0 0 31 2 *';
+
+    /**
+     * Queue name.
+     */
+    #[Service(SearchDocumentsUpdaterCronJob::class, 'queue')]
+    #[Group('search')]
+    public const EP_SEARCH_DOCUMENTS_UPDATER_QUEUE = Queues::SEARCH;
+
+    /**
+     * Number of seconds the job can run.
+     */
+    #[Service(SearchDocumentsUpdaterCronJob::class, 'timeout')]
+    #[Group('search')]
+    #[Type(IntType::class)]
+    public const EP_SEARCH_DOCUMENTS_UPDATER_TIMEOUT = 3 * 60 * 60;
+
+    /**
+     * Number of times the job may be attempted.
+     */
+    #[Service(SearchDocumentsUpdaterCronJob::class, 'tries')]
+    #[Group('search')]
+    #[Type(IntType::class)]
+    public const EP_SEARCH_DOCUMENTS_UPDATER_TRIES = 2;
+
+    /**
+     * Chunk size.
+     */
+    #[Service(SearchDocumentsUpdaterCronJob::class, 'settings.chunk')]
+    #[Group('search')]
+    #[Type(IntType::class)]
+    public const EP_SEARCH_DOCUMENTS_UPDATER_CHUNK = null;
+    // </editor-fold>
+
+    // <editor-fold desc="EP_SEARCH_ASSETS_UPDATER">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled? Probably should be disabled. The job runs automatically if needed.
+     */
+    #[Service(SearchAssetsUpdaterCronJob::class, 'enabled')]
+    #[Group('search')]
+    public const EP_SEARCH_ASSETS_UPDATER_ENABLED = false;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(SearchAssetsUpdaterCronJob::class, 'cron')]
+    #[Group('search')]
+    #[Type(CronExpression::class)]
+    public const EP_SEARCH_ASSETS_UPDATER_CRON = '0 0 31 2 *';
+
+    /**
+     * Queue name.
+     */
+    #[Service(SearchAssetsUpdaterCronJob::class, 'queue')]
+    #[Group('search')]
+    public const EP_SEARCH_ASSETS_UPDATER_QUEUE = Queues::SEARCH;
+
+    /**
+     * Number of seconds the job can run.
+     */
+    #[Service(SearchAssetsUpdaterCronJob::class, 'timeout')]
+    #[Group('search')]
+    #[Type(IntType::class)]
+    public const EP_SEARCH_ASSETS_UPDATER_TIMEOUT = 6 * 60 * 60;
+
+    /**
+     * Number of times the job may be attempted.
+     */
+    #[Service(SearchAssetsUpdaterCronJob::class, 'tries')]
+    #[Group('search')]
+    #[Type(IntType::class)]
+    public const EP_SEARCH_ASSETS_UPDATER_TRIES = 3;
+
+    /**
+     * Chunk size.
+     */
+    #[Service(SearchAssetsUpdaterCronJob::class, 'settings.chunk')]
+    #[Group('search')]
+    #[Type(IntType::class)]
+    public const EP_SEARCH_ASSETS_UPDATER_CHUNK = null;
     // </editor-fold>
     // </editor-fold>
 
