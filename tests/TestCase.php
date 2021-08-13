@@ -2,6 +2,8 @@
 
 namespace Tests;
 
+use App\Services\Audit\Auditor;
+use App\Services\Logger\Logger;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Testing\WithFaker;
 use LastDragon_ru\LaraASP\Testing\Database\RefreshDatabaseIfEmpty;
@@ -29,7 +31,8 @@ abstract class TestCase extends BaseTestCase {
      */
     protected array $connectionsToTransact = [
         'mysql',
-        'logs',
+        Logger::CONNECTION,
+        Auditor::CONNECTION,
     ];
 
     public function app(): Application {
