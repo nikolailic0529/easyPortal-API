@@ -102,7 +102,7 @@ return [
     |
     */
     'links'   => [
-        public_path('storage/models/Organizations') => storage_path('app/models/Organizations'),
-        public_path('storage/models/Users')         => storage_path('app/models/Users'),
+        public_path('storage/models/Organization') => storage_path('app/models/Organization'),
+        public_path('storage/models/User')         => storage_path('app/models/User'),
     ],
 ];
