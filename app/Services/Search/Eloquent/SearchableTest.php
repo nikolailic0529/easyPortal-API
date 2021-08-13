@@ -288,7 +288,7 @@ class SearchableTest extends TestCase {
             /**
              * @inheritDoc
              */
-            public static function getSearchProperties(): array {
+            protected static function getSearchProperties(): array {
                 return self::$searchProperties;
             }
         };
@@ -321,7 +321,7 @@ class SearchableTest extends TestCase {
             /**
              * @inheritDoc
              */
-            public static function getSearchProperties(): array {
+            protected static function getSearchProperties(): array {
                 return ['a' => new Text('a')];
             }
         };
@@ -353,7 +353,7 @@ class SearchableTest extends TestCase {
             /**
              * @inheritDoc
              */
-            public static function getSearchProperties(): array {
+            protected static function getSearchProperties(): array {
                 return [];
             }
         };

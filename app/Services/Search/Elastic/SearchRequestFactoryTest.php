@@ -42,7 +42,7 @@ class SearchRequestFactoryTest extends TestCase {
             /**
              * @inheritDoc
              */
-            public static function getSearchProperties(): array {
+            protected static function getSearchProperties(): array {
                 return self::$searchProperties;
             }
         };

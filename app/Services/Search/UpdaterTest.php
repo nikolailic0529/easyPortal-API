@@ -363,7 +363,7 @@ class UpdaterTest extends TestCase {
             /**
              * @inheritDoc
              */
-            public static function getSearchProperties(): array {
+            protected static function getSearchProperties(): array {
                 return [
                     'a' => new Text('a'),
                 ];

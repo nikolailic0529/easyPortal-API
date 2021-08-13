@@ -63,7 +63,7 @@ trait Searchable {
      *
      * @return array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property|array<string,\App\Services\Search\Properties\Property>>>>
      */
-    abstract public static function getSearchProperties(): array;
+    abstract protected static function getSearchProperties(): array;
 
     /**
      * Returns properties that must be added to the index as metadata.
