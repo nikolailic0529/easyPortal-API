@@ -22,6 +22,7 @@ use Tests\TestCase;
 use Tests\WithSearch;
 
 use function ceil;
+use function count;
 
 /**
  * @internal
@@ -38,10 +39,10 @@ class UpdaterTest extends TestCase {
      *
      * @dataProvider dataProviderModels
      *
-     * @param null|Closure(TestCase): \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model> $from
-     * @param array<string, mixed>                                                                        $settings
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>  $model
-     * @param Closure(TestCase): \DateTimeInterface|null                                                  $from
+     * @param null|\Closure(\Tests\TestCase): \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model> $from
+     * @param array<string, mixed>                                                                       $settings
+     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
+     * @param \Closure(\Tests\TestCase): ?\DateTimeInterface|null                                        $from
      */
     public function testUpdate(
         Closure $expected,
@@ -150,10 +151,10 @@ class UpdaterTest extends TestCase {
      *
      * @dataProvider dataProviderModels
      *
-     * @param null|Closure(TestCase): \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model> $from
-     * @param array<string, mixed>                                                                        $settings
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>  $model
-     * @param Closure(TestCase): \DateTimeInterface|null                                                  $from
+     * @param null|\Closure(\Tests\TestCase): \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model> $from
+     * @param array<string, mixed>                                                                       $settings
+     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
+     * @param \Closure(\Tests\TestCase): ?\DateTimeInterface|null                                        $from
      */
     public function testGetIterator(
         Closure $expected,
@@ -198,10 +199,10 @@ class UpdaterTest extends TestCase {
      *
      * @dataProvider dataProviderModels
      *
-     * @param null|Closure(TestCase): \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model> $from
-     * @param array<string, mixed>                                                                        $settings
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>  $model
-     * @param Closure(TestCase): \DateTimeInterface|null                                                  $from
+     * @param null|\Closure(\Tests\TestCase): \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model> $from
+     * @param array<string, mixed>                                                                       $settings
+     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
+     * @param \Closure(\Tests\TestCase): ?\DateTimeInterface|null                                        $from
      */
     public function testGetBuilder(
         Closure $expected,
@@ -236,10 +237,10 @@ class UpdaterTest extends TestCase {
      *
      * @dataProvider dataProviderModels
      *
-     * @param null|Closure(TestCase): \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model> $from
-     * @param array<string, mixed>                                                                        $settings
-     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>  $model
-     * @param Closure(TestCase): \DateTimeInterface|null                                                  $from
+     * @param null|\Closure(\Tests\TestCase): \Illuminate\Support\Collection<\Illuminate\Database\Eloquent\Model> $from
+     * @param array<string, mixed>                                                                       $settings
+     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
+     * @param \Closure(\Tests\TestCase): ?\DateTimeInterface|null                                        $from
      */
     public function testGetTotal(
         Closure $expected,
