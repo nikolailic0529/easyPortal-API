@@ -45,11 +45,11 @@ class Container extends IlluminateContainer {
     public function resolve($abstract, $parameters = [], $raiseEvents = true) {
         $resolved = null;
 
-        if (is_a($abstract, Singleton::class, true)) {
-            if (!$this->bound($abstract)) {
-                $this->singleton($abstract);
-            }
+        if (is_a($abstract, Singleton::class, true) && !$this->bound($abstract)) {
+            $this->singleton($abstract);
+        }
 
+        if ($this->bound($abstract)) {
             $resolved = parent::resolve($abstract, $parameters, $raiseEvents);
         } elseif (is_a($abstract, Isolated::class, true)) {
             $resolved = parent::resolve($abstract, $parameters, $raiseEvents);
