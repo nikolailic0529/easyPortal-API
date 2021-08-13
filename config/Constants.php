@@ -892,7 +892,7 @@ interface Constants {
     #[Service(SearchCustomersUpdaterCronJob::class, 'cron')]
     #[Group('search')]
     #[Type(CronExpression::class)]
-    public const EP_SEARCH_CUSTOMERS_UPDATER_CRON = '0 0 31 2 *';
+    public const EP_SEARCH_CUSTOMERS_UPDATER_CRON = '0 0 1 * *';
 
     /**
      * Queue name.
@@ -941,7 +941,7 @@ interface Constants {
     #[Service(SearchDocumentsUpdaterCronJob::class, 'cron')]
     #[Group('search')]
     #[Type(CronExpression::class)]
-    public const EP_SEARCH_DOCUMENTS_UPDATER_CRON = '0 0 31 2 *';
+    public const EP_SEARCH_DOCUMENTS_UPDATER_CRON = '0 0 1 * *';
 
     /**
      * Queue name.
@@ -990,7 +990,7 @@ interface Constants {
     #[Service(SearchAssetsUpdaterCronJob::class, 'cron')]
     #[Group('search')]
     #[Type(CronExpression::class)]
-    public const EP_SEARCH_ASSETS_UPDATER_CRON = '0 0 31 2 *';
+    public const EP_SEARCH_ASSETS_UPDATER_CRON = '0 0 1 * *';
 
     /**
      * Queue name.

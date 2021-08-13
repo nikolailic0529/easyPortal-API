@@ -2,13 +2,11 @@
 
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Tests\Helpers\Models;
 use Tests\TestCase;
-use Throwable;
 
-use function implode;
-
-use const PHP_EOL;
+use function ksort;
 
 /**
  * @internal
@@ -19,22 +17,15 @@ class AppServiceProviderTest extends TestCase {
      * @covers ::bootMorphMap
      */
     public function testBootMorphMap(): void {
-        // Search missed
-        $missed = [];
+        $expected = [];
+        $actual   = Relation::$morphMap;
 
         foreach (Models::get() as $model) {
-            try {
-                if ($model->getName() === $model->newInstance()->getMorphClass()) {
-                    $missed[] = $model->getName();
-                }
-            } catch (Throwable) {
-                $missed[] = $model->getName();
-            }
+            $expected[$model->getShortName()] = $model->getName();
         }
 
-        // Assert
-        $message = 'Following models missed in MorphMap:'.PHP_EOL.'- '.implode(PHP_EOL.'- ', $missed).PHP_EOL;
+        ksort($expected);
 
-        $this->assertEmpty($missed, $message);
+        $this->assertEquals($actual, $expected);
     }
 }

@@ -356,10 +356,12 @@ type Audit {
   user_id: ID
   object_type: String
   object_id: String
-  context: String
   action: String!
   created_at: DateTime!
   updated_at: DateTime!
+
+  """JSON"""
+  context: String
 }
 
 """A paginated list of Audit items."""
@@ -1529,6 +1531,10 @@ type Organization {
   @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
   """
   roles: [Role!]!
+
+  """
+  @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
+  """
   audits(
     where: SearchByConditionAuditsQuery
     order: [SortByClauseAuditsSort!]
@@ -2127,6 +2133,24 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): OrganizationPaginator
+
+  """
+  List of all organizations audits.
+  
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  audits(
+    where: SearchByConditionAuditsQuery
+    order: [SortByClauseAuditsSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): AuditPaginator
 }
 
 type QuoteRequest {

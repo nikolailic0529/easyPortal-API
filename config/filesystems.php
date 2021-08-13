@@ -45,19 +45,19 @@ return [
         // =====================================================================
         ModelDisk::ORGANIZATIONS   => [
             'driver'     => 'local',
-            'root'       => storage_path('app/models/Organizations'),
-            'url'        => env('APP_URL').'/storage/models/Organizations',
+            'root'       => storage_path('app/models/Organization'),
+            'url'        => env('APP_URL').'/storage/models/Organization',
             'visibility' => 'public',
         ],
         ModelDisk::USERS           => [
             'driver'     => 'local',
-            'root'       => storage_path('app/models/Users'),
-            'url'        => env('APP_URL').'/storage/models/Users',
+            'root'       => storage_path('app/models/User'),
+            'url'        => env('APP_URL').'/storage/models/User',
             'visibility' => 'public',
         ],
         ModelDisk::NOTES           => [
             'driver' => 'local',
-            'root'   => storage_path('app/models/Notes'),
+            'root'   => storage_path('app/models/Note'),
         ],
         ModelDisk::CHANGE_REQUESTS => [
             'driver' => 'local',

@@ -21,11 +21,11 @@ use function sprintf;
 use function str_replace;
 
 class ModelDisk extends Disk {
-    public const ORGANIZATIONS   = 'organizations';
-    public const USERS           = 'users';
-    public const NOTES           = 'notes';
-    public const CHANGE_REQUESTS = 'changeRequests';
-    public const QUOTE_REQUESTS  = 'quoteRequests';
+    public const ORGANIZATIONS   = 'Model/Organization';
+    public const USERS           = 'Model/User';
+    public const NOTES           = 'Model/Note';
+    public const CHANGE_REQUESTS = 'Model/ChangeRequest';
+    public const QUOTE_REQUESTS  = 'Model/QuoteRequest';
 
     /**
      * @var array<class-string<\App\Models\Model>,string>
