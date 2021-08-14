@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string                                                              $object_type
  * @property array|null                                                          $context
  * @property \Carbon\CarbonImmutable                                             $created_at
+ * @property \Carbon\CarbonImmutable                                             $updated_at
  * @method static \Database\Factories\AuditFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Audit newQuery()
@@ -37,8 +38,7 @@ class Audit extends Model {
     protected $table = 'audits';
 
     protected const CASTS = [
-        'context'    => 'json',
-        'created_at' => 'datetime',
+        'context' => 'json',
     ] + parent::CASTS;
 
     /**
@@ -50,20 +50,13 @@ class Audit extends Model {
      */
     protected $casts = self::CASTS;
 
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var bool
-     */
-    public $timestamps = false;
-
     public function user(): BelongsTo {
-        return $this->setConnection('mysql')->belongsTo(User::class);
+        // Relation between 2 table on 2 different db
+        return $this->setConnection((new User())->getConnectionName())->belongsTo(User::class);
     }
 
     public function organization(): BelongsTo {
-        return $this->setConnection('mysql')->belongsTo(Organization::class);
+        // Relation between 2 table on 2 different db
+        return $this->setConnection((new Organization())->getConnectionName())->belongsTo(Organization::class);
     }
 }

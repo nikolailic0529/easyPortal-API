@@ -36,6 +36,7 @@ class AuditFactory extends Factory {
             'action'          => $this->faker->sentence,
             'context'         => null,
             'created_at'      => Date::now(),
+            'updated_at'      => Date::now(),
         ];
     }
 }
