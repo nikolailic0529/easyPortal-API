@@ -315,6 +315,16 @@
                             "type": "null"
                         }
                     ]
+                },
+                "changeRequest": {
+                    "oneOf": [
+                        {
+                            "$ref": "./Types/ChangeRequest.json"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 }
             }
         },

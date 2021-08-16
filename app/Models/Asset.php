@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
@@ -195,6 +196,14 @@ class Asset extends Model {
         $request = new QuoteRequest();
 
         return $this->hasOneThrough(QuoteRequest::class, QuoteRequestAsset::class, 'asset_id', 'id', 'id', 'request_id')
+            ->whereNull($request->qualifyColumn($request->getDeletedAtColumn()))
+            ->orderByDesc($request->qualifyColumn($request->getCreatedAtColumn()));
+    }
+
+    public function changeRequest(): HasOne {
+        $request = new ChangeRequest();
+
+        return $this->hasOne(ChangeRequest::class, 'object_id')
             ->whereNull($request->qualifyColumn($request->getDeletedAtColumn()))
             ->orderByDesc($request->qualifyColumn($request->getCreatedAtColumn()));
     }

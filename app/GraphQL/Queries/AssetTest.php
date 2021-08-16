@@ -4,6 +4,7 @@ namespace App\GraphQL\Queries;
 
 use App\Models\Asset;
 use App\Models\AssetWarranty;
+use App\Models\ChangeRequest;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\DocumentEntry;
@@ -17,6 +18,7 @@ use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Status;
 use App\Models\Type;
+use App\Models\User;
 use Closure;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -244,6 +246,24 @@ class AssetTest extends TestCase {
                             type {
                                 id
                                 name
+                            }
+                            files {
+                                name
+                            }
+                        }
+                        changeRequest {
+                            id
+                            subject
+                            message
+                            from
+                            to
+                            cc
+                            bcc
+                            user_id
+                            user {
+                                id
+                                given_name
+                                family_name
                             }
                             files {
                                 name
@@ -538,13 +558,39 @@ class AssetTest extends TestCase {
                                 'files'       => [],
                                 'message'     => null,
                             ],
+                            'changeRequest'  => [
+                                'id'      => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20963',
+                                'user_id' => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
+                                'subject' => 'subject',
+                                'message' => 'change request',
+                                'from'    => 'user@example.com',
+                                'to'      => ['test@example.com'],
+                                'cc'      => ['cc@example.com'],
+                                'bcc'     => ['bcc@example.com'],
+                                'user'    => [
+                                    'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dee',
+                                    'given_name'  => 'first',
+                                    'family_name' => 'last',
+                                ],
+                                'files'   => [
+                                    [
+                                        'name' => 'documents.csv',
+                                    ],
+                                ],
+                            ],
                         ]),
                         [
                             'ep.contract_types' => [
                                 'f3cb1fac-b454-4f23-bbb4-f3d84a1690ae',
                             ],
                         ],
-                        static function (TestCase $test, Organization $organization): Asset {
+                        static function (TestCase $test, Organization $organization, User $user): Asset {
+                            if ($user) {
+                                $user->id          = 'fd421bad-069f-491c-ad5f-5841aa9a9dee';
+                                $user->given_name  = 'first';
+                                $user->family_name = 'last';
+                                $user->save();
+                            }
                             // OEM Creation belongs to
                             $oem = Oem::factory()->create([
                                 'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -763,7 +809,34 @@ class AssetTest extends TestCase {
                                     'organization_id' => $organization->getKey(),
                                     'created_at'      => Date::now(),
                                 ]);
-
+                            // Change Requests
+                            ChangeRequest::factory()
+                                ->for($user)
+                                ->create([
+                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20973',
+                                    'organization_id' => $organization->getKey(),
+                                    'object_id'       => $asset->getKey(),
+                                    'object_type'     => $asset->getMorphClass(),
+                                    'created_at'      => Date::now()->subHour(),
+                                ]);
+                            ChangeRequest::factory()
+                                ->hasFiles(1, [
+                                    'name' => 'documents.csv',
+                                ])
+                                ->for($user)
+                                ->create([
+                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20963',
+                                    'organization_id' => $organization->getKey(),
+                                    'object_id'       => $asset->getKey(),
+                                    'object_type'     => $asset->getMorphClass(),
+                                    'message'         => 'change request',
+                                    'subject'         => 'subject',
+                                    'from'            => 'user@example.com',
+                                    'to'              => ['test@example.com'],
+                                    'cc'              => ['cc@example.com'],
+                                    'bcc'             => ['bcc@example.com'],
+                                    'created_at'      => Date::now(),
+                                ]);
                             return $asset;
                         },
                     ],

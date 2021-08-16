@@ -21,4 +21,5 @@ type Asset {
   tags: [Tag!]! @belongsToMany
   data_quality: String
   quoteRequest: QuoteRequest @hasOne
+  changeRequest: ChangeRequest @hasOne
 }
