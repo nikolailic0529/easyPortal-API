@@ -3,6 +3,7 @@
 namespace App\Services\Logger\Listeners;
 
 use App\Services\Logger\Logger;
+use App\Services\Logger\Models\Enums\Action;
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Log;
@@ -96,7 +97,7 @@ class QueueListener extends Listener {
 
         $this->logger->event(
             $this->getCategory(),
-            'job.dispatched',
+            (string) Action::queueJobDispatched(),
             Status::success(),
             $object,
             $this->getContext($job),
@@ -112,7 +113,7 @@ class QueueListener extends Listener {
             $event->job->uuid(),
             $this->logger->start(
                 $this->getCategory(),
-                'job.run',
+                (string) Action::queueJobRun(),
                 new QueueObject($event->job),
                 $this->getContext($event->job),
             ),
@@ -131,6 +132,8 @@ class QueueListener extends Listener {
                 $this->logger->success($transaction);
             }
         }
+
+        $this->killZombies($event->job);
     }
 
     protected function failed(JobExceptionOccurred|JobFailed $event): void {
@@ -143,6 +146,8 @@ class QueueListener extends Listener {
                 'exception' => $event->exception,
             ]);
         }
+
+        $this->killZombies($event->job);
     }
 
     protected function stopped(JobStopped $event): void {
@@ -178,7 +183,7 @@ class QueueListener extends Listener {
         $object  = new QueueObject($job);
         $zombies = Log::query()
             ->where('category', '=', $this->getCategory())
-            ->where('action', '=', 'job.run')
+            ->where('action', '=', Action::queueJobRun())
             ->where('object_type', '=', $object->getType())
             ->where('object_id', '=', $object->getId())
             ->where('status', '=', Status::active())
