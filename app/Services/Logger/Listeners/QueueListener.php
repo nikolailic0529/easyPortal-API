@@ -131,6 +131,8 @@ class QueueListener extends Listener {
                 $this->logger->success($transaction);
             }
         }
+
+        $this->killZombies($event->job);
     }
 
     protected function failed(JobExceptionOccurred|JobFailed $event): void {
@@ -143,6 +145,8 @@ class QueueListener extends Listener {
                 'exception' => $event->exception,
             ]);
         }
+
+        $this->killZombies($event->job);
     }
 
     protected function stopped(JobStopped $event): void {
