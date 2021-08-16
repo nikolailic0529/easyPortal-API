@@ -6,9 +6,11 @@ type Audit {
     object_id: String
     action: String!
     created_at:  DateTime!
-    updated_at: DateTime!
 
     "JSON"
     context: String
     @field(resolver: "App\\GraphQL\\Resolvers\\JsonResolver")
+
+    user: User
+    organization: Organization
 }

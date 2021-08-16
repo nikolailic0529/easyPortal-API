@@ -30,9 +30,9 @@ class Auditor {
         // create audit
         $audit                  = new AuditModel();
         $audit->action          = $action;
-        $audit->object_id       = $model ? $model->getKey() : null;
-        $audit->object_type     = $model ? $model->getMorphClass() : null;
-        $audit->user_id         = $user ? $user->getKey() : null;
+        $audit->object_id       = $model?->getKey();
+        $audit->object_type     = $model?->getMorphClass();
+        $audit->user_id         = $user?->getKey();
         $audit->organization_id = $organization;
         $audit->context         = $context;
         $audit->save();

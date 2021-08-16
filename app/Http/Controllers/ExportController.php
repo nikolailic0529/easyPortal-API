@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Exports\QueryExport;
 use App\Http\Requests\ExportQuery;
-use App\Services\Audit\Events\QueryExported;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use GraphQL\Server\OperationParams;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -39,13 +38,13 @@ class ExportController extends Controller {
 
     public function csv(ExportQuery $request, CreatesContext $createsContext): BinaryFileResponse {
         $collection = $this->export($request, $createsContext->generate($request));
-        $this->dispatcher->dispatch(new QueryExported($collection->count(), 'csv', $collection->first()));
+        $this->dispatchExported($collection, $request, 'csv');
         return (new QueryExport($collection))->download('export.csv', Excel::CSV);
     }
 
     public function excel(ExportQuery $request, CreatesContext $createsContext): BinaryFileResponse {
         $collection = $this->export($request, $createsContext->generate($request));
-        $this->dispatcher->dispatch(new QueryExported($collection->count(), 'xlsx', $collection->first()));
+        $this->dispatchExported($collection, $request, 'xlsx');
         return (new QueryExport($collection))->download('export.xlsx', Excel::XLSX);
     }
 
@@ -54,7 +53,7 @@ class ExportController extends Controller {
         $pdf        = PDF::loadView('exports.pdf', [
             'rows' => $collection,
         ]);
-        $this->dispatcher->dispatch(new QueryExported($collection->count(), 'pdf', $collection->first()));
+        $this->dispatchExported($collection, $request, 'pdf');
         return $pdf->download('export.pdf');
     }
 
@@ -209,5 +208,17 @@ class ExportController extends Controller {
     protected function formatHeader(string $text): string {
         $text = str_replace('_', ' ', $text);
         return ucwords($text);
+    }
+
+    protected function dispatchExported(Collection $collection, ExportQuery $request, string $type): void {
+        $count     = $collection->count();
+        $count     = $count > 1 ? $count - 1 : $count;
+        $validated = $request->validated();
+        $this->dispatcher->dispatch(new QueryExported(
+            $count,
+            $type,
+            $validated['operationName'],
+            $collection->first(),
+        ));
     }
 }

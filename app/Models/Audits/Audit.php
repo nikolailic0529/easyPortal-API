@@ -2,8 +2,11 @@
 
 namespace App\Models\Audits;
 
+use App\Models\Organization;
+use App\Models\User;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Audit.
@@ -46,4 +49,14 @@ class Audit extends Model {
      * @var array<string>
      */
     protected $casts = self::CASTS;
+
+    public function user(): BelongsTo {
+        // Relation between 2 table on 2 different db
+        return $this->setConnection((new User())->getConnectionName())->belongsTo(User::class);
+    }
+
+    public function organization(): BelongsTo {
+        // Relation between 2 table on 2 different db
+        return $this->setConnection((new Organization())->getConnectionName())->belongsTo(Organization::class);
+    }
 }

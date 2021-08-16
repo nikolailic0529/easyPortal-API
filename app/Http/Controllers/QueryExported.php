@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Audit\Events;
+namespace App\Http\Controllers;
 
 use Illuminate\Queue\SerializesModels;
 
@@ -10,6 +10,7 @@ class QueryExported {
     public function __construct(
         protected int $count,
         protected string $type,
+        protected string $query,
         protected ?array $columns,
     ) {
         // empty
@@ -21,6 +22,10 @@ class QueryExported {
 
     public function getType(): string {
         return $this->type;
+    }
+
+    public function getQuery(): string {
+        return $this->query;
     }
 
     /**

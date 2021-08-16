@@ -10,8 +10,7 @@
         "object_id",
         "context",
         "action",
-        "created_at",
-        "updated_at"
+        "created_at"
     ],
     "properties": {
         "id": {
@@ -62,9 +61,25 @@
             "type": "string",
             "format": "date-time"
         },
-        "updated_at": {
-            "type": "string",
-            "format": "date-time"
+        "user": {
+            "oneOf": [
+                {
+                    "$ref": "../types.json#/definitions/User"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "organization": {
+            "oneOf": [
+                {
+                    "$ref": "../types.json#/definitions/Organization"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         }
     }
 }

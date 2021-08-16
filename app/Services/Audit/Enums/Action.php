@@ -28,4 +28,8 @@ class Action extends Enum {
     public static function exported(): static {
         return static::make('exported');
     }
+
+    public static function authFailed(): static {
+        return static::make('auth.failed');
+    }
 }
