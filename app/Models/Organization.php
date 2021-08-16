@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Audits\Audit;
 use App\Models\Concerns\Relations\HasCurrency;
+use App\Services\Audit\Concerns\Auditable;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -56,7 +57,9 @@ use function app;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Organization query()
  * @mixin \Eloquent
  */
-class Organization extends Model implements HasLocalePreference {
+class Organization extends Model implements
+    HasLocalePreference,
+    Auditable {
     use HasFactory;
     use HasCurrency;
 
@@ -79,6 +82,13 @@ class Organization extends Model implements HasLocalePreference {
      * @var string
      */
     protected $table = 'organizations';
+
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<string>
+     */
+    protected $hidden = ['keycloak_group_id', 'keycloak_scope'];
 
     public function preferredLocale(): ?string {
         return $this->locale;

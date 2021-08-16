@@ -30,7 +30,7 @@ class AuditorTest extends TestCase {
 
         $this->override(Auditor::class, static function (MockInterface $mock) use ($changeRequest): void {
             $properties = [];
-            foreach ($changeRequest->getAttributes() as $field => $value) {
+            foreach ($changeRequest->attributesToArray() as $field => $value) {
                 $properties[$field] = [
                     'value'    => $value,
                     'previous' => null,
@@ -174,7 +174,7 @@ class AuditorTest extends TestCase {
         }
 
         $expected = $expectedFactory($this, $organization, $user);
-        $this->assertDatabaseHas((new Audit())->getTable(), $expected);
+        $this->assertDatabaseHas((new Audit())->getTable(), $expected, Auditor::CONNECTION);
     }
 
     // <editor-fold desc="DataProviders">

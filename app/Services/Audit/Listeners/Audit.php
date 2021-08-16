@@ -13,6 +13,7 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Contracts\Events\Dispatcher;
 
+use function in_array;
 use function reset;
 use function str_replace;
 
@@ -106,18 +107,22 @@ class Audit implements Subscriber {
         $properties = [];
         if ($model->wasRecentlyCreated) {
             // created
-            foreach ($model->getAttributes() as $field => $value) {
+            // attributesToArray return mutated and only visible fields
+            foreach ($model->attributesToArray() as $field => $value) {
                 $properties[$field] = [
-                    'value'    => $model->$field, // use model mutated value
+                    'value'    => $value, // use model mutated value
                     'previous' => null,
                 ];
             }
         } else {
+            $hiddenFields = $model->getHidden();
             foreach ($model->getChanges() as $field => $value) {
-                $properties[$field] = [
-                    'value'    => $value,
-                    'previous' => $model->getOriginal($field),
-                ];
+                if (!in_array($field, $hiddenFields, true)) {
+                    $properties[$field] = [
+                        'value'    => $value,
+                        'previous' => $model->getOriginal($field),
+                    ];
+                }
             }
         }
         return [
