@@ -133,10 +133,10 @@ class ServiceTest extends TestCase {
 
         $cache
             ->shouldReceive('delete')
-            ->with("{$class}:a")
+            ->with("{$class}:a:b")
             ->once()
             ->andReturn(true);
 
-        $this->assertTrue($service->delete('a'));
+        $this->assertTrue($service->delete(['a', 'b']));
     }
 }
