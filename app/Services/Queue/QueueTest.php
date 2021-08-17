@@ -29,10 +29,10 @@ class QueueTest extends TestCase {
      */
     public function testGetStates(): void {
         // Prepare
-        $aa = new State('1', 'a', false, false, Date::now()->subDay(), Date::now());
-        $ab = new State('2', 'a', false, false, Date::now()->addDay(), Date::now()->addDay());
-        $ca = new State('3', 'c', false, false, Date::now()->subDay(), Date::now());
-        $ba = new State('4', 'd', false, false, Date::now()->subDay(), Date::now());
+        $aa = new JobState('a', '1', false, false, Date::now()->subDay(), Date::now());
+        $ab = new JobState('a', '2', false, false, Date::now()->addDay(), Date::now()->addDay());
+        $ca = new JobState('c', '3', false, false, Date::now()->subDay(), Date::now());
+        $ba = new JobState('d', '4', false, false, Date::now()->subDay(), Date::now());
 
         // Mock
         $queue = Mockery::mock(Queue::class);
@@ -207,33 +207,33 @@ class QueueTest extends TestCase {
             });
         $actual   = iterator_to_array($queue->getStatesFromHorizon($jobs));
         $expected = [
-            new State(
-                $qaa->id,
+            new JobState(
                 $qaa->name,
+                $qaa->id,
                 true,
                 true,
                 Date::createFromTimestamp($pushedA),
                 Date::createFromTimestamp($reserved),
             ),
-            new State(
-                $qab->id,
+            new JobState(
                 $qab->name,
+                $qab->id,
                 false,
                 false,
                 Date::createFromTimestamp($pushedA),
                 null,
             ),
-            new State(
-                $qc->id,
+            new JobState(
                 $qc->name,
+                $qc->id,
                 false,
                 false,
                 Date::createFromTimestamp((float) $pushedB),
                 null,
             ),
-            new State(
-                $qbb->id,
+            new JobState(
                 $qbb->name,
+                $qbb->id,
                 false,
                 true,
                 Date::createFromTimestamp((float) $pushedA),
@@ -321,17 +321,17 @@ class QueueTest extends TestCase {
             });
         $actual   = iterator_to_array($queue->getStatesFromLogs($jobs));
         $expected = [
-            new State(
-                $laa->object_id,
+            new JobState(
                 $laa->object_type,
+                $laa->object_id,
                 true,
                 true,
                 $lab->created_at,
                 $laa->created_at,
             ),
-            new State(
-                $lc->object_id,
+            new JobState(
                 $lc->object_type,
+                $lc->object_id,
                 true,
                 true,
                 null,
@@ -347,7 +347,7 @@ class QueueTest extends TestCase {
      */
     public function testGetState(): void {
         $job   = Mockery::mock(BaseJob::class);
-        $state = Mockery::mock(State::class);
+        $state = Mockery::mock(JobState::class);
         $queue = Mockery::mock(Queue::class);
         $queue->makePartial();
         $queue

@@ -4,10 +4,10 @@ namespace App\Services\Queue;
 
 use DateTimeInterface;
 
-class State {
+class JobState {
     public function __construct(
-        public string $id,
         public string $name,
+        public string $id,
         public bool $running,
         public bool $stopped,
         public ?DateTimeInterface $pending_at,

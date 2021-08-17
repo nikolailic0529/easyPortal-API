@@ -85,7 +85,7 @@ class Queue {
     }
 
     /**
-     * @return array<\App\Services\Queue\State>
+     * @return array<\App\Services\Queue\JobState>
      */
     public function getState(Job $job): array {
         $states = $this->getStates([$job]);
@@ -97,7 +97,7 @@ class Queue {
     /**
      * @param array<\LastDragon_ru\LaraASP\Queue\Queueables\Job> $jobs
      *
-     * @return array<string,array<\App\Services\Queue\State>>
+     * @return array<string,array<\App\Services\Queue\JobState>>
      */
     public function getStates(array $jobs): array {
         // Empty?
@@ -116,7 +116,7 @@ class Queue {
         $iterator->append(new NoRewindIterator($this->getStatesFromLogs($jobs)));
 
         foreach ($iterator as $state) {
-            /** @var \App\Services\Queue\State $state */
+            /** @var \App\Services\Queue\JobState $state */
             if (!isset($states[$state->name][$state->id])) {
                 $states[$state->name][$state->id] = $state;
             }
@@ -124,7 +124,7 @@ class Queue {
 
         // Sort
         foreach ($states as &$values) {
-            usort($values, static function (State $a, State $b): int {
+            usort($values, static function (JobState $a, JobState $b): int {
                 return $b->running_at <=> $a->running_at;
             });
         }
@@ -160,7 +160,7 @@ class Queue {
     /**
      * @param \Illuminate\Support\Collection<string,\LastDragon_ru\LaraASP\Queue\Queueables\Job> $jobs
      *
-     * @return \Generator<\App\Services\Queue\State>
+     * @return \Generator<\App\Services\Queue\JobState>
      */
     protected function getStatesFromHorizon(Collection $jobs): Generator {
         $statuses = [
@@ -177,9 +177,9 @@ class Queue {
             }
 
             // Return
-            yield new State(
-                $job->id,
+            yield new JobState(
                 $job->name,
+                $job->id,
                 $job->status === QueueJob::STATUS_RESERVED,
                 $this->isStopped($jobs[$job->name], $job->id),
                 $this->getDate(json_decode($job->payload, true)['pushedAt'] ?? null),
@@ -191,7 +191,7 @@ class Queue {
     /**
      * @param \Illuminate\Support\Collection<string,\LastDragon_ru\LaraASP\Queue\Queueables\Job> $jobs
      *
-     * @return \Generator<\App\Services\Queue\State>
+     * @return \Generator<\App\Services\Queue\JobState>
      */
     protected function getStatesFromLogs(Collection $jobs): Generator {
         // Depending on Horizon `trim` settings the job can be removed from the
@@ -237,9 +237,9 @@ class Queue {
             $name = $log->object_type;
 
             // Return
-            yield new State(
-                $id,
+            yield new JobState(
                 $name,
+                $id,
                 true,
                 $this->isStopped($jobs[$name], $id),
                 $pending[$key($log)]->created_at ?? null,
