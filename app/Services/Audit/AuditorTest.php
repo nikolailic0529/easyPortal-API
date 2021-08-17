@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Services\Audit\Enums\Action;
 use Closure;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Auth;
 use Mockery\MockInterface;
@@ -154,6 +155,24 @@ class AuditorTest extends TestCase {
         });
         $dispatcher = $this->app->make(Dispatcher::class);
         $dispatcher->dispatch(new QueryExported(1, 'csv', 'assets', ['id', 'name']));
+    }
+
+         /**
+     * @covers ::create
+     *
+     */
+    public function testResetPassword(): void {
+        $this->override(Auditor::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('create')
+                ->once()
+                ->with(Action::authPasswordReset(), ['email' => 'test@example.com']);
+        });
+        $user       = User::factory()->create([
+            'email' => 'test@example.com',
+        ]);
+        $dispatcher = $this->app->make(Dispatcher::class);
+        $dispatcher->dispatch(new PasswordReset($user));
     }
     /**
      * @covers ::create

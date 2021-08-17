@@ -29,6 +29,10 @@ class Action extends Enum {
         return static::make('auth.signedOut');
     }
 
+    public static function authPasswordReset(): static {
+        return static::make('auth.passwordReset');
+    }
+
     public static function exported(): static {
         return static::make('exported');
     }
