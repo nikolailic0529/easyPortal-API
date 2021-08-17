@@ -13,7 +13,6 @@ use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
 use Illuminate\Contracts\Events\Dispatcher;
 
-use function in_array;
 use function reset;
 use function str_replace;
 
@@ -41,7 +40,7 @@ class Audit implements Subscriber {
             return;
         }
         $action  = $this->getModelAction($model, $event);
-        $context = $this->getModelContext($model);
+        $context = $this->getModelContext($model, $action);
         $this->auditor->create($action, $context, $model);
     }
 
@@ -103,26 +102,22 @@ class Audit implements Subscriber {
      *
      * @return array<string, mixed>
      */
-    protected function getModelContext(Model $model): array {
+    protected function getModelContext(Model $model, Action $action): array {
         $properties = [];
-        if ($model->wasRecentlyCreated) {
+        if ($action == Action::modelCreated()) {
             // created
-            // attributesToArray return mutated and only visible fields
-            foreach ($model->attributesToArray() as $field => $value) {
+            foreach ($model->getAttributes() as $field => $value) {
                 $properties[$field] = [
-                    'value'    => $value, // use model mutated value
+                    'value'    => $model->$field, // use model mutated value
                     'previous' => null,
                 ];
             }
         } else {
-            $hiddenFields = $model->getHidden();
             foreach ($model->getChanges() as $field => $value) {
-                if (!in_array($field, $hiddenFields, true)) {
-                    $properties[$field] = [
-                        'value'    => $value,
-                        'previous' => $model->getOriginal($field),
-                    ];
-                }
+                $properties[$field] = [
+                    'value'    => $value,
+                    'previous' => $model->getOriginal($field),
+                ];
             }
         }
         return [
