@@ -84,7 +84,7 @@ class ExportControllerTest extends TestCase {
             'root'          => $root,
         ];
 
-        Event::fake();
+        Event::fake([QueryExported::class]);
 
         if ($type === 'csv' || $type === 'excel') {
             Excel::fake();

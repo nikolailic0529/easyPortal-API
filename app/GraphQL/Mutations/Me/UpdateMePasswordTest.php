@@ -65,7 +65,7 @@ class UpdateMePasswordTest extends TestCase {
         }
 
         // Fake
-        Event::fake();
+        Event::fake([PasswordResetEvent::class]);
 
         // Test
         $this
