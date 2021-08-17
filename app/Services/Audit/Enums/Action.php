@@ -17,6 +17,10 @@ class Action extends Enum {
         return static::make('model.deleted');
     }
 
+    public static function modelRestored(): static {
+        return static::make('model.restored');
+    }
+
     public static function authSignedIn(): static {
         return static::make('auth.signedIn');
     }

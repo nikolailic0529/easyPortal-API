@@ -8,6 +8,7 @@ use App\Models\Model;
 use App\Services\Audit\Auditor;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Audit\Enums\Action;
+use App\Services\Logger\Listeners\EloquentObject;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
@@ -39,9 +40,10 @@ class Audit implements Subscriber {
         if (!($model instanceof Model) || !($model instanceof Auditable)) {
             return;
         }
-        $action  = $this->getModelAction($model, $event);
-        $context = $this->getModelContext($model, $action);
-        $this->auditor->create($action, $context, $model);
+        $object  = new EloquentObject($model);
+        $action  = $this->getModelAction($object, $event);
+        $context = $this->getModelContext($object, $action);
+        $this->auditor->create($action, $context, $object->getModel());
     }
 
     public function queryExported(QueryExported $event): void {
@@ -68,14 +70,15 @@ class Audit implements Subscriber {
             'eloquent.created',
             'eloquent.updated',
             'eloquent.deleted',
+            'eloquent.restored',
         ];
         foreach ($events as $event) {
             $dispatcher->listen("{$event}: *", [$this::class, 'modelEvent']);
         }
     }
 
-    protected function getModelAction(Model $model, string $event): Action {
-        $class      = $model::class;
+    protected function getModelAction(EloquentObject $object, string $event): Action {
+        $class      = $object->getModel()::class;
         $actionName = str_replace('eloquent.', '', $event);
         $actionName = str_replace(": {$class}", '', $actionName);
         $action     = null;
@@ -90,6 +93,9 @@ class Audit implements Subscriber {
             case 'deleted':
                 $action = Action::modelDeleted();
                 break;
+            case 'restored':
+                $action = Action::modelRestored();
+                break;
             default:
                 // empty
                 break;
@@ -102,26 +108,17 @@ class Audit implements Subscriber {
      *
      * @return array<string, mixed>
      */
-    protected function getModelContext(Model $model, Action $action): array {
-        $properties = [];
-        if ($action == Action::modelCreated()) {
-            // created
-            foreach ($model->getAttributes() as $field => $value) {
-                $properties[$field] = [
-                    'value'    => $model->getAttribute($field), // use model mutated value
-                    'previous' => null,
-                ];
-            }
+    protected function getModelContext(EloquentObject $object, Action $action): array {
+        $context = [];
+        if ($action === Action::modelCreated()) {
+            $context = [
+                'properties' => $object->getProperties(),
+            ];
         } else {
-            foreach ($model->getChanges() as $field => $value) {
-                $properties[$field] = [
-                    'value'    => $value,
-                    'previous' => $model->getOriginal($field),
-                ];
-            }
+            $context = [
+                'properties' => $object->getChanges(),
+            ];
         }
-        return [
-            'properties' => $properties,
-        ];
+        return $context;
     }
 }
