@@ -6,20 +6,20 @@ use App\Services\Logger\Models\Enums\Action;
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Log;
-use DateInterval;
+use App\Services\Queue\Tags\Stop;
+use AppendIterator;
 use DateTimeInterface;
 use Generator;
-use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Laravel\Horizon\Contracts\JobRepository;
 use LastDragon_ru\LaraASP\Queue\Queueables\Job;
+use NoRewindIterator;
 
 use function array_fill_keys;
 use function array_filter;
-use function array_merge_recursive;
 use function count;
 use function in_array;
 use function json_decode;
@@ -29,7 +29,7 @@ use function usort;
 class Queue {
     public function __construct(
         protected Container $container,
-        protected Repository $cache,
+        protected Stop $stop,
         protected JobRepository $repository,
     ) {
         // empty
@@ -39,11 +39,8 @@ class Queue {
         return $this->container;
     }
 
-    public function isStopped(Job $job, string $id = null): bool {
-        return $job instanceof Stoppable && (new Collection($this->getState($job)))
-                ->first(static function (State $state) use ($id): bool {
-                    return $state->stopped && ($id === null || $state->id === $id);
-                });
+    public function isStopped(Job $job, string $id): bool {
+        return $job instanceof Stoppable && $this->stop->exists($job, $id);
     }
 
     /**
@@ -54,12 +51,22 @@ class Queue {
      * stopped.
      */
     public function stop(Job $job, string $id = null): bool {
-        return $job instanceof Stoppable
-            && $this->cache->set(
-                $this->getStopKey($job, $id),
-                Date::now()->timestamp,
-                new DateInterval('P1W'),
-            );
+        // Possible?
+        if (!$job instanceof Stoppable) {
+            return false;
+        }
+
+        // Stop
+        if ($id) {
+            $this->stop->set($job, $id);
+        } else {
+            foreach ($this->getState($job) as $state) {
+                $this->stop->set($job, $state->id);
+            }
+        }
+
+        // Return
+        return true;
     }
 
     public function getName(Job $job): string {
@@ -99,13 +106,21 @@ class Queue {
         }
 
         // Prepare
-        $jobs   = (new Collection($jobs))
+        $jobs     = (new Collection($jobs))
             ->keyBy(function (Job $job): string {
                 return $this->getName($job);
             });
-        $states = array_fill_keys($jobs->keys()->all(), []);
-        $states = array_merge_recursive($states, $this->getStatesFromHorizon($jobs, $states));
-        $states = array_merge_recursive($states, $this->getStatesFromLogs($jobs, $states));
+        $states   = array_fill_keys($jobs->keys()->all(), []);
+        $iterator = new AppendIterator();
+        $iterator->append(new NoRewindIterator($this->getStatesFromHorizon($jobs)));
+        $iterator->append(new NoRewindIterator($this->getStatesFromLogs($jobs)));
+
+        foreach ($iterator as $state) {
+            /** @var \App\Services\Queue\State $state */
+            if (!isset($states[$state->name][$state->id])) {
+                $states[$state->name][$state->id] = $state;
+            }
+        }
 
         // Sort
         foreach ($states as &$values) {
@@ -142,29 +157,12 @@ class Queue {
         } while (count($jobs) > 0);
     }
 
-    protected function getStopKey(Job $job, string $id = null): string {
-        return "service:queue:stop:{$this->getName($job)}".($id ? "#{$id}" : '');
-    }
-
-    protected function getStoppedAt(Job $job, string $id = null): ?DateTimeInterface {
-        $stopped   = null;
-        $timestamp = $this->cache->get($this->getStopKey($job, $id))
-            ?: $this->cache->get($this->getStopKey($job));
-
-        if ($timestamp) {
-            $stopped = Date::createFromTimestamp($timestamp);
-        }
-
-        return $stopped;
-    }
-
     /**
      * @param \Illuminate\Support\Collection<string,\LastDragon_ru\LaraASP\Queue\Queueables\Job> $jobs
-     * @param array<string,array<string,\App\Services\Queue\State|null>>                         $states
      *
-     * @return array<string,\App\Services\Queue\State|null>
+     * @return \Generator<\App\Services\Queue\State>
      */
-    protected function getStatesFromHorizon(Collection $jobs, array $states): array {
+    protected function getStatesFromHorizon(Collection $jobs): Generator {
         $statuses = [
             QueueJob::STATUS_PENDING,
             QueueJob::STATUS_RESERVED,
@@ -178,37 +176,24 @@ class Queue {
                 continue;
             }
 
-            // Exists?
-            if (isset($states[$job->name][$job->id])) {
-                continue;
-            }
-
-            // Add
-            $pendingAt = $this->getDate(json_decode($job->payload, true)['pushedAt'] ?? null);
-            $stoppedAt = $this->getStoppedAt($jobs[$job->name], $job->id);
-            $running   = $job->status === QueueJob::STATUS_RESERVED;
-            $stopped   = $this->getStatesIsStopped($pendingAt, $stoppedAt);
-
-            $states[$job->name][$job->id] = new State(
+            // Return
+            yield new State(
                 $job->id,
                 $job->name,
-                $running,
-                $stopped,
-                $pendingAt,
+                $job->status === QueueJob::STATUS_RESERVED,
+                $this->isStopped($jobs[$job->name], $job->id),
+                $this->getDate(json_decode($job->payload, true)['pushedAt'] ?? null),
                 $this->getDate($job->reserved_at ?? null),
             );
         }
-
-        return $states;
     }
 
     /**
      * @param \Illuminate\Support\Collection<string,\LastDragon_ru\LaraASP\Queue\Queueables\Job> $jobs
-     * @param array<string,array<string,\App\Services\Queue\State|null>>                         $states
      *
-     * @return array<string,\App\Services\Queue\State|null>
+     * @return \Generator<\App\Services\Queue\State>
      */
-    protected function getStatesFromLogs(Collection $jobs, array $states): array {
+    protected function getStatesFromLogs(Collection $jobs): Generator {
         // Depending on Horizon `trim` settings the job can be removed from the
         // pending list but it may still run. Thus we should also check our
         // logs to make sure that the state is correct.
@@ -217,7 +202,7 @@ class Queue {
         $names = $jobs->keys();
 
         if (!$names) {
-            return $states;
+            yield from [];
         }
 
         // Get status
@@ -229,6 +214,7 @@ class Queue {
             ->where('action', '=', Action::queueJobRun())
             ->where('status', '=', Status::active())
             ->whereIn('object_type', $names)
+            ->orderBy('created_at')
             ->get();
         $pending = Log::query()
             ->where('category', '=', Category::queue())
@@ -250,31 +236,15 @@ class Queue {
             $id   = $log->object_id;
             $name = $log->object_type;
 
-            if (isset($states[$name][$id])) {
-                continue;
-            }
-
-            // Add
-            $pendingAt = $pending[$key($log)]->created_at ?? null;
-            $stoppedAt = $this->getStoppedAt($jobs[$name], $id);
-            $running   = true;
-            $stopped   = $this->getStatesIsStopped($pendingAt, $stoppedAt);
-
-            $states[$name][$id] = new State(
+            // Return
+            yield new State(
                 $id,
                 $name,
-                $running,
-                $stopped,
-                $pendingAt,
+                true,
+                $this->isStopped($jobs[$name], $id),
+                $pending[$key($log)]->created_at ?? null,
                 $log->created_at,
             );
         }
-
-        // Return
-        return $states;
-    }
-
-    protected function getStatesIsStopped(?DateTimeInterface $pendingAt, ?DateTimeInterface $stoppedAt): bool {
-        return $stoppedAt && $pendingAt && $stoppedAt > $pendingAt;
     }
 }
