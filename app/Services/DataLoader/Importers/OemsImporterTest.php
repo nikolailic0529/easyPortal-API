@@ -181,7 +181,7 @@ class OemsImporterTest extends TestCase {
         // Translations
         $translations = $storage->load();
         $expected     = [];
-        $regexp       = '/^(models\.service-level)\.([^.]+)\.(.+)/u';
+        $regexp       = '/^(models\.ServiceLevel)\.([^.]+)\.(.+)/u';
         $callback     = static function (array $matches) use ($oems, $groups, $levels): string {
             /** @var \App\Models\ServiceLevel|null $level */
             $level = $levels->get($matches[2]);
