@@ -4,15 +4,11 @@ namespace App\Services\Logger\Listeners;
 
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
-use App\Utils\ModelHelper;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Model;
 
 use function array_filter;
-use function array_intersect_key;
-use function mb_strlen;
 use function reset;
-use function str_pad;
 use function str_replace;
 
 class EloquentListener extends Listener {
@@ -42,7 +38,7 @@ class EloquentListener extends Listener {
 
                     // Log
                     $object    = new EloquentObject($model);
-                    $action    = $this->getAction($model, $event);
+                    $action    = $this->getAction($object, $event);
                     $countable = [
                         "{$this->getCategory()}.total.models.models"                     => 1,
                         "{$this->getCategory()}.total.models.{$property}"                => 1,
@@ -55,7 +51,7 @@ class EloquentListener extends Listener {
                             $action,
                             Status::success(),
                             $object,
-                            $this->getContext($model),
+                            $this->getContext($object, $action),
                             $countable,
                         );
                     } else {
@@ -66,11 +62,11 @@ class EloquentListener extends Listener {
         }
     }
 
-    protected function getAction(Model $model, string $event): string {
+    protected function getAction(EloquentObject $object, string $event): string {
         $action = str_replace('eloquent.', 'model.', $event);
 
         if ($action === 'model.deleted') {
-            if ($this->isSoftDeletable($model)) {
+            if ($object->isSoftDeletable()) {
                 $action = 'model.softDeleted';
             } else {
                 $action = 'model.forceDeleted';
@@ -81,20 +77,18 @@ class EloquentListener extends Listener {
     }
 
     /**
-     * @return array<mixed>|null
+     * @return array<string,array{value:mixed,previous:mixed}>|null
      */
-    protected function getContext(Model $model): ?array {
+    protected function getContext(EloquentObject $object, string $action): ?array {
         $context = [];
 
-        if ($model->wasRecentlyCreated) {
+        if ($action === 'model.created') {
             $context = [
-                'properties' => $model->getAttributes(),
+                'properties' => $object->getProperties(),
             ];
         } else {
-            $changes = $model->getChanges();
             $context = [
-                'changes'   => $this->hideProperties($model, $changes),
-                'originals' => $this->hideProperties($model, array_intersect_key($model->getRawOriginal(), $changes)),
+                'properties' => $object->getChanges(),
             ];
         }
 
@@ -103,27 +97,6 @@ class EloquentListener extends Listener {
         }
 
         return $context;
-    }
-
-    /**
-     * @param array<string,mixed> $attributes
-     *
-     * @return array<string,mixed>
-     */
-    protected function hideProperties(Model $model, array $attributes = []): array {
-        $hidden = $model->getHidden();
-
-        foreach ($hidden as $attribute) {
-            if (isset($attributes[$attribute])) {
-                $attributes[$attribute] = str_pad('', mb_strlen((string) $attributes[$attribute]), '*');
-            }
-        }
-
-        return $attributes;
-    }
-
-    protected function isSoftDeletable(Model $model): bool {
-        return ModelHelper::isSoftDeletable($model);
     }
 
     protected function getCategory(): Category {
