@@ -49,7 +49,7 @@ trait StoppableJob {
      * @throws \App\Services\Queue\Exceptions\JobStopped if job stopped
      */
     protected function stop(): void {
-        if ($this->getService()?->isStopped($this)) {
+        if ($this->getService()?->isStopped($this, $this->getJob()->getJobId())) {
             throw new JobStoppedException();
         }
     }

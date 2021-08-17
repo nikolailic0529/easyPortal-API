@@ -4,10 +4,10 @@ namespace App\GraphQL\Queries\Application;
 
 use App\Services\Queue\CronJob;
 use App\Services\Queue\Job;
+use App\Services\Queue\JobState;
 use App\Services\Queue\Progress;
 use App\Services\Queue\Progressable;
 use App\Services\Queue\Queue;
-use App\Services\Queue\State;
 use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
@@ -240,17 +240,17 @@ class ServicesTest extends TestCase {
                     static function (TestCase $test): array {
                         return [
                             'service-b' => [
-                                new State(
-                                    'a77d8197-bc62-4831-ab98-5629cb0656e7',
+                                new JobState(
                                     'service-b',
+                                    'a77d8197-bc62-4831-ab98-5629cb0656e7',
                                     true,
                                     false,
                                     Date::make('2021-06-30T00:00:00+00:00'),
                                     null,
                                 ),
-                                new State(
-                                    'id-b',
+                                new JobState(
                                     'service-b',
+                                    'id-b',
                                     true,
                                     false,
                                     Date::make('2021-06-30T00:00:00+00:00'),

@@ -6,7 +6,8 @@ use App\Services\Logger\Models\Enums\Action;
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Log;
-use Illuminate\Contracts\Cache\Repository;
+use App\Services\Queue\Tags\Stop;
+use Generator;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
@@ -15,7 +16,7 @@ use LastDragon_ru\LaraASP\Queue\Queueables\Job as BaseJob;
 use Mockery;
 use Tests\TestCase;
 
-use function array_fill_keys;
+use function iterator_to_array;
 use function json_encode;
 
 /**
@@ -28,10 +29,10 @@ class QueueTest extends TestCase {
      */
     public function testGetStates(): void {
         // Prepare
-        $aa = new State('1', 'a', false, false, Date::now()->subDay(), Date::now());
-        $ab = new State('2', 'a', false, false, Date::now()->addDay(), Date::now()->addDay());
-        $ca = new State('3', 'c', false, false, Date::now()->subDay(), Date::now());
-        $ba = new State('4', 'd', false, false, Date::now()->subDay(), Date::now());
+        $aa = new JobState('a', '1', false, false, Date::now()->subDay(), Date::now());
+        $ab = new JobState('a', '2', false, false, Date::now()->addDay(), Date::now()->addDay());
+        $ca = new JobState('c', '3', false, false, Date::now()->subDay(), Date::now());
+        $ba = new JobState('d', '4', false, false, Date::now()->subDay(), Date::now());
 
         // Mock
         $queue = Mockery::mock(Queue::class);
@@ -40,25 +41,15 @@ class QueueTest extends TestCase {
         $queue
             ->shouldReceive('getStatesFromHorizon')
             ->once()
-            ->andReturn([
-                $aa->name => [
-                    $aa->id => $aa,
-                ],
-                $ca->name => [
-                    $ca->id => $ca,
-                ],
-            ]);
+            ->andReturnUsing(static function () use ($aa, $ca): Generator {
+                yield from [$aa, $ca];
+            });
         $queue
             ->shouldReceive('getStatesFromLogs')
             ->once()
-            ->andReturn([
-                $ab->name => [
-                    $ab->id => $ab,
-                ],
-                $ba->name => [
-                    $ba->id => $ba,
-                ],
-            ]);
+            ->andReturnUsing(static function () use ($ab, $ba): Generator {
+                yield from [$ab, $ba];
+            });
 
         // Test
         $actual   = $queue->getStates([
@@ -120,7 +111,7 @@ class QueueTest extends TestCase {
             ->never();
 
         // Test
-        $actual   = (new Queue($this->app, $this->app->make(Repository::class), $repository))->getStates([]);
+        $actual   = (new Queue($this->app, $this->app->make(Stop::class), $repository))->getStates([]);
         $expected = [];
 
         $this->assertEquals($expected, $actual);
@@ -180,84 +171,74 @@ class QueueTest extends TestCase {
         $repository
             ->shouldReceive('getPending')
             ->with(0)
-            ->once()
+            ->twice()
             ->andReturn([$qaa, $qab]);
         $repository
             ->shouldReceive('getPending')
             ->with(2)
-            ->once()
+            ->twice()
             ->andReturn([$qba, $qc]);
         $repository
             ->shouldReceive('getPending')
             ->with(4)
-            ->once()
+            ->twice()
             ->andReturn([$qbb]);
         $repository
             ->shouldReceive('getPending')
             ->with(5)
-            ->once()
+            ->twice()
             ->andReturn([]);
 
         // Queue
-        $queue = new class($this->app, $this->app->make(Repository::class), $repository) extends Queue {
-            /**
-             * @inheritDoc
-             */
-            public function getStatesFromHorizon(Collection $jobs, array $states): array {
-                return parent::getStatesFromHorizon($jobs, $states);
+        $queue = new class($this->app, $this->app->make(Stop::class), $repository) extends Queue {
+            public function getStatesFromHorizon(Collection $jobs): Generator {
+                return parent::getStatesFromHorizon($jobs);
             }
         };
 
         $queue->stop($a, $qaa->id);
         $queue->stop($b);
-        $queue->stop($c);
+        $queue->stop($c, $this->faker->uuid);
 
         // Test
         $jobs     = (new Collection([$a, $b, $c]))
             ->keyBy(static function (BaseJob $job): string {
                 return $job instanceof NamedJob ? $job->displayName() : $job::class;
             });
-        $states   = array_fill_keys($jobs->keys()->all(), []);
-        $actual   = $queue->getStatesFromHorizon($jobs, $states);
+        $actual   = iterator_to_array($queue->getStatesFromHorizon($jobs));
         $expected = [
-            $a::class => [
-                $qab->id => new State(
-                    $qab->id,
-                    $qab->name,
-                    false,
-                    false,
-                    Date::createFromTimestamp($pushedA),
-                    null,
-                ),
-                $qaa->id => new State(
-                    $qaa->id,
-                    $qaa->name,
-                    true,
-                    true,
-                    Date::createFromTimestamp($pushedA),
-                    Date::createFromTimestamp($reserved),
-                ),
-            ],
-            'c'       => [
-                $qc->id => new State(
-                    $qc->id,
-                    $qc->name,
-                    false,
-                    false,
-                    Date::createFromTimestamp((float) $pushedB),
-                    null,
-                ),
-            ],
-            $b::class => [
-                $qbb->id => new State(
-                    $qbb->id,
-                    $qbb->name,
-                    false,
-                    true,
-                    Date::createFromTimestamp((float) $pushedA),
-                    null,
-                ),
-            ],
+            new JobState(
+                $qaa->name,
+                $qaa->id,
+                true,
+                true,
+                Date::createFromTimestamp($pushedA),
+                Date::createFromTimestamp($reserved),
+            ),
+            new JobState(
+                $qab->name,
+                $qab->id,
+                false,
+                false,
+                Date::createFromTimestamp($pushedA),
+                null,
+            ),
+            new JobState(
+                $qc->name,
+                $qc->id,
+                false,
+                false,
+                Date::createFromTimestamp((float) $pushedB),
+                null,
+            ),
+            new JobState(
+                $qbb->name,
+                $qbb->id,
+                false,
+                true,
+                Date::createFromTimestamp((float) $pushedA),
+                null,
+            ),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -284,6 +265,7 @@ class QueueTest extends TestCase {
             'action'      => Action::queueJobRun(),
             'status'      => Status::active(),
             'context'     => 'Should be returned',
+            'created_at'  => Date::now()->subDay(),
         ]);
         $lab = Log::factory()->create([
             'object_type' => $a::class,
@@ -293,14 +275,6 @@ class QueueTest extends TestCase {
             'status'      => Status::success(),
             'context'     => 'Dispatched time for $a',
             'created_at'  => Date::now()->subDay(),
-        ]);
-        $lb  = Log::factory()->create([
-            'object_type' => $b::class,
-            'object_id'   => 'd1f851f0-2453-4d1b-ae9b-3a270459ac86',
-            'category'    => Category::queue(),
-            'action'      => Action::queueJobRun(),
-            'status'      => Status::success(),
-            'context'     => 'Should be ignored because status != active',
         ]);
         $lc  = Log::factory()->create([
             'object_type' => 'c',
@@ -312,6 +286,14 @@ class QueueTest extends TestCase {
         ]);
 
         Log::factory()->create([
+            'object_type' => $b::class,
+            'object_id'   => 'd1f851f0-2453-4d1b-ae9b-3a270459ac86',
+            'category'    => Category::queue(),
+            'action'      => Action::queueJobRun(),
+            'status'      => Status::success(),
+            'context'     => 'Should be ignored because status != active',
+        ]);
+        Log::factory()->create([
             'object_type' => 'd',
             'object_id'   => '918d0938-bffe-4ae6-8a3e-b62dcf4df2ef',
             'category'    => Category::queue(),
@@ -322,56 +304,39 @@ class QueueTest extends TestCase {
 
         // Queue
         $repository = Mockery::mock(JobRepository::class);
-        $cache      = $this->app->make(Repository::class);
-        $queue      = new class($this->app, $cache, $repository) extends Queue {
-            /**
-             * @inheritDoc
-             */
-            public function getStatesFromLogs(Collection $jobs, array $states): array {
-                return parent::getStatesFromLogs($jobs, $states);
+        $stopTag    = $this->app->make(Stop::class);
+        $queue      = new class($this->app, $stopTag, $repository) extends Queue {
+            public function getStatesFromLogs(Collection $jobs): Generator {
+                return parent::getStatesFromLogs($jobs);
             }
         };
 
         $queue->stop($a, '48d53ba5-9d6b-4c6d-9a0b-d832143bb385'); // Should be stopped (dispatch time is known)
-        $queue->stop($c);                                         // Should be not (no dispatch time)
+        $queue->stop($c, '918d0938-bffe-4ae6-8a3e-b62dcf4df2ef'); // Should be too (no dispatch time)
 
         // Test
         $jobs     = (new Collection([$a, $b, $c]))
             ->keyBy(static function (BaseJob $job): string {
                 return $job instanceof NamedJob ? $job->displayName() : $job::class;
             });
-        $default  = [
-            $laa->object_type => [
-                'f534087e-7c9a-424f-9f37-22c527ef35af' => new State('a', 'a', false, false, null, null),
-            ],
-        ];
-        $states   = $default + array_fill_keys($jobs->keys()->all(), []);
-        $actual   = $queue->getStatesFromLogs($jobs, $states);
+        $actual   = iterator_to_array($queue->getStatesFromLogs($jobs));
         $expected = [
-            $laa->object_type => [
-                'f534087e-7c9a-424f-9f37-22c527ef35af' => new State('a', 'a', false, false, null, null),
-                $laa->object_id                        => new State(
-                    $laa->object_id,
-                    $laa->object_type,
-                    true,
-                    true,
-                    $lab->created_at,
-                    $laa->created_at,
-                ),
-            ],
-            $lb->object_type  => [
-                // empty
-            ],
-            $lc->object_type  => [
-                $lc->object_id => new State(
-                    $lc->object_id,
-                    $lc->object_type,
-                    true,
-                    false,
-                    null,
-                    $lc->created_at,
-                ),
-            ],
+            new JobState(
+                $laa->object_type,
+                $laa->object_id,
+                true,
+                true,
+                $lab->created_at,
+                $laa->created_at,
+            ),
+            new JobState(
+                $lc->object_type,
+                $lc->object_id,
+                true,
+                true,
+                null,
+                $lc->created_at,
+            ),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -382,7 +347,7 @@ class QueueTest extends TestCase {
      */
     public function testGetState(): void {
         $job   = Mockery::mock(BaseJob::class);
-        $state = Mockery::mock(State::class);
+        $state = Mockery::mock(JobState::class);
         $queue = Mockery::mock(Queue::class);
         $queue->makePartial();
         $queue
@@ -440,53 +405,48 @@ class QueueTest extends TestCase {
      * @covers ::stop
      */
     public function testStop(): void {
+        $id        = $this->faker->uuid;
         $job       = Mockery::mock(BaseJob::class);
         $stoppable = Mockery::mock(BaseJob::class, Stoppable::class);
-        $cache     = Mockery::mock(Repository::class);
-        $cache
+        $stopTag   = Mockery::mock(Stop::class);
+        $stopTag
             ->shouldReceive('set')
             ->once()
-            ->andReturn(true);
-        $queue = new Queue($this->app, $cache, Mockery::mock(JobRepository::class));
+            ->andReturn(Date::now());
+        $queue = Mockery::mock(Queue::class, [$this->app, $stopTag, Mockery::mock(JobRepository::class)]);
+        $queue->makePartial();
+        $queue
+            ->shouldReceive('getState')
+            ->once()
+            ->andReturn([]);
 
         $this->assertFalse($queue->stop($job));
         $this->assertTrue($queue->stop($stoppable));
+        $this->assertTrue($queue->stop($stoppable, $id));
     }
 
     /**
      * @covers ::isStopped
      */
     public function testIsStopped(): void {
-        $id    = $this->faker->uuid;
-        $jobA  = Mockery::mock(BaseJob::class, Stoppable::class);
-        $jobB  = Mockery::mock(BaseJob::class, Stoppable::class);
-        $queue = Mockery::mock(Queue::class);
-        $queue->makePartial();
-        $queue
-            ->shouldReceive('getState')
-            ->with($jobA)
-            ->times(3)
-            ->andReturn([
-                new State(
-                    $id,
-                    $jobA::class,
-                    true,
-                    true,
-                    null,
-                    null,
-                ),
-            ]);
-        $queue
-            ->shouldReceive('getState')
-            ->with($jobB)
+        $id      = $this->faker->uuid;
+        $jobA    = Mockery::mock(BaseJob::class, Stoppable::class);
+        $jobB    = Mockery::mock(BaseJob::class);
+        $stopTag = Mockery::mock(Stop::class);
+        $stopTag
+            ->shouldReceive('exists')
+            ->with($jobA, $id)
             ->once()
-            ->andReturn([
-                // empty
-            ]);
+            ->andReturn(true);
+        $stopTag
+            ->shouldReceive('exists')
+            ->once()
+            ->andReturn(false);
 
-        $this->assertTrue($queue->isStopped($jobA));
-        $this->assertFalse($queue->isStopped($jobA, $this->faker->uuid));
+        $queue = new Queue($this->app, $stopTag, Mockery::mock(JobRepository::class));
+
         $this->assertTrue($queue->isStopped($jobA, $id));
-        $this->assertFalse($queue->isStopped($jobB));
+        $this->assertFalse($queue->isStopped($jobA, $this->faker->uuid));
+        $this->assertFalse($queue->isStopped($jobB, $id));
     }
 }
