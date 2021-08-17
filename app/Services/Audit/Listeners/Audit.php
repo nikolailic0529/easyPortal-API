@@ -108,7 +108,7 @@ class Audit implements Subscriber {
             // created
             foreach ($model->getAttributes() as $field => $value) {
                 $properties[$field] = [
-                    'value'    => $model->$field, // use model mutated value
+                    'value'    => $model->getAttribute($field), // use model mutated value
                     'previous' => null,
                 ];
             }

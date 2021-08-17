@@ -30,9 +30,9 @@ class AuditorTest extends TestCase {
 
         $this->override(Auditor::class, static function (MockInterface $mock) use ($changeRequest): void {
             $properties = [];
-            foreach ($changeRequest->attributesToArray() as $field => $value) {
+            foreach ($changeRequest->getAttributes() as $field => $value) {
                 $properties[$field] = [
-                    'value'    => $value,
+                    'value'    => $changeRequest->getAttribute($field),
                     'previous' => null,
                 ];
             }
