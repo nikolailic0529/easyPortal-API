@@ -337,7 +337,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         // each entry is the mixin of Document, DocumentEntry, and additional
         // information (that is not available in Document and DocumentEntry)
 
-        // Log assets were document is missed
+        // Log assets were documents is missed
         (new Collection($asset->assetDocument))
             ->filter(static function (ViewAssetDocument $document): bool {
                 return isset($document->documentNumber) && !isset($document->document->id);
