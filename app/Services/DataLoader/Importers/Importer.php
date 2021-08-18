@@ -66,19 +66,19 @@ abstract class Importer {
         int $chunk = null,
         int $limit = null,
     ): void {
-        $status   = new Status($from, $continue, $this->getTotal($from, $limit));
-        $iterator = $this
-            ->getIterator($from, $chunk, $limit, $continue)
-            ->onBeforeChunk(function (array $items) use ($status): void {
-                $this->onBeforeChunk($items, $status);
-            })
-            ->onAfterChunk(function (array $items) use (&$iterator, $status): void {
-                $this->onAfterChunk($items, $status, $iterator->getOffset());
-            });
+        $this->call(function () use ($update, $from, $continue, $chunk, $limit): void {
+            $status   = new Status($from, $continue, $this->getTotal($from, $limit));
+            $iterator = $this
+                ->getIterator($from, $chunk, $limit, $continue)
+                ->onBeforeChunk(function (array $items) use ($status): void {
+                    $this->onBeforeChunk($items, $status);
+                })
+                ->onAfterChunk(function (array $items) use (&$iterator, $status): void {
+                    $this->onAfterChunk($items, $status, $iterator->getOffset());
+                });
 
-        $this->onBeforeImport($status);
+            $this->onBeforeImport($status);
 
-        $this->call(function () use ($iterator, $status, $update): void {
             foreach ($iterator as $item) {
                 /** @var \App\Services\DataLoader\Schema\Type|\App\Services\DataLoader\Schema\TypeWithId $item */
                 try {
@@ -105,9 +105,9 @@ abstract class Importer {
                     $status->processed++;
                 }
             }
-        });
 
-        $this->onAfterImport($status);
+            $this->onAfterImport($status);
+        });
     }
 
     private function call(Closure $closure): void {
