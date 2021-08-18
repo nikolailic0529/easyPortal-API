@@ -9,6 +9,7 @@ use Illuminate\Auth\AuthManager;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 use function array_key_exists;
+use function array_keys;
 use function in_array;
 use function json_encode;
 
@@ -31,7 +32,7 @@ class AuditContext {
         ) {
             $model = $audit->model;
             if ($model instanceof Model) {
-                $visible = $model->getVisible();
+                $visible = array_keys($model->attributesToArray());
                 foreach ($context['properties'] as $field => $value) {
                     if (!in_array($field, $visible, true)) {
                         unset($context['properties'][$field]);

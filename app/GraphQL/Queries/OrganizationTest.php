@@ -660,8 +660,16 @@ class OrganizationTest extends TestCase {
                                         'user_id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
                                         'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                                         'context'         => json_encode([
-                                            'email'    => 'test@gmail.com',
-                                            'password' => 'pass',
+                                            'properties' => [
+                                                'email'    => [
+                                                    'value'    => 'test@gmail.com',
+                                                    'pervious' => null,
+                                                ],
+                                                'password' => [
+                                                    'value'    => 'pass',
+                                                    'pervious' => null,
+                                                ],
+                                            ],
                                         ]),
                                         'action'          => 'action1',
                                         'created_at'      => '2021-01-01T00:00:00+00:00',
@@ -689,7 +697,18 @@ class OrganizationTest extends TestCase {
                                     'object_type' => $user->getMorphClass(),
                                     'object_id'   => $user->getKey(),
                                     'user_id'     => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
-                                    'context'     => ['email' => 'test@gmail.com', 'password' => 'pass'],
+                                    'context'     => [
+                                        'properties' => [
+                                            'email'    => [
+                                                'value'    => 'test@gmail.com',
+                                                'pervious' => null,
+                                            ],
+                                            'password' => [
+                                                'value'    => 'pass',
+                                                'pervious' => null,
+                                            ],
+                                        ],
+                                    ],
                                     'action'      => 'action1',
                                     'created_at'  => '2021-01-01 00:00:00',
                                 ])
@@ -718,7 +737,14 @@ class OrganizationTest extends TestCase {
                                         'object_id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
                                         'user_id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
                                         'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                        'context'         => json_encode(['email' => 'test@gmail.com']),
+                                        'context'         => json_encode([
+                                            'properties' => [
+                                                'email' => [
+                                                    'value'    => 'test@gmail.com',
+                                                    'pervious' => null,
+                                                ],
+                                            ],
+                                        ]),
                                         'action'          => 'action1',
                                         'created_at'      => '2021-01-01T00:00:00+00:00',
                                     ],
@@ -746,7 +772,14 @@ class OrganizationTest extends TestCase {
                                     'object_type' => $user->getMorphClass(),
                                     'object_id'   => $user->getKey(),
                                     'user_id'     => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
-                                    'context'     => ['email' => 'test@gmail.com'],
+                                    'context'     => [
+                                        'properties' => [
+                                            'email' => [
+                                                'value'    => 'test@gmail.com',
+                                                'pervious' => null,
+                                            ],
+                                        ],
+                                    ],
                                     'action'      => 'action1',
                                     'created_at'  => '2021-01-01 00:00:00',
                                 ])
