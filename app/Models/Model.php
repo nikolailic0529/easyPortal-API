@@ -5,11 +5,13 @@ namespace App\Models;
 use App\Models\Concerns\CascadeDeletes\CascadeDeletes;
 use App\Models\Concerns\HideDeletedNot;
 use App\Models\Concerns\MorphMapRequired;
+use App\Models\Concerns\OnSave;
 use App\Models\Concerns\UuidAsPrimaryKey;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use LastDragon_ru\LaraASP\Eloquent\Model as LaraASPModel;
 
 abstract class Model extends LaraASPModel {
+    use OnSave;
     use SoftDeletes;
     use CascadeDeletes;
     use UuidAsPrimaryKey;
