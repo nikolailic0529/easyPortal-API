@@ -63,4 +63,25 @@ class ChangeRequest extends PolymorphicModel implements Auditable {
      * @var array<string>
      */
     protected $casts = self::CASTS;
+
+    /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<string>
+     */
+    protected $visible = [
+        'organization_id',
+        'user_id',
+        'object_id',
+        'object_type',
+        'subject',
+        'from',
+        'to',
+        'cc',
+        'bcc',
+        'message',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
 }

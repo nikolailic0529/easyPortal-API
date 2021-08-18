@@ -7,9 +7,8 @@ type Audit {
     action: String!
     created_at:  DateTime!
 
-    "JSON"
     context: String
-    @field(resolver: "App\\GraphQL\\Resolvers\\JsonResolver")
+    @field(resolver: "App\\GraphQL\\Queries\\AuditContext")
 
     user: User
     organization: Organization

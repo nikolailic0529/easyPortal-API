@@ -136,6 +136,7 @@ class AppServiceProvider extends ServiceProvider {
             'QuoteRequest'              => QuoteRequest::class,
             'QuoteRequestDuration'      => QuoteRequestDuration::class,
             'QuoteRequestAsset'         => QuoteRequestAsset::class,
+            'Organization'              => Organization::class,
         ]);
     }
 }

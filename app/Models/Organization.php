@@ -101,6 +101,9 @@ class Organization extends Model implements
         'branding_welcome_image_url',
         'branding_welcome_heading',
         'branding_welcome_underline',
+        'created_at',
+        'updated_at',
+        'deleted_at',
     ];
 
     public function preferredLocale(): ?string {

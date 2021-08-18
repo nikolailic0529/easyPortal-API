@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
  * Audit.
@@ -58,5 +59,10 @@ class Audit extends Model {
     public function organization(): BelongsTo {
         // Relation between 2 table on 2 different db
         return $this->setConnection((new Organization())->getConnectionName())->belongsTo(Organization::class);
+    }
+
+    public function model(): MorphTo {
+        // with default connection
+        return $this->setConnection((new User())->getConnectionName())->morphTo('object');
     }
 }

@@ -359,10 +359,9 @@ type Audit {
   object_id: String
   action: String!
   created_at: DateTime!
-  updated_at: DateTime!
-
-  """JSON"""
   context: String
+  user: User
+  organization: Organization
 }
 
 """A paginated list of Audit items."""
@@ -383,6 +382,8 @@ input AuditsQuery {
   object_type: String!
   created_at: DateTime!
   updated_at: DateTime!
+  user: UsersQuery
+  organization: OrganizationsQuery
 }
 
 input AuditsSort {
@@ -2637,6 +2638,34 @@ input SearchByComplexRelationLocationsQuery {
 }
 
 """
+Conditions for the related objects (`has()`/`doesntHave()`) for input OrganizationsQuery.
+
+See also:
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-existence
+* https://laravel.com/docs/8.x/eloquent-relationships#querying-relationship-absence
+"""
+input SearchByComplexRelationOrganizationsQuery {
+  """Additional conditions."""
+  where: SearchByConditionOrganizationsQuery
+
+  """Count conditions."""
+  count: SearchByScalarInt
+
+  """
+  Alias for `count: {greaterThanOrEqual: 1}` (`has()`). Will be ignored if `count` used.
+  """
+  exists: Boolean
+
+  """
+  Alias for `count: {lessThan: 1}` (`doesntHave()`). Will be ignored if `count` used.
+  """
+  notExists: Boolean! = false
+
+  """Complex operator marker."""
+  relation: SearchByTypeFlag! = yes
+}
+
+"""
 Conditions for the related objects (`has()`/`doesntHave()`) for input ProductsQuery.
 
 See also:
@@ -3072,6 +3101,12 @@ input SearchByConditionAuditsQuery {
 
   """Property condition."""
   updated_at: SearchByScalarDateTime
+
+  """Property condition."""
+  user: SearchByComplexRelationUsersQuery
+
+  """Property condition."""
+  organization: SearchByComplexRelationOrganizationsQuery
 }
 
 """

@@ -105,6 +105,27 @@ class User extends Model implements
         'remember_token',
     ];
 
+        /**
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var array<string>
+     */
+    protected $visible = [
+        'given_name',
+        'family_name',
+        'email',
+        'email_verified',
+        'phone',
+        'phone_verified',
+        'photo',
+        'locale',
+        'homepage',
+        'timezone',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
     /**
      * The attributes that should be cast to native types.
      *
