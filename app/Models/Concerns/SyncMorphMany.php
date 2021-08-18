@@ -3,6 +3,7 @@
 namespace App\Models\Concerns;
 
 use App\Models\PolymorphicModel;
+use App\Utils\ModelHelper;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
@@ -19,7 +20,7 @@ trait SyncMorphMany {
 
         // Prepare
         /** @var \Illuminate\Database\Eloquent\Relations\MorphMany $morph */
-        $morph = $this->{$relation}();
+        $morph = (new ModelHelper($this))->getRelation($relation);
         $model = $morph->make();
         $class = $model::class;
 
@@ -37,13 +38,8 @@ trait SyncMorphMany {
             ));
         }
 
-        // Object should exist
-        if (!$this->exists) {
-            $this->save();
-        }
-
         // Create/Update existing
-        $existing = (clone $this->{$relation})->keyBy(static function (PolymorphicModel $contact): string {
+        $existing = (clone $this->getAttribute($relation))->keyBy(static function (PolymorphicModel $contact): string {
             return $contact->getKey();
         });
 
@@ -71,20 +67,25 @@ trait SyncMorphMany {
                 ));
             }
 
-            // Save
-            $morph->save($object);
-
             // Mark as used
             $existing->forget($object->getKey());
         }
 
-        // Delete unused
-        foreach ($existing as $object) {
-            $this->syncMorphManyDelete($object);
-        }
-
         // Update relation
         $this->setRelation($relation, new EloquentCollection($objects));
+
+        // Update database
+        $this->onSave(function () use ($morph, $objects, $existing): void {
+            // Sync
+            foreach ($objects as $object) {
+                $morph->save($object);
+            }
+
+            // Delete unused
+            foreach ($existing as $object) {
+                $this->syncMorphManyDelete($object);
+            }
+        });
     }
 
     protected function syncMorphManyDelete(PolymorphicModel $model): void {

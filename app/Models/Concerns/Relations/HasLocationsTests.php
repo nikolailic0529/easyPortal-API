@@ -47,7 +47,10 @@ trait HasLocationsTests {
             'object_type' => $morph,
         ]);
         $model->locations = [$created];
-        $used             = $used->refresh();
+
+        $model->save();
+
+        $used = $used->refresh();
 
         $this->assertEquals([$created], $model->locations->all());
         $this->assertEquals(1, Location::query()->count());
