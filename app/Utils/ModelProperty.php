@@ -77,7 +77,7 @@ class ModelProperty {
                 } elseif ($value instanceof Collection) {
                     $value = $value->pluck($property)->flatten(1)->unique();
                 } elseif ($value instanceof Model) {
-                    $value = $value->{$property};
+                    $value = $value->getAttribute($property);
                 } else {
                     throw new LogicException(sprintf(
                         'Value of `%s` is not supported.',
