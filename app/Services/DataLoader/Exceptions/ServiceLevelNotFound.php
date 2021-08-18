@@ -16,7 +16,7 @@ class ServiceLevelNotFound extends InvalidData {
         protected Type|null $object = null,
     ) {
         parent::__construct(sprintf(
-            'Service Group `%s`/`%s` not found (`%s`).',
+            'Service Level `%s`/`%s` not found (`%s`).',
             $this->group->sku,
             $sku,
             $this->oem->key,
