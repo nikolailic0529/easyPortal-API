@@ -73,10 +73,14 @@ class CustomerFactoryTest extends TestCase {
         // Prepare
         $factory = $this->app->make(CustomerFactory::class);
 
+        // Load
+        $file    = $this->faker->randomElement(['~customer-full.json', '~reseller.json']);
+        $json    = $this->getTestData()->json($file);
+        $company = new Company($json);
+
+        $this->flushQueryLog();
+
         // Test
-        $file     = $this->faker->randomElement(['~customer-full.json', '~reseller.json']);
-        $json     = $this->getTestData()->json($file);
-        $company  = new Company($json);
         $customer = $factory->create($company);
 
         $this->assertNotNull($customer);
@@ -99,6 +103,9 @@ class CustomerFactoryTest extends TestCase {
             $this->getContacts($company),
             $this->getModelContacts($customer),
         );
+
+        $this->assertCount(60, $this->getQueryLog());
+        $this->flushQueryLog();
 
         // Customer should be updated
         $json    = $this->getTestData()->json('~customer-changed.json');
@@ -123,6 +130,17 @@ class CustomerFactoryTest extends TestCase {
             $this->getContacts($company),
             $this->getModelContacts($updated),
         );
+
+        $this->assertCount(5, $this->getQueryLog());
+        $this->flushQueryLog();
+
+        // No changes
+        $json    = $this->getTestData()->json('~customer-changed.json');
+        $company = new Company($json);
+
+        $factory->create($company);
+
+        $this->assertCount(0, $this->getQueryLog());
     }
 
     /**

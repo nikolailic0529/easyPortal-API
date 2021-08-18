@@ -79,9 +79,13 @@ class ResellerFactoryTest extends TestCase {
         // Prepare
         $factory = $this->app->make(ResellerFactory::class);
 
+        // Load
+        $json    = $this->getTestData()->json('~reseller-full.json');
+        $company = new Company($json);
+
+        $this->flushQueryLog();
+
         // Test
-        $json     = $this->getTestData()->json('~reseller-full.json');
-        $company  = new Company($json);
         $reseller = $factory->create($company);
 
         $this->assertNotNull($reseller);
@@ -103,6 +107,9 @@ class ResellerFactoryTest extends TestCase {
             $this->getContacts($company),
             $this->getModelContacts($reseller),
         );
+
+        $this->assertCount(55, $this->getQueryLog());
+        $this->flushQueryLog();
 
         // Reseller should be updated
         $json    = $this->getTestData()->json('~reseller-changed.json');
@@ -127,8 +134,19 @@ class ResellerFactoryTest extends TestCase {
             $this->getModelContacts($updated),
         );
 
+        $this->assertCount(5, $this->getQueryLog());
+        $this->flushQueryLog();
+
         // Events
         Event::assertDispatchedTimes(ResellerUpdated::class, 2);
+
+        // No changes
+        $json    = $this->getTestData()->json('~reseller-changed.json');
+        $company = new Company($json);
+
+        $factory->create($company);
+
+        $this->assertCount(0, $this->getQueryLog());
     }
 
     /**

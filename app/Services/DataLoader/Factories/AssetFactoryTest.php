@@ -115,6 +115,8 @@ class AssetFactoryTest extends TestCase {
         $json  = $this->getTestData()->json('~asset-full.json');
         $asset = new ViewAsset($json);
 
+        $this->flushQueryLog();
+
         // Test
         $created = $factory->create($asset);
 
@@ -211,6 +213,9 @@ class AssetFactoryTest extends TestCase {
         $this->assertNotNull($extended->start);
         $this->assertNotNull($extended->end);
 
+        $this->assertCount(86, $this->getQueryLog());
+        $this->flushQueryLog();
+
         // Customer should be updated
         $json    = $this->getTestData()->json('~asset-changed.json');
         $asset   = new ViewAsset($json);
@@ -250,6 +255,17 @@ class AssetFactoryTest extends TestCase {
         // Documents
         $this->assertEquals(1, Document::query()->count());
         $this->assertEquals(0, DocumentEntry::query()->count());
+
+        $this->assertCount(23, $this->getQueryLog());
+        $this->flushQueryLog();
+
+        // No changes
+        $json  = $this->getTestData()->json('~asset-changed.json');
+        $asset = new ViewAsset($json);
+
+        $factory->create($asset);
+
+        $this->assertCount(0, $this->getQueryLog());
     }
 
     /**

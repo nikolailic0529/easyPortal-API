@@ -70,9 +70,13 @@ class DistributorFactoryTest extends TestCase {
         // Prepare
         $factory = $this->app->make(DistributorFactory::class);
 
+        // Load
+        $json    = $this->getTestData()->json('~distributor-full.json');
+        $company = new Company($json);
+
+        $this->flushQueryLog();
+
         // Test
-        $json        = $this->getTestData()->json('~distributor-full.json');
-        $company     = new Company($json);
         $distributor = $factory->create($company);
 
         $this->assertNotNull($distributor);
@@ -80,6 +84,9 @@ class DistributorFactoryTest extends TestCase {
         $this->assertEquals($company->id, $distributor->getKey());
         $this->assertEquals($company->name, $distributor->name);
         $this->assertEquals($company->updatedAt, $this->getDatetime($distributor->changed_at));
+
+        $this->assertCount(3, $this->getQueryLog());
+        $this->flushQueryLog();
 
         // Distributor should be updated
         $json    = $this->getTestData()->json('~distributor-changed.json');
@@ -91,6 +98,17 @@ class DistributorFactoryTest extends TestCase {
         $this->assertEquals($company->id, $updated->getKey());
         $this->assertEquals($company->name, $updated->name);
         $this->assertEquals($company->updatedAt, $this->getDatetime($updated->changed_at));
+
+        $this->assertCount(1, $this->getQueryLog());
+        $this->flushQueryLog();
+
+        // No changes
+        $json    = $this->getTestData()->json('~distributor-changed.json');
+        $company = new Company($json);
+
+        $factory->create($company);
+
+        $this->assertCount(0, $this->getQueryLog());
     }
 
     /**

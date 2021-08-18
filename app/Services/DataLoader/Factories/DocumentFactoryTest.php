@@ -104,16 +104,20 @@ class DocumentFactoryTest extends TestCase {
 
         // Create
         // ---------------------------------------------------------------------
-        $json    = $this->getTestData()->json('~asset-document-full.json');
-        $asset   = new ViewAsset($json);
-        $model   = AssetModel::factory()->create([
+        $json   = $this->getTestData()->json('~asset-document-full.json');
+        $asset  = new ViewAsset($json);
+        $model  = AssetModel::factory()->create([
             'id' => $asset->id,
         ]);
-        $object  = new AssetDocumentObject([
+        $object = new AssetDocumentObject([
             'asset'    => $model,
             'document' => reset($asset->assetDocument),
             'entries'  => $asset->assetDocument,
         ]);
+
+        $this->flushQueryLog();
+
+        // Test
         $created = $factory->createFromAssetDocumentObject($object);
 
         $this->assertNotNull($created);
@@ -156,6 +160,9 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals('HPE', $e->serviceLevel->oem->key);
         $this->assertEquals('145.00', $e->renewal);
 
+        $this->assertCount(60, $this->getQueryLog());
+        $this->flushQueryLog();
+
         // Changed
         // ---------------------------------------------------------------------
         $json    = $this->getTestData()->json('~asset-document-changed.json');
@@ -193,6 +200,22 @@ class DocumentFactoryTest extends TestCase {
         $this->assertNull($e->list_price);
         $this->assertNull($e->discount);
         $this->assertNull($e->renewal);
+
+        $this->assertCount(24, $this->getQueryLog());
+        $this->flushQueryLog();
+
+        // No changes
+        $json   = $this->getTestData()->json('~asset-document-changed.json');
+        $asset  = new ViewAsset($json);
+        $object = new AssetDocumentObject([
+            'asset'    => $model,
+            'document' => reset($asset->assetDocument),
+            'entries'  => $asset->assetDocument,
+        ]);
+
+        $factory->create($object);
+
+        $this->assertCount(0, $this->getQueryLog());
     }
 
     /**
