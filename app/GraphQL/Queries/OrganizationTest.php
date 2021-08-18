@@ -655,11 +655,14 @@ class OrganizationTest extends TestCase {
                                 'data'          => [
                                     [
                                         'id'              => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20947',
-                                        'object_type'     => 'type',
+                                        'object_type'     => 'User',
                                         'object_id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
                                         'user_id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
                                         'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
-                                        'context'         => json_encode(['field1' => 'value1']),
+                                        'context'         => json_encode([
+                                            'email'    => 'test@gmail.com',
+                                            'password' => 'pass',
+                                        ]),
                                         'action'          => 'action1',
                                         'created_at'      => '2021-01-01T00:00:00+00:00',
                                     ],
@@ -677,13 +680,16 @@ class OrganizationTest extends TestCase {
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization): Organization {
+                            $user         = ModelsUser::factory()->create([
+                                'id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
+                            ]);
                             $organization = Organization::factory()
                                 ->hasAudits(1, [
                                     'id'          => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20947',
-                                    'object_type' => 'type',
-                                    'object_id'   => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
+                                    'object_type' => $user->getMorphClass(),
+                                    'object_id'   => $user->getKey(),
                                     'user_id'     => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
-                                    'context'     => ['field1' => 'value1'],
+                                    'context'     => ['email' => 'test@gmail.com', 'password' => 'pass'],
                                     'action'      => 'action1',
                                     'created_at'  => '2021-01-01 00:00:00',
                                 ])
@@ -708,11 +714,11 @@ class OrganizationTest extends TestCase {
                                 'data'          => [
                                     [
                                         'id'              => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
-                                        'object_type'     => 'type',
+                                        'object_type'     => 'User',
                                         'object_id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
                                         'user_id'         => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
                                         'organization_id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
-                                        'context'         => json_encode(['field1' => 'value1']),
+                                        'context'         => json_encode(['email' => 'test@gmail.com']),
                                         'action'          => 'action1',
                                         'created_at'      => '2021-01-01T00:00:00+00:00',
                                     ],
@@ -730,13 +736,17 @@ class OrganizationTest extends TestCase {
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization): Organization {
+                            $user         = ModelsUser::factory()->create([
+                                'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
+                                'password' => 'pass',
+                            ]);
                             $organization = Organization::factory()
                                 ->hasAudits(1, [
                                     'id'          => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
-                                    'object_type' => 'type',
-                                    'object_id'   => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
+                                    'object_type' => $user->getMorphClass(),
+                                    'object_id'   => $user->getKey(),
                                     'user_id'     => '439a0a06-d98a-41f0-b8e5-4e5722518e02',
-                                    'context'     => ['field1' => 'value1'],
+                                    'context'     => ['email' => 'test@gmail.com'],
                                     'action'      => 'action1',
                                     'created_at'  => '2021-01-01 00:00:00',
                                 ])

@@ -17,12 +17,20 @@ class Action extends Enum {
         return static::make('model.deleted');
     }
 
+    public static function modelRestored(): static {
+        return static::make('model.restored');
+    }
+
     public static function authSignedIn(): static {
         return static::make('auth.signedIn');
     }
 
     public static function authSignedOut(): static {
         return static::make('auth.signedOut');
+    }
+
+    public static function authPasswordReset(): static {
+        return static::make('auth.passwordReset');
     }
 
     public static function exported(): static {

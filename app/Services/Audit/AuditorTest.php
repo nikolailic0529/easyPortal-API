@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Services\Audit\Enums\Action;
 use Closure;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Auth;
 use Mockery\MockInterface;
@@ -32,7 +33,7 @@ class AuditorTest extends TestCase {
             $properties = [];
             foreach ($changeRequest->getAttributes() as $field => $value) {
                 $properties[$field] = [
-                    'value'    => $value,
+                    'value'    => $changeRequest->getAttribute($field),
                     'previous' => null,
                 ];
             }
@@ -155,6 +156,24 @@ class AuditorTest extends TestCase {
         $dispatcher = $this->app->make(Dispatcher::class);
         $dispatcher->dispatch(new QueryExported(1, 'csv', 'assets', ['id', 'name']));
     }
+
+         /**
+     * @covers ::create
+     *
+     */
+    public function testResetPassword(): void {
+        $this->override(Auditor::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('create')
+                ->once()
+                ->with(Action::authPasswordReset(), ['email' => 'test@example.com']);
+        });
+        $user       = User::factory()->create([
+            'email' => 'test@example.com',
+        ]);
+        $dispatcher = $this->app->make(Dispatcher::class);
+        $dispatcher->dispatch(new PasswordReset($user));
+    }
     /**
      * @covers ::create
      * @dataProvider dataProviderCreate
@@ -174,7 +193,7 @@ class AuditorTest extends TestCase {
         }
 
         $expected = $expectedFactory($this, $organization, $user);
-        $this->assertDatabaseHas((new Audit())->getTable(), $expected);
+        $this->assertDatabaseHas((new Audit())->getTable(), $expected, Auditor::CONNECTION);
     }
 
     // <editor-fold desc="DataProviders">
@@ -184,7 +203,7 @@ class AuditorTest extends TestCase {
      */
     public function dataProviderCreate(): array {
         return [
-            'model.created' => [
+            'model.created'  => [
                 static function (): array {
                     return [
                         'object_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
@@ -203,7 +222,7 @@ class AuditorTest extends TestCase {
                     $changeRequest->save();
                 },
             ],
-            'model.updated' => [
+            'model.updated'  => [
                 static function (): array {
                     return [
                         'object_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
@@ -224,7 +243,7 @@ class AuditorTest extends TestCase {
                     $changeRequest->save();
                 },
             ],
-            'model.deleted' => [
+            'model.deleted'  => [
                 static function (): array {
                     return [
                         'object_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
@@ -243,7 +262,27 @@ class AuditorTest extends TestCase {
                     $changeRequest->delete();
                 },
             ],
-            'auth.signIn'   => [
+            'model.restored' => [
+                static function (): array {
+                    return [
+                        'object_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'object_type'     => (new ChangeRequest())->getMorphClass(),
+                        'organization_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                        'user_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'action'          => Action::modelRestored(),
+                    ];
+                },
+                static function (): void {
+                    $changeRequest = ChangeRequest::factory()->create([
+                        'id'              => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                        'organization_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                        'user_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                        'deleted_at'      => '2021-01-01 00:00:00',
+                    ]);
+                    $changeRequest->restore();
+                },
+            ],
+            'auth.signIn'    => [
                 static function (TestCase $test, Organization $organization, User $user): array {
                     return [
                         'organization_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
@@ -256,7 +295,7 @@ class AuditorTest extends TestCase {
                     $auth->guard('web')->login($user);
                 },
             ],
-            'auth.signOut'  => [
+            'auth.signOut'   => [
                 static function (TestCase $test, Organization $organization, User $user): array {
                     return [
                         'organization_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
