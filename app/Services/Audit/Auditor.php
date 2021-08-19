@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Services\Audit\Enums\Action;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class Auditor {
     public const CONNECTION = 'audit';
@@ -22,7 +23,7 @@ class Auditor {
     /**
      * @param array<string, mixed> $context
      */
-    public function create(Action $action, array $context = null, Model $model = null, User $user = null): void {
+    public function create(Action $action, array $context = null, Model $model = null, Authenticatable $user = null): void {
         $organization = null;
         if ($this->organization->defined()) {
             $organization = $this->organization->getKey();
@@ -35,7 +36,7 @@ class Auditor {
         $audit->action          = $action;
         $audit->object_id       = $model?->getKey();
         $audit->object_type     = $model?->getMorphClass();
-        $audit->user_id         = $user?->getKey();
+        $audit->user_id         = $user?->getAuthIdentifier();
         $audit->organization_id = $organization;
         $audit->context         = $context;
         $audit->save();
