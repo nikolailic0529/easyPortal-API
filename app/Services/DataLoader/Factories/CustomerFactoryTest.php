@@ -16,6 +16,8 @@ use Mockery;
 use Tests\TestCase;
 use Tests\WithoutOrganizationScope;
 
+use function array_column;
+
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Factories\CustomerFactory
@@ -74,8 +76,7 @@ class CustomerFactoryTest extends TestCase {
         $factory = $this->app->make(CustomerFactory::class);
 
         // Load
-        $file    = $this->faker->randomElement(['~customer-full.json', '~reseller.json']);
-        $json    = $this->getTestData()->json($file);
+        $json    = $this->getTestData()->json('~customer-full.json');
         $company = new Company($json);
 
         $this->flushQueryLog();
@@ -83,6 +84,10 @@ class CustomerFactoryTest extends TestCase {
         // Test
         $customer = $factory->create($company);
 
+        $this->assertEquals(
+            $this->getTestData()->json('~createFromCompany-create-expected.json'),
+            array_column($this->getQueryLog(), 'query'),
+        );
         $this->assertNotNull($customer);
         $this->assertTrue($customer->wasRecentlyCreated);
         $this->assertEquals($company->id, $customer->getKey());
@@ -104,7 +109,6 @@ class CustomerFactoryTest extends TestCase {
             $this->getModelContacts($customer),
         );
 
-        $this->assertCount(60, $this->getQueryLog());
         $this->flushQueryLog();
 
         // Customer should be updated
@@ -112,6 +116,10 @@ class CustomerFactoryTest extends TestCase {
         $company = new Company($json);
         $updated = $factory->create($company);
 
+        $this->assertEquals(
+            $this->getTestData()->json('~createFromCompany-update-expected.json'),
+            array_column($this->getQueryLog(), 'query'),
+        );
         $this->assertNotNull($updated);
         $this->assertSame($customer, $updated);
         $this->assertEquals($company->id, $updated->getKey());
@@ -131,7 +139,6 @@ class CustomerFactoryTest extends TestCase {
             $this->getModelContacts($updated),
         );
 
-        $this->assertCount(5, $this->getQueryLog());
         $this->flushQueryLog();
 
         // No changes

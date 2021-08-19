@@ -34,6 +34,7 @@ use Mockery;
 use Tests\TestCase;
 use Tests\WithoutOrganizationScope;
 
+use function array_column;
 use function is_null;
 use function number_format;
 use function reset;
@@ -120,6 +121,10 @@ class DocumentFactoryTest extends TestCase {
         // Test
         $created = $factory->createFromAssetDocumentObject($object);
 
+        $this->assertEquals(
+            $this->getTestData()->json('~createFromAssetDocumentObject-create-expected.json'),
+            array_column($this->getQueryLog(), 'query'),
+        );
         $this->assertNotNull($created);
         $this->assertEquals($asset->customerId, $created->customer_id);
         $this->assertEquals($asset->resellerId, $created->reseller_id);
@@ -160,7 +165,6 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals('HPE', $e->serviceLevel->oem->key);
         $this->assertEquals('145.00', $e->renewal);
 
-        $this->assertCount(60, $this->getQueryLog());
         $this->flushQueryLog();
 
         // Changed
@@ -174,6 +178,10 @@ class DocumentFactoryTest extends TestCase {
         ]);
         $changed = $factory->createFromAssetDocumentObject($object);
 
+        $this->assertEquals(
+            $this->getTestData()->json('~createFromAssetDocumentObject-update-expected.json'),
+            array_column($this->getQueryLog(), 'query'),
+        );
         $this->assertEquals($model->getKey(), $asset->id);
         $this->assertNotNull($changed);
         $this->assertNull($created->distributor_id);
@@ -201,7 +209,6 @@ class DocumentFactoryTest extends TestCase {
         $this->assertNull($e->discount);
         $this->assertNull($e->renewal);
 
-        $this->assertCount(24, $this->getQueryLog());
         $this->flushQueryLog();
 
         // No changes

@@ -14,6 +14,8 @@ use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 
+use function array_column;
+
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Factories\DistributorFactory
@@ -79,13 +81,16 @@ class DistributorFactoryTest extends TestCase {
         // Test
         $distributor = $factory->create($company);
 
+        $this->assertEquals(
+            $this->getTestData()->json('~createFromCompany-create-expected.json'),
+            array_column($this->getQueryLog(), 'query'),
+        );
         $this->assertNotNull($distributor);
         $this->assertTrue($distributor->wasRecentlyCreated);
         $this->assertEquals($company->id, $distributor->getKey());
         $this->assertEquals($company->name, $distributor->name);
         $this->assertEquals($company->updatedAt, $this->getDatetime($distributor->changed_at));
 
-        $this->assertCount(3, $this->getQueryLog());
         $this->flushQueryLog();
 
         // Distributor should be updated
@@ -93,13 +98,16 @@ class DistributorFactoryTest extends TestCase {
         $company = new Company($json);
         $updated = $factory->create($company);
 
+        $this->assertEquals(
+            $this->getTestData()->json('~createFromCompany-update-expected.json'),
+            array_column($this->getQueryLog(), 'query'),
+        );
         $this->assertNotNull($updated);
         $this->assertSame($distributor, $updated);
         $this->assertEquals($company->id, $updated->getKey());
         $this->assertEquals($company->name, $updated->name);
         $this->assertEquals($company->updatedAt, $this->getDatetime($updated->changed_at));
 
-        $this->assertCount(1, $this->getQueryLog());
         $this->flushQueryLog();
 
         // No changes

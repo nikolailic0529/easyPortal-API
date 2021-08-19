@@ -17,6 +17,8 @@ use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 
+use function array_column;
+
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Factories\ResellerFactory
@@ -88,6 +90,10 @@ class ResellerFactoryTest extends TestCase {
         // Test
         $reseller = $factory->create($company);
 
+        $this->assertEquals(
+            $this->getTestData()->json('~createFromCompany-create-expected.json'),
+            array_column($this->getQueryLog(), 'query'),
+        );
         $this->assertNotNull($reseller);
         $this->assertTrue($reseller->wasRecentlyCreated);
         $this->assertEquals($company->id, $reseller->getKey());
@@ -108,7 +114,6 @@ class ResellerFactoryTest extends TestCase {
             $this->getModelContacts($reseller),
         );
 
-        $this->assertCount(55, $this->getQueryLog());
         $this->flushQueryLog();
 
         // Reseller should be updated
@@ -116,6 +121,10 @@ class ResellerFactoryTest extends TestCase {
         $company = new Company($json);
         $updated = $factory->create($company);
 
+        $this->assertEquals(
+            $this->getTestData()->json('~createFromCompany-update-expected.json'),
+            array_column($this->getQueryLog(), 'query'),
+        );
         $this->assertNotNull($updated);
         $this->assertSame($reseller, $updated);
         $this->assertEquals($company->id, $updated->getKey());
@@ -134,7 +143,6 @@ class ResellerFactoryTest extends TestCase {
             $this->getModelContacts($updated),
         );
 
-        $this->assertCount(5, $this->getQueryLog());
         $this->flushQueryLog();
 
         // Events

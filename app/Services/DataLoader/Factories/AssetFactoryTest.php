@@ -44,6 +44,7 @@ use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 use Tests\WithoutOrganizationScope;
 
+use function array_column;
 use function array_map;
 use function array_unique;
 use function count;
@@ -120,6 +121,10 @@ class AssetFactoryTest extends TestCase {
         // Test
         $created = $factory->create($asset);
 
+        $this->assertEquals(
+            $this->getTestData()->json('~createFromAsset-create-expected.json'),
+            array_column($this->getQueryLog(), 'query'),
+        );
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
         $this->assertEquals($asset->id, $created->getKey());
@@ -213,7 +218,6 @@ class AssetFactoryTest extends TestCase {
         $this->assertNotNull($extended->start);
         $this->assertNotNull($extended->end);
 
-        $this->assertCount(86, $this->getQueryLog());
         $this->flushQueryLog();
 
         // Customer should be updated
@@ -221,6 +225,10 @@ class AssetFactoryTest extends TestCase {
         $asset   = new ViewAsset($json);
         $updated = $factory->create($asset);
 
+        $this->assertEquals(
+            $this->getTestData()->json('~createFromAsset-update-expected.json'),
+            array_column($this->getQueryLog(), 'query'),
+        );
         $this->assertNotNull($updated);
         $this->assertSame($created, $updated);
         $this->assertEquals($asset->id, $updated->getKey());
@@ -256,7 +264,6 @@ class AssetFactoryTest extends TestCase {
         $this->assertEquals(1, Document::query()->count());
         $this->assertEquals(0, DocumentEntry::query()->count());
 
-        $this->assertCount(23, $this->getQueryLog());
         $this->flushQueryLog();
 
         // No changes
