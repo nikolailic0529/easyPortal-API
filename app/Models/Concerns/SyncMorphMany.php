@@ -44,8 +44,9 @@ trait SyncMorphMany {
 
         // Create/Update existing
         $existing = $this->syncManyGetExisting($this, $relation)->map(new SetKey())->keyBy(new GetKey());
+        $children = new EloquentCollection($objects);
 
-        foreach ($objects as $object) {
+        foreach ($children as $object) {
             // Object supported by relation?
             if (!($object instanceof $class)) {
                 throw new InvalidArgumentException(sprintf(
@@ -77,17 +78,19 @@ trait SyncMorphMany {
         $this->setRelation($relation, new EloquentCollection($objects));
 
         // Update database
-        $this->onSave(function () use ($morph, $objects, $existing): void {
-            // Sync
-            foreach ($objects as $object) {
-                $morph->save($object);
-            }
+        if (!$children->isEmpty() || !$existing->isEmpty()) {
+            $this->onSave(function () use ($morph, $children, $existing): void {
+                // Sync
+                foreach ($children as $object) {
+                    $morph->save($object);
+                }
 
-            // Delete unused
-            foreach ($existing as $object) {
-                $this->syncMorphManyDelete($object);
-            }
-        });
+                // Delete unused
+                foreach ($existing as $object) {
+                    $this->syncMorphManyDelete($object);
+                }
+            });
+        }
     }
 
     protected function syncMorphManyDelete(PolymorphicModel $model): void {

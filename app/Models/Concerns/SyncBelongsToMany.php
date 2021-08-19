@@ -51,18 +51,20 @@ trait SyncBelongsToMany {
         $this->setRelation($relation, new EloquentCollection($objects));
 
         // Update database
-        $this->onSave(static function () use ($belongsToMany, $children, $existing): void {
-            // Sync
-            foreach ($children as $object) {
-                /** @var \Illuminate\Database\Eloquent\Model $object */
-                $belongsToMany->attach($object->getKey(), [], false);
-            }
+        if (!$children->isEmpty() || !$existing->isEmpty()) {
+            $this->onSave(static function () use ($belongsToMany, $children, $existing): void {
+                // Sync
+                foreach ($children as $object) {
+                    /** @var \Illuminate\Database\Eloquent\Model $object */
+                    $belongsToMany->attach($object->getKey(), [], false);
+                }
 
-            // Delete unused
-            /** @var \Illuminate\Database\Eloquent\Model $object */
-            foreach ($existing as $object) {
-                $object->pivot?->delete();
-            }
-        });
+                // Delete unused
+                /** @var \Illuminate\Database\Eloquent\Model $object */
+                foreach ($existing as $object) {
+                    $object->pivot?->delete();
+                }
+            });
+        }
     }
 }

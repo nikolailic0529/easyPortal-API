@@ -51,18 +51,20 @@ trait SyncHasMany {
         $this->setRelation($relation, new EloquentCollection($objects));
 
         // Update database
-        $this->onSave(static function () use ($hasMany, $children, $existing): void {
-            // Sync
-            foreach ($children as $object) {
-                /** @var \App\Models\Model $object */
-                $hasMany->save($object);
-            }
+        if (!$children->isEmpty() || !$existing->isEmpty()) {
+            $this->onSave(static function () use ($hasMany, $children, $existing): void {
+                // Sync
+                foreach ($children as $object) {
+                    /** @var \App\Models\Model $object */
+                    $hasMany->save($object);
+                }
 
-            // Delete unused
-            /** @var \App\Models\Model $object */
-            foreach ($existing as $object) {
-                $object->delete();
-            }
-        });
+                // Delete unused
+                /** @var \App\Models\Model $object */
+                foreach ($existing as $object) {
+                    $object->delete();
+                }
+            });
+        }
     }
 }
