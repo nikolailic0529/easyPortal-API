@@ -64,7 +64,7 @@ class OemResolverTest extends TestCase {
         $this->assertNotNull($created);
         $this->assertEquals('unKnown', $created->key);
         $this->assertEquals('unKnown', $created->name);
-        $this->assertCount(1, $this->getQueryLog());
+        $this->assertCount(0, $this->getQueryLog());
 
         $this->flushQueryLog();
 
@@ -72,12 +72,12 @@ class OemResolverTest extends TestCase {
         $this->assertSame($created, $provider->get('unknoWn', $factory));
         $this->assertCount(0, $this->getQueryLog());
 
-        // Created object should be found
+        // Created object should NOT be found
         $c = Oem::factory()->create();
 
         $this->flushQueryLog();
-        $this->assertEquals($c->getKey(), $provider->get($c->getKey())?->getKey());
-        $this->assertCount(1, $this->getQueryLog());
+        $this->assertNull($provider->get($c->key));
+        $this->assertCount(0, $this->getQueryLog());
         $this->flushQueryLog();
     }
 }
