@@ -88,7 +88,7 @@ class ModelProperty {
                 $previous[] = $property;
             }
         } else {
-            $value = $model->{$this->getName()};
+            $value = $model->getAttribute($this->getName());
         }
 
         return $value;
