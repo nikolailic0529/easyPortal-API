@@ -393,16 +393,18 @@ class DocumentFactoryTest extends TestCase {
 
         // Test
         $actual   = new Collection($factory->assetDocumentObjectEntries($document, $object));
-        $added    = $actual
-            ->filter(static function (DocumentEntryModel $entry) {
-                return is_null($entry->getKey());
+        $created  = $actual
+            ->filter(static function (DocumentEntryModel $entry): bool {
+                return !$entry->exists;
             })
             ->first();
         $existing = $actual
+            ->filter(static function (DocumentEntryModel $entry): bool {
+                return $entry->exists;
+            })
             ->map(static function (DocumentEntryModel $entry) {
                 return $entry->getKey();
             })
-            ->filter()
             ->sort()
             ->values();
         $expected = $another
@@ -418,11 +420,11 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($expected, $existing);
         $this->assertFalse($existing->contains($c->getKey()));
         $this->assertFalse($existing->contains($d->getKey()));
-        $this->assertNotNull($added);
-        $this->assertNull($added->list_price);
-        $this->assertNull($added->net_price);
-        $this->assertNull($added->discount);
-        $this->assertNull($added->renewal);
+        $this->assertNotNull($created);
+        $this->assertNull($created->list_price);
+        $this->assertNull($created->net_price);
+        $this->assertNull($created->discount);
+        $this->assertNull($created->renewal);
     }
 
     /**

@@ -256,7 +256,11 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
             $model->changed_at   = $normalizer->datetime($document->updatedAt);
             $model->contacts     = $this->objectContacts($model, (array) $document->contactPersons);
             $model->entries      = $this->assetDocumentObjectEntries($model, $object);
-            $model->save();
+
+            // We cannot save entries if assets doesn't exist
+            if ($object->asset->exists) {
+                $model->save();
+            }
 
             // Return
             return $model;

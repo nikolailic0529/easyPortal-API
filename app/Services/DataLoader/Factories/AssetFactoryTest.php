@@ -780,7 +780,7 @@ class AssetFactoryTest extends TestCase {
         });
 
         $this->assertNotNull($b);
-        $this->assertTrue($b->wasRecentlyCreated);
+        $this->assertFalse($b->exists);
         $this->assertNull($b->document_id);
         $this->assertNull($b->start);
         $this->assertEquals($date, $b->end);
@@ -796,7 +796,7 @@ class AssetFactoryTest extends TestCase {
 
         $this->assertNotNull($c);
         $this->assertNotEquals($existing->getKey(), $c->getKey());
-        $this->assertTrue($c->wasRecentlyCreated);
+        $this->assertFalse($c->exists);
         $this->assertNull($c->document_id);
         $this->assertNull($c->start);
         $this->assertEquals($date, $c->end);

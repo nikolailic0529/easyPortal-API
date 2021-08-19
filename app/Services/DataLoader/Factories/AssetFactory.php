@@ -265,6 +265,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         // Get/Create
         $created = false;
         $factory = $this->factory(function (AssetModel $model) use (&$created, $asset): AssetModel {
+            // Asset
             $reseller = $this->reseller($asset);
             $customer = $this->customer($asset);
             $location = $this->assetLocation($asset, $customer, $reseller);
@@ -286,6 +287,9 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $model->tags          = $this->assetTags($asset);
             $model->coverages     = $this->assetCoverages($asset);
 
+            $model->save();
+
+            // Documents
             if ($this->getDocumentFactory() && isset($asset->assetDocument)) {
                 // Prefetch documents
                 $this->getDocumentFactory()->prefetch([$asset], false, function (Collection $documents): void {
@@ -311,6 +315,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
 
             $model->save();
 
+            // Return
             return $model;
         });
         $model   = $this->assetResolver->get(
@@ -454,8 +459,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 $warranty->document        = null;
                 $warranty->document_number = null;
 
-                $warranty->save();
-
                 // Store
                 $warranties[$key] = $warranty;
             } catch (Throwable $exception) {
@@ -553,8 +556,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 $warranty->document        = $document;
                 $warranty->document_number = $number;
 
-                $warranty->save();
-
                 // Store
                 $warranties[$key] = $warranty;
             } catch (Throwable $exception) {
@@ -570,7 +571,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         // Update Service Levels
         foreach ($warranties as $key => $warranty) {
             $warranty->serviceLevels = array_filter(array_unique($serviceLevels[$key] ?? [], SORT_REGULAR));
-            $warranty->save();
         }
 
         // Return

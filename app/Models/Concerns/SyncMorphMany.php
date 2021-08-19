@@ -2,6 +2,8 @@
 
 namespace App\Models\Concerns;
 
+use App\Models\Callbacks\GetKey;
+use App\Models\Callbacks\SetKey;
 use App\Models\PolymorphicModel;
 use App\Utils\ModelHelper;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -12,6 +14,8 @@ use InvalidArgumentException;
 use function sprintf;
 
 trait SyncMorphMany {
+    use SyncMany;
+
     /**
      * @param \Illuminate\Support\Collection|array<\App\Models\PolymorphicModel> $objects
      */
@@ -39,9 +43,7 @@ trait SyncMorphMany {
         }
 
         // Create/Update existing
-        $existing = (clone $this->getAttribute($relation))->keyBy(static function (PolymorphicModel $contact): string {
-            return $contact->getKey();
-        });
+        $existing = $this->syncManyGetExisting($this, $relation)->map(new SetKey())->keyBy(new GetKey());
 
         foreach ($objects as $object) {
             // Object supported by relation?
