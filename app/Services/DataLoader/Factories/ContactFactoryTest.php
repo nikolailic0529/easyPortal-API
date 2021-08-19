@@ -114,6 +114,10 @@ class ContactFactoryTest extends TestCase {
             'object_id'   => $customer->getKey(),
         ]);
 
+        if ($this->faker->boolean) {
+            $customer->save();
+        }
+
         $factory = new class($normalizer, $resolver) extends ContactFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
@@ -149,14 +153,14 @@ class ContactFactoryTest extends TestCase {
         $created = $factory->contact($customer, ' new  Name ', ' phone   number ', false, ' email ');
 
         $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
+        $this->assertEquals($customer->exists, $created->exists);
         $this->assertEquals($customer->getMorphClass(), $created->object_type);
         $this->assertEquals($customer->getKey(), $created->object_id);
         $this->assertEquals('new Name', $created->name);
         $this->assertEquals('phone number', $created->phone_number);
         $this->assertEquals('email', $created->email);
         $this->assertFalse($created->phone_valid);
-        $this->assertCount(2, $this->getQueryLog());
+        $this->assertCount(1 + (int) $customer->exists, $this->getQueryLog());
     }
     // </editor-fold>
 

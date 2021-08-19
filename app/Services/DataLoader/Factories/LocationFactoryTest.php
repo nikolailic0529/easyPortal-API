@@ -401,7 +401,7 @@ class LocationFactoryTest extends TestCase {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
         $resolver   = $this->app->make(LocationResolver::class);
-        $customer   = Customer::factory()->create();
+        $customer   = Customer::factory()->make();
         $location   = LocationModel::factory()
             ->hasCountry(Country::factory())
             ->hasCity(City::factory())
@@ -411,6 +411,10 @@ class LocationFactoryTest extends TestCase {
             ]);
         $country    = $location->country;
         $city       = $location->city;
+
+        if ($this->faker->boolean) {
+            $customer->save();
+        }
 
         $factory = new class($normalizer, $resolver) extends LocationFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -485,7 +489,7 @@ class LocationFactoryTest extends TestCase {
         );
 
         $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
+        $this->assertEquals($customer->exists, $created->exists);
         $this->assertEquals($customer->getMorphClass(), $created->object_type);
         $this->assertEquals($customer->getKey(), $created->object_id);
         $this->assertEquals($country->getKey(), $created->country_id);
@@ -496,7 +500,7 @@ class LocationFactoryTest extends TestCase {
         $this->assertEquals($normalizer->string($lineTwo), $created->line_two);
         $this->assertEquals($this->latitude($normalizer->coordinate($latitude)), $created->latitude);
         $this->assertEquals($this->longitude($normalizer->coordinate($longitude)), $created->longitude);
-        $this->assertCount(2, $this->getQueryLog());
+        $this->assertCount(1 + (int) $customer->exists, $this->getQueryLog());
 
         $this->flushQueryLog();
 
@@ -517,7 +521,7 @@ class LocationFactoryTest extends TestCase {
 
         $this->assertSame($created, $updated);
         $this->assertEquals($normalizer->string($state), $updated->state);
-        $this->assertCount(1, $this->getQueryLog());
+        $this->assertCount((int) $customer->exists, $this->getQueryLog());
     }
 
     /**

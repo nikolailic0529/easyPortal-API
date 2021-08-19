@@ -634,7 +634,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         if ($required && !$location) {
             $location = $this->locationFactory->create(new AssetModel(), $asset);
 
-            if (!$location) {
+            if (!$location || !$location->save()) {
                 throw new LocationNotFoundException(sprintf(
                     'Customer `%s` location not found (asset `%s`).',
                     $customer->getKey(),
