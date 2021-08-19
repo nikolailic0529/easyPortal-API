@@ -43,7 +43,7 @@
     "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
     "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
     "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-    "select * from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
+    "select * from `documents` where (`documents`.`id` = ?) and `documents`.`deleted_at` is null limit 1",
     "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
     "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
     "select * from `service_groups` where `service_groups`.`deleted_at` is null",
@@ -70,8 +70,6 @@
     "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
     "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "insert into `document_entries` (`asset_id`, `product_id`, `serial_number`, `currency_id`, `net_price`, `list_price`, `discount`, `renewal`, `service_group_id`, `service_level_id`, `id`, `document_id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    "select * from `asset_warranties` where `asset_warranties`.`asset_id` = ? and `asset_warranties`.`asset_id` is not null and `asset_warranties`.`deleted_at` is null",
-    "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
     "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "insert into `asset_warranties` (`start`, `end`, `asset_id`, `service_group_id`, `customer_id`, `reseller_id`, `document_id`, `document_number`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     "insert into `asset_warranty_service_levels` (`service_level_id`, `asset_warranty_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)"

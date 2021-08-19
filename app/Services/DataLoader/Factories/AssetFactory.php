@@ -54,6 +54,7 @@ use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use Closure;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
@@ -292,13 +293,18 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             // Documents
             if ($this->getDocumentFactory() && isset($asset->assetDocument)) {
                 // Prefetch documents
-                $this->getDocumentFactory()->prefetch([$asset], false, function (Collection $documents): void {
-                    $documents->loadMissing('entries');
-                    $documents->loadMissing('contacts');
-                    $documents->loadMissing('contacts.types');
+                if ($created) {
+                    $model->setRelation('warranties', new EloquentCollection());
+                    $model->setRelation('documentEntries', new EloquentCollection());
+                } else {
+                    $this->getDocumentFactory()->prefetch([$asset], false, function (Collection $documents): void {
+                        $documents->loadMissing('entries');
+                        $documents->loadMissing('contacts');
+                        $documents->loadMissing('contacts.types');
 
-                    $this->getContactsResolver()->add($documents->pluck('contacts')->flatten());
-                });
+                        $this->getContactsResolver()->add($documents->pluck('contacts')->flatten());
+                    });
+                }
 
                 try {
                     $documents              = $this->assetDocuments($model, $asset);
