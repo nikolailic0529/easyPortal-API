@@ -4,7 +4,6 @@ namespace App\Services\Audit;
 
 use App\Models\Audits\Audit as AuditModel;
 use App\Models\Model;
-use App\Models\User;
 use App\Services\Audit\Enums\Action;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Auth\AuthManager;
@@ -23,7 +22,12 @@ class Auditor {
     /**
      * @param array<string, mixed> $context
      */
-    public function create(Action $action, array $context = null, Model $model = null, Authenticatable $user = null): void {
+    public function create(
+        Action $action,
+        array $context = null,
+        Model $model = null,
+        Authenticatable $user = null,
+    ): void {
         $organization = null;
         if ($this->organization->defined()) {
             $organization = $this->organization->getKey();
