@@ -10,9 +10,6 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 use function array_key_exists;
-use function array_keys;
-use function array_map;
-use function in_array;
 use function json_encode;
 
 class AuditContext {
@@ -32,11 +29,8 @@ class AuditContext {
             $user->cannot('administer') &&
             array_key_exists('properties', $context)
         ) {
-            $model         = Relation::getMorphedModel($audit->object_type) ?? $audit->object_type;
-            $allProperties = array_map(static function ($property) {
-                return $property['value'];
-            }, $context['properties']); // Needed to fetch correct getArrayableItems
-            $properties    = (new class(new $model()) extends Model {
+            $model      = Relation::getMorphedModel($audit->object_type) ?? $audit->object_type;
+            $context = (new class(new $model()) extends Model {
                 public function __construct(
                     protected Model $model,
                 ) {
@@ -52,13 +46,7 @@ class AuditContext {
                     // getAttributes will return empty as Model is empty
                     return $this->model->getArrayableItems($values);
                 }
-            })->getArrayableItems($allProperties);
-            $properties    = array_keys($properties);
-            foreach ($context['properties'] as $field => $value) {
-                if (!in_array($field, $properties, true)) {
-                    unset($context['properties'][$field]);
-                }
-            }
+            })->getArrayableItems($context['properties']);
         }
         return json_encode($context);
     }
