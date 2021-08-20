@@ -12,6 +12,7 @@ use App\Services\DataLoader\Jobs\DistributorsUpdaterCronJob;
 use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\KeyCloak\Jobs\SyncPermissionsCronJob;
+use App\Services\KeyCloak\Jobs\SyncUsersCronJob;
 use App\Services\Queue\Queues;
 use App\Services\Search\Jobs\AssetsUpdaterCronJob as SearchAssetsUpdaterCronJob;
 use App\Services\Search\Jobs\CustomersUpdaterCronJob as SearchCustomersUpdaterCronJob;
@@ -290,6 +291,31 @@ interface Constants {
     #[Service(SyncPermissionsCronJob::class, 'queue')]
     #[Group('keycloak')]
     public const EP_KEYCLOAK_SYNC_PERMISSIONS_QUEUE = Queues::KEYCLOAK;
+    // </editor-fold>
+
+    // <editor-fold desc="EP_KEYCLOAK_SYNC_USERS">
+    // -------------------------------------------------------------------------
+    /**
+     * Enabled?
+     */
+    #[Service(SyncUsersCronJob::class, 'enabled')]
+    #[Group('keycloak')]
+    public const EP_KEYCLOAK_SYNC_USERS_ENABLED = true;
+
+    /**
+     * Cron expression.
+     */
+    #[Service(SyncUsersCronJob::class, 'cron')]
+    #[Group('keycloak')]
+    #[Type(CronExpression::class)]
+    public const EP_KEYCLOAK_SYNC_USERS_CRON = '0 0 * * *';
+
+    /**
+     * Queue name.
+     */
+    #[Service(SyncUsersCronJob::class, 'queue')]
+    #[Group('keycloak')]
+    public const EP_KEYCLOAK_SYNC_USERS_QUEUE = Queues::KEYCLOAK;
     // </editor-fold>
 
     // </editor-fold>

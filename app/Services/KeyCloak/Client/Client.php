@@ -23,6 +23,7 @@ use Illuminate\Http\Client\RequestException;
 use Symfony\Component\HttpFoundation\Response;
 
 use function array_map;
+use function http_build_query;
 use function json_encode;
 use function rtrim;
 use function time;
@@ -315,6 +316,29 @@ class Client {
         };
         $this->call($endpoint, 'PUT', ['json' => ['email' => $email]], $errorHandler);
     }
+
+    /**
+     * @return array<\App\Services\KeyCloak\Client\Types\User>
+     */
+    public function getUsers(int $limit, int $offset): array {
+        $keycloak = rtrim($this->config->get('ep.keycloak.url'), '/');
+        $realm    = $this->config->get('ep.keycloak.realm');
+        $baseUrl  = "{$keycloak}/auth/realms/{$realm}/custom";
+        $params   = http_build_query(['offset' => $offset, 'limit' => $limit]);
+        $endpoint = "users?{$params}";
+
+        $result = $this->call($endpoint, 'GET', [], null, $baseUrl);
+        $result = array_map(static function ($item) {
+            return new User($item);
+        }, $result);
+        return $result;
+    }
+
+    public function usersCount(): int {
+        // GET /{realm}/users/count
+        $endpoint = 'users/count';
+        return $this->call($endpoint, 'GET');
+    }
     // </editor-fold>
 
     // <editor-fold desc="API">
@@ -340,6 +364,7 @@ class Client {
         string $method = 'GET',
         array $options = [],
         Closure $errorHandler = null,
+        string $baseUrl = null,
     ): mixed {
         // Enabled?
         if (!$this->isEnabled()) {
@@ -348,13 +373,14 @@ class Client {
 
         $timeout     = $this->config->get('ep.keycloak.timeout') ?: 5 * 60;
         $accessToken = $this->token->getAccessToken();
+        $baseUrl   ??= $this->getBaseUrl();
         $headers     = [
             'Accept'        => 'application/json',
             'Authorization' => "Bearer {$accessToken}",
         ];
 
         $request = $this->client
-            ->baseUrl($this->getBaseUrl())
+            ->baseUrl($baseUrl)
             ->timeout($timeout);
 
         try {

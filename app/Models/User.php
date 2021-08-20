@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\SyncBelongsToMany;
 use App\Models\Enums\UserType;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Auth\HasPermissions;
@@ -16,9 +17,11 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\RoutesNotifications;
+use Illuminate\Support\Collection;
 use LogicException;
 
 /**
@@ -65,6 +68,7 @@ class User extends Model implements
     use MustVerifyEmail;
     use CanResetPassword;
     use RoutesNotifications;
+    use SyncBelongsToMany;
 
     protected const CASTS = [
         'type'           => UserType::class,
@@ -165,6 +169,40 @@ class User extends Model implements
 
     public function getOrganization(): ?Organization {
         return $this->organization;
+    }
+
+    public function organizations(): BelongsToMany {
+        $pivot = new OrganizationUser();
+
+        return $this
+            ->belongsToMany(Organization::class, $pivot->getTable())
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\Organization>|array<\App\Models\Organization> $organizations
+     */
+    public function setOrganizationsAttribute(Collection|array $organizations): void {
+        $this->syncBelongsToMany('organizations', $organizations);
+    }
+
+    public function roles(): BelongsToMany {
+        $pivot = new UserRole();
+
+        return $this
+            ->belongsToMany(Role::class, $pivot->getTable())
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\Role>|array<\App\Models\Role> $roles
+     */
+    public function setRolesAttribute(Collection|array $roles): void {
+        $this->syncBelongsToMany('roles', $roles);
     }
     // </editor-fold>
 
