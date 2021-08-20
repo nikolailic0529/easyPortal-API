@@ -27,7 +27,7 @@ class ContactFactoryTest extends TestCase {
      * @covers ::find
      */
     public function testFind(): void {
-        $customer = Customer::factory()->make();
+        $customer = Customer::factory()->create();
         $contact  = new CompanyContactPerson([
             'phoneNumber' => '+495921234554',
             'vendor'      => 'HPE',
@@ -37,6 +37,7 @@ class ContactFactoryTest extends TestCase {
         ]);
         $factory  = $this->app->make(ContactFactory::class);
 
+        // Exist
         $this->flushQueryLog();
 
         $factory->find($customer, $contact);
@@ -108,7 +109,7 @@ class ContactFactoryTest extends TestCase {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
         $resolver   = $this->app->make(ContactResolver::class);
-        $customer   = Customer::factory()->make();
+        $customer   = Customer::factory()->create();
         $contact    = Contact::factory()->create([
             'object_type' => $customer->getMorphClass(),
             'object_id'   => $customer->getKey(),

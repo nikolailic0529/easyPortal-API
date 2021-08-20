@@ -30,6 +30,7 @@ class LocationResolver extends Resolver {
         return $this->resolve(
             $this->getUniqueKey($model, $country, $city, $postcode, $lineOne, $lineTwo),
             $factory,
+            $model->exists || $model->getKey() === null,
         );
     }
 

@@ -24,7 +24,6 @@
     "select * from `distributors` where `distributors`.`deleted_at` is null",
     "select * from `distributors` where (`distributors`.`id` = ?) and `distributors`.`deleted_at` is null limit 1",
     "insert into `distributors` (`id`, `name`, `changed_at`, `created_at`, `updated_at`, `deleted_at`) values (?, ?, ?, ?, ?, ?)",
-    "select * from `contacts` where (`email` = ? and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
     "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
     "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
     "select * from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
