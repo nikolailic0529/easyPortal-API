@@ -8,6 +8,7 @@ use App\Models\Coverage;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Document as DocumentModel;
+use App\Models\DocumentEntry;
 use App\Models\Location;
 use App\Models\Oem;
 use App\Models\Product;
@@ -313,7 +314,10 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                         ->map(static function (Document $document): Collection {
                             return $document->entries;
                         })
-                        ->flatten();
+                        ->flatten()
+                        ->filter(static function (DocumentEntry $entry) use ($model): bool {
+                            return $model->getKey() === $entry->asset_id;
+                        });
                 } finally {
                     $this->getDocumentResolver()->reset();
                 }

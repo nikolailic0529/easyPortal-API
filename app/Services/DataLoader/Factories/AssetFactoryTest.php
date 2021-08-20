@@ -109,9 +109,6 @@ class AssetFactoryTest extends TestCase {
         $container = $this->app->make(Container::class);
         $documents = $container->make(DocumentFactory::class);
 
-        /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
-        $factory = $container->make(AssetFactory::class)->setDocumentFactory($documents);
-
         // Load
         $json  = $this->getTestData()->json('~asset-full.json');
         $asset = new ViewAsset($json);
@@ -119,6 +116,8 @@ class AssetFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // Test
+        /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
+        $factory = $container->make(AssetFactory::class)->setDocumentFactory($documents);
         $created = $factory->create($asset);
 
         $this->assertEquals(
@@ -218,9 +217,16 @@ class AssetFactoryTest extends TestCase {
         $this->assertNotNull($extended->start);
         $this->assertNotNull($extended->end);
 
+        // Entries related to other assets should not be updated
+        DocumentEntry::factory()->create([
+            'document_id' => Document::query()->first(),
+        ]);
+
         $this->flushQueryLog();
 
         // Customer should be updated
+        /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
+        $factory = $container->make(AssetFactory::class)->setDocumentFactory($documents);
         $json    = $this->getTestData()->json('~asset-changed.json');
         $asset   = new ViewAsset($json);
         $updated = $factory->create($asset);
@@ -262,17 +268,30 @@ class AssetFactoryTest extends TestCase {
 
         // Documents
         $this->assertEquals(1, Document::query()->count());
-        $this->assertEquals(0, DocumentEntry::query()->count());
+        $this->assertEquals(2, DocumentEntry::query()->count());
+
+        $document = Document::query()->first();
+
+        $this->assertEquals(
+            $asset->assetDocument[0]?->document?->id,
+            $document->getKey(),
+        );
+        $this->assertEquals(
+            $asset->assetDocument[0]?->endDate,
+            $this->getDatetime($document->end),
+        );
 
         $this->flushQueryLog();
 
         // No changes
-        $json  = $this->getTestData()->json('~asset-changed.json');
-        $asset = new ViewAsset($json);
+        /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
+        $factory = $container->make(AssetFactory::class)->setDocumentFactory($documents);
+        $json    = $this->getTestData()->json('~asset-changed.json');
+        $asset   = new ViewAsset($json);
 
         $factory->create($asset);
 
-        $this->assertCount(0, $this->getQueryLog());
+        $this->assertCount(4, $this->getQueryLog());
     }
 
     /**

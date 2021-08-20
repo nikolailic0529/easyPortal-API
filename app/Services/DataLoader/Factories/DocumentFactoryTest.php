@@ -586,6 +586,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertNotEquals(0, $factory->compareDocumentEntries($a, $b));
 
         // Make same
+        $a->asset_id         = $b->asset_id;
         $a->currency_id      = $b->currency_id;
         $a->net_price        = $b->net_price;
         $a->list_price       = $b->list_price;
