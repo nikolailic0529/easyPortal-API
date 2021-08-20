@@ -100,19 +100,21 @@ abstract class Import extends Command {
         );
 
         // Process
-        $length   = 14;
-        $previous = new Status();
+        $chunkLength = 10;
+        $valueLength = 14;
+        $previous    = new Status();
 
         $importer
-            ->onChange(function (array $items, Status $status) use (&$previous, $length): void {
-                $chunk        = str_pad((string) $status->chunk, 10, '0', STR_PAD_LEFT);
-                $chunkFailed  = str_pad((string) ($status->failed - $previous->failed), $length, ' ', STR_PAD_LEFT);
-                $chunkCreated = str_pad((string) ($status->created - $previous->created), $length, ' ', STR_PAD_LEFT);
-                $chunkUpdated = str_pad((string) ($status->updated - $previous->updated), $length, ' ', STR_PAD_LEFT);
-                $processed    = str_pad((string) $status->processed, $length, ' ', STR_PAD_LEFT);
-                $continue     = str_pad(" {$status->continue} ", $length * 4 + 4 * 2 + 3, '-', STR_PAD_LEFT);
+            ->onChange(function (array $items, Status $status) use (&$previous, $chunkLength, $valueLength): void {
+                $chunk        = $this->pad($status->chunk, $chunkLength, '0');
+                $chunkEmpty   = $this->pad('', $chunkLength + 2, '-');
+                $chunkFailed  = $this->pad($status->failed - $previous->failed, $valueLength);
+                $chunkCreated = $this->pad($status->created - $previous->created, $valueLength);
+                $chunkUpdated = $this->pad($status->updated - $previous->updated, $valueLength);
+                $processed    = $this->pad($status->processed, $valueLength);
+                $continue     = $this->pad(" {$status->continue} ", $valueLength * 4 + 4 * 2 + 3, '-');
                 $lineOne      = "| {$chunk} | {$processed} | {$chunkCreated} | {$chunkUpdated} | {$chunkFailed} |";
-                $lineTwo      = "+------------+{$continue}+";
+                $lineTwo      = "+{$chunkEmpty}+{$continue}+";
 
                 if ($status->failed - $previous->failed > 0) {
                     $this->warn($lineOne);
@@ -126,13 +128,13 @@ abstract class Import extends Command {
 
                 $previous = clone $status;
             })
-            ->onFinish(function (Status $status) use ($length): void {
+            ->onFinish(function (Status $status) use ($valueLength): void {
                 $this->newLine();
 
-                $processed = str_pad((string) $status->processed, $length, ' ', STR_PAD_LEFT);
-                $created   = str_pad((string) $status->created, $length, ' ', STR_PAD_LEFT);
-                $updated   = str_pad((string) $status->updated, $length, ' ', STR_PAD_LEFT);
-                $failed    = str_pad((string) $status->failed, $length, ' ', STR_PAD_LEFT);
+                $processed = $this->pad($status->processed, $valueLength);
+                $created   = $this->pad($status->created, $valueLength);
+                $updated   = $this->pad($status->updated, $valueLength);
+                $failed    = $this->pad($status->failed, $valueLength);
 
                 $this->line("Processed: {$processed}");
                 $this->line("Created:   {$created}");
@@ -153,5 +155,9 @@ abstract class Import extends Command {
 
         // Return
         return self::SUCCESS;
+    }
+
+    protected function pad(mixed $value, int $length, string $pad = ' '): string {
+        return str_pad((string) $value, $length, $pad, STR_PAD_LEFT);
     }
 }

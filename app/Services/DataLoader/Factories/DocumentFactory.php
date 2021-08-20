@@ -256,7 +256,11 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
             $model->changed_at   = $normalizer->datetime($document->updatedAt);
             $model->contacts     = $this->objectContacts($model, (array) $document->contactPersons);
             $model->entries      = $this->assetDocumentObjectEntries($model, $object);
-            $model->save();
+
+            // We cannot save entries if assets doesn't exist
+            if ($object->asset->exists) {
+                $model->save();
+            }
 
             // Return
             return $model;
@@ -293,12 +297,14 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         $existing = [];
         $assetId  = $document->asset->getKey();
 
-        foreach ($model->entries as $entry) {
-            /** @var \App\Models\DocumentEntry $entry */
-            if ($entry->asset_id === $assetId) {
-                $existing[] = $entry;
-            } else {
-                $all[] = $entry;
+        if ($model->exists) {
+            foreach ($model->entries as $entry) {
+                /** @var \App\Models\DocumentEntry $entry */
+                if ($entry->asset_id === $assetId) {
+                    $existing[] = $entry;
+                } else {
+                    $all[] = $entry;
+                }
             }
         }
 
@@ -339,7 +345,8 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     }
 
     protected function compareDocumentEntries(DocumentEntry $a, DocumentEntry $b): int {
-        return $a->currency_id <=> $b->currency_id
+        return $a->asset_id <=> $b->asset_id
+            ?: $a->currency_id <=> $b->currency_id
             ?: $a->net_price <=> $b->net_price
             ?: $a->list_price <=> $b->list_price
             ?: $a->discount <=> $b->discount

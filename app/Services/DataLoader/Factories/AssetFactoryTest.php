@@ -44,6 +44,7 @@ use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 use Tests\WithoutOrganizationScope;
 
+use function array_column;
 use function array_map;
 use function array_unique;
 use function count;
@@ -108,16 +109,21 @@ class AssetFactoryTest extends TestCase {
         $container = $this->app->make(Container::class);
         $documents = $container->make(DocumentFactory::class);
 
-        /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
-        $factory = $container->make(AssetFactory::class)->setDocumentFactory($documents);
-
         // Load
         $json  = $this->getTestData()->json('~asset-full.json');
         $asset = new ViewAsset($json);
 
+        $this->flushQueryLog();
+
         // Test
+        /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
+        $factory = $container->make(AssetFactory::class)->setDocumentFactory($documents);
         $created = $factory->create($asset);
 
+        $this->assertEquals(
+            $this->getTestData()->json('~createFromAsset-create-expected.json'),
+            array_column($this->getQueryLog(), 'query'),
+        );
         $this->assertNotNull($created);
         $this->assertTrue($created->wasRecentlyCreated);
         $this->assertEquals($asset->id, $created->getKey());
@@ -211,11 +217,24 @@ class AssetFactoryTest extends TestCase {
         $this->assertNotNull($extended->start);
         $this->assertNotNull($extended->end);
 
+        // Entries related to other assets should not be updated
+        DocumentEntry::factory()->create([
+            'document_id' => Document::query()->first(),
+        ]);
+
+        $this->flushQueryLog();
+
         // Customer should be updated
+        /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
+        $factory = $container->make(AssetFactory::class)->setDocumentFactory($documents);
         $json    = $this->getTestData()->json('~asset-changed.json');
         $asset   = new ViewAsset($json);
         $updated = $factory->create($asset);
 
+        $this->assertEquals(
+            $this->getTestData()->json('~createFromAsset-update-expected.json'),
+            array_column($this->getQueryLog(), 'query'),
+        );
         $this->assertNotNull($updated);
         $this->assertSame($created, $updated);
         $this->assertEquals($asset->id, $updated->getKey());
@@ -249,7 +268,30 @@ class AssetFactoryTest extends TestCase {
 
         // Documents
         $this->assertEquals(1, Document::query()->count());
-        $this->assertEquals(0, DocumentEntry::query()->count());
+        $this->assertEquals(2, DocumentEntry::query()->count());
+
+        $document = Document::query()->first();
+
+        $this->assertEquals(
+            $asset->assetDocument[0]?->document?->id,
+            $document->getKey(),
+        );
+        $this->assertEquals(
+            $asset->assetDocument[0]?->endDate,
+            $this->getDatetime($document->end),
+        );
+
+        $this->flushQueryLog();
+
+        // No changes
+        /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
+        $factory = $container->make(AssetFactory::class)->setDocumentFactory($documents);
+        $json    = $this->getTestData()->json('~asset-changed.json');
+        $asset   = new ViewAsset($json);
+
+        $factory->create($asset);
+
+        $this->assertCount(4, $this->getQueryLog());
     }
 
     /**
@@ -757,7 +799,7 @@ class AssetFactoryTest extends TestCase {
         });
 
         $this->assertNotNull($b);
-        $this->assertTrue($b->wasRecentlyCreated);
+        $this->assertFalse($b->exists);
         $this->assertNull($b->document_id);
         $this->assertNull($b->start);
         $this->assertEquals($date, $b->end);
@@ -773,7 +815,7 @@ class AssetFactoryTest extends TestCase {
 
         $this->assertNotNull($c);
         $this->assertNotEquals($existing->getKey(), $c->getKey());
-        $this->assertTrue($c->wasRecentlyCreated);
+        $this->assertFalse($c->exists);
         $this->assertNull($c->document_id);
         $this->assertNull($c->start);
         $this->assertEquals($date, $c->end);

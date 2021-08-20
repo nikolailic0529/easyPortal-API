@@ -35,7 +35,7 @@ class ServiceLevelResolverTest extends TestCase {
             'service_group_id' => $groupA,
             'sku'              => 'a',
         ]);
-        ServiceLevel::factory()->create([
+        $b = ServiceLevel::factory()->create([
             'oem_id'           => $oemA,
             'service_group_id' => $groupA,
             'sku'              => 'b',
@@ -68,20 +68,11 @@ class ServiceLevelResolverTest extends TestCase {
 
         $this->flushQueryLog();
 
-        // Should be found in DB
-        $group = ServiceLevel::factory()->create([
-            'oem_id'           => $oemA,
-            'service_group_id' => $groupB,
-        ]);
-        $found = $provider->get($oemA, $groupB, $group->sku, $factory);
+        // All value should be loaded, so get() should not perform any queries
+        $this->assertNotNull($provider->get($oemA, $groupA, $b->sku, $factory));
+        $this->assertCount(0, $this->getQueryLog());
 
-        $this->assertNotNull($found);
-        $this->assertFalse($found->wasRecentlyCreated);
-        $this->assertCount(2, $this->getQueryLog());
-
-        $this->flushQueryLog();
-
-        // If not, the new object should be created
+        // If value not found the new object should be created
         $spy     = Mockery::spy(static function () use ($oemB, $groupB): ServiceLevel {
             return ServiceLevel::factory()->create([
                 'oem_id'           => $oemB,
@@ -96,12 +87,23 @@ class ServiceLevelResolverTest extends TestCase {
         $this->assertNotNull($created);
         $this->assertEquals('unKnown', $created->sku);
         $this->assertEquals($oemB->getKey(), $created->oem_id);
-        $this->assertCount(2, $this->getQueryLog());
+        $this->assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // The created object should be in cache
         $this->assertSame($created, $provider->get($oemB, $groupB, ' unknown ', $factory));
         $this->assertCount(0, $this->getQueryLog());
+
+        // Created object should NOT be found
+        $c = ServiceLevel::factory()->create([
+            'oem_id'           => $oemB,
+            'service_group_id' => $groupB,
+        ]);
+
+        $this->flushQueryLog();
+        $this->assertNull($provider->get($oemB, $groupB, $c->sku));
+        $this->assertCount(0, $this->getQueryLog());
+        $this->flushQueryLog();
     }
 }

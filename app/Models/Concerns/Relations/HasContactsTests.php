@@ -47,7 +47,10 @@ trait HasContactsTests {
             'object_type' => $morph,
         ]);
         $model->contacts = [$created];
-        $used            = $used->refresh();
+
+        $model->save();
+
+        $used = $used->refresh();
 
         $this->assertEquals([$created], $model->contacts->all());
         $this->assertEquals(1, Contact::query()->count());

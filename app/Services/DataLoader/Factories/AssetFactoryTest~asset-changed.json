@@ -33,5 +33,50 @@
             "mail": "new@hpe.com"
         }
     ],
-    "assetDocument": []
+    "assetDocument": [
+        {
+            "documentNumber": "0056523287",
+            "document": {
+                "id": "688b9621-3244-464b-9468-3cd74f5eaacf",
+                "type": "MultiNational Quote",
+                "startDate": "1583020800000",
+                "endDate": "1624406400000",
+                "totalNetPrice": "1,292.16",
+                "currencyCode": "CUR",
+                "languageCode": "fr",
+                "updatedAt": "1625642660000",
+                "vendorSpecificFields": {
+                    "vendor": "HPE"
+                },
+                "documentNumber": "0056523287",
+                "customerId": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
+                "resellerId": "97292d03-7919-406c-a15b-39bf029e6d5a",
+                "contactPersons": [
+                    {
+                        "phoneNumber": "+49 (591) 12345-68",
+                        "vendor": "HPA",
+                        "name": "Alice Mark",
+                        "type": "SOFTWARE_CONTACT",
+                        "mail": "alice@example.com"
+                    }
+                ]
+            },
+            "skuNumber": "HA151AC",
+            "supportPackage": "H7J34AC",
+            "startDate": "1583020800000",
+            "endDate": "1624406400000",
+            "warrantyEndDate": "1614470400000",
+            "netPrice": "23.4",
+            "discount": "-2.05",
+            "listPrice": "48",
+            "currencyCode": "EUR",
+            "estimatedValueRenewal": "145",
+            "customer": {
+                "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a"
+            },
+            "reseller": {
+                "id": "97292d03-7919-406c-a15b-39bf029e6d5a"
+            }
+        }
+    ]
 }

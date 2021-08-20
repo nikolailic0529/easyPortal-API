@@ -1,0 +1,7 @@
+[
+    "update `resellers` set `name` = ?, `changed_at` = ?, `contacts_count` = ?, `locations_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
+    "update `contacts` set `deleted_at` = ?, `contacts`.`updated_at` = ? where `id` = ?",
+    "update `contacts` set `deleted_at` = ?, `contacts`.`updated_at` = ? where `id` = ?",
+    "update `contacts` set `deleted_at` = ?, `contacts`.`updated_at` = ? where `id` = ?",
+    "update `locations` set `deleted_at` = ?, `locations`.`updated_at` = ? where `id` = ?"
+]

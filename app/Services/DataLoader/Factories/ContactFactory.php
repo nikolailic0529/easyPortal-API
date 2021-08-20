@@ -104,7 +104,9 @@ class ContactFactory extends DependentModelFactory {
                 $model->email        = $mail;
                 $model->phone_valid  = $valid;
 
-                $model->save();
+                if ($object->exists) {
+                    $model->save();
+                }
 
                 return $model;
             }),

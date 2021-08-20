@@ -126,18 +126,20 @@ type CompanyContactPerson {
 }
 
 type CompanyKpis {
-  assets: Int
+  totalAssets: Int
   activeAssets: Int
+  activeAssetsPercentage: Float
   activeCustomers: Int
   newActiveCustomers: Int
   activeContracts: Int
-  activeContractTotalAmount: Int
+  activeContractTotalAmount: Float
   newActiveContracts: Int
   expiringContracts: Int
   activeQuotes: Int
-  activeQuotesTotalAmount: Int
+  activeQuotesTotalAmount: Float
   newActiveQuotes: Int
   expiringQuotes: Int
+  generatedAt: Int
 }
 
 type CompanyType {

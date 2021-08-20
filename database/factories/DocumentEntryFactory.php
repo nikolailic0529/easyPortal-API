@@ -6,6 +6,7 @@ use App\Models\Asset;
 use App\Models\Currency;
 use App\Models\Document;
 use App\Models\DocumentEntry;
+use App\Models\Product;
 use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Database\Eloquent\Factories\Factory;
 
@@ -38,6 +39,9 @@ class DocumentEntryFactory extends Factory {
             },
             'asset_id'         => static function (): Asset {
                 return Asset::factory()->create();
+            },
+            'product_id'       => static function (): Product {
+                return Product::factory()->create();
             },
             'service_group_id' => null,
             'service_level_id' => null,

@@ -14,6 +14,8 @@ use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
 use Tests\TestCase;
 
+use function array_column;
+
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Factories\DistributorFactory
@@ -70,27 +72,51 @@ class DistributorFactoryTest extends TestCase {
         // Prepare
         $factory = $this->app->make(DistributorFactory::class);
 
+        // Load
+        $json    = $this->getTestData()->json('~distributor-full.json');
+        $company = new Company($json);
+
+        $this->flushQueryLog();
+
         // Test
-        $json        = $this->getTestData()->json('~distributor-full.json');
-        $company     = new Company($json);
         $distributor = $factory->create($company);
 
+        $this->assertEquals(
+            $this->getTestData()->json('~createFromCompany-create-expected.json'),
+            array_column($this->getQueryLog(), 'query'),
+        );
         $this->assertNotNull($distributor);
         $this->assertTrue($distributor->wasRecentlyCreated);
         $this->assertEquals($company->id, $distributor->getKey());
         $this->assertEquals($company->name, $distributor->name);
         $this->assertEquals($company->updatedAt, $this->getDatetime($distributor->changed_at));
 
+        $this->flushQueryLog();
+
         // Distributor should be updated
         $json    = $this->getTestData()->json('~distributor-changed.json');
         $company = new Company($json);
         $updated = $factory->create($company);
 
+        $this->assertEquals(
+            $this->getTestData()->json('~createFromCompany-update-expected.json'),
+            array_column($this->getQueryLog(), 'query'),
+        );
         $this->assertNotNull($updated);
         $this->assertSame($distributor, $updated);
         $this->assertEquals($company->id, $updated->getKey());
         $this->assertEquals($company->name, $updated->name);
         $this->assertEquals($company->updatedAt, $this->getDatetime($updated->changed_at));
+
+        $this->flushQueryLog();
+
+        // No changes
+        $json    = $this->getTestData()->json('~distributor-changed.json');
+        $company = new Company($json);
+
+        $factory->create($company);
+
+        $this->assertCount(0, $this->getQueryLog());
     }
 
     /**

@@ -2,31 +2,46 @@
 
 namespace App\Utils;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use LastDragon_ru\LaraASP\GraphQL\Helpers\ModelHelper as LaraAspModelHelper;
 
 use function class_uses_recursive;
 use function in_array;
-use function is_object;
+use function is_string;
 
-class ModelHelper {
+class ModelHelper extends LaraAspModelHelper {
     /**
      * @var array<class-string<\Illuminate\Database\Eloquent\Model>, bool>
      */
     private static array $softDeletable = [];
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model|class-string<\Illuminate\Database\Eloquent\Model> $model
+     * @param \Illuminate\Database\Eloquent\Builder
+     *      |\Illuminate\Database\Eloquent\Model
+     *      |class-string<\Illuminate\Database\Eloquent\Model> $model
      */
-    public static function isSoftDeletable(Model|string $model): bool {
-        if (is_object($model)) {
-            $model = $model::class;
+    public function __construct(Builder|Model|string $model) {
+        if (is_string($model)) {
+            $model = new $model();
         }
+
+        parent::__construct($model);
+    }
+
+    public function isSoftDeletable(): bool {
+        $model = $this->getModel()::class;
 
         if (!isset(self::$softDeletable[$model])) {
             self::$softDeletable[$model] = in_array(SoftDeletes::class, class_uses_recursive($model), true);
         }
 
         return self::$softDeletable[$model];
+    }
+
+    // TODO: Move to parent
+    protected function getModel(): Model {
+        return $this->model;
     }
 }

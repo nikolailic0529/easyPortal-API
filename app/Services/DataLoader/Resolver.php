@@ -47,11 +47,19 @@ abstract class Resolver implements Singleton {
         return $this;
     }
 
-    protected function resolve(mixed $key, Closure $factory = null): ?Model {
+    protected function resolve(mixed $key, Closure $factory = null, bool $find = true): ?Model {
         // Model already in cache or can be found?
         $key   = $this->normalizer->key($key);
         $cache = $this->getCache();
-        $model = $cache->has($key) ? $cache->get($key) : $this->find($key);
+        $model = null;
+
+        if ($cache->has($key)) {
+            $model = $cache->get($key);
+        } elseif ($find) {
+            $model = $this->find($key);
+        } else {
+            // empty
+        }
 
         // Not found? Well, maybe we can create?
         if (!$model && $factory) {

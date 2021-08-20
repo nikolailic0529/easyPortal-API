@@ -34,6 +34,7 @@ use Mockery;
 use Tests\TestCase;
 use Tests\WithoutOrganizationScope;
 
+use function array_column;
 use function is_null;
 use function number_format;
 use function reset;
@@ -104,18 +105,26 @@ class DocumentFactoryTest extends TestCase {
 
         // Create
         // ---------------------------------------------------------------------
-        $json    = $this->getTestData()->json('~asset-document-full.json');
-        $asset   = new ViewAsset($json);
-        $model   = AssetModel::factory()->create([
+        $json   = $this->getTestData()->json('~asset-document-full.json');
+        $asset  = new ViewAsset($json);
+        $model  = AssetModel::factory()->create([
             'id' => $asset->id,
         ]);
-        $object  = new AssetDocumentObject([
+        $object = new AssetDocumentObject([
             'asset'    => $model,
             'document' => reset($asset->assetDocument),
             'entries'  => $asset->assetDocument,
         ]);
+
+        $this->flushQueryLog();
+
+        // Test
         $created = $factory->createFromAssetDocumentObject($object);
 
+        $this->assertEquals(
+            $this->getTestData()->json('~createFromAssetDocumentObject-create-expected.json'),
+            array_column($this->getQueryLog(), 'query'),
+        );
         $this->assertNotNull($created);
         $this->assertEquals($asset->customerId, $created->customer_id);
         $this->assertEquals($asset->resellerId, $created->reseller_id);
@@ -156,6 +165,8 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals('HPE', $e->serviceLevel->oem->key);
         $this->assertEquals('145.00', $e->renewal);
 
+        $this->flushQueryLog();
+
         // Changed
         // ---------------------------------------------------------------------
         $json    = $this->getTestData()->json('~asset-document-changed.json');
@@ -167,6 +178,10 @@ class DocumentFactoryTest extends TestCase {
         ]);
         $changed = $factory->createFromAssetDocumentObject($object);
 
+        $this->assertEquals(
+            $this->getTestData()->json('~createFromAssetDocumentObject-update-expected.json'),
+            array_column($this->getQueryLog(), 'query'),
+        );
         $this->assertEquals($model->getKey(), $asset->id);
         $this->assertNotNull($changed);
         $this->assertNull($created->distributor_id);
@@ -193,6 +208,21 @@ class DocumentFactoryTest extends TestCase {
         $this->assertNull($e->list_price);
         $this->assertNull($e->discount);
         $this->assertNull($e->renewal);
+
+        $this->flushQueryLog();
+
+        // No changes
+        $json   = $this->getTestData()->json('~asset-document-changed.json');
+        $asset  = new ViewAsset($json);
+        $object = new AssetDocumentObject([
+            'asset'    => $model,
+            'document' => reset($asset->assetDocument),
+            'entries'  => $asset->assetDocument,
+        ]);
+
+        $factory->create($object);
+
+        $this->assertCount(0, $this->getQueryLog());
     }
 
     /**
@@ -363,16 +393,18 @@ class DocumentFactoryTest extends TestCase {
 
         // Test
         $actual   = new Collection($factory->assetDocumentObjectEntries($document, $object));
-        $added    = $actual
-            ->filter(static function (DocumentEntryModel $entry) {
-                return is_null($entry->getKey());
+        $created  = $actual
+            ->filter(static function (DocumentEntryModel $entry): bool {
+                return !$entry->exists;
             })
             ->first();
         $existing = $actual
+            ->filter(static function (DocumentEntryModel $entry): bool {
+                return $entry->exists;
+            })
             ->map(static function (DocumentEntryModel $entry) {
                 return $entry->getKey();
             })
-            ->filter()
             ->sort()
             ->values();
         $expected = $another
@@ -388,11 +420,11 @@ class DocumentFactoryTest extends TestCase {
         $this->assertEquals($expected, $existing);
         $this->assertFalse($existing->contains($c->getKey()));
         $this->assertFalse($existing->contains($d->getKey()));
-        $this->assertNotNull($added);
-        $this->assertNull($added->list_price);
-        $this->assertNull($added->net_price);
-        $this->assertNull($added->discount);
-        $this->assertNull($added->renewal);
+        $this->assertNotNull($created);
+        $this->assertNull($created->list_price);
+        $this->assertNull($created->net_price);
+        $this->assertNull($created->discount);
+        $this->assertNull($created->renewal);
     }
 
     /**
@@ -554,6 +586,7 @@ class DocumentFactoryTest extends TestCase {
         $this->assertNotEquals(0, $factory->compareDocumentEntries($a, $b));
 
         // Make same
+        $a->asset_id         = $b->asset_id;
         $a->currency_id      = $b->currency_id;
         $a->net_price        = $b->net_price;
         $a->list_price       = $b->list_price;

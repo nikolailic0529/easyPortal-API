@@ -16,6 +16,8 @@ use Mockery;
 use Tests\TestCase;
 use Tests\WithoutOrganizationScope;
 
+use function array_column;
+
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Factories\CustomerFactory
@@ -73,12 +75,19 @@ class CustomerFactoryTest extends TestCase {
         // Prepare
         $factory = $this->app->make(CustomerFactory::class);
 
+        // Load
+        $json    = $this->getTestData()->json('~customer-full.json');
+        $company = new Company($json);
+
+        $this->flushQueryLog();
+
         // Test
-        $file     = $this->faker->randomElement(['~customer-full.json', '~reseller.json']);
-        $json     = $this->getTestData()->json($file);
-        $company  = new Company($json);
         $customer = $factory->create($company);
 
+        $this->assertEquals(
+            $this->getTestData()->json('~createFromCompany-create-expected.json'),
+            array_column($this->getQueryLog(), 'query'),
+        );
         $this->assertNotNull($customer);
         $this->assertTrue($customer->wasRecentlyCreated);
         $this->assertEquals($company->id, $customer->getKey());
@@ -100,11 +109,17 @@ class CustomerFactoryTest extends TestCase {
             $this->getModelContacts($customer),
         );
 
+        $this->flushQueryLog();
+
         // Customer should be updated
         $json    = $this->getTestData()->json('~customer-changed.json');
         $company = new Company($json);
         $updated = $factory->create($company);
 
+        $this->assertEquals(
+            $this->getTestData()->json('~createFromCompany-update-expected.json'),
+            array_column($this->getQueryLog(), 'query'),
+        );
         $this->assertNotNull($updated);
         $this->assertSame($customer, $updated);
         $this->assertEquals($company->id, $updated->getKey());
@@ -123,6 +138,16 @@ class CustomerFactoryTest extends TestCase {
             $this->getContacts($company),
             $this->getModelContacts($updated),
         );
+
+        $this->flushQueryLog();
+
+        // No changes
+        $json    = $this->getTestData()->json('~customer-changed.json');
+        $company = new Company($json);
+
+        $factory->create($company);
+
+        $this->assertCount(0, $this->getQueryLog());
     }
 
     /**

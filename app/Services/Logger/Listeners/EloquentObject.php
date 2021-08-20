@@ -26,7 +26,7 @@ class EloquentObject implements LoggerObject {
     }
 
     public function isSoftDeletable(): bool {
-        return ModelHelper::isSoftDeletable($this->getModel());
+        return (new ModelHelper($this->getModel()))->isSoftDeletable();
     }
 
     /**

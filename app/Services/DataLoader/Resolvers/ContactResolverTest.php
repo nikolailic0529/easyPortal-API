@@ -4,6 +4,7 @@ namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Contact;
 use App\Models\Customer;
+use App\Services\DataLoader\Normalizer;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -98,5 +99,39 @@ class ContactResolverTest extends TestCase {
         // The created object should be in cache
         $this->assertSame($created, $provider->get($cb, ' unknown ', ' unknown ', ' unknown ', $factory));
         $this->assertCount(0, $this->getQueryLog());
+    }
+
+    /**
+     * @covers ::get
+     */
+    public function testGetModelNotExistsWithoutId(): void {
+        $model    = new Customer();
+        $resolver = Mockery::mock(ContactResolver::class, [$this->app->make(Normalizer::class)]);
+        $resolver->shouldAllowMockingProtectedMethods();
+        $resolver->makePartial();
+        $resolver
+            ->shouldReceive('resolve')
+            ->with(Mockery::any(), null, false)
+            ->once()
+            ->andReturn(null);
+
+        $resolver->get($model, '', '', '');
+    }
+
+    /**
+     * @covers ::get
+     */
+    public function testGetModelNotExistsWithId(): void {
+        $model    = Customer::factory()->make();
+        $resolver = Mockery::mock(ContactResolver::class, [$this->app->make(Normalizer::class)]);
+        $resolver->shouldAllowMockingProtectedMethods();
+        $resolver->makePartial();
+        $resolver
+            ->shouldReceive('resolve')
+            ->with(Mockery::any(), null, false)
+            ->once()
+            ->andReturn(null);
+
+        $resolver->get($model, '', '', '');
     }
 }

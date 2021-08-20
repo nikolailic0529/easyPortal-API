@@ -227,7 +227,9 @@ class LocationFactory extends DependentModelFactory {
                 $location->latitude    = $normalizer->coordinate($latitude);
                 $location->longitude   = $normalizer->coordinate($longitude);
 
-                $location->save();
+                if ($object->exists) {
+                    $location->save();
+                }
 
                 return $location;
             },

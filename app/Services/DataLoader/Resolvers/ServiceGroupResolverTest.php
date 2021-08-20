@@ -31,7 +31,7 @@ class ServiceGroupResolverTest extends TestCase {
             'oem_id' => $oemA,
             'sku'    => 'a',
         ]);
-        ServiceGroup::factory()->create([
+        $b = ServiceGroup::factory()->create([
             'oem_id' => $oemA,
             'sku'    => 'b',
         ]);
@@ -63,19 +63,11 @@ class ServiceGroupResolverTest extends TestCase {
 
         $this->flushQueryLog();
 
-        // Should be found in DB
-        $group = ServiceGroup::factory()->create([
-            'oem_id' => $oemA,
-        ]);
-        $found = $provider->get($oemA, $group->sku, $factory);
+        // All value should be loaded, so get() should not perform any queries
+        $this->assertNotNull($provider->get($oemA, $b->sku, $factory));
+        $this->assertCount(0, $this->getQueryLog());
 
-        $this->assertNotNull($found);
-        $this->assertFalse($found->wasRecentlyCreated);
-        $this->assertCount(2, $this->getQueryLog());
-
-        $this->flushQueryLog();
-
-        // If not, the new object should be created
+        // If value not found the new object should be created
         $spy     = Mockery::spy(static function () use ($oemB): ServiceGroup {
             return ServiceGroup::factory()->create([
                 'oem_id' => $oemB,
@@ -89,12 +81,22 @@ class ServiceGroupResolverTest extends TestCase {
         $this->assertNotNull($created);
         $this->assertEquals('unKnown', $created->sku);
         $this->assertEquals($oemB->getKey(), $created->oem_id);
-        $this->assertCount(2, $this->getQueryLog());
+        $this->assertCount(1, $this->getQueryLog());
 
         $this->flushQueryLog();
 
         // The created object should be in cache
         $this->assertSame($created, $provider->get($oemB, ' unknown ', $factory));
         $this->assertCount(0, $this->getQueryLog());
+
+        // Created object should NOT be found
+        $c = ServiceGroup::factory()->create([
+            'oem_id' => $oemB,
+        ]);
+
+        $this->flushQueryLog();
+        $this->assertNull($provider->get($oemB, $c->sku));
+        $this->assertCount(0, $this->getQueryLog());
+        $this->flushQueryLog();
     }
 }

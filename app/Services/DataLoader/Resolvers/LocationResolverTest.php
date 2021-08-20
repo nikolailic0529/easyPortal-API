@@ -6,6 +6,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\Customer;
 use App\Models\Location;
+use App\Services\DataLoader\Normalizer;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -172,5 +173,39 @@ class LocationResolverTest extends TestCase {
             $provider->get($customerB, $countryB, $cityB, 'Postcode', 'line_one  a', 'LINE_two a', $factory),
         );
         $this->assertCount(0, $this->getQueryLog());
+    }
+
+    /**
+     * @covers ::get
+     */
+    public function testGetModelNotExistsWithoutId(): void {
+        $model    = new Customer();
+        $resolver = Mockery::mock(LocationResolver::class, [$this->app->make(Normalizer::class)]);
+        $resolver->shouldAllowMockingProtectedMethods();
+        $resolver->makePartial();
+        $resolver
+            ->shouldReceive('resolve')
+            ->with(Mockery::any(), null, true)
+            ->once()
+            ->andReturn(null);
+
+        $resolver->get($model, new Country(), new City(), '', '', '');
+    }
+
+    /**
+     * @covers ::get
+     */
+    public function testGetModelNotExistsWithId(): void {
+        $model    = Customer::factory()->make();
+        $resolver = Mockery::mock(LocationResolver::class, [$this->app->make(Normalizer::class)]);
+        $resolver->shouldAllowMockingProtectedMethods();
+        $resolver->makePartial();
+        $resolver
+            ->shouldReceive('resolve')
+            ->with(Mockery::any(), null, false)
+            ->once()
+            ->andReturn(null);
+
+        $resolver->get($model, new Country(), new City(), '', '', '');
     }
 }

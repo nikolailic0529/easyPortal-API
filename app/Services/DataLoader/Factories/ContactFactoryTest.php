@@ -9,6 +9,7 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ContactResolver;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\Type;
+use Closure;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -27,7 +28,7 @@ class ContactFactoryTest extends TestCase {
      * @covers ::find
      */
     public function testFind(): void {
-        $customer = Customer::factory()->make();
+        $customer = Customer::factory()->create();
         $contact  = new CompanyContactPerson([
             'phoneNumber' => '+495921234554',
             'vendor'      => 'HPE',
@@ -37,6 +38,7 @@ class ContactFactoryTest extends TestCase {
         ]);
         $factory  = $this->app->make(ContactFactory::class);
 
+        // Exist
         $this->flushQueryLog();
 
         $factory->find($customer, $contact);
@@ -103,12 +105,14 @@ class ContactFactoryTest extends TestCase {
 
     /**
      * @covers ::contact
+     *
+     * @dataProvider dataProviderContact
      */
-    public function testContact(): void {
+    public function testContact(Closure $factory): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
         $resolver   = $this->app->make(ContactResolver::class);
-        $customer   = Customer::factory()->make();
+        $customer   = $factory($this);
         $contact    = Contact::factory()->create([
             'object_type' => $customer->getMorphClass(),
             'object_id'   => $customer->getKey(),
@@ -137,11 +141,18 @@ class ContactFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // If model exists - no action required
-        $this->assertEquals(
-            $contact,
-            $factory->contact($customer, $contact->name, $contact->phone_number, true, $contact->email),
-        );
-        $this->assertCount(1, $this->getQueryLog());
+        if ($customer->exists) {
+            $this->assertEquals(
+                $contact,
+                $factory->contact($customer, $contact->name, $contact->phone_number, true, $contact->email),
+            );
+            $this->assertCount(1, $this->getQueryLog());
+        } else {
+            $this->assertNotNull(
+                $factory->contact($customer, $contact->name, $contact->phone_number, true, $contact->email),
+            );
+            $this->assertCount(0, $this->getQueryLog());
+        }
 
         $this->flushQueryLog();
 
@@ -149,14 +160,14 @@ class ContactFactoryTest extends TestCase {
         $created = $factory->contact($customer, ' new  Name ', ' phone   number ', false, ' email ');
 
         $this->assertNotNull($created);
-        $this->assertTrue($created->wasRecentlyCreated);
+        $this->assertEquals($customer->exists, $created->exists);
         $this->assertEquals($customer->getMorphClass(), $created->object_type);
         $this->assertEquals($customer->getKey(), $created->object_id);
         $this->assertEquals('new Name', $created->name);
         $this->assertEquals('phone number', $created->phone_number);
         $this->assertEquals('email', $created->email);
         $this->assertFalse($created->phone_valid);
-        $this->assertCount(2, $this->getQueryLog());
+        $this->assertCount($customer->exists ? 2 : 0, $this->getQueryLog());
     }
     // </editor-fold>
 
@@ -172,6 +183,24 @@ class ContactFactoryTest extends TestCase {
                 null,
                 new class() extends Type {
                     // empty
+                },
+            ],
+        ];
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderContact(): array {
+        return [
+            'Exists'     => [
+                static function (): Customer {
+                    return Customer::factory()->create();
+                },
+            ],
+            'Not Exists' => [
+                static function (): Customer {
+                    return Customer::factory()->make();
                 },
             ],
         ];

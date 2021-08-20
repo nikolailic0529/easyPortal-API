@@ -14,7 +14,11 @@ use JetBrains\PhpStorm\Pure;
 class ContactResolver extends Resolver {
     public function get(Model $model, ?string $name, ?string $phone, ?string $mail, Closure $factory = null): ?Contact {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return $this->resolve($this->getUniqueKey($model, $name, $phone, $mail), $factory);
+        return $this->resolve(
+            $this->getUniqueKey($model, $name, $phone, $mail),
+            $factory,
+            $model->exists,
+        );
     }
 
     /**

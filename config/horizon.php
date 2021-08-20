@@ -189,6 +189,9 @@ return [
                 'memory'       => 1024,
                 'tries'        => 1,
                 'nice'         => 0,
+                'backoff'      => [
+                    60 * 15,
+                ],
             ],
             'KeyCloak'   => [
                 'connection'   => 'redis',

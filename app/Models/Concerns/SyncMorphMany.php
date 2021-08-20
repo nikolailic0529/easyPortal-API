@@ -2,7 +2,10 @@
 
 namespace App\Models\Concerns;
 
+use App\Models\Callbacks\GetKey;
+use App\Models\Callbacks\SetKey;
 use App\Models\PolymorphicModel;
+use App\Utils\ModelHelper;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Collection;
@@ -11,6 +14,8 @@ use InvalidArgumentException;
 use function sprintf;
 
 trait SyncMorphMany {
+    use SyncMany;
+
     /**
      * @param \Illuminate\Support\Collection|array<\App\Models\PolymorphicModel> $objects
      */
@@ -19,7 +24,7 @@ trait SyncMorphMany {
 
         // Prepare
         /** @var \Illuminate\Database\Eloquent\Relations\MorphMany $morph */
-        $morph = $this->{$relation}();
+        $morph = (new ModelHelper($this))->getRelation($relation);
         $model = $morph->make();
         $class = $model::class;
 
@@ -37,17 +42,11 @@ trait SyncMorphMany {
             ));
         }
 
-        // Object should exist
-        if (!$this->exists) {
-            $this->save();
-        }
-
         // Create/Update existing
-        $existing = (clone $this->{$relation})->keyBy(static function (PolymorphicModel $contact): string {
-            return $contact->getKey();
-        });
+        $existing = $this->syncManyGetExisting($this, $relation)->map(new SetKey())->keyBy(new GetKey());
+        $children = new EloquentCollection($objects);
 
-        foreach ($objects as $object) {
+        foreach ($children as $object) {
             // Object supported by relation?
             if (!($object instanceof $class)) {
                 throw new InvalidArgumentException(sprintf(
@@ -71,20 +70,27 @@ trait SyncMorphMany {
                 ));
             }
 
-            // Save
-            $morph->save($object);
-
             // Mark as used
             $existing->forget($object->getKey());
         }
 
-        // Delete unused
-        foreach ($existing as $object) {
-            $this->syncMorphManyDelete($object);
-        }
-
         // Update relation
         $this->setRelation($relation, new EloquentCollection($objects));
+
+        // Update database
+        if (!$children->isEmpty() || !$existing->isEmpty()) {
+            $this->onSave(function () use ($morph, $children, $existing): void {
+                // Sync
+                foreach ($children as $object) {
+                    $morph->save($object);
+                }
+
+                // Delete unused
+                foreach ($existing as $object) {
+                    $this->syncMorphManyDelete($object);
+                }
+            });
+        }
     }
 
     protected function syncMorphManyDelete(PolymorphicModel $model): void {
