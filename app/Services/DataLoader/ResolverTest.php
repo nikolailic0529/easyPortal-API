@@ -26,8 +26,8 @@ class ResolverTest extends TestCase {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
         $provider   = new class($normalizer) extends Resolver {
-            public function resolve(mixed $key, Closure $factory = null): ?Model {
-                return parent::resolve($key, $factory);
+            public function resolve(mixed $key, Closure $factory = null, bool $find = true): ?Model {
+                return parent::resolve($key, $factory, $find);
             }
         };
 
@@ -73,12 +73,46 @@ class ResolverTest extends TestCase {
     /**
      * @covers ::resolve
      */
+    public function testResolveWithoutFind(): void {
+        // Prepare
+        $cache = Mockery::mock(Cache::class);
+        $cache
+            ->shouldReceive('has')
+            ->with('abc')
+            ->twice()
+            ->andReturn(false);
+        $cache
+            ->shouldReceive('putNull')
+            ->twice()
+            ->andReturnSelf();
+
+        $normalizer = $this->app->make(Normalizer::class);
+        $resolver   = Mockery::mock(Resolver::class, [$normalizer]);
+        $resolver->shouldAllowMockingProtectedMethods();
+        $resolver->makePartial();
+        $resolver
+            ->shouldReceive('getCache')
+            ->twice()
+            ->andReturn($cache);
+        $resolver
+            ->shouldReceive('find')
+            ->with('abc')
+            ->once()
+            ->andReturn(null);
+
+        $this->assertNull($resolver->resolve('abc', null, false));
+        $this->assertNull($resolver->resolve('abc', null, true));
+    }
+
+    /**
+     * @covers ::resolve
+     */
     public function testResolveFactoryObjectNotFoundException(): void {
         $exception  = null;
         $normalizer = $this->app->make(Normalizer::class);
         $provider   = new class($normalizer) extends Resolver {
-            public function resolve(mixed $key, Closure $factory = null): ?Model {
-                return parent::resolve($key, $factory);
+            public function resolve(mixed $key, Closure $factory = null, bool $find = true): ?Model {
+                return parent::resolve($key, $factory, true);
             }
 
             public function getCache(bool $preload = true): Cache {
