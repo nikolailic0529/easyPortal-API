@@ -175,6 +175,13 @@ class QuotesTest extends TestCase {
                                         name
                                     }
                                 }
+                                service_group_id
+                                serviceGroup {
+                                    id
+                                    oem_id
+                                    sku
+                                    name
+                                }
                                 serviceLevel {
                                     id
                                     oem_id
@@ -344,6 +351,7 @@ class QuotesTest extends TestCase {
                     ]),
                     'serial_number'    => null,
                     'product_id'       => $product,
+                    'service_group_id' => $serviceGroup,
                     'service_level_id' => $serviceLevel,
                     'net_price'        => 123.45,
                     'list_price'       => 67.00,
@@ -477,6 +485,13 @@ class QuotesTest extends TestCase {
                                 'key'  => 'key',
                                 'name' => 'oem1',
                             ],
+                        ],
+                        'service_group_id' => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                        'serviceGroup'     => [
+                            'id'     => '8b4d2d12-542a-4fcf-9acc-626bfb5dbc79',
+                            'name'   => 'Group',
+                            'oem_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'sku'    => 'SKU#123',
                         ],
                         'serviceLevel'     => [
                             'id'               => 'e2bb80fc-cedf-4ad2-b723-1e250805d2a0',

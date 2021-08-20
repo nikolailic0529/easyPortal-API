@@ -877,6 +877,8 @@ type DocumentEntry {
   serial_number: String
   product_id: ID!
   product: Product!
+  service_group_id: ID
+  serviceGroup: ServiceGroup
   service_level_id: ID
   serviceLevel: ServiceLevel
   currency_id: ID

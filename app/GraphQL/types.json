@@ -812,6 +812,8 @@
             "required": [
                 "id",
                 "document_id",
+                "service_group_id",
+                "serviceGroup",
                 "service_level_id",
                 "serviceLevel",
                 "net_price",
@@ -829,17 +831,51 @@
                 "document_id": {
                     "$ref": "#/definitions/ID"
                 },
-                "service_level_id": {
-                    "$ref": "#/definitions/ID"
-                },
                 "asset": {
                     "$ref": "#/definitions/Asset"
                 },
                 "document": {
                     "$ref": "#/definitions/Document"
                 },
+                "service_group_id": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "serviceGroup": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ServiceGroup"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "service_level_id": {
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
                 "serviceLevel": {
-                    "$ref": "#/definitions/ServiceLevel"
+                    "oneOf": [
+                        {
+                            "$ref": "#/definitions/ServiceLevel"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
                 },
                 "net_price": {
                     "type": [
