@@ -27,7 +27,6 @@
     "select * from `contacts` where (`email` = ? and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
     "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
     "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
-    "select * from `document_entries` where `document_entries`.`document_id` = ? and `document_entries`.`document_id` is not null and `document_entries`.`deleted_at` is null",
     "select * from `products` where `products`.`id` = ? and `products`.`deleted_at` is null limit 1",
     "select * from `currencies` where (`currencies`.`id` = ?) and `currencies`.`deleted_at` is null limit 1",
     "insert into `currencies` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",

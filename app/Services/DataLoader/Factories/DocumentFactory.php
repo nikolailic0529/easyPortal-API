@@ -297,12 +297,14 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         $existing = [];
         $assetId  = $document->asset->getKey();
 
-        foreach ($model->entries as $entry) {
-            /** @var \App\Models\DocumentEntry $entry */
-            if ($entry->asset_id === $assetId) {
-                $existing[] = $entry;
-            } else {
-                $all[] = $entry;
+        if ($model->exists) {
+            foreach ($model->entries as $entry) {
+                /** @var \App\Models\DocumentEntry $entry */
+                if ($entry->asset_id === $assetId) {
+                    $existing[] = $entry;
+                } else {
+                    $all[] = $entry;
+                }
             }
         }
 
