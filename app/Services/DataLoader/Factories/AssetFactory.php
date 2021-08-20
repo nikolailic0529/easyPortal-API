@@ -293,17 +293,17 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             // Documents
             if ($this->getDocumentFactory() && isset($asset->assetDocument)) {
                 // Prefetch documents
+                $this->getDocumentFactory()->prefetch([$asset], false, function (Collection $documents): void {
+                    $documents->loadMissing('entries');
+                    $documents->loadMissing('contacts');
+                    $documents->loadMissing('contacts.types');
+
+                    $this->getContactsResolver()->add($documents->pluck('contacts')->flatten());
+                });
+
                 if ($created) {
                     $model->setRelation('warranties', new EloquentCollection());
                     $model->setRelation('documentEntries', new EloquentCollection());
-                } else {
-                    $this->getDocumentFactory()->prefetch([$asset], false, function (Collection $documents): void {
-                        $documents->loadMissing('entries');
-                        $documents->loadMissing('contacts');
-                        $documents->loadMissing('contacts.types');
-
-                        $this->getContactsResolver()->add($documents->pluck('contacts')->flatten());
-                    });
                 }
 
                 try {

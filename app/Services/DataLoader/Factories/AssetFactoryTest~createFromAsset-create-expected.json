@@ -40,7 +40,7 @@
     "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
     "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
     "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-    "select * from `documents` where (`documents`.`id` = ?) and `documents`.`deleted_at` is null limit 1",
+    "select * from `documents` where ((`documents`.`id` = ?)) and `documents`.`deleted_at` is null",
     "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
     "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
     "select * from `service_groups` where `service_groups`.`deleted_at` is null",
