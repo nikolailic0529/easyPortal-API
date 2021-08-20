@@ -5,7 +5,6 @@ namespace App\Services\Audit\Listeners;
 use App\Events\Subscriber;
 use App\Http\Controllers\QueryExported;
 use App\Models\Model;
-use App\Models\User;
 use App\Services\Audit\Auditor;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Audit\Enums\Action;
@@ -35,10 +34,7 @@ class Audit implements Subscriber {
     }
 
     public function passwordReset(PasswordReset $event): void {
-        $user = $event->user;
-        if ($user instanceof User) {
-            $this->auditor->create(Action::authPasswordReset(), ['email' => $user->email ]);
-        }
+        $this->auditor->create(Action::authPasswordReset(), null, null, $event->user);
     }
 
     /**

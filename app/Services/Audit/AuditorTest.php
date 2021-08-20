@@ -162,15 +162,15 @@ class AuditorTest extends TestCase {
      *
      */
     public function testResetPassword(): void {
-        $this->override(Auditor::class, static function (MockInterface $mock): void {
+        $user = User::factory()->create([
+            'email' => 'test@example.com',
+        ]);
+        $this->override(Auditor::class, static function (MockInterface $mock) use ($user): void {
             $mock
                 ->shouldReceive('create')
                 ->once()
-                ->with(Action::authPasswordReset(), ['email' => 'test@example.com']);
+                ->with(Action::authPasswordReset(), null, null, $user);
         });
-        $user       = User::factory()->create([
-            'email' => 'test@example.com',
-        ]);
         $dispatcher = $this->app->make(Dispatcher::class);
         $dispatcher->dispatch(new PasswordReset($user));
     }
