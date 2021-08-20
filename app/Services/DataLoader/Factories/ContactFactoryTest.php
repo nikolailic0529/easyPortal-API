@@ -9,6 +9,7 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ContactResolver;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\Type;
+use Closure;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -104,20 +105,18 @@ class ContactFactoryTest extends TestCase {
 
     /**
      * @covers ::contact
+     *
+     * @dataProvider dataProviderContact
      */
-    public function testContact(): void {
+    public function testContact(Closure $factory): void {
         // Prepare
         $normalizer = $this->app->make(Normalizer::class);
         $resolver   = $this->app->make(ContactResolver::class);
-        $customer   = Customer::factory()->create();
+        $customer   = $factory($this);
         $contact    = Contact::factory()->create([
             'object_type' => $customer->getMorphClass(),
             'object_id'   => $customer->getKey(),
         ]);
-
-        if ($this->faker->boolean) {
-            $customer->save();
-        }
 
         $factory = new class($normalizer, $resolver) extends ContactFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -142,11 +141,18 @@ class ContactFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // If model exists - no action required
-        $this->assertEquals(
-            $contact,
-            $factory->contact($customer, $contact->name, $contact->phone_number, true, $contact->email),
-        );
-        $this->assertCount(1, $this->getQueryLog());
+        if ($customer->exists) {
+            $this->assertEquals(
+                $contact,
+                $factory->contact($customer, $contact->name, $contact->phone_number, true, $contact->email),
+            );
+            $this->assertCount(1, $this->getQueryLog());
+        } else {
+            $this->assertNotNull(
+                $factory->contact($customer, $contact->name, $contact->phone_number, true, $contact->email),
+            );
+            $this->assertCount(0, $this->getQueryLog());
+        }
 
         $this->flushQueryLog();
 
@@ -161,7 +167,7 @@ class ContactFactoryTest extends TestCase {
         $this->assertEquals('phone number', $created->phone_number);
         $this->assertEquals('email', $created->email);
         $this->assertFalse($created->phone_valid);
-        $this->assertCount(1 + (int) $customer->exists, $this->getQueryLog());
+        $this->assertCount($customer->exists ? 2 : 0, $this->getQueryLog());
     }
     // </editor-fold>
 
@@ -177,6 +183,24 @@ class ContactFactoryTest extends TestCase {
                 null,
                 new class() extends Type {
                     // empty
+                },
+            ],
+        ];
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderContact(): array {
+        return [
+            'Exists'     => [
+                static function (): Customer {
+                    return Customer::factory()->create();
+                },
+            ],
+            'Not Exists' => [
+                static function (): Customer {
+                    return Customer::factory()->make();
                 },
             ],
         ];
