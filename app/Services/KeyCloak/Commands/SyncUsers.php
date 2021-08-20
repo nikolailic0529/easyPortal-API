@@ -2,6 +2,7 @@
 
 namespace App\Services\KeyCloak\Commands;
 
+use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\Role;
 use App\Models\User;
@@ -50,6 +51,7 @@ class SyncUsers extends Command {
                 $user                        = new User();
                 $user->{$user->getKeyName()} = $item->id;
                 $user->email                 = $item->email;
+                $user->type                  = UserType::keycloak();
                 $user->given_name            = $item->firstName;
                 $user->family_name           = $item->lastName;
                 $user->email_verified        = $item->emailVerified;
