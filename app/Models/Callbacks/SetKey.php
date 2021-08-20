@@ -2,15 +2,15 @@
 
 namespace App\Models\Callbacks;
 
-use App\Models\Model;
-use App\Models\Pivot;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Support\Str;
 
 use function is_null;
 
 class SetKey {
     /**
-     * @template T of \App\Models\Model|\App\Models\Pivot
+     * @template T of \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Relations\Pivot
      *
      * @param T $model
      *

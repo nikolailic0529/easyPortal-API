@@ -2,11 +2,11 @@
 
 namespace App\Models\Callbacks;
 
-use App\Models\Model;
-use App\Models\Pivot;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class GetKey {
-    public function __invoke(Model|Pivot $model): string {
+    public function __invoke(Model|Pivot $model): string|null {
         return $model->getKey();
     }
 }
