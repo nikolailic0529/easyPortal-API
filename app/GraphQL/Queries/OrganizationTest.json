@@ -8,7 +8,7 @@
         "users" : {
             "type": "array",
             "items": {
-                "$ref": "../Types/OrganizationUser.json"
+                "$ref": "../Types/User.json"
             }
         }
     }

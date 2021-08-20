@@ -1543,11 +1543,6 @@ type Organization {
   headquarter: Location
 
   """
-  @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  users: [OrganizationUser!]!
-
-  """
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
   keycloak_scope: String
@@ -1556,6 +1551,20 @@ type Organization {
   @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
   """
   roles: [Role!]!
+
+  """
+  @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
+  """
+  users(
+    where: SearchByConditionUsersQuery
+    order: SearchByConditionUsersSort
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): UserPaginator
 
   """
   @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
@@ -3961,6 +3970,26 @@ input SearchByConditionUsersQuery {
 }
 
 """
+Available conditions for input UsersSort (only one property allowed at a time).
+"""
+input SearchByConditionUsersSort {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionUsersSort!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionUsersSort!]
+
+  """Not."""
+  not: SearchByConditionUsersSort
+
+  """Property condition."""
+  given_name: SearchByScalarString
+
+  """Property condition."""
+  family_name: SearchByScalarString
+}
+
+"""
 Available operators for scalar Boolean! (only one operator allowed at a time).
 """
 input SearchByScalarBoolean {
@@ -5053,10 +5082,26 @@ type User {
   id: ID!
   given_name: String!
   family_name: String!
+  email: String!
+  email_verified: Boolean!
+}
+
+"""A paginated list of User items."""
+type UserPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of User items."""
+  data: [User!]!
 }
 
 input UsersQuery {
   id: ID!
+  given_name: String!
+  family_name: String!
+}
+
+input UsersSort {
   given_name: String!
   family_name: String!
 }

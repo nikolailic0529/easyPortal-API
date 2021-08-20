@@ -2,4 +2,6 @@ type User {
   id: ID!
   given_name: String!
   family_name: String!
+  email: String!
+  email_verified: Boolean!
 }
