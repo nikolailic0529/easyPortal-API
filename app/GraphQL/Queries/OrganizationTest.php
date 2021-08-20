@@ -225,11 +225,9 @@ class OrganizationTest extends TestCase {
     }
 
     /**
-     * @coversNothing
+     * @covers \App\GraphQL\Queries\AuditContext::__invoke
      *
      * @dataProvider dataProviderAudits
-     *
-     * @param array<mixed> $settings
      */
     public function testAudits(
         Response $expected,
