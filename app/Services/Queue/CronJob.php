@@ -2,7 +2,7 @@
 
 namespace App\Services\Queue;
 
-use App\Services\Queue\Concerns\StoppableJob;
+use App\Services\Queue\Concerns\PingableJob;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use LastDragon_ru\LaraASP\Queue\Queueables\CronJob as LaraASPCronJob;
 
@@ -12,5 +12,5 @@ use LastDragon_ru\LaraASP\Queue\Queueables\CronJob as LaraASPCronJob;
  * @see \App\Services\Queue\Progressable
  */
 abstract class CronJob extends LaraASPCronJob implements ShouldBeUnique, NamedJob, Stoppable {
-    use StoppableJob;
+    use PingableJob;
 }

@@ -8,6 +8,7 @@ use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Log;
 use App\Services\Queue\Tags\Stop;
 use Generator;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
@@ -111,7 +112,9 @@ class QueueTest extends TestCase {
             ->never();
 
         // Test
-        $actual   = (new Queue($this->app, $this->app->make(Stop::class), $repository))->getStates([]);
+        $config   = $this->app->make(Repository::class);
+        $stopTag  = $this->app->make(Stop::class);
+        $actual   = (new Queue($this->app, $config, $stopTag, $repository))->getStates([]);
         $expected = [];
 
         $this->assertEquals($expected, $actual);
@@ -190,7 +193,12 @@ class QueueTest extends TestCase {
             ->andReturn([]);
 
         // Queue
-        $queue = new class($this->app, $this->app->make(Stop::class), $repository) extends Queue {
+        $queue = new class(
+            $this->app,
+            $this->app->make(Repository::class),
+            $this->app->make(Stop::class),
+            $repository,
+        ) extends Queue {
             public function getStatesFromHorizon(Collection $jobs): Generator {
                 return parent::getStatesFromHorizon($jobs);
             }
@@ -305,7 +313,8 @@ class QueueTest extends TestCase {
         // Queue
         $repository = Mockery::mock(JobRepository::class);
         $stopTag    = $this->app->make(Stop::class);
-        $queue      = new class($this->app, $stopTag, $repository) extends Queue {
+        $config     = $this->app->make(Repository::class);
+        $queue      = new class($this->app, $config, $stopTag, $repository) extends Queue {
             public function getStatesFromLogs(Collection $jobs): Generator {
                 return parent::getStatesFromLogs($jobs);
             }
@@ -336,6 +345,74 @@ class QueueTest extends TestCase {
                 true,
                 null,
                 $lc->created_at,
+            ),
+        ];
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers ::getStatesFromLogs
+     */
+    public function testGetStatesFromLogsNoExpired(): void {
+        // Prepare
+        $expire = 3600;
+        $a      = Mockery::mock(BaseJob::class, Stoppable::class);
+        $b      = Mockery::mock(BaseJob::class, ShouldBeUnique::class, Stoppable::class);
+        $la     = Log::factory()->create([
+            'object_type' => $a::class,
+            'object_id'   => '48d53ba5-9d6b-4c6d-9a0b-d832143bb385',
+            'category'    => Category::queue(),
+            'action'      => Action::queueJobRun(),
+            'status'      => Status::active(),
+            'context'     => 'Should be returned',
+            'created_at'  => Date::now()->subDay(),
+            'updated_at'  => Date::now()->subSeconds($expire - 60),
+        ]);
+
+        Log::factory()->create([
+            'object_type' => $b::class,
+            'object_id'   => '48d53ba5-9d6b-4c6d-9a0b-d832143bb385',
+            'category'    => Category::queue(),
+            'action'      => Action::queueJobRun(),
+            'status'      => Status::active(),
+            'context'     => 'Should not be returned (expired)',
+            'created_at'  => Date::now()->subDay(),
+            'updated_at'  => Date::now()->subSeconds($expire),
+        ]);
+
+        // Update settings
+        $config     = $this->app->make(Repository::class);
+        $connection = $config->get('queue.default');
+
+        $this->setSettings([
+            "queue.connections.{$connection}.retry_after" => $expire,
+        ]);
+
+        // Queue
+        $repository = Mockery::mock(JobRepository::class);
+        $stopTag    = $this->app->make(Stop::class);
+        $config     = $this->app->make(Repository::class);
+        $queue      = new class($this->app, $config, $stopTag, $repository) extends Queue {
+            public function getStatesFromLogs(Collection $jobs): Generator {
+                return parent::getStatesFromLogs($jobs);
+            }
+        };
+
+        // Test
+        $jobs     = (new Collection([$a, $b]))
+            ->keyBy(static function (BaseJob $job): string {
+                return $job instanceof NamedJob ? $job->displayName() : $job::class;
+            });
+        $actual   = iterator_to_array($queue->getStatesFromLogs($jobs));
+        $expected = [
+            new JobState(
+                $la->object_type,
+                $la->object_id,
+                true,
+                false,
+                null,
+                $la->created_at,
             ),
         ];
 
@@ -407,13 +484,14 @@ class QueueTest extends TestCase {
     public function testStop(): void {
         $id        = $this->faker->uuid;
         $job       = Mockery::mock(BaseJob::class);
+        $config    = Mockery::mock(Repository::class);
         $stoppable = Mockery::mock(BaseJob::class, Stoppable::class);
         $stopTag   = Mockery::mock(Stop::class);
         $stopTag
             ->shouldReceive('set')
             ->once()
             ->andReturn(Date::now());
-        $queue = Mockery::mock(Queue::class, [$this->app, $stopTag, Mockery::mock(JobRepository::class)]);
+        $queue = Mockery::mock(Queue::class, [$this->app, $config, $stopTag, Mockery::mock(JobRepository::class)]);
         $queue->makePartial();
         $queue
             ->shouldReceive('getState')
@@ -432,6 +510,7 @@ class QueueTest extends TestCase {
         $id      = $this->faker->uuid;
         $jobA    = Mockery::mock(BaseJob::class, Stoppable::class);
         $jobB    = Mockery::mock(BaseJob::class);
+        $config  = Mockery::mock(Repository::class);
         $stopTag = Mockery::mock(Stop::class);
         $stopTag
             ->shouldReceive('exists')
@@ -443,7 +522,7 @@ class QueueTest extends TestCase {
             ->once()
             ->andReturn(false);
 
-        $queue = new Queue($this->app, $stopTag, Mockery::mock(JobRepository::class));
+        $queue = new Queue($this->app, $config, $stopTag, Mockery::mock(JobRepository::class));
 
         $this->assertTrue($queue->isStopped($jobA, $id));
         $this->assertFalse($queue->isStopped($jobA, $this->faker->uuid));

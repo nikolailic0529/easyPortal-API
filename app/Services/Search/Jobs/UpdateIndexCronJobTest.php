@@ -89,7 +89,7 @@ class UpdateIndexCronJobTest extends TestCase {
             ->twice()
             ->andReturns();
         $job
-            ->shouldReceive('stop')
+            ->shouldReceive('ping')
             ->once();
         $job
             ->shouldReceive('resetState')

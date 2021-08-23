@@ -166,7 +166,7 @@ return [
     */
 
     'defaults'         => [
-        // empty
+        'timeout' => 60 * 60,
     ],
 
     'environments'     => [
@@ -186,7 +186,7 @@ return [
                 'queue'        => [Queues::DATA_LOADER],
                 'balance'      => 'auto',
                 'maxProcesses' => 1,
-                'memory'       => 1024,
+                'memory'       => 2024,
                 'tries'        => 1,
                 'nice'         => 0,
                 'backoff'      => [

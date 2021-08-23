@@ -5,7 +5,7 @@ namespace App\Services\Queue;
 /**
  * Mark that Job can handle "stop" requests (realization must be provided by the job).
  *
- * @see \App\Services\Queue\Concerns\StoppableJob
+ * @see \App\Services\Queue\Concerns\PingableJob
  */
 interface Stoppable {
     // empty
