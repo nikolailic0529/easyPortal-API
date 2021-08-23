@@ -14,8 +14,12 @@ use LogicException;
 
 use function is_array;
 use function key;
+use function mb_substr;
+use function preg_replace;
 use function reset;
 use function sprintf;
+use function str_ends_with;
+use function str_starts_with;
 
 class SearchRequestFactory extends BaseSearchRequestFactory {
     /**
@@ -104,23 +108,15 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
      * @inheritDoc
      */
     protected function makeQuery(Builder $builder): array {
-        // Default `query_string` is not safe for end-user: it will return an
-        // error for invalid queries, thus it should be escaped. So we replace
-        // it with `simple_query_string` that doesn't have these problems.
-        //
-        // https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-simple-query-string-query.html#simple-query-string-syntax
         $query = parent::makeQuery($builder);
 
         if (isset($query['bool']['must']['query_string'])) {
             /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $model */
-            $model                                        = $builder->model;
-            $query['bool']['must']['simple_query_string'] = [
-                'query'  => $query['bool']['must']['query_string']['query'],
-                'flags'  => 'AND|ESCAPE|NOT|OR|PHRASE|PRECEDENCE|WHITESPACE',
+            $model                                 = $builder->model;
+            $query['bool']['must']['query_string'] = [
+                'query'  => $this->escapeQueryString($query['bool']['must']['query_string']['query']),
                 'fields' => $model->getSearchConfiguration()->getSearchable(),
             ];
-
-            unset($query['bool']['must']['query_string']);
         }
 
         return $query;
@@ -195,5 +191,26 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
             ->all();
 
         return $sort ?: null;
+    }
+
+    protected function escapeQueryString(string $string): string {
+        // https://github.com/elastic/elasticsearch-php/issues/620#issuecomment-901727162
+        $string = preg_replace(
+            [
+                '_[<>]+_',                                    // cannot be escaped
+                '_[-+=!(){}[\]^"~:\\/\\\\]|&(?=&)|\|(?=\|)_', // *? - allowed
+            ],
+            [
+                '',
+                '\\\\$0',
+            ],
+            $string,
+        );
+
+        if (str_starts_with($string, '\\"') && str_ends_with($string, '\\"')) {
+            $string = '"'.mb_substr($string, 2, -2).'"';
+        }
+
+        return $string;
     }
 }

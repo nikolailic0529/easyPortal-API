@@ -63,7 +63,7 @@ class SearchRequestFactoryTest extends TestCase {
         // Prepare
         $model   = new UnionModel();
         $builder = $this->app->make(UnionBuilder::class, [
-            'query' => 'abc',
+            'query' => 'a[b]c',
             'model' => $model,
         ]);
         $a       = new class() extends Model {
@@ -120,9 +120,8 @@ class SearchRequestFactoryTest extends TestCase {
                         [
                             'bool' => [
                                 'must'   => [
-                                    'simple_query_string' => [
-                                        'query'  => 'abc',
-                                        'flags'  => 'AND|ESCAPE|NOT|OR|PHRASE|PRECEDENCE|WHITESPACE',
+                                    'query_string' => [
+                                        'query'  => 'a\\[b\\]c',
                                         'fields' => ['properties.*'],
                                     ],
                                 ],
@@ -138,9 +137,8 @@ class SearchRequestFactoryTest extends TestCase {
                         [
                             'bool' => [
                                 'must'   => [
-                                    'simple_query_string' => [
-                                        'query'  => 'abc',
-                                        'flags'  => 'AND|ESCAPE|NOT|OR|PHRASE|PRECEDENCE|WHITESPACE',
+                                    'query_string' => [
+                                        'query'  => 'a\\[b\\]c',
                                         'fields' => ['properties.*'],
                                     ],
                                 ],
@@ -181,6 +179,23 @@ class SearchRequestFactoryTest extends TestCase {
 
         $this->assertEquals($expected, $actual);
     }
+
+    /**
+     * @covers ::escapeQueryString
+     *
+     * @dataProvider dataProviderEscapeQueryString
+     */
+    public function testEscapeQueryString(string $expected, string $query): void {
+        $this->assertEquals($expected, (new class() extends SearchRequestFactory {
+            public function __construct() {
+                // empty
+            }
+
+            public function escapeQueryString(string $string): string {
+                return parent::escapeQueryString($string);
+            }
+        })->escapeQueryString($query));
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -190,9 +205,8 @@ class SearchRequestFactoryTest extends TestCase {
      */
     public function dataProviderMakeFromBuilder(): array {
         $must = [
-            'simple_query_string' => [
+            'query_string' => [
                 'query'  => '*',
-                'flags'  => 'AND|ESCAPE|NOT|OR|PHRASE|PRECEDENCE|WHITESPACE',
                 'fields' => [
                     Configuration::getPropertyName('*'),
                 ],
@@ -375,6 +389,26 @@ class SearchRequestFactoryTest extends TestCase {
                         ],
                     ];
                 },
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, array{string, string}>
+     */
+    public function dataProviderEscapeQueryString(): array {
+        return [
+            'simple'      => [
+                'te\\-xt \\(with\\)\\! \\{special\\} & \\/characters\\\\',
+                '<te-xt>>> (with)! {special} & /characters\\',
+            ],
+            'wildcard'    => [
+                'wildcard * and single char ? allowed',
+                'wildcard * and single char ? allowed',
+            ],
+            'exact phase' => [
+                '"exact \\(with\\)\\! phase"',
+                '"exact <(with)!> phase"',
             ],
         ];
     }
