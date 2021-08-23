@@ -1975,7 +1975,7 @@ type Query {
   User must be authenticated and have any of these permissions.
   """
   search(
-    search: String!
+    search: SearchString!
 
     """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
@@ -2008,7 +2008,7 @@ type Query {
   @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
   """
   customersSearch(
-    search: String!
+    search: SearchString!
     order: [SortByClauseCustomersSearchSort!]
 
     """Limits number of fetched items. Maximum allowed value: 100."""
@@ -2042,7 +2042,7 @@ type Query {
   @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
   assetsSearch(
-    search: String!
+    search: SearchString!
     order: [SortByClauseAssetsSearchSort!]
 
     """Limits number of fetched items. Maximum allowed value: 100."""
@@ -4347,6 +4347,19 @@ type SearchResultPaginator {
   """A list of SearchResult items."""
   data: [SearchResult!]!
 }
+
+"""
+Search string.
+
+Supported operators:
+- `*` match any characters (`abc*` => `abcd`, `abcde`, etc);
+- `"phase"` match exact phase (string must start and end with `"`)
+
+Notes:
+- Following characters will be removed: `<`, `>`;
+- `\` can be used to escape special characters;
+"""
+scalar SearchString
 
 input SendResetPasswordLinkInput {
   email: String!

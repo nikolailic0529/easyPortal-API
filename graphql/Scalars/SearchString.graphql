@@ -1,0 +1,12 @@
+"""
+Search string.
+
+Supported operators:
+- `*` match any characters (`abc*` => `abcd`, `abcde`, etc);
+- `"phase"` match exact phase (string must start and end with `"`)
+
+Notes:
+- Following characters will be removed: `<`, `>`;
+- `\` can be used to escape special characters;
+"""
+scalar SearchString @scalar(class: "GraphQL\\Type\\Definition\\StringType")
