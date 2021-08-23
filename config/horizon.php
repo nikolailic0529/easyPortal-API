@@ -166,7 +166,7 @@ return [
     */
 
     'defaults'         => [
-        'timeout' => 60 * 60,
+        // empty
     ],
 
     'environments'     => [
@@ -177,6 +177,7 @@ return [
                 'queue'        => [Queues::DEFAULT],
                 'balance'      => 'auto',
                 'maxProcesses' => 1,
+                'timeout'      => 60 * 60,
                 'memory'       => 256,
                 'tries'        => 1,
                 'nice'         => 0,
@@ -186,6 +187,7 @@ return [
                 'queue'        => [Queues::DATA_LOADER],
                 'balance'      => 'auto',
                 'maxProcesses' => 1,
+                'timeout'      => 60 * 60,
                 'memory'       => 2024,
                 'tries'        => 1,
                 'nice'         => 0,
@@ -198,6 +200,7 @@ return [
                 'queue'        => [Queues::KEYCLOAK],
                 'balance'      => 'auto',
                 'maxProcesses' => 1,
+                'timeout'      => 60 * 60,
                 'memory'       => 256,
                 'tries'        => 1,
                 'nice'         => 0,
@@ -207,6 +210,7 @@ return [
                 'queue'        => [Queues::SEARCH],
                 'balance'      => 'auto',
                 'maxProcesses' => 1,
+                'timeout'      => 60 * 60,
                 'memory'       => 256,
                 'tries'        => 1,
                 'nice'         => 0,
