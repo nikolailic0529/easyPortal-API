@@ -166,7 +166,7 @@ return [
     */
 
     'defaults'         => [
-        // empty
+        'timeout' => 60 * 60,
     ],
 
     'environments'     => [
