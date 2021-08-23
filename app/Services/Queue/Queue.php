@@ -8,8 +8,10 @@ use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Log;
 use App\Services\Queue\Tags\Stop;
 use AppendIterator;
+use DateInterval;
 use DateTimeInterface;
 use Generator;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
@@ -29,6 +31,7 @@ use function usort;
 class Queue {
     public function __construct(
         protected Container $container,
+        protected Repository $config,
         protected Stop $stop,
         protected JobRepository $repository,
     ) {
@@ -209,11 +212,15 @@ class Queue {
         $key     = static function (Log $log): string {
             return "{$log->object_type}#{$log->object_id}";
         };
+        $expire  = $this->getStatesFromLogsExpire();
         $logs    = Log::query()
             ->where('category', '=', Category::queue())
             ->where('action', '=', Action::queueJobRun())
             ->where('status', '=', Status::active())
             ->whereIn('object_type', $names)
+            ->when($expire, static function (Builder $builder) use ($expire): void {
+                $builder->where('updated_at', '>', Date::now()->sub($expire));
+            })
             ->orderBy('created_at')
             ->get();
         $pending = Log::query()
@@ -246,5 +253,17 @@ class Queue {
                 $log->created_at,
             );
         }
+    }
+
+    protected function getStatesFromLogsExpire(): ?DateInterval {
+        $connection = $this->config->get('queue.default');
+        $retryAfter = $this->config->get("queue.connections.{$connection}.retry_after");
+        $interval   = null;
+
+        if ($retryAfter) {
+            $interval = Date::now()->subSeconds($retryAfter)->diff(Date::now());
+        }
+
+        return $interval;
     }
 }
