@@ -2,18 +2,17 @@
 
 namespace App\Services\Queue\Concerns;
 
+use App\Services\Queue\Job;
 use App\Services\Queue\Queue;
-use App\Services\Queue\Stoppable;
-use LastDragon_ru\LaraASP\Queue\Queueables\Job;
 use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Queue\Concerns\StoppableJob
+ * @coversDefaultClass \App\Services\Queue\Concerns\PingableJob
  */
-class StoppableJobTest extends TestCase {
+class PingableJobTest extends TestCase {
     /**
      * @covers ::handle
      */
@@ -63,10 +62,12 @@ class StoppableJobTest extends TestCase {
  * @internal
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
-class StoppableJob_Job extends Job implements Stoppable {
-    use StoppableJob;
-
+class StoppableJob_Job extends Job {
     public function __invoke(): void {
         // empty
+    }
+
+    public function displayName(): string {
+        return $this::class;
     }
 }

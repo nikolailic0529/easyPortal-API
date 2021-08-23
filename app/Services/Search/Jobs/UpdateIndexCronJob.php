@@ -51,7 +51,7 @@ abstract class UpdateIndexCronJob extends CronJob implements Progressable {
             })
             ->onChange(function (Collection $items, Status $status) use ($service, $state): void {
                 $this->updateState($service, $state, $status);
-                $this->stop();
+                $this->ping();
             })
             ->onFinish(function () use ($service): void {
                 $this->resetState($service);
