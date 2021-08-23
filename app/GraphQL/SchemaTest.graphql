@@ -4353,7 +4353,7 @@ Search string.
 
 Supported operators:
 - `*` match any characters (`abc*` => `abcd`, `abcde`, etc);
-- `"phase"` match exact phase (string must start and end with `"`)
+- `"phrase"` match exact phrase (string must start and end with `"`)
 
 Notes:
 - Following characters will be removed: `<`, `>`;

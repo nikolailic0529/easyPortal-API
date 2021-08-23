@@ -398,17 +398,21 @@ class SearchRequestFactoryTest extends TestCase {
      */
     public function dataProviderEscapeQueryString(): array {
         return [
-            'simple'      => [
-                'te\\-xt \\(with\\)\\! \\{special\\} & \\/characters\\\\',
-                '<te-xt>>> (with)! {special} & /characters\\',
+            'simple'       => [
+                'te\\-xt \\(with\\)\\! \\{special\\} \\&& \\/characters\\?\\\\',
+                '<te-xt>>> (with)! {special} && /characters?\\',
             ],
-            'wildcard'    => [
-                'wildcard * and single char ? allowed',
-                'wildcard * and single char ? allowed',
+            'wildcard'     => [
+                'wildcard * allowed',
+                'wildcard * allowed',
             ],
-            'exact phase' => [
-                '"exact \\(with\\)\\! phase"',
-                '"exact <(with)!> phase"',
+            'exact phrase' => [
+                '"exact \\(with\\)\\! phrase"',
+                '"exact <(with)!> phrase"',
+            ],
+            'escaping'     => [
+                'star can be \\* escaped, more complex \\\\\\\\*',
+                'star can be \\* escaped, more complex \\\\*',
             ],
         ];
     }

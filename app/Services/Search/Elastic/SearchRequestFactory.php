@@ -197,8 +197,8 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
         // https://github.com/elastic/elasticsearch-php/issues/620#issuecomment-901727162
         $string = preg_replace(
             [
-                '_[<>]+_',                                    // cannot be escaped
-                '_[-+=!(){}[\]^"~:\\/\\\\]|&(?=&)|\|(?=\|)_', // *? - allowed
+                '_[<>]+_',                                     // cannot be escaped
+                '_[-+=!(){}[\]^"~?:\\/\\\\]|&(?=&)|\|(?=\|)_', // special characters (* is not escaped because allowed)
             ],
             [
                 '',
@@ -209,6 +209,8 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
 
         if (str_starts_with($string, '\\"') && str_ends_with($string, '\\"')) {
             $string = '"'.mb_substr($string, 2, -2).'"';
+        } else {
+            $string = preg_replace('_(?<!\\\\)\\\\\\\\[*]_', '\\*', $string);
         }
 
         return $string;
