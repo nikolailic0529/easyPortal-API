@@ -122,6 +122,7 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
                 'query'            => $this->prepareQueryString($query['bool']['must']['query_string']['query']),
                 'fields'           => $model->getSearchConfiguration()->getSearchable(),
                 'default_operator' => 'AND',
+                'analyze_wildcard' => true,
             ];
         }
 

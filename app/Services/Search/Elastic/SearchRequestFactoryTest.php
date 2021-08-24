@@ -122,8 +122,12 @@ class SearchRequestFactoryTest extends TestCase {
                                 'must'   => [
                                     'query_string' => [
                                         'query'            => '*a\\[b\\]c*',
-                                        'fields'           => ['properties.*'],
+                                        'fields'           => [
+                                            Configuration::getPropertyName('a'),
+                                            Configuration::getPropertyName('a.keyword'),
+                                        ],
                                         'default_operator' => 'AND',
+                                        'analyze_wildcard' => true,
                                     ],
                                 ],
                                 'filter' => [
@@ -140,8 +144,12 @@ class SearchRequestFactoryTest extends TestCase {
                                 'must'   => [
                                     'query_string' => [
                                         'query'            => '*a\\[b\\]c*',
-                                        'fields'           => ['properties.*'],
+                                        'fields'           => [
+                                            Configuration::getPropertyName('a'),
+                                            Configuration::getPropertyName('a.keyword'),
+                                        ],
                                         'default_operator' => 'AND',
+                                        'analyze_wildcard' => true,
                                     ],
                                 ],
                                 'filter' => [
@@ -228,9 +236,11 @@ class SearchRequestFactoryTest extends TestCase {
             'query_string' => [
                 'query'            => '*',
                 'fields'           => [
-                    Configuration::getPropertyName('*'),
+                    Configuration::getPropertyName('a'),
+                    Configuration::getPropertyName('a.keyword'),
                 ],
                 'default_operator' => 'AND',
+                'analyze_wildcard' => true,
             ],
         ];
 
@@ -404,9 +414,10 @@ class SearchRequestFactoryTest extends TestCase {
                     $builder->orderBy(Configuration::getPropertyName('key.b'), 'desc');
 
                     return [
+                        'a'   => new Text('a', true),
                         'key' => [
-                            'a' => new Uuid('a', true),
-                            'b' => new Text('b', true),
+                            'a' => new Uuid('a', false),
+                            'b' => new Text('b', false),
                         ],
                     ];
                 },
