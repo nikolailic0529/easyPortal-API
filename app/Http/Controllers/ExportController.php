@@ -193,8 +193,13 @@ class ExportController extends Controller {
         foreach (array_keys($item) as $key) {
             if (is_array($item[$key])) {
                 // relation key with values
-                foreach ($item[$key] as $subKey => $subValue) {
-                    $keys["{$key}.{$subKey}"] = $this->formatHeader($key).' '.$this->formatHeader($subKey);
+                if (Arr::isAssoc($item[$key])) {
+                    foreach ($item[$key] as $subKey => $subValue) {
+                        $keys["{$key}.{$subKey}"] = $this->formatHeader($key).' '.$this->formatHeader($subKey);
+                    }
+                } else {
+                    // Array of values
+                    $keys[$key] = $this->formatHeader($key);
                 }
             } else {
                 // Direct table column
