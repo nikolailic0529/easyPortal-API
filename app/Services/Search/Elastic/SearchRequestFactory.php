@@ -12,14 +12,19 @@ use Laravel\Scout\Builder;
 use Laravel\Scout\Builder as ScoutBuilder;
 use LogicException;
 
+use function array_map;
+use function implode;
 use function is_array;
 use function key;
 use function mb_substr;
 use function preg_replace;
+use function preg_split;
 use function reset;
 use function sprintf;
 use function str_ends_with;
 use function str_starts_with;
+
+use const PREG_SPLIT_NO_EMPTY;
 
 class SearchRequestFactory extends BaseSearchRequestFactory {
     /**
@@ -114,8 +119,9 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
             /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $model */
             $model                                 = $builder->model;
             $query['bool']['must']['query_string'] = [
-                'query'  => $this->escapeQueryString($query['bool']['must']['query_string']['query']),
-                'fields' => $model->getSearchConfiguration()->getSearchable(),
+                'query'            => $this->prepareQueryString($query['bool']['must']['query_string']['query']),
+                'fields'           => $model->getSearchConfiguration()->getSearchable(),
+                'default_operator' => 'AND',
             ];
         }
 
@@ -193,12 +199,30 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
         return $sort ?: null;
     }
 
+    protected function prepareQueryString(string $string): string {
+        if (str_starts_with($string, '"') && str_ends_with($string, '"')) {
+            // Exact phrase
+            $string = '"'.mb_substr($this->escapeQueryString($string), 2, -2).'"';
+        } elseif ($string === '*') {
+            // as is
+        } else {
+            // Wildcard words
+            $words  = preg_split('/\s+/', $string, -1, PREG_SPLIT_NO_EMPTY);
+            $words  = array_map(function (string $word): string {
+                return "*{$this->escapeQueryString($word)}*";
+            }, $words);
+            $string = implode(' ', $words);
+        }
+
+        return $string;
+    }
+
     protected function escapeQueryString(string $string): string {
         // https://github.com/elastic/elasticsearch-php/issues/620#issuecomment-901727162
-        $string = preg_replace(
+        return preg_replace(
             [
-                '_[<>]+_',                                     // cannot be escaped
-                '_[-+=!(){}[\]^"~?:\\/\\\\]|&(?=&)|\|(?=\|)_', // special characters (* is not escaped because allowed)
+                '_[<>]+_',
+                '_[-+=!(){}[\]^"~*?:\\/\\\\]|&(?=&)|\|(?=\|)_',
             ],
             [
                 '',
@@ -206,13 +230,5 @@ class SearchRequestFactory extends BaseSearchRequestFactory {
             ],
             $string,
         );
-
-        if (str_starts_with($string, '\\"') && str_ends_with($string, '\\"')) {
-            $string = '"'.mb_substr($string, 2, -2).'"';
-        } else {
-            $string = preg_replace('_(?<!\\\\)\\\\\\\\[*]_', '\\*', $string);
-        }
-
-        return $string;
     }
 }

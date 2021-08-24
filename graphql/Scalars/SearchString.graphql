@@ -1,12 +1,10 @@
 """
-Search string.
+The `SearchString` scalar type represents textual data, represented as UTF-8
+character sequences. It is designed specially to search and supports
+the simple syntax:
 
-Supported operators:
-- `*` match any characters (`abc*` => `abcd`, `abcde`, etc);
-- `"phrase"` match exact phrase (string must start and end with `"`)
-
-Notes:
-- Following characters will be removed: `<`, `>`;
-- `\` can be used to escape special characters;
+- `*`: matches all objects;
+- `abc cde`: wildcard search for `abc` and `cde`;
+- `"abc cde"`: exact phrase search;
 """
 scalar SearchString @scalar(class: "GraphQL\\Type\\Definition\\StringType")

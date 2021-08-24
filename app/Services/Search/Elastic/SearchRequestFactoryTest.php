@@ -121,8 +121,9 @@ class SearchRequestFactoryTest extends TestCase {
                             'bool' => [
                                 'must'   => [
                                     'query_string' => [
-                                        'query'  => 'a\\[b\\]c',
-                                        'fields' => ['properties.*'],
+                                        'query'            => '*a\\[b\\]c*',
+                                        'fields'           => ['properties.*'],
+                                        'default_operator' => 'AND',
                                     ],
                                 ],
                                 'filter' => [
@@ -138,8 +139,9 @@ class SearchRequestFactoryTest extends TestCase {
                             'bool' => [
                                 'must'   => [
                                     'query_string' => [
-                                        'query'  => 'a\\[b\\]c',
-                                        'fields' => ['properties.*'],
+                                        'query'            => '*a\\[b\\]c*',
+                                        'fields'           => ['properties.*'],
+                                        'default_operator' => 'AND',
                                     ],
                                 ],
                                 'filter' => [
@@ -181,20 +183,38 @@ class SearchRequestFactoryTest extends TestCase {
     }
 
     /**
-     * @covers ::escapeQueryString
+     * @covers ::prepareQueryString
      *
      * @dataProvider dataProviderEscapeQueryString
      */
-    public function testEscapeQueryString(string $expected, string $query): void {
+    public function testPrepareQueryString(string $expected, string $query): void {
         $this->assertEquals($expected, (new class() extends SearchRequestFactory {
             public function __construct() {
                 // empty
             }
 
-            public function escapeQueryString(string $string): string {
-                return parent::escapeQueryString($string);
+            public function prepareQueryString(string $string): string {
+                return parent::prepareQueryString($string);
             }
-        })->escapeQueryString($query));
+        })->prepareQueryString($query));
+    }
+
+    /**
+     * @covers ::escapeQueryString
+     */
+    public function testEscapeQueryString(): void {
+        $this->assertEquals(
+            '\\"te\\-xt \\(with\\)\\! \\{special\\} \\* \\&& \\/characters\\?\\\\\\"',
+            (new class() extends SearchRequestFactory {
+                public function __construct() {
+                    // empty
+                }
+
+                public function escapeQueryString(string $string): string {
+                    return parent::escapeQueryString($string);
+                }
+            })->escapeQueryString('"<te-xt>>> (with)! {special} * && /characters?\\"'),
+        );
     }
     // </editor-fold>
 
@@ -206,10 +226,11 @@ class SearchRequestFactoryTest extends TestCase {
     public function dataProviderMakeFromBuilder(): array {
         $must = [
             'query_string' => [
-                'query'  => '*',
-                'fields' => [
+                'query'            => '*',
+                'fields'           => [
                     Configuration::getPropertyName('*'),
                 ],
+                'default_operator' => 'AND',
             ],
         ];
 
@@ -398,21 +419,17 @@ class SearchRequestFactoryTest extends TestCase {
      */
     public function dataProviderEscapeQueryString(): array {
         return [
-            'simple'       => [
-                'te\\-xt \\(with\\)\\! \\{special\\} \\&& \\/characters\\?\\\\',
-                '<te-xt>>> (with)! {special} && /characters?\\',
+            '*'            => [
+                '*',
+                '*',
             ],
-            'wildcard'     => [
-                'wildcard * allowed',
-                'wildcard * allowed',
+            'simple'       => [
+                '*te\\-xt* *\\(with\\)\\!* *\\{special\\}* *\\** *\\&&* *\\/characters\\?\\\\*',
+                '<te-xt>>> (with)! {special} * && /characters?\\',
             ],
             'exact phrase' => [
                 '"exact \\(with\\)\\! phrase"',
                 '"exact <(with)!> phrase"',
-            ],
-            'escaping'     => [
-                'star can be \\* escaped, more complex \\\\\\\\*',
-                'star can be \\* escaped, more complex \\\\*',
             ],
         ];
     }
