@@ -5,7 +5,7 @@ type Asset {
   type_id: ID
   customer_id: ID
   location_id: ID
-  reseller_id: ID!
+  reseller_id: ID
   serial_number: String
   customer: Customer @belongsTo
   location: Location @belongsTo
@@ -13,7 +13,7 @@ type Asset {
   product: Product! @belongsTo
   type: Type @belongsTo
   warranties: [AssetWarranty!]! @hasMany(relation: "contractWarranties")
-  reseller: Reseller! @belongsTo
+  reseller: Reseller @belongsTo
   status: Status @belongsTo
   contacts: [Contact!]! @morphMany
   contacts_count: Int!

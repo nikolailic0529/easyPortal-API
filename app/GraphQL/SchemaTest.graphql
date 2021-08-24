@@ -220,7 +220,7 @@ type Asset {
   type_id: ID
   customer_id: ID
   location_id: ID
-  reseller_id: ID!
+  reseller_id: ID
   serial_number: String
   customer: Customer
   location: Location
@@ -228,7 +228,7 @@ type Asset {
   product: Product!
   type: Type
   warranties: [AssetWarranty!]!
-  reseller: Reseller!
+  reseller: Reseller
   status: Status
   contacts: [Contact!]!
   contacts_count: Int!
