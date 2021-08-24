@@ -2,7 +2,6 @@
 
 namespace App\Services\Logger;
 
-use App\Services\Audit\Listeners\Audit;
 use App\Services\Logger\Listeners\DatabaseListener;
 use App\Services\Logger\Listeners\DataLoaderListener;
 use App\Services\Logger\Listeners\EloquentListener;
@@ -37,7 +36,6 @@ class Provider extends ServiceProvider {
             $dispatcher->subscribe(DatabaseListener::class);
             $dispatcher->subscribe(EloquentListener::class);
             $dispatcher->subscribe(DataLoaderListener::class);
-            $dispatcher->subscribe(Audit::class);
         });
     }
 }
