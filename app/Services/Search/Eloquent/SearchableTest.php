@@ -73,6 +73,8 @@ class SearchableTest extends TestCase {
 
     /**
      * @covers ::toSearchableArray
+     * @covers ::toSearchableArrayValue
+     * @covers ::toSearchableArrayCleanup
      */
     public function testToSearchableArray(): void {
         // Prepare
@@ -92,9 +94,19 @@ class SearchableTest extends TestCase {
              */
             protected static function getSearchProperties(): array {
                 return [
-                    'sku' => new Text('sku'),
-                    'oem' => [
+                    'sku'            => new Text('sku'),
+                    'oem'            => [
                         'id' => new Uuid('oem.id'),
+                    ],
+                    'unknown'        => [
+                        'id' => new Uuid('oem.unknown'),
+                    ],
+                    'unknown_nested' => [
+                        'null'    => new Uuid('oem.unknown'),
+                        'oem_id'  => new Uuid('oem.id'),
+                        'unknown' => [
+                            'id' => new Uuid('oem.unknown'),
+                        ],
                     ],
                 ];
             }
@@ -129,16 +141,21 @@ class SearchableTest extends TestCase {
                 'sku' => $sku,
             ],
             Configuration::getPropertyName() => [
-                'sku' => $sku,
-                'oem' => [
+                'sku'            => $sku,
+                'oem'            => [
                     'id' => $oem->getKey(),
+                ],
+                'unknown'        => null,
+                'unknown_nested' => [
+                    'null'    => null,
+                    'oem_id'  => $oem->getKey(),
+                    'unknown' => null,
                 ],
             ],
         ];
 
         $this->assertEquals($expected, $actual);
     }
-
 
     /**
      * @covers ::makeAllSearchable

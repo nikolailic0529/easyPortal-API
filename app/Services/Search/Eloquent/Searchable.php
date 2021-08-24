@@ -24,6 +24,7 @@ use function array_intersect;
 use function array_keys;
 use function array_walk_recursive;
 use function count;
+use function is_array;
 use function is_iterable;
 use function is_null;
 use function is_scalar;
@@ -129,6 +130,9 @@ trait Searchable {
                 : $value;
         });
 
+        // Remove empty nodes
+        $properties = $this->toSearchableArrayCleanup($properties);
+
         // Return
         return $properties;
     }
@@ -172,6 +176,35 @@ trait Searchable {
 
     // <editor-fold desc="Helpers">
     // =========================================================================
+    /**
+     * @template T
+     *
+     * @param array<string, T> $properties
+     *
+     * @return array<string, T|null>
+     */
+    protected function toSearchableArrayCleanup(array $properties): array {
+        foreach ($properties as $property => $value) {
+            // Node?
+            if (!is_array($value)) {
+                continue;
+            }
+
+            // Nested
+            $value = $this->toSearchableArrayCleanup($value);
+
+            // Empty? Remove
+            $nulls                 = array_filter($value, static function (mixed $value): bool {
+                return $value === null;
+            });
+            $properties[$property] = count($nulls) !== count($value)
+                ? $value
+                : null;
+        }
+
+        return $properties;
+    }
+
     protected function toSearchableValue(mixed $value): mixed {
         if ($value instanceof CarbonInterface) {
             $value = $value->toJSON();
