@@ -8,6 +8,9 @@ use App\Services\Search\Updater;
 use Config\Constants;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 
+/**
+ * Updates search index for Documents (Contracts/Quotes).
+ */
 class DocumentsUpdaterCronJob extends UpdateIndexCronJob {
     public function displayName(): string {
         return 'ep-search-documents-updater';

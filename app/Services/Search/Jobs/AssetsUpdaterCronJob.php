@@ -8,6 +8,9 @@ use App\Services\Search\Updater;
 use Config\Constants;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 
+/**
+ * Updates search index for Assets.
+ */
 class AssetsUpdaterCronJob extends UpdateIndexCronJob {
     public function displayName(): string {
         return 'ep-search-assets-updater';
