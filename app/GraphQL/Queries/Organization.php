@@ -8,7 +8,7 @@ use App\Services\KeyCloak\Client\Client;
 use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\RootOrganization;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 use function array_key_exists;
@@ -95,7 +95,7 @@ class Organization {
         })->values()->all();
     }
 
-    public function audits(ModelsOrganization $organization): HasMany {
-        return $organization->audits();
+    public function audits(ModelsOrganization $organization): Builder {
+        return $organization->audits()->getQuery();
     }
 }
