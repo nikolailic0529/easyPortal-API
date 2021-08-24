@@ -1975,7 +1975,7 @@ type Query {
   User must be authenticated and have any of these permissions.
   """
   search(
-    search: String!
+    search: SearchString!
 
     """Limits number of fetched items. Maximum allowed value: 100."""
     first: Int = 25
@@ -2008,7 +2008,7 @@ type Query {
   @require <me(["customers-view"])> User must be authenticated and have any of these permissions.
   """
   customersSearch(
-    search: String!
+    search: SearchString!
     order: [SortByClauseCustomersSearchSort!]
 
     """Limits number of fetched items. Maximum allowed value: 100."""
@@ -2042,7 +2042,7 @@ type Query {
   @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
   """
   assetsSearch(
-    search: String!
+    search: SearchString!
     order: [SortByClauseAssetsSearchSort!]
 
     """Limits number of fetched items. Maximum allowed value: 100."""
@@ -4347,6 +4347,17 @@ type SearchResultPaginator {
   """A list of SearchResult items."""
   data: [SearchResult!]!
 }
+
+"""
+The `SearchString` scalar type represents textual data, represented as UTF-8
+character sequences. It is designed specially to search and supports
+the simple syntax:
+
+- `*`: matches all objects;
+- `abc cde`: wildcard search for `abc` and `cde`;
+- `"abc cde"`: exact phrase search;
+"""
+scalar SearchString
 
 input SendResetPasswordLinkInput {
   email: String!

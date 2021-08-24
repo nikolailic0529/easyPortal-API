@@ -5,7 +5,6 @@ namespace App\Services\Queue\Concerns;
 use App\Services\Queue\Exceptions\JobStopped as JobStoppedException;
 use App\Services\Queue\Pinger;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Queue\Job;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -33,7 +32,7 @@ trait PingableJob {
         return $this;
     }
 
-    final public function handle(Container $container, Dispatcher $dispatcher, Pinger $pinger): void {
+    final public function handle(Container $container, Pinger $pinger): void {
         try {
             $this->setPinger($pinger)->ping();
             $container->call($this);

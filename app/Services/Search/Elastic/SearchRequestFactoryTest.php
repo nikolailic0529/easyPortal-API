@@ -63,7 +63,7 @@ class SearchRequestFactoryTest extends TestCase {
         // Prepare
         $model   = new UnionModel();
         $builder = $this->app->make(UnionBuilder::class, [
-            'query' => 'abc',
+            'query' => 'a[b]c',
             'model' => $model,
         ]);
         $a       = new class() extends Model {
@@ -120,10 +120,14 @@ class SearchRequestFactoryTest extends TestCase {
                         [
                             'bool' => [
                                 'must'   => [
-                                    'simple_query_string' => [
-                                        'query'  => 'abc',
-                                        'flags'  => 'AND|ESCAPE|NOT|OR|PHRASE|PRECEDENCE|WHITESPACE',
-                                        'fields' => ['properties.*'],
+                                    'query_string' => [
+                                        'query'            => '*a\\[b\\]c*',
+                                        'fields'           => [
+                                            Configuration::getPropertyName('a'),
+                                            Configuration::getPropertyName('a.keyword'),
+                                        ],
+                                        'default_operator' => 'AND',
+                                        'analyze_wildcard' => true,
                                     ],
                                 ],
                                 'filter' => [
@@ -138,10 +142,14 @@ class SearchRequestFactoryTest extends TestCase {
                         [
                             'bool' => [
                                 'must'   => [
-                                    'simple_query_string' => [
-                                        'query'  => 'abc',
-                                        'flags'  => 'AND|ESCAPE|NOT|OR|PHRASE|PRECEDENCE|WHITESPACE',
-                                        'fields' => ['properties.*'],
+                                    'query_string' => [
+                                        'query'            => '*a\\[b\\]c*',
+                                        'fields'           => [
+                                            Configuration::getPropertyName('a'),
+                                            Configuration::getPropertyName('a.keyword'),
+                                        ],
+                                        'default_operator' => 'AND',
+                                        'analyze_wildcard' => true,
                                     ],
                                 ],
                                 'filter' => [
@@ -181,6 +189,41 @@ class SearchRequestFactoryTest extends TestCase {
 
         $this->assertEquals($expected, $actual);
     }
+
+    /**
+     * @covers ::prepareQueryString
+     *
+     * @dataProvider dataProviderEscapeQueryString
+     */
+    public function testPrepareQueryString(string $expected, string $query): void {
+        $this->assertEquals($expected, (new class() extends SearchRequestFactory {
+            public function __construct() {
+                // empty
+            }
+
+            public function prepareQueryString(string $string): string {
+                return parent::prepareQueryString($string);
+            }
+        })->prepareQueryString($query));
+    }
+
+    /**
+     * @covers ::escapeQueryString
+     */
+    public function testEscapeQueryString(): void {
+        $this->assertEquals(
+            '\\"te\\-xt \\(with\\)\\! \\{special\\} \\* \\&& \\/characters\\?\\\\\\"',
+            (new class() extends SearchRequestFactory {
+                public function __construct() {
+                    // empty
+                }
+
+                public function escapeQueryString(string $string): string {
+                    return parent::escapeQueryString($string);
+                }
+            })->escapeQueryString('"<te-xt>>> (with)! {special} * && /characters?\\"'),
+        );
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -190,12 +233,14 @@ class SearchRequestFactoryTest extends TestCase {
      */
     public function dataProviderMakeFromBuilder(): array {
         $must = [
-            'simple_query_string' => [
-                'query'  => '*',
-                'flags'  => 'AND|ESCAPE|NOT|OR|PHRASE|PRECEDENCE|WHITESPACE',
-                'fields' => [
-                    Configuration::getPropertyName('*'),
+            'query_string' => [
+                'query'            => '*',
+                'fields'           => [
+                    Configuration::getPropertyName('a'),
+                    Configuration::getPropertyName('a.keyword'),
                 ],
+                'default_operator' => 'AND',
+                'analyze_wildcard' => true,
             ],
         ];
 
@@ -369,12 +414,33 @@ class SearchRequestFactoryTest extends TestCase {
                     $builder->orderBy(Configuration::getPropertyName('key.b'), 'desc');
 
                     return [
+                        'a'   => new Text('a', true),
                         'key' => [
-                            'a' => new Uuid('a', true),
-                            'b' => new Text('b', true),
+                            'a' => new Uuid('a', false),
+                            'b' => new Text('b', false),
                         ],
                     ];
                 },
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, array{string, string}>
+     */
+    public function dataProviderEscapeQueryString(): array {
+        return [
+            '*'            => [
+                '*',
+                '*',
+            ],
+            'simple'       => [
+                '*te\\-xt* *\\(with\\)\\!* *\\{special\\}* *\\** *\\&&* *\\/characters\\?\\\\*',
+                '<te-xt>>> (with)! {special} * && /characters?\\',
+            ],
+            'exact phrase' => [
+                '"exact \\(with\\)\\! phrase"',
+                '"exact <(with)!> phrase"',
             ],
         ];
     }

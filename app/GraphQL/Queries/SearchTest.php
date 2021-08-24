@@ -64,7 +64,7 @@ class SearchTest extends TestCase {
             ->graphQL(
             /** @lang GraphQL */
                 <<<'GRAPHQL'
-                query search($search: String!) {
+                query search($search: SearchString!) {
                     search(search: $search) {
                         data {
                             __typename

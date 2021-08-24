@@ -168,7 +168,7 @@ type Query {
   # Search
   # ============================================================================
   search(
-    search: String!
+    search: SearchString!
     @search
     @builder(method: "App\\GraphQL\\Queries\\Search")
   ): [SearchResult!]!
@@ -197,7 +197,7 @@ type Query {
   @field(resolver: "App\\GraphQL\\Queries\\CustomersAggregate")
 
   customersSearch(
-    search: String! @search
+    search: SearchString! @search
     order: CustomersSearchSort @sortBy
   ): [Customer!]!
   @organization
@@ -235,7 +235,7 @@ type Query {
   @field(resolver: "App\\GraphQL\\Queries\\AssetsAggregate")
 
   assetsSearch(
-    search: String! @search
+    search: SearchString! @search
     order: AssetsSearchSort @sortBy
   ): [Asset!]!
   @organization

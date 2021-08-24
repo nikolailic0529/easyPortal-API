@@ -12,18 +12,13 @@ use LogicException;
 use function array_filter;
 use function array_key_exists;
 use function array_keys;
-use function array_map;
 use function array_merge;
 use function array_walk_recursive;
-use function count;
-use function explode;
 use function implode;
 use function is_array;
 use function json_encode;
 use function sha1;
-use function sort;
 use function sprintf;
-use function str_ends_with;
 use function str_starts_with;
 
 class Configuration {
@@ -86,56 +81,59 @@ class Configuration {
      * @return array<string>
      */
     public function getSearchable(): array {
-        return $this->getSearchableProcess($this->getProperties()) ?: [''];
+        // Convert into flat array: ['properties.id` => new Property(), 'properties.name` => new Property()]
+        $properties = $this->getSearchableProcess($this->getProperties());
+        $searchable = array_filter($properties, static function (?Property $property): bool {
+            return (bool) $property?->isSearchable();
+        });
+
+        // Empty?
+        if (!$searchable) {
+            return [''];
+        }
+
+        // All?
+        if (array_keys($properties) === array_keys($searchable)) {
+            return ['*'];
+        }
+
+        // Convert
+        $names = [];
+
+        foreach ($searchable as $name => $property) {
+            /** @var \App\Services\Search\Properties\Property $property */
+            $names[] = $name;
+
+            if ($property->hasKeyword()) {
+                $names[] = "{$name}.keyword";
+            }
+        }
+
+        // Return
+        return $names;
     }
 
     /**
      * @param array<string,\App\Services\Search\Properties\Property|mixed> $properties
      *
-     * @return array<string>
+     * @return array<string,\App\Services\Search\Properties\Property|null>
      */
     protected function getSearchableProcess(array $properties, string $prefix = null): array {
-        // Process
-        $searchable = [];
+        $flat = [];
 
         foreach ($properties as $name => $property) {
+            $key = $prefix ? "{$prefix}.{$name}" : $name;
+
             if ($property instanceof Property) {
-                if ($property->isSearchable()) {
-                    $searchable[] = $name;
-                }
+                $flat[$key] = $property;
             } elseif (is_array($property)) {
-                $searchable = array_merge($searchable, $this->getSearchableProcess($property, $name));
+                $flat = array_merge($flat, $this->getSearchableProcess($property, $key) ?: [$key => null]);
             } else {
                 // ignore
             }
         }
 
-        // All properties searchable
-        $keys  = array_keys($properties);
-        $names = (new Collection($searchable))
-            ->map(static function (string $name): string {
-                return str_ends_with($name, '.*')
-                    ? explode('.', $name, 2)[0]
-                    : $name;
-            })
-            ->all();
-
-        sort($keys);
-        sort($names);
-
-        if ($keys === $names) {
-            $searchable = count($keys) > 0 ? ['*'] : [];
-        }
-
-        // Add prefix
-        if ($prefix) {
-            $searchable = array_map(static function (string $name) use ($prefix): string {
-                return "{$prefix}.{$name}";
-            }, $searchable);
-        }
-
-        // Return
-        return $searchable;
+        return $flat;
     }
 
     public function getProperty(string $name): ?Property {

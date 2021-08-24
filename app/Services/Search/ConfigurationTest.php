@@ -402,7 +402,8 @@ class ConfigurationTest extends TestCase {
             ],
             'no searchable + metadata searchable' => [
                 [
-                    Configuration::getMetadataName('*'),
+                    Configuration::getMetadataName('m'),
+                    Configuration::getMetadataName('m.keyword'),
                 ],
                 [
                     'm' => new Text('m', true),
@@ -430,10 +431,23 @@ class ConfigurationTest extends TestCase {
                     ],
                 ],
             ],
+            'all searchable + no metadata'        => [
+                [
+                    Configuration::getPropertyName('a'),
+                ],
+                [
+                    // empty
+                ],
+                [
+                    'a' => new Uuid('a', true),
+                ],
+            ],
             'mixed one'                           => [
                 [
-                    Configuration::getMetadataName('*'),
+                    Configuration::getMetadataName('m'),
+                    Configuration::getMetadataName('m.keyword'),
                     Configuration::getPropertyName('b.b'),
+                    Configuration::getPropertyName('b.b.keyword'),
                 ],
                 [
                     'm' => new Text('m', true),
@@ -448,7 +462,10 @@ class ConfigurationTest extends TestCase {
             ],
             'mixed two'                           => [
                 [
-                    Configuration::getPropertyName('b.*'),
+                    Configuration::getPropertyName('b.a'),
+                    Configuration::getPropertyName('b.a.keyword'),
+                    Configuration::getPropertyName('b.b'),
+                    Configuration::getPropertyName('b.b.keyword'),
                 ],
                 [
                     // empty
@@ -469,7 +486,7 @@ class ConfigurationTest extends TestCase {
                     // empty
                 ],
                 [
-                    'a' => new Text('a', true),
+                    'a' => new Uuid('a', true),
                     'b' => [
                         'a' => new Text('a'),
                         'b' => new Text('a'),
@@ -485,9 +502,9 @@ class ConfigurationTest extends TestCase {
                     // empty
                 ],
                 [
-                    'a' => new Text('a', true),
+                    'a' => new Uuid('a', true),
                     'b' => [
-                        'a' => new Text('a', true),
+                        'a' => new Uuid('a', true),
                         'b' => new Text('a'),
                     ],
                 ],
