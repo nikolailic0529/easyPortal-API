@@ -37,6 +37,6 @@ type Organization {
   ): [Audit!]!
   @me(permissions: ["administer", "org-administer"])
   @paginate(
-    model: "App\\Models\\Audits\\Audit"
+    builder: "App\\GraphQL\\Queries\\Organization@audits"
   )
 }
