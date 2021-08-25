@@ -100,10 +100,13 @@ class Updater {
             foreach ($iterator as $item) {
                 /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $item */
                 try {
-                    $isSoftDeletableModel   = (new ModelHelper($item))->isSoftDeletable();
-                    $isSoftDeletableIndexed = (bool) $this->getConfig()->get('scout.soft_delete', false);
+                    $isTrashed                   = $item->trashed();
+                    $isUnsearchable              = !$item->shouldBeSearchable();
+                    $isSoftDeletableModel        = (new ModelHelper($item))->isSoftDeletable();
+                    $isSoftDeletableIndexed      = (bool) $this->getConfig()->get('scout.soft_delete', false);
+                    $isSoftDeletableUnsearchable = $isSoftDeletableModel && !$isSoftDeletableIndexed && $isTrashed;
 
-                    if ($isSoftDeletableModel && !$isSoftDeletableIndexed && $item->trashed()) {
+                    if ($isUnsearchable || $isSoftDeletableUnsearchable) {
                         $item->setSearchableAs($index)->unsearchable();
                     } else {
                         $item->setSearchableAs($index)->searchable();

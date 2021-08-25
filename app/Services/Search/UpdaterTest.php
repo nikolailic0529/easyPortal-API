@@ -8,12 +8,15 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Text;
 use Closure;
+use Database\Factories\AssetFactory;
 use DateTimeInterface;
 use Elasticsearch\Client;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
@@ -124,6 +127,12 @@ class UpdaterTest extends TestCase {
             );
 
         // Test
+        $expected = $expected
+            ->filter(static function (Model $model): bool {
+                return $model->shouldBeSearchable();
+            })
+            ->values();
+
         if (!$this->app->make(Repository::class)->get('scout.soft_delete', false)) {
             $expected = $expected
                 ->filter(static function (Model $model): bool {
@@ -669,6 +678,23 @@ class UpdaterTest extends TestCase {
                     '3ea13c8b-b024-44c7-94ec-3877f5785152',
                 ],
             ],
+            'unsearchable models'                               => [
+                static function (TestCase $test): Collection {
+                    $a = UpdaterTest_UnsearchableAsset::factory()->create([
+                        'id' => '3a25b90c-9022-4eea-a3f5-be5285152794',
+                    ]);
+
+                    // Return
+                    return new Collection([$a]);
+                },
+                [
+                    // empty
+                ],
+                UpdaterTest_UnsearchableAsset::class,
+                null,
+                null,
+                null,
+            ],
         ];
     }
 
@@ -736,3 +762,47 @@ class UpdaterTest extends TestCase {
     }
     // </editor-fold>
 }
+
+// @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+// @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class UpdaterTest_UnsearchableAsset extends Asset {
+    /**
+     * @param array<string,mixed> $attributes
+     */
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
+
+        Relation::morphMap([
+            'UpdaterTest_UnsearchableAsset' => $this::class,
+        ]);
+    }
+
+    public function shouldBeSearchable(): bool {
+        return false;
+    }
+
+    protected static function newFactory(): Factory {
+        return new UpdaterTest_UnsearchableAssetFactory();
+    }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class UpdaterTest_UnsearchableAssetFactory extends AssetFactory {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var string
+     */
+    protected $model = UpdaterTest_UnsearchableAsset::class;
+}
+// @phpcs:enable
