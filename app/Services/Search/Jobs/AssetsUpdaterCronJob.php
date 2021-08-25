@@ -5,7 +5,6 @@ namespace App\Services\Search\Jobs;
 use App\Models\Asset;
 use App\Services\Search\Service;
 use App\Services\Search\Updater;
-use Config\Constants;
 use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 
 /**
@@ -14,17 +13,6 @@ use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 class AssetsUpdaterCronJob extends UpdateIndexCronJob {
     public function displayName(): string {
         return 'ep-search-assets-updater';
-    }
-
-    /**
-     * @return array<mixed>
-     */
-    public function getQueueConfig(): array {
-        return [
-                'settings' => [
-                    'chunk' => Constants::EP_SEARCH_ASSETS_UPDATER_CHUNK,
-                ],
-            ] + parent::getQueueConfig();
     }
 
     public function __invoke(

@@ -20,17 +20,6 @@ use Throwable;
  */
 abstract class UpdateIndexCronJob extends CronJob implements Progressable {
     /**
-     * @return array<mixed>
-     */
-    public function getQueueConfig(): array {
-        return [
-                'settings' => [
-                    'chunk' => null,
-                ],
-            ] + parent::getQueueConfig();
-    }
-
-    /**
      * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
      */
     protected function process(
@@ -42,7 +31,6 @@ abstract class UpdateIndexCronJob extends CronJob implements Progressable {
         $config   = $configurator->config($this);
         $state    = $this->getState($service) ?: $this->getDefaultState($config);
         $from     = Date::make($state->from);
-        $chunk    = $config->setting('chunk');
         $continue = $state->continue;
 
         $updater
@@ -56,7 +44,7 @@ abstract class UpdateIndexCronJob extends CronJob implements Progressable {
             ->onFinish(function () use ($service): void {
                 $this->resetState($service);
             })
-            ->update($model, $from, $continue, $chunk);
+            ->update($model, $from, $continue);
     }
 
     protected function getDefaultState(QueueableConfig $config): UpdateIndexState {
