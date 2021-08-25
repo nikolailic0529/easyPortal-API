@@ -46,6 +46,7 @@ class UpdaterTest extends TestCase {
      * @param array<string, mixed>                                                                       $settings
      * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
      * @param \Closure(\Tests\TestCase): ?\DateTimeInterface|null                                        $from
+     * @param array<string|int>|null                                                                     $ids
      */
     public function testUpdate(
         Closure $expected,
@@ -53,6 +54,7 @@ class UpdaterTest extends TestCase {
         string $model,
         Closure $from = null,
         string $continue = null,
+        array $ids = null,
     ): void {
         // Settings
         $this->setSettings($settings);
@@ -118,6 +120,7 @@ class UpdaterTest extends TestCase {
                 $from,
                 $continue,
                 $chunk,
+                $ids,
             );
 
         // Test
@@ -158,6 +161,7 @@ class UpdaterTest extends TestCase {
      * @param array<string, mixed>                                                                       $settings
      * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
      * @param \Closure(\Tests\TestCase): ?\DateTimeInterface|null                                        $from
+     * @param array<string|int>|null                                                                     $ids
      */
     public function testGetIterator(
         Closure $expected,
@@ -165,6 +169,7 @@ class UpdaterTest extends TestCase {
         string $model,
         Closure $from = null,
         string $continue = null,
+        array $ids = null,
     ): void {
         // Settings
         $this->setSettings($settings);
@@ -186,8 +191,8 @@ class UpdaterTest extends TestCase {
         $from     = $from ? $from($this) : null;
         $actual   = $this->callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
-            static function () use ($updater, $model, $from, $continue): Collection {
-                return (new Collection($updater->getIterator($model, $from, null, $continue)))
+            static function () use ($updater, $model, $from, $continue, $ids): Collection {
+                return (new Collection($updater->getIterator($model, $from, null, $continue, $ids)))
                     ->map(static function (Model $model): Model {
                         return $model->withoutRelations();
                     });
@@ -239,7 +244,7 @@ class UpdaterTest extends TestCase {
         // Test
         $this->assertInstanceOf(
             ChunkedChangeSafeIterator::class,
-            $updater->getIterator(Model::class, null, null, null),
+            $updater->getIterator(Model::class, null, null, null, null),
         );
     }
 
@@ -252,6 +257,7 @@ class UpdaterTest extends TestCase {
      * @param array<string, mixed>                                                                       $settings
      * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
      * @param \Closure(\Tests\TestCase): ?\DateTimeInterface|null                                        $from
+     * @param array<string|int>|null                                                                     $ids
      */
     public function testGetBuilder(
         Closure $expected,
@@ -259,6 +265,7 @@ class UpdaterTest extends TestCase {
         string $model,
         Closure $from = null,
         string $continue = null,
+        array $ids = null
     ): void {
         // Settings
         $this->setSettings($settings);
@@ -273,8 +280,8 @@ class UpdaterTest extends TestCase {
         $from     = $from ? $from($this) : null;
         $actual   = $this->callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
-            static function () use ($updater, $model, $from): Collection {
-                return $updater->getBuilder($model, $from)->get()->toBase();
+            static function () use ($updater, $model, $from, $ids): Collection {
+                return $updater->getBuilder($model, $from, $ids)->get()->toBase();
             },
         );
 
@@ -290,6 +297,7 @@ class UpdaterTest extends TestCase {
      * @param array<string, mixed>                                                                       $settings
      * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
      * @param \Closure(\Tests\TestCase): ?\DateTimeInterface|null                                        $from
+     * @param array<string|int>|null                                                                     $ids
      */
     public function testGetTotal(
         Closure $expected,
@@ -297,6 +305,7 @@ class UpdaterTest extends TestCase {
         string $model,
         Closure $from = null,
         string $continue = null,
+        array $ids = null,
     ): void {
         // Settings
         $this->setSettings($settings);
@@ -311,8 +320,8 @@ class UpdaterTest extends TestCase {
         $from     = $from ? $from($this) : null;
         $actual   = $this->callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
-            static function () use ($updater, $model, $from): int {
-                return $updater->getTotal($model, $from);
+            static function () use ($updater, $model, $from, $ids): int {
+                return $updater->getTotal($model, $from, $ids);
             },
         );
 
@@ -520,7 +529,7 @@ class UpdaterTest extends TestCase {
                     return Date::now();
                 },
                 '3ea13c8b-b024-44c7-94ec-3877f5785152',
-                2,
+                null,
             ],
             'models without `from` and `continue`'              => [
                 static function (TestCase $test): Collection {
@@ -605,6 +614,33 @@ class UpdaterTest extends TestCase {
                 null,
                 null,
                 null,
+            ],
+            'models with `ids`'                                 => [
+                static function (TestCase $test): Collection {
+                    $a = Asset::factory()->create([
+                        'id' => '3a25b90c-9022-4eea-a3f5-be5285152794',
+                    ]);
+                    $b = Asset::factory()->create([
+                        'id' => '3ea13c8b-b024-44c7-94ec-3877f5785152',
+                    ]);
+
+                    Asset::factory()->create([
+                        'id' => '5dc9b072-c1e2-497e-a2cd-32ae62ee5096',
+                    ]);
+
+                    // Return
+                    return new Collection([$a, $b]);
+                },
+                [
+                    // empty
+                ],
+                Asset::class,
+                null,
+                null,
+                [
+                    '3a25b90c-9022-4eea-a3f5-be5285152794',
+                    '3ea13c8b-b024-44c7-94ec-3877f5785152',
+                ],
             ],
         ];
     }
