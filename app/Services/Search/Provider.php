@@ -39,10 +39,9 @@ class Provider extends ServiceProvider {
         $this->app->afterResolving(
             TypeRegistry::class,
             static function (TypeRegistry $types, Container $container): void {
-                $service   = $container->make(Service::class);
                 $converter = $container->make(ModelConverter::class);
 
-                foreach ($service->getSearchableModels() as $model) {
+                foreach (Service::getSearchableModels() as $model) {
                     foreach ($converter->toInputObjectTypes($model) as $type) {
                         $types->register($type);
                     }

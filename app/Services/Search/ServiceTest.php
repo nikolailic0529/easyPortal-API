@@ -4,6 +4,8 @@ namespace App\Services\Search;
 
 use App\Services\Search\Eloquent\Searchable as SearchSearchable;
 use App\Services\Search\Jobs\UpdateIndexCronJob;
+use Closure;
+use Mockery;
 use ReflectionClass;
 use Tests\Helpers\Models;
 use Tests\TestCase;
@@ -30,11 +32,10 @@ class ServiceTest extends TestCase {
         $expected = array_keys(Models::get(static function (ReflectionClass $model): bool {
             return in_array(SearchSearchable::class, class_uses_recursive($model->getName()), true);
         }));
-        $service  = $this->app->make(Service::class);
-        $actual   = $service->getSearchableModels();
+        $actual   = Service::getSearchableModels();
         $missed   = array_diff($expected, $actual);
-        $invalid  = array_filter($actual, static function (string $model) use ($service): bool {
-            return !is_a($service->getSearchableModelJob($model), UpdateIndexCronJob::class, true);
+        $invalid  = array_filter($actual, static function (string $model): bool {
+            return !is_a(Service::getSearchableModelJob($model), UpdateIndexCronJob::class, true);
         });
 
         $this->assertEmpty(
@@ -46,5 +47,23 @@ class ServiceTest extends TestCase {
             $invalid,
             'Following models has invalid associated Job:'.PHP_EOL.'- '.implode(PHP_EOL.'- ', $invalid).PHP_EOL,
         );
+    }
+
+    /**
+     * @covers ::callWithoutIndexing
+     */
+    public function testCallWithoutIndexing(): void {
+        $model = $this->faker->randomElement(Service::getSearchableModels());
+        $spy   = Mockery::spy(function () use ($model): void {
+            $this->assertFalse($model::isSearchSyncingEnabled());
+        });
+
+        $this->assertTrue($model::isSearchSyncingEnabled());
+
+        Service::callWithoutIndexing(Closure::fromCallable($spy));
+
+        $this->assertTrue($model::isSearchSyncingEnabled());
+
+        $spy->shouldHaveBeenCalled();
     }
 }

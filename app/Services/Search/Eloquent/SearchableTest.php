@@ -475,6 +475,23 @@ class SearchableTest extends TestCase {
             $model->setSearchableAs(null)->searchableAs(),
         );
     }
+
+    /**
+     * @covers ::isSearchSyncingEnabled
+     */
+    public function testIsSearchSyncingEnabled(): void {
+        $model = Mockery::mock(Model::class, Searchable::class)::class;
+
+        $this->assertTrue($model::isSearchSyncingEnabled());
+
+        $model::disableSearchSyncing();
+
+        $this->assertFalse($model::isSearchSyncingEnabled());
+
+        $model::enableSearchSyncing();
+
+        $this->assertTrue($model::isSearchSyncingEnabled());
+    }
     //</editor-fold>
 
     // <editor-fold desc="DataProviders">

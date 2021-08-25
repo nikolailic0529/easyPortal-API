@@ -3,7 +3,6 @@
 namespace App\Services\Search\Jobs;
 
 use App\Models\Asset;
-use App\Services\Search\Service;
 use App\Services\Search\Updater;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Queue;
@@ -20,7 +19,6 @@ class UpdateIndexJobTest extends TestCase {
      */
     public function testInvoke(): void {
         $asset   = (new Asset())->forceFill(['id' => $this->faker->uuid]);
-        $service = $this->app->make(Service::class);
         $updater = Mockery::mock(Updater::class);
         $updater
             ->shouldReceive('isIndexActual')
@@ -38,7 +36,7 @@ class UpdateIndexJobTest extends TestCase {
 
         Queue::fake();
 
-        (new UpdateIndexJob(new Collection([$asset])))($this->app, $service, $updater);
+        (new UpdateIndexJob(new Collection([$asset])))($this->app, $updater);
 
         Queue::assertNothingPushed();
     }
@@ -47,7 +45,6 @@ class UpdateIndexJobTest extends TestCase {
      * @covers ::__invoke
      */
     public function testInvokeIndexOutdated(): void {
-        $service = $this->app->make(Service::class);
         $updater = Mockery::mock(Updater::class);
         $updater
             ->shouldReceive('isIndexActual')
@@ -56,7 +53,7 @@ class UpdateIndexJobTest extends TestCase {
 
         Queue::fake();
 
-        (new UpdateIndexJob(new Collection([new Asset()])))($this->app, $service, $updater);
+        (new UpdateIndexJob(new Collection([new Asset()])))($this->app, $updater);
 
         Queue::assertPushed(AssetsUpdaterCronJob::class);
     }

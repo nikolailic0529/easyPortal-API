@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
+use Laravel\Scout\ModelObserver;
 use Laravel\Scout\Searchable as ScoutSearchable;
 use Laravel\Scout\SearchableScope;
 use LogicException;
@@ -172,6 +173,10 @@ trait Searchable {
         $this->searchableAs = $searchableAs;
 
         return $this;
+    }
+
+    public static function isSearchSyncingEnabled(): bool {
+        return !ModelObserver::syncingDisabledFor(static::class);
     }
     // </editor-fold>
 

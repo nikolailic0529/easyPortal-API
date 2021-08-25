@@ -42,7 +42,7 @@ class UpdateIndexJob extends Job {
         return 'ep-search-updater';
     }
 
-    public function __invoke(Container $container, Service $service, Updater $updater): void {
+    public function __invoke(Container $container, Updater $updater): void {
         // Is there something that should be updated?
         if (!$this->model) {
             return;
@@ -52,7 +52,7 @@ class UpdateIndexJob extends Job {
         // rebuilt, in this case, we must run CronJob (that will rebuild and
         // update it).
         if (!$updater->isIndexActual($this->model)) {
-            $container->make($service->getSearchableModelJob($this->model))->dispatch();
+            $container->make(Service::getSearchableModelJob($this->model))->dispatch();
 
             return;
         }
