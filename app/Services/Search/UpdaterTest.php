@@ -12,11 +12,14 @@ use DateTimeInterface;
 use Elasticsearch\Client;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Event;
 use Laravel\Scout\Events\ModelsImported;
+use LastDragon_ru\LaraASP\Eloquent\Iterators\ChunkedChangeSafeIterator;
 use Mockery;
 use Tests\TestCase;
 use Tests\WithSearch;
@@ -192,6 +195,52 @@ class UpdaterTest extends TestCase {
         );
 
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers ::getIterator
+     */
+    public function testGetIteratorEagerLoading(): void {
+        // Mock
+        $model = Mockery::mock(Model::class);
+        $model->makePartial();
+        $model
+            ->shouldReceive('makeAllSearchableUsing')
+            ->once()
+            ->andReturns();
+
+        $builder = Mockery::mock(EloquentBuilder::class);
+        $builder->makePartial();
+        $builder
+            ->shouldReceive('newModelInstance')
+            ->once()
+            ->andReturn($model);
+        $builder
+            ->shouldReceive('getModel')
+            ->once()
+            ->andReturns($model);
+        $builder
+            ->shouldReceive('toBase')
+            ->twice()
+            ->andReturn(Mockery::mock(QueryBuilder::class)->makePartial());
+
+        $updater = Mockery::mock(Updater::class);
+        $updater->shouldAllowMockingProtectedMethods();
+        $updater->makePartial();
+        $updater
+            ->shouldReceive('getConfig')
+            ->once()
+            ->andReturn($this->app->make(Repository::class));
+        $updater
+            ->shouldReceive('getBuilder')
+            ->once()
+            ->andReturn($builder);
+
+        // Test
+        $this->assertInstanceOf(
+            ChunkedChangeSafeIterator::class,
+            $updater->getIterator(Model::class, null, null, null),
+        );
     }
 
     /**

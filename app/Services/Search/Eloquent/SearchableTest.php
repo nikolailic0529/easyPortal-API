@@ -158,6 +158,37 @@ class SearchableTest extends TestCase {
     }
 
     /**
+     * @covers ::toSearchableArray
+     */
+    public function testToSearchableArrayEagerLoading(): void {
+        $model = Mockery::mock(Model::class, Searchable::class);
+        $model->shouldAllowMockingProtectedMethods();
+        $model->makePartial();
+        $model
+            ->shouldReceive('loadMissing')
+            ->with(['b', 'c.b'])
+            ->once()
+            ->andReturnSelf();
+        $model
+            ->shouldReceive('getSearchProperties')
+            ->once()
+            ->andReturn([
+                'a' => new Text('a'),
+                'b' => [
+                    'a' => new Uuid('b.a'),
+                ],
+                'c' => [
+                    'b' => [
+                        'a' => new Uuid('c.b.a'),
+                    ],
+                ],
+            ]);
+
+        // Test
+        $model->toSearchableArray();
+    }
+
+    /**
      * @covers ::makeAllSearchable
      */
     public function testMakeAllSearchable(): void {
@@ -180,7 +211,6 @@ class SearchableTest extends TestCase {
                 ->once();
         });
 
-        // Test
         $model->makeAllSearchable($chunk);
     }
 
