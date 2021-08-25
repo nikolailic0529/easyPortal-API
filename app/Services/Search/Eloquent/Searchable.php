@@ -12,6 +12,7 @@ use Carbon\CarbonInterface;
 use Closure;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Laravel\Scout\Searchable as ScoutSearchable;
@@ -145,7 +146,7 @@ trait Searchable {
         return $query->with($this->getSearchConfiguration()->getRelations());
     }
 
-    public function queueMakeSearchable(Collection $models): void {
+    public function queueMakeSearchable(EloquentCollection $models): void {
         // shouldBeSearchable() is not used here by default...
         // https://github.com/laravel/scout/issues/320
         $this->scoutQueueMakeSearchable($models->filter->shouldBeSearchable());

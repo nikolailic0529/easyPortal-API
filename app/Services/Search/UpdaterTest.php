@@ -265,7 +265,7 @@ class UpdaterTest extends TestCase {
         string $model,
         Closure $from = null,
         string $continue = null,
-        array $ids = null
+        array $ids = null,
     ): void {
         // Settings
         $this->setSettings($settings);
@@ -393,6 +393,33 @@ class UpdaterTest extends TestCase {
                 ],
             ],
         ]);
+    }
+
+    /**
+     * @covers ::isIndexActual
+     *
+     * @dataProvider dataProviderIsIndexActual
+     *
+     * @param class-string<\App\Models\Model&\App\Services\Search\Eloquent\Searchable> $model
+     * @param array<string, string|null>                                               $indexes
+     */
+    public function testIsIndexActual(bool $expected, string $model, array $indexes): void {
+        // Mock
+        $updater = Mockery::mock(Updater::class);
+        $updater->shouldAllowMockingProtectedMethods();
+        $updater->makePartial();
+        $updater
+            ->shouldReceive('getClient')
+            ->once()
+            ->andReturn($this->app->make(Client::class));
+
+        // Prepare
+        foreach ($indexes as $index => $alias) {
+            $this->createSearchIndex($index, $alias);
+        }
+
+        // Test
+        $this->assertEquals($expected, $updater->isIndexActual($model));
     }
     // </editor-fold>
 
@@ -640,6 +667,69 @@ class UpdaterTest extends TestCase {
                 [
                     '3a25b90c-9022-4eea-a3f5-be5285152794',
                     '3ea13c8b-b024-44c7-94ec-3877f5785152',
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, array<mixed>>
+     */
+    public function dataProviderIsIndexActual(): array {
+        $index = 'testing_test_models@84da83a20276200ffe0201417c4a35e7ffc0832f';
+        $model = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+             *
+             * @var string
+             */
+            protected $table = 'test_models';
+
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            /**
+             * @inheritDoc
+             */
+            protected static function getSearchProperties(): array {
+                return [
+                    'a' => new Text('a'),
+                ];
+            }
+        };
+
+        return [
+            'no index + no alias'      => [
+                false,
+                $model::class,
+                [
+                    // empty
+                ],
+            ],
+            'index without alias'      => [
+                false,
+                $model::class,
+                [
+                    $index => null,
+                ],
+            ],
+            'index with alias'         => [
+                true,
+                $model::class,
+                [
+                    $index => $model->getTable(),
+                ],
+            ],
+            'another index with alias' => [
+                false,
+                $model::class,
+                [
+                    $index          => 'another_alias',
+                    'another_index' => $model->getTable(),
                 ],
             ],
         ];

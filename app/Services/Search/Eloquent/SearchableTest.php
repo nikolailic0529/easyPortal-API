@@ -6,6 +6,7 @@ use App\Models\Oem;
 use App\Models\ServiceGroup;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
+use App\Services\Search\Jobs\UpdateIndexJob;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
 use App\Services\Search\ScopeWithMetadata;
@@ -13,10 +14,11 @@ use App\Services\Search\Updater;
 use DateTime;
 use Exception;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Queue;
 use LogicException;
 use Mockery;
 use Mockery\MockInterface;
@@ -318,6 +320,68 @@ class SearchableTest extends TestCase {
 
         $this->assertCount(1, $model->models);
         $this->assertSame($a, $model->models->first());
+    }
+
+    /**
+     * @covers ::queueMakeSearchable
+     */
+    public function testQueueMakeSearchableRightJob(): void {
+        // Prepare
+        $this->setSettings([
+            'scout.queue' => true,
+        ]);
+
+        // Mock
+        $model = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @inheritDoc
+             */
+            protected static function getSearchProperties(): array {
+                return [
+                    'a' => new Uuid('a'),
+                ];
+            }
+        };
+
+        // Test
+        Queue::fake();
+
+        $model->queueMakeSearchable(new Collection([$model]));
+
+        Queue::assertPushed(UpdateIndexJob::class);
+    }
+
+    /**
+     * @covers ::queueRemoveFromSearch
+     */
+    public function testQueueRemoveFromSearchRightJob(): void {
+        // Prepare
+        $this->setSettings([
+            'scout.queue' => true,
+        ]);
+
+        // Mock
+        $model = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @inheritDoc
+             */
+            protected static function getSearchProperties(): array {
+                return [
+                    'a' => new Uuid('a'),
+                ];
+            }
+        };
+
+        // Test
+        Queue::fake();
+
+        $model->queueRemoveFromSearch(new Collection([$model]));
+
+        Queue::assertPushed(UpdateIndexJob::class);
     }
 
     /**

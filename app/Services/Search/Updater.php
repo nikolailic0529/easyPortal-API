@@ -212,6 +212,19 @@ class Updater {
     /**
      * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
      */
+    public function isIndexActual(string $model): bool {
+        $client = $this->getClient()->indices();
+        $config = (new $model())->getSearchConfiguration();
+        $alias  = $config->getIndexAlias();
+        $index  = $config->getIndexName();
+
+        return $client->exists(['index' => $index])
+            && $client->existsAlias(['name' => $alias, 'index' => $index]);
+    }
+
+    /**
+     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
+     */
     protected function createIndex(string $model): string {
         $client = $this->getClient()->indices();
         $config = (new $model())->getSearchConfiguration();
