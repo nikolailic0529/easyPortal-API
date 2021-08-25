@@ -83,15 +83,6 @@ trait Searchable {
 
     // <editor-fold desc="Scout">
     // =========================================================================
-    /**
-     * FIXME: Temporary fix for DataLoader.
-     */
-    public static function bootSearchable(): void {
-        static::addGlobalScope(new SearchableScope());
-
-        (new static())->registerSearchableMacros();
-    }
-
     public function searchableAs(): string {
         return $this->searchableAs ?? $this->scoutSearchableAs();
     }

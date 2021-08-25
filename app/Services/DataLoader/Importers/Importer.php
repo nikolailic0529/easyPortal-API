@@ -10,6 +10,7 @@ use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\LoaderRecalculable;
 use App\Services\DataLoader\Resolver;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Search\Service as SearchService;
 use Closure;
 use DateTimeInterface;
 use Illuminate\Contracts\Container\Container as ContainerContract;
@@ -112,11 +113,16 @@ abstract class Importer {
 
     private function call(Closure $closure): void {
         $this->callWithoutGlobalScope(OwnedByOrganizationScope::class, static function () use ($closure): void {
-            // Telescope should be disabled because it stored all data in memory
-            // and will dump it only after the job/command/request is finished.
-            // For long-running jobs, this will lead to huge memory usage
+            // Indexing should be disabled to avoid a lot of queued jobs and
+            // speed up the import.
 
-            Telescope::withoutRecording($closure);
+            SearchService::callWithoutIndexing(static function () use ($closure): void {
+                // Telescope should be disabled because it stored all data in memory
+                // and will dump it only after the job/command/request is finished.
+                // For long-running jobs, this will lead to huge memory usage
+
+                Telescope::withoutRecording($closure);
+            });
         });
     }
 
