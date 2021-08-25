@@ -465,11 +465,27 @@ class UpdaterTest extends TestCase {
         };
 
         return [
+            'index with same name as alias' => [
+                [
+                    $index => [
+                        'aliases' => [
+                            $model->getTable() => [
+                                'is_write_index' => true,
+                            ],
+                        ],
+                    ],
+                ],
+                $model::class,
+                [
+                    $model->getTable() => null,
+                ],
+            ],
+
             'no index + no alias'      => [
                 [
                     $index => [
                         'aliases' => [
-                            'test_models' => [
+                            $model->getTable() => [
                                 'is_write_index' => true,
                             ],
                         ],
@@ -484,7 +500,7 @@ class UpdaterTest extends TestCase {
                 [
                     $index => [
                         'aliases' => [
-                            'test_models' => [
+                            $model->getTable() => [
                                 'is_write_index' => true,
                             ],
                         ],
@@ -499,7 +515,7 @@ class UpdaterTest extends TestCase {
                 [
                     'another_index' => [
                         'aliases' => [
-                            'test_models' => [
+                            $model->getTable() => [
                                 'is_write_index' => true,
                             ],
                         ],
@@ -512,7 +528,7 @@ class UpdaterTest extends TestCase {
                 ],
                 $model::class,
                 [
-                    'another_index' => 'test_models',
+                    'another_index' => $model->getTable(),
                 ],
             ],
         ];

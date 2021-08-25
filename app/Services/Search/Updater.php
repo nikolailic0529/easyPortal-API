@@ -234,6 +234,10 @@ class Updater {
         $alias  = $config->getIndexAlias();
         $index  = $config->getIndexName();
 
+        if ($client->exists(['index' => $alias]) && !$client->existsAlias(['name' => $alias])) {
+            $client->delete(['index' => $alias]);
+        }
+
         if (!$client->exists(['index' => $index])) {
             $client->create([
                 'index' => $index,
