@@ -47,7 +47,7 @@ abstract class ImporterCronJob extends CronJob implements Progressable {
             ->onInit(function (Status $status) use ($service, $state): void {
                 $this->updateState($service, $state, $status);
             })
-            ->onChange(function (array $items, Status $status) use ($service, $state): void {
+            ->onChange(function (array $models, Status $status) use ($service, $state): void {
                 $this->updateState($service, $state, $status);
                 $this->ping();
             })

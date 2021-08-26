@@ -105,7 +105,7 @@ abstract class Import extends Command {
         $previous    = new Status();
 
         $importer
-            ->onChange(function (array $items, Status $status) use (&$previous, $chunkLength, $valueLength): void {
+            ->onChange(function (array $models, Status $status) use (&$previous, $chunkLength, $valueLength): void {
                 $chunk        = $this->pad($status->chunk, $chunkLength, '0');
                 $chunkEmpty   = $this->pad('', $chunkLength + 2, '-');
                 $chunkFailed  = $this->pad($status->failed - $previous->failed, $valueLength);

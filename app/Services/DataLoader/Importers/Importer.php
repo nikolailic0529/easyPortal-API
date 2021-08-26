@@ -68,14 +68,17 @@ abstract class Importer {
         int $limit = null,
     ): void {
         $this->call(function () use ($update, $from, $continue, $chunk, $limit): void {
+            $models   = [];
             $status   = new Status($from, $continue, $this->getTotal($from, $limit));
             $iterator = $this
                 ->getIterator($from, $chunk, $limit, $continue)
                 ->onBeforeChunk(function (array $items) use ($status): void {
                     $this->onBeforeChunk($items, $status);
                 })
-                ->onAfterChunk(function (array $items) use (&$iterator, $status): void {
-                    $this->onAfterChunk($items, $status, $iterator->getOffset());
+                ->onAfterChunk(function () use (&$iterator, &$models, $status): void {
+                    $this->onAfterChunk($models, $status, $iterator->getOffset());
+
+                    $models = [];
                 });
 
             $this->onBeforeImport($status);
@@ -83,16 +86,22 @@ abstract class Importer {
             foreach ($iterator as $item) {
                 /** @var \App\Services\DataLoader\Schema\Type|\App\Services\DataLoader\Schema\TypeWithId $item */
                 try {
+                    $model = null;
+
                     if ($this->resolver->get($item->id)) {
                         if ($update) {
-                            $this->loader->update($item);
+                            $model = $this->loader->update($item);
                             $status->updated++;
                         } else {
                             $status->ignored++;
                         }
                     } else {
-                        $this->loader->create($item);
+                        $model = $this->loader->create($item);
                         $status->created++;
+                    }
+
+                    if ($model) {
+                        $models[] = $model;
                     }
                 } catch (Throwable $exception) {
                     $status->failed++;
@@ -186,9 +195,9 @@ abstract class Importer {
     }
 
     /**
-     * @param array<mixed> $items
+     * @param array<\Illuminate\Database\Eloquent\Model> $models
      */
-    protected function onAfterChunk(array $items, Status $status, string|int|null $continue): void {
+    protected function onAfterChunk(array $models, Status $status, string|int|null $continue): void {
         // Update status
         $status->continue = $continue;
         $status->chunk++;
@@ -200,7 +209,7 @@ abstract class Importer {
 
         // Call callback
         if ($this->onChange) {
-            ($this->onChange)($items, clone $status);
+            ($this->onChange)($models, clone $status);
         }
     }
 
