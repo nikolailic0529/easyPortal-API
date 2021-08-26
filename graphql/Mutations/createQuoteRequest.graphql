@@ -12,7 +12,7 @@ input CreateQuoteRequestInput {
   customer_id: ID! @rules(apply:["required","App\\Rules\\CustomerId"])
   type_id: ID! @rules(apply:["required","App\\Rules\\TypeId"])
   message: String
-  files: [Upload!] @rules(apply:["nullable","App\\Rules\\Image"])
+  files: [Upload!] @rules(apply:["nullable","App\\Rules\\File"])
   contact_name: String! @rules(apply:["required"])
   contact_phone: String! @rules(apply:["required","phone:AUTO"])
   contact_email: String! @rules(apply:["required","email"])

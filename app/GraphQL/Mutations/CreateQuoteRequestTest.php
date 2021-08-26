@@ -281,8 +281,8 @@ class CreateQuoteRequestTest extends TestCase {
             'files'         => [UploadedFile::fake()->create('document.csv', 200)],
         ];
         $settings = [
-            'ep.image.max_size' => 250,
-            'ep.image.formats'  => ['csv'],
+            'ep.file.max_size' => 250,
+            'ep.file.formats'  => ['csv'],
         ];
 
         return (new MergeDataProvider([
