@@ -58,7 +58,6 @@ class Kernel extends ConsoleKernel {
         AnalyzeAssets::class,
         SyncPermissions::class,
         SyncUsers::class,
-
         // Dev
         ModelsCommand::class,
     ];

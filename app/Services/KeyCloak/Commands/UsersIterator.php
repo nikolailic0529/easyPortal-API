@@ -14,6 +14,7 @@ class UsersIterator implements QueryIterator {
     protected ?string  $current     = null;
     protected ?int     $limit       = 0;
     protected int      $chunk       = 0;
+    protected int      $offset      = 0;
 
     public function __construct(
         protected Client $client,
@@ -66,17 +67,23 @@ class UsersIterator implements QueryIterator {
     public function getIterator(): Iterator {
         // Prepare
         $index  = 0;
-        $offset = 0;
+        $offset = $this->offset;
         $chunk  = $this->chunk;
-        $limit  = $this->limit;
 
         // Iterate
         do {
-            $items   = $this->client->getUsers($limit, $offset);
+            $items = $this->client->getUsers($chunk, $offset);
+
             $offset += $chunk;
 
+            if ($this->beforeChunk) {
+                ($this->beforeChunk)($items);
+            }
             foreach ($items as $item) {
                 yield $index++ => $item;
+            }
+            if ($this->afterChunk) {
+                ($this->afterChunk)($items);
             }
         } while ($items);
     }

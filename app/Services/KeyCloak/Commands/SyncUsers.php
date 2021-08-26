@@ -2,33 +2,55 @@
 
 namespace App\Services\KeyCloak\Commands;
 
-use App\Models\Enums\UserType;
-use App\Models\Organization;
-use App\Models\Role;
-use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
+use App\Services\KeyCloak\Importer\Status;
+use App\Services\KeyCloak\Importer\UserImporter;
 use Illuminate\Console\Command;
 
+use function strtr;
 class SyncUsers extends Command {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
      */
-    protected $signature = 'ep:keycloak-sync-users';
+    protected $signature = '${command}
+        {--u|update : Update ${objects} if exists}
+        {--U|no-update : Do not update ${objects} if exists (default)}
+        {--continue= : continue processing from given ${object}}
+        {--from= : start processing from given datetime}
+        {--limit= : max ${objects} to process}
+        {--chunk= : chunk size}
+    ';
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var string
      */
-    protected $description = 'Sync keycloak users';
+    protected $description = 'Import all ${objects}.';
 
     public function __construct(
         protected UsersIterator $iterator,
         protected Client $client,
+        protected UserImporter $importer,
     ) {
+        $replacements      = $this->getReplacements();
+        $this->signature   = strtr($this->signature, $replacements);
+        $this->description = strtr($this->description, $replacements);
+
         parent::__construct();
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    protected function getReplacements(): array {
+        return [
+            '${command}' => 'ep:keycloak-sync-users',
+            '${objects}' => 'users',
+            '${object}'  => 'user',
+        ];
     }
 
     /**
@@ -40,42 +62,15 @@ class SyncUsers extends Command {
         $total = $this->client->usersCount();
         $bar   = $this->output->createProgressBar($total);
         $bar->start();
-        $iterator = $this->iterator
-            ->setLimit(100)
-            ->setChunkSize(100)
-            ->getIterator();
-        foreach ($iterator as $item) {
-            /** @var \App\Services\KeyCloak\Client\Types\User $item */
-            $user = User::whereKey($item->id)->first();
-            if (!$user) {
-                $user                        = new User();
-                $user->{$user->getKeyName()} = $item->id;
-                $user->email                 = $item->email;
-                $user->type                  = UserType::keycloak();
-                $user->given_name            = $item->firstName;
-                $user->family_name           = $item->lastName;
-                $user->email_verified        = $item->emailVerified;
-                $user->permissions           = [];
-            }
 
-            $organizations = [];
-            $roles         = [];
-            foreach ($item->groups as $group) {
-                $organization = Organization::whereKey($group)->first();
-                $role         = Role::whereKey($group)->first();
-                if ($organization) {
-                    $organizations[] = $organization;
-                }
+        $continue = $this->option('continue');
+        $chunk    = (int) $this->option('chunk');
+        $limit    = (int) $this->option('limit');
 
-                if ($role) {
-                    $roles[] = $role;
-                }
-            }
-            $user->organizations = $organizations;
-            $user->roles         = $roles;
-            $user->save();
-            $bar->advance();
-        }
+        $this->importer->onChange(static function (Status $status, int $offset) use ($bar): void {
+            $bar->setProgress($status->processed);
+        })
+        ->import($continue, $chunk, $limit);
         $bar->finish();
     }
 }

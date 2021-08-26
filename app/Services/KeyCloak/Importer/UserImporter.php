@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\KeyCloak\Commands;
+namespace App\Services\KeyCloak\Importer;
 
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Enums\UserType;
@@ -8,6 +8,7 @@ use App\Models\Organization;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
+use App\Services\KeyCloak\Commands\UsersIterator;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Closure;
 use Laravel\Telescope\Telescope;
@@ -15,7 +16,7 @@ use Psr\Log\LoggerInterface;
 use Throwable;
 
 
-class Updater {
+class UserImporter {
     use GlobalScopes;
 
     protected ?Closure $onInit   = null;
@@ -56,17 +57,23 @@ class Updater {
         return $this;
     }
 
-    public function update(
+    public function import(
         string|int $continue = null,
         int $chunk = null,
         int $limit = null,
     ): void {
         $this->call(function () use ($continue, $chunk, $limit): void {
             $status   = new Status($continue, $this->getTotal());
-            $iterator = $this
-                ->usersIterator
-                ->setChunkSize($chunk)
-                ->setLimit($limit)
+            $iterator = $this->usersIterator;
+            if ($chunk) {
+                $iterator->setChunkSize($chunk);
+            }
+
+            if ($limit) {
+                $iterator->setLimit($limit);
+            }
+
+            $iterator
                 ->onBeforeChunk(function () use ($status): void {
                     $this->onBeforeChunk($status);
                 })
@@ -141,14 +148,14 @@ class Updater {
         // Empty
     }
 
-    protected function onAfterChunk(Status $status, string|int|null $continue): void {
+    protected function onAfterChunk(Status $status, int|null $offset): void {
         // Update status
-        $status->continue = $continue;
+        $status->offset = $offset;
         $status->chunk++;
 
         // Call callback
         if ($this->onChange) {
-            ($this->onChange)(clone $status);
+            ($this->onChange)(clone $status, $offset);
         }
     }
 
