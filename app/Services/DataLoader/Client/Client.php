@@ -875,7 +875,6 @@ class Client {
             {$this->getCompanyInfoGraphQL()}
             {$this->getCompanyContactPersonsGraphQL()}
             {$this->getCompanyLocationsGraphQL()}
-            {$this->getCompanyKpisGraphQL()}
             GRAPHQL;
     }
 
