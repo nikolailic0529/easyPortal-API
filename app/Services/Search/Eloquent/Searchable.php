@@ -17,7 +17,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Laravel\Scout\ModelObserver;
 use Laravel\Scout\Searchable as ScoutSearchable;
-use Laravel\Scout\SearchableScope;
 use LogicException;
 
 use function app;
@@ -92,6 +91,7 @@ trait Searchable {
     }
 
     public function searchIndexShouldBeUpdated(): bool {
+        // Relations don't matter here because method used only in ModelObserver
         $properties = (new Collection($this->getSearchConfiguration()->getProperties()))
             ->flatten()
             ->map(static function (Property $property): ?string {

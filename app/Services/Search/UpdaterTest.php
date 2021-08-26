@@ -480,8 +480,7 @@ class UpdaterTest extends TestCase {
                     $model->getTable() => null,
                 ],
             ],
-
-            'no index + no alias'      => [
+            'no index + no alias'           => [
                 [
                     $index => [
                         'aliases' => [
@@ -496,7 +495,7 @@ class UpdaterTest extends TestCase {
                     // empty
                 ],
             ],
-            'index without alias'      => [
+            'index without alias'           => [
                 [
                     $index => [
                         'aliases' => [
@@ -511,7 +510,7 @@ class UpdaterTest extends TestCase {
                     $index => null,
                 ],
             ],
-            'another index with alias' => [
+            'another index with alias'      => [
                 [
                     'another_index' => [
                         'aliases' => [
