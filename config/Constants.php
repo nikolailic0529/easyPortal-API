@@ -422,6 +422,15 @@ interface Constants {
     #[Group('data_loader')]
     public const EP_DATA_LOADER_SLOWLOG = 0;
 
+    /**
+     * Dump queries into specified directory.
+     */
+    #[Setting('ep.data_loader.dump')]
+    #[Group('data_loader')]
+    #[Type(StringType::class)]
+    #[Internal]
+    public const EP_DATA_LOADER_DUMP = null;
+
     // <editor-fold desc="EP_DATA_LOADER_RESELLERS_IMPORTER">
     // -------------------------------------------------------------------------
     /**
