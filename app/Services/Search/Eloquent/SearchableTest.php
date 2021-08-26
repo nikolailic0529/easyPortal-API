@@ -6,6 +6,7 @@ use App\Models\Oem;
 use App\Models\ServiceGroup;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Configuration;
+use App\Services\Search\Jobs\UpdateIndexJob;
 use App\Services\Search\Properties\Text;
 use App\Services\Search\Properties\Uuid;
 use App\Services\Search\ScopeWithMetadata;
@@ -13,10 +14,11 @@ use App\Services\Search\Updater;
 use DateTime;
 use Exception;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Facades\Queue;
 use LogicException;
 use Mockery;
 use Mockery\MockInterface;
@@ -73,6 +75,8 @@ class SearchableTest extends TestCase {
 
     /**
      * @covers ::toSearchableArray
+     * @covers ::toSearchableArrayValue
+     * @covers ::toSearchableArrayCleanup
      */
     public function testToSearchableArray(): void {
         // Prepare
@@ -92,9 +96,19 @@ class SearchableTest extends TestCase {
              */
             protected static function getSearchProperties(): array {
                 return [
-                    'sku' => new Text('sku'),
-                    'oem' => [
+                    'sku'            => new Text('sku'),
+                    'oem'            => [
                         'id' => new Uuid('oem.id'),
+                    ],
+                    'unknown'        => [
+                        'id' => new Uuid('oem.unknown'),
+                    ],
+                    'unknown_nested' => [
+                        'null'    => new Uuid('oem.unknown'),
+                        'oem_id'  => new Uuid('oem.id'),
+                        'unknown' => [
+                            'id' => new Uuid('oem.unknown'),
+                        ],
                     ],
                 ];
             }
@@ -129,9 +143,15 @@ class SearchableTest extends TestCase {
                 'sku' => $sku,
             ],
             Configuration::getPropertyName() => [
-                'sku' => $sku,
-                'oem' => [
+                'sku'            => $sku,
+                'oem'            => [
                     'id' => $oem->getKey(),
+                ],
+                'unknown'        => null,
+                'unknown_nested' => [
+                    'null'    => null,
+                    'oem_id'  => $oem->getKey(),
+                    'unknown' => null,
                 ],
             ],
         ];
@@ -139,6 +159,36 @@ class SearchableTest extends TestCase {
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * @covers ::toSearchableArray
+     */
+    public function testToSearchableArrayEagerLoading(): void {
+        $model = Mockery::mock(Model::class, Searchable::class);
+        $model->shouldAllowMockingProtectedMethods();
+        $model->makePartial();
+        $model
+            ->shouldReceive('loadMissing')
+            ->with(['b', 'c.b'])
+            ->once()
+            ->andReturnSelf();
+        $model
+            ->shouldReceive('getSearchProperties')
+            ->once()
+            ->andReturn([
+                'a' => new Text('a'),
+                'b' => [
+                    'a' => new Uuid('b.a'),
+                ],
+                'c' => [
+                    'b' => [
+                        'a' => new Uuid('c.b.a'),
+                    ],
+                ],
+            ]);
+
+        // Test
+        $model->toSearchableArray();
+    }
 
     /**
      * @covers ::makeAllSearchable
@@ -163,7 +213,6 @@ class SearchableTest extends TestCase {
                 ->once();
         });
 
-        // Test
         $model->makeAllSearchable($chunk);
     }
 
@@ -274,6 +323,68 @@ class SearchableTest extends TestCase {
     }
 
     /**
+     * @covers ::queueMakeSearchable
+     */
+    public function testQueueMakeSearchableRightJob(): void {
+        // Prepare
+        $this->setSettings([
+            'scout.queue' => true,
+        ]);
+
+        // Mock
+        $model = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @inheritDoc
+             */
+            protected static function getSearchProperties(): array {
+                return [
+                    'a' => new Uuid('a'),
+                ];
+            }
+        };
+
+        // Test
+        Queue::fake();
+
+        $model->queueMakeSearchable(new Collection([$model]));
+
+        Queue::assertPushed(UpdateIndexJob::class);
+    }
+
+    /**
+     * @covers ::queueRemoveFromSearch
+     */
+    public function testQueueRemoveFromSearchRightJob(): void {
+        // Prepare
+        $this->setSettings([
+            'scout.queue' => true,
+        ]);
+
+        // Mock
+        $model = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @inheritDoc
+             */
+            protected static function getSearchProperties(): array {
+                return [
+                    'a' => new Uuid('a'),
+                ];
+            }
+        };
+
+        // Test
+        Queue::fake();
+
+        $model->queueRemoveFromSearch(new Collection([$model]));
+
+        Queue::assertPushed(UpdateIndexJob::class);
+    }
+
+    /**
      * @covers ::shouldBeSearchable
      */
     public function testShouldBeSearchable(): void {
@@ -363,6 +474,23 @@ class SearchableTest extends TestCase {
             $model->scoutSearchableAs(),
             $model->setSearchableAs(null)->searchableAs(),
         );
+    }
+
+    /**
+     * @covers ::isSearchSyncingEnabled
+     */
+    public function testIsSearchSyncingEnabled(): void {
+        $model = Mockery::mock(Model::class, Searchable::class)::class;
+
+        $this->assertTrue($model::isSearchSyncingEnabled());
+
+        $model::disableSearchSyncing();
+
+        $this->assertFalse($model::isSearchSyncingEnabled());
+
+        $model::enableSearchSyncing();
+
+        $this->assertTrue($model::isSearchSyncingEnabled());
     }
     //</editor-fold>
 

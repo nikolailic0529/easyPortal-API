@@ -76,7 +76,7 @@ class UpdateIndexCronJobTest extends TestCase {
             ->andReturnSelf();
         $updater
             ->shouldReceive('update')
-            ->with($model::class, null, null, null)
+            ->with($model::class, null, null)
             ->once()
             ->andReturns();
 

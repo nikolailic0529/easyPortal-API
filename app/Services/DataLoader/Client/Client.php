@@ -22,14 +22,24 @@ use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Factory;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Arr;
 use Psr\Log\LoggerInterface;
 use SplFileInfo;
+use Symfony\Component\Filesystem\Filesystem;
 
+use function dirname;
 use function explode;
+use function file_put_contents;
+use function implode;
 use function json_encode;
 use function reset;
+use function sha1;
 use function time;
+
+use const JSON_PRETTY_PRINT;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
 
 class Client {
     public function __construct(
@@ -587,18 +597,92 @@ class Client {
         // Prepare
         $url     = $this->config->get('ep.data_loader.endpoint') ?: $this->config->get('ep.data_loader.url');
         $timeout = $this->config->get('ep.data_loader.timeout') ?: 5 * 60;
-        $data    = [
-            'query'     => $graphql,
-            'variables' => $params,
-        ];
         $headers = [
             'Accept'        => 'application/json',
             'Authorization' => "Bearer {$this->token->getAccessToken()}",
         ];
-        $request = $this->client
-            ->timeout($timeout)
-            ->withHeaders($headers);
+        $request = $this->client->timeout($timeout)->withHeaders($headers);
+        $data    = $this->callData($selector, $graphql, $params, $files, $request, [
+            'query'     => $graphql,
+            'variables' => $params,
+        ]);
 
+        // Call
+        $begin = time();
+
+        try {
+            $this->dispatcher->dispatch(new RequestStarted($selector, $graphql, $params));
+
+            $response = $request->post($url, $data);
+
+            $response->throw();
+        } catch (ConnectionException $exception) {
+            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $params, null, $exception));
+
+            throw new DataLoaderUnavailable($exception);
+        } catch (Exception $exception) {
+            $error = new GraphQLRequestFailed($graphql, $params, [], $exception);
+
+            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $params, null, $exception));
+            $this->handler->report($error);
+
+            throw $error;
+        }
+
+        // Slow log
+        $slowlog = (int) $this->config->get('ep.data_loader.slowlog', 0);
+        $time    = time() - $begin;
+
+        if ($slowlog > 0 && $time >= $slowlog) {
+            $this->logger->info('DataLoader: Slow query detected.', [
+                'threshold' => $slowlog,
+                'time'      => $time,
+                'selector'  => $selector,
+                'graphql'   => $graphql,
+                'params'    => $params,
+            ]);
+        }
+
+        // Error?
+        $json   = $response->json();
+        $errors = Arr::get($json, 'errors', Arr::get($json, 'error.errors'));
+        $result = Arr::get($json, $selector);
+
+        if ($errors) {
+            $error = new GraphQLRequestFailed($graphql, $params, $errors);
+
+            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $params, $json));
+            $this->handler->report($error);
+
+            if (!$result) {
+                throw $error;
+            }
+        } else {
+            $this->dispatcher->dispatch(new RequestSuccessful($selector, $graphql, $params, $json));
+        }
+
+        // Dump
+        $this->callDump($selector, $graphql, $params, $json);
+
+        // Return
+        return $result;
+    }
+
+    /**
+     * @param array<mixed>  $params
+     * @param array<string> $files
+     * @param array<mixed> $data
+     *
+     * @return array<mixed>
+     */
+    protected function callData(
+        string $selector,
+        string $graphql,
+        array $params,
+        array $files,
+        PendingRequest $request,
+        array $data,
+    ): array {
         if ($files) {
             $map       = [];
             $index     = 0;
@@ -640,61 +724,28 @@ class Client {
             ];
         }
 
-        // Call
-        $begin = time();
+        return $data;
+    }
 
-        try {
-            $this->dispatcher->dispatch(new RequestStarted($selector, $graphql, $params));
-
-            $response = $request->post($url, $data);
-
-            $response->throw();
-        } catch (ConnectionException $exception) {
-            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $params, null, $exception));
-
-            throw new DataLoaderUnavailable($exception);
-        } catch (Exception $exception) {
-            $error = new GraphQLRequestFailed($graphql, $params, [], $exception);
-
-            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $params, null, $exception));
-            $this->handler->report($error);
-
-            throw $error;
+    protected function callDump(string $selector, string $graphql, mixed $params, mixed $json): void {
+        // Enabled?
+        if (!$this->config->get('ep.data_loader.dump')) {
+            return;
         }
 
-        // Slow log
-        $slowlog = (int) $this->config->get('ep.data_loader.slowlog', 0);
-        $time    = time() - $begin;
+        // Dump
+        $dump    = implode('.', [sha1($graphql), sha1(json_encode($params)), 'json']);
+        $path    = "{$this->config->get('ep.data_loader.dump')}/{$selector}/{$dump}";
+        $content = json_encode([
+            'selector' => $selector,
+            'graphql'  => $graphql,
+            'params'   => $params,
+            'response' => $json,
+        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
-        if ($slowlog > 0 && $time >= $slowlog) {
-            $this->logger->info('DataLoader: Slow query detected.', [
-                'threshold' => $slowlog,
-                'time'      => $time,
-                'graphql'   => $graphql,
-                'params'    => $params,
-            ]);
-        }
+        (new Filesystem())->mkdir(dirname($path));
 
-        // Error?
-        $json   = $response->json();
-        $errors = Arr::get($json, 'errors', Arr::get($json, 'error.errors'));
-        $result = Arr::get($json, $selector);
-
-        if ($errors) {
-            $error = new GraphQLRequestFailed($graphql, $params, $errors);
-
-            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $params, $json));
-            $this->handler->report($error);
-
-            if (!$result) {
-                throw $error;
-            }
-        } else {
-            $this->dispatcher->dispatch(new RequestSuccessful($selector, $graphql, $params, $json));
-        }
-
-        // Return
-        return $result;
+        file_put_contents($path, $content);
     }
 
     protected function datetime(?DateTimeInterface $datetime): ?string {

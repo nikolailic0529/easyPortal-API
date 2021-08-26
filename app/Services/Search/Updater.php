@@ -74,18 +74,20 @@ class Updater {
 
     /**
      * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
+     * @param array<string|int>|null                                                                     $ids
      */
     public function update(
         string $model,
         DateTimeInterface $from = null,
         string|int $continue = null,
         int $chunk = null,
+        array $ids = null,
     ): void {
-        $this->call(function () use ($model, $from, $continue, $chunk): void {
+        $this->call(function () use ($model, $from, $continue, $chunk, $ids): void {
             $index    = $this->createIndex($model);
-            $status   = new Status($from, $continue, $this->getTotal($model, $from));
+            $status   = new Status($from, $continue, $this->getTotal($model, $from, $ids));
             $iterator = $this
-                ->getIterator($model, $from, $chunk, $continue)
+                ->getIterator($model, $from, $chunk, $continue, $ids)
                 ->onBeforeChunk(function (Collection $items) use ($status): void {
                     $this->onBeforeChunk($items, $status);
                 })
@@ -98,10 +100,13 @@ class Updater {
             foreach ($iterator as $item) {
                 /** @var \Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable $item */
                 try {
-                    $isSoftDeletableModel   = (new ModelHelper($item))->isSoftDeletable();
-                    $isSoftDeletableIndexed = (bool) $this->getConfig()->get('scout.soft_delete', false);
+                    $isTrashed                   = $item->trashed();
+                    $isUnsearchable              = !$item->shouldBeSearchable();
+                    $isSoftDeletableModel        = (new ModelHelper($item))->isSoftDeletable();
+                    $isSoftDeletableIndexed      = (bool) $this->getConfig()->get('scout.soft_delete', false);
+                    $isSoftDeletableUnsearchable = $isSoftDeletableModel && !$isSoftDeletableIndexed && $isTrashed;
 
-                    if ($isSoftDeletableModel && !$isSoftDeletableIndexed && $item->trashed()) {
+                    if ($isUnsearchable || $isSoftDeletableUnsearchable) {
                         $item->setSearchableAs($index)->unsearchable();
                     } else {
                         $item->setSearchableAs($index)->searchable();
@@ -151,15 +156,17 @@ class Updater {
 
     /**
      * @param class-string<\Illuminate\Database\Eloquent\Model> $model
+     * @param array<string|int>|null                            $ids
      */
     protected function getIterator(
         string $model,
         ?DateTimeInterface $from,
         ?int $chunk,
         int|string|null $continue,
+        array|null $ids,
     ): ChunkedChangeSafeIterator {
         $chunk    = $chunk ?? $this->getConfig()->get('scout.chunk.searchable') ?? null;
-        $iterator = $this->getBuilder($model, $from)
+        $iterator = $this->getBuilder($model, $from, $ids)
             ->when(true, static function (Builder $builder): void {
                 $builder->newModelInstance()->makeAllSearchableUsing($builder);
             })
@@ -179,12 +186,16 @@ class Updater {
 
     /**
      * @param class-string<\Illuminate\Database\Eloquent\Model> $model
+     * @param array<string|int>|null                            $ids
      */
-    protected function getBuilder(string $model, DateTimeInterface $from = null): Builder {
+    protected function getBuilder(string $model, DateTimeInterface $from = null, array $ids = null): Builder {
         $trashed = (new ModelHelper($model))->isSoftDeletable();
         $builder = $model::query()
-            ->when($from, static function (Builder $builder) use ($model, $from): void {
-                $builder->where((new $model())->getUpdatedAtColumn(), '>=', $from);
+            ->when($ids, static function (Builder $builder) use ($ids): void {
+                $builder->whereIn($builder->getModel()->getKeyName(), $ids);
+            })
+            ->when($from, static function (Builder $builder) use ($from): void {
+                $builder->where($builder->getModel()->getUpdatedAtColumn(), '>=', $from);
             })
             ->when($trashed, static function (Builder $builder): void {
                 $builder->withTrashed();
@@ -195,9 +206,23 @@ class Updater {
 
     /**
      * @param class-string<\Illuminate\Database\Eloquent\Model> $model
+     * @param array<string|int>|null                            $ids
      */
-    protected function getTotal(string $model, DateTimeInterface $from = null): ?int {
-        return $this->getBuilder($model, $from)->count();
+    protected function getTotal(string $model, DateTimeInterface $from = null, array $ids = null): ?int {
+        return $this->getBuilder($model, $from, $ids)->count();
+    }
+
+    /**
+     * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
+     */
+    public function isIndexActual(string $model): bool {
+        $client = $this->getClient()->indices();
+        $config = (new $model())->getSearchConfiguration();
+        $alias  = $config->getIndexAlias();
+        $index  = $config->getIndexName();
+
+        return $client->exists(['index' => $index])
+            && $client->existsAlias(['name' => $alias, 'index' => $index]);
     }
 
     /**
@@ -208,6 +233,10 @@ class Updater {
         $config = (new $model())->getSearchConfiguration();
         $alias  = $config->getIndexAlias();
         $index  = $config->getIndexName();
+
+        if ($client->exists(['index' => $alias]) && !$client->existsAlias(['name' => $alias])) {
+            $client->delete(['index' => $alias]);
+        }
 
         if (!$client->exists(['index' => $index])) {
             $client->create([

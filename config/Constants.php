@@ -422,6 +422,15 @@ interface Constants {
     #[Group('data_loader')]
     public const EP_DATA_LOADER_SLOWLOG = 0;
 
+    /**
+     * Dump queries into specified directory.
+     */
+    #[Setting('ep.data_loader.dump')]
+    #[Group('data_loader')]
+    #[Type(StringType::class)]
+    #[Internal]
+    public const EP_DATA_LOADER_DUMP = null;
+
     // <editor-fold desc="EP_DATA_LOADER_RESELLERS_IMPORTER">
     // -------------------------------------------------------------------------
     /**
@@ -908,22 +917,6 @@ interface Constants {
     #[Group('search')]
     #[Type(IntType::class)]
     public const EP_SEARCH_CUSTOMERS_UPDATER_TIMEOUT = 1 * 60 * 60;
-
-    /**
-     * Number of times the job may be attempted.
-     */
-    #[Service(SearchCustomersUpdaterCronJob::class, 'tries')]
-    #[Group('search')]
-    #[Type(IntType::class)]
-    public const EP_SEARCH_CUSTOMERS_UPDATER_TRIES = 1;
-
-    /**
-     * Chunk size.
-     */
-    #[Service(SearchCustomersUpdaterCronJob::class, 'settings.chunk')]
-    #[Group('search')]
-    #[Type(IntType::class)]
-    public const EP_SEARCH_CUSTOMERS_UPDATER_CHUNK = null;
     // </editor-fold>
 
     // <editor-fold desc="EP_SEARCH_DOCUMENTS_UPDATER">
@@ -957,22 +950,6 @@ interface Constants {
     #[Group('search')]
     #[Type(IntType::class)]
     public const EP_SEARCH_DOCUMENTS_UPDATER_TIMEOUT = 3 * 60 * 60;
-
-    /**
-     * Number of times the job may be attempted.
-     */
-    #[Service(SearchDocumentsUpdaterCronJob::class, 'tries')]
-    #[Group('search')]
-    #[Type(IntType::class)]
-    public const EP_SEARCH_DOCUMENTS_UPDATER_TRIES = 2;
-
-    /**
-     * Chunk size.
-     */
-    #[Service(SearchDocumentsUpdaterCronJob::class, 'settings.chunk')]
-    #[Group('search')]
-    #[Type(IntType::class)]
-    public const EP_SEARCH_DOCUMENTS_UPDATER_CHUNK = null;
     // </editor-fold>
 
     // <editor-fold desc="EP_SEARCH_ASSETS_UPDATER">
@@ -1006,22 +983,6 @@ interface Constants {
     #[Group('search')]
     #[Type(IntType::class)]
     public const EP_SEARCH_ASSETS_UPDATER_TIMEOUT = 6 * 60 * 60;
-
-    /**
-     * Number of times the job may be attempted.
-     */
-    #[Service(SearchAssetsUpdaterCronJob::class, 'tries')]
-    #[Group('search')]
-    #[Type(IntType::class)]
-    public const EP_SEARCH_ASSETS_UPDATER_TRIES = 3;
-
-    /**
-     * Chunk size.
-     */
-    #[Service(SearchAssetsUpdaterCronJob::class, 'settings.chunk')]
-    #[Group('search')]
-    #[Type(IntType::class)]
-    public const EP_SEARCH_ASSETS_UPDATER_CHUNK = null;
     // </editor-fold>
     // </editor-fold>
 

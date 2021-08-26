@@ -8,15 +8,21 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Eloquent\Searchable;
 use App\Services\Search\Properties\Text;
 use Closure;
+use Database\Factories\AssetFactory;
 use DateTimeInterface;
 use Elasticsearch\Client;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Event;
 use Laravel\Scout\Events\ModelsImported;
+use LastDragon_ru\LaraASP\Eloquent\Iterators\ChunkedChangeSafeIterator;
 use Mockery;
 use Tests\TestCase;
 use Tests\WithSearch;
@@ -43,6 +49,7 @@ class UpdaterTest extends TestCase {
      * @param array<string, mixed>                                                                       $settings
      * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
      * @param \Closure(\Tests\TestCase): ?\DateTimeInterface|null                                        $from
+     * @param array<string|int>|null                                                                     $ids
      */
     public function testUpdate(
         Closure $expected,
@@ -50,6 +57,7 @@ class UpdaterTest extends TestCase {
         string $model,
         Closure $from = null,
         string $continue = null,
+        array $ids = null,
     ): void {
         // Settings
         $this->setSettings($settings);
@@ -115,9 +123,16 @@ class UpdaterTest extends TestCase {
                 $from,
                 $continue,
                 $chunk,
+                $ids,
             );
 
         // Test
+        $expected = $expected
+            ->filter(static function (Model $model): bool {
+                return $model->shouldBeSearchable();
+            })
+            ->values();
+
         if (!$this->app->make(Repository::class)->get('scout.soft_delete', false)) {
             $expected = $expected
                 ->filter(static function (Model $model): bool {
@@ -155,6 +170,7 @@ class UpdaterTest extends TestCase {
      * @param array<string, mixed>                                                                       $settings
      * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
      * @param \Closure(\Tests\TestCase): ?\DateTimeInterface|null                                        $from
+     * @param array<string|int>|null                                                                     $ids
      */
     public function testGetIterator(
         Closure $expected,
@@ -162,6 +178,7 @@ class UpdaterTest extends TestCase {
         string $model,
         Closure $from = null,
         string $continue = null,
+        array $ids = null,
     ): void {
         // Settings
         $this->setSettings($settings);
@@ -183,8 +200,8 @@ class UpdaterTest extends TestCase {
         $from     = $from ? $from($this) : null;
         $actual   = $this->callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
-            static function () use ($updater, $model, $from, $continue): Collection {
-                return (new Collection($updater->getIterator($model, $from, null, $continue)))
+            static function () use ($updater, $model, $from, $continue, $ids): Collection {
+                return (new Collection($updater->getIterator($model, $from, null, $continue, $ids)))
                     ->map(static function (Model $model): Model {
                         return $model->withoutRelations();
                     });
@@ -192,6 +209,52 @@ class UpdaterTest extends TestCase {
         );
 
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers ::getIterator
+     */
+    public function testGetIteratorEagerLoading(): void {
+        // Mock
+        $model = Mockery::mock(Model::class);
+        $model->makePartial();
+        $model
+            ->shouldReceive('makeAllSearchableUsing')
+            ->once()
+            ->andReturns();
+
+        $builder = Mockery::mock(EloquentBuilder::class);
+        $builder->makePartial();
+        $builder
+            ->shouldReceive('newModelInstance')
+            ->once()
+            ->andReturn($model);
+        $builder
+            ->shouldReceive('getModel')
+            ->once()
+            ->andReturns($model);
+        $builder
+            ->shouldReceive('toBase')
+            ->twice()
+            ->andReturn(Mockery::mock(QueryBuilder::class)->makePartial());
+
+        $updater = Mockery::mock(Updater::class);
+        $updater->shouldAllowMockingProtectedMethods();
+        $updater->makePartial();
+        $updater
+            ->shouldReceive('getConfig')
+            ->once()
+            ->andReturn($this->app->make(Repository::class));
+        $updater
+            ->shouldReceive('getBuilder')
+            ->once()
+            ->andReturn($builder);
+
+        // Test
+        $this->assertInstanceOf(
+            ChunkedChangeSafeIterator::class,
+            $updater->getIterator(Model::class, null, null, null, null),
+        );
     }
 
     /**
@@ -203,6 +266,7 @@ class UpdaterTest extends TestCase {
      * @param array<string, mixed>                                                                       $settings
      * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
      * @param \Closure(\Tests\TestCase): ?\DateTimeInterface|null                                        $from
+     * @param array<string|int>|null                                                                     $ids
      */
     public function testGetBuilder(
         Closure $expected,
@@ -210,6 +274,7 @@ class UpdaterTest extends TestCase {
         string $model,
         Closure $from = null,
         string $continue = null,
+        array $ids = null,
     ): void {
         // Settings
         $this->setSettings($settings);
@@ -224,8 +289,8 @@ class UpdaterTest extends TestCase {
         $from     = $from ? $from($this) : null;
         $actual   = $this->callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
-            static function () use ($updater, $model, $from): Collection {
-                return $updater->getBuilder($model, $from)->get()->toBase();
+            static function () use ($updater, $model, $from, $ids): Collection {
+                return $updater->getBuilder($model, $from, $ids)->get()->toBase();
             },
         );
 
@@ -241,6 +306,7 @@ class UpdaterTest extends TestCase {
      * @param array<string, mixed>                                                                       $settings
      * @param class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable> $model
      * @param \Closure(\Tests\TestCase): ?\DateTimeInterface|null                                        $from
+     * @param array<string|int>|null                                                                     $ids
      */
     public function testGetTotal(
         Closure $expected,
@@ -248,6 +314,7 @@ class UpdaterTest extends TestCase {
         string $model,
         Closure $from = null,
         string $continue = null,
+        array $ids = null,
     ): void {
         // Settings
         $this->setSettings($settings);
@@ -262,8 +329,8 @@ class UpdaterTest extends TestCase {
         $from     = $from ? $from($this) : null;
         $actual   = $this->callWithoutGlobalScope(
             OwnedByOrganizationScope::class,
-            static function () use ($updater, $model, $from): int {
-                return $updater->getTotal($model, $from);
+            static function () use ($updater, $model, $from, $ids): int {
+                return $updater->getTotal($model, $from, $ids);
             },
         );
 
@@ -336,6 +403,33 @@ class UpdaterTest extends TestCase {
             ],
         ]);
     }
+
+    /**
+     * @covers ::isIndexActual
+     *
+     * @dataProvider dataProviderIsIndexActual
+     *
+     * @param class-string<\App\Models\Model&\App\Services\Search\Eloquent\Searchable> $model
+     * @param array<string, string|null>                                               $indexes
+     */
+    public function testIsIndexActual(bool $expected, string $model, array $indexes): void {
+        // Mock
+        $updater = Mockery::mock(Updater::class);
+        $updater->shouldAllowMockingProtectedMethods();
+        $updater->makePartial();
+        $updater
+            ->shouldReceive('getClient')
+            ->once()
+            ->andReturn($this->app->make(Client::class));
+
+        // Prepare
+        foreach ($indexes as $index => $alias) {
+            $this->createSearchIndex($index, $alias);
+        }
+
+        // Test
+        $this->assertEquals($expected, $updater->isIndexActual($model));
+    }
     // </editor-fold>
 
     // <editor-fold desc="DataProviders">
@@ -371,11 +465,26 @@ class UpdaterTest extends TestCase {
         };
 
         return [
-            'no index + no alias'      => [
+            'index with same name as alias' => [
                 [
                     $index => [
                         'aliases' => [
-                            'test_models' => [
+                            $model->getTable() => [
+                                'is_write_index' => true,
+                            ],
+                        ],
+                    ],
+                ],
+                $model::class,
+                [
+                    $model->getTable() => null,
+                ],
+            ],
+            'no index + no alias'           => [
+                [
+                    $index => [
+                        'aliases' => [
+                            $model->getTable() => [
                                 'is_write_index' => true,
                             ],
                         ],
@@ -386,11 +495,11 @@ class UpdaterTest extends TestCase {
                     // empty
                 ],
             ],
-            'index without alias'      => [
+            'index without alias'           => [
                 [
                     $index => [
                         'aliases' => [
-                            'test_models' => [
+                            $model->getTable() => [
                                 'is_write_index' => true,
                             ],
                         ],
@@ -401,11 +510,11 @@ class UpdaterTest extends TestCase {
                     $index => null,
                 ],
             ],
-            'another index with alias' => [
+            'another index with alias'      => [
                 [
                     'another_index' => [
                         'aliases' => [
-                            'test_models' => [
+                            $model->getTable() => [
                                 'is_write_index' => true,
                             ],
                         ],
@@ -418,7 +527,7 @@ class UpdaterTest extends TestCase {
                 ],
                 $model::class,
                 [
-                    'another_index' => 'test_models',
+                    'another_index' => $model->getTable(),
                 ],
             ],
         ];
@@ -471,7 +580,7 @@ class UpdaterTest extends TestCase {
                     return Date::now();
                 },
                 '3ea13c8b-b024-44c7-94ec-3877f5785152',
-                2,
+                null,
             ],
             'models without `from` and `continue`'              => [
                 static function (TestCase $test): Collection {
@@ -557,7 +666,158 @@ class UpdaterTest extends TestCase {
                 null,
                 null,
             ],
+            'models with `ids`'                                 => [
+                static function (TestCase $test): Collection {
+                    $a = Asset::factory()->create([
+                        'id' => '3a25b90c-9022-4eea-a3f5-be5285152794',
+                    ]);
+                    $b = Asset::factory()->create([
+                        'id' => '3ea13c8b-b024-44c7-94ec-3877f5785152',
+                    ]);
+
+                    Asset::factory()->create([
+                        'id' => '5dc9b072-c1e2-497e-a2cd-32ae62ee5096',
+                    ]);
+
+                    // Return
+                    return new Collection([$a, $b]);
+                },
+                [
+                    // empty
+                ],
+                Asset::class,
+                null,
+                null,
+                [
+                    '3a25b90c-9022-4eea-a3f5-be5285152794',
+                    '3ea13c8b-b024-44c7-94ec-3877f5785152',
+                ],
+            ],
+            'unsearchable models'                               => [
+                static function (TestCase $test): Collection {
+                    $a = UpdaterTest_UnsearchableAsset::factory()->create([
+                        'id' => '3a25b90c-9022-4eea-a3f5-be5285152794',
+                    ]);
+
+                    // Return
+                    return new Collection([$a]);
+                },
+                [
+                    // empty
+                ],
+                UpdaterTest_UnsearchableAsset::class,
+                null,
+                null,
+                null,
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, array<mixed>>
+     */
+    public function dataProviderIsIndexActual(): array {
+        $index = 'testing_test_models@84da83a20276200ffe0201417c4a35e7ffc0832f';
+        $model = new class() extends Model {
+            use Searchable;
+
+            /**
+             * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+             *
+             * @var string
+             */
+            protected $table = 'test_models';
+
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            /**
+             * @inheritDoc
+             */
+            protected static function getSearchProperties(): array {
+                return [
+                    'a' => new Text('a'),
+                ];
+            }
+        };
+
+        return [
+            'no index + no alias'      => [
+                false,
+                $model::class,
+                [
+                    // empty
+                ],
+            ],
+            'index without alias'      => [
+                false,
+                $model::class,
+                [
+                    $index => null,
+                ],
+            ],
+            'index with alias'         => [
+                true,
+                $model::class,
+                [
+                    $index => $model->getTable(),
+                ],
+            ],
+            'another index with alias' => [
+                false,
+                $model::class,
+                [
+                    $index          => 'another_alias',
+                    'another_index' => $model->getTable(),
+                ],
+            ],
         ];
     }
     // </editor-fold>
 }
+
+// @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
+// @phpcs:disable Squiz.Classes.ValidClassName.NotCamelCaps
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class UpdaterTest_UnsearchableAsset extends Asset {
+    /**
+     * @param array<string,mixed> $attributes
+     */
+    public function __construct(array $attributes = []) {
+        parent::__construct($attributes);
+
+        Relation::morphMap([
+            'UpdaterTest_UnsearchableAsset' => $this::class,
+        ]);
+    }
+
+    public function shouldBeSearchable(): bool {
+        return false;
+    }
+
+    protected static function newFactory(): Factory {
+        return new UpdaterTest_UnsearchableAssetFactory();
+    }
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class UpdaterTest_UnsearchableAssetFactory extends AssetFactory {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
+     *
+     * @var string
+     */
+    protected $model = UpdaterTest_UnsearchableAsset::class;
+}
+// @phpcs:enable

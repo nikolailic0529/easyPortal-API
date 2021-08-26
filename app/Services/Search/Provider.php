@@ -2,35 +2,31 @@
 
 namespace App\Services\Search;
 
-use App\Models\Asset;
-use App\Models\Customer;
-use App\Models\Document;
 use App\Services\Search\Builders\Builder as SearchBuilder;
 use App\Services\Search\Elastic\SearchRequestFactory;
 use App\Services\Search\GraphQL\ModelConverter;
 use App\Services\Search\GraphQL\ScoutSortColumnResolver;
+use App\Services\Search\Jobs\UpdateIndexJob;
 use ElasticScoutDriver\Factories\SearchRequestFactoryInterface;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Scout\Builder as ScoutBuilder;
+use Laravel\Scout\Scout;
 use LastDragon_ru\LaraASP\GraphQL\SortBy\Contracts\ScoutColumnResolver;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 
 class Provider extends ServiceProvider {
-    /**
-     * @var array<class-string<\Illuminate\Database\Eloquent\Model&\App\Services\Search\Eloquent\Searchable>>
-     */
-    protected static array $searchable = [
-        Asset::class,
-        Customer::class,
-        Document::class,
-    ];
-
     public function register(): void {
         parent::register();
 
+        $this->registerJobs();
         $this->registerBindings();
         $this->registerGraphqlTypes();
+    }
+
+    protected function registerJobs(): void {
+        Scout::$makeSearchableJob   = UpdateIndexJob::class;
+        Scout::$removeFromSearchJob = UpdateIndexJob::class;
     }
 
     protected function registerBindings(): void {
@@ -45,7 +41,7 @@ class Provider extends ServiceProvider {
             static function (TypeRegistry $types, Container $container): void {
                 $converter = $container->make(ModelConverter::class);
 
-                foreach (static::$searchable as $model) {
+                foreach (Service::getSearchableModels() as $model) {
                     foreach ($converter->toInputObjectTypes($model) as $type) {
                         $types->register($type);
                     }

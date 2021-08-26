@@ -14,7 +14,6 @@ use ReflectionClass;
 use Tests\Helpers\Models;
 use Tests\TestCase;
 
-use function array_diff;
 use function array_keys;
 use function class_uses_recursive;
 use function implode;
@@ -42,29 +41,6 @@ class ProviderTest extends TestCase {
         $this->assertInstanceOf(SearchRequestFactory::class, $this->app->make(SearchRequestFactoryInterface::class));
 
         $this->assertTrue($this->app->bound(ScoutColumnResolver::class));
-    }
-
-    public function testAllSearchableModelRegistered(): void {
-        $expected = array_keys(Models::get(static function (ReflectionClass $model): bool {
-            return in_array(SearchSearchable::class, class_uses_recursive($model->getName()), true);
-        }));
-        $actual   = (new class() extends Provider {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
-            }
-
-            /**
-             * @return array<class-string<\App\Services\Logger\Models\Model&\App\Services\Search\Eloquent\Searchable>>
-             */
-            public function getRegisteredModels(): array {
-                return self::$searchable;
-            }
-        })->getRegisteredModels();
-        $missed   = array_diff($expected, $actual);
-        $message  = 'Following models missed in $searchable:'.PHP_EOL.'- '.implode(PHP_EOL.'- ', $missed).PHP_EOL;
-
-        $this->assertEmpty($missed, $message);
     }
 
     public function testProperSearchableTraitUsed(): void {

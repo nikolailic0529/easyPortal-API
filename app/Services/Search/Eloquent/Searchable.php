@@ -12,10 +12,11 @@ use Carbon\CarbonInterface;
 use Closure;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
+use Laravel\Scout\ModelObserver;
 use Laravel\Scout\Searchable as ScoutSearchable;
-use Laravel\Scout\SearchableScope;
 use LogicException;
 
 use function app;
@@ -24,6 +25,7 @@ use function array_intersect;
 use function array_keys;
 use function array_walk_recursive;
 use function count;
+use function is_array;
 use function is_iterable;
 use function is_null;
 use function is_scalar;
@@ -80,15 +82,6 @@ trait Searchable {
 
     // <editor-fold desc="Scout">
     // =========================================================================
-    /**
-     * FIXME: Temporary fix for DataLoader.
-     */
-    public static function bootSearchable(): void {
-        static::addGlobalScope(new SearchableScope());
-
-        (new static())->registerSearchableMacros();
-    }
-
     public function searchableAs(): string {
         return $this->searchableAs ?? $this->scoutSearchableAs();
     }
@@ -98,6 +91,7 @@ trait Searchable {
     }
 
     public function searchIndexShouldBeUpdated(): bool {
+        // Relations don't matter here because method used only in ModelObserver
         $properties = (new Collection($this->getSearchConfiguration()->getProperties()))
             ->flatten()
             ->map(static function (Property $property): ?string {
@@ -129,6 +123,9 @@ trait Searchable {
                 : $value;
         });
 
+        // Remove empty nodes
+        $properties = $this->toSearchableArrayCleanup($properties);
+
         // Return
         return $properties;
     }
@@ -141,7 +138,7 @@ trait Searchable {
         return $query->with($this->getSearchConfiguration()->getRelations());
     }
 
-    public function queueMakeSearchable(Collection $models): void {
+    public function queueMakeSearchable(EloquentCollection $models): void {
         // shouldBeSearchable() is not used here by default...
         // https://github.com/laravel/scout/issues/320
         $this->scoutQueueMakeSearchable($models->filter->shouldBeSearchable());
@@ -168,10 +165,43 @@ trait Searchable {
 
         return $this;
     }
+
+    public static function isSearchSyncingEnabled(): bool {
+        return !ModelObserver::syncingDisabledFor(static::class);
+    }
     // </editor-fold>
 
     // <editor-fold desc="Helpers">
     // =========================================================================
+    /**
+     * @template T
+     *
+     * @param array<string, T> $properties
+     *
+     * @return array<string, T|null>
+     */
+    protected function toSearchableArrayCleanup(array $properties): array {
+        foreach ($properties as $property => $value) {
+            // Node?
+            if (!is_array($value)) {
+                continue;
+            }
+
+            // Nested
+            $value = $this->toSearchableArrayCleanup($value);
+
+            // Empty? Remove
+            $nulls                 = array_filter($value, static function (mixed $value): bool {
+                return $value === null;
+            });
+            $properties[$property] = count($nulls) !== count($value)
+                ? $value
+                : null;
+        }
+
+        return $properties;
+    }
+
     protected function toSearchableValue(mixed $value): mixed {
         if ($value instanceof CarbonInterface) {
             $value = $value->toJSON();
