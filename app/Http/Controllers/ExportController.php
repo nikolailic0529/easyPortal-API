@@ -25,6 +25,7 @@ use function array_key_first;
 use function array_keys;
 use function array_values;
 use function is_array;
+use function json_encode;
 use function str_replace;
 use function ucwords;
 
@@ -126,7 +127,12 @@ class ExportController extends Controller {
     protected function getExportRow(array $keys, array $item): array {
         $value = [];
         foreach (array_keys($keys) as $key) {
-            $value[] = Arr::get($item, $key);
+            $current = Arr::get($item, $key);
+            if (is_array($current)) {
+                // TODO Format array output
+                $current = json_encode($current);
+            }
+            $value[] = $current;
         }
 
         return $value;
