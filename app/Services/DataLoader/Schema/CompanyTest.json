@@ -4,6 +4,7 @@
     "updatedAt": "1625642660983",
     "keycloakName": "virtualcomputersa_3",
     "keycloakGroupId": "virtualcomputersa_3",
+    "keycloakClientScopeName": "virtualcomputersa_3",
     "companyContactPersons": [
         {
             "phoneNumber": "+49 (591) 12345-67",

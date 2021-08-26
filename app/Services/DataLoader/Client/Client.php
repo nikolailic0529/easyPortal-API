@@ -122,7 +122,7 @@ class Client {
                 /** @lang GraphQL */ <<<GRAPHQL
                 query items(\$limit: Int, \$lastId: String, \$from: String) {
                     getResellers(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
-                        {$this->getCompanyPropertiesGraphQL()}
+                        {$this->getResellerPropertiesGraphQL()}
                     }
                 }
                 GRAPHQL,
@@ -229,9 +229,7 @@ class Client {
             query getAssets(\$id: String!) {
                 getAssets(args: [{key: "id", value: \$id}]) {
                     {$this->getAssetPropertiesGraphQL()}
-                    assetDocument {
-                        {$this->getAssetDocumentsPropertiesGraphQL()}
-                    }
+                    {$this->getAssetDocumentsPropertiesGraphQL()}
                 }
             }
             GRAPHQL,
@@ -280,9 +278,7 @@ class Client {
                 query items(\$id: String!, \$limit: Int, \$lastId: String) {
                     getAssetsByCustomerId(customerId: \$id, limit: \$limit, lastId: \$lastId) {
                         {$this->getAssetPropertiesGraphQL()}
-                        assetDocument {
-                            {$this->getAssetDocumentsPropertiesGraphQL()}
-                        }
+                        {$this->getAssetDocumentsPropertiesGraphQL()}
                     }
                 }
                 GRAPHQL,
@@ -333,9 +329,7 @@ class Client {
                 query items(\$id: String!, \$limit: Int, \$lastId: String) {
                     getAssetsByResellerId(resellerId: \$id, limit: \$limit, lastId: \$lastId) {
                         {$this->getAssetPropertiesGraphQL()}
-                        assetDocument {
-                            {$this->getAssetDocumentsPropertiesGraphQL()}
-                        }
+                        {$this->getAssetDocumentsPropertiesGraphQL()}
                     }
                 }
                 GRAPHQL,
@@ -411,9 +405,7 @@ class Client {
             query items(\$limit: Int, \$lastId: String, \$from: String) {
                 getAssets(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
                     {$this->getAssetPropertiesGraphQL()}
-                    assetDocument {
-                        {$this->getAssetDocumentsPropertiesGraphQL()}
-                    }
+                    {$this->getAssetDocumentsPropertiesGraphQL()}
                 }
             }
             GRAPHQL,
@@ -426,9 +418,7 @@ class Client {
             query items(\$limit: Int, \$lastId: String, \$from: String) {
                 getAssetsWithoutReseller(limit: \$limit, lastId: \$lastId, fromTimestamp: \$from) {
                     {$this->getAssetPropertiesGraphQL()}
-                    assetDocument {
-                        {$this->getAssetDocumentsPropertiesGraphQL()}
-                    }
+                    {$this->getAssetDocumentsPropertiesGraphQL()}
                 }
             }
             GRAPHQL,
@@ -671,7 +661,7 @@ class Client {
     /**
      * @param array<mixed>  $params
      * @param array<string> $files
-     * @param array<mixed> $data
+     * @param array<mixed>  $data
      *
      * @return array<mixed>
      */
@@ -779,23 +769,42 @@ class Client {
     // <editor-fold desc="GraphQL">
     // =========================================================================
     protected function getCompanyPropertiesGraphQL(): string {
+        return <<<GRAPHQL
+            {$this->getCompanyInfoGraphQL()}
+            {$this->getCompanyContactPersonsGraphQL()}
+            {$this->getCompanyLocationsGraphQL()}
+            {$this->getCompanyKpisGraphQL()}
+            {$this->getCompanyKeyCloakGraphQL()}
+            {$this->getCompanyBrandingDataGraphQL()}
+            GRAPHQL;
+    }
+
+    protected function getCompanyInfoGraphQL(): string {
         return <<<'GRAPHQL'
             id
             name
             status
             updatedAt
-            keycloakGroupId
-            keycloakName
+            companyTypes {
+                type
+                status
+            }
+            GRAPHQL;
+    }
+
+    protected function getCompanyContactPersonsGraphQL(): string {
+        return <<<'GRAPHQL'
             companyContactPersons {
                 phoneNumber
                 name
                 type
                 mail
             }
-            companyTypes {
-                type
-                status
-            }
+            GRAPHQL;
+    }
+
+    protected function getCompanyLocationsGraphQL(): string {
+        return <<<'GRAPHQL'
             locations {
                 country
                 countryCode
@@ -806,6 +815,31 @@ class Client {
                 address
                 locationType
             }
+            GRAPHQL;
+    }
+
+    protected function getCompanyKpisGraphQL(): string {
+        return <<<'GRAPHQL'
+            companyKpis {
+                totalAssets
+                activeAssets
+                activeAssetsPercentage
+                activeCustomers
+                newActiveCustomers
+                activeContracts
+                activeContractTotalAmount
+                newActiveContracts
+                expiringContracts
+                activeQuotes
+                activeQuotesTotalAmount
+                newActiveQuotes
+                expiringQuotes
+            }
+            GRAPHQL;
+    }
+
+    protected function getCompanyBrandingDataGraphQL(): string {
+        return <<<'GRAPHQL'
             brandingData {
                 brandingMode
                 defaultLogoUrl
@@ -824,41 +858,29 @@ class Client {
             GRAPHQL;
     }
 
-    protected function getCustomerPropertiesGraphQL(): string {
+    protected function getCompanyKeyCloakGraphQL(): string {
         return <<<'GRAPHQL'
-            id
-            name
-            status
-            updatedAt
-            companyContactPersons {
-                phoneNumber
-                name
-                type
-                mail
-            }
-            companyTypes {
-                type
-                status
-            }
-            locations {
-                country
-                countryCode
-                latitude
-                longitude
-                city
-                zip
-                address
-                locationType
-            }
+            keycloakName
+            keycloakGroupId
+            keycloakClientScopeName
+            GRAPHQL;
+    }
+
+    protected function getResellerPropertiesGraphQL(): string {
+        return $this->getCompanyPropertiesGraphQL();
+    }
+
+    protected function getCustomerPropertiesGraphQL(): string {
+        return <<<GRAPHQL
+            {$this->getCompanyInfoGraphQL()}
+            {$this->getCompanyContactPersonsGraphQL()}
+            {$this->getCompanyLocationsGraphQL()}
+            {$this->getCompanyKpisGraphQL()}
             GRAPHQL;
     }
 
     protected function getDistributorPropertiesGraphQL(): string {
-        return <<<'GRAPHQL'
-            id
-            name
-            updatedAt
-            GRAPHQL;
+        return $this->getCompanyInfoGraphQL();
     }
 
     protected function getAssetPropertiesGraphQL(): string {
@@ -904,60 +926,62 @@ class Client {
 
     protected function getAssetDocumentsPropertiesGraphQL(): string {
         return <<<'GRAPHQL'
-            startDate
-            endDate
-            documentNumber
-
-            currencyCode
-            languageCode
-            netPrice
-            discount
-            listPrice
-
-            document {
-                id
-                type
-                documentNumber
-
+            assetDocument {
                 startDate
                 endDate
+                documentNumber
 
                 currencyCode
                 languageCode
-                totalNetPrice
+                netPrice
+                discount
+                listPrice
 
-                updatedAt
-
-                vendorSpecificFields {
-                    vendor
-                    groupId
-                    groupDescription
-                    said
-                }
-
-                contactPersons {
-                    phoneNumber
-                    name
+                document {
+                    id
                     type
-                    mail
+                    documentNumber
+
+                    startDate
+                    endDate
+
+                    currencyCode
+                    languageCode
+                    totalNetPrice
+
+                    updatedAt
+
+                    vendorSpecificFields {
+                        vendor
+                        groupId
+                        groupDescription
+                        said
+                    }
+
+                    contactPersons {
+                        phoneNumber
+                        name
+                        type
+                        mail
+                    }
+
+                    customerId
+                    resellerId
+                    distributorId
                 }
 
-                customerId
-                resellerId
-                distributorId
-            }
+                skuNumber
+                supportPackage
+                warrantyEndDate
+                estimatedValueRenewal
 
-            skuNumber
-            supportPackage
-            warrantyEndDate
-            estimatedValueRenewal
+                customer {
+                  id
+                }
 
-            customer {
-              id
-            }
-
-            reseller {
-              id
+                reseller {
+                  id
+                }
             }
             GRAPHQL;
     }
