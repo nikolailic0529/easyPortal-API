@@ -12,8 +12,11 @@ type Organization {
   analytics_code: String
   timezone: String
 
-  branding: OrganizationBranding
+  branding: OrganizationBranding!
   @field(resolver: "App\\GraphQL\\Queries\\Organization@branding")
+
+  kpi: OrganizationKpi!
+  @field(resolver: "App\\GraphQL\\Queries\\Organization@kpi")
 
   statuses: [Status!]! @belongsToMany
   locations: [Location!]!

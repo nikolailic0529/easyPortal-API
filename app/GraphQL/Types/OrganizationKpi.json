@@ -1,0 +1,61 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionProperties": false,
+    "type": "object",
+    "required": [
+        "assets_total",
+        "assets_active",
+        "assets_covered",
+        "customers_active",
+        "customers_active_new",
+        "contracts_active",
+        "contracts_active_amount",
+        "contracts_active_new",
+        "contracts_expiring",
+        "quotes_active",
+        "quotes_active_amount",
+        "quotes_active_new",
+        "quotes_expiring"
+    ],
+    "properties": {
+        "assets_total": {
+            "type": "integer"
+        },
+        "assets_active": {
+            "type": "integer"
+        },
+        "assets_covered": {
+            "type": "number"
+        },
+        "customers_active": {
+            "type": "integer"
+        },
+        "customers_active_new": {
+            "type": "integer"
+        },
+        "contracts_active": {
+            "type": "integer"
+        },
+        "contracts_active_amount": {
+            "type": "number"
+        },
+        "contracts_active_new": {
+            "type": "integer"
+        },
+        "contracts_expiring": {
+            "type": "integer"
+        },
+        "quotes_active": {
+            "type": "integer"
+        },
+        "quotes_active_amount": {
+            "type": "number"
+        },
+        "quotes_active_new": {
+            "type": "integer"
+        },
+        "quotes_expiring": {
+            "type": "integer"
+        }
+    }
+}
