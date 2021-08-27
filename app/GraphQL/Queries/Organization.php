@@ -2,7 +2,8 @@
 
 namespace App\GraphQL\Queries;
 
-use App\Models\Organization as ModelsOrganization;
+use App\Models\Customer as CustomerModel;
+use App\Models\Organization as OrganizationModel;
 use App\Models\Permission;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\Organization\CurrentOrganization;
@@ -24,14 +25,14 @@ class Organization {
         // empty
     }
 
-    public function root(ModelsOrganization $organization): bool {
+    public function root(OrganizationModel $organization): bool {
         return $this->root->is($organization);
     }
 
     /**
      * @return array<string,mixed>
      */
-    public function branding(ModelsOrganization $organization): array {
+    public function branding(OrganizationModel $organization): array {
         return [
             'dark_theme'              => $organization->branding_dark_theme,
             'main_color'              => $organization->branding_main_color,
@@ -51,35 +52,35 @@ class Organization {
     /**
      * @return array<string,mixed>
      */
-    public function kpi(ModelsOrganization $organization): array {
+    public function kpi(OrganizationModel|CustomerModel $model): array {
         return [
-            'assets_total'            => $organization->kpi_assets_total,
-            'assets_active'           => $organization->kpi_assets_active,
-            'assets_covered'          => $organization->kpi_assets_covered,
-            'customers_active'        => $organization->kpi_customers_active,
-            'customers_active_new'    => $organization->kpi_customers_active_new,
-            'contracts_active'        => $organization->kpi_contracts_active,
-            'contracts_active_amount' => $organization->kpi_contracts_active_amount,
-            'contracts_active_new'    => $organization->kpi_contracts_active_new,
-            'contracts_expiring'      => $organization->kpi_contracts_expiring,
-            'quotes_active'           => $organization->kpi_quotes_active,
-            'quotes_active_amount'    => $organization->kpi_quotes_active_amount,
-            'quotes_active_new'       => $organization->kpi_quotes_active_new,
-            'quotes_expiring'         => $organization->kpi_quotes_expiring,
+            'assets_total'            => $model->kpi_assets_total,
+            'assets_active'           => $model->kpi_assets_active,
+            'assets_covered'          => $model->kpi_assets_covered,
+            'customers_active'        => $model->kpi_customers_active,
+            'customers_active_new'    => $model->kpi_customers_active_new,
+            'contracts_active'        => $model->kpi_contracts_active,
+            'contracts_active_amount' => $model->kpi_contracts_active_amount,
+            'contracts_active_new'    => $model->kpi_contracts_active_new,
+            'contracts_expiring'      => $model->kpi_contracts_expiring,
+            'quotes_active'           => $model->kpi_quotes_active,
+            'quotes_active_amount'    => $model->kpi_quotes_active_amount,
+            'quotes_active_new'       => $model->kpi_quotes_active_new,
+            'quotes_expiring'         => $model->kpi_quotes_expiring,
         ];
     }
 
     /**
      * @return array<mixed>
      */
-    public function users(ModelsOrganization $organization): array {
+    public function users(OrganizationModel $organization): array {
         return $this->client->users($organization);
     }
 
     /**
      * @return array<string,mixed>
      */
-    public function roles(ModelsOrganization $organization): ?array {
+    public function roles(OrganizationModel $organization): ?array {
         $output = [];
         $group  = $this->client->getGroup($organization);
         if (!$group) {
@@ -116,7 +117,7 @@ class Organization {
         })->values()->all();
     }
 
-    public function audits(ModelsOrganization $organization): Builder {
+    public function audits(OrganizationModel $organization): Builder {
         return $organization->audits()->getQuery();
     }
 }

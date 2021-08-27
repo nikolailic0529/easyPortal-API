@@ -77,6 +77,9 @@
                     "items": {
                         "$ref": "#/definitions/Status"
                     }
+                },
+                "kpi": {
+                    "$ref": "Types/Kpi.json"
                 }
             }
         },
@@ -1053,7 +1056,7 @@
                     }
                 },
                 "kpi": {
-                    "$ref": "./Types/OrganizationKpi.json"
+                    "$ref": "Types/Kpi.json"
                 }
             }
         },
