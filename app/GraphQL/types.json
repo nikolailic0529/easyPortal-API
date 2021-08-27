@@ -947,7 +947,8 @@
                 "statuses",
                 "contacts",
                 "headquarter",
-                "timezone"
+                "timezone",
+                "kpi"
             ],
             "properties": {
                 "id": {
@@ -1003,14 +1004,7 @@
                     ]
                 },
                 "branding": {
-                    "oneOf": [
-                        {
-                            "$ref": "#/definitions/OrganizationBranding"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
+                    "$ref": "#/definitions/OrganizationBranding"
                 },
                 "statuses": {
                     "type": "array",
@@ -1057,6 +1051,9 @@
                     "items": {
                         "$ref": "./Types/Audit.json"
                     }
+                },
+                "kpi": {
+                    "$ref": "./Types/OrganizationKpi.json"
                 }
             }
         },

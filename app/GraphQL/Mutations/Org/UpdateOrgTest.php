@@ -143,6 +143,21 @@ class UpdateOrgTest extends TestCase {
                     latitude
                     longitude
                   }
+                  kpi {
+                    assets_total
+                    assets_active
+                    assets_covered
+                    customers_active
+                    customers_active_new
+                    contracts_active
+                    contracts_active_amount
+                    contracts_active_new
+                    contracts_expiring
+                    quotes_active
+                    quotes_active_amount
+                    quotes_active_new
+                    quotes_expiring
+                  }
               }
             }
           }';

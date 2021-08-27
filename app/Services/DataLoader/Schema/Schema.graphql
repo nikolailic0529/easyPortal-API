@@ -139,7 +139,7 @@ type CompanyKpis {
   activeQuotesTotalAmount: Float
   newActiveQuotes: Int
   expiringQuotes: Int
-  generatedAt: Int
+  generatedAt: String
 }
 
 type CompanyType {

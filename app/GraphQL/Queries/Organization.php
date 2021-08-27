@@ -49,6 +49,27 @@ class Organization {
     }
 
     /**
+     * @return array<string,mixed>
+     */
+    public function kpi(ModelsOrganization $organization): array {
+        return [
+            'assets_total'            => $organization->kpi_assets_total,
+            'assets_active'           => $organization->kpi_assets_active,
+            'assets_covered'          => $organization->kpi_assets_covered,
+            'customers_active'        => $organization->kpi_customers_active,
+            'customers_active_new'    => $organization->kpi_customers_active_new,
+            'contracts_active'        => $organization->kpi_contracts_active,
+            'contracts_active_amount' => $organization->kpi_contracts_active_amount,
+            'contracts_active_new'    => $organization->kpi_contracts_active_new,
+            'contracts_expiring'      => $organization->kpi_contracts_expiring,
+            'quotes_active'           => $organization->kpi_quotes_active,
+            'quotes_active_amount'    => $organization->kpi_quotes_active_amount,
+            'quotes_active_new'       => $organization->kpi_quotes_active_new,
+            'quotes_expiring'         => $organization->kpi_quotes_expiring,
+        ];
+    }
+
+    /**
      * @return array<mixed>
      */
     public function users(ModelsOrganization $organization): array {

@@ -120,6 +120,21 @@ class OrganizationTest extends TestCase {
                           latitude
                           longitude
                         }
+                        kpi {
+                            assets_total
+                            assets_active
+                            assets_covered
+                            customers_active
+                            customers_active_new
+                            contracts_active
+                            contracts_active_amount
+                            contracts_active_new
+                            contracts_expiring
+                            quotes_active
+                            quotes_active_amount
+                            quotes_active_new
+                            quotes_expiring
+                        }
                     }
                 }
             ', ['id' => $organizationId])->assertThat($expected);
@@ -225,7 +240,7 @@ class OrganizationTest extends TestCase {
     }
 
     /**
-     * @covers \App\GraphQL\Queries\AuditContext::__invoke
+     * @covers       \App\GraphQL\Queries\AuditContext::__invoke
      *
      * @dataProvider dataProviderAudits
      */
@@ -353,6 +368,21 @@ class OrganizationTest extends TestCase {
                                 'name' => 'active',
                             ],
                         ],
+                        'kpi'            => [
+                            'assets_total'            => 1,
+                            'assets_active'           => 2,
+                            'assets_covered'          => 3.0,
+                            'customers_active'        => 4,
+                            'customers_active_new'    => 5,
+                            'contracts_active'        => 6,
+                            'contracts_active_amount' => 7.0,
+                            'contracts_active_new'    => 8,
+                            'contracts_expiring'      => 9,
+                            'quotes_active'           => 10,
+                            'quotes_active_amount'    => 11.0,
+                            'quotes_active_new'       => 12,
+                            'quotes_expiring'         => 13,
+                        ],
                     ]),
                     [
                         'ep.headquarter_type' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -421,6 +451,19 @@ class OrganizationTest extends TestCase {
                                 'branding_welcome_underline'       => 'underline',
                                 'timezone'                         => 'Europe/London',
                                 'keycloak_group_id'                => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945',
+                                'kpi_assets_total'                 => 1,
+                                'kpi_assets_active'                => 2,
+                                'kpi_assets_covered'               => 3.0,
+                                'kpi_customers_active'             => 4,
+                                'kpi_customers_active_new'         => 5,
+                                'kpi_contracts_active'             => 6,
+                                'kpi_contracts_active_amount'      => 7.0,
+                                'kpi_contracts_active_new'         => 8,
+                                'kpi_contracts_expiring'           => 9,
+                                'kpi_quotes_active'                => 10,
+                                'kpi_quotes_active_amount'         => 11.0,
+                                'kpi_quotes_active_new'            => 12,
+                                'kpi_quotes_expiring'              => 13,
                             ]);
 
                         return $organization;
@@ -714,6 +757,7 @@ class OrganizationTest extends TestCase {
                                     'id' => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                                 ]);
                             Organization::factory()->hasAudits(1)->create();
+
                             return $organization;
                         },
                     ],
@@ -785,6 +829,7 @@ class OrganizationTest extends TestCase {
                                     'id' => '439a0a06-d98a-41f0-b8e5-4e5722518e00',
                                 ]);
                             Organization::factory()->hasAudits(1)->create();
+
                             return $organization;
                         },
                     ],

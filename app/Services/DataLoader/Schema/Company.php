@@ -8,6 +8,7 @@ class Company extends Type implements TypeWithId {
     public ?string $updatedAt;
     public ?string $keycloakName;
     public ?string $keycloakGroupId;
+    public ?string $keycloakClientScopeName;
     /**
      * @var array<\App\Services\DataLoader\Schema\CompanyContactPerson>
      */
@@ -26,6 +27,7 @@ class Company extends Type implements TypeWithId {
     public array $assets;
 
     public ?BrandingData $brandingData;
+    public ?CompanyKpis $companyKpis;
 
     /**
      * @var array<string>|null
