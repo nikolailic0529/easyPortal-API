@@ -242,6 +242,29 @@ class JsonObjectTest extends TestCase {
         $this->assertEquals(0, count($empty));
         $this->assertEquals(1, count($object));
     }
+
+    /**
+     * @covers ::make
+     */
+    public function testMake(): void {
+        $this->assertNull(
+            JsonObjectTest_Parent::make(null),
+        );
+        $this->assertEquals(
+            new JsonObjectTest_Parent(['i' => 1]),
+            JsonObjectTest_Parent::make(['i' => 1]),
+        );
+        $this->assertEquals(
+            [
+                new JsonObjectTest_Parent(['i' => 1]),
+                new JsonObjectTest_Parent(['i' => 2]),
+            ],
+            JsonObjectTest_Parent::make([
+                ['i' => 1],
+                ['i' => 2],
+            ]),
+        );
+    }
 }
 
 // @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
