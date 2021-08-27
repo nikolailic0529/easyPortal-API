@@ -1,7 +1,10 @@
 {
     "id": "5fb52fc3-86fd-4e1f-87cd-0f546fc8989a",
     "name": "Weber, Gusikowski and Simonis",
-    "status": ["ACTIVE", "INACTIVE"],
+    "status": [
+        "ACTIVE",
+        "INACTIVE"
+    ],
     "updatedAt": "1625642660000",
     "companyContactPersons": [
         {
@@ -86,5 +89,20 @@
             "city": "WANGEN",
             "locationType": "HEADQUARTER"
         }
-    ]
+    ],
+    "companyKpis": {
+        "totalAssets": 1,
+        "activeAssets": 2,
+        "activeAssetsPercentage": 3.0,
+        "activeCustomers": 4,
+        "newActiveCustomers": 5,
+        "activeContracts": 6,
+        "activeContractTotalAmount": 7.0,
+        "newActiveContracts": 8,
+        "expiringContracts": 9,
+        "activeQuotes": 10,
+        "activeQuotesTotalAmount": 11.00,
+        "newActiveQuotes": 12,
+        "expiringQuotes": null
+    }
 }

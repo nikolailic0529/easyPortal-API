@@ -603,6 +603,7 @@ type Customer {
   contacts_count: Int!
   contacts: [Contact!]!
   headquarter: Location
+  kpi: Kpi!
 
   """
   @require <me(["assets-view","customers-view"])> User must be authenticated and have any of these permissions.
@@ -979,6 +980,22 @@ input InviteOrgUserInput {
 
 type InviteOrgUserPayload {
   result: Boolean!
+}
+
+type Kpi {
+  assets_total: Int!
+  assets_active: Int!
+  assets_covered: Float!
+  customers_active: Int!
+  customers_active_new: Int!
+  contracts_active: Int!
+  contracts_active_amount: Float!
+  contracts_active_new: Int!
+  contracts_expiring: Int!
+  quotes_active: Int!
+  quotes_active_amount: Float!
+  quotes_active_new: Int!
+  quotes_expiring: Int!
 }
 
 type Language {
@@ -1516,7 +1533,7 @@ type Organization {
   analytics_code: String
   timezone: String
   branding: OrganizationBranding!
-  kpi: OrganizationKpi!
+  kpi: Kpi!
   statuses: [Status!]!
   locations: [Location!]!
   contacts: [Contact!]!
@@ -1565,22 +1582,6 @@ type OrganizationBranding {
   welcome_image_url: String
   welcome_heading: String
   welcome_underline: String
-}
-
-type OrganizationKpi {
-  assets_total: Int!
-  assets_active: Int!
-  assets_covered: Float!
-  customers_active: Int!
-  customers_active_new: Int!
-  contracts_active: Int!
-  contracts_active_amount: Float!
-  contracts_active_new: Int!
-  contracts_expiring: Int!
-  quotes_active: Int!
-  quotes_active_amount: Float!
-  quotes_active_new: Int!
-  quotes_expiring: Int!
 }
 
 """A paginated list of Organization items."""

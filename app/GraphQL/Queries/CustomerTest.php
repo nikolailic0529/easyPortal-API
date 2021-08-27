@@ -102,6 +102,21 @@ class CustomerTest extends TestCase {
                           key
                           name
                         }
+                        kpi {
+                            assets_total
+                            assets_active
+                            assets_covered
+                            customers_active
+                            customers_active_new
+                            contracts_active
+                            contracts_active_amount
+                            contracts_active_new
+                            contracts_expiring
+                            quotes_active
+                            quotes_active_amount
+                            quotes_active_new
+                            quotes_expiring
+                        }
                     }
                 }
             ', ['id' => $customerId])
@@ -1182,6 +1197,21 @@ class CustomerTest extends TestCase {
                                     'name' => 'active',
                                 ],
                             ],
+                            'kpi'             => [
+                                'assets_total'            => 1,
+                                'assets_active'           => 2,
+                                'assets_covered'          => 3.0,
+                                'customers_active'        => 4,
+                                'customers_active_new'    => 5,
+                                'contracts_active'        => 6,
+                                'contracts_active_amount' => 7.0,
+                                'contracts_active_new'    => 8,
+                                'contracts_expiring'      => 9,
+                                'quotes_active'           => 10,
+                                'quotes_active_amount'    => 11.0,
+                                'quotes_active_new'       => 12,
+                                'quotes_expiring'         => 13,
+                            ],
                         ]),
                         [
                             'ep.headquarter_type' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
@@ -1200,11 +1230,24 @@ class CustomerTest extends TestCase {
                                     'object_type' => (new Reseller())->getMorphClass(),
                                 ])
                                 ->create([
-                                    'id'              => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
-                                    'name'            => 'name aaa',
-                                    'assets_count'    => 0,
-                                    'contacts_count'  => 1,
-                                    'locations_count' => 1,
+                                    'id'                          => 'f9396bc1-2f2f-4c57-bb8d-7a224ac20944',
+                                    'name'                        => 'name aaa',
+                                    'assets_count'                => 0,
+                                    'contacts_count'              => 1,
+                                    'locations_count'             => 1,
+                                    'kpi_assets_total'            => 1,
+                                    'kpi_assets_active'           => 2,
+                                    'kpi_assets_covered'          => 3.0,
+                                    'kpi_customers_active'        => 4,
+                                    'kpi_customers_active_new'    => 5,
+                                    'kpi_contracts_active'        => 6,
+                                    'kpi_contracts_active_amount' => 7.0,
+                                    'kpi_contracts_active_new'    => 8,
+                                    'kpi_contracts_expiring'      => 9,
+                                    'kpi_quotes_active'           => 10,
+                                    'kpi_quotes_active_amount'    => 11.0,
+                                    'kpi_quotes_active_new'       => 12,
+                                    'kpi_quotes_expiring'         => 13,
                                 ]);
                             Location::factory()
                                 ->hasTypes(1, [

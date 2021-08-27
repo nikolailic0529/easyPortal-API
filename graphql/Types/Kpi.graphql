@@ -1,4 +1,4 @@
-type OrganizationKpi {
+type Kpi {
   assets_total: Int!
   assets_active: Int!
   assets_covered: Float!

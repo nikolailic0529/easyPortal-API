@@ -29,6 +29,19 @@ use function app;
  * @property int                                                                 $assets_count
  * @property int                                                                 $locations_count
  * @property int                                                                 $contacts_count
+ * @property int                                                                 $kpi_assets_total
+ * @property int                                                                 $kpi_assets_active
+ * @property float                                                               $kpi_assets_covered
+ * @property int                                                                 $kpi_customers_active
+ * @property int                                                                 $kpi_customers_active_new
+ * @property int                                                                 $kpi_contracts_active
+ * @property float                                                               $kpi_contracts_active_amount
+ * @property int                                                                 $kpi_contracts_active_new
+ * @property int                                                                 $kpi_contracts_expiring
+ * @property int                                                                 $kpi_quotes_active
+ * @property float                                                               $kpi_quotes_active_amount
+ * @property int                                                                 $kpi_quotes_active_new
+ * @property int                                                                 $kpi_quotes_expiring
  * @property \Carbon\CarbonImmutable|null                                        $changed_at
  * @property \Carbon\CarbonImmutable                                             $created_at
  * @property \Carbon\CarbonImmutable                                             $updated_at
