@@ -73,7 +73,8 @@ class CustomerFactoryTest extends TestCase {
      */
     public function testCreateFromCompany(): void {
         // Prepare
-        $factory = $this->app->make(CustomerFactory::class);
+        $factory    = $this->app->make(CustomerFactory::class);
+        $normalizer = $this->app->make(Normalizer::class);
 
         // Load
         $json    = $this->getTestData()->json('~customer-full.json');
@@ -107,6 +108,58 @@ class CustomerFactoryTest extends TestCase {
         $this->assertEquals(
             $this->getContacts($company),
             $this->getModelContacts($customer),
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->totalAssets),
+            $customer->kpi_assets_total,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->activeAssets),
+            $customer->kpi_assets_active,
+        );
+        $this->assertEquals(
+            (float) $normalizer->number($company->companyKpis->activeAssetsPercentage),
+            $customer->kpi_assets_covered,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->activeCustomers),
+            $customer->kpi_customers_active,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->newActiveCustomers),
+            $customer->kpi_customers_active_new,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->activeContracts),
+            $customer->kpi_contracts_active,
+        );
+        $this->assertEquals(
+            (float) $normalizer->number($company->companyKpis->activeContractTotalAmount),
+            $customer->kpi_contracts_active_amount,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->newActiveContracts),
+            $customer->kpi_contracts_active_new,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->expiringContracts),
+            $customer->kpi_contracts_expiring,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->activeQuotes),
+            $customer->kpi_quotes_active,
+        );
+        $this->assertEquals(
+            (float) $normalizer->number($company->companyKpis->activeQuotesTotalAmount),
+            $customer->kpi_quotes_active_amount,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->newActiveQuotes),
+            $customer->kpi_quotes_active_new,
+        );
+        $this->assertEquals(
+            (int) $normalizer->number($company->companyKpis->expiringQuotes),
+            $customer->kpi_quotes_expiring,
         );
 
         $this->flushQueryLog();
