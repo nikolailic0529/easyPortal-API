@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `organization_users` (
   PRIMARY KEY (`id`),
   INDEX `fk_organization_users_users1_idx` (`user_id` ASC) VISIBLE,
   INDEX `fk_organization_users_organizations1_idx` (`organization_id` ASC) VISIBLE,
-  UNIQUE INDEX `unique__organization_id__user_id__deleted_not` (`organization_id` ASC, `user_id` ASC) VISIBLE,
+  UNIQUE INDEX `unique__organization_id__user_id__deleted_not` (`organization_id` ASC, `user_id` ASC, `deleted_not` ASC) VISIBLE,
   INDEX `idx__deleted_at` (`deleted_at` ASC) VISIBLE,
   CONSTRAINT `fk_organization_users_users1`
     FOREIGN KEY (`user_id`)
