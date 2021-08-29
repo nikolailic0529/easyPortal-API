@@ -4,10 +4,13 @@ namespace App\Services\KeyCloak\Commands;
 
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Importer\Status;
-use App\Services\KeyCloak\Importer\UserImporter;
+use App\Services\KeyCloak\Importer\UsersImporter;
 use Illuminate\Console\Command;
 
+use function app;
+use function min;
 use function strtr;
+
 class SyncUsers extends Command {
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -15,10 +18,7 @@ class SyncUsers extends Command {
      * @var string
      */
     protected $signature = '${command}
-        {--u|update : Update ${objects} if exists}
-        {--U|no-update : Do not update ${objects} if exists (default)}
         {--continue= : continue processing from given ${object}}
-        {--from= : start processing from given datetime}
         {--limit= : max ${objects} to process}
         {--chunk= : chunk size}
     ';
@@ -31,9 +31,8 @@ class SyncUsers extends Command {
     protected $description = 'Import all ${objects}.';
 
     public function __construct(
-        protected UsersIterator $iterator,
         protected Client $client,
-        protected UserImporter $importer,
+        protected UsersImporter $importer,
     ) {
         $replacements      = $this->getReplacements();
         $this->signature   = strtr($this->signature, $replacements);
@@ -59,18 +58,31 @@ class SyncUsers extends Command {
      * @return mixed
      */
     public function handle(): void {
-        $total = $this->client->usersCount();
-        $bar   = $this->output->createProgressBar($total);
-        $bar->start();
+        // Dependencies
 
+        $importer = app()->make(UsersImporter::class);
+
+        // param
         $continue = $this->option('continue');
         $chunk    = (int) $this->option('chunk');
         $limit    = (int) $this->option('limit');
+        $total    = 0;
+        $bar      = null;
+        $importer
+            ->onInit(function () use (&$bar, &$total, $limit): void {
+                $client = app()->make(Client::class);
+                $total  = $client->usersCount();
+                if ($limit > 0) {
+                    $total = min($total, $limit);
+                }
 
-        $this->importer->onChange(static function (Status $status, int $offset) use ($bar): void {
-            $bar->setProgress($status->processed);
-        })
-        ->import($continue, $chunk, $limit);
+                $bar = $this->output->createProgressBar($total);
+            })
+            ->onChange(static function (Status $status, int $offset) use (&$bar): void {
+                $bar->setProgress($status->processed);
+            })
+            ->import($continue, $chunk, $limit, $total);
+
         $bar->finish();
     }
 }

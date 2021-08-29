@@ -7,26 +7,33 @@ use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\KeyCloak\Client\Client;
+use App\Services\KeyCloak\Client\Types\User as TypesUser;
 use App\Services\KeyCloak\Commands\UsersIterator;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Closure;
+use Illuminate\Support\Collection;
 use Laravel\Telescope\Telescope;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
+use function array_map;
 
-class UserImporter {
+class UsersImporter {
     use GlobalScopes;
 
     protected ?Closure $onInit   = null;
     protected ?Closure $onChange = null;
     protected ?Closure $onFinish = null;
 
+    // Prefetch collection
+    protected Collection $users;
+
     public function __construct(
         protected LoggerInterface $logger,
         protected Client $client,
-        protected UsersIterator $usersIterator,
+        protected UsersIterator $iterator,
     ) {
         // empty
     }
@@ -61,10 +68,11 @@ class UserImporter {
         string|int $continue = null,
         int $chunk = null,
         int $limit = null,
+        int $total = null,
     ): void {
-        $this->call(function () use ($continue, $chunk, $limit): void {
-            $status   = new Status($continue, $this->getTotal());
-            $iterator = $this->usersIterator;
+        $this->call(function () use ($continue, $chunk, $limit, $total): void {
+            $status   = new Status($continue, $total);
+            $iterator = $this->getIterator();
             if ($chunk) {
                 $iterator->setChunkSize($chunk);
             }
@@ -74,8 +82,8 @@ class UserImporter {
             }
 
             $iterator
-                ->onBeforeChunk(function () use ($status): void {
-                    $this->onBeforeChunk($status);
+                ->onBeforeChunk(function ($items) use ($status): void {
+                    $this->onBeforeChunk($items, $status);
                 })
                 ->onAfterChunk(function () use (&$iterator, $status): void {
                     $this->onAfterChunk($status, $iterator->getOffset());
@@ -87,7 +95,7 @@ class UserImporter {
             foreach ($iterator as $item) {
                 /** @var \App\Services\KeyCloak\Client\Types\User $item */
                 try {
-                    $user = User::whereKey($item->id)->first();
+                    $user = $this->users->get($item->id);
                     if (!$user) {
                         $user                        = new User();
                         $user->{$user->getKeyName()} = $item->id;
@@ -135,17 +143,20 @@ class UserImporter {
         });
     }
 
-    protected function getIterator(int $chunk): UsersIterator {
-        return $this->usersIterator;
+    protected function getIterator(): QueryIterator {
+        return $this->iterator;
     }
 
-
-    protected function getTotal(): ?int {
-        return $this->client->usersCount();
-    }
-
-    protected function onBeforeChunk(Status $status): void {
-        // Empty
+    /**
+     * @param array<string, mixed> $items
+     */
+    protected function onBeforeChunk(array $items, Status $status): void {
+        $ids         = array_map(static function (TypesUser $item) {
+            return $item->id;
+        }, $items);
+        $key         = (new User())->getKeyName();
+        $users       = User::whereIn($key, $ids)->get();
+        $this->users = $users->keyBy($key);
     }
 
     protected function onAfterChunk(Status $status, int|null $offset): void {

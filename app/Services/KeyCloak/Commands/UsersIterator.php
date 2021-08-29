@@ -7,13 +7,14 @@ use App\Services\KeyCloak\Client\Client;
 use Closure;
 use Iterator;
 
+use function min;
 
 class UsersIterator implements QueryIterator {
     protected ?Closure $beforeChunk = null;
     protected ?Closure $afterChunk  = null;
     protected ?string  $current     = null;
     protected ?int     $limit       = 0;
-    protected int      $chunk       = 0;
+    protected int      $chunk       = 250;
     protected int      $offset      = 0;
 
     public function __construct(
@@ -68,10 +69,12 @@ class UsersIterator implements QueryIterator {
         // Prepare
         $index  = 0;
         $offset = $this->offset;
-        $chunk  = $this->chunk;
+        $chunk  = $this->limit ? min($this->limit, $this->chunk) : $this->chunk;
+        $limit  = $this->limit;
 
         // Iterate
         do {
+            $chunk = $limit ? min($chunk, $limit - $index) : $chunk;
             $items = $this->client->getUsers($chunk, $offset);
 
             $offset += $chunk;
@@ -84,6 +87,9 @@ class UsersIterator implements QueryIterator {
             }
             if ($this->afterChunk) {
                 ($this->afterChunk)($items);
+            }
+            if ($limit && $index >= $limit) {
+                break;
             }
         } while ($items);
     }

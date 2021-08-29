@@ -2,8 +2,8 @@
 
 namespace App\Services\KeyCloak\Jobs;
 
-use App\Services\KeyCloak\Commands\Status;
-use App\Services\KeyCloak\Commands\Updater;
+use App\Services\KeyCloak\Importer\Status;
+use App\Services\KeyCloak\Importer\UsersImporter;
 use App\Services\Queue\CronJob;
 use App\Services\Queue\Progress;
 use App\Services\Queue\Progressable;
@@ -19,25 +19,23 @@ class SyncUsersCronJob extends CronJob implements Progressable {
 
     protected function process(
         Service $service,
-        Updater $updater,
+        UsersImporter $importer,
     ): void {
         $state    = $this->getState($service) ?: $this->getDefaultState();
-        $chunk    = 100;
-        $limit    = 100;
         $continue = $state->continue;
 
-        $updater
+        $importer
             ->onInit(function (Status $status) use ($service, $state): void {
                 $this->updateState($service, $state, $status);
             })
             ->onChange(function (Status $status) use ($service, $state): void {
                 $this->updateState($service, $state, $status);
-                $this->stop();
+                $this->ping();
             })
             ->onFinish(function () use ($service): void {
                 $this->resetState($service);
             })
-            ->update($continue, $chunk, $limit);
+            ->import($continue);
     }
 
     public function getProgressCallback(): callable {
