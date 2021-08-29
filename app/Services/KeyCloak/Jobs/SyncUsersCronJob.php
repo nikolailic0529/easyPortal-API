@@ -20,6 +20,8 @@ class SyncUsersCronJob extends CronJob implements Progressable {
     protected function process(
         Service $service,
         UsersImporter $importer,
+        int $chunk = null,
+        int $limit = null,
     ): void {
         $state    = $this->getState($service) ?: $this->getDefaultState();
         $continue = $state->continue;
@@ -35,7 +37,7 @@ class SyncUsersCronJob extends CronJob implements Progressable {
             ->onFinish(function () use ($service): void {
                 $this->resetState($service);
             })
-            ->import($continue);
+            ->import($continue, $chunk, $limit);
     }
 
     public function getProgressCallback(): callable {

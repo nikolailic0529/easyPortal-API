@@ -2,11 +2,15 @@
 
 namespace App\Services\KeyCloak\Jobs;
 
+use App\Services\KeyCloak\Client\Client;
+use App\Services\KeyCloak\Commands\UsersIterator;
 use App\Services\KeyCloak\Importer\Status;
+use App\Services\KeyCloak\Importer\UsersImporter;
 use App\Services\Queue\Progress;
 use Closure;
 use Exception;
 use Mockery;
+use Mockery\MockInterface;
 use Tests\TestCase;
 
 /**
@@ -21,6 +25,94 @@ class SyncUsersCronJobTest extends TestCase {
         $this->assertCronableRegistered(SyncUsersCronJob::class);
     }
 
+    /**
+     * @covers ::process
+     */
+    public function testProcess(): void {
+        $status  = new Status();
+        $service = $this->app->make(Service::class);
+
+        $this->override(Client::class, static function (MockInterface $mock): void {
+            $mock
+                ->shouldReceive('getUsers')
+                ->once();
+        });
+
+        /** @var \Mockery\MockInterface $job */
+        $job = Mockery::mock(SyncUsersCronJob::class);
+        $job->shouldAllowMockingProtectedMethods();
+        $job->makePartial();
+
+        $job
+            ->shouldReceive('ping')
+            ->once();
+
+        $job
+            ->shouldReceive('updateState')
+            ->with($service, Mockery::type(SyncUserState::class), $status)
+            ->twice()
+            ->andReturns();
+
+        $job
+            ->shouldReceive('resetState')
+            ->with($service)
+            ->once()
+            ->andReturns();
+
+        /** @var \Mockery\MockInterface $importer */
+        $importer = Mockery::mock(UsersImporter::class);
+        $importer->shouldAllowMockingProtectedMethods();
+        $importer->makePartial();
+
+        $importer
+        ->shouldReceive('onInit')
+        ->withArgs(function (?Closure $closure) use ($status): bool {
+            $this->assertNotNull($closure);
+
+            $closure($status);
+
+            return true;
+        })
+        ->once()
+        ->andReturnSelf();
+        $importer
+            ->shouldReceive('onChange')
+            ->withArgs(function (?Closure $closure) use ($status): bool {
+                $this->assertNotNull($closure);
+
+                $closure($status);
+
+                return true;
+            })
+            ->once()
+            ->andReturnSelf();
+        $importer
+            ->shouldReceive('onFinish')
+            ->withArgs(function (?Closure $closure): bool {
+                $this->assertNotNull($closure);
+
+                $closure();
+
+                return true;
+            })
+            ->once()
+            ->andReturnSelf();
+
+        $iterator = $this->app->make(UsersIterator::class);
+
+        $importer
+            ->shouldReceive('getIterator')
+            ->once()
+            ->andReturn($iterator);
+
+        $importer
+            ->shouldReceive('getTotal')
+            ->once()
+            ->andReturn(1);
+
+
+        $job->process($service, $importer, 1, 1);
+    }
     /**
      * @covers ::getDefaultState
      */

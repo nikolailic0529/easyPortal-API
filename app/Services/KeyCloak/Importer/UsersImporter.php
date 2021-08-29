@@ -71,6 +71,9 @@ class UsersImporter {
         int $total = null,
     ): void {
         $this->call(function () use ($continue, $chunk, $limit, $total): void {
+            if (!$total) {
+                $total = $this->getTotal();
+            }
             $status   = new Status($continue, $total);
             $iterator = $this->getIterator();
             if ($chunk) {
@@ -135,6 +138,10 @@ class UsersImporter {
 
             $this->onAfterImport($status);
         });
+    }
+
+    protected function getTotal(): ?int {
+        return $this->client->usersCount();
     }
 
     private function call(Closure $closure): void {
