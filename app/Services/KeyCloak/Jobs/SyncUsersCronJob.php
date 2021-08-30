@@ -7,6 +7,8 @@ use App\Services\KeyCloak\Importer\UsersImporter;
 use App\Services\Queue\CronJob;
 use App\Services\Queue\Progress;
 use App\Services\Queue\Progressable;
+use LastDragon_ru\LaraASP\Queue\Configs\QueueableConfig;
+use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 use Throwable;
 
 /**
@@ -17,13 +19,23 @@ class SyncUsersCronJob extends CronJob implements Progressable {
         return 'ep-keycloak-sync-users';
     }
 
+    public function __invoke(
+        QueueableConfigurator $configurator,
+        Service $service,
+        UsersImporter $importer,
+    ): void {
+        $this->process($configurator, $service, $importer);
+    }
+
     protected function process(
+        QueueableConfigurator $configurator,
         Service $service,
         UsersImporter $importer,
         int $chunk = null,
         int $limit = null,
     ): void {
-        $state    = $this->getState($service) ?: $this->getDefaultState();
+        $config   = $configurator->config($this);
+        $state    = $this->getState($service) ?: $this->getDefaultState($config);
         $continue = $state->continue;
 
         $importer
@@ -87,7 +99,7 @@ class SyncUsersCronJob extends CronJob implements Progressable {
         $service->delete($this);
     }
 
-    protected function getDefaultState(): SyncUserState {
+    protected function getDefaultState(QueueableConfig $config): SyncUserState {
         return new SyncUserState();
     }
 }

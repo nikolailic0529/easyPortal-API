@@ -9,6 +9,7 @@ use App\Services\KeyCloak\Importer\UsersImporter;
 use App\Services\Queue\Progress;
 use Closure;
 use Exception;
+use LastDragon_ru\LaraASP\Queue\QueueableConfigurator;
 use Mockery;
 use Mockery\MockInterface;
 use Tests\TestCase;
@@ -29,8 +30,9 @@ class SyncUsersCronJobTest extends TestCase {
      * @covers ::process
      */
     public function testProcess(): void {
-        $status  = new Status();
-        $service = $this->app->make(Service::class);
+        $status       = new Status();
+        $service      = $this->app->make(Service::class);
+        $configurator = $this->app->make(QueueableConfigurator::class);
 
         $this->override(Client::class, static function (MockInterface $mock): void {
             $mock
@@ -111,7 +113,7 @@ class SyncUsersCronJobTest extends TestCase {
             ->andReturn(1);
 
 
-        $job->process($service, $importer, 1, 1);
+        $job->process($configurator, $service, $importer, 1, 1);
     }
     /**
      * @covers ::getDefaultState
@@ -121,7 +123,9 @@ class SyncUsersCronJobTest extends TestCase {
         $job->shouldAllowMockingProtectedMethods();
         $job->makePartial();
 
-        $actual   = $job->getDefaultState();
+        $actual   = $job->getDefaultState(
+            $this->app->make(QueueableConfigurator::class)->config($job),
+        );
         $expected = new SyncUserState();
 
         $this->assertEquals($expected, $actual);
