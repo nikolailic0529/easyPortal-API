@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Testing\Data;
 
-use App\Services\DataLoader\Schema\CentralAssetDbStatistics;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\CompanyKpis;
@@ -13,36 +12,20 @@ use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewCompany;
 use App\Services\DataLoader\Schema\ViewDocument;
-use CallbackFilterIterator;
 use Exception;
 use Faker\Generator;
-use Illuminate\Support\Arr;
-use RecursiveIteratorIterator;
 
 use function array_key_exists;
-use function array_slice;
-use function explode;
-use function implode;
-use function is_object;
 use function sprintf;
 
 /**
  * Replaces real DataLoader data to fake data.
  */
-class Cleaner {
+class ClientDataCleaner {
     /**
      * @var array<string,string>
      */
     protected array $map = [];
-
-    /**
-     * @var array<string,class-string<\App\Services\DataLoader\Schema\Type>>
-     */
-    protected array $selectors = [
-        'data.getAssets'                   => ViewAsset::class,
-        'data.getCompanyById'              => Company::class,
-        'data.getCentralAssetDbStatistics' => CentralAssetDbStatistics::class,
-    ];
 
     public function __construct(
         protected Generator $faker,
@@ -50,43 +33,7 @@ class Cleaner {
         // empty
     }
 
-    /**
-     * @param array{selector:string,response:array<mixed>} $dump
-     *
-     * @return array<mixed>
-     */
-    public function clean(array $dump): array {
-        $selector = implode('.', array_slice(explode('.', $dump['selector']), 0, 2));
-        $class    = $this->selectors[$selector] ?? null;
-
-        if ($class) {
-            $data     = $class::make(Arr::get($dump['response'], $selector));
-            $iterator = new CallbackFilterIterator(
-                new RecursiveIteratorIterator(
-                    new RecursiveJsonObjectsIterator($data),
-                    RecursiveIteratorIterator::SELF_FIRST,
-                ),
-                static function (mixed $current): bool {
-                    return is_object($current);
-                },
-            );
-
-            foreach ($iterator as $object) {
-                $this->process($object);
-            }
-
-            Arr::set($dump['response'], $selector, $data);
-        } else {
-            throw new Exception(sprintf(
-                'Unknown selector: `%s`.',
-                $selector,
-            ));
-        }
-
-        return $dump;
-    }
-
-    public function process(object $object): void {
+    public function clean(object $object): void {
         $uuid           = function (): string {
             return $this->faker->uuid;
         };

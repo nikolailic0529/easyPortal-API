@@ -12,6 +12,8 @@ use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
 use App\Services\DataLoader\Schema\UpdateCompanyFile;
 use App\Services\DataLoader\Schema\ViewAsset;
+use App\Services\DataLoader\Testing\Data\ClientDump;
+use App\Services\DataLoader\Testing\Data\ClientDumpFile;
 use Closure;
 use DateTimeInterface;
 use Exception;
@@ -26,20 +28,13 @@ use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Arr;
 use Psr\Log\LoggerInterface;
 use SplFileInfo;
-use Symfony\Component\Filesystem\Filesystem;
 
-use function dirname;
 use function explode;
-use function file_put_contents;
 use function implode;
 use function json_encode;
 use function reset;
 use function sha1;
 use function time;
-
-use const JSON_PRETTY_PRINT;
-use const JSON_UNESCAPED_SLASHES;
-use const JSON_UNESCAPED_UNICODE;
 
 class Client {
     public function __construct(
@@ -734,17 +729,17 @@ class Client {
         }
 
         // Dump
-        $path    = "{$this->config->get('ep.data_loader.dump')}/{$this->callDumpPath($selector, $graphql, $params)}";
-        $content = json_encode([
+        $path = "{$this->config->get('ep.data_loader.dump')}/{$this->callDumpPath($selector, $graphql, $params)}";
+        $dump = new ClientDumpFile(new SplFileInfo($path));
+
+        $dump->setDump(new ClientDump([
             'selector' => $selector,
             'graphql'  => $graphql,
             'params'   => $params,
             'response' => $json,
-        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        ]));
 
-        (new Filesystem())->mkdir(dirname($path));
-
-        file_put_contents($path, $content);
+        $dump->save();
     }
 
     protected function callDumpPath(string $selector, string $graphql, mixed $params): string {
