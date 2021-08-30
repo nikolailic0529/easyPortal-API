@@ -579,6 +579,35 @@ class Client {
      * @param array<string> $files
      */
     public function call(string $selector, string $graphql, array $params = [], array $files = []): mixed {
+        $json   = $this->callExecute($selector, $graphql, $params, $files);
+        $errors = Arr::get($json, 'errors', Arr::get($json, 'error.errors'));
+        $result = Arr::get($json, $selector);
+
+        if ($errors) {
+            $error = new GraphQLRequestFailed($graphql, $params, $errors);
+
+            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $params, $json));
+            $this->handler->report($error);
+
+            if (!$result) {
+                throw $error;
+            }
+        } else {
+            $this->dispatcher->dispatch(new RequestSuccessful($selector, $graphql, $params, $json));
+        }
+
+        // Dump
+        $this->callDump($selector, $graphql, $params, $json);
+
+        // Return
+        return $result;
+    }
+
+    /**
+     * @param array<mixed>  $params
+     * @param array<string> $files
+     */
+    protected function callExecute(string $selector, string $graphql, array $params, array $files): mixed {
         // Enabled?
         if (!$this->isEnabled()) {
             throw new DataLoaderDisabled();
@@ -598,12 +627,14 @@ class Client {
         ]);
 
         // Call
+        $json  = null;
         $begin = time();
 
         try {
             $this->dispatcher->dispatch(new RequestStarted($selector, $graphql, $params));
 
             $response = $request->post($url, $data);
+            $json     = $response->json();
 
             $response->throw();
         } catch (ConnectionException $exception) {
@@ -633,29 +664,8 @@ class Client {
             ]);
         }
 
-        // Error?
-        $json   = $response->json();
-        $errors = Arr::get($json, 'errors', Arr::get($json, 'error.errors'));
-        $result = Arr::get($json, $selector);
-
-        if ($errors) {
-            $error = new GraphQLRequestFailed($graphql, $params, $errors);
-
-            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $params, $json));
-            $this->handler->report($error);
-
-            if (!$result) {
-                throw $error;
-            }
-        } else {
-            $this->dispatcher->dispatch(new RequestSuccessful($selector, $graphql, $params, $json));
-        }
-
-        // Dump
-        $this->callDump($selector, $graphql, $params, $json);
-
         // Return
-        return $result;
+        return $json;
     }
 
     /**
@@ -724,8 +734,7 @@ class Client {
         }
 
         // Dump
-        $dump    = implode('.', [sha1($graphql), sha1(json_encode($params)), 'json']);
-        $path    = "{$this->config->get('ep.data_loader.dump')}/{$selector}/{$dump}";
+        $path    = "{$this->config->get('ep.data_loader.dump')}/{$this->callDumpPath($selector, $graphql, $params)}";
         $content = json_encode([
             'selector' => $selector,
             'graphql'  => $graphql,
@@ -736,6 +745,13 @@ class Client {
         (new Filesystem())->mkdir(dirname($path));
 
         file_put_contents($path, $content);
+    }
+
+    protected function callDumpPath(string $selector, string $graphql, mixed $params): string {
+        $dump = implode('.', [sha1($graphql), sha1(json_encode($params)), 'json']);
+        $path = "{$selector}/{$dump}";
+
+        return $path;
     }
 
     protected function datetime(?DateTimeInterface $datetime): ?string {
