@@ -7,7 +7,6 @@ use App\Models\Role;
 use App\Models\User as UserModel;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User;
-use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Mockery\MockInterface;
 use Tests\TestCase;
 
@@ -16,7 +15,6 @@ use Tests\TestCase;
  * @coversDefaultClass \App\Services\KeyCloak\Commands\UsersImporter
  */
 class UsersImporterTest extends TestCase {
-    use WithQueryLog;
 
     public function testImportFull(): void {
         // Prepare
