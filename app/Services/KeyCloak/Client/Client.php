@@ -35,6 +35,7 @@ class Client {
         protected Repository $config,
         protected ExceptionHandler $handler,
         protected Token $token,
+        // protected UsersIterator $usersIterator,
     ) {
         // empty
     }

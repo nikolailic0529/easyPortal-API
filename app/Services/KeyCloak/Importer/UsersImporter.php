@@ -19,6 +19,7 @@ use Psr\Log\LoggerInterface;
 use Throwable;
 
 use function array_map;
+use function min;
 
 class UsersImporter {
     use GlobalScopes;
@@ -26,9 +27,6 @@ class UsersImporter {
     protected ?Closure $onInit   = null;
     protected ?Closure $onChange = null;
     protected ?Closure $onFinish = null;
-
-    // Prefetch collection
-    protected Collection $users;
 
     public function __construct(
         protected LoggerInterface $logger,
@@ -74,19 +72,17 @@ class UsersImporter {
             if (!$total) {
                 $total = $this->getTotal();
             }
-            $status   = new Status($continue, $total);
-            $iterator = $this->getIterator();
-            if ($chunk) {
-                $iterator->setChunkSize($chunk);
-            }
 
             if ($limit) {
-                $iterator->setLimit($limit);
+                $total = min($total, $limit);
             }
 
+            $status   = new Status($continue, $total);
+            $iterator = $this->getIterator($chunk, $limit);
+            $users    = new Collection();
             $iterator
-                ->onBeforeChunk(function ($items) use ($status): void {
-                    $this->onBeforeChunk($items, $status);
+                ->onBeforeChunk(function ($items) use ($status, &$users): void {
+                    $users = $this->onBeforeChunk($items, $status);
                 })
                 ->onAfterChunk(function () use (&$iterator, $status): void {
                     $this->onAfterChunk($status, $iterator->getOffset());
@@ -98,7 +94,7 @@ class UsersImporter {
             foreach ($iterator as $item) {
                 /** @var \App\Services\KeyCloak\Client\Types\User $item */
                 try {
-                    $user = $this->users->get($item->id);
+                    $user = $users->get($item->id);
                     if (!$user) {
                         $user                        = new User();
                         $user->{$user->getKeyName()} = $item->id;
@@ -150,20 +146,28 @@ class UsersImporter {
         });
     }
 
-    protected function getIterator(): QueryIterator {
-        return $this->iterator;
+    protected function getIterator(int $chunk = null, int $limit = null): QueryIterator {
+        $iterator = $this->iterator;
+        if ($chunk) {
+            $iterator->setChunkSize($chunk);
+        }
+
+        if ($limit) {
+            $iterator->setLimit($limit);
+        }
+        return $iterator;
     }
 
     /**
      * @param array<string, mixed> $items
      */
-    protected function onBeforeChunk(array $items, Status $status): void {
-        $ids         = array_map(static function (TypesUser $item) {
+    protected function onBeforeChunk(array $items, Status $status): Collection {
+        $ids   = array_map(static function (TypesUser $item) {
             return $item->id;
         }, $items);
-        $key         = (new User())->getKeyName();
-        $users       = User::whereIn($key, $ids)->get();
-        $this->users = $users->keyBy($key);
+        $key   = (new User())->getKeyName();
+        $users = User::whereIn($key, $ids)->get();
+        return $users->keyBy($key);
     }
 
     protected function onAfterChunk(Status $status, int|null $offset): void {

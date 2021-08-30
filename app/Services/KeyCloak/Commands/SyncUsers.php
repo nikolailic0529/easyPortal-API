@@ -7,8 +7,6 @@ use App\Services\KeyCloak\Importer\Status;
 use App\Services\KeyCloak\Importer\UsersImporter;
 use Illuminate\Console\Command;
 
-use function app;
-use function min;
 use function strtr;
 
 class SyncUsers extends Command {
@@ -57,11 +55,9 @@ class SyncUsers extends Command {
      *
      * @return mixed
      */
-    public function handle(): void {
-        // Dependencies
-
-        $importer = app()->make(UsersImporter::class);
-
+    public function handle(
+        UsersImporter $importer,
+    ): void {
         // param
         $continue = $this->option('continue');
         $chunk    = (int) $this->option('chunk');
@@ -69,14 +65,9 @@ class SyncUsers extends Command {
         $total    = 0;
         $bar      = null;
         $importer
-            ->onInit(function () use (&$bar, &$total, $limit): void {
-                $client = app()->make(Client::class);
-                $total  = $client->usersCount();
-                if ($limit > 0) {
-                    $total = min($total, $limit);
-                }
-
-                $bar = $this->output->createProgressBar($total);
+            ->onInit(function (Status $status) use (&$bar, &$total): void {
+                $total = $status->total;
+                $bar   = $this->output->createProgressBar($total);
             })
             ->onChange(static function (Status $status, int $offset) use (&$bar): void {
                 $bar->setProgress($status->processed);
