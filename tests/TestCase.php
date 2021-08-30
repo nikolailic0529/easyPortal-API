@@ -6,6 +6,7 @@ use App\Services\Audit\Auditor;
 use App\Services\Logger\Logger;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\Testing\Database\RefreshDatabaseIfEmpty;
 use LastDragon_ru\LaraASP\Testing\TestCase as BaseTestCase;
 use Nuwave\Lighthouse\Schema\AST\ASTBuilder;
@@ -42,6 +43,11 @@ abstract class TestCase extends BaseTestCase {
     protected function setUp(): void {
         // Parent
         parent::setUp();
+
+        // Some tests may use custom UUIDs, we need to reset it
+        $this->beforeApplicationDestroyed(static function (): void {
+            Str::createUuidsNormally();
+        });
 
         // We cache AST for all tests because AST generation takes ~80% of the time.
         $this->app->singleton(ASTBuilder::class, function (): ASTBuilder {
