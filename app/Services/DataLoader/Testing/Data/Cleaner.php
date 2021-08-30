@@ -131,9 +131,6 @@ class Cleaner {
         };
 
         if ($object instanceof ViewAsset) {
-            $object->id           = $this->map($object->id, $uuid);
-            $object->resellerId   = $this->map($object->resellerId, $uuid);
-            $object->customerId   = $this->map($object->customerId, $uuid);
             $object->serialNumber = $this->map($object->serialNumber, $uuid);
             $object->zip          = $this->map($object->zip, $postcode);
             $object->city         = $this->map($object->city, $city);
@@ -146,23 +143,16 @@ class Cleaner {
         } elseif ($object instanceof ViewAssetDocument) {
             $object->documentNumber = $this->map($object->documentNumber, $uuid);
         } elseif ($object instanceof ViewDocument) {
-            $object->id             = $this->map($object->id, $uuid);
-            $object->resellerId     = $this->map($object->resellerId, $uuid);
-            $object->customerId     = $this->map($object->customerId, $uuid);
-            $object->distributorId  = $this->map($object->distributorId, $uuid);
             $object->documentNumber = $this->map($object->documentNumber, $uuid);
         } elseif ($object instanceof DocumentVendorSpecificField) {
             $object->said             = $this->map($object->said, $uuid);
             $object->groupId          = $this->map($object->groupId, $uuid);
             $object->groupDescription = $this->map($object->groupDescription, $text);
         } elseif ($object instanceof ViewCompany) {
-            $object->id = $this->map($object->id, $uuid);
-
             if (isset($object->name)) {
                 $object->name = $this->map($object->name, $company);
             }
         } elseif ($object instanceof Company) {
-            $object->id                      = $this->map($object->id, $uuid);
             $object->name                    = $this->map($object->name, $company);
             $object->keycloakName            = null;
             $object->keycloakGroupId         = null;
