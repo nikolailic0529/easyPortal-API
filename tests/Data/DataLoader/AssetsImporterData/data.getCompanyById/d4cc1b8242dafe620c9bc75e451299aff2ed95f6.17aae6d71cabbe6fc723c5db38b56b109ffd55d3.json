@@ -1,0 +1,76 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "4eaebe8b-2d2f-4d8c-9107-a7096c56bd2b"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "4eaebe8b-2d2f-4d8c-9107-a7096c56bd2b",
+                    "name": "Gibson-Littel",
+                    "updatedAt": "1630007646820",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+18053842902",
+                            "name": "Prof. Hillard Hayes",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18053842902",
+                            "name": "Prof. Hillard Hayes",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+18053842902",
+                            "name": "Prof. Hillard Hayes",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "13353",
+                            "address": "790 Veum Square Suite 919",
+                            "city": "Marquardtburgh",
+                            "locationType": null,
+                            "country": "Somalia",
+                            "latitude": "4.052709",
+                            "longitude": "124.859055",
+                            "countryCode": "SO"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 30789,
+                        "activeAssets": 10392,
+                        "activeAssetsPercentage": 33.75231413816623,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 54,
+                        "activeContractTotalAmount": 3069.2799999999997,
+                        "newActiveContracts": null,
+                        "expiringContracts": 4,
+                        "activeQuotes": 60,
+                        "activeQuotesTotalAmount": 5305.92,
+                        "newActiveQuotes": 60,
+                        "expiringQuotes": 2
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

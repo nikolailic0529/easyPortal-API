@@ -1,0 +1,76 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "91baefb3-0a41-4f66-bee2-1dd11d27fa15"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "91baefb3-0a41-4f66-bee2-1dd11d27fa15",
+                    "name": "Marks-Hahn",
+                    "updatedAt": "1630026486387",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+16093914827",
+                            "name": "Claudie Huels V",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16093914827",
+                            "name": "Claudie Huels V",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+16093914827",
+                            "name": "Claudie Huels V",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "22551-2834",
+                            "address": "3466 Imelda Mountains Apt. 264",
+                            "city": "Bogisichview",
+                            "locationType": null,
+                            "country": "Somalia",
+                            "latitude": "-57.398168",
+                            "longitude": "106.342261",
+                            "countryCode": "SO"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 20948,
+                        "activeAssets": 72,
+                        "activeAssetsPercentage": 0.343708229902616,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 2,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 67,
+                        "activeQuotesTotalAmount": 21363.52,
+                        "newActiveQuotes": 67,
+                        "expiringQuotes": 0
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

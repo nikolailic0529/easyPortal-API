@@ -1,0 +1,76 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "3cebb5d3-21f6-410f-9ec8-196658487bd6"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "3cebb5d3-21f6-410f-9ec8-196658487bd6",
+                    "name": "Johnson-Robel",
+                    "updatedAt": "1630002126319",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+14788234883",
+                            "name": "Eddie Littel DVM",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14788234883",
+                            "name": "Eddie Littel DVM",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+14788234883",
+                            "name": "Eddie Littel DVM",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "09860",
+                            "address": "87433 Hertha Meadows Suite 097",
+                            "city": "Lake Piper",
+                            "locationType": null,
+                            "country": "Chad",
+                            "latitude": "-77.916157",
+                            "longitude": "40.749499",
+                            "countryCode": "GD"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 1758,
+                        "activeAssets": 358,
+                        "activeAssetsPercentage": 20.36405005688282,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 6,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 0
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,76 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "a816e3b0-a3a2-490b-b762-24addfd836d6"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "a816e3b0-a3a2-490b-b762-24addfd836d6",
+                    "name": "Boehm-Keebler",
+                    "updatedAt": "1630032859429",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+12484877526",
+                            "name": "Miss Leonie Boyle I",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+12484877526",
+                            "name": "Miss Leonie Boyle I",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+12484877526",
+                            "name": "Miss Leonie Boyle I",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "46247-2273",
+                            "address": "298 Pfeffer Course",
+                            "city": "Darrelborough",
+                            "locationType": null,
+                            "country": "Chad",
+                            "latitude": "-22.686053",
+                            "longitude": "29.440917",
+                            "countryCode": "GD"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 245,
+                        "activeAssets": 201,
+                        "activeAssetsPercentage": 82.0408163265306,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 6,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 2,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 1
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}
