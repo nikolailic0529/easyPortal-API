@@ -14,7 +14,6 @@ use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\AssetLoader;
-use App\Services\DataLoader\Loaders\Concerns\CalculatedProperties;
 use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\ContactResolver;
@@ -23,8 +22,6 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 class AssetsImporter extends Importer {
-    use CalculatedProperties;
-
     protected function onRegister(): void {
         parent::onRegister();
 
