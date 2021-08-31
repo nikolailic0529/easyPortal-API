@@ -2,8 +2,10 @@
 
 namespace Tests;
 
+use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\Audit\Auditor;
 use App\Services\Logger\Logger;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
@@ -26,6 +28,7 @@ abstract class TestCase extends BaseTestCase {
     }
     use Override;
     use FakeDisks;
+    use GlobalScopes;
 
     /**
      * @var array<string>
@@ -53,5 +56,23 @@ abstract class TestCase extends BaseTestCase {
         $this->app->singleton(ASTBuilder::class, function (): ASTBuilder {
             return $this->app->make(ASTBuilderPersistent::class);
         });
+    }
+
+    /**
+     * @param array<class-string<\Illuminate\Database\Eloquent\Model>,int> $expected
+     */
+    protected function assertModelsCount(array $expected): void {
+        $actual = [];
+
+        foreach ($expected as $model => $count) {
+            $actual[$model] = $this->callWithoutGlobalScope(
+                OwnedByOrganizationScope::class,
+                static function () use ($model): int {
+                    return $model::query()->count();
+                },
+            );
+        }
+
+        $this->assertEquals($expected, $actual);
     }
 }
