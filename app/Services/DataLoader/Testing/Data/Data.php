@@ -2,7 +2,9 @@
 
 namespace App\Services\DataLoader\Testing\Data;
 
+use App\Services\DataLoader\Normalizer;
 use Closure;
+use Faker\Generator;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Foundation\Application;
@@ -12,6 +14,8 @@ abstract class Data {
         protected Kernel $kernel,
         protected Application $app,
         protected Repository $config,
+        protected Generator $faker,
+        protected Normalizer $normalizer,
     ) {
         // empty
     }

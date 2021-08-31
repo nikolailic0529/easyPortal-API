@@ -40,7 +40,7 @@ class DataGenerator {
         // Exists?
         $fs          = new Filesystem();
         $data        = $this->app->make($class);
-        $contextName = '/'.self::CONTEXT;
+        $contextName = self::CONTEXT;
         $contextFile = $this->getTestData($class)->file($contextName);
         $contextPath = dirname($contextFile->getPathname());
 
