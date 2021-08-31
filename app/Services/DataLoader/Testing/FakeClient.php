@@ -43,4 +43,8 @@ class FakeClient extends Client {
 
         return $json;
     }
+
+    protected function callDump(string $selector, string $graphql, mixed $params, mixed $json): void {
+        // empty
+    }
 }
