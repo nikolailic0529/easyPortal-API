@@ -13,6 +13,7 @@ use App\Models\Reseller;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Testing\Data\DataGenerator;
 use App\Services\DataLoader\Testing\FakeClient;
+use App\Services\DataLoader\Testing\Helper;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Date;
@@ -31,6 +32,7 @@ use function array_map;
 class AssetsImporterTest extends TestCase {
     use WithQueryLog;
     use GlobalScopes;
+    use Helper;
 
     /**
      * @covers ::import
@@ -91,10 +93,7 @@ class AssetsImporterTest extends TestCase {
 
         $importer->import(true, chunk: AssetsImporterData::CHUNK, limit: AssetsImporterData::LIMIT);
 
-        $actual = $queries->get();
-        $actual = array_map(function (array $query): array {
-            return $this->cleanup($query);
-        }, $actual);
+        $actual = $this->cleanupQueryLog($queries->get());
 
         $this->assertCount(1496, $actual);
         $this->assertEquals($this->getTestData()->json(), $actual);
@@ -121,16 +120,5 @@ class AssetsImporterTest extends TestCase {
         }
 
         $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * @param array<array{query: string, bindings: array<mixed>, time: float|null}> $query
-     *
-     * @return array<array{query: string, bindings: array<mixed>}>
-     */
-    protected function cleanup(array $query): array {
-        unset($query['time']);
-
-        return $query;
     }
 }
