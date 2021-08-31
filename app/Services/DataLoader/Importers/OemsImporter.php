@@ -113,7 +113,7 @@ class OemsImporter implements OnEachRow, WithStartRow, WithEvents, SkipsEmptyRow
             }
         };
 
-        foreach ($parsed->serviceLevel->translations as $locale => $properties) {
+        foreach ($parsed->serviceLevel->translations ?? [] as $locale => $properties) {
             $storage      = new AppTranslations($this->disc, $locale);
             $translations = $storage->load();
 
