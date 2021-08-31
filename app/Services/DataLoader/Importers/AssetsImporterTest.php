@@ -21,6 +21,8 @@ use Tests\Data\DataLoader\AssetsImporterData;
 use Tests\Helpers\SequenceUuidFactory;
 use Tests\TestCase;
 
+use function count;
+
 /**
  * @internal
  * @coversDefaultClass \App\Services\DataLoader\Importers\AssetsImporter
@@ -93,21 +95,38 @@ class AssetsImporterTest extends TestCase {
             DocumentEntry::class => 0,
         ]);
 
-        // Test
+        // Test (cold)
         $queries  = $this->getQueryLog();
         $importer = $this->app->make(AssetsImporter::class);
 
         $importer->import(true, chunk: AssetsImporterData::CHUNK, limit: AssetsImporterData::LIMIT);
 
-        $actual = $this->cleanupQueryLog($queries->get());
+        $actual   = $this->cleanupQueryLog($queries->get());
+        $expected = $this->getTestData()->json('~import-cold.json');
 
-        $this->assertCount(1496, $actual);
-        $this->assertEquals($this->getTestData()->json(), $actual);
+        $this->assertCount(count($expected), $actual);
+        $this->assertEquals($expected, $actual);
         $this->assertModelsCount([
             Asset::class         => AssetsImporterData::LIMIT,
             AssetWarranty::class => 120,
             Document::class      => 62,
             DocumentEntry::class => 123,
         ]);
+
+        $queries->flush();
+
+        // Test (hot)
+        $queries  = $this->getQueryLog();
+        $importer = $this->app->make(AssetsImporter::class);
+
+        $importer->import(true, chunk: AssetsImporterData::CHUNK, limit: AssetsImporterData::LIMIT);
+
+        $actual   = $this->cleanupQueryLog($queries->get());
+        $expected = $this->getTestData()->json('~import-hot.json');
+
+        $this->assertCount(count($expected), $actual);
+        $this->assertEquals($expected, $actual);
+
+        $queries->flush();
     }
 }
