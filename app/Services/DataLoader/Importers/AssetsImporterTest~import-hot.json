@@ -155,21 +155,6 @@
         ]
     },
     {
-        "query": "select * from `products` where ((`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?)) and `products`.`deleted_at` is null",
-        "bindings": [
-            "QR499A",
-            "815100-B21",
-            "700139-B21",
-            "JG305B",
-            "836220-B21",
-            "726719-B21",
-            "805351-B21",
-            "BC774AAE",
-            "815101-B21",
-            "BC905AAE"
-        ]
-    },
-    {
         "query": "select * from `locations` where ((`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?)) and `locations`.`deleted_at` is null",
         "bindings": [
             "04919",
@@ -351,6 +336,10 @@
     },
     {
         "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `products` where `products`.`deleted_at` is null",
         "bindings": []
     },
     {
@@ -1103,21 +1092,6 @@
         ]
     },
     {
-        "query": "select * from `products` where ((`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?)) and `products`.`deleted_at` is null",
-        "bindings": [
-            "L7B46AAE",
-            "781516-B21",
-            "835955-B21",
-            "D4U65AAE",
-            "652605-B21",
-            "P00924-B21",
-            "G3J32AAE",
-            "719079-B21",
-            "833105-B21",
-            "868703-B21"
-        ]
-    },
-    {
         "query": "select * from `locations` where ((`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?)) and `locations`.`deleted_at` is null",
         "bindings": [
             "02072",
@@ -1313,6 +1287,10 @@
     },
     {
         "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `products` where `products`.`deleted_at` is null",
         "bindings": []
     },
     {
@@ -2116,21 +2094,6 @@
         ]
     },
     {
-        "query": "select * from `products` where ((`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?)) and `products`.`deleted_at` is null",
-        "bindings": [
-            "BC767A",
-            "BD505A",
-            "BC748AAE",
-            "BC746AAE",
-            "AT133AR",
-            "K2P91B",
-            "726987-L21",
-            "517520-B21",
-            "720478-B21",
-            "K2Q46A"
-        ]
-    },
-    {
         "query": "select * from `locations` where ((`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?)) and `locations`.`deleted_at` is null",
         "bindings": [
             "97574",
@@ -2313,6 +2276,10 @@
     },
     {
         "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `products` where `products`.`deleted_at` is null",
         "bindings": []
     },
     {
@@ -3119,21 +3086,6 @@
         ]
     },
     {
-        "query": "select * from `products` where ((`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?)) and `products`.`deleted_at` is null",
-        "bindings": [
-            "728629-B21",
-            "BC785A",
-            "662067-B21",
-            "808915-B21",
-            "AW611A",
-            "BC756AAE",
-            "BD505A",
-            "605865-B21",
-            "765762-B21",
-            "652757-B21"
-        ]
-    },
-    {
         "query": "select * from `locations` where ((`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?)) and `locations`.`deleted_at` is null",
         "bindings": [
             "04366",
@@ -3334,6 +3286,10 @@
     },
     {
         "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `products` where `products`.`deleted_at` is null",
         "bindings": []
     },
     {
@@ -4187,21 +4143,6 @@
         ]
     },
     {
-        "query": "select * from `products` where ((`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?)) and `products`.`deleted_at` is null",
-        "bindings": [
-            "QR492A",
-            "815101-B21",
-            "815100-B21",
-            "Q1H47A",
-            "861683-B21",
-            "726719-B21",
-            "BC746AAE",
-            "K2P89B",
-            "713981-B21",
-            "662901-B21"
-        ]
-    },
-    {
         "query": "select * from `locations` where ((`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?)) and `locations`.`deleted_at` is null",
         "bindings": [
             "40019",
@@ -4395,6 +4336,10 @@
     },
     {
         "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `products` where `products`.`deleted_at` is null",
         "bindings": []
     },
     {

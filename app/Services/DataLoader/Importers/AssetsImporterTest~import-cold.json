@@ -15,46 +15,6 @@
         ]
     },
     {
-        "query": "select * from `products` where ((`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?)) and `products`.`deleted_at` is null",
-        "bindings": [
-            "QR499A",
-            "815100-B21",
-            "700139-B21",
-            "JG305B",
-            "836220-B21",
-            "726719-B21",
-            "805351-B21",
-            "BC774AAE",
-            "815101-B21",
-            "BC905AAE"
-        ]
-    },
-    {
-        "query": "select * from `locations` where ((`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?)) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "04919",
-            "Asset",
-            "93786",
-            "Asset",
-            "47009-5307",
-            "Asset",
-            "67171-8832",
-            "Asset",
-            "22459",
-            "Asset",
-            "63545-3093",
-            "Asset",
-            "25547",
-            "Asset",
-            "55958-2041",
-            "Asset",
-            "26945",
-            "Asset",
-            "38902-8873",
-            "Asset"
-        ]
-    },
-    {
         "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "0731be4c-624e-4802-a1d3-c672a9283562",
@@ -248,6 +208,10 @@
             "2021-08-30 00:00:00",
             "2021-08-30 00:00:00"
         ]
+    },
+    {
+        "query": "select * from `products` where `products`.`deleted_at` is null",
+        "bindings": []
     },
     {
         "query": "select * from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
@@ -3325,44 +3289,6 @@
         ]
     },
     {
-        "query": "select * from `products` where ((`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?)) and `products`.`deleted_at` is null",
-        "bindings": [
-            "L7B46AAE",
-            "781516-B21",
-            "835955-B21",
-            "D4U65AAE",
-            "652605-B21",
-            "P00924-B21",
-            "G3J32AAE",
-            "719079-B21",
-            "833105-B21",
-            "868703-B21"
-        ]
-    },
-    {
-        "query": "select * from `locations` where ((`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?)) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "02072",
-            "Asset",
-            "11945",
-            "Asset",
-            "50491",
-            "Asset",
-            "46882-3535",
-            "Asset",
-            "92102",
-            "Asset",
-            "70739-1903",
-            "Asset",
-            "04919",
-            "Asset",
-            "29168-8454",
-            "Asset",
-            "52062-5869",
-            "Asset"
-        ]
-    },
-    {
         "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "98d5c771-5301-498a-9439-537ff6a9b405",
@@ -3535,6 +3461,10 @@
     },
     {
         "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `products` where `products`.`deleted_at` is null",
         "bindings": []
     },
     {
@@ -6847,46 +6777,6 @@
         ]
     },
     {
-        "query": "select * from `products` where ((`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?)) and `products`.`deleted_at` is null",
-        "bindings": [
-            "BC767A",
-            "BD505A",
-            "BC748AAE",
-            "BC746AAE",
-            "AT133AR",
-            "K2P91B",
-            "726987-L21",
-            "517520-B21",
-            "720478-B21",
-            "K2Q46A"
-        ]
-    },
-    {
-        "query": "select * from `locations` where ((`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?)) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "97574",
-            "Asset",
-            "82948-7850",
-            "Asset",
-            "53165-8916",
-            "Asset",
-            "26104",
-            "Asset",
-            "83824",
-            "Asset",
-            "85446",
-            "Asset",
-            "68982",
-            "Asset",
-            "65896",
-            "Asset",
-            "03358-5372",
-            "Asset",
-            "19963",
-            "Asset"
-        ]
-    },
-    {
         "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "72d3b860-3667-408a-8ead-6056e10b2481",
@@ -7044,6 +6934,10 @@
     },
     {
         "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `products` where `products`.`deleted_at` is null",
         "bindings": []
     },
     {
@@ -10047,46 +9941,6 @@
         ]
     },
     {
-        "query": "select * from `products` where ((`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?)) and `products`.`deleted_at` is null",
-        "bindings": [
-            "728629-B21",
-            "BC785A",
-            "662067-B21",
-            "808915-B21",
-            "AW611A",
-            "BC756AAE",
-            "BD505A",
-            "605865-B21",
-            "765762-B21",
-            "652757-B21"
-        ]
-    },
-    {
-        "query": "select * from `locations` where ((`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?)) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "04366",
-            "Asset",
-            "22480",
-            "Asset",
-            "40387",
-            "Asset",
-            "41610-7287",
-            "Asset",
-            "29168-8454",
-            "Asset",
-            "39241-2163",
-            "Asset",
-            "52264",
-            "Asset",
-            "20578",
-            "Asset",
-            "50289-8384",
-            "Asset",
-            "38375",
-            "Asset"
-        ]
-    },
-    {
         "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "143c456a-e894-4710-a1c2-745b9582ca47",
@@ -10262,6 +10116,10 @@
     },
     {
         "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `products` where `products`.`deleted_at` is null",
         "bindings": []
     },
     {
@@ -14220,46 +14078,6 @@
         ]
     },
     {
-        "query": "select * from `products` where ((`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?) or (`sku` = ?)) and `products`.`deleted_at` is null",
-        "bindings": [
-            "QR492A",
-            "815101-B21",
-            "815100-B21",
-            "Q1H47A",
-            "861683-B21",
-            "726719-B21",
-            "BC746AAE",
-            "K2P89B",
-            "713981-B21",
-            "662901-B21"
-        ]
-    },
-    {
-        "query": "select * from `locations` where ((`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?)) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "40019",
-            "Asset",
-            "93984-9358",
-            "Asset",
-            "85446",
-            "Asset",
-            "76325-1237",
-            "Asset",
-            "27667",
-            "Asset",
-            "62803-8882",
-            "Asset",
-            "58895-2233",
-            "Asset",
-            "73916",
-            "Asset",
-            "29000",
-            "Asset",
-            "41610-7287",
-            "Asset"
-        ]
-    },
-    {
         "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "c4008848-ced1-47e6-92ca-87a1774006cd",
@@ -14428,6 +14246,10 @@
     },
     {
         "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `products` where `products`.`deleted_at` is null",
         "bindings": []
     },
     {

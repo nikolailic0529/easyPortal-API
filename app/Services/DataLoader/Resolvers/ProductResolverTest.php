@@ -68,11 +68,8 @@ class ProductResolverTest extends TestCase {
         $this->flushQueryLog();
 
         // Product should be found in DB
-        $found = $provider->get($oemA, 'c', $factory);
-
-        $this->assertNotNull($found);
-        $this->assertFalse($found->wasRecentlyCreated);
-        $this->assertCount(1, $this->getQueryLog());
+        $this->assertNotNull($provider->get($oemA, 'c', $factory));
+        $this->assertCount(0, $this->getQueryLog());
 
         $this->flushQueryLog();
 

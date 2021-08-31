@@ -228,29 +228,25 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
      */
     public function prefetch(array $assets, bool $reset = false, Closure|null $callback = null): static {
         // Assets
-        $keys = array_unique(array_map(static function (ViewAsset $asset): string {
+        $loaded = false;
+        $keys   = array_unique(array_map(static function (ViewAsset $asset): string {
             return $asset->id;
         }, $assets));
 
-        $this->assetResolver->prefetch($keys, $reset, $callback);
+        $this->assetResolver->prefetch(
+            $keys,
+            $reset,
+            static function (Collection $items) use (&$loaded, $callback): void {
+                $loaded = !$items->isEmpty();
 
-        // Products
-        $products = (new Collection($assets))
-            ->filter(static function (ViewAsset $asset): bool {
-                return isset($asset->sku);
-            })
-            ->map(function (ViewAsset $asset): array {
-                return [
-                    'sku' => $this->getNormalizer()->string($asset->sku),
-                ];
-            })
-            ->unique()
-            ->all();
-
-        $this->getProductResolver()->prefetch($products, $reset);
+                $callback($items);
+            },
+        );
 
         // Locations
-        $this->locationFactory->prefetch($assets);
+        if ($loaded) {
+            $this->locationFactory->prefetch($assets);
+        }
 
         // Return
         return $this;

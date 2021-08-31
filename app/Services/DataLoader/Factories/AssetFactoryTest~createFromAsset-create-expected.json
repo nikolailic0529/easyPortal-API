@@ -22,6 +22,7 @@
     "select * from `statuses` where `statuses`.`deleted_at` is null",
     "select * from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
     "insert into `statuses` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+    "select * from `products` where `products`.`deleted_at` is null",
     "select * from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
     "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
     "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",

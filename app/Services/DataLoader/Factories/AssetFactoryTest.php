@@ -1391,15 +1391,15 @@ class AssetFactoryTest extends TestCase {
         $resolver   = $this->app->make(AssetResolver::class);
         $normalizer = $this->app->make(Normalizer::class);
         $products   = Mockery::mock(ProductResolver::class);
-        $products
-            ->shouldReceive('prefetch')
-            ->once()
-            ->andReturnSelf();
-        $locations = Mockery::mock(LocationFactory::class);
+        $locations  = Mockery::mock(LocationFactory::class);
         $locations
             ->shouldReceive('prefetch')
             ->once()
             ->andReturnSelf();
+
+        Asset::factory()->create([
+            'id' => $a->id,
+        ]);
 
         $factory = new class($normalizer, $resolver, $products, $locations) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -1414,7 +1414,7 @@ class AssetFactoryTest extends TestCase {
         };
 
         $callback = Mockery::spy(function (EloquentCollection $collection): void {
-            $this->assertCount(0, $collection);
+            $this->assertCount(1, $collection);
         });
 
         $factory->prefetch([$a, $b], false, Closure::fromCallable($callback));

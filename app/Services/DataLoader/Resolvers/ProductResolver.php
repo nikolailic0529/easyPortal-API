@@ -9,6 +9,7 @@ use App\Services\DataLoader\Cache\ClosureKey;
 use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Pure;
 
 class ProductResolver extends Resolver {
@@ -22,6 +23,10 @@ class ProductResolver extends Resolver {
      */
     public function prefetch(array $keys, bool $reset = false, Closure|null $callback = null): static {
         return parent::prefetch($keys, $reset, $callback);
+    }
+
+    protected function getPreloadedItems(): Collection {
+        return Product::query()->get();
     }
 
     protected function getFindQuery(): ?Builder {
