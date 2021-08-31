@@ -1359,142 +1359,17 @@
         ]
     },
     {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
+        "query": "select `customer_id`, count(*) as assets_count from `assets` where `assets`.`deleted_at` is null and `customer_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) group by `customer_id`",
         "bindings": [
-            "000514de-cbf8-4955-b027-fc94e44e24a7"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "000514de-cbf8-4955-b027-fc94e44e24a7"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "00086c84-47ba-4796-a753-b6ab59580865"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "00086c84-47ba-4796-a753-b6ab59580865"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "0008751b-2d84-4edf-9075-789a071a84d0"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "0008751b-2d84-4edf-9075-789a071a84d0"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "000cbefe-925a-43e1-a67d-31fe0b73ab71"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "000cbefe-925a-43e1-a67d-31fe0b73ab71"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "000db0c8-7c7e-48cc-83ba-3eeb65ac49d5"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "000db0c8-7c7e-48cc-83ba-3eeb65ac49d5"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "0012d3f3-144e-43db-b40e-66b4d8604d9e"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "0012d3f3-144e-43db-b40e-66b4d8604d9e"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "00162413-6913-41cf-b328-f441d958ae75"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "00162413-6913-41cf-b328-f441d958ae75"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "00168fb1-b86c-42f0-abab-6582ea1a865e"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "00168fb1-b86c-42f0-abab-6582ea1a865e"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "0016b65f-d08d-4a94-9050-58c1c9066fa5"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "0016b65f-d08d-4a94-9050-58c1c9066fa5"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "001891b4-fe07-4d88-9a01-816a1c4709cc"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
+            "000514de-cbf8-4955-b027-fc94e44e24a7",
+            "00086c84-47ba-4796-a753-b6ab59580865",
+            "0008751b-2d84-4edf-9075-789a071a84d0",
+            "000cbefe-925a-43e1-a67d-31fe0b73ab71",
+            "000db0c8-7c7e-48cc-83ba-3eeb65ac49d5",
+            "0012d3f3-144e-43db-b40e-66b4d8604d9e",
+            "00162413-6913-41cf-b328-f441d958ae75",
+            "00168fb1-b86c-42f0-abab-6582ea1a865e",
+            "0016b65f-d08d-4a94-9050-58c1c9066fa5",
             "001891b4-fe07-4d88-9a01-816a1c4709cc"
         ]
     },
@@ -2670,142 +2545,17 @@
         ]
     },
     {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
+        "query": "select `customer_id`, count(*) as assets_count from `assets` where `assets`.`deleted_at` is null and `customer_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) group by `customer_id`",
         "bindings": [
-            "001e8e14-f724-4a25-85b4-df4ed547a822"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "001e8e14-f724-4a25-85b4-df4ed547a822"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "0027048e-cab3-4ddc-8ef3-cd701a6e4639"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "0027048e-cab3-4ddc-8ef3-cd701a6e4639"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "00287225-33bf-471b-8642-c2daa9c413f8"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "00287225-33bf-471b-8642-c2daa9c413f8"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "002a6618-f02a-49af-8f4f-8bce8876318f"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "002a6618-f02a-49af-8f4f-8bce8876318f"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "002dbd7c-6cf9-4742-b4a5-4c759f3c4c55"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "002dbd7c-6cf9-4742-b4a5-4c759f3c4c55"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "002e1544-0996-4bd1-852b-43497fde643a"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "002e1544-0996-4bd1-852b-43497fde643a"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "002f8f2e-1cd9-40b9-bc11-60769495f733"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "002f8f2e-1cd9-40b9-bc11-60769495f733"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "00304660-44aa-446d-9b52-72ab9858fbe4"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "00304660-44aa-446d-9b52-72ab9858fbe4"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "003073af-d3a8-49b2-bed7-678ba80d1890"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "003073af-d3a8-49b2-bed7-678ba80d1890"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "00377726-408c-4090-b2b5-527650642d1f"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
+            "001e8e14-f724-4a25-85b4-df4ed547a822",
+            "0027048e-cab3-4ddc-8ef3-cd701a6e4639",
+            "00287225-33bf-471b-8642-c2daa9c413f8",
+            "002a6618-f02a-49af-8f4f-8bce8876318f",
+            "002dbd7c-6cf9-4742-b4a5-4c759f3c4c55",
+            "002e1544-0996-4bd1-852b-43497fde643a",
+            "002f8f2e-1cd9-40b9-bc11-60769495f733",
+            "00304660-44aa-446d-9b52-72ab9858fbe4",
+            "003073af-d3a8-49b2-bed7-678ba80d1890",
             "00377726-408c-4090-b2b5-527650642d1f"
         ]
     },
@@ -3963,142 +3713,17 @@
         ]
     },
     {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
+        "query": "select `customer_id`, count(*) as assets_count from `assets` where `assets`.`deleted_at` is null and `customer_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) group by `customer_id`",
         "bindings": [
-            "003b3d2c-0021-4832-8b9e-9b3d4c323fb1"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "003b3d2c-0021-4832-8b9e-9b3d4c323fb1"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "003d5627-b1a7-4b59-b264-876022125810"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "003d5627-b1a7-4b59-b264-876022125810"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "003df82c-b286-408e-a5e2-70d0341ff922"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "003df82c-b286-408e-a5e2-70d0341ff922"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "00416109-eeb9-4e45-9b1b-72a0086c7d12"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "00416109-eeb9-4e45-9b1b-72a0086c7d12"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "0043226b-07c3-410e-8a45-1adb5e4fb9e0"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "0043226b-07c3-410e-8a45-1adb5e4fb9e0"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "00489f55-ca17-4136-8a1f-ab9472b8e138"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "00489f55-ca17-4136-8a1f-ab9472b8e138"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "004abfbe-9f96-4294-8de3-a05955920828"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "004abfbe-9f96-4294-8de3-a05955920828"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "004c81cc-b4bc-4c9f-97af-65e63c3237ba"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "004c81cc-b4bc-4c9f-97af-65e63c3237ba"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "004cd980-fe7b-44f8-b4fd-cc6fb8e5ba07"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "004cd980-fe7b-44f8-b4fd-cc6fb8e5ba07"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "005054dc-c14f-4f4a-b9e5-3c5fc8fe0bb2"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
+            "003b3d2c-0021-4832-8b9e-9b3d4c323fb1",
+            "003d5627-b1a7-4b59-b264-876022125810",
+            "003df82c-b286-408e-a5e2-70d0341ff922",
+            "00416109-eeb9-4e45-9b1b-72a0086c7d12",
+            "0043226b-07c3-410e-8a45-1adb5e4fb9e0",
+            "00489f55-ca17-4136-8a1f-ab9472b8e138",
+            "004abfbe-9f96-4294-8de3-a05955920828",
+            "004c81cc-b4bc-4c9f-97af-65e63c3237ba",
+            "004cd980-fe7b-44f8-b4fd-cc6fb8e5ba07",
             "005054dc-c14f-4f4a-b9e5-3c5fc8fe0bb2"
         ]
     },
@@ -5278,142 +4903,17 @@
         ]
     },
     {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
+        "query": "select `customer_id`, count(*) as assets_count from `assets` where `assets`.`deleted_at` is null and `customer_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) group by `customer_id`",
         "bindings": [
-            "00561888-ff56-4b14-b6bd-03b2abe0ea79"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "00561888-ff56-4b14-b6bd-03b2abe0ea79"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "00562638-2237-4cdb-b580-2c82a65a94ff"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "00562638-2237-4cdb-b580-2c82a65a94ff"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "0056cbfb-47ca-48c7-8b96-9eb30bf9059d"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "0056cbfb-47ca-48c7-8b96-9eb30bf9059d"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "0059bbe6-5c23-4244-9174-58401ca51e1c"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "0059bbe6-5c23-4244-9174-58401ca51e1c"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "005bb000-a71b-406f-a48c-016176bd329a"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "005bb000-a71b-406f-a48c-016176bd329a"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "006043ec-bc4c-4b3e-a754-ca5947ec13fc"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "006043ec-bc4c-4b3e-a754-ca5947ec13fc"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "00605988-7243-4135-9da0-2cec80179f6d"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "00605988-7243-4135-9da0-2cec80179f6d"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "00616f5f-afae-4b5d-b131-824034b6ec39"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "00616f5f-afae-4b5d-b131-824034b6ec39"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "0065cb2a-2556-449e-ad18-255f06049b22"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "0065cb2a-2556-449e-ad18-255f06049b22"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "0065fc39-38ba-4f55-9409-82727defe7f0"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
+            "00561888-ff56-4b14-b6bd-03b2abe0ea79",
+            "00562638-2237-4cdb-b580-2c82a65a94ff",
+            "0056cbfb-47ca-48c7-8b96-9eb30bf9059d",
+            "0059bbe6-5c23-4244-9174-58401ca51e1c",
+            "005bb000-a71b-406f-a48c-016176bd329a",
+            "006043ec-bc4c-4b3e-a754-ca5947ec13fc",
+            "00605988-7243-4135-9da0-2cec80179f6d",
+            "00616f5f-afae-4b5d-b131-824034b6ec39",
+            "0065cb2a-2556-449e-ad18-255f06049b22",
             "0065fc39-38ba-4f55-9409-82727defe7f0"
         ]
     },
@@ -6566,142 +6066,17 @@
         ]
     },
     {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
+        "query": "select `customer_id`, count(*) as assets_count from `assets` where `assets`.`deleted_at` is null and `customer_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) group by `customer_id`",
         "bindings": [
-            "006a6e2d-dda0-43fa-93bd-655b67af7276"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "006a6e2d-dda0-43fa-93bd-655b67af7276"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "006bcb3e-ce37-458b-8ac3-754c861f7ff8"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "006bcb3e-ce37-458b-8ac3-754c861f7ff8"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "006d21ef-9344-414d-9c06-f87528c53d70"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "006d21ef-9344-414d-9c06-f87528c53d70"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "006e83c9-99cc-47df-9860-dcb108ba64ef"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "006e83c9-99cc-47df-9860-dcb108ba64ef"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "006ef41b-5ffa-450b-9203-d00e91dc5283"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "006ef41b-5ffa-450b-9203-d00e91dc5283"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "00711b4e-34c6-47c5-af6f-20adcd99a4d6"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "00711b4e-34c6-47c5-af6f-20adcd99a4d6"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "0074113b-72a3-49b1-80c3-6ecfb2064bdb"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "0074113b-72a3-49b1-80c3-6ecfb2064bdb"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "00758ebb-6391-4b89-a184-ca1b9fa49616"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "00758ebb-6391-4b89-a184-ca1b9fa49616"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "0075eb6a-aff4-4730-a44e-ae0e2f3b41c5"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
-            "0075eb6a-aff4-4730-a44e-ae0e2f3b41c5"
-        ]
-    },
-    {
-        "query": "select count(*) as aggregate from `assets` where `assets`.`customer_id` = ? and `assets`.`customer_id` is not null and `assets`.`deleted_at` is null",
-        "bindings": [
-            "0078b4cb-6122-4a90-8c98-0dea36a5dde2"
-        ]
-    },
-    {
-        "query": "update `customers` set `assets_count` = ?, `customers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            "2021-08-30 00:00:00",
+            "006a6e2d-dda0-43fa-93bd-655b67af7276",
+            "006bcb3e-ce37-458b-8ac3-754c861f7ff8",
+            "006d21ef-9344-414d-9c06-f87528c53d70",
+            "006e83c9-99cc-47df-9860-dcb108ba64ef",
+            "006ef41b-5ffa-450b-9203-d00e91dc5283",
+            "00711b4e-34c6-47c5-af6f-20adcd99a4d6",
+            "0074113b-72a3-49b1-80c3-6ecfb2064bdb",
+            "00758ebb-6391-4b89-a184-ca1b9fa49616",
+            "0075eb6a-aff4-4730-a44e-ae0e2f3b41c5",
             "0078b4cb-6122-4a90-8c98-0dea36a5dde2"
         ]
     }
