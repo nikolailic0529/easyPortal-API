@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "733a054f-6b00-49d7-8f49-8366b3a2a7b8",
-                    "name": "Padberg LLC",
-                    "updatedAt": "1630017423511",
+                    "name": "Bauch-Weissnat",
+                    "updatedAt": "1630368166821",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+17248349282",
-                            "name": "Onie Bailey",
+                            "phoneNumber": "+17576966214",
+                            "name": "Bryce Weissnat PhD",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+15391485683",
-                            "name": "Kip Simonis",
+                            "phoneNumber": "+15301114160",
+                            "name": "Miss Meghan Vandervort II",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17248349282",
-                            "name": "Onie Bailey",
+                            "phoneNumber": "+17576966214",
+                            "name": "Bryce Weissnat PhD",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "98971-8694",
-                            "address": "135 Stanton Freeway Suite 766",
-                            "city": "Botsfordshire",
+                            "zip": "04366",
+                            "address": "67837 Ana Stravenue Apt. 859",
+                            "city": "New Lavinaburgh",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "45.830907",
-                            "longitude": "-16.249147",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "-28.064849",
+                            "longitude": "-49.932102",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

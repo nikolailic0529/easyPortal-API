@@ -2,34 +2,34 @@
     "selector": "data.getCompanyById",
     "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
     "params": {
-        "id": "e089508a-7642-4c79-9d9c-6bc3d82db206"
+        "id": "4d7b13f9-9bf5-499d-a4cb-c40bdcea9bf0"
     },
     "response": {
         "data": {
             "getCompanyById": [
                 {
-                    "id": "e089508a-7642-4c79-9d9c-6bc3d82db206",
-                    "name": "McKenzie-Hoppe",
-                    "updatedAt": "1630321831221",
+                    "id": "4d7b13f9-9bf5-499d-a4cb-c40bdcea9bf0",
+                    "name": "Crist LLC",
+                    "updatedAt": "1630358440291",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12290107440",
-                            "name": "Kade Cormier",
+                            "phoneNumber": null,
+                            "name": "Prof. Josh Rowe",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12290107440",
-                            "name": "Kade Cormier",
+                            "phoneNumber": null,
+                            "name": "Prof. Josh Rowe",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12290107440",
-                            "name": "Kade Cormier",
+                            "phoneNumber": null,
+                            "name": "Prof. Josh Rowe",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,31 +42,31 @@
                     ],
                     "locations": [
                         {
-                            "zip": "27667",
-                            "address": "52746 Dangelo Street",
-                            "city": "Beckerfort",
+                            "zip": "86042-0954",
+                            "address": "54469 Einar Haven",
+                            "city": "Fletafort",
                             "locationType": null,
                             "country": "Benin",
-                            "latitude": "79.451468",
-                            "longitude": "-74.538961",
+                            "latitude": "34.889608",
+                            "longitude": "111.289448",
                             "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,
                     "companyKpis": {
-                        "totalAssets": 49,
-                        "activeAssets": 49,
-                        "activeAssetsPercentage": 100,
+                        "totalAssets": 39,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
                         "activeCustomers": null,
                         "newActiveCustomers": null,
-                        "activeContracts": 3,
+                        "activeContracts": 0,
                         "activeContractTotalAmount": 0,
                         "newActiveContracts": null,
                         "expiringContracts": 0,
-                        "activeQuotes": 0,
+                        "activeQuotes": 5,
                         "activeQuotesTotalAmount": 0,
-                        "newActiveQuotes": 0,
-                        "expiringQuotes": 0
+                        "newActiveQuotes": 5,
+                        "expiringQuotes": 1
                     },
                     "status": null
                 }

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "cf85f11b-6681-4106-a129-cbdd463120e2",
-                    "name": "O'Hara, Zulauf and Schmidt",
-                    "updatedAt": "1630043709668",
+                    "name": "Roob PLC",
+                    "updatedAt": "1630305252616",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Arvel Balistreri",
+                            "name": "Rosalia Swift",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+18125689980",
-                            "name": "Janessa Bergstrom DVM",
+                            "phoneNumber": "+14061237440",
+                            "name": "Ebony Sanford",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Arvel Balistreri",
+                            "name": "Rosalia Swift",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "92344",
-                            "address": "21565 Wuckert Roads",
-                            "city": "Hammesstad",
+                            "zip": "58895-2233",
+                            "address": "680 Arlie Drive",
+                            "city": "East Daphnee",
                             "locationType": null,
-                            "country": "Somalia",
-                            "latitude": "-11.530767",
-                            "longitude": "4.318439",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "77.693161",
+                            "longitude": "130.251066",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

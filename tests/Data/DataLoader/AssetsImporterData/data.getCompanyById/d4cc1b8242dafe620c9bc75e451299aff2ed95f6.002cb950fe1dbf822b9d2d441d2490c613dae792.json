@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "d8a49987-3e29-47d2-aa42-748fffb1a948",
-                    "name": "Jaskolski PLC",
-                    "updatedAt": "1630046295134",
+                    "name": "Goldner LLC",
+                    "updatedAt": "1630309155313",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+18041893724",
-                            "name": "Mr. Chester Grimes",
+                            "phoneNumber": "+15315231525",
+                            "name": "Bartholome Medhurst",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Ms. Rosemarie Green",
+                            "name": "Mrs. Myrtis Block",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+18041893724",
-                            "name": "Mr. Chester Grimes",
+                            "phoneNumber": "+15315231525",
+                            "name": "Bartholome Medhurst",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "39408-5459",
-                            "address": "632 Leopoldo Extensions Suite 412",
-                            "city": "Carriefort",
+                            "zip": "52062-5869",
+                            "address": "802 Simonis Rue Suite 915",
+                            "city": "Willmsfurt",
                             "locationType": null,
-                            "country": "Somalia",
-                            "latitude": "-16.718218",
-                            "longitude": "-117.899148",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "-73.89263",
+                            "longitude": "160.460088",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "714aa057-1ea0-4666-b3be-4b69af99e997",
-                    "name": "White LLC",
-                    "updatedAt": "1630056830911",
+                    "name": "Steuber-Maggio",
+                    "updatedAt": "1630319688394",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -24,13 +24,13 @@
                     "locations": [
                         {
                             "zip": null,
-                            "address": "8282 Zboncak Hollow",
-                            "city": "West Celia",
+                            "address": "752 Kihn Forges",
+                            "city": "Burniceborough",
                             "locationType": "HEADQUARTER",
-                            "country": "Tunisia",
-                            "latitude": "25.521533",
-                            "longitude": "-54.127371",
-                            "countryCode": "CW"
+                            "country": "El Salvador",
+                            "latitude": "38.636152",
+                            "longitude": "138.829864",
+                            "countryCode": "MY"
                         }
                     ],
                     "brandingData": null,
@@ -38,16 +38,16 @@
                         "totalAssets": 345534,
                         "activeAssets": 43826,
                         "activeAssetsPercentage": 12.683556466223294,
-                        "activeCustomers": 15273,
-                        "newActiveCustomers": 15273,
+                        "activeCustomers": 16763,
+                        "newActiveCustomers": 16763,
                         "activeContracts": 323,
                         "activeContractTotalAmount": 9875.38,
                         "newActiveContracts": 323,
-                        "expiringContracts": 34,
+                        "expiringContracts": 39,
                         "activeQuotes": 519,
                         "activeQuotesTotalAmount": 43195.78,
                         "newActiveQuotes": 519,
-                        "expiringQuotes": 25
+                        "expiringQuotes": 27
                     },
                     "status": null
                 }

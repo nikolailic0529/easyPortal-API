@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "819d9228-2cbc-4d1f-8e18-148745f7a922",
-                    "name": "Wolff-Lueilwitz",
-                    "updatedAt": "1630021887384",
+                    "name": "Rau-Wisozk",
+                    "updatedAt": "1630370585318",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+15202259653",
-                            "name": "Veda Emard II",
+                            "phoneNumber": "+18724969643",
+                            "name": "Ruth Lowe",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+15202259653",
-                            "name": "Veda Emard II",
+                            "phoneNumber": "+18724969643",
+                            "name": "Ruth Lowe",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+15202259653",
-                            "name": "Veda Emard II",
+                            "phoneNumber": "+18724969643",
+                            "name": "Ruth Lowe",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "89516-6282",
-                            "address": "52304 Willa Ranch",
-                            "city": "Gilbertside",
+                            "zip": "62803-8882",
+                            "address": "7391 West Orchard Suite 899",
+                            "city": "Idellport",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "75.278105",
-                            "longitude": "-50.183669",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "-52.999367",
+                            "longitude": "0.787119",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "96a956b3-f459-4ea2-a81c-7cdc01c24433",
-                    "name": "Hauck-Kunze",
-                    "updatedAt": "1630027789927",
+                    "name": "Sporer Inc",
+                    "updatedAt": "1630376513262",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -22,8 +22,8 @@
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+18306579088",
-                            "name": "Alexandria Wilkinson",
+                            "phoneNumber": "+15854617479",
+                            "name": "Prof. Garry Stehr",
                             "mail": null,
                             "type": "System Manager"
                         },
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "36728-3539",
-                            "address": "6102 Schaden Skyway",
-                            "city": "East Wavastad",
+                            "zip": "25547",
+                            "address": "9179 Murazik Port Apt. 906",
+                            "city": "Cortneyfort",
                             "locationType": null,
-                            "country": "Anguilla",
-                            "latitude": "-39.265227",
-                            "longitude": "-174.419105",
-                            "countryCode": "PE"
+                            "country": "Cyprus",
+                            "latitude": "66.870809",
+                            "longitude": "-31.051034",
+                            "countryCode": "VA"
                         }
                     ],
                     "brandingData": null,

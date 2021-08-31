@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "9216a30a-9af2-426a-b219-85f9aaffb112",
-                    "name": "Franecki, Mayer and Botsford",
-                    "updatedAt": "1630063742444",
+                    "name": "Howe-Hermann",
+                    "updatedAt": "1630323523831",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "95378",
-                            "address": "1063 Roberts Freeway Apt. 694",
-                            "city": "New Presleyshire",
+                            "zip": "97574",
+                            "address": "550 Altenwerth Wall",
+                            "city": "Auerville",
                             "locationType": "HEADQUARTER",
-                            "country": "Somalia",
-                            "latitude": "-29.900385",
-                            "longitude": "126.240613",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "38.853661",
+                            "longitude": "78.777338",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

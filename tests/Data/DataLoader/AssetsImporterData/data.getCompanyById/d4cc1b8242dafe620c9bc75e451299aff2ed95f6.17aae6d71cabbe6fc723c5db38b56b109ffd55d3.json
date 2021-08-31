@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "4eaebe8b-2d2f-4d8c-9107-a7096c56bd2b",
-                    "name": "Gibson-Littel",
-                    "updatedAt": "1630007646820",
+                    "name": "Prohaska, Osinski and Mayert",
+                    "updatedAt": "1630358730557",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+18053842902",
-                            "name": "Prof. Hillard Hayes",
+                            "phoneNumber": "+13518085576",
+                            "name": "Parker Wisoky",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+18053842902",
-                            "name": "Prof. Hillard Hayes",
+                            "phoneNumber": "+13518085576",
+                            "name": "Parker Wisoky",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+18053842902",
-                            "name": "Prof. Hillard Hayes",
+                            "phoneNumber": "+13518085576",
+                            "name": "Parker Wisoky",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "13353",
-                            "address": "790 Veum Square Suite 919",
-                            "city": "Marquardtburgh",
+                            "zip": "92102",
+                            "address": "84201 Dicki Roads Apt. 799",
+                            "city": "Lake Reybury",
                             "locationType": null,
-                            "country": "Somalia",
-                            "latitude": "4.052709",
-                            "longitude": "124.859055",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "79.947126",
+                            "longitude": "4.650698",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

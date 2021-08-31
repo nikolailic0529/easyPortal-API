@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "1af616b9-337f-444c-8b55-b590520cc393",
-                    "name": "Kertzmann, Cormier and Lesch",
-                    "updatedAt": "1629992766753",
+                    "name": "Turner, Goyette and Ritchie",
+                    "updatedAt": "1630343667263",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+17146545666",
-                            "name": "Mr. Rick Champlin IV",
+                            "phoneNumber": "+12679223739",
+                            "name": "Kennedi Yost",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Kip Simonis",
+                            "name": "Miss Meghan Vandervort II",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17146545666",
-                            "name": "Mr. Rick Champlin IV",
+                            "phoneNumber": "+12679223739",
+                            "name": "Kennedi Yost",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "39519-3748",
-                            "address": "852 Elliott Course",
-                            "city": "Port Jade",
+                            "zip": "39241-2163",
+                            "address": "66246 Glover Inlet Suite 974",
+                            "city": "Samirburgh",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "-8.254606",
-                            "longitude": "-116.843416",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "-51.925878",
+                            "longitude": "64.920191",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

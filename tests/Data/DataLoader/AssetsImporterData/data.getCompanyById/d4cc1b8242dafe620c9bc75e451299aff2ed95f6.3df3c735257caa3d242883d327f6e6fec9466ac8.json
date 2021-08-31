@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "e35134f8-02c7-4aaa-944c-e72f18be4b6b",
-                    "name": "Huel-Reinger",
-                    "updatedAt": "1629983275402",
+                    "name": "Bauch, Cole and Brakus",
+                    "updatedAt": "1630333763229",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "89641-7082",
-                            "address": "8322 Gladyce Motorway Suite 174",
-                            "city": "Thompsonfort",
+                            "zip": "59840",
+                            "address": "768 Parker Throughway",
+                            "city": "Rainachester",
                             "locationType": "HEADQUARTER",
-                            "country": "Anguilla",
-                            "latitude": "16.643596",
-                            "longitude": "-9.820283",
-                            "countryCode": "PE"
+                            "country": "Cyprus",
+                            "latitude": "34.229867",
+                            "longitude": "178.739651",
+                            "countryCode": "VA"
                         }
                     ],
                     "brandingData": null,
@@ -45,9 +45,9 @@
                         "newActiveContracts": 0,
                         "expiringContracts": 0,
                         "activeQuotes": 138,
-                        "activeQuotesTotalAmount": 40733.76,
+                        "activeQuotesTotalAmount": 40733.759999999995,
                         "newActiveQuotes": 138,
-                        "expiringQuotes": 12
+                        "expiringQuotes": 13
                     },
                     "status": null
                 }

@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "9ae9b76a-eedb-47f4-b6bc-f7593e147621",
-                    "name": "Beahan-Morissette",
-                    "updatedAt": "1630064345849",
+                    "name": "Tromp, Lindgren and Gislason",
+                    "updatedAt": "1630324592192",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "20563-0985",
-                            "address": "88976 Jovan Causeway Suite 142",
-                            "city": "South Noemi",
+                            "zip": "09280-1920",
+                            "address": "5872 Altenwerth Greens Suite 401",
+                            "city": "Haleystad",
                             "locationType": "HEADQUARTER",
-                            "country": "Chad",
-                            "latitude": "-36.015043",
-                            "longitude": "-54.662617",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "55.403105",
+                            "longitude": "-62.587497",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,
@@ -47,7 +47,7 @@
                         "activeQuotes": 19,
                         "activeQuotesTotalAmount": 1695.69,
                         "newActiveQuotes": 19,
-                        "expiringQuotes": 3
+                        "expiringQuotes": 5
                     },
                     "status": null
                 }

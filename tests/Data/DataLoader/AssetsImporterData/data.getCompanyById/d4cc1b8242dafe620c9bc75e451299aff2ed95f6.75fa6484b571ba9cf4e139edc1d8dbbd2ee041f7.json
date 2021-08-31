@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "1f5a306d-bca1-4b77-8131-0f1926a40d08",
-                    "name": "Jerde, Reichert and Gaylord",
-                    "updatedAt": "1630070052860",
+                    "name": "Herman-Moen",
+                    "updatedAt": "1630330463800",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "40787",
-                            "address": "18103 Schiller Manors Apt. 798",
-                            "city": "Roweland",
+                            "zip": "32752",
+                            "address": "49040 Urban Walk Suite 518",
+                            "city": "Walterchester",
                             "locationType": "HEADQUARTER",
-                            "country": "Somalia",
-                            "latitude": "25.834172",
-                            "longitude": "-156.799054",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "78.614068",
+                            "longitude": "-154.276286",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

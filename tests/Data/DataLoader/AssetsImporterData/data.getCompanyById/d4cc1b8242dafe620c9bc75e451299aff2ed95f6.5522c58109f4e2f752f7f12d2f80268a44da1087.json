@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "75026113-e205-40e8-831e-0a2f9dee75bf",
-                    "name": "Nienow and Sons",
-                    "updatedAt": "1630057549566",
+                    "name": "Cartwright Ltd",
+                    "updatedAt": "1630319894680",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "44709-4799",
-                            "address": "64756 Christop Lock Apt. 822",
-                            "city": "Nienowmouth",
+                            "zip": "18795-4726",
+                            "address": "72430 Mills Extension Suite 621",
+                            "city": "Marquisville",
                             "locationType": "HEADQUARTER",
-                            "country": "Anguilla",
-                            "latitude": "41.949877",
-                            "longitude": "-22.92494",
-                            "countryCode": "PE"
+                            "country": "Cyprus",
+                            "latitude": "40.032519",
+                            "longitude": "59.704171",
+                            "countryCode": "VA"
                         }
                     ],
                     "brandingData": null,
@@ -47,7 +47,7 @@
                         "activeQuotes": 530,
                         "activeQuotesTotalAmount": 91156.09000000001,
                         "newActiveQuotes": 530,
-                        "expiringQuotes": 85
+                        "expiringQuotes": 93
                     },
                     "status": null
                 }

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "18dcfcfa-6655-4932-8fec-46630639490a",
-                    "name": "Cartwright Inc",
-                    "updatedAt": "1629992549817",
+                    "name": "Dicki, Klocko and Rippin",
+                    "updatedAt": "1630343050730",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+17194029234",
-                            "name": "Mr. Alden Hahn Sr.",
+                            "phoneNumber": "+13608642305",
+                            "name": "Eda Harber",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17194029234",
-                            "name": "Mr. Alden Hahn Sr.",
+                            "phoneNumber": "+13608642305",
+                            "name": "Eda Harber",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17194029234",
-                            "name": "Mr. Alden Hahn Sr.",
+                            "phoneNumber": "+13608642305",
+                            "name": "Eda Harber",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "55791",
-                            "address": "7472 Isai Wells Apt. 924",
-                            "city": "East Christabury",
+                            "zip": "55958-2041",
+                            "address": "9897 Zboncak Pass",
+                            "city": "New Christopher",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "26.593221",
-                            "longitude": "57.442167",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "-35.333296",
+                            "longitude": "58.818873",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

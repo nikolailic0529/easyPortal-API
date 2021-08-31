@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "20ebaca0-212f-4c79-862f-5ec271ab0d2a",
-                    "name": "Bartoletti and Sons",
-                    "updatedAt": "1629994706700",
+                    "name": "Kiehn, O'Reilly and DuBuque",
+                    "updatedAt": "1630345708637",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+15407702770",
-                            "name": "Alessandra Effertz",
+                            "phoneNumber": "+16570314953",
+                            "name": "Ms. Zella Berge",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+15407702770",
-                            "name": "Alessandra Effertz",
+                            "phoneNumber": "+16570314953",
+                            "name": "Ms. Zella Berge",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+19545649151",
-                            "name": "Alessandra Effertz",
+                            "phoneNumber": "+18595766904",
+                            "name": "Ms. Zella Berge",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "90420-6155",
-                            "address": "75719 Dietrich Forges Suite 419",
-                            "city": "East Sidney",
+                            "zip": "93786",
+                            "address": "31949 Kelvin Ports",
+                            "city": "Murrayhaven",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "-66.69234",
-                            "longitude": "-97.933816",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "55.10063",
+                            "longitude": "-67.249066",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

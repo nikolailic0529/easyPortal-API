@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "03829705-5dd9-4f58-ab38-495a806d45cf",
-                    "name": "Hansen-Becker",
-                    "updatedAt": "1629986743072",
+                    "name": "O'Reilly Ltd",
+                    "updatedAt": "1630337418599",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12720889009",
-                            "name": "Beryl Hauck",
+                            "phoneNumber": "+18562171169",
+                            "name": "Zelma Cartwright",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Kip Simonis",
+                            "name": "Miss Meghan Vandervort II",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12720889009",
-                            "name": "Beryl Hauck",
+                            "phoneNumber": "+18562171169",
+                            "name": "Zelma Cartwright",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "82716",
-                            "address": "7570 Tianna Summit",
-                            "city": "Johnsstad",
+                            "zip": "52262",
+                            "address": "6122 Ari Roads Apt. 915",
+                            "city": "East Dion",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "-49.292925",
-                            "longitude": "94.870289",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "-20.23447",
+                            "longitude": "112.563604",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

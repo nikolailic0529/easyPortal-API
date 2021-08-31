@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "afc0228d-1b20-4971-8635-6837387409a6",
-                    "name": "Bahringer, Herman and Bernier",
-                    "updatedAt": "1630034875888",
+                    "name": "Leuschke Ltd",
+                    "updatedAt": "1630383612813",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+15514633033",
-                            "name": "Leopold Metz V",
+                            "phoneNumber": "+16285387272",
+                            "name": "Mr. Dee Corkery Sr.",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+15514633033",
-                            "name": "Leopold Metz V",
+                            "phoneNumber": "+16285387272",
+                            "name": "Mr. Dee Corkery Sr.",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+15514633033",
-                            "name": "Leopold Metz V",
+                            "phoneNumber": "+16285387272",
+                            "name": "Mr. Dee Corkery Sr.",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "59578-2524",
-                            "address": "38363 Gottlieb Skyway",
-                            "city": "Johnsstad",
+                            "zip": "04919",
+                            "address": "6918 Donnelly Extensions Apt. 210",
+                            "city": "East Dion",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "-75.915519",
-                            "longitude": "49.936744",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "75.586766",
+                            "longitude": "-56.761783",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

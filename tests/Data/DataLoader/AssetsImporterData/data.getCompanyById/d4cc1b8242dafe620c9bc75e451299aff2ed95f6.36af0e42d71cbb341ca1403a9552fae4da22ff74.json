@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "bf58b75a-1bb6-40aa-8453-fdf1d7482b08",
-                    "name": "Runolfsson-Gorczany",
-                    "updatedAt": "1630038881681",
+                    "name": "Gutmann, Fritsch and McCullough",
+                    "updatedAt": "1630387583387",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16787008214",
-                            "name": "Mr. Marty Borer III",
+                            "phoneNumber": "+15400630094",
+                            "name": "Mr. Elmer Howe",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16787008214",
-                            "name": "Mr. Marty Borer III",
+                            "phoneNumber": "+15400630094",
+                            "name": "Mr. Elmer Howe",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16787008214",
-                            "name": "Mr. Marty Borer III",
+                            "phoneNumber": "+15400630094",
+                            "name": "Mr. Elmer Howe",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "99418-0982",
-                            "address": "91745 Verda Groves Apt. 720",
-                            "city": "Hammesstad",
+                            "zip": "85446",
+                            "address": "155 Hammes Spring Suite 303",
+                            "city": "East Daphnee",
                             "locationType": null,
-                            "country": "Somalia",
-                            "latitude": "-1.978224",
-                            "longitude": "167.501302",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "76.064828",
+                            "longitude": "11.216994",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,
@@ -62,7 +62,7 @@
                         "activeContracts": 12,
                         "activeContractTotalAmount": 0,
                         "newActiveContracts": null,
-                        "expiringContracts": 0,
+                        "expiringContracts": 1,
                         "activeQuotes": 1,
                         "activeQuotesTotalAmount": 0,
                         "newActiveQuotes": 1,

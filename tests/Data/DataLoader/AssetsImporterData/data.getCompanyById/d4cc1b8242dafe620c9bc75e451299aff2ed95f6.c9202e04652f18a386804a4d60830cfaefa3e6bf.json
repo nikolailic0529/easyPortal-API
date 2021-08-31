@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "9684d520-c291-4ec6-b914-f0323d6ef0ba",
-                    "name": "Johnson-Ullrich",
-                    "updatedAt": "1630027717968",
+                    "name": "Kemmer, Krajcik and Willms",
+                    "updatedAt": "1630376478178",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -22,8 +22,8 @@
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12349402047",
-                            "name": "Cornelius Block",
+                            "phoneNumber": "+16039493001",
+                            "name": "Elva Moen",
                             "mail": null,
                             "type": "System Manager"
                         },
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "31841-4367",
-                            "address": "23533 Oran Branch",
-                            "city": "Hammesstad",
+                            "zip": "41610-7287",
+                            "address": "90320 Dawson Street",
+                            "city": "East Daphnee",
                             "locationType": null,
-                            "country": "Somalia",
-                            "latitude": "22.833348",
-                            "longitude": "79.797362",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "2.185754",
+                            "longitude": "-103.556808",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

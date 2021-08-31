@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "b0233a33-e6b2-488a-b5ff-22408194ba83",
-                    "name": "Rowe, Langworth and Reinger",
-                    "updatedAt": "1630068289904",
+                    "name": "Kohler PLC",
+                    "updatedAt": "1630327974152",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "71169-1011",
-                            "address": "3858 Cale Rest Suite 025",
-                            "city": "New Emerson",
+                            "zip": "86295",
+                            "address": "48147 Perry Trafficway Apt. 746",
+                            "city": "Grahamside",
                             "locationType": "HEADQUARTER",
-                            "country": "Chad",
-                            "latitude": "-73.24225",
-                            "longitude": "123.054356",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "11.021121",
+                            "longitude": "104.417802",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,
@@ -47,7 +47,7 @@
                         "activeQuotes": 41,
                         "activeQuotesTotalAmount": 5926.51,
                         "newActiveQuotes": 41,
-                        "expiringQuotes": 11
+                        "expiringQuotes": 14
                     },
                     "status": null
                 }

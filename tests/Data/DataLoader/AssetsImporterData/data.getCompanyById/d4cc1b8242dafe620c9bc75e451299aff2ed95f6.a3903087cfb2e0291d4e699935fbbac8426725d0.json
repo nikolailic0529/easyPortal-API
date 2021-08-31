@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "6c32cf27-fef0-487d-b95b-c1e1cd94282e",
-                    "name": "Huel-Ernser",
-                    "updatedAt": "1630056233315",
+                    "name": "Huels, Walsh and Beatty",
+                    "updatedAt": "1630319104020",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "73036",
-                            "address": "642 Pouros Manor Apt. 969",
-                            "city": "Port Metaberg",
+                            "zip": "52264",
+                            "address": "24281 Audrey Mission",
+                            "city": "Port Howell",
                             "locationType": "HEADQUARTER",
-                            "country": "Somalia",
-                            "latitude": "31.533703",
-                            "longitude": "-67.498524",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "-44.855626",
+                            "longitude": "26.557457",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,
@@ -47,7 +47,7 @@
                         "activeQuotes": 23,
                         "activeQuotesTotalAmount": 7129.68,
                         "newActiveQuotes": 23,
-                        "expiringQuotes": 3
+                        "expiringQuotes": 9
                     },
                     "status": null
                 }

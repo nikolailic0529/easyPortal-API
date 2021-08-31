@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "edb16d76-24b1-4aab-aac4-fce658e6c5e2",
-                    "name": "Weissnat, Sauer and Stiedemann",
-                    "updatedAt": "1630061394459",
+                    "name": "Zulauf Ltd",
+                    "updatedAt": "1630326821424",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+13023418782",
-                            "name": "Aniya Douglas",
+                            "phoneNumber": "+15594158067",
+                            "name": "Brianne Marquardt",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12818694137",
-                            "name": "Mrs. Ashleigh Carroll Jr.",
+                            "phoneNumber": "+19865629883",
+                            "name": "Jesse Koss",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+13023418782",
-                            "name": "Aniya Douglas",
+                            "phoneNumber": "+15594158067",
+                            "name": "Brianne Marquardt",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "93761",
-                            "address": "46483 Evangeline Rapids",
-                            "city": "Botsfordshire",
+                            "zip": "40019",
+                            "address": "44341 Christiansen Skyway Apt. 878",
+                            "city": "New Lavinaburgh",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "44.16921",
-                            "longitude": "110.208065",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "-85.333407",
+                            "longitude": "-127.466647",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

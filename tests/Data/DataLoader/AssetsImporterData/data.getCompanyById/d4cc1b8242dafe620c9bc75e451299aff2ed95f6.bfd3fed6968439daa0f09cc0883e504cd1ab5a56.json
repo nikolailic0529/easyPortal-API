@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "ebe80af8-32fe-4b30-8846-f05fd9b178a5",
-                    "name": "Lehner, Lubowitz and Terry",
-                    "updatedAt": "1630060357637",
+                    "name": "Mraz, Farrell and Kutch",
+                    "updatedAt": "1630325023332",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+15590221111",
-                            "name": "Prof. Lily Skiles IV",
+                            "phoneNumber": "+12720038691",
+                            "name": "Michel Buckridge",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+18306579088",
-                            "name": "Alexandria Wilkinson",
+                            "phoneNumber": "+15854617479",
+                            "name": "Prof. Garry Stehr",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+15590221111",
-                            "name": "Prof. Lily Skiles IV",
+                            "phoneNumber": "+12720038691",
+                            "name": "Michel Buckridge",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "48165-0814",
-                            "address": "9888 Carlos Summit Suite 253",
-                            "city": "Adolphstad",
+                            "zip": "19963",
+                            "address": "827 Muriel View Suite 141",
+                            "city": "North Gabehaven",
                             "locationType": null,
-                            "country": "Anguilla",
-                            "latitude": "-84.978211",
-                            "longitude": "-20.460344",
-                            "countryCode": "PE"
+                            "country": "Cyprus",
+                            "latitude": "85.238532",
+                            "longitude": "-75.849268",
+                            "countryCode": "VA"
                         }
                     ],
                     "brandingData": null,

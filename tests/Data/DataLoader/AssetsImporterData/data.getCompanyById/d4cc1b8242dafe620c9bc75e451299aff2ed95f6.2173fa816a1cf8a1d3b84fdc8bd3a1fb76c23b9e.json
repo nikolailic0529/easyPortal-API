@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "661cb23a-6328-4363-8a32-ecd1c96904f2",
-                    "name": "Schumm, King and Treutel",
-                    "updatedAt": "1630054603310",
+                    "name": "O'Conner-McKenzie",
+                    "updatedAt": "1630317984172",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "90523",
-                            "address": "3395 Bergnaum Stream Apt. 485",
-                            "city": "North Arturoborough",
+                            "zip": "27481",
+                            "address": "897 Feil Circles",
+                            "city": "Port Elmer",
                             "locationType": "HEADQUARTER",
-                            "country": "Anguilla",
-                            "latitude": "38.259597",
-                            "longitude": "69.27819",
-                            "countryCode": "PE"
+                            "country": "Cyprus",
+                            "latitude": "-13.00683",
+                            "longitude": "38.373433",
+                            "countryCode": "VA"
                         }
                     ],
                     "brandingData": null,

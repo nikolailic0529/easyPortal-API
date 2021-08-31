@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "abf17c4e-2672-4a05-8e0a-8f11c9732504",
-                    "name": "Spencer-Graham",
-                    "updatedAt": "1630067060218",
+                    "name": "Cassin-Bayer",
+                    "updatedAt": "1630327086797",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -24,13 +24,13 @@
                     "locations": [
                         {
                             "zip": null,
-                            "address": "492 Von Plains Apt. 828",
+                            "address": "87161 Mraz Mountain",
                             "city": null,
                             "locationType": "HEADQUARTER",
-                            "country": "Croatia",
-                            "latitude": "20.998168",
-                            "longitude": "62.516008",
-                            "countryCode": "SO"
+                            "country": "Kenya",
+                            "latitude": "-25.794317",
+                            "longitude": "-123.269862",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

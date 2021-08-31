@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "836f564c-dc3e-480f-9ebb-42a6900ce74f",
-                    "name": "Bailey, Boyer and Lemke",
-                    "updatedAt": "1630057848638",
+                    "name": "Steuber Inc",
+                    "updatedAt": "1630320536301",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "01722-9185",
-                            "address": "224 Carroll Curve Apt. 851",
-                            "city": "Eldonhaven",
+                            "zip": "24864",
+                            "address": "47228 Conn Stream Suite 433",
+                            "city": "Calimouth",
                             "locationType": "HEADQUARTER",
-                            "country": "Chad",
-                            "latitude": "2.318555",
-                            "longitude": "-114.178632",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "-25.547646",
+                            "longitude": "93.157367",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,
@@ -47,7 +47,7 @@
                         "activeQuotes": 31,
                         "activeQuotesTotalAmount": 1133.52,
                         "newActiveQuotes": 31,
-                        "expiringQuotes": 4
+                        "expiringQuotes": 6
                     },
                     "status": null
                 }

@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "ace3d380-031e-4c74-809d-179f13694650",
-                    "name": "Barrows Ltd",
-                    "updatedAt": "1630067119958",
+                    "name": "Lang-Sipes",
+                    "updatedAt": "1630327093367",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "78308",
-                            "address": "372 Stracke Pike",
-                            "city": "Bogisichview",
+                            "zip": "70739-1903",
+                            "address": "9993 Zelda Fort",
+                            "city": "Yostshire",
                             "locationType": "HEADQUARTER",
-                            "country": "Somalia",
-                            "latitude": "41.219401",
-                            "longitude": "21.354717",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "17.849506",
+                            "longitude": "-19.155782",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "3cebb5d3-21f6-410f-9ec8-196658487bd6",
-                    "name": "Johnson-Robel",
-                    "updatedAt": "1630002126319",
+                    "name": "Turcotte-Altenwerth",
+                    "updatedAt": "1630353067425",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14788234883",
-                            "name": "Eddie Littel DVM",
+                            "phoneNumber": "+12172360098",
+                            "name": "Kaleigh Williamson",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+14788234883",
-                            "name": "Eddie Littel DVM",
+                            "phoneNumber": "+12172360098",
+                            "name": "Kaleigh Williamson",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14788234883",
-                            "name": "Eddie Littel DVM",
+                            "phoneNumber": "+12172360098",
+                            "name": "Kaleigh Williamson",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "09860",
-                            "address": "87433 Hertha Meadows Suite 097",
-                            "city": "Lake Piper",
+                            "zip": "02072",
+                            "address": "4512 Hillary Run",
+                            "city": "Pasqualebury",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "-77.916157",
-                            "longitude": "40.749499",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "61.974297",
+                            "longitude": "-25.721928",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

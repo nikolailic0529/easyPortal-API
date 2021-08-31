@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "8e0a6e65-837e-4f16-892c-3858dc965c45",
-                    "name": "Roberts Ltd",
-                    "updatedAt": "1630063450876",
+                    "name": "Goodwin, Crooks and Rau",
+                    "updatedAt": "1630323385882",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "14031",
-                            "address": "75390 Luciano Skyway Apt. 993",
-                            "city": "North Alexandrialand",
+                            "zip": "72859",
+                            "address": "468 Brakus Common",
+                            "city": "Wilsonfurt",
                             "locationType": "HEADQUARTER",
-                            "country": "Somalia",
-                            "latitude": "-84.008466",
-                            "longitude": "-8.365133",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "56.313644",
+                            "longitude": "100.57792",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

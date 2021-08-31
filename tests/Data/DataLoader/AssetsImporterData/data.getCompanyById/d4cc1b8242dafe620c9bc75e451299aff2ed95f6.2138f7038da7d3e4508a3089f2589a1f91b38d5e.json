@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "a86dd99a-97fb-4fb8-8e09-1ae4a872f01a",
-                    "name": "Corkery-Quitzon",
-                    "updatedAt": "1630032884450",
+                    "name": "Franecki, Bernier and Botsford",
+                    "updatedAt": "1630382299074",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Amy Douglas",
+                            "name": "Caesar Huels",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Amy Douglas",
+                            "name": "Caesar Huels",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Amy Douglas",
+                            "name": "Caesar Huels",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "43618",
-                            "address": "64435 Fadel Square",
-                            "city": "Lake Melisa",
+                            "zip": "93984-9358",
+                            "address": "594 Glover Fall Suite 862",
+                            "city": "Volkmantown",
                             "locationType": null,
-                            "country": "Peru",
-                            "latitude": "-31.476227",
-                            "longitude": "108.894206",
-                            "countryCode": "SO"
+                            "country": "China",
+                            "latitude": "85.729947",
+                            "longitude": "-71.010994",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

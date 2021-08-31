@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "6b5e8b29-008f-4c60-a1a3-8108157dfae4",
-                    "name": "Torphy Inc",
-                    "updatedAt": "1630056211070",
+                    "name": "Labadie and Sons",
+                    "updatedAt": "1630319053100",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -24,13 +24,13 @@
                     "locations": [
                         {
                             "zip": null,
-                            "address": "8282 Zboncak Hollow",
-                            "city": "Faustinoport",
+                            "address": "752 Kihn Forges",
+                            "city": "South Cristopherchester",
                             "locationType": "HEADQUARTER",
-                            "country": "Peru",
-                            "latitude": "-87.063032",
-                            "longitude": "85.838462",
-                            "countryCode": "SO"
+                            "country": "China",
+                            "latitude": "-28.898394",
+                            "longitude": "123.842054",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,
@@ -47,7 +47,7 @@
                         "activeQuotes": 71,
                         "activeQuotesTotalAmount": 5763.58,
                         "newActiveQuotes": 71,
-                        "expiringQuotes": 8
+                        "expiringQuotes": 12
                     },
                     "status": null
                 }

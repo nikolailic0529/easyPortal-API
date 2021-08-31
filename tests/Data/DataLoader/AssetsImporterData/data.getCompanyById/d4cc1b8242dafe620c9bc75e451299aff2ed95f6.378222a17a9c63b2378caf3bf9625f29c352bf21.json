@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "d229c495-f960-4ea7-83fd-43b50c56f1c0",
-                    "name": "Hammes, Kulas and Hudson",
-                    "updatedAt": "1629981862087",
+                    "name": "Marcelino Hamill",
+                    "updatedAt": "1630332652950",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "72330-3050",
-                            "address": "278 Clifford Mountain",
-                            "city": "Port Major",
+                            "zip": "46952-0396",
+                            "address": "361 Dejuan Valley",
+                            "city": "Port Collinburgh",
                             "locationType": "HEADQUARTER",
-                            "country": "Somalia",
-                            "latitude": "-34.472745",
-                            "longitude": "-5.999322",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "-62.104892",
+                            "longitude": "19.064943",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,
@@ -47,7 +47,7 @@
                         "activeQuotes": 19,
                         "activeQuotesTotalAmount": 3809.7,
                         "newActiveQuotes": 19,
-                        "expiringQuotes": 8
+                        "expiringQuotes": 12
                     },
                     "status": null
                 }

@@ -2,11 +2,17 @@
 
 namespace Tests\Data\DataLoader;
 
+use App\Services\DataLoader\Finders\OemFinder;
+use App\Services\DataLoader\Finders\ServiceGroupFinder;
+use App\Services\DataLoader\Finders\ServiceLevelFinder;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
 use App\Services\DataLoader\Testing\Data\ClientDumpsIterator;
 use App\Services\DataLoader\Testing\Data\Data;
+use App\Services\DataLoader\Testing\Finders\OemFinder as OemFinderImpl;
+use App\Services\DataLoader\Testing\Finders\ServiceGroupFinder as ServiceGroupFinderImpl;
+use App\Services\DataLoader\Testing\Finders\ServiceLevelFinder as ServiceLevelFinderImpl;
 use Illuminate\Console\Command;
 
 use function array_filter;
@@ -31,15 +37,36 @@ class AssetsImporterData extends Data {
      * @inheritDoc
      */
     public function generate(string $path): array|bool {
-        $result = $this->dumpClientResponses($path, function (): bool {
-            $result  = $this->kernel->call('ep:data-loader-import-assets', [
-                '--limit' => static::LIMIT,
-                '--chunk' => static::CHUNK,
-            ]);
-            $success = $result === Command::SUCCESS;
+        $result   = false;
+        $bindings = [
+            OemFinder::class          => OemFinderImpl::class,
+            ServiceGroupFinder::class => ServiceGroupFinderImpl::class,
+            ServiceLevelFinder::class => ServiceLevelFinderImpl::class,
+        ];
 
-            return $success;
-        });
+        try {
+            foreach ($bindings as $abstract => $concrete) {
+                if (!$this->app->bound($abstract)) {
+                    $this->app->bind($abstract, $concrete);
+                } else {
+                    unset($bindings[$abstract]);
+                }
+            }
+
+            $result = $this->dumpClientResponses($path, function (): bool {
+                $result  = $this->kernel->call('ep:data-loader-import-assets', [
+                    '--limit' => static::LIMIT,
+                    '--chunk' => static::CHUNK,
+                ]);
+                $success = $result === Command::SUCCESS;
+
+                return $success;
+            });
+        } finally {
+            foreach ($bindings as $abstract => $concrete) {
+                unset($this->app[$abstract]);
+            }
+        }
 
         if ($result) {
             $result = $this->getContext($path);
@@ -57,6 +84,7 @@ class AssetsImporterData extends Data {
         $resellers    = [];
         $customers    = [];
         $oems         = [];
+        $oem          = null;
 
         foreach ((new ClientDumpsIterator($path))->getResponseIterator() as $object) {
             if ($object instanceof ViewAsset) {
@@ -64,11 +92,12 @@ class AssetsImporterData extends Data {
                 $resellers[] = $object->reseller->id ?? null;
                 $customers[] = $object->customerId ?? null;
                 $customers[] = $object->customer->id ?? null;
+                $oem         = $object->vendor ?? null;
             } elseif ($object instanceof ViewAssetDocument) {
                 $resellers[] = $object->reseller->id ?? null;
                 $customers[] = $object->customer->id ?? null;
                 $oems[]      = [
-                    $object->document->vendorSpecificFields->vendor ?? null,
+                    $object->document->vendorSpecificFields->vendor ?? $oem ?? null,
                     $object->supportPackage ?? null,
                     $object->skuNumber ?? null,
                 ];

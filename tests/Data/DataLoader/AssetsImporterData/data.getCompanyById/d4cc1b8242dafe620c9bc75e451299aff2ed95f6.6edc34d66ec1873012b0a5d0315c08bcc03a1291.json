@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "96125ca9-a463-4e62-8526-9461f31b1819",
-                    "name": "Lebsack, Stroman and Bahringer",
-                    "updatedAt": "1630064080239",
+                    "name": "Pollich and Sons",
+                    "updatedAt": "1630323628129",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "10036",
-                            "address": "1747 Cremin Roads Apt. 236",
-                            "city": "Lemketown",
+                            "zip": "45154",
+                            "address": "134 Kris Valleys",
+                            "city": "Lake Ethyl",
                             "locationType": "HEADQUARTER",
-                            "country": "Chad",
-                            "latitude": "64.531606",
-                            "longitude": "139.410766",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "61.758513",
+                            "longitude": "-73.495652",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

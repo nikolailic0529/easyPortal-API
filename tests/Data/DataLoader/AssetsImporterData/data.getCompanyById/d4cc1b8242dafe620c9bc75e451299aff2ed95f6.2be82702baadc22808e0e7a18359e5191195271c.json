@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "ff233b92-3872-4261-ab3a-a21776fdbe07",
-                    "name": "Padberg-Zemlak",
-                    "updatedAt": "1629964640282",
+                    "name": "Marquardt-Shanahan",
+                    "updatedAt": "1630334312625",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14634782447",
-                            "name": "Dr. Noelia Walter DVM",
+                            "phoneNumber": "+13173188198",
+                            "name": "Mr. Garett Renner",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+14634782447",
-                            "name": "Dr. Noelia Walter DVM",
+                            "phoneNumber": "+13173188198",
+                            "name": "Mr. Garett Renner",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14634782447",
-                            "name": "Dr. Noelia Walter DVM",
+                            "phoneNumber": "+13173188198",
+                            "name": "Mr. Garett Renner",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "74304",
-                            "address": "461 Okuneva Junction Suite 705",
-                            "city": "North Rasheed",
+                            "zip": "26104",
+                            "address": "5165 Aaron Bypass Suite 104",
+                            "city": "Cronaview",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "-0.273609",
-                            "longitude": "-10.97817",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "-16.743641",
+                            "longitude": "-74.01739",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

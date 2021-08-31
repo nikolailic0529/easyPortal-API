@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "25f18688-39fc-4d4c-90bb-3593cac21052",
-                    "name": "Beahan, Wisoky and Mosciski",
-                    "updatedAt": "1630046310866",
+                    "name": "Wilkinson-Hayes",
+                    "updatedAt": "1630306211505",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "34092",
-                            "address": "869 Bria Ford",
-                            "city": "West Kris",
+                            "zip": "40290-9600",
+                            "address": "9012 Boyer Terrace Apt. 774",
+                            "city": "Jastland",
                             "locationType": "HEADQUARTER",
-                            "country": "Anguilla",
-                            "latitude": "-27.064225",
-                            "longitude": "44.199879",
-                            "countryCode": "PE"
+                            "country": "Cyprus",
+                            "latitude": "-25.66697",
+                            "longitude": "-71.806948",
+                            "countryCode": "VA"
                         }
                     ],
                     "brandingData": null,

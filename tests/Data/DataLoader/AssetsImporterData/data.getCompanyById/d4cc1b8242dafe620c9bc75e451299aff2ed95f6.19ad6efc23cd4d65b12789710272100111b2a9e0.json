@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "03ded2b7-ed78-4126-8ea5-ccefeb5a0b63",
-                    "name": "Hauck, Aufderhar and Cruickshank",
-                    "updatedAt": "1629986779553",
+                    "name": "Flatley Inc",
+                    "updatedAt": "1630337479585",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14588679306",
-                            "name": "Mr. Donald Brekke II",
+                            "phoneNumber": "+18593291106",
+                            "name": "Mr. Maximo Feil V",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17693925954",
-                            "name": "Mr. Donald Brekke II",
+                            "phoneNumber": "+18289374323",
+                            "name": "Mr. Maximo Feil V",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14588679306",
-                            "name": "Mr. Donald Brekke II",
+                            "phoneNumber": "+18593291106",
+                            "name": "Mr. Maximo Feil V",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "78308",
-                            "address": "60529 Cortez Hills Suite 308",
-                            "city": "Bogisichview",
+                            "zip": "70739-1903",
+                            "address": "986 Madalyn Lodge Suite 905",
+                            "city": "Yostshire",
                             "locationType": null,
-                            "country": "Somalia",
-                            "latitude": "68.782483",
-                            "longitude": "36.792192",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "-23.139754",
+                            "longitude": "67.541953",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

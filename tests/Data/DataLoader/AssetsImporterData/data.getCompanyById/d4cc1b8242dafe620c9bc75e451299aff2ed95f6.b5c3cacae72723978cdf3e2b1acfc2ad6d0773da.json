@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "0eccc79b-4b02-4f51-bbe0-d294b7a142fe",
-                    "name": "Kautzer, Hansen and Gottlieb",
-                    "updatedAt": "1629989803534",
+                    "name": "Adams, Effertz and Armstrong",
+                    "updatedAt": "1630340862916",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+17577979399",
-                            "name": "Isabell Mante",
+                            "phoneNumber": "+15616244860",
+                            "name": "Lexi Gibson",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17577979399",
-                            "name": "Isabell Mante",
+                            "phoneNumber": "+15616244860",
+                            "name": "Lexi Gibson",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17577979399",
-                            "name": "Isabell Mante",
+                            "phoneNumber": "+15616244860",
+                            "name": "Lexi Gibson",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "35680",
-                            "address": "81783 Mayert Rue Suite 605",
-                            "city": "Port Sherman",
+                            "zip": "24486",
+                            "address": "12517 Ted Motorway Suite 160",
+                            "city": "Medhurstbury",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "-32.695296",
-                            "longitude": "-73.69167",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "-29.285415",
+                            "longitude": "60.427029",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

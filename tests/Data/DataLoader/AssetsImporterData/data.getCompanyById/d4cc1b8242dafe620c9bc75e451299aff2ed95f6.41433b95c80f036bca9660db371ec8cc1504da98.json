@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "c4008848-ced1-47e6-92ca-87a1774006cd",
-                    "name": "Grimes-Muller",
-                    "updatedAt": "1630070359490",
+                    "name": "Schiller-Thiel",
+                    "updatedAt": "1630330742530",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "93761",
-                            "address": "931 Hillard Lights",
-                            "city": "Botsfordshire",
+                            "zip": "40019",
+                            "address": "7245 Clementine Squares",
+                            "city": "New Lavinaburgh",
                             "locationType": "HEADQUARTER",
-                            "country": "Chad",
-                            "latitude": "-1.141392",
-                            "longitude": "-54.163249",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "-81.348554",
+                            "longitude": "-25.690343",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

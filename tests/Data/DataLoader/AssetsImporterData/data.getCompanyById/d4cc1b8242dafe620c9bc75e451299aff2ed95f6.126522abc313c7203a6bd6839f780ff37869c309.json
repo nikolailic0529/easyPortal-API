@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "3a312485-a6f0-4f4e-85ec-cd23156eb176",
-                    "name": "Hilpert-Thiel",
-                    "updatedAt": "1630048065426",
+                    "name": "Gusikowski, Reilly and Bogan",
+                    "updatedAt": "1630308117498",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "26883",
-                            "address": "2423 Kiel Springs Apt. 542",
-                            "city": "Eldonhaven",
+                            "zip": "19296",
+                            "address": "7215 Eloisa Harbor Apt. 308",
+                            "city": "Calimouth",
                             "locationType": "HEADQUARTER",
-                            "country": "Chad",
-                            "latitude": "-67.473746",
-                            "longitude": "-17.728725",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "-14.129274",
+                            "longitude": "-143.703491",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

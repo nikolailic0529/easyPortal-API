@@ -9,7 +9,7 @@
             "getCompanyById": [
                 {
                     "id": "143c456a-e894-4710-a1c2-745b9582ca47",
-                    "name": "Kulas, Ward and Cronin",
+                    "name": "Renner, Rutherford and Grady",
                     "updatedAt": "1626340457000",
                     "keycloakName": null,
                     "keycloakGroupId": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "52493",
-                            "address": "576 Zemlak View",
-                            "city": "Hahnfurt",
+                            "zip": "39435",
+                            "address": "59730 Gerhold Port",
+                            "city": "Crooksville",
                             "locationType": "HEADQUARTER",
-                            "country": "Chad",
-                            "latitude": "-40.933815",
-                            "longitude": "-150.728178",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "43.426587",
+                            "longitude": "83.732418",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

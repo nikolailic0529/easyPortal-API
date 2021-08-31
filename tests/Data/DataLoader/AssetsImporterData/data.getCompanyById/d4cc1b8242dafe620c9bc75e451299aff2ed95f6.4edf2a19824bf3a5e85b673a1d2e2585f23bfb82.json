@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "ff69738c-6dce-458e-bc6c-4b6eae3f6168",
-                    "name": "Pfeffer-Roberts",
-                    "updatedAt": "1629985380437",
+                    "name": "Orn, Weber and Kirlin",
+                    "updatedAt": "1630337108872",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "79928-3220",
-                            "address": "3639 Marvin Lodge Suite 613",
-                            "city": "Vonville",
+                            "zip": "21203-4029",
+                            "address": "1206 Ankunding Prairie",
+                            "city": "Farrellmouth",
                             "locationType": "HEADQUARTER",
-                            "country": "Anguilla",
-                            "latitude": "83.954222",
-                            "longitude": "-36.14799",
-                            "countryCode": "PE"
+                            "country": "Cyprus",
+                            "latitude": "-4.337108",
+                            "longitude": "64.764907",
+                            "countryCode": "VA"
                         }
                     ],
                     "brandingData": null,

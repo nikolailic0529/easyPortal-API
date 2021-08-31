@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "454e27b3-26c1-4f11-bfd6-9a55ab447a66",
-                    "name": "Tillman Inc",
-                    "updatedAt": "1630004602531",
+                    "name": "Maggio, O'Conner and Schowalter",
+                    "updatedAt": "1630355287835",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16105552657",
-                            "name": "Nellie Jaskolski",
+                            "phoneNumber": "+16360794977",
+                            "name": "Ava Hudson",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16105552657",
-                            "name": "Nellie Jaskolski",
+                            "phoneNumber": "+16360794977",
+                            "name": "Ava Hudson",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16105552657",
-                            "name": "Nellie Jaskolski",
+                            "phoneNumber": "+16360794977",
+                            "name": "Ava Hudson",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "69523",
-                            "address": "721 Edgar Prairie",
-                            "city": "New Candidaburgh",
+                            "zip": "50491",
+                            "address": "713 Fleta Court Suite 371",
+                            "city": "Gulgowskitown",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "-22.865176",
-                            "longitude": "-153.093334",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "-2.864986",
+                            "longitude": "59.751153",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

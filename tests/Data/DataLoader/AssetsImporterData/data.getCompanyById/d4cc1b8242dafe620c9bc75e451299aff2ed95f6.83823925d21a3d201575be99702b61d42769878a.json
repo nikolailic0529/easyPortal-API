@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "7f397cdb-a1a2-4173-8c3f-f00926997491",
-                    "name": "Watsica-Jenkins",
-                    "updatedAt": "1630021170628",
+                    "name": "Schiller, Lockman and Padberg",
+                    "updatedAt": "1630370289929",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12832388671",
-                            "name": "Layla Raynor",
+                            "phoneNumber": "+12109752380",
+                            "name": "Vernie Bahringer",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Kip Simonis",
+                            "name": "Miss Meghan Vandervort II",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12832388671",
-                            "name": "Layla Raynor",
+                            "phoneNumber": "+12109752380",
+                            "name": "Vernie Bahringer",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "31321-1184",
-                            "address": "41526 Orn Highway",
-                            "city": "Darwinland",
+                            "zip": "22480",
+                            "address": "801 Jenkins Via",
+                            "city": "New Ryleemouth",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "-85.169444",
-                            "longitude": "163.840856",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "-61.351348",
+                            "longitude": "9.657487",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

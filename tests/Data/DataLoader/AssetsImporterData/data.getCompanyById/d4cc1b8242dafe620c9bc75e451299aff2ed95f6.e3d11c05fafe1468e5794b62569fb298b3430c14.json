@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "1a21ac6a-c977-43fd-bd62-66cf6be37d92",
-                    "name": "Parisian-Rippin",
-                    "updatedAt": "1629992629265",
+                    "name": "Walter-Mayer",
+                    "updatedAt": "1630343563471",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16787217280",
-                            "name": "Dr. Tatyana Rath",
+                            "phoneNumber": "+13045594719",
+                            "name": "Maximillian O'Keefe",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16787217280",
-                            "name": "Dr. Tatyana Rath",
+                            "phoneNumber": "+13045594719",
+                            "name": "Maximillian O'Keefe",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "92519",
-                            "address": "749 Reynolds Stravenue Apt. 020",
-                            "city": "New Vincenzoville",
+                            "zip": "22459",
+                            "address": "75958 O'Connell Throughway",
+                            "city": "Harberville",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "47.721501",
-                            "longitude": "-178.722909",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "-25.582555",
+                            "longitude": "8.732663",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

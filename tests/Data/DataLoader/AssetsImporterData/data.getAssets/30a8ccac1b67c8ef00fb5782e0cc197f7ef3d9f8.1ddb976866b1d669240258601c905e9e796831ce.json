@@ -13,7 +13,7 @@
                     "id": "000096fd-df38-483e-b441-846785c9a339",
                     "resellerId": "143c456a-e894-4710-a1c2-745b9582ca47",
                     "customerId": "733a054f-6b00-49d7-8f49-8366b3a2a7b8",
-                    "serialNumber": "98509168-ae09-3a28-aaa5-cd107a9d76a0",
+                    "serialNumber": "fae2944a-0029-34c8-b76b-c74959723083",
                     "productDescription": "HP 32GB 2Rx4 PC4-2133P-R Kit",
                     "assetTag": "Hardware",
                     "assetType": "Hardware",
@@ -21,14 +21,14 @@
                     "sku": "728629-B21",
                     "eolDate": "",
                     "eosDate": "",
-                    "zip": "98971-8694",
-                    "city": "Botsfordshire",
-                    "address": "135 Stanton Freeway Suite 766",
+                    "zip": "04366",
+                    "city": "New Lavinaburgh",
+                    "address": "67837 Ana Stravenue Apt. 859",
                     "address2": "",
-                    "country": "Chad",
-                    "latitude": "45.830907",
-                    "longitude": "-16.249147",
-                    "countryCode": "GD",
+                    "country": "Benin",
+                    "latitude": "-28.064849",
+                    "longitude": "-49.932102",
+                    "countryCode": "TF",
                     "status": "ACTIVE",
                     "updatedAt": "1629233270455",
                     "assetCoverage": [
@@ -40,11 +40,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-05-11",
-                            "documentNumber": "1de9c40c-101c-38c9-8a4b-97570507546f",
+                            "documentNumber": "30c6833b-18bb-30fe-8306-b333a8850863",
                             "document": {
                                 "id": "3813fc5d-3474-43e3-9c07-177657118b0c",
                                 "type": "Quote renewal",
-                                "documentNumber": "1de9c40c-101c-38c9-8a4b-97570507546f",
+                                "documentNumber": "30c6833b-18bb-30fe-8306-b333a8850863",
                                 "startDate": "2021-08-01",
                                 "endDate": "2022-12-31",
                                 "currencyCode": "EUR",
@@ -53,7 +53,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "8115e483-dfc8-33e8-bc0b-9b7e949d875a",
+                                    "said": "0e31641a-b8f1-327d-890f-376435d79c29",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -79,11 +79,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-05-11",
-                            "documentNumber": "1de9c40c-101c-38c9-8a4b-97570507546f",
+                            "documentNumber": "30c6833b-18bb-30fe-8306-b333a8850863",
                             "document": {
                                 "id": "3813fc5d-3474-43e3-9c07-177657118b0c",
                                 "type": "Quote renewal",
-                                "documentNumber": "1de9c40c-101c-38c9-8a4b-97570507546f",
+                                "documentNumber": "30c6833b-18bb-30fe-8306-b333a8850863",
                                 "startDate": "2021-08-01",
                                 "endDate": "2022-12-31",
                                 "currencyCode": "EUR",
@@ -92,7 +92,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "8115e483-dfc8-33e8-bc0b-9b7e949d875a",
+                                    "said": "0e31641a-b8f1-327d-890f-376435d79c29",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -118,11 +118,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-05-11",
-                            "documentNumber": "ed326f20-3ad6-3a7f-a40e-2cd115c6c51e",
+                            "documentNumber": "698e0cc7-b62a-39ad-9528-ae228dea8569",
                             "document": {
                                 "id": "ac051acf-12e5-48e3-be4b-6e0c97430108",
                                 "type": "Quote renewal",
-                                "documentNumber": "ed326f20-3ad6-3a7f-a40e-2cd115c6c51e",
+                                "documentNumber": "698e0cc7-b62a-39ad-9528-ae228dea8569",
                                 "startDate": "2021-08-01",
                                 "endDate": "2022-12-31",
                                 "currencyCode": "EUR",
@@ -131,7 +131,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "8115e483-dfc8-33e8-bc0b-9b7e949d875a",
+                                    "said": "0e31641a-b8f1-327d-890f-376435d79c29",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -159,11 +159,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-05-11",
-                            "documentNumber": "ed326f20-3ad6-3a7f-a40e-2cd115c6c51e",
+                            "documentNumber": "698e0cc7-b62a-39ad-9528-ae228dea8569",
                             "document": {
                                 "id": "ac051acf-12e5-48e3-be4b-6e0c97430108",
                                 "type": "Quote renewal",
-                                "documentNumber": "ed326f20-3ad6-3a7f-a40e-2cd115c6c51e",
+                                "documentNumber": "698e0cc7-b62a-39ad-9528-ae228dea8569",
                                 "startDate": "2021-08-01",
                                 "endDate": "2022-12-31",
                                 "currencyCode": "EUR",
@@ -172,7 +172,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "8115e483-dfc8-33e8-bc0b-9b7e949d875a",
+                                    "said": "0e31641a-b8f1-327d-890f-376435d79c29",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -200,11 +200,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-05-11",
-                            "documentNumber": "5ab836eb-9415-3cec-a9e3-b87b6bf85d3f",
+                            "documentNumber": "66ebcd3f-3e76-3ccf-9cad-2ab457066f28",
                             "document": {
                                 "id": "ceba03e9-cae5-425e-8472-149a735a7246",
                                 "type": "Quote renewal",
-                                "documentNumber": "5ab836eb-9415-3cec-a9e3-b87b6bf85d3f",
+                                "documentNumber": "66ebcd3f-3e76-3ccf-9cad-2ab457066f28",
                                 "startDate": "2021-08-01",
                                 "endDate": "2022-07-31",
                                 "currencyCode": "EUR",
@@ -213,7 +213,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "8115e483-dfc8-33e8-bc0b-9b7e949d875a",
+                                    "said": "0e31641a-b8f1-327d-890f-376435d79c29",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -241,11 +241,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-05-11",
-                            "documentNumber": "ed326f20-3ad6-3a7f-a40e-2cd115c6c51e",
+                            "documentNumber": "698e0cc7-b62a-39ad-9528-ae228dea8569",
                             "document": {
                                 "id": "ac051acf-12e5-48e3-be4b-6e0c97430108",
                                 "type": "Quote renewal",
-                                "documentNumber": "ed326f20-3ad6-3a7f-a40e-2cd115c6c51e",
+                                "documentNumber": "698e0cc7-b62a-39ad-9528-ae228dea8569",
                                 "startDate": "2021-08-01",
                                 "endDate": "2022-12-31",
                                 "currencyCode": "EUR",
@@ -254,7 +254,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "8115e483-dfc8-33e8-bc0b-9b7e949d875a",
+                                    "said": "0e31641a-b8f1-327d-890f-376435d79c29",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -281,20 +281,20 @@
                     ],
                     "latestContactPersons": [
                         {
-                            "phoneNumber": "+17248349282",
-                            "name": "Onie Bailey",
+                            "phoneNumber": "+17576966214",
+                            "name": "Bryce Weissnat PhD",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+15391485683",
-                            "name": "Kip Simonis",
+                            "phoneNumber": "+15301114160",
+                            "name": "Miss Meghan Vandervort II",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17248349282",
-                            "name": "Onie Bailey",
+                            "phoneNumber": "+17576966214",
+                            "name": "Bryce Weissnat PhD",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -312,14 +312,14 @@
                     "sku": "BC785A",
                     "eolDate": "",
                     "eosDate": "",
-                    "zip": "31321-1184",
-                    "city": "Darwinland",
-                    "address": "41526 Orn Highway",
+                    "zip": "22480",
+                    "city": "New Ryleemouth",
+                    "address": "801 Jenkins Via",
                     "address2": "",
-                    "country": "Chad",
-                    "latitude": "-85.169444",
-                    "longitude": "163.840856",
-                    "countryCode": "GD",
+                    "country": "Benin",
+                    "latitude": "-61.351348",
+                    "longitude": "9.657487",
+                    "countryCode": "TF",
                     "status": "ACTIVE",
                     "updatedAt": "1629233270610",
                     "assetCoverage": [
@@ -331,11 +331,11 @@
                             "skuNumber": "HA156AC",
                             "supportPackage": "H1K93AC",
                             "warrantyEndDate": null,
-                            "documentNumber": "09725901-c609-32bc-a8ee-1132dd770efa",
+                            "documentNumber": "6bab070f-fdb3-32ec-afd1-4ccea32b718b",
                             "document": {
                                 "id": "a820d097-f4ac-4d89-96ab-7d99047e3ddc",
                                 "type": "Quote renewal",
-                                "documentNumber": "09725901-c609-32bc-a8ee-1132dd770efa",
+                                "documentNumber": "6bab070f-fdb3-32ec-afd1-4ccea32b718b",
                                 "startDate": "2021-01-01",
                                 "endDate": "2021-12-31",
                                 "currencyCode": "EUR",
@@ -344,7 +344,7 @@
                                 "updatedAt": "1626346020118",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "8a31a3fb-556c-36b5-831e-464c45ccc527",
+                                    "said": "5e9303a5-5af3-3988-8298-70ea137cf112",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -371,20 +371,20 @@
                     ],
                     "latestContactPersons": [
                         {
-                            "phoneNumber": "+12832388671",
-                            "name": "Layla Raynor",
+                            "phoneNumber": "+12109752380",
+                            "name": "Vernie Bahringer",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+15391485683",
-                            "name": "Kip Simonis",
+                            "phoneNumber": "+15301114160",
+                            "name": "Miss Meghan Vandervort II",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12832388671",
-                            "name": "Layla Raynor",
+                            "phoneNumber": "+12109752380",
+                            "name": "Vernie Bahringer",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -402,14 +402,14 @@
                     "sku": "662067-B21",
                     "eolDate": "",
                     "eosDate": "",
-                    "zip": "56262",
-                    "city": "North Armand",
-                    "address": "9394 Otilia Track",
+                    "zip": "40387",
+                    "city": "Port Aliafurt",
+                    "address": "466 Reichel Road",
                     "address2": "",
-                    "country": "Anguilla",
-                    "latitude": "38.48519",
-                    "longitude": "-130.903704",
-                    "countryCode": "PE",
+                    "country": "Cyprus",
+                    "latitude": "-6.412542",
+                    "longitude": "113.352375",
+                    "countryCode": "VA",
                     "status": "ACTIVE",
                     "updatedAt": "1629233270760",
                     "assetCoverage": [
@@ -421,11 +421,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2015-06-30",
-                            "documentNumber": "14dbb10f-0004-33c5-b4a3-a3619e434eff",
+                            "documentNumber": "b83588ef-dd13-3427-9e3c-ca984bdfd012",
                             "document": {
                                 "id": "11db45a4-5e9a-4293-a619-fd2c6e7469f2",
                                 "type": "Quote New Business",
-                                "documentNumber": "14dbb10f-0004-33c5-b4a3-a3619e434eff",
+                                "documentNumber": "b83588ef-dd13-3427-9e3c-ca984bdfd012",
                                 "startDate": "2020-01-01",
                                 "endDate": "2020-12-31",
                                 "currencyCode": "EUR",
@@ -434,7 +434,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "454843b4-9559-36d6-b07b-e03cae82d2f8",
+                                    "said": "fa91c137-0f39-3519-9367-34aeb026dda0",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -461,20 +461,20 @@
                     ],
                     "latestContactPersons": [
                         {
-                            "phoneNumber": "+17542039967",
-                            "name": "Dr. Nasir Huel V",
+                            "phoneNumber": "+16297696375",
+                            "name": "Mrs. Tara Dickens PhD",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+18306579088",
-                            "name": "Alexandria Wilkinson",
+                            "phoneNumber": "+15854617479",
+                            "name": "Prof. Garry Stehr",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17542039967",
-                            "name": "Dr. Nasir Huel V",
+                            "phoneNumber": "+16297696375",
+                            "name": "Mrs. Tara Dickens PhD",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -484,7 +484,7 @@
                     "id": "0000a701-d97c-4390-a0c9-80b54bc620df",
                     "resellerId": "714aa057-1ea0-4666-b3be-4b69af99e997",
                     "customerId": "3a2ab52c-9536-4b3e-8deb-8b3c7942e2eb",
-                    "serialNumber": "027a5d95-e4b6-35d6-931d-574c1f4bfe16",
+                    "serialNumber": "37828216-ecf5-31f5-a5a8-1572d590ad24",
                     "productDescription": "HP ProLiant m710p server cartridge",
                     "assetTag": "Hardware",
                     "assetType": "Hardware",
@@ -492,14 +492,14 @@
                     "sku": "808915-B21",
                     "eolDate": "",
                     "eosDate": "",
-                    "zip": "31841-4367",
-                    "city": "Hammesstad",
-                    "address": "97539 Klocko Lock",
+                    "zip": "41610-7287",
+                    "city": "East Daphnee",
+                    "address": "11516 Judy Station Apt. 223",
                     "address2": "",
-                    "country": "Somalia",
-                    "latitude": "77.770036",
-                    "longitude": "163.61469",
-                    "countryCode": "SO",
+                    "country": "Latvia",
+                    "latitude": "-83.125827",
+                    "longitude": "15.869614",
+                    "countryCode": "NI",
                     "status": "ACTIVE",
                     "updatedAt": "1629094588863",
                     "assetCoverage": [
@@ -511,11 +511,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J32AC",
                             "warrantyEndDate": "2019-01-08",
-                            "documentNumber": "492b17bd-8809-38fd-9f69-27851ce6a415",
+                            "documentNumber": "f33fdc01-e7f4-311a-8105-ceac559f46b6",
                             "document": {
                                 "id": "b3522239-e513-44c2-9445-0b3518065e98",
                                 "type": "Quote renewal",
-                                "documentNumber": "492b17bd-8809-38fd-9f69-27851ce6a415",
+                                "documentNumber": "f33fdc01-e7f4-311a-8105-ceac559f46b6",
                                 "startDate": "2020-02-01",
                                 "endDate": "2021-01-31",
                                 "currencyCode": "CHF",
@@ -524,7 +524,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "54cac255-c9c8-3ec3-b935-18cf082e3e21",
+                                    "said": "15f8a01a-d065-3934-a635-ebe31310f467",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -552,11 +552,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J32AC",
                             "warrantyEndDate": "2019-01-08",
-                            "documentNumber": "492b17bd-8809-38fd-9f69-27851ce6a415",
+                            "documentNumber": "f33fdc01-e7f4-311a-8105-ceac559f46b6",
                             "document": {
                                 "id": "b3522239-e513-44c2-9445-0b3518065e98",
                                 "type": "Quote renewal",
-                                "documentNumber": "492b17bd-8809-38fd-9f69-27851ce6a415",
+                                "documentNumber": "f33fdc01-e7f4-311a-8105-ceac559f46b6",
                                 "startDate": "2020-02-01",
                                 "endDate": "2021-01-31",
                                 "currencyCode": "CHF",
@@ -565,7 +565,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "54cac255-c9c8-3ec3-b935-18cf082e3e21",
+                                    "said": "15f8a01a-d065-3934-a635-ebe31310f467",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -593,11 +593,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J32AC",
                             "warrantyEndDate": "2019-01-08",
-                            "documentNumber": "c59404c8-f4e7-3214-9fd3-84c537815d98",
+                            "documentNumber": "59a22264-1c4c-3e25-83a8-64aa9cb52f5f",
                             "document": {
                                 "id": "65958069-3e5a-46e0-b013-fdff392c7213",
                                 "type": "Delivery contract",
-                                "documentNumber": "c59404c8-f4e7-3214-9fd3-84c537815d98",
+                                "documentNumber": "59a22264-1c4c-3e25-83a8-64aa9cb52f5f",
                                 "startDate": "2016-01-01",
                                 "endDate": "2020-01-31",
                                 "currencyCode": "CHF",
@@ -606,7 +606,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "54cac255-c9c8-3ec3-b935-18cf082e3e21",
+                                    "said": "15f8a01a-d065-3934-a635-ebe31310f467",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -634,11 +634,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J32AC",
                             "warrantyEndDate": "2019-01-08",
-                            "documentNumber": "492b17bd-8809-38fd-9f69-27851ce6a415",
+                            "documentNumber": "f33fdc01-e7f4-311a-8105-ceac559f46b6",
                             "document": {
                                 "id": "b3522239-e513-44c2-9445-0b3518065e98",
                                 "type": "Quote renewal",
-                                "documentNumber": "492b17bd-8809-38fd-9f69-27851ce6a415",
+                                "documentNumber": "f33fdc01-e7f4-311a-8105-ceac559f46b6",
                                 "startDate": "2020-02-01",
                                 "endDate": "2021-01-31",
                                 "currencyCode": "CHF",
@@ -647,7 +647,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "54cac255-c9c8-3ec3-b935-18cf082e3e21",
+                                    "said": "15f8a01a-d065-3934-a635-ebe31310f467",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -675,11 +675,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J32AC",
                             "warrantyEndDate": "2019-01-08",
-                            "documentNumber": "492b17bd-8809-38fd-9f69-27851ce6a415",
+                            "documentNumber": "f33fdc01-e7f4-311a-8105-ceac559f46b6",
                             "document": {
                                 "id": "b3522239-e513-44c2-9445-0b3518065e98",
                                 "type": "Quote renewal",
-                                "documentNumber": "492b17bd-8809-38fd-9f69-27851ce6a415",
+                                "documentNumber": "f33fdc01-e7f4-311a-8105-ceac559f46b6",
                                 "startDate": "2020-02-01",
                                 "endDate": "2021-01-31",
                                 "currencyCode": "CHF",
@@ -688,7 +688,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "54cac255-c9c8-3ec3-b935-18cf082e3e21",
+                                    "said": "15f8a01a-d065-3934-a635-ebe31310f467",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -716,7 +716,7 @@
                     "latestContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Dr. Maegan Schmidt",
+                            "name": "Ansel Kutch",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -728,7 +728,7 @@
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Dr. Maegan Schmidt",
+                            "name": "Ansel Kutch",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -738,7 +738,7 @@
                     "id": "0000aab7-79d8-4fae-b86c-375b1ad4b3d0",
                     "resellerId": "57e6a2c1-b060-4448-b0bf-b3793da27dc1",
                     "customerId": "fbdf9864-1ed9-4124-a248-c9c08a55b7c3",
-                    "serialNumber": "bb63881e-edc1-3585-9a57-791d3a0fde07",
+                    "serialNumber": "19f8211d-17ac-3bec-8e07-fc8b52702285",
                     "productDescription": "HP M6625 600GB 6G SAS 10K 2.5in HDD",
                     "assetTag": "Hardware",
                     "assetType": "Hardware",
@@ -746,14 +746,14 @@
                     "sku": "AW611A",
                     "eolDate": "",
                     "eosDate": "",
-                    "zip": "73603",
-                    "city": "East Brenda",
-                    "address": "8282 Zboncak Hollow",
+                    "zip": "29168-8454",
+                    "city": "Kulasside",
+                    "address": "752 Kihn Forges",
                     "address2": "",
-                    "country": "Somalia",
-                    "latitude": "51.396829",
-                    "longitude": "-63.921552",
-                    "countryCode": "SO",
+                    "country": "Latvia",
+                    "latitude": "-21.098224",
+                    "longitude": "-51.977889",
+                    "countryCode": "NI",
                     "status": "ACTIVE",
                     "updatedAt": "1629233270906",
                     "assetCoverage": [
@@ -765,11 +765,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-07-31",
-                            "documentNumber": "a25abd8b-8fca-3d95-bfc6-e439060bc42e",
+                            "documentNumber": "b8ad446b-f307-3b69-a839-60b90543da0c",
                             "document": {
                                 "id": "079f2983-325b-4f29-b474-a218ae970f4e",
                                 "type": "Quote renewal",
-                                "documentNumber": "a25abd8b-8fca-3d95-bfc6-e439060bc42e",
+                                "documentNumber": "b8ad446b-f307-3b69-a839-60b90543da0c",
                                 "startDate": "2020-01-01",
                                 "endDate": "2020-12-31",
                                 "currencyCode": "CHF",
@@ -778,7 +778,7 @@
                                 "updatedAt": "1626346020118",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "7748522b-acd0-32cf-8647-1bbba4328d66",
+                                    "said": "52c41e37-091d-39ca-a4d0-fd4d6ea8571b",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -806,11 +806,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-07-31",
-                            "documentNumber": "a4971a92-ddb5-3d0f-8e99-d85c48bc4b81",
+                            "documentNumber": "ed061440-82e8-3bde-96a9-a3ea833b09d0",
                             "document": {
                                 "id": "87335878-7ba6-4588-887a-da9a638e8a6f",
                                 "type": "Quote renewal",
-                                "documentNumber": "a4971a92-ddb5-3d0f-8e99-d85c48bc4b81",
+                                "documentNumber": "ed061440-82e8-3bde-96a9-a3ea833b09d0",
                                 "startDate": "2020-04-01",
                                 "endDate": "2020-06-30",
                                 "currencyCode": "CHF",
@@ -819,7 +819,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "7748522b-acd0-32cf-8647-1bbba4328d66",
+                                    "said": "52c41e37-091d-39ca-a4d0-fd4d6ea8571b",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -847,11 +847,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-07-31",
-                            "documentNumber": "a25abd8b-8fca-3d95-bfc6-e439060bc42e",
+                            "documentNumber": "b8ad446b-f307-3b69-a839-60b90543da0c",
                             "document": {
                                 "id": "079f2983-325b-4f29-b474-a218ae970f4e",
                                 "type": "Quote renewal",
-                                "documentNumber": "a25abd8b-8fca-3d95-bfc6-e439060bc42e",
+                                "documentNumber": "b8ad446b-f307-3b69-a839-60b90543da0c",
                                 "startDate": "2020-01-01",
                                 "endDate": "2020-12-31",
                                 "currencyCode": "CHF",
@@ -860,7 +860,7 @@
                                 "updatedAt": "1626346020118",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "7748522b-acd0-32cf-8647-1bbba4328d66",
+                                    "said": "52c41e37-091d-39ca-a4d0-fd4d6ea8571b",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -888,11 +888,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-07-31",
-                            "documentNumber": "a25abd8b-8fca-3d95-bfc6-e439060bc42e",
+                            "documentNumber": "b8ad446b-f307-3b69-a839-60b90543da0c",
                             "document": {
                                 "id": "079f2983-325b-4f29-b474-a218ae970f4e",
                                 "type": "Quote renewal",
-                                "documentNumber": "a25abd8b-8fca-3d95-bfc6-e439060bc42e",
+                                "documentNumber": "b8ad446b-f307-3b69-a839-60b90543da0c",
                                 "startDate": "2020-01-01",
                                 "endDate": "2020-12-31",
                                 "currencyCode": "CHF",
@@ -901,7 +901,7 @@
                                 "updatedAt": "1626346020118",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "7748522b-acd0-32cf-8647-1bbba4328d66",
+                                    "said": "52c41e37-091d-39ca-a4d0-fd4d6ea8571b",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -929,11 +929,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-07-31",
-                            "documentNumber": "a25abd8b-8fca-3d95-bfc6-e439060bc42e",
+                            "documentNumber": "b8ad446b-f307-3b69-a839-60b90543da0c",
                             "document": {
                                 "id": "079f2983-325b-4f29-b474-a218ae970f4e",
                                 "type": "Quote renewal",
-                                "documentNumber": "a25abd8b-8fca-3d95-bfc6-e439060bc42e",
+                                "documentNumber": "b8ad446b-f307-3b69-a839-60b90543da0c",
                                 "startDate": "2020-01-01",
                                 "endDate": "2020-12-31",
                                 "currencyCode": "CHF",
@@ -942,7 +942,7 @@
                                 "updatedAt": "1626346020118",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "7748522b-acd0-32cf-8647-1bbba4328d66",
+                                    "said": "52c41e37-091d-39ca-a4d0-fd4d6ea8571b",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -970,11 +970,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-07-31",
-                            "documentNumber": "de554e0d-3755-39a8-a135-438fa78b2dd4",
+                            "documentNumber": "a84e0fe6-7afb-3aa0-8453-862b657199d8",
                             "document": {
                                 "id": "d10d0212-ba77-49e6-b3f2-1cdcf4201b0a",
                                 "type": "Quote renewal",
-                                "documentNumber": "de554e0d-3755-39a8-a135-438fa78b2dd4",
+                                "documentNumber": "a84e0fe6-7afb-3aa0-8453-862b657199d8",
                                 "startDate": "2019-10-01",
                                 "endDate": "2019-12-31",
                                 "currencyCode": "CHF",
@@ -983,7 +983,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "7748522b-acd0-32cf-8647-1bbba4328d66",
+                                    "said": "52c41e37-091d-39ca-a4d0-fd4d6ea8571b",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -1011,11 +1011,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-07-31",
-                            "documentNumber": "ea0a6b85-f78c-3dd2-88cc-776d679ef28f",
+                            "documentNumber": "1734974b-9793-3107-9e8c-74ca37c7a068",
                             "document": {
                                 "id": "4bbe168e-24f5-4cb4-9357-763249ff9705",
                                 "type": "Quote renewal",
-                                "documentNumber": "ea0a6b85-f78c-3dd2-88cc-776d679ef28f",
+                                "documentNumber": "1734974b-9793-3107-9e8c-74ca37c7a068",
                                 "startDate": "2020-07-01",
                                 "endDate": "2020-09-30",
                                 "currencyCode": "CHF",
@@ -1024,7 +1024,7 @@
                                 "updatedAt": "1626346020118",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "7748522b-acd0-32cf-8647-1bbba4328d66",
+                                    "said": "52c41e37-091d-39ca-a4d0-fd4d6ea8571b",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -1052,11 +1052,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-07-31",
-                            "documentNumber": "6d419b49-4f86-301b-8f0a-a4f41f9f27d4",
+                            "documentNumber": "bf352005-50d2-34de-bb34-24285c2d545c",
                             "document": {
                                 "id": "193bd721-56a4-4d0d-aaec-e723979b9966",
                                 "type": "Quote renewal",
-                                "documentNumber": "6d419b49-4f86-301b-8f0a-a4f41f9f27d4",
+                                "documentNumber": "bf352005-50d2-34de-bb34-24285c2d545c",
                                 "startDate": "2018-04-01",
                                 "endDate": "2019-03-31",
                                 "currencyCode": "CHF",
@@ -1065,7 +1065,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "7748522b-acd0-32cf-8647-1bbba4328d66",
+                                    "said": "52c41e37-091d-39ca-a4d0-fd4d6ea8571b",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -1093,11 +1093,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-07-31",
-                            "documentNumber": "3717f27f-9d3a-352d-8eb2-2564dc641edc",
+                            "documentNumber": "ea1b1b05-3938-390b-ae13-fe7297cd24a7",
                             "document": {
                                 "id": "9f50c3c1-5115-4054-8760-4c26f2a4adfe",
                                 "type": "Quote renewal",
-                                "documentNumber": "3717f27f-9d3a-352d-8eb2-2564dc641edc",
+                                "documentNumber": "ea1b1b05-3938-390b-ae13-fe7297cd24a7",
                                 "startDate": "2018-04-01",
                                 "endDate": "2018-06-30",
                                 "currencyCode": "CHF",
@@ -1106,7 +1106,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "7748522b-acd0-32cf-8647-1bbba4328d66",
+                                    "said": "52c41e37-091d-39ca-a4d0-fd4d6ea8571b",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -1134,11 +1134,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-07-31",
-                            "documentNumber": "6d419b49-4f86-301b-8f0a-a4f41f9f27d4",
+                            "documentNumber": "bf352005-50d2-34de-bb34-24285c2d545c",
                             "document": {
                                 "id": "193bd721-56a4-4d0d-aaec-e723979b9966",
                                 "type": "Quote renewal",
-                                "documentNumber": "6d419b49-4f86-301b-8f0a-a4f41f9f27d4",
+                                "documentNumber": "bf352005-50d2-34de-bb34-24285c2d545c",
                                 "startDate": "2018-04-01",
                                 "endDate": "2019-03-31",
                                 "currencyCode": "CHF",
@@ -1147,7 +1147,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "7748522b-acd0-32cf-8647-1bbba4328d66",
+                                    "said": "52c41e37-091d-39ca-a4d0-fd4d6ea8571b",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -1175,11 +1175,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-07-31",
-                            "documentNumber": "86263725-09f6-3155-b9a1-860f3916fb0f",
+                            "documentNumber": "c7ae9007-5a8f-3eb7-b9fc-1b8fc6b04cbd",
                             "document": {
                                 "id": "59b2e764-bdbe-4313-ae5d-e8cfe6b2bcfb",
                                 "type": "Quote renewal",
-                                "documentNumber": "86263725-09f6-3155-b9a1-860f3916fb0f",
+                                "documentNumber": "c7ae9007-5a8f-3eb7-b9fc-1b8fc6b04cbd",
                                 "startDate": "2019-04-01",
                                 "endDate": "2019-06-30",
                                 "currencyCode": "CHF",
@@ -1188,7 +1188,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "7748522b-acd0-32cf-8647-1bbba4328d66",
+                                    "said": "52c41e37-091d-39ca-a4d0-fd4d6ea8571b",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -1216,11 +1216,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-07-31",
-                            "documentNumber": "6d419b49-4f86-301b-8f0a-a4f41f9f27d4",
+                            "documentNumber": "bf352005-50d2-34de-bb34-24285c2d545c",
                             "document": {
                                 "id": "193bd721-56a4-4d0d-aaec-e723979b9966",
                                 "type": "Quote renewal",
-                                "documentNumber": "6d419b49-4f86-301b-8f0a-a4f41f9f27d4",
+                                "documentNumber": "bf352005-50d2-34de-bb34-24285c2d545c",
                                 "startDate": "2018-04-01",
                                 "endDate": "2019-03-31",
                                 "currencyCode": "CHF",
@@ -1229,7 +1229,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "7748522b-acd0-32cf-8647-1bbba4328d66",
+                                    "said": "52c41e37-091d-39ca-a4d0-fd4d6ea8571b",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -1257,11 +1257,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-07-31",
-                            "documentNumber": "3717f27f-9d3a-352d-8eb2-2564dc641edc",
+                            "documentNumber": "ea1b1b05-3938-390b-ae13-fe7297cd24a7",
                             "document": {
                                 "id": "9f50c3c1-5115-4054-8760-4c26f2a4adfe",
                                 "type": "Quote renewal",
-                                "documentNumber": "3717f27f-9d3a-352d-8eb2-2564dc641edc",
+                                "documentNumber": "ea1b1b05-3938-390b-ae13-fe7297cd24a7",
                                 "startDate": "2018-04-01",
                                 "endDate": "2018-06-30",
                                 "currencyCode": "CHF",
@@ -1270,7 +1270,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "7748522b-acd0-32cf-8647-1bbba4328d66",
+                                    "said": "52c41e37-091d-39ca-a4d0-fd4d6ea8571b",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -1298,11 +1298,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-07-31",
-                            "documentNumber": "3717f27f-9d3a-352d-8eb2-2564dc641edc",
+                            "documentNumber": "ea1b1b05-3938-390b-ae13-fe7297cd24a7",
                             "document": {
                                 "id": "9f50c3c1-5115-4054-8760-4c26f2a4adfe",
                                 "type": "Quote renewal",
-                                "documentNumber": "3717f27f-9d3a-352d-8eb2-2564dc641edc",
+                                "documentNumber": "ea1b1b05-3938-390b-ae13-fe7297cd24a7",
                                 "startDate": "2018-04-01",
                                 "endDate": "2018-06-30",
                                 "currencyCode": "CHF",
@@ -1311,7 +1311,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "7748522b-acd0-32cf-8647-1bbba4328d66",
+                                    "said": "52c41e37-091d-39ca-a4d0-fd4d6ea8571b",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -1339,11 +1339,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2017-07-31",
-                            "documentNumber": "9556f92e-9143-35fa-b5be-26f69978bf73",
+                            "documentNumber": "8c27665c-5bd9-39b7-848b-94fdce5d3ffe",
                             "document": {
                                 "id": "4db540d7-85f5-4d68-ab01-937ca9166e8e",
                                 "type": "Quote renewal",
-                                "documentNumber": "9556f92e-9143-35fa-b5be-26f69978bf73",
+                                "documentNumber": "8c27665c-5bd9-39b7-848b-94fdce5d3ffe",
                                 "startDate": "2019-07-01",
                                 "endDate": "2019-09-30",
                                 "currencyCode": "CHF",
@@ -1352,7 +1352,7 @@
                                 "updatedAt": "1626346020118",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "7748522b-acd0-32cf-8647-1bbba4328d66",
+                                    "said": "52c41e37-091d-39ca-a4d0-fd4d6ea8571b",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -1379,20 +1379,20 @@
                     ],
                     "latestContactPersons": [
                         {
-                            "phoneNumber": "+17248205296",
-                            "name": "Pattie Borer DVM",
+                            "phoneNumber": "+12121460654",
+                            "name": "Winnifred Schamberger",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12013619386",
-                            "name": "Darlene Hagenes",
+                            "phoneNumber": "+18023739082",
+                            "name": "Nicole Crist Jr.",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17248205296",
-                            "name": "Pattie Borer DVM",
+                            "phoneNumber": "+12121460654",
+                            "name": "Winnifred Schamberger",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -1410,14 +1410,14 @@
                     "sku": "BC756AAE",
                     "eolDate": "",
                     "eosDate": "",
-                    "zip": "39519-3748",
-                    "city": "Port Jade",
-                    "address": "852 Elliott Course",
+                    "zip": "39241-2163",
+                    "city": "Samirburgh",
+                    "address": "66246 Glover Inlet Suite 974",
                     "address2": "",
-                    "country": "Chad",
-                    "latitude": "-8.254606",
-                    "longitude": "-116.843416",
-                    "countryCode": "GD",
+                    "country": "Benin",
+                    "latitude": "-51.925878",
+                    "longitude": "64.920191",
+                    "countryCode": "TF",
                     "status": "ACTIVE",
                     "updatedAt": "1629094587111",
                     "assetCoverage": [
@@ -1429,11 +1429,11 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2021-04-30",
-                            "documentNumber": "611e8ace-d696-384c-b85b-760381e2d397",
+                            "documentNumber": "3eede68d-11e4-3e5a-8953-fe7e67eedaeb",
                             "document": {
                                 "id": "8d109663-1da1-4d31-ba3c-9b782a6113da",
                                 "type": "Quote renewal",
-                                "documentNumber": "611e8ace-d696-384c-b85b-760381e2d397",
+                                "documentNumber": "3eede68d-11e4-3e5a-8953-fe7e67eedaeb",
                                 "startDate": "2021-05-01",
                                 "endDate": "2022-10-31",
                                 "currencyCode": "EUR",
@@ -1442,7 +1442,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "ebb4fe3a-61f4-302d-863d-bff8c98816f3",
+                                    "said": "7623a59d-b72e-398c-813d-8c22e4e4b7e3",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -1469,20 +1469,20 @@
                     ],
                     "latestContactPersons": [
                         {
-                            "phoneNumber": "+15209734754",
-                            "name": "Prof. Edward Hagenes I",
+                            "phoneNumber": "+17703690753",
+                            "name": "Miss Malinda Stanton II",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12818694137",
-                            "name": "Mrs. Ashleigh Carroll Jr.",
+                            "phoneNumber": "+19865629883",
+                            "name": "Jesse Koss",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+15209734754",
-                            "name": "Prof. Edward Hagenes I",
+                            "phoneNumber": "+17703690753",
+                            "name": "Miss Malinda Stanton II",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -1492,7 +1492,7 @@
                     "id": "0000b6a3-260d-4fc3-8af8-5219719becc1",
                     "resellerId": null,
                     "customerId": "6c32cf27-fef0-487d-b95b-c1e1cd94282e",
-                    "serialNumber": "ad85134c-12e6-39f4-ac50-b17f6e906a53",
+                    "serialNumber": "63bf9fe1-4c88-31d7-95e0-aa820a4dfe57",
                     "productDescription": "HPE iLO Adv incl 3yr TSU 1-Svr Lic",
                     "assetTag": "Software",
                     "assetType": "Software",
@@ -1500,14 +1500,14 @@
                     "sku": "BD505A",
                     "eolDate": "",
                     "eosDate": "",
-                    "zip": "73036",
-                    "city": "Port Metaberg",
-                    "address": "642 Pouros Manor Apt. 969",
+                    "zip": "52264",
+                    "city": "Port Howell",
+                    "address": "24281 Audrey Mission",
                     "address2": "",
-                    "country": "Somalia",
-                    "latitude": "31.533703",
-                    "longitude": "-67.498524",
-                    "countryCode": "SO",
+                    "country": "Latvia",
+                    "latitude": "-44.855626",
+                    "longitude": "26.557457",
+                    "countryCode": "NI",
                     "status": "ACTIVE",
                     "updatedAt": "1629094589100",
                     "assetCoverage": [
@@ -1520,7 +1520,7 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H1K92AC",
                             "warrantyEndDate": "2022-11-23",
-                            "documentNumber": "32eff9d2-e209-3758-b821-a7a946380757",
+                            "documentNumber": "27ccfc4f-47be-3cd3-ae19-e0bb233ee928",
                             "document": null,
                             "startDate": "2017-11-24",
                             "endDate": "2022-11-23",
@@ -1539,7 +1539,7 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H1K92AC",
                             "warrantyEndDate": "2022-11-23",
-                            "documentNumber": "32eff9d2-e209-3758-b821-a7a946380757",
+                            "documentNumber": "27ccfc4f-47be-3cd3-ae19-e0bb233ee928",
                             "document": null,
                             "startDate": "2017-11-24",
                             "endDate": "2022-11-23",
@@ -1558,7 +1558,7 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H1K92AC",
                             "warrantyEndDate": "2022-11-23",
-                            "documentNumber": "32eff9d2-e209-3758-b821-a7a946380757",
+                            "documentNumber": "27ccfc4f-47be-3cd3-ae19-e0bb233ee928",
                             "document": null,
                             "startDate": "2017-11-24",
                             "endDate": "2022-11-23",
@@ -1577,7 +1577,7 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H1K92AC",
                             "warrantyEndDate": "2022-11-23",
-                            "documentNumber": "32eff9d2-e209-3758-b821-a7a946380757",
+                            "documentNumber": "27ccfc4f-47be-3cd3-ae19-e0bb233ee928",
                             "document": null,
                             "startDate": "2017-11-24",
                             "endDate": "2022-11-23",
@@ -1596,7 +1596,7 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H1K92AC",
                             "warrantyEndDate": "2022-11-23",
-                            "documentNumber": "32eff9d2-e209-3758-b821-a7a946380757",
+                            "documentNumber": "27ccfc4f-47be-3cd3-ae19-e0bb233ee928",
                             "document": null,
                             "startDate": "2017-11-24",
                             "endDate": "2022-11-23",
@@ -1615,7 +1615,7 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H1K92AC",
                             "warrantyEndDate": "2022-11-23",
-                            "documentNumber": "32eff9d2-e209-3758-b821-a7a946380757",
+                            "documentNumber": "27ccfc4f-47be-3cd3-ae19-e0bb233ee928",
                             "document": null,
                             "startDate": "2017-11-24",
                             "endDate": "2022-11-23",
@@ -1634,7 +1634,7 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H1K92AC",
                             "warrantyEndDate": "2022-11-23",
-                            "documentNumber": "32eff9d2-e209-3758-b821-a7a946380757",
+                            "documentNumber": "27ccfc4f-47be-3cd3-ae19-e0bb233ee928",
                             "document": null,
                             "startDate": "2017-11-24",
                             "endDate": "2022-11-23",
@@ -1653,7 +1653,7 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H1K92AC",
                             "warrantyEndDate": "2022-11-23",
-                            "documentNumber": "32eff9d2-e209-3758-b821-a7a946380757",
+                            "documentNumber": "27ccfc4f-47be-3cd3-ae19-e0bb233ee928",
                             "document": null,
                             "startDate": "2017-11-24",
                             "endDate": "2022-11-23",
@@ -1672,7 +1672,7 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H1K92AC",
                             "warrantyEndDate": "2022-11-23",
-                            "documentNumber": "32eff9d2-e209-3758-b821-a7a946380757",
+                            "documentNumber": "27ccfc4f-47be-3cd3-ae19-e0bb233ee928",
                             "document": null,
                             "startDate": "2017-11-24",
                             "endDate": "2022-11-23",
@@ -1691,7 +1691,7 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H1K92AC",
                             "warrantyEndDate": "2022-11-23",
-                            "documentNumber": "32eff9d2-e209-3758-b821-a7a946380757",
+                            "documentNumber": "27ccfc4f-47be-3cd3-ae19-e0bb233ee928",
                             "document": null,
                             "startDate": "2017-11-24",
                             "endDate": "2022-11-23",
@@ -1710,7 +1710,7 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H1K92AC",
                             "warrantyEndDate": "2022-11-23",
-                            "documentNumber": "32eff9d2-e209-3758-b821-a7a946380757",
+                            "documentNumber": "27ccfc4f-47be-3cd3-ae19-e0bb233ee928",
                             "document": null,
                             "startDate": "2017-11-24",
                             "endDate": "2022-11-23",
@@ -1729,7 +1729,7 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H1K92AC",
                             "warrantyEndDate": "2022-11-23",
-                            "documentNumber": "32eff9d2-e209-3758-b821-a7a946380757",
+                            "documentNumber": "27ccfc4f-47be-3cd3-ae19-e0bb233ee928",
                             "document": null,
                             "startDate": "2017-11-24",
                             "endDate": "2022-11-23",
@@ -1748,7 +1748,7 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H1K92AC",
                             "warrantyEndDate": "2022-11-23",
-                            "documentNumber": "32eff9d2-e209-3758-b821-a7a946380757",
+                            "documentNumber": "27ccfc4f-47be-3cd3-ae19-e0bb233ee928",
                             "document": null,
                             "startDate": "2017-11-24",
                             "endDate": "2022-11-23",
@@ -1767,7 +1767,7 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H1K92AC",
                             "warrantyEndDate": "2022-11-23",
-                            "documentNumber": "32eff9d2-e209-3758-b821-a7a946380757",
+                            "documentNumber": "27ccfc4f-47be-3cd3-ae19-e0bb233ee928",
                             "document": null,
                             "startDate": "2017-11-24",
                             "endDate": "2022-11-23",
@@ -1786,7 +1786,7 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H1K92AC",
                             "warrantyEndDate": "2022-11-23",
-                            "documentNumber": "32eff9d2-e209-3758-b821-a7a946380757",
+                            "documentNumber": "27ccfc4f-47be-3cd3-ae19-e0bb233ee928",
                             "document": null,
                             "startDate": "2017-11-24",
                             "endDate": "2022-11-23",
@@ -1805,7 +1805,7 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H1K92AC",
                             "warrantyEndDate": "2022-11-23",
-                            "documentNumber": "32eff9d2-e209-3758-b821-a7a946380757",
+                            "documentNumber": "27ccfc4f-47be-3cd3-ae19-e0bb233ee928",
                             "document": null,
                             "startDate": "2017-11-24",
                             "endDate": "2022-11-23",
@@ -1824,7 +1824,7 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H1K92AC",
                             "warrantyEndDate": "2022-11-23",
-                            "documentNumber": "32eff9d2-e209-3758-b821-a7a946380757",
+                            "documentNumber": "27ccfc4f-47be-3cd3-ae19-e0bb233ee928",
                             "document": null,
                             "startDate": "2017-11-24",
                             "endDate": "2022-11-23",
@@ -1842,20 +1842,20 @@
                     ],
                     "latestContactPersons": [
                         {
-                            "phoneNumber": "+15392631181",
-                            "name": "Cheyenne Ullrich I",
+                            "phoneNumber": "+18430049765",
+                            "name": "Prof. Leopoldo Carter",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+15392631181",
-                            "name": "Cheyenne Ullrich I",
+                            "phoneNumber": "+18430049765",
+                            "name": "Prof. Leopoldo Carter",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+15392631181",
-                            "name": "Cheyenne Ullrich I",
+                            "phoneNumber": "+18430049765",
+                            "name": "Prof. Leopoldo Carter",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -1873,14 +1873,14 @@
                     "sku": "605865-B21",
                     "eolDate": "",
                     "eosDate": "",
-                    "zip": "96870-4054",
-                    "city": "Lake Deron",
-                    "address": "8829 Jake Spur Apt. 199",
+                    "zip": "20578",
+                    "city": "Braunton",
+                    "address": "639 Smith Views",
                     "address2": "",
-                    "country": "Anguilla",
-                    "latitude": "71.554897",
-                    "longitude": "-62.313276",
-                    "countryCode": "PE",
+                    "country": "Cyprus",
+                    "latitude": "63.727823",
+                    "longitude": "148.087665",
+                    "countryCode": "VA",
                     "status": "ACTIVE",
                     "updatedAt": "1629233271068",
                     "assetCoverage": [
@@ -1892,11 +1892,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H2T12AC",
                             "warrantyEndDate": "2014-11-30",
-                            "documentNumber": "f095e9fe-1d13-31e6-87b5-6e4977d03bf5",
+                            "documentNumber": "1245e3d1-667d-3ed5-be3b-299ae38754c6",
                             "document": {
                                 "id": "70636542-4cd4-40d2-9d91-0bf6fc9d358e",
                                 "type": "Quote renewal",
-                                "documentNumber": "f095e9fe-1d13-31e6-87b5-6e4977d03bf5",
+                                "documentNumber": "1245e3d1-667d-3ed5-be3b-299ae38754c6",
                                 "startDate": "2021-01-01",
                                 "endDate": "2021-06-30",
                                 "currencyCode": "CHF",
@@ -1905,7 +1905,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "46738b28-eb11-39db-b0de-df20fe3c583a",
+                                    "said": "a446e9e9-5a23-3a80-9ada-620a8a298263",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -1932,20 +1932,20 @@
                     ],
                     "latestContactPersons": [
                         {
-                            "phoneNumber": "+12560594089",
-                            "name": "Baby Goodwin V",
+                            "phoneNumber": "+12709599467",
+                            "name": "Jordan Altenwerth",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12560594089",
-                            "name": "Baby Goodwin V",
+                            "phoneNumber": "+12709599467",
+                            "name": "Jordan Altenwerth",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12560594089",
-                            "name": "Baby Goodwin V",
+                            "phoneNumber": "+12709599467",
+                            "name": "Jordan Altenwerth",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -1963,14 +1963,14 @@
                     "sku": "765762-B21",
                     "eolDate": "",
                     "eosDate": "",
-                    "zip": "66386-4865",
-                    "city": "Heathcotefurt",
-                    "address": "2181 Kevon Freeway",
+                    "zip": "50289-8384",
+                    "city": "Lake Barney",
+                    "address": "5741 Oma Stream Apt. 949",
                     "address2": "",
-                    "country": "Somalia",
-                    "latitude": "-89.340248",
-                    "longitude": "146.762956",
-                    "countryCode": "SO",
+                    "country": "Latvia",
+                    "latitude": "-9.173301",
+                    "longitude": "-16.127175",
+                    "countryCode": "NI",
                     "status": "ACTIVE",
                     "updatedAt": "1629233271214",
                     "assetCoverage": [
@@ -1982,11 +1982,11 @@
                             "skuNumber": "HA158AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": null,
-                            "documentNumber": "9d128b2d-f751-332d-a49b-44d00900e747",
+                            "documentNumber": "f0ed4091-455e-3906-b21b-0e7526a30234",
                             "document": {
                                 "id": "61948c6c-9b58-4522-94b7-0e3617008b1e",
                                 "type": "Quote renewal",
-                                "documentNumber": "9d128b2d-f751-332d-a49b-44d00900e747",
+                                "documentNumber": "f0ed4091-455e-3906-b21b-0e7526a30234",
                                 "startDate": "2019-06-16",
                                 "endDate": "2019-12-31",
                                 "currencyCode": "CHF",
@@ -1995,7 +1995,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "7ec5db2a-9658-3435-b1a0-1ede24f3b84d",
+                                    "said": "f1f0564f-4d08-3475-bda2-e0b62351d801",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -2023,19 +2023,19 @@
                     "latestContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Hardy Bayer IV",
+                            "name": "Rory Gutkowski I",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Hardy Bayer IV",
+                            "name": "Rory Gutkowski I",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Hardy Bayer IV",
+                            "name": "Rory Gutkowski I",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -2045,7 +2045,7 @@
                     "id": "0000c764-15a8-4b84-8aac-172686829839",
                     "resellerId": null,
                     "customerId": "1856648d-d181-4f9c-9208-01e340bc3a2f",
-                    "serialNumber": "5e3f0d0a-74a9-33c2-9870-493e9b090f4d",
+                    "serialNumber": "2db547dd-c29a-3f94-83d5-d76e338f226e",
                     "productDescription": "HP 2TB 6G SAS 7.2K 3.5in SC MDL HDD",
                     "assetTag": "Hardware",
                     "assetType": "Hardware",
@@ -2053,14 +2053,14 @@
                     "sku": "652757-B21",
                     "eolDate": "",
                     "eosDate": "",
-                    "zip": "86288",
-                    "city": "Kassulkemouth",
-                    "address": "36193 Koelpin Village Suite 202",
+                    "zip": "38375",
+                    "city": "South Annabell",
+                    "address": "163 Gayle Pass",
                     "address2": "",
-                    "country": "Chad",
-                    "latitude": "-10.923921",
-                    "longitude": "-15.973603",
-                    "countryCode": "GD",
+                    "country": "Benin",
+                    "latitude": "20.992168",
+                    "longitude": "-174.278072",
+                    "countryCode": "TF",
                     "status": "ACTIVE",
                     "updatedAt": "1629233271371",
                     "assetCoverage": [
@@ -2072,11 +2072,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2016-02-05",
-                            "documentNumber": "6863dc8c-077a-3606-98a0-878ac0e8e192",
+                            "documentNumber": "9c592a62-2d2c-3286-a9ad-3f51ae284e68",
                             "document": {
                                 "id": "230e97ea-ce8f-43f0-a839-65989704988d",
                                 "type": "Quote renewal",
-                                "documentNumber": "6863dc8c-077a-3606-98a0-878ac0e8e192",
+                                "documentNumber": "9c592a62-2d2c-3286-a9ad-3f51ae284e68",
                                 "startDate": "2020-02-01",
                                 "endDate": "2021-01-31",
                                 "currencyCode": "EUR",
@@ -2085,7 +2085,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "2bcc4bcb-6c73-3e9d-a398-aa35e2a53fce",
+                                    "said": "31b567e9-7756-3650-8c58-55a64a6d53bf",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -2111,11 +2111,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2016-02-05",
-                            "documentNumber": "88a80a6e-f9da-3143-8d3a-8986e3ca7cba",
+                            "documentNumber": "7159dd39-e93e-3d71-96e9-08084ada7724",
                             "document": {
                                 "id": "a4263ac7-22c1-4bd7-82cf-87b67c855efd",
                                 "type": "Quote renewal",
-                                "documentNumber": "88a80a6e-f9da-3143-8d3a-8986e3ca7cba",
+                                "documentNumber": "7159dd39-e93e-3d71-96e9-08084ada7724",
                                 "startDate": "2019-02-01",
                                 "endDate": "2020-01-31",
                                 "currencyCode": "EUR",
@@ -2124,7 +2124,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "2bcc4bcb-6c73-3e9d-a398-aa35e2a53fce",
+                                    "said": "31b567e9-7756-3650-8c58-55a64a6d53bf",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -2150,11 +2150,11 @@
                             "skuNumber": "HA151AC",
                             "supportPackage": "H7J34AC",
                             "warrantyEndDate": "2016-02-05",
-                            "documentNumber": "88a80a6e-f9da-3143-8d3a-8986e3ca7cba",
+                            "documentNumber": "7159dd39-e93e-3d71-96e9-08084ada7724",
                             "document": {
                                 "id": "a4263ac7-22c1-4bd7-82cf-87b67c855efd",
                                 "type": "Quote renewal",
-                                "documentNumber": "88a80a6e-f9da-3143-8d3a-8986e3ca7cba",
+                                "documentNumber": "7159dd39-e93e-3d71-96e9-08084ada7724",
                                 "startDate": "2019-02-01",
                                 "endDate": "2020-01-31",
                                 "currencyCode": "EUR",
@@ -2163,7 +2163,7 @@
                                 "updatedAt": "1626353498687",
                                 "vendorSpecificFields": {
                                     "vendor": "HPE",
-                                    "said": "2bcc4bcb-6c73-3e9d-a398-aa35e2a53fce",
+                                    "said": "31b567e9-7756-3650-8c58-55a64a6d53bf",
                                     "groupId": null,
                                     "groupDescription": null
                                 },
@@ -2190,20 +2190,20 @@
                     ],
                     "latestContactPersons": [
                         {
-                            "phoneNumber": "+14638517624",
-                            "name": "Kali Goldner",
+                            "phoneNumber": "+17745152098",
+                            "name": "Jacinto Larkin",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+14638517624",
-                            "name": "Kali Goldner",
+                            "phoneNumber": "+17745152098",
+                            "name": "Jacinto Larkin",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14638517624",
-                            "name": "Kali Goldner",
+                            "phoneNumber": "+17745152098",
+                            "name": "Jacinto Larkin",
                             "mail": null,
                             "type": "Software Contact Person"
                         }

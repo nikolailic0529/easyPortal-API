@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "98d5c771-5301-498a-9439-537ff6a9b405",
-                    "name": "Bogan-Corwin",
-                    "updatedAt": "1630064167117",
+                    "name": "Emard PLC",
+                    "updatedAt": "1630324351464",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "42946",
-                            "address": "1440 Ada Crossroad Suite 855",
-                            "city": "New Gardner",
+                            "zip": "24409-2359",
+                            "address": "279 Magdalen Lodge",
+                            "city": "Lake Josiane",
                             "locationType": "HEADQUARTER",
-                            "country": "Chad",
-                            "latitude": "-61.278092",
-                            "longitude": "115.276096",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "-6.971445",
+                            "longitude": "10.107498",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,
@@ -47,7 +47,7 @@
                         "activeQuotes": 35,
                         "activeQuotesTotalAmount": 9208.95,
                         "newActiveQuotes": 35,
-                        "expiringQuotes": 4
+                        "expiringQuotes": 6
                     },
                     "status": null
                 }

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "0f0e65fb-711e-4d4b-8850-900171d5f2e3",
-                    "name": "Kunze-Moen",
-                    "updatedAt": "1629989938803",
+                    "name": "Keebler-Howell",
+                    "updatedAt": "1630340872945",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14801907725",
-                            "name": "Mathilde Gutmann",
+                            "phoneNumber": "+19345537560",
+                            "name": "Dr. Nathanael Terry",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+14801907725",
-                            "name": "Mathilde Gutmann",
+                            "phoneNumber": "+19345537560",
+                            "name": "Dr. Nathanael Terry",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14801907725",
-                            "name": "Mathilde Gutmann",
+                            "phoneNumber": "+19345537560",
+                            "name": "Dr. Nathanael Terry",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "85419",
-                            "address": "8894 Brain Knoll",
-                            "city": "Fayfort",
+                            "zip": "82948-7850",
+                            "address": "5910 Bashirian Manors",
+                            "city": "Kleinhaven",
                             "locationType": null,
-                            "country": "Somalia",
-                            "latitude": "89.01488",
-                            "longitude": "-139.987342",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "51.700276",
+                            "longitude": "22.996789",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

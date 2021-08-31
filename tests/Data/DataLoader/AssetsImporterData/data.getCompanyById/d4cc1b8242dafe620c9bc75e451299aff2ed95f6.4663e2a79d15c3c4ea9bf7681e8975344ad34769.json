@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "505ebd5c-1c80-49df-9263-ba8de21aadb3",
-                    "name": "Reilly and Sons",
-                    "updatedAt": "1630007741659",
+                    "name": "Heathcote-Gerhold",
+                    "updatedAt": "1630359381729",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16080005423",
-                            "name": "Walter Schroeder III",
+                            "phoneNumber": "+17257540164",
+                            "name": "Dr. Hanna Stroman MD",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16080005423",
-                            "name": "Walter Schroeder III",
+                            "phoneNumber": "+17257540164",
+                            "name": "Dr. Hanna Stroman MD",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16080005423",
-                            "name": "Walter Schroeder III",
+                            "phoneNumber": "+17257540164",
+                            "name": "Dr. Hanna Stroman MD",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "74248",
-                            "address": "978 Larkin Courts",
-                            "city": "Hermistonside",
+                            "zip": "73916",
+                            "address": "373 Medhurst Land Suite 434",
+                            "city": "South Nichole",
                             "locationType": null,
-                            "country": "Somalia",
-                            "latitude": "56.26828",
-                            "longitude": "148.93336",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "-13.196689",
+                            "longitude": "-177.017959",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

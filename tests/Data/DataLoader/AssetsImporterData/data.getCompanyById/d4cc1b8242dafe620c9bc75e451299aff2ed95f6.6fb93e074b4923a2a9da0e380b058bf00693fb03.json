@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "bd6bee4b-1bd7-432d-b5c0-c039a48580c8",
-                    "name": "Rath-Murray",
-                    "updatedAt": "1630038633148",
+                    "name": "Gerhold-Olson",
+                    "updatedAt": "1630386848035",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+13179521240",
-                            "name": "Selina Yost",
+                            "phoneNumber": "+16507997211",
+                            "name": "Reagan Marvin",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+13179521240",
-                            "name": "Selina Yost",
+                            "phoneNumber": "+16507997211",
+                            "name": "Reagan Marvin",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "58667-4489",
-                            "address": "2972 Gaylord Parkway Apt. 508",
-                            "city": "Roobberg",
+                            "zip": "94456-7797",
+                            "address": "726 Keebler Flats Apt. 318",
+                            "city": "Strosintown",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "34.054728",
-                            "longitude": "102.636401",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "-31.929399",
+                            "longitude": "-5.049317",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,
@@ -66,7 +66,7 @@
                         "activeQuotes": 15,
                         "activeQuotesTotalAmount": 364.28,
                         "newActiveQuotes": 15,
-                        "expiringQuotes": 6
+                        "expiringQuotes": 9
                     },
                     "status": null
                 }

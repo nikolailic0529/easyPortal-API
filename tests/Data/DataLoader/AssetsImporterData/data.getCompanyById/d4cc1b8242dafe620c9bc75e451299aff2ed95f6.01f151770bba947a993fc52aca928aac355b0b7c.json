@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "57e6a2c1-b060-4448-b0bf-b3793da27dc1",
-                    "name": "Marquardt-Feest",
-                    "updatedAt": "1630051346028",
+                    "name": "Anderson, Sauer and Tromp",
+                    "updatedAt": "1630311318453",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "95378",
-                            "address": "1063 Roberts Freeway Apt. 694",
-                            "city": "New Presleyshire",
+                            "zip": "97574",
+                            "address": "550 Altenwerth Wall",
+                            "city": "Auerville",
                             "locationType": "HEADQUARTER",
-                            "country": "Somalia",
-                            "latitude": "-29.900385",
-                            "longitude": "126.240613",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "38.853661",
+                            "longitude": "78.777338",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

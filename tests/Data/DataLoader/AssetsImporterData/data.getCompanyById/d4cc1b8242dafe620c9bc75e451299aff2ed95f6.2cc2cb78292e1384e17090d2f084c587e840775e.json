@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "8aa5fbee-c299-47ab-a324-64c25166e223",
-                    "name": "Shanahan Group",
-                    "updatedAt": "1630024936901",
+                    "name": "Mraz, Herzog and Schroeder",
+                    "updatedAt": "1630373292651",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+17126965931",
-                            "name": "Percy Jacobs",
+                            "phoneNumber": "+17692268817",
+                            "name": "Dr. Oren Adams",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+17126965931",
-                            "name": "Percy Jacobs",
+                            "phoneNumber": "+17692268817",
+                            "name": "Dr. Oren Adams",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17126965931",
-                            "name": "Percy Jacobs",
+                            "phoneNumber": "+17692268817",
+                            "name": "Dr. Oren Adams",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "67624-7833",
-                            "address": "4248 Heathcote Corners",
-                            "city": "Lake Melisa",
+                            "zip": "38902-8873",
+                            "address": "5824 Vandervort Ford",
+                            "city": "Volkmantown",
                             "locationType": null,
-                            "country": "Peru",
-                            "latitude": "-63.862537",
-                            "longitude": "-61.54269",
-                            "countryCode": "SO"
+                            "country": "China",
+                            "latitude": "13.138857",
+                            "longitude": "94.39479",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "3da41792-9c2c-4301-a61b-305b09938932",
-                    "name": "Smith Inc",
-                    "updatedAt": "1630002239218",
+                    "name": "Brekke Group",
+                    "updatedAt": "1630353083767",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+13645167522",
-                            "name": "Mrs. Kaylie Hodkiewicz",
+                            "phoneNumber": "+17544077190",
+                            "name": "Antonette Koch Sr.",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+13645167522",
-                            "name": "Mrs. Kaylie Hodkiewicz",
+                            "phoneNumber": "+17544077190",
+                            "name": "Antonette Koch Sr.",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+13645167522",
-                            "name": "Mrs. Kaylie Hodkiewicz",
+                            "phoneNumber": "+17544077190",
+                            "name": "Antonette Koch Sr.",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "72342-2242",
-                            "address": "58947 McKenzie Ports Suite 719",
-                            "city": "New Deven",
+                            "zip": "04919",
+                            "address": "4405 Hessel Island",
+                            "city": "Revaport",
                             "locationType": null,
-                            "country": "American Samoa",
-                            "latitude": "53.913885",
-                            "longitude": "-17.976084",
-                            "countryCode": "BN"
+                            "country": "Faroe Islands",
+                            "latitude": "13.702053",
+                            "longitude": "-99.169093",
+                            "countryCode": "MR"
                         }
                     ],
                     "brandingData": null,

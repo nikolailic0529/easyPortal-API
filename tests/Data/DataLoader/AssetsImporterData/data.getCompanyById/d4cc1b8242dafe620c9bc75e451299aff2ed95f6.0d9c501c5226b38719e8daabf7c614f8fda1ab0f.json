@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "fcd8ee32-031a-4e61-b112-b4d07c92f6b3",
-                    "name": "Hand and Sons",
-                    "updatedAt": "1629985165974",
+                    "name": "Schoen, Kuhlman and Runolfsdottir",
+                    "updatedAt": "1630336943056",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "74304",
-                            "address": "10973 Mohr Place Suite 603",
-                            "city": "North Rasheed",
+                            "zip": "26104",
+                            "address": "259 Foster Ways Apt. 680",
+                            "city": "Cronaview",
                             "locationType": "HEADQUARTER",
-                            "country": "Chad",
-                            "latitude": "-27.596685",
-                            "longitude": "-104.236077",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "19.475421",
+                            "longitude": "-110.402816",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,
@@ -45,9 +45,9 @@
                         "newActiveContracts": 3,
                         "expiringContracts": 0,
                         "activeQuotes": 32,
-                        "activeQuotesTotalAmount": 7734.99,
+                        "activeQuotesTotalAmount": 7734.990000000001,
                         "newActiveQuotes": 32,
-                        "expiringQuotes": 14
+                        "expiringQuotes": 17
                     },
                     "status": null
                 }

@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "9a749c4e-a721-4762-9abc-395dcd2b33e5",
-                    "name": "Carter and Sons",
-                    "updatedAt": "1630028916232",
+                    "name": "Graham, Grant and Grady",
+                    "updatedAt": "1630378217966",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12485952400",
-                            "name": "Maddison Yost",
+                            "phoneNumber": "+17404049149",
+                            "name": "Elliott Kirlin",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12485952400",
-                            "name": "Maddison Yost",
+                            "phoneNumber": "+17404049149",
+                            "name": "Elliott Kirlin",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "99418-0982",
-                            "address": "33410 Quinten Lights Apt. 785",
-                            "city": "Hammesstad",
+                            "zip": "85446",
+                            "address": "63470 Stroman Crest Suite 127",
+                            "city": "East Daphnee",
                             "locationType": null,
-                            "country": "Somalia",
-                            "latitude": "25.757166",
-                            "longitude": "15.592276",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "72.688314",
+                            "longitude": "-46.589568",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

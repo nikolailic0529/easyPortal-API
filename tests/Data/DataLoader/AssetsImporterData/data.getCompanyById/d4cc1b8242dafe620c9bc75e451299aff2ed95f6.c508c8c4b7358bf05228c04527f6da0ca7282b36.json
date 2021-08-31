@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "a816e3b0-a3a2-490b-b762-24addfd836d6",
-                    "name": "Boehm-Keebler",
-                    "updatedAt": "1630032859429",
+                    "name": "Spencer, Kuhlman and Kuphal",
+                    "updatedAt": "1630382239286",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12484877526",
-                            "name": "Miss Leonie Boyle I",
+                            "phoneNumber": "+17605879583",
+                            "name": "Casimer Witting",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12484877526",
-                            "name": "Miss Leonie Boyle I",
+                            "phoneNumber": "+17605879583",
+                            "name": "Casimer Witting",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12484877526",
-                            "name": "Miss Leonie Boyle I",
+                            "phoneNumber": "+17605879583",
+                            "name": "Casimer Witting",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "46247-2273",
-                            "address": "298 Pfeffer Course",
-                            "city": "Darrelborough",
+                            "zip": "76325-1237",
+                            "address": "121 Naomie Mill Suite 451",
+                            "city": "Brakusland",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "-22.686053",
-                            "longitude": "29.440917",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "42.070872",
+                            "longitude": "172.428049",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

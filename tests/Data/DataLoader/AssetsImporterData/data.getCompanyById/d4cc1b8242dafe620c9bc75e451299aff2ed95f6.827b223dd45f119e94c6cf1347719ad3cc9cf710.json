@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "1856648d-d181-4f9c-9208-01e340bc3a2f",
-                    "name": "Connelly Ltd",
-                    "updatedAt": "1629992388002",
+                    "name": "Hansen, Ullrich and Price",
+                    "updatedAt": "1630342927820",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14638517624",
-                            "name": "Kali Goldner",
+                            "phoneNumber": "+17745152098",
+                            "name": "Jacinto Larkin",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14638517624",
-                            "name": "Kali Goldner",
+                            "phoneNumber": "+17745152098",
+                            "name": "Jacinto Larkin",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "86288",
-                            "address": "36193 Koelpin Village Suite 202",
-                            "city": "Kassulkemouth",
+                            "zip": "38375",
+                            "address": "163 Gayle Pass",
+                            "city": "South Annabell",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "-10.923921",
-                            "longitude": "-15.973603",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "20.992168",
+                            "longitude": "-174.278072",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

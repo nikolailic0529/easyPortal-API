@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "2870d449-ec69-48a0-81ce-46aed24e5382",
-                    "name": "Kertzmann-Swaniawski",
-                    "updatedAt": "1629996467783",
+                    "name": "Kling Inc",
+                    "updatedAt": "1630347407651",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+15311178232",
-                            "name": "Alia Stamm",
+                            "phoneNumber": "+18560351167",
+                            "name": "Dr. Maci Conroy",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+15311178232",
-                            "name": "Alia Stamm",
+                            "phoneNumber": "+18560351167",
+                            "name": "Dr. Maci Conroy",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+15311178232",
-                            "name": "Alia Stamm",
+                            "phoneNumber": "+18560351167",
+                            "name": "Dr. Maci Conroy",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "18763-7856",
-                            "address": "330 Eliane Creek Suite 719",
-                            "city": "East Revafurt",
+                            "zip": "83824",
+                            "address": "769 Oceane Place",
+                            "city": "East Amieland",
                             "locationType": null,
-                            "country": "Peru",
-                            "latitude": "-65.779254",
-                            "longitude": "-161.409147",
-                            "countryCode": "SO"
+                            "country": "China",
+                            "latitude": "15.602695",
+                            "longitude": "131.505104",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

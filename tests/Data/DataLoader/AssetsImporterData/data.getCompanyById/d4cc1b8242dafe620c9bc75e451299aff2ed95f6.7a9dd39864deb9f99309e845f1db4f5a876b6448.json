@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "93666f95-3fd4-4b30-a9a1-694e0295788c",
-                    "name": "Robel, Gaylord and Powlowski",
-                    "updatedAt": "1630027095144",
+                    "name": "Bauch, Johnson and Schuppe",
+                    "updatedAt": "1630375894442",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+19037663840",
-                            "name": "Prof. Candido Veum III",
+                            "phoneNumber": "+13804030051",
+                            "name": "Larry Pagac",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+19037663840",
-                            "name": "Prof. Candido Veum III",
+                            "phoneNumber": "+13804030051",
+                            "name": "Larry Pagac",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+19037663840",
-                            "name": "Prof. Candido Veum III",
+                            "phoneNumber": "+13804030051",
+                            "name": "Larry Pagac",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "63911-5687",
-                            "address": "1760 Sibyl Union Apt. 436",
-                            "city": "New Otisshire",
+                            "zip": "53165-8916",
+                            "address": "527 Abdullah Island Suite 352",
+                            "city": "North Camrenside",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "26.378303",
-                            "longitude": "-167.790107",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "15.184138",
+                            "longitude": "-41.066271",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

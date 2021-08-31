@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "6be4e13d-2ea7-4314-bcd0-26a8848343f9",
-                    "name": "Nienow Inc",
-                    "updatedAt": "1630015594184",
+                    "name": "Carter, Cummerata and Lehner",
+                    "updatedAt": "1630366702405",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14841873628",
-                            "name": "Hazel Kessler",
+                            "phoneNumber": "+15411996039",
+                            "name": "Sally Pacocha",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+14841873628",
-                            "name": "Hazel Kessler",
+                            "phoneNumber": "+15411996039",
+                            "name": "Sally Pacocha",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14841873628",
-                            "name": "Hazel Kessler",
+                            "phoneNumber": "+15411996039",
+                            "name": "Sally Pacocha",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "60679-1598",
-                            "address": "1827 Noemy Knoll",
-                            "city": "New Chloeshire",
+                            "zip": "65896",
+                            "address": "733 Jaylen Fords",
+                            "city": "Port Inesshire",
                             "locationType": null,
-                            "country": "Peru",
-                            "latitude": "5.162409",
-                            "longitude": "62.939252",
-                            "countryCode": "SO"
+                            "country": "China",
+                            "latitude": "-70.434518",
+                            "longitude": "-67.237238",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

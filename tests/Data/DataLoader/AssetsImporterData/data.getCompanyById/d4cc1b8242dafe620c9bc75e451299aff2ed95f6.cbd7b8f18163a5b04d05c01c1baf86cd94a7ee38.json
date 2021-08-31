@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "2888c23c-7bdd-4b03-bbdf-e3a6d4cdf48d",
-                    "name": "Gleason LLC",
-                    "updatedAt": "1629996467878",
+                    "name": "Stehr Inc",
+                    "updatedAt": "1630347414649",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+19511504001",
-                            "name": "Dashawn Labadie",
+                            "phoneNumber": "+19289302653",
+                            "name": "Rossie Kerluke",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+19511504001",
-                            "name": "Dashawn Labadie",
+                            "phoneNumber": "+19289302653",
+                            "name": "Rossie Kerluke",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+19511504001",
-                            "name": "Dashawn Labadie",
+                            "phoneNumber": "+19289302653",
+                            "name": "Rossie Kerluke",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "73603",
-                            "address": "9315 Orn View",
-                            "city": "Torpchester",
+                            "zip": "29168-8454",
+                            "address": "47915 Hailie Estates",
+                            "city": "West Lukas",
                             "locationType": null,
-                            "country": "Somalia",
-                            "latitude": "-17.377242",
-                            "longitude": "-58.894558",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "-9.457712",
+                            "longitude": "-12.008628",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "d42dbc87-4af5-44a7-ae16-ad33dceb288b",
-                    "name": "Leuschke-Gislason",
-                    "updatedAt": "1630044553132",
+                    "name": "Hane-Leffler",
+                    "updatedAt": "1630307677681",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+17402793041",
-                            "name": "Bettye Maggio",
+                            "phoneNumber": "+12547585830",
+                            "name": "Prof. Parker Mills DVM",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Ms. Rosemarie Green",
+                            "name": "Mrs. Myrtis Block",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+17402793041",
-                            "name": "Bettye Maggio",
+                            "phoneNumber": "+12547585830",
+                            "name": "Prof. Parker Mills DVM",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "05914-6438",
-                            "address": "140 Lola Gateway Suite 493",
-                            "city": "Binsbury",
+                            "zip": "68982",
+                            "address": "1981 Garrett Glens Apt. 156",
+                            "city": "New Loyce",
                             "locationType": null,
-                            "country": "Peru",
-                            "latitude": "55.451904",
-                            "longitude": "-2.576004",
-                            "countryCode": "SO"
+                            "country": "China",
+                            "latitude": "13.353855",
+                            "longitude": "120.495692",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

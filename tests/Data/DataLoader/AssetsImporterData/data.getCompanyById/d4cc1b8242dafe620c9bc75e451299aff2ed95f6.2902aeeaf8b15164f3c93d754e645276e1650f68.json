@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "fbdf9864-1ed9-4124-a248-c9c08a55b7c3",
-                    "name": "Tremblay, White and Medhurst",
-                    "updatedAt": "1629959398807",
+                    "name": "Kutch-Tremblay",
+                    "updatedAt": "1630331413433",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Malcolm Spencer",
+                            "name": "Dr. Eunice Waters",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Ms. Rosemarie Green",
+                            "name": "Mrs. Myrtis Block",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Malcolm Spencer",
+                            "name": "Dr. Eunice Waters",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "73603",
-                            "address": "8282 Zboncak Hollow",
-                            "city": "East Brenda",
+                            "zip": "29168-8454",
+                            "address": "752 Kihn Forges",
+                            "city": "Kulasside",
                             "locationType": null,
-                            "country": "Somalia",
-                            "latitude": "51.396829",
-                            "longitude": "-63.921552",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "-21.098224",
+                            "longitude": "-51.977889",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

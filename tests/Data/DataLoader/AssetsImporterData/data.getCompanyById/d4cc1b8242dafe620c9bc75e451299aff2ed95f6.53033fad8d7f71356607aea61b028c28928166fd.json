@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "f921bd2a-3bb4-417a-8ae1-a7a78e51692d",
-                    "name": "Barrows Group",
-                    "updatedAt": "1630064790091",
+                    "name": "Volkman-Yundt",
+                    "updatedAt": "1630329936650",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+13314383065",
-                            "name": "Dr. Mabelle Mante",
+                            "phoneNumber": "+16601631793",
+                            "name": "Malika Towne",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+13314383065",
-                            "name": "Dr. Mabelle Mante",
+                            "phoneNumber": "+16601631793",
+                            "name": "Malika Towne",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+13314383065",
-                            "name": "Dr. Mabelle Mante",
+                            "phoneNumber": "+16601631793",
+                            "name": "Malika Towne",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "86262-1614",
-                            "address": "580 Gaston Junction Suite 453",
-                            "city": "North Loganfurt",
+                            "zip": "26945",
+                            "address": "4669 Hickle Turnpike Apt. 481",
+                            "city": "Heidenreichfort",
                             "locationType": null,
-                            "country": "Togo",
-                            "latitude": "-46.852127",
-                            "longitude": "-173.418949",
-                            "countryCode": "IN"
+                            "country": "China",
+                            "latitude": "-84.434284",
+                            "longitude": "133.737766",
+                            "countryCode": "LV"
                         }
                     ],
                     "brandingData": null,

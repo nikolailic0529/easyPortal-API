@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "91baefb3-0a41-4f66-bee2-1dd11d27fa15",
-                    "name": "Marks-Hahn",
-                    "updatedAt": "1630026486387",
+                    "name": "Lesch-Hermann",
+                    "updatedAt": "1630375220363",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+16093914827",
-                            "name": "Claudie Huels V",
+                            "phoneNumber": "+13032285746",
+                            "name": "Mr. Casper Rath",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+16093914827",
-                            "name": "Claudie Huels V",
+                            "phoneNumber": "+13032285746",
+                            "name": "Mr. Casper Rath",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+16093914827",
-                            "name": "Claudie Huels V",
+                            "phoneNumber": "+13032285746",
+                            "name": "Mr. Casper Rath",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "22551-2834",
-                            "address": "3466 Imelda Mountains Apt. 264",
-                            "city": "Bogisichview",
+                            "zip": "29000",
+                            "address": "992 Sim Passage Apt. 983",
+                            "city": "Yostshire",
                             "locationType": null,
-                            "country": "Somalia",
-                            "latitude": "-57.398168",
-                            "longitude": "106.342261",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "13.110512",
+                            "longitude": "-100.700734",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,
@@ -64,7 +64,7 @@
                         "newActiveContracts": null,
                         "expiringContracts": 0,
                         "activeQuotes": 67,
-                        "activeQuotesTotalAmount": 21363.52,
+                        "activeQuotesTotalAmount": 21363.519999999997,
                         "newActiveQuotes": 67,
                         "expiringQuotes": 0
                     },

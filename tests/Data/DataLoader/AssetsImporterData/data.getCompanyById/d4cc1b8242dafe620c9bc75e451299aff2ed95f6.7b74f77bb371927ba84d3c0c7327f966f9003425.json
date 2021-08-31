@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "8efaa7bf-8efa-431b-b7fd-2c0c306a86e5",
-                    "name": "Reichel Ltd",
-                    "updatedAt": "1630063468467",
+                    "name": "Roberts-Beatty",
+                    "updatedAt": "1630323455729",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "00060",
-                            "address": "7650 Hollie Mills",
-                            "city": "Darrelborough",
+                            "zip": "87408",
+                            "address": "49859 Eudora Island",
+                            "city": "Brakusland",
                             "locationType": "HEADQUARTER",
-                            "country": "Chad",
-                            "latitude": "56.557341",
-                            "longitude": "-7.444771",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "-29.650237",
+                            "longitude": "-57.97284",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

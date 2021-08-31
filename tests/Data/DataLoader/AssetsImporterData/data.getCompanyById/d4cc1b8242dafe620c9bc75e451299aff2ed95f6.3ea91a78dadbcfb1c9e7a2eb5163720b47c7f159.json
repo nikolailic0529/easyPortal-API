@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "27d4d93c-43bf-4514-8b56-3661523b15a4",
-                    "name": "Borer-Kshlerin",
-                    "updatedAt": "1629996372196",
+                    "name": "Schowalter-Bernier",
+                    "updatedAt": "1630347375996",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12341690703",
-                            "name": "Prof. Stephan Keeling",
+                            "phoneNumber": "+17436533073",
+                            "name": "Mr. Gonzalo Renner",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+18306579088",
-                            "name": "Alexandria Wilkinson",
+                            "phoneNumber": "+15854617479",
+                            "name": "Prof. Garry Stehr",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12341690703",
-                            "name": "Prof. Stephan Keeling",
+                            "phoneNumber": "+17436533073",
+                            "name": "Mr. Gonzalo Renner",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "56262",
-                            "address": "9394 Otilia Track",
-                            "city": "North Armand",
+                            "zip": "40387",
+                            "address": "466 Reichel Road",
+                            "city": "Port Aliafurt",
                             "locationType": null,
-                            "country": "Anguilla",
-                            "latitude": "38.48519",
-                            "longitude": "-130.903704",
-                            "countryCode": "PE"
+                            "country": "Cyprus",
+                            "latitude": "-6.412542",
+                            "longitude": "113.352375",
+                            "countryCode": "VA"
                         }
                     ],
                     "brandingData": null,

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "bd098e37-2fd5-4840-984d-bb39506d23ec",
-                    "name": "Douglas, Rolfson and Kris",
-                    "updatedAt": "1630038546250",
+                    "name": "Stamm, Durgan and Blick",
+                    "updatedAt": "1630386741728",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+12560594089",
-                            "name": "Baby Goodwin V",
+                            "phoneNumber": "+12709599467",
+                            "name": "Jordan Altenwerth",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+12560594089",
-                            "name": "Baby Goodwin V",
+                            "phoneNumber": "+12709599467",
+                            "name": "Jordan Altenwerth",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+12560594089",
-                            "name": "Baby Goodwin V",
+                            "phoneNumber": "+12709599467",
+                            "name": "Jordan Altenwerth",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "11305-2039",
-                            "address": "9766 Golden Junction",
-                            "city": "East Lonniefurt",
+                            "zip": "03294-2010",
+                            "address": "10084 Skiles Rapids",
+                            "city": "Beattyland",
                             "locationType": null,
-                            "country": "Somalia",
-                            "latitude": "-10.055956",
-                            "longitude": "75.496771",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "-70.183144",
+                            "longitude": "-101.533138",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

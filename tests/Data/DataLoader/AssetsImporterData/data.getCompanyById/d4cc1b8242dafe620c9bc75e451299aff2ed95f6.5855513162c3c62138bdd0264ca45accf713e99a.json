@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "8230d8af-2ad5-4d26-909a-0d45959751f2",
-                    "name": "Bergnaum LLC",
-                    "updatedAt": "1630022099556",
+                    "name": "Wyman, Sipes and Corkery",
+                    "updatedAt": "1630371143175",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -22,8 +22,8 @@
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+18306579088",
-                            "name": "Alexandria Wilkinson",
+                            "phoneNumber": "+15854617479",
+                            "name": "Prof. Garry Stehr",
                             "mail": null,
                             "type": "System Manager"
                         },
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "72697-1496",
-                            "address": "8342 Dicki Forks",
-                            "city": "Rolfsonmouth",
+                            "zip": "67171-8832",
+                            "address": "652 Dooley Street",
+                            "city": "North Karli",
                             "locationType": null,
-                            "country": "Anguilla",
-                            "latitude": "58.830262",
-                            "longitude": "82.355966",
-                            "countryCode": "PE"
+                            "country": "Cyprus",
+                            "latitude": "-80.923813",
+                            "longitude": "148.526024",
+                            "countryCode": "VA"
                         }
                     ],
                     "brandingData": null,

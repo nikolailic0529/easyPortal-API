@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "5272f005-f7cc-441d-8fab-9d159f83277d",
-                    "name": "Rutherford-Terry",
-                    "updatedAt": "1630050514751",
+                    "name": "Beahan Inc",
+                    "updatedAt": "1630311273533",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "05914-6438",
-                            "address": "33079 Barton Points",
-                            "city": "Morarfort",
+                            "zip": "68982",
+                            "address": "22231 O'Conner Trail Apt. 402",
+                            "city": "North Danielaborough",
                             "locationType": "HEADQUARTER",
-                            "country": "Peru",
-                            "latitude": "-63.485883",
-                            "longitude": "92.696578",
-                            "countryCode": "SO"
+                            "country": "China",
+                            "latitude": "42.428933",
+                            "longitude": "75.795366",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,
@@ -43,11 +43,11 @@
                         "activeContracts": 34,
                         "activeContractTotalAmount": 0,
                         "newActiveContracts": 34,
-                        "expiringContracts": 7,
+                        "expiringContracts": 9,
                         "activeQuotes": 50,
                         "activeQuotesTotalAmount": 10962.669999999998,
                         "newActiveQuotes": 50,
-                        "expiringQuotes": 3
+                        "expiringQuotes": 5
                     },
                     "status": null
                 }

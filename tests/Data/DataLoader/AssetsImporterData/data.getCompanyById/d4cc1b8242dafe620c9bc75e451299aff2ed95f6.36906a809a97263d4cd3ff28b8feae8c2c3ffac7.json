@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "20268e5f-6d31-49da-a850-24a28446cdd4",
-                    "name": "Hoppe-Gleichner",
-                    "updatedAt": "1630070094846",
+                    "name": "Hickle, Gislason and Vandervort",
+                    "updatedAt": "1630330528402",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "78190-7497",
-                            "address": "46997 Jacynthe Roads Apt. 312",
-                            "city": "South Gene",
+                            "zip": "73857-7555",
+                            "address": "4375 Janet Cape",
+                            "city": "Teresaberg",
                             "locationType": "HEADQUARTER",
-                            "country": "Somalia",
-                            "latitude": "-27.575547",
-                            "longitude": "74.725509",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "-42.816645",
+                            "longitude": "131.842727",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,
@@ -47,7 +47,7 @@
                         "activeQuotes": 17,
                         "activeQuotesTotalAmount": 4247.77,
                         "newActiveQuotes": 17,
-                        "expiringQuotes": 2
+                        "expiringQuotes": 3
                     },
                     "status": null
                 }

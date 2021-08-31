@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "3a2ab52c-9536-4b3e-8deb-8b3c7942e2eb",
-                    "name": "Leffler Group",
-                    "updatedAt": "1630001916133",
+                    "name": "Lind-Parker",
+                    "updatedAt": "1630352291669",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Demetrius Veum",
+                            "name": "Prof. Andreanne Hermann",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Dr. Felicia Brown IV",
+                            "name": "Shana Labadie",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Demetrius Veum",
+                            "name": "Prof. Andreanne Hermann",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "31841-4367",
-                            "address": "97539 Klocko Lock",
-                            "city": "Hammesstad",
+                            "zip": "41610-7287",
+                            "address": "11516 Judy Station Apt. 223",
+                            "city": "East Daphnee",
                             "locationType": null,
-                            "country": "Somalia",
-                            "latitude": "77.770036",
-                            "longitude": "163.61469",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "-83.125827",
+                            "longitude": "15.869614",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

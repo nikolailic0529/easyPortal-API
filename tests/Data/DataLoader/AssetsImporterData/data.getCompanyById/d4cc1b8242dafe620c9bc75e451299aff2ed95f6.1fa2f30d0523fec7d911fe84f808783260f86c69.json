@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "488810f6-fea6-4492-a00d-db8306076ecc",
-                    "name": "Wehner Group",
-                    "updatedAt": "1630049818785",
+                    "name": "Lindgren, Gutmann and Buckridge",
+                    "updatedAt": "1630309773071",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "47990-7992",
-                            "address": "159 Tromp Ridge Apt. 436",
-                            "city": "South Sherman",
+                            "zip": "65208-9944",
+                            "address": "909 Shanahan Drives Apt. 911",
+                            "city": "Aufderharburgh",
                             "locationType": "HEADQUARTER",
-                            "country": "Somalia",
-                            "latitude": "73.734953",
-                            "longitude": "51.802013",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "-44.230463",
+                            "longitude": "71.836325",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

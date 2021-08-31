@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "89dfecfc-4ed4-4a39-a746-0142773f5c40",
-                    "name": "McClure Group",
-                    "updatedAt": "1630024536744",
+                    "name": "Kovacek-Bauch",
+                    "updatedAt": "1630372559488",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14243843921",
-                            "name": "Dr. Bessie Watsica IV",
+                            "phoneNumber": "+19415706364",
+                            "name": "Mozell Treutel",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+14243843921",
-                            "name": "Dr. Bessie Watsica IV",
+                            "phoneNumber": "+19415706364",
+                            "name": "Mozell Treutel",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14243843921",
-                            "name": "Dr. Bessie Watsica IV",
+                            "phoneNumber": "+19415706364",
+                            "name": "Mozell Treutel",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "02243-1549",
-                            "address": "71299 Metz Mountain Apt. 971",
-                            "city": "Ambrosetown",
+                            "zip": "03358-5372",
+                            "address": "7691 Sid Rest Suite 647",
+                            "city": "Johnsbury",
                             "locationType": null,
-                            "country": "Somalia",
-                            "latitude": "-73.851861",
-                            "longitude": "149.451515",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "9.908405",
+                            "longitude": "14.820419",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

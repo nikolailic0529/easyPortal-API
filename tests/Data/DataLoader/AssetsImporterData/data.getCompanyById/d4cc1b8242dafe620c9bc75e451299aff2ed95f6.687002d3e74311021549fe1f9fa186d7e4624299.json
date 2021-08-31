@@ -9,15 +9,15 @@
             "getCompanyById": [
                 {
                     "id": "3ef2a4c6-4c34-48d0-bb8d-20ad28c5e6b6",
-                    "name": "Johns, Gutmann and Wintheiser",
-                    "updatedAt": "1630002690853",
+                    "name": "Jast Inc",
+                    "updatedAt": "1630353117885",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14023001427",
-                            "name": "Samir Nienow",
+                            "phoneNumber": "+12290545194",
+                            "name": "Mrs. Esperanza Klocko",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
@@ -28,8 +28,8 @@
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14023001427",
-                            "name": "Samir Nienow",
+                            "phoneNumber": "+12290545194",
+                            "name": "Mrs. Esperanza Klocko",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "90420-6155",
-                            "address": "15898 Luisa Flat",
-                            "city": "East Sidney",
+                            "zip": "93786",
+                            "address": "9251 Hartmann Mission Suite 774",
+                            "city": "Murrayhaven",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "-16.565396",
-                            "longitude": "-83.008655",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "62.737842",
+                            "longitude": "174.802966",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

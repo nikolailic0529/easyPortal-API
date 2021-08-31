@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "9e83a7e5-445e-4da2-bd36-7fc2c4d7e948",
-                    "name": "Hermiston, Dickens and Wolff",
-                    "updatedAt": "1630030154613",
+                    "name": "Leffler, Bins and Muller",
+                    "updatedAt": "1630379671615",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Fernando Zulauf",
+                            "name": "Edwardo Donnelly",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Fernando Zulauf",
+                            "name": "Edwardo Donnelly",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Fernando Zulauf",
+                            "name": "Edwardo Donnelly",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "80870",
-                            "address": "28367 Agustin Gardens Suite 930",
-                            "city": "North Ernesto",
+                            "zip": "63545-3093",
+                            "address": "73578 Simonis Fork",
+                            "city": "North Scarlett",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "10.785314",
-                            "longitude": "147.624889",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "76.438024",
+                            "longitude": "25.679525",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,
@@ -66,7 +66,7 @@
                         "activeQuotes": 1,
                         "activeQuotesTotalAmount": 0,
                         "newActiveQuotes": 1,
-                        "expiringQuotes": 0
+                        "expiringQuotes": 1
                     },
                     "status": null
                 }

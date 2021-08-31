@@ -9,8 +9,8 @@
             "getCompanyById": [
                 {
                     "id": "0731be4c-624e-4802-a1d3-c672a9283562",
-                    "name": "Witting Inc",
-                    "updatedAt": "1630053885540",
+                    "name": "Kuvalis PLC",
+                    "updatedAt": "1630315937680",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
@@ -23,14 +23,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "06595-2550",
-                            "address": "5985 Tiffany Manors Apt. 428",
-                            "city": "Dejaport",
+                            "zip": "27535",
+                            "address": "122 Magnus Summit Apt. 757",
+                            "city": "Lake Stevie",
                             "locationType": "HEADQUARTER",
-                            "country": "Chad",
-                            "latitude": "-66.400036",
-                            "longitude": "74.009314",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "-36.261865",
+                            "longitude": "110.917803",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,

@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "77180fce-f9cb-469f-9ace-4120226ff013",
-                    "name": "Hilpert Inc",
-                    "updatedAt": "1630018602935",
+                    "name": "Konopelski-Kutch",
+                    "updatedAt": "1630368437622",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
-                            "phoneNumber": "+14234722227",
-                            "name": "Berneice Brakus",
+                            "phoneNumber": "+14780030579",
+                            "name": "Kris Waters",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+14234722227",
-                            "name": "Berneice Brakus",
+                            "phoneNumber": "+14780030579",
+                            "name": "Kris Waters",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
-                            "phoneNumber": "+14234722227",
-                            "name": "Berneice Brakus",
+                            "phoneNumber": "+14780030579",
+                            "name": "Kris Waters",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "66386-4865",
-                            "address": "2181 Kevon Freeway",
-                            "city": "Heathcotefurt",
+                            "zip": "50289-8384",
+                            "address": "5741 Oma Stream Apt. 949",
+                            "city": "Lake Barney",
                             "locationType": null,
-                            "country": "Somalia",
-                            "latitude": "-89.340248",
-                            "longitude": "146.762956",
-                            "countryCode": "SO"
+                            "country": "Latvia",
+                            "latitude": "-9.173301",
+                            "longitude": "-16.127175",
+                            "countryCode": "NI"
                         }
                     ],
                     "brandingData": null,

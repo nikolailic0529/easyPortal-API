@@ -9,27 +9,27 @@
             "getCompanyById": [
                 {
                     "id": "d50e731a-c49c-4842-8e45-6beb565b82a8",
-                    "name": "Adams PLC",
-                    "updatedAt": "1630044896097",
+                    "name": "Jacobs-Abshire",
+                    "updatedAt": "1630307820521",
                     "keycloakName": null,
                     "keycloakGroupId": null,
                     "keycloakClientScopeName": null,
                     "companyContactPersons": [
                         {
                             "phoneNumber": null,
-                            "name": "Madaline Bins",
+                            "name": "Fidel Bernhard MD",
                             "mail": null,
                             "type": "Hardware Contact Person"
                         },
                         {
-                            "phoneNumber": "+15676504528",
-                            "name": "Dr. Nikko Robel",
+                            "phoneNumber": "+14093833105",
+                            "name": "Darrel Hills",
                             "mail": null,
                             "type": "System Manager"
                         },
                         {
                             "phoneNumber": null,
-                            "name": "Madaline Bins",
+                            "name": "Fidel Bernhard MD",
                             "mail": null,
                             "type": "Software Contact Person"
                         }
@@ -42,14 +42,14 @@
                     ],
                     "locations": [
                         {
-                            "zip": "80604-1575",
-                            "address": "4791 Greenfelder Harbor Apt. 234",
-                            "city": "Eldonhaven",
+                            "zip": "11945",
+                            "address": "99951 Roxane Fords Suite 709",
+                            "city": "Calimouth",
                             "locationType": null,
-                            "country": "Chad",
-                            "latitude": "75.926928",
-                            "longitude": "98.136133",
-                            "countryCode": "GD"
+                            "country": "Benin",
+                            "latitude": "35.804777",
+                            "longitude": "152.394496",
+                            "countryCode": "TF"
                         }
                     ],
                     "brandingData": null,
