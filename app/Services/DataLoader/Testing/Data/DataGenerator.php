@@ -53,7 +53,15 @@ class DataGenerator {
         $fs->remove((new Finder())->in($contextPath));
 
         // Generate
-        $contextDataData = $data->generate($contextPath);
+        $db = $this->app->make('db');
+
+        try {
+            $db->beginTransaction();
+
+            $contextDataData = $data->generate($contextPath);
+        } finally {
+            $db->rollBack();
+        }
 
         if ($contextDataData === false) {
             throw new Exception(sprintf(
