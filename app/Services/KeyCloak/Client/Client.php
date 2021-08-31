@@ -4,6 +4,7 @@ namespace App\Services\KeyCloak\Client;
 
 use App\Models\Organization;
 use App\Models\Role as RoleModel;
+use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\KeyCloak\Client\Exceptions\EndpointException;
 use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakClient;
 use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakGroup;
@@ -14,6 +15,7 @@ use App\Services\KeyCloak\Client\Types\Credential;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role;
 use App\Services\KeyCloak\Client\Types\User;
+use App\Services\KeyCloak\Commands\UsersIterator;
 use Closure;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
@@ -339,6 +341,10 @@ class Client {
         // GET /{realm}/users/count
         $endpoint = 'users/count';
         return $this->call($endpoint, 'GET');
+    }
+
+    public function getUsersIterator(): QueryIterator {
+        return new UsersIterator($this);
     }
     // </editor-fold>
 

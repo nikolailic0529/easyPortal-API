@@ -7,7 +7,8 @@ use App\Models\Role;
 use App\Models\User as UserModel;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User;
-use Mockery\MockInterface;
+use App\Services\KeyCloak\Commands\UsersIterator;
+use Mockery;
 use Tests\TestCase;
 
 /**
@@ -35,18 +36,29 @@ class UsersImporterTest extends TestCase {
                 'c0200a6c-1b8a-4365-9f1b-32d753194337',
             ],
         ]);
-        $this->override(Client::class, static function (MockInterface $mock) use ($keycloakUser): void {
-            $mock
-                ->shouldReceive('getUsers')
-                ->once()
-                ->andReturns([
-                    $keycloakUser,
-                ]);
-        });
+        /** @var \Mockery\MockInterface $client */
+        $client = Mockery::mock(Client::class);
+        $client->makePartial();
+        $client
+            ->shouldReceive('getUsers')
+            ->once()
+            ->andReturns([
+                $keycloakUser,
+            ]);
+        $client
+            ->shouldReceive('usersCount')
+            ->once()
+            ->andReturns(1);
+        $iterator = new UsersIterator($client);
+        $client
+            ->shouldReceive('getUsersIterator')
+            ->once()
+            ->andReturns($iterator);
+        $this->app->instance(Client::class, $client);
 
         // call
         $importer = $this->app->make(UsersImporter::class);
-        $importer->import(null, 1, 1, 1);
+        $importer->import(null, 1, 1);
 
         $user = UserModel::query()
             ->with(['organizations', 'roles'])

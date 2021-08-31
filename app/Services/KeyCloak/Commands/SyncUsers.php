@@ -62,7 +62,6 @@ class SyncUsers extends Command {
         $continue = $this->option('continue');
         $chunk    = (int) $this->option('chunk');
         $limit    = (int) $this->option('limit');
-        $total    = 0;
         $bar      = null;
         $importer
             ->onInit(function (Status $status) use (&$bar, &$total): void {
@@ -72,7 +71,7 @@ class SyncUsers extends Command {
             ->onChange(static function (Status $status, int $offset) use (&$bar): void {
                 $bar->setProgress($status->processed);
             })
-            ->import($continue, $chunk, $limit, $total);
+            ->import($continue, $chunk, $limit);
 
         $bar->finish();
     }

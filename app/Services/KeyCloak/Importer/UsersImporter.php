@@ -10,7 +10,6 @@ use App\Models\User;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User as TypesUser;
-use App\Services\KeyCloak\Commands\UsersIterator;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Closure;
 use Illuminate\Support\Collection;
@@ -19,7 +18,6 @@ use Psr\Log\LoggerInterface;
 use Throwable;
 
 use function array_map;
-use function min;
 
 class UsersImporter {
     use GlobalScopes;
@@ -31,7 +29,6 @@ class UsersImporter {
     public function __construct(
         protected LoggerInterface $logger,
         protected Client $client,
-        protected UsersIterator $iterator,
     ) {
         // empty
     }
@@ -66,18 +63,9 @@ class UsersImporter {
         string|int $continue = null,
         int $chunk = null,
         int $limit = null,
-        int $total = null,
     ): void {
-        $this->call(function () use ($continue, $chunk, $limit, $total): void {
-            if (!$total) {
-                $total = $this->getTotal();
-            }
-
-            if ($limit) {
-                $total = min($total, $limit);
-            }
-
-            $status   = new Status($continue, $total);
+        $this->call(function () use ($continue, $chunk, $limit): void {
+            $status   = new Status($continue, $this->getTotal());
             $iterator = $this->getIterator($chunk, $limit);
             $users    = new Collection();
             $iterator
@@ -105,6 +93,7 @@ class UsersImporter {
                         $user->email_verified        = $item->emailVerified;
                         $user->permissions           = [];
                     }
+
                     $organizations = [];
                     $roles         = [];
                     foreach ($item->groups as $group) {
@@ -119,6 +108,7 @@ class UsersImporter {
                     }
                     $user->organizations = $organizations;
                     $user->roles         = $roles;
+
                     $user->save();
                 } catch (Throwable $exception) {
                     // TODO: Use Exception + handler
@@ -137,7 +127,7 @@ class UsersImporter {
     }
 
     protected function getTotal(): ?int {
-        return $this->client->usersCount();
+        return $this->getClient()->usersCount();
     }
 
     private function call(Closure $closure): void {
@@ -147,7 +137,8 @@ class UsersImporter {
     }
 
     protected function getIterator(int $chunk = null, int $limit = null): QueryIterator {
-        $iterator = $this->iterator;
+        $iterator = $this->getClient()->getUsersIterator();
+
         if ($chunk) {
             $iterator->setChunkSize($chunk);
         }
