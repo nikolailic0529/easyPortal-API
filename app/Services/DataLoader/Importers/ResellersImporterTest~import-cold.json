@@ -96,12 +96,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "000a227a-660d-477c-8fdf-ce9be4aa5818",
             "Kerluke, Stamm and Greenfelder",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:07",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -182,12 +184,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0013a4cf-8654-4a5b-b747-d29746704f09",
             "Abernathy-King",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:09",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -284,12 +288,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "002b83e1-6107-4098-89f1-fe5602bef8ce",
             "Zulauf-Dietrich",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:10",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -386,12 +392,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0040fc99-9023-4847-aff0-317aff613050",
             "Kiehn-Christiansen",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:11",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -472,12 +480,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0048be0f-a435-45cc-ac9d-2fe215991ebf",
             "Rippin PLC",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:11",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -558,12 +568,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0049fc18-6477-4b4f-a637-ef0f27e082d4",
             "Mayer, Schamberger and Hyatt",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:12",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -644,12 +656,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "005d9b87-ba6c-4612-b3a0-45dbe7c7dbdd",
             "Gottlieb-Strosin",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:16",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -713,12 +727,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "006218e4-47c0-4363-ab9f-91e91ff1baac",
             "Funk LLC",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:17",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -799,12 +815,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0066dc39-3655-43bf-9cb8-3dcc006987ff",
             "Ruecker, Hickle and Crona",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:17",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -885,12 +903,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0067eb04-2fca-49f9-8fd8-4996ce4b3668",
             "Blanda, Ernser and Schamberger",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:17",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -1009,96 +1029,6 @@
         ]
     },
     {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "000a227a-660d-477c-8fdf-ce9be4aa5818"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "0013a4cf-8654-4a5b-b747-d29746704f09"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "002b83e1-6107-4098-89f1-fe5602bef8ce"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "0040fc99-9023-4847-aff0-317aff613050"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "0048be0f-a435-45cc-ac9d-2fe215991ebf"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "0049fc18-6477-4b4f-a637-ef0f27e082d4"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "005d9b87-ba6c-4612-b3a0-45dbe7c7dbdd"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "006218e4-47c0-4363-ab9f-91e91ff1baac"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "0066dc39-3655-43bf-9cb8-3dcc006987ff"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "0067eb04-2fca-49f9-8fd8-4996ce4b3668"
-        ]
-    },
-    {
         "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "006ae88b-b2b1-4ca7-b07d-3ccfa353842e",
@@ -1143,12 +1073,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "006ae88b-b2b1-4ca7-b07d-3ccfa353842e",
             "Sauer Ltd",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:18",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -1229,12 +1161,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00759fe9-9614-4147-a1f9-83d9fd5472e7",
             "Lueilwitz, Spinka and Blanda",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:18",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -1315,12 +1249,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0075f877-bfaa-4014-a520-4f10331763bd",
             "Schneider, Dicki and Schamberger",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:18",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -1401,12 +1337,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "007646a5-c5b9-4929-9e94-9c09eaff90e5",
             "Nikolaus, Feeney and Ullrich",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:22",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -1470,12 +1408,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "007657c9-b620-445b-8676-01e491661b4a",
             "Reinger, Marquardt and Witting",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:22",
+            0,
+            0,
             0,
             0,
             "2021-08-30 00:00:00",
@@ -1528,12 +1468,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0079c4d5-8a80-4b3e-9f79-579d4e73eaae",
             "Konopelski, Schamberger and Kassulke",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:22",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -1614,12 +1556,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0079e60d-1c53-4a85-9edd-31ec6324c96e",
             "Kuhn-Jerde",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:23",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -1700,12 +1644,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0099dc6a-9641-4bf9-8e35-84b91286b7bd",
             "Mills and Sons",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:23",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -1786,12 +1732,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "009a0762-e369-4efb-a88a-1a8b49e1ab14",
             "Ondricka, Schulist and Marks",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:23",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -1855,12 +1803,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00a51569-935d-4155-971b-05713d3f860c",
             "Nikolaus, Feeney and Ullrich",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:24",
+            0,
+            0,
             0,
             0,
             "2021-08-30 00:00:00",
@@ -1951,96 +1901,6 @@
         ]
     },
     {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "006ae88b-b2b1-4ca7-b07d-3ccfa353842e"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "00759fe9-9614-4147-a1f9-83d9fd5472e7"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "0075f877-bfaa-4014-a520-4f10331763bd"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "007646a5-c5b9-4929-9e94-9c09eaff90e5"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "007657c9-b620-445b-8676-01e491661b4a"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "0079c4d5-8a80-4b3e-9f79-579d4e73eaae"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "0079e60d-1c53-4a85-9edd-31ec6324c96e"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "0099dc6a-9641-4bf9-8e35-84b91286b7bd"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "009a0762-e369-4efb-a88a-1a8b49e1ab14"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "00a51569-935d-4155-971b-05713d3f860c"
-        ]
-    },
-    {
         "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
@@ -2085,12 +1945,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
             "Conn-Grady",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:24",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -2171,12 +2033,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00b78668-a24a-43f6-8cff-6ab2cef1d10d",
             "Denesik-Auer",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:24",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -2257,12 +2121,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00c02780-d026-4a8e-a402-f63aca4e65f4",
             "Waelchi, Swaniawski and Jaskolski",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:30",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -2343,12 +2209,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00c0d1a0-7e56-4e44-ab04-2be0c97c3d0b",
             "Rowe, Schuppe and Orn",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:31",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -2429,12 +2297,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00c871be-e0f6-4577-a4d9-a770878eea15",
             "Langworth-West",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:31",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -2515,12 +2385,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "00e4a8ff-1d07-428b-acd0-e858973e5707",
             "Weimann-Schuppe",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:32",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -2601,12 +2473,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01077a8c-ae10-4935-8c9f-dd3a5d1cde2a",
             "Thompson-Beier",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:32",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -2687,12 +2561,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01085380-44ac-4429-b128-28a70140fb67",
             "McCullough Ltd",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:32",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -2773,12 +2649,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0113a00f-f5e2-4c35-b31d-832bf7a4b502",
             "Bahringer, Johns and Blick",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:33",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -2859,12 +2737,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0119600e-c938-4472-95ba-7855c2b174cc",
             "McDermott-Rippin",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:33",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -2983,96 +2863,6 @@
         ]
     },
     {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "00a65b20-dfd5-4c09-9044-30df44e5b0c3"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "00b78668-a24a-43f6-8cff-6ab2cef1d10d"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "00c02780-d026-4a8e-a402-f63aca4e65f4"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "00c0d1a0-7e56-4e44-ab04-2be0c97c3d0b"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "00c871be-e0f6-4577-a4d9-a770878eea15"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "00e4a8ff-1d07-428b-acd0-e858973e5707"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "01077a8c-ae10-4935-8c9f-dd3a5d1cde2a"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "01085380-44ac-4429-b128-28a70140fb67"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "0113a00f-f5e2-4c35-b31d-832bf7a4b502"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "0119600e-c938-4472-95ba-7855c2b174cc"
-        ]
-    },
-    {
         "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "01359101-5bfa-4dd7-a0cc-3cea193137d8",
@@ -3117,12 +2907,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01359101-5bfa-4dd7-a0cc-3cea193137d8",
             "Balistreri, Auer and Johnson",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:34",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -3186,12 +2978,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "014c23fe-cf3a-4880-be62-5e148f551d9d",
             "O'Hara-Cole",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:38",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -3272,12 +3066,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "015059c1-2ff4-4a18-8ca9-8cac64d7cbf1",
             "DuBuque, Grant and Murazik",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:38",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -3358,12 +3154,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "015516f4-9b7a-4419-82fd-72cd76be8771",
             "Parisian-Weimann",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:38",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -3444,12 +3242,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0186e8a0-8b38-47fc-8583-e7c75d3f8ac1",
             "Marks, Kshlerin and Ferry",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:38",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -3546,12 +3346,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0192ce0b-f733-470b-a6f6-09e8fe06ec38",
             "Larkin Ltd",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:39",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -3648,12 +3450,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "019d772d-6ce8-48dc-8585-22681d2eacac",
             "Schultz-Renner",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:39",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -3734,12 +3538,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "019eabdd-e58b-4eb1-905e-975fd7607332",
             "Kunze PLC",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:40",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -3836,12 +3642,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01a34dcd-4231-4df0-8005-0d3306cd218c",
             "Kuhlman-Strosin",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:40",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -3922,12 +3730,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01a4fea2-737e-4573-8e5e-dd2b4b9fe954",
             "Swift-D'Amore",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:41",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -4046,96 +3856,6 @@
         ]
     },
     {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "01359101-5bfa-4dd7-a0cc-3cea193137d8"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "014c23fe-cf3a-4880-be62-5e148f551d9d"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "015059c1-2ff4-4a18-8ca9-8cac64d7cbf1"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "015516f4-9b7a-4419-82fd-72cd76be8771"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "0186e8a0-8b38-47fc-8583-e7c75d3f8ac1"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "0192ce0b-f733-470b-a6f6-09e8fe06ec38"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "019d772d-6ce8-48dc-8585-22681d2eacac"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "019eabdd-e58b-4eb1-905e-975fd7607332"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "01a34dcd-4231-4df0-8005-0d3306cd218c"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "01a4fea2-737e-4573-8e5e-dd2b4b9fe954"
-        ]
-    },
-    {
         "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "01a66b8b-e865-48bf-9c8e-daba4b3239a2",
@@ -4180,12 +3900,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01a66b8b-e865-48bf-9c8e-daba4b3239a2",
             "Ryan-Runolfsdottir",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:41",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -4266,12 +3988,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01b0c5a2-2036-40d5-985f-e6edc0c2703b",
             "Stokes, Gaylord and Mante",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:48",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -4352,12 +4076,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01c2caf0-6529-4d09-99c6-cc9890e33b7f",
             "Gutmann PLC",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:48",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -4438,12 +4164,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01c45daa-5b06-46ba-a3de-927ed79e6033",
             "Bartell-Abshire",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:48",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -4524,12 +4252,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01d6fadd-1b36-4cf9-834e-3a46430cab78",
             "Kunde, Braun and Wolff",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:49",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -4610,12 +4340,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01d94fc2-0987-4c40-8c46-af29fbb924f8",
             "Hickle Ltd",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:50",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -4679,12 +4411,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01e5d413-1a68-4f16-9e46-ad9fd781579b",
             "Daniel PLC",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:50",
+            0,
+            0,
             0,
             0,
             "2021-08-30 00:00:00",
@@ -4737,12 +4471,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01f149ea-eb28-4357-bbca-046198fe2abe",
             "Schneider, Eichmann and Johnson",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:51",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -4823,12 +4559,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "01fd4495-dbd8-4fc3-9d68-b0c59bb0815c",
             "Krajcik-Schultz",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:51",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -4909,12 +4647,14 @@
         ]
     },
     {
-        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "query": "insert into `resellers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `customers_count`, `contacts_count`, `locations_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "02015448-c2bb-4987-87e0-8b4e94a2ab15",
             "Rowe, Steuber and Kuhn",
             "09477b7e-4f12-5f29-ad60-559bab1718e4",
             "2021-08-31 09:28:52",
+            0,
+            0,
             0,
             1,
             "2021-08-30 00:00:00",
@@ -5029,96 +4769,6 @@
             "01e5d413-1a68-4f16-9e46-ad9fd781579b",
             "01f149ea-eb28-4357-bbca-046198fe2abe",
             "01fd4495-dbd8-4fc3-9d68-b0c59bb0815c",
-            "02015448-c2bb-4987-87e0-8b4e94a2ab15"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "01a66b8b-e865-48bf-9c8e-daba4b3239a2"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "01b0c5a2-2036-40d5-985f-e6edc0c2703b"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "01c2caf0-6529-4d09-99c6-cc9890e33b7f"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "01c45daa-5b06-46ba-a3de-927ed79e6033"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "01d6fadd-1b36-4cf9-834e-3a46430cab78"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "01d94fc2-0987-4c40-8c46-af29fbb924f8"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "01e5d413-1a68-4f16-9e46-ad9fd781579b"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "01f149ea-eb28-4357-bbca-046198fe2abe"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
-            "01fd4495-dbd8-4fc3-9d68-b0c59bb0815c"
-        ]
-    },
-    {
-        "query": "update `resellers` set `assets_count` = ?, `customers_count` = ?, `resellers`.`updated_at` = ? where `id` = ?",
-        "bindings": [
-            0,
-            0,
-            "2021-08-30 00:00:00",
             "02015448-c2bb-4987-87e0-8b4e94a2ab15"
         ]
     }
