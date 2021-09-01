@@ -1392,10 +1392,6 @@ class AssetFactoryTest extends TestCase {
         $normalizer = $this->app->make(Normalizer::class);
         $products   = Mockery::mock(ProductResolver::class);
         $locations  = Mockery::mock(LocationFactory::class);
-        $locations
-            ->shouldReceive('prefetch')
-            ->once()
-            ->andReturnSelf();
 
         Asset::factory()->create([
             'id' => $a->id,

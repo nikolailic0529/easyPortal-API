@@ -107,31 +107,6 @@
         ]
     },
     {
-        "query": "select * from `locations` where ((`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?)) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "04919",
-            "Asset",
-            "93786",
-            "Asset",
-            "47009-5307",
-            "Asset",
-            "67171-8832",
-            "Asset",
-            "22459",
-            "Asset",
-            "63545-3093",
-            "Asset",
-            "25547",
-            "Asset",
-            "55958-2041",
-            "Asset",
-            "26945",
-            "Asset",
-            "38902-8873",
-            "Asset"
-        ]
-    },
-    {
         "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "0731be4c-624e-4802-a1d3-c672a9283562",
@@ -217,7 +192,7 @@
         ]
     },
     {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`deleted_at` is null and `location_types`.`location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
+        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`deleted_at` is null and `location_types`.`location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
             "08062c33-2c40-52aa-82a6-4b2beed3f7ab",
             "127a795c-0c96-5530-b4a4-f9e40cbf07ab",
@@ -235,7 +210,6 @@
             "c29fe394-00c9-51e6-b7ff-9fd382a79e4d",
             "d3ab8454-a2f2-5420-adb9-1d81583d997c",
             "d52cd90f-140c-5220-8f1a-698e53a09fb4",
-            "d8e2cae3-748d-52ba-af81-57e2f6a3cc2c",
             "eb3db503-a4ae-5092-adf4-82674ce1e1ff"
         ]
     },
@@ -568,6 +542,16 @@
         ]
     },
     {
+        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "aec4830c-5160-550b-aec2-a233de5dd1a5",
+            "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7",
+            "762 dwight prairie apt. 207",
+            "asset",
+            "25547"
+        ]
+    },
+    {
         "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
         "bindings": [
             "00001f4a-79e9-4a90-8ef7-0575ec58b1f9"
@@ -889,29 +873,6 @@
         ]
     },
     {
-        "query": "select * from `locations` where ((`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?)) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "02072",
-            "Asset",
-            "11945",
-            "Asset",
-            "50491",
-            "Asset",
-            "46882-3535",
-            "Asset",
-            "92102",
-            "Asset",
-            "70739-1903",
-            "Asset",
-            "04919",
-            "Asset",
-            "29168-8454",
-            "Asset",
-            "52062-5869",
-            "Asset"
-        ]
-    },
-    {
         "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "98d5c771-5301-498a-9439-537ff6a9b405",
@@ -1003,12 +964,11 @@
         ]
     },
     {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`deleted_at` is null and `location_types`.`location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
+        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`deleted_at` is null and `location_types`.`location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
             "093e8a99-0b6b-56f9-a8e4-ea76242b6cc3",
             "1a053142-e655-59bb-a4b5-08df1c9318de",
             "2ee45d80-4fc9-52af-8e7f-f77f11ce1de8",
-            "514f5444-ed81-5764-a99e-b240ae4c44d6",
             "627f7de9-a951-517f-9fc9-ba71001eee39",
             "63472d7e-4cbf-51c2-9909-05e2cbca91be",
             "6ec01053-58d4-550d-a993-b676c1f4733d",
@@ -1348,6 +1308,16 @@
         ]
     },
     {
+        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "b9c1728b-103f-5855-a750-591a28da63a1",
+            "673f7541-1538-5839-93dc-cb386aa163cf",
+            "556 kara ridge suite 117",
+            "asset",
+            "29168-8454"
+        ]
+    },
+    {
         "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
         "bindings": [
             "00005ec6-f2d2-4c8e-b53b-98cd81677ec9"
@@ -1624,31 +1594,6 @@
         "query": "select * from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
         "bindings": [
             "09477b7e-4f12-5f29-ad60-559bab1718e4"
-        ]
-    },
-    {
-        "query": "select * from `locations` where ((`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?)) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "97574",
-            "Asset",
-            "82948-7850",
-            "Asset",
-            "53165-8916",
-            "Asset",
-            "26104",
-            "Asset",
-            "83824",
-            "Asset",
-            "85446",
-            "Asset",
-            "68982",
-            "Asset",
-            "65896",
-            "Asset",
-            "03358-5372",
-            "Asset",
-            "19963",
-            "Asset"
         ]
     },
     {
@@ -2390,31 +2335,6 @@
         ]
     },
     {
-        "query": "select * from `locations` where ((`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?)) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "04366",
-            "Asset",
-            "22480",
-            "Asset",
-            "40387",
-            "Asset",
-            "41610-7287",
-            "Asset",
-            "29168-8454",
-            "Asset",
-            "39241-2163",
-            "Asset",
-            "52264",
-            "Asset",
-            "20578",
-            "Asset",
-            "50289-8384",
-            "Asset",
-            "38375",
-            "Asset"
-        ]
-    },
-    {
         "query": "select * from `resellers` where ((`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?) or (`resellers`.`id` = ?)) and `resellers`.`deleted_at` is null",
         "bindings": [
             "143c456a-e894-4710-a1c2-745b9582ca47",
@@ -2512,7 +2432,7 @@
         ]
     },
     {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`deleted_at` is null and `location_types`.`location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
+        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`deleted_at` is null and `location_types`.`location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
             "022c1865-3a20-5e95-960b-10a691a2376a",
             "0920fd14-67d6-501c-a409-3f9ae82c6f81",
@@ -2523,14 +2443,12 @@
             "311c4a8b-7d91-5fc2-870f-2c5a03681902",
             "367ce0b0-b70a-5fec-9429-8f4adc7ab201",
             "4095e0b0-8302-5ec4-a31b-09b584ea92c4",
-            "514f5444-ed81-5764-a99e-b240ae4c44d6",
             "5a82ae22-db37-5649-9862-3eda26aa6fd2",
             "681f1ffa-2fba-533b-b5b7-3983665eb9b1",
             "70518f4e-ee85-5771-9880-c8167af09b1e",
             "83681df0-8340-58b5-8dfa-3504701d4dd4",
             "89eed732-450b-529b-93f1-36db7a565e60",
             "9adfc3ea-f2d9-5e33-84b8-0618456b8802",
-            "ac9989e1-7ced-576f-8d9e-86bea5557f87",
             "c22a0407-1b3b-5d02-b9e3-caba9493d845",
             "cfbeb513-7023-5ead-b818-b161b8634f99",
             "e747fca2-84d1-5ac5-a571-d61330103978",
@@ -2873,6 +2791,16 @@
         ]
     },
     {
+        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "ad400311-bc89-5777-b19f-cd4dae9fc6fa",
+            "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7",
+            "639 smith views",
+            "asset",
+            "20578"
+        ]
+    },
+    {
         "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
         "bindings": [
             "0000b9f9-ecb2-4347-9267-22a4714175ec"
@@ -3166,31 +3094,6 @@
         "query": "select * from `oems` where `oems`.`id` in (?) and `oems`.`deleted_at` is null",
         "bindings": [
             "09477b7e-4f12-5f29-ad60-559bab1718e4"
-        ]
-    },
-    {
-        "query": "select * from `locations` where ((`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?) or (`postcode` = ? and `object_type` = ?)) and `locations`.`deleted_at` is null",
-        "bindings": [
-            "40019",
-            "Asset",
-            "93984-9358",
-            "Asset",
-            "85446",
-            "Asset",
-            "76325-1237",
-            "Asset",
-            "27667",
-            "Asset",
-            "62803-8882",
-            "Asset",
-            "58895-2233",
-            "Asset",
-            "73916",
-            "Asset",
-            "29000",
-            "Asset",
-            "41610-7287",
-            "Asset"
         ]
     },
     {
