@@ -13,7 +13,6 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Service as SearchService;
 use Closure;
 use DateTimeInterface;
-use Illuminate\Contracts\Container\Container as ContainerContract;
 use Laravel\Telescope\Telescope;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -23,19 +22,18 @@ use function min;
 abstract class Importer {
     use GlobalScopes;
 
-    protected ContainerContract $container;
-    protected Loader            $loader;
-    protected Resolver          $resolver;
-    protected ?Closure          $onInit   = null;
-    protected ?Closure          $onChange = null;
-    protected ?Closure          $onFinish = null;
+    protected Loader   $loader;
+    protected Resolver $resolver;
+    protected ?Closure $onInit   = null;
+    protected ?Closure $onChange = null;
+    protected ?Closure $onFinish = null;
 
     public function __construct(
         protected LoggerInterface $logger,
         protected Client $client,
-        private ContainerContract $root,
+        protected Container $container,
     ) {
-        // empty
+        $this->onRegister();
     }
 
     protected function getLogger(): LoggerInterface {
@@ -180,9 +178,7 @@ abstract class Importer {
      */
     protected function onBeforeChunk(array $items, Status $status): void {
         // Reset container
-        $this->container = $this->root->make(Container::class);
-
-        $this->onRegister();
+        $this->container->forgetInstances();
 
         // Reset objects
         $this->resolver = $this->makeResolver();
