@@ -47,9 +47,7 @@ class AssetsImporter extends Importer {
                 $assets->loadMissing('warranties');
                 $assets->loadMissing('warranties.serviceLevels');
                 $assets->loadMissing('contacts');
-                $assets->loadMissing('contacts.types');
                 $assets->loadMissing('location');
-                $assets->loadMissing('location.types');
                 $assets->loadMissing('tags');
                 $assets->loadMissing('oem');
 
@@ -61,9 +59,7 @@ class AssetsImporter extends Importer {
             ->make(ResellerFactory::class)
             ->prefetch($items, false, static function (Collection $resellers) use ($locations, $contacts): void {
                 $resellers->loadMissing('locations');
-                $resellers->loadMissing('locations.types');
                 $resellers->loadMissing('contacts');
-                $resellers->loadMissing('contacts.types');
 
                 $locations->add($resellers->pluck('locations')->flatten());
                 $contacts->add($resellers->pluck('contacts')->flatten());
@@ -73,13 +69,14 @@ class AssetsImporter extends Importer {
             ->make(CustomerFactory::class)
             ->prefetch($items, false, static function (Collection $customers) use ($locations, $contacts): void {
                 $customers->loadMissing('locations');
-                $customers->loadMissing('locations.types');
                 $customers->loadMissing('contacts');
-                $customers->loadMissing('contacts.types');
 
                 $locations->add($customers->pluck('locations')->flatten());
                 $contacts->add($customers->pluck('contacts')->flatten());
             });
+
+        (new Collection($locations->getResolved()))->loadMissing('types');
+        (new Collection($contacts->getResolved()))->loadMissing('types');
     }
 
     protected function makeIterator(DateTimeInterface $from = null): QueryIterator {
