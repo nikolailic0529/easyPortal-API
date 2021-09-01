@@ -2,4 +2,5 @@ input UsersQuery {
   id: ID!
   given_name: String!
   family_name: String!
+  enabled: Boolean!
 }

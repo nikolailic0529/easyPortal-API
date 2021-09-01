@@ -4,4 +4,5 @@ type User {
   family_name: String!
   email: String!
   email_verified: Boolean!
+  enabled: Boolean!
 }

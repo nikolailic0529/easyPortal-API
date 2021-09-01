@@ -42,6 +42,7 @@ use LogicException;
  * @property string|null                                                             $password
  * @property string|null                                                             $homepage
  * @property string|null                                                             $timezone
+ * @property bool                                                                    $enabled
  * @property \Carbon\CarbonImmutable                                                 $created_at
  * @property \Carbon\CarbonImmutable                                                 $updated_at
  * @property \Carbon\CarbonImmutable|null                                            $deleted_at
@@ -77,6 +78,7 @@ class User extends Model implements
         'permissions'    => 'array',
         'email_verified' => 'bool',
         'phone_verified' => 'bool',
+        'enabled'        => 'bool',
     ] + parent::CASTS;
 
     /**

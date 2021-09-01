@@ -1,4 +1,5 @@
 input UsersSort {
   given_name: String!
   family_name: String!
+  enabled: Boolean!
 }

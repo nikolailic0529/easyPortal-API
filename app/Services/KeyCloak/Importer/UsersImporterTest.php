@@ -31,6 +31,7 @@ class UsersImporterTest extends TestCase {
             'firstName'     => 'first',
             'lastName'      => 'last',
             'emailVerified' => false,
+            'enabled'       => true,
             'groups'        => [
                 'c0200a6c-1b8a-4365-9f1b-32d753194336',
                 'c0200a6c-1b8a-4365-9f1b-32d753194337',
@@ -67,6 +68,7 @@ class UsersImporterTest extends TestCase {
 
         $this->assertNotNull($user);
         $this->assertFalse($user->email_verified);
+        $this->assertTrue($user->enabled);
         $this->assertEquals($user->given_name, $keycloakUser->firstName);
         $this->assertEquals($user->family_name, $keycloakUser->lastName);
         $this->assertEquals($user->email, $keycloakUser->email);

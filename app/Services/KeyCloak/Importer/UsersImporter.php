@@ -92,6 +92,7 @@ class UsersImporter {
                         $user->given_name            = $item->firstName;
                         $user->family_name           = $item->lastName;
                         $user->email_verified        = $item->emailVerified;
+                        $user->enabled               = $item->enabled;
                         $user->permissions           = [];
                     }
 

@@ -22,6 +22,9 @@
         },
         "email_verified": {
             "type": "boolean"
+        },
+        "enabled" : {
+            "type": "boolean"
         }
     }
 }
