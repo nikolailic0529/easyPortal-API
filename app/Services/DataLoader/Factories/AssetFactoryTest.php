@@ -224,7 +224,7 @@ class AssetFactoryTest extends TestCase {
 
         $this->flushQueryLog();
 
-        // Customer should be updated
+        // Asset should be updated
         /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
         $factory = $container->make(AssetFactory::class)->setDocumentFactory($documents);
         $json    = $this->getTestData()->json('~asset-changed.json');
@@ -291,7 +291,7 @@ class AssetFactoryTest extends TestCase {
 
         $factory->create($asset);
 
-        $this->assertCount(4, $this->getQueryLog());
+        $this->assertCount(5, $this->getQueryLog());
     }
 
     /**
