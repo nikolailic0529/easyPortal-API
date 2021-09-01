@@ -1399,22 +1399,6 @@
         ]
     },
     {
-        "query": "select * from `types` where `types`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `countries` where `countries`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `cities` where `cities`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
@@ -2595,22 +2579,6 @@
         ]
     },
     {
-        "query": "select * from `types` where `types`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `countries` where `countries`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `cities` where `cities`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
         "bindings": [
             "75fb8baa-cc79-5c63-b040-fdd8d8afae44",
@@ -3771,22 +3739,6 @@
             "0065cb2a-2556-449e-ad18-255f06049b22",
             "0065fc39-38ba-4f55-9409-82727defe7f0"
         ]
-    },
-    {
-        "query": "select * from `types` where `types`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `countries` where `countries`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `cities` where `cities`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
@@ -4971,22 +4923,6 @@
             "0075eb6a-aff4-4730-a44e-ae0e2f3b41c5",
             "0078b4cb-6122-4a90-8c98-0dea36a5dde2"
         ]
-    },
-    {
-        "query": "select * from `types` where `types`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `countries` where `countries`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `cities` where `cities`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",

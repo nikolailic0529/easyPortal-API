@@ -7,12 +7,13 @@ use App\Models\Oem;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Services\DataLoader\Cache\ClosureKey;
+use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Pure;
 
-class ServiceLevelResolver extends Resolver {
+class ServiceLevelResolver extends Resolver implements SingletonPersistent {
     public function get(Oem $oem, ServiceGroup $group, string $sku, Closure $factory = null): ?ServiceLevel {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($this->getUniqueKey($oem, $group, $sku), $factory);

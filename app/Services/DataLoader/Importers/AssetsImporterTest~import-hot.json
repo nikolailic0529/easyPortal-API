@@ -1083,14 +1083,6 @@
         ]
     },
     {
-        "query": "select * from `countries` where `countries`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `cities` where `cities`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "2afc52a3-086d-537e-919e-b9306fabc14c",
@@ -1099,30 +1091,6 @@
             "asset",
             "02072"
         ]
-    },
-    {
-        "query": "select * from `oems` where `oems`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `types` where `types`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `products` where `products`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `tags` where `tags`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `coverages` where `coverages`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
@@ -1148,26 +1116,6 @@
             "5970a18e-473f-4b2e-a9f3-a58df1317b91",
             "Document"
         ]
-    },
-    {
-        "query": "select * from `service_groups` where `service_groups`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `currencies` where `currencies`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `languages` where `languages`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `distributors` where `distributors`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `service_levels` where `service_levels`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
@@ -1847,14 +1795,6 @@
         ]
     },
     {
-        "query": "select * from `countries` where `countries`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `cities` where `cities`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "1648e5e6-66b2-5b9d-946a-dc81961bd523",
@@ -1863,30 +1803,6 @@
             "asset",
             "97574"
         ]
-    },
-    {
-        "query": "select * from `oems` where `oems`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `types` where `types`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `products` where `products`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `tags` where `tags`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `coverages` where `coverages`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
@@ -1912,26 +1828,6 @@
             "b48636a5-ac82-4e1e-8fa9-6ca54a250459",
             "Document"
         ]
-    },
-    {
-        "query": "select * from `service_groups` where `service_groups`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `currencies` where `currencies`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `languages` where `languages`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `distributors` where `distributors`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `service_levels` where `service_levels`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
@@ -2659,14 +2555,6 @@
         ]
     },
     {
-        "query": "select * from `countries` where `countries`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `cities` where `cities`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "326f29ce-449c-5ec3-a939-4bafb38258ef",
@@ -2675,30 +2563,6 @@
             "asset",
             "04366"
         ]
-    },
-    {
-        "query": "select * from `oems` where `oems`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `types` where `types`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `products` where `products`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `tags` where `tags`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `coverages` where `coverages`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
@@ -2730,26 +2594,6 @@
             "ceba03e9-cae5-425e-8472-149a735a7246",
             "Document"
         ]
-    },
-    {
-        "query": "select * from `service_groups` where `service_groups`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `currencies` where `currencies`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `languages` where `languages`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `distributors` where `distributors`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `service_levels` where `service_levels`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
@@ -3457,14 +3301,6 @@
         ]
     },
     {
-        "query": "select * from `countries` where `countries`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `cities` where `cities`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "326f29ce-449c-5ec3-a939-4bafb38258ef",
@@ -3473,30 +3309,6 @@
             "asset",
             "40019"
         ]
-    },
-    {
-        "query": "select * from `oems` where `oems`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `types` where `types`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `products` where `products`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `tags` where `tags`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `coverages` where `coverages`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
@@ -3522,26 +3334,6 @@
             "1faf66cd-13f9-4a4e-b043-213564a3efee",
             "Document"
         ]
-    },
-    {
-        "query": "select * from `service_groups` where `service_groups`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `currencies` where `currencies`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `languages` where `languages`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `distributors` where `distributors`.`deleted_at` is null",
-        "bindings": []
-    },
-    {
-        "query": "select * from `service_levels` where `service_levels`.`deleted_at` is null",
-        "bindings": []
     },
     {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",

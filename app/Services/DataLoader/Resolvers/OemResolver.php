@@ -4,11 +4,12 @@ namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Oem;
 use App\Services\DataLoader\Cache\ClosureKey;
+use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Support\Collection;
 
-class OemResolver extends Resolver {
+class OemResolver extends Resolver implements SingletonPersistent {
     public function get(string $key, Closure $factory = null): ?Oem {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($key, $factory);

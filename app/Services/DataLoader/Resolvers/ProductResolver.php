@@ -6,13 +6,14 @@ use App\Models\Model;
 use App\Models\Oem;
 use App\Models\Product;
 use App\Services\DataLoader\Cache\ClosureKey;
+use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Pure;
 
-class ProductResolver extends Resolver {
+class ProductResolver extends Resolver implements SingletonPersistent {
     public function get(Oem $oem, string $sku, Closure $factory = null): ?Product {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($this->getUniqueKey($oem, $sku), $factory);

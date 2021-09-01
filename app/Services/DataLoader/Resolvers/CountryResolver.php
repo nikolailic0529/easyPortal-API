@@ -4,12 +4,13 @@ namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Country;
 use App\Services\DataLoader\Cache\ClosureKey;
+use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
-class CountryResolver extends Resolver {
+class CountryResolver extends Resolver implements SingletonPersistent {
     public function get(string $code, Closure $factory = null): ?Country {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($code, $factory);

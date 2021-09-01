@@ -5,13 +5,14 @@ namespace App\Services\DataLoader\Resolvers;
 use App\Models\Model;
 use App\Models\Type;
 use App\Services\DataLoader\Cache\ClosureKey;
+use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Pure;
 
-class TypeResolver extends Resolver {
+class TypeResolver extends Resolver implements SingletonPersistent {
     public function get(Model $model, string $key, Closure $factory = null): ?Type {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($this->getUniqueKey($model, $key), $factory);
