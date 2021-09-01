@@ -15,6 +15,53 @@
         ]
     },
     {
+        "query": "select * from `locations` where `locations`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
+        "bindings": [
+            "000a227a-660d-477c-8fdf-ce9be4aa5818",
+            "0013a4cf-8654-4a5b-b747-d29746704f09",
+            "002b83e1-6107-4098-89f1-fe5602bef8ce",
+            "0040fc99-9023-4847-aff0-317aff613050",
+            "0048be0f-a435-45cc-ac9d-2fe215991ebf",
+            "0049fc18-6477-4b4f-a637-ef0f27e082d4",
+            "005d9b87-ba6c-4612-b3a0-45dbe7c7dbdd",
+            "006218e4-47c0-4363-ab9f-91e91ff1baac",
+            "0066dc39-3655-43bf-9cb8-3dcc006987ff",
+            "0067eb04-2fca-49f9-8fd8-4996ce4b3668",
+            "Reseller"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "000a227a-660d-477c-8fdf-ce9be4aa5818",
+            "0013a4cf-8654-4a5b-b747-d29746704f09",
+            "002b83e1-6107-4098-89f1-fe5602bef8ce",
+            "0040fc99-9023-4847-aff0-317aff613050",
+            "0048be0f-a435-45cc-ac9d-2fe215991ebf",
+            "0049fc18-6477-4b4f-a637-ef0f27e082d4",
+            "005d9b87-ba6c-4612-b3a0-45dbe7c7dbdd",
+            "006218e4-47c0-4363-ab9f-91e91ff1baac",
+            "0066dc39-3655-43bf-9cb8-3dcc006987ff",
+            "0067eb04-2fca-49f9-8fd8-4996ce4b3668",
+            "Reseller"
+        ]
+    },
+    {
+        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`deleted_at` is null and `location_types`.`location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
+        "bindings": [
+            "0b95d6b6-bdb8-591a-8127-a315ddc4b421",
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
+            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
+            "9c3ff521-3cfd-54dc-8e8c-68e8d21528e9",
+            "aa00595d-60cb-53fa-bf65-dd002065f6d5",
+            "bb5cf030-282d-5742-abdb-557648ab4139",
+            "bf325e65-38a6-574d-b6b2-ee166953588e",
+            "c6083f78-ddd9-5474-a9f9-3599e2422b31",
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d"
+        ]
+    },
+    {
         "query": "select * from `types` where `types`.`deleted_at` is null",
         "bindings": []
     },
@@ -22,13 +69,6 @@
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "000a227a-660d-477c-8fdf-ce9be4aa5818"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "000a227a-660d-477c-8fdf-ce9be4aa5818",
-            "Reseller"
         ]
     },
     {
@@ -40,30 +80,6 @@
         "bindings": []
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "78282ba7-a73f-59f8-9871-ba703198d433",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "55245 fahey island suite 985",
-            "000a227a-660d-477c-8fdf-ce9be4aa5818",
-            "reseller",
-            "32277"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "000a227a-660d-477c-8fdf-ce9be4aa5818",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "000a227a-660d-477c-8fdf-ce9be4aa5818"
@@ -76,37 +92,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0013a4cf-8654-4a5b-b747-d29746704f09",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "c9ea0a80-78c9-51b0-b04e-305b6cea7a9a",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "956 lacy isle suite 696",
-            "0013a4cf-8654-4a5b-b747-d29746704f09",
-            "reseller",
-            "43361-9445"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "c6083f78-ddd9-5474-a9f9-3599e2422b31"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0013a4cf-8654-4a5b-b747-d29746704f09",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0013a4cf-8654-4a5b-b747-d29746704f09"
@@ -119,37 +104,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "002b83e1-6107-4098-89f1-fe5602bef8ce",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "17b119b9-4e2f-59be-982f-ae4da47cddf7",
-            "93dff777-6006-5616-bdb5-a56ec97248bb",
-            "6072 filomena curve apt. 851",
-            "002b83e1-6107-4098-89f1-fe5602bef8ce",
-            "reseller",
-            "46510"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "bb5cf030-282d-5742-abdb-557648ab4139"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "002b83e1-6107-4098-89f1-fe5602bef8ce",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "002b83e1-6107-4098-89f1-fe5602bef8ce"
@@ -162,37 +116,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0040fc99-9023-4847-aff0-317aff613050",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
-            "174d1e1c-b984-5ecb-b60b-2663b1981423",
-            "2565 rudolph branch",
-            "0040fc99-9023-4847-aff0-317aff613050",
-            "reseller",
-            "43041-1350"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0040fc99-9023-4847-aff0-317aff613050",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0040fc99-9023-4847-aff0-317aff613050"
@@ -205,37 +128,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0048be0f-a435-45cc-ac9d-2fe215991ebf",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "875 mitchel cape",
-            "0048be0f-a435-45cc-ac9d-2fe215991ebf",
-            "reseller",
-            "43298"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "305091d8-9610-5841-9743-85d05494e34c"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0048be0f-a435-45cc-ac9d-2fe215991ebf",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0048be0f-a435-45cc-ac9d-2fe215991ebf"
@@ -248,37 +140,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0049fc18-6477-4b4f-a637-ef0f27e082d4",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "a554fcad-a82c-5197-a02d-6132c71ea8e1",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "9690 huels mills",
-            "0049fc18-6477-4b4f-a637-ef0f27e082d4",
-            "reseller",
-            "05129"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "79ae5ab6-152f-5f9a-8672-ba31413706dc"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0049fc18-6477-4b4f-a637-ef0f27e082d4",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0049fc18-6477-4b4f-a637-ef0f27e082d4"
@@ -291,37 +152,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "005d9b87-ba6c-4612-b3a0-45dbe7c7dbdd",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "78609dcb-283b-510b-91c4-7466bd9a0b5a",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "34774 walker track",
-            "005d9b87-ba6c-4612-b3a0-45dbe7c7dbdd",
-            "reseller",
-            "27331"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "0b95d6b6-bdb8-591a-8127-a315ddc4b421"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "005d9b87-ba6c-4612-b3a0-45dbe7c7dbdd",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "005d9b87-ba6c-4612-b3a0-45dbe7c7dbdd"
@@ -334,37 +164,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "006218e4-47c0-4363-ab9f-91e91ff1baac",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "17b119b9-4e2f-59be-982f-ae4da47cddf7",
-            "93dff777-6006-5616-bdb5-a56ec97248bb",
-            "528 sporer manor",
-            "006218e4-47c0-4363-ab9f-91e91ff1baac",
-            "reseller",
-            "46510"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "9c3ff521-3cfd-54dc-8e8c-68e8d21528e9"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "006218e4-47c0-4363-ab9f-91e91ff1baac",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "006218e4-47c0-4363-ab9f-91e91ff1baac"
@@ -377,37 +176,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0066dc39-3655-43bf-9cb8-3dcc006987ff",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "dc107b85-353d-53ef-bfeb-46b656a50ebc",
-            "93dff777-6006-5616-bdb5-a56ec97248bb",
-            "357 cathy walk",
-            "0066dc39-3655-43bf-9cb8-3dcc006987ff",
-            "reseller",
-            "00472-3645"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "bf325e65-38a6-574d-b6b2-ee166953588e"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0066dc39-3655-43bf-9cb8-3dcc006987ff",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0066dc39-3655-43bf-9cb8-3dcc006987ff"
@@ -420,37 +188,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0067eb04-2fca-49f9-8fd8-4996ce4b3668",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "79b8eb7b-1822-558a-99f1-a75648af059c",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "76732 jayce fork apt. 268",
-            "0067eb04-2fca-49f9-8fd8-4996ce4b3668",
-            "reseller",
-            "04706-1877"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "aa00595d-60cb-53fa-bf65-dd002065f6d5"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0067eb04-2fca-49f9-8fd8-4996ce4b3668",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0067eb04-2fca-49f9-8fd8-4996ce4b3668"
@@ -527,367 +264,150 @@
         ]
     },
     {
-        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "006ae88b-b2b1-4ca7-b07d-3ccfa353842e"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select * from `locations` where `locations`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
         "bindings": [
             "006ae88b-b2b1-4ca7-b07d-3ccfa353842e",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "02fa1398-8d68-5cd1-b212-cbd485f67417",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "505 leuschke underpass",
-            "006ae88b-b2b1-4ca7-b07d-3ccfa353842e",
-            "reseller",
-            "15253"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "b996cf39-fa11-5951-b47d-fcd31cf500b4"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "006ae88b-b2b1-4ca7-b07d-3ccfa353842e",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
-        "bindings": [
-            "006ae88b-b2b1-4ca7-b07d-3ccfa353842e"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "00759fe9-9614-4147-a1f9-83d9fd5472e7"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
             "00759fe9-9614-4147-a1f9-83d9fd5472e7",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "bfa93f3d-cc59-5bd0-87e0-34df5e4759f7",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "53837 quitzon mount suite 200",
-            "00759fe9-9614-4147-a1f9-83d9fd5472e7",
-            "reseller",
-            "09076-3219"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "673f7541-1538-5839-93dc-cb386aa163cf"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00759fe9-9614-4147-a1f9-83d9fd5472e7",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
-        "bindings": [
-            "00759fe9-9614-4147-a1f9-83d9fd5472e7"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "0075f877-bfaa-4014-a520-4f10331763bd"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
             "0075f877-bfaa-4014-a520-4f10331763bd",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "faa04214-add0-5aa9-8316-6ae79cf767cc",
-            "93dff777-6006-5616-bdb5-a56ec97248bb",
-            "7205 jacobs fort apt. 913",
-            "0075f877-bfaa-4014-a520-4f10331763bd",
-            "reseller",
-            "26442"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "0a58eb87-b006-5bc3-97cb-2e4cc768fe09"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0075f877-bfaa-4014-a520-4f10331763bd",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
-        "bindings": [
-            "0075f877-bfaa-4014-a520-4f10331763bd"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "007646a5-c5b9-4929-9e94-9c09eaff90e5"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
             "007646a5-c5b9-4929-9e94-9c09eaff90e5",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "445e2b40-4e67-516a-a190-cf516597223c",
-            "174d1e1c-b984-5ecb-b60b-2663b1981423",
-            "9813 hammes mission apt. 813",
-            "007646a5-c5b9-4929-9e94-9c09eaff90e5",
-            "reseller",
-            "00288"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "44347218-7205-5a06-91b5-610fad8e938c"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "007646a5-c5b9-4929-9e94-9c09eaff90e5",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
-        "bindings": [
-            "007646a5-c5b9-4929-9e94-9c09eaff90e5"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "007657c9-b620-445b-8676-01e491661b4a"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
             "007657c9-b620-445b-8676-01e491661b4a",
+            "0079c4d5-8a80-4b3e-9f79-579d4e73eaae",
+            "0079e60d-1c53-4a85-9edd-31ec6324c96e",
+            "0099dc6a-9641-4bf9-8e35-84b91286b7bd",
+            "009a0762-e369-4efb-a88a-1a8b49e1ab14",
+            "00a51569-935d-4155-971b-05713d3f860c",
             "Reseller"
         ]
     },
     {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
+            "006ae88b-b2b1-4ca7-b07d-3ccfa353842e",
+            "00759fe9-9614-4147-a1f9-83d9fd5472e7",
+            "0075f877-bfaa-4014-a520-4f10331763bd",
+            "007646a5-c5b9-4929-9e94-9c09eaff90e5",
             "007657c9-b620-445b-8676-01e491661b4a",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
-        "bindings": [
-            "007657c9-b620-445b-8676-01e491661b4a"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "0079c4d5-8a80-4b3e-9f79-579d4e73eaae"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
             "0079c4d5-8a80-4b3e-9f79-579d4e73eaae",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "32b14a11-df88-5f43-8ee7-ba5e280ee7f0",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "56371 ernser avenue suite 176",
-            "0079c4d5-8a80-4b3e-9f79-579d4e73eaae",
-            "reseller",
-            "19985"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "4be53773-2fc4-524c-88ca-759c7e974759"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0079c4d5-8a80-4b3e-9f79-579d4e73eaae",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
-        "bindings": [
-            "0079c4d5-8a80-4b3e-9f79-579d4e73eaae"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "0079e60d-1c53-4a85-9edd-31ec6324c96e"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
             "0079e60d-1c53-4a85-9edd-31ec6324c96e",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "52954228-f0ad-5e9f-a43d-a848768d65ec",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "3819 reichert mount apt. 757",
-            "0079e60d-1c53-4a85-9edd-31ec6324c96e",
-            "reseller",
-            "92135"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "63472d7e-4cbf-51c2-9909-05e2cbca91be"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0079e60d-1c53-4a85-9edd-31ec6324c96e",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
-        "bindings": [
-            "0079e60d-1c53-4a85-9edd-31ec6324c96e"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "0099dc6a-9641-4bf9-8e35-84b91286b7bd"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
             "0099dc6a-9641-4bf9-8e35-84b91286b7bd",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "f63fa7f7-24f2-5f5a-809e-224ab0783ed1",
-            "93dff777-6006-5616-bdb5-a56ec97248bb",
-            "6529 mitchell lodge",
-            "0099dc6a-9641-4bf9-8e35-84b91286b7bd",
-            "reseller",
-            "43810-6565"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "9166167a-70ae-5591-a284-bb6b14de83e8"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0099dc6a-9641-4bf9-8e35-84b91286b7bd",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
-        "bindings": [
-            "0099dc6a-9641-4bf9-8e35-84b91286b7bd"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "009a0762-e369-4efb-a88a-1a8b49e1ab14"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
             "009a0762-e369-4efb-a88a-1a8b49e1ab14",
+            "00a51569-935d-4155-971b-05713d3f860c",
             "Reseller"
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`deleted_at` is null and `location_types`.`location_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "ac9f658a-0a0d-5045-aff8-23c49f92ea61",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "43204 cicero lodge",
-            "009a0762-e369-4efb-a88a-1a8b49e1ab14",
-            "reseller",
-            "08266"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
+            "0a58eb87-b006-5bc3-97cb-2e4cc768fe09",
+            "44347218-7205-5a06-91b5-610fad8e938c",
+            "4be53773-2fc4-524c-88ca-759c7e974759",
+            "63472d7e-4cbf-51c2-9909-05e2cbca91be",
+            "673f7541-1538-5839-93dc-cb386aa163cf",
+            "9166167a-70ae-5591-a284-bb6b14de83e8",
+            "b996cf39-fa11-5951-b47d-fcd31cf500b4",
             "e62950ed-417e-5384-9d3c-be30424ca8ec"
         ]
     },
     {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
+        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
-            "009a0762-e369-4efb-a88a-1a8b49e1ab14",
-            "Reseller"
+            "006ae88b-b2b1-4ca7-b07d-3ccfa353842e"
+        ]
+    },
+    {
+        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "006ae88b-b2b1-4ca7-b07d-3ccfa353842e"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "00759fe9-9614-4147-a1f9-83d9fd5472e7"
+        ]
+    },
+    {
+        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "00759fe9-9614-4147-a1f9-83d9fd5472e7"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "0075f877-bfaa-4014-a520-4f10331763bd"
+        ]
+    },
+    {
+        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "0075f877-bfaa-4014-a520-4f10331763bd"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "007646a5-c5b9-4929-9e94-9c09eaff90e5"
+        ]
+    },
+    {
+        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "007646a5-c5b9-4929-9e94-9c09eaff90e5"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "007657c9-b620-445b-8676-01e491661b4a"
+        ]
+    },
+    {
+        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "007657c9-b620-445b-8676-01e491661b4a"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "0079c4d5-8a80-4b3e-9f79-579d4e73eaae"
+        ]
+    },
+    {
+        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "0079c4d5-8a80-4b3e-9f79-579d4e73eaae"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "0079e60d-1c53-4a85-9edd-31ec6324c96e"
+        ]
+    },
+    {
+        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "0079e60d-1c53-4a85-9edd-31ec6324c96e"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "0099dc6a-9641-4bf9-8e35-84b91286b7bd"
+        ]
+    },
+    {
+        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "0099dc6a-9641-4bf9-8e35-84b91286b7bd"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "009a0762-e369-4efb-a88a-1a8b49e1ab14"
         ]
     },
     {
@@ -903,20 +423,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00a51569-935d-4155-971b-05713d3f860c",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00a51569-935d-4155-971b-05713d3f860c",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "00a51569-935d-4155-971b-05713d3f860c"
@@ -993,126 +499,80 @@
         ]
     },
     {
-        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "00a65b20-dfd5-4c09-9044-30df44e5b0c3"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select * from `locations` where `locations`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
         "bindings": [
             "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "18c46d84-9392-5b4d-a0aa-757d2e8c8d29",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "41982 daphnee underpass suite 172",
-            "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
-            "reseller",
-            "87998"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "1b99939b-c780-5e17-baf6-c040f864173f"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
-        "bindings": [
-            "00a65b20-dfd5-4c09-9044-30df44e5b0c3"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "00b78668-a24a-43f6-8cff-6ab2cef1d10d"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
             "00b78668-a24a-43f6-8cff-6ab2cef1d10d",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "dab993e3-fd1a-5d0c-a0a4-e0ff7cd03791",
-            "174d1e1c-b984-5ecb-b60b-2663b1981423",
-            "7458 norwood court",
-            "00b78668-a24a-43f6-8cff-6ab2cef1d10d",
-            "reseller",
-            "03557"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "ca350e8f-fc92-535d-ac8c-5371d439ccca"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00b78668-a24a-43f6-8cff-6ab2cef1d10d",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
-        "bindings": [
-            "00b78668-a24a-43f6-8cff-6ab2cef1d10d"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "00c02780-d026-4a8e-a402-f63aca4e65f4"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
             "00c02780-d026-4a8e-a402-f63aca4e65f4",
+            "00c0d1a0-7e56-4e44-ab04-2be0c97c3d0b",
+            "00c871be-e0f6-4577-a4d9-a770878eea15",
+            "00e4a8ff-1d07-428b-acd0-e858973e5707",
+            "01077a8c-ae10-4935-8c9f-dd3a5d1cde2a",
+            "01085380-44ac-4429-b128-28a70140fb67",
+            "0113a00f-f5e2-4c35-b31d-832bf7a4b502",
+            "0119600e-c938-4472-95ba-7855c2b174cc",
             "Reseller"
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
-            "4ad798c6-af75-5237-9d0b-f5e3323bb947",
-            "93dff777-6006-5616-bdb5-a56ec97248bb",
-            "3139 mabel glen",
+            "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
+            "00b78668-a24a-43f6-8cff-6ab2cef1d10d",
             "00c02780-d026-4a8e-a402-f63aca4e65f4",
-            "reseller",
-            "20718-9835"
+            "00c0d1a0-7e56-4e44-ab04-2be0c97c3d0b",
+            "00c871be-e0f6-4577-a4d9-a770878eea15",
+            "00e4a8ff-1d07-428b-acd0-e858973e5707",
+            "01077a8c-ae10-4935-8c9f-dd3a5d1cde2a",
+            "01085380-44ac-4429-b128-28a70140fb67",
+            "0113a00f-f5e2-4c35-b31d-832bf7a4b502",
+            "0119600e-c938-4472-95ba-7855c2b174cc",
+            "Reseller"
         ]
     },
     {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
+        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`deleted_at` is null and `location_types`.`location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
+            "013c5ca2-56be-571e-9ba2-4fbed1a4623b",
+            "1b99939b-c780-5e17-baf6-c040f864173f",
+            "247f5a54-605d-580c-b91f-0a3daae1c462",
+            "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7",
+            "76dc1bd8-f28b-5d78-a1fe-3950002e5872",
+            "8217815e-c85f-5561-909d-53fd76c39857",
+            "b1f6041f-d9ba-56cd-8542-3e6f588a9d58",
+            "ca350e8f-fc92-535d-ac8c-5371d439ccca",
+            "febf1dda-dd9b-5b38-8dd2-72c7efb42f69",
             "fff01968-e122-52ef-becb-2ffbfc259162"
         ]
     },
     {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
+        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
-            "00c02780-d026-4a8e-a402-f63aca4e65f4",
-            "Reseller"
+            "00a65b20-dfd5-4c09-9044-30df44e5b0c3"
+        ]
+    },
+    {
+        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "00a65b20-dfd5-4c09-9044-30df44e5b0c3"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "00b78668-a24a-43f6-8cff-6ab2cef1d10d"
+        ]
+    },
+    {
+        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "00b78668-a24a-43f6-8cff-6ab2cef1d10d"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "00c02780-d026-4a8e-a402-f63aca4e65f4"
         ]
     },
     {
@@ -1128,37 +588,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00c0d1a0-7e56-4e44-ab04-2be0c97c3d0b",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "092a1c8c-bddd-5cf1-a921-4b41c8835536",
-            "93dff777-6006-5616-bdb5-a56ec97248bb",
-            "71887 josefa via",
-            "00c0d1a0-7e56-4e44-ab04-2be0c97c3d0b",
-            "reseller",
-            "83089-3961"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "76dc1bd8-f28b-5d78-a1fe-3950002e5872"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00c0d1a0-7e56-4e44-ab04-2be0c97c3d0b",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "00c0d1a0-7e56-4e44-ab04-2be0c97c3d0b"
@@ -1171,37 +600,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00c871be-e0f6-4577-a4d9-a770878eea15",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "1ef32220-4547-5581-8b7b-986ee08fcbba",
-            "174d1e1c-b984-5ecb-b60b-2663b1981423",
-            "28400 hudson shores",
-            "00c871be-e0f6-4577-a4d9-a770878eea15",
-            "reseller",
-            "90235-5952"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00c871be-e0f6-4577-a4d9-a770878eea15",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "00c871be-e0f6-4577-a4d9-a770878eea15"
@@ -1214,37 +612,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00e4a8ff-1d07-428b-acd0-e858973e5707",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "c6ff9936-ddae-51a3-aa1a-95f8d04f68ab",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "131 simonis flats suite 223",
-            "00e4a8ff-1d07-428b-acd0-e858973e5707",
-            "reseller",
-            "46668"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "8217815e-c85f-5561-909d-53fd76c39857"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00e4a8ff-1d07-428b-acd0-e858973e5707",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "00e4a8ff-1d07-428b-acd0-e858973e5707"
@@ -1257,37 +624,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "01077a8c-ae10-4935-8c9f-dd3a5d1cde2a",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "83a75595-9b20-5c94-af50-9999f1ddc25e",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "89127 rutherford spur",
-            "01077a8c-ae10-4935-8c9f-dd3a5d1cde2a",
-            "reseller",
-            "42035-3868"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "013c5ca2-56be-571e-9ba2-4fbed1a4623b"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "01077a8c-ae10-4935-8c9f-dd3a5d1cde2a",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "01077a8c-ae10-4935-8c9f-dd3a5d1cde2a"
@@ -1300,37 +636,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "01085380-44ac-4429-b128-28a70140fb67",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "33a66e72-16af-5e17-8fe1-1bf6cb2dc5e2",
-            "93dff777-6006-5616-bdb5-a56ec97248bb",
-            "58374 cruickshank creek",
-            "01085380-44ac-4429-b128-28a70140fb67",
-            "reseller",
-            "16880"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "febf1dda-dd9b-5b38-8dd2-72c7efb42f69"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "01085380-44ac-4429-b128-28a70140fb67",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "01085380-44ac-4429-b128-28a70140fb67"
@@ -1343,37 +648,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0113a00f-f5e2-4c35-b31d-832bf7a4b502",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "a347b003-4dd4-56a9-8c05-5a5d4b0ccd6b",
-            "93dff777-6006-5616-bdb5-a56ec97248bb",
-            "165 sipes motorway",
-            "0113a00f-f5e2-4c35-b31d-832bf7a4b502",
-            "reseller",
-            "10262"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "b1f6041f-d9ba-56cd-8542-3e6f588a9d58"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0113a00f-f5e2-4c35-b31d-832bf7a4b502",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0113a00f-f5e2-4c35-b31d-832bf7a4b502"
@@ -1386,37 +660,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0119600e-c938-4472-95ba-7855c2b174cc",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "3b8ff96c-d8fa-56ba-bc76-4dfb5c732583",
-            "174d1e1c-b984-5ecb-b60b-2663b1981423",
-            "335 izaiah grove",
-            "0119600e-c938-4472-95ba-7855c2b174cc",
-            "reseller",
-            "41832-4728"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "247f5a54-605d-580c-b91f-0a3daae1c462"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0119600e-c938-4472-95ba-7855c2b174cc",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0119600e-c938-4472-95ba-7855c2b174cc"
@@ -1493,83 +736,68 @@
         ]
     },
     {
-        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "01359101-5bfa-4dd7-a0cc-3cea193137d8"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select * from `locations` where `locations`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
         "bindings": [
             "01359101-5bfa-4dd7-a0cc-3cea193137d8",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "f31ab8c4-78af-57cb-baac-af467afa0cad",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "104 turcotte tunnel apt. 880",
-            "01359101-5bfa-4dd7-a0cc-3cea193137d8",
-            "reseller",
-            "74753-8304"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "326f29ce-449c-5ec3-a939-4bafb38258ef"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "01359101-5bfa-4dd7-a0cc-3cea193137d8",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
-        "bindings": [
-            "01359101-5bfa-4dd7-a0cc-3cea193137d8"
-        ]
-    },
-    {
-        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "014c23fe-cf3a-4880-be62-5e148f551d9d"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
             "014c23fe-cf3a-4880-be62-5e148f551d9d",
+            "015059c1-2ff4-4a18-8ca9-8cac64d7cbf1",
+            "015516f4-9b7a-4419-82fd-72cd76be8771",
+            "0186e8a0-8b38-47fc-8583-e7c75d3f8ac1",
+            "0192ce0b-f733-470b-a6f6-09e8fe06ec38",
+            "019d772d-6ce8-48dc-8585-22681d2eacac",
+            "019eabdd-e58b-4eb1-905e-975fd7607332",
+            "01a34dcd-4231-4df0-8005-0d3306cd218c",
+            "01a4fea2-737e-4573-8e5e-dd2b4b9fe954",
             "Reseller"
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
-            "83a75595-9b20-5c94-af50-9999f1ddc25e",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "49081 mckayla estate suite 663",
+            "01359101-5bfa-4dd7-a0cc-3cea193137d8",
             "014c23fe-cf3a-4880-be62-5e148f551d9d",
-            "reseller",
-            "42035-3868"
+            "015059c1-2ff4-4a18-8ca9-8cac64d7cbf1",
+            "015516f4-9b7a-4419-82fd-72cd76be8771",
+            "0186e8a0-8b38-47fc-8583-e7c75d3f8ac1",
+            "0192ce0b-f733-470b-a6f6-09e8fe06ec38",
+            "019d772d-6ce8-48dc-8585-22681d2eacac",
+            "019eabdd-e58b-4eb1-905e-975fd7607332",
+            "01a34dcd-4231-4df0-8005-0d3306cd218c",
+            "01a4fea2-737e-4573-8e5e-dd2b4b9fe954",
+            "Reseller"
         ]
     },
     {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
+        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`deleted_at` is null and `location_types`.`location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
+            "2676204d-fe44-53f8-b32f-307cd2dd5d27",
+            "2d91611c-deda-52ac-99a0-3df2f8011a15",
+            "326f29ce-449c-5ec3-a939-4bafb38258ef",
+            "6c52bdce-491f-5593-95ec-79461aa6b233",
+            "71502ff8-2f51-556b-a83c-6170dced49bb",
+            "75fb8baa-cc79-5c63-b040-fdd8d8afae44",
+            "79aa20b0-3def-5ac1-99e0-e5791b5a8640",
+            "c36b16c5-92b1-5c57-aa59-0cbdaadeafe4",
+            "d3462d54-53b1-5c47-967c-35b200db2725",
             "e1662bb7-1086-5384-86eb-10816193115b"
         ]
     },
     {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
+        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
-            "014c23fe-cf3a-4880-be62-5e148f551d9d",
-            "Reseller"
+            "01359101-5bfa-4dd7-a0cc-3cea193137d8"
+        ]
+    },
+    {
+        "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
+        "bindings": [
+            "01359101-5bfa-4dd7-a0cc-3cea193137d8"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "014c23fe-cf3a-4880-be62-5e148f551d9d"
         ]
     },
     {
@@ -1585,37 +813,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "015059c1-2ff4-4a18-8ca9-8cac64d7cbf1",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "0bdbea89-8989-5477-8543-3fa789d479d0",
-            "174d1e1c-b984-5ecb-b60b-2663b1981423",
-            "83555 kuhlman fork",
-            "015059c1-2ff4-4a18-8ca9-8cac64d7cbf1",
-            "reseller",
-            "87261"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "79aa20b0-3def-5ac1-99e0-e5791b5a8640"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "015059c1-2ff4-4a18-8ca9-8cac64d7cbf1",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "015059c1-2ff4-4a18-8ca9-8cac64d7cbf1"
@@ -1628,37 +825,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "015516f4-9b7a-4419-82fd-72cd76be8771",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "9ab7a8a9-6c70-5716-b817-786165f89b3b",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "10184 ahmed common suite 482",
-            "015516f4-9b7a-4419-82fd-72cd76be8771",
-            "reseller",
-            "96275"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "2676204d-fe44-53f8-b32f-307cd2dd5d27"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "015516f4-9b7a-4419-82fd-72cd76be8771",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "015516f4-9b7a-4419-82fd-72cd76be8771"
@@ -1671,37 +837,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0186e8a0-8b38-47fc-8583-e7c75d3f8ac1",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "4bd72487-4380-569a-adec-6a0fd7f76573",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "371 veum stream suite 033",
-            "0186e8a0-8b38-47fc-8583-e7c75d3f8ac1",
-            "reseller",
-            "79575-1442"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "75fb8baa-cc79-5c63-b040-fdd8d8afae44"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0186e8a0-8b38-47fc-8583-e7c75d3f8ac1",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0186e8a0-8b38-47fc-8583-e7c75d3f8ac1"
@@ -1714,37 +849,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0192ce0b-f733-470b-a6f6-09e8fe06ec38",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e5be5e75-97d2-5cd6-9bc8-d077d2e83a0e",
-            "4f594d06-6c38-5241-82b6-41b575c43987",
-            "1458 pagac courts",
-            "0192ce0b-f733-470b-a6f6-09e8fe06ec38",
-            "reseller",
-            "26200-4850"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "71502ff8-2f51-556b-a83c-6170dced49bb"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0192ce0b-f733-470b-a6f6-09e8fe06ec38",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "0192ce0b-f733-470b-a6f6-09e8fe06ec38"
@@ -1757,37 +861,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "019d772d-6ce8-48dc-8585-22681d2eacac",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "d4c100d1-75af-5ea0-8c84-224150bd1843",
-            "1efcf0b7-e56e-5599-8c65-15f2acf3c698",
-            "368 windler ranch suite 631",
-            "019d772d-6ce8-48dc-8585-22681d2eacac",
-            "reseller",
-            "29646-3951"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "d3462d54-53b1-5c47-967c-35b200db2725"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "019d772d-6ce8-48dc-8585-22681d2eacac",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "019d772d-6ce8-48dc-8585-22681d2eacac"
@@ -1800,37 +873,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "019eabdd-e58b-4eb1-905e-975fd7607332",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "41ab2a45-e8b5-5051-8c95-a136721b19f1",
-            "174d1e1c-b984-5ecb-b60b-2663b1981423",
-            "701 dee station",
-            "019eabdd-e58b-4eb1-905e-975fd7607332",
-            "reseller",
-            "56420"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "2d91611c-deda-52ac-99a0-3df2f8011a15"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "019eabdd-e58b-4eb1-905e-975fd7607332",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "019eabdd-e58b-4eb1-905e-975fd7607332"
@@ -1843,37 +885,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "01a34dcd-4231-4df0-8005-0d3306cd218c",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "bfd7ceae-b184-54ab-b660-5d06f9d4e964",
-            "2d19935c-acb9-589a-9005-3e4da6e739ba",
-            "72419 walker lake",
-            "01a34dcd-4231-4df0-8005-0d3306cd218c",
-            "reseller",
-            "52228"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "6c52bdce-491f-5593-95ec-79461aa6b233"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "01a34dcd-4231-4df0-8005-0d3306cd218c",
-            "Reseller"
-        ]
-    },
-    {
         "query": "select * from `organizations` where `organizations`.`id` = ? limit 1",
         "bindings": [
             "01a34dcd-4231-4df0-8005-0d3306cd218c"
@@ -1883,37 +894,6 @@
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "01a4fea2-737e-4573-8e5e-dd2b4b9fe954"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "01a4fea2-737e-4573-8e5e-dd2b4b9fe954",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "95cfb95c-a621-585a-94e2-413e15a9fd37",
-            "93dff777-6006-5616-bdb5-a56ec97248bb",
-            "58448 cruickshank fields apt. 582",
-            "01a4fea2-737e-4573-8e5e-dd2b4b9fe954",
-            "reseller",
-            "72062-4300"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "c36b16c5-92b1-5c57-aa59-0cbdaadeafe4"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "01a4fea2-737e-4573-8e5e-dd2b4b9fe954",
-            "Reseller"
         ]
     },
     {
@@ -1993,40 +973,55 @@
         ]
     },
     {
+        "query": "select * from `locations` where `locations`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
+        "bindings": [
+            "01a66b8b-e865-48bf-9c8e-daba4b3239a2",
+            "01b0c5a2-2036-40d5-985f-e6edc0c2703b",
+            "01c2caf0-6529-4d09-99c6-cc9890e33b7f",
+            "01c45daa-5b06-46ba-a3de-927ed79e6033",
+            "01d6fadd-1b36-4cf9-834e-3a46430cab78",
+            "01d94fc2-0987-4c40-8c46-af29fbb924f8",
+            "01e5d413-1a68-4f16-9e46-ad9fd781579b",
+            "01f149ea-eb28-4357-bbca-046198fe2abe",
+            "01fd4495-dbd8-4fc3-9d68-b0c59bb0815c",
+            "02015448-c2bb-4987-87e0-8b4e94a2ab15",
+            "Reseller"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "01a66b8b-e865-48bf-9c8e-daba4b3239a2",
+            "01b0c5a2-2036-40d5-985f-e6edc0c2703b",
+            "01c2caf0-6529-4d09-99c6-cc9890e33b7f",
+            "01c45daa-5b06-46ba-a3de-927ed79e6033",
+            "01d6fadd-1b36-4cf9-834e-3a46430cab78",
+            "01d94fc2-0987-4c40-8c46-af29fbb924f8",
+            "01e5d413-1a68-4f16-9e46-ad9fd781579b",
+            "01f149ea-eb28-4357-bbca-046198fe2abe",
+            "01fd4495-dbd8-4fc3-9d68-b0c59bb0815c",
+            "02015448-c2bb-4987-87e0-8b4e94a2ab15",
+            "Reseller"
+        ]
+    },
+    {
+        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`deleted_at` is null and `location_types`.`location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
+        "bindings": [
+            "4492c538-0e15-59e2-bb23-e1a4fbb3ccc8",
+            "48b55aa1-76c8-5829-9fec-4295445df191",
+            "89a334cc-2831-5b5d-89fd-06002b07bae8",
+            "8cd09c24-e067-5cc9-8d9f-c9e04697415a",
+            "9b278b6a-88fc-5d33-9c6d-dd4467a1d00a",
+            "aee0c19d-c949-5e4a-b36f-5bbd13c5d4a7",
+            "c29fe394-00c9-51e6-b7ff-9fd382a79e4d",
+            "f5becad7-aebd-5a48-8b63-4dafd2119019",
+            "f987524a-f9ca-50b9-b891-798188b5d074"
+        ]
+    },
+    {
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "01a66b8b-e865-48bf-9c8e-daba4b3239a2"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "01a66b8b-e865-48bf-9c8e-daba4b3239a2",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "d5061e7b-d6d5-5b3a-a56c-6b036bfaa383",
-            "93dff777-6006-5616-bdb5-a56ec97248bb",
-            "595 klein islands suite 750",
-            "01a66b8b-e865-48bf-9c8e-daba4b3239a2",
-            "reseller",
-            "57838"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "9b278b6a-88fc-5d33-9c6d-dd4467a1d00a"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "01a66b8b-e865-48bf-9c8e-daba4b3239a2",
-            "Reseller"
         ]
     },
     {
@@ -2039,37 +1034,6 @@
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "01b0c5a2-2036-40d5-985f-e6edc0c2703b"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "01b0c5a2-2036-40d5-985f-e6edc0c2703b",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "751329de-0889-525b-afb7-3d0abe197d0a",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "8256 bernier overpass",
-            "01b0c5a2-2036-40d5-985f-e6edc0c2703b",
-            "reseller",
-            "98865"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "f987524a-f9ca-50b9-b891-798188b5d074"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "01b0c5a2-2036-40d5-985f-e6edc0c2703b",
-            "Reseller"
         ]
     },
     {
@@ -2082,37 +1046,6 @@
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "01c2caf0-6529-4d09-99c6-cc9890e33b7f"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "01c2caf0-6529-4d09-99c6-cc9890e33b7f",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "85c2d18e-c7a6-549f-a933-e7d10b285807",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "257 joesph ford",
-            "01c2caf0-6529-4d09-99c6-cc9890e33b7f",
-            "reseller",
-            "57339-3026"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "aee0c19d-c949-5e4a-b36f-5bbd13c5d4a7"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "01c2caf0-6529-4d09-99c6-cc9890e33b7f",
-            "Reseller"
         ]
     },
     {
@@ -2125,37 +1058,6 @@
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "01c45daa-5b06-46ba-a3de-927ed79e6033"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "01c45daa-5b06-46ba-a3de-927ed79e6033",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "3e131eeb-27f8-5fae-a894-f8a48fb2b1cd",
-            "174d1e1c-b984-5ecb-b60b-2663b1981423",
-            "226 napoleon club suite 147",
-            "01c45daa-5b06-46ba-a3de-927ed79e6033",
-            "reseller",
-            "61099-2744"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "8cd09c24-e067-5cc9-8d9f-c9e04697415a"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "01c45daa-5b06-46ba-a3de-927ed79e6033",
-            "Reseller"
         ]
     },
     {
@@ -2168,37 +1070,6 @@
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "01d6fadd-1b36-4cf9-834e-3a46430cab78"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "01d6fadd-1b36-4cf9-834e-3a46430cab78",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "df4df5cf-9cc4-5b1f-8763-9ecc76c6a306",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "8237 armstrong mall apt. 452",
-            "01d6fadd-1b36-4cf9-834e-3a46430cab78",
-            "reseller",
-            "27932-5261"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "c29fe394-00c9-51e6-b7ff-9fd382a79e4d"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "01d6fadd-1b36-4cf9-834e-3a46430cab78",
-            "Reseller"
         ]
     },
     {
@@ -2211,37 +1082,6 @@
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "01d94fc2-0987-4c40-8c46-af29fbb924f8"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "01d94fc2-0987-4c40-8c46-af29fbb924f8",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "96f5ed2e-4ef1-5c3e-a8c5-86db46abc79e",
-            "93dff777-6006-5616-bdb5-a56ec97248bb",
-            "5446 tillman station",
-            "01d94fc2-0987-4c40-8c46-af29fbb924f8",
-            "reseller",
-            "06514-0048"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "48b55aa1-76c8-5829-9fec-4295445df191"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "01d94fc2-0987-4c40-8c46-af29fbb924f8",
-            "Reseller"
         ]
     },
     {
@@ -2254,20 +1094,6 @@
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "01e5d413-1a68-4f16-9e46-ad9fd781579b"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "01e5d413-1a68-4f16-9e46-ad9fd781579b",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "01e5d413-1a68-4f16-9e46-ad9fd781579b",
-            "Reseller"
         ]
     },
     {
@@ -2280,37 +1106,6 @@
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "01f149ea-eb28-4357-bbca-046198fe2abe"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "01f149ea-eb28-4357-bbca-046198fe2abe",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "19b7c700-0727-5683-98e3-18f421f2e275",
-            "93dff777-6006-5616-bdb5-a56ec97248bb",
-            "588 hayes junction suite 050",
-            "01f149ea-eb28-4357-bbca-046198fe2abe",
-            "reseller",
-            "44225"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "89a334cc-2831-5b5d-89fd-06002b07bae8"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "01f149ea-eb28-4357-bbca-046198fe2abe",
-            "Reseller"
         ]
     },
     {
@@ -2323,37 +1118,6 @@
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "01fd4495-dbd8-4fc3-9d68-b0c59bb0815c"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "01fd4495-dbd8-4fc3-9d68-b0c59bb0815c",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "377beb4c-2c47-5a14-b249-38dddb33c1e0",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "44018 greenholt prairie suite 628",
-            "01fd4495-dbd8-4fc3-9d68-b0c59bb0815c",
-            "reseller",
-            "12122"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "4492c538-0e15-59e2-bb23-e1a4fbb3ccc8"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "01fd4495-dbd8-4fc3-9d68-b0c59bb0815c",
-            "Reseller"
         ]
     },
     {
@@ -2366,37 +1130,6 @@
         "query": "select `statuses`.*, `reseller_statuses`.`reseller_id` as `pivot_reseller_id`, `reseller_statuses`.`status_id` as `pivot_status_id`, `reseller_statuses`.`created_at` as `pivot_created_at`, `reseller_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `reseller_statuses` on `statuses`.`id` = `reseller_statuses`.`status_id` where `reseller_statuses`.`reseller_id` = ? and `reseller_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "02015448-c2bb-4987-87e0-8b4e94a2ab15"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "02015448-c2bb-4987-87e0-8b4e94a2ab15",
-            "Reseller"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "9a5a225f-e72e-5a25-925c-ea6b2de00d20",
-            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
-            "7905 georgiana ramp",
-            "02015448-c2bb-4987-87e0-8b4e94a2ab15",
-            "reseller",
-            "97695-5926"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "f5becad7-aebd-5a48-8b63-4dafd2119019"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "02015448-c2bb-4987-87e0-8b4e94a2ab15",
-            "Reseller"
         ]
     },
     {

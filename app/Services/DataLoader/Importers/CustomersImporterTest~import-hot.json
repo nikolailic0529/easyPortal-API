@@ -15,6 +15,72 @@
         ]
     },
     {
+        "query": "select * from `locations` where `locations`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
+        "bindings": [
+            "000514de-cbf8-4955-b027-fc94e44e24a7",
+            "00086c84-47ba-4796-a753-b6ab59580865",
+            "0008751b-2d84-4edf-9075-789a071a84d0",
+            "000cbefe-925a-43e1-a67d-31fe0b73ab71",
+            "000db0c8-7c7e-48cc-83ba-3eeb65ac49d5",
+            "0012d3f3-144e-43db-b40e-66b4d8604d9e",
+            "00162413-6913-41cf-b328-f441d958ae75",
+            "00168fb1-b86c-42f0-abab-6582ea1a865e",
+            "0016b65f-d08d-4a94-9050-58c1c9066fa5",
+            "001891b4-fe07-4d88-9a01-816a1c4709cc",
+            "Customer"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "000514de-cbf8-4955-b027-fc94e44e24a7",
+            "00086c84-47ba-4796-a753-b6ab59580865",
+            "0008751b-2d84-4edf-9075-789a071a84d0",
+            "000cbefe-925a-43e1-a67d-31fe0b73ab71",
+            "000db0c8-7c7e-48cc-83ba-3eeb65ac49d5",
+            "0012d3f3-144e-43db-b40e-66b4d8604d9e",
+            "00162413-6913-41cf-b328-f441d958ae75",
+            "00168fb1-b86c-42f0-abab-6582ea1a865e",
+            "0016b65f-d08d-4a94-9050-58c1c9066fa5",
+            "001891b4-fe07-4d88-9a01-816a1c4709cc",
+            "Customer"
+        ]
+    },
+    {
+        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`deleted_at` is null and `location_types`.`location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
+        "bindings": [
+            "02fa1398-8d68-5cd1-b212-cbd485f67417",
+            "17b119b9-4e2f-59be-982f-ae4da47cddf7",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e",
+            "52954228-f0ad-5e9f-a43d-a848768d65ec",
+            "5ce84092-2672-567d-9178-fa3fa96560e8",
+            "5e30ce04-ad54-528a-8290-4e461cffe5e9",
+            "627f7de9-a951-517f-9fc9-ba71001eee39",
+            "9c9d3f46-1ace-5418-99b1-99afcc35060d",
+            "ac9f658a-0a0d-5045-aff8-23c49f92ea61",
+            "dc107b85-353d-53ef-bfeb-46b656a50ebc"
+        ]
+    },
+    {
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
+        "bindings": [
+            "32b14a11-df88-5f43-8ee7-ba5e280ee7f0",
+            "49030c74-0bdc-5c4c-a0c5-1c74c8806097",
+            "5a86b4c6-2fe0-52e2-b925-97be85345f0d",
+            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
+            "5e34364e-a2d2-5b3d-bc4a-211e25b210c5",
+            "66d17114-c49a-545f-9d9c-84c436abdbc6",
+            "6acde16b-e2c7-5cb8-8fee-1859142ee86b",
+            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
+            "bd0c34db-542e-55ff-84f1-309e785c25b3",
+            "bf3e54d2-37a0-585e-835b-80ddee8de633",
+            "c6083f78-ddd9-5474-a9f9-3599e2422b31",
+            "c8526c37-fec0-5a56-aead-fd820acdfb51",
+            "f14bc56f-717f-5132-94af-3eba66d9158e",
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53"
+        ]
+    },
+    {
         "query": "select * from `types` where `types`.`deleted_at` is null",
         "bindings": []
     },
@@ -29,28 +95,6 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "cheyenne murray",
-            "000514de-cbf8-4955-b027-fc94e44e24a7",
-            "customer",
-            "+16304523199"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "c6083f78-ddd9-5474-a9f9-3599e2422b31"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "000514de-cbf8-4955-b027-fc94e44e24a7",
-            "Customer"
-        ]
-    },
-    {
         "query": "select * from `countries` where `countries`.`deleted_at` is null",
         "bindings": []
     },
@@ -59,94 +103,9 @@
         "bindings": []
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "0d8b1849-cb13-5658-b504-726208f6ccae",
-            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
-            "58296 kreiger parkway apt. 754",
-            "000514de-cbf8-4955-b027-fc94e44e24a7",
-            "customer",
-            "40266-5262"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "17b119b9-4e2f-59be-982f-ae4da47cddf7"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "000514de-cbf8-4955-b027-fc94e44e24a7",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "00086c84-47ba-4796-a753-b6ab59580865"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "prof. jace lowe",
-            "00086c84-47ba-4796-a753-b6ab59580865",
-            "customer",
-            "+19708937867"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "prof. jace lowe",
-            "00086c84-47ba-4796-a753-b6ab59580865",
-            "customer",
-            "+17748947739"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00086c84-47ba-4796-a753-b6ab59580865",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "bb5cf030-282d-5742-abdb-557648ab4139",
-            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
-            "5301 stehr extension apt. 752",
-            "00086c84-47ba-4796-a753-b6ab59580865",
-            "customer",
-            "78666"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "5ce84092-2672-567d-9178-fa3fa96560e8"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00086c84-47ba-4796-a753-b6ab59580865",
-            "Customer"
         ]
     },
     {
@@ -156,116 +115,9 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "ignacio baumbach",
-            "0008751b-2d84-4edf-9075-789a071a84d0",
-            "customer",
-            "+18059442131"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0008751b-2d84-4edf-9075-789a071a84d0",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "305091d8-9610-5841-9743-85d05494e34c",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "2464 hyatt rue",
-            "0008751b-2d84-4edf-9075-789a071a84d0",
-            "customer",
-            "11872-8264"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0008751b-2d84-4edf-9075-789a071a84d0",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "000cbefe-925a-43e1-a67d-31fe0b73ab71"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "mrs. violette schmidt",
-            "000cbefe-925a-43e1-a67d-31fe0b73ab71",
-            "customer",
-            "+17433651140"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "luna oberbrunner",
-            "000cbefe-925a-43e1-a67d-31fe0b73ab71",
-            "customer",
-            "+16609315797"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "66d17114-c49a-545f-9d9c-84c436abdbc6"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "5a86b4c6-2fe0-52e2-b925-97be85345f0d"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "000cbefe-925a-43e1-a67d-31fe0b73ab71",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "78609dcb-283b-510b-91c4-7466bd9a0b5a",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "222 wyatt plains apt. 143",
-            "000cbefe-925a-43e1-a67d-31fe0b73ab71",
-            "customer",
-            "78162"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "dc107b85-353d-53ef-bfeb-46b656a50ebc"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "000cbefe-925a-43e1-a67d-31fe0b73ab71",
-            "Customer"
         ]
     },
     {
@@ -275,116 +127,9 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "janessa towne",
-            "000db0c8-7c7e-48cc-83ba-3eeb65ac49d5",
-            "customer",
-            "+18287800960"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "ilene eichmann",
-            "000db0c8-7c7e-48cc-83ba-3eeb65ac49d5",
-            "customer",
-            "+18287800960"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "bd0c34db-542e-55ff-84f1-309e785c25b3"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "5e34364e-a2d2-5b3d-bc4a-211e25b210c5"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "000db0c8-7c7e-48cc-83ba-3eeb65ac49d5",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "5850 fadel courts",
-            "000db0c8-7c7e-48cc-83ba-3eeb65ac49d5",
-            "customer",
-            "23548"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "02fa1398-8d68-5cd1-b212-cbd485f67417"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "000db0c8-7c7e-48cc-83ba-3eeb65ac49d5",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "0012d3f3-144e-43db-b40e-66b4d8604d9e"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "hillard gottlieb",
-            "0012d3f3-144e-43db-b40e-66b4d8604d9e",
-            "customer",
-            "+15802387204"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "6acde16b-e2c7-5cb8-8fee-1859142ee86b"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0012d3f3-144e-43db-b40e-66b4d8604d9e",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "b996cf39-fa11-5951-b47d-fcd31cf500b4",
-            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
-            "390 rau garden",
-            "0012d3f3-144e-43db-b40e-66b4d8604d9e",
-            "customer",
-            "40822"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "627f7de9-a951-517f-9fc9-ba71001eee39"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0012d3f3-144e-43db-b40e-66b4d8604d9e",
-            "Customer"
         ]
     },
     {
@@ -394,101 +139,9 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "dr. kenyatta nader ii",
-            "00162413-6913-41cf-b328-f441d958ae75",
-            "customer",
-            "+16067789757"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "49030c74-0bdc-5c4c-a0c5-1c74c8806097"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00162413-6913-41cf-b328-f441d958ae75",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "faa04214-add0-5aa9-8316-6ae79cf767cc",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "5918 johns center",
-            "00162413-6913-41cf-b328-f441d958ae75",
-            "customer",
-            "35289-2533"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "5e30ce04-ad54-528a-8290-4e461cffe5e9"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00162413-6913-41cf-b328-f441d958ae75",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "00168fb1-b86c-42f0-abab-6582ea1a865e"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "mr. baron collins ii",
-            "00168fb1-b86c-42f0-abab-6582ea1a865e",
-            "customer",
-            "+14849813994"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "32b14a11-df88-5f43-8ee7-ba5e280ee7f0"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00168fb1-b86c-42f0-abab-6582ea1a865e",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "371c2d0c-e7a2-5d16-9fd4-1a8a85325c04",
-            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
-            "4754 jayce ridges suite 350",
-            "00168fb1-b86c-42f0-abab-6582ea1a865e",
-            "customer",
-            "85390"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "52954228-f0ad-5e9f-a43d-a848768d65ec"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00168fb1-b86c-42f0-abab-6582ea1a865e",
-            "Customer"
         ]
     },
     {
@@ -498,115 +151,9 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "cierra mills",
-            "0016b65f-d08d-4a94-9050-58c1c9066fa5",
-            "customer",
-            "+17541648069"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "lesly jacobs dds",
-            "0016b65f-d08d-4a94-9050-58c1c9066fa5",
-            "customer"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "c8526c37-fec0-5a56-aead-fd820acdfb51"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "f14bc56f-717f-5132-94af-3eba66d9158e"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0016b65f-d08d-4a94-9050-58c1c9066fa5",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "63472d7e-4cbf-51c2-9909-05e2cbca91be",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "39176 miller inlet suite 393",
-            "0016b65f-d08d-4a94-9050-58c1c9066fa5",
-            "customer",
-            "23925"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "ac9f658a-0a0d-5045-aff8-23c49f92ea61"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0016b65f-d08d-4a94-9050-58c1c9066fa5",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "001891b4-fe07-4d88-9a01-816a1c4709cc"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "yasmeen kulas dvm",
-            "001891b4-fe07-4d88-9a01-816a1c4709cc",
-            "customer",
-            "+14587809213"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "bf3e54d2-37a0-585e-835b-80ddee8de633"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "001891b4-fe07-4d88-9a01-816a1c4709cc",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e62950ed-417e-5384-9d3c-be30424ca8ec",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "660 kunze green",
-            "001891b4-fe07-4d88-9a01-816a1c4709cc",
-            "customer",
-            "84115-6286"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "9c9d3f46-1ace-5418-99b1-99afcc35060d"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "001891b4-fe07-4d88-9a01-816a1c4709cc",
-            "Customer"
         ]
     },
     {
@@ -640,55 +187,73 @@
         ]
     },
     {
-        "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "001e8e14-f724-4a25-85b4-df4ed547a822"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "vicky toy",
-            "001e8e14-f724-4a25-85b4-df4ed547a822",
-            "customer",
-            "+15408658208"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "ca350e8f-fc92-535d-ac8c-5371d439ccca"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select * from `locations` where `locations`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
         "bindings": [
             "001e8e14-f724-4a25-85b4-df4ed547a822",
+            "0027048e-cab3-4ddc-8ef3-cd701a6e4639",
+            "00287225-33bf-471b-8642-c2daa9c413f8",
+            "002a6618-f02a-49af-8f4f-8bce8876318f",
+            "002dbd7c-6cf9-4742-b4a5-4c759f3c4c55",
+            "002e1544-0996-4bd1-852b-43497fde643a",
+            "002f8f2e-1cd9-40b9-bc11-60769495f733",
+            "00304660-44aa-446d-9b52-72ab9858fbe4",
+            "003073af-d3a8-49b2-bed7-678ba80d1890",
+            "00377726-408c-4090-b2b5-527650642d1f",
             "Customer"
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
-            "b17c906a-d184-5c69-ba1b-330d29815dc6",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "2146 nico expressway suite 088",
             "001e8e14-f724-4a25-85b4-df4ed547a822",
-            "customer",
-            "29662-9247"
+            "0027048e-cab3-4ddc-8ef3-cd701a6e4639",
+            "00287225-33bf-471b-8642-c2daa9c413f8",
+            "002a6618-f02a-49af-8f4f-8bce8876318f",
+            "002dbd7c-6cf9-4742-b4a5-4c759f3c4c55",
+            "002e1544-0996-4bd1-852b-43497fde643a",
+            "002f8f2e-1cd9-40b9-bc11-60769495f733",
+            "00304660-44aa-446d-9b52-72ab9858fbe4",
+            "003073af-d3a8-49b2-bed7-678ba80d1890",
+            "00377726-408c-4090-b2b5-527650642d1f",
+            "Customer"
         ]
     },
     {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
+        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`deleted_at` is null and `location_types`.`location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
+            "1ef32220-4547-5581-8b7b-986ee08fcbba",
+            "3b8ff96c-d8fa-56ba-bc76-4dfb5c732583",
+            "44911220-2462-5ac6-810d-e17564293467",
+            "4bd72487-4380-569a-adec-6a0fd7f76573",
+            "4c65a05e-a7d1-5bcc-8474-6feeecc4d49e",
+            "526bd90f-1216-5a9b-b252-1db43a59e718",
+            "83681df0-8340-58b5-8dfa-3504701d4dd4",
+            "8805a24e-730d-5ca0-909a-a43a5d9821f9",
+            "febf1dda-dd9b-5b38-8dd2-72c7efb42f69",
             "fff01968-e122-52ef-becb-2ffbfc259162"
         ]
     },
     {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "001e8e14-f724-4a25-85b4-df4ed547a822",
-            "Customer"
+            "013c5ca2-56be-571e-9ba2-4fbed1a4623b",
+            "092a1c8c-bddd-5cf1-a921-4b41c8835536",
+            "1cae5a31-5e1c-586b-b7e9-4b713284e3ed",
+            "2b68ed25-6b4a-51da-9191-ac4d87f779fc",
+            "41ab2a45-e8b5-5051-8c95-a136721b19f1",
+            "4f594d06-6c38-5241-82b6-41b575c43987",
+            "79aa20b0-3def-5ac1-99e0-e5791b5a8640",
+            "a347b003-4dd4-56a9-8c05-5a5d4b0ccd6b",
+            "acf54392-1f10-517b-bf7b-2a445e5e8826",
+            "b6189514-3ea8-501b-860b-83ca0bcef411",
+            "ca350e8f-fc92-535d-ac8c-5371d439ccca",
+            "d3462d54-53b1-5c47-967c-35b200db2725"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "001e8e14-f724-4a25-85b4-df4ed547a822"
         ]
     },
     {
@@ -698,101 +263,9 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "dolly schumm",
-            "0027048e-cab3-4ddc-8ef3-cd701a6e4639",
-            "customer",
-            "+15341961124"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "092a1c8c-bddd-5cf1-a921-4b41c8835536"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0027048e-cab3-4ddc-8ef3-cd701a6e4639",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "3a4fb277-bbd2-5710-a542-5274e3b53cc2",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "582 modesto meadows apt. 256",
-            "0027048e-cab3-4ddc-8ef3-cd701a6e4639",
-            "customer",
-            "82003"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "1ef32220-4547-5581-8b7b-986ee08fcbba"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0027048e-cab3-4ddc-8ef3-cd701a6e4639",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "00287225-33bf-471b-8642-c2daa9c413f8"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "burnice towne",
-            "00287225-33bf-471b-8642-c2daa9c413f8",
-            "customer",
-            "+12297311194"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "1cae5a31-5e1c-586b-b7e9-4b713284e3ed"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00287225-33bf-471b-8642-c2daa9c413f8",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "6f22eb7c-9df2-5cc7-a383-90e3097e4fc7",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "4291 jadon cove",
-            "00287225-33bf-471b-8642-c2daa9c413f8",
-            "customer",
-            "93216"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "83681df0-8340-58b5-8dfa-3504701d4dd4"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00287225-33bf-471b-8642-c2daa9c413f8",
-            "Customer"
         ]
     },
     {
@@ -802,101 +275,9 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "anne cremin",
-            "002a6618-f02a-49af-8f4f-8bce8876318f",
-            "customer",
-            "+19413870463"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "013c5ca2-56be-571e-9ba2-4fbed1a4623b"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "002a6618-f02a-49af-8f4f-8bce8876318f",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "faa04214-add0-5aa9-8316-6ae79cf767cc",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "41559 erdman isle apt. 696",
-            "002a6618-f02a-49af-8f4f-8bce8876318f",
-            "customer",
-            "92576"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "febf1dda-dd9b-5b38-8dd2-72c7efb42f69"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "002a6618-f02a-49af-8f4f-8bce8876318f",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "002dbd7c-6cf9-4742-b4a5-4c759f3c4c55"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "dr. murray johns",
-            "002dbd7c-6cf9-4742-b4a5-4c759f3c4c55",
-            "customer",
-            "+17851614398"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "a347b003-4dd4-56a9-8c05-5a5d4b0ccd6b"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "002dbd7c-6cf9-4742-b4a5-4c759f3c4c55",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "0920fd14-67d6-501c-a409-3f9ae82c6f81",
-            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
-            "88007 betty prairie apt. 654",
-            "002dbd7c-6cf9-4742-b4a5-4c759f3c4c55",
-            "customer",
-            "39935-7316"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "3b8ff96c-d8fa-56ba-bc76-4dfb5c732583"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "002dbd7c-6cf9-4742-b4a5-4c759f3c4c55",
-            "Customer"
         ]
     },
     {
@@ -906,114 +287,9 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "prof. cristal orn",
-            "002e1544-0996-4bd1-852b-43497fde643a",
-            "customer"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "acf54392-1f10-517b-bf7b-2a445e5e8826"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "002e1544-0996-4bd1-852b-43497fde643a",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "247f5a54-605d-580c-b91f-0a3daae1c462",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "668 ullrich haven suite 461",
-            "002e1544-0996-4bd1-852b-43497fde643a",
-            "customer",
-            "18450"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "8805a24e-730d-5ca0-909a-a43a5d9821f9"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "002e1544-0996-4bd1-852b-43497fde643a",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "002f8f2e-1cd9-40b9-bc11-60769495f733"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "miss taya larkin",
-            "002f8f2e-1cd9-40b9-bc11-60769495f733",
-            "customer",
-            "+14781275214"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "lesly jacobs dds",
-            "002f8f2e-1cd9-40b9-bc11-60769495f733",
-            "customer"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "b6189514-3ea8-501b-860b-83ca0bcef411"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "79aa20b0-3def-5ac1-99e0-e5791b5a8640"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "002f8f2e-1cd9-40b9-bc11-60769495f733",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e62950ed-417e-5384-9d3c-be30424ca8ec",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "402 murray skyway suite 603",
-            "002f8f2e-1cd9-40b9-bc11-60769495f733",
-            "customer",
-            "77837-9483"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "44911220-2462-5ac6-810d-e17564293467"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "002f8f2e-1cd9-40b9-bc11-60769495f733",
-            "Customer"
         ]
     },
     {
@@ -1023,166 +299,15 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "muhammad hane",
-            "00304660-44aa-446d-9b52-72ab9858fbe4",
-            "customer"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "2b68ed25-6b4a-51da-9191-ac4d87f779fc"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00304660-44aa-446d-9b52-72ab9858fbe4",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "9ab7a8a9-6c70-5716-b817-786165f89b3b",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "690 o'keefe island",
-            "00304660-44aa-446d-9b52-72ab9858fbe4",
-            "customer",
-            "85020-9076"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "4bd72487-4380-569a-adec-6a0fd7f76573"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00304660-44aa-446d-9b52-72ab9858fbe4",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "003073af-d3a8-49b2-bed7-678ba80d1890"
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "torrance olson",
-            "003073af-d3a8-49b2-bed7-678ba80d1890",
-            "customer",
-            "+15402003467"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "4f594d06-6c38-5241-82b6-41b575c43987"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "003073af-d3a8-49b2-bed7-678ba80d1890",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "5491a20b-c887-5c3c-958a-da9d3f53f886",
-            "75fb8baa-cc79-5c63-b040-fdd8d8afae44",
-            "973 hamill throughway",
-            "003073af-d3a8-49b2-bed7-678ba80d1890",
-            "customer",
-            "59793"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "526bd90f-1216-5a9b-b252-1db43a59e718"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "003073af-d3a8-49b2-bed7-678ba80d1890",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "00377726-408c-4090-b2b5-527650642d1f"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "kelsi larson",
-            "00377726-408c-4090-b2b5-527650642d1f",
-            "customer"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "curtis parker",
-            "00377726-408c-4090-b2b5-527650642d1f",
-            "customer",
-            "+13605330162"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "d3462d54-53b1-5c47-967c-35b200db2725"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "41ab2a45-e8b5-5051-8c95-a136721b19f1"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00377726-408c-4090-b2b5-527650642d1f",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "1efcf0b7-e56e-5599-8c65-15f2acf3c698",
-            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
-            "8001 erdman estate",
-            "00377726-408c-4090-b2b5-527650642d1f",
-            "customer",
-            "81758"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "4c65a05e-a7d1-5bcc-8474-6feeecc4d49e"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00377726-408c-4090-b2b5-527650642d1f",
-            "Customer"
         ]
     },
     {
@@ -1216,69 +341,76 @@
         ]
     },
     {
+        "query": "select * from `locations` where `locations`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
+        "bindings": [
+            "003b3d2c-0021-4832-8b9e-9b3d4c323fb1",
+            "003d5627-b1a7-4b59-b264-876022125810",
+            "003df82c-b286-408e-a5e2-70d0341ff922",
+            "00416109-eeb9-4e45-9b1b-72a0086c7d12",
+            "0043226b-07c3-410e-8a45-1adb5e4fb9e0",
+            "00489f55-ca17-4136-8a1f-ab9472b8e138",
+            "004abfbe-9f96-4294-8de3-a05955920828",
+            "004c81cc-b4bc-4c9f-97af-65e63c3237ba",
+            "004cd980-fe7b-44f8-b4fd-cc6fb8e5ba07",
+            "005054dc-c14f-4f4a-b9e5-3c5fc8fe0bb2",
+            "Customer"
+        ]
+    },
+    {
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "bindings": [
+            "003b3d2c-0021-4832-8b9e-9b3d4c323fb1",
+            "003d5627-b1a7-4b59-b264-876022125810",
+            "003df82c-b286-408e-a5e2-70d0341ff922",
+            "00416109-eeb9-4e45-9b1b-72a0086c7d12",
+            "0043226b-07c3-410e-8a45-1adb5e4fb9e0",
+            "00489f55-ca17-4136-8a1f-ab9472b8e138",
+            "004abfbe-9f96-4294-8de3-a05955920828",
+            "004c81cc-b4bc-4c9f-97af-65e63c3237ba",
+            "004cd980-fe7b-44f8-b4fd-cc6fb8e5ba07",
+            "005054dc-c14f-4f4a-b9e5-3c5fc8fe0bb2",
+            "Customer"
+        ]
+    },
+    {
+        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`deleted_at` is null and `location_types`.`location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
+        "bindings": [
+            "0c1df1c2-dbe3-583e-bce4-c3e5ab0d08ec",
+            "1041d9c8-06d5-59f5-8ff2-6ee7a0d243c8",
+            "2b5ae47b-3d41-5260-8abb-d3b6d575b089",
+            "742bed67-61ec-5a3a-bae6-176200f86df7",
+            "89a334cc-2831-5b5d-89fd-06002b07bae8",
+            "9fa060ce-86e0-5cf2-872f-a4ed92ae0e01",
+            "b4b34ab6-6220-5ba3-a8bb-cc7b291aacbc",
+            "c36b16c5-92b1-5c57-aa59-0cbdaadeafe4",
+            "f987524a-f9ca-50b9-b891-798188b5d074",
+            "fb52d2dc-b5b1-57e4-80bf-bb16a019b019"
+        ]
+    },
+    {
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
+        "bindings": [
+            "299965cb-6cef-5df3-9867-ca86744459ff",
+            "2fe38673-7923-5548-b854-f6c1ce82bdfa",
+            "31cd877f-51fe-56f1-8a9d-293720ff8434",
+            "377beb4c-2c47-5a14-b249-38dddb33c1e0",
+            "6d356520-24aa-503b-9c4b-4b7be56ee2c8",
+            "6ec01053-58d4-550d-a993-b676c1f4733d",
+            "817732ad-454f-5aab-8bf0-fa41ab854a8c",
+            "88a7396e-a946-59f1-9c89-86b53617d00d",
+            "99a58d5a-0494-5deb-a05d-fd1382cd6ea4",
+            "9aa5871b-dd32-527f-a78a-bbec176e1672",
+            "bfd7ceae-b184-54ab-b660-5d06f9d4e964",
+            "c29fe394-00c9-51e6-b7ff-9fd382a79e4d",
+            "d5061e7b-d6d5-5b3a-a56c-6b036bfaa383",
+            "e830c384-ca20-560d-a06a-9887407bebb1",
+            "f5becad7-aebd-5a48-8b63-4dafd2119019"
+        ]
+    },
+    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "003b3d2c-0021-4832-8b9e-9b3d4c323fb1"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "dr. ignacio wehner",
-            "003b3d2c-0021-4832-8b9e-9b3d4c323fb1",
-            "customer"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "kolby jast dvm",
-            "003b3d2c-0021-4832-8b9e-9b3d4c323fb1",
-            "customer",
-            "+13511180397"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "bfd7ceae-b184-54ab-b660-5d06f9d4e964"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "9aa5871b-dd32-527f-a78a-bbec176e1672"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "003b3d2c-0021-4832-8b9e-9b3d4c323fb1",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "334a7956-4330-5742-9d8b-64e189a0a142",
-            "75fb8baa-cc79-5c63-b040-fdd8d8afae44",
-            "24341 marlee branch",
-            "003b3d2c-0021-4832-8b9e-9b3d4c323fb1",
-            "customer",
-            "76136-3111"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "c36b16c5-92b1-5c57-aa59-0cbdaadeafe4"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "003b3d2c-0021-4832-8b9e-9b3d4c323fb1",
-            "Customer"
         ]
     },
     {
@@ -1288,116 +420,9 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "zoie becker",
-            "003d5627-b1a7-4b59-b264-876022125810",
-            "customer",
-            "+17202295198"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "dr. ressie block",
-            "003d5627-b1a7-4b59-b264-876022125810",
-            "customer",
-            "+17202295198"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "d5061e7b-d6d5-5b3a-a56c-6b036bfaa383"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "299965cb-6cef-5df3-9867-ca86744459ff"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "003d5627-b1a7-4b59-b264-876022125810",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "5e7267ff-2f23-5177-a578-e84266744413",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "4528 rowe loaf",
-            "003d5627-b1a7-4b59-b264-876022125810",
-            "customer",
-            "68666-4005"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "f987524a-f9ca-50b9-b891-798188b5d074"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "003d5627-b1a7-4b59-b264-876022125810",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "003df82c-b286-408e-a5e2-70d0341ff922"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "prof. jordy goldner jr.",
-            "003df82c-b286-408e-a5e2-70d0341ff922",
-            "customer",
-            "+16191697508"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "88a7396e-a946-59f1-9c89-86b53617d00d"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "003df82c-b286-408e-a5e2-70d0341ff922",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "e62950ed-417e-5384-9d3c-be30424ca8ec",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "7261 cory trail",
-            "003df82c-b286-408e-a5e2-70d0341ff922",
-            "customer",
-            "52665"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "b4b34ab6-6220-5ba3-a8bb-cc7b291aacbc"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "003df82c-b286-408e-a5e2-70d0341ff922",
-            "Customer"
         ]
     },
     {
@@ -1407,116 +432,9 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "mrs. marianne vonrueden",
-            "00416109-eeb9-4e45-9b1b-72a0086c7d12",
-            "customer",
-            "+18783254162"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "alvera rau dds",
-            "00416109-eeb9-4e45-9b1b-72a0086c7d12",
-            "customer",
-            "+17187938468"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "31cd877f-51fe-56f1-8a9d-293720ff8434"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "c29fe394-00c9-51e6-b7ff-9fd382a79e4d"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00416109-eeb9-4e45-9b1b-72a0086c7d12",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "3e131eeb-27f8-5fae-a894-f8a48fb2b1cd",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "136 lebsack curve suite 964",
-            "00416109-eeb9-4e45-9b1b-72a0086c7d12",
-            "customer",
-            "03904"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "fb52d2dc-b5b1-57e4-80bf-bb16a019b019"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00416109-eeb9-4e45-9b1b-72a0086c7d12",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "0043226b-07c3-410e-8a45-1adb5e4fb9e0"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "patsy bergstrom",
-            "0043226b-07c3-410e-8a45-1adb5e4fb9e0",
-            "customer",
-            "+19136321437"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "6d356520-24aa-503b-9c4b-4b7be56ee2c8"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0043226b-07c3-410e-8a45-1adb5e4fb9e0",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "96f5ed2e-4ef1-5c3e-a8c5-86db46abc79e",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "400 raynor spurs",
-            "0043226b-07c3-410e-8a45-1adb5e4fb9e0",
-            "customer",
-            "52789-9945"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "89a334cc-2831-5b5d-89fd-06002b07bae8"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0043226b-07c3-410e-8a45-1adb5e4fb9e0",
-            "Customer"
         ]
     },
     {
@@ -1526,100 +444,9 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "muhammad hane",
-            "00489f55-ca17-4136-8a1f-ab9472b8e138",
-            "customer"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "377beb4c-2c47-5a14-b249-38dddb33c1e0"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00489f55-ca17-4136-8a1f-ab9472b8e138",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "190acee6-c3b2-55ce-b1a9-abf9a4ea470f",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "96021 ferry mountain suite 161",
-            "00489f55-ca17-4136-8a1f-ab9472b8e138",
-            "customer",
-            "50705-6352"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "1041d9c8-06d5-59f5-8ff2-6ee7a0d243c8"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00489f55-ca17-4136-8a1f-ab9472b8e138",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "004abfbe-9f96-4294-8de3-a05955920828"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "adelbert schoen phd",
-            "004abfbe-9f96-4294-8de3-a05955920828",
-            "customer",
-            "+13124761326"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "f5becad7-aebd-5a48-8b63-4dafd2119019"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "004abfbe-9f96-4294-8de3-a05955920828",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "964b027c-6543-5bfd-97b5-94a7504e7c42",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "32821 maritza shoal",
-            "004abfbe-9f96-4294-8de3-a05955920828",
-            "customer",
-            "71684-0862"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "0c1df1c2-dbe3-583e-bce4-c3e5ab0d08ec"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "004abfbe-9f96-4294-8de3-a05955920828",
-            "Customer"
         ]
     },
     {
@@ -1629,182 +456,15 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "tristin morissette",
-            "004c81cc-b4bc-4c9f-97af-65e63c3237ba",
-            "customer",
-            "+18648412023"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "817732ad-454f-5aab-8bf0-fa41ab854a8c"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "004c81cc-b4bc-4c9f-97af-65e63c3237ba",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "390 rau garden",
-            "004c81cc-b4bc-4c9f-97af-65e63c3237ba",
-            "customer",
-            "08729"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "742bed67-61ec-5a3a-bae6-176200f86df7"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "004c81cc-b4bc-4c9f-97af-65e63c3237ba",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "004cd980-fe7b-44f8-b4fd-cc6fb8e5ba07"
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "douglas homenick",
-            "004cd980-fe7b-44f8-b4fd-cc6fb8e5ba07",
-            "customer",
-            "+12406418652"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "douglas homenick",
-            "004cd980-fe7b-44f8-b4fd-cc6fb8e5ba07",
-            "customer",
-            "+16173532083"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "2fe38673-7923-5548-b854-f6c1ce82bdfa"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "99a58d5a-0494-5deb-a05d-fd1382cd6ea4"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "004cd980-fe7b-44f8-b4fd-cc6fb8e5ba07",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "bf325e65-38a6-574d-b6b2-ee166953588e",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "343 rau course suite 589",
-            "004cd980-fe7b-44f8-b4fd-cc6fb8e5ba07",
-            "customer",
-            "94567"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "2b5ae47b-3d41-5260-8abb-d3b6d575b089"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "004cd980-fe7b-44f8-b4fd-cc6fb8e5ba07",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "005054dc-c14f-4f4a-b9e5-3c5fc8fe0bb2"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "dr. rogers schaefer dds",
-            "005054dc-c14f-4f4a-b9e5-3c5fc8fe0bb2",
-            "customer",
-            "+17541684043"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "muhammad hane",
-            "005054dc-c14f-4f4a-b9e5-3c5fc8fe0bb2",
-            "customer"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "e830c384-ca20-560d-a06a-9887407bebb1"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "6ec01053-58d4-550d-a993-b676c1f4733d"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "005054dc-c14f-4f4a-b9e5-3c5fc8fe0bb2",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "9ab7a8a9-6c70-5716-b817-786165f89b3b",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "6376 raynor junction apt. 417",
-            "005054dc-c14f-4f4a-b9e5-3c5fc8fe0bb2",
-            "customer",
-            "13770"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "9fa060ce-86e0-5cf2-872f-a4ed92ae0e01"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "005054dc-c14f-4f4a-b9e5-3c5fc8fe0bb2",
-            "Customer"
         ]
     },
     {
@@ -1838,55 +498,72 @@
         ]
     },
     {
-        "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "00561888-ff56-4b14-b6bd-03b2abe0ea79"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "miss janet kuvalis dvm",
-            "00561888-ff56-4b14-b6bd-03b2abe0ea79",
-            "customer",
-            "+18437463121"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "c9f1919e-36fa-57c7-a0fb-3c2942819951"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select * from `locations` where `locations`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
         "bindings": [
             "00561888-ff56-4b14-b6bd-03b2abe0ea79",
+            "00562638-2237-4cdb-b580-2c82a65a94ff",
+            "0056cbfb-47ca-48c7-8b96-9eb30bf9059d",
+            "0059bbe6-5c23-4244-9174-58401ca51e1c",
+            "005bb000-a71b-406f-a48c-016176bd329a",
+            "006043ec-bc4c-4b3e-a754-ca5947ec13fc",
+            "00605988-7243-4135-9da0-2cec80179f6d",
+            "00616f5f-afae-4b5d-b131-824034b6ec39",
+            "0065cb2a-2556-449e-ad18-255f06049b22",
+            "0065fc39-38ba-4f55-9409-82727defe7f0",
             "Customer"
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
-            "3d90701e-bad4-55d7-a231-7041e9a3edd7",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "33380 reginald springs",
             "00561888-ff56-4b14-b6bd-03b2abe0ea79",
-            "customer",
-            "58243-7624"
+            "00562638-2237-4cdb-b580-2c82a65a94ff",
+            "0056cbfb-47ca-48c7-8b96-9eb30bf9059d",
+            "0059bbe6-5c23-4244-9174-58401ca51e1c",
+            "005bb000-a71b-406f-a48c-016176bd329a",
+            "006043ec-bc4c-4b3e-a754-ca5947ec13fc",
+            "00605988-7243-4135-9da0-2cec80179f6d",
+            "00616f5f-afae-4b5d-b131-824034b6ec39",
+            "0065cb2a-2556-449e-ad18-255f06049b22",
+            "0065fc39-38ba-4f55-9409-82727defe7f0",
+            "Customer"
         ]
     },
     {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
+        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`deleted_at` is null and `location_types`.`location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
+            "18874622-2457-5aaa-ab76-fab5e1716258",
+            "47e77a53-f187-5a35-bf21-e89201f4b1dc",
+            "550a6830-a3f8-525f-8d2f-77e43b95c51c",
+            "60536b95-cb1a-53d6-a151-49eda7d7fa24",
+            "641788f5-c59b-509c-b4d6-e2f16252de7e",
+            "701cb66e-d09d-594c-b1e6-123db7b62492",
+            "765c620b-e79b-5291-8290-43f4d17bcd1a",
+            "84e911e7-05cc-5359-98b1-fe80230e4510",
+            "db81160e-cf2a-5a56-95eb-4d03a73e46ec",
             "f74d8b2f-f8df-5432-ad96-59f0422bf5fe"
         ]
     },
     {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "00561888-ff56-4b14-b6bd-03b2abe0ea79",
-            "Customer"
+            "1b6ba92f-f450-59f8-af7d-f378f4dcb314",
+            "24e37b20-08e2-5507-ad80-9496e9ba8919",
+            "3c712361-38e0-516e-99a7-f35077232843",
+            "5ea586a9-f229-5cdf-9f6c-bc421af338e9",
+            "7fb2465b-3158-5c55-983f-ddee3597c1fd",
+            "8d4dd2af-3fca-5d27-97c4-39b35018e19a",
+            "9ba8016e-f41c-5e65-a738-1e8020cad5f8",
+            "c9f1919e-36fa-57c7-a0fb-3c2942819951",
+            "e1f5bc37-8270-5eab-8318-f559f949f52e",
+            "e2041eb0-1440-53aa-b308-6f8dc4932c29",
+            "f89c9951-3e2e-5563-97f1-c64ace939a0c"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "00561888-ff56-4b14-b6bd-03b2abe0ea79"
         ]
     },
     {
@@ -1896,115 +573,9 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "alvera rau dds",
-            "00562638-2237-4cdb-b580-2c82a65a94ff",
-            "customer",
-            "+17187938468"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "muhammad hane",
-            "00562638-2237-4cdb-b580-2c82a65a94ff",
-            "customer"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "7fb2465b-3158-5c55-983f-ddee3597c1fd"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "24e37b20-08e2-5507-ad80-9496e9ba8919"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00562638-2237-4cdb-b580-2c82a65a94ff",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "1e5a3bb3-f19d-5c8e-a1d6-cec4c0c3f710",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "20639 ruecker crossroad suite 800",
-            "00562638-2237-4cdb-b580-2c82a65a94ff",
-            "customer",
-            "08728-8835"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "84e911e7-05cc-5359-98b1-fe80230e4510"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00562638-2237-4cdb-b580-2c82a65a94ff",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "0056cbfb-47ca-48c7-8b96-9eb30bf9059d"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "eileen collier",
-            "0056cbfb-47ca-48c7-8b96-9eb30bf9059d",
-            "customer",
-            "+19364836427"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "8d4dd2af-3fca-5d27-97c4-39b35018e19a"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0056cbfb-47ca-48c7-8b96-9eb30bf9059d",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "eb33d88c-28d0-5057-93d1-4668ef673b37",
-            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
-            "60886 kobe mountain suite 766",
-            "0056cbfb-47ca-48c7-8b96-9eb30bf9059d",
-            "customer",
-            "26305"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "550a6830-a3f8-525f-8d2f-77e43b95c51c"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0056cbfb-47ca-48c7-8b96-9eb30bf9059d",
-            "Customer"
         ]
     },
     {
@@ -2014,101 +585,9 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "prof. ines dickens iii",
-            "0059bbe6-5c23-4244-9174-58401ca51e1c",
-            "customer",
-            "+12159500962"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "5ea586a9-f229-5cdf-9f6c-bc421af338e9"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0059bbe6-5c23-4244-9174-58401ca51e1c",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "b01803f7-ed17-5eaf-a529-6a3f2b24b26a",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "4084 hilpert isle",
-            "0059bbe6-5c23-4244-9174-58401ca51e1c",
-            "customer",
-            "03797"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "765c620b-e79b-5291-8290-43f4d17bcd1a"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0059bbe6-5c23-4244-9174-58401ca51e1c",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "005bb000-a71b-406f-a48c-016176bd329a"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "idell hickle",
-            "005bb000-a71b-406f-a48c-016176bd329a",
-            "customer",
-            "+14635777040"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "9ba8016e-f41c-5e65-a738-1e8020cad5f8"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "005bb000-a71b-406f-a48c-016176bd329a",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "b9c1728b-103f-5855-a750-591a28da63a1",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "71433 doyle freeway",
-            "005bb000-a71b-406f-a48c-016176bd329a",
-            "customer",
-            "06934"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "18874622-2457-5aaa-ab76-fab5e1716258"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "005bb000-a71b-406f-a48c-016176bd329a",
-            "Customer"
         ]
     },
     {
@@ -2118,101 +597,9 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "mr. gunnar hermiston jr.",
-            "006043ec-bc4c-4b3e-a754-ca5947ec13fc",
-            "customer",
-            "+12235676520"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "1b6ba92f-f450-59f8-af7d-f378f4dcb314"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "006043ec-bc4c-4b3e-a754-ca5947ec13fc",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "0816268d-ba49-50c9-b572-fa98c33c28d7",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "7780 myra bridge apt. 020",
-            "006043ec-bc4c-4b3e-a754-ca5947ec13fc",
-            "customer",
-            "16864"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "60536b95-cb1a-53d6-a151-49eda7d7fa24"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "006043ec-bc4c-4b3e-a754-ca5947ec13fc",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "00605988-7243-4135-9da0-2cec80179f6d"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "ms. berniece tremblay iii",
-            "00605988-7243-4135-9da0-2cec80179f6d",
-            "customer",
-            "+19284875908"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "e2041eb0-1440-53aa-b308-6f8dc4932c29"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00605988-7243-4135-9da0-2cec80179f6d",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "051fbfc7-f380-5264-adf4-32dc821dfaf4",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "26222 ernser passage",
-            "00605988-7243-4135-9da0-2cec80179f6d",
-            "customer",
-            "46943-6345"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "701cb66e-d09d-594c-b1e6-123db7b62492"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00605988-7243-4135-9da0-2cec80179f6d",
-            "Customer"
         ]
     },
     {
@@ -2222,152 +609,15 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "dr. solon hane",
-            "00616f5f-afae-4b5d-b131-824034b6ec39",
-            "customer"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "e1f5bc37-8270-5eab-8318-f559f949f52e"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00616f5f-afae-4b5d-b131-824034b6ec39",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "ad9c38c3-d3b4-55b2-95d3-27508f4a2a91",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "2501 brown crossing",
-            "00616f5f-afae-4b5d-b131-824034b6ec39",
-            "customer",
-            "44822"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "47e77a53-f187-5a35-bf21-e89201f4b1dc"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00616f5f-afae-4b5d-b131-824034b6ec39",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "0065cb2a-2556-449e-ad18-255f06049b22"
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "rodrick berge",
-            "0065cb2a-2556-449e-ad18-255f06049b22",
-            "customer",
-            "+16575684027"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "3c712361-38e0-516e-99a7-f35077232843"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0065cb2a-2556-449e-ad18-255f06049b22",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "89eed732-450b-529b-93f1-36db7a565e60",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "70119 armstrong ramp",
-            "0065cb2a-2556-449e-ad18-255f06049b22",
-            "customer",
-            "27255"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "641788f5-c59b-509c-b4d6-e2f16252de7e"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0065cb2a-2556-449e-ad18-255f06049b22",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "0065fc39-38ba-4f55-9409-82727defe7f0"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "prof. cale funk",
-            "0065fc39-38ba-4f55-9409-82727defe7f0",
-            "customer",
-            "+12023070306"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "f89c9951-3e2e-5563-97f1-c64ace939a0c"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0065fc39-38ba-4f55-9409-82727defe7f0",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "70518f4e-ee85-5771-9880-c8167af09b1e",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "10660 champlin glen suite 566",
-            "0065fc39-38ba-4f55-9409-82727defe7f0",
-            "customer",
-            "74936"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "db81160e-cf2a-5a56-95eb-4d03a73e46ec"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0065fc39-38ba-4f55-9409-82727defe7f0",
-            "Customer"
         ]
     },
     {
@@ -2401,55 +651,73 @@
         ]
     },
     {
-        "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
-        "bindings": [
-            "006a6e2d-dda0-43fa-93bd-655b67af7276"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "naomi corwin",
-            "006a6e2d-dda0-43fa-93bd-655b67af7276",
-            "customer",
-            "+12209075971"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "8f518e3e-4280-5eb7-815c-f6363e07cad0"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
+        "query": "select * from `locations` where `locations`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
         "bindings": [
             "006a6e2d-dda0-43fa-93bd-655b67af7276",
+            "006bcb3e-ce37-458b-8ac3-754c861f7ff8",
+            "006d21ef-9344-414d-9c06-f87528c53d70",
+            "006e83c9-99cc-47df-9860-dcb108ba64ef",
+            "006ef41b-5ffa-450b-9203-d00e91dc5283",
+            "00711b4e-34c6-47c5-af6f-20adcd99a4d6",
+            "0074113b-72a3-49b1-80c3-6ecfb2064bdb",
+            "00758ebb-6391-4b89-a184-ca1b9fa49616",
+            "0075eb6a-aff4-4730-a44e-ae0e2f3b41c5",
+            "0078b4cb-6122-4a90-8c98-0dea36a5dde2",
             "Customer"
         ]
     },
     {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "query": "select * from `contacts` where `contacts`.`object_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
         "bindings": [
-            "22ffc3b0-41a4-559b-8269-aadd1baac9f2",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "579 cheyanne lodge",
             "006a6e2d-dda0-43fa-93bd-655b67af7276",
-            "customer",
-            "24888"
+            "006bcb3e-ce37-458b-8ac3-754c861f7ff8",
+            "006d21ef-9344-414d-9c06-f87528c53d70",
+            "006e83c9-99cc-47df-9860-dcb108ba64ef",
+            "006ef41b-5ffa-450b-9203-d00e91dc5283",
+            "00711b4e-34c6-47c5-af6f-20adcd99a4d6",
+            "0074113b-72a3-49b1-80c3-6ecfb2064bdb",
+            "00758ebb-6391-4b89-a184-ca1b9fa49616",
+            "0075eb6a-aff4-4730-a44e-ae0e2f3b41c5",
+            "0078b4cb-6122-4a90-8c98-0dea36a5dde2",
+            "Customer"
         ]
     },
     {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
+        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`deleted_at` is null and `location_types`.`location_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
+            "147abbc7-88b6-55f2-b21d-583e2f2f81ca",
+            "1520a917-841d-5876-b183-a9142c11f486",
+            "3a2648a5-4822-525d-8f45-9a29667bede6",
+            "43f0df46-ca67-5d0b-a212-4c68d226b9df",
+            "522118a3-03a8-5ce2-a9d5-251f70b477f9",
+            "55c5d12a-02e7-5973-95c6-c2e5300ff7d2",
+            "6106f410-805b-5257-91c1-232802a3f5e6",
+            "8a7cd381-789f-5bb3-9df2-8768a96dcef3",
+            "95ed7e29-b262-5fca-bdeb-493aea92fa5c",
             "a916f797-9a7d-544b-b1be-e28aa5a704de"
         ]
     },
     {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
+        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`deleted_at` is null and `contact_types`.`contact_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `types`.`deleted_at` is null",
         "bindings": [
-            "006a6e2d-dda0-43fa-93bd-655b67af7276",
-            "Customer"
+            "268558e9-0e37-58c0-b6ac-3689555a4443",
+            "4e9d803b-85b1-57d7-8553-a9ebe81b9562",
+            "628f8222-a5f3-5cb2-ac35-fd7d9e6bb594",
+            "8f518e3e-4280-5eb7-815c-f6363e07cad0",
+            "97af097b-d955-53ab-aa10-9dee7cf231bc",
+            "a4ea3a37-1a96-5722-8568-6707a6508e9d",
+            "a5135b75-b2e0-5665-bed6-e539c35d4765",
+            "acbcce72-28c9-5317-8883-70f36b62020b",
+            "d35b40fd-e2a0-558b-91e9-36dd9e8df253",
+            "e0f59ff6-f76d-5894-b8c9-073de9f1c317",
+            "ef0d8ead-05f6-5bd7-ae4b-96164635d6b1",
+            "fa63e851-a59a-530f-803c-30b6c453b197"
+        ]
+    },
+    {
+        "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
+        "bindings": [
+            "006a6e2d-dda0-43fa-93bd-655b67af7276"
         ]
     },
     {
@@ -2459,116 +727,9 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "heather predovic",
-            "006bcb3e-ce37-458b-8ac3-754c861f7ff8",
-            "customer",
-            "+19375713138"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "e0f59ff6-f76d-5894-b8c9-073de9f1c317"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "006bcb3e-ce37-458b-8ac3-754c861f7ff8",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "0d8ec5a3-1df6-527e-be5f-7f8f64f53e75",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "2797 walter highway",
-            "006bcb3e-ce37-458b-8ac3-754c861f7ff8",
-            "customer",
-            "58442"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "522118a3-03a8-5ce2-a9d5-251f70b477f9"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "006bcb3e-ce37-458b-8ac3-754c861f7ff8",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "006d21ef-9344-414d-9c06-f87528c53d70"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "miss kathryn grant",
-            "006d21ef-9344-414d-9c06-f87528c53d70",
-            "customer",
-            "+19201990717"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "prof. lela lakin iv",
-            "006d21ef-9344-414d-9c06-f87528c53d70",
-            "customer",
-            "+19201990717"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "acbcce72-28c9-5317-8883-70f36b62020b"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "a5135b75-b2e0-5665-bed6-e539c35d4765"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "006d21ef-9344-414d-9c06-f87528c53d70",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "a8339ce8-239e-51c9-aa44-d7e31ff412b6",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "38961 keebler valley",
-            "006d21ef-9344-414d-9c06-f87528c53d70",
-            "customer",
-            "23347-3356"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "8a7cd381-789f-5bb3-9df2-8768a96dcef3"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "006d21ef-9344-414d-9c06-f87528c53d70",
-            "Customer"
         ]
     },
     {
@@ -2578,99 +739,9 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "hattie rohan",
-            "006e83c9-99cc-47df-9860-dcb108ba64ef",
-            "customer"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "4e9d803b-85b1-57d7-8553-a9ebe81b9562"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "006e83c9-99cc-47df-9860-dcb108ba64ef",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "70518f4e-ee85-5771-9880-c8167af09b1e",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "43958 quitzon island apt. 464",
-            "006e83c9-99cc-47df-9860-dcb108ba64ef",
-            "customer",
-            "74936"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "6106f410-805b-5257-91c1-232802a3f5e6"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "006e83c9-99cc-47df-9860-dcb108ba64ef",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "006ef41b-5ffa-450b-9203-d00e91dc5283"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "muhammad hane",
-            "006ef41b-5ffa-450b-9203-d00e91dc5283",
-            "customer"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "628f8222-a5f3-5cb2-ac35-fd7d9e6bb594"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "006ef41b-5ffa-450b-9203-d00e91dc5283",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "f009e685-d0ca-5c48-bd42-e4dab3fc8dc5",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "6470 upton crescent apt. 652",
-            "006ef41b-5ffa-450b-9203-d00e91dc5283",
-            "customer",
-            "27278"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "95ed7e29-b262-5fca-bdeb-493aea92fa5c"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "006ef41b-5ffa-450b-9203-d00e91dc5283",
-            "Customer"
         ]
     },
     {
@@ -2680,101 +751,9 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "norris o'hara",
-            "00711b4e-34c6-47c5-af6f-20adcd99a4d6",
-            "customer",
-            "+19712452763"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "fa63e851-a59a-530f-803c-30b6c453b197"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00711b4e-34c6-47c5-af6f-20adcd99a4d6",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "845cad98-c769-5a3c-af3d-ce1e3d19ea07",
-            "f9108365-eca5-57be-809f-543b8c09a52d",
-            "5313 stokes glens suite 784",
-            "00711b4e-34c6-47c5-af6f-20adcd99a4d6",
-            "customer",
-            "84628"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "3a2648a5-4822-525d-8f45-9a29667bede6"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00711b4e-34c6-47c5-af6f-20adcd99a4d6",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "0074113b-72a3-49b1-80c3-6ecfb2064bdb"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "dr. iliana moore",
-            "0074113b-72a3-49b1-80c3-6ecfb2064bdb",
-            "customer",
-            "+17865866010"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "d35b40fd-e2a0-558b-91e9-36dd9e8df253"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0074113b-72a3-49b1-80c3-6ecfb2064bdb",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "c22a0407-1b3b-5d02-b9e3-caba9493d845",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "2723 katherine center",
-            "0074113b-72a3-49b1-80c3-6ecfb2064bdb",
-            "customer",
-            "80386"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "1520a917-841d-5876-b183-a9142c11f486"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0074113b-72a3-49b1-80c3-6ecfb2064bdb",
-            "Customer"
         ]
     },
     {
@@ -2784,166 +763,15 @@
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "muhammad hane",
-            "00758ebb-6391-4b89-a184-ca1b9fa49616",
-            "customer"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "a4ea3a37-1a96-5722-8568-6707a6508e9d"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "00758ebb-6391-4b89-a184-ca1b9fa49616",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "b6bd49fb-9a4a-5809-b304-8cec7c3962f7",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "323 gusikowski spurs suite 141",
-            "00758ebb-6391-4b89-a184-ca1b9fa49616",
-            "customer",
-            "04571-9610"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "55c5d12a-02e7-5973-95c6-c2e5300ff7d2"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "00758ebb-6391-4b89-a184-ca1b9fa49616",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "0075eb6a-aff4-4730-a44e-ae0e2f3b41c5"
         ]
     },
     {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` is null) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "ms. jessyca buckridge v",
-            "0075eb6a-aff4-4730-a44e-ae0e2f3b41c5",
-            "customer"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "97af097b-d955-53ab-aa10-9dee7cf231bc"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0075eb6a-aff4-4730-a44e-ae0e2f3b41c5",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "5cc0d0e7-9a17-5f1a-b9ad-1419a08fa39f",
-            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
-            "47493 kristopher orchard apt. 949",
-            "0075eb6a-aff4-4730-a44e-ae0e2f3b41c5",
-            "customer",
-            "58181-6680"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "147abbc7-88b6-55f2-b21d-583e2f2f81ca"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0075eb6a-aff4-4730-a44e-ae0e2f3b41c5",
-            "Customer"
-        ]
-    },
-    {
         "query": "select `statuses`.*, `customer_statuses`.`customer_id` as `pivot_customer_id`, `customer_statuses`.`status_id` as `pivot_status_id`, `customer_statuses`.`created_at` as `pivot_created_at`, `customer_statuses`.`updated_at` as `pivot_updated_at` from `statuses` inner join `customer_statuses` on `statuses`.`id` = `customer_statuses`.`status_id` where `customer_statuses`.`customer_id` = ? and `customer_statuses`.`deleted_at` is null and `statuses`.`deleted_at` is null",
         "bindings": [
             "0078b4cb-6122-4a90-8c98-0dea36a5dde2"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "vivienne hammes",
-            "0078b4cb-6122-4a90-8c98-0dea36a5dde2",
-            "customer",
-            "+13234924474"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where (`email` is null and `name` = ? and `object_id` = ? and `object_type` = ? and `phone_number` = ?) and `contacts`.`deleted_at` is null limit 1",
-        "bindings": [
-            "vivienne hammes",
-            "0078b4cb-6122-4a90-8c98-0dea36a5dde2",
-            "customer",
-            "+17261222484"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "ef0d8ead-05f6-5bd7-ae4b-96164635d6b1"
-        ]
-    },
-    {
-        "query": "select `types`.*, `contact_types`.`contact_id` as `pivot_contact_id`, `contact_types`.`type_id` as `pivot_type_id`, `contact_types`.`created_at` as `pivot_created_at`, `contact_types`.`updated_at` as `pivot_updated_at` from `types` inner join `contact_types` on `types`.`id` = `contact_types`.`type_id` where `contact_types`.`contact_id` = ? and `contact_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "268558e9-0e37-58c0-b6ac-3689555a4443"
-        ]
-    },
-    {
-        "query": "select * from `contacts` where `contacts`.`object_id` = ? and `contacts`.`object_id` is not null and `contacts`.`object_type` = ? and `contacts`.`deleted_at` is null",
-        "bindings": [
-            "0078b4cb-6122-4a90-8c98-0dea36a5dde2",
-            "Customer"
-        ]
-    },
-    {
-        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` = ? and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
-        "bindings": [
-            "1508a7f0-6002-53f0-a566-3ddb0f048ab4",
-            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
-            "4281 zieme court apt. 831",
-            "0078b4cb-6122-4a90-8c98-0dea36a5dde2",
-            "customer",
-            "99797-3232"
-        ]
-    },
-    {
-        "query": "select `types`.*, `location_types`.`location_id` as `pivot_location_id`, `location_types`.`type_id` as `pivot_type_id`, `location_types`.`created_at` as `pivot_created_at`, `location_types`.`updated_at` as `pivot_updated_at` from `types` inner join `location_types` on `types`.`id` = `location_types`.`type_id` where `location_types`.`location_id` = ? and `location_types`.`deleted_at` is null and `types`.`deleted_at` is null",
-        "bindings": [
-            "43f0df46-ca67-5d0b-a212-4c68d226b9df"
-        ]
-    },
-    {
-        "query": "select * from `locations` where `locations`.`object_id` = ? and `locations`.`object_id` is not null and `locations`.`object_type` = ? and `locations`.`deleted_at` is null",
-        "bindings": [
-            "0078b4cb-6122-4a90-8c98-0dea36a5dde2",
-            "Customer"
         ]
     },
     {
