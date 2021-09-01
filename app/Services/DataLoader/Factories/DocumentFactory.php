@@ -235,27 +235,36 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         $created = false;
         $factory = $this->factory(function (DocumentModel $model) use (&$created, $object): DocumentModel {
             // Update
-            $created             = !$model->exists;
-            $normalizer          = $this->getNormalizer();
-            $document            = $object->document->document;
-            $model->id           = $normalizer->uuid($document->id);
-            $model->oem          = $this->documentOem($document);
-            $model->oemGroup     = $this->documentOemGroup($document);
-            $model->oem_said     = $normalizer->string($document->vendorSpecificFields->said ?? null);
-            $model->type         = $this->documentType($document);
-            $model->serviceGroup = $this->assetDocumentObjectServiceGroup($object);
-            $model->reseller     = $this->reseller($document);
-            $model->customer     = $this->customer($document);
-            $model->currency     = $this->currency($document->currencyCode);
-            $model->language     = $this->language($document->languageCode);
-            $model->distributor  = $this->distributor($document);
-            $model->start        = $normalizer->datetime($document->startDate);
-            $model->end          = $normalizer->datetime($document->endDate);
-            $model->price        = $normalizer->number($document->totalNetPrice);
-            $model->number       = $normalizer->string($document->documentNumber);
-            $model->changed_at   = $normalizer->datetime($document->updatedAt);
-            $model->contacts     = $this->objectContacts($model, (array) $document->contactPersons);
-            $model->entries      = $this->assetDocumentObjectEntries($model, $object);
+            $created    = !$model->exists;
+            $normalizer = $this->getNormalizer();
+            $document   = $object->document->document;
+            $changedAt  = $normalizer->datetime($document->updatedAt);
+
+            // The asset may contain outdated documents so to prevent conflicts
+            // we should update properties only if the document is new or
+            // freshest.
+            if ($created || $model->changed_at <= $changedAt) {
+                $model->id           = $normalizer->uuid($document->id);
+                $model->oem          = $this->documentOem($document);
+                $model->oemGroup     = $this->documentOemGroup($document);
+                $model->oem_said     = $normalizer->string($document->vendorSpecificFields->said ?? null);
+                $model->type         = $this->documentType($document);
+                $model->serviceGroup = $this->assetDocumentObjectServiceGroup($object);
+                $model->reseller     = $this->reseller($document);
+                $model->customer     = $this->customer($document);
+                $model->currency     = $this->currency($document->currencyCode);
+                $model->language     = $this->language($document->languageCode);
+                $model->distributor  = $this->distributor($document);
+                $model->start        = $normalizer->datetime($document->startDate);
+                $model->end          = $normalizer->datetime($document->endDate);
+                $model->price        = $normalizer->number($document->totalNetPrice);
+                $model->number       = $normalizer->string($document->documentNumber);
+                $model->changed_at   = $changedAt;
+                $model->contacts     = $this->objectContacts($model, (array) $document->contactPersons);
+            }
+
+            // Entries should be updated always because they related to the Asset
+            $model->entries = $this->assetDocumentObjectEntries($model, $object);
 
             // We cannot save entries if assets doesn't exist
             if ($object->asset->exists) {
