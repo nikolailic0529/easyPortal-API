@@ -15,21 +15,6 @@
         ]
     },
     {
-        "query": "select * from `document_entries` where `document_entries`.`asset_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `document_entries`.`deleted_at` is null",
-        "bindings": [
-            "00000231-21a1-4f41-a537-65029f694e78",
-            "000007c8-6423-407a-993d-671c6b9de2a5",
-            "00000d58-472c-4892-a6a4-c7740d5d8541",
-            "00001533-8290-48b7-bd68-703ca6dec0f5",
-            "0000179c-dc64-4f0b-8aec-93e673f727fe",
-            "00001a40-9d6a-4fc3-a87e-e5a5b38ed3ef",
-            "00001f4a-79e9-4a90-8ef7-0575ec58b1f9",
-            "00001f64-016d-42b7-b508-7d455f348416",
-            "000025ec-31a9-485d-96f0-c51a4bf299f3",
-            "00002b22-d5e0-4d04-9c14-96fee4fb10f4"
-        ]
-    },
-    {
         "query": "select * from `asset_warranties` where `asset_warranties`.`asset_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `asset_warranties`.`deleted_at` is null",
         "bindings": [
             "00000231-21a1-4f41-a537-65029f694e78",
@@ -396,6 +381,12 @@
         "bindings": []
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00000231-21a1-4f41-a537-65029f694e78"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "5e34364e-a2d2-5b3d-bc4a-211e25b210c5",
@@ -428,6 +419,12 @@
         "bindings": [
             "b17630d2-22f7-4af3-8a83-aa33e8526bbc",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "000007c8-6423-407a-993d-671c6b9de2a5"
         ]
     },
     {
@@ -466,6 +463,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00000d58-472c-4892-a6a4-c7740d5d8541"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "9a955953-79a4-5065-a1fc-3c73abb68248",
@@ -498,6 +501,12 @@
         "bindings": [
             "76cdc083-d760-4586-b668-753abd8acbab",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00001533-8290-48b7-bd68-703ca6dec0f5"
         ]
     },
     {
@@ -536,6 +545,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000179c-dc64-4f0b-8aec-93e673f727fe"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "ca053233-474d-569d-9c27-3aa37ed9b2c1",
@@ -571,6 +586,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00001a40-9d6a-4fc3-a87e-e5a5b38ed3ef"
+        ]
+    },
+    {
         "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
         "bindings": [
             "00001f4a-79e9-4a90-8ef7-0575ec58b1f9"
@@ -593,6 +614,12 @@
         "bindings": [
             "0173f4f7-c41e-4d67-89e0-28b492ace38c",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00001f4a-79e9-4a90-8ef7-0575ec58b1f9"
         ]
     },
     {
@@ -631,6 +658,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00001f64-016d-42b7-b508-7d455f348416"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "d010010a-29a6-5777-bed9-432f4a04fe00",
@@ -666,6 +699,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "000025ec-31a9-485d-96f0-c51a4bf299f3"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "ce487bb6-8e03-5a1b-ac9e-ecf42e001e8a",
@@ -698,6 +737,12 @@
         "bindings": [
             "e3414b3a-9986-469b-a96a-5ef5db20cee9",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00002b22-d5e0-4d04-9c14-96fee4fb10f4"
         ]
     },
     {
@@ -760,21 +805,6 @@
     },
     {
         "query": "select * from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
-        "bindings": [
-            "000031fb-00de-4a09-ad4a-83498858f8bb",
-            "00003a03-18d7-4e64-ac42-9911a0c82c0b",
-            "00003f29-b194-4247-aeb5-dfccd215cc34",
-            "00003f9e-28fd-48d9-8f2a-80777916c943",
-            "000047af-be68-4bf7-ae01-40405fc75e21",
-            "000054ee-58ea-4ef3-b723-540fd4a411a3",
-            "00005d41-b4ef-4612-a3a7-5b6fc4690c3c",
-            "00005ec6-f2d2-4c8e-b53b-98cd81677ec9",
-            "00005f20-eaff-4198-867c-3676c42be907",
-            "00006383-67be-4c58-99a1-e187e4af1748"
-        ]
-    },
-    {
-        "query": "select * from `document_entries` where `document_entries`.`asset_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `document_entries`.`deleted_at` is null",
         "bindings": [
             "000031fb-00de-4a09-ad4a-83498858f8bb",
             "00003a03-18d7-4e64-ac42-9911a0c82c0b",
@@ -1118,6 +1148,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "000031fb-00de-4a09-ad4a-83498858f8bb"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "1b99939b-c780-5e17-baf6-c040f864173f",
@@ -1150,6 +1186,12 @@
         "bindings": [
             "59083a07-2ea5-4fb4-b718-04ca3899264d",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00003a03-18d7-4e64-ac42-9911a0c82c0b"
         ]
     },
     {
@@ -1188,6 +1230,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00003f29-b194-4247-aeb5-dfccd215cc34"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "5e34364e-a2d2-5b3d-bc4a-211e25b210c5",
@@ -1220,6 +1268,12 @@
         "bindings": [
             "59af38df-7007-47b0-ae18-deed991966a4",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00003f9e-28fd-48d9-8f2a-80777916c943"
         ]
     },
     {
@@ -1258,6 +1312,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "000047af-be68-4bf7-ae01-40405fc75e21"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
@@ -1290,6 +1350,12 @@
         "bindings": [
             "32fbcfa0-5410-4811-96a6-9b9e9db22a14",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "000054ee-58ea-4ef3-b723-540fd4a411a3"
         ]
     },
     {
@@ -1328,6 +1394,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00005d41-b4ef-4612-a3a7-5b6fc4690c3c"
+        ]
+    },
+    {
         "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
         "bindings": [
             "00005ec6-f2d2-4c8e-b53b-98cd81677ec9"
@@ -1353,6 +1425,12 @@
             "70b4c09d-d4c8-44c4-a2e5-b0250887d9ca",
             "b823e7e0-40ea-4a81-ae0d-b7795d0b0566",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00005ec6-f2d2-4c8e-b53b-98cd81677ec9"
         ]
     },
     {
@@ -1394,6 +1472,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00005f20-eaff-4198-867c-3676c42be907"
+        ]
+    },
+    {
         "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
         "bindings": [
             "00006383-67be-4c58-99a1-e187e4af1748"
@@ -1416,6 +1500,12 @@
         "bindings": [
             "c7dc2894-4e46-41cc-800e-14a9a70a58fc",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00006383-67be-4c58-99a1-e187e4af1748"
         ]
     },
     {
@@ -1486,21 +1576,6 @@
     },
     {
         "query": "select * from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
-        "bindings": [
-            "00006504-041f-4303-8d06-93c06fe09f8d",
-            "0000662a-bd12-4a3b-85fe-20dcc6b97458",
-            "00007224-4f1f-4991-87a0-81379bd4a662",
-            "0000729a-09d3-4fee-b8ed-57d55576cdf4",
-            "000072e9-8b7b-4814-83a0-20ea60c94eea",
-            "0000786c-fb58-4fef-b63a-79ee9c9ccd87",
-            "0000794b-a9f8-49f4-8d1e-47a55f16e4ec",
-            "00007f5b-145b-4388-8720-b7cacbf9c328",
-            "00009056-8b03-468a-8fbd-031fb91b4bee",
-            "0000945a-ebbc-432b-a679-dba3c57eab67"
-        ]
-    },
-    {
-        "query": "select * from `document_entries` where `document_entries`.`asset_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `document_entries`.`deleted_at` is null",
         "bindings": [
             "00006504-041f-4303-8d06-93c06fe09f8d",
             "0000662a-bd12-4a3b-85fe-20dcc6b97458",
@@ -1830,6 +1905,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00006504-041f-4303-8d06-93c06fe09f8d"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "084ce8bc-c749-591d-96c2-601144617ee6",
@@ -1862,6 +1943,12 @@
         "bindings": [
             "8505d734-7ddb-4365-a516-53aacbbc7db2",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000662a-bd12-4a3b-85fe-20dcc6b97458"
         ]
     },
     {
@@ -1900,6 +1987,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00007224-4f1f-4991-87a0-81379bd4a662"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "8761695c-51cf-535d-a890-a22a2717defe",
@@ -1932,6 +2025,12 @@
         "bindings": [
             "a2dd6f36-f41b-4941-83ba-2bc34bc8c047",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000729a-09d3-4fee-b8ed-57d55576cdf4"
         ]
     },
     {
@@ -1970,6 +2069,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "000072e9-8b7b-4814-83a0-20ea60c94eea"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "8f518e3e-4280-5eb7-815c-f6363e07cad0",
@@ -2002,6 +2107,12 @@
         "bindings": [
             "192bef4c-8e53-4dc7-b250-f3eee3b43d1e",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000786c-fb58-4fef-b63a-79ee9c9ccd87"
         ]
     },
     {
@@ -2040,6 +2151,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000794b-a9f8-49f4-8d1e-47a55f16e4ec"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "7d46364a-8d09-527a-aeb9-793da5e1cb3c",
@@ -2072,6 +2189,12 @@
         "bindings": [
             "1b559b8f-3ce7-46bb-8771-35026d856db1",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00007f5b-145b-4388-8720-b7cacbf9c328"
         ]
     },
     {
@@ -2110,6 +2233,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "00009056-8b03-468a-8fbd-031fb91b4bee"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "12772d57-df6b-53ac-8707-ea4125b6ab0f",
@@ -2142,6 +2271,12 @@
         "bindings": [
             "3f99fd04-85b3-4580-a26a-2179600a833a",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000945a-ebbc-432b-a679-dba3c57eab67"
         ]
     },
     {
@@ -2208,21 +2343,6 @@
     },
     {
         "query": "select * from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
-        "bindings": [
-            "000096fd-df38-483e-b441-846785c9a339",
-            "000097d6-928b-41dd-9938-8aada1ba2916",
-            "0000996c-a34d-4b91-a2f6-a29bc17bdbe2",
-            "0000a701-d97c-4390-a0c9-80b54bc620df",
-            "0000aab7-79d8-4fae-b86c-375b1ad4b3d0",
-            "0000aea4-cdd6-4e2f-a48f-e92286c72d64",
-            "0000b6a3-260d-4fc3-8af8-5219719becc1",
-            "0000b9f9-ecb2-4347-9267-22a4714175ec",
-            "0000c240-3b07-4267-8208-85e29dba3b59",
-            "0000c764-15a8-4b84-8aac-172686829839"
-        ]
-    },
-    {
-        "query": "select * from `document_entries` where `document_entries`.`asset_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `document_entries`.`deleted_at` is null",
         "bindings": [
             "000096fd-df38-483e-b441-846785c9a339",
             "000097d6-928b-41dd-9938-8aada1ba2916",
@@ -2596,6 +2716,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "000096fd-df38-483e-b441-846785c9a339"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "79456eac-351a-5993-85d5-552cf4346967",
@@ -2628,6 +2754,12 @@
         "bindings": [
             "a820d097-f4ac-4d89-96ab-7d99047e3ddc",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "000097d6-928b-41dd-9938-8aada1ba2916"
         ]
     },
     {
@@ -2666,6 +2798,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000996c-a34d-4b91-a2f6-a29bc17bdbe2"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "8f518e3e-4280-5eb7-815c-f6363e07cad0",
@@ -2701,6 +2839,12 @@
             "65958069-3e5a-46e0-b013-fdff392c7213",
             "b3522239-e513-44c2-9445-0b3518065e98",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000a701-d97c-4390-a0c9-80b54bc620df"
         ]
     },
     {
@@ -2760,6 +2904,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000aab7-79d8-4fae-b86c-375b1ad4b3d0"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "acbcce72-28c9-5317-8883-70f36b62020b",
@@ -2795,6 +2945,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000aea4-cdd6-4e2f-a48f-e92286c72d64"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "6106f410-805b-5257-91c1-232802a3f5e6",
@@ -2806,6 +2962,12 @@
     },
     {
         "query": "select `coverages`.*, `asset_coverages`.`asset_id` as `pivot_asset_id`, `asset_coverages`.`coverage_id` as `pivot_coverage_id`, `asset_coverages`.`created_at` as `pivot_created_at`, `asset_coverages`.`updated_at` as `pivot_updated_at` from `coverages` inner join `asset_coverages` on `coverages`.`id` = `asset_coverages`.`coverage_id` where `asset_coverages`.`asset_id` = ? and `asset_coverages`.`deleted_at` is null and `coverages`.`deleted_at` is null",
+        "bindings": [
+            "0000b6a3-260d-4fc3-8af8-5219719becc1"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
         "bindings": [
             "0000b6a3-260d-4fc3-8af8-5219719becc1"
         ]
@@ -2833,6 +2995,12 @@
         "bindings": [
             "70636542-4cd4-40d2-9d91-0bf6fc9d358e",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000b9f9-ecb2-4347-9267-22a4714175ec"
         ]
     },
     {
@@ -2871,6 +3039,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000c240-3b07-4267-8208-85e29dba3b59"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "a118a331-46c6-5587-8e4c-193fbb6a0f43",
@@ -2906,6 +3080,12 @@
             "230e97ea-ce8f-43f0-a839-65989704988d",
             "a4263ac7-22c1-4bd7-82cf-87b67c855efd",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000c764-15a8-4b84-8aac-172686829839"
         ]
     },
     {
@@ -2981,21 +3161,6 @@
     },
     {
         "query": "select * from `assets` where ((`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?) or (`assets`.`id` = ?)) and `assets`.`deleted_at` is null",
-        "bindings": [
-            "0000c86b-ba63-4386-811c-dc0f8e794d2c",
-            "0000d6e7-dc5a-43b7-adab-ee783f3ae5e2",
-            "0000d9a5-0e02-4c93-b170-604002110fb3",
-            "0000dbb1-a181-4563-945c-2f6dfb711c15",
-            "0000dbf4-e0b1-4394-9a8a-792542566bc9",
-            "0000dc9e-6292-41d1-bdb1-9c0fafbb597d",
-            "0000dd75-826a-424b-b090-7d85ae4b2782",
-            "0000f152-fdcc-4f15-a31b-daf2f311e187",
-            "0000f4c5-f6e9-4fd6-a913-24613652b4d9",
-            "0000f4f6-ff8f-468d-a71e-4cc80541ac99"
-        ]
-    },
-    {
-        "query": "select * from `document_entries` where `document_entries`.`asset_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `document_entries`.`deleted_at` is null",
         "bindings": [
             "0000c86b-ba63-4386-811c-dc0f8e794d2c",
             "0000d6e7-dc5a-43b7-adab-ee783f3ae5e2",
@@ -3336,6 +3501,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000c86b-ba63-4386-811c-dc0f8e794d2c"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "ce487bb6-8e03-5a1b-ac9e-ecf42e001e8a",
@@ -3368,6 +3539,12 @@
         "bindings": [
             "d4e7be5e-e377-43cc-a466-3e6b8bfedf9f",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000d6e7-dc5a-43b7-adab-ee783f3ae5e2"
         ]
     },
     {
@@ -3406,6 +3583,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000d9a5-0e02-4c93-b170-604002110fb3"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "44911220-2462-5ac6-810d-e17564293467",
@@ -3438,6 +3621,12 @@
         "bindings": [
             "861258b2-6dab-47dc-856f-314719a3d635",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000dbb1-a181-4563-945c-2f6dfb711c15"
         ]
     },
     {
@@ -3476,6 +3665,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000dbf4-e0b1-4394-9a8a-792542566bc9"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "784893f2-8072-53c2-9932-79e1ff1bc437",
@@ -3508,6 +3703,12 @@
         "bindings": [
             "4007daa4-8b68-4767-9746-02054680d673",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000dc9e-6292-41d1-bdb1-9c0fafbb597d"
         ]
     },
     {
@@ -3546,6 +3747,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000dd75-826a-424b-b090-7d85ae4b2782"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "a68f57e0-4264-5049-a48e-f3c87edadcac",
@@ -3578,6 +3785,12 @@
         "bindings": [
             "7fedec82-36d3-4fd9-ba19-85c4ed5cdfd7",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000f152-fdcc-4f15-a31b-daf2f311e187"
         ]
     },
     {
@@ -3616,6 +3829,12 @@
         ]
     },
     {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000f4c5-f6e9-4fd6-a913-24613652b4d9"
+        ]
+    },
+    {
         "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
         "bindings": [
             "8f518e3e-4280-5eb7-815c-f6363e07cad0",
@@ -3648,6 +3867,12 @@
         "bindings": [
             "59628e5b-e44a-46f9-a77b-f92fc03ebb00",
             "Document"
+        ]
+    },
+    {
+        "query": "select * from `document_entries` where `document_entries`.`asset_id` = ? and `document_entries`.`asset_id` is not null and `document_entries`.`deleted_at` is null",
+        "bindings": [
+            "0000f4f6-ff8f-468d-a71e-4cc80541ac99"
         ]
     },
     {

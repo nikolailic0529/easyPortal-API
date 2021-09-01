@@ -44,7 +44,6 @@ class AssetsImporter extends Importer {
         $this->container
             ->make(AssetFactory::class)
             ->prefetch($items, false, static function (Collection $assets) use ($locations, $contacts): void {
-                $assets->loadMissing('documentEntries');
                 $assets->loadMissing('warranties');
                 $assets->loadMissing('warranties.serviceLevels');
                 $assets->loadMissing('contacts');
