@@ -156,7 +156,7 @@ trait CalculatedProperties {
         // Process
         $key    = (new Customer())->getKeyName();
         $rows   = $union->get();
-        $missed = $rows->pluck('customer_id')->diff($customers->keys())->sortKeys()->all();
+        $missed = $rows->pluck('customer_id')->diff($customers->keys())->sort()->all();
         $result = array_fill_keys($rows->pluck('reseller_id')->all(), []);
 
         if ($missed) {
