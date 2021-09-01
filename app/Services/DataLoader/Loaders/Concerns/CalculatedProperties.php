@@ -9,13 +9,18 @@ use App\Models\Document;
 use App\Models\Reseller;
 use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
+use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Utils\ModelHelper;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
+use stdClass;
 use Throwable;
 
+use function array_fill_keys;
 use function sprintf;
 
 trait CalculatedProperties {
@@ -34,8 +39,13 @@ trait CalculatedProperties {
             try {
                 if ($resolver instanceof CustomerResolver) {
                     $this->updateCustomersCalculatedProperties($objects);
-
-                    continue;
+                } elseif ($resolver instanceof ResellerResolver) {
+                    $this->updateResellersCalculatedProperties($objects);
+                } else {
+                    throw new InvalidArgumentException(sprintf(
+                        'Impossible to update calculated properties for `%s`.',
+                        $resolver::class,
+                    ));
                 }
             } catch (Throwable $exception) {
                 $this->getLogger()->warning(__METHOD__, [
@@ -44,24 +54,6 @@ trait CalculatedProperties {
                     'exception' => $exception,
                 ]);
             }
-
-            foreach ($resolver->getResolved() as $object) {
-                try {
-                    if ($object instanceof Reseller) {
-                        $this->updateResellerCalculatedProperties($object);
-                    } else {
-                        throw new InvalidArgumentException(sprintf(
-                            'Impossible to update calculated properties for `%s`.',
-                            $object::class,
-                        ));
-                    }
-                } catch (Throwable $exception) {
-                    $this->getLogger()->warning(__METHOD__, [
-                        'object'    => $object,
-                        'exception' => $exception,
-                    ]);
-                }
-            }
         }
     }
 
@@ -69,50 +61,113 @@ trait CalculatedProperties {
      * @param \Illuminate\Support\Collection<\App\Models\Customer> $customers
      */
     protected function updateCustomersCalculatedProperties(Collection $customers): void {
-        $customers  = $customers->keyBy(new GetKey());
-        $statistics = (new ModelHelper(Customer::query()))
+        $customers = $customers->keyBy(new GetKey());
+        $assets    = (new ModelHelper(Customer::query()))
             ->getRelation('assets')
             ->toBase()
             ->select('customer_id', DB::raw('count(*) as assets_count'))
             ->whereIn('customer_id', $customers->map(new GetKey())->all())
             ->groupBy('customer_id')
-            ->get();
+            ->get()
+            ->keyBy(static function (stdClass $row): string {
+                return $row->customer_id;
+            });
 
-        foreach ($statistics as $data) {
-            $customer = $customers[$data->customer_id];
+        foreach ($customers as $customer) {
+            /** @var \App\Models\Customer $customer */
+            $customer->assets_count = $assets[$customer->getKey()]->assets_count ?? $customer->assets_count ?? 0;
 
-            if ($customer instanceof Customer) {
-                $customer->assets_count = $data->assets_count;
-                $customer->save();
-            }
+            $customer->save();
         }
     }
 
-    protected function updateResellerCalculatedProperties(Reseller $reseller): void {
-        $assetsCustomers   = Asset::query()
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\Reseller> $resellers
+     */
+    protected function updateResellersCalculatedProperties(Collection $resellers): void {
+        $resellers = $resellers->keyBy(new GetKey());
+        $customers = $this->getResellersCustomers($resellers, [Asset::class, Document::class]);
+        $assets    = (new ModelHelper(Reseller::query()))
+            ->getRelation('assets')
             ->toBase()
-            ->distinct()
-            ->select('customer_id')
-            ->where('reseller_id', '=', $reseller->getKey());
-        $documentsCustomer = Document::query()
-            ->toBase()
-            ->distinct()
-            ->select('customer_id')
-            ->where('reseller_id', '=', $reseller->getKey());
-        $ids               = $assetsCustomers
-            ->union($documentsCustomer)
+            ->select('reseller_id', DB::raw('count(*) as assets_count'))
+            ->whereIn('reseller_id', $resellers->map(new GetKey())->all())
+            ->groupBy('reseller_id')
             ->get()
-            ->pluck('customer_id');
-        $customers         = new Collection();
+            ->keyBy(static function (stdClass $row): string {
+                return $row->reseller_id;
+            });
 
-        if (!$ids->isEmpty()) {
-            $customers = Customer::query()
-                ->whereIn((new Customer())->getKeyName(), $ids)
-                ->get();
+        foreach ($resellers as $reseller) {
+            /** @var \App\Models\Reseller $reseller */
+            $reseller->assets_count = $assets[$reseller->getKey()]->assets_count ?? $reseller->assets_count ?? 0;
+            $reseller->customers    = $customers[$reseller->getKey()] ?? $reseller->customers ?? [];
+
+            $reseller->save();
+
+            /** Loaded inside {@see getResellersCustomers()} and not needed anymore. */
+            unset($reseller->customers);
+        }
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\Reseller> $resellers
+     * @param array<class-string<\App\Models\Model>>               $models
+     *
+     * @return array<string,array<\App\Models\Customer>>
+     */
+    private function getResellersCustomers(Collection $resellers, array $models): array {
+        // Query
+        /** @var \Illuminate\Database\Query\Builder $union */
+        $union = null;
+        $ids   = $resellers->map(new GetKey())->all();
+
+        foreach ($models as $model) {
+            $builder = $model::query()
+                ->toBase()
+                ->distinct()
+                ->select('reseller_id', 'customer_id')
+                ->whereIn('reseller_id', $ids);
+
+            if ($union) {
+                $union->union($builder);
+            } else {
+                $union = $builder;
+            }
         }
 
-        $reseller->customers    = $customers;
-        $reseller->assets_count = $reseller->assets()->count();
-        $reseller->save();
+        if (!($union instanceof Builder)) {
+            return [];
+        }
+
+        // Laravel creates a new model instance in each query, we are trying to
+        // reuse the models to reduce memory usage.
+        $customers = new Collection();
+        $resellers = (new EloquentCollection($resellers))->loadMissing('customers');
+
+        foreach ($resellers as $reseller) {
+            /** @var \App\Models\Reseller $reseller */
+            foreach ($reseller->customers as $customer) {
+                /** @var \App\Models\Customer $customer */
+                $customers[$customer->getKey()] = $customer;
+            }
+        }
+
+        // Process
+        $key    = (new Customer())->getKeyName();
+        $rows   = $union->get();
+        $missed = $rows->pluck('customer_id')->diff($customers->keys())->sortKeys()->all();
+        $result = array_fill_keys($rows->pluck('reseller_id')->all(), []);
+
+        if ($missed) {
+            $customers = $customers->merge(Customer::query()->whereIn($key, $missed)->get()->keyBy(new GetKey()));
+        }
+
+        foreach ($rows as $row) {
+            $result[$row->reseller_id][] = $customers[$row->customer_id];
+        }
+
+        // Return
+        return $result;
     }
 }

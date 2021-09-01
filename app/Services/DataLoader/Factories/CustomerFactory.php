@@ -122,6 +122,7 @@ class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
             $customer->name                        = $normalizer->string($company->name);
             $customer->type                        = $this->companyType($customer, $company->companyTypes);
             $customer->changed_at                  = $normalizer->datetime($company->updatedAt);
+            $customer->assets_count                = 0;
             $customer->statuses                    = $this->companyStatuses($customer, $company);
             $customer->contacts                    = $this->objectContacts($customer, $company->companyContactPersons);
             $customer->locations                   = $this->objectLocations($customer, $company->locations);
