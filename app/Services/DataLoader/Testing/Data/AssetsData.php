@@ -114,6 +114,11 @@ abstract class AssetsData extends Data {
                 $customers[] = $object->customerId ?? null;
                 $customers[] = $object->customer->id ?? null;
                 $oem         = $object->vendor ?? null;
+                $oems[]      = [
+                    $object->vendor ?? null,
+                    null,
+                    null,
+                ];
             } elseif ($object instanceof ViewAssetDocument) {
                 $resellers[] = $object->reseller->id ?? null;
                 $customers[] = $object->customer->id ?? null;
@@ -132,39 +137,45 @@ abstract class AssetsData extends Data {
         }
 
         // Store OEMs
-        $file = 'oem.csv';
-        $oems = array_values(array_filter(array_unique($oems, SORT_REGULAR)));
-        $csv  = fopen("{$path}/{$file}", 'w');
+        $file = null;
+        $oems = array_values(array_filter(array_unique($oems, SORT_REGULAR), static function (array $oem): bool {
+            return $oem && array_unique($oem);
+        }));
 
-        fputcsv($csv, [
-            'Vendor',
-            'Service Group SKU',
-            'Service Group Description',
-            'Service Level SKU',
-            'English',
-            'English',
-        ]);
+        if ($oems) {
+            $file = 'oem.csv';
+            $csv  = fopen("{$path}/{$file}", 'w');
 
-        foreach ($oems as $oem) {
-            [$oem, $group, $level] = $oem;
+            fputcsv($csv, [
+                'Vendor',
+                'Service Group SKU',
+                'Service Group Description',
+                'Service Level SKU',
+                'English',
+                'English',
+            ]);
 
-            $oem   = $this->normalizer->string($oem);
-            $group = $this->normalizer->string($group);
-            $level = $this->normalizer->string($level);
+            foreach ($oems as $oem) {
+                [$oem, $group, $level] = $oem;
 
-            if ($oem && $group && $level) {
-                fputcsv($csv, [
-                    $oem,
-                    $group,
-                    $this->faker->sentence,
-                    $level,
-                    $this->faker->sentence,
-                    $this->faker->text,
-                ]);
+                $oem   = $this->normalizer->string($oem);
+                $group = $this->normalizer->string($group) ?? $oem;
+                $level = $this->normalizer->string($level) ?? $oem;
+
+                if ($oem && $group && $level) {
+                    fputcsv($csv, [
+                        $oem,
+                        $group,
+                        $this->faker->sentence,
+                        $level,
+                        $this->faker->sentence,
+                        $this->faker->text,
+                    ]);
+                }
             }
-        }
 
-        fclose($csv);
+            fclose($csv);
+        }
 
         // Cleanup
         $context = [
