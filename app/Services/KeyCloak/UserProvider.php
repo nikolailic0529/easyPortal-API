@@ -7,6 +7,7 @@ use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Exceptions\AnotherUserExists;
 use App\Services\KeyCloak\Exceptions\InsufficientData;
+use App\Services\KeyCloak\Exceptions\UserDisabled;
 use App\Services\Organization\RootOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as UserProviderContract;
@@ -34,6 +35,7 @@ class UserProvider implements UserProviderContract {
     protected const CLAIM_PHONE_NUMBER          = 'phone_number';
     protected const CLAIM_PHONE_NUMBER_VERIFIED = 'phone_number_verified';
     protected const CLAIM_PHOTO                 = 'photo';
+    public    const CLAIM_ENABLED               = 'enabled';
 
     /**
      * @var array<string,array{property:string,required:boolean,default:mixed,if:string|null}>
@@ -79,6 +81,12 @@ class UserProvider implements UserProviderContract {
             'property' => 'photo',
             'required' => false,
             'default'  => null,
+            'if'       => null,
+        ],
+        self::CLAIM_ENABLED               => [
+            'property' => 'enabled',
+            'required' => false,
+            'default'  => false,
             'if'       => null,
         ],
     ];
@@ -144,7 +152,11 @@ class UserProvider implements UserProviderContract {
         $token = $this->getToken($credentials);
 
         if ($token instanceof UnencryptedToken) {
-            $id   = $token->claims()->get(RegisteredClaims::SUBJECT);
+            $id      = $token->claims()->get(RegisteredClaims::SUBJECT);
+            $enabled = $token->claims()->get(self::CLAIM_ENABLED);
+            if (!$enabled) {
+                throw new UserDisabled($id);
+            }
             $user = User::query()->whereKey($id)->first();
 
             if ($user && $user->type !== UserType::keycloak()) {
@@ -163,6 +175,9 @@ class UserProvider implements UserProviderContract {
                 ->first();
 
             if ($user) {
+                if (!$user->enabled) {
+                    throw new UserDisabled($user->getKey());
+                }
                 $user = $this->updateLocalUser($user);
             }
         } else {

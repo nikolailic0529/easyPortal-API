@@ -7,6 +7,7 @@ use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Exceptions\AnotherUserExists;
 use App\Services\KeyCloak\Exceptions\InsufficientData;
+use App\Services\KeyCloak\Exceptions\UserDisabled;
 use Closure;
 use Exception;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -43,10 +44,14 @@ class UserProviderTest extends TestCase {
      * @dataProvider dataProviderRetrieveByCredentialsEmail
      */
     public function testRetrieveByCredentialsEmail(
-        string|null $expected,
+        Exception|string|null $expected,
         Closure $prepare,
         Closure $credentialsFactory,
     ): void {
+        if ($expected instanceof Exception) {
+            $this->expectExceptionObject($expected);
+        }
+
         $prepare($this);
 
         $organization = $this->setRootOrganization(Organization::factory()->create());
@@ -270,9 +275,10 @@ class UserProviderTest extends TestCase {
                 'de238c70-3253-411b-a176-f15192a9c1e1',
                 static function (): void {
                     User::factory()->create([
-                        'id'    => 'de238c70-3253-411b-a176-f15192a9c1e1',
-                        'type'  => UserType::local(),
-                        'email' => 'email@example.com',
+                        'id'      => 'de238c70-3253-411b-a176-f15192a9c1e1',
+                        'type'    => UserType::local(),
+                        'email'   => 'email@example.com',
+                        'enabled' => true,
                     ]);
                 },
                 static function () {
@@ -288,6 +294,7 @@ class UserProviderTest extends TestCase {
                         'type'       => UserType::local(),
                         'email'      => 'email@example.com',
                         'deleted_at' => $test->faker()->dateTime,
+                        'enabled'    => true,
                     ]);
                 },
                 static function () {
@@ -302,6 +309,22 @@ class UserProviderTest extends TestCase {
                     User::factory()->create([
                         'type'  => UserType::keycloak(),
                         'email' => 'email@example.com',
+                    ]);
+                },
+                static function () {
+                    return [
+                        UserProvider::CREDENTIAL_EMAIL => 'email@example.com',
+                    ];
+                },
+            ],
+            'local disabled user by email'       => [
+                new UserDisabled('de238c70-3253-411b-a176-f15192a9c1e1'),
+                static function (): void {
+                    User::factory()->create([
+                        'id'      => 'de238c70-3253-411b-a176-f15192a9c1e1',
+                        'type'    => UserType::local(),
+                        'email'   => 'email@example.com',
+                        'enabled' => false,
                     ]);
                 },
                 static function () {
@@ -340,7 +363,9 @@ class UserProviderTest extends TestCase {
                         UserProvider::CREDENTIAL_ACCESS_TOKEN => $test->getToken(
                             [],
                             static function (Builder $builder): void {
-                                $builder->relatedTo('c1aa09cc-0bd8-490e-8c7b-25c18df23e18');
+                                $builder
+                                    ->relatedTo('c1aa09cc-0bd8-490e-8c7b-25c18df23e18')
+                                    ->withClaim(UserProvider::CLAIM_ENABLED, true);
                             },
                         ),
                     ];
@@ -356,7 +381,9 @@ class UserProviderTest extends TestCase {
                         UserProvider::CREDENTIAL_ACCESS_TOKEN => $test->getToken(
                             [],
                             static function (Builder $builder): void {
-                                $builder->relatedTo('c1aa09cc-0bd8-490e-8c7b-25c18df23e18');
+                                $builder
+                                    ->relatedTo('c1aa09cc-0bd8-490e-8c7b-25c18df23e18')
+                                    ->withClaim(UserProvider::CLAIM_ENABLED, true);
                             },
                         ),
                     ];
@@ -377,7 +404,26 @@ class UserProviderTest extends TestCase {
                         UserProvider::CREDENTIAL_ACCESS_TOKEN => $test->getToken(
                             [],
                             static function (Builder $builder): void {
-                                $builder->relatedTo('c1aa09cc-0bd8-490e-8c7b-25c18df23e18');
+                                $builder
+                                    ->relatedTo('c1aa09cc-0bd8-490e-8c7b-25c18df23e18')
+                                    ->withClaim(UserProvider::CLAIM_ENABLED, true);
+                            },
+                        ),
+                    ];
+                },
+            ],
+            'keycloak user disabled + valid token'   => [
+                new UserDisabled('c1aa09cc-0bd8-490e-8c7b-25c18df23e18'),
+                static function (): void {
+                },
+                static function (UserProviderTest $test) {
+                    return [
+                        UserProvider::CREDENTIAL_ACCESS_TOKEN => $test->getToken(
+                            [],
+                            static function (Builder $builder): void {
+                                $builder
+                                    ->relatedTo('c1aa09cc-0bd8-490e-8c7b-25c18df23e18')
+                                    ->withClaim(UserProvider::CLAIM_ENABLED, false);
                             },
                         ),
                     ];
@@ -494,6 +540,7 @@ class UserProviderTest extends TestCase {
                         ],
                         'organization'   => $organization,
                         'photo'          => 'https://example.com/photo.jpg',
+                        'enabled'        => true,
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -526,6 +573,7 @@ class UserProviderTest extends TestCase {
                             $organization->keycloak_scope => true,
                         ],
                         'photo'                 => 'https://example.com/photo.jpg',
+                        'enabled'               => true,
                     ];
                 },
             ],
@@ -541,6 +589,7 @@ class UserProviderTest extends TestCase {
                         'organization'   => $organization,
                         'permissions'    => [],
                         'photo'          => 'https://example.com/photo.jpg',
+                        'enabled'        => true,
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -558,6 +607,7 @@ class UserProviderTest extends TestCase {
                             $organization->keycloak_scope => true,
                         ],
                         'photo'              => 'https://example.com/photo.jpg',
+                        'enabled'            => true,
                     ];
                 },
             ],
@@ -573,6 +623,7 @@ class UserProviderTest extends TestCase {
                         'organization'   => $organization,
                         'permissions'    => [],
                         'photo'          => 'https://example.com/photo.jpg',
+                        'enabled'        => true,
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -590,6 +641,7 @@ class UserProviderTest extends TestCase {
                             $organization->keycloak_scope => true,
                         ],
                         'photo'                 => 'https://example.com/photo.jpg',
+                        'enabled'               => true,
                     ];
                 },
             ],
