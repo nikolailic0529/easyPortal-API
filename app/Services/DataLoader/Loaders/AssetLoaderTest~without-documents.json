@@ -1,0 +1,291 @@
+[
+    {
+        "query": "select * from `assets` where (`assets`.`id` = ?) and `assets`.`deleted_at` is null limit 1",
+        "bindings": [
+            "dd3fd852-c29a-4f34-ac20-21b6f7079777"
+        ]
+    },
+    {
+        "query": "select * from `customers` where (`customers`.`id` = ?) and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "602673a2-b21d-44b7-8d8e-3423f0ee3795"
+        ]
+    },
+    {
+        "query": "select * from `countries` where `countries`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `countries` where (`countries`.`id` = ?) and `countries`.`deleted_at` is null limit 1",
+        "bindings": [
+            "??"
+        ]
+    },
+    {
+        "query": "insert into `countries` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "??",
+            "Unknown Country",
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "select * from `cities` where `cities`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "robertsmouth"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "Robertsmouth",
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "174d1e1c-b984-5ecb-b60b-2663b1981423",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "select * from `locations` where (`city_id` = ? and `country_id` = ? and CONCAT(`line_one`, IF(`line_two` != '', CONCAT(' ', `line_two`), '')) = ? and `object_id` is null and `object_type` = ? and `postcode` = ?) and `locations`.`deleted_at` is null limit 1",
+        "bindings": [
+            "174d1e1c-b984-5ecb-b60b-2663b1981423",
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "99058 carter wall apt. 572",
+            "asset",
+            "74273"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`object_type`, `object_id`, `country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            null,
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "174d1e1c-b984-5ecb-b60b-2663b1981423",
+            "74273",
+            "",
+            "99058 Carter Wall Apt. 572",
+            "",
+            null,
+            null,
+            "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "select * from `oems` where `oems`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `types` where `types`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
+        "bindings": [
+            "hardware",
+            "asset"
+        ]
+    },
+    {
+        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "Hardware",
+            "Hardware",
+            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "select * from `statuses` where `statuses`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `statuses` where (`key` = ? and `object_type` = ?) and `statuses`.`deleted_at` is null limit 1",
+        "bindings": [
+            "active",
+            "asset"
+        ]
+    },
+    {
+        "query": "insert into `statuses` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "ACTIVE",
+            "ACTIVE",
+            "67c78e00-746e-5875-a467-385289e61788",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "select * from `products` where `products`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `products` where (`oem_id` = ? and `sku` = ?) and `products`.`deleted_at` is null limit 1",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "728629-b21"
+        ]
+    },
+    {
+        "query": "insert into `products` (`oem_id`, `sku`, `eol`, `eos`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "728629-B21",
+            null,
+            null,
+            "HP 32GB 2Rx4 PC4-2133P-R Kit",
+            "5ce84092-2672-567d-9178-fa3fa96560e8",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "select * from `tags` where `tags`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `tags` where (`name` = ?) and `tags`.`deleted_at` is null limit 1",
+        "bindings": [
+            "hardware"
+        ]
+    },
+    {
+        "query": "insert into `tags` (`name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?)",
+        "bindings": [
+            "Hardware",
+            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "select * from `coverages` where `coverages`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `coverages` where (`coverages`.`id` = ?) and `coverages`.`deleted_at` is null limit 1",
+        "bindings": [
+            "exposed"
+        ]
+    },
+    {
+        "query": "insert into `coverages` (`key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "EXPOSED",
+            "EXPOSED",
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `assets` (`id`, `oem_id`, `type_id`, `status_id`, `product_id`, `reseller_id`, `customer_id`, `location_id`, `changed_at`, `serial_number`, `data_quality`, `contacts_count`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "dd3fd852-c29a-4f34-ac20-21b6f7079777",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "8dc429be-42c0-5f7b-ac4e-6f03e5186fe8",
+            "67c78e00-746e-5875-a467-385289e61788",
+            "5ce84092-2672-567d-9178-fa3fa96560e8",
+            null,
+            "602673a2-b21d-44b7-8d8e-3423f0ee3795",
+            "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
+            "2021-08-14 19:38:31",
+            "3cbd7abf-af0f-350d-aa1f-de851d8868dd",
+            "130",
+            2,
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "dd3fd852-c29a-4f34-ac20-21b6f7079777",
+            "Mr. Arlo Hagenes DVM",
+            "+13476485480",
+            null,
+            true,
+            "567c81f4-bea4-55bd-8406-1c0d3d58da68",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "567c81f4-bea4-55bd-8406-1c0d3d58da68",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "567c81f4-bea4-55bd-8406-1c0d3d58da68",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "a554fcad-a82c-5197-a02d-6132c71ea8e1"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Asset",
+            "dd3fd852-c29a-4f34-ac20-21b6f7079777",
+            "Jamar Gulgowski II",
+            null,
+            null,
+            null,
+            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "654f6ea3-ebd0-582d-9685-2571f2aa35ea",
+            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "645caac6-d939-5dab-a41f-a35ca9c4b4b1"
+        ]
+    },
+    {
+        "query": "insert into `asset_tags` (`tag_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "8bbd304f-952d-5719-bd19-a3e5c833f0e2",
+            "dd3fd852-c29a-4f34-ac20-21b6f7079777",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "2f1cd617-a1e9-56d1-b2dc-bae4fbbb314e"
+        ]
+    },
+    {
+        "query": "insert into `asset_coverages` (`coverage_id`, `asset_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "305091d8-9610-5841-9743-85d05494e34c",
+            "dd3fd852-c29a-4f34-ac20-21b6f7079777",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "78609dcb-283b-510b-91c4-7466bd9a0b5a"
+        ]
+    }
+]
