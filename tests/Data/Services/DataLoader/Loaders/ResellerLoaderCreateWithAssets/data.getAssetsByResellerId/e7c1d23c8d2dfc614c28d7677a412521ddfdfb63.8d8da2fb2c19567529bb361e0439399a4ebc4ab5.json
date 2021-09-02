@@ -1,0 +1,670 @@
+{
+    "selector": "data.getAssetsByResellerId",
+    "graphql": "query items($id: String!, $limit: Int, $lastId: String) {\n    getAssetsByResellerId(resellerId: $id, limit: $limit, lastId: $lastId) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "params": {
+        "id": "6c7c9474-3b59-4601-af72-1cd0f441b515",
+        "lastId": null,
+        "limit": 250
+    },
+    "response": {
+        "data": {
+            "getAssetsByResellerId": [
+                {
+                    "id": "45bdde5d-238d-4a63-8726-17dc7e40dedc",
+                    "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
+                    "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+                    "serialNumber": "5590d47a-794d-3317-ac52-f77ea5bf5bf9",
+                    "productDescription": "BU IDS UMA i5-5200U 850 G2",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "G8T23AV",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "02636-5618",
+                    "city": "Port Sydneehaven",
+                    "address": "1189 Adam Mews Suite 166",
+                    "address2": "",
+                    "country": "Montserrat",
+                    "latitude": "-25.837019",
+                    "longitude": "96.226891",
+                    "countryCode": "BW",
+                    "status": "ACTIVE",
+                    "updatedAt": "1629553234114",
+                    "assetCoverage": [
+                        "EXPOSED"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "HA101PC",
+                            "warrantyEndDate": "2019-05-24",
+                            "documentNumber": "50787ac7-962a-38c7-a679-a94f6e8c497a",
+                            "document": {
+                                "id": "eafb9a14-491f-421a-a762-d4496ea47d4d",
+                                "type": "Quote New Business",
+                                "documentNumber": "50787ac7-962a-38c7-a679-a94f6e8c497a",
+                                "startDate": "2019-05-01",
+                                "endDate": "2021-05-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "856",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "695aba2b-b56d-3692-b68c-3d3cf87f7cb1",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
+                                "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-05-01",
+                            "endDate": "2021-05-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "162",
+                            "discount": "-1",
+                            "listPrice": "198",
+                            "estimatedValueRenewal": "198",
+                            "reseller": {
+                                "id": "6c7c9474-3b59-4601-af72-1cd0f441b515"
+                            },
+                            "customer": {
+                                "id": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "HA101PC",
+                            "warrantyEndDate": "2019-05-24",
+                            "documentNumber": "05d4c2f9-6779-3c38-8941-e63f6169af11",
+                            "document": {
+                                "id": "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+                                "type": "Quote renewal",
+                                "documentNumber": "05d4c2f9-6779-3c38-8941-e63f6169af11",
+                                "startDate": "2021-06-01",
+                                "endDate": "2021-09-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "130",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "695aba2b-b56d-3692-b68c-3d3cf87f7cb1",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
+                                "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2021-06-01",
+                            "endDate": "2021-09-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "26",
+                            "discount": "-2",
+                            "listPrice": "34",
+                            "estimatedValueRenewal": "34",
+                            "reseller": {
+                                "id": "6c7c9474-3b59-4601-af72-1cd0f441b515"
+                            },
+                            "customer": {
+                                "id": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Prof. Hector Wiza DDS",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19013270711",
+                            "name": "Eli Collier",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Prof. Hector Wiza DDS",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ]
+                },
+                {
+                    "id": "520f5c49-6704-4044-b37d-0eb4d9caa4e5",
+                    "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
+                    "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+                    "serialNumber": "57dddd37-44b3-30b3-8a15-b16d21e9c2f3",
+                    "productDescription": "BU IDS UMA i5-5200U 850 G2",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "G8T23AV",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "02636-5618",
+                    "city": "Port Sydneehaven",
+                    "address": "1189 Adam Mews Suite 166",
+                    "address2": "",
+                    "country": "Montserrat",
+                    "latitude": "-25.837019",
+                    "longitude": "96.226891",
+                    "countryCode": "BW",
+                    "status": "ACTIVE",
+                    "updatedAt": "1629839826446",
+                    "assetCoverage": [
+                        "EXPOSED"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "HA101PC",
+                            "warrantyEndDate": "2018-12-08",
+                            "documentNumber": "05d4c2f9-6779-3c38-8941-e63f6169af11",
+                            "document": {
+                                "id": "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+                                "type": "Quote renewal",
+                                "documentNumber": "05d4c2f9-6779-3c38-8941-e63f6169af11",
+                                "startDate": "2021-06-01",
+                                "endDate": "2021-09-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "130",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "695aba2b-b56d-3692-b68c-3d3cf87f7cb1",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
+                                "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2021-06-01",
+                            "endDate": "2021-09-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "26",
+                            "discount": "-2",
+                            "listPrice": "34",
+                            "estimatedValueRenewal": "34",
+                            "reseller": {
+                                "id": "6c7c9474-3b59-4601-af72-1cd0f441b515"
+                            },
+                            "customer": {
+                                "id": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "HA101PC",
+                            "warrantyEndDate": "2018-12-08",
+                            "documentNumber": "50787ac7-962a-38c7-a679-a94f6e8c497a",
+                            "document": {
+                                "id": "eafb9a14-491f-421a-a762-d4496ea47d4d",
+                                "type": "Quote New Business",
+                                "documentNumber": "50787ac7-962a-38c7-a679-a94f6e8c497a",
+                                "startDate": "2019-05-01",
+                                "endDate": "2021-05-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "856",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "695aba2b-b56d-3692-b68c-3d3cf87f7cb1",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
+                                "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-05-01",
+                            "endDate": "2021-05-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "162",
+                            "discount": "-1",
+                            "listPrice": "198",
+                            "estimatedValueRenewal": "198",
+                            "reseller": {
+                                "id": "6c7c9474-3b59-4601-af72-1cd0f441b515"
+                            },
+                            "customer": {
+                                "id": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Prof. Hector Wiza DDS",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19013270711",
+                            "name": "Eli Collier",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Prof. Hector Wiza DDS",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ]
+                },
+                {
+                    "id": "61efd18b-5c02-4fb9-8ee9-cf38ad4fe0a9",
+                    "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
+                    "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+                    "serialNumber": "63de27c4-6a21-37ca-9483-5bc7db319110",
+                    "productDescription": "BU IDS UMA i5-5200U 850 G2",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "G8T23AV",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "02636-5618",
+                    "city": "Port Sydneehaven",
+                    "address": "1189 Adam Mews Suite 166",
+                    "address2": "",
+                    "country": "Montserrat",
+                    "latitude": "-25.837019",
+                    "longitude": "96.226891",
+                    "countryCode": "BW",
+                    "status": "ACTIVE",
+                    "updatedAt": "1630453453433",
+                    "assetCoverage": [
+                        "EXPOSED"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "HA101PC",
+                            "warrantyEndDate": "2019-05-24",
+                            "documentNumber": "50787ac7-962a-38c7-a679-a94f6e8c497a",
+                            "document": {
+                                "id": "eafb9a14-491f-421a-a762-d4496ea47d4d",
+                                "type": "Quote New Business",
+                                "documentNumber": "50787ac7-962a-38c7-a679-a94f6e8c497a",
+                                "startDate": "2019-05-01",
+                                "endDate": "2021-05-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "856",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "695aba2b-b56d-3692-b68c-3d3cf87f7cb1",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
+                                "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-05-01",
+                            "endDate": "2021-05-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "162",
+                            "discount": "-1",
+                            "listPrice": "198",
+                            "estimatedValueRenewal": "198",
+                            "reseller": {
+                                "id": "6c7c9474-3b59-4601-af72-1cd0f441b515"
+                            },
+                            "customer": {
+                                "id": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "HA101PC",
+                            "warrantyEndDate": "2019-05-24",
+                            "documentNumber": "05d4c2f9-6779-3c38-8941-e63f6169af11",
+                            "document": {
+                                "id": "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+                                "type": "Quote renewal",
+                                "documentNumber": "05d4c2f9-6779-3c38-8941-e63f6169af11",
+                                "startDate": "2021-06-01",
+                                "endDate": "2021-09-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "130",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "695aba2b-b56d-3692-b68c-3d3cf87f7cb1",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
+                                "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2021-06-01",
+                            "endDate": "2021-09-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "26",
+                            "discount": "-2",
+                            "listPrice": "34",
+                            "estimatedValueRenewal": "34",
+                            "reseller": {
+                                "id": "6c7c9474-3b59-4601-af72-1cd0f441b515"
+                            },
+                            "customer": {
+                                "id": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Prof. Hector Wiza DDS",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19013270711",
+                            "name": "Eli Collier",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Prof. Hector Wiza DDS",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ]
+                },
+                {
+                    "id": "6e5673b9-c5ee-4b34-9d1d-b2c731e5dce4",
+                    "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
+                    "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+                    "serialNumber": "220f2a9f-658e-3aba-82a7-243fc224fbe0",
+                    "productDescription": "BU IDS UMA i5-5200U 850 G2",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "G8T23AV",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "02636-5618",
+                    "city": "Port Sydneehaven",
+                    "address": "1189 Adam Mews Suite 166",
+                    "address2": "",
+                    "country": null,
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1628914377009",
+                    "assetCoverage": [
+                        "EXPOSED"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "HA101PC",
+                            "warrantyEndDate": "2019-03-18",
+                            "documentNumber": "05d4c2f9-6779-3c38-8941-e63f6169af11",
+                            "document": {
+                                "id": "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+                                "type": "Quote renewal",
+                                "documentNumber": "05d4c2f9-6779-3c38-8941-e63f6169af11",
+                                "startDate": "2021-06-01",
+                                "endDate": "2021-09-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "130",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "695aba2b-b56d-3692-b68c-3d3cf87f7cb1",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
+                                "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2021-06-01",
+                            "endDate": "2021-09-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "26",
+                            "discount": "-2",
+                            "listPrice": "34",
+                            "estimatedValueRenewal": "34",
+                            "reseller": {
+                                "id": "6c7c9474-3b59-4601-af72-1cd0f441b515"
+                            },
+                            "customer": {
+                                "id": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "HA101PC",
+                            "warrantyEndDate": "2019-03-18",
+                            "documentNumber": "50787ac7-962a-38c7-a679-a94f6e8c497a",
+                            "document": {
+                                "id": "eafb9a14-491f-421a-a762-d4496ea47d4d",
+                                "type": "Quote New Business",
+                                "documentNumber": "50787ac7-962a-38c7-a679-a94f6e8c497a",
+                                "startDate": "2019-05-01",
+                                "endDate": "2021-05-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "856",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "695aba2b-b56d-3692-b68c-3d3cf87f7cb1",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
+                                "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-05-01",
+                            "endDate": "2021-05-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "162",
+                            "discount": "-1",
+                            "listPrice": "198",
+                            "estimatedValueRenewal": "198",
+                            "reseller": {
+                                "id": "6c7c9474-3b59-4601-af72-1cd0f441b515"
+                            },
+                            "customer": {
+                                "id": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Prof. Hector Wiza DDS",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19013270711",
+                            "name": "Eli Collier",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Prof. Hector Wiza DDS",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ]
+                },
+                {
+                    "id": "d164e377-3780-4587-8f97-a77c7952e953",
+                    "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
+                    "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+                    "serialNumber": "32933c14-2325-3637-ac5b-5e5517e07ffb",
+                    "productDescription": "BU IDS UMA i5-5200U 850 G2",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "G8T23AV",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "02636-5618",
+                    "city": "Port Sydneehaven",
+                    "address": "48499 Grant Viaduct Suite 276",
+                    "address2": "",
+                    "country": null,
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1628952088240",
+                    "assetCoverage": [
+                        "EXPOSED"
+                    ],
+                    "dataQualityScore": "130",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "HA101PC",
+                            "warrantyEndDate": "2019-03-18",
+                            "documentNumber": "05d4c2f9-6779-3c38-8941-e63f6169af11",
+                            "document": {
+                                "id": "1201da8d-0a6a-4cd1-9b8f-21a343fb9cfa",
+                                "type": "Quote renewal",
+                                "documentNumber": "05d4c2f9-6779-3c38-8941-e63f6169af11",
+                                "startDate": "2021-06-01",
+                                "endDate": "2021-09-30",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "130",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "695aba2b-b56d-3692-b68c-3d3cf87f7cb1",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
+                                "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2021-06-01",
+                            "endDate": "2021-09-30",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "26",
+                            "discount": "-2",
+                            "listPrice": "34",
+                            "estimatedValueRenewal": "34",
+                            "reseller": {
+                                "id": "6c7c9474-3b59-4601-af72-1cd0f441b515"
+                            },
+                            "customer": {
+                                "id": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce"
+                            }
+                        },
+                        {
+                            "skuNumber": "HA151AC",
+                            "supportPackage": "HA101PC",
+                            "warrantyEndDate": "2019-03-18",
+                            "documentNumber": "50787ac7-962a-38c7-a679-a94f6e8c497a",
+                            "document": {
+                                "id": "eafb9a14-491f-421a-a762-d4496ea47d4d",
+                                "type": "Quote New Business",
+                                "documentNumber": "50787ac7-962a-38c7-a679-a94f6e8c497a",
+                                "startDate": "2019-05-01",
+                                "endDate": "2021-05-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "856",
+                                "languageCode": "EN",
+                                "updatedAt": "1626353498687",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "695aba2b-b56d-3692-b68c-3d3cf87f7cb1",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "6c7c9474-3b59-4601-af72-1cd0f441b515",
+                                "customerId": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2019-05-01",
+                            "endDate": "2021-05-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "162",
+                            "discount": "-1",
+                            "listPrice": "198",
+                            "estimatedValueRenewal": "198",
+                            "reseller": {
+                                "id": "6c7c9474-3b59-4601-af72-1cd0f441b515"
+                            },
+                            "customer": {
+                                "id": "ec922aea-b12c-4b7e-a9c0-8f40c33013ce"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": null,
+                            "name": "Prof. Hector Wiza DDS",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19013270711",
+                            "name": "Eli Collier",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Prof. Hector Wiza DDS",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
