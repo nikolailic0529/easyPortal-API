@@ -52,7 +52,7 @@ class CustomerLoaderTest extends TestCase {
         $importer->create(CustomerLoaderCreateWithoutAssets::CUSTOMER);
 
         $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~without-assets.json');
+        $expected = $this->getTestData()->json('~create-without-assets.json');
 
         $this->assertCount(count($expected), $actual);
         $this->assertEquals($expected, $actual);
@@ -96,7 +96,7 @@ class CustomerLoaderTest extends TestCase {
         $importer->create(CustomerLoaderCreateWithAssets::CUSTOMER);
 
         $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~with-assets.json');
+        $expected = $this->getTestData()->json('~create-with-assets.json');
 
         $this->assertCount(count($expected), $actual);
         $this->assertEquals($expected, $actual);

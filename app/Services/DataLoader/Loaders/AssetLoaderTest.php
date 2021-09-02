@@ -51,7 +51,7 @@ class AssetLoaderTest extends TestCase {
         $importer->create(AssetLoaderCreateWithoutDocuments::ASSET);
 
         $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~without-documents.json');
+        $expected = $this->getTestData()->json('~create-without-documents.json');
 
         $this->assertCount(count($expected), $actual);
         $this->assertEquals($expected, $actual);
@@ -94,7 +94,7 @@ class AssetLoaderTest extends TestCase {
         $importer->create(AssetLoaderCreateWithDocuments::ASSET);
 
         $actual   = $this->cleanupQueryLog($queries->get());
-        $expected = $this->getTestData()->json('~with-documents.json');
+        $expected = $this->getTestData()->json('~create-with-documents.json');
 
         $this->assertCount(count($expected), $actual);
         $this->assertEquals($expected, $actual);
