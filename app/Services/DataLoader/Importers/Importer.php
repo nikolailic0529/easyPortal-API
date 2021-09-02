@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Importers;
 
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
+use App\Models\Concerns\SmartSave\BatchInsert;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Container\Container;
@@ -128,7 +129,12 @@ abstract class Importer {
                 // and will dump it only after the job/command/request is finished.
                 // For long-running jobs, this will lead to huge memory usage
 
-                Telescope::withoutRecording($closure);
+                Telescope::withoutRecording(static function () use ($closure): void {
+                    // Import creates a lot of objects, so would be good to
+                    // group multiple inserts into one.
+
+                    BatchInsert::enable($closure);
+                });
             });
         });
     }

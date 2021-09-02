@@ -205,33 +205,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "c6083f78-ddd9-5474-a9f9-3599e2422b31",
+            "2021-08-30 00:00:00",
+            "863f844b-efde-5781-a57c-0d127a496cfe",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "863f844b-efde-5781-a57c-0d127a496cfe"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "c6083f78-ddd9-5474-a9f9-3599e2422b31",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "24f6313c-05e2-5f4f-b0a6-0b82191e8fc5"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "93dff777-6006-5616-bdb5-a56ec97248bb",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "c6083f78-ddd9-5474-a9f9-3599e2422b31",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "93dff777-6006-5616-bdb5-a56ec97248bb"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -321,23 +311,18 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
+            "2021-08-30 00:00:00",
+            "174d1e1c-b984-5ecb-b60b-2663b1981423",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "174d1e1c-b984-5ecb-b60b-2663b1981423"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "a80a615d-ce33-51be-9f3d-c38a6a1456c3",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
-            "f6c8bd9b-1594-5e49-8bc1-353a52d0ad53",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "a80a615d-ce33-51be-9f3d-c38a6a1456c3"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -467,33 +452,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
+            "2021-08-30 00:00:00",
+            "a554fcad-a82c-5197-a02d-6132c71ea8e1",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "a554fcad-a82c-5197-a02d-6132c71ea8e1"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "79ae5ab6-152f-5f9a-8672-ba31413706dc",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "79ae5ab6-152f-5f9a-8672-ba31413706dc"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "645caac6-d939-5dab-a41f-a35ca9c4b4b1",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "5af50e95-09ad-5c53-b9f4-fb3f71c3edfa",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "645caac6-d939-5dab-a41f-a35ca9c4b4b1"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -583,23 +558,18 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "66d17114-c49a-545f-9d9c-84c436abdbc6",
+            "2021-08-30 00:00:00",
+            "a1eff22e-6aaa-5562-864c-053e89b6b3b2",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "66d17114-c49a-545f-9d9c-84c436abdbc6",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "a1eff22e-6aaa-5562-864c-053e89b6b3b2"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "9c3ff521-3cfd-54dc-8e8c-68e8d21528e9",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "66d17114-c49a-545f-9d9c-84c436abdbc6",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "9c3ff521-3cfd-54dc-8e8c-68e8d21528e9"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -713,23 +683,18 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "bd0c34db-542e-55ff-84f1-309e785c25b3",
+            "2021-08-30 00:00:00",
+            "79b8eb7b-1822-558a-99f1-a75648af059c",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "bd0c34db-542e-55ff-84f1-309e785c25b3",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "79b8eb7b-1822-558a-99f1-a75648af059c"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "aa00595d-60cb-53fa-bf65-dd002065f6d5",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "bd0c34db-542e-55ff-84f1-309e785c25b3",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "aa00595d-60cb-53fa-bf65-dd002065f6d5"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -843,33 +808,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "6acde16b-e2c7-5cb8-8fee-1859142ee86b",
+            "2021-08-30 00:00:00",
+            "bfa93f3d-cc59-5bd0-87e0-34df5e4759f7",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "6acde16b-e2c7-5cb8-8fee-1859142ee86b",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "bfa93f3d-cc59-5bd0-87e0-34df5e4759f7"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "673f7541-1538-5839-93dc-cb386aa163cf",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "6acde16b-e2c7-5cb8-8fee-1859142ee86b",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "673f7541-1538-5839-93dc-cb386aa163cf"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "6acde16b-e2c7-5cb8-8fee-1859142ee86b",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "a4f779e4-7947-5bb4-aebb-34f6ae0882a8"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -959,33 +914,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "49030c74-0bdc-5c4c-a0c5-1c74c8806097",
+            "2021-08-30 00:00:00",
+            "cd40814f-847e-59a9-9f30-aa80acaa06f0",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "49030c74-0bdc-5c4c-a0c5-1c74c8806097",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "cd40814f-847e-59a9-9f30-aa80acaa06f0"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "445e2b40-4e67-516a-a190-cf516597223c",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "49030c74-0bdc-5c4c-a0c5-1c74c8806097",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "445e2b40-4e67-516a-a190-cf516597223c"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "44347218-7205-5a06-91b5-610fad8e938c",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "49030c74-0bdc-5c4c-a0c5-1c74c8806097",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "44347218-7205-5a06-91b5-610fad8e938c"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1075,33 +1020,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "32b14a11-df88-5f43-8ee7-ba5e280ee7f0",
+            "2021-08-30 00:00:00",
+            "4be53773-2fc4-524c-88ca-759c7e974759",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "32b14a11-df88-5f43-8ee7-ba5e280ee7f0",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "4be53773-2fc4-524c-88ca-759c7e974759"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "093e8a99-0b6b-56f9-a8e4-ea76242b6cc3",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "32b14a11-df88-5f43-8ee7-ba5e280ee7f0",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "093e8a99-0b6b-56f9-a8e4-ea76242b6cc3"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "c3f71f4f-9dbd-5e8c-b6ac-3eac9b2c1d7d",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "32b14a11-df88-5f43-8ee7-ba5e280ee7f0",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "c3f71f4f-9dbd-5e8c-b6ac-3eac9b2c1d7d"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1191,23 +1126,18 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "c8526c37-fec0-5a56-aead-fd820acdfb51",
+            "2021-08-30 00:00:00",
+            "f63fa7f7-24f2-5f5a-809e-224ab0783ed1",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "c8526c37-fec0-5a56-aead-fd820acdfb51",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "f63fa7f7-24f2-5f5a-809e-224ab0783ed1"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "9166167a-70ae-5591-a284-bb6b14de83e8",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "c8526c37-fec0-5a56-aead-fd820acdfb51",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "9166167a-70ae-5591-a284-bb6b14de83e8"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1321,33 +1251,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "bf3e54d2-37a0-585e-835b-80ddee8de633",
+            "2021-08-30 00:00:00",
+            "3b6c82be-8f6a-52c5-8023-2a5c584c8c92",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "bf3e54d2-37a0-585e-835b-80ddee8de633",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "3b6c82be-8f6a-52c5-8023-2a5c584c8c92"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "18c46d84-9392-5b4d-a0aa-757d2e8c8d29",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "bf3e54d2-37a0-585e-835b-80ddee8de633",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "18c46d84-9392-5b4d-a0aa-757d2e8c8d29"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "1b99939b-c780-5e17-baf6-c040f864173f",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "bf3e54d2-37a0-585e-835b-80ddee8de633",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "1b99939b-c780-5e17-baf6-c040f864173f"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1467,33 +1387,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "ca350e8f-fc92-535d-ac8c-5371d439ccca",
+            "2021-08-30 00:00:00",
+            "39e37129-6357-5640-b3c2-2c1201cbd594",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "ca350e8f-fc92-535d-ac8c-5371d439ccca",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "39e37129-6357-5640-b3c2-2c1201cbd594"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "367ce0b0-b70a-5fec-9429-8f4adc7ab201",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "ca350e8f-fc92-535d-ac8c-5371d439ccca",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "367ce0b0-b70a-5fec-9429-8f4adc7ab201"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "4ad798c6-af75-5237-9d0b-f5e3323bb947",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "ca350e8f-fc92-535d-ac8c-5371d439ccca",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "4ad798c6-af75-5237-9d0b-f5e3323bb947"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1583,33 +1493,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "092a1c8c-bddd-5cf1-a921-4b41c8835536",
+            "2021-08-30 00:00:00",
+            "76dc1bd8-f28b-5d78-a1fe-3950002e5872",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "092a1c8c-bddd-5cf1-a921-4b41c8835536",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "76dc1bd8-f28b-5d78-a1fe-3950002e5872"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "681f1ffa-2fba-533b-b5b7-3983665eb9b1",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "092a1c8c-bddd-5cf1-a921-4b41c8835536",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "681f1ffa-2fba-533b-b5b7-3983665eb9b1"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "58a48bc1-f6c8-54fb-bca7-e94fd8d6c683",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "092a1c8c-bddd-5cf1-a921-4b41c8835536",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "58a48bc1-f6c8-54fb-bca7-e94fd8d6c683"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1699,33 +1599,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "1cae5a31-5e1c-586b-b7e9-4b713284e3ed",
+            "2021-08-30 00:00:00",
+            "c6ff9936-ddae-51a3-aa1a-95f8d04f68ab",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "1cae5a31-5e1c-586b-b7e9-4b713284e3ed",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "c6ff9936-ddae-51a3-aa1a-95f8d04f68ab"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "8217815e-c85f-5561-909d-53fd76c39857",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "1cae5a31-5e1c-586b-b7e9-4b713284e3ed",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "8217815e-c85f-5561-909d-53fd76c39857"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "1648e5e6-66b2-5b9d-946a-dc81961bd523",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "1cae5a31-5e1c-586b-b7e9-4b713284e3ed",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "1648e5e6-66b2-5b9d-946a-dc81961bd523"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1798,33 +1688,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "013c5ca2-56be-571e-9ba2-4fbed1a4623b",
+            "2021-08-30 00:00:00",
+            "cfbeb513-7023-5ead-b818-b161b8634f99",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "013c5ca2-56be-571e-9ba2-4fbed1a4623b",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "cfbeb513-7023-5ead-b818-b161b8634f99"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "0e899424-2221-5f00-8319-63147db3b868",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "013c5ca2-56be-571e-9ba2-4fbed1a4623b",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0e899424-2221-5f00-8319-63147db3b868"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "33a66e72-16af-5e17-8fe1-1bf6cb2dc5e2",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "013c5ca2-56be-571e-9ba2-4fbed1a4623b",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "33a66e72-16af-5e17-8fe1-1bf6cb2dc5e2"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -1914,33 +1794,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "a347b003-4dd4-56a9-8c05-5a5d4b0ccd6b",
+            "2021-08-30 00:00:00",
+            "b1f6041f-d9ba-56cd-8542-3e6f588a9d58",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "a347b003-4dd4-56a9-8c05-5a5d4b0ccd6b",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b1f6041f-d9ba-56cd-8542-3e6f588a9d58"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "24b056b5-37d2-5aa3-ba2f-9661f8748c97",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "a347b003-4dd4-56a9-8c05-5a5d4b0ccd6b",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "24b056b5-37d2-5aa3-ba2f-9661f8748c97"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "315a8d23-eda1-59c8-96ea-bb1db235c646",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "a347b003-4dd4-56a9-8c05-5a5d4b0ccd6b",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "315a8d23-eda1-59c8-96ea-bb1db235c646"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2030,33 +1900,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "acf54392-1f10-517b-bf7b-2a445e5e8826",
+            "2021-08-30 00:00:00",
+            "f31ab8c4-78af-57cb-baac-af467afa0cad",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "acf54392-1f10-517b-bf7b-2a445e5e8826",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "f31ab8c4-78af-57cb-baac-af467afa0cad"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "326f29ce-449c-5ec3-a939-4bafb38258ef",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "acf54392-1f10-517b-bf7b-2a445e5e8826",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "326f29ce-449c-5ec3-a939-4bafb38258ef"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "539d47df-edd1-5c3f-9752-2fed455c94b5",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "acf54392-1f10-517b-bf7b-2a445e5e8826",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "539d47df-edd1-5c3f-9752-2fed455c94b5"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2129,23 +1989,18 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "b6189514-3ea8-501b-860b-83ca0bcef411",
+            "2021-08-30 00:00:00",
+            "50d8dd52-0a35-5478-b6d5-a59d439ebf96",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "b6189514-3ea8-501b-860b-83ca0bcef411",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "50d8dd52-0a35-5478-b6d5-a59d439ebf96"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "0bdbea89-8989-5477-8543-3fa789d479d0",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "b6189514-3ea8-501b-860b-83ca0bcef411",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0bdbea89-8989-5477-8543-3fa789d479d0"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2371,33 +2226,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "4f594d06-6c38-5241-82b6-41b575c43987",
+            "2021-08-30 00:00:00",
+            "e5be5e75-97d2-5cd6-9bc8-d077d2e83a0e",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "4f594d06-6c38-5241-82b6-41b575c43987",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e5be5e75-97d2-5cd6-9bc8-d077d2e83a0e"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "71502ff8-2f51-556b-a83c-6170dced49bb",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "4f594d06-6c38-5241-82b6-41b575c43987",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "71502ff8-2f51-556b-a83c-6170dced49bb"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "6000527f-c512-587f-8018-4ca442613bd7",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "4f594d06-6c38-5241-82b6-41b575c43987",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "6000527f-c512-587f-8018-4ca442613bd7"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2487,23 +2332,18 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "d3462d54-53b1-5c47-967c-35b200db2725",
+            "2021-08-30 00:00:00",
+            "b1136a17-b48c-5f54-921c-2f94e29176b5",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "d3462d54-53b1-5c47-967c-35b200db2725",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b1136a17-b48c-5f54-921c-2f94e29176b5"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "b06ccf09-00ce-5551-a0a6-7a5689d9da04",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "d3462d54-53b1-5c47-967c-35b200db2725",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b06ccf09-00ce-5551-a0a6-7a5689d9da04"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2647,23 +2487,18 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "bfd7ceae-b184-54ab-b660-5d06f9d4e964",
+            "2021-08-30 00:00:00",
+            "6c52bdce-491f-5593-95ec-79461aa6b233",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "bfd7ceae-b184-54ab-b660-5d06f9d4e964",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "6c52bdce-491f-5593-95ec-79461aa6b233"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "ea37e3a7-5fdd-5e94-9c9c-672714ff5daa",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "bfd7ceae-b184-54ab-b660-5d06f9d4e964",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "ea37e3a7-5fdd-5e94-9c9c-672714ff5daa"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2777,23 +2612,18 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "d5061e7b-d6d5-5b3a-a56c-6b036bfaa383",
+            "2021-08-30 00:00:00",
+            "9b278b6a-88fc-5d33-9c6d-dd4467a1d00a",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "d5061e7b-d6d5-5b3a-a56c-6b036bfaa383",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "9b278b6a-88fc-5d33-9c6d-dd4467a1d00a"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "4e2ec5f8-cb42-57ac-a34e-5b4b3b927e40",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
-            "d5061e7b-d6d5-5b3a-a56c-6b036bfaa383",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "4e2ec5f8-cb42-57ac-a34e-5b4b3b927e40"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -2890,33 +2720,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "88a7396e-a946-59f1-9c89-86b53617d00d",
+            "2021-08-30 00:00:00",
+            "85c2d18e-c7a6-549f-a933-e7d10b285807",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "88a7396e-a946-59f1-9c89-86b53617d00d",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "85c2d18e-c7a6-549f-a933-e7d10b285807"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "aee0c19d-c949-5e4a-b36f-5bbd13c5d4a7",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "88a7396e-a946-59f1-9c89-86b53617d00d",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "aee0c19d-c949-5e4a-b36f-5bbd13c5d4a7"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "3e840a18-2c82-5385-8767-730159b5fcc6",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "88a7396e-a946-59f1-9c89-86b53617d00d",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "3e840a18-2c82-5385-8767-730159b5fcc6"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3006,23 +2826,18 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "31cd877f-51fe-56f1-8a9d-293720ff8434",
+            "2021-08-30 00:00:00",
+            "d503ee49-baa4-5a65-a16b-473ba57a27a5",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "31cd877f-51fe-56f1-8a9d-293720ff8434",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "d503ee49-baa4-5a65-a16b-473ba57a27a5"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "df4df5cf-9cc4-5b1f-8763-9ecc76c6a306",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "31cd877f-51fe-56f1-8a9d-293720ff8434",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "df4df5cf-9cc4-5b1f-8763-9ecc76c6a306"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3136,33 +2951,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "6d356520-24aa-503b-9c4b-4b7be56ee2c8",
+            "2021-08-30 00:00:00",
+            "3e60aaee-5d06-57d9-8e8f-66c38e776a8a",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "6d356520-24aa-503b-9c4b-4b7be56ee2c8",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "3e60aaee-5d06-57d9-8e8f-66c38e776a8a"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "888f0e0b-2f9f-5cfd-ae47-d11de83a2d64",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "6d356520-24aa-503b-9c4b-4b7be56ee2c8",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "888f0e0b-2f9f-5cfd-ae47-d11de83a2d64"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "19b7c700-0727-5683-98e3-18f421f2e275",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "6d356520-24aa-503b-9c4b-4b7be56ee2c8",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "19b7c700-0727-5683-98e3-18f421f2e275"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3348,33 +3153,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "f5becad7-aebd-5a48-8b63-4dafd2119019",
+            "2021-08-30 00:00:00",
+            "1e6c2bd1-2bd7-5dc0-93af-b2b33b11a14b",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "f5becad7-aebd-5a48-8b63-4dafd2119019",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "1e6c2bd1-2bd7-5dc0-93af-b2b33b11a14b"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "2583289d-541c-5ab3-914b-353b5a3a3b4f",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "f5becad7-aebd-5a48-8b63-4dafd2119019",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "2583289d-541c-5ab3-914b-353b5a3a3b4f"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "966f2f09-e7a4-58b3-be60-187bbb1825ab",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "f5becad7-aebd-5a48-8b63-4dafd2119019",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "966f2f09-e7a4-58b3-be60-187bbb1825ab"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3447,23 +3242,18 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "817732ad-454f-5aab-8bf0-fa41ab854a8c",
+            "2021-08-30 00:00:00",
+            "7bc174a1-9e40-5793-83a1-8939be914c60",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "817732ad-454f-5aab-8bf0-fa41ab854a8c",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "7bc174a1-9e40-5793-83a1-8939be914c60"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "895ff1fa-2465-5f33-ac77-9846cfe60667",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "817732ad-454f-5aab-8bf0-fa41ab854a8c",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "895ff1fa-2465-5f33-ac77-9846cfe60667"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3536,23 +3326,18 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "2fe38673-7923-5548-b854-f6c1ce82bdfa",
+            "2021-08-30 00:00:00",
+            "fb6332d4-044a-5a80-9ba6-9400344350b5",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "2fe38673-7923-5548-b854-f6c1ce82bdfa",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "fb6332d4-044a-5a80-9ba6-9400344350b5"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "8801d050-7448-5710-a9e3-e6df85949679",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "2fe38673-7923-5548-b854-f6c1ce82bdfa",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "8801d050-7448-5710-a9e3-e6df85949679"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3649,23 +3434,18 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "e830c384-ca20-560d-a06a-9887407bebb1",
+            "2021-08-30 00:00:00",
+            "9890f0c2-be6c-54dd-ae84-171524a83752",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "e830c384-ca20-560d-a06a-9887407bebb1",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "9890f0c2-be6c-54dd-ae84-171524a83752"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "b3738ed9-00d4-58a8-953b-dee0bb7f2a74",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "e830c384-ca20-560d-a06a-9887407bebb1",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b3738ed9-00d4-58a8-953b-dee0bb7f2a74"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3809,33 +3589,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "c9f1919e-36fa-57c7-a0fb-3c2942819951",
+            "2021-08-30 00:00:00",
+            "da1a6c57-70cd-5cfa-ae40-9b45abb8b2f1",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "c9f1919e-36fa-57c7-a0fb-3c2942819951",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "da1a6c57-70cd-5cfa-ae40-9b45abb8b2f1"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "b48c7c9d-5533-5a10-90f5-0263c1abf9b8",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "c9f1919e-36fa-57c7-a0fb-3c2942819951",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b48c7c9d-5533-5a10-90f5-0263c1abf9b8"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "948c028a-d3f7-5a6c-9fb5-83ccf6ad26a8",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "c9f1919e-36fa-57c7-a0fb-3c2942819951",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "948c028a-d3f7-5a6c-9fb5-83ccf6ad26a8"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -3925,23 +3695,18 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "7fb2465b-3158-5c55-983f-ddee3597c1fd",
+            "2021-08-30 00:00:00",
+            "ec98fba0-c7dc-54e1-a4c9-b21adb64e6fb",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "7fb2465b-3158-5c55-983f-ddee3597c1fd",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "ec98fba0-c7dc-54e1-a4c9-b21adb64e6fb"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "62b4a964-9ca8-5f45-9e19-8eb3adf194bf",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "7fb2465b-3158-5c55-983f-ddee3597c1fd",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "62b4a964-9ca8-5f45-9e19-8eb3adf194bf"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4055,23 +3820,18 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "8d4dd2af-3fca-5d27-97c4-39b35018e19a",
+            "2021-08-30 00:00:00",
+            "5a1ad195-57e7-5812-bbec-ec3fcb1f6b1c",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "8d4dd2af-3fca-5d27-97c4-39b35018e19a",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "5a1ad195-57e7-5812-bbec-ec3fcb1f6b1c"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "bc4b526a-beeb-5b7c-a139-c5f3b7d24f8a",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "8d4dd2af-3fca-5d27-97c4-39b35018e19a",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "bc4b526a-beeb-5b7c-a139-c5f3b7d24f8a"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4161,33 +3921,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "5ea586a9-f229-5cdf-9f6c-bc421af338e9",
+            "2021-08-30 00:00:00",
+            "8c7ffae7-3093-53db-825d-c2e66de3805b",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "5ea586a9-f229-5cdf-9f6c-bc421af338e9",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "8c7ffae7-3093-53db-825d-c2e66de3805b"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "b5ad9475-74d8-5ad5-a82c-235445d095f5",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "5ea586a9-f229-5cdf-9f6c-bc421af338e9",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b5ad9475-74d8-5ad5-a82c-235445d095f5"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "af99b187-7c9a-5080-b4c5-3d079054f326",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "5ea586a9-f229-5cdf-9f6c-bc421af338e9",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "af99b187-7c9a-5080-b4c5-3d079054f326"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4277,33 +4027,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "9ba8016e-f41c-5e65-a738-1e8020cad5f8",
+            "2021-08-30 00:00:00",
+            "22cff4d1-003d-5d47-9396-be3ad716b37f",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "9ba8016e-f41c-5e65-a738-1e8020cad5f8",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "22cff4d1-003d-5d47-9396-be3ad716b37f"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "e5214624-ce69-5263-a8d6-7178ef3cca95",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "9ba8016e-f41c-5e65-a738-1e8020cad5f8",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e5214624-ce69-5263-a8d6-7178ef3cca95"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "a65b0772-2114-5c17-951d-38de5feda665",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "9ba8016e-f41c-5e65-a738-1e8020cad5f8",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "a65b0772-2114-5c17-951d-38de5feda665"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4393,33 +4133,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "1b6ba92f-f450-59f8-af7d-f378f4dcb314",
+            "2021-08-30 00:00:00",
+            "00b241a4-f7d4-5170-b830-b33746b8aee7",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "1b6ba92f-f450-59f8-af7d-f378f4dcb314",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "00b241a4-f7d4-5170-b830-b33746b8aee7"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "0c299c73-8a83-5030-bbce-fd7ebc399e8d",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "1b6ba92f-f450-59f8-af7d-f378f4dcb314",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0c299c73-8a83-5030-bbce-fd7ebc399e8d"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "b6d8d311-7241-5aec-9f9c-8fd76e70d893",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "1b6ba92f-f450-59f8-af7d-f378f4dcb314",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b6d8d311-7241-5aec-9f9c-8fd76e70d893"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4509,33 +4239,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "e2041eb0-1440-53aa-b308-6f8dc4932c29",
+            "2021-08-30 00:00:00",
+            "2cba9abc-9f26-522c-8097-923a5f0845b2",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "e2041eb0-1440-53aa-b308-6f8dc4932c29",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "2cba9abc-9f26-522c-8097-923a5f0845b2"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "bc6aa672-9400-5784-95b5-54e28dc633a5",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "e2041eb0-1440-53aa-b308-6f8dc4932c29",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "bc6aa672-9400-5784-95b5-54e28dc633a5"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "abd8b247-1a7f-5f55-bc1f-32aeefc3b4ea",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "e2041eb0-1440-53aa-b308-6f8dc4932c29",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "abd8b247-1a7f-5f55-bc1f-32aeefc3b4ea"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4625,33 +4345,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "e1f5bc37-8270-5eab-8318-f559f949f52e",
+            "2021-08-30 00:00:00",
+            "8e15a4f9-2755-5b4d-a00f-d2800a849c7f",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "e1f5bc37-8270-5eab-8318-f559f949f52e",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "8e15a4f9-2755-5b4d-a00f-d2800a849c7f"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "e83a7d43-3781-547a-bb42-a403cd601400",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "e1f5bc37-8270-5eab-8318-f559f949f52e",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e83a7d43-3781-547a-bb42-a403cd601400"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "e9d888a5-e80f-5edd-af57-4e6cbb5337f8",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "e1f5bc37-8270-5eab-8318-f559f949f52e",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e9d888a5-e80f-5edd-af57-4e6cbb5337f8"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4741,33 +4451,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "3c712361-38e0-516e-99a7-f35077232843",
+            "2021-08-30 00:00:00",
+            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "3c712361-38e0-516e-99a7-f35077232843",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "50a9e6ed-66ab-5d9d-aa2a-db68dd7441ce"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "ee77a04d-6088-54b2-b132-ecf1227d730c",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "3c712361-38e0-516e-99a7-f35077232843",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "ee77a04d-6088-54b2-b132-ecf1227d730c"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "5bfcb9e7-eab2-5920-8a91-4c22fe5ff7a8",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "3c712361-38e0-516e-99a7-f35077232843",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "5bfcb9e7-eab2-5920-8a91-4c22fe5ff7a8"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4857,23 +4557,18 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "f89c9951-3e2e-5563-97f1-c64ace939a0c",
+            "2021-08-30 00:00:00",
+            "e268b786-8d37-53de-a8a5-4c22d64dc60a",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "f89c9951-3e2e-5563-97f1-c64ace939a0c",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "e268b786-8d37-53de-a8a5-4c22d64dc60a"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "bbf09ba3-d59b-58e7-a0f6-245886eea6f5",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "f89c9951-3e2e-5563-97f1-c64ace939a0c",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "bbf09ba3-d59b-58e7-a0f6-245886eea6f5"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -4993,33 +4688,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "8f518e3e-4280-5eb7-815c-f6363e07cad0",
+            "2021-08-30 00:00:00",
+            "eaaf3095-1d64-5f58-a010-35e858b7d3dd",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "8f518e3e-4280-5eb7-815c-f6363e07cad0",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "eaaf3095-1d64-5f58-a010-35e858b7d3dd"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "97b42c0c-e107-5b7e-935c-a62775508180",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "8f518e3e-4280-5eb7-815c-f6363e07cad0",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "97b42c0c-e107-5b7e-935c-a62775508180"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "453d360c-06e9-56ab-b2d1-b80bc13e9488",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "8f518e3e-4280-5eb7-815c-f6363e07cad0",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "453d360c-06e9-56ab-b2d1-b80bc13e9488"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5109,33 +4794,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "e0f59ff6-f76d-5894-b8c9-073de9f1c317",
+            "2021-08-30 00:00:00",
+            "ede6f9d4-0838-5e1c-bf48-f523a866f094",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "e0f59ff6-f76d-5894-b8c9-073de9f1c317",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "ede6f9d4-0838-5e1c-bf48-f523a866f094"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "94b1e84f-e114-5479-b6ea-45ddc6a0078a",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "e0f59ff6-f76d-5894-b8c9-073de9f1c317",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "94b1e84f-e114-5479-b6ea-45ddc6a0078a"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "9ba2d71f-b1fb-50ac-9886-f0ee484524ce",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "e0f59ff6-f76d-5894-b8c9-073de9f1c317",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "9ba2d71f-b1fb-50ac-9886-f0ee484524ce"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5328,23 +5003,18 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "4e9d803b-85b1-57d7-8553-a9ebe81b9562",
+            "2021-08-30 00:00:00",
+            "f3d81c2f-c4ca-5d36-9647-5f9770d13642",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "4e9d803b-85b1-57d7-8553-a9ebe81b9562",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "f3d81c2f-c4ca-5d36-9647-5f9770d13642"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "583c392a-8c3b-5327-8ab3-c50739f7b2ab",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "4e9d803b-85b1-57d7-8553-a9ebe81b9562",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "583c392a-8c3b-5327-8ab3-c50739f7b2ab"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5546,33 +5216,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "fa63e851-a59a-530f-803c-30b6c453b197",
+            "2021-08-30 00:00:00",
+            "0e71022c-3406-5ba4-ac12-0d5cacf9bbeb",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "fa63e851-a59a-530f-803c-30b6c453b197",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "0e71022c-3406-5ba4-ac12-0d5cacf9bbeb"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "a0affc62-374a-5eeb-8015-abee1aef34b4",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "fa63e851-a59a-530f-803c-30b6c453b197",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "a0affc62-374a-5eeb-8015-abee1aef34b4"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "95ce4b47-fc5b-5216-8046-8dcd80ff1953",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "fa63e851-a59a-530f-803c-30b6c453b197",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "95ce4b47-fc5b-5216-8046-8dcd80ff1953"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5662,33 +5322,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "d35b40fd-e2a0-558b-91e9-36dd9e8df253",
+            "2021-08-30 00:00:00",
+            "15ba77c5-b887-5c51-8b5b-961da34df9da",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "d35b40fd-e2a0-558b-91e9-36dd9e8df253",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "15ba77c5-b887-5c51-8b5b-961da34df9da"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "07dd46a5-cb0a-57ea-b384-f7fe938889f0",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "d35b40fd-e2a0-558b-91e9-36dd9e8df253",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "07dd46a5-cb0a-57ea-b384-f7fe938889f0"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "68f017bd-ce77-53f8-a121-00bdf64da70c",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "d35b40fd-e2a0-558b-91e9-36dd9e8df253",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "68f017bd-ce77-53f8-a121-00bdf64da70c"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5874,33 +5524,23 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "97af097b-d955-53ab-aa10-9dee7cf231bc",
+            "2021-08-30 00:00:00",
+            "b4e50900-e815-5d4c-a0a3-8b684b46f653",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "97af097b-d955-53ab-aa10-9dee7cf231bc",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "b4e50900-e815-5d4c-a0a3-8b684b46f653"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "ea22d15f-ee0e-5c9e-9ddc-e7a240768c80",
             "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
             "97af097b-d955-53ab-aa10-9dee7cf231bc",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "ea22d15f-ee0e-5c9e-9ddc-e7a240768c80"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "abfcc5c4-123e-5850-a771-3a70fcca2421",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "97af097b-d955-53ab-aa10-9dee7cf231bc",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "abfcc5c4-123e-5850-a771-3a70fcca2421"
+            "2021-08-30 00:00:00"
         ]
     },
     {
@@ -5990,23 +5630,18 @@
         ]
     },
     {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "query": "insert into `contact_types` (`contact_id`, `created_at`, `id`, `type_id`, `updated_at`) values (?, ?, ?, ?, ?), (?, ?, ?, ?, ?)",
         "bindings": [
+            "ef0d8ead-05f6-5bd7-ae4b-96164635d6b1",
+            "2021-08-30 00:00:00",
+            "723131b7-3c7a-501e-b227-ce812c9226ba",
             "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
             "ef0d8ead-05f6-5bd7-ae4b-96164635d6b1",
             "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "723131b7-3c7a-501e-b227-ce812c9226ba"
-        ]
-    },
-    {
-        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
-        "bindings": [
+            "94e9f028-7afd-5331-922e-b7d696d228f9",
             "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
-            "ef0d8ead-05f6-5bd7-ae4b-96164635d6b1",
-            "2021-08-30 00:00:00",
-            "2021-08-30 00:00:00",
-            "94e9f028-7afd-5331-922e-b7d696d228f9"
+            "2021-08-30 00:00:00"
         ]
     },
     {
