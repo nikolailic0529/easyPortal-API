@@ -10,7 +10,7 @@ use App\Services\DataLoader\Testing\Helper;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
-use Tests\Data\DataLoader\CustomersImporterData;
+use Tests\Data\Services\DataLoader\Importers\CustomersImporterData;
 use Tests\Helpers\SequenceUuidFactory;
 use Tests\TestCase;
 
