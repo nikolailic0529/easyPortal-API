@@ -1,0 +1,43 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "143c456a-e894-4710-a1c2-745b9582ca47"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "143c456a-e894-4710-a1c2-745b9582ca47",
+                    "name": "Schulist PLC",
+                    "updatedAt": "1626340457000",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "DISTRIBUTOR",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "69056",
+                            "address": "474 Simonis Manors Apt. 319",
+                            "city": "Elimouth",
+                            "locationType": "HEADQUARTER",
+                            "country": "United Arab Emirates",
+                            "latitude": "7.122559",
+                            "longitude": "-163.944112",
+                            "countryCode": "LA"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": null,
+                    "status": null
+                }
+            ]
+        }
+    }
+}

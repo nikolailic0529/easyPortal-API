@@ -3,15 +3,9 @@
 namespace App\Services\DataLoader\Importers;
 
 use App\Models\Reseller;
-use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Testing\Data\DataGenerator;
-use App\Services\DataLoader\Testing\FakeClient;
 use App\Services\DataLoader\Testing\Helper;
-use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\Data\Services\DataLoader\Importers\ResellersImporterData;
-use Tests\Helpers\SequenceUuidFactory;
 use Tests\TestCase;
 
 use function count;
@@ -29,15 +23,7 @@ class ResellersImporterTest extends TestCase {
      */
     public function testImport(): void {
         // Generate
-        $this->app->make(DataGenerator::class)->generate(ResellersImporterData::class);
-
-        // Setup
-        Date::setTestNow('2021-08-30T00:00:00.000+00:00');
-        Str::createUuidsUsing(new SequenceUuidFactory());
-
-        $this->override(Client::class, function (): Client {
-            return $this->app->make(FakeClient::class)->setData(ResellersImporterData::class);
-        });
+        $this->generateData(ResellersImporterData::class);
 
         // Pretest
         $this->assertModelsCount([

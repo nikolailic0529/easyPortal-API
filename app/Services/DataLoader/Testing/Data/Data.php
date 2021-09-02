@@ -25,6 +25,13 @@ abstract class Data {
      */
     abstract public function generate(string $path): bool|array;
 
+    /**
+     * @param array<string,mixed> $context
+     */
+    public function restore(string $path, array $context): bool {
+        return true;
+    }
+
     protected function dumpClientResponses(string $path, Closure $closure): bool {
         $previous = $this->config->get('ep.data_loader.dump');
 

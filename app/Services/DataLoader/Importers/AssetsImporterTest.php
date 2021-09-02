@@ -9,16 +9,9 @@ use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\Reseller;
-use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Testing\Data\DataGenerator;
-use App\Services\DataLoader\Testing\FakeClient;
 use App\Services\DataLoader\Testing\Helper;
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
 use Tests\Data\Services\DataLoader\Importers\AssetsImporterData;
-use Tests\Helpers\SequenceUuidFactory;
 use Tests\TestCase;
 
 use function count;
@@ -36,53 +29,7 @@ class AssetsImporterTest extends TestCase {
      */
     public function testImport(): void {
         // Generate
-        $context = $this->app->make(DataGenerator::class)->generate(AssetsImporterData::class);
-
-        // Setup
-        Date::setTestNow('2021-08-30T00:00:00.000+00:00');
-        Str::createUuidsUsing(new SequenceUuidFactory());
-
-        $this->override(Client::class, function (): Client {
-            return $this->app->make(FakeClient::class)->setData(AssetsImporterData::class);
-        });
-
-        // Prepare
-        if ($context[AssetsImporterData::CONTEXT_OEMS]) {
-            $this
-                ->artisan('ep:data-loader-import-oems', [
-                    'file' => $this
-                        ->getTestData(AssetsImporterData::class)
-                        ->path($context[AssetsImporterData::CONTEXT_OEMS]),
-                ])
-                ->assertExitCode(Command::SUCCESS);
-        }
-
-        if ($context[AssetsImporterData::CONTEXT_DISTRIBUTORS]) {
-            $this
-                ->artisan('ep:data-loader-update-distributor', [
-                    'id'       => $context[AssetsImporterData::CONTEXT_DISTRIBUTORS],
-                    '--create' => true,
-                ])
-                ->assertExitCode(Command::SUCCESS);
-        }
-
-        if ($context[AssetsImporterData::CONTEXT_RESELLERS]) {
-            $this
-                ->artisan('ep:data-loader-update-reseller', [
-                    'id'       => $context[AssetsImporterData::CONTEXT_RESELLERS],
-                    '--create' => true,
-                ])
-                ->assertExitCode(Command::SUCCESS);
-        }
-
-        if ($context[AssetsImporterData::CONTEXT_CUSTOMERS]) {
-            $this
-                ->artisan('ep:data-loader-update-customer', [
-                    'id'       => $context[AssetsImporterData::CONTEXT_CUSTOMERS],
-                    '--create' => true,
-                ])
-                ->assertExitCode(Command::SUCCESS);
-        }
+        $this->generateData(AssetsImporterData::class);
 
         // Pretest
         $this->assertModelsCount([

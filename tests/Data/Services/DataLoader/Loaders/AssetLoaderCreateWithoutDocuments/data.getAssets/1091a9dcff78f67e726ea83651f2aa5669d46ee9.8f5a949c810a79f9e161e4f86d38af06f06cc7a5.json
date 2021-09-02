@@ -1,0 +1,60 @@
+{
+    "selector": "data.getAssets",
+    "graphql": "query getAssets($id: String!) {\n    getAssets(args: [{key: \"id\", value: $id}]) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ndataQualityScore\n    }\n}",
+    "params": {
+        "id": "dd3fd852-c29a-4f34-ac20-21b6f7079777"
+    },
+    "response": {
+        "data": {
+            "getAssets": [
+                {
+                    "id": "dd3fd852-c29a-4f34-ac20-21b6f7079777",
+                    "resellerId": null,
+                    "customerId": "602673a2-b21d-44b7-8d8e-3423f0ee3795",
+                    "serialNumber": "3cbd7abf-af0f-350d-aa1f-de851d8868dd",
+                    "productDescription": "HP 32GB 2Rx4 PC4-2133P-R Kit",
+                    "assetTag": "Hardware",
+                    "assetType": "Hardware",
+                    "vendor": "HPE",
+                    "sku": "728629-B21",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "74273",
+                    "city": "Robertsmouth",
+                    "address": "99058 Carter Wall Apt. 572",
+                    "address2": "",
+                    "country": null,
+                    "latitude": null,
+                    "longitude": null,
+                    "countryCode": null,
+                    "status": "ACTIVE",
+                    "updatedAt": "1628969911496",
+                    "assetCoverage": [
+                        "EXPOSED"
+                    ],
+                    "dataQualityScore": "130",
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+13476485480",
+                            "name": "Mr. Arlo Hagenes DVM",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Jamar Gulgowski II",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+13476485480",
+                            "name": "Mr. Arlo Hagenes DVM",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

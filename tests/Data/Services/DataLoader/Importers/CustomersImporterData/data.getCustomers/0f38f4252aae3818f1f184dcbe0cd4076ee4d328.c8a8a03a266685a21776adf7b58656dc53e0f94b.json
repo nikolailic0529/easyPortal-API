@@ -1,0 +1,655 @@
+{
+    "selector": "data.getCustomers",
+    "graphql": "query items($limit: Int, $lastId: String, $from: String) {\n    getCustomers(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n}\n    }\n}",
+    "params": {
+        "from": null,
+        "lastId": null,
+        "limit": 10
+    },
+    "response": {
+        "data": {
+            "getCustomers": [
+                {
+                    "id": "000514de-cbf8-4955-b027-fc94e44e24a7",
+                    "name": "West PLC",
+                    "updatedAt": "1630337151073",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+16304523199",
+                            "name": "Cheyenne Murray",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16304523199",
+                            "name": "Cheyenne Murray",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+16304523199",
+                            "name": "Cheyenne Murray",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "40266-5262",
+                            "address": "58296 Kreiger Parkway Apt. 754",
+                            "city": "Port Kaseyshire",
+                            "locationType": null,
+                            "country": "Bosnia and Herzegovina",
+                            "latitude": "-19.4257",
+                            "longitude": "72.725967",
+                            "countryCode": "ZM"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 12,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 4,
+                        "activeQuotesTotalAmount": 1478.1599999999999,
+                        "newActiveQuotes": 4,
+                        "expiringQuotes": 0
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "00086c84-47ba-4796-a753-b6ab59580865",
+                    "name": "O'Conner, Bradtke and Waters",
+                    "updatedAt": "1630337156854",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+19708937867",
+                            "name": "Prof. Jace Lowe",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+19708937867",
+                            "name": "Prof. Jace Lowe",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+17748947739",
+                            "name": "Prof. Jace Lowe",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "78666",
+                            "address": "5301 Stehr Extension Apt. 752",
+                            "city": "Ondrickaville",
+                            "locationType": null,
+                            "country": "Bosnia and Herzegovina",
+                            "latitude": "-47.622608",
+                            "longitude": "-157.114996",
+                            "countryCode": "ZM"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 2,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "0008751b-2d84-4edf-9075-789a071a84d0",
+                    "name": "Beatty PLC",
+                    "updatedAt": "1630337157082",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+18059442131",
+                            "name": "Ignacio Baumbach",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18059442131",
+                            "name": "Ignacio Baumbach",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+18059442131",
+                            "name": "Ignacio Baumbach",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "11872-8264",
+                            "address": "2464 Hyatt Rue",
+                            "city": "Desireemouth",
+                            "locationType": null,
+                            "country": "Nicaragua",
+                            "latitude": "-35.951134",
+                            "longitude": "-75.683214",
+                            "countryCode": "SK"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 1,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 0
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "000cbefe-925a-43e1-a67d-31fe0b73ab71",
+                    "name": "Reynolds-Kerluke",
+                    "updatedAt": "1630337168125",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+17433651140",
+                            "name": "Mrs. Violette Schmidt",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16609315797",
+                            "name": "Luna Oberbrunner",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+17433651140",
+                            "name": "Mrs. Violette Schmidt",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "78162",
+                            "address": "222 Wyatt Plains Apt. 143",
+                            "city": "East Briaberg",
+                            "locationType": null,
+                            "country": "Nicaragua",
+                            "latitude": "28.138288",
+                            "longitude": "-168.070475",
+                            "countryCode": "SK"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 2,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "000db0c8-7c7e-48cc-83ba-3eeb65ac49d5",
+                    "name": "Paucek Inc",
+                    "updatedAt": "1630337168463",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+18287800960",
+                            "name": "Janessa Towne",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+18287800960",
+                            "name": "Ilene Eichmann",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+18287800960",
+                            "name": "Janessa Towne",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "23548",
+                            "address": "5850 Fadel Courts",
+                            "city": "Allyfurt",
+                            "locationType": null,
+                            "country": "Mauritania",
+                            "latitude": "54.769588",
+                            "longitude": "-130.510905",
+                            "countryCode": "SK"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 207,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "0012d3f3-144e-43db-b40e-66b4d8604d9e",
+                    "name": "McDermott-Denesik",
+                    "updatedAt": "1630337168828",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+15802387204",
+                            "name": "Hillard Gottlieb",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+15802387204",
+                            "name": "Hillard Gottlieb",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+15802387204",
+                            "name": "Hillard Gottlieb",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "40822",
+                            "address": "390 Rau Garden",
+                            "city": "Port Delbert",
+                            "locationType": null,
+                            "country": "Bosnia and Herzegovina",
+                            "latitude": "-87.58832",
+                            "longitude": "-1.497364",
+                            "countryCode": "ZM"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 16,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 2,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 2,
+                        "expiringQuotes": 1
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "00162413-6913-41cf-b328-f441d958ae75",
+                    "name": "Grady, Kihn and Ullrich",
+                    "updatedAt": "1630337169129",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+16067789757",
+                            "name": "Dr. Kenyatta Nader II",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+16067789757",
+                            "name": "Dr. Kenyatta Nader II",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+16067789757",
+                            "name": "Dr. Kenyatta Nader II",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "35289-2533",
+                            "address": "5918 Johns Center",
+                            "city": "West Dominicstad",
+                            "locationType": null,
+                            "country": "Nicaragua",
+                            "latitude": "-11.807314",
+                            "longitude": "111.492187",
+                            "countryCode": "SK"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 1,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "00168fb1-b86c-42f0-abab-6582ea1a865e",
+                    "name": "Sipes-Oberbrunner",
+                    "updatedAt": "1630337169411",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+14849813994",
+                            "name": "Mr. Baron Collins II",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14849813994",
+                            "name": "Mr. Baron Collins II",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+14849813994",
+                            "name": "Mr. Baron Collins II",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "85390",
+                            "address": "4754 Jayce Ridges Suite 350",
+                            "city": "Hicklehaven",
+                            "locationType": null,
+                            "country": "Bosnia and Herzegovina",
+                            "latitude": "50.027383",
+                            "longitude": "-90.70993",
+                            "countryCode": "ZM"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 1,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 2,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 2,
+                        "expiringQuotes": 0
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "0016b65f-d08d-4a94-9050-58c1c9066fa5",
+                    "name": "Mosciski Group",
+                    "updatedAt": "1630337169715",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+17541648069",
+                            "name": "Cierra Mills",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Lesly Jacobs DDS",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+17541648069",
+                            "name": "Cierra Mills",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "23925",
+                            "address": "39176 Miller Inlet Suite 393",
+                            "city": "Gerlachhaven",
+                            "locationType": null,
+                            "country": "Mauritania",
+                            "latitude": "62.787799",
+                            "longitude": "-109.628422",
+                            "countryCode": "SK"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 355,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 3,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 3,
+                        "expiringQuotes": 0
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                },
+                {
+                    "id": "001891b4-fe07-4d88-9a01-816a1c4709cc",
+                    "name": "Erdman-Kohler",
+                    "updatedAt": "1630337170081",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [
+                        {
+                            "phoneNumber": "+14587809213",
+                            "name": "Yasmeen Kulas DVM",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": "+14587809213",
+                            "name": "Yasmeen Kulas DVM",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+14587809213",
+                            "name": "Yasmeen Kulas DVM",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ],
+                    "companyTypes": [
+                        {
+                            "type": "CUSTOMER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "84115-6286",
+                            "address": "660 Kunze Green",
+                            "city": "New Amparo",
+                            "locationType": null,
+                            "country": "Mauritania",
+                            "latitude": "75.392783",
+                            "longitude": "-176.45935",
+                            "countryCode": "SK"
+                        }
+                    ],
+                    "companyKpis": {
+                        "totalAssets": 31,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": null,
+                        "newActiveCustomers": null,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": null,
+                        "expiringContracts": 0,
+                        "activeQuotes": 26,
+                        "activeQuotesTotalAmount": 14364.439999999999,
+                        "newActiveQuotes": 26,
+                        "expiringQuotes": 0
+                    },
+                    "status": [
+                        "INACTIVE"
+                    ]
+                }
+            ]
+        }
+    }
+}

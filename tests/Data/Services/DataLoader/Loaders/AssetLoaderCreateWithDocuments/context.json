@@ -1,0 +1,13 @@
+{
+    "generated": "2021-09-02T12:25:00.804831Z",
+    "distributors": [
+        "143c456a-e894-4710-a1c2-745b9582ca47"
+    ],
+    "resellers": [
+        "75026113-e205-40e8-831e-0a2f9dee75bf"
+    ],
+    "customers": [
+        "16804b25-302b-4581-b267-64040e8e7dbb"
+    ],
+    "oems": "oem.csv"
+}

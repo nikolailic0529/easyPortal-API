@@ -1,0 +1,158 @@
+[
+    {
+        "query": "select * from `customers` where (`customers`.`id` = ?) and `customers`.`deleted_at` is null limit 1",
+        "bindings": [
+            "a0df13a5-c42c-4269-ae57-71085acb5319"
+        ]
+    },
+    {
+        "query": "select * from `types` where `types`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
+        "bindings": [
+            "customer",
+            "customer"
+        ]
+    },
+    {
+        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Customer",
+            "CUSTOMER",
+            "CUSTOMER",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "select * from `types` where (`key` = ? and `object_type` = ?) and `types`.`deleted_at` is null limit 1",
+        "bindings": [
+            "system manager",
+            "contact"
+        ]
+    },
+    {
+        "query": "insert into `types` (`object_type`, `key`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Contact",
+            "System Manager",
+            "System Manager",
+            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "select * from `countries` where `countries`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `countries` where (`countries`.`id` = ?) and `countries`.`deleted_at` is null limit 1",
+        "bindings": [
+            "cx"
+        ]
+    },
+    {
+        "query": "insert into `countries` (`code`, `name`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "CX",
+            "Panama",
+            "78282ba7-a73f-59f8-9871-ba703198d433",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "select * from `cities` where `cities`.`deleted_at` is null",
+        "bindings": []
+    },
+    {
+        "query": "select * from `cities` where (`country_id` = ? and `name` = ?) and `cities`.`deleted_at` is null limit 1",
+        "bindings": [
+            "78282ba7-a73f-59f8-9871-ba703198d433",
+            "fadelmouth"
+        ]
+    },
+    {
+        "query": "insert into `cities` (`name`, `country_id`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "Fadelmouth",
+            "78282ba7-a73f-59f8-9871-ba703198d433",
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `customers` (`id`, `name`, `type_id`, `changed_at`, `assets_count`, `contacts_count`, `locations_count`, `kpi_assets_total`, `kpi_assets_active`, `kpi_assets_covered`, `kpi_customers_active`, `kpi_customers_active_new`, `kpi_contracts_active`, `kpi_contracts_active_amount`, `kpi_contracts_active_new`, `kpi_contracts_expiring`, `kpi_quotes_active`, `kpi_quotes_active_amount`, `kpi_quotes_active_new`, `kpi_quotes_expiring`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "a0df13a5-c42c-4269-ae57-71085acb5319",
+            "Kilback, Fritsch and Gutmann",
+            "09477b7e-4f12-5f29-ad60-559bab1718e4",
+            "2021-09-02 03:26:41",
+            0,
+            1,
+            1,
+            1,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            0,
+            0.0,
+            0,
+            0,
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `contacts` (`object_type`, `object_id`, `name`, `phone_number`, `email`, `phone_valid`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Customer",
+            "a0df13a5-c42c-4269-ae57-71085acb5319",
+            "Jaydon Hoppe",
+            null,
+            null,
+            null,
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    },
+    {
+        "query": "insert into `contact_types` (`type_id`, `contact_id`, `created_at`, `updated_at`, `id`) values (?, ?, ?, ?, ?)",
+        "bindings": [
+            "09cfeeb6-65a4-5226-ad70-b3f341bf5234",
+            "e218aa10-f0ee-516b-aaff-cbb9f0eabd4d",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00",
+            "654f6ea3-ebd0-582d-9685-2571f2aa35ea"
+        ]
+    },
+    {
+        "query": "insert into `locations` (`object_type`, `object_id`, `country_id`, `city_id`, `postcode`, `state`, `line_one`, `line_two`, `latitude`, `longitude`, `id`, `updated_at`, `created_at`) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "bindings": [
+            "Customer",
+            "a0df13a5-c42c-4269-ae57-71085acb5319",
+            "78282ba7-a73f-59f8-9871-ba703198d433",
+            "ac09955a-534c-5ad4-8d55-b6579a9784b5",
+            "33599",
+            "",
+            "973 Columbus Garden",
+            "",
+            "62.097693",
+            "31.901929",
+            "0d8b1849-cb13-5658-b504-726208f6ccae",
+            "2021-08-30 00:00:00",
+            "2021-08-30 00:00:00"
+        ]
+    }
+]

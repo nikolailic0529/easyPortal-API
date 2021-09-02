@@ -1,0 +1,12 @@
+{
+    "selector": "data.getCentralAssetDbStatistics.companiesCustomerAmount",
+    "graphql": "query {\n    getCentralAssetDbStatistics {\n        companiesCustomerAmount\n    }\n}",
+    "params": [],
+    "response": {
+        "data": {
+            "getCentralAssetDbStatistics": {
+                "companiesCustomerAmount": 24228
+            }
+        }
+    }
+}
