@@ -12,7 +12,6 @@ use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Utils\ModelHelper;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
@@ -118,27 +117,22 @@ trait CalculatedProperties {
      */
     private function getResellersCustomers(Collection $resellers, array $models): array {
         // Query
-        /** @var \Illuminate\Database\Query\Builder $union */
-        $union = null;
-        $ids   = $resellers->map(new GetKey())->all();
+        $ids  = $resellers->map(new GetKey())->all();
+        $rows = new Collection();
 
         foreach ($models as $model) {
-            $builder = $model::query()
-                ->toBase()
-                ->distinct()
-                ->select('reseller_id', 'customer_id')
-                ->whereIn('reseller_id', $ids);
-
-            if ($union) {
-                $union->union($builder);
-            } else {
-                $union = $builder;
-            }
+            $rows = $rows->merge(
+                $model::query()
+                    ->toBase()
+                    ->distinct()
+                    ->select('reseller_id', 'customer_id')
+                    ->whereIn('reseller_id', $ids)
+                    ->get(),
+            );
         }
 
-        if (!($union instanceof Builder)) {
-            return [];
-        }
+        // Remove duplicates
+        $rows = $rows->unique();
 
         // Laravel creates a new model instance in each query, we are trying to
         // reuse the models to reduce memory usage.
@@ -155,7 +149,6 @@ trait CalculatedProperties {
 
         // Process
         $key    = (new Customer())->getKeyName();
-        $rows   = $union->get();
         $missed = $rows->pluck('customer_id')->diff($customers->keys())->sort()->all();
         $result = array_fill_keys($rows->pluck('reseller_id')->all(), []);
 

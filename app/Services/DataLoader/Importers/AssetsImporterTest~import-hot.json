@@ -706,7 +706,7 @@
         ]
     },
     {
-        "query": "select `customers`.*, `reseller_customers`.`reseller_id` as `pivot_reseller_id`, `reseller_customers`.`customer_id` as `pivot_customer_id`, `reseller_customers`.`created_at` as `pivot_created_at`, `reseller_customers`.`updated_at` as `pivot_updated_at` from `customers` inner join `reseller_customers` on `customers`.`id` = `reseller_customers`.`customer_id` where `reseller_customers`.`deleted_at` is null and `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
+        "query": "select distinct `reseller_id`, `customer_id` from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0731be4c-624e-4802-a1d3-c672a9283562",
             "1f5a306d-bca1-4b77-8131-0f1926a40d08",
@@ -718,7 +718,7 @@
         ]
     },
     {
-        "query": "(select distinct `reseller_id`, `customer_id` from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?)) union (select distinct `reseller_id`, `customer_id` from `documents` where `documents`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?))",
+        "query": "select distinct `reseller_id`, `customer_id` from `documents` where `documents`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0731be4c-624e-4802-a1d3-c672a9283562",
             "1f5a306d-bca1-4b77-8131-0f1926a40d08",
@@ -726,7 +726,12 @@
             "3a312485-a6f0-4f4e-85ec-cd23156eb176",
             "75026113-e205-40e8-831e-0a2f9dee75bf",
             "f342f429-2016-4809-988b-022e1deb75f0",
-            "ff69738c-6dce-458e-bc6c-4b6eae3f6168",
+            "ff69738c-6dce-458e-bc6c-4b6eae3f6168"
+        ]
+    },
+    {
+        "query": "select `customers`.*, `reseller_customers`.`reseller_id` as `pivot_reseller_id`, `reseller_customers`.`customer_id` as `pivot_customer_id`, `reseller_customers`.`created_at` as `pivot_created_at`, `reseller_customers`.`updated_at` as `pivot_updated_at` from `customers` inner join `reseller_customers` on `customers`.`id` = `reseller_customers`.`customer_id` where `reseller_customers`.`deleted_at` is null and `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
+        "bindings": [
             "0731be4c-624e-4802-a1d3-c672a9283562",
             "1f5a306d-bca1-4b77-8131-0f1926a40d08",
             "25f18688-39fc-4d4c-90bb-3593cac21052",
@@ -1427,7 +1432,7 @@
         ]
     },
     {
-        "query": "select `customers`.*, `reseller_customers`.`reseller_id` as `pivot_reseller_id`, `reseller_customers`.`customer_id` as `pivot_customer_id`, `reseller_customers`.`created_at` as `pivot_created_at`, `reseller_customers`.`updated_at` as `pivot_updated_at` from `customers` inner join `reseller_customers` on `customers`.`id` = `reseller_customers`.`customer_id` where `reseller_customers`.`deleted_at` is null and `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
+        "query": "select distinct `reseller_id`, `customer_id` from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "03829705-5dd9-4f58-ab38-495a806d45cf",
             "1d039886-4419-4bb1-bad9-9110293da053",
@@ -1441,7 +1446,7 @@
         ]
     },
     {
-        "query": "(select distinct `reseller_id`, `customer_id` from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?)) union (select distinct `reseller_id`, `customer_id` from `documents` where `documents`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?))",
+        "query": "select distinct `reseller_id`, `customer_id` from `documents` where `documents`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "03829705-5dd9-4f58-ab38-495a806d45cf",
             "1d039886-4419-4bb1-bad9-9110293da053",
@@ -1451,7 +1456,12 @@
             "836f564c-dc3e-480f-9ebb-42a6900ce74f",
             "98d5c771-5301-498a-9439-537ff6a9b405",
             "ace3d380-031e-4c74-809d-179f13694650",
-            "d229c495-f960-4ea7-83fd-43b50c56f1c0",
+            "d229c495-f960-4ea7-83fd-43b50c56f1c0"
+        ]
+    },
+    {
+        "query": "select `customers`.*, `reseller_customers`.`reseller_id` as `pivot_reseller_id`, `reseller_customers`.`customer_id` as `pivot_customer_id`, `reseller_customers`.`created_at` as `pivot_created_at`, `reseller_customers`.`updated_at` as `pivot_updated_at` from `customers` inner join `reseller_customers` on `customers`.`id` = `reseller_customers`.`customer_id` where `reseller_customers`.`deleted_at` is null and `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
+        "bindings": [
             "03829705-5dd9-4f58-ab38-495a806d45cf",
             "1d039886-4419-4bb1-bad9-9110293da053",
             "3ef2a4c6-4c34-48d0-bb8d-20ad28c5e6b6",
@@ -2148,7 +2158,7 @@
         ]
     },
     {
-        "query": "select `customers`.*, `reseller_customers`.`reseller_id` as `pivot_reseller_id`, `reseller_customers`.`customer_id` as `pivot_customer_id`, `reseller_customers`.`created_at` as `pivot_created_at`, `reseller_customers`.`updated_at` as `pivot_updated_at` from `customers` inner join `reseller_customers` on `customers`.`id` = `reseller_customers`.`customer_id` where `reseller_customers`.`deleted_at` is null and `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
+        "query": "select distinct `reseller_id`, `customer_id` from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "1374b7cf-0aa4-41f9-be97-fc42f766bd0b",
             "5cf2b1de-3a37-41a9-8572-ca519a5dfa84",
@@ -2161,7 +2171,7 @@
         ]
     },
     {
-        "query": "(select distinct `reseller_id`, `customer_id` from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?)) union (select distinct `reseller_id`, `customer_id` from `documents` where `documents`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?))",
+        "query": "select distinct `reseller_id`, `customer_id` from `documents` where `documents`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "1374b7cf-0aa4-41f9-be97-fc42f766bd0b",
             "5cf2b1de-3a37-41a9-8572-ca519a5dfa84",
@@ -2170,7 +2180,12 @@
             "714aa057-1ea0-4666-b3be-4b69af99e997",
             "72d3b860-3667-408a-8ead-6056e10b2481",
             "b0233a33-e6b2-488a-b5ff-22408194ba83",
-            "fcd8ee32-031a-4e61-b112-b4d07c92f6b3",
+            "fcd8ee32-031a-4e61-b112-b4d07c92f6b3"
+        ]
+    },
+    {
+        "query": "select `customers`.*, `reseller_customers`.`reseller_id` as `pivot_reseller_id`, `reseller_customers`.`customer_id` as `pivot_customer_id`, `reseller_customers`.`created_at` as `pivot_created_at`, `reseller_customers`.`updated_at` as `pivot_updated_at` from `customers` inner join `reseller_customers` on `customers`.`id` = `reseller_customers`.`customer_id` where `reseller_customers`.`deleted_at` is null and `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
+        "bindings": [
             "1374b7cf-0aa4-41f9-be97-fc42f766bd0b",
             "5cf2b1de-3a37-41a9-8572-ca519a5dfa84",
             "661cb23a-6328-4363-8a32-ecd1c96904f2",
@@ -2917,7 +2932,7 @@
         ]
     },
     {
-        "query": "select `customers`.*, `reseller_customers`.`reseller_id` as `pivot_reseller_id`, `reseller_customers`.`customer_id` as `pivot_customer_id`, `reseller_customers`.`created_at` as `pivot_created_at`, `reseller_customers`.`updated_at` as `pivot_updated_at` from `customers` inner join `reseller_customers` on `customers`.`id` = `reseller_customers`.`customer_id` where `reseller_customers`.`deleted_at` is null and `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
+        "query": "select distinct `reseller_id`, `customer_id` from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "202a694b-f8a6-4191-881b-e296663d5061",
@@ -2932,7 +2947,7 @@
         ]
     },
     {
-        "query": "(select distinct `reseller_id`, `customer_id` from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)) union (select distinct `reseller_id`, `customer_id` from `documents` where `documents`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?))",
+        "query": "select distinct `reseller_id`, `customer_id` from `documents` where `documents`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "202a694b-f8a6-4191-881b-e296663d5061",
@@ -2943,7 +2958,12 @@
             "96125ca9-a463-4e62-8526-9461f31b1819",
             "9ae9b76a-eedb-47f4-b6bc-f7593e147621",
             "e35134f8-02c7-4aaa-944c-e72f18be4b6b",
-            "f099856f-d50e-4440-b938-375cab3b8e1b",
+            "f099856f-d50e-4440-b938-375cab3b8e1b"
+        ]
+    },
+    {
+        "query": "select `customers`.*, `reseller_customers`.`reseller_id` as `pivot_reseller_id`, `reseller_customers`.`customer_id` as `pivot_customer_id`, `reseller_customers`.`created_at` as `pivot_created_at`, `reseller_customers`.`updated_at` as `pivot_updated_at` from `customers` inner join `reseller_customers` on `customers`.`id` = `reseller_customers`.`customer_id` where `reseller_customers`.`deleted_at` is null and `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
+        "bindings": [
             "143c456a-e894-4710-a1c2-745b9582ca47",
             "202a694b-f8a6-4191-881b-e296663d5061",
             "561b9925-3781-46d7-a734-78efad4f5ae6",
@@ -3649,7 +3669,7 @@
         ]
     },
     {
-        "query": "select `customers`.*, `reseller_customers`.`reseller_id` as `pivot_reseller_id`, `reseller_customers`.`customer_id` as `pivot_customer_id`, `reseller_customers`.`created_at` as `pivot_created_at`, `reseller_customers`.`updated_at` as `pivot_updated_at` from `customers` inner join `reseller_customers` on `customers`.`id` = `reseller_customers`.`customer_id` where `reseller_customers`.`deleted_at` is null and `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
+        "query": "select distinct `reseller_id`, `customer_id` from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0eccc79b-4b02-4f51-bbe0-d294b7a142fe",
             "1d1044d9-8aa4-40cc-85b2-f230c8c9b304",
@@ -3663,7 +3683,7 @@
         ]
     },
     {
-        "query": "(select distinct `reseller_id`, `customer_id` from `assets` where `assets`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?)) union (select distinct `reseller_id`, `customer_id` from `documents` where `documents`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?))",
+        "query": "select distinct `reseller_id`, `customer_id` from `documents` where `documents`.`deleted_at` is null and `reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?)",
         "bindings": [
             "0eccc79b-4b02-4f51-bbe0-d294b7a142fe",
             "1d1044d9-8aa4-40cc-85b2-f230c8c9b304",
@@ -3673,7 +3693,12 @@
             "8efaa7bf-8efa-431b-b7fd-2c0c306a86e5",
             "abf17c4e-2672-4a05-8e0a-8f11c9732504",
             "bd6bee4b-1bd7-432d-b5c0-c039a48580c8",
-            "c4008848-ced1-47e6-92ca-87a1774006cd",
+            "c4008848-ced1-47e6-92ca-87a1774006cd"
+        ]
+    },
+    {
+        "query": "select `customers`.*, `reseller_customers`.`reseller_id` as `pivot_reseller_id`, `reseller_customers`.`customer_id` as `pivot_customer_id`, `reseller_customers`.`created_at` as `pivot_created_at`, `reseller_customers`.`updated_at` as `pivot_updated_at` from `customers` inner join `reseller_customers` on `customers`.`id` = `reseller_customers`.`customer_id` where `reseller_customers`.`deleted_at` is null and `reseller_customers`.`reseller_id` in (?, ?, ?, ?, ?, ?, ?, ?, ?) and `customers`.`deleted_at` is null",
+        "bindings": [
             "0eccc79b-4b02-4f51-bbe0-d294b7a142fe",
             "1d1044d9-8aa4-40cc-85b2-f230c8c9b304",
             "20268e5f-6d31-49da-a850-24a28446cdd4",

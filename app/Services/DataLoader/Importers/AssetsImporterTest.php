@@ -17,7 +17,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\Testing\Database\QueryLog\WithQueryLog;
-use Tests\Data\DataLoader\AssetsImporterData;
+use Tests\Data\Services\DataLoader\Importers\AssetsImporterData;
 use Tests\Helpers\SequenceUuidFactory;
 use Tests\TestCase;
 

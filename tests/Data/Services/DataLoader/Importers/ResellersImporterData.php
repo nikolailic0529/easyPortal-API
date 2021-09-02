@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Tests\Data\DataLoader;
+namespace Tests\Data\Services\DataLoader\Importers;
 
 use App\Services\DataLoader\Testing\Data\Data;
 use Illuminate\Console\Command;
