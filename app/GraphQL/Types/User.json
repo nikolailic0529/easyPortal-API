@@ -4,8 +4,7 @@
     "type": "object",
     "required": [
         "given_name",
-        "family_name",
-        "id"
+        "family_name"
     ],
     "properties": {
         "id": {

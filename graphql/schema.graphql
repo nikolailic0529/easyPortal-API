@@ -360,5 +360,6 @@ type Query {
   ): [User!]!
   @organization(root: true)
   @me(permissions: ["administer"])
+  @builder(method: "App\\GraphQL\\Queries\\User")
   @paginate
 }
