@@ -1,0 +1,195 @@
+{
+    "selector": "data.getAssetsByCustomerId",
+    "graphql": "query items($id: String!, $limit: Int, $lastId: String) {\n    getAssetsByCustomerId(customerId: $id, limit: $limit, lastId: $lastId) {\n        id\nserialNumber\n\nproductDescription\nassetTag\nassetType\nstatus\nvendor\nsku\n\neolDate\neosDate\n\ncountry\ncountryCode\nlatitude\nlongitude\nzip\ncity\naddress\naddress2\n\ncustomerId\nresellerId\n\nupdatedAt\n\nlatestContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\n\nassetCoverage\ndataQualityScore\n        assetDocument {\n    startDate\n    endDate\n    documentNumber\n\n    currencyCode\n    languageCode\n    netPrice\n    discount\n    listPrice\n\n    document {\n        id\n        type\n        documentNumber\n\n        startDate\n        endDate\n\n        currencyCode\n        languageCode\n        totalNetPrice\n\n        updatedAt\n\n        vendorSpecificFields {\n            vendor\n            groupId\n            groupDescription\n            said\n        }\n\n        contactPersons {\n            phoneNumber\n            name\n            type\n            mail\n        }\n\n        customerId\n        resellerId\n        distributorId\n    }\n\n    skuNumber\n    supportPackage\n    warrantyEndDate\n    estimatedValueRenewal\n\n    customer {\n      id\n    }\n\n    reseller {\n      id\n    }\n}\n    }\n}",
+    "params": {
+        "id": "bbbe3c26-3774-480c-89f3-621ad2a687ec",
+        "lastId": null,
+        "limit": 250
+    },
+    "response": {
+        "data": {
+            "getAssetsByCustomerId": [
+                {
+                    "id": "07208a1d-117e-4e8e-866f-4a47f7ad14e2",
+                    "resellerId": "9d862ab2-c6a1-4a24-8d81-d02c304336f2",
+                    "customerId": "bbbe3c26-3774-480c-89f3-621ad2a687ec",
+                    "serialNumber": null,
+                    "productDescription": "VMw vSph EssPlus Kit 6P 5yr E-LTU",
+                    "assetTag": "Software",
+                    "assetType": "Software",
+                    "vendor": "HPE",
+                    "sku": "F6M50AAE",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "73841",
+                    "city": "West Virgilfort",
+                    "address": "845 Oberbrunner Meadows",
+                    "address2": "",
+                    "country": "Guyana",
+                    "latitude": "3.015974",
+                    "longitude": "84.278743",
+                    "countryCode": "DK",
+                    "status": "ACTIVE",
+                    "updatedAt": "1629359294989",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "70",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA158AC",
+                            "supportPackage": "H7J34AC",
+                            "warrantyEndDate": null,
+                            "documentNumber": "c6f48e3d-90de-3b62-9fc3-83dc4fe2c46b",
+                            "document": {
+                                "id": "86541fe9-3793-4bc5-835b-47cb9a8bedf7",
+                                "type": "Quote renewal",
+                                "documentNumber": "c6f48e3d-90de-3b62-9fc3-83dc4fe2c46b",
+                                "startDate": "2020-11-01",
+                                "endDate": "2021-10-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "857",
+                                "languageCode": "EN",
+                                "updatedAt": "1626346020118",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "b9671111-6df1-3cf0-ac7f-573daa25854b",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "9d862ab2-c6a1-4a24-8d81-d02c304336f2",
+                                "customerId": "bbbe3c26-3774-480c-89f3-621ad2a687ec",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2020-11-01",
+                            "endDate": "2021-10-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "428",
+                            "discount": "-8",
+                            "listPrice": "528",
+                            "estimatedValueRenewal": "528",
+                            "reseller": {
+                                "id": "9d862ab2-c6a1-4a24-8d81-d02c304336f2"
+                            },
+                            "customer": {
+                                "id": "bbbe3c26-3774-480c-89f3-621ad2a687ec"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+16196118788",
+                            "name": "Prof. Kieran Jones",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Dr. Raymundo Feeney DVM",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+16196118788",
+                            "name": "Prof. Kieran Jones",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ]
+                },
+                {
+                    "id": "21981692-189d-43bb-b890-f7e35cb93454",
+                    "resellerId": "9d862ab2-c6a1-4a24-8d81-d02c304336f2",
+                    "customerId": "bbbe3c26-3774-480c-89f3-621ad2a687ec",
+                    "serialNumber": null,
+                    "productDescription": "VMw vSph EssPlus Kit 6P 5yr E-LTU",
+                    "assetTag": "Software",
+                    "assetType": "Software",
+                    "vendor": "HPE",
+                    "sku": "F6M50AAE",
+                    "eolDate": "",
+                    "eosDate": "",
+                    "zip": "73841",
+                    "city": "West Virgilfort",
+                    "address": "845 Oberbrunner Meadows",
+                    "address2": "",
+                    "country": "Guyana",
+                    "latitude": "3.015974",
+                    "longitude": "84.278743",
+                    "countryCode": "DK",
+                    "status": "ACTIVE",
+                    "updatedAt": "1629387100168",
+                    "assetCoverage": [
+                        "ARCHIVED"
+                    ],
+                    "dataQualityScore": "70",
+                    "assetDocument": [
+                        {
+                            "skuNumber": "HA156AC",
+                            "supportPackage": "H7J34AC",
+                            "warrantyEndDate": null,
+                            "documentNumber": "c6f48e3d-90de-3b62-9fc3-83dc4fe2c46b",
+                            "document": {
+                                "id": "86541fe9-3793-4bc5-835b-47cb9a8bedf7",
+                                "type": "Quote renewal",
+                                "documentNumber": "c6f48e3d-90de-3b62-9fc3-83dc4fe2c46b",
+                                "startDate": "2020-11-01",
+                                "endDate": "2021-10-31",
+                                "currencyCode": "EUR",
+                                "totalNetPrice": "857",
+                                "languageCode": "EN",
+                                "updatedAt": "1626346020118",
+                                "vendorSpecificFields": {
+                                    "vendor": "HPE",
+                                    "said": "b9671111-6df1-3cf0-ac7f-573daa25854b",
+                                    "groupId": null,
+                                    "groupDescription": null
+                                },
+                                "contactPersons": null,
+                                "resellerId": "9d862ab2-c6a1-4a24-8d81-d02c304336f2",
+                                "customerId": "bbbe3c26-3774-480c-89f3-621ad2a687ec",
+                                "distributorId": "143c456a-e894-4710-a1c2-745b9582ca47"
+                            },
+                            "startDate": "2020-11-01",
+                            "endDate": "2021-10-31",
+                            "currencyCode": "EUR",
+                            "languageCode": "EN",
+                            "netPrice": "428",
+                            "discount": "-8",
+                            "listPrice": "528",
+                            "estimatedValueRenewal": "528",
+                            "reseller": {
+                                "id": "9d862ab2-c6a1-4a24-8d81-d02c304336f2"
+                            },
+                            "customer": {
+                                "id": "bbbe3c26-3774-480c-89f3-621ad2a687ec"
+                            }
+                        }
+                    ],
+                    "latestContactPersons": [
+                        {
+                            "phoneNumber": "+16196118788",
+                            "name": "Prof. Kieran Jones",
+                            "mail": null,
+                            "type": "Hardware Contact Person"
+                        },
+                        {
+                            "phoneNumber": null,
+                            "name": "Dr. Raymundo Feeney DVM",
+                            "mail": null,
+                            "type": "System Manager"
+                        },
+                        {
+                            "phoneNumber": "+16196118788",
+                            "name": "Prof. Kieran Jones",
+                            "mail": null,
+                            "type": "Software Contact Person"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
