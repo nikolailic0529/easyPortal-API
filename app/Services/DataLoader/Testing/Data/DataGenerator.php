@@ -33,10 +33,8 @@ class DataGenerator {
 
     /**
      * @param class-string<\App\Services\DataLoader\Testing\Data\Data> $class
-     *
-     * @return array<string,mixed>
      */
-    public function generate(string $class): array {
+    public function generate(string $class): bool {
         // Exists?
         $fs          = new Filesystem();
         $data        = $this->app->make($class);
@@ -45,7 +43,7 @@ class DataGenerator {
         $contextPath = dirname($contextFile->getPathname());
 
         if ($contextFile->isFile()) {
-            return $this->getTestData($class)->json($contextName);
+            return true;
         }
 
         // Cleanup
@@ -83,7 +81,7 @@ class DataGenerator {
         $fs->dumpFile($contextFile->getPathname(), json_encode($contextData, $options));
 
         // Return
-        return $contextData;
+        return true;
     }
 
     /**

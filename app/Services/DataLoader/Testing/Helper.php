@@ -8,6 +8,7 @@ use App\Models\Document;
 use App\Models\Location;
 use App\Models\Reseller;
 use App\Models\Type as TypeModel;
+use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Finders\CustomerFinder as CustomerFinderContract;
 use App\Services\DataLoader\Finders\DistributorFinder as DistributorFinderContract;
 use App\Services\DataLoader\Finders\OemFinder as OemFinderContract;
@@ -18,6 +19,7 @@ use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewDocument;
+use App\Services\DataLoader\Testing\Data\DataGenerator;
 use App\Services\DataLoader\Testing\Finders\CustomerFinder;
 use App\Services\DataLoader\Testing\Finders\DistributorFinder;
 use App\Services\DataLoader\Testing\Finders\OemFinder;
@@ -26,8 +28,11 @@ use App\Services\DataLoader\Testing\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Testing\Finders\ServiceLevelFinder;
 use DateTimeInterface;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Date;
+use Illuminate\Support\Str;
 use libphonenumber\NumberParseException;
 use Propaganistas\LaravelPhone\PhoneNumber;
+use Tests\Helpers\SequenceUuidFactory;
 
 use function array_map;
 use function array_unique;
@@ -461,4 +466,26 @@ trait Helper {
         return $queries;
     }
     // </editor-fold>
+
+    // <editor-fold desc="Data">
+    // =========================================================================
+    /**
+     * @param class-string<\App\Services\DataLoader\Testing\Data\Data> $data
+     */
+    protected function generateData(string $data): void {
+        // Generate
+        $this->assertTrue($this->app->make(DataGenerator::class)->generate($data));
+
+        // Setup
+        Date::setTestNow('2021-08-30T00:00:00.000+00:00');
+        Str::createUuidsUsing(new SequenceUuidFactory());
+
+        $this->override(Client::class, function () use ($data): Client {
+            return $this->app->make(FakeClient::class)->setData($data);
+        });
+
+        // Restore
+        $this->assertTrue($this->app->make(DataGenerator::class)->restore($data));
+    }
+    //</editor-fold>
 }
