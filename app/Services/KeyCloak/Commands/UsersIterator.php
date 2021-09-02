@@ -5,6 +5,7 @@ namespace App\Services\KeyCloak\Commands;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\KeyCloak\Client\Client;
 use Closure;
+use EmptyIterator;
 use Iterator;
 
 use function min;
@@ -13,7 +14,7 @@ class UsersIterator implements QueryIterator {
     protected ?Closure $beforeChunk = null;
     protected ?Closure $afterChunk  = null;
     protected ?string  $current     = null;
-    protected ?int     $limit       = 0;
+    protected ?int     $limit       = null;
     protected int      $chunk       = 250;
     protected int      $offset      = 0;
 
@@ -71,6 +72,10 @@ class UsersIterator implements QueryIterator {
         $offset = $this->offset;
         $chunk  = $this->limit ? min($this->limit, $this->chunk) : $this->chunk;
         $limit  = $this->limit;
+
+        if ($limit === 0) {
+            return new EmptyIterator();
+        }
 
         // Iterate
         do {

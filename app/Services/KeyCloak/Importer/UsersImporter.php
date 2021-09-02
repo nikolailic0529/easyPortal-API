@@ -18,6 +18,7 @@ use Psr\Log\LoggerInterface;
 use Throwable;
 
 use function array_map;
+use function min;
 
 class UsersImporter {
     use GlobalScopes;
@@ -65,7 +66,7 @@ class UsersImporter {
         int $limit = null,
     ): void {
         $this->call(function () use ($continue, $chunk, $limit): void {
-            $status   = new Status($continue, $this->getTotal());
+            $status   = new Status($continue, $this->getTotal($limit));
             $iterator = $this->getIterator($chunk, $limit);
             $users    = new Collection();
             $iterator
@@ -126,8 +127,12 @@ class UsersImporter {
         });
     }
 
-    protected function getTotal(): ?int {
-        return $this->getClient()->usersCount();
+    protected function getTotal(int $limit = null): ?int {
+        $total = $this->getClient()->usersCount();
+        if ($limit) {
+            $total = min($total, $limit);
+        }
+        return $total;
     }
 
     private function call(Closure $closure): void {
