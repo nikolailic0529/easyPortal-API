@@ -85,4 +85,17 @@ class DataGenerator {
         // Return
         return $contextData;
     }
+
+    /**
+     * @param class-string<\App\Services\DataLoader\Testing\Data\Data> $class
+     */
+    public function restore(string $class): bool {
+        $data        = $this->app->make($class);
+        $contextName = self::CONTEXT;
+        $contextFile = $this->getTestData($class)->file($contextName);
+        $contextPath = dirname($contextFile->getPathname());
+        $contextData = $this->getTestData($class)->json($contextName);
+
+        return $data->restore($contextPath, $contextData);
+    }
 }

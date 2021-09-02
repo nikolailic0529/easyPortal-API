@@ -36,7 +36,7 @@ class AssetsImporterTest extends TestCase {
      */
     public function testImport(): void {
         // Generate
-        $context = $this->app->make(DataGenerator::class)->generate(AssetsImporterData::class);
+        $this->app->make(DataGenerator::class)->generate(AssetsImporterData::class);
 
         // Setup
         Date::setTestNow('2021-08-30T00:00:00.000+00:00');
@@ -46,43 +46,8 @@ class AssetsImporterTest extends TestCase {
             return $this->app->make(FakeClient::class)->setData(AssetsImporterData::class);
         });
 
-        // Prepare
-        if ($context[AssetsImporterData::CONTEXT_OEMS]) {
-            $this
-                ->artisan('ep:data-loader-import-oems', [
-                    'file' => $this
-                        ->getTestData(AssetsImporterData::class)
-                        ->path($context[AssetsImporterData::CONTEXT_OEMS]),
-                ])
-                ->assertExitCode(Command::SUCCESS);
-        }
-
-        if ($context[AssetsImporterData::CONTEXT_DISTRIBUTORS]) {
-            $this
-                ->artisan('ep:data-loader-update-distributor', [
-                    'id'       => $context[AssetsImporterData::CONTEXT_DISTRIBUTORS],
-                    '--create' => true,
-                ])
-                ->assertExitCode(Command::SUCCESS);
-        }
-
-        if ($context[AssetsImporterData::CONTEXT_RESELLERS]) {
-            $this
-                ->artisan('ep:data-loader-update-reseller', [
-                    'id'       => $context[AssetsImporterData::CONTEXT_RESELLERS],
-                    '--create' => true,
-                ])
-                ->assertExitCode(Command::SUCCESS);
-        }
-
-        if ($context[AssetsImporterData::CONTEXT_CUSTOMERS]) {
-            $this
-                ->artisan('ep:data-loader-update-customer', [
-                    'id'       => $context[AssetsImporterData::CONTEXT_CUSTOMERS],
-                    '--create' => true,
-                ])
-                ->assertExitCode(Command::SUCCESS);
-        }
+        // Restore
+        $this->app->make(DataGenerator::class)->restore(AssetsImporterData::class);
 
         // Pretest
         $this->assertModelsCount([
