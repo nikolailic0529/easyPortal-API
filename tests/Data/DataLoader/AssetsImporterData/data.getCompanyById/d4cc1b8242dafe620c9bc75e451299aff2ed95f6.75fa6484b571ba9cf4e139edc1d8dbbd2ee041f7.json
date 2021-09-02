@@ -1,0 +1,57 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "1f5a306d-bca1-4b77-8131-0f1926a40d08"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "1f5a306d-bca1-4b77-8131-0f1926a40d08",
+                    "name": "Herman-Moen",
+                    "updatedAt": "1630330463800",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "32752",
+                            "address": "49040 Urban Walk Suite 518",
+                            "city": "Walterchester",
+                            "locationType": "HEADQUARTER",
+                            "country": "Latvia",
+                            "latitude": "78.614068",
+                            "longitude": "-154.276286",
+                            "countryCode": "NI"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 1473,
+                        "activeAssets": 1280,
+                        "activeAssetsPercentage": 86.89748811948405,
+                        "activeCustomers": 17,
+                        "newActiveCustomers": 17,
+                        "activeContracts": 9,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 9,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

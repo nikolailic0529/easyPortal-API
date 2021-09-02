@@ -1,0 +1,57 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "6b5e8b29-008f-4c60-a1a3-8108157dfae4"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "6b5e8b29-008f-4c60-a1a3-8108157dfae4",
+                    "name": "Labadie and Sons",
+                    "updatedAt": "1630319053100",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": null,
+                            "address": "752 Kihn Forges",
+                            "city": "South Cristopherchester",
+                            "locationType": "HEADQUARTER",
+                            "country": "China",
+                            "latitude": "-28.898394",
+                            "longitude": "123.842054",
+                            "countryCode": "NI"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 6564,
+                        "activeAssets": 1530,
+                        "activeAssetsPercentage": 23.308957952468006,
+                        "activeCustomers": 164,
+                        "newActiveCustomers": 164,
+                        "activeContracts": 27,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 27,
+                        "expiringContracts": 3,
+                        "activeQuotes": 71,
+                        "activeQuotesTotalAmount": 5763.58,
+                        "newActiveQuotes": 71,
+                        "expiringQuotes": 12
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

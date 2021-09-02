@@ -7,8 +7,11 @@ use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\ResellerLoader;
 use App\Services\DataLoader\Resolver;
+use App\Services\DataLoader\Resolvers\ContactResolver;
+use App\Services\DataLoader\Resolvers\LocationResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use DateTimeInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 class ResellersImporter extends Importer {
     /**
@@ -19,9 +22,21 @@ class ResellersImporter extends Importer {
         parent::onBeforeChunk($items, $status);
 
         // Prefetch
+        $contacts  = $this->container->make(ContactResolver::class);
+        $locations = $this->container->make(LocationResolver::class);
+
         $this->container
             ->make(ResellerFactory::class)
-            ->prefetch($items);
+            ->prefetch($items, false, static function (Collection $resellers) use ($locations, $contacts): void {
+                $resellers->loadMissing('locations');
+                $resellers->loadMissing('contacts');
+
+                $locations->add($resellers->pluck('locations')->flatten());
+                $contacts->add($resellers->pluck('contacts')->flatten());
+            });
+
+        (new Collection($locations->getResolved()))->loadMissing('types');
+        (new Collection($contacts->getResolved()))->loadMissing('types');
     }
 
     protected function makeIterator(DateTimeInterface $from = null): QueryIterator {

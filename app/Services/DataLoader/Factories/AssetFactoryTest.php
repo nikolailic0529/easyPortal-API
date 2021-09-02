@@ -224,7 +224,7 @@ class AssetFactoryTest extends TestCase {
 
         $this->flushQueryLog();
 
-        // Customer should be updated
+        // Asset should be updated
         /** @var \App\Services\DataLoader\Factories\AssetFactory $factory */
         $factory = $container->make(AssetFactory::class)->setDocumentFactory($documents);
         $json    = $this->getTestData()->json('~asset-changed.json');
@@ -291,7 +291,7 @@ class AssetFactoryTest extends TestCase {
 
         $factory->create($asset);
 
-        $this->assertCount(4, $this->getQueryLog());
+        $this->assertCount(5, $this->getQueryLog());
     }
 
     /**
@@ -1391,15 +1391,11 @@ class AssetFactoryTest extends TestCase {
         $resolver   = $this->app->make(AssetResolver::class);
         $normalizer = $this->app->make(Normalizer::class);
         $products   = Mockery::mock(ProductResolver::class);
-        $products
-            ->shouldReceive('prefetch')
-            ->once()
-            ->andReturnSelf();
-        $locations = Mockery::mock(LocationFactory::class);
-        $locations
-            ->shouldReceive('prefetch')
-            ->once()
-            ->andReturnSelf();
+        $locations  = Mockery::mock(LocationFactory::class);
+
+        Asset::factory()->create([
+            'id' => $a->id,
+        ]);
 
         $factory = new class($normalizer, $resolver, $products, $locations) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -1414,7 +1410,7 @@ class AssetFactoryTest extends TestCase {
         };
 
         $callback = Mockery::spy(function (EloquentCollection $collection): void {
-            $this->assertCount(0, $collection);
+            $this->assertCount(1, $collection);
         });
 
         $factory->prefetch([$a, $b], false, Closure::fromCallable($callback));

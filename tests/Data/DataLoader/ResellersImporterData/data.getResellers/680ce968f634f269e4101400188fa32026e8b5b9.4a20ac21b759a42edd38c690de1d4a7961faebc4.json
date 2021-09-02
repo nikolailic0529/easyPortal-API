@@ -1,0 +1,455 @@
+{
+    "selector": "data.getResellers",
+    "graphql": "query items($limit: Int, $lastId: String, $from: String) {\n    getResellers(limit: $limit, lastId: $lastId, fromTimestamp: $from) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "from": null,
+        "lastId": "00a51569-935d-4155-971b-05713d3f860c",
+        "limit": 10
+    },
+    "response": {
+        "data": {
+            "getResellers": [
+                {
+                    "id": "00a65b20-dfd5-4c09-9044-30df44e5b0c3",
+                    "name": "Conn-Grady",
+                    "updatedAt": "1630402104498",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "87998",
+                            "address": "41982 Daphnee Underpass Suite 172",
+                            "city": "Sidneyhaven",
+                            "locationType": "HEADQUARTER",
+                            "country": "Congo",
+                            "latitude": "9.099876",
+                            "longitude": "-136.300789",
+                            "countryCode": "BY"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 47,
+                        "activeAssets": 4,
+                        "activeAssetsPercentage": 8.51063829787234,
+                        "activeCustomers": 8,
+                        "newActiveCustomers": 8,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 0
+                    },
+                    "status": null
+                },
+                {
+                    "id": "00b78668-a24a-43f6-8cff-6ab2cef1d10d",
+                    "name": "Denesik-Auer",
+                    "updatedAt": "1630402104851",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "03557",
+                            "address": "7458 Norwood Court",
+                            "city": "Lake Marielle",
+                            "locationType": "HEADQUARTER",
+                            "country": "Denmark",
+                            "latitude": "13.751489",
+                            "longitude": "-83.068638",
+                            "countryCode": "UG"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 278,
+                        "activeAssets": 82,
+                        "activeAssetsPercentage": 29.496402877697843,
+                        "activeCustomers": 8,
+                        "newActiveCustomers": 8,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 3,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 3,
+                        "expiringQuotes": 1
+                    },
+                    "status": null
+                },
+                {
+                    "id": "00c02780-d026-4a8e-a402-f63aca4e65f4",
+                    "name": "Waelchi, Swaniawski and Jaskolski",
+                    "updatedAt": "1630402110495",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "20718-9835",
+                            "address": "3139 Mabel Glen",
+                            "city": "Lake Brisa",
+                            "locationType": "HEADQUARTER",
+                            "country": "South Africa",
+                            "latitude": "-30.48705",
+                            "longitude": "7.922589",
+                            "countryCode": "YE"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 338,
+                        "activeAssets": 338,
+                        "activeAssetsPercentage": 100,
+                        "activeCustomers": 4,
+                        "newActiveCustomers": 4,
+                        "activeContracts": 2,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 2,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0
+                    },
+                    "status": null
+                },
+                {
+                    "id": "00c0d1a0-7e56-4e44-ab04-2be0c97c3d0b",
+                    "name": "Rowe, Schuppe and Orn",
+                    "updatedAt": "1630402111515",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "83089-3961",
+                            "address": "71887 Josefa Via",
+                            "city": "Lamarside",
+                            "locationType": "HEADQUARTER",
+                            "country": "Sudan",
+                            "latitude": "-28.781571",
+                            "longitude": "74.704268",
+                            "countryCode": "YE"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 200,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 13,
+                        "newActiveCustomers": 13,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 7,
+                        "activeQuotesTotalAmount": 1844.6799999999998,
+                        "newActiveQuotes": 7,
+                        "expiringQuotes": 6
+                    },
+                    "status": null
+                },
+                {
+                    "id": "00c871be-e0f6-4577-a4d9-a770878eea15",
+                    "name": "Langworth-West",
+                    "updatedAt": "1630402111789",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "90235-5952",
+                            "address": "28400 Hudson Shores",
+                            "city": "New Marcelino",
+                            "locationType": "HEADQUARTER",
+                            "country": "Denmark",
+                            "latitude": "60.608712",
+                            "longitude": "62.477436",
+                            "countryCode": "UG"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 0,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 0,
+                        "newActiveCustomers": 0,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 0
+                    },
+                    "status": null
+                },
+                {
+                    "id": "00e4a8ff-1d07-428b-acd0-e858973e5707",
+                    "name": "Weimann-Schuppe",
+                    "updatedAt": "1630402112049",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "46668",
+                            "address": "131 Simonis Flats Suite 223",
+                            "city": "Helgahaven",
+                            "locationType": "HEADQUARTER",
+                            "country": "Congo",
+                            "latitude": "-42.085244",
+                            "longitude": "84.018151",
+                            "countryCode": "BY"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 3,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 2,
+                        "newActiveCustomers": 2,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0
+                    },
+                    "status": null
+                },
+                {
+                    "id": "01077a8c-ae10-4935-8c9f-dd3a5d1cde2a",
+                    "name": "Thompson-Beier",
+                    "updatedAt": "1630402112302",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "42035-3868",
+                            "address": "89127 Rutherford Spur",
+                            "city": "Vickiehaven",
+                            "locationType": "HEADQUARTER",
+                            "country": "Congo",
+                            "latitude": "-48.725952",
+                            "longitude": "135.243336",
+                            "countryCode": "BY"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 2,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 2,
+                        "newActiveCustomers": 2,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0
+                    },
+                    "status": null
+                },
+                {
+                    "id": "01085380-44ac-4429-b128-28a70140fb67",
+                    "name": "McCullough Ltd",
+                    "updatedAt": "1630402112568",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "16880",
+                            "address": "58374 Cruickshank Creek",
+                            "city": "Kautzerport",
+                            "locationType": "HEADQUARTER",
+                            "country": "Syrian Arab Republic",
+                            "latitude": "-82.215099",
+                            "longitude": "163.988931",
+                            "countryCode": "YE"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 1,
+                        "activeAssets": 0,
+                        "activeAssetsPercentage": 0,
+                        "activeCustomers": 1,
+                        "newActiveCustomers": 1,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 0,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 0,
+                        "expiringQuotes": 0
+                    },
+                    "status": null
+                },
+                {
+                    "id": "0113a00f-f5e2-4c35-b31d-832bf7a4b502",
+                    "name": "Bahringer, Johns and Blick",
+                    "updatedAt": "1630402113090",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "10262",
+                            "address": "165 Sipes Motorway",
+                            "city": "East Alanis",
+                            "locationType": "HEADQUARTER",
+                            "country": "Sudan",
+                            "latitude": "23.870532",
+                            "longitude": "17.015041",
+                            "countryCode": "YE"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 942,
+                        "activeAssets": 931,
+                        "activeAssetsPercentage": 98.83227176220807,
+                        "activeCustomers": 15,
+                        "newActiveCustomers": 15,
+                        "activeContracts": 9,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 9,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 1
+                    },
+                    "status": null
+                },
+                {
+                    "id": "0119600e-c938-4472-95ba-7855c2b174cc",
+                    "name": "McDermott-Rippin",
+                    "updatedAt": "1630402113506",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "41832-4728",
+                            "address": "335 Izaiah Grove",
+                            "city": "South Jeromymouth",
+                            "locationType": "HEADQUARTER",
+                            "country": "Denmark",
+                            "latitude": "2.038062",
+                            "longitude": "116.069855",
+                            "countryCode": "UG"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 2,
+                        "activeAssets": 1,
+                        "activeAssetsPercentage": 50,
+                        "activeCustomers": 2,
+                        "newActiveCustomers": 2,
+                        "activeContracts": 1,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 1,
+                        "expiringContracts": 0,
+                        "activeQuotes": 1,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 1,
+                        "expiringQuotes": 0
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

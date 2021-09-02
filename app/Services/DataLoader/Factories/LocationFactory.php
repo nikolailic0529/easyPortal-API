@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Factories;
 
-use App\Models\Asset;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Location as LocationModel;
@@ -14,8 +13,6 @@ use App\Services\DataLoader\Resolvers\LocationResolver;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
-use Closure;
-use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
@@ -62,33 +59,6 @@ class LocationFactory extends DependentModelFactory {
 
         return $model;
     }
-    // </editor-fold>
-
-    // <editor-fold desc="Prefetch">
-    // =========================================================================
-    /**
-     * @param array<\App\Services\DataLoader\Schema\ViewAsset> $assets
-     * @param \Closure(\Illuminate\Database\Eloquent\Collection):void|null $callback
-     */
-    public function prefetch(array $assets, bool $reset = false, Closure|null $callback = null): static {
-        $keys = (new Collection($assets))
-            ->filter(static function (ViewAsset $asset): bool {
-                return isset($asset->zip);
-            })
-            ->map(static function (ViewAsset $asset): array {
-                return [
-                    'postcode'    => $asset->zip,
-                    'object_type' => (new Asset())->getMorphClass(),
-                ];
-            })
-            ->unique()
-            ->all();
-
-        $this->locationResolver->prefetch($keys, $reset, $callback);
-
-        return $this;
-    }
-
     // </editor-fold>
 
     // <editor-fold desc="Functions">

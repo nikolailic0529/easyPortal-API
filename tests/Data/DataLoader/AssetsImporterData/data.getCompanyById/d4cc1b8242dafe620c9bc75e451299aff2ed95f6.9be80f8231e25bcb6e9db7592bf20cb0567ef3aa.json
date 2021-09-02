@@ -1,0 +1,57 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "abf17c4e-2672-4a05-8e0a-8f11c9732504"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "abf17c4e-2672-4a05-8e0a-8f11c9732504",
+                    "name": "Cassin-Bayer",
+                    "updatedAt": "1630327086797",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": null,
+                            "address": "87161 Mraz Mountain",
+                            "city": null,
+                            "locationType": "HEADQUARTER",
+                            "country": "Kenya",
+                            "latitude": "-25.794317",
+                            "longitude": "-123.269862",
+                            "countryCode": "NI"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 1891,
+                        "activeAssets": 8,
+                        "activeAssetsPercentage": 0.42305658381808564,
+                        "activeCustomers": 34,
+                        "newActiveCustomers": 34,
+                        "activeContracts": 0,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 0,
+                        "expiringContracts": 0,
+                        "activeQuotes": 10,
+                        "activeQuotesTotalAmount": 0,
+                        "newActiveQuotes": 10,
+                        "expiringQuotes": 2
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

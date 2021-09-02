@@ -3,12 +3,13 @@
 namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Distributor;
+use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
-class DistributorResolver extends Resolver {
+class DistributorResolver extends Resolver implements SingletonPersistent {
     public function get(string|int $id, Closure $factory = null): ?Distributor {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($id, $factory);

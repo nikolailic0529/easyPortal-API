@@ -234,24 +234,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
 
         $this->assetResolver->prefetch($keys, $reset, $callback);
 
-        // Products
-        $products = (new Collection($assets))
-            ->filter(static function (ViewAsset $asset): bool {
-                return isset($asset->sku);
-            })
-            ->map(function (ViewAsset $asset): array {
-                return [
-                    'sku' => $this->getNormalizer()->string($asset->sku),
-                ];
-            })
-            ->unique()
-            ->all();
-
-        $this->getProductResolver()->prefetch($products, $reset);
-
-        // Locations
-        $this->locationFactory->prefetch($assets);
-
         // Return
         return $this;
     }
@@ -324,6 +306,9 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             }
 
             $model->save();
+
+            // Cleanup
+            unset($model->documentEntries);
 
             // Return
             return $model;

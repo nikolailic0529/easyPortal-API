@@ -16,7 +16,6 @@ use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
-use Illuminate\Database\Eloquent\Collection;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
@@ -536,39 +535,6 @@ class LocationFactoryTest extends TestCase {
         $this->assertSame($created, $updated);
         $this->assertEquals($normalizer->string($state), $updated->state);
         $this->assertCount((int) $customer->exists, $this->getQueryLog());
-    }
-
-    /**
-     * @covers ::prefetch
-     */
-    public function testPrefetch(): void {
-        $asset      = new ViewAsset([
-            'zip' => $this->faker->postcode,
-        ]);
-        $resolver   = $this->app->make(LocationResolver::class);
-        $normalizer = $this->app->make(Normalizer::class);
-
-        $factory = new class($normalizer, $resolver) extends LocationFactory {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct(
-                protected Normalizer $normalizer,
-                protected LocationResolver $locationResolver,
-            ) {
-                // empty
-            }
-        };
-
-        $this->flushQueryLog();
-
-        $callback = Mockery::spy(function (Collection $collection): void {
-            $this->assertCount(0, $collection);
-        });
-
-        $factory->prefetch([$asset], false, Closure::fromCallable($callback));
-
-        $callback->shouldHaveBeenCalled()->once();
-
-        $this->assertCount(1, $this->getQueryLog());
     }
     // </editor-fold>
 

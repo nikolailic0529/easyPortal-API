@@ -14,7 +14,6 @@ use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\AssetLoader;
-use App\Services\DataLoader\Loaders\Concerns\CalculatedProperties;
 use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\ContactResolver;
@@ -23,8 +22,6 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 class AssetsImporter extends Importer {
-    use CalculatedProperties;
-
     protected function onRegister(): void {
         parent::onRegister();
 
@@ -47,13 +44,10 @@ class AssetsImporter extends Importer {
         $this->container
             ->make(AssetFactory::class)
             ->prefetch($items, false, static function (Collection $assets) use ($locations, $contacts): void {
-                $assets->loadMissing('documentEntries');
                 $assets->loadMissing('warranties');
                 $assets->loadMissing('warranties.serviceLevels');
                 $assets->loadMissing('contacts');
-                $assets->loadMissing('contacts.types');
                 $assets->loadMissing('location');
-                $assets->loadMissing('location.types');
                 $assets->loadMissing('tags');
                 $assets->loadMissing('oem');
 
@@ -65,9 +59,7 @@ class AssetsImporter extends Importer {
             ->make(ResellerFactory::class)
             ->prefetch($items, false, static function (Collection $resellers) use ($locations, $contacts): void {
                 $resellers->loadMissing('locations');
-                $resellers->loadMissing('locations.types');
                 $resellers->loadMissing('contacts');
-                $resellers->loadMissing('contacts.types');
 
                 $locations->add($resellers->pluck('locations')->flatten());
                 $contacts->add($resellers->pluck('contacts')->flatten());
@@ -77,13 +69,14 @@ class AssetsImporter extends Importer {
             ->make(CustomerFactory::class)
             ->prefetch($items, false, static function (Collection $customers) use ($locations, $contacts): void {
                 $customers->loadMissing('locations');
-                $customers->loadMissing('locations.types');
                 $customers->loadMissing('contacts');
-                $customers->loadMissing('contacts.types');
 
                 $locations->add($customers->pluck('locations')->flatten());
                 $contacts->add($customers->pluck('contacts')->flatten());
             });
+
+        (new Collection($locations->getResolved()))->loadMissing('types');
+        (new Collection($contacts->getResolved()))->loadMissing('types');
     }
 
     protected function makeIterator(DateTimeInterface $from = null): QueryIterator {

@@ -1,0 +1,57 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "714aa057-1ea0-4666-b3be-4b69af99e997"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "714aa057-1ea0-4666-b3be-4b69af99e997",
+                    "name": "Steuber-Maggio",
+                    "updatedAt": "1630319688394",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": null,
+                            "address": "752 Kihn Forges",
+                            "city": "Burniceborough",
+                            "locationType": "HEADQUARTER",
+                            "country": "El Salvador",
+                            "latitude": "38.636152",
+                            "longitude": "138.829864",
+                            "countryCode": "MY"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 345534,
+                        "activeAssets": 43826,
+                        "activeAssetsPercentage": 12.683556466223294,
+                        "activeCustomers": 16763,
+                        "newActiveCustomers": 16763,
+                        "activeContracts": 323,
+                        "activeContractTotalAmount": 9875.38,
+                        "newActiveContracts": 323,
+                        "expiringContracts": 39,
+                        "activeQuotes": 519,
+                        "activeQuotesTotalAmount": 43195.78,
+                        "newActiveQuotes": 519,
+                        "expiringQuotes": 27
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

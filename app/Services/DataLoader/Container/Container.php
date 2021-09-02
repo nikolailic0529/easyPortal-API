@@ -66,4 +66,21 @@ class Container extends IlluminateContainer {
 
         return $resolved;
     }
+
+    public function forgetInstances(): void {
+        // Save persistent
+        $persistent = [];
+
+        foreach ($this->instances as $abstract => $instance) {
+            if ($instance instanceof SingletonPersistent) {
+                $persistent[$abstract] = $instance;
+            }
+        }
+
+        // Reset
+        parent::forgetInstances();
+
+        // Restore
+        $this->instances = $persistent;
+    }
 }

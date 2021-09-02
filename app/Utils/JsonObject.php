@@ -10,6 +10,7 @@ use ReflectionClass;
 use ReflectionNamedType;
 use ReflectionObject;
 
+use function array_is_list;
 use function array_map;
 use function count;
 use function is_array;
@@ -51,6 +52,27 @@ abstract class JsonObject implements JsonSerializable, Arrayable, Countable {
                     : $value;
             }
         }
+    }
+
+    /**
+     * @param array<string,mixed>|array<array<string,mixed>>|null $objects
+     *
+     * @return array<static>|static
+     */
+    public static function make(array|null $objects): static|array|null {
+        $result = null;
+
+        if (is_array($objects)) {
+            if (array_is_list($objects)) {
+                $result = array_map(static function (array $object): static {
+                    return new static($object);
+                }, $objects);
+            } else {
+                $result = new static($objects);
+            }
+        }
+
+        return $result;
     }
 
     // <editor-fold desc="API">

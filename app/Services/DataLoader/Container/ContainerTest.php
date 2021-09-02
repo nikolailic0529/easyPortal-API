@@ -106,6 +106,25 @@ class ContainerTest extends TestCase {
         $this->assertNotSame($d, $c);
         $this->assertNotSame($e, $a);
     }
+
+    /**
+     * @covers ::forgetInstances
+     */
+    public function testForgetInstances(): void {
+        $c = $this->app->make(Container::class);
+        $a = $c->resolve(ContainerTest_Singleton::class);
+        $b = $c->resolve(ContainerTest_SingletonPersistent::class);
+
+        $this->assertNotNull($a);
+        $this->assertNotNull($b);
+        $this->assertSame($a, $c->resolve(ContainerTest_Singleton::class));
+        $this->assertSame($b, $c->resolve(ContainerTest_SingletonPersistent::class));
+
+        $c->forgetInstances();
+
+        $this->assertNotSame($a, $c->resolve(ContainerTest_Singleton::class));
+        $this->assertSame($b, $c->resolve(ContainerTest_SingletonPersistent::class));
+    }
 }
 
 // @phpcs:disable PSR1.Classes.ClassDeclaration.MultipleClasses
@@ -171,6 +190,14 @@ class ContainerTest_Loader extends Loader {
  * @noinspection PhpMultipleClassesDeclarationsInOneFile
  */
 class ContainerTest_Singleton implements Singleton {
+    // empty
+}
+
+/**
+ * @internal
+ * @noinspection PhpMultipleClassesDeclarationsInOneFile
+ */
+class ContainerTest_SingletonPersistent implements Singleton, SingletonPersistent {
     // empty
 }
 

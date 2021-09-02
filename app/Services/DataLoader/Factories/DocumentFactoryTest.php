@@ -212,6 +212,7 @@ class DocumentFactoryTest extends TestCase {
         $this->flushQueryLog();
 
         // No changes
+        // ---------------------------------------------------------------------
         $json   = $this->getTestData()->json('~asset-document-changed.json');
         $asset  = new ViewAsset($json);
         $object = new AssetDocumentObject([
@@ -223,6 +224,24 @@ class DocumentFactoryTest extends TestCase {
         $factory->create($object);
 
         $this->assertCount(0, $this->getQueryLog());
+
+        $this->flushQueryLog();
+
+        // Outdated
+        // ---------------------------------------------------------------------
+        $json    = $this->getTestData()->json('~asset-document-outdated.json');
+        $asset   = new ViewAsset($json);
+        $object  = new AssetDocumentObject([
+            'asset'    => $model,
+            'document' => reset($asset->assetDocument),
+            'entries'  => $asset->assetDocument,
+        ]);
+        $changed = $factory->createFromAssetDocumentObject($object);
+
+        $this->assertCount(0, $this->getQueryLog());
+        $this->assertEquals('3292.16', $changed->price);
+
+        $this->flushQueryLog();
     }
 
     /**

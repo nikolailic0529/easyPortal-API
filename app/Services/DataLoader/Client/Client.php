@@ -12,6 +12,8 @@ use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
 use App\Services\DataLoader\Schema\UpdateCompanyFile;
 use App\Services\DataLoader\Schema\ViewAsset;
+use App\Services\DataLoader\Testing\Data\ClientDump;
+use App\Services\DataLoader\Testing\Data\ClientDumpFile;
 use Closure;
 use DateTimeInterface;
 use Exception;
@@ -26,20 +28,13 @@ use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Arr;
 use Psr\Log\LoggerInterface;
 use SplFileInfo;
-use Symfony\Component\Filesystem\Filesystem;
 
-use function dirname;
 use function explode;
-use function file_put_contents;
 use function implode;
 use function json_encode;
 use function reset;
 use function sha1;
 use function time;
-
-use const JSON_PRETTY_PRINT;
-use const JSON_UNESCAPED_SLASHES;
-use const JSON_UNESCAPED_UNICODE;
 
 class Client {
     public function __construct(
@@ -579,6 +574,35 @@ class Client {
      * @param array<string> $files
      */
     public function call(string $selector, string $graphql, array $params = [], array $files = []): mixed {
+        $json   = $this->callExecute($selector, $graphql, $params, $files);
+        $errors = Arr::get($json, 'errors', Arr::get($json, 'error.errors'));
+        $result = Arr::get($json, $selector);
+
+        if ($errors) {
+            $error = new GraphQLRequestFailed($graphql, $params, $errors);
+
+            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $params, $json));
+            $this->handler->report($error);
+
+            if (!$result) {
+                throw $error;
+            }
+        } else {
+            $this->dispatcher->dispatch(new RequestSuccessful($selector, $graphql, $params, $json));
+        }
+
+        // Dump
+        $this->callDump($selector, $graphql, $params, $json);
+
+        // Return
+        return $result;
+    }
+
+    /**
+     * @param array<mixed>  $params
+     * @param array<string> $files
+     */
+    protected function callExecute(string $selector, string $graphql, array $params, array $files): mixed {
         // Enabled?
         if (!$this->isEnabled()) {
             throw new DataLoaderDisabled();
@@ -598,12 +622,14 @@ class Client {
         ]);
 
         // Call
+        $json  = null;
         $begin = time();
 
         try {
             $this->dispatcher->dispatch(new RequestStarted($selector, $graphql, $params));
 
             $response = $request->post($url, $data);
+            $json     = $response->json();
 
             $response->throw();
         } catch (ConnectionException $exception) {
@@ -633,29 +659,8 @@ class Client {
             ]);
         }
 
-        // Error?
-        $json   = $response->json();
-        $errors = Arr::get($json, 'errors', Arr::get($json, 'error.errors'));
-        $result = Arr::get($json, $selector);
-
-        if ($errors) {
-            $error = new GraphQLRequestFailed($graphql, $params, $errors);
-
-            $this->dispatcher->dispatch(new RequestFailed($selector, $graphql, $params, $json));
-            $this->handler->report($error);
-
-            if (!$result) {
-                throw $error;
-            }
-        } else {
-            $this->dispatcher->dispatch(new RequestSuccessful($selector, $graphql, $params, $json));
-        }
-
-        // Dump
-        $this->callDump($selector, $graphql, $params, $json);
-
         // Return
-        return $result;
+        return $json;
     }
 
     /**
@@ -724,18 +729,24 @@ class Client {
         }
 
         // Dump
-        $dump    = implode('.', [sha1($graphql), sha1(json_encode($params)), 'json']);
-        $path    = "{$this->config->get('ep.data_loader.dump')}/{$selector}/{$dump}";
-        $content = json_encode([
+        $path = "{$this->config->get('ep.data_loader.dump')}/{$this->callDumpPath($selector, $graphql, $params)}";
+        $dump = new ClientDumpFile(new SplFileInfo($path));
+
+        $dump->setDump(new ClientDump([
             'selector' => $selector,
             'graphql'  => $graphql,
             'params'   => $params,
             'response' => $json,
-        ], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        ]));
 
-        (new Filesystem())->mkdir(dirname($path));
+        $dump->save();
+    }
 
-        file_put_contents($path, $content);
+    protected function callDumpPath(string $selector, string $graphql, mixed $params): string {
+        $dump = implode('.', [sha1($graphql), sha1(json_encode($params)), 'json']);
+        $path = "{$selector}/{$dump}";
+
+        return $path;
     }
 
     protected function datetime(?DateTimeInterface $datetime): ?string {

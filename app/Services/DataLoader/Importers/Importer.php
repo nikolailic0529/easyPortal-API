@@ -3,6 +3,7 @@
 namespace App\Services\DataLoader\Importers;
 
 use App\Models\Concerns\GlobalScopes\GlobalScopes;
+use App\Models\Concerns\SmartSave\BatchInsert;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Container\Container;
@@ -13,7 +14,6 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Service as SearchService;
 use Closure;
 use DateTimeInterface;
-use Illuminate\Contracts\Container\Container as ContainerContract;
 use Laravel\Telescope\Telescope;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -23,19 +23,18 @@ use function min;
 abstract class Importer {
     use GlobalScopes;
 
-    protected ContainerContract $container;
-    protected Loader            $loader;
-    protected Resolver          $resolver;
-    protected ?Closure          $onInit   = null;
-    protected ?Closure          $onChange = null;
-    protected ?Closure          $onFinish = null;
+    protected Loader   $loader;
+    protected Resolver $resolver;
+    protected ?Closure $onInit   = null;
+    protected ?Closure $onChange = null;
+    protected ?Closure $onFinish = null;
 
     public function __construct(
         protected LoggerInterface $logger,
         protected Client $client,
-        private ContainerContract $root,
+        protected Container $container,
     ) {
-        // empty
+        $this->onRegister();
     }
 
     protected function getLogger(): LoggerInterface {
@@ -130,7 +129,12 @@ abstract class Importer {
                 // and will dump it only after the job/command/request is finished.
                 // For long-running jobs, this will lead to huge memory usage
 
-                Telescope::withoutRecording($closure);
+                Telescope::withoutRecording(static function () use ($closure): void {
+                    // Import creates a lot of objects, so would be good to
+                    // group multiple inserts into one.
+
+                    BatchInsert::enable($closure);
+                });
             });
         });
     }
@@ -180,9 +184,7 @@ abstract class Importer {
      */
     protected function onBeforeChunk(array $items, Status $status): void {
         // Reset container
-        $this->container = $this->root->make(Container::class);
-
-        $this->onRegister();
+        $this->container->forgetInstances();
 
         // Reset objects
         $this->resolver = $this->makeResolver();

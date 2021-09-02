@@ -1,0 +1,57 @@
+{
+    "selector": "data.getCompanyById",
+    "graphql": "query getCompanyById($id: String!) {\n    getCompanyById(id: $id) {\n        id\nname\nstatus\nupdatedAt\ncompanyTypes {\n    type\n    status\n}\ncompanyContactPersons {\n    phoneNumber\n    name\n    type\n    mail\n}\nlocations {\n    country\n    countryCode\n    latitude\n    longitude\n    city\n    zip\n    address\n    locationType\n}\ncompanyKpis {\n    totalAssets\n    activeAssets\n    activeAssetsPercentage\n    activeCustomers\n    newActiveCustomers\n    activeContracts\n    activeContractTotalAmount\n    newActiveContracts\n    expiringContracts\n    activeQuotes\n    activeQuotesTotalAmount\n    newActiveQuotes\n    expiringQuotes\n}\nkeycloakName\nkeycloakGroupId\nkeycloakClientScopeName\nbrandingData {\n    brandingMode\n    defaultLogoUrl\n    defaultMainColor\n    favIconUrl\n    logoUrl\n    mainColor\n    mainHeadingText\n    mainImageOnTheRight\n    resellerAnalyticsCode\n    secondaryColor\n    secondaryColorDefault\n    underlineText\n    useDefaultFavIcon\n}\n    }\n}",
+    "params": {
+        "id": "98d5c771-5301-498a-9439-537ff6a9b405"
+    },
+    "response": {
+        "data": {
+            "getCompanyById": [
+                {
+                    "id": "98d5c771-5301-498a-9439-537ff6a9b405",
+                    "name": "Emard PLC",
+                    "updatedAt": "1630324351464",
+                    "keycloakName": null,
+                    "keycloakGroupId": null,
+                    "keycloakClientScopeName": null,
+                    "companyContactPersons": [],
+                    "companyTypes": [
+                        {
+                            "type": "RESELLER",
+                            "status": "ACTIVE"
+                        }
+                    ],
+                    "locations": [
+                        {
+                            "zip": "24409-2359",
+                            "address": "279 Magdalen Lodge",
+                            "city": "Lake Josiane",
+                            "locationType": "HEADQUARTER",
+                            "country": "Benin",
+                            "latitude": "-6.971445",
+                            "longitude": "10.107498",
+                            "countryCode": "TF"
+                        }
+                    ],
+                    "brandingData": null,
+                    "companyKpis": {
+                        "totalAssets": 9595,
+                        "activeAssets": 1006,
+                        "activeAssetsPercentage": 10.484627410109432,
+                        "activeCustomers": 155,
+                        "newActiveCustomers": 155,
+                        "activeContracts": 22,
+                        "activeContractTotalAmount": 0,
+                        "newActiveContracts": 22,
+                        "expiringContracts": 1,
+                        "activeQuotes": 35,
+                        "activeQuotesTotalAmount": 9208.95,
+                        "newActiveQuotes": 35,
+                        "expiringQuotes": 6
+                    },
+                    "status": null
+                }
+            ]
+        }
+    }
+}

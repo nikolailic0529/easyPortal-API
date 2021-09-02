@@ -4,13 +4,14 @@ namespace App\Services\DataLoader\Resolvers;
 
 use App\Models\Tag;
 use App\Services\DataLoader\Cache\ClosureKey;
+use App\Services\DataLoader\Container\SingletonPersistent;
 use App\Services\DataLoader\Resolver;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use JetBrains\PhpStorm\Pure;
 
-class TagResolver extends Resolver {
+class TagResolver extends Resolver implements SingletonPersistent {
     public function get(string $name, Closure $factory = null): ?Tag {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $this->resolve($this->getUniqueKey($name), $factory);
