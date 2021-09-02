@@ -33,9 +33,6 @@ class AssetsImporterData extends Data {
     public const CONTEXT_CUSTOMERS    = 'customers';
     public const CONTEXT_OEMS         = 'oems';
 
-    /**
-     * @inheritDoc
-     */
     public function generate(string $path): array|bool {
         $result   = false;
         $bindings = [

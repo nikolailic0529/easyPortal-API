@@ -2,7 +2,6 @@
 
 namespace App\Services\DataLoader\Factories;
 
-use App\Models\Asset;
 use App\Models\City;
 use App\Models\Country;
 use App\Models\Location as LocationModel;
@@ -14,8 +13,6 @@ use App\Services\DataLoader\Resolvers\LocationResolver;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
-use Closure;
-use Illuminate\Support\Collection;
 use InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 
