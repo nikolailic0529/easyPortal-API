@@ -3,6 +3,7 @@
 namespace App\Services\KeyCloak\Exceptions;
 
 use App\Exceptions\HasErrorCode;
+use App\Models\User;
 use Throwable;
 
 use function __;
@@ -11,10 +12,13 @@ use function sprintf;
 class UserDisabled extends KeyCloakException {
     use HasErrorCode;
 
-    public function __construct(string $id, Throwable $previous = null) {
+    public function __construct(
+        protected User $user,
+        Throwable $previous = null,
+    ) {
         parent::__construct(sprintf(
             'User `%s` is disabled.',
-            $id,
+            $user->getKey(),
         ), 0, $previous);
     }
 

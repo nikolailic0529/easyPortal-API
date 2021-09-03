@@ -77,6 +77,7 @@ class UserProviderTest extends TestCase {
         Exception|bool|null $expected,
         Closure $prepare,
         Closure $credentialsFactory,
+        bool $shouldUpdate = true,
     ): void {
         if ($expected instanceof Exception) {
             $this->expectExceptionObject($expected);
@@ -97,11 +98,12 @@ class UserProviderTest extends TestCase {
                     return $credentials[UserProvider::CREDENTIAL_ACCESS_TOKEN];
                 });
 
-            if (!($expected instanceof Exception)) {
+            if ($shouldUpdate) {
                 $provider
                     ->shouldReceive('updateTokenUser')
                     ->once()
-                    ->andReturnUsing(static function (User $user) {
+                    ->andReturnUsing(static function (User $user, UnencryptedToken $token) {
+                        $user->enabled = $token->claims()->get(UserProvider::CLAIM_ENABLED);
                         return $user;
                     });
             }
@@ -318,7 +320,9 @@ class UserProviderTest extends TestCase {
                 },
             ],
             'local disabled user by email'       => [
-                new UserDisabled('de238c70-3253-411b-a176-f15192a9c1e1'),
+                new UserDisabled((new User())->forceFill([
+                    'id' => 'de238c70-3253-411b-a176-f15192a9c1e1',
+                ])),
                 static function (): void {
                     User::factory()->create([
                         'id'      => 'de238c70-3253-411b-a176-f15192a9c1e1',
@@ -411,10 +415,17 @@ class UserProviderTest extends TestCase {
                         ),
                     ];
                 },
+                false,
             ],
             'keycloak user disabled + valid token'   => [
-                new UserDisabled('c1aa09cc-0bd8-490e-8c7b-25c18df23e18'),
+                new UserDisabled((new User())->forceFill([
+                    'id' => 'c1aa09cc-0bd8-490e-8c7b-25c18df23e18',
+                ])),
                 static function (): void {
+                    User::factory()->create([
+                        'id'   => 'c1aa09cc-0bd8-490e-8c7b-25c18df23e18',
+                        'type' => UserType::keycloak(),
+                    ]);
                 },
                 static function (UserProviderTest $test) {
                     return [

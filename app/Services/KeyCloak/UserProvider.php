@@ -152,11 +152,7 @@ class UserProvider implements UserProviderContract {
         $token = $this->getToken($credentials);
 
         if ($token instanceof UnencryptedToken) {
-            $id      = $token->claims()->get(RegisteredClaims::SUBJECT);
-            $enabled = $token->claims()->get(self::CLAIM_ENABLED);
-            if (!$enabled) {
-                throw new UserDisabled($id);
-            }
+            $id   = $token->claims()->get(RegisteredClaims::SUBJECT);
             $user = User::query()->whereKey($id)->first();
 
             if ($user && $user->type !== UserType::keycloak()) {
@@ -175,15 +171,15 @@ class UserProvider implements UserProviderContract {
                 ->first();
 
             if ($user) {
-                if (!$user->enabled) {
-                    throw new UserDisabled($user->getKey());
-                }
                 $user = $this->updateLocalUser($user);
             }
         } else {
             // empty
         }
 
+        if ($user && !$user->enabled) {
+            throw new UserDisabled($user);
+        }
         return $user;
     }
 
