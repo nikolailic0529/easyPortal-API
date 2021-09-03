@@ -27,7 +27,7 @@ type Organization {
     where: UsersQuery @searchBy
     order: UsersSort @searchBy
   ): [User!]!
-  @paginate
+  @hasMany(type: PAGINATOR)
   @me(permissions: ["administer", "org-administer"])
 
   keycloak_scope: String
