@@ -105,7 +105,7 @@ class User extends Model implements
         'remember_token',
     ];
 
-        /**
+    /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
      * @var array<string>
@@ -180,6 +180,10 @@ class User extends Model implements
 
     // <editor-fold desc="HasOrganization">
     // =========================================================================
+    /**
+     * Must not be used directly to check root. You must use
+     * {@link \App\Services\Auth\Auth::isRoot()} instead.
+     */
     public function isRoot(): bool {
         return $this->type === UserType::local();
     }
