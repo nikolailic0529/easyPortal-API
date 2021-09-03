@@ -29,25 +29,18 @@ class UpdateMeEmail {
                 'result' => false,
             ];
         }
-        $email  = $args['input']['email'];
-        $result = false;
+        $email = $args['input']['email'];
 
-        switch ($user->type) {
-            case UserType::local():
-                if (User::query()->where('email', '=', $email)->exists()) {
-                    throw new UpdateMeEmailUserAlreadyExists($email);
-                }
-                $user->email = $email;
-                $result      = $user->save();
-                break;
-            case UserType::keycloak():
-                $this->client->updateUserEmail($user->getKey(), $email);
-                $result = true;
-                break;
-            default:
-                // empty
-                break;
+        if (User::query()->where('email', '=', $email)->exists()) {
+            throw new UpdateMeEmailUserAlreadyExists($email);
         }
-        return ['result' => $result ];
+
+        if ($user->type === UserType::keycloak()) {
+            $this->client->updateUserEmail($user->getKey(), $email);
+        }
+
+        $user->email = $email;
+
+        return ['result' => $user->save() ];
     }
 }
