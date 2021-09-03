@@ -204,10 +204,17 @@ abstract class Importer {
         $status->continue = $continue;
         $status->chunk++;
 
+        // Reset container
+        $this->container->forgetInstances();
+
         // Update calculated properties
         if ($this->loader instanceof LoaderRecalculable && ($status->created || $status->updated || $status->failed)) {
             $this->loader->recalculate(true);
         }
+
+        // Unset
+        unset($this->resolver);
+        unset($this->loader);
 
         // Call callback
         if ($this->onChange) {

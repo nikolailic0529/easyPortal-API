@@ -190,6 +190,8 @@ class AssetFactoryTest extends TestCase {
                             ->all(),
                     ];
                 })
+                ->sortBy('serviceGroup')
+                ->values()
                 ->all(),
         );
 
@@ -291,7 +293,7 @@ class AssetFactoryTest extends TestCase {
 
         $factory->create($asset);
 
-        $this->assertCount(5, $this->getQueryLog());
+        $this->assertCount(7, $this->getQueryLog());
     }
 
     /**

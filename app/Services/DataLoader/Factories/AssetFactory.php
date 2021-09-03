@@ -278,7 +278,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 // Prefetch documents
                 $this->getDocumentFactory()->prefetch([$asset], false, function (Collection $documents): void {
                     $documents->loadMissing('entries');
-                    $documents->loadMissing('contacts');
                     $documents->loadMissing('contacts.types');
 
                     $this->getContactsResolver()->add($documents->pluck('contacts')->flatten());
@@ -287,6 +286,8 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 if ($created) {
                     $model->setRelation('warranties', new EloquentCollection());
                     $model->setRelation('documentEntries', new EloquentCollection());
+                } else {
+                    $model->loadMissing('warranties.serviceLevels');
                 }
 
                 try {
@@ -309,6 +310,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
 
             // Cleanup
             unset($model->documentEntries);
+            unset($model->warranties);
 
             // Return
             return $model;
