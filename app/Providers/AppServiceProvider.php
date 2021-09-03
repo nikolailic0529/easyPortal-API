@@ -47,6 +47,7 @@ use App\Models\User;
 use App\Models\UserSearch;
 use App\Services\KeyCloak\KeyCloak;
 use App\Services\KeyCloak\UserProvider;
+use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -62,6 +63,9 @@ class AppServiceProvider extends ServiceProvider {
      */
     public function register(): void {
         Date::use(CarbonImmutable::class);
+        Date::serializeUsing(static function (Carbon|CarbonImmutable $date): string {
+            return $date->toIso8601String();
+        });
     }
 
     /**
