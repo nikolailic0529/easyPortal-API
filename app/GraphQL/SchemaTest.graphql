@@ -886,7 +886,7 @@ type DocumentEntry {
   currency_id: ID
   currency: Currency
   asset_id: ID!
-  asset: Asset
+  asset: Asset!
 }
 
 """A paginated list of Document items."""
