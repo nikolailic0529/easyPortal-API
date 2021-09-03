@@ -77,7 +77,7 @@ class UserProviderTest extends TestCase {
         Exception|bool|null $expected,
         Closure $prepare,
         Closure $credentialsFactory,
-        bool $shouldUpdate = true,
+        bool $shouldBeUpdated,
     ): void {
         if ($expected instanceof Exception) {
             $this->expectExceptionObject($expected);
@@ -98,7 +98,7 @@ class UserProviderTest extends TestCase {
                     return $credentials[UserProvider::CREDENTIAL_ACCESS_TOKEN];
                 });
 
-            if ($shouldUpdate) {
+            if ($shouldBeUpdated) {
                 $provider
                     ->shouldReceive('updateTokenUser')
                     ->once()
@@ -106,6 +106,10 @@ class UserProviderTest extends TestCase {
                         $user->enabled = $token->claims()->get(UserProvider::CLAIM_ENABLED);
                         return $user;
                     });
+            } else {
+                $provider
+                    ->shouldReceive('updateTokenUser')
+                    ->never();
             }
         }
 
@@ -353,6 +357,7 @@ class UserProviderTest extends TestCase {
                 static function () {
                     return [];
                 },
+                false,
             ],
             'keycloak user exists + valid token'     => [
                 false,
@@ -374,6 +379,7 @@ class UserProviderTest extends TestCase {
                         ),
                     ];
                 },
+                true,
             ],
             'keycloak user not exists + valid token' => [
                 true,
@@ -392,6 +398,7 @@ class UserProviderTest extends TestCase {
                         ),
                     ];
                 },
+                true,
             ],
             'another user exists + valid token'      => [
                 new AnotherUserExists((new User())->forceFill([
@@ -408,9 +415,7 @@ class UserProviderTest extends TestCase {
                         UserProvider::CREDENTIAL_ACCESS_TOKEN => $test->getToken(
                             [],
                             static function (Builder $builder): void {
-                                $builder
-                                    ->relatedTo('c1aa09cc-0bd8-490e-8c7b-25c18df23e18')
-                                    ->withClaim(UserProvider::CLAIM_ENABLED, true);
+                                $builder->relatedTo('c1aa09cc-0bd8-490e-8c7b-25c18df23e18');
                             },
                         ),
                     ];
@@ -439,6 +444,7 @@ class UserProviderTest extends TestCase {
                         ),
                     ];
                 },
+                true,
             ],
         ];
     }

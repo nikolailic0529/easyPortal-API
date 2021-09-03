@@ -180,6 +180,7 @@ class UserProvider implements UserProviderContract {
         if ($user && !$user->enabled) {
             throw new UserDisabled($user);
         }
+
         return $user;
     }
 
