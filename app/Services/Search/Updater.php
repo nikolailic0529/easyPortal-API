@@ -170,7 +170,7 @@ class Updater {
             ->when(true, static function (Builder $builder): void {
                 $builder->newModelInstance()->makeAllSearchableUsing($builder);
             })
-            ->changeSafeIterator()
+            ->getChangeSafeIterator()
             ->setLimit(null);
 
         if ($chunk) {

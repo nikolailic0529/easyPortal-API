@@ -39,9 +39,4 @@ class ModelHelper extends LaraAspModelHelper {
 
         return self::$softDeletable[$model];
     }
-
-    // TODO: Move to parent
-    protected function getModel(): Model {
-        return $this->model;
-    }
 }
