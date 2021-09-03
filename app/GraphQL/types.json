@@ -834,11 +834,22 @@
                 "document_id": {
                     "$ref": "#/definitions/ID"
                 },
-                "asset": {
-                    "$ref": "#/definitions/Asset"
-                },
                 "document": {
                     "$ref": "#/definitions/Document"
+                },
+                "asset_id": {
+                    "$ref": "#/definitions/ID"
+                },
+                "asset": {
+                    "type": "object",
+                    "required": [
+                        "id"
+                    ],
+                    "properties": {
+                        "id": {
+                            "$ref": "#/definitions/ID"
+                        }
+                    }
                 },
                 "service_group_id": {
                     "oneOf": [

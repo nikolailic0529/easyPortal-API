@@ -14,4 +14,6 @@ type DocumentEntry {
   serviceLevel: ServiceLevel @belongsTo
   currency_id: ID
   currency: Currency @belongsTo
+  asset_id: ID!
+  asset: Asset! @belongsTo
 }

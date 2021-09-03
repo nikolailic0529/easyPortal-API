@@ -467,6 +467,10 @@ class CustomerTest extends TestCase {
                                         name
                                         description
                                     }
+                                    asset_id
+                                    asset {
+                                        id
+                                    }
                                 }
                                 language {
                                     id
@@ -653,6 +657,10 @@ class CustomerTest extends TestCase {
                                         sku
                                         name
                                         description
+                                    }
+                                    asset_id
+                                    asset {
+                                        id
                                     }
                                 }
                                 language {
@@ -1473,6 +1481,10 @@ class CustomerTest extends TestCase {
                                                         'sku'              => 'SKU#123',
                                                         'description'      => 'description',
                                                     ],
+                                                    'asset_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                                    'asset'            => [
+                                                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                                    ],
                                                 ],
                                             ],
                                             'language'         => [
@@ -1619,7 +1631,8 @@ class CustomerTest extends TestCase {
                                 ->hasEntries(1, [
                                     'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                                     'asset_id'         => Asset::factory()->create([
-                                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                        'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                        'reseller_id' => $reseller,
                                     ]),
                                     'serial_number'    => null,
                                     'product_id'       => $product,
@@ -1847,7 +1860,8 @@ class CustomerTest extends TestCase {
                 ->hasEntries(1, [
                     'id'               => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24989',
                     'asset_id'         => Asset::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                        'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                        'reseller_id' => $reseller,
                     ]),
                     'serial_number'    => null,
                     'product_id'       => $product,
@@ -1997,6 +2011,10 @@ class CustomerTest extends TestCase {
                                     'oem_id'           => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                     'sku'              => 'SKU#123',
                                     'description'      => 'description',
+                                ],
+                                'asset_id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
+                                'asset'            => [
+                                    'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24988',
                                 ],
                             ],
                         ],

@@ -885,6 +885,8 @@ type DocumentEntry {
   serviceLevel: ServiceLevel
   currency_id: ID
   currency: Currency
+  asset_id: ID!
+  asset: Asset
 }
 
 """A paginated list of Document items."""
