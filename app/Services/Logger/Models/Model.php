@@ -48,7 +48,7 @@ abstract class Model extends LaraASPModel {
     /**
      * @inheritDoc
      */
-    public function save(array $options = []) {
+    public function save(array $options = []): bool {
         return static::withoutEvents(function () use ($options) {
             $connection = $this->getConnection();
             $dispatcher = $connection->getEventDispatcher();

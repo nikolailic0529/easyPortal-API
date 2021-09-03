@@ -74,9 +74,7 @@ class DateTimeTest extends TestCase {
         return [
             'valid date'           => ['2102-12-01T00:00:00+00:00', '2102-12-01T00:00:00.000+00:00'],
             'invalid date'         => ['0002-12-01T00:00:00+00:00', '0002-12-01T00:00:00.000+00:00'],
-
-            // This is side effect of current implementation
-            'valid with time zone' => ['0002-11-30T21:00:00+00:00', '0002-12-01T00:00:00.000+03:00'],
+            'valid with time zone' => ['0002-12-01T00:00:00+03:00', '0002-12-01T00:00:00.000+03:00'],
         ];
     }
 
