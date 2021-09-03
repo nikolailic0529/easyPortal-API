@@ -309,6 +309,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
 
             // Cleanup
             unset($model->documentEntries);
+            unset($model->warranties);
 
             // Return
             return $model;
