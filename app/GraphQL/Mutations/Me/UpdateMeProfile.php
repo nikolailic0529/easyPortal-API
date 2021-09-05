@@ -5,9 +5,10 @@ namespace App\GraphQL\Mutations\Me;
 use App\Models\User;
 use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Types\User as UserType;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\UploadedFile;
+
+use function is_null;
 
 class UpdateMeProfile {
     public function __construct(
@@ -25,49 +26,30 @@ class UpdateMeProfile {
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
-        // Prepare
-        $user         = $this->auth->user();
-        $keycloakUser = $this->client->getUserById($user->getKey());
-        $userType     = $this->prepare($user, $keycloakUser, $args['input']);
-        $result       = $this->client->updateUser($user->getKey(), $userType) && $user->save();
-
-        // Return
-        return [
-            'result' => $result,
-        ];
-    }
-
-    /**
-     * @param array<mixed> $properties
-     */
-    protected function prepare(User $user, UserType $keycloakUser, array $properties): UserType {
-        $userType   = new UserType();
-        $attributes = $keycloakUser->attributes;
-        foreach ($properties as $property => $value) {
+        $user = $this->auth->user();
+        foreach ($args['input'] as $property => $value) {
             switch ($property) {
                 case 'first_name':
-                    if ($value !== null) {
-                        $userType->firstName = $value;
-                        $user->given_name    = $value;
+                    if (!is_null($value)) {
+                        $user->given_name = $value;
                     }
                     break;
                 case 'last_name':
-                    if ($value !== null) {
-                        $userType->lastName = $value;
-                        $user->family_name  = $value;
+                    if (!is_null($value)) {
+                        $user->family_name = $value;
                     }
                     break;
                 case 'photo':
-                    $attributes['photo'] = [$this->store($user, $value)];
+                    $user->photo = $this->store($user, $value);
                     break;
                 default:
-                    $attributes[$property] = [$value];
+                    $user->{$property} = $value;
                     break;
             }
         }
-        $userType->attributes = $attributes;
-
-        return $userType;
+        return [
+            'result' => $user->save(),
+        ];
     }
 
     protected function store(User $user, ?UploadedFile $file): ?string {
