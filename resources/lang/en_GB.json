@@ -143,7 +143,6 @@
     "graphql.mutations.inviteOrgUser.user_already_used_invitation": "User already used the invitation.",
     "graphql.mutations.updateMePassword.invalid_current_password": "Invalid current password.",
     "graphql.mutations.resetOrgUserPassword.invalid_user": "Invalid keycloak user.",
-    "graphql.mutations.updateMeEmail.user_already_exists": "Email already taken.",
     "graphql.mutations.enableOrgUser.invalid_user": "Invalid keycloak user.",
     "graphql.mutations.disableOrgUser.invalid_user": "Invalid keycloak user.",
     "models.country.name.??": "Unknown Country",

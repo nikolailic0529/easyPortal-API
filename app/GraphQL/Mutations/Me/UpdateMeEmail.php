@@ -31,10 +31,6 @@ class UpdateMeEmail {
         }
         $email = $args['input']['email'];
 
-        if (User::query()->where('email', '=', $email)->exists()) {
-            throw new UpdateMeEmailUserAlreadyExists($email);
-        }
-
         if ($user->type === UserType::keycloak()) {
             $this->client->updateUserEmail($user->getKey(), $email);
         }
