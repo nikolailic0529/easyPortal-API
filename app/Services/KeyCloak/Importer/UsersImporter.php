@@ -17,6 +17,7 @@ use Laravel\Telescope\Telescope;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
+use function array_key_exists;
 use function array_map;
 use function min;
 
@@ -94,6 +95,8 @@ class UsersImporter {
                         $user->email_verified        = $item->emailVerified;
                         $user->enabled               = $item->enabled;
                         $user->permissions           = [];
+                        // profile
+                        $this->updateProfile($user, $item);
                     }
 
                     $organizations = [];
@@ -187,6 +190,27 @@ class UsersImporter {
     protected function onAfterImport(Status $status): void {
         if ($this->onFinish) {
             ($this->onFinish)(clone $status);
+        }
+    }
+
+    protected function updateProfile(User $user, TypesUser $item): void {
+        $properties = [
+            'office_phone',
+            'contact_email',
+            'title',
+            'academic_title',
+            'mobile_phone',
+            'department',
+            'job_title',
+            'phone',
+            'company',
+            'photo',
+        ];
+        $attributes = $item->attributes;
+        foreach ($properties as $property) {
+            if (array_key_exists($property, $attributes)) {
+                $user->{$property} = $attributes[$property][0];
+            }
         }
     }
 }
