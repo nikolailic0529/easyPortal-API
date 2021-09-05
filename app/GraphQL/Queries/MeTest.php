@@ -5,13 +5,10 @@ namespace App\GraphQL\Queries;
 use App\Models\Enums\UserType;
 use App\Models\User;
 use App\Models\UserSearch;
-use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Types\User as TypesUser;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
-use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\AnyOrganizationDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\GraphQL\JsonFragment;
@@ -103,14 +100,9 @@ class MeTest extends TestCase {
         Response $expected,
         Closure $organizationFactory,
         Closure $userFactory = null,
-        Closure $clientFactory = null,
     ): void {
         // Prepare
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
-
-        if ($clientFactory) {
-            $this->override(Client::class, $clientFactory);
-        }
 
         // Test
         $this->graphQL(/** @lang GraphQL */'
@@ -226,11 +218,6 @@ class MeTest extends TestCase {
                     static function (): ?User {
                         return null;
                     },
-                    static function (MockInterface $mock): void {
-                        $mock
-                            ->shouldReceive('getUserById')
-                            ->never();
-                    },
                 ],
                 'user is allowed'  => [
                     new GraphQLSuccess('me', self::class, new JsonFragment('profile', [
@@ -248,53 +235,20 @@ class MeTest extends TestCase {
                         'photo'          => 'http://example.com/photo.jpg',
                     ])),
                     static function (): ?User {
-                        return User::factory()->create();
-                    },
-                    static function (MockInterface $mock): void {
-                        $mock
-                            ->shouldReceive('getUserById')
-                            ->once()
-                            ->andReturn(new TypesUser([
-                                'id'         => 'cc368aa8-5751-4d1d-9da0-dee3229c4474',
-                                'firstName'  => 'first',
-                                'lastName'   => 'last',
-                                'email'      => 'osama@test.com',
-                                'attributes' => [
-                                    'office_phone'   => [
-                                        '01000000000',
-                                    ],
-                                    'contact_email'  => [
-                                        'test@gmail.com',
-                                    ],
-                                    'academic_title' => [
-                                        'academic_title',
-                                    ],
-                                    'title'          => [
-                                        'Mr',
-                                    ],
-                                    'office_phone'   => [
-                                        '01000230232',
-                                    ],
-                                    'mobile_phone'   => [
-                                        '0100023023232',
-                                    ],
-                                    'department'     => [
-                                        'hr',
-                                    ],
-                                    'job_title'      => [
-                                        'manger',
-                                    ],
-                                    'company'        => [
-                                        'EP',
-                                    ],
-                                    'phone'          => [
-                                        '0100023023235',
-                                    ],
-                                    'photo'          => [
-                                        'http://example.com/photo.jpg',
-                                    ],
-                                ],
-                        ]));
+                        return User::factory()->create([
+                            'given_name'     => 'first',
+                            'family_name'    => 'last',
+                            'title'          => 'Mr',
+                            'academic_title' => 'academic_title',
+                            'office_phone'   => '01000230232',
+                            'mobile_phone'   => '0100023023232',
+                            'contact_email'  => 'test@gmail.com',
+                            'department'     => 'hr',
+                            'job_title'      => 'manger',
+                            'phone'          => '0100023023235',
+                            'company'        => 'EP',
+                            'photo'          => 'http://example.com/photo.jpg',
+                        ]);
                     },
                 ],
             ]),

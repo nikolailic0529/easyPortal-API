@@ -46,6 +46,14 @@ class UserFactory extends Factory {
             'password'        => null,
             'homepage'        => null,
             'timezone'        => null,
+            'office_phone'    => null,
+            'contact_email'   => null,
+            'title'           => null,
+            'academic_title'  => null,
+            'mobile_phone'    => null,
+            'department'      => null,
+            'job_title'       => null,
+            'company'         => null,
             'enabled'         => true,
         ];
     }

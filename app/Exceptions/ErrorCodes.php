@@ -82,6 +82,7 @@ class ErrorCodes {
         KeyCloakUserDoesntExists::class               => 'ERR35',
         EnableOrgUserInvalidUser::class               => 'ERR36',
         DisableOrgUserInvalidUser::class              => 'ERR37',
+        UserDisabled::class                           => 'ERR38',
     ];
 
     public static function getCode(Throwable $throwable): string|int {
