@@ -4,14 +4,12 @@ namespace App\GraphQL\Queries;
 
 use App\Models\User;
 use App\Services\Auth\Auth;
-use App\Services\KeyCloak\Client\Client;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
 class Me {
     public function __construct(
         protected Auth $auth,
-        protected Client $client,
     ) {
         // empty
     }
