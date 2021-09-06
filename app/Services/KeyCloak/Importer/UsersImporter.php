@@ -96,7 +96,37 @@ class UsersImporter {
                         $user->enabled               = $item->enabled;
                         $user->permissions           = [];
                         // profile
-                        $this->updateProfile($user, $item);
+                        $attributes           = $item->attributes;
+                        $user->office_phone   = array_key_exists('office_phone', $attributes)
+                            ? $attributes['office_phone'][0]
+                            : null;
+                        $user->contact_email  = array_key_exists('contact_email', $attributes)
+                            ? $attributes['contact_email'][0]
+                            : null;
+                        $user->title          = array_key_exists('title', $attributes)
+                            ? $attributes['title'][0]
+                            : null;
+                        $user->academic_title = array_key_exists('academic_title', $attributes)
+                            ? $attributes['academic_title'][0]
+                            : null;
+                        $user->mobile_phone   = array_key_exists('mobile_phone', $attributes)
+                            ? $attributes['mobile_phone'][0]
+                            : null;
+                        $user->department     = array_key_exists('department', $attributes)
+                            ? $attributes['department'][0]
+                            : null;
+                        $user->job_title      = array_key_exists('job_title', $attributes)
+                            ? $attributes['job_title'][0]
+                            : null;
+                        $user->phone          = array_key_exists('phone', $attributes)
+                            ? $attributes['phone'][0]
+                            : null;
+                        $user->company        = array_key_exists('company', $attributes)
+                            ? $attributes['company'][0]
+                            : null;
+                        $user->photo          = array_key_exists('photo', $attributes)
+                            ? $attributes['photo'][0]
+                            : null;
                     }
 
                     $organizations = [];
@@ -190,27 +220,6 @@ class UsersImporter {
     protected function onAfterImport(Status $status): void {
         if ($this->onFinish) {
             ($this->onFinish)(clone $status);
-        }
-    }
-
-    protected function updateProfile(User $user, TypesUser $item): void {
-        $properties = [
-            'office_phone',
-            'contact_email',
-            'title',
-            'academic_title',
-            'mobile_phone',
-            'department',
-            'job_title',
-            'phone',
-            'company',
-            'photo',
-        ];
-        $attributes = $item->attributes;
-        foreach ($properties as $property) {
-            if (array_key_exists($property, $attributes)) {
-                $user->{$property} = $attributes[$property][0];
-            }
         }
     }
 }
