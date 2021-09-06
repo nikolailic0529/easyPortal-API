@@ -71,13 +71,6 @@ class Organization {
     }
 
     /**
-     * @return array<mixed>
-     */
-    public function users(OrganizationModel $organization): array {
-        return $this->client->users($organization);
-    }
-
-    /**
      * @return array<string,mixed>
      */
     public function roles(OrganizationModel $organization): ?array {

@@ -8,10 +8,9 @@ use App\Models\Location;
 use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Reseller;
-use App\Models\User as ModelsUser;
+use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Group;
-use App\Services\KeyCloak\Client\Types\User;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -150,7 +149,6 @@ class OrganizationTest extends TestCase {
         Closure $organizationFactory,
         Closure $userFactory = null,
         Closure $prepare = null,
-        Closure $clientFactory = null,
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
@@ -158,10 +156,6 @@ class OrganizationTest extends TestCase {
 
         if ($prepare) {
             $prepare($this, $organization, $user);
-        }
-
-        if ($clientFactory) {
-            $this->override(Client::class, $clientFactory);
         }
 
         // Test
@@ -172,13 +166,23 @@ class OrganizationTest extends TestCase {
                 query organization($id: ID!) {
                     organization(id: $id) {
                         users {
-                            id
-                            username
-                            firstName
-                            lastName
-                            email
-                            enabled
-                            emailVerified
+                            data {
+                                id
+                                email
+                                given_name
+                                family_name
+                                email_verified
+                            }
+                            paginatorInfo {
+                                count
+                                currentPage
+                                firstItem
+                                hasMorePages
+                                lastItem
+                                lastPage
+                                perPage
+                                total
+                            }
                         }
                     }
                 }
@@ -387,7 +391,7 @@ class OrganizationTest extends TestCase {
                     [
                         'ep.headquarter_type' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
                     ],
-                    static function (TestCase $test, ?Organization $organization, ?ModelsUser $user): Organization {
+                    static function (TestCase $test, ?Organization $organization, ?User $user): Organization {
                         $currency = Currency::factory()->create([
                             'id'   => '439a0a06-d98a-41f0-b8e5-4e5722518e01',
                             'name' => 'currency1',
@@ -485,39 +489,35 @@ class OrganizationTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('organization', self::class, new JsonFragment('users', [
-                            [
-                                'id'            => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                                'username'      => 'virtualcomputersa_3@tesedi.com',
-                                'enabled'       => true,
-                                'emailVerified' => true,
-                                'firstName'     => 'Reseller',
-                                'lastName'      => 'virtualcomputersa_3',
-                                'email'         => 'virtualcomputersa_3@tesedi.com',
-                            ],
-                        ])),
+                        new GraphQLSuccess(
+                            'organization',
+                            new JsonFragmentPaginatedSchema('users', self::class, [
+                                [
+                                    'id'             => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                    'email'          => 'example@test.com',
+                                    'email_verified' => true,
+                                    'given_name'     => 'first',
+                                    'family_name'    => 'last',
+                                ],
+                            ]),
+                        ),
                         static function (TestCase $test, Organization $organization): void {
                             $organization->keycloak_group_id = 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945';
                             Reseller::factory()->create([
                                 'id' => $organization->getKey(),
                             ]);
                             $organization->save();
-                        },
-                        static function (MockInterface $mock): void {
-                            $mock
-                                ->shouldReceive('users')
-                                ->once()
-                                ->andReturn([
-                                    new User([
-                                        'id'            => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                                        'username'      => 'virtualcomputersa_3@tesedi.com',
-                                        'enabled'       => true,
-                                        'emailVerified' => true,
-                                        'firstName'     => 'Reseller',
-                                        'lastName'      => 'virtualcomputersa_3',
-                                        'email'         => 'virtualcomputersa_3@tesedi.com',
-                                    ]),
-                                ]);
+
+                            $user = User::factory()->create([
+                                'id'             => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                'email'          => 'example@test.com',
+                                'email_verified' => true,
+                                'given_name'     => 'first',
+                                'family_name'    => 'last',
+                            ]);
+
+                            $user->organizations = [$organization];
+                            $user->save();
                         },
                     ],
                 ]),
@@ -529,39 +529,35 @@ class OrganizationTest extends TestCase {
                 ]),
                 new ArrayDataProvider([
                     'ok' => [
-                        new GraphQLSuccess('organization', self::class, new JsonFragment('users', [
-                            [
-                                'id'            => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                                'username'      => 'virtualcomputersa_3@tesedi.com',
-                                'enabled'       => true,
-                                'emailVerified' => true,
-                                'firstName'     => 'Reseller',
-                                'lastName'      => 'virtualcomputersa_3',
-                                'email'         => 'virtualcomputersa_3@tesedi.com',
-                            ],
-                        ])),
+                        new GraphQLSuccess(
+                            'organization',
+                            new JsonFragmentPaginatedSchema('users', self::class, [
+                                [
+                                    'id'             => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                    'email'          => 'example@test.com',
+                                    'email_verified' => true,
+                                    'given_name'     => 'first',
+                                    'family_name'    => 'last',
+                                ],
+                            ]),
+                        ),
                         static function (TestCase $test, Organization $organization): void {
                             $organization->keycloak_group_id = 'f9396bc1-2f2f-4c58-2f2f-7a224ac20945';
                             Reseller::factory()->create([
                                 'id' => $organization->getKey(),
                             ]);
                             $organization->save();
-                        },
-                        static function (MockInterface $mock): void {
-                            $mock
-                                ->shouldReceive('users')
-                                ->once()
-                                ->andReturn([
-                                    new User([
-                                        'id'            => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                                        'username'      => 'virtualcomputersa_3@tesedi.com',
-                                        'enabled'       => true,
-                                        'emailVerified' => true,
-                                        'firstName'     => 'Reseller',
-                                        'lastName'      => 'virtualcomputersa_3',
-                                        'email'         => 'virtualcomputersa_3@tesedi.com',
-                                    ]),
-                                ]);
+
+                            $user = User::factory()->create([
+                                'id'             => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                'email'          => 'example@test.com',
+                                'email_verified' => true,
+                                'given_name'     => 'first',
+                                'family_name'    => 'last',
+                            ]);
+
+                            $user->organizations = [$organization];
+                            $user->save();
                         },
                     ],
                 ]),
@@ -729,7 +725,7 @@ class OrganizationTest extends TestCase {
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization): Organization {
-                            $user         = ModelsUser::factory()->create([
+                            $user         = User::factory()->create([
                                 'id' => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
                             ]);
                             $organization = Organization::factory()
@@ -804,7 +800,7 @@ class OrganizationTest extends TestCase {
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization): Organization {
-                            $user         = ModelsUser::factory()->create([
+                            $user         = User::factory()->create([
                                 'id'       => 'f9396bc1-2f2f-4c58-2f2f-7a224ac20948',
                                 'password' => 'pass',
                             ]);

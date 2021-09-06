@@ -23,9 +23,12 @@ type Organization {
   contacts: [Contact!]!
   headquarter: Location
 
-  users: [OrganizationUser!]!
+  users(
+    where: UsersQuery @searchBy
+    order: UsersSort @searchBy
+  ): [User!]!
+  @hasMany(type: PAGINATOR)
   @me(permissions: ["administer", "org-administer"])
-  @field(resolver: "App\\GraphQL\\Queries\\Organization@users")
 
   keycloak_scope: String
   @me(permissions: ["administer"])

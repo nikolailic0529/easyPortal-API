@@ -1543,11 +1543,6 @@ type Organization {
   headquarter: Location
 
   """
-  @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
-  """
-  users: [OrganizationUser!]!
-
-  """
   @require <me(["administer"])> User must be authenticated and have any of these permissions.
   """
   keycloak_scope: String
@@ -1556,6 +1551,20 @@ type Organization {
   @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
   """
   roles: [Role!]!
+
+  """
+  @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
+  """
+  users(
+    where: SearchByConditionUsersQuery
+    order: SearchByConditionUsersSort
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): UserPaginator
 
   """
   @require <me(["administer","org-administer"])> User must be authenticated and have any of these permissions.
@@ -2176,6 +2185,24 @@ type Query {
     """The offset from which items are returned."""
     page: Int
   ): AuditPaginator
+
+  """
+  List of all users.
+  
+  @require <organization(root)> Authenticated user must be a member of the root organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  users(
+    where: SearchByConditionUsersQuery
+    order: [SortByClauseUsersSort!]
+
+    """Limits number of fetched items. Maximum allowed value: 100."""
+    first: Int = 25
+
+    """The offset from which items are returned."""
+    page: Int
+  ): UserPaginator
 }
 
 type QuoteRequest {
@@ -3958,6 +3985,32 @@ input SearchByConditionUsersQuery {
 
   """Property condition."""
   family_name: SearchByScalarString
+
+  """Property condition."""
+  enabled: SearchByScalarBoolean
+}
+
+"""
+Available conditions for input UsersSort (only one property allowed at a time).
+"""
+input SearchByConditionUsersSort {
+  """All of the conditions must be true."""
+  allOf: [SearchByConditionUsersSort!]
+
+  """Any of the conditions must be true."""
+  anyOf: [SearchByConditionUsersSort!]
+
+  """Not."""
+  not: SearchByConditionUsersSort
+
+  """Property condition."""
+  given_name: SearchByScalarString
+
+  """Property condition."""
+  family_name: SearchByScalarString
+
+  """Property condition."""
+  enabled: SearchByScalarBoolean
 }
 
 """
@@ -4818,6 +4871,20 @@ input SortByClauseTypesSort {
   name: SortByDirection
 }
 
+"""
+Sort clause for input UsersSort (only one property allowed at a time).
+"""
+input SortByClauseUsersSort {
+  """Property clause."""
+  given_name: SortByDirection
+
+  """Property clause."""
+  family_name: SortByDirection
+
+  """Property clause."""
+  enabled: SortByDirection
+}
+
 """Sort direction."""
 enum SortByDirection {
   asc
@@ -5053,12 +5120,32 @@ type User {
   id: ID!
   given_name: String!
   family_name: String!
+  email: String!
+  email_verified: Boolean!
+  enabled: Boolean!
+  roles: [Role!]!
+}
+
+"""A paginated list of User items."""
+type UserPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of User items."""
+  data: [User!]!
 }
 
 input UsersQuery {
   id: ID!
   given_name: String!
   family_name: String!
+  enabled: Boolean!
+}
+
+input UsersSort {
+  given_name: String!
+  family_name: String!
+  enabled: Boolean!
 }
 
 type recoverApplicationSettingsPayload {

@@ -35,6 +35,7 @@ use App\Services\KeyCloak\Exceptions\InvalidCredentials as KeyCloakInvalidCreden
 use App\Services\KeyCloak\Exceptions\InvalidIdentity as KeyCloakInvalidIdentity;
 use App\Services\KeyCloak\Exceptions\StateMismatch as KeyCloakStateMismatch;
 use App\Services\KeyCloak\Exceptions\UnknownScope as KeyCloakUnknownScope;
+use App\Services\KeyCloak\Exceptions\UserDisabled;
 use App\Services\Organization\Exceptions\UnknownOrganization as OrganizationUnknownOrganization;
 use App\Services\Queue\Exceptions\ServiceNotFound as QueueServiceNotFound;
 use App\Services\Settings\Exceptions\SettingsFailedToLoadEnv as SettingsSettingsFailedToLoadEnv;
@@ -83,6 +84,7 @@ class ErrorCodes {
         KeyCloakUserDoesntExists::class               => 'ERR36',
         EnableOrgUserInvalidUser::class               => 'ERR37',
         DisableOrgUserInvalidUser::class              => 'ERR38',
+        UserDisabled::class                           => 'ERR39',
     ];
 
     public static function getCode(Throwable $throwable): string|int {

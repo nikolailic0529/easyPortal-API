@@ -353,4 +353,13 @@ type Query {
   @paginate(
     model: "App\\Models\\Audits\\Audit"
   )
+  "List of all users."
+  users(
+    where: UsersQuery @searchBy
+    order: UsersSort @sortBy
+  ): [User!]!
+  @organization(root: true)
+  @me(permissions: ["administer"])
+  @builder(method: "App\\GraphQL\\Queries\\User")
+  @paginate
 }

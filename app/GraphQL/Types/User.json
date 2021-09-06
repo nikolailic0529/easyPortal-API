@@ -4,18 +4,38 @@
     "type": "object",
     "required": [
         "given_name",
-        "family_name",
-        "id"
+        "family_name"
     ],
     "properties": {
         "id": {
             "$ref": "../types.json#/definitions/ID"
         },
         "given_name": {
-            "type": "string"
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "family_name": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "email": {
             "type": "string"
+        },
+        "email_verified": {
+            "type": "boolean"
+        },
+        "enabled" : {
+            "type": "boolean"
+        },
+        "roles" : {
+            "type": "array",
+            "items": {
+                "$ref": "../Types/Role.json"
+            }
         }
     }
 }

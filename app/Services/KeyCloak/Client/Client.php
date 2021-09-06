@@ -4,6 +4,7 @@ namespace App\Services\KeyCloak\Client;
 
 use App\Models\Organization;
 use App\Models\Role as RoleModel;
+use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\KeyCloak\Client\Exceptions\EndpointException;
 use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakClient;
 use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakGroup;
@@ -14,6 +15,7 @@ use App\Services\KeyCloak\Client\Types\Credential;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role;
 use App\Services\KeyCloak\Client\Types\User;
+use App\Services\KeyCloak\Commands\UsersIterator;
 use Closure;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
@@ -23,6 +25,7 @@ use Illuminate\Http\Client\RequestException;
 use Symfony\Component\HttpFoundation\Response;
 
 use function array_map;
+use function http_build_query;
 use function json_encode;
 use function rtrim;
 use function time;
@@ -34,6 +37,7 @@ class Client {
         protected Repository $config,
         protected ExceptionHandler $handler,
         protected Token $token,
+        // protected UsersIterator $usersIterator,
     ) {
         // empty
     }
@@ -315,6 +319,33 @@ class Client {
         };
         $this->call($endpoint, 'PUT', ['json' => ['email' => $email]], $errorHandler);
     }
+
+    /**
+     * @return array<\App\Services\KeyCloak\Client\Types\User>
+     */
+    public function getUsers(int $limit, int $offset): array {
+        $keycloak = rtrim($this->config->get('ep.keycloak.url'), '/');
+        $realm    = $this->config->get('ep.keycloak.realm');
+        $baseUrl  = "{$keycloak}/auth/realms/{$realm}/custom";
+        $params   = http_build_query(['offset' => $offset, 'limit' => $limit]);
+        $endpoint = "users?{$params}";
+
+        $result = $this->call($endpoint, 'GET', [], null, $baseUrl);
+        $result = array_map(static function ($item) {
+            return new User($item);
+        }, $result);
+        return $result;
+    }
+
+    public function usersCount(): int {
+        // GET /{realm}/users/count
+        $endpoint = 'users/count';
+        return $this->call($endpoint, 'GET');
+    }
+
+    public function getUsersIterator(): QueryIterator {
+        return new UsersIterator($this);
+    }
     // </editor-fold>
 
     // <editor-fold desc="API">
@@ -340,6 +371,7 @@ class Client {
         string $method = 'GET',
         array $options = [],
         Closure $errorHandler = null,
+        string $baseUrl = null,
     ): mixed {
         // Enabled?
         if (!$this->isEnabled()) {
@@ -348,13 +380,14 @@ class Client {
 
         $timeout     = $this->config->get('ep.keycloak.timeout') ?: 5 * 60;
         $accessToken = $this->token->getAccessToken();
+        $baseUrl   ??= $this->getBaseUrl();
         $headers     = [
             'Accept'        => 'application/json',
             'Authorization' => "Bearer {$accessToken}",
         ];
 
         $request = $this->client
-            ->baseUrl($this->getBaseUrl())
+            ->baseUrl($baseUrl)
             ->timeout($timeout);
 
         try {

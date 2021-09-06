@@ -31,6 +31,7 @@ class OrganizationSeeder extends SmartSeeder {
         $user->phone_verified = false;
         $user->permissions    = [];
         $user->organization   = $organization;
+        $user->enabled        = true;
         $user->save();
     }
 }

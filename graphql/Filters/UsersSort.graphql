@@ -1,5 +1,4 @@
-input UsersQuery {
-  id: ID!
+input UsersSort {
   given_name: String!
   family_name: String!
   enabled: Boolean!
