@@ -10,7 +10,7 @@ use App\GraphQL\Mutations\Auth\SignUpByInviteUnInvitedUser;
 use App\GraphQL\Mutations\Me\UpdateMePasswordInvalidCurrentPassword;
 use App\GraphQL\Mutations\Org\DisableOrgUserInvalidUser;
 use App\GraphQL\Mutations\Org\EnableOrgUserInvalidUser;
-use App\GraphQL\Mutations\Org\InviteOrgUserAlreadyUsedInvitation;
+use App\GraphQL\Mutations\Org\InviteOrgUserAlreadyInOrganization;
 use App\GraphQL\Mutations\Org\InviteOrgUserInvalidRole;
 use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser;
 use App\Http\Controllers\ExportGraphQLQueryEmpty;
@@ -76,7 +76,7 @@ class ErrorCodes {
         SignUpByInviteInvalidUser::class              => 'ERR29',
         SignUpByInviteUnInvitedUser::class            => 'ERR30',
         SignUpByInviteAlreadyUsed::class              => 'ERR31',
-        InviteOrgUserAlreadyUsedInvitation::class     => 'ERR32',
+        InviteOrgUserAlreadyInOrganization::class     => 'ERR32',
         UpdateMePasswordInvalidCurrentPassword::class => 'ERR33',
         ResetOrgUserPasswordInvalidUser::class        => 'ERR34',
         KeyCloakUserDoesntExists::class               => 'ERR35',

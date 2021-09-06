@@ -9,14 +9,14 @@ use Throwable;
 
 use function __;
 
-class InviteOrgUserAlreadyUsedInvitation extends Exception implements TranslatedException {
+class InviteOrgUserAlreadyInOrganization extends Exception implements TranslatedException {
     use HasErrorCode;
 
     public function __construct(Throwable $previous = null) {
-        parent::__construct('User already used the invitation.', 0, $previous);
+        parent::__construct('User already in organization.', 0, $previous);
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.inviteOrgUser.user_already_used_invitation');
+        return __('graphql.mutations.inviteOrgUser.user_already_in_organization');
     }
 }

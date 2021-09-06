@@ -26,9 +26,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use function array_map;
 use function http_build_query;
-use function json_encode;
 use function rtrim;
-use function time;
 
 class Client {
 
@@ -186,20 +184,14 @@ class Client {
         if (!$group) {
             throw new InvalidKeyCloakGroup();
         }
-        $invitationAttribute = [
-            'sent_at' => time(),
-            'used_at' => null,
-        ];
-        $input               = new User([
+
+        $input        = new User([
             'email'         => $email,
             'groups'        => [$group->path],
             'enabled'       => false,
             'emailVerified' => false,
-            'attributes'    => [
-                "ep_invite_{$role->organization_id}" => [json_encode($invitationAttribute)],
-            ],
         ]);
-        $errorHandler        = function (Exception $exception) use ($endpoint, $email): void {
+        $errorHandler = function (Exception $exception) use ($endpoint, $email): void {
             if ($exception instanceof RequestException) {
                 if ($exception->getCode() === Response::HTTP_CONFLICT) {
                     throw new UserAlreadyExists($email);

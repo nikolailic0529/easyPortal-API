@@ -140,7 +140,7 @@
     "graphql.mutations.signUpByInvite.invalid_user": "User not found.",
     "graphql.mutations.signUpByInvite.uninvited_user": "User is not invited.",
     "graphql.mutations.signUpByInvite.already_used": "User already used the invitation.",
-    "graphql.mutations.inviteOrgUser.user_already_used_invitation": "User already used the invitation.",
+    "graphql.mutations.inviteOrgUser.user_already_in_organization": "User already in the Organization.",
     "graphql.mutations.updateMePassword.invalid_current_password": "Invalid current password.",
     "graphql.mutations.resetOrgUserPassword.invalid_user": "Invalid keycloak user.",
     "graphql.mutations.enableOrgUser.invalid_user": "Invalid keycloak user.",
