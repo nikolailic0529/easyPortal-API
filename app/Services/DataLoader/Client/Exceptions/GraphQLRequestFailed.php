@@ -2,12 +2,11 @@
 
 namespace App\Services\DataLoader\Client\Exceptions;
 
-use App\Exceptions\Contextable;
 use Throwable;
 
 use function __;
 
-class GraphQLRequestFailed extends ClientException implements Contextable {
+class GraphQLRequestFailed extends ClientException {
     /**
      * @param array<mixed> $variables
      * @param array<mixed> $errors
@@ -28,7 +27,7 @@ class GraphQLRequestFailed extends ClientException implements Contextable {
     /**
      * @inheritDoc
      */
-    public function context(): array {
+    public function getContext(): array {
         return [
             'query'     => $this->query,
             'variables' => $this->variables,
