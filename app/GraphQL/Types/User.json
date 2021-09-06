@@ -30,6 +30,12 @@
         },
         "enabled" : {
             "type": "boolean"
+        },
+        "roles" : {
+            "type": "array",
+            "items": {
+                "$ref": "../Types/Role.json"
+            }
         }
     }
 }

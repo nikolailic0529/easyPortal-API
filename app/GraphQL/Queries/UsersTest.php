@@ -48,6 +48,10 @@ class UsersTest extends TestCase {
                       email
                       email_verified
                       enabled
+                      roles {
+                          id
+                          name
+                      }
                     }
                     paginatorInfo {
                       count
@@ -86,22 +90,35 @@ class UsersTest extends TestCase {
                                 'email'          => 'test1@example.com',
                                 'email_verified' => true,
                                 'enabled'        => true,
+                                'roles'          => [
+                                    [
+                                        'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
+                                        'name' => 'role1',
+                                    ],
+                                ],
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization, User $user): void {
                             if ($user) {
                                 $user->type = UserType::keycloak();
                             }
-                            User::factory()->create([
-                                'given_name'     => 'keycloak',
-                                'family_name'    => 'user',
-                                'email'          => 'test1@example.com',
-                                'email_verified' => true,
-                                'enabled'        => true,
-                                'type'           => UserType::keycloak(),
-                            ]);
 
-                            User::factory()->create([
+                            User::factory()
+                                ->hasRoles(1, [
+                                    'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
+                                    'name' => 'role1',
+                                ])
+                                ->create([
+                                    'given_name'     => 'keycloak',
+                                    'family_name'    => 'user',
+                                    'email'          => 'test1@example.com',
+                                    'email_verified' => true,
+                                    'enabled'        => true,
+                                    'type'           => UserType::keycloak(),
+                                ]);
+
+                            User::factory()
+                            ->create([
                                 'given_name'     => 'local',
                                 'family_name'    => 'user',
                                 'email'          => 'test2@example.com',
@@ -127,6 +144,12 @@ class UsersTest extends TestCase {
                                 'email'          => 'test1@example.com',
                                 'email_verified' => true,
                                 'enabled'        => true,
+                                'roles'          => [
+                                    [
+                                        'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
+                                        'name' => 'role1',
+                                    ],
+                                ],
                             ],
                             [
                                 'given_name'     => 'local',
@@ -134,31 +157,47 @@ class UsersTest extends TestCase {
                                 'email'          => 'test2@example.com',
                                 'email_verified' => true,
                                 'enabled'        => true,
+                                'roles'          => [
+                                    [
+                                        'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d05',
+                                        'name' => 'role2',
+                                    ],
+                                ],
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization, User $user): void {
                             if ($user) {
                                 $user->type = UserType::local();
                             }
-                            User::factory()->create([
-                                'given_name'     => 'keycloak',
-                                'family_name'    => 'user',
-                                'email'          => 'test1@example.com',
-                                'email_verified' => true,
-                                'enabled'        => true,
-                                'type'           => UserType::keycloak(),
-                                'created_at'     => Date::now()->subMinutes(1),
-                            ]);
+                            User::factory()
+                                ->hasRoles(1, [
+                                    'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
+                                    'name' => 'role1',
+                                ])
+                                ->create([
+                                    'given_name'     => 'keycloak',
+                                    'family_name'    => 'user',
+                                    'email'          => 'test1@example.com',
+                                    'email_verified' => true,
+                                    'enabled'        => true,
+                                    'type'           => UserType::keycloak(),
+                                    'created_at'     => Date::now()->subMinutes(1),
+                                ]);
 
-                            User::factory()->create([
-                                'given_name'     => 'local',
-                                'family_name'    => 'user',
-                                'email'          => 'test2@example.com',
-                                'email_verified' => true,
-                                'enabled'        => true,
-                                'type'           => UserType::local(),
-                                'created_at'     => Date::now()->subMinutes(2),
-                            ]);
+                            User::factory()
+                                ->hasRoles(1, [
+                                    'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d05',
+                                    'name' => 'role2',
+                                ])
+                                ->create([
+                                    'given_name'     => 'local',
+                                    'family_name'    => 'user',
+                                    'email'          => 'test2@example.com',
+                                    'email_verified' => true,
+                                    'enabled'        => true,
+                                    'type'           => UserType::local(),
+                                    'created_at'     => Date::now()->subMinutes(2),
+                                ]);
                         },
                     ],
                 ]),

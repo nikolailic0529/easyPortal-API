@@ -5123,6 +5123,7 @@ type User {
   email: String!
   email_verified: Boolean!
   enabled: Boolean!
+  roles: [Role!]!
 }
 
 """A paginated list of User items."""

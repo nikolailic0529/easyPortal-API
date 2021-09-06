@@ -5,4 +5,5 @@ type User {
   email: String!
   email_verified: Boolean!
   enabled: Boolean!
+  roles: [Role!]! @belongsToMany
 }
