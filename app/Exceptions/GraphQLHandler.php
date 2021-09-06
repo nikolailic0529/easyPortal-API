@@ -9,6 +9,7 @@ use Illuminate\Contracts\Config\Repository;
 class GraphQLHandler {
     public function __construct(
         protected Repository $config,
+        protected Handler $handler,
         protected Helper $helper,
     ) {
         // empty
@@ -23,7 +24,7 @@ class GraphQLHandler {
             ] + FormattedError::createFromException($error);
 
         if ($this->config->get('app.debug')) {
-            $result['extensions']['stack'] = $this->helper->getTrace($error);
+            $result['extensions']['stack'] = $this->helper->getTrace($error, $this->handler);
         }
 
         return $result;
