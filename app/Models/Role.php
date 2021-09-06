@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Concerns\Relations\HasOrganization;
+use App\Services\Audit\Concerns\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
@@ -21,7 +22,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role query()
  * @mixin \Eloquent
  */
-class Role extends Model {
+class Role extends Model implements Auditable {
     use HasFactory;
     use HasOrganization;
 

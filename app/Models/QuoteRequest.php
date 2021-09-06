@@ -7,6 +7,7 @@ use App\Models\Concerns\Relations\HasFiles;
 use App\Models\Concerns\Relations\HasOem;
 use App\Models\Concerns\Relations\HasType;
 use App\Models\Concerns\SyncHasMany;
+use App\Services\Audit\Concerns\Auditable;
 use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -41,7 +42,7 @@ use Illuminate\Support\Collection;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuoteRequest query()
  * @mixin \Eloquent
  */
-class QuoteRequest extends Model {
+class QuoteRequest extends Model implements Auditable {
     use HasFactory;
     use OwnedByOrganization;
     use HasOem;
