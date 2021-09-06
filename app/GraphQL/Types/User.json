@@ -11,10 +11,16 @@
             "$ref": "../types.json#/definitions/ID"
         },
         "given_name": {
-            "type": "string"
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "family_name": {
-            "type": "string"
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "email": {
             "type": "string"

@@ -89,8 +89,8 @@ class UsersImporter {
                         $user->{$user->getKeyName()} = $item->id;
                         $user->email                 = $item->email;
                         $user->type                  = UserType::keycloak();
-                        $user->given_name            = $item->firstName;
-                        $user->family_name           = $item->lastName;
+                        $user->given_name            = $item->firstName ?? null;
+                        $user->family_name           = $item->lastName ?? null;
                         $user->email_verified        = $item->emailVerified;
                         $user->enabled               = $item->enabled;
                         $user->permissions           = [];
