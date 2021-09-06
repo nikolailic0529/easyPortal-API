@@ -66,13 +66,14 @@ class Helper {
     /**
      * @return array<mixed>
      */
-    public function getTrace(Throwable $error): array {
+    public function getTrace(Throwable $error, ContextProvider $provider): array {
         $stack = [];
 
         do {
             $stack[] = [
                 'exception' => $error::class,
                 'message'   => $error->getMessage(),
+                'context'   => $provider->getExceptionContext($error),
                 'file'      => $error->getFile(),
                 'line'      => $error->getLine(),
                 'trace'     => collect($error->getTrace())->map(static function (array $trace): array {

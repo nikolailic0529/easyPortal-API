@@ -2,12 +2,17 @@
 
 namespace App\Exceptions;
 
+use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 use Throwable;
 
-class Handler extends ExceptionHandler {
+use function array_merge;
+
+class Handler extends ExceptionHandler implements ContextProvider {
     /**
      * A list of the exception types that are not reported.
      *
@@ -16,18 +21,6 @@ class Handler extends ExceptionHandler {
      * @var array<string>
      */
     protected $dontReport = [];
-
-    /**
-     * A list of the inputs that are never flashed for validation exceptions.
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     *
-     * @var array<string>
-     */
-    protected $dontFlash = [
-        'password',
-        'password_confirmation',
-    ];
 
     public function __construct(
         Container $container,
@@ -41,7 +34,8 @@ class Handler extends ExceptionHandler {
      * Register the exception handling callbacks for the application.
      */
     public function register(): void {
-        $this->reportable(static function (Throwable $e): void {
+        $this->reportable(function (Throwable $exception): bool {
+            return !$this->reportException($exception);
         });
     }
 
@@ -54,9 +48,64 @@ class Handler extends ExceptionHandler {
         ];
 
         if ($this->config->get('app.debug')) {
-            $array['stack'] = $this->helper->getTrace($e);
+            $array['stack'] = $this->helper->getTrace($e, $this);
         }
 
         return $array;
     }
+
+    /**
+     * @return array<mixed>
+     */
+    protected function exceptionContext(Throwable $e): array {
+        $context = parent::exceptionContext($e);
+
+        if ($e instanceof ApplicationException) {
+            $context = array_merge($context, $e->getContext());
+        }
+
+        return $context;
+    }
+
+    protected function reportException(Throwable $exception): bool {
+        // Get logger (channel)
+        $logger = null;
+
+        try {
+            $logger = $exception instanceof ApplicationException
+                ? $this->container->make('log')->channel($exception->getChannel())
+                : $this->container->make(LoggerInterface::class);
+        } catch (Exception) {
+            // no action
+        }
+
+        if (!$logger) {
+            return false;
+        }
+
+        // Log
+        $level   = $exception instanceof ApplicationException
+            ? $exception->getLevel()
+            : LogLevel::ERROR;
+        $message = $exception->getMessage();
+        $context = [
+            'message' => $this->helper->getMessage($exception),
+            'stack'   => $this->helper->getTrace($exception, $this),
+        ];
+
+        $logger->log($level, $message, $context);
+
+        // Return
+        return true;
+    }
+
+    // <editor-fold desc="ContextProvider">
+    // =========================================================================
+    /**
+     * @inheritDoc
+     */
+    public function getExceptionContext(Throwable $exception): array {
+        return $this->exceptionContext($exception);
+    }
+    // </editor-fold>
 }
