@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations\Me;
 use App\Models\User;
 use App\Services\Filesystem\ModelDiskFactory;
 use App\Services\KeyCloak\Client\Client;
+use App\Services\KeyCloak\Client\Types\User as UserType;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\UploadedFile;
 
@@ -24,25 +25,37 @@ class UpdateMeProfile {
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
-        $user = $this->auth->user();
+        $user         = $this->auth->user();
+        $keycloakUser = $this->client->getUserById($user->getKey());
+        $userType     = new UserType();
+        $attributes   = $keycloakUser->attributes;
         foreach ($args['input'] as $property => $value) {
             switch ($property) {
                 case 'first_name':
-                    $user->given_name = $value;
+                    $userType->firstName = $value;
+                    $user->given_name    = $value;
                     break;
                 case 'last_name':
-                    $user->family_name = $value;
+                    $userType->lastName = $value;
+                    $user->family_name  = $value;
                     break;
                 case 'photo':
-                    $user->photo = $this->store($user, $value);
+                    $photo               = $this->store($user, $value);
+                    $user->photo         = $photo;
+                    $attributes['photo'] = [$photo];
                     break;
                 default:
-                    $user->{$property} = $value;
+                    $user->{$property}     = $value;
+                    $attributes[$property] = [$value];
                     break;
             }
         }
+        $userType->attributes = $attributes;
+
+        // Update Keycloak
+        $result = $this->client->updateUser($user->getKey(), $userType) && $user->save();
         return [
-            'result' => $user->save(),
+            'result' => $result,
         ];
     }
 

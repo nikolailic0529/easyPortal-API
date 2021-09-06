@@ -4,11 +4,15 @@ namespace App\GraphQL\Mutations\Me;
 
 use App\Models\Organization;
 use App\Models\User;
+use App\Services\KeyCloak\Client\Client;
+use App\Services\KeyCloak\Client\Exceptions\UserDoesntExists;
+use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
 use Closure;
 use Illuminate\Http\UploadedFile;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
+use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\OrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\UserDataProvider;
 use Tests\GraphQL\GraphQLError;
@@ -37,6 +41,7 @@ class UpdateMeProfileTest extends TestCase {
         Closure $userFactory = null,
         array $settings = [],
         Closure $dataFactory = null,
+        Closure $clientFactory = null,
         bool $nullableData = false,
     ): void {
         // Prepare
@@ -73,6 +78,10 @@ class UpdateMeProfileTest extends TestCase {
             'query'         => $query,
             'variables'     => ['input' => $input],
         ];
+
+        if ($clientFactory) {
+            $this->override(Client::class, $clientFactory);
+        }
 
         // Test
         $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
@@ -132,6 +141,35 @@ class UpdateMeProfileTest extends TestCase {
                             'photo'          => UploadedFile::fake()->create('photo.jpg', 200),
                         ];
                     },
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getUserById')
+                            ->once()
+                            ->andReturn(new KeyCloakUser(['attributes' => []]));
+                        $mock
+                            ->shouldReceive('updateUser')
+                            ->once()
+                            ->andReturn(true);
+                    },
+                ],
+                'user not exists'                       => [
+                    new GraphQLError('updateMeProfile', new UserDoesntExists()),
+                    [],
+                    static function (): array {
+                        return [
+                            'first_name' => 'first',
+                            'last_name'  => 'last',
+                        ];
+                    },
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getUserById')
+                            ->once()
+                            ->andThrow(new UserDoesntExists());
+                        $mock
+                            ->shouldReceive('updateUser')
+                            ->never();
+                    },
                 ],
                 'invalid request/Invalid contact email' => [
                     new GraphQLError('updateMeProfile', static function (): array {
@@ -188,6 +226,16 @@ class UpdateMeProfileTest extends TestCase {
                             'job_title'      => null,
                             'photo'          => null,
                         ];
+                    },
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getUserById')
+                            ->once()
+                            ->andReturn(new KeyCloakUser(['attributes' => []]));
+                        $mock
+                            ->shouldReceive('updateUser')
+                            ->once()
+                            ->andReturn(true);
                     },
                     true,
                 ],
