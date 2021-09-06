@@ -8,8 +8,6 @@ use App\Services\KeyCloak\Client\Client;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Http\UploadedFile;
 
-use function is_null;
-
 class UpdateMeProfile {
     public function __construct(
         protected AuthManager $auth,
@@ -30,14 +28,10 @@ class UpdateMeProfile {
         foreach ($args['input'] as $property => $value) {
             switch ($property) {
                 case 'first_name':
-                    if (!is_null($value)) {
-                        $user->given_name = $value;
-                    }
+                    $user->given_name = $value;
                     break;
                 case 'last_name':
-                    if (!is_null($value)) {
-                        $user->family_name = $value;
-                    }
+                    $user->family_name = $value;
                     break;
                 case 'photo':
                     $user->photo = $this->store($user, $value);
