@@ -28,6 +28,7 @@ use App\Models\Note;
 use App\Models\Oem;
 use App\Models\OemGroup;
 use App\Models\Organization;
+use App\Models\OrganizationUser;
 use App\Models\PasswordReset;
 use App\Models\Permission;
 use App\Models\Product;
@@ -44,6 +45,7 @@ use App\Models\Status;
 use App\Models\Tag;
 use App\Models\Type;
 use App\Models\User;
+use App\Models\UserRole;
 use App\Models\UserSearch;
 use App\Services\KeyCloak\KeyCloak;
 use App\Services\KeyCloak\UserProvider;
@@ -140,6 +142,8 @@ class AppServiceProvider extends ServiceProvider {
             'QuoteRequest'              => QuoteRequest::class,
             'QuoteRequestDuration'      => QuoteRequestDuration::class,
             'QuoteRequestAsset'         => QuoteRequestAsset::class,
+            'UserRole'                  => UserRole::class,
+            'OrganizationUser'          => OrganizationUser::class
         ]);
     }
 }
