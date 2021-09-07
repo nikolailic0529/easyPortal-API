@@ -11,7 +11,7 @@ use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Finders\ResellerLoaderFinder;
 use App\Services\DataLoader\Loader;
 use Illuminate\Console\Command;
-use Psr\Log\LoggerInterface;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Throwable;
 
 abstract class Update extends Command {
@@ -21,7 +21,7 @@ abstract class Update extends Command {
      * @param array<string> $ids
      */
     protected function process(
-        LoggerInterface $logger,
+        ExceptionHandler $handler,
         Container $container,
         array $ids,
         bool $create = false,
@@ -48,10 +48,7 @@ abstract class Update extends Command {
                 }
             } catch (Throwable $exception) {
                 $this->warn($exception->getMessage());
-                $logger->warning(__METHOD__, [
-                    'id'        => $id,
-                    'exception' => $exception,
-                ]);
+                $handler->report($exception);
 
                 $result = static::FAILURE;
             }
