@@ -6,7 +6,7 @@ use App\Models\Model;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Events\ObjectSkipped;
-use App\Services\DataLoader\Exceptions\AssetNotFoundException;
+use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
@@ -108,7 +108,7 @@ trait WithAssets {
             /** @var \App\Models\Asset $missed */
             try {
                 $loader->update($missed->getKey());
-            } catch (AssetNotFoundException $exception) {
+            } catch (AssetNotFound $exception) {
                 $this->logger->error('Asset found in database but not found in Cosmos.', [
                     'asset'     => $missed->getKey(),
                     'exception' => $exception,

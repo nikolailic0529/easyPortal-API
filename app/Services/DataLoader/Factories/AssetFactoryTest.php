@@ -18,8 +18,8 @@ use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Events\ObjectSkipped;
-use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
-use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
+use App\Services\DataLoader\Exceptions\CustomerNotFound;
+use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CoverageResolver;
@@ -349,7 +349,7 @@ class AssetFactoryTest extends TestCase {
         $asset   = new ViewAsset($json);
 
         // Test
-        $this->expectException(CustomerNotFoundException::class);
+        $this->expectException(CustomerNotFound::class);
 
         $factory->create($asset);
     }
@@ -583,7 +583,7 @@ class AssetFactoryTest extends TestCase {
             ->shouldReceive('create')
             ->once()
             ->andReturnUsing(function (Type $type): ?Document {
-                throw new ResellerNotFoundException($this->faker->uuid);
+                throw new ResellerNotFound($this->faker->uuid);
             });
         $factory = new class($logger, $dispatcher, $documents) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -604,7 +604,7 @@ class AssetFactoryTest extends TestCase {
         $this->assertCount(0, $factory->assetDocuments($model, $asset));
 
         Event::assertDispatched(ObjectSkipped::class, static function (ObjectSkipped $event): bool {
-            return $event->getReason() instanceof ResellerNotFoundException;
+            return $event->getReason() instanceof ResellerNotFound;
         });
     }
 

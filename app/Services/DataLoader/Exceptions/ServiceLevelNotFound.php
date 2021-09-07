@@ -9,7 +9,7 @@ use Throwable;
 
 use function sprintf;
 
-class ServiceLevelNotFound extends ObjectNotFoundException {
+class ServiceLevelNotFound extends ObjectNotFound {
     public function __construct(
         protected Oem $oem,
         protected ServiceGroup $serviceGroup,

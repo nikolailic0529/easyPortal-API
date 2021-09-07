@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Distributor;
-use App\Services\DataLoader\Exceptions\DistributorNotFoundException;
+use App\Services\DataLoader\Exceptions\DistributorNotFound;
 use App\Services\DataLoader\Finders\DistributorFinder;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\DistributorResolver;
@@ -37,7 +37,7 @@ trait WithDistributor {
 
         // Found?
         if ($id && !$distributor) {
-            throw new DistributorNotFoundException($id, $object);
+            throw new DistributorNotFound($id, $object);
         }
 
         // Return

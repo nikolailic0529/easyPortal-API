@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Loaders;
 use App\Models\Model;
 use App\Models\Reseller;
 use App\Services\DataLoader\Client\QueryIterator;
-use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
+use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\LoaderRecalculable;
 use App\Services\DataLoader\Loaders\Concerns\WithAssets;
@@ -35,7 +35,7 @@ class ResellerLoader extends CompanyLoader implements LoaderRecalculable {
     }
 
     protected function getModelNotFoundException(string $id): Exception {
-        return new ResellerNotFoundException($id);
+        return new ResellerNotFound($id);
     }
     // </editor-fold>
 

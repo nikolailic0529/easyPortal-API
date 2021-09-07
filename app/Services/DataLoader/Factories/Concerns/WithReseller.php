@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Reseller;
-use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
+use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
@@ -45,7 +45,7 @@ trait WithReseller {
 
         // Found?
         if ($id && !$reseller) {
-            throw new ResellerNotFoundException($id, $object);
+            throw new ResellerNotFound($id, $object);
         }
 
         // Return

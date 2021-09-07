@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Customer;
-use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
+use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Normalizer;
@@ -90,7 +90,7 @@ class WithCustomerTest extends TestCase {
         $factory = new WithCustomerTestObject($normalizer, $resolver);
         $object  = $objectFactory($this, $customer);
 
-        $this->expectException(CustomerNotFoundException::class);
+        $this->expectException(CustomerNotFound::class);
 
         $this->assertEquals($customer, $factory->customer($object));
     }

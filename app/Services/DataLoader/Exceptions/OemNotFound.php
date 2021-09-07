@@ -7,7 +7,7 @@ use Throwable;
 
 use function sprintf;
 
-class OemNotFound extends ObjectNotFoundException {
+class OemNotFound extends ObjectNotFound {
     public function __construct(string $key, Type|null $object = null, Throwable $previous = null) {
         parent::__construct(sprintf('Oem `%s` not found.', $key), $key, $object, $previous);
     }

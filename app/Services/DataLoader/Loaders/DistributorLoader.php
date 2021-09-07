@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Loaders;
 
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Exceptions\DistributorNotFoundException;
+use App\Services\DataLoader\Exceptions\DistributorNotFound;
 use App\Services\DataLoader\Factories\DistributorFactory;
 use App\Services\DataLoader\Factories\ModelFactory;
 use Exception;
@@ -23,6 +23,6 @@ class DistributorLoader extends CompanyLoader {
     }
 
     protected function getModelNotFoundException(string $id): Exception {
-        return new DistributorNotFoundException($id);
+        return new DistributorNotFound($id);
     }
 }

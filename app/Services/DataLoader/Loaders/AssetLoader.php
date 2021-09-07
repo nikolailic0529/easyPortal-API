@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Loaders;
 
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Exceptions\AssetNotFoundException;
+use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\DocumentFactory;
 use App\Services\DataLoader\Factories\ModelFactory;
@@ -65,7 +65,7 @@ class AssetLoader extends Loader implements LoaderRecalculable {
     }
 
     protected function getModelNotFoundException(string $id): Exception {
-        return new AssetNotFoundException($id);
+        return new AssetNotFound($id);
     }
 
     /**

@@ -8,7 +8,7 @@ use Throwable;
 
 use function sprintf;
 
-class ServiceGroupNotFound extends ObjectNotFoundException {
+class ServiceGroupNotFound extends ObjectNotFound {
     public function __construct(
         protected Oem $oem,
         string $key,

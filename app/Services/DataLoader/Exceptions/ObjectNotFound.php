@@ -6,7 +6,7 @@ use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\ServiceException;
 use Throwable;
 
-abstract class ObjectNotFoundException extends ServiceException {
+abstract class ObjectNotFound extends ServiceException {
     public function __construct(
         string $message,
         protected string $key,
