@@ -99,7 +99,7 @@ class UsersImporter {
                     $organizations = [];
                     $roles         = [];
                     foreach ($item->groups as $group) {
-                        $organization = Organization::whereKey($group)->first();
+                        $organization = Organization::where('keycloak_group_id', '=', $group)->first();
                         $role         = Role::whereKey($group)->first();
                         if ($organization) {
                             $organizations[] = $organization;
