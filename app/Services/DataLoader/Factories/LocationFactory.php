@@ -13,8 +13,8 @@ use App\Services\DataLoader\Resolvers\LocationResolver;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use InvalidArgumentException;
-use Psr\Log\LoggerInterface;
 
 use function array_filter;
 use function end;
@@ -27,13 +27,13 @@ use function str_contains;
 
 class LocationFactory extends DependentModelFactory {
     public function __construct(
-        LoggerInterface $logger,
+        ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
         protected CountryResolver $countryResolver,
         protected CityResolver $cityResolver,
         protected LocationResolver $locationResolver,
     ) {
-        parent::__construct($logger, $normalizer);
+        parent::__construct($exceptionHandler, $normalizer);
     }
 
     // <editor-fold desc="Factory">

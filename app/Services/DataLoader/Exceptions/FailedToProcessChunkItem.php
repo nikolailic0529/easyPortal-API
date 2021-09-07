@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Exceptions;
 use Psr\Log\LogLevel;
 use Throwable;
 
-class InvalidChunkItem extends InvalidData {
+class FailedToProcessChunkItem extends FailedToProcessObject {
     public function __construct(
         protected mixed $item,
         Throwable $previous = null,

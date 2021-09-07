@@ -4,8 +4,8 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\Model;
 use App\Models\Type as TypeModel;
-use App\Services\DataLoader\Exceptions\CompanyMultipleTypes;
-use App\Services\DataLoader\Exceptions\CompanyUnknownType;
+use App\Services\DataLoader\Exceptions\FailedToProcessCompanyMultipleTypes;
+use App\Services\DataLoader\Exceptions\FailedToProcessCompanyUnknownType;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Schema\Company as CompanyObject;
@@ -177,7 +177,7 @@ class CompanyFactoryTest extends TestCase {
                 },
             ],
             'several values'           => [
-                new CompanyMultipleTypes($id, ['value a', 'value b']),
+                new FailedToProcessCompanyMultipleTypes($id, ['value a', 'value b']),
                 $ownerFactory,
                 static function (): array {
                     return [
@@ -191,7 +191,7 @@ class CompanyFactoryTest extends TestCase {
                 },
             ],
             'empty'                    => [
-                new CompanyUnknownType($id),
+                new FailedToProcessCompanyUnknownType($id),
                 $ownerFactory,
                 static function (): array {
                     return [];

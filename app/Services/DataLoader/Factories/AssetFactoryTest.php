@@ -32,6 +32,7 @@ use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
@@ -40,7 +41,6 @@ use Illuminate\Support\Facades\Event;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
-use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 use Tests\WithoutOrganizationScope;
 
@@ -539,11 +539,11 @@ class AssetFactoryTest extends TestCase {
             ],
         ]);
         $dispatcher = $this->app->make(Dispatcher::class);
-        $logger     = $this->app->make(LoggerInterface::class);
-        $factory    = new class($logger, $dispatcher) extends AssetFactory {
+        $handler    = $this->app->make(ExceptionHandler::class);
+        $factory    = new class($handler, $dispatcher) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected LoggerInterface $logger,
+                protected ExceptionHandler $exceptionHandler,
                 protected Dispatcher $dispatcher,
             ) {
                 // empty
@@ -576,7 +576,7 @@ class AssetFactoryTest extends TestCase {
                 ],
             ],
         ]);
-        $logger     = $this->app->make(LoggerInterface::class);
+        $handler    = $this->app->make(ExceptionHandler::class);
         $dispatcher = $this->app->make(Dispatcher::class);
         $documents  = Mockery::mock(DocumentFactory::class);
         $documents
@@ -585,10 +585,10 @@ class AssetFactoryTest extends TestCase {
             ->andReturnUsing(function (Type $type): ?Document {
                 throw new ResellerNotFound($this->faker->uuid);
             });
-        $factory = new class($logger, $dispatcher, $documents) extends AssetFactory {
+        $factory = new class($handler, $dispatcher, $documents) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected LoggerInterface $logger,
+                protected ExceptionHandler $exceptionHandler,
                 protected Dispatcher $dispatcher,
                 protected ?DocumentFactory $documentFactory,
             ) {
@@ -644,7 +644,7 @@ class AssetFactoryTest extends TestCase {
         $factory = new class(
             $this->app->make(Normalizer::class),
             $this->app->make(Dispatcher::class),
-            $this->app->make(LoggerInterface::class),
+            $this->app->make(ExceptionHandler::class),
             $this->app->make(ResellerResolver::class),
             $this->app->make(CustomerResolver::class),
         ) extends AssetFactory {
@@ -652,7 +652,7 @@ class AssetFactoryTest extends TestCase {
             public function __construct(
                 protected Normalizer $normalizer,
                 protected Dispatcher $dispatcher,
-                protected LoggerInterface $logger,
+                protected ExceptionHandler $exceptionHandler,
                 protected ResellerResolver $resellerResolver,
                 protected CustomerResolver $customerResolver,
             ) {

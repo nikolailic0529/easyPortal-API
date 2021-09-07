@@ -7,15 +7,15 @@ use App\Services\DataLoader\Exceptions\DistributorNotFound;
 use App\Services\DataLoader\Factories\DistributorFactory;
 use App\Services\DataLoader\Factories\ModelFactory;
 use Exception;
-use Psr\Log\LoggerInterface;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 
 class DistributorLoader extends CompanyLoader {
     public function __construct(
-        LoggerInterface $logger,
+        ExceptionHandler $exceptionHandler,
         Client $client,
         protected DistributorFactory $distributors,
     ) {
-        parent::__construct($logger, $client);
+        parent::__construct($exceptionHandler, $client);
     }
 
     protected function getObjectFactory(): ModelFactory {

@@ -13,17 +13,17 @@ use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use Closure;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
-use Psr\Log\LoggerInterface;
 
 use function implode;
 use function sprintf;
 
 class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
     public function __construct(
-        LoggerInterface $logger,
+        ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
         Dispatcher $dispatcher,
         TypeResolver $typeResolver,
@@ -33,7 +33,7 @@ class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
         protected ResellerResolver $resellerResolver,
     ) {
         parent::__construct(
-            $logger,
+            $exceptionHandler,
             $normalizer,
             $dispatcher,
             $typeResolver,

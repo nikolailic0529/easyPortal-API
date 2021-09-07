@@ -13,10 +13,10 @@ use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use Exception;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Event;
 use Mockery;
-use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
 use function reset;
@@ -41,7 +41,7 @@ class WithLocationsTest extends TestCase {
         $owner->setRelation('locations', $existing);
 
         $factory = new class(
-            $this->app->make(LoggerInterface::class),
+            $this->app->make(ExceptionHandler::class),
             $this->app->make(Normalizer::class),
             $this->app->make(TypeResolver::class),
             $this->app->make(LocationFactory::class),
@@ -53,7 +53,7 @@ class WithLocationsTest extends TestCase {
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected LoggerInterface $logger,
+                protected ExceptionHandler $exceptionHandler,
                 protected Normalizer $normalizer,
                 protected TypeResolver $typeResolver,
                 protected LocationFactory $locationFactory,
@@ -194,7 +194,7 @@ class WithLocationsTest extends TestCase {
         $factory = new class(
             $factory,
             $this->app->make(Dispatcher::class),
-            $this->app->make(LoggerInterface::class),
+            $this->app->make(ExceptionHandler::class),
         ) extends ModelFactory {
             use WithLocations {
                 objectLocations as public;
@@ -204,7 +204,7 @@ class WithLocationsTest extends TestCase {
             public function __construct(
                 protected LocationFactory $locations,
                 protected Dispatcher $dispatcher,
-                protected LoggerInterface $logger,
+                protected ExceptionHandler $exceptionHandler,
             ) {
                 // empty
             }

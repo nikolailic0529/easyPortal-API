@@ -15,7 +15,7 @@ use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use Exception;
-use Psr\Log\LoggerInterface;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 
 class AssetLoader extends Loader implements LoaderRecalculable {
     use WithCalculatedProperties;
@@ -23,14 +23,14 @@ class AssetLoader extends Loader implements LoaderRecalculable {
     protected bool $withDocuments = false;
 
     public function __construct(
-        LoggerInterface $logger,
+        ExceptionHandler $exceptionHandler,
         Client $client,
         protected AssetFactory $assets,
         protected DocumentFactory $documents,
         protected ResellerResolver $resellers,
         protected CustomerResolver $customers,
     ) {
-        parent::__construct($logger, $client);
+        parent::__construct($exceptionHandler, $client);
     }
 
     public function isWithDocuments(): bool {

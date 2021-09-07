@@ -2,12 +2,11 @@
 
 namespace App\Services\DataLoader\Exceptions;
 
-use App\Services\DataLoader\ServiceException;
 use Throwable;
 
 use function sprintf;
 
-class CompanyUnknownType extends ServiceException {
+class FailedToProcessCompanyUnknownType extends FailedToProcessObject {
     public function __construct(
         protected string $key,
         Throwable $previous = null,

@@ -2,13 +2,12 @@
 
 namespace App\Services\DataLoader\Exceptions;
 
-use App\Services\DataLoader\ServiceException;
 use Throwable;
 
 use function implode;
 use function sprintf;
 
-class CompanyMultipleTypes extends ServiceException {
+class FailedToProcessCompanyMultipleTypes extends FailedToProcessObject {
     /**
      * @param array<string> $types
      */

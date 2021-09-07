@@ -5,16 +5,17 @@ namespace App\Services\DataLoader\Factories\Concerns;
 use App\Models\Location as LocationModel;
 use App\Models\Model;
 use App\Services\DataLoader\Events\ObjectSkipped;
+use App\Services\DataLoader\Exceptions\FailedToProcessLocation;
 use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Schema\Location;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
-use Psr\Log\LoggerInterface;
 use Throwable;
 
 trait WithLocations {
     use Polymorphic;
 
-    abstract protected function getLogger(): LoggerInterface;
+    abstract protected function getExceptionHandler(): ExceptionHandler;
 
     abstract protected function getDispatcher(): Dispatcher;
 
@@ -37,11 +38,9 @@ trait WithLocations {
                     return $this->location($object, $location);
                 } catch (Throwable $exception) {
                     $this->getDispatcher()->dispatch(new ObjectSkipped($location, $exception));
-                    $this->getLogger()->notice('Failed to process Location.', [
-                        'owner'     => [$object->getMorphClass(), $object->getKey()],
-                        'location'  => $location,
-                        'exception' => $exception,
-                    ]);
+                    $this->getExceptionHandler()->report(
+                        new FailedToProcessLocation($object, $location, $exception),
+                    );
                 }
 
                 return null;

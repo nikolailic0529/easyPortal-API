@@ -10,7 +10,7 @@ use App\Models\OemGroup;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Type as TypeModel;
-use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
+use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Finders\ServiceGroupFinder;
 use App\Services\DataLoader\Finders\ServiceLevelFinder;
 use App\Services\DataLoader\Normalizer;
@@ -264,7 +264,11 @@ class DocumentFactoryTest extends TestCase {
             'entries'  => $asset->assetDocument,
         ]);
 
-        $this->expectExceptionObject(new ViewAssetDocumentNoDocument($object->document));
+        $this->expectExceptionObject(new FailedToProcessViewAssetDocumentNoDocument(
+            $object->asset,
+            $object->document,
+            new Collection($object->entries),
+        ));
 
         $factory->createFromAssetDocumentObject($object);
     }

@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Client;
 
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
-use App\Services\DataLoader\Exceptions\InvalidChunkItem;
+use App\Services\DataLoader\Exceptions\FailedToProcessChunkItem;
 use Closure;
 use EmptyIterator;
 use Illuminate\Contracts\Debug\ExceptionHandler;
@@ -133,7 +133,7 @@ abstract class QueryIteratorImpl implements QueryIterator {
             } catch (GraphQLRequestFailed $exception) {
                 throw $exception;
             } catch (Throwable $exception) {
-                $this->handler->report(new InvalidChunkItem($item, $exception));
+                $this->handler->report(new FailedToProcessChunkItem($item, $exception));
             }
 
             return null;

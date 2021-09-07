@@ -17,7 +17,10 @@ use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\AssetLocationNotFound;
-use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
+use App\Services\DataLoader\Exceptions\FailedToCreateAssetInitialWarranty;
+use App\Services\DataLoader\Exceptions\FailedToCreateAssetWarranty;
+use App\Services\DataLoader\Exceptions\FailedToProcessAssetViewDocument;
+use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factories\Concerns\WithAssetDocument;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithCoverage;
@@ -54,12 +57,12 @@ use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use Closure;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
 use InvalidArgumentException;
-use Psr\Log\LoggerInterface;
 use Throwable;
 
 use function array_filter;
@@ -67,7 +70,6 @@ use function array_map;
 use function array_merge;
 use function array_unique;
 use function array_values;
-use function count;
 use function implode;
 use function sprintf;
 
@@ -90,7 +92,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     protected ?DocumentFactory $documentFactory = null;
 
     public function __construct(
-        LoggerInterface $logger,
+        ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
         protected Dispatcher $dispatcher,
         protected AssetResolver $assetResolver,
@@ -114,7 +116,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
         protected ?ServiceLevelFinder $serviceLevelFinder = null,
         protected ?OemFinder $oemFinder = null,
     ) {
-        parent::__construct($logger, $normalizer);
+        parent::__construct($exceptionHandler, $normalizer);
     }
 
     // <editor-fold desc="Getters / Setters">
@@ -349,16 +351,13 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             })
             ->each(function (Collection $entries) use ($model): void {
                 /** @var \App\Services\DataLoader\Schema\ViewAssetDocument $document */
-                $document = $entries->first();
+                $document  = $entries->first();
+                $exception = new FailedToProcessViewAssetDocumentNoDocument($model, $document, $entries);
 
                 $this->dispatcher->dispatch(
-                    new ObjectSkipped($document, new ViewAssetDocumentNoDocument($document)),
+                    new ObjectSkipped($document, $exception),
                 );
-                $this->logger->notice('Failed to process ViewAssetDocument: document is null.', [
-                    'asset'    => $model->getKey(),
-                    'document' => $document->documentNumber,
-                    'entries'  => count($entries),
-                ]);
+                $this->getExceptionHandler()->report($exception);
             });
 
         // Create documents
@@ -382,11 +381,9 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                     ]));
                 } catch (Throwable $exception) {
                     $this->dispatcher->dispatch(new ObjectSkipped($entries->first(), $exception));
-                    $this->logger->notice('Failed to process ViewAssetDocument.', [
-                        'asset'     => $model,
-                        'entries'   => $entries->all(),
-                        'exception' => $exception,
-                    ]);
+                    $this->getExceptionHandler()->report(
+                        new FailedToProcessAssetViewDocument($model, $entries->first()->document, $exception),
+                    );
                 }
 
                 return null;
@@ -460,11 +457,9 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 $warranties[$key] = $warranty;
             } catch (Throwable $exception) {
                 $this->dispatcher->dispatch(new ObjectSkipped($assetDocument, $exception));
-                $this->logger->notice('Failed to create Initial Warranty for ViewAssetDocument.', [
-                    'asset'     => $model->getKey(),
-                    'entry'     => $assetDocument,
-                    'exception' => $exception,
-                ]);
+                $this->getExceptionHandler()->report(
+                    new FailedToCreateAssetInitialWarranty($model, $assetDocument, $exception),
+                );
             }
         }
 
@@ -557,11 +552,9 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 $warranties[$key] = $warranty;
             } catch (Throwable $exception) {
                 $this->dispatcher->dispatch(new ObjectSkipped($assetDocument, $exception));
-                $this->logger->notice('Failed to create Warranty for ViewAssetDocument.', [
-                    'asset'     => $model->getKey(),
-                    'entry'     => $assetDocument,
-                    'exception' => $exception,
-                ]);
+                $this->getExceptionHandler()->report(
+                    new FailedToCreateAssetWarranty($model, $assetDocument, $exception),
+                );
             }
         }
 

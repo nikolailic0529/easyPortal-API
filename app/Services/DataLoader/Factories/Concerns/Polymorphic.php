@@ -7,23 +7,25 @@ use Closure;
 use SplObjectStorage;
 
 use function array_merge;
-use function in_array;
+use function array_unique;
 use function iterator_to_array;
+
+use const SORT_REGULAR;
 
 trait Polymorphic {
     use WithType;
 
     /**
-     * @param array<\App\Services\DataLoader\Schema\Type> $types
+     * @param array<\App\Services\DataLoader\Schema\Type> $objects
      *
      * @return array<mixed>
      */
-    private function polymorphic(Model $owner, array $types, Closure $getType, Closure $factory): array {
+    private function polymorphic(Model $owner, array $objects, Closure $getType, Closure $factory): array {
         // First, we should convert type into the internal model and determine its types.
         /** @var \SplObjectStorage<\App\Models\Contact|\App\Models\Location, array<\App\Models\Type>> $models */
         $models = new SplObjectStorage();
 
-        foreach ($types as $object) {
+        foreach ($objects as $object) {
             // Search contact
             $model = $factory($owner, $object);
 
@@ -44,16 +46,7 @@ trait Polymorphic {
             $type = $this->type($model, $type);
 
             if ($models->contains($model)) {
-                if (in_array($type, $models[$model], true)) {
-                    $this->logger->warning('Found object with multiple models with the same type.', [
-                        'owner'  => $owner,
-                        'object' => $object,
-                        'model'  => $model,
-                        'type'   => $type,
-                    ]);
-                } else {
-                    $models[$model] = array_merge($models[$model], [$type]);
-                }
+                $models[$model] = array_merge($models[$model], [$type]);
             } else {
                 $models[$model] = [$type];
             }
@@ -61,7 +54,7 @@ trait Polymorphic {
 
         // Attach types into models
         foreach ($models as $model) {
-            $model->types = $models[$model];
+            $model->types = array_unique($models[$model], SORT_REGULAR);
         }
 
         // Return

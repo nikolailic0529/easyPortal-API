@@ -7,6 +7,7 @@ use App\Models\Concerns\SmartSave\BatchInsert;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Container\Container;
+use App\Services\DataLoader\Exceptions\FailedToImportObject;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\LoaderRecalculable;
 use App\Services\DataLoader\Resolver;
@@ -14,8 +15,8 @@ use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use App\Services\Search\Service as SearchService;
 use Closure;
 use DateTimeInterface;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Laravel\Telescope\Telescope;
-use Psr\Log\LoggerInterface;
 use Throwable;
 
 use function min;
@@ -30,15 +31,15 @@ abstract class Importer {
     protected ?Closure $onFinish = null;
 
     public function __construct(
-        protected LoggerInterface $logger,
+        protected ExceptionHandler $exceptionHandler,
         protected Client $client,
         protected Container $container,
     ) {
         $this->onRegister();
     }
 
-    protected function getLogger(): LoggerInterface {
-        return $this->logger;
+    protected function getExceptionHandler(): ExceptionHandler {
+        return $this->exceptionHandler;
     }
 
     public function onInit(?Closure $closure): static {
@@ -83,7 +84,7 @@ abstract class Importer {
             $this->onBeforeImport($status);
 
             foreach ($iterator as $item) {
-                /** @var \App\Services\DataLoader\Schema\Type|\App\Services\DataLoader\Schema\TypeWithId $item */
+                /** @var \App\Services\DataLoader\Schema\Type&\App\Services\DataLoader\Schema\TypeWithId $item */
                 try {
                     $model = null;
 
@@ -105,11 +106,9 @@ abstract class Importer {
                 } catch (Throwable $exception) {
                     $status->failed++;
 
-                    $this->logger->warning('Failed to import object.', [
-                        'importer'  => $this::class,
-                        'object'    => $item,
-                        'exception' => $exception,
-                    ]);
+                    $this->getExceptionHandler()->report(
+                        new FailedToImportObject($this, $item, $exception),
+                    );
                 } finally {
                     $status->processed++;
                 }

@@ -6,7 +6,7 @@ use App\Models\Model;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\DataLoader\Events\ObjectSkipped;
-use App\Services\DataLoader\Exceptions\AssetNotFound;
+use App\Services\DataLoader\Exceptions\FailedToProcessViewAsset;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
 use App\Services\DataLoader\Factories\CustomerFactory;
@@ -16,10 +16,10 @@ use App\Services\DataLoader\Factories\ResellerFactory;
 use App\Services\DataLoader\Loaders\AssetLoader;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Psr\Log\LoggerInterface;
 use Throwable;
 
 /**
@@ -32,7 +32,7 @@ trait WithAssets {
     protected bool $withAssetsDocuments = false;
 
     public function __construct(
-        LoggerInterface $logger,
+        ExceptionHandler $exceptionHandler,
         Client $client,
         protected Dispatcher $dispatcher,
         protected ResellerFactory $resellerFactory,
@@ -45,7 +45,7 @@ trait WithAssets {
         protected AssetLoader $assetLoader,
         protected DocumentFactory $documents,
     ) {
-        parent::__construct($logger, $client);
+        parent::__construct($exceptionHandler, $client);
     }
 
     public function isWithAssets(): bool {
@@ -91,10 +91,9 @@ trait WithAssets {
                 }
             } catch (Throwable $exception) {
                 $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
-                $this->logger->notice('Failed to process Asset.', [
-                    'asset'     => $asset,
-                    'exception' => $exception,
-                ]);
+                $this->getExceptionHandler()->report(
+                    new FailedToProcessViewAsset($asset, $exception),
+                );
             }
         }
 
@@ -108,16 +107,8 @@ trait WithAssets {
             /** @var \App\Models\Asset $missed */
             try {
                 $loader->update($missed->getKey());
-            } catch (AssetNotFound $exception) {
-                $this->logger->error('Asset found in database but not found in Cosmos.', [
-                    'asset'     => $missed->getKey(),
-                    'exception' => $exception,
-                ]);
             } catch (Throwable $exception) {
-                $this->logger->notice('Failed to update Asset.', [
-                    'asset'     => $missed->getKey(),
-                    'exception' => $exception,
-                ]);
+                $this->getExceptionHandler()->report($exception);
             }
         }
 

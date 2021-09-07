@@ -18,8 +18,8 @@ use App\Services\DataLoader\Resolvers\ServiceLevelResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Mockery;
-use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
 /**
@@ -199,7 +199,7 @@ class WithAssetDocumentTest_Factory extends ModelFactory {
     // TODO [tests] Remove after https://youtrack.jetbrains.com/issue/WI-25253
 
     public function __construct(
-        LoggerInterface $logger,
+        ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
         protected OemResolver $oemResolver,
         protected ServiceGroupResolver $serviceGroupResolver,
@@ -208,7 +208,7 @@ class WithAssetDocumentTest_Factory extends ModelFactory {
         protected ?ServiceLevelFinder $serviceLevelFinder = null,
         protected ?OemFinder $oemFinder = null,
     ) {
-        parent::__construct($logger, $normalizer);
+        parent::__construct($exceptionHandler, $normalizer);
     }
 
     public function create(Type $type): ?Model {

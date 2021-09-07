@@ -11,7 +11,7 @@ use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\TypeWithId;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Exception;
-use Psr\Log\LoggerInterface;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 
 use function is_string;
 
@@ -25,14 +25,14 @@ abstract class Loader implements Isolated {
     use GlobalScopes;
 
     public function __construct(
-        protected LoggerInterface $logger,
+        protected ExceptionHandler $exceptionHandler,
         protected Client $client,
     ) {
         // empty
     }
 
-    protected function getLogger(): LoggerInterface {
-        return $this->logger;
+    protected function getExceptionHandler(): ExceptionHandler {
+        return $this->exceptionHandler;
     }
 
     // <editor-fold desc="Abstract">

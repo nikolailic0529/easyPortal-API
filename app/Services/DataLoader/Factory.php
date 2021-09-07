@@ -5,7 +5,7 @@ namespace App\Services\DataLoader;
 use App\Services\DataLoader\Container\Isolated;
 use App\Services\DataLoader\Exceptions\FactorySearchModeException;
 use Closure;
-use Psr\Log\LoggerInterface;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 
 /**
  * Factories implement logic on how to create an application's model from an
@@ -20,14 +20,14 @@ abstract class Factory implements Isolated {
     private bool $searchMode = false;
 
     public function __construct(
-        protected LoggerInterface $logger,
+        protected ExceptionHandler $exceptionHandler,
         protected Normalizer $normalizer,
     ) {
         // empty
     }
 
-    protected function getLogger(): LoggerInterface {
-        return $this->logger;
+    protected function getExceptionHandler(): ExceptionHandler {
+        return $this->exceptionHandler;
     }
 
     protected function getNormalizer(): Normalizer {
