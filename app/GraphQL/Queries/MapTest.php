@@ -133,6 +133,12 @@ class MapTest extends TestCase {
                 'longitude' => 1.10,
                 'object_id' => $customerA,
             ]);
+            $locationC = Location::factory()->create([
+                'latitude'    => 1.5,
+                'longitude'   => 1.5,
+                'object_type' => (new Asset())->getMorphClass(),
+                'object_id'   => null,
+            ]);
             Location::factory()->create([
                 'latitude'  => 1.25,
                 'longitude' => 1.25,
@@ -153,6 +159,10 @@ class MapTest extends TestCase {
             ]);
             Asset::factory()->create([
                 'location_id' => $locationB,
+                'reseller_id' => $resellerA,
+            ]);
+            Asset::factory()->create([
+                'location_id' => $locationC,
                 'reseller_id' => $resellerA,
             ]);
 
@@ -208,39 +218,61 @@ class MapTest extends TestCase {
                                     'ad16444a-46a4-3036-b893-7636e2e6209c',
                                 ],
                             ],
+                            [
+                                'latitude_avg'    => 1.5,
+                                'latitude_min'    => 1.5,
+                                'latitude_max'    => 1.5,
+                                'longitude_avg'   => 1.5,
+                                'longitude_min'   => 1.5,
+                                'longitude_max'   => 1.5,
+                                'customers_count' => 0,
+                                'assets_count'    => 1,
+                                'customers_ids'   => [],
+                            ],
                         ]),
                         $factory,
                         $params,
                     ],
                 ]),
             ),
-                'organization' => new CompositeDataProvider(
-                    new OrganizationDataProvider('map'),
-                    new OrganizationUserDataProvider('map', [
-                        'customers-view',
-                    ]),
-                    new ArrayDataProvider([
-                        'ok' => [
-                            new GraphQLSuccess('map', self::class, [
-                                [
-                                    'latitude_avg'    => 1.033333333333,
-                                    'latitude_min'    => 1,
-                                    'latitude_max'    => 1.1,
-                                    'longitude_avg'   => 1.033333333333,
-                                    'longitude_min'   => 1,
-                                    'longitude_max'   => 1.1,
-                                    'customers_count' => 1,
-                                    'assets_count'    => 3,
-                                    'customers_ids'   => [
-                                        'ad16444a-46a4-3036-b893-7636e2e6209b',
-                                    ],
+            'organization' => new CompositeDataProvider(
+                new OrganizationDataProvider('map'),
+                new OrganizationUserDataProvider('map', [
+                    'customers-view',
+                ]),
+                new ArrayDataProvider([
+                    'ok' => [
+                        new GraphQLSuccess('map', self::class, [
+                            [
+                                'latitude_avg'    => 1.033333333333,
+                                'latitude_min'    => 1,
+                                'latitude_max'    => 1.1,
+                                'longitude_avg'   => 1.033333333333,
+                                'longitude_min'   => 1,
+                                'longitude_max'   => 1.1,
+                                'customers_count' => 1,
+                                'assets_count'    => 3,
+                                'customers_ids'   => [
+                                    'ad16444a-46a4-3036-b893-7636e2e6209b',
                                 ],
-                            ]),
-                            $factory,
-                            $params,
-                        ],
-                    ]),
-                ),
+                            ],
+                            [
+                                'latitude_avg'    => 1.5,
+                                'latitude_min'    => 1.5,
+                                'latitude_max'    => 1.5,
+                                'longitude_avg'   => 1.5,
+                                'longitude_min'   => 1.5,
+                                'longitude_max'   => 1.5,
+                                'customers_count' => 0,
+                                'assets_count'    => 1,
+                                'customers_ids'   => [],
+                            ],
+                        ]),
+                        $factory,
+                        $params,
+                    ],
+                ]),
+            ),
         ]))->getData();
     }
     // </editor-fold>

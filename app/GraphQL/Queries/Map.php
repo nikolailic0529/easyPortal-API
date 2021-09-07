@@ -74,7 +74,7 @@ class Map {
      * @return array<string>
      */
     public function customersIds(Location $location): array {
-        return array_values(array_filter(explode(',', $location->customers_ids), static function ($id) {
+        return array_values(array_filter(explode(',', (string) $location->customers_ids), static function ($id) {
             return strlen($id) === 36;
         }));
     }
