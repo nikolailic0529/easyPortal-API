@@ -7,20 +7,16 @@ use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Validation\Rule;
 
 use function __;
+use function app;
 
 class OrgUserEmail implements Rule {
-    public function __construct(
-        protected CurrentOrganization $organization,
-    ) {
-        // empty
-    }
     /**
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
         $user = User::query()->where('email', '=', $value)->first();
         if ($user) {
-            $organization = $this->organization->get();
+            $organization = app()->make(CurrentOrganization::class)->get();
             return !$organization
                 ->users()
                 ->where($user->getQualifiedKeyName(), '=', $user->getKey())

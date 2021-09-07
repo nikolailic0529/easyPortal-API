@@ -37,12 +37,13 @@ class InvitationFactory extends Factory {
             'user_id'         => static function (): User {
                 return User::factory()->create();
             },
+            'created_by'      => static function (): User {
+                return User::factory()->create();
+            },
             'role_id'         => static function (): Role {
                 return Role::factory()->create();
             },
             'email'           => $this->faker->unique()->safeEmail,
-            'team'            => null,
-            'used'            => false,
             'used_at'         => null,
             'created_at'      => Date::now(),
             'updated_at'      => Date::now(),

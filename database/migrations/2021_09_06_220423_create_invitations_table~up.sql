@@ -5,11 +5,10 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE TABLE IF NOT EXISTS `invitations` (
   `id`              CHAR(36)     NOT NULL,
   `organization_id` CHAR(36)     NOT NULL,
+  `created_by`      CHAR(36)     NOT NULL,
   `user_id`         CHAR(36)     NOT NULL,
   `role_id`         CHAR(36)     NOT NULL,
   `email`           VARCHAR(255) NOT NULL,
-  `team`            VARCHAR(255) NULL DEFAULT NULL,
-  `used`            TINYINT(1)   NOT NULL DEFAULT 0,
   `used_at`         TIMESTAMP    NULL DEFAULT NULL,
   `created_at`      TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at`      TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -19,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `invitations` (
   INDEX `fk_invitations_users1_idx` (`user_id` ASC) VISIBLE,
   INDEX `fk_invitations_roles1_idx` (`role_id` ASC) VISIBLE,
   INDEX `idx__deleted_at` (`deleted_at` ASC) VISIBLE,
+  INDEX `fk_invitations_users2_idx` (`created_by` ASC) VISIBLE,
   CONSTRAINT `fk_invitations_organizations1`
     FOREIGN KEY (`organization_id`)
     REFERENCES `organizations` (`id`)
@@ -32,6 +32,11 @@ CREATE TABLE IF NOT EXISTS `invitations` (
   CONSTRAINT `fk_invitations_roles1`
     FOREIGN KEY (`role_id`)
     REFERENCES `roles` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE RESTRICT,
+  CONSTRAINT `fk_invitations_users2`
+    FOREIGN KEY (`created_by`)
+    REFERENCES `users` (`id`)
     ON DELETE CASCADE
     ON UPDATE RESTRICT
 );

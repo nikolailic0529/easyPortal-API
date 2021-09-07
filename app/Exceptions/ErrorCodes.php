@@ -10,8 +10,6 @@ use App\GraphQL\Mutations\Auth\SignUpByInviteUnInvitedUser;
 use App\GraphQL\Mutations\Me\UpdateMePasswordInvalidCurrentPassword;
 use App\GraphQL\Mutations\Org\DisableOrgUserInvalidUser;
 use App\GraphQL\Mutations\Org\EnableOrgUserInvalidUser;
-use App\GraphQL\Mutations\Org\InviteOrgUserAlreadyInOrganization;
-use App\GraphQL\Mutations\Org\InviteOrgUserInvalidRole;
 use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser;
 use App\Http\Controllers\ExportGraphQLQueryEmpty;
 use App\Http\Controllers\ExportGraphQLQueryInvalid;

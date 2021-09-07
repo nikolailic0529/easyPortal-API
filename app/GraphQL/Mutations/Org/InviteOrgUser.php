@@ -4,9 +4,12 @@ namespace App\GraphQL\Mutations\Org;
 
 use App\Mail\InviteOrganizationUser;
 use App\Models\Invitation;
+use App\Models\Organization;
+use App\Models\Role;
 use App\Models\User as UserModel;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists;
+use App\Services\KeyCloak\Client\Types\User;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Config\Repository;
@@ -14,7 +17,6 @@ use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Contracts\Routing\UrlGenerator;
 
-use function array_key_exists;
 use function strtr;
 
 class InviteOrgUser {
@@ -39,55 +41,72 @@ class InviteOrgUser {
     public function __invoke($_, array $args): array {
         $organization = $this->organization->get();
         $role         = $organization->roles()->whereKey($args['input']['role_id'])->first();
-        if (!$role) {
-            throw new InviteOrgUserInvalidRole();
-        }
-        $email = $args['input']['email'];
-
-        // Get User
-        $user = UserModel::query()->where('email', '=', $email)->first();
-        if ($user) {
-            // in organization
-            $inOrganization = $organization
-                ->users()
-                ->where($user->getQualifiedKeyName(), '=', $user->getKey())
-                ->exists();
-            if ($inOrganization) {
-                throw new InviteOrgUserAlreadyInOrganization();
-            }
-        }
+        $email        = $args['input']['email'];
+        $invited      = false;
 
         try {
             $this->client->inviteUser($role, $email);
+            $invited = true;
         } catch (UserAlreadyExists $e) {
-            $keycloakUser = $this->client->getUserByEmail($email);
-            $this->client->addUserToGroup($keycloakUser->id, $role->getKey());
-            if (!empty($keycloakUser->credentials)) {
-                // already has password
-                $url = $this->generator->to(strtr($this->config->get('ep.client.signin_invite_uri'), [
-                    '{organization}' => $organization->getKey(),
-                ]));
-                $this->mailer->to($email)->send(new InviteOrganizationUser($url));
-                return ['result' => true ];
-            }
+            $invited = false;
         }
+
+        $keycloakUser = $this->client->getUserByEmail($email, $organization);
+        if (!$invited) {
+            $this->client->addUserToGroup($keycloakUser->id, $role->getKey());
+        }
+        // Get User
+        $user = $this->getUser($keycloakUser, $organization);
+
         // Create Invitation
-        $invitation                  = new Invitation();
-        $invitation->organization_id = $organization->getKey();
-        $invitation->user_id         = $this->auth->user()->getAuthIdentifier();
-        $invitation->role_id         = $role->getKey();
-        $invitation->email           = $email;
-        $invitation->team            = array_key_exists('team', $args['input']) ? $args['input']['team'] : null;
-        $invitation->used            = false;
-        $invitation->used_at         = null;
-        $invitation->save();
-        $token = $this->encrypter->encrypt([
-            'invitation' => $invitation->getKey(),
-        ]);
-        $url   = $this->generator->to(strtr($this->config->get('ep.client.signup_invite_uri'), [
-            '{token}' => $token,
-        ]));
+        $invitation = $this->createInvitation($organization, $user, $role);
+
+        // Send invitation email
+        $url = null;
+        if (!empty($keycloakUser->credentials)) {
+            // already has password
+            $url = $this->generator->to(strtr($this->config->get('ep.client.signin_invite_uri'), [
+                '{organization}' => $organization->getKey(),
+            ]));
+        } else {
+            $token = $this->encrypter->encrypt([
+                'invitation' => $invitation->getKey(),
+            ]);
+            $url   = $this->generator->to(strtr($this->config->get('ep.client.signup_invite_uri'), [
+                '{token}' => $token,
+            ]));
+        }
         $this->mailer->to($email)->send(new InviteOrganizationUser($url));
         return ['result' => true ];
+    }
+
+    protected function getUser(User $keycloakUser, Organization $organization): UserModel {
+        $user = UserModel::query()->whereKey($keycloakUser->id)->first();
+        if (!$user) {
+            // create a new user
+            $user                        = new UserModel();
+            $user->{$user->getKeyName()} = $keycloakUser->id;
+            $user->email                 = $keycloakUser->email;
+            $user->email_verified        = false;
+            $user->permissions           = [];
+        }
+        // Add to organization
+        $user->organizations = [$organization];
+        $user->save();
+
+        return $user;
+    }
+
+    protected function createInvitation(Organization $organization, UserModel $user, Role $role): Invitation {
+        $invitation                  = new Invitation();
+        $invitation->organization_id = $organization->getKey();
+        $invitation->created_by      = $this->auth->user()->getAuthIdentifier();
+        $invitation->user_id         = $user->getKey();
+        $invitation->role_id         = $role->getKey();
+        $invitation->email           = $user->email;
+        $invitation->used_at         = null;
+        $invitation->save();
+
+        return $invitation;
     }
 }

@@ -9,11 +9,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property string                       $id
  * @property string                       $organization_id
+ * @property string                       $created_by
  * @property string                       $user_id
  * @property string                       $role_id
  * @property string                       $email
- * @property string|null                  $team
- * @property bool                         $used
  * @property \Carbon\CarbonImmutable      $used_at
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
