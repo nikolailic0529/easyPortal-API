@@ -16,7 +16,7 @@ use App\Models\Reseller;
 use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Events\ObjectSkipped;
-use App\Services\DataLoader\Exceptions\LocationNotFoundException;
+use App\Services\DataLoader\Exceptions\AssetLocationNotFound;
 use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factories\Concerns\WithAssetDocument;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
@@ -626,11 +626,7 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
             $location = $this->locationFactory->create(new AssetModel(), $asset);
 
             if (!$location || !$location->save()) {
-                throw new LocationNotFoundException(sprintf(
-                    'Customer `%s` location not found (asset `%s`).',
-                    $customer->getKey(),
-                    $asset->id,
-                ));
+                throw new AssetLocationNotFound($asset->id, $asset);
             }
         }
 
