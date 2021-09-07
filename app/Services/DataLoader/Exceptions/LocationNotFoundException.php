@@ -2,6 +2,8 @@
 
 namespace App\Services\DataLoader\Exceptions;
 
-class LocationNotFoundException extends DataLoaderException {
+use App\Services\DataLoader\ServiceException;
+
+class LocationNotFoundException extends ServiceException {
     // empty
 }

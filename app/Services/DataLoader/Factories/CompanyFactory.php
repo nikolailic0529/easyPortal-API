@@ -5,7 +5,8 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Model;
 use App\Models\Status;
 use App\Models\Type;
-use App\Services\DataLoader\Exceptions\DataLoaderException;
+use App\Services\DataLoader\Exceptions\CompanyMultipleTypes;
+use App\Services\DataLoader\Exceptions\CompanyUnknownType;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithLocations;
 use App\Services\DataLoader\Factories\Concerns\WithStatus;
@@ -92,9 +93,9 @@ abstract class CompanyFactory extends ModelFactory {
         }, $types));
 
         if (count($names) > 1) {
-            throw new DataLoaderException('Multiple type.');
+            throw new CompanyMultipleTypes($owner->getKey(), $names);
         } elseif (count($names) < 1) {
-            throw new DataLoaderException('Type is missing.');
+            throw new CompanyUnknownType($owner->getKey());
         } else {
             $type = $this->type($owner, reset($names));
         }
