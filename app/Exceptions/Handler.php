@@ -85,7 +85,7 @@ class Handler extends ExceptionHandler implements ContextProvider {
 
         // Log
         $level   = $exception instanceof ApplicationException
-            ? $exception->getLevel()
+            ? ($exception->getLevel() ?: LogLevel::ERROR)
             : LogLevel::ERROR;
         $message = $exception->getMessage();
         $context = [

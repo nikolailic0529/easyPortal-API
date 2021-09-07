@@ -2,10 +2,9 @@
 
 namespace App\Services\DataLoader\Client\Exceptions;
 
-use App\Exceptions\HasErrorCode;
 use App\Exceptions\TranslatedException;
-use App\Services\DataLoader\Exceptions\DataLoaderException;
+use App\Services\DataLoader\ServiceException;
 
-abstract class ClientException extends DataLoaderException implements TranslatedException {
-    use HasErrorCode;
+abstract class ClientException extends ServiceException implements TranslatedException {
+    // empty
 }

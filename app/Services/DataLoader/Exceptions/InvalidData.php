@@ -2,6 +2,8 @@
 
 namespace App\Services\DataLoader\Exceptions;
 
-abstract class InvalidData extends DataLoaderException {
+use App\Services\DataLoader\ServiceException;
+
+abstract class InvalidData extends ServiceException {
     // empty
 }

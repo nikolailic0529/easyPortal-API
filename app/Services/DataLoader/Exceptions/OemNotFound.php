@@ -3,25 +3,12 @@
 namespace App\Services\DataLoader\Exceptions;
 
 use App\Services\DataLoader\Schema\Type;
+use Throwable;
 
 use function sprintf;
 
-class OemNotFound extends InvalidData {
-    public function __construct(
-        protected string $key,
-        protected Type|null $object = null,
-    ) {
-        parent::__construct(sprintf(
-            'Oem `%s` not found.',
-            $key,
-        ));
-    }
-
-    public function getKey(): string {
-        return $this->key;
-    }
-
-    public function getObject(): ?Type {
-        return $this->object;
+class OemNotFound extends ObjectNotFoundException {
+    public function __construct(string $key, Type|null $object = null, Throwable $previous = null) {
+        parent::__construct(sprintf('Oem `%s` not found.', $key), $key, $object, $previous);
     }
 }

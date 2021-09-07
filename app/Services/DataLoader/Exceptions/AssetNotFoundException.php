@@ -3,25 +3,12 @@
 namespace App\Services\DataLoader\Exceptions;
 
 use App\Services\DataLoader\Schema\Type;
+use Throwable;
 
 use function sprintf;
 
-class AssetNotFoundException extends InvalidData {
-    public function __construct(
-        protected string $id,
-        protected Type|null $object = null,
-    ) {
-        parent::__construct(sprintf(
-            'Asset `%s` not found.',
-            $id,
-        ));
-    }
-
-    public function getId(): string {
-        return $this->id;
-    }
-
-    public function getObject(): ?Type {
-        return $this->object;
+class AssetNotFoundException extends ObjectNotFoundException {
+    public function __construct(string $key, Type|null $object = null, Throwable $previous = null) {
+        parent::__construct(sprintf('Asset `%s` not found.', $key), $key, $object, $previous);
     }
 }

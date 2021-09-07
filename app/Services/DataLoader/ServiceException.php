@@ -1,0 +1,14 @@
+<?php declare(strict_types = 1);
+
+namespace App\Services\DataLoader;
+
+use App\Exceptions\ApplicationException;
+use Throwable;
+
+abstract class ServiceException extends ApplicationException {
+    public function __construct(string $message, Throwable $previous = null) {
+        parent::__construct($message, $previous);
+
+        $this->setChannel(Service::class);
+    }
+}

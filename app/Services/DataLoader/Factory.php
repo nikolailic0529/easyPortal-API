@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader;
 
 use App\Services\DataLoader\Container\Isolated;
-use App\Services\DataLoader\Exceptions\FactoryObjectNotFoundException;
+use App\Services\DataLoader\Exceptions\FactorySearchModeException;
 use Closure;
 use Psr\Log\LoggerInterface;
 
@@ -49,7 +49,7 @@ abstract class Factory implements Isolated {
 
         try {
             return $closure();
-        } catch (FactoryObjectNotFoundException) {
+        } catch (FactorySearchModeException) {
             return null;
         } finally {
             $this->setSearchMode($mode);
@@ -59,7 +59,7 @@ abstract class Factory implements Isolated {
     protected function factory(Closure $closure): Closure {
         if ($this->isSearchMode()) {
             $closure = static function (): void {
-                throw new FactoryObjectNotFoundException();
+                throw new FactorySearchModeException();
             };
         }
 

@@ -8,7 +8,7 @@ use function __;
 
 class DataLoaderUnavailable extends ClientException {
     public function __construct(Throwable $previous = null) {
-        parent::__construct('DataLoader unavailable.', 0, $previous);
+        parent::__construct('DataLoader unavailable.', $previous);
     }
 
     public function getErrorMessage(): string {

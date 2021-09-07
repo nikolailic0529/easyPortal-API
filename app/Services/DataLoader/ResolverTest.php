@@ -5,7 +5,7 @@ namespace App\Services\DataLoader;
 use App\Models\Model;
 use App\Services\DataLoader\Cache\Cache;
 use App\Services\DataLoader\Cache\ModelKey;
-use App\Services\DataLoader\Exceptions\FactoryObjectNotFoundException;
+use App\Services\DataLoader\Exceptions\FactorySearchModeException;
 use Closure;
 use Exception;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -122,14 +122,14 @@ class ResolverTest extends TestCase {
 
         try {
             $provider->resolve(123, static function (): void {
-                throw new FactoryObjectNotFoundException();
+                throw new FactorySearchModeException();
             });
-        } catch (FactoryObjectNotFoundException $exception) {
+        } catch (FactorySearchModeException $exception) {
             // empty
         }
 
         $this->assertNotNull($exception);
-        $this->assertInstanceOf(FactoryObjectNotFoundException::class, $exception);
+        $this->assertInstanceOf(FactorySearchModeException::class, $exception);
         $this->assertTrue($provider->getCache()->has(123));
     }
 

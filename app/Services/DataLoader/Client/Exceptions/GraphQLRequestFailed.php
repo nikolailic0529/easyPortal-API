@@ -17,7 +17,7 @@ class GraphQLRequestFailed extends ClientException {
         protected array $errors = [],
         Throwable $previous = null,
     ) {
-        parent::__construct('GraphQL request failed.', 0, $previous);
+        parent::__construct('GraphQL request failed.', $previous);
     }
 
     public function getErrorMessage(): string {
