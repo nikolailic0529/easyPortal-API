@@ -6,7 +6,7 @@ use App\Exceptions\ApplicationException;
 use Throwable;
 
 abstract class ServiceException extends ApplicationException {
-    public function __construct(string $message, Throwable $previous = null) {
+    protected function __construct(string $message, Throwable $previous = null) {
         parent::__construct($message, $previous);
 
         $this->setChannel(Service::class);

@@ -2,11 +2,12 @@
 
 namespace App\Services\DataLoader\Client\Exceptions;
 
+use App\Exceptions\TranslatedException;
 use Throwable;
 
 use function __;
 
-class DataLoaderUnavailable extends ClientException {
+class DataLoaderUnavailable extends ClientException implements TranslatedException {
     public function __construct(Throwable $previous = null) {
         parent::__construct('DataLoader unavailable.', $previous);
     }

@@ -2,9 +2,8 @@
 
 namespace App\Services\DataLoader\Client\Exceptions;
 
-use App\Exceptions\TranslatedException;
 use App\Services\DataLoader\ServiceException;
 
-abstract class ClientException extends ServiceException implements TranslatedException {
+abstract class ClientException extends ServiceException {
     // empty
 }

@@ -3,9 +3,9 @@
 namespace App\Services\DataLoader\Client;
 
 use Closure;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use InvalidArgumentException;
 use Mockery;
-use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
 use function array_slice;
@@ -21,9 +21,9 @@ class OffsetBasedIteratorTest extends TestCase {
      * @covers ::getIterator
      */
     public function testGetIterator(): void {
-        $data   = range(1, 10);
-        $logger = $this->app->make(LoggerInterface::class);
-        $client = Mockery::mock(Client::class);
+        $data    = range(1, 10);
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $client  = Mockery::mock(Client::class);
         $client->shouldAllowMockingProtectedMethods();
 
         $client
@@ -34,7 +34,7 @@ class OffsetBasedIteratorTest extends TestCase {
             });
 
         $expected = $data;
-        $actual   = iterator_to_array((new OffsetBasedIterator($logger, $client, '', ''))->setChunkSize(5));
+        $actual   = iterator_to_array((new OffsetBasedIterator($handler, $client, '', ''))->setChunkSize(5));
 
         $this->assertEquals($expected, $actual);
     }
@@ -43,9 +43,9 @@ class OffsetBasedIteratorTest extends TestCase {
      * @covers ::iterator
      */
     public function testIteratorWithLimitOffset(): void {
-        $data   = range(1, 10);
-        $logger = $this->app->make(LoggerInterface::class);
-        $client = Mockery::mock(Client::class);
+        $data    = range(1, 10);
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $client  = Mockery::mock(Client::class);
         $client->shouldAllowMockingProtectedMethods();
 
         $client
@@ -61,7 +61,7 @@ class OffsetBasedIteratorTest extends TestCase {
         $onAfterChunk  = Mockery::spy(static function (): void {
             // empty
         });
-        $iterator      = (new OffsetBasedIterator($logger, $client, '', ''))
+        $iterator      = (new OffsetBasedIterator($handler, $client, '', ''))
             ->onBeforeChunk(Closure::fromCallable($onBeforeChunk))
             ->onAfterChunk(Closure::fromCallable($onAfterChunk))
             ->setOffset(5)
@@ -81,9 +81,9 @@ class OffsetBasedIteratorTest extends TestCase {
      * @covers ::iterator
      */
     public function testIteratorChunkLessThanLimit(): void {
-        $data   = range(1, 10);
-        $logger = $this->app->make(LoggerInterface::class);
-        $client = Mockery::mock(Client::class);
+        $data    = range(1, 10);
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $client  = Mockery::mock(Client::class);
         $client->shouldAllowMockingProtectedMethods();
 
         $client
@@ -96,7 +96,7 @@ class OffsetBasedIteratorTest extends TestCase {
             });
 
         $expected = $data;
-        $iterator = (new OffsetBasedIterator($logger, $client, '', ''))->setLimit(10)->setChunkSize(2);
+        $iterator = (new OffsetBasedIterator($handler, $client, '', ''))->setLimit(10)->setChunkSize(2);
         $actual   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
@@ -106,9 +106,9 @@ class OffsetBasedIteratorTest extends TestCase {
      * @covers ::iterator
      */
     public function testIteratorChunkGreaterThanLimit(): void {
-        $data   = range(1, 10);
-        $logger = $this->app->make(LoggerInterface::class);
-        $client = Mockery::mock(Client::class);
+        $data    = range(1, 10);
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $client  = Mockery::mock(Client::class);
         $client->shouldAllowMockingProtectedMethods();
 
         $client
@@ -121,7 +121,7 @@ class OffsetBasedIteratorTest extends TestCase {
             });
 
         $expected = [1, 2];
-        $iterator = (new OffsetBasedIterator($logger, $client, '', ''))->setLimit(2)->setChunkSize(50);
+        $iterator = (new OffsetBasedIterator($handler, $client, '', ''))->setLimit(2)->setChunkSize(50);
         $actual   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
@@ -131,8 +131,8 @@ class OffsetBasedIteratorTest extends TestCase {
      * @covers ::iterator
      */
     public function testIteratorLimitZero(): void {
-        $logger = $this->app->make(LoggerInterface::class);
-        $client = Mockery::mock(Client::class);
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $client  = Mockery::mock(Client::class);
         $client->shouldAllowMockingProtectedMethods();
 
         $client
@@ -140,7 +140,7 @@ class OffsetBasedIteratorTest extends TestCase {
             ->never();
 
         $expected = [];
-        $iterator = (new OffsetBasedIterator($logger, $client, '', ''))->setLimit(0);
+        $iterator = (new OffsetBasedIterator($handler, $client, '', ''))->setLimit(0);
         $actual   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
@@ -150,9 +150,9 @@ class OffsetBasedIteratorTest extends TestCase {
      * @covers ::setOffset
      */
     public function testSetOffset(): void {
-        $logger   = $this->app->make(LoggerInterface::class);
+        $handler  = Mockery::mock(ExceptionHandler::class);
         $client   = Mockery::mock(Client::class);
-        $iterator = new OffsetBasedIterator($logger, $client, '', '');
+        $iterator = new OffsetBasedIterator($handler, $client, '', '');
 
         $this->assertNotNull($iterator->setOffset('123'));
     }
@@ -163,9 +163,9 @@ class OffsetBasedIteratorTest extends TestCase {
     public function testSetOffsetInvalidType(): void {
         $this->expectException(InvalidArgumentException::class);
 
-        $logger = $this->app->make(LoggerInterface::class);
-        $client = Mockery::mock(Client::class);
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $client  = Mockery::mock(Client::class);
 
-        (new OffsetBasedIterator($logger, $client, '', ''))->setOffset('invalid');
+        (new OffsetBasedIterator($handler, $client, '', ''))->setOffset('invalid');
     }
 }

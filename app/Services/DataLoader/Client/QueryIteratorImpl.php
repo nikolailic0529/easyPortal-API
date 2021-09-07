@@ -3,10 +3,11 @@
 namespace App\Services\DataLoader\Client;
 
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
+use App\Services\DataLoader\Exceptions\InvalidChunkItem;
 use Closure;
 use EmptyIterator;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Iterator;
-use Psr\Log\LoggerInterface;
 use Throwable;
 
 use function array_filter;
@@ -25,7 +26,7 @@ abstract class QueryIteratorImpl implements QueryIterator {
      * @param array<mixed> $params
      */
     public function __construct(
-        protected LoggerInterface $logger,
+        protected ExceptionHandler $handler,
         protected Client $client,
         protected string $selector,
         protected string $graphql,
@@ -132,10 +133,7 @@ abstract class QueryIteratorImpl implements QueryIterator {
             } catch (GraphQLRequestFailed $exception) {
                 throw $exception;
             } catch (Throwable $exception) {
-                $this->logger->error(__METHOD__, [
-                    'item'      => $item,
-                    'exception' => $exception,
-                ]);
+                $this->handler->report(new InvalidChunkItem($item, $exception));
             }
 
             return null;
