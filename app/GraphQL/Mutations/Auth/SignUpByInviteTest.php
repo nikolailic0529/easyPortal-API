@@ -2,11 +2,15 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
+use App\Models\Invitation;
 use App\Models\Organization;
+use App\Models\User as UserModel;
 use App\Services\KeyCloak\Client\Client;
+use App\Services\KeyCloak\Client\Exceptions\UserDoesntExists;
 use App\Services\KeyCloak\Client\Types\User;
 use Closure;
 use Illuminate\Contracts\Encryption\Encrypter;
+use Illuminate\Support\Facades\Date;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
@@ -18,8 +22,6 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
 use function __;
-use function json_encode;
-use function time;
 
 /**
  * @internal
@@ -60,7 +62,7 @@ class SignUpByInviteTest extends TestCase {
         ];
 
         if ($inputFactory) {
-            $data = $inputFactory($this);
+            $data = $inputFactory($this, $organization);
         }
 
         $this->override(Client::class, $clientFactory);
@@ -86,13 +88,21 @@ class SignUpByInviteTest extends TestCase {
             new AnyOrganizationDataProvider('signUpByInvite', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
             new GuestDataProvider('signUpByInvite'),
             new ArrayDataProvider([
-                'ok'                            => [
+                'ok'                    => [
                     new GraphQLSuccess('signUpByInvite', SignUpByInvite::class),
-                    static function (TestCase $test): array {
+                    static function (TestCase $test, Organization $organization): array {
+                        $user       = UserModel::factory()->create([
+                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                        ]);
+                        $invitation = Invitation::factory()->create([
+                            'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'email'           => 'test@gmail.com',
+                            'user_id'         => $user->getKey(),
+                            'organization_id' => $organization->getKey(),
+                        ]);
                         return [
                             'token'      => $test->app->make(Encrypter::class)->encrypt([
-                                'email'        => 'test@gmail.com',
-                                'organization' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                'invitation' => $invitation->getKey(),
                             ]),
                             'first_name' => 'First',
                             'last_name'  => 'Last',
@@ -105,29 +115,29 @@ class SignUpByInviteTest extends TestCase {
                             ->once()
                             ->andReturns();
                         $mock
-                            ->shouldReceive('getUserByEmail')
+                            ->shouldReceive('getUserById')
                             ->once()
-                            ->with('test@gmail.com')
+                            ->with('f9834bc1-2f2f-4c57-bb8d-7a224ac24987')
                             ->andReturns(new User([
-                                'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                'attributes' => [
-                                    'ep_invite_f9834bc1-2f2f-4c57-bb8d-7a224ac24981' => [
-                                        json_encode([
-                                            'sent_at' => time(),
-                                            'used_at' => null,
-                                        ]),
-                                    ],
-                                ],
+                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                             ]));
                     },
                 ],
-                'Invalid user'                  => [
-                    new GraphQLError('signUpByInvite', new SignUpByInviteInvalidUser()),
-                    static function (TestCase $test): array {
+                'Invalid keycloak user' => [
+                    new GraphQLError('signUpByInvite', new UserDoesntExists()),
+                    static function (TestCase $test, Organization $organization): array {
+                        $user       = UserModel::factory()->create([
+                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                        ]);
+                        $invitation = Invitation::factory()->create([
+                            'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'email'           => 'test@gmail.com',
+                            'user_id'         => $user->getKey(),
+                            'organization_id' => $organization->getKey(),
+                        ]);
                         return [
                             'token'      => $test->app->make(Encrypter::class)->encrypt([
-                                'email'        => 'wrong@gmail.com',
-                                'organization' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                'invitation' => $invitation->getKey(),
                             ]),
                             'first_name' => 'First',
                             'last_name'  => 'Last',
@@ -136,18 +146,18 @@ class SignUpByInviteTest extends TestCase {
                     },
                     static function (MockInterface $mock): void {
                         $mock
-                            ->shouldReceive('getUserByEmail')
+                            ->shouldReceive('getUserById')
                             ->once()
-                            ->with('wrong@gmail.com')
-                            ->andReturns(null);
+                            ->with('f9834bc1-2f2f-4c57-bb8d-7a224ac24987')
+                            ->andThrow(new UserDoesntExists());
                     },
                 ],
-                'Invalid token data'            => [
+                'Invalid token data'    => [
                     new GraphQLError('signUpByInvite', new SignUpByInviteInvalidToken()),
                     static function (TestCase $test): array {
                         return [
                             'token'      => $test->app->make(Encrypter::class)->encrypt([
-                                'email' => 'test@gmail.com',
+                                'key' => 'value',
                             ]),
                             'first_name' => 'First',
                             'last_name'  => 'Last',
@@ -155,37 +165,22 @@ class SignUpByInviteTest extends TestCase {
                         ];
                     },
                 ],
-                'Invalid not invited user'      => [
-                    new GraphQLError('signUpByInvite', new SignUpByInviteUnInvitedUser()),
-                    static function (TestCase $test): array {
-                        return [
-                            'token'      => $test->app->make(Encrypter::class)->encrypt([
-                                'email'        => 'uninvited@gmail.com',
-                                'organization' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
-                            ]),
-                            'first_name' => 'First',
-                            'last_name'  => 'Last',
-                            'password'   => '123456',
-                        ];
-                    },
-                    static function (MockInterface $mock): void {
-                        $mock
-                            ->shouldReceive('getUserByEmail')
-                            ->once()
-                            ->with('uninvited@gmail.com')
-                            ->andReturns(new User([
-                                'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                'attributes' => [],
-                            ]));
-                    },
-                ],
-                'Invalid invited already added' => [
+                'Invitation used'       => [
                     new GraphQLError('signUpByInvite', new SignUpByInviteAlreadyUsed()),
-                    static function (TestCase $test): array {
+                    static function (TestCase $test, Organization $organization): array {
+                        $user       = UserModel::factory()->create([
+                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                        ]);
+                        $invitation = Invitation::factory()->create([
+                            'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'email'           => 'test@gmail.com',
+                            'user_id'         => $user->getKey(),
+                            'organization_id' => $organization->getKey(),
+                            'used_at'         => Date::now(),
+                        ]);
                         return [
                             'token'      => $test->app->make(Encrypter::class)->encrypt([
-                                'email'        => 'added@gmail.com',
-                                'organization' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                'invitation' => $invitation->getKey(),
                             ]),
                             'first_name' => 'First',
                             'last_name'  => 'Last',
@@ -194,23 +189,14 @@ class SignUpByInviteTest extends TestCase {
                     },
                     static function (MockInterface $mock): void {
                         $mock
-                            ->shouldReceive('getUserByEmail')
-                            ->once()
-                            ->with('added@gmail.com')
-                            ->andReturns(new User([
-                                'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                'attributes' => [
-                                    'ep_invite_f9834bc1-2f2f-4c57-bb8d-7a224ac24981' => [
-                                        json_encode([
-                                            'sent_at' => time(),
-                                            'used_at' => time(),
-                                        ]),
-                                    ],
-                                ],
-                            ]));
+                            ->shouldReceive('getUserById')
+                            ->never();
+                        $mock
+                            ->shouldReceive('updateUser')
+                            ->never();
                     },
                 ],
-                'Invalid token'                 => [
+                'Invalid token'         => [
                     new GraphQLError('signUpByInvite', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
@@ -223,7 +209,7 @@ class SignUpByInviteTest extends TestCase {
                         ];
                     },
                 ],
-                'Invalid first name'            => [
+                'Invalid first name'    => [
                     new GraphQLError('signUpByInvite', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
@@ -239,7 +225,7 @@ class SignUpByInviteTest extends TestCase {
                         ];
                     },
                 ],
-                'Invalid last name'             => [
+                'Invalid last name'     => [
                     new GraphQLError('signUpByInvite', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
@@ -255,7 +241,7 @@ class SignUpByInviteTest extends TestCase {
                         ];
                     },
                 ],
-                'Invalid password'              => [
+                'Invalid password'      => [
                     new GraphQLError('signUpByInvite', static function (): array {
                         return [__('errors.validation_failed')];
                     }),

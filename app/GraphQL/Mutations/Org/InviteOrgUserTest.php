@@ -96,11 +96,12 @@ class InviteOrgUserTest extends TestCase {
                 : Mail::assertNotSent(InviteOrganizationUser::class);
 
             $user = UserModel::query()
-                ->with('organizations')
+                ->with(['organizations', 'roles'])
                 ->whereKey('f9834bc1-2f2f-4c57-bb8d-7a224ac24987')
                 ->first();
             $this->assertNotNull($user);
             $this->assertTrue($user->organizations->contains($organization->getKey()));
+            $this->assertTrue($user->roles->contains('f9834bc1-2f2f-4c57-bb8d-7a224ac24982'));
         }
     }
     // </editor-fold>

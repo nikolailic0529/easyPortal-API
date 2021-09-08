@@ -56,7 +56,7 @@ class InviteOrgUser {
             $this->client->addUserToGroup($keycloakUser->id, $role->getKey());
         }
         // Get User
-        $user = $this->getUser($keycloakUser, $organization);
+        $user = $this->getUser($keycloakUser, $organization, $role);
 
         // Create Invitation
         $invitation = $this->createInvitation($organization, $user, $role);
@@ -80,7 +80,7 @@ class InviteOrgUser {
         return ['result' => true ];
     }
 
-    protected function getUser(User $keycloakUser, Organization $organization): UserModel {
+    protected function getUser(User $keycloakUser, Organization $organization, Role $role): UserModel {
         $user = UserModel::query()->whereKey($keycloakUser->id)->first();
         if (!$user) {
             // create a new user
@@ -90,8 +90,9 @@ class InviteOrgUser {
             $user->email_verified        = false;
             $user->permissions           = [];
         }
-        // Add to organization
+        // Add to organization & roles
         $user->organizations = [$organization];
+        $user->roles         = [$role];
         $user->save();
 
         return $user;

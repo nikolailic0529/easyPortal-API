@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Invitation.
@@ -13,10 +14,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string                       $user_id
  * @property string                       $role_id
  * @property string                       $email
- * @property \Carbon\CarbonImmutable      $used_at
+ * @property \Carbon\CarbonImmutable|null $used_at
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
+ * @property \App\Models\User             $user
  * @method static \Database\Factories\InvitationFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Invitation newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Invitation newQuery()
@@ -46,4 +48,8 @@ class Invitation extends Model {
      * @var array<string>
      */
     protected $casts = self::CASTS;
+
+    protected function user(): BelongsTo {
+        return $this->belongsTo(User::class);
+    }
 }
