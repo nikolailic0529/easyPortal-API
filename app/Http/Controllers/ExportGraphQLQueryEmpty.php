@@ -8,9 +8,6 @@ use Throwable;
 use function __;
 
 class ExportGraphQLQueryEmpty extends HttpException {
-    /**
-     * @param array<mixed,string> $errors
-     */
     public function __construct(Throwable $previous = null) {
         parent::__construct('GraphQL query result is empty', $previous);
     }
