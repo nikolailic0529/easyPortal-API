@@ -3,13 +3,14 @@
 namespace App\Services\Organization\Exceptions;
 
 use App\Exceptions\TranslatedException;
+use App\Services\Organization\ServiceException;
 use Throwable;
 
 use function __;
 
-class UnknownOrganization extends OrganizationException implements TranslatedException {
+class UnknownOrganization extends ServiceException implements TranslatedException {
     public function __construct(Throwable $previous = null) {
-        parent::__construct('Organization is unknown.', 0, $previous);
+        parent::__construct('Organization is unknown.', $previous);
     }
 
     public function getErrorMessage(): string {
