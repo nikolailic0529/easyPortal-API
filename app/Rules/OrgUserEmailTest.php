@@ -22,7 +22,7 @@ class OrgUserEmailTest extends TestCase {
         $translationsFactory = static function (TestCase $test, string $locale): array {
             return [
                 $locale => [
-                    'validation.invalid_org_user' => 'Translated',
+                    'validation.org_user_email' => 'Translated',
                 ],
             ];
         };

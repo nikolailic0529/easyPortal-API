@@ -22,7 +22,7 @@ class OrgRoleIdTest extends TestCase {
         $translationsFactory = static function (TestCase $test, string $locale): array {
             return [
                 $locale => [
-                    'validation.invalid_org_role' => 'Translated',
+                    'validation.org_role_id' => 'Translated',
                 ],
             ];
         };
