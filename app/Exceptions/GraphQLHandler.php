@@ -6,13 +6,11 @@ use GraphQL\Error\Error as GraphQLError;
 use GraphQL\Error\FormattedError;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Throwable;
 
 class GraphQLHandler {
     public function __construct(
         protected Repository $config,
         protected ExceptionHandler $handler,
-        protected Helper $helper,
     ) {
         // empty
     }
@@ -21,23 +19,14 @@ class GraphQLHandler {
      * @return array<mixed>
      */
     public function __invoke(GraphQLError $error): array {
-        $result = [
-                'message' => $this->helper->getMessage($error->getPrevious() ?? $error),
-            ] + FormattedError::createFromException($error);
+        $result = FormattedError::createFromException($error);
 
-        if ($this->config->get('app.debug')) {
-            $handler = $this->handler instanceof ContextProvider
-                ? $this->handler
-                : new class() implements ContextProvider {
-                    /**
-                     * @inheritDoc
-                     */
-                    public function getExceptionContext(Throwable $exception): array {
-                        return [];
-                    }
-                };
+        if ($this->handler instanceof Handler) {
+            $result['message'] = $this->handler->getExceptionMessage($error->getPrevious() ?? $error);
 
-            $result['extensions']['stack'] = $this->helper->getTrace($error, $handler);
+            if ($this->config->get('app.debug')) {
+                $result['extensions']['stack'] = $this->handler->getExceptionTrace($error);
+            }
         }
 
         return $result;

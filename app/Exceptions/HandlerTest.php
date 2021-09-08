@@ -24,8 +24,8 @@ class HandlerTest extends TestCase {
      */
     public function testExceptionContext(): void {
         $exception = new class('test') extends ApplicationException {
-            public function __construct() {
-                parent::__construct('');
+            public function __construct(string $message) {
+                parent::__construct($message);
             }
 
             /**
@@ -42,12 +42,7 @@ class HandlerTest extends TestCase {
                 return [4, 5, 6];
             }
         };
-        $handler   = new class() extends Handler {
-            /** @noinspection PhpMissingParentConstructorInspection */
-            public function __construct() {
-                // empty
-            }
-
+        $handler   = new class($this->app) extends Handler {
             /**
              * @inheritDoc
              */
@@ -57,7 +52,6 @@ class HandlerTest extends TestCase {
         };
 
         $this->assertEquals([1, 2, 3, 4, 5, 6], $handler->exceptionContext($exception));
-        $this->assertEquals([1, 2, 3, 4, 5, 6], $handler->getExceptionContext($exception));
     }
 
     /**
