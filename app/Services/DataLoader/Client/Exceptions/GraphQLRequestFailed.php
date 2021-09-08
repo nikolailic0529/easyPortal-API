@@ -2,12 +2,13 @@
 
 namespace App\Services\DataLoader\Client\Exceptions;
 
+use App\Exceptions\ExternalException;
 use App\Exceptions\TranslatedException;
 use Throwable;
 
 use function __;
 
-class GraphQLRequestFailed extends ClientException implements TranslatedException {
+class GraphQLRequestFailed extends ClientException implements ExternalException, TranslatedException {
     /**
      * @param array<mixed> $params
      * @param array<mixed> $errors
