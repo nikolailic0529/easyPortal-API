@@ -216,6 +216,10 @@ class User extends Model implements
     public function setRolesAttribute(Collection|array $roles): void {
         $this->syncBelongsToMany('roles', $roles);
     }
+
+    public function invitations(): HasMany {
+        return $this->hasMany(Invitation::class);
+    }
     // </editor-fold>
 
     // <editor-fold desc="HasPermissions">

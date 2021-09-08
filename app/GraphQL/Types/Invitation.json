@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "additionProperties": false,
+    "type": "object",
+    "required": [
+        "id",
+        "organization_id",
+        "user_id",
+        "role_id",
+        "email",
+        "used_at"
+    ],
+    "properties": {
+        "id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "organization_id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "user_id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "role_id": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "created_by": {
+            "$ref": "../types.json#/definitions/ID"
+        },
+        "email": {
+            "type": "string"
+        },
+        "used_at": {
+            "oneOf": [
+                {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        }
+    }
+}
