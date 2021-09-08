@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Organization\Eloquent\OwnedByOrganization;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -27,6 +28,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Invitation extends Model {
     use HasFactory;
+    use OwnedByOrganization;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -36,7 +38,6 @@ class Invitation extends Model {
     protected $table = 'invitations';
 
     protected const CASTS = [
-        'used'    => 'bool',
         'used_at' => 'datetime',
     ] + parent::CASTS;
 

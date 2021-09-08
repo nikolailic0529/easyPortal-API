@@ -2,12 +2,14 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
+use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Invitation;
 use App\Models\Organization;
 use App\Models\User as UserModel;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Exceptions\UserDoesntExists;
 use App\Services\KeyCloak\Client\Types\User;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Closure;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Support\Facades\Date;
@@ -28,6 +30,8 @@ use function __;
  * @coversDefaultClass \App\GraphQL\Mutations\Auth\SignUpByInvite
  */
 class SignUpByInviteTest extends TestCase {
+    use GlobalScopes;
+
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -75,6 +79,16 @@ class SignUpByInviteTest extends TestCase {
                 }
             }', ['input' => $data])
             ->assertThat($expected);
+
+        if ($expected instanceof GraphQLSuccess) {
+            $invitation = $this->callWithoutGlobalScope(
+                OwnedByOrganizationScope::class,
+                static function () {
+                    return Invitation::whereKey('f9834bc1-2f2f-4c57-bb8d-7a224ac24982')->first();
+                },
+            );
+            $this->assertNotNull($invitation->used_at);
+        }
     }
     // </editor-fold>
 

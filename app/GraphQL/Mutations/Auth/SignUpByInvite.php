@@ -2,10 +2,12 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
+use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Models\Invitation;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Credential;
 use App\Services\KeyCloak\Client\Types\User;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Support\Facades\Date;
@@ -13,6 +15,8 @@ use Illuminate\Support\Facades\Date;
 use function array_key_exists;
 
 class SignUpByInvite {
+    use GlobalScopes;
+
     public function __construct(
         protected Client $client,
         protected Encrypter $encrypter,
@@ -40,7 +44,10 @@ class SignUpByInvite {
             throw new SignUpByInviteInvalidToken();
         }
 
-        $invitation = Invitation::whereKey($data['invitation'])->first();
+        $invitation = $this->callWithoutGlobalScope(OwnedByOrganizationScope::class, static function () use ($data) {
+            return Invitation::whereKey($data['invitation'])->first();
+        });
+
         if (!$invitation) {
             throw new SignUpByInviteInvalidToken();
         }
@@ -79,6 +86,7 @@ class SignUpByInvite {
         ]));
 
         $invitation->used_at = Date::now();
+        $invitation->save();
         return $this->getSignInUri($invitation->organization_id);
     }
 

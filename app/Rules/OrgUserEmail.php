@@ -26,6 +26,6 @@ class OrgUserEmail implements Rule {
     }
 
     public function message(): string {
-        return __('validation.invalid_org_user');
+        return __('validation.org_user_email');
     }
 }

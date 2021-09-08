@@ -22,6 +22,6 @@ class OrgRoleId implements Rule {
     }
 
     public function message(): string {
-        return __('validation.invalid_org_role');
+        return __('validation.org_role_id');
     }
 }

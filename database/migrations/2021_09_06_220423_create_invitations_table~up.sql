@@ -5,11 +5,11 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE TABLE IF NOT EXISTS `invitations` (
   `id`              CHAR(36)     NOT NULL,
   `organization_id` CHAR(36)     NOT NULL,
-  `created_by`      CHAR(36)     NOT NULL,
   `user_id`         CHAR(36)     NOT NULL,
   `role_id`         CHAR(36)     NOT NULL,
   `email`           VARCHAR(255) NOT NULL,
   `used_at`         TIMESTAMP    NULL DEFAULT NULL,
+  `created_by`      CHAR(36)     NOT NULL,
   `created_at`      TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at`      TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at`      TIMESTAMP    NULL DEFAULT NULL,
@@ -22,22 +22,22 @@ CREATE TABLE IF NOT EXISTS `invitations` (
   CONSTRAINT `fk_invitations_organizations1`
     FOREIGN KEY (`organization_id`)
     REFERENCES `organizations` (`id`)
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE RESTRICT,
   CONSTRAINT `fk_invitations_users1`
     FOREIGN KEY (`user_id`)
     REFERENCES `users` (`id`)
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE RESTRICT,
   CONSTRAINT `fk_invitations_roles1`
     FOREIGN KEY (`role_id`)
     REFERENCES `roles` (`id`)
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE RESTRICT,
   CONSTRAINT `fk_invitations_users2`
     FOREIGN KEY (`created_by`)
     REFERENCES `users` (`id`)
-    ON DELETE CASCADE
+    ON DELETE RESTRICT
     ON UPDATE RESTRICT
 );
 
