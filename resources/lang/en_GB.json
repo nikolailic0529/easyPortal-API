@@ -138,8 +138,6 @@
     "errors.storage.file_save_failed": "Impossible to save storage file :file (disc: :disc).",
     "graphql.mutations.resetPassword.same_password": "Cannot use old password.",
     "graphql.mutations.signUpByInvite.invalid_token": "Invalid invitation information.",
-    "graphql.mutations.signUpByInvite.invalid_user": "User not found.",
-    "graphql.mutations.signUpByInvite.uninvited_user": "User is not invited.",
     "graphql.mutations.signUpByInvite.already_used": "User already used the invitation.",
     "graphql.mutations.updateMePassword.invalid_current_password": "Invalid current password.",
     "graphql.mutations.resetOrgUserPassword.invalid_user": "Invalid keycloak user.",
