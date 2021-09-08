@@ -2,18 +2,14 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
-use App\Exceptions\HasErrorCode;
-use App\Exceptions\TranslatedException;
-use Exception;
+use App\GraphQL\GraphQLException;
 use Throwable;
 
 use function __;
 
-class ResetPasswordSamePasswordException extends Exception implements TranslatedException {
-    use HasErrorCode;
-
+class ResetPasswordSamePasswordException extends GraphQLException {
     public function __construct(Throwable $previous = null) {
-        parent::__construct('Cannot use old password.', 0, $previous);
+        parent::__construct('Cannot use old password.', $previous);
     }
 
     public function getErrorMessage(): string {
