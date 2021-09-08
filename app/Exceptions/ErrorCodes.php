@@ -17,12 +17,12 @@ use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed as DataLoader
 use App\Services\Filesystem\Exceptions\StorageFileCorrupted as FilesystemStorageFileCorrupted;
 use App\Services\Filesystem\Exceptions\StorageFileDeleteFailed as FilesystemStorageFileDeleteFailed;
 use App\Services\Filesystem\Exceptions\StorageFileSaveFailed as FilesystemStorageFileSaveFailed;
-use App\Services\KeyCloak\Client\Exceptions\EndpointException as KeyCloakEndpointException;
-use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakClient;
-use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakGroup;
+use App\Services\KeyCloak\Client\Exceptions\InvalidSettingClientUuid;
 use App\Services\KeyCloak\Client\Exceptions\KeyCloakDisabled;
-use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists as KeyCloakUserAlreadyExists;
-use App\Services\KeyCloak\Client\Exceptions\UserDoesntExists as KeyCloakUserDoesntExists;
+use App\Services\KeyCloak\Client\Exceptions\RealmGroupUnknown;
+use App\Services\KeyCloak\Client\Exceptions\RealmUserAlreadyExists as KeyCloakRealmUserAlreadyExists;
+use App\Services\KeyCloak\Client\Exceptions\RealmUserNotFound as KeyCloakRealmUserNotFound;
+use App\Services\KeyCloak\Client\Exceptions\RequestFailed as KeyCloakRequestFailed;
 use App\Services\KeyCloak\Exceptions\AnotherUserExists as KeyCloakAnotherUserExists;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailed as KeyCloakAuthorizationFailed;
 use App\Services\KeyCloak\Exceptions\InsufficientData as KeyCloakInsufficientData;
@@ -61,20 +61,20 @@ class ErrorCodes {
         DataLoaderDataLoaderDisabled::class           => 'ERR18',
         DataLoaderDataLoaderUnavailable::class        => 'ERR19',
         DataLoaderGraphQLRequestFailed::class         => 'ERR20',
-        KeyCloakEndpointException::class              => 'ERR21',
-        InvalidKeyCloakGroup::class                   => 'ERR22',
+        KeyCloakRequestFailed::class                  => 'ERR21',
+        RealmGroupUnknown::class                      => 'ERR22',
         KeyCloakDisabled::class                       => 'ERR23',
-        InvalidKeyCloakClient::class                  => 'ERR24',
-        KeyCloakUserAlreadyExists::class              => 'ERR25',
-        ResetPasswordSamePasswordException::class     => 'ERR26',
-        SignUpByInviteInvalidToken::class             => 'ERR27',
-        SignUpByInviteAlreadyUsed::class              => 'ERR28',
-        UpdateMePasswordInvalidCurrentPassword::class => 'ERR29',
-        ResetOrgUserPasswordInvalidUser::class        => 'ERR30',
-        KeyCloakUserDoesntExists::class               => 'ERR31',
-        EnableOrgUserInvalidUser::class               => 'ERR32',
-        DisableOrgUserInvalidUser::class              => 'ERR33',
-        UserDisabled::class                           => 'ERR34',
+        InvalidSettingClientUuid::class               => 'ERR24',
+        KeyCloakRealmUserAlreadyExists::class         => 'ERR25',
+        ResetPasswordSamePasswordException::class     => 'ERR27',
+        SignUpByInviteInvalidToken::class             => 'ERR28',
+        SignUpByInviteAlreadyUsed::class              => 'ERR31',
+        UpdateMePasswordInvalidCurrentPassword::class => 'ERR33',
+        ResetOrgUserPasswordInvalidUser::class        => 'ERR34',
+        KeyCloakRealmUserNotFound::class              => 'ERR36',
+        EnableOrgUserInvalidUser::class               => 'ERR37',
+        DisableOrgUserInvalidUser::class              => 'ERR38',
+        UserDisabled::class                           => 'ERR39',
     ];
 
     public static function getCode(Throwable $throwable): string|int {

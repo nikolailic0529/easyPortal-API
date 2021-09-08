@@ -3,8 +3,8 @@
 namespace App\Services\KeyCloak\Client;
 
 use App\Models\Role;
-use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists;
-use App\Services\KeyCloak\Client\Exceptions\UserDoesntExists;
+use App\Services\KeyCloak\Client\Exceptions\RealmUserAlreadyExists;
+use App\Services\KeyCloak\Client\Exceptions\RealmUserNotFound;
 use App\Services\KeyCloak\Client\Types\Credential;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\User;
@@ -128,7 +128,7 @@ class ClientTest extends TestCase {
     public function testGetUserGroups(array|Exception $expected): void {
         $this->prepareClient();
         if ($expected instanceof Exception) {
-            $this->expectExceptionObject(new UserDoesntExists());
+            $this->expectExceptionObject(new RealmUserNotFound('f9834bc1-2f2f-4c57-bb8d-7a224ac24982'));
         }
         $this->override(Token::class, static function (MockInterface $mock): void {
             $mock
@@ -275,7 +275,7 @@ class ClientTest extends TestCase {
     public function dataProviderInviteUser(): array {
         return [
             ['correct@gmail.com', true],
-            ['wrong@gmail.com', new UserAlreadyExists('wrong@gmail.com')],
+            ['wrong@gmail.com', new RealmUserAlreadyExists('wrong@gmail.com')],
         ];
     }
 
@@ -285,7 +285,7 @@ class ClientTest extends TestCase {
     public function dataProviderUpdateUserEmail(): array {
         return [
             ['correct@example.com', true],
-            ['wrong@example.com', new UserAlreadyExists('wrong@example.com')],
+            ['wrong@example.com', new RealmUserAlreadyExists('wrong@example.com')],
         ];
     }
 
@@ -300,7 +300,7 @@ class ClientTest extends TestCase {
         ]);
         return [
             'success'   => [[$group]],
-            'not found' => [new UserDoesntExists()],
+            'not found' => [new RealmUserNotFound('d8ec7dcf-c542-42b5-8d7d-971400c02388')],
         ];
     }
 
@@ -318,7 +318,7 @@ class ClientTest extends TestCase {
                     'attributes' => [],
                 ]),
             ],
-            ['d8ec7dcf-c542-42b5-8d7d-971400c02389', new UserDoesntExists()],
+            ['d8ec7dcf-c542-42b5-8d7d-971400c02389', new RealmUserNotFound('d8ec7dcf-c542-42b5-8d7d-971400c02389')],
         ];
     }
     //</editor-fold>

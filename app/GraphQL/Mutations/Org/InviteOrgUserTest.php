@@ -7,7 +7,7 @@ use App\Models\Organization;
 use App\Models\Role;
 use App\Models\User as UserModel;
 use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists;
+use App\Services\KeyCloak\Client\Exceptions\RealmUserAlreadyExists;
 use App\Services\KeyCloak\Client\Types\User;
 use Closure;
 use Illuminate\Support\Facades\Mail;
@@ -25,7 +25,7 @@ use function __;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\InviteOrgUser
+ * @coversDefaultClass \App\GraphQL\Mutations\Org\InviteOrgUser
  */
 class InviteOrgUserTest extends TestCase {
     // <editor-fold desc="Tests">
@@ -144,7 +144,7 @@ class InviteOrgUserTest extends TestCase {
                 'org-administer',
             ]),
             new ArrayDataProvider([
-                'ok'              => [
+                'ok'                                    => [
                     new GraphQLSuccess('inviteOrgUser', InviteOrgUser::class),
                     $prepare,
                     $roleFactory,
@@ -170,7 +170,7 @@ class InviteOrgUserTest extends TestCase {
                     },
                     true,
                 ],
-                'exists'          => [
+                'exists'                                => [
                     new GraphQLSuccess('inviteOrgUser', InviteOrgUser::class),
                     $prepare,
                     $roleFactory,
@@ -182,7 +182,7 @@ class InviteOrgUserTest extends TestCase {
                         $mock
                             ->shouldReceive('inviteUser')
                             ->once()
-                            ->andThrow(new UserAlreadyExists('test@gmail.com'));
+                            ->andThrow(new RealmUserAlreadyExists('test@gmail.com'));
                         $mock
                             ->shouldReceive('getUserByEmail')
                             ->once()
@@ -201,7 +201,7 @@ class InviteOrgUserTest extends TestCase {
                     },
                     true,
                 ],
-                'In organization' => [
+                'In organization'                       => [
                     new GraphQLError('inviteOrgUser', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
@@ -223,6 +223,7 @@ class InviteOrgUserTest extends TestCase {
                         ]);
                         $orgUser->organizations = [$organization];
                         $orgUser->save();
+
                         return $organization;
                     },
                     $roleFactory,
@@ -240,7 +241,7 @@ class InviteOrgUserTest extends TestCase {
                     },
                     false,
                 ],
-                'Invalid role'    => [
+                'Invalid role (different organization)' => [
                     new GraphQLError('inviteOrgUser', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
@@ -266,7 +267,7 @@ class InviteOrgUserTest extends TestCase {
                     },
                     false,
                 ],
-                'Invalid email'   => [
+                'Invalid email'                         => [
                     new GraphQLError('inviteOrgUser', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
@@ -277,7 +278,7 @@ class InviteOrgUserTest extends TestCase {
                         'role_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                     ],
                 ],
-                'Invalid role'    => [
+                'Invalid role (no role)'                => [
                     new GraphQLError('inviteOrgUser', static function (): array {
                         return [__('errors.validation_failed')];
                     }),

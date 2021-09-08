@@ -2,19 +2,16 @@
 
 namespace App\Services\KeyCloak\Client\Exceptions;
 
-use App\Exceptions\HasErrorCode;
 use Throwable;
 
 use function __;
 
-class UserDoesntExists extends ClientException {
-    use HasErrorCode;
-
+class RealmGroupUnknown extends ClientException {
     public function __construct(Throwable $previous = null) {
-        parent::__construct("Keycloak user doesn't exists", 0, $previous);
+        parent::__construct('Group is unknown.', $previous);
     }
 
     public function getErrorMessage(): string {
-        return __('keycloak.client.user_doesnt_exists');
+        return __('keycloak.client.realm_group_unknown');
     }
 }

@@ -6,12 +6,12 @@ use Throwable;
 
 use function __;
 
-class InvalidKeyCloakGroup extends ClientException {
+class InvalidSettingClientUuid extends ClientException {
     public function __construct(Throwable $previous = null) {
-        parent::__construct('Invalid keycloak group', 0, $previous);
+        parent::__construct('Invalid keycloak client UUID.', $previous);
     }
 
     public function getErrorMessage(): string {
-        return __('keycloak.client.invalid_group');
+        return __('keycloak.client.invalid_setting_client_uuid');
     }
 }

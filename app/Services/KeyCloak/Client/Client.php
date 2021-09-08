@@ -5,23 +5,22 @@ namespace App\Services\KeyCloak\Client;
 use App\Models\Organization;
 use App\Models\Role as RoleModel;
 use App\Services\DataLoader\Client\QueryIterator;
-use App\Services\KeyCloak\Client\Exceptions\EndpointException;
-use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakClient;
-use App\Services\KeyCloak\Client\Exceptions\InvalidKeyCloakGroup;
+use App\Services\KeyCloak\Client\Exceptions\InvalidSettingClientUuid;
 use App\Services\KeyCloak\Client\Exceptions\KeyCloakDisabled;
-use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists;
-use App\Services\KeyCloak\Client\Exceptions\UserDoesntExists;
+use App\Services\KeyCloak\Client\Exceptions\KeyCloakUnavailable;
+use App\Services\KeyCloak\Client\Exceptions\RealmGroupUnknown;
+use App\Services\KeyCloak\Client\Exceptions\RealmUserAlreadyExists;
+use App\Services\KeyCloak\Client\Exceptions\RealmUserNotFound;
+use App\Services\KeyCloak\Client\Exceptions\RequestFailed;
 use App\Services\KeyCloak\Client\Types\Credential;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role;
 use App\Services\KeyCloak\Client\Types\User;
 use App\Services\KeyCloak\Commands\UsersIterator;
-use Closure;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
-use Illuminate\Contracts\Debug\ExceptionHandler;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Factory;
-use Illuminate\Http\Client\RequestException;
 use Symfony\Component\HttpFoundation\Response;
 
 use function array_map;
@@ -29,13 +28,10 @@ use function http_build_query;
 use function rtrim;
 
 class Client {
-
     public function __construct(
         protected Factory $client,
         protected Repository $config,
-        protected ExceptionHandler $handler,
         protected Token $token,
-        // protected UsersIterator $usersIterator,
     ) {
         // empty
     }
@@ -48,7 +44,7 @@ class Client {
     public function users(Organization $organization): array {
         // GET /{realm}/groups/{id}/members
         if (!$organization->keycloak_group_id) {
-            throw new InvalidKeyCloakGroup();
+            throw new RealmGroupUnknown();
         }
 
         $endpoint = "groups/{$organization->keycloak_group_id}/members";
@@ -68,6 +64,8 @@ class Client {
             $id = $object->keycloak_group_id;
         } elseif ($object instanceof RoleModel) {
             $id = $object->getKey();
+        } else {
+            // empty
         }
 
         if (!$id) {
@@ -99,6 +97,7 @@ class Client {
         // POST /{realm}/clients/{id}/roles
         $endpoint = "{$this->getClientUrl()}/roles";
         $this->call($endpoint, 'POST', ['json' => $role->toArray()]);
+
         return $this->getRoleByName($role->name);
     }
 
@@ -106,25 +105,22 @@ class Client {
         // GET /{realm}/clients/{id}/roles/{role-name}
         $endpoint = "{$this->getClientUrl()}/roles/{$name}";
         $result   = $this->call($endpoint, 'GET');
+
         return new Role($result);
     }
 
     public function updateRoleByName(string $name, Role $role): void {
         // PUT /{realm}/clients/{id}/roles/{role-name}
         $endpoint = "{$this->getClientUrl()}/roles/{$name}";
-        $this->call(
-            $endpoint,
-            'PUT',
-            ['json' => $role->toArray()],
-        );
+        $this->call($endpoint, 'PUT', [
+            'json' => $role->toArray(),
+        ]);
     }
-    /**
-     * @param array<\App\Services\KeyCloak\Client\Types\Role> $roles
-     */
-    public function createSubGroup(Organization $organization, string $name, array $roles = []): Group {
+
+    public function createSubGroup(Organization $organization, string $name): Group {
         // POST /{realm}/groups/{id}/children
         if (!$organization->keycloak_group_id) {
-            throw new InvalidKeyCloakGroup();
+            throw new RealmGroupUnknown();
         }
 
         $endpoint = "groups/{$organization->keycloak_group_id}/children";
@@ -135,9 +131,6 @@ class Client {
         return $group;
     }
 
-    /**
-     * @param array<\App\Services\KeyCloak\Client\Types\Role> $roles
-     */
     public function editSubGroup(RoleModel $role, string $name): void {
         // PUT /{realm}/groups/{id}
         $endpoint = "groups/{$role->id}";
@@ -182,44 +175,44 @@ class Client {
         $group = $this->getGroup($role);
 
         if (!$group) {
-            throw new InvalidKeyCloakGroup();
+            throw new RealmGroupUnknown();
         }
 
-        $input        = new User([
+        $input = new User([
             'email'         => $email,
             'groups'        => [$group->path],
             'enabled'       => false,
             'emailVerified' => false,
         ]);
-        $errorHandler = function (Exception $exception) use ($endpoint, $email): void {
-            if ($exception instanceof RequestException) {
-                if ($exception->getCode() === Response::HTTP_CONFLICT) {
-                    throw new UserAlreadyExists($email);
-                }
+
+        try {
+            $this->call($endpoint, 'POST', [
+                'json' => $input->toArray(),
+            ]);
+        } catch (RequestFailed $exception) {
+            if ($exception->isHttpError(Response::HTTP_CONFLICT)) {
+                throw new RealmUserAlreadyExists($email, $exception);
             }
-            $this->endpointException($exception, $endpoint);
-        };
 
-
-        $this->call($endpoint, 'POST', [
-            'json' => $input->toArray(),
-        ], $errorHandler);
+            throw $exception;
+        }
 
         return true;
     }
 
     public function getUserById(string $id): User {
         // GET /{realm}/users/{id}
-        $endpoint     = "users/{$id}";
-        $errorHandler = function (Exception $exception) use ($endpoint): void {
-            if ($exception instanceof RequestException) {
-                if ($exception->getCode() === Response::HTTP_NOT_FOUND) {
-                    throw new UserDoesntExists();
-                }
+
+        try {
+            $result = $this->call("users/{$id}");
+        } catch (RequestFailed $exception) {
+            if ($exception->isHttpError(Response::HTTP_NOT_FOUND)) {
+                throw new RealmUserNotFound($id, $exception);
             }
-            $this->endpointException($exception, $endpoint);
-        };
-        $result       = $this->call($endpoint, 'GET', [], $errorHandler);
+
+            throw $exception;
+        }
+
         return new User($result);
     }
 
@@ -244,10 +237,11 @@ class Client {
     public function getUserByEmail(string $email): ?User {
         // GET /{realm}/users?email={email}
         $endpoint = "users?email={$email}";
-        $users    = $this->call($endpoint, 'GET');
+        $users    = $this->call($endpoint);
         if (empty($users)) {
             return null;
         }
+
         return new User($users[0]);
     }
 
@@ -262,15 +256,17 @@ class Client {
      */
     public function getUserGroups(string $id): array {
         // GET /{realm}/users/{id}/groups
-        $endpoint     = "users/{$id}/groups";
-        $errorHandler = static function (Exception $exception): void {
-            if ($exception instanceof RequestException) {
-                if ($exception->getCode() === Response::HTTP_NOT_FOUND) {
-                    throw new UserDoesntExists();
-                }
+        try {
+            $endpoint = "users/{$id}/groups";
+            $groups   = $this->call($endpoint);
+        } catch (RequestFailed $exception) {
+            if ($exception->isHttpError(Response::HTTP_NOT_FOUND)) {
+                throw new RealmUserNotFound($id, $exception);
             }
-        };
-        $groups       = $this->call($endpoint, 'GET', [], $errorHandler);
+
+            throw $exception;
+        }
+
         return array_map(static function ($group) {
             return new Group($group);
         }, $groups);
@@ -300,16 +296,15 @@ class Client {
 
     public function updateUserEmail(string $id, string $email): void {
         // PUT /{realm}/users/{id}
-        $endpoint     = "users/{$id}";
-        $errorHandler = function (Exception $exception) use ($endpoint, $email): void {
-            if ($exception instanceof RequestException) {
-                if ($exception->getCode() === Response::HTTP_CONFLICT) {
-                    throw new UserAlreadyExists($email);
-                }
+        try {
+            $this->call("users/{$id}", 'PUT', ['json' => ['email' => $email]]);
+        } catch (RequestFailed $exception) {
+            if ($exception->isHttpError(Response::HTTP_CONFLICT)) {
+                throw new RealmUserAlreadyExists($email, $exception);
             }
-            $this->endpointException($exception, $endpoint);
-        };
-        $this->call($endpoint, 'PUT', ['json' => ['email' => $email]], $errorHandler);
+
+            throw $exception;
+        }
     }
 
     /**
@@ -322,17 +317,20 @@ class Client {
         $params   = http_build_query(['offset' => $offset, 'limit' => $limit]);
         $endpoint = "users?{$params}";
 
-        $result = $this->call($endpoint, 'GET', [], null, $baseUrl);
+        $result = $this->call($endpoint, 'GET', [], $baseUrl);
         $result = array_map(static function ($item) {
             return new User($item);
         }, $result);
+
         return $result;
     }
 
     public function usersCount(): int {
         // GET /{realm}/users/count
         $endpoint = 'users/count';
-        return $this->call($endpoint, 'GET');
+        $result   = $this->call($endpoint);
+
+        return $result;
     }
 
     public function getUsersIterator(): QueryIterator {
@@ -356,61 +354,50 @@ class Client {
     }
 
     /**
-     * @param array<string,mixed> $options
+     * @param array<string,mixed> $data
      */
-    protected function call(
-        string $endpoint,
-        string $method = 'GET',
-        array $options = [],
-        Closure $errorHandler = null,
-        string $baseUrl = null,
-    ): mixed {
+    protected function call(string $endpoint, string $method = 'GET', array $data = [], string $baseUrl = null): mixed {
         // Enabled?
         if (!$this->isEnabled()) {
             throw new KeyCloakDisabled();
         }
 
-        $timeout     = $this->config->get('ep.keycloak.timeout') ?: 5 * 60;
-        $accessToken = $this->token->getAccessToken();
-        $baseUrl   ??= $this->getBaseUrl();
-        $headers     = [
+        // Prepare
+        $timeout   = $this->config->get('ep.keycloak.timeout') ?: 5 * 60;
+        $baseUrl ??= $this->getBaseUrl();
+        $headers   = [
             'Accept'        => 'application/json',
-            'Authorization' => "Bearer {$accessToken}",
+            'Authorization' => "Bearer {$this->token->getAccessToken()}",
         ];
-
-        $request = $this->client
+        $request   = $this->client
             ->baseUrl($baseUrl)
-            ->timeout($timeout);
+            ->timeout($timeout)
+            ->withHeaders($headers)
+            ->asJson();
+
+        // Call
+        $json = null;
 
         try {
-            $response = $request
-                ->withHeaders($headers)
-                ->asJson()
-                ->send($method, $endpoint, $options);
-            $response->throw();
+            $json = $request->send($method, $endpoint, $data)->throw()->json();
+        } catch (ConnectionException $exception) {
+            throw new KeyCloakUnavailable($exception);
         } catch (Exception $exception) {
-            if ($errorHandler) {
-                return $errorHandler($exception);
-            } else {
-                $this->endpointException($exception, $endpoint);
-            }
+            throw new RequestFailed("{$baseUrl}/{$endpoint}", $method, $data, $exception);
         }
 
-        return $response->json();
-    }
-
-    protected function endpointException(Exception $exception, string $endpoint): void {
-        $error = new EndpointException($endpoint, $exception);
-        $this->handler->report($error);
-        throw $error;
+        // Return
+        return $json;
     }
 
     protected function getClientUrl(): string {
-        $clientId = (string) $this->config->get('ep.keycloak.client_uuid');
-        if (!$clientId) {
-            throw new InvalidKeyCloakClient();
+        $uuid = (string) $this->config->get('ep.keycloak.client_uuid');
+
+        if (!$uuid) {
+            throw new InvalidSettingClientUuid();
         }
-        return "clients/{$clientId}";
+
+        return "clients/{$uuid}";
     }
     // </editor-fold>
 }

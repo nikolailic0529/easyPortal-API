@@ -5,7 +5,7 @@ namespace App\GraphQL\Mutations\Me;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Exceptions\UserDoesntExists;
+use App\Services\KeyCloak\Client\Exceptions\RealmUserNotFound;
 use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
 use Closure;
 use Illuminate\Http\UploadedFile;
@@ -153,7 +153,7 @@ class UpdateMeProfileTest extends TestCase {
                     },
                 ],
                 'user not exists'                       => [
-                    new GraphQLError('updateMeProfile', new UserDoesntExists()),
+                    new GraphQLError('updateMeProfile', new RealmUserNotFound()),
                     [],
                     static function (): array {
                         return [
@@ -165,7 +165,7 @@ class UpdateMeProfileTest extends TestCase {
                         $mock
                             ->shouldReceive('getUserById')
                             ->once()
-                            ->andThrow(new UserDoesntExists());
+                            ->andThrow(new RealmUserNotFound());
                         $mock
                             ->shouldReceive('updateUser')
                             ->never();
