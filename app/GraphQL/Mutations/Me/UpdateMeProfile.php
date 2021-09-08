@@ -25,49 +25,38 @@ class UpdateMeProfile {
      * @return  array<string, mixed>
      */
     public function __invoke($_, array $args): array {
-        // Prepare
         $user         = $this->auth->user();
         $keycloakUser = $this->client->getUserById($user->getKey());
-        $userType     = $this->prepare($user, $keycloakUser, $args['input']);
-        $result       = $this->client->updateUser($user->getKey(), $userType) && $user->save();
-
-        // Return
-        return [
-            'result' => $result,
-        ];
-    }
-
-    /**
-     * @param array<mixed> $properties
-     */
-    protected function prepare(User $user, UserType $keycloakUser, array $properties): UserType {
-        $userType   = new UserType();
-        $attributes = $keycloakUser->attributes;
-        foreach ($properties as $property => $value) {
+        $userType     = new UserType();
+        $attributes   = $keycloakUser->attributes;
+        foreach ($args['input'] as $property => $value) {
             switch ($property) {
                 case 'first_name':
-                    if ($value !== null) {
-                        $userType->firstName = $value;
-                        $user->given_name    = $value;
-                    }
+                    $userType->firstName = $value;
+                    $user->given_name    = $value;
                     break;
                 case 'last_name':
-                    if ($value !== null) {
-                        $userType->lastName = $value;
-                        $user->family_name  = $value;
-                    }
+                    $userType->lastName = $value;
+                    $user->family_name  = $value;
                     break;
                 case 'photo':
-                    $attributes['photo'] = [$this->store($user, $value)];
+                    $photo               = $this->store($user, $value);
+                    $user->photo         = $photo;
+                    $attributes['photo'] = [$photo];
                     break;
                 default:
+                    $user->{$property}     = $value;
                     $attributes[$property] = [$value];
                     break;
             }
         }
         $userType->attributes = $attributes;
 
-        return $userType;
+        // Update Keycloak
+        $result = $this->client->updateUser($user->getKey(), $userType) && $user->save();
+        return [
+            'result' => $result,
+        ];
     }
 
     protected function store(User $user, ?UploadedFile $file): ?string {

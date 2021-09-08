@@ -20,7 +20,7 @@ class UsersImporterTest extends TestCase {
     public function testImportFull(): void {
         // Prepare
         $organization = Organization::factory()->create([
-            'id' => 'c0200a6c-1b8a-4365-9f1b-32d753194336',
+            'keycloak_group_id' => 'c0200a6c-1b8a-4365-9f1b-32d753194336',
         ]);
         $role         = Role::factory()->create([
             'id' => 'c0200a6c-1b8a-4365-9f1b-32d753194337',
@@ -35,6 +35,41 @@ class UsersImporterTest extends TestCase {
             'groups'        => [
                 'c0200a6c-1b8a-4365-9f1b-32d753194336',
                 'c0200a6c-1b8a-4365-9f1b-32d753194337',
+            ],
+            'attributes'    => [
+                'office_phone'   => [
+                    '01000000000',
+                ],
+                'contact_email'  => [
+                    'test@gmail.com',
+                ],
+                'academic_title' => [
+                    'academic_title',
+                ],
+                'title'          => [
+                    'Mr',
+                ],
+                'office_phone'   => [
+                    '01000230232',
+                ],
+                'mobile_phone'   => [
+                    '0100023023232',
+                ],
+                'department'     => [
+                    'hr',
+                ],
+                'job_title'      => [
+                    'manger',
+                ],
+                'company'        => [
+                    'EP',
+                ],
+                'phone'          => [
+                    '0100023023235',
+                ],
+                'photo'          => [
+                    'http://example.com/photo.jpg',
+                ],
             ],
         ]);
         /** @var \Mockery\MockInterface $client */
@@ -72,6 +107,17 @@ class UsersImporterTest extends TestCase {
         $this->assertEquals($user->given_name, $keycloakUser->firstName);
         $this->assertEquals($user->family_name, $keycloakUser->lastName);
         $this->assertEquals($user->email, $keycloakUser->email);
+
+        // profile
+        $this->assertEquals($user->office_phone, $keycloakUser->attributes['office_phone'][0]);
+        $this->assertEquals($user->contact_email, $keycloakUser->attributes['contact_email'][0]);
+        $this->assertEquals($user->title, $keycloakUser->attributes['title'][0]);
+        $this->assertEquals($user->mobile_phone, $keycloakUser->attributes['mobile_phone'][0]);
+        $this->assertEquals($user->department, $keycloakUser->attributes['department'][0]);
+        $this->assertEquals($user->job_title, $keycloakUser->attributes['job_title'][0]);
+        $this->assertEquals($user->phone, $keycloakUser->attributes['phone'][0]);
+        $this->assertEquals($user->company, $keycloakUser->attributes['company'][0]);
+        $this->assertEquals($user->photo, $keycloakUser->attributes['photo'][0]);
 
         // Organization
         $this->assertCount(1, $user->organizations);

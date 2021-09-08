@@ -18,6 +18,8 @@ use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
+use function __;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Me\UpdateMeEmail
@@ -47,6 +49,15 @@ class UpdateMeEmailTest extends TestCase {
 
         if ($clientFactory) {
             $this->override(Client::class, $clientFactory);
+        }
+
+        // Lighthouse performs validation BEFORE permission check :(
+        //
+        // https://github.com/nuwave/lighthouse/issues/1780
+        //
+        // Following code required to "fix" it
+        if (empty($email)) {
+            $email = 'test@example.com';
         }
 
         $input = [
@@ -86,7 +97,7 @@ class UpdateMeEmailTest extends TestCase {
             new OrganizationDataProvider('updateMeEmail'),
             new UserDataProvider('updateMeEmail'),
             new ArrayDataProvider([
-                'keycloak'             => [
+                'keycloak'                => [
                     new GraphQLSuccess('updateMeEmail', UpdateMeEmail::class, [
                         'result' => true,
                     ]),
@@ -103,7 +114,7 @@ class UpdateMeEmailTest extends TestCase {
                             ->once();
                     },
                 ],
-                'local'                => [
+                'local'                   => [
                     new GraphQLSuccess('updateMeEmail', UpdateMeEmail::class, [
                         'result' => true,
                     ]),
@@ -120,7 +131,7 @@ class UpdateMeEmailTest extends TestCase {
                             ->never();
                     },
                 ],
-                'keycloak/email taken' => [
+                'keycloak/username taken' => [
                     new GraphQLError('updateMeEmail', new UserAlreadyExists('new@example.com')),
                     static function (TestCase $test, ?Organization $organization, ?User $user): bool {
                         $user->email = 'old@example.com';
@@ -136,8 +147,29 @@ class UpdateMeEmailTest extends TestCase {
                             ->andThrow(new UserAlreadyExists('new@example.com'));
                     },
                 ],
-                'local/taken'          => [
-                    new GraphQLError('updateMeEmail', new UpdateMeEmailUserAlreadyExists('new@example.com')),
+                'keycloak/taken'          => [
+                    new GraphQLError('updateMeEmail', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    static function (TestCase $test, ?Organization $organization, ?User $user): bool {
+                        $user->email = 'old@example.com';
+                        $user->type  = UserType::keycloak();
+                        $user->save();
+
+                        User::factory(['email' => 'new@example.com'])->create();
+                        return true;
+                    },
+                    'new@example.com',
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('updateUserEmail')
+                            ->never();
+                    },
+                ],
+                'local/taken'             => [
+                    new GraphQLError('updateMeEmail', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
                     static function (TestCase $test, ?Organization $organization, ?User $user): bool {
                         $user->email = 'old@example.com';
                         $user->type  = UserType::local();

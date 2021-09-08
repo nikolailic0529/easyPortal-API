@@ -94,6 +94,18 @@ class UsersImporter {
                         $user->email_verified        = $item->emailVerified;
                         $user->enabled               = $item->enabled;
                         $user->permissions           = [];
+                        // profile
+                        $attributes           = $item->attributes;
+                        $user->office_phone   = $attributes['office_phone'][0] ?? null;
+                        $user->contact_email  = $attributes['contact_email'][0] ?? null;
+                        $user->title          = $attributes['title'][0] ?? null;
+                        $user->academic_title = $attributes['academic_title'][0] ?? null;
+                        $user->mobile_phone   = $attributes['mobile_phone'][0] ?? null;
+                        $user->department     = $attributes['department'][0] ?? null;
+                        $user->job_title      = $attributes['job_title'][0] ?? null;
+                        $user->phone          = $attributes['phone'][0] ?? null;
+                        $user->company        = $attributes['company'][0] ?? null;
+                        $user->photo          = $attributes['photo'][0] ?? null;
                     }
 
                     $organizations = [];

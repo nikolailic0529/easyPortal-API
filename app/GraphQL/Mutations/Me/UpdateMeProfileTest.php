@@ -79,7 +79,6 @@ class UpdateMeProfileTest extends TestCase {
             'variables'     => ['input' => $input],
         ];
 
-
         if ($clientFactory) {
             $this->override(Client::class, $clientFactory);
         }
@@ -88,11 +87,26 @@ class UpdateMeProfileTest extends TestCase {
         $this->multipartGraphQL($operations, $map, $file)->assertThat($expected);
         if ($expected instanceof GraphQLSuccess) {
             if ($nullableData) {
-                $this->assertNotNull($user->given_name);
-                $this->assertNotNull($user->family_name);
+                $this->assertNull($user->given_name);
+                $this->assertNull($user->family_name);
+                $this->assertNull($user->title);
+                $this->assertNull($user->academic_title);
+                $this->assertNull($user->office_phone);
+                $this->assertNull($user->mobile_phone);
+                $this->assertNull($user->contact_email);
+                $this->assertNull($user->department);
+                $this->assertNull($user->job_title);
+                $this->assertNull($user->photo);
             } else {
                 $this->assertEquals($user->given_name, $input['first_name']);
                 $this->assertEquals($user->family_name, $input['last_name']);
+                $this->assertEquals($user->title, $input['title']);
+                $this->assertEquals($user->academic_title, $input['academic_title']);
+                $this->assertEquals($user->office_phone, $input['office_phone']);
+                $this->assertEquals($user->mobile_phone, $input['mobile_phone']);
+                $this->assertEquals($user->contact_email, $input['contact_email']);
+                $this->assertEquals($user->department, $input['department']);
+                $this->assertEquals($user->job_title, $input['job_title']);
             }
         }
     }

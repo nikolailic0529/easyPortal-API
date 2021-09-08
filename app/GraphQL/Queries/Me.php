@@ -4,16 +4,12 @@ namespace App\GraphQL\Queries;
 
 use App\Models\User;
 use App\Services\Auth\Auth;
-use App\Services\KeyCloak\Client\Client;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
-
-use function array_key_exists;
 
 class Me {
     public function __construct(
         protected Auth $auth,
-        protected Client $client,
     ) {
         // empty
     }
@@ -56,29 +52,19 @@ class Me {
         if (!$user) {
             return null;
         }
-
-        $keycloakUser = $this->client->getUserById($user->getKey());
-        $attributes   = $keycloakUser->attributes;
-        $keys         = [
-            'office_phone',
-            'contact_email',
-            'title',
-            'academic_title',
-            'mobile_phone',
-            'department',
-            'job_title',
-            'phone',
-            'company',
-            'photo',
+        return [
+            'first_name'     => $user->given_name,
+            'last_name'      => $user->family_name,
+            'office_phone'   => $user->office_phone,
+            'contact_email'  => $user->contact_email,
+            'title'          => $user->title,
+            'academic_title' => $user->academic_title,
+            'mobile_phone'   => $user->mobile_phone,
+            'department'     => $user->department,
+            'job_title'      => $user->job_title,
+            'phone'          => $user->phone,
+            'company'        => $user->company,
+            'photo'          => $user->photo,
         ];
-        $data         = [];
-        foreach ($keys as $key) {
-            if (array_key_exists($key, $attributes)) {
-                $data[$key] = $attributes[$key][0];
-            }
-        }
-        $data['first_name'] = $keycloakUser->firstName ?? null;
-        $data['last_name']  = $keycloakUser->lastName ?? null;
-        return $data;
     }
 }
