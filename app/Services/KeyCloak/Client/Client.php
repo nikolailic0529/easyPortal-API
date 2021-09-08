@@ -12,6 +12,7 @@ use App\Services\KeyCloak\Client\Exceptions\RealmGroupUnknown;
 use App\Services\KeyCloak\Client\Exceptions\RealmUserAlreadyExists;
 use App\Services\KeyCloak\Client\Exceptions\RealmUserNotFound;
 use App\Services\KeyCloak\Client\Exceptions\RequestFailed;
+use App\Services\KeyCloak\Client\Exceptions\ServerError;
 use App\Services\KeyCloak\Client\Types\Credential;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role;
@@ -21,6 +22,7 @@ use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Factory;
+use Illuminate\Http\Client\RequestException;
 use Symfony\Component\HttpFoundation\Response;
 
 use function array_map;
@@ -383,7 +385,11 @@ class Client {
         } catch (ConnectionException $exception) {
             throw new KeyCloakUnavailable($exception);
         } catch (Exception $exception) {
-            throw new RequestFailed("{$baseUrl}/{$endpoint}", $method, $data, $exception);
+            if ($exception instanceof RequestException && $exception->getCode() >= 500 && $exception->getCode() < 600) {
+                throw new ServerError("{$baseUrl}/{$endpoint}", $method, $data, $exception);
+            } else {
+                throw new RequestFailed("{$baseUrl}/{$endpoint}", $method, $data, $exception);
+            }
         }
 
         // Return

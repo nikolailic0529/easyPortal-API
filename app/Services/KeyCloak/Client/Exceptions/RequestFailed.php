@@ -2,7 +2,6 @@
 
 namespace App\Services\KeyCloak\Client\Exceptions;
 
-use App\Exceptions\ExternalException;
 use Illuminate\Http\Client\RequestException;
 use Throwable;
 
@@ -10,7 +9,7 @@ use function __;
 use function sprintf;
 use function strtoupper;
 
-class RequestFailed extends ClientException implements ExternalException {
+class RequestFailed extends ClientException {
     /**
      * @param array<mixed> $data
      */

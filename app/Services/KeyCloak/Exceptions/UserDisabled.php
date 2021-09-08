@@ -2,7 +2,6 @@
 
 namespace App\Services\KeyCloak\Exceptions;
 
-use App\Exceptions\HasErrorCode;
 use App\Models\User;
 use Throwable;
 
@@ -10,8 +9,6 @@ use function __;
 use function sprintf;
 
 class UserDisabled extends AuthException {
-    use HasErrorCode;
-
     public function __construct(
         protected User $user,
         Throwable $previous = null,
