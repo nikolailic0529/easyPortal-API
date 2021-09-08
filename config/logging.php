@@ -1,6 +1,7 @@
 <?php declare(strict_types = 1);
 
 use App\Services\DataLoader\Service as DataLoaderService;
+use App\Services\KeyCloak\Service as KeyCloakService;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -59,6 +60,12 @@ return [
         DataLoaderService::class => [
             'driver' => 'daily',
             'path'   => storage_path('logs/DataLoader/EAP-DataLoader.log'),
+            'level'  => env('LOG_LEVEL', 'debug'),
+            'days'   => 365,
+        ],
+        KeyCloakService::class   => [
+            'driver' => 'daily',
+            'path'   => storage_path('logs/KeyCloak/EAP-KeyCloak.log'),
             'level'  => env('LOG_LEVEL', 'debug'),
             'days'   => 365,
         ],
