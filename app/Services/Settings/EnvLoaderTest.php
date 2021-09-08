@@ -2,7 +2,7 @@
 
 namespace App\Services\Settings;
 
-use App\Services\Settings\Exceptions\SettingsFailedToLoadEnv;
+use App\Services\Settings\Exceptions\FailedToLoadEnv;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Mockery;
@@ -92,7 +92,7 @@ class EnvLoaderTest extends TestCase {
                 throw new Exception();
             });
 
-        $this->expectException(SettingsFailedToLoadEnv::class);
+        $this->expectException(FailedToLoadEnv::class);
 
         $loader->load($app);
     }

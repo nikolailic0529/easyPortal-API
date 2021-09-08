@@ -33,7 +33,7 @@ use App\Services\KeyCloak\Exceptions\UnknownScope as KeyCloakUnknownScope;
 use App\Services\KeyCloak\Exceptions\UserDisabled;
 use App\Services\Organization\Exceptions\UnknownOrganization as OrganizationUnknownOrganization;
 use App\Services\Queue\Exceptions\ServiceNotFound as QueueServiceNotFound;
-use App\Services\Settings\Exceptions\SettingsFailedToLoadEnv as SettingsSettingsFailedToLoadEnv;
+use App\Services\Settings\Exceptions\FailedToLoadEnv as SettingsFailedToLoadEnv;
 use App\Services\Tokens\Exceptions\InvalidCredentials as TokensInvalidCredentials;
 use Throwable;
 
@@ -46,7 +46,7 @@ class ErrorCodes {
         FilesystemStorageFileCorrupted::class         => 'ERR03',
         FilesystemStorageFileDeleteFailed::class      => 'ERR04',
         FilesystemStorageFileSaveFailed::class        => 'ERR05',
-        SettingsSettingsFailedToLoadEnv::class        => 'ERR06',
+        SettingsFailedToLoadEnv::class                => 'ERR06',
         ExportGraphQLQueryInvalid::class              => 'ERR07',
         KeyCloakAuthorizationFailed::class            => 'ERR08',
         KeyCloakStateMismatch::class                  => 'ERR09',

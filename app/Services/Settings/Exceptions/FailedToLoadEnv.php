@@ -3,18 +3,18 @@
 namespace App\Services\Settings\Exceptions;
 
 use App\Exceptions\TranslatedException;
+use App\Services\Settings\ServiceException;
 use Throwable;
 
 use function __;
 
-class SettingsFailedToLoadEnv extends SettingsException implements TranslatedException {
+class FailedToLoadEnv extends ServiceException implements TranslatedException {
     public function __construct(
         protected string $path,
         Throwable $previous = null,
     ) {
         parent::__construct(
             "Failed to load ENV from `{$this->path}`",
-            0,
             $previous,
         );
     }

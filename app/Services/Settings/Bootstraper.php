@@ -2,16 +2,15 @@
 
 namespace App\Services\Settings;
 
+use App\Services\Settings\Exceptions\FailedToGetSettingValue;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Date;
-use LogicException;
 use Psr\Log\LoggerInterface;
 use Throwable;
 
 use function array_key_exists;
-use function sprintf;
 
 class Bootstraper extends Settings {
     protected const MARKER = '__ep_settings';
@@ -97,10 +96,7 @@ class Bootstraper extends Settings {
         } elseif (!$this->isCached()) {
             $value = $this->getEnvValue($setting);
         } else {
-            throw new LogicException(sprintf(
-                'Impossible to get current value for setting `%s`.',
-                $setting->getName(),
-            ));
+            throw new FailedToGetSettingValue($setting);
         }
 
         return $value;
