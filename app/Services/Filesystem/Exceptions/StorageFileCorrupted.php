@@ -1,26 +1,26 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Filesystem;
+namespace App\Services\Filesystem\Exceptions;
 
+use App\Services\Filesystem\Disk;
 use Throwable;
 
 use function __;
 
-class StorageFileDeleteFailed extends StorageException {
+class StorageFileCorrupted extends StorageException {
     public function __construct(
         protected Disk $disc,
         protected string $path,
         Throwable $previous = null,
     ) {
         parent::__construct(
-            "Delete failed: `{$path}` (disk: `{$disc}`)",
-            0,
+            "File corrupted: `{$path}` (disk: `{$disc}`)",
             $previous,
         );
     }
 
     public function getErrorMessage(): string {
-        return __('errors.storage.file_delete_failed', [
+        return __('errors.storage.file_corrupted', [
             'disc' => $this->disc,
             'file' => $this->path,
         ]);
