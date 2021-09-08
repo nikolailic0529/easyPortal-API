@@ -5,7 +5,6 @@ namespace App\Services\Logger\Listeners;
 use App\Services\DataLoader\Client\Events\RequestFailed;
 use App\Services\DataLoader\Client\Events\RequestStarted;
 use App\Services\DataLoader\Client\Events\RequestSuccessful;
-use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\Logger\Models\Enums\Category;
 use App\Services\Logger\Models\Enums\Status;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -30,10 +29,6 @@ class DataLoaderListener extends Listener {
 
         $dispatcher->listen(RequestFailed::class, $this->getSafeListener(function (RequestFailed $event): void {
             $this->requestFailed($event);
-        }));
-
-        $dispatcher->listen(ObjectSkipped::class, $this->getSafeListener(function (ObjectSkipped $event): void {
-            $this->objectSkipped($event);
         }));
     }
 
@@ -125,31 +120,6 @@ class DataLoaderListener extends Listener {
                 $context,
                 $countable,
             );
-        }
-    }
-
-    protected function objectSkipped(ObjectSkipped $event): void {
-        $enabled   = $this->config->get('ep.logger.data_loader.skipped');
-        $object    = new DataLoaderSkippedObject($event);
-        $context   = [
-            'reason' => $event->getReason(),
-        ];
-        $countable = [
-            "{$this->getCategory()}.total.skipped"                => 1,
-            "{$this->getCategory()}.skipped.{$object->getType()}" => 1,
-        ];
-
-        if ($enabled) {
-            $this->logger->event(
-                $this->getCategory(),
-                'skipped',
-                null,
-                $object,
-                $context,
-                $countable,
-            );
-        } else {
-            $this->logger->count($countable);
         }
     }
 

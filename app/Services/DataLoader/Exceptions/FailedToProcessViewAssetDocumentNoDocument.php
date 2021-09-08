@@ -21,7 +21,7 @@ class FailedToProcessViewAssetDocumentNoDocument extends FailedToProcessObject {
         Throwable $previous = null,
     ) {
         parent::__construct(sprintf(
-            'Failed to process ViewAssetDocument for Asset `%s`: ViewDocument is null.',
+            'Failed to process ViewAssetDocument for Asset `%s`: `document` is null.',
             $this->asset->getKey(),
         ), $previous);
 

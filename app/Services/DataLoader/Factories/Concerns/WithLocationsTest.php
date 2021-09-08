@@ -2,10 +2,11 @@
 
 namespace App\Services\DataLoader\Factories\Concerns;
 
+use App\Exceptions\ErrorReport;
 use App\Models\Customer;
 use App\Models\Location as LocationModel;
 use App\Models\Model;
-use App\Services\DataLoader\Events\ObjectSkipped;
+use App\Services\DataLoader\Exceptions\FailedToProcessLocation;
 use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\Normalizer;
@@ -179,7 +180,7 @@ class WithLocationsTest extends TestCase {
      */
     public function testObjectLocationsInvalidLocation(): void {
         // Fake
-        Event::fake();
+        Event::fake(ErrorReport::class);
 
         // Prepare
         $owner    = new Customer();
@@ -228,6 +229,8 @@ class WithLocationsTest extends TestCase {
 
         $this->assertEmpty($factory->objectLocations($owner, [$location]));
 
-        Event::assertDispatched(ObjectSkipped::class);
+        Event::assertDispatched(ErrorReport::class, static function (ErrorReport $event): bool {
+            return $event->getError() instanceof FailedToProcessLocation;
+        });
     }
 }

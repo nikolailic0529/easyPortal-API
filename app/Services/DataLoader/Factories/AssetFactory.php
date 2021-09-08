@@ -15,7 +15,6 @@ use App\Models\Product;
 use App\Models\Reseller;
 use App\Models\Status;
 use App\Models\Type as TypeModel;
-use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\AssetLocationNotFound;
 use App\Services\DataLoader\Exceptions\FailedToCreateAssetInitialWarranty;
 use App\Services\DataLoader\Exceptions\FailedToCreateAssetWarranty;
@@ -58,7 +57,6 @@ use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
@@ -94,7 +92,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
-        protected Dispatcher $dispatcher,
         protected AssetResolver $assetResolver,
         protected OemResolver $oemResolver,
         protected TypeResolver $typeResolver,
@@ -350,14 +347,9 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 return $document->documentNumber;
             })
             ->each(function (Collection $entries) use ($model): void {
-                /** @var \App\Services\DataLoader\Schema\ViewAssetDocument $document */
-                $document  = $entries->first();
-                $exception = new FailedToProcessViewAssetDocumentNoDocument($model, $document, $entries);
-
-                $this->dispatcher->dispatch(
-                    new ObjectSkipped($document, $exception),
+                $this->getExceptionHandler()->report(
+                    new FailedToProcessViewAssetDocumentNoDocument($model, $entries->first(), $entries),
                 );
-                $this->getExceptionHandler()->report($exception);
             });
 
         // Create documents
@@ -380,7 +372,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                         'entries'  => $entries->all(),
                     ]));
                 } catch (Throwable $exception) {
-                    $this->dispatcher->dispatch(new ObjectSkipped($entries->first(), $exception));
                     $this->getExceptionHandler()->report(
                         new FailedToProcessAssetViewDocument($model, $entries->first()->document, $exception),
                     );
@@ -456,7 +447,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 // Store
                 $warranties[$key] = $warranty;
             } catch (Throwable $exception) {
-                $this->dispatcher->dispatch(new ObjectSkipped($assetDocument, $exception));
                 $this->getExceptionHandler()->report(
                     new FailedToCreateAssetInitialWarranty($model, $assetDocument, $exception),
                 );
@@ -551,7 +541,6 @@ class AssetFactory extends ModelFactory implements FactoryPrefetchable {
                 // Store
                 $warranties[$key] = $warranty;
             } catch (Throwable $exception) {
-                $this->dispatcher->dispatch(new ObjectSkipped($assetDocument, $exception));
                 $this->getExceptionHandler()->report(
                     new FailedToCreateAssetWarranty($model, $assetDocument, $exception),
                 );

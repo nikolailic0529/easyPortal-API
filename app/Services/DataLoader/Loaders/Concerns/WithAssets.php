@@ -5,7 +5,6 @@ namespace App\Services\DataLoader\Loaders\Concerns;
 use App\Models\Model;
 use App\Services\DataLoader\Client\Client;
 use App\Services\DataLoader\Client\QueryIterator;
-use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\FailedToProcessViewAsset;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\ContactFactory;
@@ -17,7 +16,6 @@ use App\Services\DataLoader\Loaders\AssetLoader;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Throwable;
@@ -34,7 +32,6 @@ trait WithAssets {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Client $client,
-        protected Dispatcher $dispatcher,
         protected ResellerFactory $resellerFactory,
         protected ResellerResolver $resellerResolver,
         protected CustomerFactory $customerFactory,
@@ -90,7 +87,6 @@ trait WithAssets {
                     $updated[] = $model->getKey();
                 }
             } catch (Throwable $exception) {
-                $this->dispatcher->dispatch(new ObjectSkipped($asset, $exception));
                 $this->getExceptionHandler()->report(
                     new FailedToProcessViewAsset($asset, $exception),
                 );

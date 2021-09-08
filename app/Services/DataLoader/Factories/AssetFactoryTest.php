@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Factories;
 
+use App\Exceptions\ErrorReport;
 use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\Customer;
@@ -17,8 +18,8 @@ use App\Models\ServiceLevel;
 use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Container\Container;
-use App\Services\DataLoader\Events\ObjectSkipped;
 use App\Services\DataLoader\Exceptions\CustomerNotFound;
+use App\Services\DataLoader\Exceptions\FailedToProcessAssetViewDocument;
 use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
@@ -463,7 +464,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetDocuments(): void {
         // Fake
-        Event::fake();
+        Event::fake(ErrorReport::class);
 
         // Prepare
         $model     = Asset::factory()->make();
@@ -520,7 +521,7 @@ class AssetFactoryTest extends TestCase {
 
         $this->assertCount(1, $factory->assetDocuments($model, $asset));
 
-        Event::assertNotDispatched(ObjectSkipped::class);
+        Event::assertNotDispatched(ErrorReport::class);
     }
 
     /**
@@ -563,7 +564,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetDocumentsFailedCreateDocument(): void {
         // Fake
-        Event::fake();
+        Event::fake(ErrorReport::class);
 
         // Prepare
         $model      = Asset::factory()->make();
@@ -603,8 +604,9 @@ class AssetFactoryTest extends TestCase {
         // Test
         $this->assertCount(0, $factory->assetDocuments($model, $asset));
 
-        Event::assertDispatched(ObjectSkipped::class, static function (ObjectSkipped $event): bool {
-            return $event->getReason() instanceof ResellerNotFound;
+        Event::assertDispatched(ErrorReport::class, static function (ErrorReport $event): bool {
+            return $event->getError() instanceof FailedToProcessAssetViewDocument
+                && $event->getError()->getPrevious() instanceof ResellerNotFound;
         });
     }
 
