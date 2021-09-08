@@ -2,11 +2,13 @@
 
 namespace App\Services\Queue\Exceptions;
 
-use Exception;
+use App\Services\Queue\ServiceException;
 
 /**
  * @internal
  */
-class JobStopped extends Exception {
-    // empty
+class JobStopped extends ServiceException {
+    public function __construct() {
+        parent::__construct('Job stopped.');
+    }
 }
