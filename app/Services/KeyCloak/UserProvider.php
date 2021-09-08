@@ -6,7 +6,7 @@ use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Exceptions\AnotherUserExists;
-use App\Services\KeyCloak\Exceptions\InsufficientData;
+use App\Services\KeyCloak\Exceptions\UserInsufficientData;
 use App\Services\KeyCloak\Exceptions\UserDisabled;
 use App\Services\Organization\RootOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -277,7 +277,7 @@ class UserProvider implements UserProviderContract {
 
     protected function updateTokenUser(User $user, UnencryptedToken $token): User {
         // Update properties
-        foreach ($this->getProperties($token) as $property => $value) {
+        foreach ($this->getProperties($user, $token) as $property => $value) {
             $user->{$property} = $value;
         }
 
@@ -301,7 +301,7 @@ class UserProvider implements UserProviderContract {
     /**
      * @return array<string, mixed>
      */
-    protected function getProperties(UnencryptedToken $token): array {
+    protected function getProperties(User $user, UnencryptedToken $token): array {
         // Properties
         $claims     = $token->claims();
         $missed     = [];
@@ -325,7 +325,7 @@ class UserProvider implements UserProviderContract {
 
         // Sufficient?
         if ($missed) {
-            throw new InsufficientData($missed);
+            throw new UserInsufficientData($user, $missed);
         }
 
         // Return

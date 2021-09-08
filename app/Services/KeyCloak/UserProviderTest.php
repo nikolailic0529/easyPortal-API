@@ -6,7 +6,7 @@ use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Exceptions\AnotherUserExists;
-use App\Services\KeyCloak\Exceptions\InsufficientData;
+use App\Services\KeyCloak\Exceptions\UserInsufficientData;
 use App\Services\KeyCloak\Exceptions\UserDisabled;
 use Closure;
 use Exception;
@@ -193,8 +193,9 @@ class UserProviderTest extends TestCase {
             ->andReturn($keycloak);
 
         // Test
+        $user   = new User();
         $token  = $this->getToken($claims);
-        $actual = $provider->getProperties($token);
+        $actual = $provider->getProperties($user, $token);
 
         $this->assertEquals($expected, $actual);
     }
@@ -719,7 +720,7 @@ class UserProviderTest extends TestCase {
                 },
             ],
             'required claim missed'                      => [
-                new InsufficientData(['email']),
+                new UserInsufficientData(new User(), ['email']),
                 static function (string $client, Organization $organization): array {
                     return [
                         'typ'                   => 'Bearer',

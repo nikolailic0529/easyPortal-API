@@ -25,12 +25,12 @@ use App\Services\KeyCloak\Client\Exceptions\RealmUserNotFound as KeyCloakRealmUs
 use App\Services\KeyCloak\Client\Exceptions\RequestFailed as KeyCloakRequestFailed;
 use App\Services\KeyCloak\Exceptions\AnotherUserExists as KeyCloakAnotherUserExists;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailed as KeyCloakAuthorizationFailed;
-use App\Services\KeyCloak\Exceptions\InsufficientData as KeyCloakInsufficientData;
 use App\Services\KeyCloak\Exceptions\InvalidCredentials as KeyCloakInvalidCredentials;
 use App\Services\KeyCloak\Exceptions\InvalidIdentity as KeyCloakInvalidIdentity;
 use App\Services\KeyCloak\Exceptions\StateMismatch as KeyCloakStateMismatch;
 use App\Services\KeyCloak\Exceptions\UnknownScope as KeyCloakUnknownScope;
 use App\Services\KeyCloak\Exceptions\UserDisabled;
+use App\Services\KeyCloak\Exceptions\UserInsufficientData as KeyCloakUserInsufficientData;
 use App\Services\Organization\Exceptions\UnknownOrganization as OrganizationUnknownOrganization;
 use App\Services\Queue\Exceptions\ServiceNotFound as QueueServiceNotFound;
 use App\Services\Settings\Exceptions\FailedToLoadEnv as SettingsFailedToLoadEnv;
@@ -52,7 +52,7 @@ class ErrorCodes {
         KeyCloakStateMismatch::class                  => 'ERR09',
         KeyCloakInvalidIdentity::class                => 'ERR10',
         KeyCloakInvalidCredentials::class             => 'ERR11',
-        KeyCloakInsufficientData::class               => 'ERR12',
+        KeyCloakUserInsufficientData::class           => 'ERR12',
         OrganizationUnknownOrganization::class        => 'ERR13',
         KeyCloakUnknownScope::class                   => 'ERR14',
         KeyCloakAnotherUserExists::class              => 'ERR15',

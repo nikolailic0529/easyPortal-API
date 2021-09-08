@@ -9,7 +9,7 @@ use Throwable;
 use function __;
 use function sprintf;
 
-class UserDisabled extends KeyCloakException {
+class UserDisabled extends AuthException {
     use HasErrorCode;
 
     public function __construct(
@@ -18,8 +18,8 @@ class UserDisabled extends KeyCloakException {
     ) {
         parent::__construct(sprintf(
             'User `%s` is disabled.',
-            $user->getKey(),
-        ), 0, $previous);
+            $this->user->getKey(),
+        ), $previous);
     }
 
     public function getErrorMessage(): string {

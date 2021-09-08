@@ -6,6 +6,6 @@ use Throwable;
 
 class JwtVerificationFailed extends JwtException {
     public function __construct(Throwable $previous = null) {
-        parent::__construct('JWT: Verification failed.', 0, $previous);
+        parent::__construct('JWT: Verification failed.', $previous);
     }
 }

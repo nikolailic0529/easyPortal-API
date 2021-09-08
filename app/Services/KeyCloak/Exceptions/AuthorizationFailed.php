@@ -6,9 +6,9 @@ use Throwable;
 
 use function __;
 
-class AuthorizationFailed extends KeyCloakException {
+class AuthorizationFailed extends AuthException {
     public function __construct(Throwable $previous = null) {
-        parent::__construct('Authorization failed.', 0, $previous);
+        parent::__construct('Authorization failed.', $previous);
     }
 
     public function getErrorMessage(): string {

@@ -2,8 +2,9 @@
 
 namespace App\Services\KeyCloak\Exceptions;
 
+use App\Exceptions\TranslatedException;
 use App\Services\KeyCloak\ServiceException;
 
-abstract class JwtException extends ServiceException {
+abstract class AuthException extends ServiceException implements TranslatedException {
     // empty
 }

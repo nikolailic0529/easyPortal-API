@@ -2,24 +2,27 @@
 
 namespace App\Services\KeyCloak\Exceptions;
 
+use App\Models\User;
 use Throwable;
 
 use function __;
 use function implode;
 use function sprintf;
 
-class InsufficientData extends KeyCloakException {
+class UserInsufficientData extends AuthException {
     /**
      * @param array<string> $missed
      */
     public function __construct(
+        protected User $user,
         protected array $missed,
         Throwable $previous = null,
     ) {
         parent::__construct(sprintf(
-            'Insufficient data to create/update user, missed: `%s`.',
+            'Insufficient data to create/update User `%s`, missed: `%s`.',
+            $this->user->getKey(),
             implode('`, `', $this->missed),
-        ), 0, $previous);
+        ), $previous);
     }
 
     public function getErrorMessage(): string {

@@ -8,7 +8,7 @@ use Throwable;
 use function __;
 use function sprintf;
 
-class AnotherUserExists extends KeyCloakException {
+class AnotherUserExists extends AuthException {
     public function __construct(
         protected User $user,
         Throwable $previous = null,
@@ -16,7 +16,7 @@ class AnotherUserExists extends KeyCloakException {
         parent::__construct(sprintf(
             'Another user `%s` already exists.',
             $this->user->getKey(),
-        ), 0, $previous);
+        ), $previous);
     }
 
     public function getErrorMessage(): string {
