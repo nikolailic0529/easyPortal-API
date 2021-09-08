@@ -2,10 +2,8 @@
 
 namespace App\Exceptions;
 
-use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Psr\Log\LoggerInterface;
@@ -24,14 +22,6 @@ class Handler extends ExceptionHandler implements ContextProvider {
      */
     protected $dontReport = [];
 
-    public function __construct(
-        Container $container,
-        protected Repository $config,
-        protected Helper $helper,
-    ) {
-        parent::__construct($container);
-    }
-
     /**
      * Register the exception handling callbacks for the application.
      */
@@ -45,12 +35,14 @@ class Handler extends ExceptionHandler implements ContextProvider {
      * @return array<mixed>
      */
     protected function convertExceptionToArray(Throwable $e): array {
-        $array = [
-            'message' => $this->helper->getMessage($e),
+        $config = $this->container->make(Repository::class);
+        $helper = $this->container->make(Helper::class);
+        $array  = [
+            'message' => $helper->getMessage($e),
         ];
 
-        if ($this->config->get('app.debug')) {
-            $array['stack'] = $this->helper->getTrace($e, $this);
+        if ($config->get('app.debug')) {
+            $array['stack'] = $helper->getTrace($e, $this);
         }
 
         return $array;
@@ -74,9 +66,7 @@ class Handler extends ExceptionHandler implements ContextProvider {
         $logger = null;
 
         try {
-            $logger = $exception instanceof ApplicationException
-                ? $this->container->make('log')->channel($exception->getChannel())
-                : $this->container->make(LoggerInterface::class);
+            $logger = $this->getExceptionLogger($exception);
         } catch (BindingResolutionException) {
             // no action
         }
@@ -86,13 +76,12 @@ class Handler extends ExceptionHandler implements ContextProvider {
         }
 
         // Log
-        $level   = $exception instanceof ApplicationException
-            ? ($exception->getLevel() ?: LogLevel::ERROR)
-            : LogLevel::ERROR;
+        $helper  = $this->container->make(Helper::class);
+        $level   = $this->getExceptionLevel($exception);
         $message = $exception->getMessage();
         $context = [
-            'message' => $this->helper->getMessage($exception),
-            'stack'   => $this->helper->getTrace($exception, $this),
+            'message' => $helper->getMessage($exception),
+            'stack'   => $helper->getTrace($exception, $this),
         ];
 
         $logger->log($level, $message, $context);
@@ -106,6 +95,35 @@ class Handler extends ExceptionHandler implements ContextProvider {
 
         // Return
         return true;
+    }
+
+    protected function getExceptionLevel(Throwable $exception): string {
+        $level = LogLevel::ERROR;
+
+        if ($exception instanceof ApplicationException) {
+            $level = $exception->getLevel() ?: $level;
+        }
+
+        return $level;
+    }
+
+    protected function getExceptionLogger(Throwable $exception): ?LoggerInterface {
+        $logger = null;
+
+        if ($exception instanceof ApplicationException) {
+            $config  = $this->container->make(Repository::class);
+            $channel = $exception->getChannel();
+
+            if ($config->get("logging.channels.{$channel}")) {
+                $logger = $this->container->make('log')->channel($channel);
+            }
+        }
+
+        if (!$logger) {
+            $logger = $this->container->make(LoggerInterface::class);
+        }
+
+        return $logger;
     }
 
     // <editor-fold desc="ContextProvider">

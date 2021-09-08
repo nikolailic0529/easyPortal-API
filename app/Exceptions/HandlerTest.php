@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Log\LogManager;
 use Illuminate\Support\Facades\Event;
 use Mockery;
@@ -65,10 +66,14 @@ class HandlerTest extends TestCase {
      * @dataProvider dataProviderReport
      *
      * @param array{level: string, channel: string, message: string, context: array<mixed>} $expected
+     * @param array<string, mixed>                                                          $settings
      */
-    public function testReport(array $expected, Throwable $exception): void {
+    public function testReport(array $expected, array $settings, Throwable $exception): void {
         Event::fake(ErrorReport::class);
 
+        $this->setSettings($settings);
+
+        $config  = $this->app->make(Repository::class);
         $handler = $this->app->make(Handler::class);
         $context = null;
         $logger  = Mockery::mock(LoggerInterface::class);
@@ -81,14 +86,20 @@ class HandlerTest extends TestCase {
             });
 
         if ($exception instanceof ApplicationException) {
-            $manager = Mockery::mock(LogManager::class);
-            $manager
-                ->shouldReceive('channel')
-                ->with($expected['channel'])
-                ->once()
-                ->andReturn($logger);
+            if ($config->get("logging.channels.{$expected['channel']}")) {
+                $manager = Mockery::mock(LogManager::class);
+                $manager
+                    ->shouldReceive('channel')
+                    ->with($expected['channel'])
+                    ->once()
+                    ->andReturn($logger);
 
-            $logger = $manager;
+                $logger = $manager;
+            } else {
+                $logger
+                    ->shouldReceive('channel')
+                    ->never();
+            }
         }
 
         $this->override('log', static function () use ($logger): mixed {
@@ -142,7 +153,7 @@ class HandlerTest extends TestCase {
         };
 
         return [
-            'Exception'            => [
+            'Exception'                              => [
                 [
                     'level'   => LogLevel::ERROR,
                     'channel' => null,
@@ -159,9 +170,12 @@ class HandlerTest extends TestCase {
                         ],
                     ],
                 ],
+                [
+                    // empty
+                ],
                 $exception,
             ],
-            'ApplicationException' => [
+            'ApplicationException + channel defined' => [
                 [
                     'level'   => $application->getLevel(),
                     'channel' => $application->getChannel(),
@@ -177,6 +191,31 @@ class HandlerTest extends TestCase {
                             ],
                         ],
                     ],
+                ],
+                [
+                    "logging.channels.{$application->getChannel()}" => [''],
+                ],
+                $application,
+            ],
+            'ApplicationException + no channel'      => [
+                [
+                    'level'   => $application->getLevel(),
+                    'channel' => $application->getChannel(),
+                    'message' => $application->getMessage(),
+                    'context' => [
+                        'message' => 'Server Error.',
+                        'stack'   => [
+                            [
+                                'class'   => $application::class,
+                                'message' => 'test',
+                                'context' => [1, 2, 3],
+                                'file'    => __FILE__,
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    // empty
                 ],
                 $application,
             ],
