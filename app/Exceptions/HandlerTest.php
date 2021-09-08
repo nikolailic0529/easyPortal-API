@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Log\LogManager;
+use Illuminate\Support\Facades\Event;
 use Mockery;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -22,6 +23,10 @@ class HandlerTest extends TestCase {
      */
     public function testExceptionContext(): void {
         $exception = new class('test') extends ApplicationException {
+            public function __construct() {
+                parent::__construct('');
+            }
+
             /**
              * @inheritDoc
              */
@@ -62,6 +67,8 @@ class HandlerTest extends TestCase {
      * @param array{level: string, channel: string, message: string, context: array<mixed>} $expected
      */
     public function testReport(array $expected, Throwable $exception): void {
+        Event::fake(ErrorReport::class);
+
         $handler = $this->app->make(Handler::class);
         $context = null;
         $logger  = Mockery::mock(LoggerInterface::class);
@@ -94,6 +101,8 @@ class HandlerTest extends TestCase {
         unset($context['stack'][0]['trace']);
 
         $this->assertEquals($expected['context'], $context);
+
+        Event::assertDispatched(ErrorReport::class);
     }
     // </editor-fold>
 
@@ -112,6 +121,10 @@ class HandlerTest extends TestCase {
             }
         };
         $application = new class('test') extends ApplicationException {
+            public function __construct(string $message) {
+                parent::__construct($message);
+            }
+
             public function getLevel(): ?string {
                 return LogLevel::ALERT;
             }
@@ -138,10 +151,10 @@ class HandlerTest extends TestCase {
                         'message' => 'Server Error.',
                         'stack'   => [
                             [
-                                'exception' => $exception::class,
-                                'message'   => 'test',
-                                'context'   => [1, 2, 3],
-                                'file'      => __FILE__,
+                                'class'   => $exception::class,
+                                'message' => 'test',
+                                'context' => [1, 2, 3],
+                                'file'    => __FILE__,
                             ],
                         ],
                     ],
@@ -157,10 +170,10 @@ class HandlerTest extends TestCase {
                         'message' => 'Server Error.',
                         'stack'   => [
                             [
-                                'exception' => $application::class,
-                                'message'   => 'test',
-                                'context'   => [1, 2, 3],
-                                'file'      => __FILE__,
+                                'class'   => $application::class,
+                                'message' => 'test',
+                                'context' => [1, 2, 3],
+                                'file'    => __FILE__,
                             ],
                         ],
                     ],

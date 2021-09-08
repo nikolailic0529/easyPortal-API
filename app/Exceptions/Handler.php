@@ -4,7 +4,9 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
@@ -75,7 +77,7 @@ class Handler extends ExceptionHandler implements ContextProvider {
             $logger = $exception instanceof ApplicationException
                 ? $this->container->make('log')->channel($exception->getChannel())
                 : $this->container->make(LoggerInterface::class);
-        } catch (Exception) {
+        } catch (BindingResolutionException) {
             // no action
         }
 
@@ -94,6 +96,13 @@ class Handler extends ExceptionHandler implements ContextProvider {
         ];
 
         $logger->log($level, $message, $context);
+
+        // Event
+        try {
+            $this->container->make(Dispatcher::class)->dispatch(new ErrorReport($exception));
+        } catch (BindingResolutionException) {
+            // no action
+        }
 
         // Return
         return true;

@@ -71,12 +71,12 @@ class Helper {
 
         do {
             $stack[] = [
-                'exception' => $error::class,
-                'message'   => $error->getMessage(),
-                'context'   => $provider->getExceptionContext($error),
-                'file'      => $error->getFile(),
-                'line'      => $error->getLine(),
-                'trace'     => collect($error->getTrace())->map(static function (array $trace): array {
+                'class'   => $error::class,
+                'message' => $error->getMessage(),
+                'context' => $provider->getExceptionContext($error),
+                'file'    => $error->getFile(),
+                'line'    => $error->getLine(),
+                'trace'   => collect($error->getTrace())->map(static function (array $trace): array {
                     return Arr::except($trace, ['args']);
                 })->all(),
             ];
