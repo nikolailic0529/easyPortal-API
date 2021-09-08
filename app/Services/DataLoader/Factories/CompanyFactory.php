@@ -17,7 +17,6 @@ use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Collection;
 
 use function array_map;
@@ -34,7 +33,6 @@ abstract class CompanyFactory extends ModelFactory {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
-        protected Dispatcher $dispatcher,
         protected TypeResolver $typeResolver,
         protected StatusResolver $statusResolver,
         protected ContactFactory $contactFactory,
@@ -45,10 +43,6 @@ abstract class CompanyFactory extends ModelFactory {
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
-    protected function getDispatcher(): Dispatcher {
-        return $this->dispatcher;
-    }
-
     protected function getContactsFactory(): ContactFactory {
         return $this->contactFactory;
     }

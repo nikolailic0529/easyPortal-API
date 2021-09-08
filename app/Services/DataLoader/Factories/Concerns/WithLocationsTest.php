@@ -15,7 +15,6 @@ use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use Exception;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Event;
 use Mockery;
 use Tests\TestCase;
@@ -46,7 +45,6 @@ class WithLocationsTest extends TestCase {
             $this->app->make(Normalizer::class),
             $this->app->make(TypeResolver::class),
             $this->app->make(LocationFactory::class),
-            $this->app->make(Dispatcher::class),
         ) extends ModelFactory {
             use WithLocations {
                 objectLocations as public;
@@ -58,7 +56,6 @@ class WithLocationsTest extends TestCase {
                 protected Normalizer $normalizer,
                 protected TypeResolver $typeResolver,
                 protected LocationFactory $locationFactory,
-                protected Dispatcher $dispatcher,
             ) {
                 // empty
             }
@@ -69,10 +66,6 @@ class WithLocationsTest extends TestCase {
 
             protected function getLocationFactory(): LocationFactory {
                 return $this->locationFactory;
-            }
-
-            protected function getDispatcher(): Dispatcher {
-                return $this->dispatcher;
             }
 
             protected function getTypeResolver(): TypeResolver {
@@ -142,7 +135,7 @@ class WithLocationsTest extends TestCase {
             ->once()
             ->andReturns();
 
-        $factory = new class($factory, $this->app->make(Dispatcher::class)) extends ModelFactory {
+        $factory = new class($factory) extends ModelFactory {
             use WithLocations {
                 location as public;
             }
@@ -150,7 +143,6 @@ class WithLocationsTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected LocationFactory $locations,
-                protected Dispatcher $dispatcher,
             ) {
                 // empty
             }
@@ -161,10 +153,6 @@ class WithLocationsTest extends TestCase {
 
             protected function getLocationFactory(): LocationFactory {
                 return $this->locations;
-            }
-
-            protected function getDispatcher(): Dispatcher {
-                return $this->dispatcher;
             }
 
             protected function getTypeResolver(): TypeResolver {
@@ -194,7 +182,6 @@ class WithLocationsTest extends TestCase {
 
         $factory = new class(
             $factory,
-            $this->app->make(Dispatcher::class),
             $this->app->make(ExceptionHandler::class),
         ) extends ModelFactory {
             use WithLocations {
@@ -204,7 +191,6 @@ class WithLocationsTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected LocationFactory $locations,
-                protected Dispatcher $dispatcher,
                 protected ExceptionHandler $exceptionHandler,
             ) {
                 // empty
@@ -216,10 +202,6 @@ class WithLocationsTest extends TestCase {
 
             protected function getLocationFactory(): LocationFactory {
                 return $this->locations;
-            }
-
-            protected function getDispatcher(): Dispatcher {
-                return $this->dispatcher;
             }
 
             protected function getTypeResolver(): TypeResolver {

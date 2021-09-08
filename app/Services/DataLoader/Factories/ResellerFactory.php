@@ -25,23 +25,24 @@ class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
-        Dispatcher $dispatcher,
         TypeResolver $typeResolver,
         StatusResolver $statusResolver,
         ContactFactory $contactFactory,
         LocationFactory $locationFactory,
+        protected Dispatcher $dispatcher,
         protected ResellerResolver $resellerResolver,
     ) {
         parent::__construct(
             $exceptionHandler,
             $normalizer,
-            $dispatcher,
             $typeResolver,
             $statusResolver,
             $contactFactory,
             $locationFactory,
         );
     }
+
+
 
     // <editor-fold desc="Prefetch">
     // =========================================================================
@@ -127,7 +128,7 @@ class ResellerFactory extends CompanyFactory implements FactoryPrefetchable {
 
             $reseller->save();
 
-            $this->getDispatcher()->dispatch(new ResellerUpdated($reseller, $company));
+            $this->dispatcher->dispatch(new ResellerUpdated($reseller, $company));
 
             return $reseller;
         });

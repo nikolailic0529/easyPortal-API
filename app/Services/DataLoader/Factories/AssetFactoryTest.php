@@ -34,7 +34,6 @@ use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
@@ -539,13 +538,11 @@ class AssetFactoryTest extends TestCase {
                 ],
             ],
         ]);
-        $dispatcher = $this->app->make(Dispatcher::class);
         $handler    = $this->app->make(ExceptionHandler::class);
-        $factory    = new class($handler, $dispatcher) extends AssetFactory {
+        $factory    = new class($handler) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected ExceptionHandler $exceptionHandler,
-                protected Dispatcher $dispatcher,
             ) {
                 // empty
             }
@@ -578,7 +575,6 @@ class AssetFactoryTest extends TestCase {
             ],
         ]);
         $handler    = $this->app->make(ExceptionHandler::class);
-        $dispatcher = $this->app->make(Dispatcher::class);
         $documents  = Mockery::mock(DocumentFactory::class);
         $documents
             ->shouldReceive('create')
@@ -586,11 +582,10 @@ class AssetFactoryTest extends TestCase {
             ->andReturnUsing(function (Type $type): ?Document {
                 throw new ResellerNotFound($this->faker->uuid);
             });
-        $factory = new class($handler, $dispatcher, $documents) extends AssetFactory {
+        $factory = new class($handler, $documents) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected ExceptionHandler $exceptionHandler,
-                protected Dispatcher $dispatcher,
                 protected ?DocumentFactory $documentFactory,
             ) {
                 // empty
@@ -645,7 +640,6 @@ class AssetFactoryTest extends TestCase {
     public function testAssetInitialWarranties(): void {
         $factory = new class(
             $this->app->make(Normalizer::class),
-            $this->app->make(Dispatcher::class),
             $this->app->make(ExceptionHandler::class),
             $this->app->make(ResellerResolver::class),
             $this->app->make(CustomerResolver::class),
@@ -653,7 +647,6 @@ class AssetFactoryTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected Dispatcher $dispatcher,
                 protected ExceptionHandler $exceptionHandler,
                 protected ResellerResolver $resellerResolver,
                 protected CustomerResolver $customerResolver,

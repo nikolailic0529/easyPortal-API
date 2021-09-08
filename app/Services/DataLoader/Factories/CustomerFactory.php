@@ -13,7 +13,6 @@ use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use Closure;
 use Illuminate\Contracts\Debug\ExceptionHandler;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
 
@@ -27,7 +26,6 @@ class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
     public function __construct(
         ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
-        Dispatcher $dispatcher,
         TypeResolver $typeResolver,
         StatusResolver $statusResolver,
         ContactFactory $contactFactory,
@@ -37,7 +35,6 @@ class CustomerFactory extends CompanyFactory implements FactoryPrefetchable {
         parent::__construct(
             $exceptionHandler,
             $normalizer,
-            $dispatcher,
             $typeResolver,
             $statusResolver,
             $contactFactory,
