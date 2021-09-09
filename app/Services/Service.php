@@ -8,11 +8,16 @@ use DateInterval;
 use Illuminate\Contracts\Cache\Repository;
 use JsonSerializable;
 
+use function array_slice;
+use function class_exists;
+use function count;
+use function explode;
 use function implode;
 use function is_array;
 use function is_object;
 use function json_decode;
 use function json_encode;
+use function str_starts_with;
 
 /**
  * Wrapper around the {@see \Illuminate\Contracts\Cache\Repository} that
@@ -103,5 +108,26 @@ abstract class Service {
 
     protected function getDefaultTtl(): DateInterval|int|null {
         return new DateInterval('P1M');
+    }
+
+    /**
+     * @param object|class-string $class
+     *
+     * @return class-string<\App\Services\Service>|null
+     */
+    public static function getService(object|string $class): ?string {
+        $class   = is_object($class) ? $class::class : $class;
+        $parts   = array_slice(explode('\\', self::class), 0, -1);
+        $service = null;
+
+        if (str_starts_with($class, implode('\\', $parts))) {
+            $service = implode('\\', array_slice(explode('\\', $class), 0, count($parts) + 1)).'\\Service';
+
+            if (!class_exists($service)) {
+                $service = null;
+            }
+        }
+
+        return $service;
     }
 }

@@ -24,7 +24,7 @@ abstract class ApplicationException extends Exception {
         return $this->level;
     }
 
-    protected function setLevel(?string $level): static {
+    public function setLevel(?string $level): static {
         $this->level = $level;
 
         return $this;
@@ -34,7 +34,7 @@ abstract class ApplicationException extends Exception {
         return $this->channel;
     }
 
-    protected function setChannel(?string $channel): static {
+    public function setChannel(?string $channel): static {
         $this->channel = $channel;
 
         return $this;
