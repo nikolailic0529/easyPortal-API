@@ -101,7 +101,7 @@ class InviteOrgUser {
     protected function createInvitation(Organization $organization, UserModel $user, Role $role): Invitation {
         $invitation                  = new Invitation();
         $invitation->organization_id = $organization->getKey();
-        $invitation->created_by      = $this->auth->user()->getAuthIdentifier();
+        $invitation->sender_id       = $this->auth->user()->getAuthIdentifier();
         $invitation->user_id         = $user->getKey();
         $invitation->role_id         = $role->getKey();
         $invitation->email           = $user->email;

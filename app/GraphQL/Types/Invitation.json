@@ -23,9 +23,6 @@
         "role_id": {
             "$ref": "../types.json#/definitions/ID"
         },
-        "created_by": {
-            "$ref": "../types.json#/definitions/ID"
-        },
         "email": {
             "type": "string"
         },

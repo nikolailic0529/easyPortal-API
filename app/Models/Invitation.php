@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property string                       $id
  * @property string                       $organization_id
- * @property string                       $created_by
+ * @property string                       $sender_id
  * @property string                       $user_id
  * @property string                       $role_id
  * @property string                       $email

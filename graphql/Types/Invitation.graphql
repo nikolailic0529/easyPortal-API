@@ -2,7 +2,6 @@ type Invitation {
     id: ID!
     organization_id: ID!
     user_id: ID!
-    created_by: ID!
     role_id: ID!
     email: String!
     used_at: DateTime

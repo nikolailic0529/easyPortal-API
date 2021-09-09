@@ -37,7 +37,7 @@ class InvitationFactory extends Factory {
             'user_id'         => static function (): User {
                 return User::factory()->create();
             },
-            'created_by'      => static function (): User {
+            'sender_id'       => static function (): User {
                 return User::factory()->create();
             },
             'role_id'         => static function (): Role {

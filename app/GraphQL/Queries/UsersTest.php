@@ -60,7 +60,6 @@ class UsersTest extends TestCase {
                           role_id
                           email
                           used_at
-                          created_by
                       }
                     }
                     paginatorInfo {
@@ -112,7 +111,6 @@ class UsersTest extends TestCase {
                                         'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                         'email'           => 'test@gmail.com',
                                         'user_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
-                                        'created_by'      => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                                         'organization_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                         'role_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
                                         'used_at'         => null,
@@ -136,7 +134,7 @@ class UsersTest extends TestCase {
                                     'organization_id' => $organization->getKey(),
                                     'role_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
                                     'used_at'         => null,
-                                    'created_by'      => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
+                                    'sender_id'       => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                                 ])
                                 ->create([
                                     'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
@@ -189,7 +187,6 @@ class UsersTest extends TestCase {
                                         'organization_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                         'role_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
                                         'user_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
-                                        'created_by'      => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                                         'used_at'         => null,
                                     ],
                                 ],
@@ -214,7 +211,6 @@ class UsersTest extends TestCase {
                                         'organization_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
                                         'role_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d05',
                                         'user_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
-                                        'created_by'      => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
                                         'used_at'         => null,
                                     ],
                                 ],
@@ -234,7 +230,7 @@ class UsersTest extends TestCase {
                                     'email'           => 'test@gmail.com',
                                     'organization_id' => $organization->getKey(),
                                     'role_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
-                                    'created_by'      => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
+                                    'sender_id'       => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                                     'used_at'         => null,
                                 ])
                                 ->create([
@@ -258,7 +254,7 @@ class UsersTest extends TestCase {
                                     'email'           => 'test@gmail.com',
                                     'organization_id' => $organization->getKey(),
                                     'role_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d05',
-                                    'created_by'      => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
+                                    'sender_id'       => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
                                     'used_at'         => null,
                                 ])
                                 ->create([
