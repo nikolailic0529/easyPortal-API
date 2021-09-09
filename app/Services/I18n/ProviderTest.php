@@ -1,15 +1,14 @@
 <?php declare(strict_types = 1);
 
-namespace App\Providers;
+namespace App\Services\I18n;
 
-use App\Services\I18n\TranslationLoader;
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Providers\TranslationServiceProvider
+ * @coversDefaultClass \App\Services\I18n\Provider
  */
-class TranslationServiceProviderTest extends TestCase {
+class ProviderTest extends TestCase {
     /**
      * @covers ::registerLoader
      */
