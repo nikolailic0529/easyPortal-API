@@ -1,5 +1,6 @@
 <?php declare(strict_types = 1);
 
+use App\Services\Auth\Service as AuthService;
 use App\Services\DataLoader\Service as DataLoaderService;
 use App\Services\KeyCloak\Service as KeyCloakService;
 use Monolog\Handler\NullHandler;
@@ -57,6 +58,12 @@ return [
         ],
 
         // Services
+        AuthService::class       => [
+            'driver' => 'daily',
+            'path'   => storage_path('logs/Auth/EAP-Auth.log'),
+            'level'  => env('LOG_LEVEL', 'debug'),
+            'days'   => 365,
+        ],
         DataLoaderService::class => [
             'driver' => 'daily',
             'path'   => storage_path('logs/DataLoader/EAP-DataLoader.log'),

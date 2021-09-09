@@ -2,6 +2,7 @@
 
 namespace App\Services\KeyCloak\Exceptions;
 
+use App\Services\Auth\Exceptions\AuthException;
 use Throwable;
 
 use function __;

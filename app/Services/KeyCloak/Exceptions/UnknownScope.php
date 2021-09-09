@@ -3,6 +3,7 @@
 namespace App\Services\KeyCloak\Exceptions;
 
 use App\Models\Organization;
+use App\Services\Auth\Exceptions\AuthException;
 use Throwable;
 
 use function __;

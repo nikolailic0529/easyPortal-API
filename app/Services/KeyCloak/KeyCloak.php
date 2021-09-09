@@ -3,7 +3,7 @@
 namespace App\Services\KeyCloak;
 
 use App\Models\Organization;
-use App\Services\KeyCloak\Exceptions\AuthException;
+use App\Services\Auth\Exceptions\AuthException;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailed;
 use App\Services\KeyCloak\Exceptions\InvalidCredentials;
 use App\Services\KeyCloak\Exceptions\InvalidIdentity;
