@@ -103,7 +103,7 @@ class UserProviderTest extends TestCase {
                     ->shouldReceive('updateTokenUser')
                     ->once()
                     ->andReturnUsing(static function (User $user, UnencryptedToken $token) {
-                        $user->enabled = $token->claims()->get(UserProvider::CLAIM_ENABLED);
+                        $user->enabled = $token->claims()->get('enabled');
 
                         return $user;
                     });
@@ -390,7 +390,7 @@ class UserProviderTest extends TestCase {
                             static function (Builder $builder): void {
                                 $builder
                                     ->relatedTo('c1aa09cc-0bd8-490e-8c7b-25c18df23e18')
-                                    ->withClaim(UserProvider::CLAIM_ENABLED, true);
+                                    ->withClaim('enabled', true);
                             },
                         ),
                     ];
@@ -409,7 +409,7 @@ class UserProviderTest extends TestCase {
                             static function (Builder $builder): void {
                                 $builder
                                     ->relatedTo('c1aa09cc-0bd8-490e-8c7b-25c18df23e18')
-                                    ->withClaim(UserProvider::CLAIM_ENABLED, true);
+                                    ->withClaim('enabled', true);
                             },
                         ),
                     ];
@@ -455,7 +455,7 @@ class UserProviderTest extends TestCase {
                             static function (Builder $builder): void {
                                 $builder
                                     ->relatedTo('c1aa09cc-0bd8-490e-8c7b-25c18df23e18')
-                                    ->withClaim(UserProvider::CLAIM_ENABLED, false);
+                                    ->withClaim('enabled', false);
                             },
                         ),
                     ];

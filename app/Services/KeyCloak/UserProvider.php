@@ -35,7 +35,7 @@ class UserProvider implements UserProviderContract {
     protected const CLAIM_PHONE_NUMBER          = 'phone_number';
     protected const CLAIM_PHONE_NUMBER_VERIFIED = 'phone_number_verified';
     protected const CLAIM_PHOTO                 = 'photo';
-    public    const CLAIM_ENABLED               = 'enabled';
+    protected const CLAIM_ENABLED               = 'enabled';
     protected const CLAIM_JOB_TITLE             = 'job_title';
     protected const CLAIM_MOBILE_PHONE          = 'mobile_phone';
     protected const CLAIM_OFFICE_PHONE          = 'office_phone';

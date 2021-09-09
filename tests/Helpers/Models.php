@@ -2,6 +2,7 @@
 
 namespace Tests\Helpers;
 
+use App\Services\Logger\Logger;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use ReflectionClass;
@@ -10,38 +11,21 @@ use function array_fill_keys;
 use function config;
 
 /**
- * Get list of all application models which use default connection.
+ * Get list of all application models.
  */
 class Models {
     /**
      * @return \Illuminate\Support\Collection<class-string<\Illuminate\Database\Eloquent\Model>,\ReflectionClass<\Illuminate\Database\Eloquent\Model>>
      */
     public static function get(): Collection {
-        return ClassMap::get()->filter(static function (ReflectionClass $class): bool {
-            // Model?
-            if (!$class->isSubclassOf(Model::class)) {
-                return false;
-            }
+        $ignored = array_fill_keys(config('ide-helper.ignored_models', []), true);
 
-            // Class?
-            if ($class->isTrait() || $class->isAbstract()) {
-                return false;
-            }
-
-            // Connection?
-            if ($class->newInstance()->getConnectionName() !== null) {
-                return false;
-            }
-
-            // Ignored?
-            $ignored = array_fill_keys(config('ide-helper.ignored_models', []), true);
-
-            if (isset($ignored[$class->getName()])) {
-                return false;
-            }
-
-            // Ok
-            return true;
+        return ClassMap::get()->filter(static function (ReflectionClass $class) use ($ignored): bool {
+            return $class->isSubclassOf(Model::class)
+                && !$class->isTrait()
+                && !$class->isAbstract()
+                && $class->newInstance()->getConnectionName() !== Logger::CONNECTION
+                && !isset($ignored[$class->getName()]);
         });
     }
 }

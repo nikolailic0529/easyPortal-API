@@ -97,7 +97,7 @@ class UpdateMeEmailTest extends TestCase {
             new OrganizationDataProvider('updateMeEmail'),
             new UserDataProvider('updateMeEmail'),
             new ArrayDataProvider([
-                'keycloak'                => [
+                'keycloak'             => [
                     new GraphQLSuccess('updateMeEmail', UpdateMeEmail::class, [
                         'result' => true,
                     ]),
@@ -114,7 +114,7 @@ class UpdateMeEmailTest extends TestCase {
                             ->once();
                     },
                 ],
-                'local'                   => [
+                'local'                => [
                     new GraphQLSuccess('updateMeEmail', UpdateMeEmail::class, [
                         'result' => true,
                     ]),
@@ -147,7 +147,7 @@ class UpdateMeEmailTest extends TestCase {
                             ->andThrow(new RealmUserAlreadyExists('new@example.com'));
                     },
                 ],
-                'keycloak/taken'          => [
+                'keycloak/taken'       => [
                     new GraphQLError('updateMeEmail', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
@@ -166,7 +166,7 @@ class UpdateMeEmailTest extends TestCase {
                             ->never();
                     },
                 ],
-                'local/taken'             => [
+                'local/taken'          => [
                     new GraphQLError('updateMeEmail', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
