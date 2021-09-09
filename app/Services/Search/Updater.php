@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Laravel\Scout\Events\ModelsImported;
 use Laravel\Telescope\Telescope;
 use LastDragon_ru\LaraASP\Eloquent\Iterators\ChunkedChangeSafeIterator;
-use Psr\Log\LoggerInterface;
 use Throwable;
 
 use function array_filter;
@@ -32,7 +31,6 @@ class Updater {
     public function __construct(
         protected Repository $config,
         protected Dispatcher $dispatcher,
-        protected LoggerInterface $logger,
         protected Client $client,
     ) {
         // empty
@@ -48,10 +46,6 @@ class Updater {
 
     protected function getClient(): Client {
         return $this->client;
-    }
-
-    protected function getLogger(): LoggerInterface {
-        return $this->logger;
     }
 
     public function onInit(?Closure $closure): static {
