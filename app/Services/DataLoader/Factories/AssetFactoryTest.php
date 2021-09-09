@@ -528,8 +528,8 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetDocumentsNoDocumentId(): void {
         // Prepare
-        $model      = Asset::factory()->make();
-        $asset      = new ViewAsset([
+        $model   = Asset::factory()->make();
+        $asset   = new ViewAsset([
             'assetDocument' => [
                 [
                     'documentNumber' => '12345678',
@@ -538,8 +538,8 @@ class AssetFactoryTest extends TestCase {
                 ],
             ],
         ]);
-        $handler    = $this->app->make(ExceptionHandler::class);
-        $factory    = new class($handler) extends AssetFactory {
+        $handler = $this->app->make(ExceptionHandler::class);
+        $factory = new class($handler) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected ExceptionHandler $exceptionHandler,
@@ -564,8 +564,8 @@ class AssetFactoryTest extends TestCase {
         Event::fake(ErrorReport::class);
 
         // Prepare
-        $model      = Asset::factory()->make();
-        $asset      = new ViewAsset([
+        $model     = Asset::factory()->make();
+        $asset     = new ViewAsset([
             'assetDocument' => [
                 [
                     'document'  => ['id' => 'a'],
@@ -574,8 +574,8 @@ class AssetFactoryTest extends TestCase {
                 ],
             ],
         ]);
-        $handler    = $this->app->make(ExceptionHandler::class);
-        $documents  = Mockery::mock(DocumentFactory::class);
+        $handler   = $this->app->make(ExceptionHandler::class);
+        $documents = Mockery::mock(DocumentFactory::class);
         $documents
             ->shouldReceive('create')
             ->once()

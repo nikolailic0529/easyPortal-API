@@ -2,11 +2,11 @@
 
 namespace App\GraphQL\Queries\Application;
 
-use App\Services\I18n\Locale;
+use App\Services\I18n\Locale as LocaleService;
 
 class Locale {
     public function __construct(
-        protected Locale $locale,
+        protected LocaleService $locale,
     ) {
         // empty
     }

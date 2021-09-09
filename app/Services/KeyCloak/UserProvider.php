@@ -6,8 +6,8 @@ use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Exceptions\AnotherUserExists;
-use App\Services\KeyCloak\Exceptions\UserInsufficientData;
 use App\Services\KeyCloak\Exceptions\UserDisabled;
+use App\Services\KeyCloak\Exceptions\UserInsufficientData;
 use App\Services\Organization\RootOrganization;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as UserProviderContract;
@@ -43,7 +43,6 @@ class UserProvider implements UserProviderContract {
     protected const CLAIM_TITLE                 = 'title';
     protected const CLAIM_CONTACT_EMAIL         = 'contact_email';
     protected const CLAIM_ACADEMIC_TITLE        = 'academic_title';
-
 
     /**
      * @var array<string,array{property:string,required:boolean,default:mixed,if:string|null}>

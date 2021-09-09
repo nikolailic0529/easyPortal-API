@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Queries\Application;
 
-use App\Services\I18n\Locale;
+use App\Services\I18n\Locale as LocaleService;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -30,7 +30,7 @@ class LocaleTest extends TestCase {
         $this->setUser($userFactory, $this->setOrganization($organizationFactory));
 
         if ($locale) {
-            $this->app->make(Locale::class)->set($locale);
+            $this->app->make(LocaleService::class)->set($locale);
         }
 
         // Test

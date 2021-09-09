@@ -148,7 +148,7 @@ class EnableOrgUserTest extends TestCase {
                     },
                 ],
                 'user not found' => [
-                    new GraphQLError('enableOrgUser', new RealmUserNotFound()),
+                    new GraphQLError('enableOrgUser', new RealmUserNotFound('d8ec7dcf-c542-42b5-8d7d-971400c02399')),
                     $prepare,
                     static function (): array {
                         $user = User::factory()->create([
@@ -163,7 +163,7 @@ class EnableOrgUserTest extends TestCase {
                             ->shouldReceive('getUserGroups')
                             ->with('d8ec7dcf-c542-42b5-8d7d-971400c02399')
                             ->once()
-                            ->andThrow(new RealmUserNotFound());
+                            ->andThrow(new RealmUserNotFound('d8ec7dcf-c542-42b5-8d7d-971400c02399'));
                     },
                 ],
             ]),

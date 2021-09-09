@@ -141,7 +141,9 @@ return [
     |
     */
 
-    'ignored_models'                        => [],
+    'ignored_models'                        => [
+        App\Services\Search\Eloquent\UnionModel::class,
+    ],
 
     /*
     |--------------------------------------------------------------------------

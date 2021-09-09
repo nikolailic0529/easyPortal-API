@@ -153,7 +153,7 @@ class UpdateMeProfileTest extends TestCase {
                     },
                 ],
                 'user not exists'                       => [
-                    new GraphQLError('updateMeProfile', new RealmUserNotFound()),
+                    new GraphQLError('updateMeProfile', new RealmUserNotFound('id')),
                     [],
                     static function (): array {
                         return [
@@ -165,7 +165,7 @@ class UpdateMeProfileTest extends TestCase {
                         $mock
                             ->shouldReceive('getUserById')
                             ->once()
-                            ->andThrow(new RealmUserNotFound());
+                            ->andThrow(new RealmUserNotFound('id'));
                         $mock
                             ->shouldReceive('updateUser')
                             ->never();

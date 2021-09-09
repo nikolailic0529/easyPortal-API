@@ -6,8 +6,8 @@ use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Exceptions\AnotherUserExists;
-use App\Services\KeyCloak\Exceptions\UserInsufficientData;
 use App\Services\KeyCloak\Exceptions\UserDisabled;
+use App\Services\KeyCloak\Exceptions\UserInsufficientData;
 use Closure;
 use Exception;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -104,6 +104,7 @@ class UserProviderTest extends TestCase {
                     ->once()
                     ->andReturnUsing(static function (User $user, UnencryptedToken $token) {
                         $user->enabled = $token->claims()->get(UserProvider::CLAIM_ENABLED);
+
                         return $user;
                     });
             } else {
