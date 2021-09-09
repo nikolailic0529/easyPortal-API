@@ -19,7 +19,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property \App\Models\User             $user
+ * @property-read \App\Models\Role        $role
+ * @property-read \App\Models\User        $user
  * @method static \Database\Factories\InvitationFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Invitation newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Invitation newQuery()
@@ -50,7 +51,11 @@ class Invitation extends Model {
      */
     protected $casts = self::CASTS;
 
-    protected function user(): BelongsTo {
+    public function user(): BelongsTo {
         return $this->belongsTo(User::class);
+    }
+
+    public function role(): BelongsTo {
+        return $this->belongsTo(Role::class);
     }
 }

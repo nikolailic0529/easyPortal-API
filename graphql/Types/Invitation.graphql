@@ -1,8 +1,8 @@
 type Invitation {
-    id: ID!
-    organization_id: ID!
-    user_id: ID!
-    role_id: ID!
-    email: String!
-    used_at: DateTime
+  id: ID!
+  organization_id: ID!
+  role_id: ID!
+  role: Role @belongsTo
+  email: String!
+  used_at: DateTime
 }
