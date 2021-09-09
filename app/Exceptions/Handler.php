@@ -14,6 +14,7 @@ use Illuminate\Database\RecordsNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Session\TokenMismatchException;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Nuwave\Lighthouse\Exceptions\DefinitionException as GraphQLDefinitionException;
 use Nuwave\Lighthouse\Exceptions\RateLimitException;
 use Nuwave\Lighthouse\Exceptions\ValidationException;
@@ -24,7 +25,6 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Throwable;
 
 use function array_merge;
-use function collect;
 use function is_null;
 use function reset;
 use function rtrim;
@@ -261,18 +261,22 @@ class Handler extends ExceptionHandler {
      * @return array<mixed>
      */
     public function getExceptionTrace(Throwable $exception): array {
-        $stack = [];
+        $stack  = [];
+        $filter = static function (array $trace): array {
+            return Arr::except($trace, ['args']);
+        };
 
         do {
             $stack[]   = [
                 'class'   => $exception::class,
                 'message' => $exception->getMessage(),
                 'context' => $this->exceptionContext($exception),
+                'code'    => $exception->getCode(),
                 'file'    => $exception->getFile(),
                 'line'    => $exception->getLine(),
-                'trace'   => collect($exception->getTrace())->map(static function (array $trace): array {
-                    return Arr::except($trace, ['args']);
-                })->all(),
+                'trace'   => !($exception instanceof ApplicationMessage)
+                    ? (new Collection($exception->getTrace()))->map($filter)->all()
+                    : [],
             ];
             $exception = $exception->getPrevious();
         } while ($exception);
@@ -286,7 +290,7 @@ class Handler extends ExceptionHandler {
     protected function getExceptionContext(Throwable $exception): array {
         return [
             'message' => $this->getExceptionMessage($exception),
-            'stack'   => $this->getExceptionTrace($exception),
+            'context' => $this->getExceptionTrace($exception),
         ];
     }
 

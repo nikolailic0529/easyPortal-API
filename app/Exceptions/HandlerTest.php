@@ -102,8 +102,8 @@ class HandlerTest extends TestCase {
 
         $handler->report($exception);
 
-        unset($context['stack'][0]['line']);
-        unset($context['stack'][0]['trace']);
+        unset($context['context'][0]['line']);
+        unset($context['context'][0]['trace']);
 
         $this->assertEquals($expected['context'], $context);
 
@@ -154,12 +154,13 @@ class HandlerTest extends TestCase {
                     'message' => 'test',
                     'context' => [
                         'message' => 'Server Error.',
-                        'stack'   => [
+                        'context' => [
                             [
                                 'class'   => $exception::class,
                                 'message' => 'test',
                                 'context' => [1, 2, 3],
                                 'file'    => __FILE__,
+                                'code'    => 0,
                             ],
                         ],
                     ],
@@ -176,12 +177,13 @@ class HandlerTest extends TestCase {
                     'message' => $application->getMessage(),
                     'context' => [
                         'message' => 'Server Error.',
-                        'stack'   => [
+                        'context' => [
                             [
                                 'class'   => $application::class,
                                 'message' => 'test',
                                 'context' => [1, 2, 3],
                                 'file'    => __FILE__,
+                                'code'    => 0,
                             ],
                         ],
                     ],
@@ -198,12 +200,13 @@ class HandlerTest extends TestCase {
                     'message' => $application->getMessage(),
                     'context' => [
                         'message' => 'Server Error.',
-                        'stack'   => [
+                        'context' => [
                             [
                                 'class'   => $application::class,
                                 'message' => 'test',
                                 'context' => [1, 2, 3],
                                 'file'    => __FILE__,
+                                'code'    => 0,
                             ],
                         ],
                     ],
