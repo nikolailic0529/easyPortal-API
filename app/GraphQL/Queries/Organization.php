@@ -73,11 +73,11 @@ class Organization {
     /**
      * @return array<string,mixed>
      */
-    public function roles(OrganizationModel $organization): ?array {
+    public function roles(OrganizationModel $organization): array {
         $output = [];
         $group  = $this->client->getGroup($organization);
         if (!$group) {
-            return null;
+            return [];
         }
         $clientId    = (string) $this->config->get('ep.keycloak.client_id');
         $permissions = Permission::all();
