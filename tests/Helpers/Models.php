@@ -2,24 +2,22 @@
 
 namespace Tests\Helpers;
 
-use Closure;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use ReflectionClass;
 
 use function array_fill_keys;
 use function config;
 
 /**
- * Holds list of all application models which use default connection.
+ * Get list of all application models which use default connection.
  */
 class Models {
     /**
-     * @param \Closure(\ReflectionClass<\Illuminate\Database\Eloquent\Model>): bool $filter
-     *
-     * @return array<class-string<\Illuminate\Database\Eloquent\Model>,\ReflectionClass<\Illuminate\Database\Eloquent\Model>>
+     * @return \Illuminate\Support\Collection<class-string<\Illuminate\Database\Eloquent\Model>,\ReflectionClass<\Illuminate\Database\Eloquent\Model>>
      */
-    public static function get(Closure $filter = null): array {
-        return ClassMap::get(static function (ReflectionClass $class) use ($filter): bool {
+    public static function get(): Collection {
+        return ClassMap::get()->filter(static function (ReflectionClass $class): bool {
             // Model?
             if (!$class->isSubclassOf(Model::class)) {
                 return false;
@@ -42,8 +40,8 @@ class Models {
                 return false;
             }
 
-            // Filter?
-            return !$filter || $filter($class);
+            // Ok
+            return true;
         });
     }
 }

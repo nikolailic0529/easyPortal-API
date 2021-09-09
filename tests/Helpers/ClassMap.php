@@ -2,17 +2,17 @@
 
 namespace Tests\Helpers;
 
-use Closure;
 use Composer\Autoload\ClassMapGenerator;
+use Illuminate\Support\Collection;
 use ReflectionClass;
 
 use function app_path;
-use function array_filter;
-use function base_path;
 use function class_exists;
-use function database_path;
 use function str_ends_with;
 
+/**
+ * Holds list of all application classes.
+ */
 class ClassMap {
     /**
      * @var array<class-string,\ReflectionClass>
@@ -20,19 +20,12 @@ class ClassMap {
     protected static array $classes;
 
     /**
-     * @param \Closure(\ReflectionClass): bool $filter
-     *
-     * @return array<class-string,\ReflectionClass>
+     * @return \Illuminate\Support\Collection<class-string,\ReflectionClass>
      */
-    public static function get(Closure $filter = null): array {
+    public static function get(): Collection {
         // Cached?
         self::$classes ??= self::load();
-        $classes         = self::$classes;
-
-        // Filter
-        if ($filter) {
-            $classes = array_filter($classes, $filter);
-        }
+        $classes         = new Collection(self::$classes);
 
         // Return
         return $classes;
