@@ -976,6 +976,16 @@ type ImportOemsPayload {
   result: Boolean!
 }
 
+type Invitation {
+  id: ID!
+  organization_id: ID!
+  user_id: ID!
+  created_by: ID!
+  role_id: ID!
+  email: String!
+  used_at: DateTime
+}
+
 input InviteOrgUserInput {
   email: String!
   role_id: ID!
@@ -5124,6 +5134,7 @@ type User {
   email_verified: Boolean!
   enabled: Boolean!
   roles: [Role!]!
+  invitations: [Invitation!]!
 }
 
 """A paginated list of User items."""

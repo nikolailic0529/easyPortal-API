@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations\Org;
 use App\Mail\InviteOrganizationUser;
 use App\Models\Organization;
 use App\Models\Role;
+use App\Models\User as UserModel;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists;
 use App\Services\KeyCloak\Client\Types\User;
@@ -21,8 +22,6 @@ use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
 use function __;
-use function json_encode;
-use function time;
 
 /**
  * @internal
@@ -52,22 +51,29 @@ class InviteOrgUserTest extends TestCase {
     ): void {
         // Prepare
         $organization = $organizationFactory($this);
+        $user         = $this->setUser($userFactory, $this->setOrganization($organization));
 
         if ($prepare) {
-            $organization = $prepare($this, $organization);
+            $organization = $prepare($this, $organization, $user);
         }
-
-        $this->setUser($userFactory, $this->setOrganization($organization));
 
         Mail::fake();
 
         if ($roleFactory) {
             $roleFactory($this, $organization);
         } else {
-            // Will throw validation errors without it
+            // Lighthouse performs validation BEFORE permission check :(
+            //
+            // https://github.com/nuwave/lighthouse/issues/1780
+            //
+            // Following code required to "fix" it
+            if (!$organization) {
+                $organization = $this->setOrganization(Organization::factory()->create());
+            }
             Role::factory()->create([
-                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                'name' => 'role1',
+                'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                'name'            => 'role1',
+                'organization_id' => $organization->getKey(),
             ]);
         }
 
@@ -88,6 +94,14 @@ class InviteOrgUserTest extends TestCase {
             $shouldSendEmail
                 ? Mail::assertSent(InviteOrganizationUser::class)
                 : Mail::assertNotSent(InviteOrganizationUser::class);
+
+            $user = UserModel::query()
+                ->with(['organizations', 'roles'])
+                ->whereKey('f9834bc1-2f2f-4c57-bb8d-7a224ac24987')
+                ->first();
+            $this->assertNotNull($user);
+            $this->assertTrue($user->organizations->contains($organization->getKey()));
+            $this->assertTrue($user->roles->contains('f9834bc1-2f2f-4c57-bb8d-7a224ac24982'));
         }
     }
     // </editor-fold>
@@ -109,12 +123,16 @@ class InviteOrgUserTest extends TestCase {
 
             return Role::factory()->create($input);
         };
-        $prepare     = static function (TestCase $test, ?Organization $organization): Organization {
+        $prepare     = static function (TestCase $test, ?Organization $organization, ?UserModel $user): Organization {
             if ($organization && !$organization->keycloak_group_id) {
                 $organization->keycloak_group_id = $test->faker->uuid();
                 $organization->keycloak_scope    = $test->faker->word();
                 $organization->save();
                 $organization = $organization->fresh();
+
+                if ($user) {
+                    $user->save();
+                }
             }
 
             return $organization;
@@ -126,7 +144,7 @@ class InviteOrgUserTest extends TestCase {
                 'org-administer',
             ]),
             new ArrayDataProvider([
-                'ok'                                  => [
+                'ok'              => [
                     new GraphQLSuccess('inviteOrgUser', InviteOrgUser::class),
                     $prepare,
                     $roleFactory,
@@ -139,10 +157,20 @@ class InviteOrgUserTest extends TestCase {
                             ->shouldReceive('inviteUser')
                             ->once()
                             ->andReturns(true);
+                        $mock
+                            ->shouldReceive('getUserByEmail')
+                            ->once()
+                            ->andReturns(new User([
+                                'id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'email' => 'test@gmail.com',
+                            ]));
+                        $mock
+                            ->shouldReceive('addUserToGroup')
+                            ->never();
                     },
                     true,
                 ],
-                'invited/not in organization'         => [
+                'exists'          => [
                     new GraphQLSuccess('inviteOrgUser', InviteOrgUser::class),
                     $prepare,
                     $roleFactory,
@@ -159,29 +187,44 @@ class InviteOrgUserTest extends TestCase {
                             ->shouldReceive('getUserByEmail')
                             ->once()
                             ->andReturns(new User([
-                                'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                'attributes' => [
-                                    'ep_invite_745e3dd2-915e-31b2-b02b-cbab069c9d46' => [
-                                        json_encode([
-                                            'sent_at' => time(),
-                                            'used_at' => time(),
-                                        ]),
+                                'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'email'       => 'test@gmail.com',
+                                'credentials' => [
+                                    [
+                                        'type' => 'password',
                                     ],
                                 ],
                             ]));
-                        $mock
-                            ->shouldReceive('updateUser')
-                            ->once()
-                            ->andReturns(true);
                         $mock
                             ->shouldReceive('addUserToGroup')
                             ->once();
                     },
                     true,
                 ],
-                'invited/in organization used'        => [
-                    new GraphQLError('inviteOrgUser', new InviteOrgUserAlreadyUsedInvitation()),
-                    $prepare,
+                'In organization' => [
+                    new GraphQLError('inviteOrgUser', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    static function (TestCase $test, ?Organization $organization, ?UserModel $user): Organization {
+                        if ($organization && !$organization->keycloak_group_id) {
+                            $organization->keycloak_group_id = $test->faker->uuid();
+                            $organization->keycloak_scope    = $test->faker->word();
+                            $organization->save();
+                            $organization = $organization->fresh();
+
+                            if ($user) {
+                                $user->save();
+                            }
+                        }
+
+                        // User in organization
+                        $orgUser                = UserModel::factory()->make([
+                            'email' => 'test@gmail.com',
+                        ]);
+                        $orgUser->organizations = [$organization];
+                        $orgUser->save();
+                        return $organization;
+                    },
                     $roleFactory,
                     [
                         'email'   => 'test@gmail.com',
@@ -190,29 +233,25 @@ class InviteOrgUserTest extends TestCase {
                     static function (MockInterface $mock): void {
                         $mock
                             ->shouldReceive('inviteUser')
-                            ->once()
-                            ->andThrow(new UserAlreadyExists('test@gmail.com'));
+                            ->never();
                         $mock
                             ->shouldReceive('getUserByEmail')
-                            ->once()
-                            ->andReturns(new User([
-                                'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                'attributes' => [
-                                    'ep_invite_745e3dd2-915e-31b2-b02b-cbab069c9d45' => [
-                                        json_encode([
-                                            'sent_at' => time(),
-                                            'used_at' => time(),
-                                        ]),
-                                    ],
-                                ],
-                            ]));
+                            ->never();
                     },
                     false,
                 ],
-                'invited/in organization not used'    => [
-                    new GraphQLSuccess('inviteOrgUser', InviteOrgUser::class),
+                'Invalid role'    => [
+                    new GraphQLError('inviteOrgUser', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
                     $prepare,
-                    $roleFactory,
+                    static function (TestCase $test, ?Organization $organization): Role {
+                        return Role::factory()->create([
+                            'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'name'            => 'role1',
+                            'organization_id' => Organization::factory(),
+                        ]);
+                    },
                     [
                         'email'   => 'test@gmail.com',
                         'role_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -220,63 +259,14 @@ class InviteOrgUserTest extends TestCase {
                     static function (MockInterface $mock): void {
                         $mock
                             ->shouldReceive('inviteUser')
-                            ->once()
-                            ->andThrow(new UserAlreadyExists('test@gmail.com'));
+                            ->never();
                         $mock
                             ->shouldReceive('getUserByEmail')
-                            ->once()
-                            ->andReturns(new User([
-                                'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                'attributes' => [
-                                    'ep_invite_745e3dd2-915e-31b2-b02b-cbab069c9d45' => [
-                                        json_encode([
-                                            'sent_at' => time(),
-                                            'used_at' => null,
-                                        ]),
-                                    ],
-                                ],
-                            ]));
+                            ->never();
                     },
-                    true,
+                    false,
                 ],
-                'un-completed/different organization' => [
-                    new GraphQLSuccess('inviteOrgUser', InviteOrgUser::class),
-                    $prepare,
-                    $roleFactory,
-                    [
-                        'email'   => 'test@gmail.com',
-                        'role_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
-                    ],
-                    static function (MockInterface $mock): void {
-                        $mock
-                            ->shouldReceive('inviteUser')
-                            ->once()
-                            ->andThrow(new UserAlreadyExists('test@gmail.com'));
-                        $mock
-                            ->shouldReceive('updateUser')
-                            ->once()
-                            ->andReturns(true);
-                        $mock
-                            ->shouldReceive('addUserToGroup')
-                            ->once();
-                        $mock
-                            ->shouldReceive('getUserByEmail')
-                            ->once()
-                            ->andReturns(new User([
-                                'id'         => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                'attributes' => [
-                                    'ep_invite_745e3dd2-915e-31b2-b02b-cbab069c9d46' => [
-                                        json_encode([
-                                            'sent_at' => null,
-                                            'used_at' => null,
-                                        ]),
-                                    ],
-                                ],
-                            ]));
-                    },
-                    true,
-                ],
-                'Invalid email'                       => [
+                'Invalid email'   => [
                     new GraphQLError('inviteOrgUser', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
@@ -287,7 +277,7 @@ class InviteOrgUserTest extends TestCase {
                         'role_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                     ],
                 ],
-                'Invalid role'                        => [
+                'Invalid role'    => [
                     new GraphQLError('inviteOrgUser', static function (): array {
                         return [__('errors.validation_failed')];
                     }),

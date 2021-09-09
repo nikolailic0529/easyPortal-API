@@ -2,18 +2,21 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
+use App\Models\Concerns\GlobalScopes\GlobalScopes;
+use App\Models\Invitation;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Credential;
 use App\Services\KeyCloak\Client\Types\User;
+use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Contracts\Encryption\Encrypter;
+use Illuminate\Support\Facades\Date;
 
 use function array_key_exists;
-use function json_decode;
-use function json_encode;
-use function time;
 
 class SignUpByInvite {
+    use GlobalScopes;
+
     public function __construct(
         protected Client $client,
         protected Encrypter $encrypter,
@@ -37,25 +40,24 @@ class SignUpByInvite {
             throw new SignUpByInviteInvalidToken();
         }
 
-        if (!array_key_exists('email', $data) || !array_key_exists('organization', $data)) {
+        if (!array_key_exists('invitation', $data)) {
             throw new SignUpByInviteInvalidToken();
         }
 
-        // Get user from keycloak
-        $user = $this->client->getUserByEmail($data['email']);
+        $invitation = $this->callWithoutGlobalScope(OwnedByOrganizationScope::class, static function () use ($data) {
+            return Invitation::whereKey($data['invitation'])->first();
+        });
 
-        if (!$user) {
-            throw new SignUpByInviteInvalidUser();
+        if (!$invitation) {
+            throw new SignUpByInviteInvalidToken();
         }
-        $invitationKey = "ep_invite_{$data['organization']}";
-        if (!$user->attributes || !array_key_exists($invitationKey, $user->attributes)) {
-            throw new SignUpByInviteUnInvitedUser();
-        }
-
-        $invitation = json_decode($user->attributes[$invitationKey][0]);
+        /** @var \App\Models\Invitation $invitation */
         if ($invitation->used_at) {
             throw new SignUpByInviteAlreadyUsed();
         }
+
+        // Get user from keycloak
+        $keycloakUser = $this->client->getUserById($invitation->user_id);
 
         // Create new credentials
         $credential = new Credential([
@@ -63,15 +65,17 @@ class SignUpByInvite {
             'temporary' => false,
             'value'     => $input['password'],
         ]);
-        // update Profile
-        $attributes                 = $user->attributes;
-        $attributes[$invitationKey] = [
-            json_encode([
-                'sent_at' => time(),
-                'used_at' => time(),
-            ]),
-        ];
-        $this->client->updateUser($user->id, new User([
+
+        // update local values
+        $user                 = $invitation->user;
+        $user->given_name     = $input['first_name'];
+        $user->family_name    = $input['last_name'];
+        $user->enabled        = true;
+        $user->email_verified = true;
+        $user->save();
+
+        // update keycloak
+        $this->client->updateUser($keycloakUser->id, new User([
             'firstName'     => $input['first_name'],
             'lastName'      => $input['last_name'],
             'enabled'       => true,
@@ -79,10 +83,11 @@ class SignUpByInvite {
             'credentials'   => [
                 $credential,
             ],
-            'attributes'    => $attributes,
         ]));
 
-        return $this->getSignInUri($data['organization']);
+        $invitation->used_at = Date::now();
+        $invitation->save();
+        return $this->getSignInUri($invitation->organization_id);
     }
 
     /**

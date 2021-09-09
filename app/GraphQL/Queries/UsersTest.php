@@ -43,6 +43,7 @@ class UsersTest extends TestCase {
                 query {
                   users {
                     data {
+                      id
                       given_name
                       family_name
                       email
@@ -51,6 +52,15 @@ class UsersTest extends TestCase {
                       roles {
                           id
                           name
+                      }
+                      invitations {
+                          id
+                          organization_id
+                          user_id
+                          role_id
+                          email
+                          used_at
+                          created_by
                       }
                     }
                     paginatorInfo {
@@ -77,7 +87,7 @@ class UsersTest extends TestCase {
     public function dataProviderQuery(): array {
         return (new MergeDataProvider([
             'keycloak' => new CompositeDataProvider(
-                new RootOrganizationDataProvider('users'),
+                new RootOrganizationDataProvider('users', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
                 new OrganizationUserDataProvider('users', [
                     'administer',
                 ]),
@@ -85,6 +95,7 @@ class UsersTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated('users', self::class, [
                             [
+                                'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                                 'given_name'     => 'keycloak',
                                 'family_name'    => 'user',
                                 'email'          => 'test1@example.com',
@@ -94,6 +105,17 @@ class UsersTest extends TestCase {
                                     [
                                         'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
                                         'name' => 'role1',
+                                    ],
+                                ],
+                                'invitations'    => [
+                                    [
+                                        'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                        'email'           => 'test@gmail.com',
+                                        'user_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
+                                        'created_by'      => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
+                                        'organization_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                        'role_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
+                                        'used_at'         => null,
                                     ],
                                 ],
                             ],
@@ -108,7 +130,16 @@ class UsersTest extends TestCase {
                                     'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
                                     'name' => 'role1',
                                 ])
+                                ->hasInvitations(1, [
+                                    'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                    'email'           => 'test@gmail.com',
+                                    'organization_id' => $organization->getKey(),
+                                    'role_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
+                                    'used_at'         => null,
+                                    'created_by'      => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
+                                ])
                                 ->create([
+                                    'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                                     'given_name'     => 'keycloak',
                                     'family_name'    => 'user',
                                     'email'          => 'test1@example.com',
@@ -117,8 +148,8 @@ class UsersTest extends TestCase {
                                     'type'           => UserType::keycloak(),
                                 ]);
 
-                            User::factory()
-                            ->create([
+                            User::factory()->create([
+                                'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
                                 'given_name'     => 'local',
                                 'family_name'    => 'user',
                                 'email'          => 'test2@example.com',
@@ -131,7 +162,7 @@ class UsersTest extends TestCase {
                 ]),
             ),
             'root'     => new CompositeDataProvider(
-                new RootOrganizationDataProvider('users'),
+                new RootOrganizationDataProvider('users', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
                 new OrganizationUserDataProvider('users', [
                     'administer',
                 ]),
@@ -139,6 +170,7 @@ class UsersTest extends TestCase {
                     'ok' => [
                         new GraphQLPaginated('users', self::class, [
                             [
+                                'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                                 'given_name'     => 'keycloak',
                                 'family_name'    => 'user',
                                 'email'          => 'test1@example.com',
@@ -150,8 +182,20 @@ class UsersTest extends TestCase {
                                         'name' => 'role1',
                                     ],
                                 ],
+                                'invitations'    => [
+                                    [
+                                        'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                        'email'           => 'test@gmail.com',
+                                        'organization_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                        'role_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
+                                        'user_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
+                                        'created_by'      => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
+                                        'used_at'         => null,
+                                    ],
+                                ],
                             ],
                             [
+                                'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
                                 'given_name'     => 'local',
                                 'family_name'    => 'user',
                                 'email'          => 'test2@example.com',
@@ -161,6 +205,17 @@ class UsersTest extends TestCase {
                                     [
                                         'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d05',
                                         'name' => 'role2',
+                                    ],
+                                ],
+                                'invitations'    => [
+                                    [
+                                        'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                        'email'           => 'test@gmail.com',
+                                        'organization_id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981',
+                                        'role_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d05',
+                                        'user_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
+                                        'created_by'      => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
+                                        'used_at'         => null,
                                     ],
                                 ],
                             ],
@@ -174,7 +229,16 @@ class UsersTest extends TestCase {
                                     'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
                                     'name' => 'role1',
                                 ])
+                                ->hasInvitations(1, [
+                                    'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                                    'email'           => 'test@gmail.com',
+                                    'organization_id' => $organization->getKey(),
+                                    'role_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
+                                    'created_by'      => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
+                                    'used_at'         => null,
+                                ])
                                 ->create([
+                                    'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                                     'given_name'     => 'keycloak',
                                     'family_name'    => 'user',
                                     'email'          => 'test1@example.com',
@@ -189,7 +253,16 @@ class UsersTest extends TestCase {
                                     'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d05',
                                     'name' => 'role2',
                                 ])
+                                ->hasInvitations(1, [
+                                    'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
+                                    'email'           => 'test@gmail.com',
+                                    'organization_id' => $organization->getKey(),
+                                    'role_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d05',
+                                    'created_by'      => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
+                                    'used_at'         => null,
+                                ])
                                 ->create([
+                                    'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
                                     'given_name'     => 'local',
                                     'family_name'    => 'user',
                                     'email'          => 'test2@example.com',

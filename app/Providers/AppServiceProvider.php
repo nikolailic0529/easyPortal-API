@@ -21,6 +21,7 @@ use App\Models\Distributor;
 use App\Models\Document;
 use App\Models\DocumentEntry;
 use App\Models\File;
+use App\Models\Invitation;
 use App\Models\Language;
 use App\Models\Location;
 use App\Models\LocationType;
@@ -144,6 +145,7 @@ class AppServiceProvider extends ServiceProvider {
             'QuoteRequestAsset'         => QuoteRequestAsset::class,
             'UserRole'                  => UserRole::class,
             'OrganizationUser'          => OrganizationUser::class,
+            'Invitation'                => Invitation::class,
         ]);
     }
 }

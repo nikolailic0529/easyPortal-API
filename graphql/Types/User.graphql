@@ -6,4 +6,5 @@ type User {
   email_verified: Boolean!
   enabled: Boolean!
   roles: [Role!]! @belongsToMany
+  invitations: [Invitation!]! @hasMany
 }

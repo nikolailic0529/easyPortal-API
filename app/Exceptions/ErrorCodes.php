@@ -5,13 +5,9 @@ namespace App\Exceptions;
 use App\GraphQL\Mutations\Auth\ResetPasswordSamePasswordException;
 use App\GraphQL\Mutations\Auth\SignUpByInviteAlreadyUsed;
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvalidToken;
-use App\GraphQL\Mutations\Auth\SignUpByInviteInvalidUser;
-use App\GraphQL\Mutations\Auth\SignUpByInviteUnInvitedUser;
 use App\GraphQL\Mutations\Me\UpdateMePasswordInvalidCurrentPassword;
 use App\GraphQL\Mutations\Org\DisableOrgUserInvalidUser;
 use App\GraphQL\Mutations\Org\EnableOrgUserInvalidUser;
-use App\GraphQL\Mutations\Org\InviteOrgUserAlreadyUsedInvitation;
-use App\GraphQL\Mutations\Org\InviteOrgUserInvalidRole;
 use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser;
 use App\Http\Controllers\ExportGraphQLQueryEmpty;
 use App\Http\Controllers\ExportGraphQLQueryInvalid;
@@ -70,19 +66,15 @@ class ErrorCodes {
         KeyCloakDisabled::class                       => 'ERR23',
         InvalidKeyCloakClient::class                  => 'ERR24',
         KeyCloakUserAlreadyExists::class              => 'ERR25',
-        InviteOrgUserInvalidRole::class               => 'ERR26',
-        ResetPasswordSamePasswordException::class     => 'ERR27',
-        SignUpByInviteInvalidToken::class             => 'ERR28',
-        SignUpByInviteInvalidUser::class              => 'ERR29',
-        SignUpByInviteUnInvitedUser::class            => 'ERR30',
-        SignUpByInviteAlreadyUsed::class              => 'ERR31',
-        InviteOrgUserAlreadyUsedInvitation::class     => 'ERR32',
-        UpdateMePasswordInvalidCurrentPassword::class => 'ERR33',
-        ResetOrgUserPasswordInvalidUser::class        => 'ERR34',
-        KeyCloakUserDoesntExists::class               => 'ERR35',
-        EnableOrgUserInvalidUser::class               => 'ERR36',
-        DisableOrgUserInvalidUser::class              => 'ERR37',
-        UserDisabled::class                           => 'ERR38',
+        ResetPasswordSamePasswordException::class     => 'ERR26',
+        SignUpByInviteInvalidToken::class             => 'ERR27',
+        SignUpByInviteAlreadyUsed::class              => 'ERR28',
+        UpdateMePasswordInvalidCurrentPassword::class => 'ERR29',
+        ResetOrgUserPasswordInvalidUser::class        => 'ERR30',
+        KeyCloakUserDoesntExists::class               => 'ERR31',
+        EnableOrgUserInvalidUser::class               => 'ERR32',
+        DisableOrgUserInvalidUser::class              => 'ERR33',
+        UserDisabled::class                           => 'ERR34',
     ];
 
     public static function getCode(Throwable $throwable): string|int {
