@@ -207,6 +207,7 @@
     "settings.groups.data_loader": "Data Loader",
     "settings.groups.logger": "Logger",
     "settings.errors.failed_to_load_env": "Impossible to load env file: :file. Corrupted?",
+    "settings.errors.failed_to_load_config": "Impossible to load custom config file.",
     "export.errors.graphql_query_invalid": "GraphQL query is invalid.",
     "export.errors.graphql_query_empty": "GraphQL query has empty result.",
     "organization.errors.unknown_organization": "Organization is unknown.",
