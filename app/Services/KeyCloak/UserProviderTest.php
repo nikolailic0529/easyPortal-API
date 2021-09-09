@@ -225,6 +225,13 @@ class UserProviderTest extends TestCase {
                 ],
                 'organization'   => $organization,
                 'photo'          => 'https://example.com/photo.jpg',
+                'title'          => 'Mr',
+                'academic_title' => 'Professor',
+                'office_phone'   => '+1-202-555-0197',
+                'mobile_phone'   => '+1-202-555-0147',
+                'contact_email'  => 'test@gmail.com',
+                'department'     => 'HR',
+                'job_title'      => 'Manger',
             ]);
 
         // Test
@@ -237,6 +244,13 @@ class UserProviderTest extends TestCase {
         $this->assertEquals(['test_role_1', 'test_role_2'], $user->getPermissions());
         $this->assertEquals($organization, $user->organization);
         $this->assertEquals('https://example.com/photo.jpg', $user->photo);
+        $this->assertEquals('Mr', $user->title);
+        $this->assertEquals('Professor', $user->academic_title);
+        $this->assertEquals('+1-202-555-0197', $user->office_phone);
+        $this->assertEquals('+1-202-555-0147', $user->mobile_phone);
+        $this->assertEquals('test@gmail.com', $user->contact_email);
+        $this->assertEquals('HR', $user->department);
+        $this->assertEquals('Manger', $user->job_title);
     }
     // </editor-fold>
 
@@ -558,6 +572,13 @@ class UserProviderTest extends TestCase {
                         'organization'   => $organization,
                         'photo'          => 'https://example.com/photo.jpg',
                         'enabled'        => true,
+                        'title'          => 'Mr',
+                        'academic_title' => 'Professor',
+                        'office_phone'   => '+1-202-555-0197',
+                        'mobile_phone'   => '+1-202-555-0147',
+                        'contact_email'  => 'test@gmail.com',
+                        'department'     => 'HR',
+                        'job_title'      => 'Manger',
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -591,6 +612,13 @@ class UserProviderTest extends TestCase {
                         ],
                         'photo'                 => 'https://example.com/photo.jpg',
                         'enabled'               => true,
+                        'title'                 => 'Mr',
+                        'academic_title'        => 'Professor',
+                        'office_phone'          => '+1-202-555-0197',
+                        'mobile_phone'          => '+1-202-555-0147',
+                        'contact_email'         => 'test@gmail.com',
+                        'department'            => 'HR',
+                        'job_title'             => 'Manger',
                     ];
                 },
             ],
@@ -607,6 +635,13 @@ class UserProviderTest extends TestCase {
                         'permissions'    => [],
                         'photo'          => 'https://example.com/photo.jpg',
                         'enabled'        => true,
+                        'title'          => 'Mr',
+                        'academic_title' => 'Professor',
+                        'office_phone'   => '+1-202-555-0197',
+                        'mobile_phone'   => '+1-202-555-0147',
+                        'contact_email'  => 'test@gmail.com',
+                        'department'     => 'HR',
+                        'job_title'      => 'Manger',
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -625,6 +660,13 @@ class UserProviderTest extends TestCase {
                         ],
                         'photo'              => 'https://example.com/photo.jpg',
                         'enabled'            => true,
+                        'title'              => 'Mr',
+                        'academic_title'     => 'Professor',
+                        'office_phone'       => '+1-202-555-0197',
+                        'mobile_phone'       => '+1-202-555-0147',
+                        'contact_email'      => 'test@gmail.com',
+                        'department'         => 'HR',
+                        'job_title'          => 'Manger',
                     ];
                 },
             ],
@@ -641,6 +683,13 @@ class UserProviderTest extends TestCase {
                         'permissions'    => [],
                         'photo'          => 'https://example.com/photo.jpg',
                         'enabled'        => true,
+                        'title'          => 'Mr',
+                        'academic_title' => 'Professor',
+                        'office_phone'   => '+1-202-555-0197',
+                        'mobile_phone'   => '+1-202-555-0147',
+                        'contact_email'  => 'test@gmail.com',
+                        'department'     => 'HR',
+                        'job_title'      => 'Manger',
                     ];
                 },
                 static function (string $client, Organization $organization): array {
@@ -659,6 +708,13 @@ class UserProviderTest extends TestCase {
                         ],
                         'photo'                 => 'https://example.com/photo.jpg',
                         'enabled'               => true,
+                        'title'                 => 'Mr',
+                        'academic_title'        => 'Professor',
+                        'office_phone'          => '+1-202-555-0197',
+                        'mobile_phone'          => '+1-202-555-0147',
+                        'contact_email'         => 'test@gmail.com',
+                        'department'            => 'HR',
+                        'job_title'             => 'Manger',
                     ];
                 },
             ],

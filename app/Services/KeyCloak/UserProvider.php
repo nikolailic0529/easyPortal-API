@@ -36,6 +36,14 @@ class UserProvider implements UserProviderContract {
     protected const CLAIM_PHONE_NUMBER_VERIFIED = 'phone_number_verified';
     protected const CLAIM_PHOTO                 = 'photo';
     public    const CLAIM_ENABLED               = 'enabled';
+    protected const CLAIM_JOB_TITLE             = 'job_title';
+    protected const CLAIM_MOBILE_PHONE          = 'mobile_phone';
+    protected const CLAIM_OFFICE_PHONE          = 'office_phone';
+    protected const CLAIM_DEPARTMENT            = 'department';
+    protected const CLAIM_TITLE                 = 'title';
+    protected const CLAIM_CONTACT_EMAIL         = 'contact_email';
+    protected const CLAIM_ACADEMIC_TITLE        = 'academic_title';
+
 
     /**
      * @var array<string,array{property:string,required:boolean,default:mixed,if:string|null}>
@@ -87,6 +95,48 @@ class UserProvider implements UserProviderContract {
             'property' => 'enabled',
             'required' => false,
             'default'  => false,
+            'if'       => null,
+        ],
+        self::CLAIM_JOB_TITLE             => [
+            'property' => 'job_title',
+            'required' => false,
+            'default'  => null,
+            'if'       => null,
+        ],
+        self::CLAIM_MOBILE_PHONE          => [
+            'property' => 'mobile_phone',
+            'required' => false,
+            'default'  => null,
+            'if'       => null,
+        ],
+        self::CLAIM_OFFICE_PHONE          => [
+            'property' => 'office_phone',
+            'required' => false,
+            'default'  => null,
+            'if'       => null,
+        ],
+        self::CLAIM_DEPARTMENT            => [
+            'property' => 'department',
+            'required' => false,
+            'default'  => null,
+            'if'       => null,
+        ],
+        self::CLAIM_TITLE                 => [
+            'property' => 'title',
+            'required' => false,
+            'default'  => null,
+            'if'       => null,
+        ],
+        self::CLAIM_CONTACT_EMAIL         => [
+            'property' => 'contact_email',
+            'required' => false,
+            'default'  => null,
+            'if'       => null,
+        ],
+        self::CLAIM_ACADEMIC_TITLE        => [
+            'property' => 'academic_title',
+            'required' => false,
+            'default'  => null,
             'if'       => null,
         ],
     ];
