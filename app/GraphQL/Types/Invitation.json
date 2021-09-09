@@ -23,8 +23,8 @@
         "role_id": {
             "$ref": "../types.json#/definitions/ID"
         },
-        "created_by": {
-            "$ref": "../types.json#/definitions/ID"
+        "role": {
+            "$ref": "./Role.json"
         },
         "email": {
             "type": "string"
