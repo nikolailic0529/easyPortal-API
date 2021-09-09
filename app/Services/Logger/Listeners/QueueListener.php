@@ -9,6 +9,7 @@ use App\Services\Logger\Models\Enums\Status;
 use App\Services\Logger\Models\Log;
 use App\Services\Queue\Events\JobStopped;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Queue\Job as JobContract;
 use Illuminate\Queue\Events\JobExceptionOccurred;
@@ -17,7 +18,6 @@ use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Queue\Queue;
 use Laravel\Horizon\Events\JobDeleted;
-use Psr\Log\LoggerInterface;
 use WeakMap;
 
 use function array_pop;
@@ -34,8 +34,8 @@ class QueueListener extends Listener {
      */
     protected WeakMap $stopped;
 
-    public function __construct(Logger $logger, Repository $config, LoggerInterface $log) {
-        parent::__construct($logger, $config, $log);
+    public function __construct(Logger $logger, Repository $config, ExceptionHandler $exceptionHandler) {
+        parent::__construct($logger, $config, $exceptionHandler);
 
         $this->stopped = new WeakMap();
     }
