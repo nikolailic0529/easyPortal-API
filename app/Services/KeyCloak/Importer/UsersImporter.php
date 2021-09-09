@@ -10,11 +10,12 @@ use App\Models\User;
 use App\Services\DataLoader\Client\QueryIterator;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\User as TypesUser;
+use App\Services\KeyCloak\Exceptions\FailedToImportObject;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Closure;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
 use Laravel\Telescope\Telescope;
-use Psr\Log\LoggerInterface;
 use Throwable;
 
 use function array_map;
@@ -28,7 +29,7 @@ class UsersImporter {
     protected ?Closure $onFinish = null;
 
     public function __construct(
-        protected LoggerInterface $logger,
+        protected ExceptionHandler $exceptionHandler,
         protected Client $client,
     ) {
         // empty
@@ -38,8 +39,8 @@ class UsersImporter {
         return $this->client;
     }
 
-    protected function getLogger(): LoggerInterface {
-        return $this->logger;
+    protected function getExceptionHandler(): ExceptionHandler {
+        return $this->exceptionHandler;
     }
 
     public function onInit(?Closure $closure): static {
@@ -125,12 +126,9 @@ class UsersImporter {
 
                     $user->save();
                 } catch (Throwable $exception) {
-                    // TODO: Use Exception + handler
-                    $this->logger->warning('Failed to sync user.', [
-                        'importer'  => $this::class,
-                        'object'    => $item,
-                        'exception' => $exception,
-                    ]);
+                    $this->getExceptionHandler()->report(
+                        new FailedToImportObject($this, $item, $exception),
+                    );
                 } finally {
                     $status->processed++;
                 }
@@ -145,6 +143,7 @@ class UsersImporter {
         if ($limit) {
             $total = min($total, $limit);
         }
+
         return $total;
     }
 
@@ -164,6 +163,7 @@ class UsersImporter {
         if ($limit) {
             $iterator->setLimit($limit);
         }
+
         return $iterator;
     }
 
@@ -176,6 +176,7 @@ class UsersImporter {
         }, $items);
         $key   = (new User())->getKeyName();
         $users = User::whereIn($key, $ids)->get();
+
         return $users->keyBy($key);
     }
 
