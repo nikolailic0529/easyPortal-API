@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Services\LocaleService;
+use App\Services\I18n\Locale;
 use Closure;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class SetLocale {
     public function __construct(
         protected Application $app,
-        protected LocaleService $locale,
+        protected Locale $locale,
     ) {
         // empty
     }

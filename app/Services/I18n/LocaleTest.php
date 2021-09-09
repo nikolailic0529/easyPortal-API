@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services;
+namespace App\Services\I18n;
 
 use App\Models\Organization;
 use App\Models\User;
@@ -10,9 +10,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\LocaleService
+ * @coversDefaultClass \App\Services\I18n\Locale
  */
-class LocaleServiceTest extends TestCase {
+class LocaleTest extends TestCase {
     /**
      * @covers ::set
      */
@@ -22,7 +22,7 @@ class LocaleServiceTest extends TestCase {
         $translator->addLines(['test.welcome' => 'Welcome to our application!'], 'en');
         $translator->addLines(['test.welcome' => 'Bienvenue sur notre application!'], 'fr');
 
-        $locale = $this->app->make(LocaleService::class);
+        $locale = $this->app->make(Locale::class);
 
         $locale->set('en');
         $this->assertEquals(
@@ -73,7 +73,7 @@ class LocaleServiceTest extends TestCase {
         $this->app->setLocale('en_BB');
 
         // Check
-        $this->assertEquals($expected, $this->app->make(LocaleService::class)->get());
+        $this->assertEquals($expected, $this->app->make(Locale::class)->get());
     }
     // </editor-fold>
 

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services;
+namespace App\Services\I18n;
 
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Auth\AuthManager;
@@ -8,7 +8,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 
-class LocaleService {
+class Locale {
     public function __construct(
         protected AuthManager $auth,
         protected Application $app,
