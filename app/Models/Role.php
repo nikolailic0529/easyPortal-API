@@ -3,19 +3,23 @@
 namespace App\Models;
 
 use App\Models\Concerns\Relations\HasOrganization;
+use App\Models\Concerns\SyncBelongsToMany;
 use App\Services\Audit\Concerns\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
 
 /**
  * Role.
  *
- * @property string                       $id
- * @property string                       $name
- * @property string                       $organization_id
- * @property \Carbon\CarbonImmutable      $created_at
- * @property \Carbon\CarbonImmutable      $updated_at
- * @property \Carbon\CarbonImmutable|null $deleted_at
- * @property \App\Models\Organization     $organization
+ * @property string                                                                 $id
+ * @property string                                                                 $name
+ * @property string                                                                 $organization_id
+ * @property \Carbon\CarbonImmutable                                                $created_at
+ * @property \Carbon\CarbonImmutable                                                $updated_at
+ * @property \Carbon\CarbonImmutable|null                                           $deleted_at
+ * @property \App\Models\Organization                                               $organization
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\permissions> $permissions
  * @method static \Database\Factories\RoleFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Role newQuery()
@@ -25,6 +29,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Role extends Model implements Auditable {
     use HasFactory;
     use HasOrganization;
+    use SyncBelongsToMany;
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
@@ -32,4 +37,21 @@ class Role extends Model implements Auditable {
      * @var string
      */
     protected $table = 'roles';
+
+    public function permissions(): BelongsToMany {
+        $pivot = new RolePermission();
+
+        return $this
+            ->belongsToMany(Permission::class, $pivot->getTable())
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\Organization>|array<\App\Models\Organization> $permissions
+     */
+    public function setPermissionsAttribute(Collection|array $permissions): void {
+        $this->syncBelongsToMany('permissions', $permissions);
+    }
 }

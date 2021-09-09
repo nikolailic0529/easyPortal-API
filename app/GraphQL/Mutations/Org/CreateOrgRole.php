@@ -47,15 +47,17 @@ class CreateOrgRole {
      * @param array<string> $permissions
      */
     protected function addRolePermissions(Role $role, array $permissions): void {
-        $permissions = Permission::whereIn((new Permission())->getKeyName(), $permissions)
-            ->get()
-            ->map(static function ($permission) {
-                return [
-                    'id'   => $permission->id,
-                    'name' => $permission->key,
-                ];
-            })
-            ->all();
-        $this->client->addRolesToGroup($role, $permissions);
+        $permissions = Permission::whereIn((new Permission())->getKeyName(), $permissions)->get();
+        // Add to local DB
+        $role->permissions = $permissions;
+        $role->save();
+        // Add to keycloak
+        $keycloakPermissions = $permissions->map(static function ($permission) {
+            return [
+                'id'   => $permission->id,
+                'name' => $permission->key,
+            ];
+        })->all();
+        $this->client->addRolesToGroup($role, $keycloakPermissions);
     }
 }

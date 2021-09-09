@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations\Org;
 
 use App\Models\Permission;
+use App\Models\Role;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Group;
 use Closure;
@@ -81,6 +82,12 @@ class CreateOrgRoleTest extends TestCase {
                 }
             }', ['input' => $data])
             ->assertThat($expected);
+
+        if ($expected instanceof GraphQLSuccess) {
+            $role = Role::with('permissions')->whereKey('fd421bad-069f-491c-ad5f-5841aa9a9dff')->first();
+            $this->assertNotNull($role);
+            $this->assertTrue($role->permissions->contains('fd421bad-069f-491c-ad5f-5841aa9a9dfe'));
+        }
     }
     // </editor-fold>
 
