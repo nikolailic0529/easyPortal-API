@@ -2,18 +2,14 @@
 
 namespace App\GraphQL\Mutations\Org;
 
-use App\Exceptions\HasErrorCode;
-use App\Exceptions\TranslatedException;
-use Exception;
+use App\GraphQL\GraphQLException;
 use Throwable;
 
 use function __;
 
-class EnableOrgUserInvalidUser extends Exception implements TranslatedException {
-    use HasErrorCode;
-
+class EnableOrgUserInvalidUser extends GraphQLException {
     public function __construct(Throwable $previous = null) {
-        parent::__construct('Invalid keycloak user.', 0, $previous);
+        parent::__construct('Invalid keycloak user.', $previous);
     }
 
     public function getErrorMessage(): string {

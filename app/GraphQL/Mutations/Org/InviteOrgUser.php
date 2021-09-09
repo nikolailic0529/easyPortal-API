@@ -8,7 +8,7 @@ use App\Models\Organization;
 use App\Models\Role;
 use App\Models\User as UserModel;
 use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists;
+use App\Services\KeyCloak\Client\Exceptions\RealmUserAlreadyExists;
 use App\Services\KeyCloak\Client\Types\User;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Auth\AuthManager;
@@ -47,7 +47,7 @@ class InviteOrgUser {
         try {
             $this->client->inviteUser($role, $email);
             $invited = true;
-        } catch (UserAlreadyExists $e) {
+        } catch (RealmUserAlreadyExists $e) {
             $invited = false;
         }
 

@@ -6,7 +6,7 @@ use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Exceptions\UserDoesntExists;
+use App\Services\KeyCloak\Client\Exceptions\RealmUserNotFound;
 use App\Services\KeyCloak\Client\Types\Group;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
@@ -148,7 +148,7 @@ class DisableOrgUserTest extends TestCase {
                     },
                 ],
                 'user not found' => [
-                    new GraphQLError('disableOrgUser', new UserDoesntExists()),
+                    new GraphQLError('disableOrgUser', new RealmUserNotFound('d8ec7dcf-c542-42b5-8d7d-971400c02399')),
                     $prepare,
                     static function (): array {
                         $user = User::factory()->create([
@@ -163,7 +163,7 @@ class DisableOrgUserTest extends TestCase {
                             ->shouldReceive('getUserGroups')
                             ->with('d8ec7dcf-c542-42b5-8d7d-971400c02399')
                             ->once()
-                            ->andThrow(new UserDoesntExists());
+                            ->andThrow(new RealmUserNotFound('d8ec7dcf-c542-42b5-8d7d-971400c02399'));
                     },
                 ],
             ]),

@@ -3,10 +3,10 @@
 namespace App\Services\KeyCloak;
 
 use App\Models\Organization;
+use App\Services\Auth\Exceptions\AuthException;
 use App\Services\KeyCloak\Exceptions\AuthorizationFailed;
 use App\Services\KeyCloak\Exceptions\InvalidCredentials;
 use App\Services\KeyCloak\Exceptions\InvalidIdentity;
-use App\Services\KeyCloak\Exceptions\KeyCloakException;
 use App\Services\KeyCloak\Exceptions\StateMismatch;
 use App\Services\KeyCloak\Exceptions\UnknownScope;
 use App\Services\Organization\CurrentOrganization;
@@ -79,7 +79,7 @@ class KeyCloak {
             } else {
                 throw new InvalidCredentials();
             }
-        } catch (KeyCloakException $exception) {
+        } catch (AuthException $exception) {
             throw $exception;
         } catch (Exception $exception) {
             throw new AuthorizationFailed($exception);
@@ -100,7 +100,7 @@ class KeyCloak {
             if (!$result) {
                 throw new InvalidCredentials();
             }
-        } catch (KeyCloakException $exception) {
+        } catch (AuthException $exception) {
             throw $exception;
         } catch (Exception $exception) {
             throw new AuthorizationFailed($exception);

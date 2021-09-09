@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Customer;
-use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
+use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Finders\CustomerFinder;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
@@ -45,7 +45,7 @@ trait WithCustomer {
 
         // Found?
         if ($id && !$customer) {
-            throw new CustomerNotFoundException($id, $object);
+            throw new CustomerNotFound($id, $object);
         }
 
         // Return

@@ -18,7 +18,7 @@ trait WithTranslations {
     public function setTranslations(Closure|array|null $translations): void {
         /**
          * FIXME [test] This is doesn't work properly for HTTP requests when
-         * Locale set by {@see \App\Services\LocaleService}.
+         * Locale set by {@see \App\Services\I18n\Locale}.
          */
         $translator = $this->app->make(Translator::class);
 

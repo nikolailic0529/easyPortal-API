@@ -2,37 +2,33 @@
 
 namespace App\Services\DataLoader\Client\Exceptions;
 
-use App\Exceptions\Contextable;
+use App\Exceptions\ExternalException;
+use App\Exceptions\TranslatedException;
 use Throwable;
 
 use function __;
 
-class GraphQLRequestFailed extends ClientException implements Contextable {
+class GraphQLRequestFailed extends ClientException implements ExternalException, TranslatedException {
     /**
-     * @param array<mixed> $variables
+     * @param array<mixed> $params
      * @param array<mixed> $errors
      */
     public function __construct(
         protected string $query,
-        protected array $variables,
+        protected array $params,
         protected array $errors = [],
         Throwable $previous = null,
     ) {
-        parent::__construct('GraphQL request failed.', 0, $previous);
+        parent::__construct('GraphQL request failed.', $previous);
+
+        $this->setContext([
+            'query'  => $this->query,
+            'params' => $this->params,
+            'errors' => $this->errors,
+        ]);
     }
 
     public function getErrorMessage(): string {
         return __('dataloader.client.request_failed');
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function context(): array {
-        return [
-            'query'     => $this->query,
-            'variables' => $this->variables,
-            'errors'    => $this->errors,
-        ];
     }
 }

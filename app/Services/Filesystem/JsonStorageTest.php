@@ -3,6 +3,7 @@
 namespace App\Services\Filesystem;
 
 use App\Services\Filesystem\Disks\AppDisk;
+use App\Services\Filesystem\Exceptions\StorageFileCorrupted;
 use Tests\TestCase;
 
 use function json_encode;

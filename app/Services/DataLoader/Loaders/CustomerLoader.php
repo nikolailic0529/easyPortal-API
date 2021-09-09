@@ -5,7 +5,7 @@ namespace App\Services\DataLoader\Loaders;
 use App\Models\Customer;
 use App\Models\Model;
 use App\Services\DataLoader\Client\QueryIterator;
-use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
+use App\Services\DataLoader\Exceptions\CustomerNotFound;
 use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\LoaderRecalculable;
 use App\Services\DataLoader\Loaders\Concerns\WithAssets;
@@ -35,7 +35,7 @@ class CustomerLoader extends CompanyLoader implements LoaderRecalculable {
     }
 
     protected function getModelNotFoundException(string $id): Exception {
-        return new CustomerNotFoundException($id);
+        return new CustomerNotFound($id);
     }
     // </editor-fold>
 

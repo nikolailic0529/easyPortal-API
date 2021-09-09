@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Queries\Application;
 
-use App\Services\LocaleService;
+use App\Services\I18n\Locale as LocaleService;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;

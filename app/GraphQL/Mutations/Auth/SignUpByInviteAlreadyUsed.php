@@ -2,18 +2,14 @@
 
 namespace App\GraphQL\Mutations\Auth;
 
-use App\Exceptions\HasErrorCode;
-use App\Exceptions\TranslatedException;
-use Exception;
+use App\GraphQL\GraphQLException;
 use Throwable;
 
 use function __;
 
-class SignUpByInviteAlreadyUsed extends Exception implements TranslatedException {
-    use HasErrorCode;
-
+class SignUpByInviteAlreadyUsed extends GraphQLException {
     public function __construct(Throwable $previous = null) {
-        parent::__construct('User already used the invitation.', 0, $previous);
+        parent::__construct('User already used the invitation.', $previous);
     }
 
     public function getErrorMessage(): string {

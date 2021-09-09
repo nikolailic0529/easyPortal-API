@@ -6,8 +6,8 @@ use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Exceptions\AnotherUserExists;
-use App\Services\KeyCloak\Exceptions\InsufficientData;
 use App\Services\KeyCloak\Exceptions\UserDisabled;
+use App\Services\KeyCloak\Exceptions\UserInsufficientData;
 use Closure;
 use Exception;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -103,7 +103,8 @@ class UserProviderTest extends TestCase {
                     ->shouldReceive('updateTokenUser')
                     ->once()
                     ->andReturnUsing(static function (User $user, UnencryptedToken $token) {
-                        $user->enabled = $token->claims()->get(UserProvider::CLAIM_ENABLED);
+                        $user->enabled = $token->claims()->get('enabled');
+
                         return $user;
                     });
             } else {
@@ -193,8 +194,9 @@ class UserProviderTest extends TestCase {
             ->andReturn($keycloak);
 
         // Test
+        $user   = new User();
         $token  = $this->getToken($claims);
-        $actual = $provider->getProperties($token);
+        $actual = $provider->getProperties($user, $token);
 
         $this->assertEquals($expected, $actual);
     }
@@ -388,7 +390,7 @@ class UserProviderTest extends TestCase {
                             static function (Builder $builder): void {
                                 $builder
                                     ->relatedTo('c1aa09cc-0bd8-490e-8c7b-25c18df23e18')
-                                    ->withClaim(UserProvider::CLAIM_ENABLED, true);
+                                    ->withClaim('enabled', true);
                             },
                         ),
                     ];
@@ -407,7 +409,7 @@ class UserProviderTest extends TestCase {
                             static function (Builder $builder): void {
                                 $builder
                                     ->relatedTo('c1aa09cc-0bd8-490e-8c7b-25c18df23e18')
-                                    ->withClaim(UserProvider::CLAIM_ENABLED, true);
+                                    ->withClaim('enabled', true);
                             },
                         ),
                     ];
@@ -453,7 +455,7 @@ class UserProviderTest extends TestCase {
                             static function (Builder $builder): void {
                                 $builder
                                     ->relatedTo('c1aa09cc-0bd8-490e-8c7b-25c18df23e18')
-                                    ->withClaim(UserProvider::CLAIM_ENABLED, false);
+                                    ->withClaim('enabled', false);
                             },
                         ),
                     ];
@@ -719,7 +721,7 @@ class UserProviderTest extends TestCase {
                 },
             ],
             'required claim missed'                      => [
-                new InsufficientData(['email']),
+                new UserInsufficientData(new User(), ['email']),
                 static function (string $client, Organization $organization): array {
                     return [
                         'typ'                   => 'Bearer',

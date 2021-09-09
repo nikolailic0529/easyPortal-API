@@ -66,7 +66,7 @@ abstract class OAuth2Token {
             $params = $this->getTokenParameters();
             $token  = $this->getProvider()->getAccessToken('client_credentials', $params);
         } catch (Exception $exception) {
-            throw new InvalidCredentials($this::class, $exception);
+            throw (new InvalidCredentials($this::class, $exception))->setChannel(Service::getService($this));
         }
 
         return $token;

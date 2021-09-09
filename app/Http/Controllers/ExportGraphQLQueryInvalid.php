@@ -2,26 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Exceptions\HasErrorCode;
-use App\Exceptions\TranslatedException;
-use Exception;
+use App\Http\HttpException;
 use Throwable;
 
 use function __;
-use function json_encode;
 
-class ExportGraphQLQueryInvalid extends Exception implements TranslatedException {
-    use HasErrorCode;
-
+class ExportGraphQLQueryInvalid extends HttpException {
     /**
-     * @param array<mixed,string> $errors
+     * @param array<mixed> $errors
      */
-    public function __construct(array $errors, Throwable $previous = null) {
-        parent::__construct(
-            'GraphQL query invalid: '.json_encode($errors).')',
-            0,
-            $previous,
-        );
+    public function __construct(
+        protected array $errors,
+        Throwable $previous = null,
+    ) {
+        parent::__construct('GraphQL query invalid.', $previous);
+
+        $this->setContext([
+            'errors' => $this->errors,
+        ]);
     }
 
     public function getErrorMessage(): string {

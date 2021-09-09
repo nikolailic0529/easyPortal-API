@@ -8,6 +8,7 @@ use App\Services\DataLoader\Client\Events\RequestSuccessful;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderDisabled;
 use App\Services\DataLoader\Client\Exceptions\DataLoaderUnavailable;
 use App\Services\DataLoader\Client\Exceptions\GraphQLRequestFailed;
+use App\Services\DataLoader\Client\Exceptions\GraphQLSlowQuery;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyBrandingData;
 use App\Services\DataLoader\Schema\UpdateCompanyFile;
@@ -26,7 +27,6 @@ use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Arr;
-use Psr\Log\LoggerInterface;
 use SplFileInfo;
 
 use function explode;
@@ -39,7 +39,6 @@ use function time;
 class Client {
     public function __construct(
         protected ExceptionHandler $handler,
-        protected LoggerInterface $logger,
         protected Dispatcher $dispatcher,
         protected Repository $config,
         protected Factory $client,
@@ -528,7 +527,7 @@ class Client {
         array $params,
         Closure $retriever,
     ): OffsetBasedIterator {
-        return (new OffsetBasedIterator($this->logger, $this, "data.{$selector}", $graphql, $params, $retriever))
+        return (new OffsetBasedIterator($this->handler, $this, "data.{$selector}", $graphql, $params, $retriever))
             ->setChunkSize($this->config->get('ep.data_loader.chunk'));
     }
 
@@ -546,7 +545,7 @@ class Client {
         array $params,
         Closure $retriever,
     ): LastIdBasedIterator {
-        return (new LastIdBasedIterator($this->logger, $this, "data.{$selector}", $graphql, $params, $retriever))
+        return (new LastIdBasedIterator($this->handler, $this, "data.{$selector}", $graphql, $params, $retriever))
             ->setChunkSize($this->config->get('ep.data_loader.chunk'));
     }
 
@@ -650,13 +649,7 @@ class Client {
         $time    = time() - $begin;
 
         if ($slowlog > 0 && $time >= $slowlog) {
-            $this->logger->info('DataLoader: Slow query detected.', [
-                'threshold' => $slowlog,
-                'time'      => $time,
-                'selector'  => $selector,
-                'graphql'   => $graphql,
-                'params'    => $params,
-            ]);
+            $this->handler->report(new GraphQLSlowQuery($graphql, $params, $time, $slowlog));
         }
 
         // Return

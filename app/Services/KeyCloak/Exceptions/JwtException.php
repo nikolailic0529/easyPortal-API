@@ -2,8 +2,8 @@
 
 namespace App\Services\KeyCloak\Exceptions;
 
-use Exception;
+use App\Services\KeyCloak\ServiceException;
 
-abstract class JwtException extends Exception {
+abstract class JwtException extends ServiceException {
     // empty
 }

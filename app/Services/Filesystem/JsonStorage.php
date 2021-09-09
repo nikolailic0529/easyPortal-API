@@ -2,6 +2,10 @@
 
 namespace App\Services\Filesystem;
 
+use App\Services\Filesystem\Exceptions\StorageException;
+use App\Services\Filesystem\Exceptions\StorageFileCorrupted;
+use App\Services\Filesystem\Exceptions\StorageFileDeleteFailed;
+use App\Services\Filesystem\Exceptions\StorageFileSaveFailed;
 use DateTimeInterface;
 use Exception;
 use Illuminate\Support\Facades\Date;

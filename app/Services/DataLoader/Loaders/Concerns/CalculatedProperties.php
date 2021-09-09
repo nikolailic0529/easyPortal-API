@@ -7,23 +7,23 @@ use App\Models\Callbacks\GetKey;
 use App\Models\Customer;
 use App\Models\Document;
 use App\Models\Reseller;
+use App\Services\DataLoader\Exceptions\FailedToUpdateCalculatedProperties;
 use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Resolvers\CustomerResolver;
 use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Utils\ModelHelper;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
-use Psr\Log\LoggerInterface;
 use stdClass;
 use Throwable;
 
 use function array_fill_keys;
-use function sprintf;
 
 trait CalculatedProperties {
-    abstract protected function getLogger(): LoggerInterface;
+    abstract protected function getExceptionHandler(): ExceptionHandler;
 
     protected function updateCalculatedProperties(Resolver ...$resolvers): void {
         foreach ($resolvers as $resolver) {
@@ -41,17 +41,12 @@ trait CalculatedProperties {
                 } elseif ($resolver instanceof ResellerResolver) {
                     $this->updateResellersCalculatedProperties($objects);
                 } else {
-                    throw new InvalidArgumentException(sprintf(
-                        'Impossible to update calculated properties for `%s`.',
-                        $resolver::class,
-                    ));
+                    throw new InvalidArgumentException('Unsupported resolver.');
                 }
             } catch (Throwable $exception) {
-                $this->getLogger()->warning(__METHOD__, [
-                    'ids'       => $objects->map(new GetKey()),
-                    'resolver'  => $resolver::class,
-                    'exception' => $exception,
-                ]);
+                $this->getExceptionHandler()->report(
+                    new FailedToUpdateCalculatedProperties($resolver, $objects, $exception),
+                );
             }
         }
     }

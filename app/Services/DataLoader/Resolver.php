@@ -5,7 +5,7 @@ namespace App\Services\DataLoader;
 use App\Services\DataLoader\Cache\Cache;
 use App\Services\DataLoader\Cache\ModelKey;
 use App\Services\DataLoader\Container\Singleton;
-use App\Services\DataLoader\Exceptions\FactoryObjectNotFoundException;
+use App\Services\DataLoader\Exceptions\FactorySearchModeException;
 use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -65,7 +65,7 @@ abstract class Resolver implements Singleton {
         if (!$model && $factory) {
             try {
                 $model = $factory($this->normalizer);
-            } catch (FactoryObjectNotFoundException $exception) {
+            } catch (FactorySearchModeException $exception) {
                 $cache->putNull($key);
 
                 throw $exception;

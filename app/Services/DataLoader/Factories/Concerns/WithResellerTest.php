@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Factories\Concerns;
 
 use App\Models\Reseller;
-use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
+use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Factory;
 use App\Services\DataLoader\Finders\ResellerFinder;
 use App\Services\DataLoader\Normalizer;
@@ -90,7 +90,7 @@ class WithResellerTest extends TestCase {
         $factory = new WithResellerTestObject($normalizer, $resolver);
         $object  = $objectFactory($this, $reseller);
 
-        $this->expectException(ResellerNotFoundException::class);
+        $this->expectException(ResellerNotFound::class);
 
         $this->assertEquals($reseller, $factory->reseller($object));
     }

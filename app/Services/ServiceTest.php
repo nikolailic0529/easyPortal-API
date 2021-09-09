@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Services\DataLoader\Importers\Importer as DataLoaderImporter;
+use App\Services\DataLoader\Service as DataLoaderService;
 use Closure;
 use DateInterval;
 use Illuminate\Contracts\Cache\Repository;
@@ -138,5 +140,14 @@ class ServiceTest extends TestCase {
             ->andReturn(true);
 
         $this->assertTrue($service->delete(['a', 'b']));
+    }
+
+    /**
+     * @covers ::getService
+     */
+    public function testGetService(): void {
+        $this->assertEquals(null, Service::getService(Service::class));
+        $this->assertEquals(DataLoaderService::class, Service::getService(DataLoaderService::class));
+        $this->assertEquals(DataLoaderService::class, Service::getService(DataLoaderImporter::class));
     }
 }

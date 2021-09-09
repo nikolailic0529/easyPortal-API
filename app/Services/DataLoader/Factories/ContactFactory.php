@@ -8,21 +8,21 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\ContactResolver;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\Type;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use InvalidArgumentException;
 use libphonenumber\NumberParseException;
 use Propaganistas\LaravelPhone\PhoneNumber;
-use Psr\Log\LoggerInterface;
 
 use function is_null;
 use function sprintf;
 
 class ContactFactory extends DependentModelFactory {
     public function __construct(
-        LoggerInterface $logger,
+        ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
         protected ContactResolver $contactResolver,
     ) {
-        parent::__construct($logger, $normalizer);
+        parent::__construct($exceptionHandler, $normalizer);
     }
 
     public function find(Model $object, Type $type): ?Contact {

@@ -2,10 +2,11 @@
 
 namespace App\Services\DataLoader\Factories\Concerns;
 
+use App\Exceptions\ErrorReport;
 use App\Models\Customer;
 use App\Models\Location as LocationModel;
 use App\Models\Model;
-use App\Services\DataLoader\Events\ObjectSkipped;
+use App\Services\DataLoader\Exceptions\FailedToProcessLocation;
 use App\Services\DataLoader\Factories\LocationFactory;
 use App\Services\DataLoader\Factories\ModelFactory;
 use App\Services\DataLoader\Normalizer;
@@ -13,10 +14,9 @@ use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Location;
 use App\Services\DataLoader\Schema\Type;
 use Exception;
-use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Facades\Event;
 use Mockery;
-use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
 use function reset;
@@ -41,11 +41,10 @@ class WithLocationsTest extends TestCase {
         $owner->setRelation('locations', $existing);
 
         $factory = new class(
-            $this->app->make(LoggerInterface::class),
+            $this->app->make(ExceptionHandler::class),
             $this->app->make(Normalizer::class),
             $this->app->make(TypeResolver::class),
             $this->app->make(LocationFactory::class),
-            $this->app->make(Dispatcher::class),
         ) extends ModelFactory {
             use WithLocations {
                 objectLocations as public;
@@ -53,11 +52,10 @@ class WithLocationsTest extends TestCase {
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected LoggerInterface $logger,
+                protected ExceptionHandler $exceptionHandler,
                 protected Normalizer $normalizer,
                 protected TypeResolver $typeResolver,
                 protected LocationFactory $locationFactory,
-                protected Dispatcher $dispatcher,
             ) {
                 // empty
             }
@@ -68,10 +66,6 @@ class WithLocationsTest extends TestCase {
 
             protected function getLocationFactory(): LocationFactory {
                 return $this->locationFactory;
-            }
-
-            protected function getDispatcher(): Dispatcher {
-                return $this->dispatcher;
             }
 
             protected function getTypeResolver(): TypeResolver {
@@ -141,7 +135,7 @@ class WithLocationsTest extends TestCase {
             ->once()
             ->andReturns();
 
-        $factory = new class($factory, $this->app->make(Dispatcher::class)) extends ModelFactory {
+        $factory = new class($factory) extends ModelFactory {
             use WithLocations {
                 location as public;
             }
@@ -149,7 +143,6 @@ class WithLocationsTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected LocationFactory $locations,
-                protected Dispatcher $dispatcher,
             ) {
                 // empty
             }
@@ -160,10 +153,6 @@ class WithLocationsTest extends TestCase {
 
             protected function getLocationFactory(): LocationFactory {
                 return $this->locations;
-            }
-
-            protected function getDispatcher(): Dispatcher {
-                return $this->dispatcher;
             }
 
             protected function getTypeResolver(): TypeResolver {
@@ -179,7 +168,7 @@ class WithLocationsTest extends TestCase {
      */
     public function testObjectLocationsInvalidLocation(): void {
         // Fake
-        Event::fake();
+        Event::fake(ErrorReport::class);
 
         // Prepare
         $owner    = new Customer();
@@ -193,8 +182,7 @@ class WithLocationsTest extends TestCase {
 
         $factory = new class(
             $factory,
-            $this->app->make(Dispatcher::class),
-            $this->app->make(LoggerInterface::class),
+            $this->app->make(ExceptionHandler::class),
         ) extends ModelFactory {
             use WithLocations {
                 objectLocations as public;
@@ -203,8 +191,7 @@ class WithLocationsTest extends TestCase {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected LocationFactory $locations,
-                protected Dispatcher $dispatcher,
-                protected LoggerInterface $logger,
+                protected ExceptionHandler $exceptionHandler,
             ) {
                 // empty
             }
@@ -217,10 +204,6 @@ class WithLocationsTest extends TestCase {
                 return $this->locations;
             }
 
-            protected function getDispatcher(): Dispatcher {
-                return $this->dispatcher;
-            }
-
             protected function getTypeResolver(): TypeResolver {
                 throw new Exception('Should not be called.');
             }
@@ -228,6 +211,8 @@ class WithLocationsTest extends TestCase {
 
         $this->assertEmpty($factory->objectLocations($owner, [$location]));
 
-        Event::assertDispatched(ObjectSkipped::class);
+        Event::assertDispatched(ErrorReport::class, static function (ErrorReport $event): bool {
+            return $event->getError() instanceof FailedToProcessLocation;
+        });
     }
 }

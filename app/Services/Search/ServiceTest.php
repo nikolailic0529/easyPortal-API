@@ -12,7 +12,6 @@ use Tests\TestCase;
 
 use function array_diff;
 use function array_filter;
-use function array_keys;
 use function class_uses_recursive;
 use function implode;
 use function in_array;
@@ -29,9 +28,12 @@ class ServiceTest extends TestCase {
      * @coversNothing
      */
     public function testAllSearchableModelRegistered(): void {
-        $expected = array_keys(Models::get(static function (ReflectionClass $model): bool {
-            return in_array(SearchSearchable::class, class_uses_recursive($model->getName()), true);
-        }));
+        $expected = Models::get()
+            ->filter(static function (ReflectionClass $model): bool {
+                return in_array(SearchSearchable::class, class_uses_recursive($model->getName()), true);
+            })
+            ->keys()
+            ->all();
         $actual   = Service::getSearchableModels();
         $missed   = array_diff($expected, $actual);
         $invalid  = array_filter($actual, static function (string $model): bool {

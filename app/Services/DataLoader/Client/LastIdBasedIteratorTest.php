@@ -5,8 +5,8 @@ namespace App\Services\DataLoader\Client;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\TypeWithId;
 use Closure;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Mockery;
-use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
 use function array_map;
@@ -25,9 +25,9 @@ class LastIdBasedIteratorTest extends TestCase {
      * @covers ::getIterator
      */
     public function testGetIterator(): void {
-        $data   = $this->getData();
-        $logger = $this->app->make(LoggerInterface::class);
-        $client = Mockery::mock(Client::class);
+        $data    = $this->getData();
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $client  = Mockery::mock(Client::class);
         $client->shouldAllowMockingProtectedMethods();
 
         $client
@@ -36,7 +36,7 @@ class LastIdBasedIteratorTest extends TestCase {
             ->andReturnUsing($this->getRetriever($data));
 
         $expected = $data;
-        $actual   = iterator_to_array((new LastIdBasedIterator($logger, $client, '', ''))->setChunkSize(5));
+        $actual   = iterator_to_array((new LastIdBasedIterator($handler, $client, '', ''))->setChunkSize(5));
 
         $this->assertEquals($expected, $actual);
     }
@@ -45,9 +45,9 @@ class LastIdBasedIteratorTest extends TestCase {
      * @covers ::iterator
      */
     public function testIteratorWithLimitLastId(): void {
-        $data   = $this->getData();
-        $logger = $this->app->make(LoggerInterface::class);
-        $client = Mockery::mock(Client::class);
+        $data    = $this->getData();
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $client  = Mockery::mock(Client::class);
         $client->shouldAllowMockingProtectedMethods();
 
         $client
@@ -61,7 +61,7 @@ class LastIdBasedIteratorTest extends TestCase {
         $onAfterChunk  = Mockery::spy(static function (): void {
             // empty
         });
-        $iterator      = (new LastIdBasedIterator($logger, $client, '', ''))
+        $iterator      = (new LastIdBasedIterator($handler, $client, '', ''))
             ->onBeforeChunk(Closure::fromCallable($onBeforeChunk))
             ->onAfterChunk(Closure::fromCallable($onAfterChunk))
             ->setOffset('5')
@@ -84,9 +84,9 @@ class LastIdBasedIteratorTest extends TestCase {
      * @covers ::iterator
      */
     public function testIteratorChunkLessThanLimit(): void {
-        $data   = $this->getData();
-        $logger = $this->app->make(LoggerInterface::class);
-        $client = Mockery::mock(Client::class);
+        $data    = $this->getData();
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $client  = Mockery::mock(Client::class);
         $client->shouldAllowMockingProtectedMethods();
 
         $client
@@ -99,7 +99,7 @@ class LastIdBasedIteratorTest extends TestCase {
             });
 
         $expected = $data;
-        $iterator = (new LastIdBasedIterator($logger, $client, '', ''))->setLimit(10)->setChunkSize(2);
+        $iterator = (new LastIdBasedIterator($handler, $client, '', ''))->setLimit(10)->setChunkSize(2);
         $actual   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);
@@ -109,9 +109,9 @@ class LastIdBasedIteratorTest extends TestCase {
      * @covers ::iterator
      */
     public function testIteratorChunkGreaterThanLimit(): void {
-        $data   = $this->getData();
-        $logger = $this->app->make(LoggerInterface::class);
-        $client = Mockery::mock(Client::class);
+        $data    = $this->getData();
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $client  = Mockery::mock(Client::class);
         $client->shouldAllowMockingProtectedMethods();
 
         $client
@@ -124,7 +124,7 @@ class LastIdBasedIteratorTest extends TestCase {
             });
 
         $expected = ['1', '2'];
-        $iterator = (new LastIdBasedIterator($logger, $client, '', ''))->setLimit(2)->setChunkSize(50);
+        $iterator = (new LastIdBasedIterator($handler, $client, '', ''))->setLimit(2)->setChunkSize(50);
         $actual   = iterator_to_array($iterator);
         $actual   = array_map(static function (Type $type): ?string {
             return $type->id ?? null;
@@ -137,8 +137,8 @@ class LastIdBasedIteratorTest extends TestCase {
      * @covers ::iterator
      */
     public function testIteratorLimitZero(): void {
-        $logger = $this->app->make(LoggerInterface::class);
-        $client = Mockery::mock(Client::class);
+        $handler = Mockery::mock(ExceptionHandler::class);
+        $client  = Mockery::mock(Client::class);
         $client->shouldAllowMockingProtectedMethods();
 
         $client
@@ -146,7 +146,7 @@ class LastIdBasedIteratorTest extends TestCase {
             ->never();
 
         $expected = [];
-        $iterator = (new LastIdBasedIterator($logger, $client, '', ''))->setLimit(0);
+        $iterator = (new LastIdBasedIterator($handler, $client, '', ''))->setLimit(0);
         $actual   = iterator_to_array($iterator);
 
         $this->assertEquals($expected, $actual);

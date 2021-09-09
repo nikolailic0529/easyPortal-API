@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Queries\Application;
 
-use App\Services\LocaleService;
+use App\Services\I18n\Locale as LocaleService;
 
 class Locale {
     public function __construct(

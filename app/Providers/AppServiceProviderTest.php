@@ -10,7 +10,11 @@ use Illuminate\Support\Facades\Date;
 use Tests\Helpers\Models;
 use Tests\TestCase;
 
+use function array_keys;
+use function implode;
 use function ksort;
+
+use const PHP_EOL;
 
 /**
  * @internal
@@ -52,6 +56,11 @@ class AppServiceProviderTest extends TestCase {
 
         ksort($expected);
 
-        $this->assertEquals($actual, $expected);
+        $this->assertEquals($actual, $expected, 'Map is not actual.');
+        $this->assertEquals(
+            implode(PHP_EOL, array_keys($actual)),
+            implode(PHP_EOL, array_keys($expected)),
+            'Map is not sorted alphabetically.',
+        );
     }
 }

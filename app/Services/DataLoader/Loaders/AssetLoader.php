@@ -3,7 +3,7 @@
 namespace App\Services\DataLoader\Loaders;
 
 use App\Services\DataLoader\Client\Client;
-use App\Services\DataLoader\Exceptions\AssetNotFoundException;
+use App\Services\DataLoader\Exceptions\AssetNotFound;
 use App\Services\DataLoader\Factories\AssetFactory;
 use App\Services\DataLoader\Factories\DocumentFactory;
 use App\Services\DataLoader\Factories\ModelFactory;
@@ -15,7 +15,7 @@ use App\Services\DataLoader\Resolvers\ResellerResolver;
 use App\Services\DataLoader\Schema\Type;
 use App\Services\DataLoader\Schema\ViewAsset;
 use Exception;
-use Psr\Log\LoggerInterface;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 
 class AssetLoader extends Loader implements LoaderRecalculable {
     use WithCalculatedProperties;
@@ -23,14 +23,14 @@ class AssetLoader extends Loader implements LoaderRecalculable {
     protected bool $withDocuments = false;
 
     public function __construct(
-        LoggerInterface $logger,
+        ExceptionHandler $exceptionHandler,
         Client $client,
         protected AssetFactory $assets,
         protected DocumentFactory $documents,
         protected ResellerResolver $resellers,
         protected CustomerResolver $customers,
     ) {
-        parent::__construct($logger, $client);
+        parent::__construct($exceptionHandler, $client);
     }
 
     public function isWithDocuments(): bool {
@@ -65,7 +65,7 @@ class AssetLoader extends Loader implements LoaderRecalculable {
     }
 
     protected function getModelNotFoundException(string $id): Exception {
-        return new AssetNotFoundException($id);
+        return new AssetNotFound($id);
     }
 
     /**

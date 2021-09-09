@@ -2,16 +2,15 @@
 
 namespace App\Services\Settings;
 
+use App\Services\Settings\Exceptions\FailedToGetSettingValue;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Date;
-use LogicException;
-use Psr\Log\LoggerInterface;
 use Throwable;
 
 use function array_key_exists;
-use function sprintf;
 
 class Bootstraper extends Settings {
     protected const MARKER = '__ep_settings';
@@ -20,7 +19,7 @@ class Bootstraper extends Settings {
         Application $app,
         Repository $config,
         Storage $storage,
-        protected LoggerInterface $logger,
+        protected ExceptionHandler $exceptionHandler,
     ) {
         parent::__construct($app, $config, $storage);
     }
@@ -29,11 +28,9 @@ class Bootstraper extends Settings {
         try {
             $this->load();
         } catch (Throwable $exception) {
-            $this->logger->emergency('Failed to load custom config file.', [
-                'exception' => $exception,
-            ]);
-
-            if (!$this->config->get('ep.settings.recoverable')) {
+            if ($this->config->get('ep.settings.recoverable')) {
+                $this->exceptionHandler->report($exception);
+            } else {
                 throw $exception;
             }
         }
@@ -97,10 +94,7 @@ class Bootstraper extends Settings {
         } elseif (!$this->isCached()) {
             $value = $this->getEnvValue($setting);
         } else {
-            throw new LogicException(sprintf(
-                'Impossible to get current value for setting `%s`.',
-                $setting->getName(),
-            ));
+            throw new FailedToGetSettingValue($setting);
         }
 
         return $value;

@@ -8,7 +8,7 @@ use App\Models\DocumentEntry;
 use App\Models\OemGroup;
 use App\Models\ServiceGroup;
 use App\Models\Type as TypeModel;
-use App\Services\DataLoader\Exceptions\ViewAssetDocumentNoDocument;
+use App\Services\DataLoader\Exceptions\FailedToProcessViewAssetDocumentNoDocument;
 use App\Services\DataLoader\Factories\Concerns\WithAssetDocument;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithCurrency;
@@ -47,9 +47,9 @@ use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Schema\ViewDocument;
 use Closure;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
-use Psr\Log\LoggerInterface;
 
 use function array_map;
 use function array_merge;
@@ -74,7 +74,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     use WithAssetDocument;
 
     public function __construct(
-        LoggerInterface $logger,
+        ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
         protected OemResolver $oemResolver,
         protected TypeResolver $typeResolver,
@@ -96,7 +96,7 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
         protected ?ServiceLevelFinder $serviceLevelFinder = null,
         protected ?OemFinder $oemFinder = null,
     ) {
-        parent::__construct($logger, $normalizer);
+        parent::__construct($exceptionHandler, $normalizer);
     }
 
     public function find(Type $type): ?DocumentModel {
@@ -228,7 +228,11 @@ class DocumentFactory extends ModelFactory implements FactoryPrefetchable {
     protected function createFromAssetDocumentObject(AssetDocumentObject $object): ?DocumentModel {
         // Document exists?
         if (!isset($object->document->document->id)) {
-            throw new ViewAssetDocumentNoDocument($object->document);
+            throw new FailedToProcessViewAssetDocumentNoDocument(
+                $object->asset,
+                $object->document,
+                new Collection($object->entries),
+            );
         }
 
         // Get/Create/Update

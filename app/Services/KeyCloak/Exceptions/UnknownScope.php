@@ -3,12 +3,13 @@
 namespace App\Services\KeyCloak\Exceptions;
 
 use App\Models\Organization;
+use App\Services\Auth\Exceptions\AuthException;
 use Throwable;
 
 use function __;
 use function sprintf;
 
-class UnknownScope extends KeyCloakException {
+class UnknownScope extends AuthException {
     public function __construct(
         protected Organization $organization,
         Throwable $previous = null,
@@ -16,7 +17,7 @@ class UnknownScope extends KeyCloakException {
         parent::__construct(sprintf(
             'Organization `%s` does not has a scope.',
             $this->organization->getKey(),
-        ), 0, $previous);
+        ), $previous);
     }
 
     public function getErrorMessage(): string {

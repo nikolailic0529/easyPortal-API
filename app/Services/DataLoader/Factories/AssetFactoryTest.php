@@ -2,6 +2,7 @@
 
 namespace App\Services\DataLoader\Factories;
 
+use App\Exceptions\ErrorReport;
 use App\Models\Asset;
 use App\Models\AssetWarranty;
 use App\Models\Customer;
@@ -17,9 +18,9 @@ use App\Models\ServiceLevel;
 use App\Models\Status;
 use App\Models\Type as TypeModel;
 use App\Services\DataLoader\Container\Container;
-use App\Services\DataLoader\Events\ObjectSkipped;
-use App\Services\DataLoader\Exceptions\CustomerNotFoundException;
-use App\Services\DataLoader\Exceptions\ResellerNotFoundException;
+use App\Services\DataLoader\Exceptions\CustomerNotFound;
+use App\Services\DataLoader\Exceptions\FailedToProcessAssetViewDocument;
+use App\Services\DataLoader\Exceptions\ResellerNotFound;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\AssetResolver;
 use App\Services\DataLoader\Resolvers\CoverageResolver;
@@ -32,7 +33,7 @@ use App\Services\DataLoader\Schema\ViewAsset;
 use App\Services\DataLoader\Schema\ViewAssetDocument;
 use App\Services\DataLoader\Testing\Helper;
 use Closure;
-use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Date;
@@ -40,7 +41,6 @@ use Illuminate\Support\Facades\Event;
 use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Database\WithQueryLog;
 use Mockery;
-use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 use Tests\WithoutOrganizationScope;
 
@@ -349,7 +349,7 @@ class AssetFactoryTest extends TestCase {
         $asset   = new ViewAsset($json);
 
         // Test
-        $this->expectException(CustomerNotFoundException::class);
+        $this->expectException(CustomerNotFound::class);
 
         $factory->create($asset);
     }
@@ -463,7 +463,7 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetDocuments(): void {
         // Fake
-        Event::fake();
+        Event::fake(ErrorReport::class);
 
         // Prepare
         $model     = Asset::factory()->make();
@@ -520,7 +520,7 @@ class AssetFactoryTest extends TestCase {
 
         $this->assertCount(1, $factory->assetDocuments($model, $asset));
 
-        Event::assertNotDispatched(ObjectSkipped::class);
+        Event::assertNotDispatched(ErrorReport::class);
     }
 
     /**
@@ -528,8 +528,8 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetDocumentsNoDocumentId(): void {
         // Prepare
-        $model      = Asset::factory()->make();
-        $asset      = new ViewAsset([
+        $model   = Asset::factory()->make();
+        $asset   = new ViewAsset([
             'assetDocument' => [
                 [
                     'documentNumber' => '12345678',
@@ -538,13 +538,11 @@ class AssetFactoryTest extends TestCase {
                 ],
             ],
         ]);
-        $dispatcher = $this->app->make(Dispatcher::class);
-        $logger     = $this->app->make(LoggerInterface::class);
-        $factory    = new class($logger, $dispatcher) extends AssetFactory {
+        $handler = $this->app->make(ExceptionHandler::class);
+        $factory = new class($handler) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected LoggerInterface $logger,
-                protected Dispatcher $dispatcher,
+                protected ExceptionHandler $exceptionHandler,
             ) {
                 // empty
             }
@@ -563,11 +561,11 @@ class AssetFactoryTest extends TestCase {
      */
     public function testAssetDocumentsFailedCreateDocument(): void {
         // Fake
-        Event::fake();
+        Event::fake(ErrorReport::class);
 
         // Prepare
-        $model      = Asset::factory()->make();
-        $asset      = new ViewAsset([
+        $model     = Asset::factory()->make();
+        $asset     = new ViewAsset([
             'assetDocument' => [
                 [
                     'document'  => ['id' => 'a'],
@@ -576,20 +574,18 @@ class AssetFactoryTest extends TestCase {
                 ],
             ],
         ]);
-        $logger     = $this->app->make(LoggerInterface::class);
-        $dispatcher = $this->app->make(Dispatcher::class);
-        $documents  = Mockery::mock(DocumentFactory::class);
+        $handler   = $this->app->make(ExceptionHandler::class);
+        $documents = Mockery::mock(DocumentFactory::class);
         $documents
             ->shouldReceive('create')
             ->once()
             ->andReturnUsing(function (Type $type): ?Document {
-                throw new ResellerNotFoundException($this->faker->uuid);
+                throw new ResellerNotFound($this->faker->uuid);
             });
-        $factory = new class($logger, $dispatcher, $documents) extends AssetFactory {
+        $factory = new class($handler, $documents) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected LoggerInterface $logger,
-                protected Dispatcher $dispatcher,
+                protected ExceptionHandler $exceptionHandler,
                 protected ?DocumentFactory $documentFactory,
             ) {
                 // empty
@@ -603,8 +599,9 @@ class AssetFactoryTest extends TestCase {
         // Test
         $this->assertCount(0, $factory->assetDocuments($model, $asset));
 
-        Event::assertDispatched(ObjectSkipped::class, static function (ObjectSkipped $event): bool {
-            return $event->getReason() instanceof ResellerNotFoundException;
+        Event::assertDispatched(ErrorReport::class, static function (ErrorReport $event): bool {
+            return $event->getError() instanceof FailedToProcessAssetViewDocument
+                && $event->getError()->getPrevious() instanceof ResellerNotFound;
         });
     }
 
@@ -643,16 +640,14 @@ class AssetFactoryTest extends TestCase {
     public function testAssetInitialWarranties(): void {
         $factory = new class(
             $this->app->make(Normalizer::class),
-            $this->app->make(Dispatcher::class),
-            $this->app->make(LoggerInterface::class),
+            $this->app->make(ExceptionHandler::class),
             $this->app->make(ResellerResolver::class),
             $this->app->make(CustomerResolver::class),
         ) extends AssetFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
                 protected Normalizer $normalizer,
-                protected Dispatcher $dispatcher,
-                protected LoggerInterface $logger,
+                protected ExceptionHandler $exceptionHandler,
                 protected ResellerResolver $resellerResolver,
                 protected CustomerResolver $customerResolver,
             ) {

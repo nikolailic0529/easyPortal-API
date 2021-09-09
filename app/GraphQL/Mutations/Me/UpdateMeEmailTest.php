@@ -6,7 +6,7 @@ use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Exceptions\UserAlreadyExists;
+use App\Services\KeyCloak\Client\Exceptions\RealmUserAlreadyExists;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -97,7 +97,7 @@ class UpdateMeEmailTest extends TestCase {
             new OrganizationDataProvider('updateMeEmail'),
             new UserDataProvider('updateMeEmail'),
             new ArrayDataProvider([
-                'keycloak'                => [
+                'keycloak'             => [
                     new GraphQLSuccess('updateMeEmail', UpdateMeEmail::class, [
                         'result' => true,
                     ]),
@@ -114,7 +114,7 @@ class UpdateMeEmailTest extends TestCase {
                             ->once();
                     },
                 ],
-                'local'                   => [
+                'local'                => [
                     new GraphQLSuccess('updateMeEmail', UpdateMeEmail::class, [
                         'result' => true,
                     ]),
@@ -131,8 +131,8 @@ class UpdateMeEmailTest extends TestCase {
                             ->never();
                     },
                 ],
-                'keycloak/username taken' => [
-                    new GraphQLError('updateMeEmail', new UserAlreadyExists('new@example.com')),
+                'keycloak/email taken' => [
+                    new GraphQLError('updateMeEmail', new RealmUserAlreadyExists('new@example.com')),
                     static function (TestCase $test, ?Organization $organization, ?User $user): bool {
                         $user->email = 'old@example.com';
                         $user->type  = UserType::keycloak();
@@ -144,10 +144,10 @@ class UpdateMeEmailTest extends TestCase {
                         $mock
                             ->shouldReceive('updateUserEmail')
                             ->once()
-                            ->andThrow(new UserAlreadyExists('new@example.com'));
+                            ->andThrow(new RealmUserAlreadyExists('new@example.com'));
                     },
                 ],
-                'keycloak/taken'          => [
+                'keycloak/taken'       => [
                     new GraphQLError('updateMeEmail', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
@@ -166,7 +166,7 @@ class UpdateMeEmailTest extends TestCase {
                             ->never();
                     },
                 ],
-                'local/taken'             => [
+                'local/taken'          => [
                     new GraphQLError('updateMeEmail', static function (): array {
                         return [__('errors.validation_failed')];
                     }),

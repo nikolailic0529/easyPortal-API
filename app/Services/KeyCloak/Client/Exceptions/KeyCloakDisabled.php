@@ -7,9 +7,8 @@ use Throwable;
 use function __;
 
 class KeyCloakDisabled extends ClientException {
-
     public function __construct(Throwable $previous = null) {
-        parent::__construct('Keycloak client disabled', 0, $previous);
+        parent::__construct('Keycloak client disabled', $previous);
     }
 
     public function getErrorMessage(): string {

@@ -14,7 +14,6 @@ use ReflectionClass;
 use Tests\Helpers\Models;
 use Tests\TestCase;
 
-use function array_keys;
 use function class_uses_recursive;
 use function implode;
 use function in_array;
@@ -44,13 +43,16 @@ class ProviderTest extends TestCase {
     }
 
     public function testProperSearchableTraitUsed(): void {
-        $invalid = array_keys(Models::get(static function (ReflectionClass $model): bool {
-            $uses   = class_uses_recursive($model->getName());
-            $scout  = in_array(ScoutSearchable::class, $uses, true);
-            $search = in_array(SearchSearchable::class, $uses, true);
+        $invalid = Models::get()
+            ->filter(static function (ReflectionClass $model): bool {
+                $uses   = class_uses_recursive($model->getName());
+                $scout  = in_array(ScoutSearchable::class, $uses, true);
+                $search = in_array(SearchSearchable::class, $uses, true);
 
-            return $scout && !$search;
-        }));
+                return $scout && !$search;
+            })
+            ->keys()
+            ->all();
         $message = sprintf(
             'Following models uses `%s` instead of `%s`:'.PHP_EOL.'- '.implode(PHP_EOL.'- ', $invalid).PHP_EOL,
             ScoutSearchable::class,

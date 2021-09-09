@@ -10,7 +10,7 @@ use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolver;
 use App\Services\DataLoader\Schema\Type;
 use Exception;
-use Psr\Log\LoggerInterface;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Tests\TestCase;
 
 /**
@@ -144,11 +144,11 @@ class ContainerTest_Resolver extends Resolver {
  */
 class ContainerTest_Factory extends Factory {
     public function __construct(
-        LoggerInterface $logger,
+        ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
         public ContainerTest_Singleton $singleton,
     ) {
-        parent::__construct($logger, $normalizer);
+        parent::__construct($exceptionHandler, $normalizer);
     }
 }
 
@@ -158,11 +158,11 @@ class ContainerTest_Factory extends Factory {
  */
 class ContainerTest_Loader extends Loader {
     public function __construct(
-        LoggerInterface $logger,
+        ExceptionHandler $exceptionHandler,
         Client $client,
         public ContainerTest_Singleton $singleton,
     ) {
-        parent::__construct($logger, $client);
+        parent::__construct($exceptionHandler, $client);
     }
 
     /**

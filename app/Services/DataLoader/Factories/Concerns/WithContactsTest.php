@@ -12,8 +12,8 @@ use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\CompanyContactPerson;
 use App\Services\DataLoader\Schema\Type;
 use Exception;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Mockery;
-use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
 use function reset;
@@ -38,7 +38,7 @@ class WithContactsTest extends TestCase {
         $owner->setRelation('contacts', $existing);
 
         $factory = new class(
-            $this->app->make(LoggerInterface::class),
+            $this->app->make(ExceptionHandler::class),
             $this->app->make(Normalizer::class),
             $this->app->make(TypeResolver::class),
             $this->app->make(ContactFactory::class),
@@ -49,7 +49,7 @@ class WithContactsTest extends TestCase {
 
             /** @noinspection PhpMissingParentConstructorInspection */
             public function __construct(
-                protected LoggerInterface $logger,
+                protected ExceptionHandler $exceptionHandler,
                 protected Normalizer $normalizer,
                 protected TypeResolver $typeResolver,
                 protected ContactFactory $contacts,

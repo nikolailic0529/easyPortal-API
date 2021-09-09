@@ -6,7 +6,7 @@ use App\Services\DataLoader\Commands\Concerns\WithBooleanOptions;
 use App\Services\DataLoader\Container\Container;
 use App\Services\DataLoader\Loader;
 use App\Services\DataLoader\Loaders\AssetLoader;
-use Psr\Log\LoggerInterface;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 
 use function array_unique;
 
@@ -33,11 +33,11 @@ class UpdateAsset extends Update {
      */
     protected $description = 'Update asset(s) with given ID(s).';
 
-    public function handle(LoggerInterface $logger, Container $container): int {
+    public function handle(ExceptionHandler $handler, Container $container): int {
         $create = $this->getBooleanOption('create', false);
         $ids    = array_unique($this->argument('id'));
 
-        return $this->process($logger, $container, $ids, $create);
+        return $this->process($handler, $container, $ids, $create);
     }
 
     protected function makeLoader(Container $container): Loader {

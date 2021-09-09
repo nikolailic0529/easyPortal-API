@@ -2,7 +2,7 @@
 
 namespace App\Services\Settings;
 
-use App\Services\Settings\Exceptions\SettingsFailedToLoadEnv;
+use App\Services\Settings\Exceptions\FailedToLoadEnv;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
@@ -26,7 +26,7 @@ class EnvLoader extends LoadEnvironmentVariables {
         try {
             $this->createDotenv($app)->safeLoad();
         } catch (Exception $exception) {
-            throw new SettingsFailedToLoadEnv(
+            throw new FailedToLoadEnv(
                 "{$app->environmentPath()}/{$app->environmentFile()}",
                 $exception,
             );

@@ -4,7 +4,8 @@ namespace App\Services\DataLoader\Factories;
 
 use App\Models\Model;
 use App\Models\Type as TypeModel;
-use App\Services\DataLoader\Exceptions\DataLoaderException;
+use App\Services\DataLoader\Exceptions\FailedToProcessCompanyMultipleTypes;
+use App\Services\DataLoader\Exceptions\FailedToProcessCompanyUnknownType;
 use App\Services\DataLoader\Normalizer;
 use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Schema\Company as CompanyObject;
@@ -91,7 +92,7 @@ class CompanyFactoryTest extends TestCase {
      *
      * @dataProvider dataProviderCompanyType
      */
-    public function testCompanyType(string|Exception $expected, Closure $typesFactory): void {
+    public function testCompanyType(string|Exception $expected, Closure $ownerFactory, Closure $typesFactory): void {
         // Prepare
         $factory = new class() extends CompanyFactory {
             /** @noinspection PhpMissingParentConstructorInspection */
@@ -123,10 +124,7 @@ class CompanyFactoryTest extends TestCase {
             $this->expectExceptionObject($expected);
         }
 
-        $owner = new class() extends Model {
-            // empty
-        };
-
+        $owner  = $ownerFactory($this);
         $types  = $typesFactory($this);
         $actual = $factory->companyType($owner, $types);
 
@@ -141,9 +139,21 @@ class CompanyFactoryTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderCompanyType(): array {
+        $id           = '5393c8a2-f0ef-4216-85a3-46fb458c9ff3';
+        $ownerFactory = static function () use ($id): Model {
+            $owner = new class() extends Model {
+                // empty
+            };
+
+            $owner->{$owner->getKeyName()} = $id;
+
+            return $owner;
+        };
+
         return [
             'one value'                => [
                 'value',
+                $ownerFactory,
                 static function (): array {
                     return [
                         tap(new CompanyType(), static function (CompanyType $type): void {
@@ -154,6 +164,7 @@ class CompanyFactoryTest extends TestCase {
             ],
             'several values, but same' => [
                 'value',
+                $ownerFactory,
                 static function (): array {
                     return [
                         tap(new CompanyType(), static function (CompanyType $type): void {
@@ -166,7 +177,8 @@ class CompanyFactoryTest extends TestCase {
                 },
             ],
             'several values'           => [
-                new DataLoaderException('Multiple type.'),
+                new FailedToProcessCompanyMultipleTypes($id, ['value a', 'value b']),
+                $ownerFactory,
                 static function (): array {
                     return [
                         tap(new CompanyType(), static function (CompanyType $type): void {
@@ -179,7 +191,8 @@ class CompanyFactoryTest extends TestCase {
                 },
             ],
             'empty'                    => [
-                new DataLoaderException('Type is missing.'),
+                new FailedToProcessCompanyUnknownType($id),
+                $ownerFactory,
                 static function (): array {
                     return [];
                 },

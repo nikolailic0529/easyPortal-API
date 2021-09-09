@@ -10,8 +10,8 @@ use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\Type;
 use Closure;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use InvalidArgumentException;
-use Psr\Log\LoggerInterface;
 
 use function array_map;
 use function implode;
@@ -19,12 +19,12 @@ use function sprintf;
 
 class DistributorFactory extends ModelFactory implements FactoryPrefetchable {
     public function __construct(
-        LoggerInterface $logger,
+        ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
         protected TypeResolver $typeResolver,
         protected DistributorResolver $distributorResolver,
     ) {
-        parent::__construct($logger, $normalizer);
+        parent::__construct($exceptionHandler, $normalizer);
     }
 
     // <editor-fold desc="Prefetch">

@@ -7,6 +7,7 @@ use App\Services\Audit\Auditor;
 use App\Services\Logger\Logger;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\Testing\Database\RefreshDatabaseIfEmpty;
@@ -46,6 +47,11 @@ abstract class TestCase extends BaseTestCase {
     protected function setUp(): void {
         // Parent
         parent::setUp();
+
+        // Some tests may change MorphMap, we need to reset it
+        $this->beforeApplicationDestroyed(static function (): void {
+            Relation::$morphMap = [];
+        });
 
         // Some tests may use custom UUIDs, we need to reset it
         $this->beforeApplicationDestroyed(static function (): void {

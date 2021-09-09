@@ -7,7 +7,7 @@ use App\Models\Invitation;
 use App\Models\Organization;
 use App\Models\User as UserModel;
 use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Exceptions\UserDoesntExists;
+use App\Services\KeyCloak\Client\Exceptions\RealmUserNotFound;
 use App\Services\KeyCloak\Client\Types\User;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
 use Closure;
@@ -138,7 +138,7 @@ class SignUpByInviteTest extends TestCase {
                     },
                 ],
                 'Invalid keycloak user' => [
-                    new GraphQLError('signUpByInvite', new UserDoesntExists()),
+                    new GraphQLError('signUpByInvite', new RealmUserNotFound('f9834bc1-2f2f-4c57-bb8d-7a224ac24987')),
                     static function (TestCase $test, Organization $organization): array {
                         $user       = UserModel::factory()->create([
                             'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
@@ -163,7 +163,7 @@ class SignUpByInviteTest extends TestCase {
                             ->shouldReceive('getUserById')
                             ->once()
                             ->with('f9834bc1-2f2f-4c57-bb8d-7a224ac24987')
-                            ->andThrow(new UserDoesntExists());
+                            ->andThrow(new RealmUserNotFound('f9834bc1-2f2f-4c57-bb8d-7a224ac24987'));
                     },
                 ],
                 'Invalid token data'    => [

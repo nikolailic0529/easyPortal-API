@@ -2,10 +2,9 @@
 
 namespace App\Services\KeyCloak\Client\Exceptions;
 
-use App\Exceptions\HasErrorCode;
 use App\Exceptions\TranslatedException;
-use Exception;
+use App\Services\KeyCloak\ServiceException;
 
-abstract class ClientException extends Exception implements TranslatedException {
-    use HasErrorCode;
+abstract class ClientException extends ServiceException implements TranslatedException {
+    // empty
 }

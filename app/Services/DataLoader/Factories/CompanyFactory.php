@@ -5,7 +5,8 @@ namespace App\Services\DataLoader\Factories;
 use App\Models\Model;
 use App\Models\Status;
 use App\Models\Type;
-use App\Services\DataLoader\Exceptions\DataLoaderException;
+use App\Services\DataLoader\Exceptions\FailedToProcessCompanyMultipleTypes;
+use App\Services\DataLoader\Exceptions\FailedToProcessCompanyUnknownType;
 use App\Services\DataLoader\Factories\Concerns\WithContacts;
 use App\Services\DataLoader\Factories\Concerns\WithLocations;
 use App\Services\DataLoader\Factories\Concerns\WithStatus;
@@ -15,9 +16,8 @@ use App\Services\DataLoader\Resolvers\StatusResolver;
 use App\Services\DataLoader\Resolvers\TypeResolver;
 use App\Services\DataLoader\Schema\Company;
 use App\Services\DataLoader\Schema\CompanyType;
-use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\Collection;
-use Psr\Log\LoggerInterface;
 
 use function array_map;
 use function array_unique;
@@ -31,23 +31,18 @@ abstract class CompanyFactory extends ModelFactory {
     use WithLocations;
 
     public function __construct(
-        LoggerInterface $logger,
+        ExceptionHandler $exceptionHandler,
         Normalizer $normalizer,
-        protected Dispatcher $dispatcher,
         protected TypeResolver $typeResolver,
         protected StatusResolver $statusResolver,
         protected ContactFactory $contactFactory,
         protected LocationFactory $locationFactory,
     ) {
-        parent::__construct($logger, $normalizer);
+        parent::__construct($exceptionHandler, $normalizer);
     }
 
     // <editor-fold desc="Getters / Setters">
     // =========================================================================
-    protected function getDispatcher(): Dispatcher {
-        return $this->dispatcher;
-    }
-
     protected function getContactsFactory(): ContactFactory {
         return $this->contactFactory;
     }
@@ -92,9 +87,9 @@ abstract class CompanyFactory extends ModelFactory {
         }, $types));
 
         if (count($names) > 1) {
-            throw new DataLoaderException('Multiple type.');
+            throw new FailedToProcessCompanyMultipleTypes($owner->getKey(), $names);
         } elseif (count($names) < 1) {
-            throw new DataLoaderException('Type is missing.');
+            throw new FailedToProcessCompanyUnknownType($owner->getKey());
         } else {
             $type = $this->type($owner, reset($names));
         }

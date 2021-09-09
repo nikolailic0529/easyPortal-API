@@ -8,6 +8,7 @@ use App\Models\AssetCoverage;
 use App\Models\AssetTag;
 use App\Models\AssetWarranty;
 use App\Models\AssetWarrantyServiceLevel;
+use App\Models\Audits\Audit;
 use App\Models\ChangeRequest;
 use App\Models\City;
 use App\Models\Contact;
@@ -84,7 +85,7 @@ class AppServiceProvider extends ServiceProvider {
         $this->app->singleton(KeyCloak::class);
         $this->app->make(AuthManager::class)->provider(
             UserProvider::class,
-            static function (Application $app, array $config) {
+            static function (Application $app) {
                 return $app->make(UserProvider::class);
             },
         );
@@ -106,6 +107,8 @@ class AppServiceProvider extends ServiceProvider {
             'AssetTag'                  => AssetTag::class,
             'AssetWarranty'             => AssetWarranty::class,
             'AssetWarrantyServiceLevel' => AssetWarrantyServiceLevel::class,
+            'Audit'                     => Audit::class,
+            'ChangeRequest'             => ChangeRequest::class,
             'City'                      => City::class,
             'Contact'                   => Contact::class,
             'ContactType'               => ContactType::class,
@@ -117,35 +120,34 @@ class AppServiceProvider extends ServiceProvider {
             'Distributor'               => Distributor::class,
             'Document'                  => Document::class,
             'DocumentEntry'             => DocumentEntry::class,
+            'File'                      => File::class,
+            'Invitation'                => Invitation::class,
             'Language'                  => Language::class,
             'Location'                  => Location::class,
             'LocationType'              => LocationType::class,
+            'Note'                      => Note::class,
             'Oem'                       => Oem::class,
+            'OemGroup'                  => OemGroup::class,
             'Organization'              => Organization::class,
+            'OrganizationUser'          => OrganizationUser::class,
             'PasswordReset'             => PasswordReset::class,
             'Permission'                => Permission::class,
             'Product'                   => Product::class,
+            'QuoteRequest'              => QuoteRequest::class,
+            'QuoteRequestAsset'         => QuoteRequestAsset::class,
+            'QuoteRequestDuration'      => QuoteRequestDuration::class,
             'Reseller'                  => Reseller::class,
             'ResellerCustomer'          => ResellerCustomer::class,
             'ResellerStatus'            => ResellerStatus::class,
             'Role'                      => Role::class,
+            'ServiceGroup'              => ServiceGroup::class,
+            'ServiceLevel'              => ServiceLevel::class,
             'Status'                    => Status::class,
             'Tag'                       => Tag::class,
             'Type'                      => Type::class,
             'User'                      => User::class,
-            'UserSearch'                => UserSearch::class,
-            'OemGroup'                  => OemGroup::class,
-            'ServiceGroup'              => ServiceGroup::class,
-            'ServiceLevel'              => ServiceLevel::class,
-            'Note'                      => Note::class,
-            'ChangeRequest'             => ChangeRequest::class,
-            'File'                      => File::class,
-            'QuoteRequest'              => QuoteRequest::class,
-            'QuoteRequestDuration'      => QuoteRequestDuration::class,
-            'QuoteRequestAsset'         => QuoteRequestAsset::class,
             'UserRole'                  => UserRole::class,
-            'OrganizationUser'          => OrganizationUser::class,
-            'Invitation'                => Invitation::class,
+            'UserSearch'                => UserSearch::class,
         ]);
     }
 }
