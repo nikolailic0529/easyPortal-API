@@ -26,8 +26,8 @@ class FailedToProcessViewAssetDocumentNoDocument extends FailedToProcessObject {
         ), $previous);
 
         $this->setContext([
-            'document' => $this->document,
-            'entries'  => count($this->entries),
+            'documentNumber' => $this->document->documentNumber,
+            'entries'        => count($this->entries),
         ]);
     }
 }
