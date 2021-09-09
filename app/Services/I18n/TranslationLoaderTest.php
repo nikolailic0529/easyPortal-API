@@ -1,16 +1,16 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services;
+namespace App\Services\I18n;
 
 use App\Services\Filesystem\Disks\AppDisk;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Filesystem\Filesystem;
 use Mockery;
-use Psr\Log\LoggerInterface;
 use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\TranslationLoader
+ * @coversDefaultClass \App\Services\I18n\TranslationLoader
  */
 class TranslationLoaderTest extends TestCase {
     /**
@@ -26,7 +26,7 @@ class TranslationLoaderTest extends TestCase {
         $loader = Mockery::mock(TranslationLoader::class, [
             $this->app,
             $this->app->make(AppDisk::class),
-            Mockery::mock(LoggerInterface::class),
+            Mockery::mock(ExceptionHandler::class),
             $this->app->make(Filesystem::class),
             '',
         ]);
@@ -72,7 +72,7 @@ class TranslationLoaderTest extends TestCase {
         $loader = Mockery::mock(TranslationLoader::class, [
             $this->app,
             $this->app->make(AppDisk::class),
-            Mockery::mock(LoggerInterface::class),
+            Mockery::mock(ExceptionHandler::class),
             $this->app->make(Filesystem::class),
             '',
         ]);
@@ -134,7 +134,7 @@ class TranslationLoaderTest extends TestCase {
         $loader = Mockery::mock(TranslationLoader::class, [
             $this->app,
             Mockery::mock(AppDisk::class),
-            Mockery::mock(LoggerInterface::class),
+            Mockery::mock(ExceptionHandler::class),
             $this->app->make(Filesystem::class),
             '',
         ]);

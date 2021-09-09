@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Services\TranslationLoader;
+use App\Services\I18n\TranslationLoader;
 use Tests\TestCase;
 
 /**

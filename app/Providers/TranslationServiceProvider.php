@@ -3,11 +3,11 @@
 namespace App\Providers;
 
 use App\Services\Filesystem\Disks\AppDisk;
-use App\Services\TranslationLoader;
+use App\Services\I18n\TranslationLoader;
+use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\TranslationServiceProvider as IlluminateTranslationServiceProvider;
-use Psr\Log\LoggerInterface;
 
 class TranslationServiceProvider extends IlluminateTranslationServiceProvider {
     protected function registerLoader(): void {
@@ -16,7 +16,7 @@ class TranslationServiceProvider extends IlluminateTranslationServiceProvider {
             return new TranslationLoader(
                 $app,
                 $app->make(AppDisk::class),
-                $app->make(LoggerInterface::class),
+                $app->make(ExceptionHandler::class),
                 $app['files'],
                 $app['path.lang'],
             );

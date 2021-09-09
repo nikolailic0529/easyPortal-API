@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Queries\Application;
 
-use App\Services\TranslationLoader;
+use App\Services\I18n\TranslationLoader;
 use Illuminate\Contracts\Foundation\Application;
 
 class Translations {
