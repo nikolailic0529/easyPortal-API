@@ -22,6 +22,7 @@ use Tests\DataProviders\GraphQL\Users\GuestDataProvider;
 use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
+use Throwable;
 
 use function __;
 
@@ -180,7 +181,11 @@ class SignUpByInviteTest extends TestCase {
                     },
                 ],
                 'Invitation used'       => [
-                    new GraphQLError('signUpByInvite', new SignUpByInviteAlreadyUsed()),
+                    new GraphQLError('signUpByInvite', static function (): Throwable {
+                        return new SignUpByInviteAlreadyUsed((new Invitation())->forceFill([
+                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        ]));
+                    }),
                     static function (TestCase $test, Organization $organization): array {
                         $user       = UserModel::factory()->create([
                             'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
@@ -211,7 +216,11 @@ class SignUpByInviteTest extends TestCase {
                     },
                 ],
                 'Invitation expired'    => [
-                    new GraphQLError('signUpByInvite', new SignUpByInviteExpired()),
+                    new GraphQLError('signUpByInvite', static function (): Throwable {
+                        return new SignUpByInviteExpired((new Invitation())->forceFill([
+                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                        ]));
+                    }),
                     static function (TestCase $test, Organization $organization): array {
                         $user       = UserModel::factory()->create([
                             'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',

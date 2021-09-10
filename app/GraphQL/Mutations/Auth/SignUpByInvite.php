@@ -53,11 +53,11 @@ class SignUpByInvite {
         }
         /** @var \App\Models\Invitation $invitation */
         if ($invitation->expired_at->isPast()) {
-            throw new SignUpByInviteExpired();
+            throw new SignUpByInviteExpired($invitation);
         }
 
         if ($invitation->used_at) {
-            throw new SignUpByInviteAlreadyUsed();
+            throw new SignUpByInviteAlreadyUsed($invitation);
         }
 
         // Get user from keycloak
