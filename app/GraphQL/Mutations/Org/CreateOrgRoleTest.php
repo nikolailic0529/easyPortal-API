@@ -86,7 +86,11 @@ class CreateOrgRoleTest extends TestCase {
         if ($expected instanceof GraphQLSuccess) {
             $role = Role::with('permissions')->whereKey('fd421bad-069f-491c-ad5f-5841aa9a9dff')->first();
             $this->assertNotNull($role);
-            $this->assertTrue($role->permissions->contains('fd421bad-069f-491c-ad5f-5841aa9a9dfe'));
+            $this->assertEquals($data['name'], $role->name);
+            $this->assertEquals(
+                $role->permissions->pluck((new Permission())->getKeyName())->all(),
+                $data['permissions'],
+            );
         }
     }
     // </editor-fold>
