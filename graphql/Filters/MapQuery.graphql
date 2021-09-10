@@ -1,4 +1,8 @@
 input MapQuery {
   latitude: Float!
   longitude: Float!
+  country_id: ID!
+  city_id: ID!
+  country: CountriesQuery
+  city: CitiesQuery
 }

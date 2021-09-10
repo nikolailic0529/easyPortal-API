@@ -3,6 +3,8 @@
 namespace App\GraphQL\Queries;
 
 use App\Models\Asset;
+use App\Models\City;
+use App\Models\Country;
 use App\Models\Customer;
 use App\Models\Location;
 use App\Models\Organization;
@@ -123,26 +125,41 @@ class MapTest extends TestCase {
             $resellerA->save();
             $resellerB->save();
 
+            $city    = City::factory()->create([
+                'id' => 'c6c90bff-b032-361a-b455-a61e2f3ca288',
+            ]);
+            $country = Country::factory()->create([
+                'id' => 'c6c90bff-b032-361a-b455-a61e2f3ca289',
+            ]);
             // Inside
             $locationA = Location::factory()->create([
-                'latitude'  => 1.00,
-                'longitude' => 1.00,
+                'latitude'   => 1.00,
+                'longitude'  => 1.00,
+                'country_id' => Country::factory(),
+                'city_id'    => $city->getKey(),
             ]);
+
             $locationB = Location::factory()->create([
-                'latitude'  => 1.10,
-                'longitude' => 1.10,
-                'object_id' => $customerA,
+                'latitude'   => 1.10,
+                'longitude'  => 1.10,
+                'object_id'  => $customerA,
+                'country_id' => $country->getKey(),
+                'city_id'    => City::factory(),
             ]);
             $locationC = Location::factory()->create([
                 'latitude'    => 1.5,
                 'longitude'   => 1.5,
                 'object_type' => (new Asset())->getMorphClass(),
                 'object_id'   => null,
+                'country_id'  => Country::factory(),
+                'city_id'     => City::factory(),
             ]);
             Location::factory()->create([
-                'latitude'  => 1.25,
-                'longitude' => 1.25,
-                'object_id' => $customerB,
+                'latitude'   => 1.25,
+                'longitude'  => 1.25,
+                'object_id'  => $customerB,
+                'country_id' => Country::factory(),
+                'city_id'    => City::factory(),
             ]);
 
             Asset::factory()->create([
@@ -190,7 +207,7 @@ class MapTest extends TestCase {
                     'customers-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok' => [
+                    'ok'             => [
                         new GraphQLSuccess('map', self::class, [
                             [
                                 'latitude_avg'    => 1.025,
@@ -232,6 +249,62 @@ class MapTest extends TestCase {
                         ]),
                         $factory,
                         $params,
+                    ],
+                    'filter_city'    => [
+                        new GraphQLSuccess('map', self::class, [
+                            [
+                                'latitude_avg'    => 1,
+                                'latitude_min'    => 1,
+                                'latitude_max'    => 1,
+                                'longitude_avg'   => 1,
+                                'longitude_min'   => 1,
+                                'longitude_max'   => 1,
+                                'customers_count' => 0,
+                                'assets_count'    => 3,
+                                'customers_ids'   => [],
+                            ],
+                        ]),
+                        $factory,
+                        [
+                            'where' => [
+                                'allOf' => [
+                                    [
+                                        'city_id' => [
+                                            'equal' => 'c6c90bff-b032-361a-b455-a61e2f3ca288',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                    'filter_country' => [
+                        new GraphQLSuccess('map', self::class, [
+                            [
+                                'latitude_avg'    => 1.1,
+                                'latitude_min'    => 1.1,
+                                'latitude_max'    => 1.1,
+                                'longitude_avg'   => 1.1,
+                                'longitude_min'   => 1.1,
+                                'longitude_max'   => 1.1,
+                                'customers_count' => 1,
+                                'assets_count'    => 1,
+                                'customers_ids'   => [
+                                    'ad16444a-46a4-3036-b893-7636e2e6209b',
+                                ],
+                            ],
+                        ]),
+                        $factory,
+                        [
+                            'where' => [
+                                'allOf' => [
+                                    [
+                                        'country_id' => [
+                                            'equal' => 'c6c90bff-b032-361a-b455-a61e2f3ca289',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
                     ],
                 ]),
             ),
