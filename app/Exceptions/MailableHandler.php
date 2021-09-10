@@ -3,9 +3,16 @@
 namespace App\Exceptions;
 
 use App\Mail\Error;
+use Exception;
 use Illuminate\Contracts\Mail\Mailer;
 use Monolog\Handler\MailHandler;
 use Monolog\Logger;
+
+use function array_column;
+use function end;
+use function explode;
+use function max;
+use function reset;
 
 class MailableHandler extends MailHandler {
     /**
@@ -22,16 +29,71 @@ class MailableHandler extends MailHandler {
     }
 
     /**
+     * @return array<string>
+     */
+    public function getRecipients(): array {
+        return $this->recipients;
+    }
+
+    /**
+     * @param array<string> $recipients
+     */
+    public function setRecipients(array $recipients): static {
+        $this->recipients = $recipients;
+
+        return $this;
+    }
+
+    /**
      * @inheritDoc
      */
     public function isHandling(array $record): bool {
-        return $this->recipients && parent::isHandling($record);
+        return parent::isHandling($record) && $this->getRecordsRecipients([$record]);
     }
 
     /**
      * @inheritDoc
      */
     protected function send(string $content, array $records): void {
-        $this->mailer->bcc($this->recipients)->send(new Error($this->channel, $content, $records));
+        $recipients = $this->getRecordsRecipients($records);
+
+        if ($recipients) {
+            $this->mailer->bcc($recipients)->send(
+                new Error($this->channel, $content, $records),
+            );
+        }
+    }
+
+    /**
+     * @param array<array<mixed>> $records
+     *
+     * @return array<string>
+     */
+    protected function getRecordsRecipients(array $records): array {
+        // Group by recipients by level
+        $maxLevel   = max(array_column($records, 'level') ?: Logger::getLevels());
+        $recipients = [];
+
+        foreach ($this->getRecipients() as $recipient) {
+            if ($maxLevel >= $this->getRecipientLevel($recipient)) {
+                $recipients[] = $recipient;
+            }
+        }
+
+        return $recipients;
+    }
+
+    protected function getRecipientLevel(string $recipient): int {
+        $level = $this->getLevel();
+
+        try {
+            $custom = explode('+', explode('@', $recipient, 2)[0], 2);
+            $custom = end($custom) ?: $level;
+            $level  = Logger::toMonologLevel($custom);
+        } catch (Exception) {
+            // no action
+        }
+
+        return $level;
     }
 }
