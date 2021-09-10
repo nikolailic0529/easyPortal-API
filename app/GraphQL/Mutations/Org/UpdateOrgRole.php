@@ -75,15 +75,18 @@ class UpdateOrgRole {
             $currentRoles = $clientRoles[$clientId];
         }
 
-        $permissions = Permission::whereIn((new Permission())->getKeyName(), $permissions)
-            ->get()
-            ->map(function ($permission) {
-                // map to Roles
-                return $this->transformPermission($permission);
-            });
+        $permissions = Permission::whereIn((new Permission())->getKeyName(), $permissions)->get();
+        // Update Local DB
+        $role->permissions = $permissions;
+        $role->save();
+        // Update Keycloak
+        $keycloakPermissions = $permissions->map(function ($permission) {
+            // map to Roles
+            return $this->transformPermission($permission);
+        });
 
         $added = [];
-        foreach ($permissions as $permission) {
+        foreach ($keycloakPermissions as $permission) {
             $key = array_search($permission->name, $currentRoles, true);
             if ($key !== false) {
                 unset($currentRoles[$key]);

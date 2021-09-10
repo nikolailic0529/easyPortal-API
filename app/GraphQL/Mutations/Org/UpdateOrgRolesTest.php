@@ -73,6 +73,17 @@ class UpdateOrgRolesTest extends TestCase {
                 }
             }', ['input' => $data])
             ->assertThat($expected);
+        if ($expected instanceof GraphQLSuccess) {
+            foreach ($data as $item) {
+                $role = Role::with('permissions')->whereKey($item['id'])->first();
+                $this->assertNotNull($role);
+                $this->assertEquals($item['name'], $role->name);
+                $this->assertEquals(
+                    $role->permissions->pluck((new Permission())->getKeyName())->all(),
+                    $item['permissions'],
+                );
+            }
+        }
     }
     // </editor-fold>
 
