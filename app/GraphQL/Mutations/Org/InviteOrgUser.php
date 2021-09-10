@@ -16,6 +16,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Date;
 
 use function strtr;
 
@@ -106,8 +107,8 @@ class InviteOrgUser {
         $invitation->role_id         = $role->getKey();
         $invitation->email           = $user->email;
         $invitation->used_at         = null;
+        $invitation->expired_at      = Date::now()->add($this->config->get('ep.invite_expire'));
         $invitation->save();
-
         return $invitation;
     }
 }

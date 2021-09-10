@@ -134,6 +134,15 @@ interface Constants {
     #[Group('ep')]
     #[Type(EmailType::class)]
     public const EP_EMAIL_ADDRESS = 'info@itassethub.test';
+
+
+    /**
+     * Invitation expiration duration.
+     */
+    #[Setting('ep.invite_expire')]
+    #[Group('ep')]
+    #[Type(Duration::class)]
+    public const EP_INVITE_EXPIRE = 'PT24H';
     // </editor-fold>
 
     // <editor-fold desc="EP_CLIENT">

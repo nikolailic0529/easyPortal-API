@@ -52,6 +52,10 @@ class SignUpByInvite {
             throw new SignUpByInviteInvalidToken();
         }
         /** @var \App\Models\Invitation $invitation */
+        if ($invitation->expired_at->isPast()) {
+            throw new SignUpByInviteExpired();
+        }
+
         if ($invitation->used_at) {
             throw new SignUpByInviteAlreadyUsed();
         }

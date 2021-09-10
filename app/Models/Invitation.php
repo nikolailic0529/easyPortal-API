@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string                       $role_id
  * @property string                       $email
  * @property \Carbon\CarbonImmutable|null $used_at
+ * @property \Carbon\CarbonImmutable      $expired_at
  * @property \Carbon\CarbonImmutable      $created_at
  * @property \Carbon\CarbonImmutable      $updated_at
  * @property \Carbon\CarbonImmutable|null $deleted_at
@@ -39,7 +40,8 @@ class Invitation extends Model {
     protected $table = 'invitations';
 
     protected const CASTS = [
-        'used_at' => 'datetime',
+        'used_at'    => 'datetime',
+        'expired_at' => 'datetime',
     ] + parent::CASTS;
 
     /**

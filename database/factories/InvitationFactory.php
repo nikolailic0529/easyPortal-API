@@ -45,6 +45,7 @@ class InvitationFactory extends Factory {
             },
             'email'           => $this->faker->unique()->safeEmail,
             'used_at'         => null,
+            'expired_at'      => Date::now()->addHour(),
             'created_at'      => Date::now(),
             'updated_at'      => Date::now(),
             'deleted_at'      => null,

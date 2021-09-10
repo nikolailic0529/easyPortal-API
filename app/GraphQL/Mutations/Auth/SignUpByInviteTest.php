@@ -210,6 +210,38 @@ class SignUpByInviteTest extends TestCase {
                             ->never();
                     },
                 ],
+                'Invitation expired'    => [
+                    new GraphQLError('signUpByInvite', new SignUpByInviteExpired()),
+                    static function (TestCase $test, Organization $organization): array {
+                        $user       = UserModel::factory()->create([
+                            'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                        ]);
+                        $invitation = Invitation::factory()->create([
+                            'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                            'email'           => 'test@gmail.com',
+                            'user_id'         => $user->getKey(),
+                            'organization_id' => $organization->getKey(),
+                            'used_at'         => null,
+                            'expired_at'      => Date::now(),
+                        ]);
+                        return [
+                            'token'      => $test->app->make(Encrypter::class)->encrypt([
+                                'invitation' => $invitation->getKey(),
+                            ]),
+                            'first_name' => 'First',
+                            'last_name'  => 'Last',
+                            'password'   => '123456',
+                        ];
+                    },
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getUserById')
+                            ->never();
+                        $mock
+                            ->shouldReceive('updateUser')
+                            ->never();
+                    },
+                ],
                 'Invalid token'         => [
                     new GraphQLError('signUpByInvite', static function (): array {
                         return [__('errors.validation_failed')];

@@ -139,6 +139,7 @@
     "graphql.mutations.resetPassword.same_password": "Cannot use old password.",
     "graphql.mutations.signUpByInvite.invalid_token": "Invalid invitation information.",
     "graphql.mutations.signUpByInvite.already_used": "User already used the invitation.",
+    "graphql.mutations.signUpByInvite.expired": "Invitation is expired.",
     "graphql.mutations.updateMePassword.invalid_current_password": "Invalid current password.",
     "graphql.mutations.resetOrgUserPassword.invalid_user": "Invalid keycloak user.",
     "graphql.mutations.enableOrgUser.invalid_user": "Invalid keycloak user.",

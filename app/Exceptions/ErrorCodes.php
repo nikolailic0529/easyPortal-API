@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use App\GraphQL\Mutations\Auth\ResetPasswordSamePasswordException as GraphQLResetPasswordSamePasswordException;
 use App\GraphQL\Mutations\Auth\SignUpByInviteAlreadyUsed as GraphQLSignUpByInviteAlreadyUsed;
+use App\GraphQL\Mutations\Auth\SignUpByInviteExpired as GraphQLSignUpByInviteExpired;
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvalidToken as GraphQLSignUpByInviteInvalidToken;
 use App\GraphQL\Mutations\Me\UpdateMePasswordInvalidCurrentPassword as GraphQLUpdateMePasswordInvalidCurrentPassword;
 use App\GraphQL\Mutations\Org\DisableOrgUserInvalidUser as GraphQLDisableOrgUserInvalidUser;
@@ -57,6 +58,7 @@ class ErrorCodes {
         GraphQLResetOrgUserPasswordInvalidUser::class        => 'GraphQL005',
         GraphQLEnableOrgUserInvalidUser::class               => 'GraphQL006',
         GraphQLDisableOrgUserInvalidUser::class              => 'GraphQL007',
+        GraphQLSignUpByInviteExpired::class                  => 'GraphQL008',
 
         // Queue
         QueueServiceNotFound::class                          => 'Queue001',
