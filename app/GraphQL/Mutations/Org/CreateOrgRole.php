@@ -6,6 +6,7 @@ use App\Models\Permission;
 use App\Models\Role;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\Organization\CurrentOrganization;
+use Illuminate\Database\Eloquent\Collection;
 
 use function array_key_exists;
 
@@ -34,8 +35,8 @@ class CreateOrgRole {
         $role->save();
 
         if (array_key_exists('permissions', $args['input'])) {
-            // Add permissions
-            $this->addRolePermissions($role, $args['input']['permissions']);
+            $permissions = $this->savePermissions($role, $args['input']['permissions']);
+            $this->syncKeycloak($role, $permissions);
         }
 
         $group = $this->updateOrgRole->transformGroup($role);
@@ -46,12 +47,17 @@ class CreateOrgRole {
     /**
      * @param array<string> $permissions
      */
-    protected function addRolePermissions(Role $role, array $permissions): void {
-        $permissions = Permission::whereIn((new Permission())->getKeyName(), $permissions)->get();
-        // Add to local DB
+    public function savePermissions(Role $role, array $permissions): Collection {
+        $permissions       = Permission::whereIn((new Permission())->getKeyName(), $permissions)->get();
         $role->permissions = $permissions;
         $role->save();
-        // Add to keycloak
+        return $permissions;
+    }
+
+    /**
+     * @param \Illuminate\Database\Eloquent\Collection<\App\Models\Permission> $permissions
+     */
+    protected function syncKeycloak(Role $role, Collection $permissions): void {
         $keycloakPermissions = $permissions->map(static function ($permission) {
             return [
                 'id'   => $permission->id,
