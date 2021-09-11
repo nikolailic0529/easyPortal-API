@@ -6,10 +6,10 @@ use App\Models\Organization;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role as KeyCloakRole;
 use App\Services\Organization\CurrentOrganization;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Database\Eloquent\Collection;
 
 use function array_key_exists;
 use function array_push;
@@ -19,6 +19,7 @@ class UpdateOrgRole {
     public function __construct(
         protected Client $client,
         protected CurrentOrganization $organization,
+        protected CreateOrgRole $createOrgRole,
         protected Repository $config,
     ) {
         // empty
@@ -56,16 +57,17 @@ class UpdateOrgRole {
         }
 
         if (array_key_exists('permissions', $input)) {
-            // update Permissions
-            $this->syncPermissions($role, $input['permissions']);
+            $permissions = $this->createOrgRole->savePermissions($role, $input['permissions']);
+            $this->syncPermissions($role, $permissions);
         }
 
-        return $this->transformGroup($role);
+        return $this->createOrgRole->transformGroup($role);
     }
+
     /**
-     * @param array<string> $permissions
+     * @param \Illuminate\Database\Eloquent\Collection<\App\Models\Permission> $permissions
      */
-    protected function syncPermissions(Role $role, array $permissions): void {
+    protected function syncPermissions(Role $role, Collection $permissions): void {
         // Get Current keycloak roles
         $group        = $this->client->getGroup($role);
         $clientId     = (string) $this->config->get('ep.keycloak.client_id');
@@ -75,10 +77,6 @@ class UpdateOrgRole {
             $currentRoles = $clientRoles[$clientId];
         }
 
-        $permissions = Permission::whereIn((new Permission())->getKeyName(), $permissions)->get();
-        // Update Local DB
-        $role->permissions = $permissions;
-        $role->save();
         // Update Keycloak
         $keycloakPermissions = $permissions->map(function ($permission) {
             // map to Roles
@@ -120,31 +118,5 @@ class UpdateOrgRole {
             'id'   => $permission->id,
             'name' => $permission->key,
         ]);
-    }
-
-    /**
-     * @return array<string,mixed>
-     */
-    public function transformGroup(Role $role): ?array {
-        $group = $this->client->getGroup($role);
-        return [
-            'id'          => $group->id,
-            'name'        => $group->name,
-            'permissions' => $this->getPermissionsIds($group),
-        ];
-    }
-
-    /**
-     * @return array<string>
-     */
-    protected function getPermissionsIds(Group $group): array {
-        $clientRoles  = $group->clientRoles;
-        $clientId     = (string) $this->config->get('ep.keycloak.client_id');
-        $currentRoles = [];
-        if (array_key_exists($clientId, $clientRoles)) {
-            $currentRoles = $clientRoles[$clientId];
-        }
-
-        return Permission::whereIn('key', $currentRoles)->pluck('id')->all();
     }
 }
