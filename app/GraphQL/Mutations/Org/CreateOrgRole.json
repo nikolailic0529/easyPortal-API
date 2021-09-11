@@ -7,19 +7,7 @@
     ],
     "properties": {
         "created": {
-            "type": "object",
-            "required": [
-                "id",
-                "name"
-            ],
-            "properties": {
-                "id": {
-                    "$ref": "../../types.json#/definitions/ID"
-                },
-                "name": {
-                    "type": "string"
-                }
-            }
+            "$ref": "../../Types/Role.json"
         }
     }
 }

@@ -42,7 +42,7 @@ class UpdateOrgRole {
      *
      * @return array<string,mixed>
      */
-    public function updateRole(Organization $organization, array $input): array {
+    public function updateRole(Organization $organization, array $input): Role {
         $role = Role::query()
             ->whereKey($input['id'])
             ->where('organization_id', '=', $organization->getKey())
@@ -61,7 +61,7 @@ class UpdateOrgRole {
             $this->syncPermissions($role, $permissions);
         }
 
-        return $this->createOrgRole->transformGroup($role);
+        return $role;
     }
 
     /**

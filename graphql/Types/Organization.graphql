@@ -33,9 +33,8 @@ type Organization {
   keycloak_scope: String
   @me(permissions: ["administer"])
 
-  roles: [Role!]!
+  roles: [Role!]! @hasMany
   @me(permissions: ["administer", "org-administer"])
-  @field(resolver: "App\\GraphQL\\Queries\\Organization@roles")
 
   audits(
     where: AuditsQuery @searchBy

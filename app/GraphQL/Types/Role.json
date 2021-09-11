@@ -12,6 +12,12 @@
         },
         "name": {
             "type": "string"
+        },
+        "permissions": {
+            "type": "array",
+            "items": {
+                "$ref": "./Permission.json"
+            }
         }
     }
 }

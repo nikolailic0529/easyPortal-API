@@ -41,9 +41,7 @@ class CreateOrgRole {
             $this->syncKeycloak($role, $permissions);
         }
 
-        $group = $this->transformGroup($role);
-
-        return ['created' => $group];
+        return ['created' => $role];
     }
 
     /**

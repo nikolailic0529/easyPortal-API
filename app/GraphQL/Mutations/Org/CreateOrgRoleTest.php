@@ -77,7 +77,12 @@ class CreateOrgRoleTest extends TestCase {
                     created {
                         id
                         name
-                        permissions
+                        permissions {
+                            id
+                            name
+                            key
+                            description
+                        }
                     }
                 }
             }', ['input' => $data])
@@ -110,18 +115,6 @@ class CreateOrgRoleTest extends TestCase {
                     'name' => 'subgroup',
                 ]));
             $mock
-                ->shouldReceive('getGroup')
-                ->once()
-                ->andReturns(new Group([
-                    'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-                    'name'        => 'subgroup',
-                    'clientRoles' => [
-                        'client_id' => [
-                            'permission1',
-                        ],
-                    ],
-                ]));
-            $mock
                 ->shouldReceive('addRolesToGroup')
                 ->once();
         };
@@ -144,7 +137,12 @@ class CreateOrgRoleTest extends TestCase {
                             'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                             'name'        => 'subgroup',
                             'permissions' => [
-                                'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                                [
+                                    'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                                    'key'         => 'permission1',
+                                    'name'        => 'permission1',
+                                    'description' => 'permission1',
+                                ],
                             ],
                         ],
                     ]),
