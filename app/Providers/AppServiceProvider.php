@@ -41,6 +41,7 @@ use App\Models\Reseller;
 use App\Models\ResellerCustomer;
 use App\Models\ResellerStatus;
 use App\Models\Role;
+use App\Models\RolePermission;
 use App\Models\ServiceGroup;
 use App\Models\ServiceLevel;
 use App\Models\Status;
@@ -140,6 +141,7 @@ class AppServiceProvider extends ServiceProvider {
             'ResellerCustomer'          => ResellerCustomer::class,
             'ResellerStatus'            => ResellerStatus::class,
             'Role'                      => Role::class,
+            'RolePermission'            => RolePermission::class,
             'ServiceGroup'              => ServiceGroup::class,
             'ServiceLevel'              => ServiceLevel::class,
             'Status'                    => Status::class,
