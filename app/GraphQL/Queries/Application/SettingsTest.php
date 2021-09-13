@@ -68,8 +68,8 @@ class SettingsTest extends TestCase {
                     return $this->store;
                 }
 
-                protected function isOverridden(string $name): bool {
-                    return $name === 'SETTING_READONLY' || parent::isOverridden($name);
+                protected function isReadonly(string $name): bool {
+                    return $name === 'SETTING_READONLY' || parent::isReadonly($name);
                 }
             };
 

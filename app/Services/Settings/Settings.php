@@ -2,22 +2,26 @@
 
 namespace App\Services\Settings;
 
+use App\Services\Settings\Exceptions\FailedToLoadEnv;
 use App\Services\Settings\Jobs\ConfigUpdate;
 use Config\Constants;
+use Dotenv\Dotenv;
+use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Foundation\CachesConfiguration;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Env;
 use ReflectionClass;
 use ReflectionClassConstant;
 
 use function array_fill_keys;
 use function array_filter;
+use function array_key_exists;
 use function array_keys;
 use function array_map;
 use function array_values;
 use function explode;
+use function file_get_contents;
 use function is_null;
 use function trim;
 
@@ -35,6 +39,11 @@ class Settings {
      * @var array<\App\Services\Settings\Setting>
      */
     private array $editable = [];
+
+    /**
+     * @var array<string, mixed>
+     */
+    private array $readonly;
 
     public function __construct(
         protected Application $app,
@@ -170,10 +179,6 @@ class Settings {
      */
     protected function getSettings(): array {
         if (!$this->settings) {
-            // We need to load `.env` to determine readonly settings.
-            $this->loadEnv();
-
-            // Get list of the settings.
             $store          = $this->getStore();
             $constants      = (new ReflectionClass($store))->getConstants(ReflectionClassConstant::IS_PUBLIC);
             $this->settings = [];
@@ -182,7 +187,7 @@ class Settings {
                 $this->settings[$name] = new Setting(
                     $this->config,
                     new ReflectionClassConstant($store, $name),
-                    $this->isOverridden($name),
+                    $this->isReadonly($name),
                 );
             }
         }
@@ -275,16 +280,22 @@ class Settings {
     /**
      * Determines if setting overridden by ENV var.
      */
-    protected function isOverridden(string $name): bool {
-        return Env::getRepository()->has($name);
+    protected function isReadonly(string $name): bool {
+        if (!isset($this->readonly)) {
+            $path = "{$this->app->environmentPath()}/{$this->app->environmentFile()}";
+
+            try {
+                $this->readonly = Dotenv::parse(file_get_contents($path));
+            } catch (Exception $exception) {
+                throw new FailedToLoadEnv($path, $exception);
+            }
+        }
+
+        return array_key_exists($name, $this->readonly);
     }
 
     protected function isEditable(Setting $setting): bool {
         return !$setting->isInternal();
-    }
-
-    protected function loadEnv(): void {
-        (new EnvLoader())->load($this->app);
     }
 
     /**

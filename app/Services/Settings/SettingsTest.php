@@ -159,7 +159,7 @@ class SettingsTest extends TestCase {
                 return true;
             }
 
-            protected function isOverridden(string $name): bool {
+            protected function isReadonly(string $name): bool {
                 return $name === 'READONLY';
             }
         };
@@ -221,7 +221,7 @@ class SettingsTest extends TestCase {
                 return $this->storage;
             }
 
-            protected function isOverridden(string $name): bool {
+            protected function isReadonly(string $name): bool {
                 return $name === 'READONLY';
             }
 
