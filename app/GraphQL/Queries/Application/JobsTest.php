@@ -8,7 +8,7 @@ use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
-use App\Services\Settings\Bootstraper;
+use App\Services\Settings\Config;
 use App\Services\Settings\Settings;
 use App\Services\Settings\Storage;
 use Closure;
@@ -52,7 +52,7 @@ class JobsTest extends TestCase {
                 $this->app->make(Repository::class),
                 $this->app->make(Storage::class),
                 $store::class,
-            ) extends Bootstraper {
+            ) extends Config {
                 /** @noinspection PhpMissingParentConstructorInspection */
                 public function __construct(
                     protected Application $app,
