@@ -66,11 +66,25 @@ class UpdateOrgRoleTest extends TestCase {
                     updated {
                         id
                         name
-                        permissions
+                        permissions {
+                            id
+                            name
+                            key
+                            description
+                        }
                     }
                 }
             }', ['input' => $data])
             ->assertThat($expected);
+        if ($expected instanceof GraphQLSuccess) {
+            $role = Role::with('permissions')->whereKey($data['id'])->first();
+            $this->assertNotNull($role);
+            $this->assertEquals($data['name'], $role->name);
+            $this->assertEquals(
+                $role->permissions->pluck((new Permission())->getKeyName())->all(),
+                $data['permissions'],
+            );
+        }
     }
     // </editor-fold>
 
@@ -105,7 +119,12 @@ class UpdateOrgRoleTest extends TestCase {
                             'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                             'name'        => 'change',
                             'permissions' => [
-                                'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                                [
+                                    'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                                    'key'         => 'permission1',
+                                    'name'        => 'permission1',
+                                    'description' => 'permission1',
+                                ],
                             ],
                         ],
                     ]),
@@ -119,7 +138,7 @@ class UpdateOrgRoleTest extends TestCase {
                             ->once();
                         $mock
                             ->shouldReceive('getGroup')
-                            ->twice()
+                            ->once()
                             ->andReturns(
                                 new Group([
                                     'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',

@@ -6,17 +6,14 @@ use App\GraphQL\Types\Audit;
 use App\Models\Currency;
 use App\Models\Location;
 use App\Models\Organization;
-use App\Models\Permission;
 use App\Models\Reseller;
+use App\Models\Role;
 use App\Models\User;
-use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Types\Group;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\CompositeDataProvider;
 use LastDragon_ru\LaraASP\Testing\Providers\MergeDataProvider;
-use Mockery\MockInterface;
 use Tests\DataProviders\GraphQL\Organizations\RootOrganizationDataProvider;
 use Tests\DataProviders\GraphQL\Users\OrganizationUserDataProvider;
 use Tests\GraphQL\GraphQLSuccess;
@@ -204,21 +201,13 @@ class OrganizationTest extends TestCase {
         Closure $organizationFactory,
         Closure $userFactory = null,
         Closure $prepare = null,
-        Closure $clientFactory = null,
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
         $this->setUser($userFactory, $organization);
-        $this->setSettings([
-            'ep.keycloak.client_id' => 'client_id',
-        ]);
 
         if ($prepare) {
             $prepare($this, $organization);
-        }
-
-        if ($clientFactory) {
-            $this->override(Client::class, $clientFactory);
         }
 
         // Test
@@ -231,7 +220,12 @@ class OrganizationTest extends TestCase {
                         roles {
                             id
                             name
-                            permissions
+                            permissions {
+                                id
+                                name
+                                key
+                                description
+                            }
                         }
                     }
                 }
@@ -580,9 +574,14 @@ class OrganizationTest extends TestCase {
                         new GraphQLSuccess('organization', self::class, new JsonFragment('roles', [
                             [
                                 'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                                'name'        => 'subgroup1',
+                                'name'        => 'role1',
                                 'permissions' => [
-                                    '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
+                                    [
+                                        'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
+                                        'key'         => 'permission1',
+                                        'name'        => 'permission1',
+                                        'description' => 'permission1',
+                                    ],
                                 ],
                             ],
                         ])),
@@ -591,32 +590,17 @@ class OrganizationTest extends TestCase {
                                 $organization->keycloak_group_id = $test->faker->uuid();
                                 $organization->save();
                             }
-                            Permission::factory()->create([
-                                'id'  => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
-                                'key' => 'permission1',
-                            ]);
-                        },
-                        static function (MockInterface $mock): void {
-                            $mock
-                                ->shouldReceive('getGroup')
-                                ->once()
-                                ->andReturn(
-                                    new Group([
-                                        'id'        => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1d',
-                                        'name'      => 'test',
-                                        'subGroups' => [
-                                            [
-                                                'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                                                'name'        => 'subgroup1',
-                                                'clientRoles' => [
-                                                    'client_id' => [
-                                                        'permission1',
-                                                    ],
-                                                ],
-                                            ],
-                                        ],
-                                    ]),
-                                );
+
+                            Role::factory()
+                                ->hasPermissions(1, [
+                                    'id'  => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
+                                    'key' => 'permission1',
+                                ])
+                                ->create([
+                                    'id'              => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                    'name'            => 'role1',
+                                    'organization_id' => $organization->getKey(),
+                                ]);
                         },
                     ],
                 ]),
@@ -631,9 +615,14 @@ class OrganizationTest extends TestCase {
                         new GraphQLSuccess('organization', self::class, new JsonFragment('roles', [
                             [
                                 'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                                'name'        => 'subgroup1',
+                                'name'        => 'role1',
                                 'permissions' => [
-                                    '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
+                                    [
+                                        'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
+                                        'key'         => 'permission1',
+                                        'name'        => 'permission1',
+                                        'description' => 'permission1',
+                                    ],
                                 ],
                             ],
                         ])),
@@ -642,32 +631,16 @@ class OrganizationTest extends TestCase {
                                 $organization->keycloak_group_id = $test->faker->uuid();
                                 $organization->save();
                             }
-                            Permission::factory()->create([
-                                'id'  => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
-                                'key' => 'permission1',
-                            ]);
-                        },
-                        static function (MockInterface $mock): void {
-                            $mock
-                                ->shouldReceive('getGroup')
-                                ->once()
-                                ->andReturn(
-                                    new Group([
-                                        'id'        => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1d',
-                                        'name'      => 'test',
-                                        'subGroups' => [
-                                            [
-                                                'id'          => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
-                                                'name'        => 'subgroup1',
-                                                'clientRoles' => [
-                                                    'client_id' => [
-                                                        'permission1',
-                                                    ],
-                                                ],
-                                            ],
-                                        ],
-                                    ]),
-                                );
+                            Role::factory()
+                                ->hasPermissions(1, [
+                                    'id'  => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1b',
+                                    'key' => 'permission1',
+                                ])
+                                ->create([
+                                    'id'              => '3d000bc3-d7bb-44bd-9d3e-e327a5c32f1a',
+                                    'name'            => 'role1',
+                                    'organization_id' => $organization->getKey(),
+                                ]);
                         },
                     ],
                 ]),

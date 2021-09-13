@@ -3,6 +3,7 @@
 namespace App\GraphQL\Mutations\Org;
 
 use App\Models\Permission;
+use App\Models\Role;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Group;
 use Closure;
@@ -76,11 +77,26 @@ class CreateOrgRoleTest extends TestCase {
                     created {
                         id
                         name
-                        permissions
+                        permissions {
+                            id
+                            name
+                            key
+                            description
+                        }
                     }
                 }
             }', ['input' => $data])
             ->assertThat($expected);
+
+        if ($expected instanceof GraphQLSuccess) {
+            $role = Role::with('permissions')->whereKey('fd421bad-069f-491c-ad5f-5841aa9a9dff')->first();
+            $this->assertNotNull($role);
+            $this->assertEquals($data['name'], $role->name);
+            $this->assertEquals(
+                $role->permissions->pluck((new Permission())->getKeyName())->all(),
+                $data['permissions'],
+            );
+        }
     }
     // </editor-fold>
 
@@ -97,18 +113,6 @@ class CreateOrgRoleTest extends TestCase {
                 ->andReturns(new Group([
                     'id'   => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                     'name' => 'subgroup',
-                ]));
-            $mock
-                ->shouldReceive('getGroup')
-                ->once()
-                ->andReturns(new Group([
-                    'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-                    'name'        => 'subgroup',
-                    'clientRoles' => [
-                        'client_id' => [
-                            'permission1',
-                        ],
-                    ],
                 ]));
             $mock
                 ->shouldReceive('addRolesToGroup')
@@ -133,7 +137,12 @@ class CreateOrgRoleTest extends TestCase {
                             'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                             'name'        => 'subgroup',
                             'permissions' => [
-                                'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                                [
+                                    'id'          => 'fd421bad-069f-491c-ad5f-5841aa9a9dfe',
+                                    'key'         => 'permission1',
+                                    'name'        => 'permission1',
+                                    'description' => 'permission1',
+                                ],
                             ],
                         ],
                     ]),

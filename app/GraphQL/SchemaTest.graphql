@@ -2389,7 +2389,7 @@ type ResetPasswordPayload {
 type Role {
   id: ID!
   name: String!
-  permissions: [ID!]!
+  permissions: [Permission!]!
 }
 
 """
