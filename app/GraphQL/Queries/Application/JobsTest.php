@@ -8,6 +8,7 @@ use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
+use App\Services\Settings\Bootstrapers\LoadConfiguration;
 use App\Services\Settings\Config;
 use App\Services\Settings\Settings;
 use App\Services\Settings\Storage;
@@ -66,13 +67,13 @@ class JobsTest extends TestCase {
                 public function getStore(): string {
                     return $this->store;
                 }
-
-                protected function isBootstrapped(): bool {
-                    return false;
-                }
             };
 
-            $service->bootstrap();
+            (new class() extends LoadConfiguration {
+                public function loadSettings(Application $app, Repository $repository, Config $config): void {
+                    parent::loadSettings($app, $repository, $config);
+                }
+            })->loadSettings($this->app, $this->app->make(Repository::class), $service);
 
             $this->app->bind(Settings::class, static function () use ($service): Settings {
                 return $service;

@@ -167,11 +167,19 @@ class Settings {
 
         foreach ($this->getSettings() as $setting) {
             if ($setting->isPublic()) {
-                $settings[$setting->getPublicName()] = $this->serializeValue($setting, $setting->getValue());
+                $settings[$setting->getPublicName()] = $this->getPublicValue($setting);
             }
         }
 
         return $settings;
+    }
+
+    public function getPublicValue(Setting $setting): string {
+        return $this->serializePublicValue($setting, $setting->getValue());
+    }
+
+    public function getPublicDefaultValue(Setting $setting): string {
+        return $this->serializePublicValue($setting, $setting->getDefaultValue());
     }
 
     /**
@@ -249,16 +257,7 @@ class Settings {
         return $result;
     }
 
-    public function serializeValue(Setting $setting, mixed $value): string {
-        // Secret?
-        if ($setting->isSecret()) {
-            if ($setting->isArray() && !is_null($value)) {
-                $value = array_fill_keys(array_keys((array) $value), static::SECRET);
-            } else {
-                $value = $value ? static::SECRET : null;
-            }
-        }
-
+    protected function serializeValue(Setting $setting, mixed $value): string {
         // Serialize
         $type   = $setting->getType();
         $string = null;
@@ -275,6 +274,18 @@ class Settings {
 
         // Return
         return $string;
+    }
+
+    protected function serializePublicValue(Setting $setting, mixed $value): string {
+        if ($setting->isSecret()) {
+            if ($setting->isArray() && !is_null($value)) {
+                $value = array_fill_keys(array_keys((array) $value), static::SECRET);
+            } else {
+                $value = $value ? static::SECRET : null;
+            }
+        }
+
+        return $this->serializeValue($setting, $value);
     }
 
     /**

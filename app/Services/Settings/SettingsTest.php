@@ -379,6 +379,10 @@ class SettingsTest extends TestCase {
             public function __construct() {
                 // empty
             }
+
+            public function serializeValue(Setting $setting, mixed $value): string {
+                return parent::serializeValue($setting, $value);
+            }
         };
 
         $setting = Mockery::mock(Setting::class);
@@ -394,6 +398,44 @@ class SettingsTest extends TestCase {
             ->andReturn($isSecret);
 
         $this->assertEquals($expected, $service->serializeValue($setting, $value));
+    }
+
+    /**
+     * @covers ::serializePublicValue
+     *
+     * @dataProvider dataProviderSerializePublicValue
+     */
+    public function testSerializePublicValue(
+        mixed $expected,
+        string $type,
+        bool $isArray,
+        bool $isSecret,
+        mixed $value,
+    ): void {
+        $service = new class() extends Settings {
+            /** @noinspection PhpMissingParentConstructorInspection */
+            public function __construct() {
+                // empty
+            }
+
+            public function serializePublicValue(Setting $setting, mixed $value): string {
+                return parent::serializePublicValue($setting, $value);
+            }
+        };
+
+        $setting = Mockery::mock(Setting::class);
+        $setting
+            ->shouldReceive('getType')
+            ->once()
+            ->andReturn(new $type());
+        $setting
+            ->shouldReceive('isArray')
+            ->andReturn($isArray);
+        $setting
+            ->shouldReceive('isSecret')
+            ->andReturn($isSecret);
+
+        $this->assertEquals($expected, $service->serializePublicValue($setting, $value));
     }
 
     /**
@@ -479,6 +521,23 @@ class SettingsTest extends TestCase {
      * @return array<mixed>
      */
     public function dataProviderSerializeValue(): array {
+        return [
+            'null'                 => ['null', StringType::class, false, false, null],
+            '"null"'               => ['null', StringType::class, false, false, 'null'],
+            '"null,null"'          => ['null,null', StringType::class, false, false, 'null,null'],
+            'null,null'            => ['null,null', IntType::class, true, false, [null, null]],
+            '1,2,3'                => ['1,2,3', IntType::class, true, false, [1, 2, 3]],
+            '123'                  => ['123', IntType::class, false, false, 123],
+            '123 (array)'          => ['123', IntType::class, true, false, [123]],
+            '123 (secret)'         => ['123', IntType::class, false, true, 123],
+            '123 (secret + array)' => ['123,456', IntType::class, true, true, [123, 456]],
+        ];
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function dataProviderSerializePublicValue(): array {
         return [
             'null'                 => ['null', StringType::class, false, false, null],
             '"null"'               => ['null', StringType::class, false, false, 'null'],
