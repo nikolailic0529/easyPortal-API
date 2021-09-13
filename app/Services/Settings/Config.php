@@ -18,7 +18,21 @@ class Config extends Settings {
         $config = [];
 
         foreach ($this->getSettings() as $setting) {
-            $config[$setting->getPath()] = $this->getCurrentValue($saved, $setting);
+            $config[$setting->getPath()] = $this->getValue($saved, $setting);
+        }
+
+        return $config;
+    }
+
+    /**
+     * @return array<string,mixed>
+     */
+    public function getEnvVars(): array {
+        $saved  = $this->getSavedSettings();
+        $config = [];
+
+        foreach ($this->getSettings() as $setting) {
+            $config[$setting->getName()] = $this->serializeValue($setting, $this->getValue($saved, $setting));
         }
 
         return $config;
@@ -27,7 +41,7 @@ class Config extends Settings {
     /**
      * @param array<string, mixed> $saved
      */
-    protected function getCurrentValue(array $saved, Setting $setting): mixed {
+    protected function getValue(array $saved, Setting $setting): mixed {
         // - isReadonly? (overridden by env)
         //   => return value from .env
         // - no:

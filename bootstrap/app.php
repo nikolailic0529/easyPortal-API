@@ -44,11 +44,6 @@ $app->singleton(
 );
 
 $app->bind(
-    Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables::class,
-    App\Services\Settings\Bootstrapers\LoadEnvironmentVariables::class,
-);
-
-$app->bind(
     Illuminate\Foundation\Bootstrap\LoadConfiguration::class,
     App\Services\Settings\Bootstrapers\LoadConfiguration::class,
 );

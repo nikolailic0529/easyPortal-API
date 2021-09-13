@@ -22,6 +22,7 @@ use function is_null;
 use function trim;
 
 class Settings {
+    public const    PATH      = 'app/settings.json';
     public const    DELIMITER = ',';
     protected const SECRET    = '********';
 
@@ -43,6 +44,9 @@ class Settings {
         // empty
     }
 
+    /**
+     * @deprecated ?
+     */
     public function isCached(): bool {
         return $this->app instanceof CachesConfiguration
             && $this->app->configurationIsCached();
