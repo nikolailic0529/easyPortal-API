@@ -18,7 +18,9 @@ class Config extends Settings {
         $config = [];
 
         foreach ($this->getSettings() as $setting) {
-            $config[$setting->getPath()] = $this->getValue($saved, $setting);
+            if ($setting->getPath()) {
+                $config[$setting->getPath()] = $this->getValue($saved, $setting);
+            }
         }
 
         return $config;

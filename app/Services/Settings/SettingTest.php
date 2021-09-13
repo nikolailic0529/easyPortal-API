@@ -69,6 +69,22 @@ class SettingTest extends TestCase {
     }
 
     /**
+     * @covers ::getPath
+     */
+    public function testGetPathNull(): void {
+        $const   = new ReflectionClassConstant(
+            new class() {
+                #[SettingAttribute()]
+                public const TEST = 'test';
+            },
+            'TEST',
+        );
+        $setting = new Setting(new Repository(), $const);
+
+        $this->assertNull($setting->getPath());
+    }
+
+    /**
      * @covers ::getName
      */
     public function testGetName(): void {
@@ -248,6 +264,9 @@ class SettingTest extends TestCase {
             #[TypeAttribute(IntType::class)]
             #[SecretAttribute]
             public const F = [1, 2, 3];
+
+            #[SettingAttribute()]
+            public const G = 'test';
         };
         $a      = new Setting($config, new ReflectionClassConstant($class, 'A'));
         $b      = new Setting($config, new ReflectionClassConstant($class, 'B'));
@@ -255,6 +274,7 @@ class SettingTest extends TestCase {
         $d      = new Setting($config, new ReflectionClassConstant($class, 'D'));
         $e      = new Setting($config, new ReflectionClassConstant($class, 'E'));
         $f      = new Setting($config, new ReflectionClassConstant($class, 'F'));
+        $g      = new Setting($config, new ReflectionClassConstant($class, 'G'));
 
         $this->assertEquals('aaaaa', $a->getValue());
         $this->assertNull($b->getValue());
@@ -262,6 +282,7 @@ class SettingTest extends TestCase {
         $this->assertNull($d->getValue());
         $this->assertNull($e->getValue());
         $this->assertEquals([1, 2], $f->getValue());
+        $this->assertEquals('test', $g->getValue());
     }
 
     /**

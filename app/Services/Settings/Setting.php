@@ -56,8 +56,8 @@ class Setting {
         return $this->constant->getName();
     }
 
-    public function getPath(): string {
-        return $this->definition->getName();
+    public function getPath(): ?string {
+        return $this->definition->getPath();
     }
 
     public function getType(): Type {
@@ -100,7 +100,9 @@ class Setting {
     }
 
     public function getValue(): mixed {
-        return $this->config->get($this->getPath());
+        return $this->getPath()
+            ? $this->config->get($this->getPath())
+            : $this->getDefaultValue();
     }
 
     public function getDefaultValue(): mixed {
