@@ -6,10 +6,6 @@
  * @see \Config\Constants
  */
 
-use Config\Constants;
-
 return [
-    'settings' => [
-        'recoverable' => env('EP_SETTINGS_RECOVERABLE', Constants::EP_SETTINGS_RECOVERABLE),
-    ],
+    // empty
 ];
