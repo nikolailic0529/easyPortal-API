@@ -161,8 +161,9 @@ class InviteOrgUserTest extends TestCase {
                             ->shouldReceive('getUserByEmail')
                             ->once()
                             ->andReturns(new User([
-                                'id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                'email' => 'test@gmail.com',
+                                'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'email'         => 'test@gmail.com',
+                                'emailVerified' => false,
                             ]));
                         $mock
                             ->shouldReceive('addUserToGroup')
@@ -187,13 +188,9 @@ class InviteOrgUserTest extends TestCase {
                             ->shouldReceive('getUserByEmail')
                             ->once()
                             ->andReturns(new User([
-                                'id'          => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
-                                'email'       => 'test@gmail.com',
-                                'credentials' => [
-                                    [
-                                        'type' => 'password',
-                                    ],
-                                ],
+                                'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'email'         => 'test@gmail.com',
+                                'emailVerified' => true,
                             ]));
                         $mock
                             ->shouldReceive('addUserToGroup')
