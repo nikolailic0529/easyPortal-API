@@ -2,7 +2,7 @@
 
 namespace App\Services\Settings\Bootstrapers;
 
-use App\Services\Settings\Exceptions\FailedToLoadConfig;
+use App\Services\Settings\Exceptions\FailedToLoadSettings;
 use Dotenv\Dotenv;
 use Dotenv\Repository\RepositoryInterface;
 use Exception;
@@ -173,7 +173,7 @@ class LoadEnvironmentVariablesTest extends TestCase {
             ->once()
             ->andThrow($exception);
 
-        $this->expectExceptionObject(new FailedToLoadConfig($path, $exception));
+        $this->expectExceptionObject(new FailedToLoadSettings($path, $exception));
 
         $bootstrapper->loadSettings($this->app);
     }

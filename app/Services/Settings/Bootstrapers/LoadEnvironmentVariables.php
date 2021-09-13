@@ -2,7 +2,7 @@
 
 namespace App\Services\Settings\Bootstrapers;
 
-use App\Services\Settings\Exceptions\FailedToLoadConfig;
+use App\Services\Settings\Exceptions\FailedToLoadSettings;
 use Dotenv\Dotenv;
 use Dotenv\Repository\RepositoryInterface;
 use Exception;
@@ -40,7 +40,7 @@ class LoadEnvironmentVariables extends IlluminateLoadEnvironmentVariables {
                 }
             }
         } catch (Exception $exception) {
-            throw new FailedToLoadConfig($path, $exception);
+            throw new FailedToLoadSettings($path, $exception);
         }
     }
 

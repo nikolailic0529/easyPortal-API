@@ -10,13 +10,13 @@ use Throwable;
 use function __;
 use function sprintf;
 
-class FailedToLoadConfig extends ServiceException implements TranslatedException {
+class FailedToLoadSettings extends ServiceException implements TranslatedException {
     public function __construct(
         protected string $path,
         Throwable $previous = null,
     ) {
         parent::__construct(
-            sprintf('Failed to load custom config file: `%s`.', $this->path),
+            sprintf('Failed to load custom settings from `%s`.', $this->path),
             $previous,
         );
 
@@ -24,6 +24,6 @@ class FailedToLoadConfig extends ServiceException implements TranslatedException
     }
 
     public function getErrorMessage(): string {
-        return __('settings.errors.failed_to_load_config');
+        return __('settings.errors.failed_to_load_settings');
     }
 }

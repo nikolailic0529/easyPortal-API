@@ -36,8 +36,8 @@ use App\Services\KeyCloak\Exceptions\UserDisabled as KeyCloakUserDisabled;
 use App\Services\KeyCloak\Exceptions\UserInsufficientData as KeyCloakUserInsufficientData;
 use App\Services\Organization\Exceptions\UnknownOrganization as OrganizationUnknownOrganization;
 use App\Services\Queue\Exceptions\ServiceNotFound as QueueServiceNotFound;
-use App\Services\Settings\Exceptions\FailedToLoadConfig as SettingsFailedToLoadConfig;
 use App\Services\Settings\Exceptions\FailedToLoadEnv as SettingsFailedToLoadEnv;
+use App\Services\Settings\Exceptions\FailedToLoadSettings as SettingsFailedToLoadSettings;
 use App\Services\Tokens\Exceptions\InvalidCredentials as TokensInvalidCredentials;
 use Throwable;
 
@@ -70,7 +70,7 @@ class ErrorCodes {
 
         // Settings
         SettingsFailedToLoadEnv::class                       => 'Settings001',
-        SettingsFailedToLoadConfig::class                    => 'Settings002',
+        SettingsFailedToLoadSettings::class                  => 'Settings002',
 
         // KeyCloak
         KeyCloakAuthorizationFailed::class                   => 'KeyCloak001',
