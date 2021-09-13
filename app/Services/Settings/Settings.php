@@ -9,7 +9,6 @@ use Dotenv\Dotenv;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\Foundation\CachesConfiguration;
 use Illuminate\Support\Collection;
 use ReflectionClass;
 use ReflectionClassConstant;
@@ -51,14 +50,6 @@ class Settings {
         protected Storage $storage,
     ) {
         // empty
-    }
-
-    /**
-     * @deprecated ?
-     */
-    public function isCached(): bool {
-        return $this->app instanceof CachesConfiguration
-            && $this->app->configurationIsCached();
     }
 
     public function getEditableSetting(string $name): ?Setting {
