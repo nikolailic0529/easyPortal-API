@@ -42,7 +42,7 @@ $channel = static function (string $service) use ($tap, $days): array {
             'level'     => env('LOG_LEVEL', 'debug'),
             'with'      => [
                 'channel'    => $channel,
-                'recipients' => ['fakharanwar@hotmail.com'],
+                'recipients' => ['chief.wraith@gmail.com'],
             ],
         ],
     ];
