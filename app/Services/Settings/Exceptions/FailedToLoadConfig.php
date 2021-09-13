@@ -8,13 +8,15 @@ use Psr\Log\LogLevel;
 use Throwable;
 
 use function __;
+use function sprintf;
 
 class FailedToLoadConfig extends ServiceException implements TranslatedException {
     public function __construct(
+        protected string $path,
         Throwable $previous = null,
     ) {
         parent::__construct(
-            'Failed to load custom config file.',
+            sprintf('Failed to load custom config file: `%s`.', $this->path),
             $previous,
         );
 
