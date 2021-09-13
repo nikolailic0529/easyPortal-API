@@ -282,13 +282,7 @@ class Settings {
      */
     protected function isReadonly(string $name): bool {
         if (!isset($this->readonly)) {
-            $path = "{$this->app->environmentPath()}/{$this->app->environmentFile()}";
-
-            try {
-                $this->readonly = Dotenv::parse(file_get_contents($path));
-            } catch (Exception $exception) {
-                throw new FailedToLoadEnv($path, $exception);
-            }
+            $this->readonly = $this->getReadonlySettings();
         }
 
         return array_key_exists($name, $this->readonly);
@@ -296,6 +290,19 @@ class Settings {
 
     protected function isEditable(Setting $setting): bool {
         return !$setting->isInternal();
+    }
+
+    /**
+     * @return array<string,mixed>
+     */
+    protected function getReadonlySettings(): array {
+        $path = "{$this->app->environmentPath()}/{$this->app->environmentFile()}";
+
+        try {
+            return Dotenv::parse(file_get_contents($path));
+        } catch (Exception $exception) {
+            throw new FailedToLoadEnv($path, $exception);
+        }
     }
 
     /**

@@ -12,17 +12,23 @@ use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\StringType;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Collection;
+use LastDragon_ru\LaraASP\Testing\Utils\WithTempFile;
 use Mockery;
 use Tests\TestCase;
 
 use function array_map;
+use function basename;
+use function dirname;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\Settings\Settings
  */
 class SettingsTest extends TestCase {
+    use WithTempFile;
+
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -388,6 +394,66 @@ class SettingsTest extends TestCase {
             ->andReturn($isSecret);
 
         $this->assertEquals($expected, $service->serializeValue($setting, $value));
+    }
+
+    /**
+     * @covers ::getReadonlySettings
+     */
+    public function testGetReadonlySettings(): void {
+        $env = $this->getTempFile('TEST=value')->getPathname();
+        $app = Mockery::mock(Application::class);
+        $app
+            ->shouldReceive('environmentPath')
+            ->once()
+            ->andReturn(dirname($env));
+        $app
+            ->shouldReceive('environmentFile')
+            ->once()
+            ->andReturn(basename($env));
+
+        $service = new class(
+            $app,
+            Mockery::mock(Repository::class),
+            Mockery::mock(Storage::class),
+        ) extends Settings {
+            /**
+             * @inheritDoc
+             */
+            public function getReadonlySettings(): array {
+                return parent::getReadonlySettings();
+            }
+        };
+
+        $this->assertEquals(['TEST' => 'value'], $service->getReadonlySettings());
+    }
+
+    /**
+     * @covers ::isReadonly
+     */
+    public function testIsReadonly(): void {
+        $env = $this->getTempFile('TEST=value')->getPathname();
+        $app = Mockery::mock(Application::class);
+        $app
+            ->shouldReceive('environmentPath')
+            ->once()
+            ->andReturn(dirname($env));
+        $app
+            ->shouldReceive('environmentFile')
+            ->once()
+            ->andReturn(basename($env));
+
+        $service = new class(
+            $app,
+            Mockery::mock(Repository::class),
+            Mockery::mock(Storage::class),
+        ) extends Settings {
+            public function isReadonly(string $name): bool {
+                return parent::isReadonly($name);
+            }
+        };
+
+        $this->assertTrue($service->isReadonly('TEST'));
+        $this->assertFalse($service->isReadonly('NAME'));
     }
     // </editor-fold>
 
