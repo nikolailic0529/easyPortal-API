@@ -2,7 +2,6 @@
 
 namespace App\Exceptions;
 
-use Error;
 use GraphQL\Error\Error as GraphQLError;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
@@ -200,8 +199,6 @@ class Handler extends ExceptionHandler {
             $key = 'errors.graphql.schema_broken';
         } elseif ($error instanceof GraphQLError) {
             $key = 'errors.graphql.error';
-        } elseif ($error instanceof Error) {
-            $key = $default;
         } else {
             // empty
         }

@@ -3,6 +3,7 @@
 namespace App\Services\Settings;
 
 use App\Services\Settings\Exceptions\FailedToGetSettingValue;
+use App\Services\Settings\Exceptions\FailedToLoadConfig;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Foundation\Application;
@@ -28,6 +29,8 @@ class Bootstraper extends Settings {
         try {
             $this->load();
         } catch (Throwable $exception) {
+            $exception = new FailedToLoadConfig($exception);
+
             if ($this->config->get('ep.settings.recoverable')) {
                 $this->exceptionHandler->report($exception);
             } else {

@@ -1,12 +1,54 @@
 <?php declare(strict_types = 1);
 
+use App\Exceptions\Configurator;
+use App\Exceptions\MailableHandler;
 use App\Services\Auth\Service as AuthService;
 use App\Services\DataLoader\Service as DataLoaderService;
 use App\Services\KeyCloak\Service as KeyCloakService;
+use Monolog\Formatter\HtmlFormatter;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 
+// Default Settings
+$tap  = [Configurator::class];
+$days = 365;
+
+// Helpers
+$channel = static function (string $service) use ($tap, $days): array {
+    $channel = array_slice(explode('\\', $service), -2, 1);
+    $channel = reset($channel);
+
+    return [
+        "{$service}"       => [
+            'driver'            => 'stack',
+            'channels'          => [
+                "{$service}@daily",
+                "{$service}@mail",
+            ],
+            'ignore_exceptions' => false,
+        ],
+        "{$service}@daily" => [
+            'driver' => 'daily',
+            'path'   => storage_path("logs/{$channel}/EAP-{$channel}.log"),
+            'level'  => env('LOG_LEVEL', 'debug'),
+            'days'   => $days,
+            'tap'    => $tap,
+        ],
+        "{$service}@mail"  => [
+            'driver'    => 'monolog',
+            'handler'   => MailableHandler::class,
+            'formatter' => HtmlFormatter::class,
+            'level'     => env('LOG_LEVEL', 'debug'),
+            'with'      => [
+                'channel'    => $channel,
+                'recipients' => ['chief.wraith@gmail.com'],
+            ],
+        ],
+    ];
+};
+
+// Settings
 return [
 
     /*
@@ -37,92 +79,79 @@ return [
     |
     */
 
-    'channels' => [
-        'stack'                  => [
-            'driver'            => 'stack',
-            'channels'          => ['daily'],
-            'ignore_exceptions' => false,
-        ],
+    'channels' => array_merge(
+        $channel(AuthService::class),
+        $channel(DataLoaderService::class),
+        $channel(KeyCloakService::class),
+        [
+            'stack'      => [
+                'driver'            => 'stack',
+                'channels'          => ['daily'],
+                'ignore_exceptions' => false,
+            ],
 
-        'single'                 => [
-            'driver' => 'single',
-            'path'   => storage_path('logs/laravel.log'),
-            'level'  => env('LOG_LEVEL', 'debug'),
-        ],
+            'single'     => [
+                'driver' => 'single',
+                'path'   => storage_path('logs/laravel.log'),
+                'level'  => env('LOG_LEVEL', 'debug'),
+                'tap'    => $tap,
+            ],
 
-        'daily'                  => [
-            'driver' => 'daily',
-            'path'   => storage_path('logs/laravel.log'),
-            'level'  => env('LOG_LEVEL', 'debug'),
-            'days'   => 365,
-        ],
+            'daily'      => [
+                'driver' => 'daily',
+                'path'   => storage_path('logs/laravel.log'),
+                'level'  => env('LOG_LEVEL', 'debug'),
+                'days'   => $days,
+                'tap'    => $tap,
+            ],
 
-        // Services
-        AuthService::class       => [
-            'driver' => 'daily',
-            'path'   => storage_path('logs/Auth/EAP-Auth.log'),
-            'level'  => env('LOG_LEVEL', 'debug'),
-            'days'   => 365,
-        ],
-        DataLoaderService::class => [
-            'driver' => 'daily',
-            'path'   => storage_path('logs/DataLoader/EAP-DataLoader.log'),
-            'level'  => env('LOG_LEVEL', 'debug'),
-            'days'   => 365,
-        ],
-        KeyCloakService::class   => [
-            'driver' => 'daily',
-            'path'   => storage_path('logs/KeyCloak/EAP-KeyCloak.log'),
-            'level'  => env('LOG_LEVEL', 'debug'),
-            'days'   => 365,
-        ],
+            // Default
+            'slack'      => [
+                'driver'   => 'slack',
+                'url'      => env('LOG_SLACK_WEBHOOK_URL'),
+                'username' => 'Laravel Log',
+                'emoji'    => ':boom:',
+                'level'    => env('LOG_LEVEL', 'critical'),
+            ],
 
-        // Default
-        'slack'                  => [
-            'driver'   => 'slack',
-            'url'      => env('LOG_SLACK_WEBHOOK_URL'),
-            'username' => 'Laravel Log',
-            'emoji'    => ':boom:',
-            'level'    => env('LOG_LEVEL', 'critical'),
-        ],
+            'papertrail' => [
+                'driver'       => 'monolog',
+                'level'        => env('LOG_LEVEL', 'debug'),
+                'handler'      => SyslogUdpHandler::class,
+                'handler_with' => [
+                    'host' => env('PAPERTRAIL_URL'),
+                    'port' => env('PAPERTRAIL_PORT'),
+                ],
+            ],
 
-        'papertrail'             => [
-            'driver'       => 'monolog',
-            'level'        => env('LOG_LEVEL', 'debug'),
-            'handler'      => SyslogUdpHandler::class,
-            'handler_with' => [
-                'host' => env('PAPERTRAIL_URL'),
-                'port' => env('PAPERTRAIL_PORT'),
+            'stderr'     => [
+                'driver'    => 'monolog',
+                'handler'   => StreamHandler::class,
+                'formatter' => env('LOG_STDERR_FORMATTER'),
+                'with'      => [
+                    'stream' => 'php://stderr',
+                ],
+            ],
+
+            'syslog'     => [
+                'driver' => 'syslog',
+                'level'  => env('LOG_LEVEL', 'debug'),
+            ],
+
+            'errorlog'   => [
+                'driver' => 'errorlog',
+                'level'  => env('LOG_LEVEL', 'debug'),
+            ],
+
+            'null'       => [
+                'driver'  => 'monolog',
+                'handler' => NullHandler::class,
+            ],
+
+            // Emergency
+            'emergency'  => [
+                'path' => storage_path('logs/laravel.log'),
             ],
         ],
-
-        'stderr'                 => [
-            'driver'    => 'monolog',
-            'handler'   => StreamHandler::class,
-            'formatter' => env('LOG_STDERR_FORMATTER'),
-            'with'      => [
-                'stream' => 'php://stderr',
-            ],
-        ],
-
-        'syslog'                 => [
-            'driver' => 'syslog',
-            'level'  => env('LOG_LEVEL', 'debug'),
-        ],
-
-        'errorlog'               => [
-            'driver' => 'errorlog',
-            'level'  => env('LOG_LEVEL', 'debug'),
-        ],
-
-        'null'                   => [
-            'driver'  => 'monolog',
-            'handler' => NullHandler::class,
-        ],
-
-        'emergency'              => [
-            'path' => storage_path('logs/laravel.log'),
-        ],
-    ],
-
+    ),
 ];
