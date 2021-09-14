@@ -2,8 +2,8 @@
 
 namespace App\Services\Settings\Bootstrapers;
 
+use App\Services\Settings\ArrayRepository;
 use App\Services\Settings\Config;
-use App\Services\Settings\Testings\DotenvRepository;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Mockery;
@@ -18,7 +18,16 @@ class LoadConfigurationTest extends TestCase {
      * @covers ::loadConfigurationFiles
      */
     public function testLoadConfigurationFiles(): void {
-        $config      = Mockery::mock(Config::class);
+        $configuration = [
+            'envs'   => ['ENV' => 'value'],
+            'config' => ['SETTING' => 123],
+        ];
+        $config        = Mockery::mock(Config::class);
+        $config
+            ->shouldReceive('getConfiguration')
+            ->once()
+            ->andReturn($configuration);
+
         $application = Mockery::mock(Application::class);
         $application
             ->shouldReceive('make')
@@ -41,26 +50,23 @@ class LoadConfigurationTest extends TestCase {
         $bootstrapper->makePartial();
         $bootstrapper
             ->shouldReceive('loadEnvVars')
+            ->with($application, $repository, $configuration['envs'])
             ->once();
         $bootstrapper
-            ->shouldReceive('loadSettings')
+            ->shouldReceive('loadConfig')
+            ->with($application, $repository, $configuration['config'])
             ->once();
 
         $bootstrapper->loadConfigurationFiles($application, $repository);
     }
 
     /**
-     * @covers ::loadSettings
+     * @covers ::loadConfig
      */
-    public function testLoadSettings(): void {
-        $config = Mockery::mock(Config::class);
-        $config
-            ->shouldReceive('getConfig')
-            ->once()
-            ->andReturn([
-                'test' => 'value',
-            ]);
-
+    public function testLoadConfig(): void {
+        $config     = [
+            'test' => 'value',
+        ];
         $repository = Mockery::mock(Repository::class);
         $repository
             ->shouldReceive('set')
@@ -71,7 +77,7 @@ class LoadConfigurationTest extends TestCase {
         $bootstrapper->shouldAllowMockingProtectedMethods();
         $bootstrapper->makePartial();
 
-        $bootstrapper->loadSettings($this->app, $repository, $config);
+        $bootstrapper->loadConfig($this->app, $repository, $config);
     }
 
     /**
@@ -80,15 +86,11 @@ class LoadConfigurationTest extends TestCase {
     public function testLoadEnvVars(): void {
         $app         = Mockery::mock(Application::class);
         $repository  = Mockery::mock(Repository::class);
-        $environment = new DotenvRepository(['FOO' => 'Foo']);
-        $config      = Mockery::mock(Config::class);
-        $config
-            ->shouldReceive('getEnvVars')
-            ->once()
-            ->andReturn([
-                'FOO' => 'Bar',
-                'BAZ' => 'Hello Baz',
-            ]);
+        $environment = new ArrayRepository(['FOO' => 'Foo']);
+        $config      = [
+            'FOO' => 'Bar',
+            'BAZ' => 'Hello Baz',
+        ];
 
         $bootstrapper = Mockery::mock(LoadConfiguration::class);
         $bootstrapper->shouldAllowMockingProtectedMethods();

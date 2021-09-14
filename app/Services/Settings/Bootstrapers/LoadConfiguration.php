@@ -11,25 +11,31 @@ use Illuminate\Support\Env;
 
 class LoadConfiguration extends IlluminateLoadConfiguration {
     protected function loadConfigurationFiles(Application $app, Repository $repository): void {
-        $config = $app->make(Config::class);
+        $configuration = $app->make(Config::class)->getConfiguration();
 
-        $this->loadEnvVars($app, $repository, $config);
+        $this->loadEnvVars($app, $repository, $configuration['envs']);
         parent::loadConfigurationFiles($app, $repository);
-        $this->loadSettings($app, $repository, $config);
+        $this->loadConfig($app, $repository, $configuration['config']);
     }
 
-    protected function loadEnvVars(Application $app, Repository $repository, Config $config): void {
+    /**
+     * @param array<string,string> $vars
+     */
+    protected function loadEnvVars(Application $app, Repository $repository, array $vars): void {
         $repository = $this->getEnvRepository();
 
-        foreach ($config->getEnvVars() as $name => $value) {
+        foreach ($vars as $name => $value) {
             if (!$repository->has($name)) {
                 $repository->set($name, $value);
             }
         }
     }
 
-    protected function loadSettings(Application $app, Repository $repository, Config $config): void {
-        foreach ($config->getConfig() as $path => $value) {
+    /**
+     * @param array<string,mixed> $config
+     */
+    protected function loadConfig(Application $app, Repository $repository, array $config): void {
+        foreach ($config as $path => $value) {
             $repository->set($path, $value);
         }
     }

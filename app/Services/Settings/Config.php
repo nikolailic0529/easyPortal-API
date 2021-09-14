@@ -2,68 +2,37 @@
 
 namespace App\Services\Settings;
 
-use Illuminate\Support\Env;
-
-use function array_key_exists;
-
-/**
- * @internal
- */
 class Config extends Settings {
     /**
-     * @return array<string,mixed>
+     * @return array{envs: array<string,string>, config: array<string,mixed>}
      */
-    public function getConfig(): array {
-        $saved  = $this->getSavedSettings();
+    public function getConfiguration(): array {
+        $envs   = [];
         $config = [];
 
         foreach ($this->getSettings() as $setting) {
+            // Name & Value
+            $name  = $setting->getName();
+            $value = $this->getValue($setting);
+
+            // Setting
             if ($setting->getPath()) {
-                $config[$setting->getPath()] = $this->getValue($saved, $setting);
+                $config[$setting->getPath()] = $value;
             }
-        }
 
-        return $config;
-    }
-
-    /**
-     * @return array<string,mixed>
-     */
-    public function getEnvVars(): array {
-        $saved  = $this->getSavedSettings();
-        $config = [];
-
-        foreach ($this->getSettings() as $setting) {
-            $config[$setting->getName()] = $this->serializeValue($setting, $this->getValue($saved, $setting));
-        }
-
-        return $config;
-    }
-
-    /**
-     * @param array<string, mixed> $saved
-     */
-    protected function getValue(array $saved, Setting $setting): mixed {
-        // - isReadonly? (overridden by env)
-        //   => return value from .env
-        // - no:
-        //   => return saved (if editable and exists) or default
-        $value = null;
-
-        if ($setting->isReadonly()) {
-            $value = $this->getEnvValue($setting);
-        } else {
-            if ($this->isEditable($setting) && array_key_exists($setting->getName(), $saved)) {
-                $value = $saved[$setting->getName()];
-            } else {
-                $value = $setting->getDefaultValue();
+            // Cache current ENV value
+            if ($this->environment->has($name)) {
+                $config[Environment::SETTING][$name] = $this->environment->get($name);
             }
+
+            // Add ENV
+            $envs[$name] = $this->serializeValue($setting, $value);
         }
 
-        return $value;
-    }
-
-    protected function getEnvValue(Setting $setting): mixed {
-        return $this->parseValue($setting, Env::getRepository()->get($setting->getName()));
+        // Return
+        return [
+            'envs'   => $envs,
+            'config' => $config,
+        ];
     }
 }

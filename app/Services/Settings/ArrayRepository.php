@@ -1,17 +1,17 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Settings\Testings;
+namespace App\Services\Settings;
 
 use Dotenv\Repository\RepositoryInterface;
 
 use function array_key_exists;
 
-class DotenvRepository implements RepositoryInterface {
+class ArrayRepository implements RepositoryInterface {
     /**
      * @param array<string,mixed> $vars
      */
     public function __construct(
-        protected array $vars,
+        protected array $vars = [],
     ) {
         // empty
     }

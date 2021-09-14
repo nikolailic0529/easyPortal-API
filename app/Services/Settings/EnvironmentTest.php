@@ -2,7 +2,6 @@
 
 namespace App\Services\Settings;
 
-use App\Services\Settings\Testings\DotenvRepository;
 use Dotenv\Repository\RepositoryInterface;
 use Illuminate\Config\Repository as RepositoryImpl;
 use Illuminate\Contracts\Config\Repository;
@@ -28,7 +27,7 @@ class EnvironmentTest extends TestCase {
      * @covers ::has
      */
     public function testGet(): void {
-        $repository = new DotenvRepository(['TEST' => null, 'TEST2' => 123]);
+        $repository = new ArrayRepository(['TEST' => null, 'TEST2' => 123]);
         $env        = Mockery::mock(Environment::class);
         $env->shouldAllowMockingProtectedMethods();
         $env->makePartial();
@@ -46,7 +45,7 @@ class EnvironmentTest extends TestCase {
      * @covers ::has
      */
     public function testHas(): void {
-        $repository = new DotenvRepository(['TEST' => null]);
+        $repository = new ArrayRepository(['TEST' => null]);
         $env        = Mockery::mock(Environment::class);
         $env->shouldAllowMockingProtectedMethods();
         $env->makePartial();
@@ -77,7 +76,7 @@ class EnvironmentTest extends TestCase {
     /**
      * @covers ::getRepository
      */
-    public function testGetRepositoryCachesConfiguration(): void {
+    public function testGetRepositoryCachesConfigurationNoCache(): void {
         $app = Mockery::mock(Application::class, CachesConfiguration::class);
         $app
             ->shouldReceive('configurationIsCached')
@@ -97,98 +96,18 @@ class EnvironmentTest extends TestCase {
     /**
      * @covers ::getRepository
      */
-    public function testGetRepositoryCachedConfigWithEnvFile(): void {
-        $env    = $this->getTempFile('TEST=value')->getPathname();
-        $config = new RepositoryImpl();
-
-        $config->set(Settings::ENV_PATH, $env);
+    public function testGetRepositoryCachesConfigurationCache(): void {
+        $config = new RepositoryImpl([
+            Environment::SETTING => [
+                'TEST' => 'value',
+            ],
+        ]);
 
         $app = Mockery::mock(Application::class, CachesConfiguration::class);
         $app
             ->shouldReceive('configurationIsCached')
             ->once()
             ->andReturn(true);
-        $app
-            ->shouldReceive('environment')
-            ->once()
-            ->andReturn('unknown');
-        $app
-            ->shouldReceive('basePath')
-            ->with('.unknown')
-            ->once()
-            ->andReturn('unknown');
-
-        $environment = new class ($app, $config) extends Environment {
-            public function getRepository(): RepositoryInterface {
-                return parent::getRepository();
-            }
-        };
-        $repository  = $environment->getRepository();
-
-        $this->assertNotSame(Env::getRepository(), $repository);
-        $this->assertTrue($environment->has('TEST'));
-        $this->assertEquals('value', $environment->get('TEST'));
-    }
-
-    /**
-     * @covers ::getRepository
-     */
-    public function testGetRepositoryCachedConfigWithoutEnvFile(): void {
-        $env    = $this->getTempFile('TEST=value')->getPathname();
-        $config = new RepositoryImpl();
-        $app    = Mockery::mock(Application::class, CachesConfiguration::class);
-        $app
-            ->shouldReceive('configurationIsCached')
-            ->once()
-            ->andReturn(true);
-        $app
-            ->shouldReceive('environment')
-            ->once()
-            ->andReturn(basename($env));
-        $app
-            ->shouldReceive('basePath')
-            ->with('.'.basename($env))
-            ->once()
-            ->andReturn($env);
-
-        $environment = new class ($app, $config) extends Environment {
-            public function getRepository(): RepositoryInterface {
-                return parent::getRepository();
-            }
-        };
-        $repository  = $environment->getRepository();
-
-        $this->assertNotSame(Env::getRepository(), $repository);
-        $this->assertTrue($environment->has('TEST'));
-        $this->assertEquals('value', $environment->get('TEST'));
-    }
-
-    /**
-     * @covers ::getRepository
-     */
-    public function testGetRepositoryCachedConfigWithoutEnvFileApplicationImpl(): void {
-        $env    = $this->getTempFile('TEST=value')->getPathname();
-        $config = new RepositoryImpl();
-        $app    = Mockery::mock(ApplicationImpl::class);
-        $app
-            ->shouldReceive('configurationIsCached')
-            ->once()
-            ->andReturn(true);
-        $app
-            ->shouldReceive('environment')
-            ->once()
-            ->andReturn('unknown');
-        $app
-            ->shouldReceive('basePath')
-            ->never();
-        $app
-            ->shouldReceive('environmentPath')
-            ->once()
-            ->andReturn(dirname($env));
-        $app
-            ->shouldReceive('environmentFilePath')
-            ->once()
-            ->andReturn($env);
 
         $environment = new class ($app, $config) extends Environment {
             public function getRepository(): RepositoryInterface {
