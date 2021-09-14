@@ -2,53 +2,68 @@
 
 namespace App\Services\Settings;
 
-use App\Services\Settings\Exceptions\FailedToLoadEnv;
 use Dotenv\Dotenv;
-use Exception;
+use Dotenv\Repository\RepositoryBuilder;
+use Dotenv\Repository\RepositoryInterface;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Foundation\CachesConfiguration;
+use Illuminate\Foundation\Application as ApplicationImpl;
+use Illuminate\Support\Env;
 
-use function array_key_exists;
-use function file_get_contents;
+use function basename;
+use function dirname;
+use function is_file;
 
 class Environment {
-    /**
-     * @var array<string,mixed>
-     */
-    protected array $loaded;
+    protected RepositoryInterface $repository;
 
     public function __construct(
         protected Application $app,
+        protected Repository $config,
     ) {
         // empty
     }
 
     public function has(string $name): bool {
-        return array_key_exists($name, $this->load());
+        return $this->getRepository()->has($name);
     }
 
     public function get(string $name): mixed {
-        return $this->load()[$name] ?? null;
+        return $this->getRepository()->get($name);
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    public function load(): array {
-        if (!isset($this->loaded)) {
-            $path         = $this->getPath();
-            $this->loaded = [];
+    protected function getRepository(): RepositoryInterface {
+        if (!isset($this->repository)) {
+            if ($this->app instanceof CachesConfiguration && $this->app->configurationIsCached()) {
+                // If config is cached we need to load the ENV file that was
+                // used for cache, we are trying to use the stored value
+                // from the config or search for the most suitable file.
+                $default = ".{$this->app->environment()}";
+                $files   = [
+                    $this->config->get(Settings::ENV_PATH),
+                ];
 
-            try {
-                $this->loaded = Dotenv::parse(file_get_contents($path));
-            } catch (Exception $exception) {
-                throw new FailedToLoadEnv($path, $exception);
+                if ($this->app instanceof ApplicationImpl) {
+                    $files[] = "{$this->app->environmentPath()}/{$default}";
+                    $files[] = $this->app->environmentFilePath();
+                } else {
+                    $files[] = $this->app->basePath($default);
+                }
+
+                foreach ($files as $file) {
+                    if ($file && is_file($file)) {
+                        $this->repository = RepositoryBuilder::createWithDefaultAdapters()->immutable()->make();
+
+                        Dotenv::create($this->repository, dirname($file), basename($file))->safeLoad();
+                        break;
+                    }
+                }
+            } else {
+                $this->repository = Env::getRepository();
             }
         }
 
-        return $this->loaded;
-    }
-
-    protected function getPath(): string {
-        return "{$this->app->environmentPath()}/{$this->app->environmentFile()}";
+        return $this->repository;
     }
 }
