@@ -7,6 +7,7 @@ use App\Services\Settings\Exceptions\FailedToSaveSettings;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 
+use function array_key_exists;
 use function file_get_contents;
 use function file_put_contents;
 use function is_file;
@@ -20,28 +21,43 @@ use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
 
 class Storage {
+    /**
+     * @var array<string,mixed>
+     */
+    protected array $loaded;
+
     public function __construct(
         protected Application $app,
     ) {
         // empty
     }
 
+    public function has(string $name): bool {
+        return array_key_exists($name, $this->load());
+    }
+
+    public function get(string $name): mixed {
+        return $this->load()[$name] ?? null;
+    }
+
     /**
      * @return array<string, mixed>
      */
     public function load(): array {
-        $path = $this->getPath();
-        $data = [];
+        if (!isset($this->loaded)) {
+            $path         = $this->getPath();
+            $this->loaded = [];
 
-        try {
-            if (is_file($path)) {
-                $data = (array) json_decode(file_get_contents($path), true, flags: JSON_THROW_ON_ERROR);
+            try {
+                if (is_file($path)) {
+                    $this->loaded = (array) json_decode(file_get_contents($path), true, flags: JSON_THROW_ON_ERROR);
+                }
+            } catch (Exception $exception) {
+                throw new FailedToLoadSettings($path, $exception);
             }
-        } catch (Exception $exception) {
-            throw new FailedToLoadSettings($path, $exception);
         }
 
-        return $data;
+        return $this->loaded;
     }
 
     /**
@@ -62,6 +78,8 @@ class Storage {
 
             if ($success === false) {
                 throw new FailedToSaveSettings($path);
+            } else {
+                $this->loaded = $data;
             }
         } catch (FailedToSaveSettings) {
             // no action

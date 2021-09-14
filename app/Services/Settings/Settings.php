@@ -2,11 +2,8 @@
 
 namespace App\Services\Settings;
 
-use App\Services\Settings\Exceptions\FailedToLoadEnv;
 use App\Services\Settings\Jobs\ConfigUpdate;
 use Config\Constants;
-use Dotenv\Dotenv;
-use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Collection;
@@ -15,12 +12,10 @@ use ReflectionClassConstant;
 
 use function array_fill_keys;
 use function array_filter;
-use function array_key_exists;
 use function array_keys;
 use function array_map;
 use function array_values;
 use function explode;
-use function file_get_contents;
 use function is_null;
 use function trim;
 
@@ -39,15 +34,11 @@ class Settings {
      */
     private array $editable = [];
 
-    /**
-     * @var array<string, mixed>
-     */
-    private array $readonly;
-
     public function __construct(
         protected Application $app,
         protected Repository $config,
         protected Storage $storage,
+        protected Environment $environment,
     ) {
         // empty
     }
@@ -283,28 +274,11 @@ class Settings {
      * Determines if setting overridden by ENV var.
      */
     protected function isReadonly(string $name): bool {
-        if (!isset($this->readonly)) {
-            $this->readonly = $this->getReadonlySettings();
-        }
-
-        return array_key_exists($name, $this->readonly);
+        return $this->environment->has($name);
     }
 
     protected function isEditable(Setting $setting): bool {
         return !$setting->isInternal();
-    }
-
-    /**
-     * @return array<string,mixed>
-     */
-    protected function getReadonlySettings(): array {
-        $path = "{$this->app->environmentPath()}/{$this->app->environmentFile()}";
-
-        try {
-            return Dotenv::parse(file_get_contents($path));
-        } catch (Exception $exception) {
-            throw new FailedToLoadEnv($path, $exception);
-        }
     }
 
     /**

@@ -14,21 +14,16 @@ use App\Services\Settings\Types\StringType;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Collection;
-use LastDragon_ru\LaraASP\Testing\Utils\WithTempFile;
 use Mockery;
 use Tests\TestCase;
 
 use function array_map;
-use function basename;
-use function dirname;
 
 /**
  * @internal
  * @coversDefaultClass \App\Services\Settings\Settings
  */
 class SettingsTest extends TestCase {
-    use WithTempFile;
-
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -46,6 +41,7 @@ class SettingsTest extends TestCase {
             $this->app,
             Mockery::mock(Repository::class),
             Mockery::mock(Storage::class),
+            $this->app->make(Environment::class),
         ) extends Settings {
             protected function getStore(): string {
                 return (new class() {
@@ -78,6 +74,7 @@ class SettingsTest extends TestCase {
             $this->app,
             $this->app->make(Repository::class),
             Mockery::mock(Storage::class),
+            $this->app->make(Environment::class),
         ) extends Settings {
             /**
              * @inheritdoc
@@ -117,6 +114,7 @@ class SettingsTest extends TestCase {
             $this->app,
             Mockery::mock(Repository::class),
             $this->app->make(Storage::class),
+            Mockery::mock(Environment::class),
         ) extends Settings {
             /**
              * @inheritDoc
@@ -147,6 +145,7 @@ class SettingsTest extends TestCase {
             $this->app,
             Mockery::mock(Repository::class),
             $this->app->make(Storage::class),
+            Mockery::mock(Environment::class),
         ) extends Settings {
             protected function getStore(): string {
                 return (new class() {
@@ -215,6 +214,7 @@ class SettingsTest extends TestCase {
             $this->app,
             $this->app->make(Repository::class),
             $this->app->make(Storage::class),
+            Mockery::mock(Environment::class),
         ) extends Settings {
             /**
              * @inheritDoc
@@ -288,6 +288,7 @@ class SettingsTest extends TestCase {
             $this->app,
             Mockery::mock(Repository::class),
             Mockery::mock(Storage::class),
+            $this->app->make(Environment::class),
         ) extends Settings {
             protected function getStore(): string {
                 return (new class() {
@@ -317,6 +318,7 @@ class SettingsTest extends TestCase {
             $this->app,
             Mockery::mock(Repository::class),
             Mockery::mock(Storage::class),
+            $this->app->make(Environment::class),
         ) extends Settings {
             protected function getStore(): string {
                 return (new class() {
@@ -346,6 +348,7 @@ class SettingsTest extends TestCase {
             $this->app,
             $this->app->make(Repository::class),
             Mockery::mock(Storage::class),
+            $this->app->make(Environment::class),
         ) extends Settings {
             protected function getStore(): string {
                 return (new class() {
@@ -439,55 +442,21 @@ class SettingsTest extends TestCase {
     }
 
     /**
-     * @covers ::getReadonlySettings
-     */
-    public function testGetReadonlySettings(): void {
-        $env = $this->getTempFile('TEST=value')->getPathname();
-        $app = Mockery::mock(Application::class);
-        $app
-            ->shouldReceive('environmentPath')
-            ->once()
-            ->andReturn(dirname($env));
-        $app
-            ->shouldReceive('environmentFile')
-            ->once()
-            ->andReturn(basename($env));
-
-        $service = new class(
-            $app,
-            Mockery::mock(Repository::class),
-            Mockery::mock(Storage::class),
-        ) extends Settings {
-            /**
-             * @inheritDoc
-             */
-            public function getReadonlySettings(): array {
-                return parent::getReadonlySettings();
-            }
-        };
-
-        $this->assertEquals(['TEST' => 'value'], $service->getReadonlySettings());
-    }
-
-    /**
      * @covers ::isReadonly
      */
     public function testIsReadonly(): void {
-        $env = $this->getTempFile('TEST=value')->getPathname();
-        $app = Mockery::mock(Application::class);
-        $app
-            ->shouldReceive('environmentPath')
-            ->once()
-            ->andReturn(dirname($env));
-        $app
-            ->shouldReceive('environmentFile')
-            ->once()
-            ->andReturn(basename($env));
+        $env = Mockery::mock(Environment::class);
+        $env->makePartial();
+        $env
+            ->shouldReceive('load')
+            ->twice()
+            ->andReturn(['TEST' => 'value']);
 
         $service = new class(
-            $app,
+            Mockery::mock(Application::class),
             Mockery::mock(Repository::class),
             Mockery::mock(Storage::class),
+            $env,
         ) extends Settings {
             public function isReadonly(string $name): bool {
                 return parent::isReadonly($name);
