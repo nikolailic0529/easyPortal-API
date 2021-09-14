@@ -177,14 +177,18 @@ class Settings {
     }
 
     public function getPublicValue(Setting $setting): string {
-        // The most actual value is stored in the config, so we are trying to
-        // use it if possible.
         $value = null;
 
-        if ($setting->getPath()) {
-            $value = $this->config->get($setting->getPath());
+        if ($setting instanceof Value) {
+            $value = $setting->getValue();
         } else {
-            $value = $this->getValue($setting);
+            // The most actual value is stored in the config, so we are trying to
+            // use it if possible.
+            if ($setting->getPath()) {
+                $value = $this->config->get($setting->getPath());
+            } else {
+                $value = $this->getValue($setting);
+            }
         }
 
         return $this->serializePublicValue($setting, $value);
@@ -251,6 +255,9 @@ class Settings {
             $result = null;
         } elseif ($setting->isArray()) {
             $result = explode(self::DELIMITER, $value);
+            $result = array_filter($result, static function (string $value): bool {
+                return $value !== '';
+            });
             $result = array_map(static function (string $value) use ($type): mixed {
                 return $type->fromString(trim($value));
             }, $result);

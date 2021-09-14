@@ -10,8 +10,8 @@ use App\Services\Settings\Attributes\PublicName;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Attributes\Type;
-use App\Services\Settings\Environment\EnvironmentRepository;
 use App\Services\Settings\Environment\Environment;
+use App\Services\Settings\Environment\EnvironmentRepository;
 use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\StringType;
 use Illuminate\Contracts\Config\Repository;
@@ -472,6 +472,7 @@ class SettingsTest extends TestCase {
             },
             'B',
         ));
+        $C        = new Value($B, 'abc');
         $settings = $this->app->make(Settings::class);
 
         $this->setSettings([
@@ -480,6 +481,7 @@ class SettingsTest extends TestCase {
 
         $this->assertEquals('123', $settings->getPublicValue($A));
         $this->assertEquals('345', $settings->getPublicValue($B));
+        $this->assertEquals('abc', $settings->getPublicValue($C));
     }
 
     /**
@@ -568,14 +570,15 @@ class SettingsTest extends TestCase {
      */
     public function dataProviderParseValue(): array {
         return [
-            'null'        => [null, StringType::class, false, null],
-            '"null"'      => [null, StringType::class, false, 'null'],
-            '(null)'      => [null, StringType::class, false, '(null)'],
-            '"null,null"' => ['null,null', StringType::class, false, 'null,null'],
-            'null,null'   => [[null, null], IntType::class, true, 'null,null'],
-            '1,2,3'       => [[1, 2, 3], IntType::class, true, '1,2,3'],
-            '123'         => [123, IntType::class, false, '123'],
-            '123 (array)' => [[123], IntType::class, true, '123'],
+            'null'                 => [null, StringType::class, false, null],
+            '"null"'               => [null, StringType::class, false, 'null'],
+            '(null)'               => [null, StringType::class, false, '(null)'],
+            '"null,null"'          => ['null,null', StringType::class, false, 'null,null'],
+            'null,null'            => [[null, null], IntType::class, true, 'null,null'],
+            '1,2,3'                => [[1, 2, 3], IntType::class, true, '1,2,3'],
+            '123'                  => [123, IntType::class, false, '123'],
+            '123 (array)'          => [[123], IntType::class, true, '123'],
+            'empty string (array)' => [[], StringType::class, true, ''],
         ];
     }
 
