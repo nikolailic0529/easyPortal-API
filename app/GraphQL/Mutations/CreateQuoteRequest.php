@@ -31,7 +31,8 @@ class CreateQuoteRequest {
         $request->oem_id          = $args['input']['oem_id'];
         $request->organization_id = $this->organization->get()->getKey();
         $request->user_id         = $this->auth->user()->getKey();
-        $request->customer_id     = $args['input']['customer_id'];
+        $request->customer_id     = $args['input']['customer_id'] ?? null;
+        $request->customer_name   = $args['input']['customer_name'] ?? null;
         $request->type_id         = $args['input']['type_id'];
         $request->message         = $args['input']['message'] ?? null;
         // request save
@@ -53,12 +54,14 @@ class CreateQuoteRequest {
 
         // Assets
         $assetsInput = [];
-        foreach ($args['input']['assets'] as $assetInput) {
-            $quoteRequestAsset                   = new QuoteRequestAsset();
-            $quoteRequestAsset->asset_id         = $assetInput['asset_id'];
-            $quoteRequestAsset->duration_id      = $assetInput['duration_id'];
-            $quoteRequestAsset->service_level_id = $assetInput['service_level_id'];
-            $assetsInput[]                       = $quoteRequestAsset;
+        if ($args['input']['assets']) {
+            foreach ($args['input']['assets'] as $assetInput) {
+                $quoteRequestAsset                   = new QuoteRequestAsset();
+                $quoteRequestAsset->asset_id         = $assetInput['asset_id'];
+                $quoteRequestAsset->duration_id      = $assetInput['duration_id'];
+                $quoteRequestAsset->service_level_id = $assetInput['service_level_id'];
+                $assetsInput[]                       = $quoteRequestAsset;
+            }
         }
 
         $request->assets = $assetsInput;

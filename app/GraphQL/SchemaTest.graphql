@@ -567,14 +567,15 @@ input CreateQuoteRequestAssetsInput {
 
 input CreateQuoteRequestInput {
   oem_id: ID!
-  customer_id: ID!
+  customer_id: ID
+  customer_name: String
   type_id: ID!
   message: String
   files: [Upload!]
   contact_name: String!
   contact_phone: String!
   contact_email: String!
-  assets: [CreateQuoteRequestAssetsInput!]!
+  assets: [CreateQuoteRequestAssetsInput!]
 }
 
 type CreateQuoteRequestPayload {
@@ -2224,8 +2225,9 @@ type QuoteRequest {
   oem: Oem!
   user_id: ID!
   user: User!
-  customer_id: ID!
-  customer: Customer!
+  customer_id: ID
+  customer_name: ID
+  customer: Customer
   contact: Contact!
   type_id: ID!
   type: Type!
