@@ -10,7 +10,7 @@ type: {{ $request->type->name }}<br>
 name: <span>{{ $request->contact->name }}</span><br>
 email: <span>{{ $request->contact->email }}</span><br>
 phone: <span>{{ $request->contact->phone_number }}</span><br>
-@if (!empty($request->assets))
+@if (count($request->assets) > 0)
 <b>Assets:</b>
 @component('mail::table')
 | prodcut name | service level | duration |
