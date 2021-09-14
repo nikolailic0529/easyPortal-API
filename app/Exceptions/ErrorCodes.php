@@ -36,7 +36,6 @@ use App\Services\KeyCloak\Exceptions\UserDisabled as KeyCloakUserDisabled;
 use App\Services\KeyCloak\Exceptions\UserInsufficientData as KeyCloakUserInsufficientData;
 use App\Services\Organization\Exceptions\UnknownOrganization as OrganizationUnknownOrganization;
 use App\Services\Queue\Exceptions\ServiceNotFound as QueueServiceNotFound;
-use App\Services\Settings\Exceptions\FailedToLoadEnv as SettingsFailedToLoadEnv;
 use App\Services\Settings\Exceptions\FailedToLoadSettings as SettingsFailedToLoadSettings;
 use App\Services\Settings\Exceptions\FailedToSaveSettings as SettingsFailedToSaveSettings;
 use App\Services\Tokens\Exceptions\InvalidCredentials as TokensInvalidCredentials;
@@ -70,9 +69,8 @@ class ErrorCodes {
         FilesystemStorageFileSaveFailed::class               => 'Filesystem003',
 
         // Settings
-        SettingsFailedToLoadEnv::class                       => 'Settings001',
-        SettingsFailedToLoadSettings::class                  => 'Settings002',
-        SettingsFailedToSaveSettings::class                  => 'Settings003',
+        SettingsFailedToLoadSettings::class                  => 'Settings001',
+        SettingsFailedToSaveSettings::class                  => 'Settings002',
 
         // KeyCloak
         KeyCloakAuthorizationFailed::class                   => 'KeyCloak001',
