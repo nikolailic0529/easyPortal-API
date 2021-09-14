@@ -1,24 +1,20 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Settings;
+namespace App\Services\Settings\Environment;
 
 use Dotenv\Repository\RepositoryInterface;
 use Illuminate\Config\Repository as RepositoryImpl;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Foundation\CachesConfiguration;
-use Illuminate\Foundation\Application as ApplicationImpl;
 use Illuminate\Support\Env;
 use LastDragon_ru\LaraASP\Testing\Utils\WithTempFile;
 use Mockery;
 use Tests\TestCase;
 
-use function basename;
-use function dirname;
-
 /**
  * @internal
- * @coversDefaultClass \App\Services\Settings\Environment
+ * @coversDefaultClass \App\Services\Settings\Environment\Environment
  */
 class EnvironmentTest extends TestCase {
     use WithTempFile;
@@ -27,7 +23,7 @@ class EnvironmentTest extends TestCase {
      * @covers ::has
      */
     public function testGet(): void {
-        $repository = new ArrayRepository(['TEST' => null, 'TEST2' => 123]);
+        $repository = new EnvironmentRepository(['TEST' => null, 'TEST2' => 123]);
         $env        = Mockery::mock(Environment::class);
         $env->shouldAllowMockingProtectedMethods();
         $env->makePartial();
@@ -45,7 +41,7 @@ class EnvironmentTest extends TestCase {
      * @covers ::has
      */
     public function testHas(): void {
-        $repository = new ArrayRepository(['TEST' => null]);
+        $repository = new EnvironmentRepository(['TEST' => null]);
         $env        = Mockery::mock(Environment::class);
         $env->shouldAllowMockingProtectedMethods();
         $env->makePartial();

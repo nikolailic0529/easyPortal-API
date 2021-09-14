@@ -1,8 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Settings;
+namespace App\Services\Settings\Environment;
 
-class Config extends Settings {
+use App\Services\Settings\Settings;
+
+class Configuration extends Settings {
     /**
      * @return array{envs: array<string,string>, config: array<string,mixed>}
      */

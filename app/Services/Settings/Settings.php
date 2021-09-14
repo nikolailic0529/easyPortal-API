@@ -2,6 +2,7 @@
 
 namespace App\Services\Settings;
 
+use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Jobs\ConfigUpdate;
 use Config\Constants;
 use Illuminate\Contracts\Config\Repository;

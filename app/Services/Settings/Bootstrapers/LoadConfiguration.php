@@ -2,7 +2,7 @@
 
 namespace App\Services\Settings\Bootstrapers;
 
-use App\Services\Settings\Config;
+use App\Services\Settings\Environment\Configuration;
 use Dotenv\Repository\RepositoryInterface;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
@@ -11,7 +11,7 @@ use Illuminate\Support\Env;
 
 class LoadConfiguration extends IlluminateLoadConfiguration {
     protected function loadConfigurationFiles(Application $app, Repository $repository): void {
-        $configuration = $app->make(Config::class)->getConfiguration();
+        $configuration = $app->make(Configuration::class)->getConfiguration();
 
         $this->loadEnvVars($app, $repository, $configuration['envs']);
         parent::loadConfigurationFiles($app, $repository);

@@ -1,8 +1,10 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Settings;
+namespace App\Services\Settings\Environment;
 
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
+use App\Services\Settings\Setting;
+use App\Services\Settings\Storage;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Mockery;
@@ -11,9 +13,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Services\Settings\Config
+ * @coversDefaultClass \App\Services\Settings\Environment\Configuration
  */
-class ConfigTest extends TestCase {
+class ConfigurationTest extends TestCase {
     /**
      * @covers ::getConfiguration
      */
@@ -36,7 +38,7 @@ class ConfigTest extends TestCase {
             ->shouldReceive('getRepository')
             ->atLeast()
             ->once()
-            ->andReturn(new ArrayRepository([
+            ->andReturn(new EnvironmentRepository([
                 'B' => '123',
             ]));
 
@@ -54,7 +56,7 @@ class ConfigTest extends TestCase {
             },
             'B',
         ));
-        $configuration = Mockery::mock(Config::class, [$app, $config, $storage, $environment]);
+        $configuration = Mockery::mock(Configuration::class, [$app, $config, $storage, $environment]);
         $configuration->shouldAllowMockingProtectedMethods();
         $configuration->makePartial();
         $configuration

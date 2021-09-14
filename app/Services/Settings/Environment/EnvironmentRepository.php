@@ -1,12 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Settings;
+namespace App\Services\Settings\Environment;
 
 use Dotenv\Repository\RepositoryInterface;
 
 use function array_key_exists;
 
-class ArrayRepository implements RepositoryInterface {
+class EnvironmentRepository implements RepositoryInterface {
     /**
      * @param array<string,mixed> $vars
      */

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\Settings;
+namespace App\Services\Settings\Environment;
 
 use Dotenv\Repository\RepositoryInterface;
 use Illuminate\Contracts\Config\Repository;
@@ -31,7 +31,7 @@ class Environment {
     protected function getRepository(): RepositoryInterface {
         if (!isset($this->repository)) {
             if ($this->app instanceof CachesConfiguration && $this->app->configurationIsCached()) {
-                $this->repository = new ArrayRepository((array) $this->config->get(self::SETTING));
+                $this->repository = new EnvironmentRepository((array) $this->config->get(self::SETTING));
             } else {
                 $this->repository = Env::getRepository();
             }

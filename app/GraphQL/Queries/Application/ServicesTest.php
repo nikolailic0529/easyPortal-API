@@ -13,7 +13,7 @@ use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Bootstrapers\LoadConfiguration;
-use App\Services\Settings\Config;
+use App\Services\Settings\Environment\Configuration;
 use App\Services\Settings\Settings;
 use App\Services\Settings\Storage;
 use Closure;
@@ -60,7 +60,7 @@ class ServicesTest extends TestCase {
                     $this->app->make(Repository::class),
                     $this->app->make(Storage::class),
                     $store::class,
-                ) extends Config {
+                ) extends Configuration {
                     /** @noinspection PhpMissingParentConstructorInspection */
                     public function __construct(
                         protected Application $app,
@@ -77,7 +77,7 @@ class ServicesTest extends TestCase {
                 };
 
                 (new class() extends LoadConfiguration {
-                    public function loadConfig(Application $app, Repository $repository, Config $config): void {
+                    public function loadConfig(Application $app, Repository $repository, Configuration $config): void {
                         parent::loadConfig($app, $repository, $config);
                     }
                 })->loadConfig($this->app, $this->app->make(Repository::class), $service);

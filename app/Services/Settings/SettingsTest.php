@@ -10,6 +10,8 @@ use App\Services\Settings\Attributes\PublicName;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Attributes\Type;
+use App\Services\Settings\Environment\EnvironmentRepository;
+use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\StringType;
 use Illuminate\Contracts\Config\Repository;
@@ -433,7 +435,7 @@ class SettingsTest extends TestCase {
         $env
             ->shouldReceive('getRepository')
             ->twice()
-            ->andReturn(new ArrayRepository(['TEST' => 'value']));
+            ->andReturn(new EnvironmentRepository(['TEST' => 'value']));
 
         $service = new class(
             Mockery::mock(Application::class),
@@ -519,7 +521,7 @@ class SettingsTest extends TestCase {
             ->shouldReceive('getRepository')
             ->atLeast()
             ->once()
-            ->andReturn(new ArrayRepository([
+            ->andReturn(new EnvironmentRepository([
                 'B' => '123',
             ]));
 

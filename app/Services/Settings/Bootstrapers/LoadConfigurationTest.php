@@ -2,8 +2,8 @@
 
 namespace App\Services\Settings\Bootstrapers;
 
-use App\Services\Settings\ArrayRepository;
-use App\Services\Settings\Config;
+use App\Services\Settings\Environment\EnvironmentRepository;
+use App\Services\Settings\Environment\Configuration;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Mockery;
@@ -22,7 +22,7 @@ class LoadConfigurationTest extends TestCase {
             'envs'   => ['ENV' => 'value'],
             'config' => ['SETTING' => 123],
         ];
-        $config        = Mockery::mock(Config::class);
+        $config        = Mockery::mock(Configuration::class);
         $config
             ->shouldReceive('getConfiguration')
             ->once()
@@ -31,7 +31,7 @@ class LoadConfigurationTest extends TestCase {
         $application = Mockery::mock(Application::class);
         $application
             ->shouldReceive('make')
-            ->with(Config::class)
+            ->with(Configuration::class)
             ->andReturn($config);
         $application
             ->shouldReceive('configPath')
@@ -86,7 +86,7 @@ class LoadConfigurationTest extends TestCase {
     public function testLoadEnvVars(): void {
         $app         = Mockery::mock(Application::class);
         $repository  = Mockery::mock(Repository::class);
-        $environment = new ArrayRepository(['FOO' => 'Foo']);
+        $environment = new EnvironmentRepository(['FOO' => 'Foo']);
         $config      = [
             'FOO' => 'Bar',
             'BAZ' => 'Hello Baz',
