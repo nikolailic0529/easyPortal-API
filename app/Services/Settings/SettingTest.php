@@ -15,7 +15,6 @@ use App\Services\Settings\Types\FloatType;
 use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Url;
-use Illuminate\Config\Repository;
 use InvalidArgumentException;
 use ReflectionClassConstant;
 use stdClass;
@@ -49,7 +48,7 @@ class SettingTest extends TestCase {
             ]),
         )));
 
-        new Setting(new Repository(), $const);
+        new Setting($const);
     }
 
     /**
@@ -63,7 +62,7 @@ class SettingTest extends TestCase {
             },
             'TEST',
         );
-        $setting = new Setting(new Repository(), $const);
+        $setting = new Setting($const);
 
         $this->assertEquals('config.path', $setting->getPath());
     }
@@ -79,7 +78,7 @@ class SettingTest extends TestCase {
             },
             'TEST',
         );
-        $setting = new Setting(new Repository(), $const);
+        $setting = new Setting($const);
 
         $this->assertNull($setting->getPath());
     }
@@ -95,7 +94,7 @@ class SettingTest extends TestCase {
             },
             'TEST',
         );
-        $setting = new Setting(new Repository(), $const);
+        $setting = new Setting($const);
 
         $this->assertEquals('TEST', $setting->getName());
     }
@@ -112,8 +111,8 @@ class SettingTest extends TestCase {
             #[SecretAttribute]
             public const SECRET = 'test';
         };
-        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'TEST'));
-        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'SECRET'));
+        $a     = new Setting(new ReflectionClassConstant($class, 'TEST'));
+        $b     = new Setting(new ReflectionClassConstant($class, 'SECRET'));
 
         $this->assertFalse($a->isSecret());
         $this->assertTrue($b->isSecret());
@@ -130,8 +129,8 @@ class SettingTest extends TestCase {
             #[SettingAttribute('config.path.secret')]
             public const ARRAY = ['test'];
         };
-        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'TEST'));
-        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'ARRAY'));
+        $a     = new Setting(new ReflectionClassConstant($class, 'TEST'));
+        $b     = new Setting(new ReflectionClassConstant($class, 'ARRAY'));
 
         $this->assertFalse($a->isArray());
         $this->assertTrue($b->isArray());
@@ -149,8 +148,8 @@ class SettingTest extends TestCase {
             #[InternalAttribute]
             public const INTERNAL = 'test';
         };
-        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'TEST'));
-        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'INTERNAL'));
+        $a     = new Setting(new ReflectionClassConstant($class, 'TEST'));
+        $b     = new Setting(new ReflectionClassConstant($class, 'INTERNAL'));
 
         $this->assertFalse($a->isInternal());
         $this->assertTrue($b->isInternal());
@@ -181,12 +180,12 @@ class SettingTest extends TestCase {
             #[TypeAttribute(StringType::class)]
             public const ARRAY = ['test'];
         };
-        $string  = new Setting(new Repository(), new ReflectionClassConstant($class, 'STRING'));
-        $integer = new Setting(new Repository(), new ReflectionClassConstant($class, 'INTEGER'));
-        $boolean = new Setting(new Repository(), new ReflectionClassConstant($class, 'BOOLEAN'));
-        $float   = new Setting(new Repository(), new ReflectionClassConstant($class, 'FLOAT'));
-        $url     = new Setting(new Repository(), new ReflectionClassConstant($class, 'URL'));
-        $array   = new Setting(new Repository(), new ReflectionClassConstant($class, 'ARRAY'));
+        $string  = new Setting(new ReflectionClassConstant($class, 'STRING'));
+        $integer = new Setting(new ReflectionClassConstant($class, 'INTEGER'));
+        $boolean = new Setting(new ReflectionClassConstant($class, 'BOOLEAN'));
+        $float   = new Setting(new ReflectionClassConstant($class, 'FLOAT'));
+        $url     = new Setting(new ReflectionClassConstant($class, 'URL'));
+        $array   = new Setting(new ReflectionClassConstant($class, 'ARRAY'));
 
         $this->assertInstanceOf(StringType::class, $string->getType());
         $this->assertInstanceOf(IntType::class, $integer->getType());
@@ -221,12 +220,12 @@ class SettingTest extends TestCase {
             #[TypeAttribute(StringType::class)]
             public const ARRAY = ['test'];
         };
-        $string  = new Setting(new Repository(), new ReflectionClassConstant($class, 'STRING'));
-        $integer = new Setting(new Repository(), new ReflectionClassConstant($class, 'INTEGER'));
-        $boolean = new Setting(new Repository(), new ReflectionClassConstant($class, 'BOOLEAN'));
-        $float   = new Setting(new Repository(), new ReflectionClassConstant($class, 'FLOAT'));
-        $url     = new Setting(new Repository(), new ReflectionClassConstant($class, 'URL'));
-        $array   = new Setting(new Repository(), new ReflectionClassConstant($class, 'ARRAY'));
+        $string  = new Setting(new ReflectionClassConstant($class, 'STRING'));
+        $integer = new Setting(new ReflectionClassConstant($class, 'INTEGER'));
+        $boolean = new Setting(new ReflectionClassConstant($class, 'BOOLEAN'));
+        $float   = new Setting(new ReflectionClassConstant($class, 'FLOAT'));
+        $url     = new Setting(new ReflectionClassConstant($class, 'URL'));
+        $array   = new Setting(new ReflectionClassConstant($class, 'ARRAY'));
 
         $this->assertEquals('String', $string->getTypeName());
         $this->assertEquals('Int', $integer->getTypeName());
@@ -237,59 +236,9 @@ class SettingTest extends TestCase {
     }
 
     /**
-     * @covers ::getValue
-     */
-    public function testGetValue(): void {
-        $config = new Repository(['a' => 'aaaaa', 'c' => 'secret', 'f' => [1, 2]]);
-        $class  = new class() {
-            #[SettingAttribute('a')]
-            public const A = 'test';
-
-            #[SettingAttribute('b')]
-            public const B = 'test';
-
-            #[SettingAttribute('c')]
-            #[SecretAttribute]
-            public const C = 'test';
-
-            #[SettingAttribute('d')]
-            #[SecretAttribute]
-            public const D = 'test';
-
-            #[SettingAttribute('d')]
-            #[TypeAttribute(StringType::class)]
-            public const E = null;
-
-            #[SettingAttribute('f')]
-            #[TypeAttribute(IntType::class)]
-            #[SecretAttribute]
-            public const F = [1, 2, 3];
-
-            #[SettingAttribute()]
-            public const G = 'test';
-        };
-        $a      = new Setting($config, new ReflectionClassConstant($class, 'A'));
-        $b      = new Setting($config, new ReflectionClassConstant($class, 'B'));
-        $c      = new Setting($config, new ReflectionClassConstant($class, 'C'));
-        $d      = new Setting($config, new ReflectionClassConstant($class, 'D'));
-        $e      = new Setting($config, new ReflectionClassConstant($class, 'E'));
-        $f      = new Setting($config, new ReflectionClassConstant($class, 'F'));
-        $g      = new Setting($config, new ReflectionClassConstant($class, 'G'));
-
-        $this->assertEquals('aaaaa', $a->getValue());
-        $this->assertNull($b->getValue());
-        $this->assertEquals('secret', $c->getValue());
-        $this->assertNull($d->getValue());
-        $this->assertNull($e->getValue());
-        $this->assertEquals([1, 2], $f->getValue());
-        $this->assertEquals('test', $g->getValue());
-    }
-
-    /**
      * @covers ::getDefaultValue
      */
     public function testGetDefaultValue(): void {
-        $config = new Repository(['a' => 'aaaaa', 'c' => 'secret']);
         $class  = new class() {
             #[SettingAttribute('a')]
             public const A = 'test';
@@ -310,11 +259,11 @@ class SettingTest extends TestCase {
             #[SecretAttribute]
             public const E = [1, 2, 3];
         };
-        $a      = new Setting($config, new ReflectionClassConstant($class, 'A'));
-        $b      = new Setting($config, new ReflectionClassConstant($class, 'B'));
-        $c      = new Setting($config, new ReflectionClassConstant($class, 'C'));
-        $d      = new Setting($config, new ReflectionClassConstant($class, 'D'));
-        $e      = new Setting($config, new ReflectionClassConstant($class, 'E'));
+        $a      = new Setting(new ReflectionClassConstant($class, 'A'));
+        $b      = new Setting(new ReflectionClassConstant($class, 'B'));
+        $c      = new Setting(new ReflectionClassConstant($class, 'C'));
+        $d      = new Setting(new ReflectionClassConstant($class, 'D'));
+        $e      = new Setting(new ReflectionClassConstant($class, 'E'));
 
         $this->assertEquals('test', $a->getDefaultValue());
         $this->assertEquals('test', $b->getDefaultValue());
@@ -346,9 +295,9 @@ class SettingTest extends TestCase {
             #[SettingAttribute('s')]
             public const C = 'test';
         };
-        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'A'));
-        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'B'));
-        $c     = new Setting(new Repository(), new ReflectionClassConstant($class, 'C'));
+        $a     = new Setting(new ReflectionClassConstant($class, 'A'));
+        $b     = new Setting(new ReflectionClassConstant($class, 'B'));
+        $c     = new Setting(new ReflectionClassConstant($class, 'C'));
 
         $this->setTranslations(static function (TestCase $test, string $locale): array {
             return [
@@ -390,9 +339,9 @@ class SettingTest extends TestCase {
             #[SettingAttribute('b')]
             public const C = 'test';
         };
-        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'A'));
-        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'B'));
-        $c     = new Setting(new Repository(), new ReflectionClassConstant($class, 'C'));
+        $a     = new Setting(new ReflectionClassConstant($class, 'A'));
+        $b     = new Setting(new ReflectionClassConstant($class, 'B'));
+        $c     = new Setting(new ReflectionClassConstant($class, 'C'));
 
         $this->setTranslations(static function (TestCase $test, string $locale, string $fallback): array {
             return [
@@ -418,8 +367,8 @@ class SettingTest extends TestCase {
             #[ServiceAttribute(stdClass::class, 'b')]
             public const B = 'test';
         };
-        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'A'));
-        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'B'));
+        $a     = new Setting(new ReflectionClassConstant($class, 'A'));
+        $b     = new Setting(new ReflectionClassConstant($class, 'B'));
 
         $this->assertFalse($a->isService());
         $this->assertTrue($b->isService());
@@ -436,8 +385,8 @@ class SettingTest extends TestCase {
             #[ServiceAttribute(stdClass::class, 'b')]
             public const B = 'test';
         };
-        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'A'));
-        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'B'));
+        $a     = new Setting(new ReflectionClassConstant($class, 'A'));
+        $b     = new Setting(new ReflectionClassConstant($class, 'B'));
 
         $this->assertNull($a->getService());
         $this->assertEquals(stdClass::class, $b->getService());
@@ -457,8 +406,8 @@ class SettingTest extends TestCase {
             #[ServiceAttribute(stdClass::class, 'c')]
             public const C = 'test';
         };
-        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'A'));
-        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'B'));
+        $a     = new Setting(new ReflectionClassConstant($class, 'A'));
+        $b     = new Setting(new ReflectionClassConstant($class, 'B'));
 
         $this->assertFalse($a->isJob());
         $this->assertTrue($b->isJob());
@@ -478,8 +427,8 @@ class SettingTest extends TestCase {
             #[ServiceAttribute(stdClass::class, 'c')]
             public const C = 'test';
         };
-        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'A'));
-        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'B'));
+        $a     = new Setting(new ReflectionClassConstant($class, 'A'));
+        $b     = new Setting(new ReflectionClassConstant($class, 'B'));
 
         $this->assertNull($a->getJob());
         $this->assertEquals(stdClass::class, $b->getJob());
@@ -497,8 +446,8 @@ class SettingTest extends TestCase {
             #[PublicNameAttribute('b')]
             public const B = 'test';
         };
-        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'A'));
-        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'B'));
+        $a     = new Setting(new ReflectionClassConstant($class, 'A'));
+        $b     = new Setting(new ReflectionClassConstant($class, 'B'));
 
         $this->assertFalse($a->isPublic());
         $this->assertTrue($b->isPublic());
@@ -516,8 +465,8 @@ class SettingTest extends TestCase {
             #[PublicNameAttribute('publicNameB')]
             public const B = 'test';
         };
-        $a     = new Setting(new Repository(), new ReflectionClassConstant($class, 'A'));
-        $b     = new Setting(new Repository(), new ReflectionClassConstant($class, 'B'));
+        $a     = new Setting(new ReflectionClassConstant($class, 'A'));
+        $b     = new Setting(new ReflectionClassConstant($class, 'B'));
 
         $this->assertNull($a->getPublicName());
         $this->assertEquals('publicNameB', $b->getPublicName());

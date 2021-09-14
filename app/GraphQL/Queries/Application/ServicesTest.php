@@ -77,10 +77,10 @@ class ServicesTest extends TestCase {
                 };
 
                 (new class() extends LoadConfiguration {
-                    public function loadSettings(Application $app, Repository $repository, Config $config): void {
-                        parent::loadSettings($app, $repository, $config);
+                    public function loadConfig(Application $app, Repository $repository, Config $config): void {
+                        parent::loadConfig($app, $repository, $config);
                     }
-                })->loadSettings($this->app, $this->app->make(Repository::class), $service);
+                })->loadConfig($this->app, $this->app->make(Repository::class), $service);
 
                 return $service;
             });

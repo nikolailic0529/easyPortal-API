@@ -156,8 +156,37 @@ class Settings {
         return $settings;
     }
 
+    protected function getValue(Setting $setting): mixed {
+        // Value from .env has a bigger priority, if it is not set and the
+        // setting is editable we try to use saved value or use default
+        // otherwise.
+        $value = $setting->getDefaultValue();
+
+        if ($this->environment->has($setting->getName())) {
+            $value = $this->parseValue($setting, $this->environment->get($setting->getName()));
+        } elseif ($this->isEditable($setting)) {
+            if ($this->storage->has($setting->getName())) {
+                $value = $this->storage->get($setting->getName());
+            }
+        } else {
+            // empty
+        }
+
+        return $value;
+    }
+
     public function getPublicValue(Setting $setting): string {
-        return $this->serializePublicValue($setting, $setting->getValue());
+        // The most actual value is stored in the config, so we are trying to
+        // use it if possible.
+        $value = null;
+
+        if ($setting->getPath()) {
+            $value = $this->config->get($setting->getPath());
+        } else {
+            $value = $this->getValue($setting);
+        }
+
+        return $this->serializePublicValue($setting, $value);
     }
 
     public function getPublicDefaultValue(Setting $setting): string {
@@ -175,7 +204,6 @@ class Settings {
 
             foreach ($constants as $name => $value) {
                 $this->settings[$name] = new Setting(
-                    $this->config,
                     new ReflectionClassConstant($store, $name),
                     $this->isReadonly($name),
                 );
@@ -183,13 +211,6 @@ class Settings {
         }
 
         return $this->settings;
-    }
-
-    /**
-     * @return array<string, string>
-     */
-    protected function getSavedSettings(): array {
-        return $this->storage->load();
     }
 
     /**
@@ -209,7 +230,7 @@ class Settings {
                 return $setting->getName();
             })
             ->intersectByKeys($editable);
-        $stored   = (new Collection($this->getSavedSettings()))
+        $stored   = (new Collection($this->storage->load()))
             ->intersectByKeys($editable);
 
         // Update

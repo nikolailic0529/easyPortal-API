@@ -15,7 +15,6 @@ use App\Services\Settings\Types\FloatType;
 use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Type;
-use Illuminate\Contracts\Config\Repository;
 use InvalidArgumentException;
 use ReflectionAttribute;
 use ReflectionClassConstant;
@@ -31,7 +30,6 @@ class Setting {
     protected SettingAttribute $definition;
 
     public function __construct(
-        protected Repository $config,
         protected ReflectionClassConstant $constant,
         protected bool $readonly = false,
     ) {
@@ -97,12 +95,6 @@ class Setting {
 
     public function getTypeName(): string {
         return $this->getType()->getName();
-    }
-
-    public function getValue(): mixed {
-        return $this->getPath()
-            ? $this->config->get($this->getPath())
-            : $this->getDefaultValue();
     }
 
     public function getDefaultValue(): mixed {

@@ -9,12 +9,15 @@ use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\PublicName;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
+use App\Services\Settings\Attributes\Type;
 use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\StringType;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Collection;
+use LastDragon_ru\LaraASP\Testing\Utils\WithTempFile;
 use Mockery;
+use ReflectionClassConstant;
 use Tests\TestCase;
 
 use function array_map;
@@ -24,6 +27,8 @@ use function array_map;
  * @coversDefaultClass \App\Services\Settings\Settings
  */
 class SettingsTest extends TestCase {
+    use WithTempFile;
+
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -72,7 +77,7 @@ class SettingsTest extends TestCase {
     public function testGetSettings(): void {
         $service = new class(
             $this->app,
-            $this->app->make(Repository::class),
+            Mockery::mock(Repository::class),
             Mockery::mock(Storage::class),
             $this->app->make(Environment::class),
         ) extends Settings {
@@ -107,44 +112,13 @@ class SettingsTest extends TestCase {
     }
 
     /**
-     * @covers ::getSavedSettings
-     */
-    public function testGetSavedSettings(): void {
-        $service = new class(
-            $this->app,
-            Mockery::mock(Repository::class),
-            $this->app->make(Storage::class),
-            Mockery::mock(Environment::class),
-        ) extends Settings {
-            /**
-             * @inheritDoc
-             */
-            public function getSavedSettings(): array {
-                return parent::getSavedSettings();
-            }
-
-            public function getStorage(): Storage {
-                return $this->storage;
-            }
-        };
-
-        // Json
-        $expected = [
-            'TEST' => 123,
-        ];
-
-        $this->assertTrue($service->getStorage()->save($expected));
-        $this->assertEquals($expected, $service->getSavedSettings());
-    }
-
-    /**
      * @covers ::setEditableSettings
      */
     public function testSetEditableSettings(): void {
         $service = new class(
             $this->app,
             Mockery::mock(Repository::class),
-            $this->app->make(Storage::class),
+            Mockery::mock(Storage::class),
             Mockery::mock(Environment::class),
         ) extends Settings {
             protected function getStore(): string {
@@ -210,10 +184,19 @@ class SettingsTest extends TestCase {
      * @covers ::saveSettings
      */
     public function testSaveSettings(): void {
+        $path    = $this->getTempFile();
+        $storage = Mockery::mock(Storage::class);
+        $storage->shouldAllowMockingProtectedMethods();
+        $storage->makePartial();
+        $storage
+            ->shouldReceive('getPath')
+            ->twice()
+            ->andReturn($path);
+
         $service = new class(
             $this->app,
-            $this->app->make(Repository::class),
-            $this->app->make(Storage::class),
+            Mockery::mock(Repository::class),
+            $storage,
             Mockery::mock(Environment::class),
         ) extends Settings {
             /**
@@ -221,10 +204,6 @@ class SettingsTest extends TestCase {
              */
             public function saveSettings(array $settings): bool {
                 return parent::saveSettings($settings);
-            }
-
-            public function getStorage(): Storage {
-                return $this->storage;
             }
 
             protected function isReadonly(string $name): bool {
@@ -243,12 +222,15 @@ class SettingsTest extends TestCase {
         };
 
         $settings = $service->getEditableSettings();
+        $settings = array_map(static function (Setting $setting): Value {
+            return new Value($setting, null);
+        }, $settings);
 
-        $this->assertTrue($service->getStorage()->save([
+        $this->assertTrue($storage->save([
             'TEST' => 123,
         ]));
         $this->assertTrue($service->saveSettings($settings));
-        $this->assertEquals(['A' => null], $service->getStorage()->load());
+        $this->assertEquals(['A' => null], $storage->load());
     }
 
     /**
@@ -446,11 +428,12 @@ class SettingsTest extends TestCase {
      */
     public function testIsReadonly(): void {
         $env = Mockery::mock(Environment::class);
+        $env->shouldAllowMockingProtectedMethods();
         $env->makePartial();
         $env
-            ->shouldReceive('load')
+            ->shouldReceive('getRepository')
             ->twice()
-            ->andReturn(['TEST' => 'value']);
+            ->andReturn(new ArrayRepository(['TEST' => 'value']));
 
         $service = new class(
             Mockery::mock(Application::class),
@@ -465,6 +448,114 @@ class SettingsTest extends TestCase {
 
         $this->assertTrue($service->isReadonly('TEST'));
         $this->assertFalse($service->isReadonly('NAME'));
+    }
+
+    /**
+     * @covers ::getPublicValue
+     */
+    public function testGetPublicValue(): void {
+        $A        = new Setting(new ReflectionClassConstant(
+            new class() {
+                #[SettingAttribute()]
+                #[Type(StringType::class)]
+                public const A = 123;
+            },
+            'A',
+        ));
+        $B        = new Setting(new ReflectionClassConstant(
+            new class() {
+                #[SettingAttribute('test.setting')]
+                #[Type(StringType::class)]
+                public const B = 123;
+            },
+            'B',
+        ));
+        $settings = $this->app->make(Settings::class);
+
+        $this->setSettings([
+            'test.setting' => 345,
+        ]);
+
+        $this->assertEquals('123', $settings->getPublicValue($A));
+        $this->assertEquals('345', $settings->getPublicValue($B));
+    }
+
+    /**
+     * @covers ::getPublicDefaultValue
+     */
+    public function testGetPublicDefaultValue(): void {
+        $setting  = new Setting(new ReflectionClassConstant(
+            new class() {
+                #[SettingAttribute()]
+                #[Type(StringType::class)]
+                public const TEST = 123;
+            },
+            'TEST',
+        ));
+        $settings = $this->app->make(Settings::class);
+
+        $this->assertEquals('123', $settings->getPublicDefaultValue($setting));
+    }
+
+    /**
+     * @covers ::getValue
+     */
+    public function testGetValue(): void {
+        $app     = Mockery::mock(Application::class);
+        $config  = Mockery::mock(Repository::class);
+        $storage = Mockery::mock(Storage::class);
+        $storage->makePartial();
+        $storage
+            ->shouldReceive('load')
+            ->twice()
+            ->andReturn([
+                'C' => 321,
+            ]);
+
+        $environment = Mockery::mock(Environment::class);
+        $environment->shouldAllowMockingProtectedMethods();
+        $environment->makePartial();
+        $environment
+            ->shouldReceive('getRepository')
+            ->atLeast()
+            ->once()
+            ->andReturn(new ArrayRepository([
+                'B' => '123',
+            ]));
+
+        $settingA = new Setting(new ReflectionClassConstant(
+            new class() {
+                #[SettingAttribute('a.path')]
+                public const A = 'A';
+            },
+            'A',
+        ));
+        $settingB = new Setting(new ReflectionClassConstant(
+            new class() {
+                #[SettingAttribute()]
+                public const B = 'B';
+            },
+            'B',
+        ));
+        $settingC = new Setting(new ReflectionClassConstant(
+            new class() {
+                #[SettingAttribute()]
+                public const C = 'C';
+            },
+            'C',
+        ));
+        $settings = Mockery::mock(Settings::class, [$app, $config, $storage, $environment]);
+        $settings->shouldAllowMockingProtectedMethods();
+        $settings->makePartial();
+        $settings
+            ->shouldReceive('isEditable')
+            ->with($settingA)
+            ->once()
+            ->andReturn(false);
+
+        $this->assertEquals('A', $settings->getValue($settingA));
+        $this->assertEquals('123', $settings->getValue($settingB));
+        $this->assertEquals(321, $settings->getValue($settingC));
     }
     // </editor-fold>
 
