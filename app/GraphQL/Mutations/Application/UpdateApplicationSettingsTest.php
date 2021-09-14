@@ -6,6 +6,7 @@ use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Secret;
 use App\Services\Settings\Attributes\Setting;
 use App\Services\Settings\Attributes\Type;
+use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Settings;
 use App\Services\Settings\Storage;
 use App\Services\Settings\Types\StringType;
@@ -52,15 +53,17 @@ class UpdateApplicationSettingsTest extends TestCase {
                 $this->app,
                 $this->app->make(Repository::class),
                 $this->app->make(Storage::class),
+                $this->app->make(Environment::class),
                 $store::class,
             ) extends Settings {
                 public function __construct(
                     Application $app,
                     Repository $config,
                     Storage $storage,
+                    Environment $environment,
                     protected string $store,
                 ) {
-                    parent::__construct($app, $config, $storage);
+                    parent::__construct($app, $config, $storage, $environment);
                 }
 
                 protected function getStore(): string {

@@ -2,8 +2,8 @@
 
 namespace App\Services\Settings\Bootstrapers;
 
-use App\Services\Settings\Environment\EnvironmentRepository;
 use App\Services\Settings\Environment\Configuration;
+use App\Services\Settings\Environment\EnvironmentRepository;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Mockery;
@@ -49,11 +49,11 @@ class LoadConfigurationTest extends TestCase {
         $bootstrapper->shouldAllowMockingProtectedMethods();
         $bootstrapper->makePartial();
         $bootstrapper
-            ->shouldReceive('loadEnvVars')
+            ->shouldReceive('overwriteEnvVars')
             ->with($application, $repository, $configuration['envs'])
             ->once();
         $bootstrapper
-            ->shouldReceive('loadConfig')
+            ->shouldReceive('overwriteConfig')
             ->with($application, $repository, $configuration['config'])
             ->once();
 
@@ -61,9 +61,9 @@ class LoadConfigurationTest extends TestCase {
     }
 
     /**
-     * @covers ::loadConfig
+     * @covers ::overwriteConfig
      */
-    public function testLoadConfig(): void {
+    public function testOverwriteConfig(): void {
         $config     = [
             'test' => 'value',
         ];
@@ -77,13 +77,13 @@ class LoadConfigurationTest extends TestCase {
         $bootstrapper->shouldAllowMockingProtectedMethods();
         $bootstrapper->makePartial();
 
-        $bootstrapper->loadConfig($this->app, $repository, $config);
+        $bootstrapper->overwriteConfig($this->app, $repository, $config);
     }
 
     /**
-     * @covers ::loadEnvVars
+     * @covers ::overwriteEnvVars
      */
-    public function testLoadEnvVars(): void {
+    public function testOverwriteEnvVars(): void {
         $app         = Mockery::mock(Application::class);
         $repository  = Mockery::mock(Repository::class);
         $environment = new EnvironmentRepository(['FOO' => 'Foo']);
@@ -100,7 +100,7 @@ class LoadConfigurationTest extends TestCase {
             ->once()
             ->andReturn($environment);
 
-        $bootstrapper->loadEnvVars($app, $repository, $config);
+        $bootstrapper->overwriteEnvVars($app, $repository, $config);
 
         $this->assertEquals([
             'FOO' => 'Foo',

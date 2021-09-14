@@ -239,7 +239,7 @@ class SettingTest extends TestCase {
      * @covers ::getDefaultValue
      */
     public function testGetDefaultValue(): void {
-        $class  = new class() {
+        $class = new class() {
             #[SettingAttribute('a')]
             public const A = 'test';
 
@@ -259,11 +259,11 @@ class SettingTest extends TestCase {
             #[SecretAttribute]
             public const E = [1, 2, 3];
         };
-        $a      = new Setting(new ReflectionClassConstant($class, 'A'));
-        $b      = new Setting(new ReflectionClassConstant($class, 'B'));
-        $c      = new Setting(new ReflectionClassConstant($class, 'C'));
-        $d      = new Setting(new ReflectionClassConstant($class, 'D'));
-        $e      = new Setting(new ReflectionClassConstant($class, 'E'));
+        $a     = new Setting(new ReflectionClassConstant($class, 'A'));
+        $b     = new Setting(new ReflectionClassConstant($class, 'B'));
+        $c     = new Setting(new ReflectionClassConstant($class, 'C'));
+        $d     = new Setting(new ReflectionClassConstant($class, 'D'));
+        $e     = new Setting(new ReflectionClassConstant($class, 'E'));
 
         $this->assertEquals('test', $a->getDefaultValue());
         $this->assertEquals('test', $b->getDefaultValue());

@@ -14,6 +14,7 @@ use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Bootstrapers\LoadConfiguration;
 use App\Services\Settings\Environment\Configuration;
+use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Settings;
 use App\Services\Settings\Storage;
 use Closure;
@@ -59,6 +60,7 @@ class ServicesTest extends TestCase {
                     $this->app,
                     $this->app->make(Repository::class),
                     $this->app->make(Storage::class),
+                    $this->app->make(Environment::class),
                     $store::class,
                 ) extends Configuration {
                     /** @noinspection PhpMissingParentConstructorInspection */
@@ -66,6 +68,7 @@ class ServicesTest extends TestCase {
                         protected Application $app,
                         protected Repository $config,
                         protected Storage $storage,
+                        protected Environment $environment,
                         protected string $store,
                     ) {
                         // empty
@@ -77,10 +80,17 @@ class ServicesTest extends TestCase {
                 };
 
                 (new class() extends LoadConfiguration {
-                    public function loadConfig(Application $app, Repository $repository, Configuration $config): void {
-                        parent::loadConfig($app, $repository, $config);
+                    /**
+                     * @inheritDoc
+                     */
+                    public function overwriteConfig(Application $app, Repository $repository, array $config): void {
+                        parent::overwriteConfig($app, $repository, $config);
                     }
-                })->loadConfig($this->app, $this->app->make(Repository::class), $service);
+                })->overwriteConfig(
+                    $this->app,
+                    $this->app->make(Repository::class),
+                    $service->getConfiguration()['config'],
+                );
 
                 return $service;
             });

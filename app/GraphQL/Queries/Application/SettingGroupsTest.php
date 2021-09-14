@@ -4,6 +4,7 @@ namespace App\GraphQL\Queries\Application;
 
 use App\Services\Settings\Attributes\Group as GroupAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
+use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Settings;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
@@ -43,12 +44,14 @@ class SettingGroupsTest extends TestCase {
             $service = new class(
                 $this->app,
                 $this->app->make(Repository::class),
+                $this->app->make(Environment::class),
                 $store::class,
             ) extends Settings {
                 /** @noinspection PhpMissingParentConstructorInspection */
                 public function __construct(
                     protected Application $app,
                     protected Repository $config,
+                    protected Environment $environment,
                     protected string $store,
                 ) {
                     // empty

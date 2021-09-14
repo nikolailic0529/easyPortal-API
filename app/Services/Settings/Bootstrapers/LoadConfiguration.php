@@ -13,15 +13,17 @@ class LoadConfiguration extends IlluminateLoadConfiguration {
     protected function loadConfigurationFiles(Application $app, Repository $repository): void {
         $configuration = $app->make(Configuration::class)->getConfiguration();
 
-        $this->loadEnvVars($app, $repository, $configuration['envs']);
+        $this->overwriteEnvVars($app, $repository, $configuration['envs']);
+
         parent::loadConfigurationFiles($app, $repository);
-        $this->loadConfig($app, $repository, $configuration['config']);
+
+        $this->overwriteConfig($app, $repository, $configuration['config']);
     }
 
     /**
      * @param array<string,string> $vars
      */
-    protected function loadEnvVars(Application $app, Repository $repository, array $vars): void {
+    protected function overwriteEnvVars(Application $app, Repository $repository, array $vars): void {
         $repository = $this->getEnvRepository();
 
         foreach ($vars as $name => $value) {
@@ -34,7 +36,7 @@ class LoadConfiguration extends IlluminateLoadConfiguration {
     /**
      * @param array<string,mixed> $config
      */
-    protected function loadConfig(Application $app, Repository $repository, array $config): void {
+    protected function overwriteConfig(Application $app, Repository $repository, array $config): void {
         foreach ($config as $path => $value) {
             $repository->set($path, $value);
         }

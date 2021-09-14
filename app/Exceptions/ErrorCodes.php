@@ -38,6 +38,7 @@ use App\Services\Organization\Exceptions\UnknownOrganization as OrganizationUnkn
 use App\Services\Queue\Exceptions\ServiceNotFound as QueueServiceNotFound;
 use App\Services\Settings\Exceptions\FailedToLoadEnv as SettingsFailedToLoadEnv;
 use App\Services\Settings\Exceptions\FailedToLoadSettings as SettingsFailedToLoadSettings;
+use App\Services\Settings\Exceptions\FailedToSaveSettings as SettingsFailedToSaveSettings;
 use App\Services\Tokens\Exceptions\InvalidCredentials as TokensInvalidCredentials;
 use Throwable;
 
@@ -71,6 +72,7 @@ class ErrorCodes {
         // Settings
         SettingsFailedToLoadEnv::class                       => 'Settings001',
         SettingsFailedToLoadSettings::class                  => 'Settings002',
+        SettingsFailedToSaveSettings::class                  => 'Settings003',
 
         // KeyCloak
         KeyCloakAuthorizationFailed::class                   => 'KeyCloak001',

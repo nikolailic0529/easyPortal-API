@@ -12,7 +12,6 @@ use function array_column;
 use function end;
 use function explode;
 use function max;
-use function reset;
 
 class MailableHandler extends MailHandler {
     /**
