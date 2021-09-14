@@ -1080,6 +1080,10 @@ type Map {
 input MapQuery {
   latitude: Float!
   longitude: Float!
+  country_id: ID!
+  city_id: ID!
+  country: CountriesQuery
+  city: CitiesQuery
 }
 
 type Me {
@@ -3686,6 +3690,18 @@ input SearchByConditionMapQuery {
 
   """Property condition."""
   longitude: SearchByScalarFloat
+
+  """Property condition."""
+  country_id: SearchByScalarID
+
+  """Property condition."""
+  city_id: SearchByScalarID
+
+  """Property condition."""
+  country: SearchByComplexRelationCountriesQuery
+
+  """Property condition."""
+  city: SearchByComplexRelationCitiesQuery
 }
 
 """

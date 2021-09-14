@@ -8,12 +8,13 @@ use Throwable;
 use function __;
 
 class SignUpByInviteInvalidToken extends GraphQLException {
-    public function __construct(string $id, Throwable $previous = null) {
-        parent::__construct(sprintf(
-            'Invalid invite token with id `%s`.',
-            $id,
-        ), $previous);
+    public function __construct(protected mixed $token, Throwable $previous = null) {
         parent::__construct('Invalid invite token.', $previous);
+
+        $this->setContext([
+            'token'    => $this->token,
+            'previous' => $previous,
+        ]);
     }
 
     public function getErrorMessage(): string {

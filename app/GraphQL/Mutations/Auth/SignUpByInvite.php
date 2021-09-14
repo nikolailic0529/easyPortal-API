@@ -37,11 +37,11 @@ class SignUpByInvite {
         try {
             $data = $this->encrypter->decrypt($input['token']);
         } catch (DecryptException $e) {
-            throw new SignUpByInviteInvalidToken();
+            throw new SignUpByInviteInvalidToken($input['token']);
         }
 
         if (!array_key_exists('invitation', $data)) {
-            throw new SignUpByInviteInvalidToken();
+            throw new SignUpByInviteInvalidToken($input['token']);
         }
 
         $invitation = $this->callWithoutGlobalScope(OwnedByOrganizationScope::class, static function () use ($data) {
@@ -49,7 +49,7 @@ class SignUpByInvite {
         });
 
         if (!$invitation) {
-            throw new SignUpByInviteInvalidToken($data['invitation']);
+            throw new SignUpByInviteNotFound($data['invitation']);
         }
         /** @var \App\Models\Invitation $invitation */
         if ($invitation->expired_at->isPast()) {

@@ -25,6 +25,7 @@ use Tests\TestCase;
 use Throwable;
 
 use function __;
+use function app;
 
 /**
  * @internal
@@ -103,7 +104,7 @@ class SignUpByInviteTest extends TestCase {
             new AnyOrganizationDataProvider('signUpByInvite', 'f9834bc1-2f2f-4c57-bb8d-7a224ac24981'),
             new GuestDataProvider('signUpByInvite'),
             new ArrayDataProvider([
-                'ok'                    => [
+                'ok'                       => [
                     new GraphQLSuccess('signUpByInvite', SignUpByInvite::class),
                     static function (TestCase $test, Organization $organization): array {
                         $user       = UserModel::factory()->create([
@@ -138,7 +139,7 @@ class SignUpByInviteTest extends TestCase {
                             ]));
                     },
                 ],
-                'Invalid keycloak user' => [
+                'Invalid keycloak user'    => [
                     new GraphQLError('signUpByInvite', new RealmUserNotFound('f9834bc1-2f2f-4c57-bb8d-7a224ac24987')),
                     static function (TestCase $test, Organization $organization): array {
                         $user       = UserModel::factory()->create([
@@ -167,12 +168,15 @@ class SignUpByInviteTest extends TestCase {
                             ->andThrow(new RealmUserNotFound('f9834bc1-2f2f-4c57-bb8d-7a224ac24987'));
                     },
                 ],
-                'Invalid token data'    => [
-                    new GraphQLError('signUpByInvite', new SignUpByInviteInvalidToken('value')),
+                'Invalid token invitation' => [
+                    new GraphQLError(
+                        'signUpByInvite',
+                        new SignUpByInviteNotFound('f9834bc1-2f2f-4c57-bb8d-7a224ac24982'),
+                    ),
                     static function (TestCase $test): array {
                         return [
                             'token'      => $test->app->make(Encrypter::class)->encrypt([
-                                'invitation' => 'value',
+                                'invitation' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                             ]),
                             'first_name' => 'First',
                             'last_name'  => 'Last',
@@ -180,7 +184,35 @@ class SignUpByInviteTest extends TestCase {
                         ];
                     },
                 ],
-                'Invitation used'       => [
+                'Invalid token encrypt'    => [
+                    new GraphQLError('signUpByInvite', new SignUpByInviteInvalidToken('wrong_encryption')),
+                    static function (TestCase $test): array {
+                        return [
+                            'token'      => 'wrong_encryption',
+                            'first_name' => 'First',
+                            'last_name'  => 'Last',
+                            'password'   => '123456',
+                        ];
+                    },
+                ],
+                'Invalid token key'        => [
+                    new GraphQLError('signUpByInvite', static function (): Throwable {
+                        return new SignUpByInviteInvalidToken(app()->make(Encrypter::class)->encrypt([
+                            'key' => 'value',
+                        ]));
+                    }),
+                    static function (TestCase $test): array {
+                        return [
+                            'token'      => $test->app->make(Encrypter::class)->encrypt([
+                                'key' => 'value',
+                            ]),
+                            'first_name' => 'First',
+                            'last_name'  => 'Last',
+                            'password'   => '123456',
+                        ];
+                    },
+                ],
+                'Invitation used'          => [
                     new GraphQLError('signUpByInvite', static function (): Throwable {
                         return new SignUpByInviteAlreadyUsed((new Invitation())->forceFill([
                             'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -215,7 +247,7 @@ class SignUpByInviteTest extends TestCase {
                             ->never();
                     },
                 ],
-                'Invitation expired'    => [
+                'Invitation expired'       => [
                     new GraphQLError('signUpByInvite', static function (): Throwable {
                         return new SignUpByInviteExpired((new Invitation())->forceFill([
                             'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
@@ -251,7 +283,7 @@ class SignUpByInviteTest extends TestCase {
                             ->never();
                     },
                 ],
-                'Invalid token'         => [
+                'Invalid token'            => [
                     new GraphQLError('signUpByInvite', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
@@ -264,7 +296,7 @@ class SignUpByInviteTest extends TestCase {
                         ];
                     },
                 ],
-                'Invalid first name'    => [
+                'Invalid first name'       => [
                     new GraphQLError('signUpByInvite', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
@@ -280,7 +312,7 @@ class SignUpByInviteTest extends TestCase {
                         ];
                     },
                 ],
-                'Invalid last name'     => [
+                'Invalid last name'        => [
                     new GraphQLError('signUpByInvite', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
@@ -296,7 +328,7 @@ class SignUpByInviteTest extends TestCase {
                         ];
                     },
                 ],
-                'Invalid password'      => [
+                'Invalid password'         => [
                     new GraphQLError('signUpByInvite', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
