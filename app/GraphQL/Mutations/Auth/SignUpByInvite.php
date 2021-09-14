@@ -49,7 +49,7 @@ class SignUpByInvite {
         });
 
         if (!$invitation) {
-            throw new SignUpByInviteInvalidToken();
+            throw new SignUpByInviteInvalidToken($data['invitation']);
         }
         /** @var \App\Models\Invitation $invitation */
         if ($invitation->expired_at->isPast()) {

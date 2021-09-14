@@ -8,7 +8,11 @@ use Throwable;
 use function __;
 
 class SignUpByInviteInvalidToken extends GraphQLException {
-    public function __construct(Throwable $previous = null) {
+    public function __construct(string $id, Throwable $previous = null) {
+        parent::__construct(sprintf(
+            'Invalid invite token with id `%s`.',
+            $id,
+        ), $previous);
         parent::__construct('Invalid invite token.', $previous);
     }
 

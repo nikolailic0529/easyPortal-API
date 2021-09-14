@@ -168,11 +168,11 @@ class SignUpByInviteTest extends TestCase {
                     },
                 ],
                 'Invalid token data'    => [
-                    new GraphQLError('signUpByInvite', new SignUpByInviteInvalidToken()),
+                    new GraphQLError('signUpByInvite', new SignUpByInviteInvalidToken('value')),
                     static function (TestCase $test): array {
                         return [
                             'token'      => $test->app->make(Encrypter::class)->encrypt([
-                                'key' => 'value',
+                                'invitation' => 'value',
                             ]),
                             'first_name' => 'First',
                             'last_name'  => 'Last',
