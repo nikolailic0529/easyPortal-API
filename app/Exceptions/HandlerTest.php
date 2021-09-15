@@ -5,6 +5,8 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Log\LogManager;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
 use Mockery;
 use Psr\Log\LoggerInterface;
@@ -108,6 +110,41 @@ class HandlerTest extends TestCase {
         $this->assertEquals($expected['context'], $context);
 
         Event::assertDispatched(ErrorReport::class);
+    }
+
+    /**
+     * @covers ::getExceptionTrace
+     */
+    public function testGetExceptionTrace(): void {
+        $a       = new Exception('a');
+        $b       = new Exception('b', 0, $a);
+        $handler = $this->app->make(Handler::class);
+        $trace   = $handler->getExceptionTrace($b);
+
+        $this->assertEquals([
+            [
+                'class'   => $b::class,
+                'message' => $b->getMessage(),
+                'context' => [],
+                'code'    => $b->getCode(),
+                'file'    => $b->getFile(),
+                'line'    => $b->getLine(),
+                'trace'   => (new Collection($b->getTrace()))
+                    ->map(static function (array $trace): array {
+                        return Arr::except($trace, ['args']);
+                    })
+                    ->all(),
+            ],
+            [
+                'class'   => $a::class,
+                'message' => $a->getMessage(),
+                'context' => [],
+                'code'    => $a->getCode(),
+                'file'    => $a->getFile(),
+                'line'    => $a->getLine(),
+                'trace'   => [],
+            ],
+        ], $trace);
     }
     // </editor-fold>
 

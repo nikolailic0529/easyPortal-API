@@ -24,6 +24,8 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Throwable;
 
 use function array_merge;
+use function array_slice;
+use function count;
 use function is_null;
 use function reset;
 use function rtrim;
@@ -258,12 +260,24 @@ class Handler extends ExceptionHandler {
      * @return array<mixed>
      */
     public function getExceptionTrace(Throwable $exception): array {
-        $stack  = [];
-        $filter = static function (array $trace): array {
+        $stack    = [];
+        $filter   = static function (array $trace): array {
             return Arr::except($trace, ['args']);
         };
+        $previous = [];
 
         do {
+            $fullTrace = (new Collection($exception->getTrace()))->map($filter)->all();
+            $trace     = $fullTrace;
+
+            if ($previous && $previous === array_slice($fullTrace, - count($previous))) {
+                $trace = array_slice($fullTrace, 0, - count($previous));
+            }
+
+            if ($exception instanceof ApplicationMessage) {
+                $trace = [];
+            }
+
             $stack[]   = [
                 'class'   => $exception::class,
                 'message' => $exception->getMessage(),
@@ -271,10 +285,9 @@ class Handler extends ExceptionHandler {
                 'code'    => $exception->getCode(),
                 'file'    => $exception->getFile(),
                 'line'    => $exception->getLine(),
-                'trace'   => !($exception instanceof ApplicationMessage)
-                    ? (new Collection($exception->getTrace()))->map($filter)->all()
-                    : [],
+                'trace'   => $trace,
             ];
+            $previous  = $fullTrace;
             $exception = $exception->getPrevious();
         } while ($exception);
 
