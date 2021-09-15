@@ -13,6 +13,7 @@ use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\KeyCloak\Jobs\SyncPermissionsCronJob;
 use App\Services\KeyCloak\Jobs\SyncUsersCronJob;
+use App\Services\Logger\Logger;
 use App\Services\Queue\Queues;
 use App\Services\Search\Jobs\AssetsUpdaterCronJob as SearchAssetsUpdaterCronJob;
 use App\Services\Search\Jobs\CustomersUpdaterCronJob as SearchCustomersUpdaterCronJob;
@@ -106,6 +107,40 @@ interface Constants {
     #[Setting]
     #[Group('mail')]
     public const MAIL_FROM_NAME = 'IT Asset Hub';
+    // </editor-fold>
+
+    // <editor-fold desc="CLOCKWORK">
+    // =========================================================================
+    /**
+     * Enabled?
+     */
+    #[Setting]
+    #[Group('clockwork')]
+    public const CLOCKWORK_ENABLE = false;
+
+    /**
+     * Storage.
+     */
+    #[Setting]
+    #[Internal]
+    #[Group('clockwork')]
+    public const CLOCKWORK_STORAGE = 'sql';
+
+    /**
+     * Database.
+     */
+    #[Setting]
+    #[Internal]
+    #[Group('clockwork')]
+    public const CLOCKWORK_STORAGE_SQL_DATABASE = Logger::CONNECTION;
+
+    /**
+     * Maximum lifetime of collected metadata in minutes, older requests will automatically be deleted.
+     */
+    #[Setting]
+    #[Internal]
+    #[Group('clockwork')]
+    public const CLOCKWORK_STORAGE_EXPIRATION = 7 * 24 * 60;
     // </editor-fold>
 
     // <editor-fold desc="EP">
