@@ -11,7 +11,7 @@ class Error extends Mailable {
      * @param array<mixed> $records
      */
     public function __construct(
-        protected string $channel,
+        protected ?string $channel,
         protected string $content,
         protected array $records,
     ) {
@@ -20,9 +20,10 @@ class Error extends Mailable {
 
     public function build(): static {
         $count   = count($this->records);
+        $channel = $this->channel ? "{$this->channel} " : '';
         $subject = $count === 1
-            ? "EAP {$this->channel} {$this->records[0]['level_name']}: {$this->records[0]['message']}"
-            : "EAP {$this->channel} Error Report ({$count})";
+            ? "EAP {$channel}{$this->records[0]['level_name']}: {$this->records[0]['message']}"
+            : "EAP {$channel}Error Report ({$count})";
 
         return $this
             ->subject($subject)

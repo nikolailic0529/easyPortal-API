@@ -20,7 +20,7 @@ class MailableHandler extends MailHandler {
     public function __construct(
         protected Mailer $mailer,
         protected array $recipients,
-        protected string $channel,
+        protected ?string $channel,
         int $level = Logger::DEBUG,
         bool $bubble = true,
     ) {

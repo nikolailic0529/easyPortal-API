@@ -131,6 +131,18 @@ interface Constants {
     #[Group('ep')]
     #[Type(Duration::class)]
     public const EP_INVITE_EXPIRE = 'PT24H';
+
+    /**
+     * Email addresses that will receive errors.
+     *
+     * You can use subaddressing to specify desired error level, eg
+     * `test+warning@example.com` will receive "warning", "error" and up but
+     * not "info", "notice".
+     */
+    #[Setting]
+    #[Group('ep')]
+    #[Type(Email::class)]
+    public const EP_LOGGING_EMAILS = ['chief.wraith@gmail.com'];
     // </editor-fold>
 
     // <editor-fold desc="EP_AUTH">

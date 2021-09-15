@@ -16,7 +16,20 @@ $tap  = [Configurator::class];
 $days = 365;
 
 // Helpers
-$serviceChannel = static function (string $service, string $recipients) use ($tap, $days): array {
+$mailChannel    = static function (string $recipients, string $channel = null): array {
+    return [
+        'driver'    => 'monolog',
+        'handler'   => MailableHandler::class,
+        'formatter' => HtmlFormatter::class,
+        'level'     => env('LOG_LEVEL', 'debug'),
+        'with'      => [
+            'channel'    => $channel,
+            'recipients' => explode(Settings::DELIMITER, $recipients),
+        ],
+    ];
+};
+
+$serviceChannel = static function (string $service, string $recipients) use ($tap, $days, $mailChannel): array {
     $channel = array_slice(explode('\\', $service), -2, 1);
     $channel = reset($channel);
 
@@ -36,16 +49,7 @@ $serviceChannel = static function (string $service, string $recipients) use ($ta
             'days'   => $days,
             'tap'    => $tap,
         ],
-        "{$service}@mail"  => [
-            'driver'    => 'monolog',
-            'handler'   => MailableHandler::class,
-            'formatter' => HtmlFormatter::class,
-            'level'     => env('LOG_LEVEL', 'debug'),
-            'with'      => [
-                'channel'    => $channel,
-                'recipients' => explode(Settings::DELIMITER, $recipients),
-            ],
-        ],
+        "{$service}@mail"  => $mailChannel($recipients, $channel),
     ];
 };
 
@@ -87,7 +91,7 @@ return [
         [
             'stack'      => [
                 'driver'            => 'stack',
-                'channels'          => ['daily'],
+                'channels'          => ['daily', 'mail'],
                 'ignore_exceptions' => false,
             ],
 
@@ -105,6 +109,8 @@ return [
                 'days'   => $days,
                 'tap'    => $tap,
             ],
+
+            'mail'       => $mailChannel((string) env('EP_LOGGING_EMAILS')),
 
             // Default
             'slack'      => [
