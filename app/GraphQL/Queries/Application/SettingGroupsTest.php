@@ -2,8 +2,13 @@
 
 namespace App\GraphQL\Queries\Application;
 
+use App\Services\Queue\CronJob;
+use App\Services\Queue\Job;
 use App\Services\Settings\Attributes\Group as GroupAttribute;
+use App\Services\Settings\Attributes\Job as JobAttribute;
+use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
+use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Settings;
 use Closure;
 use Illuminate\Contracts\Config\Repository;
@@ -43,12 +48,14 @@ class SettingGroupsTest extends TestCase {
             $service = new class(
                 $this->app,
                 $this->app->make(Repository::class),
+                $this->app->make(Environment::class),
                 $store::class,
             ) extends Settings {
                 /** @noinspection PhpMissingParentConstructorInspection */
                 public function __construct(
                     protected Application $app,
                     protected Repository $config,
+                    protected Environment $environment,
                     protected string $store,
                 ) {
                     // empty
@@ -130,6 +137,14 @@ class SettingGroupsTest extends TestCase {
 
                         #[SettingAttribute('test.d')]
                         public const SETTING_D = 'd';
+
+                        #[ServiceAttribute(CronJob::class, 'test.e')]
+                        #[GroupAttribute('service')]
+                        public const SETTING_E = 'e';
+
+                        #[JobAttribute(Job::class, 'test.f')]
+                        #[GroupAttribute('job')]
+                        public const SETTING_F = 'f';
                     },
                 ],
             ]),

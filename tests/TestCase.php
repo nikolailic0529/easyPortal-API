@@ -6,12 +6,14 @@ use App\Models\Concerns\GlobalScopes\GlobalScopes;
 use App\Services\Audit\Auditor;
 use App\Services\Logger\Logger;
 use App\Services\Organization\Eloquent\OwnedByOrganizationScope;
+use App\Services\Settings\Storage;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
 use LastDragon_ru\LaraASP\Testing\Database\RefreshDatabaseIfEmpty;
 use LastDragon_ru\LaraASP\Testing\TestCase as BaseTestCase;
+use LastDragon_ru\LaraASP\Testing\Utils\WithTempFile;
 use Nuwave\Lighthouse\Schema\AST\ASTBuilder;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\GraphQL\ASTBuilderPersistent;
@@ -30,6 +32,7 @@ abstract class TestCase extends BaseTestCase {
     use Override;
     use FakeDisks;
     use GlobalScopes;
+    use WithTempFile;
 
     /**
      * @var array<string>
@@ -59,8 +62,28 @@ abstract class TestCase extends BaseTestCase {
         });
 
         // We cache AST for all tests because AST generation takes ~80% of the time.
-        $this->app->singleton(ASTBuilder::class, function (): ASTBuilder {
-            return $this->app->make(ASTBuilderPersistent::class);
+        $this->afterApplicationCreated(function (): void {
+            $this->app->singleton(ASTBuilder::class, function (): ASTBuilder {
+                return $this->app->make(ASTBuilderPersistent::class);
+            });
+        });
+
+        // Custom Settings should not be used/changed
+        $this->afterApplicationCreated(function (): void {
+            $this->app->bind(Storage::class, function (): Storage {
+                return new class($this->app, $this->getTempFile('{}')->getPathname()) extends Storage {
+                    public function __construct(
+                        Application $app,
+                        protected string $path,
+                    ) {
+                        parent::__construct($app);
+                    }
+
+                    protected function getPath(): string {
+                        return $this->path;
+                    }
+                };
+            });
         });
     }
 

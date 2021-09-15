@@ -2,13 +2,12 @@
 
 namespace App\Services\Settings;
 
+use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Jobs\ConfigUpdate;
 use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Contracts\Foundation\CachesConfiguration;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Env;
 use ReflectionClass;
 use ReflectionClassConstant;
 
@@ -22,6 +21,7 @@ use function is_null;
 use function trim;
 
 class Settings {
+    public const    PATH      = 'app/settings.json';
     public const    DELIMITER = ',';
     protected const SECRET    = '********';
 
@@ -39,13 +39,9 @@ class Settings {
         protected Application $app,
         protected Repository $config,
         protected Storage $storage,
+        protected Environment $environment,
     ) {
         // empty
-    }
-
-    public function isCached(): bool {
-        return $this->app instanceof CachesConfiguration
-            && $this->app->configurationIsCached();
     }
 
     public function getEditableSetting(string $name): ?Setting {
@@ -88,7 +84,7 @@ class Settings {
 
         foreach ($editable as $setting) {
             // Readonly?
-            if ($setting->isReadonly()) {
+            if ($this->isReadonly($setting)) {
                 continue;
             }
 
@@ -154,11 +150,52 @@ class Settings {
 
         foreach ($this->getSettings() as $setting) {
             if ($setting->isPublic()) {
-                $settings[$setting->getPublicName()] = $this->serializeValue($setting, $setting->getValue());
+                $settings[$setting->getPublicName()] = $this->getPublicValue($setting);
             }
         }
 
         return $settings;
+    }
+
+    protected function getValue(Setting $setting): mixed {
+        // Value from .env has a bigger priority, if it is not set and the
+        // setting is editable we try to use saved value or use default
+        // otherwise.
+        $value = $setting->getDefaultValue();
+
+        if ($this->environment->has($setting->getName())) {
+            $value = $this->parseValue($setting, $this->environment->get($setting->getName()));
+        } elseif ($this->isEditable($setting)) {
+            if ($this->storage->has($setting->getName())) {
+                $value = $this->storage->get($setting->getName());
+            }
+        } else {
+            // empty
+        }
+
+        return $value;
+    }
+
+    public function getPublicValue(Setting $setting): string {
+        $value = null;
+
+        if ($setting instanceof Value) {
+            $value = $setting->getValue();
+        } else {
+            // The most actual value is stored in the config, so we are trying to
+            // use it if possible.
+            if ($setting->getPath()) {
+                $value = $this->config->get($setting->getPath());
+            } else {
+                $value = $this->getValue($setting);
+            }
+        }
+
+        return $this->serializePublicValue($setting, $value);
+    }
+
+    public function getPublicDefaultValue(Setting $setting): string {
+        return $this->serializePublicValue($setting, $setting->getDefaultValue());
     }
 
     /**
@@ -166,19 +203,13 @@ class Settings {
      */
     protected function getSettings(): array {
         if (!$this->settings) {
-            // We need to load `.env` to determine readonly settings.
-            $this->loadEnv();
-
-            // Get list of the settings.
             $store          = $this->getStore();
             $constants      = (new ReflectionClass($store))->getConstants(ReflectionClassConstant::IS_PUBLIC);
             $this->settings = [];
 
             foreach ($constants as $name => $value) {
                 $this->settings[$name] = new Setting(
-                    $this->config,
                     new ReflectionClassConstant($store, $name),
-                    $this->isOverridden($name),
                 );
             }
         }
@@ -187,20 +218,13 @@ class Settings {
     }
 
     /**
-     * @return array<string, string>
-     */
-    protected function getSavedSettings(): array {
-        return $this->storage->load();
-    }
-
-    /**
      * @param array<string, \App\Services\Settings\Value> $settings
      */
     protected function saveSettings(array $settings): bool {
         // Cleanup
         $editable = (new Collection($this->getEditableSettings()))
-            ->filter(static function (Setting $setting): bool {
-                return !$setting->isReadonly();
+            ->filter(function (Setting $setting): bool {
+                return !$this->isReadonly($setting);
             })
             ->keyBy(static function (Setting $setting): string {
                 return $setting->getName();
@@ -210,7 +234,7 @@ class Settings {
                 return $setting->getName();
             })
             ->intersectByKeys($editable);
-        $stored   = (new Collection($this->getSavedSettings()))
+        $stored   = (new Collection($this->storage->load()))
             ->intersectByKeys($editable);
 
         // Update
@@ -230,6 +254,9 @@ class Settings {
             $result = null;
         } elseif ($setting->isArray()) {
             $result = explode(self::DELIMITER, $value);
+            $result = array_filter($result, static function (string $value): bool {
+                return $value !== '';
+            });
             $result = array_map(static function (string $value) use ($type): mixed {
                 return $type->fromString(trim($value));
             }, $result);
@@ -240,16 +267,7 @@ class Settings {
         return $result;
     }
 
-    public function serializeValue(Setting $setting, mixed $value): string {
-        // Secret?
-        if ($setting->isSecret()) {
-            if ($setting->isArray() && !is_null($value)) {
-                $value = array_fill_keys(array_keys((array) $value), static::SECRET);
-            } else {
-                $value = $value ? static::SECRET : null;
-            }
-        }
-
+    protected function serializeValue(Setting $setting, mixed $value): string {
         // Serialize
         $type   = $setting->getType();
         $string = null;
@@ -268,19 +286,27 @@ class Settings {
         return $string;
     }
 
+    protected function serializePublicValue(Setting $setting, mixed $value): string {
+        if ($setting->isSecret()) {
+            if ($setting->isArray() && !is_null($value)) {
+                $value = array_fill_keys(array_keys((array) $value), static::SECRET);
+            } else {
+                $value = $value ? static::SECRET : null;
+            }
+        }
+
+        return $this->serializeValue($setting, $value);
+    }
+
     /**
      * Determines if setting overridden by ENV var.
      */
-    protected function isOverridden(string $name): bool {
-        return Env::getRepository()->has($name);
+    public function isReadonly(Setting $setting): bool {
+        return $this->environment->has($setting->getName());
     }
 
     protected function isEditable(Setting $setting): bool {
         return !$setting->isInternal();
-    }
-
-    protected function loadEnv(): void {
-        (new EnvLoader())->load($this->app);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations;
 use App\Services\Filesystem\Storages\ClientSettings;
 use App\Services\Settings\Attributes\PublicName;
 use App\Services\Settings\Attributes\Setting;
+use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Settings as SettingsService;
 use App\Services\Settings\Storage;
 use Closure;
@@ -56,6 +57,7 @@ class UpdateClientSettingsTest extends TestCase {
                 $this->app,
                 $this->app->make(Repository::class),
                 $this->app->make(Storage::class),
+                $this->app->make(Environment::class),
                 $store::class,
             ) extends SettingsService {
                 /** @noinspection PhpMissingParentConstructorInspection */
@@ -63,6 +65,7 @@ class UpdateClientSettingsTest extends TestCase {
                     protected Application $app,
                     protected Repository $config,
                     protected Storage $storage,
+                    protected Environment $environment,
                     protected string $store,
                 ) {
                     // empty

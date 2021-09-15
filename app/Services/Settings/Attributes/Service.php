@@ -14,9 +14,9 @@ class Service extends Setting {
      */
     public function __construct(
         protected string $class,
-        protected string $name,
+        string $path,
     ) {
-        parent::__construct("queue.queueables.{$class}.{$name}");
+        parent::__construct("queue.queueables.{$class}.{$path}");
     }
 
     public function getClass(): string {

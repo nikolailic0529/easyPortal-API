@@ -6,6 +6,7 @@ use App\Services\Queue\CronJob;
 use App\Services\Queue\Exceptions\ServiceNotFound;
 use App\Services\Queue\Progressable;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
+use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Settings;
 use App\Services\Settings\Storage;
 use Closure;
@@ -49,6 +50,7 @@ class ResetApplicationServiceTest extends TestCase {
                 $this->app,
                 $this->app->make(Repository::class),
                 $this->app->make(Storage::class),
+                $this->app->make(Environment::class),
             ) extends Settings {
                 protected function getStore(): string {
                     return (new class() {

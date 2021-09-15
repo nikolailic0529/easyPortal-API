@@ -2,9 +2,9 @@
 
 namespace App\Services\Settings\Jobs;
 
-
-use App\Services\Settings\Settings;
 use Illuminate\Contracts\Console\Kernel;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Foundation\CachesConfiguration;
 use Mockery;
 use Tests\TestCase;
 
@@ -17,8 +17,13 @@ class ConfigUpdateTest extends TestCase {
      * @covers ::__invoke
      */
     public function testHandleWhenConfigCached(): void {
-        $kernel = Mockery::mock(Kernel::class);
+        $app = Mockery::mock(Application::class, CachesConfiguration::class);
+        $app
+            ->shouldReceive('configurationIsCached')
+            ->once()
+            ->andReturn(true);
 
+        $kernel = Mockery::mock(Kernel::class);
         $kernel
             ->shouldReceive('call')
             ->with('config:cache')
@@ -28,19 +33,14 @@ class ConfigUpdateTest extends TestCase {
             ->with('queue:restart')
             ->once();
 
-        $settings = Mockery::mock(Settings::class);
-        $settings
-            ->shouldReceive('isCached')
-            ->once()
-            ->andReturn(true);
-
-        ($this->app->make(ConfigUpdate::class))($kernel, $settings);
+        ($this->app->make(ConfigUpdate::class))($app, $kernel);
     }
 
     /**
      * @covers ::__invoke
      */
     public function testHandleWhenConfigNotCached(): void {
+        $app    = Mockery::mock(Application::class);
         $kernel = Mockery::mock(Kernel::class);
 
         $kernel
@@ -52,12 +52,6 @@ class ConfigUpdateTest extends TestCase {
             ->with('queue:restart')
             ->once();
 
-        $settings = Mockery::mock(Settings::class);
-        $settings
-            ->shouldReceive('isCached')
-            ->once()
-            ->andReturn(false);
-
-        ($this->app->make(ConfigUpdate::class))($kernel, $settings);
+        ($this->app->make(ConfigUpdate::class))($app, $kernel);
     }
 }

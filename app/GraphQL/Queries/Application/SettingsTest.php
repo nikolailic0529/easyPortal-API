@@ -9,6 +9,8 @@ use App\Services\Settings\Attributes\Secret as SecretAttribute;
 use App\Services\Settings\Attributes\Service;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Attributes\Type as TypeAttribute;
+use App\Services\Settings\Environment\Environment;
+use App\Services\Settings\Setting;
 use App\Services\Settings\Settings;
 use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\Type;
@@ -53,12 +55,14 @@ class SettingsTest extends TestCase {
             $service = new class(
                 $this->app,
                 $this->app->make(Repository::class),
+                $this->app->make(Environment::class),
                 $store::class,
             ) extends Settings {
                 /** @noinspection PhpMissingParentConstructorInspection */
                 public function __construct(
                     protected Application $app,
                     protected Repository $config,
+                    protected Environment $environment,
                     protected string $store,
                 ) {
                     // empty
@@ -68,8 +72,9 @@ class SettingsTest extends TestCase {
                     return $this->store;
                 }
 
-                protected function isOverridden(string $name): bool {
-                    return $name === 'SETTING_READONLY' || parent::isOverridden($name);
+                public function isReadonly(Setting $setting): bool {
+                    return $setting->getName() === 'SETTING_READONLY'
+                        || parent::isReadonly($setting);
                 }
             };
 

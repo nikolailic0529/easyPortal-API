@@ -4,24 +4,26 @@ namespace App\Services\Settings\Exceptions;
 
 use App\Exceptions\TranslatedException;
 use App\Services\Settings\ServiceException;
+use Psr\Log\LogLevel;
 use Throwable;
 
 use function __;
+use function sprintf;
 
-class FailedToLoadEnv extends ServiceException implements TranslatedException {
+class FailedToSaveSettings extends ServiceException implements TranslatedException {
     public function __construct(
         protected string $path,
         Throwable $previous = null,
     ) {
         parent::__construct(
-            "Failed to load ENV from `{$this->path}`",
+            sprintf('Failed to save custom settings to `%s`.', $this->path),
             $previous,
         );
+
+        $this->setLevel(LogLevel::EMERGENCY);
     }
 
     public function getErrorMessage(): string {
-        return __('settings.errors.failed_to_load_env', [
-            'file' => $this->path,
-        ]);
+        return __('settings.errors.failed_to_save_settings');
     }
 }

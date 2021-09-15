@@ -15,7 +15,6 @@ use App\Services\Settings\Types\FloatType;
 use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Type;
-use Illuminate\Contracts\Config\Repository;
 use InvalidArgumentException;
 use ReflectionAttribute;
 use ReflectionClassConstant;
@@ -31,9 +30,7 @@ class Setting {
     protected SettingAttribute $definition;
 
     public function __construct(
-        protected Repository $config,
         protected ReflectionClassConstant $constant,
-        protected bool $readonly = false,
     ) {
         $attributes = [
             ServiceAttribute::class,
@@ -56,8 +53,8 @@ class Setting {
         return $this->constant->getName();
     }
 
-    public function getPath(): string {
-        return $this->definition->getName();
+    public function getPath(): ?string {
+        return $this->definition->getPath();
     }
 
     public function getType(): Type {
@@ -99,10 +96,6 @@ class Setting {
         return $this->getType()->getName();
     }
 
-    public function getValue(): mixed {
-        return $this->config->get($this->getPath());
-    }
-
     public function getDefaultValue(): mixed {
         return $this->constant->getValue();
     }
@@ -117,10 +110,6 @@ class Setting {
 
     public function isArray(): bool {
         return is_array($this->constant->getValue());
-    }
-
-    public function isReadonly(): bool {
-        return $this->readonly;
     }
 
     public function getDescription(): ?string {

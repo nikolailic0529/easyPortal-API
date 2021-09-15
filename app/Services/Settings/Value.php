@@ -7,7 +7,7 @@ class Value extends Setting {
         protected Setting $setting,
         protected mixed $value,
     ) {
-        parent::__construct($setting->config, $setting->constant);
+        parent::__construct($setting->constant);
     }
 
     public function getSetting(): Setting {

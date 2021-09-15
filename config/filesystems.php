@@ -3,6 +3,7 @@
 use App\Services\Filesystem\Disks\AppDisk;
 use App\Services\Filesystem\Disks\ClientDisk;
 use App\Services\Filesystem\Disks\ModelDisk;
+use App\Services\Settings\Settings;
 
 return [
     /*
@@ -34,7 +35,7 @@ return [
         // =====================================================================
         AppDisk::NAME              => [
             'driver' => 'local',
-            'root'   => storage_path('app'),
+            'root'   => storage_path(dirname(Settings::PATH)),
         ],
         ClientDisk::NAME           => [
             'driver' => 'local',

@@ -8,7 +8,9 @@ use App\Services\Settings\Attributes\Internal as InternalAttribute;
 use App\Services\Settings\Attributes\Job as JobAttribute;
 use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
-use App\Services\Settings\Bootstraper;
+use App\Services\Settings\Bootstrapers\LoadConfiguration;
+use App\Services\Settings\Environment\Configuration;
+use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Settings;
 use App\Services\Settings\Storage;
 use Closure;
@@ -51,13 +53,15 @@ class JobsTest extends TestCase {
                 $this->app,
                 $this->app->make(Repository::class),
                 $this->app->make(Storage::class),
+                $this->app->make(Environment::class),
                 $store::class,
-            ) extends Bootstraper {
+            ) extends Configuration {
                 /** @noinspection PhpMissingParentConstructorInspection */
                 public function __construct(
                     protected Application $app,
                     protected Repository $config,
                     protected Storage $storage,
+                    protected Environment $environment,
                     protected string $store,
                 ) {
                     // empty
@@ -66,13 +70,20 @@ class JobsTest extends TestCase {
                 public function getStore(): string {
                     return $this->store;
                 }
-
-                protected function isBootstrapped(): bool {
-                    return false;
-                }
             };
 
-            $service->bootstrap();
+            (new class() extends LoadConfiguration {
+                /**
+                 * @inheritDoc
+                 */
+                public function overwriteConfig(Application $app, Repository $repository, array $config): void {
+                    parent::overwriteConfig($app, $repository, $config);
+                }
+            })->overwriteConfig(
+                $this->app,
+                $this->app->make(Repository::class),
+                $service->getConfiguration()['config'],
+            );
 
             $this->app->bind(Settings::class, static function () use ($service): Settings {
                 return $service;

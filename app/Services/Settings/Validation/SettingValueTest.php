@@ -6,7 +6,6 @@ use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Attributes\Type as TypeAttribute;
 use App\Services\Settings\Setting;
 use App\Services\Settings\Types\Type;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Validation\Factory;
 use Illuminate\Validation\Rule;
 use ReflectionClassConstant;
@@ -26,8 +25,7 @@ class SettingValueTest extends TestCase {
      */
     public function testPasses(bool $expected, string $class, string $name, string $value): void {
         $validator = $this->app->make(Factory::class);
-        $config    = $this->app->make(Repository::class);
-        $setting   = new Setting($config, new ReflectionClassConstant($class, $name));
+        $setting   = new Setting(new ReflectionClassConstant($class, $name));
         $rule      = new SettingValue($validator, $setting);
 
         $this->assertEquals($expected, $rule->passes('test', $value));
@@ -46,8 +44,7 @@ class SettingValueTest extends TestCase {
         });
 
         $validator = $this->app->make(Factory::class);
-        $config    = $this->app->make(Repository::class);
-        $setting   = new Setting($config, new ReflectionClassConstant(SettingValueTest_Constants::class, 'VALUE'));
+        $setting   = new Setting(new ReflectionClassConstant(SettingValueTest_Constants::class, 'VALUE'));
         $rule      = new SettingValue($validator, $setting);
 
         $this->assertFalse($rule->passes('test', 'invalid'));
