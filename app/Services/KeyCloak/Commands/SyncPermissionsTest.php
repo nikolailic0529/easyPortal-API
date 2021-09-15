@@ -2,8 +2,9 @@
 
 namespace App\Services\KeyCloak\Commands;
 
-use App\Models\Permission;
+use App\Models\Permission as PermissionModel;
 use App\Services\Auth\Auth;
+use App\Services\Auth\Permission;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Role;
 use Closure;
@@ -44,9 +45,9 @@ class SyncPermissionsTest extends TestCase {
         $command->handle();
 
         if ($deleted) {
-            $this->assertFalse(Permission::where('key', '=', $deleted)->exists());
+            $this->assertFalse(PermissionModel::where('key', '=', $deleted)->exists());
         }
-        $this->assertEqualsCanonicalizing(Permission::pluck('key')->all(), $expected);
+        $this->assertEqualsCanonicalizing(PermissionModel::pluck('key')->all(), $expected);
     }
 
     // <editor-fold desc="DataProviders">
@@ -63,7 +64,7 @@ class SyncPermissionsTest extends TestCase {
                         ->shouldReceive('getPermissions')
                         ->once()
                         ->andReturns([
-                            'permission1',
+                            new Permission('permission1', orgAdmin: false),
                         ]);
                 },
                 static function (MockInterface $mock, TestCase $test): void {
@@ -96,7 +97,7 @@ class SyncPermissionsTest extends TestCase {
                         ->shouldReceive('getPermissions')
                         ->once()
                         ->andReturns([
-                            'permission1',
+                            new Permission('permission1', orgAdmin: false),
                         ]);
                 },
                 static function (MockInterface $mock, TestCase $test): void {
@@ -122,13 +123,13 @@ class SyncPermissionsTest extends TestCase {
                             );
                 },
                 static function (): void {
-                    Permission::factory()->create([
+                    PermissionModel::factory()->create([
                         'key'        => 'permission1',
                         'created_at' => Date::now()->subHour(),
                         'deleted_at' => Date::now(),
                     ]);
 
-                    Permission::factory()->create([
+                    PermissionModel::factory()->create([
                         'key' => 'permission1',
                     ]);
                 },
@@ -141,7 +142,7 @@ class SyncPermissionsTest extends TestCase {
                         ->shouldReceive('getPermissions')
                         ->once()
                         ->andReturns([
-                            'permission1',
+                            new Permission('permission1', orgAdmin: false),
                         ]);
                 },
                 static function (MockInterface $mock, TestCase $test): void {
@@ -167,7 +168,7 @@ class SyncPermissionsTest extends TestCase {
                             );
                 },
                 static function (): void {
-                    $permission = Permission::factory()->create([
+                    $permission = PermissionModel::factory()->create([
                         'id'  => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
                         'key' => 'permission1',
                     ]);

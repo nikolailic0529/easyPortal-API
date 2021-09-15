@@ -12,7 +12,6 @@ use Illuminate\Support\Collection;
 use function str_contains;
 
 class SyncPermissions extends Command {
-
     protected const DELETED_SUFFIX = '(deleted)';
 
     /**
@@ -27,7 +26,7 @@ class SyncPermissions extends Command {
      *
      * @var string
      */
-    protected $description = 'Sync keycloak permissions';
+    protected $description = 'Sync keycloak permissions.';
 
     public function __construct(
         protected Auth $auth,
@@ -42,68 +41,53 @@ class SyncPermissions extends Command {
      * @return mixed
      */
     public function handle(): void {
-        // auth permissions
-        $authPermissions = $this->auth->getPermissions();
-
-        // Get all permissions
-        $permissions = Permission::query()
+        // Sync available permissions with Models and KeyCloak Roles
+        $permissions = $this->auth->getPermissions();
+        $models      = Permission::query()
             ->withTrashed()
             ->orderByDesc('deleted_at')
             ->get()
             ->keyBy('key');
-
-        // Get all keycloak roles
-        $roles = (new Collection($this->client->getRoles()))->keyBy('name');
-
-        foreach ($authPermissions as $authPermission) {
-            $role = null;
-            if (!$roles->has($authPermission)) {
-                $role = $this->createRole($authPermission);
-            } else {
-                $role = $roles->get($authPermission);
-                // to be deleted from keycloak
-                $roles->forget($authPermission);
-            }
-
-            $permission = null;
-
-            if (!$permissions->has($role->name)) {
-                $permission = new Permission();
-            } else {
-                $permission = $permissions->get($role->name);
-                if ($permission->trashed()) {
-                    $permission->restore();
-                }
-            }
-            $this->savePermission($permission, $role);
-
-            // remove it from permissions to delete the rest
-            $permissions->forget($role->name);
-        }
+        $roles       = (new Collection($this->client->getRoles()))->keyBy('name');
 
         foreach ($permissions as $permission) {
-            $permission->delete();
+            // Prepare
+            $name = $permission->getName();
+
+            // Create Role on KeyCloak
+            $role = $roles->get($name)
+                ?? $this->client->createRole(new Role([
+                    'name'        => $name,
+                    'description' => $name,
+                ]));
+
+            // Create Model
+            $model                         = $models->get($name) ?? new Permission();
+            $model->{$model->getKeyName()} = $role->id;
+            $model->key                    = $name;
+
+            if ($model->trashed()) {
+                $model->restore();
+            }
+
+            $model->save();
+
+            // Mark as existing
+            $models->forget($name);
+            $roles->forget($name);
         }
 
+        // Remove unused Models
+        foreach ($models as $model) {
+            $model->delete();
+        }
+
+        // Mark unused Roles
         foreach ($roles as $role) {
             if (!str_contains($role->description ?? '', self::DELETED_SUFFIX)) {
                 $role->description = self::DELETED_SUFFIX.' '.($role->description ?? '');
                 $this->client->updateRoleByName($role->name, $role);
             }
         }
-    }
-
-    protected function createRole(string $name): Role {
-        $input = new Role([
-            'name'        => $name,
-            'description' => $name,
-        ]);
-        return $this->client->createRole($input);
-    }
-
-    protected function savePermission(Permission $permission, Role $role): void {
-        $permission->id  = $role->id;
-        $permission->key = $role->name;
-        $permission->save();
     }
 }

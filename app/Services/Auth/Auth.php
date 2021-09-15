@@ -17,37 +17,37 @@ class Auth {
     }
 
     /**
-     * @return array<string,string>
+     * @return array<\App\Services\Auth\Permission>
      */
     public function getPermissions(): array {
         return [
             // Assets
-            'assets-view',
-            'assets-support',
-            'assets-download',
+            new Permission('assets-view', orgAdmin: true),
+            new Permission('assets-support', orgAdmin: true),
+            new Permission('assets-download', orgAdmin: true),
             // Contracts
-            'contracts-view',
-            'contracts-support',
-            'contracts-download',
+            new Permission('contracts-view', orgAdmin: true),
+            new Permission('contracts-support', orgAdmin: true),
+            new Permission('contracts-download', orgAdmin: true),
             // Customers
-            'customers-view',
-            'customers-support',
-            'customers-download',
+            new Permission('customers-view', orgAdmin: true),
+            new Permission('customers-support', orgAdmin: true),
+            new Permission('customers-download', orgAdmin: true),
             // Quotes
-            'quotes-view',
-            'quotes-support',
-            'quotes-download',
+            new Permission('quotes-view', orgAdmin: true),
+            new Permission('quotes-support', orgAdmin: true),
+            new Permission('quotes-download', orgAdmin: true),
             // "+ Request" buttons
-            'requests-asset-add',
-            'requests-asset-change',
-            'requests-quote-add',
-            'requests-quote-change',
-            'requests-customer-change',
-            'requests-contract-change',
+            new Permission('requests-asset-add', orgAdmin: true),
+            new Permission('requests-asset-change', orgAdmin: true),
+            new Permission('requests-quote-add', orgAdmin: true),
+            new Permission('requests-quote-change', orgAdmin: true),
+            new Permission('requests-customer-change', orgAdmin: true),
+            new Permission('requests-contract-change', orgAdmin: true),
             // Your Organization
-            'org-administer',
+            new Permission('org-administer', orgAdmin: true),
             // Portal Administration
-            'administer',
+            new Permission('administer', orgAdmin: false),
         ];
     }
 
