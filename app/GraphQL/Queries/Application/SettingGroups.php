@@ -22,6 +22,11 @@ class SettingGroups {
         $groups   = [];
 
         foreach ($settings as $setting) {
+            // Setting?
+            if ($setting->isService() || $setting->isJob()) {
+                continue;
+            }
+
             // Has Group?
             $group = $setting->getGroup();
 

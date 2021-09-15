@@ -2,7 +2,11 @@
 
 namespace App\GraphQL\Queries\Application;
 
+use App\Services\Queue\CronJob;
+use App\Services\Queue\Job;
 use App\Services\Settings\Attributes\Group as GroupAttribute;
+use App\Services\Settings\Attributes\Job as JobAttribute;
+use App\Services\Settings\Attributes\Service as ServiceAttribute;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Environment\Environment;
 use App\Services\Settings\Settings;
@@ -133,6 +137,14 @@ class SettingGroupsTest extends TestCase {
 
                         #[SettingAttribute('test.d')]
                         public const SETTING_D = 'd';
+
+                        #[ServiceAttribute(CronJob::class, 'test.e')]
+                        #[GroupAttribute('service')]
+                        public const SETTING_E = 'e';
+
+                        #[JobAttribute(Job::class, 'test.f')]
+                        #[GroupAttribute('job')]
+                        public const SETTING_F = 'f';
                     },
                 ],
             ]),
