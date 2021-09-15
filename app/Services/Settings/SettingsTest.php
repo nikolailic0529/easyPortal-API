@@ -437,7 +437,7 @@ class SettingsTest extends TestCase {
             ->twice()
             ->andReturn(new EnvironmentRepository(['A' => 'value']));
 
-        $service = new Settings(
+        $service  = new Settings(
             Mockery::mock(Application::class),
             Mockery::mock(Repository::class),
             Mockery::mock(Storage::class),
