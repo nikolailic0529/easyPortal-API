@@ -18,6 +18,10 @@ class UserOwn implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
+        $user = $this->auth->user();
+        if (!$user) {
+            return true;
+        }
         return $this->auth->user()->getAuthIdentifier() !== $value;
     }
 
