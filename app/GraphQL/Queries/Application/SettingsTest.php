@@ -10,6 +10,7 @@ use App\Services\Settings\Attributes\Service;
 use App\Services\Settings\Attributes\Setting as SettingAttribute;
 use App\Services\Settings\Attributes\Type as TypeAttribute;
 use App\Services\Settings\Environment\Environment;
+use App\Services\Settings\Setting;
 use App\Services\Settings\Settings;
 use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\Type;
@@ -71,8 +72,9 @@ class SettingsTest extends TestCase {
                     return $this->store;
                 }
 
-                protected function isReadonly(string $name): bool {
-                    return $name === 'SETTING_READONLY' || parent::isReadonly($name);
+                public function isReadonly(Setting $setting): bool {
+                    return $setting->getName() === 'SETTING_READONLY'
+                        || parent::isReadonly($setting);
                 }
             };
 

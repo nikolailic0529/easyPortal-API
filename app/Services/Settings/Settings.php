@@ -84,7 +84,7 @@ class Settings {
 
         foreach ($editable as $setting) {
             // Readonly?
-            if ($setting->isReadonly()) {
+            if ($this->isReadonly($setting)) {
                 continue;
             }
 
@@ -210,7 +210,6 @@ class Settings {
             foreach ($constants as $name => $value) {
                 $this->settings[$name] = new Setting(
                     new ReflectionClassConstant($store, $name),
-                    $this->isReadonly($name),
                 );
             }
         }
@@ -224,8 +223,8 @@ class Settings {
     protected function saveSettings(array $settings): bool {
         // Cleanup
         $editable = (new Collection($this->getEditableSettings()))
-            ->filter(static function (Setting $setting): bool {
-                return !$setting->isReadonly();
+            ->filter(function (Setting $setting): bool {
+                return !$this->isReadonly($setting);
             })
             ->keyBy(static function (Setting $setting): string {
                 return $setting->getName();
@@ -302,8 +301,8 @@ class Settings {
     /**
      * Determines if setting overridden by ENV var.
      */
-    protected function isReadonly(string $name): bool {
-        return $this->environment->has($name);
+    public function isReadonly(Setting $setting): bool {
+        return $this->environment->has($setting->getName());
     }
 
     protected function isEditable(Setting $setting): bool {

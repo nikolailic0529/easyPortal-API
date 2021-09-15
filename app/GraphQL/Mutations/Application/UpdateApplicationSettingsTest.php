@@ -2,11 +2,12 @@
 
 namespace App\GraphQL\Mutations\Application;
 
-use App\Services\Settings\Attributes\Internal;
-use App\Services\Settings\Attributes\Secret;
-use App\Services\Settings\Attributes\Setting;
-use App\Services\Settings\Attributes\Type;
+use App\Services\Settings\Attributes\Internal as InternalAttribute;
+use App\Services\Settings\Attributes\Secret as SecretAttribute;
+use App\Services\Settings\Attributes\Setting as SettingAttribute;
+use App\Services\Settings\Attributes\Type as TypeAttribute;
 use App\Services\Settings\Environment\Environment;
+use App\Services\Settings\Setting;
 use App\Services\Settings\Settings;
 use App\Services\Settings\Storage;
 use App\Services\Settings\Types\StringType;
@@ -70,8 +71,9 @@ class UpdateApplicationSettingsTest extends TestCase {
                     return $this->store;
                 }
 
-                protected function isReadonly(string $name): bool {
-                    return $name === 'SETTING_READONLY' || parent::isReadonly($name);
+                public function isReadonly(Setting $setting): bool {
+                    return $setting->getName() === 'SETTING_READONLY'
+                        || parent::isReadonly($setting);
                 }
             };
 
@@ -162,26 +164,26 @@ class UpdateApplicationSettingsTest extends TestCase {
                         /**
                          * Description description description description.
                          */
-                        #[Setting('int')]
+                        #[SettingAttribute('int')]
                         public const SETTING_INT = 123;
 
-                        #[Setting('secret')]
-                        #[Secret]
+                        #[SettingAttribute('secret')]
+                        #[SecretAttribute]
                         public const SETTING_SECRET = 'secret';
 
-                        #[Setting('string')]
-                        #[Type(StringType::class)]
+                        #[SettingAttribute('string')]
+                        #[TypeAttribute(StringType::class)]
                         public const SETTING_STRING = null;
 
-                        #[Setting('array')]
-                        #[Type(StringType::class)]
+                        #[SettingAttribute('array')]
+                        #[TypeAttribute(StringType::class)]
                         public const SETTING_ARRAY = ['abc', 'de'];
 
-                        #[Setting('internal')]
-                        #[Internal]
+                        #[SettingAttribute('internal')]
+                        #[InternalAttribute]
                         public const SETTING_INTERNAL = 'internal';
 
-                        #[Setting('test.readonly')]
+                        #[SettingAttribute('test.readonly')]
                         public const SETTING_READONLY = 'readonly';
                     },
                     [

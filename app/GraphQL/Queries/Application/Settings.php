@@ -47,7 +47,7 @@ class Settings {
             'values'      => $setting->getType()->getValues(),
             'secret'      => $setting->isSecret(),
             'default'     => $this->settings->getPublicDefaultValue($setting),
-            'readonly'    => $setting->isReadonly(),
+            'readonly'    => $this->settings->isReadonly($setting),
             'job'         => $setting->isJob(),
             'service'     => $setting->isService(),
             'description' => $setting->getDescription(),

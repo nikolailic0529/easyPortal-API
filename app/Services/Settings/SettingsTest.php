@@ -140,8 +140,8 @@ class SettingsTest extends TestCase {
                 return true;
             }
 
-            protected function isReadonly(string $name): bool {
-                return $name === 'READONLY';
+            public function isReadonly(Setting $setting): bool {
+                return $setting->getName() === 'READONLY';
             }
         };
 
@@ -208,8 +208,8 @@ class SettingsTest extends TestCase {
                 return parent::saveSettings($settings);
             }
 
-            protected function isReadonly(string $name): bool {
-                return $name === 'READONLY';
+            public function isReadonly(Setting $setting): bool {
+                return $setting->getName() === 'READONLY';
             }
 
             protected function getStore(): string {
@@ -435,21 +435,27 @@ class SettingsTest extends TestCase {
         $env
             ->shouldReceive('getRepository')
             ->twice()
-            ->andReturn(new EnvironmentRepository(['TEST' => 'value']));
+            ->andReturn(new EnvironmentRepository(['A' => 'value']));
 
-        $service = new class(
+        $service = new Settings(
             Mockery::mock(Application::class),
             Mockery::mock(Repository::class),
             Mockery::mock(Storage::class),
             $env,
-        ) extends Settings {
-            public function isReadonly(string $name): bool {
-                return parent::isReadonly($name);
-            }
-        };
+        );
+        $settingA = Mockery::mock(Setting::class);
+        $settingA
+            ->shouldReceive('getName')
+            ->once()
+            ->andReturn('A');
+        $settingB = Mockery::mock(Setting::class);
+        $settingB
+            ->shouldReceive('getName')
+            ->once()
+            ->andReturn('B');
 
-        $this->assertTrue($service->isReadonly('TEST'));
-        $this->assertFalse($service->isReadonly('NAME'));
+        $this->assertTrue($service->isReadonly($settingA));
+        $this->assertFalse($service->isReadonly($settingB));
     }
 
     /**
