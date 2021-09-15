@@ -2,7 +2,6 @@
 
 namespace App\Services\Settings;
 
-use LastDragon_ru\LaraASP\Testing\Utils\WithTempFile;
 use Mockery;
 use Tests\TestCase;
 
@@ -16,8 +15,6 @@ use const JSON_PRETTY_PRINT;
  * @coversDefaultClass \App\Services\Settings\Storage
  */
 class StorageTest extends TestCase {
-    use WithTempFile;
-
     /**
      * @covers ::has
      */

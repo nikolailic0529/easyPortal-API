@@ -8,7 +8,6 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Foundation\CachesConfiguration;
 use Illuminate\Support\Env;
-use LastDragon_ru\LaraASP\Testing\Utils\WithTempFile;
 use Mockery;
 use Tests\TestCase;
 
@@ -17,8 +16,6 @@ use Tests\TestCase;
  * @coversDefaultClass \App\Services\Settings\Environment\Environment
  */
 class EnvironmentTest extends TestCase {
-    use WithTempFile;
-
     /**
      * @covers ::has
      */

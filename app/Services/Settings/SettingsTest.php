@@ -17,7 +17,6 @@ use App\Services\Settings\Types\StringType;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Collection;
-use LastDragon_ru\LaraASP\Testing\Utils\WithTempFile;
 use Mockery;
 use ReflectionClassConstant;
 use Tests\TestCase;
@@ -29,8 +28,6 @@ use function array_map;
  * @coversDefaultClass \App\Services\Settings\Settings
  */
 class SettingsTest extends TestCase {
-    use WithTempFile;
-
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
