@@ -11,8 +11,6 @@ use App\Services\Organization\CurrentOrganization;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Contracts\Mail\Mailer;
 
-use function array_key_exists;
-
 class CreateQuoteRequest {
     public function __construct(
         protected AuthManager $auth,
@@ -56,7 +54,7 @@ class CreateQuoteRequest {
 
         // Assets
         $assetsInput = [];
-        if (array_key_exists('assets', $args['input']) && $args['input']['assets']) {
+        if (isset($args['input']['assets'])) {
             foreach ($args['input']['assets'] as $assetInput) {
                 $quoteRequestAsset                   = new QuoteRequestAsset();
                 $quoteRequestAsset->asset_id         = $assetInput['asset_id'];

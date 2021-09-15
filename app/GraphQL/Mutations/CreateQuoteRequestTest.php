@@ -294,7 +294,7 @@ class CreateQuoteRequestTest extends TestCase {
                     'assets-view',
                 ]),
                 new ArrayDataProvider([
-                    'ok-customer_id'                => [
+                    'ok-customer_id empty customer_name' => [
                         new GraphQLSuccess('createQuoteRequest', CreateQuoteRequest::class, [
                             'created' => [
                                 'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
@@ -357,7 +357,87 @@ class CreateQuoteRequestTest extends TestCase {
                         $prepare,
                         $input,
                     ],
-                    'ok-customer_name'              => [
+                    'ok-customer_id null customer_name'  => [
+                        new GraphQLSuccess('createQuoteRequest', CreateQuoteRequest::class, [
+                            'created' => [
+                                'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                                'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                                'customer_name' => null,
+                                'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                                'message'       => 'message',
+                                'oem'           => [
+                                    'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                                    'key'  => 'key1',
+                                    'name' => 'oem1',
+                                ],
+                                'customer'      => [
+                                    'id'              => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                                    'name'            => 'customer1',
+                                    'assets_count'    => 0,
+                                    'contacts_count'  => 0,
+                                    'locations_count' => 0,
+                                    'contacts'        => [],
+                                    'locations'       => [],
+                                ],
+                                'contact'       => [
+                                    'email'        => 'contact1@test.com',
+                                    'name'         => 'contact1',
+                                    'phone_number' => '+27113456789',
+                                    'phone_valid'  => true,
+                                ],
+                                'type'          => [
+                                    'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                                    'name' => 'new',
+                                ],
+                                'files'         => [
+                                    [
+                                        'name' => 'document.csv',
+                                    ],
+                                ],
+                                'assets'        => [
+                                    [
+                                        'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                        'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                        'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                                        'duration'         => [
+                                            'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                            'name' => '5-10 years',
+                                            'key'  => '5-10 years',
+                                        ],
+                                        'serviceLevel'     => [
+                                            'id'               => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                                            'oem_id'           => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                                            'service_group_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a5',
+                                            'sku'              => 'SKU#123',
+                                            'name'             => 'Level',
+                                            'description'      => 'description',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ]),
+                        $settings,
+                        $prepare,
+                        [
+                            'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                            'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                            'customer_name' => null,
+                            'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                            'contact_name'  => 'contact1',
+                            'contact_email' => 'contact1@test.com',
+                            'contact_phone' => '+27113456789',
+                            'assets'        => [
+                                [
+                                    'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                    'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                    'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                                ],
+                            ],
+                            'message'       => 'message',
+                            'files'         => [UploadedFile::fake()->create('document.csv', 200)],
+                        ],
+                    ],
+                    'ok-customer_name empty customer_id' => [
                         new GraphQLSuccess('createQuoteRequest', CreateQuoteRequest::class, [
                             'created' => [
                                 'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
@@ -428,7 +508,79 @@ class CreateQuoteRequestTest extends TestCase {
                             'files'         => [UploadedFile::fake()->create('document.csv', 200)],
                         ],
                     ],
-                    'ok-empty_assets'               => [
+                    'ok-customer_name null customer_id'  => [
+                        new GraphQLSuccess('createQuoteRequest', CreateQuoteRequest::class, [
+                            'created' => [
+                                'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                                'customer_id'   => null,
+                                'customer_name' => 'name',
+                                'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                                'message'       => 'message',
+                                'oem'           => [
+                                    'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                                    'key'  => 'key1',
+                                    'name' => 'oem1',
+                                ],
+                                'customer'      => null,
+                                'contact'       => [
+                                    'email'        => 'contact1@test.com',
+                                    'name'         => 'contact1',
+                                    'phone_number' => '+27113456789',
+                                    'phone_valid'  => true,
+                                ],
+                                'type'          => [
+                                    'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                                    'name' => 'new',
+                                ],
+                                'files'         => [
+                                    [
+                                        'name' => 'document.csv',
+                                    ],
+                                ],
+                                'assets'        => [
+                                    [
+                                        'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                        'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                        'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                                        'duration'         => [
+                                            'id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                            'name' => '5-10 years',
+                                            'key'  => '5-10 years',
+                                        ],
+                                        'serviceLevel'     => [
+                                            'id'               => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                                            'oem_id'           => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                                            'service_group_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a5',
+                                            'sku'              => 'SKU#123',
+                                            'name'             => 'Level',
+                                            'description'      => 'description',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ]),
+                        $settings,
+                        $prepare,
+                        [
+                            'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                            'customer_id'   => null,
+                            'customer_name' => 'name',
+                            'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                            'contact_name'  => 'contact1',
+                            'contact_email' => 'contact1@test.com',
+                            'contact_phone' => '+27113456789',
+                            'assets'        => [
+                                [
+                                    'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                                    'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                                    'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                                ],
+                            ],
+                            'message'       => 'message',
+                            'files'         => [UploadedFile::fake()->create('document.csv', 200)],
+                        ],
+                    ],
+                    'ok-empty_assets'                    => [
                         new GraphQLSuccess('createQuoteRequest', CreateQuoteRequest::class, [
                             'created' => [
                                 'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
@@ -469,12 +621,12 @@ class CreateQuoteRequestTest extends TestCase {
                             'contact_name'  => 'contact1',
                             'contact_email' => 'contact1@test.com',
                             'contact_phone' => '+27113456789',
-                            'assets'        => null,
+                            'assets'        => [],
                             'message'       => 'message',
                             'files'         => [UploadedFile::fake()->create('document.csv', 200)],
                         ],
                     ],
-                    'Invalid oem'                   => [
+                    'Invalid oem'                        => [
                         new GraphQLError('createQuoteRequest', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
@@ -496,7 +648,7 @@ class CreateQuoteRequestTest extends TestCase {
                             ],
                         ],
                     ],
-                    'Invalid customer id'           => [
+                    'Invalid customer id'                => [
                         new GraphQLError('createQuoteRequest', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
@@ -518,7 +670,7 @@ class CreateQuoteRequestTest extends TestCase {
                             ],
                         ],
                     ],
-                    'Invalid type'                  => [
+                    'Invalid type'                       => [
                         new GraphQLError('createQuoteRequest', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
@@ -540,7 +692,7 @@ class CreateQuoteRequestTest extends TestCase {
                             ],
                         ],
                     ],
-                    'Invalid contact name'          => [
+                    'Invalid contact name'               => [
                         new GraphQLError('createQuoteRequest', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
@@ -562,7 +714,7 @@ class CreateQuoteRequestTest extends TestCase {
                             ],
                         ],
                     ],
-                    'Invalid contact phone'         => [
+                    'Invalid contact phone'              => [
                         new GraphQLError('createQuoteRequest', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
@@ -584,7 +736,7 @@ class CreateQuoteRequestTest extends TestCase {
                             ],
                         ],
                     ],
-                    'Invalid phone format'          => [
+                    'Invalid phone format'               => [
                         new GraphQLError('createQuoteRequest', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
@@ -606,7 +758,7 @@ class CreateQuoteRequestTest extends TestCase {
                             ],
                         ],
                     ],
-                    'Invalid contact email'         => [
+                    'Invalid contact email'              => [
                         new GraphQLError('createQuoteRequest', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
@@ -628,7 +780,7 @@ class CreateQuoteRequestTest extends TestCase {
                             ],
                         ],
                     ],
-                    'Invalid type'                  => [
+                    'Invalid type'                       => [
                         new GraphQLError('createQuoteRequest', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
@@ -650,7 +802,7 @@ class CreateQuoteRequestTest extends TestCase {
                             ],
                         ],
                     ],
-                    'Invalid asset'                 => [
+                    'Invalid asset'                      => [
                         new GraphQLError('createQuoteRequest', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
@@ -672,7 +824,7 @@ class CreateQuoteRequestTest extends TestCase {
                             ],
                         ],
                     ],
-                    'Invalid duration'              => [
+                    'Invalid duration'                   => [
                         new GraphQLError('createQuoteRequest', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
@@ -694,7 +846,7 @@ class CreateQuoteRequestTest extends TestCase {
                             ],
                         ],
                     ],
-                    'Invalid service level'         => [
+                    'Invalid service level'              => [
                         new GraphQLError('createQuoteRequest', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
@@ -716,7 +868,7 @@ class CreateQuoteRequestTest extends TestCase {
                             ],
                         ],
                     ],
-                    'Invalid file size'             => [
+                    'Invalid file size'                  => [
                         new GraphQLError('createQuoteRequest', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
@@ -740,7 +892,7 @@ class CreateQuoteRequestTest extends TestCase {
                             'files'         => [UploadedFile::fake()->create('document.csv', 300)],
                         ],
                     ],
-                    'Invalid file format'           => [
+                    'Invalid file format'                => [
                         new GraphQLError('createQuoteRequest', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
@@ -764,7 +916,7 @@ class CreateQuoteRequestTest extends TestCase {
                             'files'         => [UploadedFile::fake()->create('document.jpg', 200)],
                         ],
                     ],
-                    'Invalid customer id/name'      => [
+                    'Invalid customer id/name'           => [
                         new GraphQLError('createQuoteRequest', static function (): array {
                             return [__('errors.validation_failed')];
                         }),
@@ -787,7 +939,7 @@ class CreateQuoteRequestTest extends TestCase {
                             ],
                         ],
                     ],
-                    'customer_id and customer_name' => [
+                    'customer_id and customer_name'      => [
                         new GraphQLError('createQuoteRequest', static function (): array {
                             return [__('errors.validation_failed')];
                         }),

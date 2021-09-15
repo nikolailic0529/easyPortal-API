@@ -5,7 +5,7 @@ type QuoteRequest {
   user_id: ID!
   user: User! @belongsTo
   customer_id: ID
-  customer_name: ID
+  customer_name: String
   customer: Customer @belongsTo
   contact: Contact! @morphOne
   type_id: ID!

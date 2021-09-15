@@ -575,7 +575,7 @@ input CreateQuoteRequestInput {
   contact_name: String!
   contact_phone: String!
   contact_email: String!
-  assets: [CreateQuoteRequestAssetsInput!]
+  assets: [CreateQuoteRequestAssetsInput!]!
 }
 
 type CreateQuoteRequestPayload {
@@ -2226,7 +2226,7 @@ type QuoteRequest {
   user_id: ID!
   user: User!
   customer_id: ID
-  customer_name: ID
+  customer_name: String
   customer: Customer
   contact: Contact!
   type_id: ID!
