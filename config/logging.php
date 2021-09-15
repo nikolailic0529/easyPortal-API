@@ -5,6 +5,7 @@ use App\Exceptions\MailableHandler;
 use App\Services\Auth\Service as AuthService;
 use App\Services\DataLoader\Service as DataLoaderService;
 use App\Services\KeyCloak\Service as KeyCloakService;
+use App\Services\Settings\Settings;
 use Monolog\Formatter\HtmlFormatter;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
@@ -15,7 +16,20 @@ $tap  = [Configurator::class];
 $days = 365;
 
 // Helpers
-$channel = static function (string $service) use ($tap, $days): array {
+$mailChannel    = static function (string $recipients, string $channel = null): array {
+    return [
+        'driver'    => 'monolog',
+        'handler'   => MailableHandler::class,
+        'formatter' => HtmlFormatter::class,
+        'level'     => env('LOG_LEVEL', 'debug'),
+        'with'      => [
+            'channel'    => $channel,
+            'recipients' => explode(Settings::DELIMITER, $recipients),
+        ],
+    ];
+};
+
+$serviceChannel = static function (string $service, string $recipients) use ($tap, $days, $mailChannel): array {
     $channel = array_slice(explode('\\', $service), -2, 1);
     $channel = reset($channel);
 
@@ -35,16 +49,7 @@ $channel = static function (string $service) use ($tap, $days): array {
             'days'   => $days,
             'tap'    => $tap,
         ],
-        "{$service}@mail"  => [
-            'driver'    => 'monolog',
-            'handler'   => MailableHandler::class,
-            'formatter' => HtmlFormatter::class,
-            'level'     => env('LOG_LEVEL', 'debug'),
-            'with'      => [
-                'channel'    => $channel,
-                'recipients' => ['chief.wraith@gmail.com'],
-            ],
-        ],
+        "{$service}@mail"  => $mailChannel($recipients, $channel),
     ];
 };
 
@@ -80,13 +85,13 @@ return [
     */
 
     'channels' => array_merge(
-        $channel(AuthService::class),
-        $channel(DataLoaderService::class),
-        $channel(KeyCloakService::class),
+        $serviceChannel(AuthService::class, (string) env('EP_AUTH_LOG_EMAILS')),
+        $serviceChannel(DataLoaderService::class, (string) env('EP_DATA_LOADER_LOG_EMAILS')),
+        $serviceChannel(KeyCloakService::class, (string) env('EP_KEYCLOAK_LOG_EMAILS')),
         [
             'stack'      => [
                 'driver'            => 'stack',
-                'channels'          => ['daily'],
+                'channels'          => ['daily', 'mail'],
                 'ignore_exceptions' => false,
             ],
 
@@ -104,6 +109,8 @@ return [
                 'days'   => $days,
                 'tap'    => $tap,
             ],
+
+            'mail'       => $mailChannel((string) env('EP_LOG_EMAILS')),
 
             // Default
             'slack'      => [

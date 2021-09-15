@@ -2,7 +2,7 @@
 
 namespace App\Services\Settings\Types;
 
-class EmailType extends Type {
+class Email extends Type {
     /**
      * @inheritDoc
      */

@@ -13,6 +13,7 @@ use App\Services\DataLoader\Jobs\ResellersImporterCronJob;
 use App\Services\DataLoader\Jobs\ResellersUpdaterCronJob;
 use App\Services\KeyCloak\Jobs\SyncPermissionsCronJob;
 use App\Services\KeyCloak\Jobs\SyncUsersCronJob;
+use App\Services\Logger\Logger;
 use App\Services\Queue\Queues;
 use App\Services\Search\Jobs\AssetsUpdaterCronJob as SearchAssetsUpdaterCronJob;
 use App\Services\Search\Jobs\CustomersUpdaterCronJob as SearchCustomersUpdaterCronJob;
@@ -21,6 +22,7 @@ use App\Services\Settings\Attributes\Group;
 use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Job;
 use App\Services\Settings\Attributes\PublicName;
+use App\Services\Settings\Attributes\Secret;
 use App\Services\Settings\Attributes\Service;
 use App\Services\Settings\Attributes\Setting;
 use App\Services\Settings\Attributes\Type;
@@ -29,7 +31,7 @@ use App\Services\Settings\Types\BooleanType;
 use App\Services\Settings\Types\CronExpression;
 use App\Services\Settings\Types\DocumentType;
 use App\Services\Settings\Types\Duration;
-use App\Services\Settings\Types\EmailType;
+use App\Services\Settings\Types\Email;
 use App\Services\Settings\Types\IntType;
 use App\Services\Settings\Types\LocationType;
 use App\Services\Settings\Types\Organization;
@@ -46,6 +48,101 @@ use App\Services\Settings\Types\Url;
  * - other configuration files
  */
 interface Constants {
+    // <editor-fold desc="MAIL">
+    // =========================================================================
+    /**
+     * Mailer.
+     */
+    #[Setting]
+    #[Group('mail')]
+    public const MAIL_MAILER = 'smtp';
+
+    /**
+     * Host.
+     */
+    #[Setting]
+    #[Group('mail')]
+    public const MAIL_HOST = 'smtp-relay.sendinblue.com';
+
+    /**
+     * Port.
+     */
+    #[Setting]
+    #[Group('mail')]
+    public const MAIL_PORT = 587;
+
+    /**
+     * Username.
+     */
+    #[Setting]
+    #[Group('mail')]
+    public const MAIL_USERNAME = '';
+
+    /**
+     * Password.
+     */
+    #[Setting]
+    #[Secret]
+    #[Group('mail')]
+    public const MAIL_PASSWORD = '';
+
+    /**
+     * Encryption.
+     */
+    #[Setting]
+    #[Group('mail')]
+    #[Type(StringType::class)]
+    public const MAIL_ENCRYPTION = null;
+
+    /**
+     * From address.
+     */
+    #[Setting]
+    #[Group('mail')]
+    public const MAIL_FROM_ADDRESS = 'info@itassethub.test';
+
+    /**
+     * From name.
+     */
+    #[Setting]
+    #[Group('mail')]
+    public const MAIL_FROM_NAME = 'IT Asset Hub';
+    // </editor-fold>
+
+    // <editor-fold desc="CLOCKWORK">
+    // =========================================================================
+    /**
+     * Enabled?
+     */
+    #[Setting]
+    #[Group('clockwork')]
+    public const CLOCKWORK_ENABLE = false;
+
+    /**
+     * Storage.
+     */
+    #[Setting]
+    #[Internal]
+    #[Group('clockwork')]
+    public const CLOCKWORK_STORAGE = 'sql';
+
+    /**
+     * Database.
+     */
+    #[Setting]
+    #[Internal]
+    #[Group('clockwork')]
+    public const CLOCKWORK_STORAGE_SQL_DATABASE = Logger::CONNECTION;
+
+    /**
+     * Maximum lifetime of collected metadata in minutes, older requests will automatically be deleted.
+     */
+    #[Setting]
+    #[Internal]
+    #[Group('clockwork')]
+    public const CLOCKWORK_STORAGE_EXPIRATION = 7 * 24 * 60;
+    // </editor-fold>
+
     // <editor-fold desc="EP">
     // =========================================================================
     /**
@@ -121,9 +218,8 @@ interface Constants {
     #[Setting('ep.email_address')]
     #[PublicName('epEmailAddress')]
     #[Group('ep')]
-    #[Type(EmailType::class)]
+    #[Type(Email::class)]
     public const EP_EMAIL_ADDRESS = 'info@itassethub.test';
-
 
     /**
      * Invitation expiration duration.
@@ -132,6 +228,33 @@ interface Constants {
     #[Group('ep')]
     #[Type(Duration::class)]
     public const EP_INVITE_EXPIRE = 'PT24H';
+
+    /**
+     * Email addresses that will receive errors.
+     *
+     * You can use subaddressing to specify desired error level, eg
+     * `test+warning@example.com` will receive "warning", "error" and up but
+     * not "info", "notice".
+     */
+    #[Setting]
+    #[Group('ep')]
+    #[Type(Email::class)]
+    public const EP_LOG_EMAILS = ['chief.wraith@gmail.com'];
+    // </editor-fold>
+
+    // <editor-fold desc="EP_AUTH">
+    // =========================================================================
+    /**
+     * Email addresses that will receive errors.
+     *
+     * You can use subaddressing to specify desired error level, eg
+     * `test+warning@example.com` will receive "warning", "error" and up but
+     * not "info", "notice".
+     */
+    #[Setting]
+    #[Group('auth')]
+    #[Type(Email::class)]
+    public const EP_AUTH_LOG_EMAILS = ['chief.wraith@gmail.com'];
     // </editor-fold>
 
     // <editor-fold desc="EP_CLIENT">
@@ -265,6 +388,17 @@ interface Constants {
     #[Group('keycloak')]
     public const EP_KEYCLOAK_TIMEOUT = 5 * 60;
 
+    /**
+     * Email addresses that will receive errors.
+     *
+     * You can use subaddressing to specify desired error level, eg
+     * `test+warning@example.com` will receive "warning", "error" and up but
+     * not "info", "notice".
+     */
+    #[Setting]
+    #[Group('keycloak')]
+    #[Type(Email::class)]
+    public const EP_KEYCLOAK_LOG_EMAILS = ['chief.wraith@gmail.com'];
 
     // <editor-fold desc="EP_KEYCLOAK_SYNC_PERMISSIONS">
     // -------------------------------------------------------------------------
@@ -438,6 +572,18 @@ interface Constants {
     #[Type(StringType::class)]
     #[Internal]
     public const EP_DATA_LOADER_DUMP = null;
+
+    /**
+     * Email addresses that will receive errors.
+     *
+     * You can use subaddressing to specify desired error level, eg
+     * `test+warning@example.com` will receive "warning", "error" and up but
+     * not "info", "notice".
+     */
+    #[Setting]
+    #[Group('data_loader')]
+    #[Type(Email::class)]
+    public const EP_DATA_LOADER_LOG_EMAILS = ['chief.wraith@gmail.com'];
 
     // <editor-fold desc="EP_DATA_LOADER_RESELLERS_IMPORTER">
     // -------------------------------------------------------------------------
