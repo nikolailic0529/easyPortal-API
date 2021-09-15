@@ -138,7 +138,6 @@ interface Constants {
      * Maximum lifetime of collected metadata in minutes, older requests will automatically be deleted.
      */
     #[Setting]
-    #[Internal]
     #[Group('clockwork')]
     public const CLOCKWORK_STORAGE_EXPIRATION = 7 * 24 * 60;
     // </editor-fold>
