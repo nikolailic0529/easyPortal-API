@@ -4,7 +4,10 @@ namespace App\GraphQL\Directives\Directives;
 
 use App\Models\Enums\UserType;
 use App\Models\User;
+use App\Services\Auth\Auth;
+use App\Services\Auth\Permission;
 use Closure;
+use InvalidArgumentException;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\StatusCodes\InternalServerError;
 use LastDragon_ru\LaraASP\Testing\Responses\Laravel\Json\ErrorResponse;
@@ -15,7 +18,9 @@ use Tests\TestCase;
 use Tests\WithGraphQLSchema;
 
 use function addslashes;
+use function implode;
 use function json_encode;
+use function sprintf;
 
 /**
  * @internal
@@ -23,6 +28,28 @@ use function json_encode;
  */
 class MeTest extends TestCase {
     use WithGraphQLSchema;
+
+    // <editor-fold desc="Prepare">
+    // =========================================================================
+    public function setUp(): void {
+        parent::setUp();
+
+        $this->override(Auth::class, static function (): Auth {
+            return new class() extends Auth {
+                /**
+                 * @inheritDoc
+                 */
+                public function getPermissions(): array {
+                    return [
+                        new Permission('a'),
+                        new Permission('b'),
+                        new Permission('c'),
+                    ];
+                }
+            };
+        });
+    }
+    // </editor-fold>
 
     // <editor-fold desc="Tests">
     // =========================================================================
@@ -104,6 +131,28 @@ class MeTest extends TestCase {
                 GRAPHQL,
             )
             ->assertThat($expected);
+    }
+
+    /**
+     * @covers ::getRequirements
+     */
+    public function testGetRequirements(): void {
+        $resolver    = addslashes(UserDirectiveTest_Resolver::class);
+        $permissions = json_encode(['a', 'unknown']);
+
+        $this->expectExceptionObject(new InvalidArgumentException(sprintf(
+            'Unknown permissions: `%s`',
+            implode('`, `', ['unknown']),
+        )));
+
+        $this->getGraphQLSchema(
+        /** @lang GraphQL */
+            <<<GRAPHQL
+            type Query {
+                value: String! @me(permissions: {$permissions}) @field(resolver: "{$resolver}")
+            }
+            GRAPHQL,
+        );
     }
     // </editor-fold>
 

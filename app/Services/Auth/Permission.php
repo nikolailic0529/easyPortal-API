@@ -7,7 +7,7 @@ use Stringable;
 class Permission implements Stringable {
     public function __construct(
         protected string $name,
-        protected bool $orgAdmin,
+        protected bool $orgAdmin = false,
     ) {
         // empty
     }

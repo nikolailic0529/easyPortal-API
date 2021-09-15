@@ -3,18 +3,26 @@
 namespace App\GraphQL\Directives\Directives;
 
 use App\GraphQL\Directives\AuthDirective;
+use App\Services\Auth\Auth;
+use App\Services\Auth\Permission;
 use Illuminate\Contracts\Auth\Access\Gate;
 use Illuminate\Contracts\Auth\Authenticatable;
+use InvalidArgumentException;
 use LengthException;
 
+use function array_diff;
+use function array_map;
+use function implode;
 use function is_array;
 use function is_null;
 use function json_encode;
 use function sort;
+use function sprintf;
 
 abstract class Me extends AuthDirective {
     public function __construct(
         protected Gate $gate,
+        protected Auth $auth,
     ) {
         parent::__construct();
     }
@@ -52,8 +60,20 @@ abstract class Me extends AuthDirective {
         $requirements = [];
 
         if ($permissions) {
+            // Sort (to be consistent)
             sort($permissions);
 
+            // Invalid?
+            $invalid = $this->getInvalidPermissions($permissions);
+
+            if ($invalid) {
+                throw new InvalidArgumentException(sprintf(
+                    'Unknown permissions: `%s`',
+                    implode('`, `', $invalid),
+                ));
+            }
+
+            // Format
             $permissions = json_encode($permissions);
             $definition  = $this->getDefinitionNode();
             $argument    = $this->getArgDefinitionNode($definition, 'permissions');
@@ -79,5 +99,20 @@ abstract class Me extends AuthDirective {
         }
 
         return $permissions;
+    }
+
+    /**
+     * @param array<string> $permissions
+     *
+     * @return array<string>
+     */
+    protected function getInvalidPermissions(array $permissions): array {
+        $available = $this->auth->getPermissions();
+        $available = array_map(static function (Permission $permission): string {
+            return $permission->getName();
+        }, $available);
+        $invalid   = array_diff($permissions, $available);
+
+        return $invalid;
     }
 }
