@@ -968,6 +968,14 @@ type EnableOrgUserPayload {
   result: Boolean!
 }
 
+input EnableUserInput {
+  id: ID!
+}
+
+type EnableUserPayload {
+  result: Boolean!
+}
+
 type File {
   id: ID!
   name: String!
@@ -1183,6 +1191,13 @@ type Mutation {
   authenticated and have any of these permissions.
   """
   deleteQuoteNote(input: DeleteQuoteNoteInput!): DeleteQuoteNotePayload
+
+  """
+  @require <organization> Authenticated user must be a member of the current organization.
+  
+  @require <me(["administer"])> User must be authenticated and have any of these permissions.
+  """
+  enableUser(input: EnableUserInput!): EnableUserPayload
 
   """
   @require <organization(root)> Authenticated user must be a member of the root organization.
