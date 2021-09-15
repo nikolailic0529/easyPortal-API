@@ -1,0 +1,6 @@
+input ContactsSort {
+  name: String
+  email: String
+  phone_number: String
+  phone_valid: Boolean
+}

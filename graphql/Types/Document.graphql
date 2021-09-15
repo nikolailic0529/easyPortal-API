@@ -25,7 +25,10 @@ type Document {
   ): [DocumentEntry!]! @hasMany
   language_id: ID
   language: Language @belongsTo
-  contacts: [Contact!]! @morphMany
+  contacts (
+    where: ContactsQuery @searchBy
+    order: ContactsSort @sortBy
+  ): [Contact!]! @morphMany
   distributor_id: ID
   distributor: Distributor @belongsTo
   assets_count: Int

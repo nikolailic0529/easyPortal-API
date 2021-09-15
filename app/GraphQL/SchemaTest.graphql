@@ -483,6 +483,13 @@ input ContactsQuery {
   customers: CustomersQuery
 }
 
+input ContactsSort {
+  name: String
+  email: String
+  phone_number: String
+  phone_valid: Boolean
+}
+
 input ContractTypesQuery {
   contracts: DocumentsQuery
 }
@@ -601,7 +608,7 @@ type Customer {
   locations_count: Int!
   locations: [Location!]!
   contacts_count: Int!
-  contacts: [Contact!]!
+  contacts(where: SearchByConditionContactsQuery, order: [SortByClauseContactsSort!]): [Contact!]!
   headquarter: Location
   kpi: Kpi!
 
@@ -836,7 +843,7 @@ type Document {
   entries(where: SearchByConditionDocumentEntriesQuery): [DocumentEntry!]!
   language_id: ID
   language: Language
-  contacts: [Contact!]!
+  contacts(where: SearchByConditionContactsQuery, order: [SortByClauseContactsSort!]): [Contact!]!
   distributor_id: ID
   distributor: Distributor
   assets_count: Int
@@ -4673,6 +4680,23 @@ input SortByClauseCitiesSort {
 
   """Property clause."""
   country: SortByClauseCountriesSort
+}
+
+"""
+Sort clause for input ContactsSort (only one property allowed at a time).
+"""
+input SortByClauseContactsSort {
+  """Property clause."""
+  name: SortByDirection
+
+  """Property clause."""
+  email: SortByDirection
+
+  """Property clause."""
+  phone_number: SortByDirection
+
+  """Property clause."""
+  phone_valid: SortByDirection
 }
 
 """

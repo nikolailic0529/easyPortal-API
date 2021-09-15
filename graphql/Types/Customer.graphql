@@ -8,7 +8,10 @@ type Customer {
   locations_count: Int!
   locations: [Location!]! @morphMany
   contacts_count: Int!
-  contacts: [Contact!]! @morphMany
+  contacts (
+    where: ContactsQuery @searchBy
+    order: ContactsSort @sortBy
+  ): [Contact!]! @morphMany
   headquarter: Location @morphOne
 
   kpi: Kpi!
