@@ -5,6 +5,7 @@ use App\Exceptions\MailableHandler;
 use App\Services\Auth\Service as AuthService;
 use App\Services\DataLoader\Service as DataLoaderService;
 use App\Services\KeyCloak\Service as KeyCloakService;
+use App\Services\Settings\Settings;
 use Monolog\Formatter\HtmlFormatter;
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
@@ -15,7 +16,7 @@ $tap  = [Configurator::class];
 $days = 365;
 
 // Helpers
-$channel = static function (string $service) use ($tap, $days): array {
+$serviceChannel = static function (string $service, string $recipients) use ($tap, $days): array {
     $channel = array_slice(explode('\\', $service), -2, 1);
     $channel = reset($channel);
 
@@ -42,7 +43,7 @@ $channel = static function (string $service) use ($tap, $days): array {
             'level'     => env('LOG_LEVEL', 'debug'),
             'with'      => [
                 'channel'    => $channel,
-                'recipients' => ['chief.wraith@gmail.com'],
+                'recipients' => explode(Settings::DELIMITER, $recipients),
             ],
         ],
     ];
@@ -80,9 +81,9 @@ return [
     */
 
     'channels' => array_merge(
-        $channel(AuthService::class),
-        $channel(DataLoaderService::class),
-        $channel(KeyCloakService::class),
+        $serviceChannel(AuthService::class, (string) env('EP_AUTH_LOGGING_EMAILS')),
+        $serviceChannel(DataLoaderService::class, (string) env('EP_DATA_LOADER_LOGGING_EMAILS')),
+        $serviceChannel(KeyCloakService::class, (string) env('EP_KEYCLOAK_LOGGING_EMAILS')),
         [
             'stack'      => [
                 'driver'            => 'stack',

@@ -207,6 +207,7 @@
     "settings.groups.keycloak": "KeyCloak",
     "settings.groups.data_loader": "Data Loader",
     "settings.groups.logger": "Logger",
+    "settings.groups.auth": "Authentication / Authorization",
     "settings.errors.failed_to_load_settings": "Impossible to load custom settings.",
     "settings.errors.failed_to_save_settings": "Impossible to save custom settings.",
     "export.errors.graphql_query_invalid": "GraphQL query is invalid.",

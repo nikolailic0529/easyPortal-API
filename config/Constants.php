@@ -124,7 +124,6 @@ interface Constants {
     #[Type(Email::class)]
     public const EP_EMAIL_ADDRESS = 'info@itassethub.test';
 
-
     /**
      * Invitation expiration duration.
      */
@@ -132,6 +131,21 @@ interface Constants {
     #[Group('ep')]
     #[Type(Duration::class)]
     public const EP_INVITE_EXPIRE = 'PT24H';
+    // </editor-fold>
+
+    // <editor-fold desc="EP_AUTH">
+    // =========================================================================
+    /**
+     * Email addresses that will receive errors.
+     *
+     * You can use subaddressing to specify desired error level, eg
+     * `test+warning@example.com` will receive "warning", "error" and up but
+     * not "info", "notice".
+     */
+    #[Setting]
+    #[Group('auth')]
+    #[Type(Email::class)]
+    public const EP_AUTH_LOGGING_EMAILS = ['chief.wraith@gmail.com'];
     // </editor-fold>
 
     // <editor-fold desc="EP_CLIENT">
@@ -265,6 +279,17 @@ interface Constants {
     #[Group('keycloak')]
     public const EP_KEYCLOAK_TIMEOUT = 5 * 60;
 
+    /**
+     * Email addresses that will receive errors.
+     *
+     * You can use subaddressing to specify desired error level, eg
+     * `test+warning@example.com` will receive "warning", "error" and up but
+     * not "info", "notice".
+     */
+    #[Setting]
+    #[Group('keycloak')]
+    #[Type(Email::class)]
+    public const EP_KEYCLOAK_LOGGING_EMAILS = ['chief.wraith@gmail.com'];
 
     // <editor-fold desc="EP_KEYCLOAK_SYNC_PERMISSIONS">
     // -------------------------------------------------------------------------
@@ -438,6 +463,18 @@ interface Constants {
     #[Type(StringType::class)]
     #[Internal]
     public const EP_DATA_LOADER_DUMP = null;
+
+    /**
+     * Email addresses that will receive errors.
+     *
+     * You can use subaddressing to specify desired error level, eg
+     * `test+warning@example.com` will receive "warning", "error" and up but
+     * not "info", "notice".
+     */
+    #[Setting]
+    #[Group('data_loader')]
+    #[Type(Email::class)]
+    public const EP_DATA_LOADER_LOGGING_EMAILS = ['chief.wraith@gmail.com'];
 
     // <editor-fold desc="EP_DATA_LOADER_RESELLERS_IMPORTER">
     // -------------------------------------------------------------------------
