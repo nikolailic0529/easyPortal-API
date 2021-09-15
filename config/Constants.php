@@ -37,17 +37,6 @@ use App\Services\Settings\Types\StringType;
 use App\Services\Settings\Types\Text;
 use App\Services\Settings\Types\Url;
 
-use function interface_exists;
-
-/**
- * This file should be loaded only once.
- *
- * @phpcs:disable PSR1.Files.SideEffects
- */
-if (interface_exists(Constants::class)) {
-    return;
-}
-
 /**
  * A list of application settings.
  *

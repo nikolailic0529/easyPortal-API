@@ -3,11 +3,17 @@
 namespace App\Services\Settings\Bootstrapers;
 
 use App\Services\Settings\Environment\Configuration;
+use Config\Constants;
 use Dotenv\Repository\RepositoryInterface;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Bootstrap\LoadConfiguration as IlluminateLoadConfiguration;
 use Illuminate\Support\Env;
+use ReflectionClass;
+
+use function pathinfo;
+
+use const PATHINFO_FILENAME;
 
 class LoadConfiguration extends IlluminateLoadConfiguration {
     protected function loadConfigurationFiles(Application $app, Repository $repository): void {
@@ -18,6 +24,20 @@ class LoadConfiguration extends IlluminateLoadConfiguration {
         parent::loadConfigurationFiles($app, $repository);
 
         $this->overwriteConfig($app, $repository, $configuration['config']);
+    }
+
+    /**
+     * @return array<string,string>
+     */
+    protected function getConfigurationFiles(Application $app): array {
+        $files     = parent::getConfigurationFiles($app);
+        $constants = (new ReflectionClass(Constants::class))->getFileName();
+
+        if ($constants) {
+            unset($files[pathinfo($constants, PATHINFO_FILENAME)]);
+        }
+
+        return $files;
     }
 
     /**

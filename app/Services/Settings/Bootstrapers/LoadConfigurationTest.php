@@ -4,10 +4,16 @@ namespace App\Services\Settings\Bootstrapers;
 
 use App\Services\Settings\Environment\Configuration;
 use App\Services\Settings\Environment\EnvironmentRepository;
+use Config\Constants;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Foundation\Application;
 use Mockery;
+use ReflectionClass;
 use Tests\TestCase;
+
+use function pathinfo;
+
+use const PATHINFO_FILENAME;
 
 /**
  * @internal
@@ -106,5 +112,22 @@ class LoadConfigurationTest extends TestCase {
             'FOO' => 'Foo',
             'BAZ' => 'Hello Baz',
         ], $environment->getVars());
+    }
+
+    /**
+     * @covers ::getConfigurationFiles
+     */
+    public function testGetConfigurationFiles(): void {
+        $unexpected = pathinfo((string) (new ReflectionClass(Constants::class))->getFileName(), PATHINFO_FILENAME);
+        $files      = (new class() extends LoadConfiguration {
+            /**
+             * @inheritDoc
+             */
+            public function getConfigurationFiles(Application $app): array {
+                return parent::getConfigurationFiles($app);
+            }
+        })->getConfigurationFiles($this->app);
+
+        $this->assertArrayNotHasKey($unexpected, $files);
     }
 }
