@@ -63,6 +63,7 @@ class UsersTest extends TestCase {
                           }
                           email
                           used_at
+                          expired_at
                       }
                     }
                     paginatorInfo {
@@ -120,6 +121,7 @@ class UsersTest extends TestCase {
                                             'name' => 'role1',
                                         ],
                                         'used_at'         => null,
+                                        'expired_at'      => '2021-01-01T00:00:00+00:00',
                                     ],
                                 ],
                             ],
@@ -138,9 +140,11 @@ class UsersTest extends TestCase {
                                     'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                     'email'           => 'test@gmail.com',
                                     'organization_id' => $organization->getKey(),
+                                    'user_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                                     'role_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
                                     'used_at'         => null,
                                     'sender_id'       => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
+                                    'expired_at'      => '2021-01-01T00:00:00+00:00',
                                 ])
                                 ->create([
                                     'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
@@ -197,6 +201,7 @@ class UsersTest extends TestCase {
                                             'name' => 'role1',
                                         ],
                                         'used_at'         => null,
+                                        'expired_at'      => '2021-01-01T00:00:00+00:00',
                                     ],
                                 ],
                             ],
@@ -224,6 +229,7 @@ class UsersTest extends TestCase {
                                             'name' => 'role2',
                                         ],
                                         'used_at'         => null,
+                                        'expired_at'      => '2021-01-01T00:00:00+00:00',
                                     ],
                                 ],
                             ],
@@ -241,9 +247,11 @@ class UsersTest extends TestCase {
                                     'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                                     'email'           => 'test@gmail.com',
                                     'organization_id' => $organization->getKey(),
+                                    'user_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                                     'role_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
                                     'sender_id'       => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
                                     'used_at'         => null,
+                                    'expired_at'      => '2021-01-01T00:00:00+00:00',
                                 ])
                                 ->create([
                                     'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d00',
@@ -265,9 +273,11 @@ class UsersTest extends TestCase {
                                     'id'              => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
                                     'email'           => 'test@gmail.com',
                                     'organization_id' => $organization->getKey(),
+                                    'user_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
                                     'role_id'         => 'ae85870f-1593-4eb5-ae08-ee00f0688d05',
                                     'sender_id'       => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
                                     'used_at'         => null,
+                                    'expired_at'      => '2021-01-01T00:00:00+00:00',
                                 ])
                                 ->create([
                                     'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',

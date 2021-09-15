@@ -5,4 +5,5 @@ type Invitation {
   role: Role @belongsTo
   email: String!
   used_at: DateTime
+  expired_at: DateTime!
 }

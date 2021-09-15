@@ -983,6 +983,7 @@ type Invitation {
   role: Role
   email: String!
   used_at: DateTime
+  expired_at: DateTime!
 }
 
 input InviteOrgUserInput {

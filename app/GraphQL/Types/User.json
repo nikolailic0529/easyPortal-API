@@ -36,6 +36,12 @@
             "items": {
                 "$ref": "../Types/Role.json"
             }
+        },
+        "invitations": {
+            "type": "array",
+            "items": {
+                "$ref": "../Types/Invitation.json"
+            }
         }
     }
 }
