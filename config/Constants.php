@@ -21,6 +21,7 @@ use App\Services\Settings\Attributes\Group;
 use App\Services\Settings\Attributes\Internal;
 use App\Services\Settings\Attributes\Job;
 use App\Services\Settings\Attributes\PublicName;
+use App\Services\Settings\Attributes\Secret;
 use App\Services\Settings\Attributes\Service;
 use App\Services\Settings\Attributes\Setting;
 use App\Services\Settings\Attributes\Type;
@@ -46,6 +47,67 @@ use App\Services\Settings\Types\Url;
  * - other configuration files
  */
 interface Constants {
+    // <editor-fold desc="MAIL">
+    // =========================================================================
+    /**
+     * Mailer.
+     */
+    #[Setting]
+    #[Group('mail')]
+    public const MAIL_MAILER = 'smtp';
+
+    /**
+     * Host.
+     */
+    #[Setting]
+    #[Group('mail')]
+    public const MAIL_HOST = 'smtp-relay.sendinblue.com';
+
+    /**
+     * Port.
+     */
+    #[Setting]
+    #[Group('mail')]
+    public const MAIL_PORT = 587;
+
+    /**
+     * Username.
+     */
+    #[Setting]
+    #[Group('mail')]
+    public const MAIL_USERNAME = '';
+
+    /**
+     * Password.
+     */
+    #[Setting]
+    #[Secret]
+    #[Group('mail')]
+    public const MAIL_PASSWORD = '';
+
+    /**
+     * Encryption.
+     */
+    #[Setting]
+    #[Group('mail')]
+    #[Type(StringType::class)]
+    public const MAIL_ENCRYPTION = null;
+
+    /**
+     * From address.
+     */
+    #[Setting]
+    #[Group('mail')]
+    public const MAIL_FROM_ADDRESS = 'info@itassethub.test';
+
+    /**
+     * From name.
+     */
+    #[Setting]
+    #[Group('mail')]
+    public const MAIL_FROM_NAME = 'IT Asset Hub';
+    // </editor-fold>
+
     // <editor-fold desc="EP">
     // =========================================================================
     /**
