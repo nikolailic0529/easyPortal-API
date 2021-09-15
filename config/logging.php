@@ -85,9 +85,9 @@ return [
     */
 
     'channels' => array_merge(
-        $serviceChannel(AuthService::class, (string) env('EP_AUTH_LOGGING_EMAILS')),
-        $serviceChannel(DataLoaderService::class, (string) env('EP_DATA_LOADER_LOGGING_EMAILS')),
-        $serviceChannel(KeyCloakService::class, (string) env('EP_KEYCLOAK_LOGGING_EMAILS')),
+        $serviceChannel(AuthService::class, (string) env('EP_AUTH_LOG_EMAILS')),
+        $serviceChannel(DataLoaderService::class, (string) env('EP_DATA_LOADER_LOG_EMAILS')),
+        $serviceChannel(KeyCloakService::class, (string) env('EP_KEYCLOAK_LOG_EMAILS')),
         [
             'stack'      => [
                 'driver'            => 'stack',
@@ -110,7 +110,7 @@ return [
                 'tap'    => $tap,
             ],
 
-            'mail'       => $mailChannel((string) env('EP_LOGGING_EMAILS')),
+            'mail'       => $mailChannel((string) env('EP_LOG_EMAILS')),
 
             // Default
             'slack'      => [

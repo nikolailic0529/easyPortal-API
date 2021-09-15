@@ -142,7 +142,7 @@ interface Constants {
     #[Setting]
     #[Group('ep')]
     #[Type(Email::class)]
-    public const EP_LOGGING_EMAILS = ['chief.wraith@gmail.com'];
+    public const EP_LOG_EMAILS = ['chief.wraith@gmail.com'];
     // </editor-fold>
 
     // <editor-fold desc="EP_AUTH">
@@ -157,7 +157,7 @@ interface Constants {
     #[Setting]
     #[Group('auth')]
     #[Type(Email::class)]
-    public const EP_AUTH_LOGGING_EMAILS = ['chief.wraith@gmail.com'];
+    public const EP_AUTH_LOG_EMAILS = ['chief.wraith@gmail.com'];
     // </editor-fold>
 
     // <editor-fold desc="EP_CLIENT">
@@ -301,7 +301,7 @@ interface Constants {
     #[Setting]
     #[Group('keycloak')]
     #[Type(Email::class)]
-    public const EP_KEYCLOAK_LOGGING_EMAILS = ['chief.wraith@gmail.com'];
+    public const EP_KEYCLOAK_LOG_EMAILS = ['chief.wraith@gmail.com'];
 
     // <editor-fold desc="EP_KEYCLOAK_SYNC_PERMISSIONS">
     // -------------------------------------------------------------------------
@@ -486,7 +486,7 @@ interface Constants {
     #[Setting]
     #[Group('data_loader')]
     #[Type(Email::class)]
-    public const EP_DATA_LOADER_LOGGING_EMAILS = ['chief.wraith@gmail.com'];
+    public const EP_DATA_LOADER_LOG_EMAILS = ['chief.wraith@gmail.com'];
 
     // <editor-fold desc="EP_DATA_LOADER_RESELLERS_IMPORTER">
     // -------------------------------------------------------------------------
