@@ -36,12 +36,12 @@ class SignUpByInvite {
         $data  = [];
         try {
             $data = $this->encrypter->decrypt($input['token']);
-        } catch (DecryptException $e) {
-            throw new SignUpByInviteInvalidToken();
+        } catch (DecryptException $exception) {
+            throw new SignUpByInviteInvalidToken($input['token'], $exception);
         }
 
         if (!array_key_exists('invitation', $data)) {
-            throw new SignUpByInviteInvalidToken();
+            throw new SignUpByInviteInvalidToken($input['token']);
         }
 
         $invitation = $this->callWithoutGlobalScope(OwnedByOrganizationScope::class, static function () use ($data) {
@@ -49,15 +49,15 @@ class SignUpByInvite {
         });
 
         if (!$invitation) {
-            throw new SignUpByInviteInvalidToken();
+            throw new SignUpByInviteNotFound($data['invitation']);
         }
         /** @var \App\Models\Invitation $invitation */
         if ($invitation->expired_at->isPast()) {
-            throw new SignUpByInviteExpired();
+            throw new SignUpByInviteExpired($invitation);
         }
 
         if ($invitation->used_at) {
-            throw new SignUpByInviteAlreadyUsed();
+            throw new SignUpByInviteAlreadyUsed($invitation);
         }
 
         // Get user from keycloak
