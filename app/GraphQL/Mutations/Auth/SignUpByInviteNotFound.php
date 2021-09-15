@@ -11,12 +11,12 @@ use function sprintf;
 class SignUpByInviteNotFound extends GraphQLException {
     public function __construct(string $id, Throwable $previous = null) {
         parent::__construct(sprintf(
-            'Invalid invite token with id `%s`.',
+            'Invitation `%s` not found.',
             $id,
         ), $previous);
     }
 
     public function getErrorMessage(): string {
-        return __('graphql.mutations.signUpByInvite.invalid_token');
+        return __('graphql.mutations.signUpByInvite.not_found');
     }
 }
