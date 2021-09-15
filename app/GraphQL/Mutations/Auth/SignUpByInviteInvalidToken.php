@@ -12,8 +12,7 @@ class SignUpByInviteInvalidToken extends GraphQLException {
         parent::__construct('Invalid invite token.', $previous);
 
         $this->setContext([
-            'token'    => $this->token,
-            'previous' => $previous,
+            'token' => $this->token,
         ]);
     }
 

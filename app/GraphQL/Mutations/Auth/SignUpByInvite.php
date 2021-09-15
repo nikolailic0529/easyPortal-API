@@ -36,8 +36,8 @@ class SignUpByInvite {
         $data  = [];
         try {
             $data = $this->encrypter->decrypt($input['token']);
-        } catch (DecryptException $e) {
-            throw new SignUpByInviteInvalidToken($input['token']);
+        } catch (DecryptException $exception) {
+            throw new SignUpByInviteInvalidToken($input['token'], $exception);
         }
 
         if (!array_key_exists('invitation', $data)) {
