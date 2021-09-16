@@ -9,9 +9,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\OrgUserEmail
+ * @coversDefaultClass \App\Rules\OrgUserEmailFree
  */
-class OrgUserEmailTest extends TestCase {
+class OrgUserEmailFreeTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -22,12 +22,12 @@ class OrgUserEmailTest extends TestCase {
         $translationsFactory = static function (TestCase $test, string $locale): array {
             return [
                 $locale => [
-                    'validation.org_user_email' => 'Translated',
+                    'validation.org_user_email_free' => 'Translated',
                 ],
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(OrgUserEmail::class)->message(), 'Translated');
+        $this->assertEquals($this->app->make(OrgUserEmailFree::class)->message(), 'Translated');
     }
 
     /**
@@ -38,7 +38,7 @@ class OrgUserEmailTest extends TestCase {
     public function testPasses(bool $expected, Closure $userFactory): void {
         $organization = $this->setOrganization(Organization::factory()->create());
         $orgUserEmail = $userFactory($this, $organization);
-        $this->assertEquals($expected, $this->app->make(OrgUserEmail::class)->passes('test', $orgUserEmail));
+        $this->assertEquals($expected, $this->app->make(OrgUserEmailFree::class)->passes('test', $orgUserEmail));
     }
     // </editor-fold>
 

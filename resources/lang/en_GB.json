@@ -120,7 +120,7 @@
     "validation.service_level_id": "Unknown Service Level",
     "validation.quote_request_duration_id": "Unknown Quote Request Duration",
     "validation.org_role_id": "Invalid role",
-    "validation.org_user_email": "User already in current organization",
+    "validation.org_user_email_free": "User already in current organization",
     "validation.user_id": "Invalid user",
     "validation.user_not_me": "Cannot change own content",
     "errors.message": ":message (:code)",
