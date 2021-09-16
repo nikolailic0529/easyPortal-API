@@ -335,6 +335,7 @@ interface Constants {
      * Client Secret.
      */
     #[Setting('ep.keycloak.client_secret')]
+    #[Secret]
     #[Group('keycloak')]
     #[Type(StringType::class)]
     public const EP_KEYCLOAK_CLIENT_SECRET = null;
@@ -532,6 +533,7 @@ interface Constants {
      * Client Secret.
      */
     #[Setting('ep.data_loader.client_secret')]
+    #[Secret]
     #[Group('data_loader')]
     public const EP_DATA_LOADER_CLIENT_SECRET = '';
 
