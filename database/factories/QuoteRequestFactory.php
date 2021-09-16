@@ -45,6 +45,7 @@ class QuoteRequestFactory extends Factory {
             'customer_id'     => static function (): Customer {
                 return Customer::query()->first() ?? Customer::factory()->create();
             },
+            'customer_name'   => null,
             'type_id'         => static function (): Type {
                 return Type::query()->first() ?? Type::factory()->create();
             },

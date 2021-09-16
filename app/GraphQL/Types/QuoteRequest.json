@@ -6,6 +6,7 @@
         "oem_id",
         "oem",
         "customer_id",
+        "customer_name",
         "customer",
         "contact",
         "type_id",
@@ -27,10 +28,30 @@
             "$ref": "../types.json#/definitions/ID"
         },
         "customer_id": {
-            "$ref": "../types.json#/definitions/ID"
+            "oneOf": [
+                {
+                    "$ref": "../types.json#/definitions/ID"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         },
         "customer": {
-            "$ref": "../types.json#/definitions/Customer"
+            "oneOf": [
+                {
+                    "$ref": "../types.json#/definitions/Customer"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "customer_name": {
+            "type": [
+                "string",
+                "null"
+            ]
         },
         "contact": {
             "$ref": "../types.json#/definitions/Contact"

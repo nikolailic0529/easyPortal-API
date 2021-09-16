@@ -18,11 +18,12 @@ use Illuminate\Support\Collection;
 /**
  * QuoteRequest.
  *
- * @property string                                                                         $id
- * @property string                                                                         $oem_id
- * @property string                                                                         $organization_id
- * @property string                                                                         $user_id
- * @property string                                                                         $customer_id
+ * @property string                                                                        $id
+ * @property string                                                                        $oem_id
+ * @property string                                                                        $organization_id
+ * @property string                                                                        $user_id
+ * @property string|null                                                                   $customer_id
+ * @property string|null                                                                   $customer_name
  * @property string                                                                        $type_id
  * @property string                                                                        $message
  * @property \Carbon\CarbonImmutable                                                       $created_at
@@ -30,7 +31,7 @@ use Illuminate\Support\Collection;
  * @property \Carbon\CarbonImmutable|null                                                  $deleted_at
  * @property \App\Models\Oem                                                               $oem
  * @property \App\Models\Organization                                                      $organization
- * @property \App\Models\Customer                                                          $customer
+ * @property \App\Models\Customer|null                                                     $customer
  * @property \App\Models\Contact                                                           $contact
  * @property \App\Models\Type                                                              $type
  * @property \Illuminate\Database\Eloquent\Collection<\App\Models\Status>                  $statuses
