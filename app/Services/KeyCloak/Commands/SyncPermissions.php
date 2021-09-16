@@ -39,23 +39,25 @@ class SyncPermissions extends Command {
      */
     public function handle(): void {
         // Sync Permissions with Models and KeyCloak Roles
-        $permissions = (new Collection($this->auth->getPermissions()))
+        $permissions  = (new Collection($this->auth->getPermissions()))
             ->keyBy(static function (Permission $permission): string {
                 return $permission->getName();
             });
-        $models      = PermissionModel::query()
+        $usedModels   = new Collection();
+        $actualModels = PermissionModel::query()
             ->withTrashed()
             ->orderByDesc('deleted_at')
             ->get()
             ->keyBy(static function (PermissionModel $model): string {
                 return $model->key;
             });
-        $roles       = (new Collection($this->client->getRoles()))
-            ->filter(static function (Role $role) use ($permissions, $models): bool {
+        $usedRoles    = new Collection();
+        $actualRoles  = (new Collection($this->client->getRoles()))
+            ->filter(static function (Role $role) use ($permissions, $actualModels): bool {
                 // KeyCloak may contain Roles that don't relate to the
                 // application, we must not touch them.
                 return $permissions->has($role->name)
-                    || $models->get($role->name)?->trashed() === false;
+                    || $actualModels->get($role->name)?->trashed() === false;
             })
             ->keyBy(static function (Role $role): string {
                 return $role->name;
@@ -63,14 +65,14 @@ class SyncPermissions extends Command {
 
         foreach ($permissions as $name => $permission) {
             // Create Role on KeyCloak
-            $role = $roles->get($name)
+            $role = $actualRoles->get($name)
                 ?? $this->client->createRole(new Role([
                     'name'        => $name,
                     'description' => $name,
                 ]));
 
             // Create Model
-            $model                         = $models->get($name) ?? new PermissionModel();
+            $model                         = $actualModels->get($name) ?? new PermissionModel();
             $model->{$model->getKeyName()} = $role->id;
             $model->key                    = $name;
 
@@ -81,17 +83,17 @@ class SyncPermissions extends Command {
             $model->save();
 
             // Mark as existing
-            $models->forget($name);
-            $roles->forget($name);
+            $usedRoles->put($name, $role);
+            $usedModels->put($name, $model);
         }
 
         // Remove unused Models
-        foreach ($models as $model) {
+        foreach ($actualModels->diffKeys($usedModels) as $model) {
             $model->delete();
         }
 
         // Remove unused Roles
-        foreach ($roles as $role) {
+        foreach ($actualRoles->diffKeys($usedRoles) as $role) {
             $this->client->deleteRoleByName($role->name);
         }
     }
