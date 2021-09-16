@@ -9,9 +9,11 @@ use App\Services\KeyCloak\Client\Types\Credential;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\User;
 use Exception;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Client\Factory;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
+use Mockery;
 use Mockery\MockInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
@@ -24,6 +26,8 @@ use function str_contains;
  * @coversDefaultClass \App\Services\KeyCloak\Client\Client
  */
 class ClientTest extends TestCase {
+    // <editor-fold desc="Tests">
+    // =========================================================================
     /**
      *
      * @covers ::getUserByEmail
@@ -98,6 +102,7 @@ class ClientTest extends TestCase {
             $this->assertEquals($expected, $response);
         }
     }
+
     /*
      * @covers ::requestResetPassword
      */
@@ -251,6 +256,37 @@ class ClientTest extends TestCase {
         }
     }
 
+    /**
+     * @covers ::deleteRoleByName
+     */
+    public function testDeleteRoleByName(): void {
+        $config = Mockery::mock(Repository::class);
+        $config
+            ->shouldReceive('get')
+            ->with('ep.keycloak.client_uuid')
+            ->once()
+            ->andReturn($this->faker->uuid);
+
+        $client = Mockery::mock(Client::class, [
+            Mockery::mock(Factory::class),
+            $config,
+            Mockery::mock(Token::class),
+        ]);
+        $client->shouldAllowMockingProtectedMethods();
+        $client->makePartial();
+        $client
+            ->shouldReceive('call')
+            ->with(
+                Mockery::pattern('|clients/([^/]+)/roles/name|'),
+                'DELETE',
+            )
+            ->once()
+            ->andReturn(true);
+
+        $client->deleteRoleByName('name');
+    }
+    //</editor-fold>
+
     // <editor-fold desc="DataProviders">
     // =========================================================================
     /**
@@ -298,6 +334,7 @@ class ClientTest extends TestCase {
             'name' => 'test',
             'path' => 'group/test',
         ]);
+
         return [
             'success'   => [[$group]],
             'not found' => [new RealmUserNotFound('d8ec7dcf-c542-42b5-8d7d-971400c02388')],

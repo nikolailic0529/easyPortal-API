@@ -23,31 +23,34 @@ class SyncPermissionsTest extends TestCase {
      * @dataProvider dataProviderTestHandle
      *
      * @param array<string> $expected
-     *
-     * @param array<string> $deleted
      */
     public function testHandle(
         array $expected,
         Closure $authFactory,
         Closure $clientFactory,
-        Closure $permissionFactory = null,
-        array $deleted = null,
+        Closure $permissionFactory,
     ): void {
-        // prepare
-        if ($permissionFactory) {
-            $permissionFactory();
-        }
         $this->override(Auth::class, $authFactory);
         $this->override(Client::class, $clientFactory);
+
+        $permissionFactory($this);
 
         $command = $this->app->make(SyncPermissions::class);
 
         $command->handle();
 
-        if ($deleted) {
-            $this->assertFalse(PermissionModel::where('key', '=', $deleted)->exists());
-        }
-        $this->assertEqualsCanonicalizing(PermissionModel::pluck('key')->all(), $expected);
+        $actual = PermissionModel::query()
+            ->withTrashed()
+            ->get()
+            ->keyBy(static function (PermissionModel $model): string {
+                return $model->key;
+            })
+            ->map(static function (PermissionModel $model): bool {
+                return !$model->trashed();
+            })
+            ->all();
+
+        $this->assertEquals($expected, $actual);
     }
 
     // <editor-fold desc="DataProviders">
@@ -57,14 +60,19 @@ class SyncPermissionsTest extends TestCase {
      */
     public function dataProviderTestHandle(): array {
         return [
-            'empty permissions'                  => [
-                ['permission1'],
+            'permissions' => [
+                [
+                    'permission-a' => true,
+                    'permission-b' => true,
+                    'permission-c' => false,
+                ],
                 static function (MockInterface $mock): void {
                     $mock
                         ->shouldReceive('getPermissions')
                         ->once()
                         ->andReturns([
-                            new Permission('permission1', orgAdmin: false),
+                            new Permission('permission-a', orgAdmin: false),
+                            new Permission('permission-b', orgAdmin: false),
                         ]);
                 },
                 static function (MockInterface $mock, TestCase $test): void {
@@ -74,108 +82,44 @@ class SyncPermissionsTest extends TestCase {
                         ->andReturn([
                             new Role([
                                 'id'   => $test->faker->uuid,
-                                'name' => 'role',
+                                'name' => 'permission-a',
                             ]),
-                        ]);
-                        $mock
-                            ->shouldReceive('updateRoleByName')
-                            ->once();
-                        $mock
-                            ->shouldReceive('createRole')
-                            ->andReturn(
-                                new Role([
-                                    'id'   => $test->faker->uuid,
-                                    'name' => 'permission1',
-                                ]),
-                            );
-                },
-            ],
-            'existing permissions/different key' => [
-                ['permission1'],
-                static function (MockInterface $mock): void {
-                    $mock
-                        ->shouldReceive('getPermissions')
-                        ->once()
-                        ->andReturns([
-                            new Permission('permission1', orgAdmin: false),
-                        ]);
-                },
-                static function (MockInterface $mock, TestCase $test): void {
-                    $mock
-                        ->shouldReceive('getRoles')
-                        ->once()
-                        ->andReturn([
                             new Role([
                                 'id'   => $test->faker->uuid,
-                                'name' => 'role',
+                                'name' => 'permission-c',
+                            ]),
+                            new Role([
+                                'id'   => $test->faker->uuid,
+                                'name' => 'unknown',
                             ]),
                         ]);
-                        $mock
-                            ->shouldReceive('updateRoleByName')
-                            ->once();
-                        $mock
-                            ->shouldReceive('createRole')
-                            ->andReturn(
-                                new Role([
-                                    'id'   => $test->faker->uuid,
-                                    'name' => 'permission1',
-                                ]),
-                            );
+                    $mock
+                        ->shouldReceive('createRole')
+                        ->withArgs(static function (Role $role): bool {
+                            return $role->name === 'permission-b'
+                                && $role->description === 'permission-b';
+                        })
+                        ->andReturn(
+                            new Role([
+                                'id'   => $test->faker->uuid,
+                                'name' => 'permission-b',
+                            ]),
+                        );
+                    $mock
+                        ->shouldReceive('deleteRoleByName')
+                        ->with('permission-c')
+                        ->once()
+                        ->andReturns();
                 },
                 static function (): void {
                     PermissionModel::factory()->create([
-                        'key'        => 'permission1',
-                        'created_at' => Date::now()->subHour(),
+                        'key'        => 'permission-a',
                         'deleted_at' => Date::now(),
                     ]);
-
                     PermissionModel::factory()->create([
-                        'key' => 'permission1',
+                        'key' => 'permission-c',
                     ]);
                 },
-                ['old-permissions'],
-            ],
-            'soft deleted permissions'           => [
-                ['permission1'],
-                static function (MockInterface $mock): void {
-                    $mock
-                        ->shouldReceive('getPermissions')
-                        ->once()
-                        ->andReturns([
-                            new Permission('permission1', orgAdmin: false),
-                        ]);
-                },
-                static function (MockInterface $mock, TestCase $test): void {
-                    $mock
-                        ->shouldReceive('getRoles')
-                        ->once()
-                        ->andReturn([
-                            new Role([
-                                'id'   => $test->faker->uuid,
-                                'name' => 'permission1',
-                            ]),
-                        ]);
-                        $mock
-                            ->shouldReceive('updateRoleByName')
-                            ->never();
-                        $mock
-                            ->shouldReceive('createRole')
-                            ->andReturn(
-                                new Role([
-                                    'id'   => $test->faker->uuid,
-                                    'name' => 'permission1',
-                                ]),
-                            );
-                },
-                static function (): void {
-                    $permission = PermissionModel::factory()->create([
-                        'id'  => 'fd421bad-069f-491c-ad5f-5841aa9a9dff',
-                        'key' => 'permission1',
-                    ]);
-
-                    $permission->delete();
-                },
-                ['old-permissions'],
             ],
         ];
     }

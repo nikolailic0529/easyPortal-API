@@ -2,18 +2,15 @@
 
 namespace App\Services\KeyCloak\Commands;
 
-use App\Models\Permission;
+use App\Models\Permission as PermissionModel;
 use App\Services\Auth\Auth;
+use App\Services\Auth\Permission;
 use App\Services\KeyCloak\Client\Client;
 use App\Services\KeyCloak\Client\Types\Role;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
-use function str_contains;
-
 class SyncPermissions extends Command {
-    protected const DELETED_SUFFIX = '(deleted)';
-
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
      *
@@ -41,19 +38,30 @@ class SyncPermissions extends Command {
      * @return mixed
      */
     public function handle(): void {
-        // Sync available permissions with Models and KeyCloak Roles
-        $permissions = $this->auth->getPermissions();
-        $models      = Permission::query()
+        // Sync Permissions with Models and KeyCloak Roles
+        $permissions = (new Collection($this->auth->getPermissions()))
+            ->keyBy(static function (Permission $permission): string {
+                return $permission->getName();
+            });
+        $models      = PermissionModel::query()
             ->withTrashed()
             ->orderByDesc('deleted_at')
             ->get()
-            ->keyBy('key');
-        $roles       = (new Collection($this->client->getRoles()))->keyBy('name');
+            ->keyBy(static function (PermissionModel $model): string {
+                return $model->key;
+            });
+        $roles       = (new Collection($this->client->getRoles()))
+            ->filter(static function (Role $role) use ($permissions, $models): bool {
+                // KeyCloak may contain Roles that don't relate to the
+                // application, we must not touch them.
+                return $permissions->has($role->name)
+                    || $models->get($role->name)?->trashed() === false;
+            })
+            ->keyBy(static function (Role $role): string {
+                return $role->name;
+            });
 
-        foreach ($permissions as $permission) {
-            // Prepare
-            $name = $permission->getName();
-
+        foreach ($permissions as $name => $permission) {
             // Create Role on KeyCloak
             $role = $roles->get($name)
                 ?? $this->client->createRole(new Role([
@@ -62,7 +70,7 @@ class SyncPermissions extends Command {
                 ]));
 
             // Create Model
-            $model                         = $models->get($name) ?? new Permission();
+            $model                         = $models->get($name) ?? new PermissionModel();
             $model->{$model->getKeyName()} = $role->id;
             $model->key                    = $name;
 
@@ -82,12 +90,9 @@ class SyncPermissions extends Command {
             $model->delete();
         }
 
-        // Mark unused Roles
+        // Remove unused Roles
         foreach ($roles as $role) {
-            if (!str_contains($role->description ?? '', self::DELETED_SUFFIX)) {
-                $role->description = self::DELETED_SUFFIX.' '.($role->description ?? '');
-                $this->client->updateRoleByName($role->name, $role);
-            }
+            $this->client->deleteRoleByName($role->name);
         }
     }
 }

@@ -119,6 +119,12 @@ class Client {
         ]);
     }
 
+    public function deleteRoleByName(string $name): void {
+        // PUT /{realm}/clients/{id}/roles/{role-name}
+        $endpoint = "{$this->getClientUrl()}/roles/{$name}";
+        $this->call($endpoint, 'DELETE');
+    }
+
     public function createSubGroup(Organization $organization, string $name): Group {
         // POST /{realm}/groups/{id}/children
         if (!$organization->keycloak_group_id) {
