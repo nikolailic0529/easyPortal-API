@@ -1,13 +1,12 @@
 <?php declare(strict_types = 1);
 
-namespace App\GraphQL\Mutations\Org;
+namespace App\GraphQL\Mutations;
 
 use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Exceptions\RealmUserNotFound;
-use App\Services\KeyCloak\Client\Types\Group;
+use App\Services\KeyCloak\Client\Types\User as KeycloakUser;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -23,9 +22,9 @@ use function __;
 
 /**
  * @internal
- * @coversDefaultClass \App\GraphQL\Mutations\Org\DisableOrgUser
+ * @coversDefaultClass \App\GraphQL\Mutations\DisableUser
  */
-class DisableOrgUserTest extends TestCase {
+class DisableUserTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -53,6 +52,12 @@ class DisableOrgUserTest extends TestCase {
         $input = ['id' => ''];
         if ($inputFactory) {
             $input = $inputFactory($this, $organization, $user);
+        } else {
+            $user  = User::factory()->create([
+                'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02399',
+                'type' => UserType::keycloak(),
+            ]);
+            $input = ['id' => $user->getKey()];
         }
 
         if ($clientFactory) {
@@ -64,8 +69,8 @@ class DisableOrgUserTest extends TestCase {
             ->graphQL(
             /** @lang GraphQL */
                 <<<'GRAPHQL'
-                mutation disableOrgUser($input: DisableOrgUserInput!) {
-                    disableOrgUser(input: $input) {
+                mutation disableUser($input: DisableUserInput!) {
+                    disableUser(input: $input) {
                         result
                     }
                 }
@@ -75,6 +80,10 @@ class DisableOrgUserTest extends TestCase {
                 ],
             )
             ->assertThat($expected);
+        if ($expected instanceof GraphQLSuccess) {
+            $user = User::whereKey($input['id'])->first();
+            $this->assertFalse($user->enabled);
+        }
     }
     // </editor-fold>
 
@@ -92,13 +101,13 @@ class DisableOrgUserTest extends TestCase {
         };
 
         return (new CompositeDataProvider(
-            new OrganizationDataProvider('disableOrgUser'),
-            new OrganizationUserDataProvider('disableOrgUser', [
-                'org-administer',
+            new OrganizationDataProvider('disableUser'),
+            new OrganizationUserDataProvider('disableUser', [
+                'administer',
             ]),
             new ArrayDataProvider([
-                'ok'             => [
-                    new GraphQLSuccess('disableOrgUser', DisableOrgUser::class, [
+                'ok-keycloak'  => [
+                    new GraphQLSuccess('disableUser', DisableUser::class, [
                         'result' => true,
                     ]),
                     $prepare,
@@ -112,64 +121,46 @@ class DisableOrgUserTest extends TestCase {
                     },
                     static function (MockInterface $mock): void {
                         $mock
-                            ->shouldReceive('getUserGroups')
-                            ->with('d8ec7dcf-c542-42b5-8d7d-971400c02399')
-                            ->once()
-                            ->andReturn([
-                                new Group([
-                                    'id' => 'd8ec7dcf-c542-42b5-8d7d-971400c02388',
-                                ]),
-                            ]);
-                        $mock
                             ->shouldReceive('updateUser')
-                            ->once()
+                            ->once('d8ec7dcf-c542-42b5-8d7d-971400c02399', new KeycloakUser(['enabled' => false]))
                             ->andReturn(true);
                     },
                 ],
-                'invalid user'   => [
-                    new GraphQLError('disableOrgUser', new DisableOrgUserInvalidUser()),
+                'ok-local'     => [
+                    new GraphQLSuccess('disableUser', DisableUser::class, [
+                        'result' => true,
+                    ]),
                     $prepare,
                     static function (): array {
                         $user = User::factory()->create([
                             'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02399',
-                            'type' => UserType::keycloak(),
+                            'type' => UserType::local(),
                         ]);
 
                         return ['id' => $user->getKey()];
                     },
                     static function (MockInterface $mock): void {
                         $mock
-                            ->shouldReceive('getUserGroups')
-                            ->with('d8ec7dcf-c542-42b5-8d7d-971400c02399')
-                            ->once()
-                            ->andReturn([
-                                new Group([
-                                    'id' => 'd8ec7dcf-c542-42b5-8d7d-971400c02377',
-                                ]),
-                            ]);
+                            ->shouldReceive('updateUser')
+                            ->never();
                     },
                 ],
-                'user not found' => [
-                    new GraphQLError('disableOrgUser', new RealmUserNotFound('d8ec7dcf-c542-42b5-8d7d-971400c02399')),
+                'Invalid user' => [
+                    new GraphQLError('disableUser', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
                     $prepare,
                     static function (): array {
-                        $user = User::factory()->create([
-                            'id'   => 'd8ec7dcf-c542-42b5-8d7d-971400c02399',
-                            'type' => UserType::keycloak(),
-                        ]);
-
-                        return ['id' => $user->getKey()];
+                        return ['id' => 'd8ec7dcf-c542-42b5-8d7d-971400c02390'];
                     },
                     static function (MockInterface $mock): void {
                         $mock
-                            ->shouldReceive('getUserGroups')
-                            ->with('d8ec7dcf-c542-42b5-8d7d-971400c02399')
-                            ->once()
-                            ->andThrow(new RealmUserNotFound('d8ec7dcf-c542-42b5-8d7d-971400c02399'));
+                            ->shouldReceive('updateUser')
+                            ->never();
                     },
                 ],
-                'own settings'   => [
-                    new GraphQLError('disableOrgUser', static function (): array {
+                'own settings' => [
+                    new GraphQLError('disableUser', static function (): array {
                         return [__('errors.validation_failed')];
                     }),
                     $prepare,
@@ -177,10 +168,6 @@ class DisableOrgUserTest extends TestCase {
                         return ['id' => $user->getKey()];
                     },
                     static function (MockInterface $mock): void {
-                        $mock
-                            ->shouldReceive('getUserGroups')
-                            ->never();
-
                         $mock
                             ->shouldReceive('updateUser')
                             ->never();

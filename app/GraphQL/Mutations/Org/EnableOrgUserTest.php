@@ -19,6 +19,8 @@ use Tests\GraphQL\GraphQLError;
 use Tests\GraphQL\GraphQLSuccess;
 use Tests\TestCase;
 
+use function __;
+
 /**
  * @internal
  * @coversDefaultClass \App\GraphQL\Mutations\Org\EnableOrgUser
@@ -42,7 +44,7 @@ class EnableOrgUserTest extends TestCase {
     ): void {
         // Prepare
         $organization = $this->setOrganization($organizationFactory);
-        $this->setUser($userFactory, $organization);
+        $user         = $this->setUser($userFactory, $organization);
 
         if ($prepare) {
             $prepare($this, $organization);
@@ -50,7 +52,7 @@ class EnableOrgUserTest extends TestCase {
 
         $input = ['id' => ''];
         if ($inputFactory) {
-            $input = $inputFactory($this);
+            $input = $inputFactory($this, $organization, $user);
         }
 
         if ($clientFactory) {
@@ -164,6 +166,24 @@ class EnableOrgUserTest extends TestCase {
                             ->with('d8ec7dcf-c542-42b5-8d7d-971400c02399')
                             ->once()
                             ->andThrow(new RealmUserNotFound('d8ec7dcf-c542-42b5-8d7d-971400c02399'));
+                    },
+                ],
+                'own settings'   => [
+                    new GraphQLError('enableOrgUser', static function (): array {
+                        return [__('errors.validation_failed')];
+                    }),
+                    $prepare,
+                    static function (TestCase $test, Organization $organization, User $user): array {
+                        return ['id' => $user->getKey()];
+                    },
+                    static function (MockInterface $mock): void {
+                        $mock
+                            ->shouldReceive('getUserGroups')
+                            ->never();
+
+                        $mock
+                            ->shouldReceive('updateUser')
+                            ->never();
                     },
                 ],
             ]),

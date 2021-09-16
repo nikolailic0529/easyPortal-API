@@ -1,0 +1,15 @@
+extend type Mutation {
+  disableUser(
+    input: DisableUserInput!
+  ): DisableUserPayload
+  @organization
+  @me(permissions: ["administer"])
+}
+
+input DisableUserInput {
+  id: ID! @rules(apply:["required","App\\Rules\\UserId","App\\Rules\\UserOwn"])
+}
+
+type DisableUserPayload {
+  result: Boolean!
+}
