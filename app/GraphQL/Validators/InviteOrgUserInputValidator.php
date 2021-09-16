@@ -3,7 +3,7 @@
 namespace App\GraphQL\Validators;
 
 use App\Rules\OrgRoleId;
-use App\Rules\OrgUserEmail;
+use App\Rules\OrgUserEmailFree;
 use Nuwave\Lighthouse\Validation\Validator;
 
 
@@ -14,7 +14,7 @@ class InviteOrgUserInputValidator extends Validator {
      */
     public function rules(): array {
         return [
-            'email'   => ['required', 'email', new OrgUserEmail()],
+            'email'   => ['required', 'email', new OrgUserEmailFree()],
             'role_id' => ['required', new OrgRoleId()],
         ];
     }

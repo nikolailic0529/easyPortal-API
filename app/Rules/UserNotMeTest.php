@@ -8,9 +8,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\UserOwn
+ * @coversDefaultClass \App\Rules\UserNotMe
  */
-class UserOwnTest extends TestCase {
+class UserNotMeTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -21,12 +21,12 @@ class UserOwnTest extends TestCase {
         $translationsFactory = static function (TestCase $test, string $locale): array {
             return [
                 $locale => [
-                    'validation.user_own' => 'Translated',
+                    'validation.user_not_me' => 'Translated',
                 ],
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(UserOwn::class)->message(), 'Translated');
+        $this->assertEquals($this->app->make(UserNotMe::class)->message(), 'Translated');
     }
 
     /**
@@ -36,7 +36,7 @@ class UserOwnTest extends TestCase {
      */
     public function testPasses(bool $expected, Closure $userFactory, string $value): void {
         $this->setUser($userFactory);
-        $this->assertEquals($expected, $this->app->make(UserOwn::class)->passes('test', $value));
+        $this->assertEquals($expected, $this->app->make(UserNotMe::class)->passes('test', $value));
     }
     // </editor-fold>
 

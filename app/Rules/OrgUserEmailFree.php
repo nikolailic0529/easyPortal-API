@@ -9,7 +9,7 @@ use Illuminate\Contracts\Validation\Rule;
 use function __;
 use function app;
 
-class OrgUserEmail implements Rule {
+class OrgUserEmailFree implements Rule {
     /**
      * @inheritdoc
      */
@@ -26,6 +26,6 @@ class OrgUserEmail implements Rule {
     }
 
     public function message(): string {
-        return __('validation.org_user_email');
+        return __('validation.org_user_email_free');
     }
 }

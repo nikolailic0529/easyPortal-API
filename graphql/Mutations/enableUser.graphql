@@ -7,7 +7,7 @@ extend type Mutation {
 }
 
 input EnableUserInput {
-  id: ID! @rules(apply:["required","App\\Rules\\UserId","App\\Rules\\UserOwn"])
+  id: ID! @rules(apply:["required","App\\Rules\\UserId","App\\Rules\\UserNotMe"])
 }
 
 type EnableUserPayload {

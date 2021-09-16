@@ -6,7 +6,7 @@ use App\Models\Enums\UserType;
 use App\Models\Organization;
 use App\Models\User;
 use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Client\Types\User as KeycloakUser;
+use App\Services\KeyCloak\Client\Types\User as KeyCloakUser;
 use Closure;
 use LastDragon_ru\LaraASP\Testing\Constraints\Response\Response;
 use LastDragon_ru\LaraASP\Testing\Providers\ArrayDataProvider;
@@ -122,7 +122,11 @@ class DisableUserTest extends TestCase {
                     static function (MockInterface $mock): void {
                         $mock
                             ->shouldReceive('updateUser')
-                            ->once('d8ec7dcf-c542-42b5-8d7d-971400c02399', new KeycloakUser(['enabled' => false]))
+                            ->withArgs(static function (string $id, KeyCloakUser $user): bool {
+                                return $id === 'd8ec7dcf-c542-42b5-8d7d-971400c02399'
+                                    && $user->enabled === false;
+                            })
+                            ->once()
                             ->andReturn(true);
                     },
                 ],

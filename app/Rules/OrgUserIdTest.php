@@ -9,9 +9,9 @@ use Tests\TestCase;
 
 /**
  * @internal
- * @coversDefaultClass \App\Rules\OrgUserEmail
+ * @coversDefaultClass \App\Rules\OrgUserId
  */
-class OrgUserEmailTest extends TestCase {
+class OrgUserIdTest extends TestCase {
     // <editor-fold desc="Tests">
     // =========================================================================
     /**
@@ -22,12 +22,12 @@ class OrgUserEmailTest extends TestCase {
         $translationsFactory = static function (TestCase $test, string $locale): array {
             return [
                 $locale => [
-                    'validation.org_user_email' => 'Translated',
+                    'validation.org_user_id' => 'Translated',
                 ],
             ];
         };
         $this->setTranslations($translationsFactory);
-        $this->assertEquals($this->app->make(OrgUserEmail::class)->message(), 'Translated');
+        $this->assertEquals($this->app->make(OrgUserId::class)->message(), 'Translated');
     }
 
     /**
@@ -37,8 +37,8 @@ class OrgUserEmailTest extends TestCase {
      */
     public function testPasses(bool $expected, Closure $userFactory): void {
         $organization = $this->setOrganization(Organization::factory()->create());
-        $orgUserEmail = $userFactory($this, $organization);
-        $this->assertEquals($expected, $this->app->make(OrgUserEmail::class)->passes('test', $orgUserEmail));
+        $orgUserId    = $userFactory($this, $organization);
+        $this->assertEquals($expected, $this->app->make(OrgUserId::class)->passes('test', $orgUserId));
     }
     // </editor-fold>
 
@@ -49,46 +49,46 @@ class OrgUserEmailTest extends TestCase {
      */
     public function dataProviderPasses(): array {
         return [
-            'in org'               => [
+            'exists'        => [
+                true,
+                static function (TestCase $test, Organization $organization): string {
+                    $user = User::factory()->create([
+                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
+                    ]);
+
+                    $organization->users()->attach($user->getKey());
+
+                    return $user->getKey();
+                },
+            ],
+            'different org' => [
                 false,
                 static function (TestCase $test, Organization $organization): string {
-                    $user                = User::factory()->create([
-                        'email' => 'test@example.com',
+                    $user = User::factory()->create([
+                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                     ]);
-                    $user->organizations = [$organization];
-                    $user->save();
-                    return $user->email;
+
+                    return $user->getKey();
                 },
             ],
-            'in different org'     => [
-                true,
-                static function (TestCase $test, Organization $organization): string {
-                    $user                = User::factory()->create([
-                        'email' => 'test@example.com',
-                    ]);
-                    $organization2       = Organization::factory()->create([
-                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24983',
-                    ]);
-                    $user->organizations = [$organization2];
-                    $user->save();
-                    return $user->email;
-                },
-            ],
-            'new user'             => [
-                true,
+            'not-exists'    => [
+                false,
                 static function (): string {
-                    return 'new@example.com';
+                    return 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982';
                 },
             ],
-            'soft-deleted/ in org' => [
-                true,
+            'soft-deleted'  => [
+                false,
                 static function (TestCase $test, Organization $organization): string {
-                    $user                = User::factory()->create([
-                        'email' => 'test@example.com',
+                    $user = User::factory()->create([
+                        'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24982',
                     ]);
-                    $user->organizations = [$organization];
+
+                    $organization->users()->attach($user->getKey());
+
                     $user->delete();
-                    return $user->email;
+
+                    return $user->getKey();
                 },
             ],
         ];
