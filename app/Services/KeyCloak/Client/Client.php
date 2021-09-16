@@ -17,7 +17,6 @@ use App\Services\KeyCloak\Client\Types\Credential;
 use App\Services\KeyCloak\Client\Types\Group;
 use App\Services\KeyCloak\Client\Types\Role;
 use App\Services\KeyCloak\Client\Types\User;
-use App\Services\KeyCloak\Commands\UsersIterator;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Http\Client\ConnectionException;

@@ -3,7 +3,7 @@
 namespace App\Services\KeyCloak\Jobs;
 
 use App\Services\KeyCloak\Client\Client;
-use App\Services\KeyCloak\Commands\UsersIterator;
+use App\Services\KeyCloak\Client\UsersIterator;
 use App\Services\KeyCloak\Importer\Status;
 use App\Services\KeyCloak\Importer\UsersImporter;
 use App\Services\Queue\Progress;

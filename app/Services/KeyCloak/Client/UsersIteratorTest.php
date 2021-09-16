@@ -1,8 +1,7 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\KeyCloak\Commands;
+namespace App\Services\KeyCloak\Client;
 
-use App\Services\KeyCloak\Client\Client;
 use Closure;
 use Mockery;
 use Tests\TestCase;
@@ -14,7 +13,7 @@ use function range;
 
 /**
  * @internal
- * @coversDefaultClass namespace App\Services\KeyCloak\Commands\UsersIterator
+ * @coversDefaultClass \App\Services\KeyCloak\Client\UsersIterator
  */
 class UsersIteratorTest extends TestCase {
     /**

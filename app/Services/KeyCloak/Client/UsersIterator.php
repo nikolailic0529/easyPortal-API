@@ -1,9 +1,8 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\KeyCloak\Commands;
+namespace App\Services\KeyCloak\Client;
 
 use App\Services\DataLoader\Client\QueryIterator;
-use App\Services\KeyCloak\Client\Client;
 use Closure;
 use EmptyIterator;
 use Iterator;
