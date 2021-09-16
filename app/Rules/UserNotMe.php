@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Rule;
 
 use function __;
 
-class UserOwn implements Rule {
+class UserNotMe implements Rule {
     public function __construct(
         protected AuthManager $auth,
     ) {
@@ -18,14 +18,10 @@ class UserOwn implements Rule {
      * @inheritdoc
      */
     public function passes($attribute, $value): bool {
-        $user = $this->auth->user();
-        if (!$user) {
-            return true;
-        }
-        return $this->auth->user()->getAuthIdentifier() !== $value;
+        return $this->auth->user()?->getAuthIdentifier() !== $value;
     }
 
     public function message(): string {
-        return __('validation.user_own');
+        return __('validation.user_not_me');
     }
 }

@@ -122,7 +122,7 @@
     "validation.org_role_id": "Invalid role",
     "validation.org_user_email": "User already in current organization",
     "validation.user_id": "Invalid user",
-    "validation.user_own": "Cannot change own content",
+    "validation.user_not_me": "Cannot change own content",
     "errors.message": ":message (:code)",
     "errors.unauthenticated": "Unauthenticated.",
     "errors.unauthorized": "Unauthorized.",
