@@ -5,6 +5,7 @@ namespace App\Services\Settings\Jobs;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Foundation\CachesConfiguration;
+use Illuminate\Contracts\Foundation\CachesRoutes;
 use Mockery;
 use Tests\TestCase;
 
@@ -35,18 +36,36 @@ class ConfigUpdateTest extends TestCase {
 
         ($this->app->make(ConfigUpdate::class))($app, $kernel);
     }
+    /**
+     * @covers ::__invoke
+     */
+    public function testHandleWhenRoutesCached(): void {
+        $app = Mockery::mock(Application::class, CachesRoutes::class);
+        $app
+            ->shouldReceive('routesAreCached')
+            ->once()
+            ->andReturn(true);
+
+        $kernel = Mockery::mock(Kernel::class);
+        $kernel
+            ->shouldReceive('call')
+            ->with('route:cache')
+            ->once();
+        $kernel
+            ->shouldReceive('call')
+            ->with('queue:restart')
+            ->once();
+
+        ($this->app->make(ConfigUpdate::class))($app, $kernel);
+    }
 
     /**
      * @covers ::__invoke
      */
-    public function testHandleWhenConfigNotCached(): void {
+    public function testHandleWhenNotCached(): void {
         $app    = Mockery::mock(Application::class);
         $kernel = Mockery::mock(Kernel::class);
 
-        $kernel
-            ->shouldReceive('call')
-            ->with('config:cache')
-            ->never();
         $kernel
             ->shouldReceive('call')
             ->with('queue:restart')

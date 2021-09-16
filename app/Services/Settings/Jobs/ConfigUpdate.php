@@ -6,9 +6,11 @@ use App\Services\Queue\Job;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Foundation\CachesConfiguration;
+use Illuminate\Contracts\Foundation\CachesRoutes;
 
 /**
- * Updates application config (if cached) and restart queue to apply setting changes.
+ * Updates application config and routes (if cached) and restart queue to apply
+ * new settings.
  */
 class ConfigUpdate extends Job {
     public function displayName(): string {
@@ -19,6 +21,10 @@ class ConfigUpdate extends Job {
         try {
             if ($app instanceof CachesConfiguration && $app->configurationIsCached()) {
                 $artisan->call('config:cache');
+            }
+
+            if ($app instanceof CachesRoutes && $app->routesAreCached()) {
+                $artisan->call('route:cache');
             }
         } finally {
             $artisan->call('queue:restart');
