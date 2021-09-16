@@ -146,7 +146,6 @@
     "graphql.mutations.signUpByInvite.not_found": "Invitation not found.",
     "graphql.mutations.updateMePassword.invalid_current_password": "Invalid current password.",
     "graphql.mutations.resetOrgUserPassword.invalid_user": "Invalid keycloak user.",
-    "graphql.mutations.enableOrgUser.invalid_user": "Invalid keycloak user.",
     "graphql.mutations.disableOrgUser.invalid_user": "Invalid keycloak user.",
     "models.country.name.??": "Unknown Country",
     "models.currency.name.EUR": "Euro",
