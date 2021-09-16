@@ -64,16 +64,19 @@ class InviteOrgUser {
 
         // Send invitation email
         $url = null;
+        // verified ? sign In : sign up
         if ($keycloakUser->emailVerified) {
+            // Go to login page
+            $url = $this->generator->to(strtr($this->config->get('ep.client.signin_invite_uri'), [
+                '{organization}' => $organization->getKey(),
+            ]));
+        } else {
+            // Go to invitation sign up page
             $token = $this->encrypter->encrypt([
                 'invitation' => $invitation->getKey(),
             ]);
             $url   = $this->generator->to(strtr($this->config->get('ep.client.signup_invite_uri'), [
                 '{token}' => $token,
-            ]));
-        } else {
-            $url = $this->generator->to(strtr($this->config->get('ep.client.signin_invite_uri'), [
-                '{organization}' => $organization->getKey(),
             ]));
         }
         $this->mailer->to($email)->send(new InviteOrganizationUser($url));

@@ -294,7 +294,7 @@ interface Constants {
     #[Setting('ep.client.signin_invite_uri')]
     #[Group('client')]
     #[Type(StringType::class)]
-    public const EP_CLIENT_SIGNIN_INVITE_URI = 'auth/organization/{organization}';
+    public const EP_CLIENT_SIGNIN_INVITE_URI = 'auth/organizations/{organization}';
     //</editor-fold>
 
     // <editor-fold desc="EP_KEYCLOAK">
