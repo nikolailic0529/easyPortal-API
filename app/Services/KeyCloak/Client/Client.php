@@ -27,6 +27,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use function array_map;
 use function http_build_query;
+use function is_string;
 use function rtrim;
 
 class Client {
@@ -40,25 +41,7 @@ class Client {
 
     // <editor-fold desc="endpoints">
     // =========================================================================
-    /**
-     * @return array<\App\Services\KeyCloak\Client\Types\User>
-     */
-    public function users(Organization $organization): array {
-        // GET /{realm}/groups/{id}/members
-        if (!$organization->keycloak_group_id) {
-            throw new RealmGroupUnknown();
-        }
-
-        $endpoint = "groups/{$organization->keycloak_group_id}/members";
-        $result   = $this->call($endpoint);
-        $result   = array_map(static function ($item) {
-            return new User($item);
-        }, $result);
-
-        return $result;
-    }
-
-    public function getGroup(Organization|RoleModel $object): ?Group {
+    public function getGroup(Organization|RoleModel|string $object): ?Group {
         // GET /{realm}/groups/{id}
         $id = null;
 
@@ -66,6 +49,8 @@ class Client {
             $id = $object->keycloak_group_id;
         } elseif ($object instanceof RoleModel) {
             $id = $object->getKey();
+        } elseif (is_string($object)) {
+            $id = $object;
         } else {
             // empty
         }
@@ -155,9 +140,11 @@ class Client {
     /**
      * @param array<\App\Services\KeyCloak\Client\Types\Role> $permissions
      */
-    public function addRolesToGroup(RoleModel $role, array $permissions): void {
+    public function addRolesToGroup(Group|RoleModel $group, array $permissions): void {
         // POST /{realm}/groups/{id}/role-mappings/clients/{client}
-        $endpoint = "groups/{$role->id}/role-mappings/{$this->getClientUrl()}";
+
+
+        $endpoint = "groups/{$group->id}/role-mappings/{$this->getClientUrl()}";
         $this->call($endpoint, 'POST', ['json' => $permissions]);
     }
 
