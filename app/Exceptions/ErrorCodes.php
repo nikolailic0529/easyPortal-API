@@ -8,7 +8,6 @@ use App\GraphQL\Mutations\Auth\SignUpByInviteExpired as GraphQLSignUpByInviteExp
 use App\GraphQL\Mutations\Auth\SignUpByInviteInvalidToken as GraphQLSignUpByInviteInvalidToken;
 use App\GraphQL\Mutations\Auth\SignUpByInviteNotFound as GraphQLSignUpByInviteNotFound;
 use App\GraphQL\Mutations\Me\UpdateMePasswordInvalidCurrentPassword as GraphQLUpdateMePasswordInvalidCurrentPassword;
-use App\GraphQL\Mutations\Org\DisableOrgUserInvalidUser as GraphQLDisableOrgUserInvalidUser;
 use App\GraphQL\Mutations\Org\ResetOrgUserPasswordInvalidUser as GraphQLResetOrgUserPasswordInvalidUser;
 use App\Http\Controllers\ExportGraphQLQueryEmpty as HttpExportGraphQLQueryEmpty;
 use App\Http\Controllers\ExportGraphQLQueryInvalid as HttpExportGraphQLQueryInvalid;
@@ -56,9 +55,8 @@ class ErrorCodes {
         GraphQLSignUpByInviteAlreadyUsed::class              => 'GraphQL003',
         GraphQLUpdateMePasswordInvalidCurrentPassword::class => 'GraphQL004',
         GraphQLResetOrgUserPasswordInvalidUser::class        => 'GraphQL005',
-        GraphQLDisableOrgUserInvalidUser::class              => 'GraphQL006',
-        GraphQLSignUpByInviteExpired::class                  => 'GraphQL007',
-        GraphQLSignUpByInviteNotFound::class                 => 'GraphQL008',
+        GraphQLSignUpByInviteExpired::class                  => 'GraphQL006',
+        GraphQLSignUpByInviteNotFound::class                 => 'GraphQL007',
 
         // Queue
         QueueServiceNotFound::class                          => 'Queue001',
