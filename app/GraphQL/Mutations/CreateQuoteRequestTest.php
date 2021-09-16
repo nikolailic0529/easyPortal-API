@@ -182,23 +182,24 @@ class CreateQuoteRequestTest extends TestCase {
                     }
                 }
             }';
-        $input      = $input ?: [
-            'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
-            'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
-            'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
-            'contact_name'  => 'contact1',
-            'contact_email' => 'contact1@test.com',
-            'contact_phone' => '+27113456789',
-            'assets'        => [
-                [
-                    'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
-                    'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
-                    'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+        $input      = $input
+            ?: [
+                'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                'customer_id'   => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ab',
+                'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                'contact_name'  => 'contact1',
+                'contact_email' => 'contact1@test.com',
+                'contact_phone' => '+27113456789',
+                'assets'        => [
+                    [
+                        'asset_id'         => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ae',
+                        'duration_id'      => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699af',
+                        'service_level_id' => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699a9',
+                    ],
                 ],
-            ],
-            'message'       => null,
-            'files'         => null,
-        ];
+                'message'       => null,
+                'files'         => null,
+            ];
         $operations = [
             'operationName' => 'createQuoteRequest',
             'query'         => $query,
@@ -580,7 +581,7 @@ class CreateQuoteRequestTest extends TestCase {
                             'files'         => [UploadedFile::fake()->create('document.csv', 200)],
                         ],
                     ],
-                    'ok-empty_assets'                    => [
+                    'ok: assets null'                    => [
                         new GraphQLSuccess('createQuoteRequest', CreateQuoteRequest::class, [
                             'created' => [
                                 'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
@@ -612,6 +613,24 @@ class CreateQuoteRequestTest extends TestCase {
                                 'assets'        => [],
                             ],
                         ]),
+                        $settings,
+                        $prepare,
+                        [
+                            'oem_id'        => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699aa',
+                            'customer_name' => 'name',
+                            'type_id'       => 'f3cb1fac-b454-4f23-bbb4-f3d84a1699ad',
+                            'contact_name'  => 'contact1',
+                            'contact_email' => 'contact1@test.com',
+                            'contact_phone' => '+27113456789',
+                            'assets'        => null,
+                            'message'       => 'message',
+                            'files'         => [UploadedFile::fake()->create('document.csv', 200)],
+                        ],
+                    ],
+                    'Assets cannot be empty'             => [
+                        new GraphQLError('createQuoteRequest', static function (): array {
+                            return [__('errors.validation_failed')];
+                        }),
                         $settings,
                         $prepare,
                         [
