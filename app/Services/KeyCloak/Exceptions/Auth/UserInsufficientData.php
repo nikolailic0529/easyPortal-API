@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace App\Services\KeyCloak\Exceptions;
+namespace App\Services\KeyCloak\Exceptions\Auth;
 
 use App\Models\User;
 use App\Services\Auth\Exceptions\AuthException;

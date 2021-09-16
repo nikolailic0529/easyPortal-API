@@ -4,11 +4,11 @@ namespace App\Services\KeyCloak;
 
 use App\Models\Organization;
 use App\Services\Auth\Exceptions\AuthException;
-use App\Services\KeyCloak\Exceptions\AuthorizationFailed;
-use App\Services\KeyCloak\Exceptions\InvalidCredentials;
-use App\Services\KeyCloak\Exceptions\InvalidIdentity;
-use App\Services\KeyCloak\Exceptions\StateMismatch;
-use App\Services\KeyCloak\Exceptions\UnknownScope;
+use App\Services\KeyCloak\Exceptions\Auth\AuthorizationFailed;
+use App\Services\KeyCloak\Exceptions\Auth\InvalidCredentials;
+use App\Services\KeyCloak\Exceptions\Auth\InvalidIdentity;
+use App\Services\KeyCloak\Exceptions\Auth\StateMismatch;
+use App\Services\KeyCloak\Exceptions\Auth\UnknownScope;
 use App\Services\Organization\CurrentOrganization;
 use Exception;
 use Illuminate\Auth\AuthManager;
