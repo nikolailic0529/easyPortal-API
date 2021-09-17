@@ -246,9 +246,14 @@ class User extends Model implements
     public function team(): HasOneThrough {
         $team             = new Team();
         $organizationUser = new OrganizationUser();
-        $organization     = app()->make(CurrentOrganization::class)->getKey();
+        $org              = null;
+        $organization     = app()->make(CurrentOrganization::class);
+
+        if ($organization->defined()) {
+            $org = $organization->getKey();
+        }
         return $this->hasOneThrough(Team::class, OrganizationUser::class, 'user_id', 'id', 'id', 'team_id')
-            ->where($organizationUser->qualifyColumn('organization_id'), '=', $organization)
+            ->where($organizationUser->qualifyColumn('organization_id'), '=', $org)
             ->whereNull($team->qualifyColumn($team->getDeletedAtColumn()));
     }
     // </editor-fold>
