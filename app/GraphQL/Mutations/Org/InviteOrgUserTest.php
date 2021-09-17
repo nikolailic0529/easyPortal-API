@@ -198,10 +198,8 @@ class InviteOrgUserTest extends TestCase {
                     },
                     true,
                 ],
-                'In organization'                       => [
-                    new GraphQLError('inviteOrgUser', static function (): array {
-                        return [__('errors.validation_failed')];
-                    }),
+                'Resend invitation'                     => [
+                    new GraphQLSuccess('inviteOrgUser', InviteOrgUser::class),
                     static function (TestCase $test, ?Organization $organization, ?UserModel $user): Organization {
                         if ($organization && !$organization->keycloak_group_id) {
                             $organization->keycloak_group_id = $test->faker->uuid();
@@ -216,6 +214,7 @@ class InviteOrgUserTest extends TestCase {
 
                         // User in organization
                         $orgUser                = UserModel::factory()->make([
+                            'id'    => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
                             'email' => 'test@gmail.com',
                         ]);
                         $orgUser->organizations = [$organization];
@@ -231,12 +230,21 @@ class InviteOrgUserTest extends TestCase {
                     static function (MockInterface $mock): void {
                         $mock
                             ->shouldReceive('inviteUser')
-                            ->never();
+                            ->once()
+                            ->andThrow(new RealmUserAlreadyExists('test@gmail.com'));
                         $mock
                             ->shouldReceive('getUserByEmail')
-                            ->never();
+                            ->once()
+                            ->andReturns(new User([
+                                'id'            => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24987',
+                                'email'         => 'test@gmail.com',
+                                'emailVerified' => false,
+                            ]));
+                        $mock
+                            ->shouldReceive('addUserToGroup')
+                            ->once();
                     },
-                    false,
+                    true,
                 ],
                 'Invalid role (different organization)' => [
                     new GraphQLError('inviteOrgUser', static function (): array {
