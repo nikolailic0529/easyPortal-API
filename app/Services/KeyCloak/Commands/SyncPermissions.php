@@ -3,6 +3,7 @@
 namespace App\Services\KeyCloak\Commands;
 
 use App\Models\Permission as PermissionModel;
+use App\Models\Role as RoleModel;
 use App\Services\Auth\Auth;
 use App\Services\Auth\Permission;
 use App\Services\KeyCloak\Client\Client;
@@ -26,7 +27,7 @@ class SyncPermissions extends Command {
      *
      * @var string
      */
-    protected $description = 'Sync keycloak permissions.';
+    protected $description = 'Sync KeyCloak permissions.';
 
     public function __construct(
         protected Auth $auth,
@@ -104,17 +105,28 @@ class SyncPermissions extends Command {
 
         // Update Org Admin group
         if ($this->config->get('ep.keycloak.org_admin_group')) {
-            $group = $this->client->getGroup($this->config->get('ep.keycloak.org_admin_group'));
+            $orgAdminGroup = $this->client->getGroup($this->config->get('ep.keycloak.org_admin_group'));
 
-            if ($group) {
-                $roles = $actualRoles
-                    ->filter(static function (Role $role) use ($permissions): bool {
-                        return $permissions->get($role->name)?->isOrgAdmin();
-                    })
-                    ->values()
-                    ->all();
+            if ($orgAdminGroup) {
+                $orgAdminPermissions = $permissions
+                    ->filter(static function (Permission $permission): bool {
+                        return $permission->isOrgAdmin();
+                    });
 
-                $this->client->setGroupRoles($group, $roles);
+                // Update Permissions
+                $this->client->setGroupRoles(
+                    $orgAdminGroup,
+                    $actualRoles->intersectByKeys($orgAdminPermissions)->values()->all(),
+                );
+
+                // Create/Update Role Model
+                $role                        = RoleModel::query()->whereKey($orgAdminGroup->id)->first()
+                    ?? new RoleModel();
+                $role->{$role->getKeyName()} = $orgAdminGroup->id;
+                $role->name                  = $orgAdminGroup->name;
+                $role->permissions           = $usedModels->intersectByKeys($orgAdminPermissions);
+                $role->organization          = null;
+                $role->save();
             } else {
                 $this->exceptionHandler->report(new OrgAdminGroupNotFound(
                     $this->config->get('ep.keycloak.org_admin_group'),
