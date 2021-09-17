@@ -1,0 +1,4 @@
+input TeamsQuery {
+  id: ID!
+  name: String!
+}

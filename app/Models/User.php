@@ -7,6 +7,7 @@ use App\Models\Enums\UserType;
 use App\Services\Audit\Concerns\Auditable;
 use App\Services\Auth\HasPermissions;
 use App\Services\Auth\Rootable;
+use App\Services\Organization\CurrentOrganization;
 use App\Services\Organization\HasOrganization;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\MustVerifyEmail;
@@ -19,11 +20,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\RoutesNotifications;
 use Illuminate\Support\Collection;
 use LogicException;
 
+use function app;
 /**
  * User.
  *
@@ -238,6 +241,15 @@ class User extends Model implements
      */
     public function setTeamsAttribute(Collection|array $teams): void {
         $this->syncBelongsToMany('teams', $teams);
+    }
+
+    public function team(): HasOneThrough {
+        $team             = new Team();
+        $organizationUser = new OrganizationUser();
+        $organization     = app()->make(CurrentOrganization::class)->getKey();
+        return $this->hasOneThrough(Team::class, OrganizationUser::class, 'user_id', 'id', 'id', 'team_id')
+            ->where($organizationUser->qualifyColumn('organization_id'), '=', $organization)
+            ->whereNull($team->qualifyColumn($team->getDeletedAtColumn()));
     }
     // </editor-fold>
 

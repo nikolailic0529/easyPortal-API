@@ -10,4 +10,5 @@ type User {
   teams: [Team!]!
     @me(permissions: ["administer"])
     @belongsToMany
+  team: Team @hasOne
 }

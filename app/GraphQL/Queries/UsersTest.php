@@ -72,6 +72,11 @@ class UsersTest extends TestCase {
                           key
                           name
                       }
+                      team {
+                        id
+                        key
+                        name
+                      }
                     }
                     paginatorInfo {
                       count
@@ -137,6 +142,16 @@ class UsersTest extends TestCase {
                                         'key'  => 'IT',
                                         'name' => 'IT',
                                     ],
+                                    [
+                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                        'key'  => 'Marketing',
+                                        'name' => 'Marketing',
+                                    ],
+                                ],
+                                'team'           => [
+                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                    'key'  => 'IT',
+                                    'name' => 'IT',
                                 ],
                             ],
                         ]),
@@ -176,11 +191,26 @@ class UsersTest extends TestCase {
                                 'name' => 'IT',
                             ]);
 
-                            // Relation
+                            $team2 = Team::factory()->create([
+                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                'key'  => 'Marketing',
+                                'name' => 'Marketing',
+                            ]);
+
+                            // Relation1
                             $pivot                  = new OrganizationUser();
                             $pivot->organization_id = $organization->getKey();
                             $pivot->user_id         = $user1->getKey();
                             $pivot->team_id         = $team1->getKey();
+                            $pivot->save();
+
+                            // Relation2
+                            $pivot                  = new OrganizationUser();
+                            $pivot->organization_id = $organization->factory()->create([
+                                'id' => 'f9834bc1-2f2f-4c57-bb8d-7a224ac2499',
+                            ])->getKey();
+                            $pivot->user_id         = $user1->getKey();
+                            $pivot->team_id         = $team2->getKey();
                             $pivot->save();
 
                             User::factory()->create([
@@ -238,6 +268,11 @@ class UsersTest extends TestCase {
                                         'name' => 'IT',
                                     ],
                                 ],
+                                'team'           => [
+                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                    'key'  => 'IT',
+                                    'name' => 'IT',
+                                ],
                             ],
                             [
                                 'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
@@ -272,6 +307,11 @@ class UsersTest extends TestCase {
                                         'key'  => 'Marketing',
                                         'name' => 'Marketing',
                                     ],
+                                ],
+                                'team'           => [
+                                    'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                    'key'  => 'Marketing',
+                                    'name' => 'Marketing',
                                 ],
                             ],
                         ]),
