@@ -14,6 +14,16 @@ CREATE TABLE IF NOT EXISTS `teams` (
   UNIQUE INDEX `unique__key__deleted_not` (`key` ASC, `deleted_not` ASC) VISIBLE,
   INDEX `idx__deleted_at` (`deleted_at` ASC) VISIBLE);
 
+ALTER TABLE `organization_users`
+  ADD COLUMN `team_id` CHAR(36) NULL DEFAULT NULL AFTER `user_id`,
+  ADD INDEX `fk_organization_users_teams1_idx` (`team_id` ASC) VISIBLE;
+
+ALTER TABLE `organization_users`
+  ADD CONSTRAINT `fk_organization_users_teams1`
+    FOREIGN KEY (`team_id`)
+    REFERENCES `teams` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE RESTRICT;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

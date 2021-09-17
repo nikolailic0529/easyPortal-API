@@ -4,6 +4,8 @@ namespace App\GraphQL\Queries;
 
 use App\Models\Enums\UserType;
 use App\Models\Organization;
+use App\Models\OrganizationUser;
+use App\Models\Team;
 use App\Models\User;
 use Closure;
 use Illuminate\Support\Facades\Date;
@@ -65,6 +67,11 @@ class UsersTest extends TestCase {
                           used_at
                           expired_at
                       }
+                      teams {
+                          id
+                          key
+                          name
+                      }
                     }
                     paginatorInfo {
                       count
@@ -124,6 +131,13 @@ class UsersTest extends TestCase {
                                         'expired_at'      => '2021-01-01T00:00:00+00:00',
                                     ],
                                 ],
+                                'teams'          => [
+                                    [
+                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                        'key'  => 'IT',
+                                        'name' => 'IT',
+                                    ],
+                                ],
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization, User $user): void {
@@ -131,7 +145,7 @@ class UsersTest extends TestCase {
                                 $user->type = UserType::keycloak();
                             }
 
-                            User::factory()
+                            $user1 = User::factory()
                                 ->hasRoles(1, [
                                     'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
                                     'name' => 'role1',
@@ -155,6 +169,19 @@ class UsersTest extends TestCase {
                                     'enabled'        => true,
                                     'type'           => UserType::keycloak(),
                                 ]);
+
+                            $team1 = Team::factory()->create([
+                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                'key'  => 'IT',
+                                'name' => 'IT',
+                            ]);
+
+                            // Relation
+                            $pivot                  = new OrganizationUser();
+                            $pivot->organization_id = $organization->getKey();
+                            $pivot->user_id         = $user1->getKey();
+                            $pivot->team_id         = $team1->getKey();
+                            $pivot->save();
 
                             User::factory()->create([
                                 'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
@@ -204,6 +231,13 @@ class UsersTest extends TestCase {
                                         'expired_at'      => '2021-01-01T00:00:00+00:00',
                                     ],
                                 ],
+                                'teams'          => [
+                                    [
+                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                        'key'  => 'IT',
+                                        'name' => 'IT',
+                                    ],
+                                ],
                             ],
                             [
                                 'id'             => 'ae85870f-1593-4eb5-ae08-ee00f0688d01',
@@ -232,13 +266,21 @@ class UsersTest extends TestCase {
                                         'expired_at'      => '2021-01-01T00:00:00+00:00',
                                     ],
                                 ],
+                                'teams'          => [
+                                    [
+                                        'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                        'key'  => 'Marketing',
+                                        'name' => 'Marketing',
+                                    ],
+                                ],
                             ],
                         ]),
                         static function (TestCase $test, Organization $organization, User $user): void {
                             if ($user) {
                                 $user->type = UserType::local();
                             }
-                            User::factory()
+                            // User 1
+                            $user1 = User::factory()
                                 ->hasRoles(1, [
                                     'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d04',
                                     'name' => 'role1',
@@ -264,7 +306,20 @@ class UsersTest extends TestCase {
                                     'created_at'     => Date::now()->subMinutes(1),
                                 ]);
 
-                            User::factory()
+                            $team1 = Team::factory()->create([
+                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24984',
+                                'key'  => 'IT',
+                                'name' => 'IT',
+                            ]);
+                            // Relation
+                            $pivot                  = new OrganizationUser();
+                            $pivot->organization_id = $organization->getKey();
+                            $pivot->user_id         = $user1->getKey();
+                            $pivot->team_id         = $team1->getKey();
+                            $pivot->save();
+
+                            // User2
+                            $user2 = User::factory()
                                 ->hasRoles(1, [
                                     'id'   => 'ae85870f-1593-4eb5-ae08-ee00f0688d05',
                                     'name' => 'role2',
@@ -289,6 +344,18 @@ class UsersTest extends TestCase {
                                     'type'           => UserType::local(),
                                     'created_at'     => Date::now()->subMinutes(2),
                                 ]);
+                            $team2 = Team::factory()->create([
+                                'id'   => 'f9834bc1-2f2f-4c57-bb8d-7a224ac24985',
+                                'key'  => 'Marketing',
+                                'name' => 'Marketing',
+                            ]);
+
+                            // Relation
+                            $pivot                  = new OrganizationUser();
+                            $pivot->organization_id = $organization->getKey();
+                            $pivot->user_id         = $user2->getKey();
+                            $pivot->team_id         = $team2->getKey();
+                            $pivot->save();
                         },
                     ],
                 ]),

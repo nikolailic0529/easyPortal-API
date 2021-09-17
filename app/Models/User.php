@@ -59,6 +59,7 @@ use LogicException;
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\UserSearch>   $searches
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Organization> $organizations
  * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Role>         $roles
+ * @property-read \Illuminate\Database\Eloquent\Collection<\App\Models\Team>         $teams
  * @method static \Database\Factories\UserFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
@@ -220,6 +221,23 @@ class User extends Model implements
 
     public function invitations(): HasMany {
         return $this->hasMany(Invitation::class);
+    }
+
+    public function teams(): BelongsToMany {
+        $pivot = new OrganizationUser();
+
+        return $this
+            ->belongsToMany(Team::class, $pivot->getTable())
+            ->using($pivot::class)
+            ->wherePivotNull($pivot->getDeletedAtColumn())
+            ->withTimestamps();
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection<\App\Models\Team>|array<\App\Models\Team> $teams
+     */
+    public function setTeamsAttribute(Collection|array $teams): void {
+        $this->syncBelongsToMany('teams', $teams);
     }
     // </editor-fold>
 
