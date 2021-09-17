@@ -101,11 +101,20 @@ class InviteOrgUser {
             $user->permissions           = [];
         }
 
+        // Save
+        $user->save();
+
         // Add to organization
-        $organizationUser                  = new OrganizationUser();
-        $organizationUser->organization_id = $organization->getKey();
-        $organizationUser->user_id         = $user->getKey();
-        $organizationUser->team_id         = $team?->getKey();
+        $organizationUser = OrganizationUser::query()
+            ->where('organization_id', '=', $organization->getKey())
+            ->where('user_id', '=', $user->getKey())
+            ->first();
+        if (!$organizationUser) {
+            $organizationUser                  = new OrganizationUser();
+            $organizationUser->organization_id = $organization->getKey();
+            $organizationUser->user_id         = $user->getKey();
+        }
+        $organizationUser->team_id = $team?->getKey();
         $organizationUser->save();
 
         // Add to Role

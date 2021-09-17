@@ -10,7 +10,7 @@ extend type Mutation {
 input InviteOrgUserInput @validator {
   email: String!
   role_id: ID!
-  team: ID
+  team_id: ID
 }
 
 type InviteOrgUserPayload {
